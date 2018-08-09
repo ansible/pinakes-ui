@@ -1,9 +1,7 @@
 import React from 'react';
-import _ from "lodash";
 import { loadDemoCatalogItems } from 'demoData/catalogitems';
 import CatalogItemShow from 'PresentationalComponents/CatalogItems/CatalogItemShow';
 
-/*eslint camelcase: ["error", {properties: "never"}]*/
 
 var InsightsHsdmApi = require('../../../insights_hsdm_api');
 
@@ -12,18 +10,8 @@ var defaultClient = InsightsHsdmApi.ApiClient.instance;
 // Configure HTTP basic authorization: UserSecurity
 var UserSecurity = defaultClient.authentications['UserSecurity'];
 
-// UserSecurity.apiKey = 'eyJUb2tlblR5cGUiOiJBUEkiLCJzYWx0IjoiNTU2NjZiN2EtMmZkZS00YzAzLWFkZjgtMjRiM2RlZGMxN2VlIiwiYWxnIjoiSFM1MTIifQ.eyJqdGkiOiIxYWRlMmU2NS0zMjZkLTRjNmEtYTY1ZS0zZWQ2YmRlNjA4MzUiLCJpYXQiOjE1MzA0NTQwMDV9.E8Fpj4z_5_I_tBWWbSOf3yHKFa98HPOg073nBeLxYGVr2D42zcIktHVVYZcBghZR8HWvLgwZfuUXoKtDdUuw8w'
-
-UserSecurity.username = 'admin';
-UserSecurity.password = 'smartvm';
 
 var api = new InsightsHsdmApi.UsersApi();
-
-//api.catalogItems( function(error, data, response) {
-//    console.log('API called successfully. Returned data: ' + data);
-//}, function(error) {
-//    console.error(error);
-//});
 api.catalogItems().then((data) => {
     console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
