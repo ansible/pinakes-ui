@@ -1,0 +1,51 @@
+@import "../../App";
+
+.card_style {
+  box-shadow: 2px 2px 8px grey;
+  background-color: white;
+  margin-top: 0px;
+
+}
+
+.card_header {
+  background-color: white;
+  text-align: center;
+  border-bottom: 1px solid #D3E9FF;
+};
+
+.card_body {
+  background-color: white;
+  text-align: left;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  height: 96px
+}
+
+.card_footer {
+ background-color: lightgrey;
+ textAlign: left;
+ position: sticky;
+ bottom: 0px;
+ height: 96px;
+ font-family: '--pf-global--FontFamily--sans-serif';
+}
+
+.card_description {
+  color: blue;
+  textAlign: left;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  height: 48px;
+}
+
+.bottom-48 {
+  align-self: flex-end;
+  min-height: 48px;
+  max-height: 48px;
+  background-color: lightgrey;
+}
+
+.bottom-24 {
+  align-self: flex-end;
+  min-height: 24px;
+  max-height: 24px;
+  background-color: grey;
+}
