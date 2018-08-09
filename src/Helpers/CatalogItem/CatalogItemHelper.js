@@ -72,7 +72,7 @@ function processCatalogItemRow(key, data) {
         ...data,
         catalog_id: <b>{data.catalog_id}</b>,
     };
-    return <CatalogItemShow key={data.catalog_id} {...modifiedData} />;
+    return <CatalogItemShow key={data.catalog_id} {...data} />;
 }
 
 

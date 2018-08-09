@@ -2,15 +2,15 @@ import { withRouter } from 'react-router-dom';
 import './catalogitemshow.scss';
 import React from 'react';
 import propTypes from 'prop-types';
-import towerLogo from '../../assets/images/tower.png';
-
+import AnsibleSvg from '../../assets/images/vendor-ansible.svg';
+import { Ansible } from '@red-hat-insights/insights-frontend-components';
 
 const CatalogItemShow = props => {
     return (
         <React.Fragment>
-            <div className="card_style" onClick={() => {props.history.push('/catalog/catalogitems/'.concat(props.catalog_id.props.children));}}>
+            <div className="card_style" onClick={() => {props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));}}>
                 <div className="card_header">
-                    <img src={towerLogo} />
+                    <img src = {AnsibleSvg} width="50" height="50" />
                 </div>
                 <div className="card_body">
                     <br />
