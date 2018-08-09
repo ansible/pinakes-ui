@@ -1,0 +1,35 @@
+@import "../../App";
+$fa-font-path: '~patternfly/node_modules/font-awesome/fonts';
+@import '~patternfly/node_modules/font-awesome/scss/font-awesome.scss';
+
+.Aligner {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+}
+
+.Aligner-item {
+  flex: 1;
+}
+
+.Aligner-item--top {
+  align-self: flex-start;
+}
+
+.Aligner-item--bottom-48 {
+  align-self: flex-end;
+  min-height: 48px;
+  max-height: 48px;
+}
+
+.Aligner-item--bottom-24 {
+  align-self: flex-end;
+  min-height: 24px;
+  max-height: 24px;
+}
+
+.Aligner-item--fixed {
+  flex: none;
+  max-width: 50%;
+}

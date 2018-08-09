@@ -1,0 +1,13 @@
+language: node_js
+sudo: required
+cache:
+  directories:
+  - node_modules
+notifications:
+  email: false
+node_js:
+- '10'
+install:
+  - npm ci
+script:
+  - npm run travis:verify
