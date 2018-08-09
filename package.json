@@ -1,5 +1,5 @@
 {
-  "name": "hsdm-ui",
+  "name": "insights_service_catalog-ui",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
