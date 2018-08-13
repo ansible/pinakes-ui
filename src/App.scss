@@ -1,7 +1,8 @@
 $pf-global--enable-font-overpass-cdn: true;
 //@import 'patternfly_specific';
 @import '~@patternfly/patternfly-next/patternfly.css';
-@import './src/Utilities.scss';
+@import '~@red-hat-insights/insights-frontend-components/Utilities/_all';
+@import '~@red-hat-insights/insights-frontend-components/index.css';
 
 html, body {
   height: 100vh;

@@ -18,7 +18,7 @@ class ContentGallery extends Component {
                 <Bullseye>
                     <BarLoader color={'#00b9e4'} loading={this.props.isLoading} />
                 </Bullseye>
-                <div className="pf-l-gallery pf-m-primary pf-m-gutter">
+                <div className="pf-l-grid pf-m-gutter">
                     {this.props.items}
                 </div>
                 <div>
