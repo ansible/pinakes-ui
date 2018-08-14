@@ -6,6 +6,7 @@ import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components'
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
 import towerLogo from '../../assets/images/tower.png';
+import './catalogitem.scss';
 import propTypes from 'prop-types';
 import {fetchSelectedCatalogItem} from "../../Store/Actions/CatalogItemActions";
 
