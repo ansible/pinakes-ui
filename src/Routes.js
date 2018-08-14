@@ -1,7 +1,7 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
-import asyncComponent from 'Utilities/asyncComponent';
+import asyncComponent from './Utilities/asyncComponent';
 import some from 'lodash/some';
 
 /**
@@ -33,6 +33,7 @@ const InsightsRoute = ({ component: Component, rootClass, ...rest }) => {
     const root = document.getElementById('root');
     root.removeAttribute('class');
     root.classList.add(`page__${rootClass}`);
+    console.log(root.classList);
 
     return (<Component {...rest} />);
 };
