@@ -13,6 +13,7 @@
     "patternfly-react": "^2.13.1",
     "querystring": "^0.2.0",
     "react-bootstrap": "^0.32.1",
+    "react-jsonschema-form": "^1.0.4",
     "react-spinners": "^0.3.2",
     "react-transition-group": "^2.4.0",
     "redux-logger": "^3.0.6",

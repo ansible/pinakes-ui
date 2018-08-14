@@ -20,14 +20,14 @@
   padding-left: 10px;
   background-color: white;
   text-align: left;
-  height: 150px;
-  font-family: '--pf-global--FontFamily--sans-serif';
+  height: 140px;
 }
 
 .card_element {
   background-color: white;
   textAlign: left;
   font-family: '--pf-global--FontFamily--sans-serif';
+  font-size: small;
 }
 
 .card_footer {
@@ -36,6 +36,7 @@
  position: sticky;
  bottom: 0px;
  font-family: '--pf-global--FontFamily--sans-serif';
+ font-size: small;
 }
 
 .card_description {
@@ -50,6 +51,8 @@
   min-height: 48px;
   max-height: 48px;
   background-color: lightgrey;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  font-size: small;
 }
 
 .bottom-24 {
@@ -57,4 +60,6 @@
   min-height: 24px;
   max-height: 24px;
   background-color: grey;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  font-size: x-small;
 }
