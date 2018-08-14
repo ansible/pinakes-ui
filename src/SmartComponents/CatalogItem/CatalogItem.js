@@ -36,31 +36,39 @@ class CatalogItem extends Component {
                         <PageHeaderTitle title= 'Catalog Item' />
                     </PageHeader>
                 </div>
-                <Section>
-                    <div className="pf-c-card">
-                        <div className="pf-c-card__header">
-                            <img src={towerLogo} />
+                <div className="pf-l-stack__item pf-m-secondary ">
+                    <Section type="content">
+                        <div className="pf-l-grid pf-m-gutters">
+                            <div className="pf-l-grid__item pf-m-6-col">
+                                <div className="pf-c-card ">
+                                    <div className="pf-c-card__header ">
+                                        <h6 className="pf-c-title pf-m-xl pf-m-margin">
+                                            <img src={towerLogo} />
+                                        </h6>
+                                    </div>
+                                    <div className="pf-c-card__body ">
+                                        <table className="content-gallery">
+                                            <tbody>
+                                            <tr>
+                                                <td>Name:  </td>
+                                                <td>{catalogItem.name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Description:  </td>
+                                                <td>{catalogItem.description}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br/>
+                                <Button variant="tertiary" onClick={this.props.history.goBack}>
+                                    Back to the Catalog Items List
+                                </Button>
+                            </div>
                         </div>
-                        <div className="pf-l-stack__item pf-m-main">
-                            <table className="content-gallery">
-                                <tbody>
-                                <tr>
-                                    <td>Name:  </td>
-                                    <td>{catalogItem.name}</td>
-                                </tr>
-                                <tr>
-                                    <td>Description:  </td>
-                                    <td>{catalogItem.description}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </Section>
-                <br/>
-                <Button variant="tertiary" onClick={this.props.history.goBack}>
-                    Back to the Catalog Items List
-                </Button>
+                    </Section>
+                </div>
             </div>
         );
     }

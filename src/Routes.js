@@ -34,7 +34,7 @@ const InsightsRoute = ({ component: Component, rootClass, ...rest }) => {
     root.removeAttribute('class');
     root.classList.add(`page__${rootClass}`);
 
-    return <Component {...rest} />;
+    return (<Component {...rest} />);
 };
 
 InsightsRoute.propTypes = {
@@ -55,8 +55,8 @@ export const Routes = (props: Props) => {
 
     return (
         <Switch>
-            <InsightsRoute exact path={paths.CatalogItemShow} component={CatalogItemShow} rootClass="sample" />
-            <InsightsRoute exact path={paths.catalogitems} component={CatalogItems} rootClass="sample" />
+            <InsightsRoute exact path={paths.CatalogItemShow} component={CatalogItemShow} rootClass="catalogitems" />
+            <InsightsRoute exact path={paths.catalogitems} component={CatalogItems} rootClass="catalogitems" />
             {/* Finally, catch all unmatched routes */}
             <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.catalogitems} />)} />
         </Switch>

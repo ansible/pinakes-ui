@@ -1,21 +1,12 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
-import { createLogger } from 'redux-logger';
-import { compose } from 'redux';
 
-const logger = createLogger();
 /**
  * https://redux.js.org/basics/store
  * https://redux.js.org/api-reference/combinereducers
  * https://redux.js.org/api-reference/applymiddleware
  */
-const store = createStore(
-    f => f,
-    compose(
-        applyMiddleware(promiseMiddleware(), logger),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-);
+const store = createStore(f => f, applyMiddleware(promiseMiddleware()));
 
 /**
  * Class used to added reducers to the store during runtime.
@@ -23,11 +14,11 @@ const store = createStore(
  * http://nicolasgallagher.com/redux-modules-and-code-splitting/
  */
 class ReducerRegistry {
-    constructor() {
+    constructor () {
         this.reducers = {};
     }
 
-    getStore() {
+    getStore () {
         return store;
     }
 
@@ -36,7 +27,7 @@ class ReducerRegistry {
      *
      * @param reducers object where a key maps to a reducer
      */
-    changeListener(reducers) {
+    changeListener (reducers) {
         store.replaceReducer(combineReducers({ ...this.reducers, ...reducers }));
     }
 
@@ -45,7 +36,7 @@ class ReducerRegistry {
      *
      * @param newReducers the object of new reducers.
      */
-    register(newReducers) {
+    register (newReducers) {
         this.reducers = { ...this.reducers, ...newReducers };
         this.changeListener(this.reducers);
     }

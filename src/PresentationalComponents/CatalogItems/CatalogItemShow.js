@@ -7,7 +7,7 @@ import { Ansible } from '@red-hat-insights/insights-frontend-components';
 
 
 const propLine = (prop, value) => {
-    return(<div className = "card_element">  {prop} : {value} </div>);
+    return(<div key = {prop} className = "card_element">  {prop} : {value} </div>);
 };
 
 const defaultProperty = property => {

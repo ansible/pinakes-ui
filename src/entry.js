@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { promiseMiddleware} from 'redux-promise-middleware';
-import { createLogger } from 'redux-logger';
 import App from './App';
 
 function todos(state = [], action) {
@@ -16,9 +15,7 @@ function todos(state = [], action) {
     }
 }
 
-const logger = createLogger();
-
-const store = createStore(todos, applyMiddleware(promiseMiddleware(), logger));
+const store = createStore(todos, applyMiddleware(promiseMiddleware());
 
 ReactDOM.render(
     <Provider store={store}>
