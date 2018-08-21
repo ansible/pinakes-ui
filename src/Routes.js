@@ -62,7 +62,7 @@ export const Routes = (props: Props) => {
             <InsightsRoute exact path={paths.catalogitems} component={CatalogItems} rootClass="catalogitems" />
             <InsightsRoute exact path={paths.addprovider} component={AddProviderForm} rootClass="addprovider" />
             {/* Finally, catch all unmatched routes */}
-            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.addprovider} />)} />
+            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.catalogitems} />)} />
         </Switch>
     );
 };
