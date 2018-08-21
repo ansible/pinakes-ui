@@ -16,7 +16,7 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <form className="pf-c-form" style={{'maxWidth': '100'}}>
+            <form className="pf-c-form">
                 <div className="pf-c-form__group ">
                     <div className="pf-c-input-group">
                         <button className="pf-c-button pf-m-secondary">

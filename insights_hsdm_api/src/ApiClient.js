@@ -35,7 +35,11 @@ export default class ApiClient {
          * @default https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0
          */
         //this.basePath = 'https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
-        this.basePath = 'https://0.0.0.0:5000/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
+        let apiHost = process.env.API_HOST || "0.0.0.0";
+      let apiPort = process.env.API_PORT || "5000";
+      this.basePath = 'https://' + apiHost + ':' + apiPort + '/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
+
+      //this.basePath = 'https://0.0.0.0:5000/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
 
         /**
          * The authentication methods to be included for all API calls.

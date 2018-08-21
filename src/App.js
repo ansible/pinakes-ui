@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Routes } from 'Routes';
-import 'App.scss';
+import { Routes } from './Routes';
+import './App.scss';
 
 class App extends Component {
-    componentDidMount() {
+
+    componentDidMount () {
         insights.chrome.init();
         insights.chrome.identifyApp('settings');
         insights.chrome.navigation(buildNavigation());
@@ -36,14 +37,15 @@ App.propTypes = {
  */
 export default withRouter(connect()(App));
 
-function buildNavigation() {
+function buildNavigation () {
     const currentPath = window.location.pathname.split('/').slice(-1)[0];
-    return [
-        {
-            title: 'Service Catalog',
-            id: 'catalogitems'
-        }
-    ].map(item => ({
+    return [{
+        title: 'Service Catalog',
+        id: 'catalog/catalogitems'
+    }, {
+        title: 'Add Provider',
+        id: 'catalog/addprovider'
+    }].map(item => ({
         ...item,
         active: item.id === currentPath
     }));

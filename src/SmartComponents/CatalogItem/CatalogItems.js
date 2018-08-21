@@ -56,15 +56,16 @@ class CatalogItems extends Component {
                 </div>
 
                 <Section type="content">
-                    <div className="col-sm-2">
-                        <SearchBar
-                            searchValue={this.props.searchFilter}
-                            fetchData={apiProps => this.fetchData(apiProps)}
-                            searchCallback={input => this.props.searchCatalogItems(input)}
-                        />
-                    </div>
+                  <div className="pf-l-stack__item pf-m-secondary ">
+                    <SearchBar
+                        searchValue={this.props.searchFilter}
+                        fetchData={apiProps => this.fetchData(apiProps)}
+                        searchCallback={input => this.props.searchCatalogItems(input)}
+                    />
+                    <br />
                     <br />
                     <ContentGallery {...catalogItemsList} />
+                  </div>
                 </Section>
             </div>
         );
