@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { fetchCatalogItemsList } from 'Store/Actions/CatalogItemActions';
 import { CatalogItemProperties } from 'PresentationalComponents/CatalogItems/CatalogItemShow';
 import propTypes from 'prop-types';
-import { searchCatalogItems } from 'Store/Actions/CatalogItemActions';
 import DEFAULT_PAGE_SIZE from '../../Utilities/Constants';
 
 class CatalogItems extends Component {
@@ -57,13 +56,6 @@ class CatalogItems extends Component {
 
                 <Section type="content">
                   <div className="pf-l-stack__item pf-m-secondary ">
-                    <SearchBar
-                        searchValue={this.props.searchFilter}
-                        fetchData={apiProps => this.fetchData(apiProps)}
-                        searchCallback={input => this.props.searchCatalogItems(input)}
-                    />
-                    <br />
-                    <br />
                     <ContentGallery {...catalogItemsList} />
                   </div>
                 </Section>

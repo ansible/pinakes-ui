@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -29,15 +29,15 @@ import querystring from "querystring";
 */
 export default class ApiClient {
     constructor() {
-        /**
-         * The base URL against which to resolve every API call's (relative) path.
-         * @type {String}
-         * @default https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0
-         */
-        //this.basePath = 'https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
-        let apiHost = process.env.API_HOST || "0.0.0.0";
+      /**
+      * The base URL against which to resolve every API call's (relative) path.
+      * @type {String}
+      * @default https://virtserver.swaggerhub.com/r/insights/platform/service-catalog/1.0.0
+      */
+      //this.basePath = 'https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
+      let apiHost = process.env.API_HOST || "localhost";
       let apiPort = process.env.API_PORT || "5000";
-      this.basePath = 'https://' + apiHost + ':' + apiPort + '/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
+      this.basePath = 'https://' + apiHost + ':' + apiPort + '/r/insights/platform/service-catalog/1.0.0'.replace(/\/+$/, '');
 
       //this.basePath = 'https://0.0.0.0:5000/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
 
@@ -361,7 +361,7 @@ export default class ApiClient {
         return ApiClient.convertToType(data, returnType);
     }
 
-
+    
 
     /**
     * Invokes the REST service using the supplied settings and parameters.
@@ -475,7 +475,7 @@ export default class ApiClient {
             });
         });
 
-
+        
     }
 
     /**

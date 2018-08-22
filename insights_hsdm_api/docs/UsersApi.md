@@ -1,6 +1,6 @@
-# InsightsHsdmApi.UsersApi
+# InsightsServiceCatalogApi.UsersApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0*
+All URIs are relative to *https://virtserver.swaggerhub.com/r/insights/platform/service-catalog/1.0.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,17 +29,17 @@ Returns the added provider object
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
-let body = new InsightsHsdmApi.Provider(); // Provider | 
+let body = new InsightsServiceCatalogApi.Provider(); // Provider | 
 
 apiInstance.addProvider(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 <a name="addToOrder"></a>
 # **addToOrder**
-> addToOrder(orderId, item)
+> addToOrder(orderIditem)
 
 Add a Catalog to the Order in Pending State
 
@@ -78,28 +78,26 @@ Add a catalog item to the order in Pending State
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let orderId = "orderId_example"; // String | The Order ID
 
-let item = new InsightsHsdmApi.OrderItem(); // OrderItem | 
+let item = new InsightsServiceCatalogApi.OrderItem(); // OrderItem | 
 
-
-apiInstance.addToOrder(orderId, item, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.addToOrder(orderIditem).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -132,23 +130,21 @@ Fetch catalog item from all defined providers
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
-
-apiInstance.catalogItems((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+apiInstance.catalogItems().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -177,28 +173,26 @@ Return a JSON object with the parameters needed for a catalogItem
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let providerId = "providerId_example"; // String | The Provider ID
 
 let catalogId = "catalogId_example"; // String | The Catalog ID
 
-
-apiInstance.catalogParameters(providerId, catalogId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.catalogParameters(providerId, catalogId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -223,7 +217,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchCatalogItemWithProvider"></a>
 # **fetchCatalogItemWithProvider**
-> [CatalogItem] fetchCatalogItemWithProvider(providerId, opts)
+> [CatalogItem] fetchCatalogItemWithProvider(providerId, , opts)
 
 Fetch all or a specific catalog item from a specific provider
 
@@ -231,29 +225,27 @@ By passing in the provider id you can fetch all the catalog items in the provide
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let providerId = "providerId_example"; // String | The Provider ID
 
 let opts = { 
   'catalogId': "catalogId_example" // String | The Catalog ID
 };
-
-apiInstance.fetchCatalogItemWithProvider(providerId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.fetchCatalogItemWithProvider(providerId, , opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -286,28 +278,26 @@ Fetch a catalog item by its ID and provider ID
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let providerId = "providerId_example"; // String | The Provider ID
 
 let catalogId = "catalogId_example"; // String | The Catalog ID
 
-
-apiInstance.fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -332,7 +322,7 @@ Name | Type | Description  | Notes
 
 <a name="listOrderItem"></a>
 # **listOrderItem**
-> OrderItem listOrderItem(orderId, orderItemId)
+> OrderItem listOrderItem(orderIdorderItemId)
 
 Get an individual item from a given order
 
@@ -340,28 +330,26 @@ Get an item associated with an order.
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let orderId = "orderId_example"; // String | The Order ID
 
 let orderItemId = "orderItemId_example"; // String | The Order Item ID
 
-
-apiInstance.listOrderItem(orderId, orderItemId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listOrderItem(orderIdorderItemId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -394,26 +382,24 @@ Get a list of items associated with an order.
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let orderId = "orderId_example"; // String | The Order ID
 
-
-apiInstance.listOrderItems(orderId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listOrderItems(orderId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -445,23 +431,21 @@ Get a list of orders associated with the logged in user.
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
-
-apiInstance.listOrders((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+apiInstance.listOrders().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -490,26 +474,24 @@ Get a list of progress messages associated with an order item. As the item is be
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let orderItemId = "orderItemId_example"; // String | The Order Item ID
 
-
-apiInstance.listProgressMessages(orderItemId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listProgressMessages(orderItemId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -541,23 +523,21 @@ Returns an array of provider objects
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
-
-apiInstance.listProviders((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+apiInstance.listProviders().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -586,23 +566,21 @@ Create a new order.
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
-
-apiInstance.newOrder((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+apiInstance.newOrder().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -631,26 +609,24 @@ Returns an updated order object
 
 ### Example
 ```javascript
-import InsightsHsdmApi from 'insights_hsdm_api';
-let defaultClient = InsightsHsdmApi.ApiClient.instance;
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
 UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
-let apiInstance = new InsightsHsdmApi.UsersApi();
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
 
 let orderId = "orderId_example"; // String | The Order ID
 
-
-apiInstance.submitOrder(orderId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.submitOrder(orderId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

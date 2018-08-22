@@ -25,38 +25,19 @@ const schema = {
   "type":"object",
   "properties":{
     "name":{"title":"Provider Name","type":"string"},
+    "description":{"title":"Description","type":"string"},
     "url":{"title":"URL","type":"string"},
     "verify_ssl":{"title":"Verify SSL","type":"boolean", "default":false},
-    "credentials": {
-      "type": "array",
-      "title": "Credentials",
-      "items": [
-        { "name": "username",
-          "title": "User",
-          "type": "string",
-          "default": ""
-        },
-        { "name": "passwod",
-          "title": "Password",
-          "type": "string",
-          "minlength": 6
-        }
-      ]
-    },
+    "user":{"title":"User Name","type":"string","default":""},
+    "token":{"title":"Token","type":"string", "default":""},
+    "password":{"title": "Password", "type": "string","minlength": 6}
   },
-  "required":["name","credentials", "url"],
+  "required":["name", "url"],
 };
 
 const uischema={
-  "credentials": {
-    "type": "array",
-    "title": "Credentials",
-    "items": [
-      { },
-      {
-        "ui:widget": "password",
-      }
-    ]
+  "password": {
+    "ui:widget": "password"
   }
 };
 

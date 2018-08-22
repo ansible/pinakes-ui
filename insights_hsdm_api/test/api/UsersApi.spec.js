@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -20,15 +20,15 @@
     factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.InsightsHsdmApi);
+    factory(root.expect, root.InsightsServiceCatalogApi);
   }
-}(this, function(expect, InsightsHsdmApi) {
+}(this, function(expect, InsightsServiceCatalogApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new InsightsHsdmApi.UsersApi();
+    instance = new InsightsServiceCatalogApi.UsersApi();
   });
 
   var getProperty = function(object, getter, property) {

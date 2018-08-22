@@ -1,4 +1,4 @@
-# InsightsHsdmApi.OrderItem
+# InsightsServiceCatalogApi.OrderItem
 
 ## Properties
 Name | Type | Description | Notes

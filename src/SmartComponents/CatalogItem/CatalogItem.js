@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button } from '@patternfly/react-core';
-import { PageHeader } from '@red-hat-insights/insights-frontend-components';
-import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Section } from '@red-hat-insights/insights-frontend-components';
+import { PageHeader, PageHeaderTitle, Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
 import towerLogo from '../../assets/images/tower.png';
 import './catalogitem.scss';

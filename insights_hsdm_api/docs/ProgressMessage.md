@@ -1,4 +1,4 @@
-# InsightsHsdmApi.ProgressMessage
+# InsightsServiceCatalogApi.ProgressMessage
 
 ## Properties
 Name | Type | Description | Notes

@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -20,15 +20,15 @@
     factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.InsightsHsdmApi);
+    factory(root.expect, root.InsightsServiceCatalogApi);
   }
-}(this, function(expect, InsightsHsdmApi) {
+}(this, function(expect, InsightsServiceCatalogApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new InsightsHsdmApi.CatalogParameter();
+    instance = new InsightsServiceCatalogApi.CatalogParameter();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,67 +50,67 @@
   describe('CatalogParameter', function() {
     it('should create an instance of CatalogParameter', function() {
       // uncomment below and update the code to test CatalogParameter
-      //var instane = new InsightsHsdmApi.CatalogParameter();
-      //expect(instance).to.be.a(InsightsHsdmApi.CatalogParameter);
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
+      //expect(instance).to.be.a(InsightsServiceCatalogApi.CatalogParameter);
     });
 
     it('should have the property type (base name: "type")', function() {
       // uncomment below and update the code to test the property type
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property title (base name: "title")', function() {
       // uncomment below and update the code to test the property title
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property description (base name: "description")', function() {
       // uncomment below and update the code to test the property description
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property _default (base name: "default")', function() {
       // uncomment below and update the code to test the property _default
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property pattern (base name: "pattern")', function() {
       // uncomment below and update the code to test the property pattern
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property example (base name: "example")', function() {
       // uncomment below and update the code to test the property example
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property required (base name: "required")', function() {
       // uncomment below and update the code to test the property required
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property format (base name: "format")', function() {
       // uncomment below and update the code to test the property format
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 
     it('should have the property _enum (base name: "enum")', function() {
       // uncomment below and update the code to test the property _enum
-      //var instane = new InsightsHsdmApi.CatalogParameter();
+      //var instane = new InsightsServiceCatalogApi.CatalogParameter();
       //expect(instance).to.be();
     });
 

@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -78,8 +78,8 @@ export default class UsersApi {
 
     /**
      * Temporary API to add a new provider
-     * Returns the added provider object
-     * @param {module:model/Provider} body
+     * Returns the added provider object 
+     * @param {module:model/Provider} body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
     addProvider(body) {
@@ -135,9 +135,9 @@ export default class UsersApi {
 
     /**
      * Add a Catalog to the Order in Pending State
-     * Add a catalog item to the order in Pending State
+     * Add a catalog item to the order in Pending State 
      * @param {String} orderId The Order ID
-     * @param {module:model/OrderItem} item
+     * @param {module:model/OrderItem} item 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
     addToOrder(orderId, item) {
@@ -147,19 +147,6 @@ export default class UsersApi {
         });
     }
 
-    /**
-     * Get an individual item from a given order
-     * Get an item associated with an order.
-     * @param {String} orderId The Order ID
-     * @param {String} orderItemId The Order Item ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderItem}
-     */
-    catalogItems() {
-        return this.catalogItemsWithHttpInfo()
-            .then(function(response_and_data) {
-                return response_and_data.data;
-            });
-    }
 
     /**
      * fetches catalog items from all providers
@@ -192,23 +179,24 @@ export default class UsersApi {
     }
 
     /**
-     * Get an individual item from a given order
-     * Get an item associated with an order.
-     * @param {String} orderId The Order ID
-     * @param {String} orderItemId The Order Item ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderItem}
+     * fetches catalog items from all providers
+     * Fetch catalog item from all defined providers 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/CatalogItem>}
      */
-    catalogParameters(providerId, catalogId) {
-        return this.catalogParametersWithHttpInfo(providerId, catalogId)
-            .then(function(response_and_data) {
-                return response_and_data.data;
-            });
+    catalogItems() {
+      return this.catalogItemsWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
+
     /**
-     * fetches catalog items from all providers
-     * Fetch catalog item from all defined providers
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/CatalogItem>}
+     * Fetches catalog parameters, it needs the provider id, the catalog_id
+     * Return a JSON object with the parameters needed for a catalogItem 
+     * @param {String} providerId The Provider ID
+     * @param {String} catalogId The Catalog ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/CatalogParameter>} and HTTP response
      */
     catalogParametersWithHttpInfo(providerId, catalogId) {
       let postBody = null;
@@ -243,8 +231,22 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/providers/{provider_id}/catalog_items/{catalog_id}/parameters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts
+        authNames, contentTypes, accepts, returnType
       );
+    }
+
+    /**
+     * Fetches catalog parameters, it needs the provider id, the catalog_id
+     * Return a JSON object with the parameters needed for a catalogItem 
+     * @param {String} providerId The Provider ID
+     * @param {String} catalogId The Catalog ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/CatalogParameter>}
+     */
+    catalogParameters(providerId, catalogId) {
+      return this.catalogParametersWithHttpInfo(providerId, catalogId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 
@@ -291,12 +293,19 @@ export default class UsersApi {
 
     /**
      * Fetch all or a specific catalog item from a specific provider
-     * By passing in the provider id you can fetch all the catalog items in the provider. You can limit to a specific catalog item by passing its id
+     * By passing in the provider id you can fetch all the catalog items in the provider. You can limit to a specific catalog item by passing its id 
      * @param {String} providerId The Provider ID
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogId The Catalog ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/CatalogItem>}
      */
+    fetchCatalogItemWithProvider(providerId, opts) {
+      return this.fetchCatalogItemWithProviderWithHttpInfo(providerId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Fetches a specific catalog item for a provider
@@ -344,11 +353,18 @@ export default class UsersApi {
 
     /**
      * Fetches a specific catalog item for a provider
-     * Fetch a catalog item by its ID and provider ID
+     * Fetch a catalog item by its ID and provider ID 
      * @param {String} providerId The Provider ID
      * @param {String} catalogId The Catalog ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/CatalogItem>}
      */
+    fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId) {
+      return this.fetchCatalogItemWithProviderAndCatalogIDWithHttpInfo(providerId, catalogId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an individual item from a given order
@@ -396,7 +412,7 @@ export default class UsersApi {
 
     /**
      * Get an individual item from a given order
-     * Get an item associated with an order.
+     * Get an item associated with an order. 
      * @param {String} orderId The Order ID
      * @param {String} orderItemId The Order Item ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderItem}
@@ -448,7 +464,7 @@ export default class UsersApi {
 
     /**
      * Get a list of items in a given order
-     * Get a list of items associated with an order.
+     * Get a list of items associated with an order. 
      * @param {String} orderId The Order ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/OrderItem>}
      */
@@ -492,7 +508,7 @@ export default class UsersApi {
 
     /**
      * Get a list of orders
-     * Get a list of orders associated with the logged in user.
+     * Get a list of orders associated with the logged in user. 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
      */
     listOrders() {
@@ -542,7 +558,7 @@ export default class UsersApi {
 
     /**
      * Get a list of progress messages in an item
-     * Get a list of progress messages associated with an order item. As the item is being processed the provider can update the progress messages
+     * Get a list of progress messages associated with an order item. As the item is being processed the provider can update the progress messages 
      * @param {String} orderItemId The Order Item ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ProgressMessage>}
      */
@@ -556,7 +572,7 @@ export default class UsersApi {
 
     /**
      * Temporary API to list provider
-     * Returns the array of provider object
+     * Returns an array of provider objects 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Provider>} and HTTP response
      */
     listProvidersWithHttpInfo() {
@@ -586,7 +602,7 @@ export default class UsersApi {
 
     /**
      * Temporary API to list provider
-     * Returns the array of provider object
+     * Returns an array of provider objects 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Provider>}
      */
     listProviders() {
@@ -629,7 +645,7 @@ export default class UsersApi {
 
     /**
      * Create a new order
-     * Create a new order.
+     * Create a new order. 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
     newOrder() {
@@ -638,8 +654,6 @@ export default class UsersApi {
           return response_and_data.data;
         });
     }
-
-
 
 
     /**
@@ -681,7 +695,7 @@ export default class UsersApi {
 
     /**
      * Submit the given order
-     * Returns an updated order object
+     * Returns an updated order object 
      * @param {String} orderId The Order ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */

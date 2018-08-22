@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0

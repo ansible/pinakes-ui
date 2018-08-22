@@ -1,5 +1,5 @@
 {
-  "name": "insights_hsdm_api",
+  "name": "insights_service_catalog_api",
   "version": "1.0.0",
   "description": "This_is_a_API_to_fetch_and_order_catalog_items_from_different_cloud_sources",
   "license": "Apache 2.0",
@@ -13,8 +13,7 @@
   "dependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
-    "querystring": "^0.2.0",
-    "superagent": "^3.5.2"
+    "superagent": "3.5.2"
   },
   "devDependencies": {
     "babel-core": "6.26.0",

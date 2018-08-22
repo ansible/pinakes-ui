@@ -1,4 +1,4 @@
-# InsightsHsdmApi.CatalogParameter
+# InsightsServiceCatalogApi.CatalogParameter
 
 ## Properties
 Name | Type | Description | Notes

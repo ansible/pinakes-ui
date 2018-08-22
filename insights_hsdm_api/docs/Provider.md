@@ -1,4 +1,4 @@
-# InsightsHsdmApi.Provider
+# InsightsServiceCatalogApi.Provider
 
 ## Properties
 Name | Type | Description | Notes

@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -29,9 +29,9 @@ import UsersApi from './api/UsersApi';
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var InsightsHsdmApi = require('index'); // See note below*.
-* var xxxSvc = new InsightsHsdmApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new InsightsHsdmApi.Yyy(); // Construct a model instance.
+* var InsightsServiceCatalogApi = require('index'); // See note below*.
+* var xxxSvc = new InsightsServiceCatalogApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new InsightsServiceCatalogApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -43,8 +43,8 @@ import UsersApi from './api/UsersApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new InsightsHsdmApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new InsightsHsdmApi.Yyy(); // Construct a model instance.
+* var xxxSvc = new InsightsServiceCatalogApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new InsightsServiceCatalogApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.

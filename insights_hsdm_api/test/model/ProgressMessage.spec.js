@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -20,15 +20,15 @@
     factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.InsightsHsdmApi);
+    factory(root.expect, root.InsightsServiceCatalogApi);
   }
-}(this, function(expect, InsightsHsdmApi) {
+}(this, function(expect, InsightsServiceCatalogApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new InsightsHsdmApi.ProgressMessage();
+    instance = new InsightsServiceCatalogApi.ProgressMessage();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,31 +50,31 @@
   describe('ProgressMessage', function() {
     it('should create an instance of ProgressMessage', function() {
       // uncomment below and update the code to test ProgressMessage
-      //var instane = new InsightsHsdmApi.ProgressMessage();
-      //expect(instance).to.be.a(InsightsHsdmApi.ProgressMessage);
+      //var instane = new InsightsServiceCatalogApi.ProgressMessage();
+      //expect(instance).to.be.a(InsightsServiceCatalogApi.ProgressMessage);
     });
 
     it('should have the property receivedAt (base name: "received_at")', function() {
       // uncomment below and update the code to test the property receivedAt
-      //var instane = new InsightsHsdmApi.ProgressMessage();
+      //var instane = new InsightsServiceCatalogApi.ProgressMessage();
       //expect(instance).to.be();
     });
 
     it('should have the property level (base name: "level")', function() {
       // uncomment below and update the code to test the property level
-      //var instane = new InsightsHsdmApi.ProgressMessage();
+      //var instane = new InsightsServiceCatalogApi.ProgressMessage();
       //expect(instance).to.be();
     });
 
     it('should have the property message (base name: "message")', function() {
       // uncomment below and update the code to test the property message
-      //var instane = new InsightsHsdmApi.ProgressMessage();
+      //var instane = new InsightsServiceCatalogApi.ProgressMessage();
       //expect(instance).to.be();
     });
 
     it('should have the property orderItemId (base name: "order_item_id")', function() {
       // uncomment below and update the code to test the property orderItemId
-      //var instane = new InsightsHsdmApi.ProgressMessage();
+      //var instane = new InsightsServiceCatalogApi.ProgressMessage();
       //expect(instance).to.be();
     });
 

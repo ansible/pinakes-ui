@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -20,15 +20,15 @@
     factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.InsightsHsdmApi);
+    factory(root.expect, root.InsightsServiceCatalogApi);
   }
-}(this, function(expect, InsightsHsdmApi) {
+}(this, function(expect, InsightsServiceCatalogApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new InsightsHsdmApi.OrderItem();
+    instance = new InsightsServiceCatalogApi.OrderItem();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,79 +50,79 @@
   describe('OrderItem', function() {
     it('should create an instance of OrderItem', function() {
       // uncomment below and update the code to test OrderItem
-      //var instane = new InsightsHsdmApi.OrderItem();
-      //expect(instance).to.be.a(InsightsHsdmApi.OrderItem);
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
+      //expect(instance).to.be.a(InsightsServiceCatalogApi.OrderItem);
     });
 
     it('should have the property id (base name: "id")', function() {
       // uncomment below and update the code to test the property id
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property count (base name: "count")', function() {
       // uncomment below and update the code to test the property count
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property parameters (base name: "parameters")', function() {
       // uncomment below and update the code to test the property parameters
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property catalogId (base name: "catalog_id")', function() {
       // uncomment below and update the code to test the property catalogId
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property providerId (base name: "provider_id")', function() {
       // uncomment below and update the code to test the property providerId
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property orderId (base name: "order_id")', function() {
       // uncomment below and update the code to test the property orderId
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property state (base name: "state")', function() {
       // uncomment below and update the code to test the property state
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property createdAt (base name: "created_at")', function() {
       // uncomment below and update the code to test the property createdAt
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property orderedAt (base name: "ordered_at")', function() {
       // uncomment below and update the code to test the property orderedAt
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property completedAt (base name: "completed_at")', function() {
       // uncomment below and update the code to test the property completedAt
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property updatedAt (base name: "updated_at")', function() {
       // uncomment below and update the code to test the property updatedAt
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 
     it('should have the property externalRef (base name: "external_ref")', function() {
       // uncomment below and update the code to test the property externalRef
-      //var instane = new InsightsHsdmApi.OrderItem();
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
       //expect(instance).to.be();
     });
 

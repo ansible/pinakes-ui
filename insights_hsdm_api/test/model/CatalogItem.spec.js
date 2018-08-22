@@ -1,5 +1,5 @@
 /**
- * Insights HSDM API
+ * Insights Service Catalog API
  * This is a API to fetch and order catalog items from different cloud sources
  *
  * OpenAPI spec version: 1.0.0
@@ -20,15 +20,15 @@
     factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.InsightsHsdmApi);
+    factory(root.expect, root.InsightsServiceCatalogApi);
   }
-}(this, function(expect, InsightsHsdmApi) {
+}(this, function(expect, InsightsServiceCatalogApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new InsightsHsdmApi.CatalogItem();
+    instance = new InsightsServiceCatalogApi.CatalogItem();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,37 +50,37 @@
   describe('CatalogItem', function() {
     it('should create an instance of CatalogItem', function() {
       // uncomment below and update the code to test CatalogItem
-      //var instane = new InsightsHsdmApi.CatalogItem();
-      //expect(instance).to.be.a(InsightsHsdmApi.CatalogItem);
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
+      //expect(instance).to.be.a(InsightsServiceCatalogApi.CatalogItem);
     });
 
     it('should have the property providerId (base name: "provider_id")', function() {
       // uncomment below and update the code to test the property providerId
-      //var instane = new InsightsHsdmApi.CatalogItem();
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
       //expect(instance).to.be();
     });
 
     it('should have the property catalogId (base name: "catalog_id")', function() {
       // uncomment below and update the code to test the property catalogId
-      //var instane = new InsightsHsdmApi.CatalogItem();
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
       //expect(instance).to.be();
     });
 
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
-      //var instane = new InsightsHsdmApi.CatalogItem();
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
       //expect(instance).to.be();
     });
 
     it('should have the property description (base name: "description")', function() {
       // uncomment below and update the code to test the property description
-      //var instane = new InsightsHsdmApi.CatalogItem();
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
       //expect(instance).to.be();
     });
 
     it('should have the property imageUrl (base name: "imageUrl")', function() {
       // uncomment below and update the code to test the property imageUrl
-      //var instane = new InsightsHsdmApi.CatalogItem();
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
       //expect(instance).to.be();
     });
 
