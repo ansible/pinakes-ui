@@ -6,7 +6,6 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Card } from '@red-hat-insights/insights-frontend-components';
 
 import ContentGallery from 'SmartComponents/ContentGallery/ContentGallery';
-import SearchBar from 'SmartComponents/ContentGallery/SearchBar';
 import { connect } from 'react-redux';
 import { fetchCatalogItemsList } from 'Store/Actions/CatalogItemActions';
 import { CatalogItemProperties } from 'PresentationalComponents/CatalogItems/CatalogItemShow';

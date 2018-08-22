@@ -49,7 +49,7 @@ const CatalogItemShow = props => {
                     </div>
                     <br />
                     <div className="bottom-48">
-                        {props.description}
+                        {props.name}
                     </div>
                     <div className="bottom-24">
                         Approval Required

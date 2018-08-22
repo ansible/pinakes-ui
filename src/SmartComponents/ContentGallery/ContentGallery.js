@@ -5,6 +5,7 @@ import propTypes from 'prop-types';
 import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';
 import { PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Bullseye } from '@patternfly/react-core';
+import SearchBar from 'SmartComponents/ContentGallery/SearchBar';
 import { searchCatalogItems } from 'Store/Actions/CatalogItemActions';
 
 
