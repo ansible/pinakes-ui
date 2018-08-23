@@ -34,11 +34,6 @@ class CatalogItems extends Component {
         this.fetchData();
     }
 
-    handleRedirect(url) {
-        this.props.history.push(url);
-        this.fetchData();
-    }
-
     render() {
         let catalogItemsList = {
             ...this.props.catalogItemsList,

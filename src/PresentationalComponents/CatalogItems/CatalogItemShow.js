@@ -2,7 +2,7 @@ import { withRouter } from 'react-router-dom';
 import './catalogitemshow.scss';
 import React from 'react';
 import propTypes from 'prop-types';
-import AnsibleSvg from '../../assets/images/vendor-ansible.svg';
+import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import { Ansible } from '@red-hat-insights/insights-frontend-components';
 
 
@@ -42,7 +42,7 @@ const CatalogItemShow = props => {
             <div className="pf-l-grid__item pf-m-2-col pf-m-6-row" onClick={() => {props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));}}>
                 <div className="card_style">
                     <div className="card_header">
-                        <img src = {AnsibleSvg} width="40" height="40" />
+                        <img src = {CatItemSvg} width="40" height="40" />
                     </div>
                     <div className="card_body">
                         {itemDetails(props)}
