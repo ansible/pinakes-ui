@@ -9,9 +9,10 @@ const convert = require('koa-connect');
 webpackConfig.serve = {
     content: config.paths.public,
     port: 8002,
-    // Google Chrome only allows mixed mode https / ws connections to localhost
-    // so not allowing 0.0.0.0 for dev connections so the frontend will start
-    host: 'localhost',
+    // Setting inline and hot to false disables websockets
+    inline: false,
+    hot: false,
+    host: '0.0.0.0',
     dev: {
         publicPath: '/insights'
     },
