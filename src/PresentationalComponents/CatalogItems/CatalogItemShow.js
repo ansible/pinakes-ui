@@ -11,7 +11,7 @@ const propLine = (prop, value) => {
 };
 
 const defaultProperty = property => {
-    return ['match', 'location', 'history'].includes(property)
+    return ['match', 'location', 'history', 'imageUrl'].includes(property)
 }
 
 const propDetails = item => {
@@ -42,7 +42,7 @@ const CatalogItemShow = props => {
             <div className="pf-l-grid__item pf-m-2-col pf-m-6-row" onClick={() => {props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));}}>
                 <div className="card_style">
                     <div className="card_header">
-                        <img src = {CatItemSvg} width="40" height="40" />
+                        <img src = {props.imageUrl || CatItemSvg} width="60" height="60" />
                     </div>
                     <div className="card_body">
                         {itemDetails(props)}
