@@ -82,4 +82,11 @@ const CopyFilesWebpackPlugin = new (require('copy-webpack-plugin'))([
 ]);
 plugins.push(CopyFilesWebpackPlugin);
 
+const envPlugin = new webpack.DefinePlugin({
+  'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
+  'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
+});
+
+plugins.push(envPlugin);
+
 module.exports = { plugins };
