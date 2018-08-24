@@ -11,7 +11,7 @@ const propLine = (prop, value) => {
 };
 
 const defaultProperty = property => {
-    return ['match', 'location', 'history', 'imageUrl'].includes(property)
+    return ['match', 'location', 'history', 'imageUrl', 'provider_id'].includes(property)
 }
 
 const propDetails = item => {
@@ -19,7 +19,7 @@ const propDetails = item => {
 
     for (let property in item) {
         if (item.hasOwnProperty(property) && !defaultProperty(property)) {
-            if (item[property] !== undefined) {
+            if (item[property] && item[property] !== undefined) {
                 details.push(propLine(property, item[property].toString()));
             }
         }
