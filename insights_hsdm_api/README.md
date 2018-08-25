@@ -99,9 +99,10 @@ Class | Method | HTTP request | Description
 *InsightsServiceCatalogApi.UsersApi* | [**addProvider**](docs/UsersApi.md#addProvider) | **POST** /providers | Temporary API to add a new provider
 *InsightsServiceCatalogApi.UsersApi* | [**addToOrder**](docs/UsersApi.md#addToOrder) | **POST** /orders/{order_id}/items | Add a Catalog to the Order in Pending State
 *InsightsServiceCatalogApi.UsersApi* | [**catalogItems**](docs/UsersApi.md#catalogItems) | **GET** /catalog_items | fetches catalog items from all providers
-*InsightsServiceCatalogApi.UsersApi* | [**catalogParameters**](docs/UsersApi.md#catalogParameters) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/parameters | Fetches catalog parameters, it needs the provider id, the catalog_id
+*InsightsServiceCatalogApi.UsersApi* | [**catalogPlanParameters**](docs/UsersApi.md#catalogPlanParameters) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans/{plan_id}/parameters | Fetches catalog parameters, it needs the provider id, the catalog_id and the plan_id
 *InsightsServiceCatalogApi.UsersApi* | [**fetchCatalogItemWithProvider**](docs/UsersApi.md#fetchCatalogItemWithProvider) | **GET** /providers/{provider_id}/catalog_items | Fetch all or a specific catalog item from a specific provider
 *InsightsServiceCatalogApi.UsersApi* | [**fetchCatalogItemWithProviderAndCatalogID**](docs/UsersApi.md#fetchCatalogItemWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id} | Fetches a specific catalog item for a provider
+*InsightsServiceCatalogApi.UsersApi* | [**fetchPlansWithProviderAndCatalogID**](docs/UsersApi.md#fetchPlansWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans | Fetches all the plans for a specific catalog item for a provider
 *InsightsServiceCatalogApi.UsersApi* | [**listOrderItem**](docs/UsersApi.md#listOrderItem) | **GET** /orders/{order_id}/items/{order_item_id} | Get an individual item from a given order
 *InsightsServiceCatalogApi.UsersApi* | [**listOrderItems**](docs/UsersApi.md#listOrderItems) | **GET** /orders/{order_id}/items | Get a list of items in a given order
 *InsightsServiceCatalogApi.UsersApi* | [**listOrders**](docs/UsersApi.md#listOrders) | **GET** /orders | Get a list of orders
@@ -114,10 +115,11 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [InsightsServiceCatalogApi.CatalogItem](docs/CatalogItem.md)
- - [InsightsServiceCatalogApi.CatalogParameter](docs/CatalogParameter.md)
+ - [InsightsServiceCatalogApi.CatalogPlan](docs/CatalogPlan.md)
  - [InsightsServiceCatalogApi.Order](docs/Order.md)
  - [InsightsServiceCatalogApi.OrderItem](docs/OrderItem.md)
  - [InsightsServiceCatalogApi.ParameterValue](docs/ParameterValue.md)
+ - [InsightsServiceCatalogApi.PlanParameter](docs/PlanParameter.md)
  - [InsightsServiceCatalogApi.ProgressMessage](docs/ProgressMessage.md)
  - [InsightsServiceCatalogApi.Provider](docs/Provider.md)
 

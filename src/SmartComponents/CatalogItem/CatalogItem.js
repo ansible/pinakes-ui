@@ -7,20 +7,17 @@ import towerLogo from '../../assets/images/tower.png';
 import './catalogitem.scss';
 import propTypes from 'prop-types';
 import {fetchSelectedCatalogItem} from "../../Store/Actions/CatalogItemActions";
+import CatItemSvg from '../../assets/images/vendor-openshift.svg';
+import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
+
 
 class CatalogItem extends Component {
-
-    fetchData(id) {
-        let defaultProps = {};
+    componentDidMount() {
+        const id = this.props.computedMatch.params.catalog_id;
         this.props.fetchCatalogItem(id);
     }
 
-    componentDidMount() {
-        const id = this.props.computedMatch.params.catalog_id;
-        this.fetchData(id);
-    }
-
-    render( store ) {
+    render() {
         let catalogItem = {
             ...this.props.catalogItem,
             isLoading: this.props.isLoading,
@@ -42,7 +39,7 @@ class CatalogItem extends Component {
                                 <div className="pf-c-card ">
                                     <div className="pf-c-card__header ">
                                         <h6 className="pf-c-title pf-m-xl pf-m-margin">
-                                            <img src={towerLogo} />
+                                          <ImageWithDefault src = {catalogItem.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="120" height="120"  />
                                         </h6>
                                     </div>
                                     <div className="pf-c-card__body ">

@@ -78,10 +78,10 @@
         done();
       });
     });
-    describe('catalogParameters', function() {
-      it('should call catalogParameters successfully', function(done) {
-        //uncomment below and update the code to test catalogParameters
-        //instance.catalogParameters(function(error) {
+    describe('catalogPlanParameters', function() {
+      it('should call catalogPlanParameters successfully', function(done) {
+        //uncomment below and update the code to test catalogPlanParameters
+        //instance.catalogPlanParameters(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -102,6 +102,16 @@
       it('should call fetchCatalogItemWithProviderAndCatalogID successfully', function(done) {
         //uncomment below and update the code to test fetchCatalogItemWithProviderAndCatalogID
         //instance.fetchCatalogItemWithProviderAndCatalogID(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('fetchPlansWithProviderAndCatalogID', function() {
+      it('should call fetchPlansWithProviderAndCatalogID successfully', function(done) {
+        //uncomment below and update the code to test fetchPlansWithProviderAndCatalogID
+        //instance.fetchPlansWithProviderAndCatalogID(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

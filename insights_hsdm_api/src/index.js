@@ -14,10 +14,11 @@
 
 import ApiClient from './ApiClient';
 import CatalogItem from './model/CatalogItem';
-import CatalogParameter from './model/CatalogParameter';
+import CatalogPlan from './model/CatalogPlan';
 import Order from './model/Order';
 import OrderItem from './model/OrderItem';
 import ParameterValue from './model/ParameterValue';
+import PlanParameter from './model/PlanParameter';
 import ProgressMessage from './model/ProgressMessage';
 import Provider from './model/Provider';
 import UsersApi from './api/UsersApi';
@@ -68,10 +69,10 @@ export {
     CatalogItem,
 
     /**
-     * The CatalogParameter model constructor.
-     * @property {module:model/CatalogParameter}
+     * The CatalogPlan model constructor.
+     * @property {module:model/CatalogPlan}
      */
-    CatalogParameter,
+    CatalogPlan,
 
     /**
      * The Order model constructor.
@@ -90,6 +91,12 @@ export {
      * @property {module:model/ParameterValue}
      */
     ParameterValue,
+
+    /**
+     * The PlanParameter model constructor.
+     * @property {module:model/PlanParameter}
+     */
+    PlanParameter,
 
     /**
      * The ProgressMessage model constructor.

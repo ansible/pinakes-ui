@@ -38,7 +38,6 @@ class CatalogItems extends Component {
         let catalogItemsList = {
             ...this.props.catalogItemsList,
             isLoading: this.props.isLoading,
-            fetchData: apiProps => this.fetchData(apiProps)
         };
         return (
             <div className="pf-l-stack">

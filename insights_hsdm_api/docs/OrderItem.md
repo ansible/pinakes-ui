@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | [optional] 
 **count** | **Number** |  | 
 **parameters** | [**[ParameterValue]**](ParameterValue.md) |  | 
+**planId** | **String** | Stores the Plan ID from the catalog | [optional] 
 **catalogId** | **String** | Stores the Catalog ID from the provider | [optional] 
 **providerId** | **String** | ID of the provider object | [optional] 
 **orderId** | **String** | ID of the order object | [optional] 

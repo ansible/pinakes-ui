@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property planId (base name: "plan_id")', function() {
+      // uncomment below and update the code to test the property planId
+      //var instane = new InsightsServiceCatalogApi.OrderItem();
+      //expect(instance).to.be();
+    });
+
     it('should have the property catalogId (base name: "catalog_id")', function() {
       // uncomment below and update the code to test the property catalogId
       //var instane = new InsightsServiceCatalogApi.OrderItem();

@@ -7,9 +7,10 @@ Method | HTTP request | Description
 [**addProvider**](UsersApi.md#addProvider) | **POST** /providers | Temporary API to add a new provider
 [**addToOrder**](UsersApi.md#addToOrder) | **POST** /orders/{order_id}/items | Add a Catalog to the Order in Pending State
 [**catalogItems**](UsersApi.md#catalogItems) | **GET** /catalog_items | fetches catalog items from all providers
-[**catalogParameters**](UsersApi.md#catalogParameters) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/parameters | Fetches catalog parameters, it needs the provider id, the catalog_id
+[**catalogPlanParameters**](UsersApi.md#catalogPlanParameters) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans/{plan_id}/parameters | Fetches catalog parameters, it needs the provider id, the catalog_id and the plan_id
 [**fetchCatalogItemWithProvider**](UsersApi.md#fetchCatalogItemWithProvider) | **GET** /providers/{provider_id}/catalog_items | Fetch all or a specific catalog item from a specific provider
 [**fetchCatalogItemWithProviderAndCatalogID**](UsersApi.md#fetchCatalogItemWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id} | Fetches a specific catalog item for a provider
+[**fetchPlansWithProviderAndCatalogID**](UsersApi.md#fetchPlansWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans | Fetches all the plans for a specific catalog item for a provider
 [**listOrderItem**](UsersApi.md#listOrderItem) | **GET** /orders/{order_id}/items/{order_item_id} | Get an individual item from a given order
 [**listOrderItems**](UsersApi.md#listOrderItems) | **GET** /orders/{order_id}/items | Get a list of items in a given order
 [**listOrders**](UsersApi.md#listOrders) | **GET** /orders | Get a list of orders
@@ -122,7 +123,7 @@ null (empty response body)
 
 <a name="catalogItems"></a>
 # **catalogItems**
-> [CatalogItem] catalogItems()
+> [CatalogItem] catalogItems(opts)
 
 fetches catalog items from all providers
 
@@ -139,7 +140,12 @@ UserSecurity.username = 'YOUR USERNAME';
 UserSecurity.password = 'YOUR PASSWORD';
 
 let apiInstance = new InsightsServiceCatalogApi.UsersApi();
-apiInstance.catalogItems().then((data) => {
+
+let opts = { 
+  'limit': 56, // Number | How many catalog items to return at one time (max 1000)
+  'offset': 0 // Number | Starting Offset
+};
+apiInstance.catalogItems(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -148,7 +154,11 @@ apiInstance.catalogItems().then((data) => {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Number**| How many catalog items to return at one time (max 1000) | [optional] 
+ **offset** | **Number**| Starting Offset | [optional] [default to 0]
 
 ### Return type
 
@@ -163,13 +173,13 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="catalogParameters"></a>
-# **catalogParameters**
-> [CatalogParameter] catalogParameters(providerId, catalogId)
+<a name="catalogPlanParameters"></a>
+# **catalogPlanParameters**
+> [PlanParameter] catalogPlanParameters(providerId, catalogId, planId)
 
-Fetches catalog parameters, it needs the provider id, the catalog_id
+Fetches catalog parameters, it needs the provider id, the catalog_id and the plan_id
 
-Return a JSON object with the parameters needed for a catalogItem 
+Return a JSON object with the parameters needed for a specific plan of a catalog item 
 
 ### Example
 ```javascript
@@ -187,7 +197,9 @@ let providerId = "providerId_example"; // String | The Provider ID
 
 let catalogId = "catalogId_example"; // String | The Catalog ID
 
-apiInstance.catalogParameters(providerId, catalogId).then((data) => {
+let planId = "planId_example"; // String | The Plan ID
+
+apiInstance.catalogPlanParameters(providerId, catalogId, planId).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -201,10 +213,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **providerId** | [**String**](.md)| The Provider ID | 
  **catalogId** | [**String**](.md)| The Catalog ID | 
+ **planId** | **String**| The Plan ID | 
 
 ### Return type
 
-[**[CatalogParameter]**](CatalogParameter.md)
+[**[PlanParameter]**](PlanParameter.md)
 
 ### Authorization
 
@@ -270,7 +283,7 @@ Name | Type | Description  | Notes
 
 <a name="fetchCatalogItemWithProviderAndCatalogID"></a>
 # **fetchCatalogItemWithProviderAndCatalogID**
-> [CatalogItem] fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId)
+> [CatalogItem] fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId, )
 
 Fetches a specific catalog item for a provider
 
@@ -292,7 +305,7 @@ let providerId = "providerId_example"; // String | The Provider ID
 
 let catalogId = "catalogId_example"; // String | The Catalog ID
 
-apiInstance.fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId).then((data) => {
+apiInstance.fetchCatalogItemWithProviderAndCatalogID(providerId, catalogId, ).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -310,6 +323,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[CatalogItem]**](CatalogItem.md)
+
+### Authorization
+
+[UserSecurity](../README.md#UserSecurity)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="fetchPlansWithProviderAndCatalogID"></a>
+# **fetchPlansWithProviderAndCatalogID**
+> [CatalogPlan] fetchPlansWithProviderAndCatalogID(providerId, catalogId, )
+
+Fetches all the plans for a specific catalog item for a provider
+
+Fetch all plans for catalog item by its ID and provider ID 
+
+### Example
+```javascript
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: UserSecurity
+let UserSecurity = defaultClient.authentications['UserSecurity'];
+UserSecurity.username = 'YOUR USERNAME';
+UserSecurity.password = 'YOUR PASSWORD';
+
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+
+let providerId = "providerId_example"; // String | The Provider ID
+
+let catalogId = "catalogId_example"; // String | The Catalog ID
+
+apiInstance.fetchPlansWithProviderAndCatalogID(providerId, catalogId, ).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **providerId** | [**String**](.md)| The Provider ID | 
+ **catalogId** | [**String**](.md)| The Catalog ID | 
+
+### Return type
+
+[**[CatalogPlan]**](CatalogPlan.md)
 
 ### Authorization
 

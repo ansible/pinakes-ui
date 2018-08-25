@@ -68,6 +68,9 @@ export default class OrderItem {
             if (data.hasOwnProperty('parameters')) {
                 obj['parameters'] = ApiClient.convertToType(data['parameters'], [ParameterValue]);
             }
+            if (data.hasOwnProperty('plan_id')) {
+                obj['plan_id'] = ApiClient.convertToType(data['plan_id'], 'String');
+            }
             if (data.hasOwnProperty('catalog_id')) {
                 obj['catalog_id'] = ApiClient.convertToType(data['catalog_id'], 'String');
             }
@@ -111,6 +114,11 @@ export default class OrderItem {
     * @member {Array.<module:model/ParameterValue>} parameters
     */
     parameters = undefined;
+    /**
+    * Stores the Plan ID from the catalog
+    * @member {String} plan_id
+    */
+    plan_id = undefined;
     /**
     * Stores the Catalog ID from the provider
     * @member {String} catalog_id

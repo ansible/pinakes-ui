@@ -3,7 +3,10 @@ import './catalogitemshow.scss';
 import React from 'react';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import { Ansible } from '@red-hat-insights/insights-frontend-components';
+import ImageWithDefault from '../ImageWithDefault';
+import OrderServiceForm from '../../SmartComponents/Order/OrderServiceForm';
+import { showServiceOrderWizard, hideServiceOrderWizard} from "../../Store/Actions/OrderActions";
+import { OrderStore } from "../../Store/Actions/OrderActions";
 
 
 const propLine = (prop, value) => {
@@ -36,29 +39,44 @@ const itemDetails = props => {
     );
 };
 
-const CatalogItemShow = props => {
+class CatalogItemShow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleOnClick = this.handleOnClick.bind(this);
+    this.state = { showOrder:false };
+  };
+
+  handleOnClick(props) {
+    console.log( 'Before OrderService');
+    this.setState({ showOrder: true })
+    // props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));
+  };
+
+  render() {
     return (
         <React.Fragment>
-            <div className="pf-l-grid__item pf-m-2-col pf-m-6-row" onClick={() => {props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));}}>
-                <div className="card_style">
-                    <div className="card_header">
-                        <img src = {props.imageUrl || CatItemSvg} width="60" height="60" />
-                    </div>
-                    <div className="card_body">
-                        {itemDetails(props)}
-                    </div>
-                    <br />
-                    <div className="bottom-48">
-                        {props.name}
-                    </div>
-                    <div className="bottom-24">
-                        Approval Required
-                    </div>
-                </div>
+          <div className="pf-l-grid__item pf-m-2-col pf-m-6-row">
+            <OrderServiceForm key = 'OrderServiceForm' showOrder={this.state.showOrder} servicedata = {this.props} />
+            <div className="card_style"  onClick={ () => {this.handleOnClick(this.props)}}>
+              <div className="card_header">
+                <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="80" height="80" />
+              </div>
+              <div className="card_body">
+                {itemDetails(this.props)}
+              </div>
+              <br/>
+              <div className="bottom-48">
+                {this.props.name}
+              </div>
+              <div className="bottom-24">
+                Approval Required
+              </div>
             </div>
+          </div>
         </React.Fragment>
     );
-};
+  };
+}
 
 CatalogItemShow.propTypes = {
     history: propTypes.object,
