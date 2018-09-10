@@ -107,7 +107,6 @@ class OrderServiceForm extends Component {
         <React.Fragment>
           <Modal show={showOrder} onHide={this.onCancel} key='OrderModal' dialogClassName="modal-dialog modal-lg wizard-pf">
             <Wizard show={showOrder} key={'OrderWizard'}>
-              <Wizard.Header title="Order" onClose={this.onCancel}/>
               <Wizard.Body>
                 <Wizard.Steps steps={this.renderWizardSteps()}/>
                 <Wizard.Row>
@@ -120,6 +119,9 @@ class OrderServiceForm extends Component {
                             </Wizard.Contents>
                         );
                       })}
+                      <Button variant="primary" type="button" disabled={!stepParametersValid} onClick={this.onNext}>
+                        Order<Icon type="fa" name="angle-right"/>
+                      </Button>
                     </Grid>
                   </Wizard.Main>
                 </Wizard.Row>
@@ -133,19 +135,8 @@ class OrderServiceForm extends Component {
                 >
                   Cancel
                 </Button>
-                <Button variant="secondary" type="button"
-                        disabled={activeStepIndex === 0}
-                        onClick={this.onBack}
-                >
-                  <Icon type="fa" name="angle-left"/>Back
-                </Button>
-                {activeStepIndex < wizardSteps.length - 1 && (
-                    <Button variant="secondary" type="button" disabled={!stepParametersValid} onClick={this.onNext}>
-                      Order<Icon type="fa" name="angle-right"/>
-                    </Button>
-                )}
                 {activeStepIndex === wizardSteps.length - 1 && (
-                    <Button variant="secondary" type="button" disabled="false" onClick={this.onSubmit}>
+                    <Button variant="primary" type="button" disabled="false" onClick={this.onSubmit}>
                       Order
                     </Button>
                 )}

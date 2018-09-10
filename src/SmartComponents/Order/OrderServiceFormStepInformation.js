@@ -33,29 +33,18 @@ class OrderServiceFormStepInformation extends React.Component {
   render() {
     return (
       <Form horizontal>
-        <h3 className="right-aligned_basic-form">Information</h3>
         <Form.FormGroup>
-          <div className="pf-c-card ">
-            <div className="pf-c-card__header ">
-              <h6 className="pf-c-title pf-m-xl pf-m-margin">
-                <ImageWithDefault src = {this.props.servicedata.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="120" height="120"  />
-              </h6>
-            </div>
-            <div className="pf-c-card__body ">
-              <table className="content-gallery">
-                <tbody>
-                <tr>
-                  <td>Name:  </td>
-                  <td>{this.props.servicedata.name}</td>
-                </tr>
-                <tr>
-                  <td>Description:  </td>
-                  <td>{this.props.servicedata.description}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+          <div>
+            <table>
+              <tbody>
+              <tr>
+                <td><ImageWithDefault src = {this.props.servicedata.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="100" height="" /></td>
+                <td><h3> {this.props.servicedata.name} </h3></td>
+              </tr>
+              </tbody>
+            </table>
           </div>
+          {this.props.servicedata.description}
         </Form.FormGroup>
       </Form>
     );
