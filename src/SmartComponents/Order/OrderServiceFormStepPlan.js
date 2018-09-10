@@ -41,7 +41,7 @@ class OrderServiceFormStepPlan extends React.Component {
 
   render() {
 
-    if (!this.props.isLoading) {
+    if (!this.props.isLoading && this.props.servicePlans && this.props.servicePlans.length > 0) {
       const schema = {
         "type": "object",
         "title": "Select a Plan",

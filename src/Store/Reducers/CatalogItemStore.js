@@ -34,7 +34,7 @@ export const CatalogItemReducer = (state = initialState, action) => {
         case ActionTypes.FETCH_CATALOG_ITEM + '_FULFILLED':
             return {
                 ...state,
-                ...action.payload,
+                catalogItem: action.payload,
                 isLoading: false
             };
         case ActionTypes.FILTER_CATALOG_ITEMS + '_FULFILLED':

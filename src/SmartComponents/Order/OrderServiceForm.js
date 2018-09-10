@@ -134,22 +134,22 @@ class OrderServiceForm extends Component {
                   Cancel
                 </Button>
                 <Button variant="secondary" type="button"
-                        disabled={activeStepIndex === 0 || activeStepIndex === wizardSteps.length - 1}
+                        disabled={activeStepIndex === 0}
                         onClick={this.onBack}
                 >
                   <Icon type="fa" name="angle-left"/>Back
                 </Button>
-                {activeStepIndex < wizardSteps.length - 2 && (
+                {activeStepIndex < wizardSteps.length - 1 && (
                     <Button variant="secondary" type="button" disabled={!stepParametersValid} onClick={this.onNext}>
-                      Next<Icon type="fa" name="angle-right"/>
-                    </Button>
-                )}
-                {activeStepIndex === wizardSteps.length - 2 && (
-                    <Button variant="secondary" type="button" disabled="false" onClick={this.onSubmit}>
-                      Save
+                      Order<Icon type="fa" name="angle-right"/>
                     </Button>
                 )}
                 {activeStepIndex === wizardSteps.length - 1 && (
+                    <Button variant="secondary" type="button" disabled="false" onClick={this.onSubmit}>
+                      Order
+                    </Button>
+                )}
+                {activeStepIndex === wizardSteps.length && (
                     <Button variant="secondary" type="button" onClick={this.onCancel}>
                       Close
                     </Button>

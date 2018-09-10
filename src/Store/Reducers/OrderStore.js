@@ -1,5 +1,4 @@
 import * as ActionTypes from 'Store/ActionTypes';
-import * as OrderHelper from '../../Helpers/Order/OrderHelper';
 
 // Initial State
 const initialState = {
@@ -33,6 +32,12 @@ export const OrderReducer = (state = initialState, action) => {
       return {
         ...state,
         planParameters: action.payload,
+        isLoading: false
+      };
+    case ActionTypes.SUBMIT_SERVICE_ORDER + '_FULFILLED':
+      return {
+        ...state,
+        ...action.payload,
         isLoading: false
       };
     case ActionTypes.UPDATE_SERVICE_DATA:

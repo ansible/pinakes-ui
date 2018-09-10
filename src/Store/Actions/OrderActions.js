@@ -20,3 +20,10 @@ export const updateServiceData = (data) => ({
   type: ActionTypes.UPDATE_SERVICE_DATA,
   payload: OrderHelper.setServiceData(data)
 });
+
+export const sendSubmitOrder = apiProps => ({
+  type: ActionTypes.SUBMIT_SERVICE_ORDER,
+  payload: new Promise(resolve => {
+    resolve(OrderHelper.sendSubmitOrder(apiProps));
+  })
+});

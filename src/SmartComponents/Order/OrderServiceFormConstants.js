@@ -27,20 +27,20 @@ const OrderServiceFormSteps = [
     page: OrderServiceFormStepConfiguration,
     subSteps: []
   },
-  {
-    step: 4,
-    label: '4',
-    title: 'Bind',
-    page: OrderServiceFormStepBind,
-    subSteps: []
-  },
-  {
-    step: 5,
-    label: '5',
-    title: 'Results',
-    page: OrderServiceFormStepResult,
-    subSteps: []
-  }
+ // {
+ //   step: 4,
+ //   label: '4',
+ //   title: 'Bind',
+ //   page: OrderServiceFormStepBind,
+ //   subSteps: []
+ // },
+ // {
+ //   step: 5,
+ //   label: '5',
+ //   title: 'Results',
+ //   page: OrderServiceFormStepResult,
+ //   subSteps: []
+ // }
 ];
 
 export { OrderServiceFormSteps };
