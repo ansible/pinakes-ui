@@ -16,7 +16,7 @@ const propLine = (prop, value) => {
 };
 
 const defaultProperty = property => {
-    return ['match', 'location', 'history', 'imageUrl', 'provider_id'].includes(property)
+    return ['match', 'location', 'history', 'imageUrl', 'provider_id', 'hideModal', 'showModal'].includes(property)
 }
 
 const propDetails = item => {
@@ -83,9 +83,6 @@ class CatalogItemShow extends React.Component {
               <div className="bottom-48">
                 {this.props.name}
               </div>
-              <div className="bottom-24">
-                Approval Required
-              </div>
             </div>
           </div>
         </React.Fragment>
@@ -95,7 +92,7 @@ class CatalogItemShow extends React.Component {
 
 CatalogItemShow.propTypes = {
   history: propTypes.object,
-  catalog_id: propTypes.string,
+  catalog_id: propTypes.string
 };
 
 export default withRouter(

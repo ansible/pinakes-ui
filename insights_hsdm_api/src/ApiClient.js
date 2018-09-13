@@ -46,6 +46,7 @@ export default class ApiClient {
          * @type {Array.<String>}
          */
         this.authentications = {
+            'AdminSecurity': {type: 'basic'},
             'UserSecurity': {type: 'basic'}
         }
 

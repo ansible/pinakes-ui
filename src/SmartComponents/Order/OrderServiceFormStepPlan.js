@@ -35,7 +35,7 @@ class OrderServiceFormStepPlan extends React.Component {
 
   componentDidMount() {
     console.log('Plan Component did mount - data:', this.props);
-    const {provider_id, catalog_id} = this.props.servicedata;
+    const {provider_id, catalog_id} = this.props;
     this.props.fetchPlans(provider_id, catalog_id);
   }
 

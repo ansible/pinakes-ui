@@ -61,6 +61,9 @@ export default class CatalogItem {
             if (data.hasOwnProperty('provider_id')) {
                 obj['provider_id'] = ApiClient.convertToType(data['provider_id'], 'String');
             }
+            if (data.hasOwnProperty('portfolio_item_id')) {
+                obj['portfolio_item_id'] = ApiClient.convertToType(data['portfolio_item_id'], 'Number');
+            }
             if (data.hasOwnProperty('catalog_id')) {
                 obj['catalog_id'] = ApiClient.convertToType(data['catalog_id'], 'String');
             }
@@ -82,6 +85,11 @@ export default class CatalogItem {
     * @member {String} provider_id
     */
     provider_id = undefined;
+    /**
+    * ID of the portfolio item object
+    * @member {Number} portfolio_item_id
+    */
+    portfolio_item_id = undefined;
     /**
     * Stores the Catalog ID from the provider
     * @member {String} catalog_id

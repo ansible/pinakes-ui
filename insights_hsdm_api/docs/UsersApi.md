@@ -8,12 +8,15 @@ Method | HTTP request | Description
 [**addToOrder**](UsersApi.md#addToOrder) | **POST** /orders/{order_id}/items | Add a Catalog to the Order in Pending State
 [**catalogItems**](UsersApi.md#catalogItems) | **GET** /catalog_items | fetches catalog items from all providers
 [**catalogPlanParameters**](UsersApi.md#catalogPlanParameters) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans/{plan_id}/parameters | Fetches catalog parameters, it needs the provider id, the catalog_id and the plan_id
+[**catalogPlanSchema**](UsersApi.md#catalogPlanSchema) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans/{plan_id}/json_schema | Fetches catalog json schema, it needs the provider id, the catalog_id and the plan_id
 [**fetchCatalogItemWithProvider**](UsersApi.md#fetchCatalogItemWithProvider) | **GET** /providers/{provider_id}/catalog_items | Fetch all or a specific catalog item from a specific provider
 [**fetchCatalogItemWithProviderAndCatalogID**](UsersApi.md#fetchCatalogItemWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id} | Fetches a specific catalog item for a provider
 [**fetchPlansWithProviderAndCatalogID**](UsersApi.md#fetchPlansWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans | Fetches all the plans for a specific catalog item for a provider
+[**fetchPortfolioWithId**](UsersApi.md#fetchPortfolioWithId) | **GET** /portfolio/{portfolio_id} | Fetch a specific Portfolio
 [**listOrderItem**](UsersApi.md#listOrderItem) | **GET** /orders/{order_id}/items/{order_item_id} | Get an individual item from a given order
 [**listOrderItems**](UsersApi.md#listOrderItems) | **GET** /orders/{order_id}/items | Get a list of items in a given order
 [**listOrders**](UsersApi.md#listOrders) | **GET** /orders | Get a list of orders
+[**listPortfolios**](UsersApi.md#listPortfolios) | **GET** /portfolios | API to list portfolios
 [**listProgressMessages**](UsersApi.md#listProgressMessages) | **GET** /order_items/{order_item_id}/progress_messages | Get a list of progress messages in an item
 [**listProviders**](UsersApi.md#listProviders) | **GET** /providers | Temporary API to list provider
 [**newOrder**](UsersApi.md#newOrder) | **POST** /orders | Create a new order
@@ -32,6 +35,11 @@ Returns the added provider object
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -62,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -81,6 +89,11 @@ Add a catalog item to the order in Pending State
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -114,7 +127,7 @@ null (empty response body)
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -133,6 +146,11 @@ Fetch catalog item from all defined providers
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -166,7 +184,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -185,6 +203,11 @@ Return a JSON object with the parameters needed for a specific plan of a catalog
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -221,7 +244,67 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="catalogPlanSchema"></a>
+# **catalogPlanSchema**
+> JSONSchema catalogPlanSchema(providerId, catalogId, planId)
+
+Fetches catalog json schema, it needs the provider id, the catalog_id and the plan_id
+
+Return a JSON schema with the parameters needed for a specific plan of a catalog item 
+
+### Example
+```javascript
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
+
+// Configure HTTP basic authorization: UserSecurity
+let UserSecurity = defaultClient.authentications['UserSecurity'];
+UserSecurity.username = 'YOUR USERNAME';
+UserSecurity.password = 'YOUR PASSWORD';
+
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+
+let providerId = "providerId_example"; // String | The Provider ID
+
+let catalogId = "catalogId_example"; // String | The Catalog ID
+
+let planId = "planId_example"; // String | The Plan ID
+
+apiInstance.catalogPlanSchema(providerId, catalogId, planId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **providerId** | [**String**](.md)| The Provider ID | 
+ **catalogId** | [**String**](.md)| The Catalog ID | 
+ **planId** | **String**| The Plan ID | 
+
+### Return type
+
+[**JSONSchema**](JSONSchema.md)
+
+### Authorization
+
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -240,6 +323,11 @@ By passing in the provider id you can fetch all the catalog items in the provide
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -274,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -293,6 +381,11 @@ Fetch a catalog item by its ID and provider ID
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -326,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -345,6 +438,11 @@ Fetch all plans for catalog item by its ID and provider ID
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -378,7 +476,61 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="fetchPortfolioWithId"></a>
+# **fetchPortfolioWithId**
+> Portfolio fetchPortfolioWithId(portfolioId)
+
+Fetch a specific Portfolio
+
+By passing in the portfolio id you can fetch a specific portfolio. 
+
+### Example
+```javascript
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
+
+// Configure HTTP basic authorization: UserSecurity
+let UserSecurity = defaultClient.authentications['UserSecurity'];
+UserSecurity.username = 'YOUR USERNAME';
+UserSecurity.password = 'YOUR PASSWORD';
+
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+
+let portfolioId = 56; // Number | The Portfolio ID
+
+apiInstance.fetchPortfolioWithId(portfolioId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **portfolioId** | **Number**| The Portfolio ID | 
+
+### Return type
+
+[**Portfolio**](Portfolio.md)
+
+### Authorization
+
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -397,6 +549,11 @@ Get an item associated with an order.
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -430,7 +587,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -449,6 +606,11 @@ Get a list of items associated with an order.
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -479,7 +641,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -498,6 +660,11 @@ Get a list of orders associated with the logged in user.
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -522,11 +689,59 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listPortfolios"></a>
+# **listPortfolios**
+> [Portfolio] listPortfolios()
+
+API to list portfolios
+
+Returns an array of portfolio objects 
+
+### Example
+```javascript
+import InsightsServiceCatalogApi from 'insights_service_catalog_api';
+let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
+
+// Configure HTTP basic authorization: UserSecurity
+let UserSecurity = defaultClient.authentications['UserSecurity'];
+UserSecurity.username = 'YOUR USERNAME';
+UserSecurity.password = 'YOUR PASSWORD';
+
+let apiInstance = new InsightsServiceCatalogApi.UsersApi();
+apiInstance.listPortfolios().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[Portfolio]**](Portfolio.md)
+
+### Authorization
+
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="listProgressMessages"></a>
@@ -541,6 +756,11 @@ Get a list of progress messages associated with an order item. As the item is be
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -571,7 +791,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -590,6 +810,11 @@ Returns an array of provider objects
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -614,7 +839,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -633,6 +858,11 @@ Create a new order.
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -657,7 +887,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 
@@ -676,6 +906,11 @@ Returns an updated order object
 ```javascript
 import InsightsServiceCatalogApi from 'insights_service_catalog_api';
 let defaultClient = InsightsServiceCatalogApi.ApiClient.instance;
+
+// Configure HTTP basic authorization: AdminSecurity
+let AdminSecurity = defaultClient.authentications['AdminSecurity'];
+AdminSecurity.username = 'YOUR USERNAME';
+AdminSecurity.password = 'YOUR PASSWORD';
 
 // Configure HTTP basic authorization: UserSecurity
 let UserSecurity = defaultClient.authentications['UserSecurity'];
@@ -706,7 +941,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[UserSecurity](../README.md#UserSecurity)
+[AdminSecurity](../README.md#AdminSecurity), [UserSecurity](../README.md#UserSecurity)
 
 ### HTTP request headers
 

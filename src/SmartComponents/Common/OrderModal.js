@@ -108,9 +108,11 @@ class OrderModal extends Component {
                           </Wizard.Contents>
                       );
                     })}
-                    <Button variant="primary" type="button" disabled={!stepParametersValid} onClick={this.onNext}>
-                      Order<Icon type="fa" name="angle-right"/>
-                    </Button>
+                    {activeStepIndex !== wizardSteps.length - 1 && (
+                        <Button variant="primary" type="button" onClick={this.onNext}>
+                          Order<Icon type="fa" name="angle-right"/>
+                        </Button>
+                    )}
                   </Grid>
                 </Wizard.Main>
               </Wizard.Row>
@@ -122,7 +124,7 @@ class OrderModal extends Component {
 
 const renderStepWizardPage = (componentPage, props) => {
   const StepComponent = componentPage;
-  return ( <StepComponent servicedata={props} />);
+  return ( <StepComponent {...props} />);
 };
 
 OrderModal.propTypes = {

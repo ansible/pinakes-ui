@@ -15,12 +15,17 @@
 import ApiClient from './ApiClient';
 import CatalogItem from './model/CatalogItem';
 import CatalogPlan from './model/CatalogPlan';
+import JSONSchema from './model/JSONSchema';
 import Order from './model/Order';
 import OrderItem from './model/OrderItem';
+import Organization from './model/Organization';
 import ParameterValue from './model/ParameterValue';
 import PlanParameter from './model/PlanParameter';
+import Portfolio from './model/Portfolio';
+import PortfolioItem from './model/PortfolioItem';
 import ProgressMessage from './model/ProgressMessage';
 import Provider from './model/Provider';
+import AdminsApi from './api/AdminsApi';
 import UsersApi from './api/UsersApi';
 
 
@@ -75,6 +80,12 @@ export {
     CatalogPlan,
 
     /**
+     * The JSONSchema model constructor.
+     * @property {module:model/JSONSchema}
+     */
+    JSONSchema,
+
+    /**
      * The Order model constructor.
      * @property {module:model/Order}
      */
@@ -85,6 +96,12 @@ export {
      * @property {module:model/OrderItem}
      */
     OrderItem,
+
+    /**
+     * The Organization model constructor.
+     * @property {module:model/Organization}
+     */
+    Organization,
 
     /**
      * The ParameterValue model constructor.
@@ -99,6 +116,18 @@ export {
     PlanParameter,
 
     /**
+     * The Portfolio model constructor.
+     * @property {module:model/Portfolio}
+     */
+    Portfolio,
+
+    /**
+     * The PortfolioItem model constructor.
+     * @property {module:model/PortfolioItem}
+     */
+    PortfolioItem,
+
+    /**
      * The ProgressMessage model constructor.
      * @property {module:model/ProgressMessage}
      */
@@ -109,6 +138,12 @@ export {
      * @property {module:model/Provider}
      */
     Provider,
+
+    /**
+    * The AdminsApi service constructor.
+    * @property {module:api/AdminsApi}
+    */
+    AdminsApi,
 
     /**
     * The UsersApi service constructor.

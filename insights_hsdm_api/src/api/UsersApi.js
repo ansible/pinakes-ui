@@ -15,9 +15,11 @@
 import ApiClient from "../ApiClient";
 import CatalogItem from '../model/CatalogItem';
 import CatalogPlan from '../model/CatalogPlan';
+import JSONSchema from '../model/JSONSchema';
 import Order from '../model/Order';
 import OrderItem from '../model/OrderItem';
 import PlanParameter from '../model/PlanParameter';
+import Portfolio from '../model/Portfolio';
 import ProgressMessage from '../model/ProgressMessage';
 import Provider from '../model/Provider';
 
@@ -65,7 +67,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = Object;
@@ -122,7 +124,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = null;
@@ -173,7 +175,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [CatalogItem];
@@ -240,7 +242,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [PlanParameter];
@@ -262,6 +264,73 @@ export default class UsersApi {
      */
     catalogPlanParameters(providerId, catalogId, planId) {
       return this.catalogPlanParametersWithHttpInfo(providerId, catalogId, planId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Fetches catalog json schema, it needs the provider id, the catalog_id and the plan_id
+     * Return a JSON schema with the parameters needed for a specific plan of a catalog item 
+     * @param {String} providerId The Provider ID
+     * @param {String} catalogId The Catalog ID
+     * @param {String} planId The Plan ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/JSONSchema} and HTTP response
+     */
+    catalogPlanSchemaWithHttpInfo(providerId, catalogId, planId) {
+      let postBody = null;
+
+      // verify the required parameter 'providerId' is set
+      if (providerId === undefined || providerId === null) {
+        throw new Error("Missing the required parameter 'providerId' when calling catalogPlanSchema");
+      }
+
+      // verify the required parameter 'catalogId' is set
+      if (catalogId === undefined || catalogId === null) {
+        throw new Error("Missing the required parameter 'catalogId' when calling catalogPlanSchema");
+      }
+
+      // verify the required parameter 'planId' is set
+      if (planId === undefined || planId === null) {
+        throw new Error("Missing the required parameter 'planId' when calling catalogPlanSchema");
+      }
+
+
+      let pathParams = {
+        'provider_id': providerId,
+        'catalog_id': catalogId,
+        'plan_id': planId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AdminSecurity', 'UserSecurity'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = JSONSchema;
+
+      return this.apiClient.callApi(
+        '/providers/{provider_id}/catalog_items/{catalog_id}/plans/{plan_id}/json_schema', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Fetches catalog json schema, it needs the provider id, the catalog_id and the plan_id
+     * Return a JSON schema with the parameters needed for a specific plan of a catalog item 
+     * @param {String} providerId The Provider ID
+     * @param {String} catalogId The Catalog ID
+     * @param {String} planId The Plan ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/JSONSchema}
+     */
+    catalogPlanSchema(providerId, catalogId, planId) {
+      return this.catalogPlanSchemaWithHttpInfo(providerId, catalogId, planId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -297,7 +366,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [CatalogItem];
@@ -357,7 +426,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [CatalogItem];
@@ -416,7 +485,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [CatalogPlan];
@@ -437,6 +506,57 @@ export default class UsersApi {
      */
     fetchPlansWithProviderAndCatalogID(providerId, catalogId) {
       return this.fetchPlansWithProviderAndCatalogIDWithHttpInfo(providerId, catalogId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Fetch a specific Portfolio
+     * By passing in the portfolio id you can fetch a specific portfolio. 
+     * @param {Number} portfolioId The Portfolio ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Portfolio} and HTTP response
+     */
+    fetchPortfolioWithIdWithHttpInfo(portfolioId) {
+      let postBody = null;
+
+      // verify the required parameter 'portfolioId' is set
+      if (portfolioId === undefined || portfolioId === null) {
+        throw new Error("Missing the required parameter 'portfolioId' when calling fetchPortfolioWithId");
+      }
+
+
+      let pathParams = {
+        'portfolio_id': portfolioId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AdminSecurity', 'UserSecurity'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Portfolio;
+
+      return this.apiClient.callApi(
+        '/portfolio/{portfolio_id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Fetch a specific Portfolio
+     * By passing in the portfolio id you can fetch a specific portfolio. 
+     * @param {Number} portfolioId The Portfolio ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Portfolio}
+     */
+    fetchPortfolioWithId(portfolioId) {
+      return this.fetchPortfolioWithIdWithHttpInfo(portfolioId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -475,7 +595,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = OrderItem;
@@ -527,7 +647,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [OrderItem];
@@ -571,7 +691,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [Order];
@@ -590,6 +710,49 @@ export default class UsersApi {
      */
     listOrders() {
       return this.listOrdersWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * API to list portfolios
+     * Returns an array of portfolio objects 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Portfolio>} and HTTP response
+     */
+    listPortfoliosWithHttpInfo() {
+      let postBody = null;
+
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AdminSecurity', 'UserSecurity'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = [Portfolio];
+
+      return this.apiClient.callApi(
+        '/portfolios', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * API to list portfolios
+     * Returns an array of portfolio objects 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Portfolio>}
+     */
+    listPortfolios() {
+      return this.listPortfoliosWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -621,7 +784,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [ProgressMessage];
@@ -665,7 +828,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = [Provider];
@@ -708,7 +871,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Order;
@@ -758,7 +921,7 @@ export default class UsersApi {
       let formParams = {
       };
 
-      let authNames = ['UserSecurity'];
+      let authNames = ['AdminSecurity', 'UserSecurity'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Order;

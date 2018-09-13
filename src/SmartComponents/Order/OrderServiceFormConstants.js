@@ -2,8 +2,6 @@ import React from 'react';
 import OrderServiceFormStepInformation from './OrderServiceFormStepInformation';
 import OrderServiceFormStepPlan from './OrderServiceFormStepPlan';
 import OrderServiceFormStepConfiguration from './OrderServiceFormStepConfiguration';
-import OrderServiceFormStepBind from './OrderServiceFormStepBind';
-import OrderServiceFormStepResult from './OrderServiceFormStepResult';
 
 const OrderServiceFormSteps = [
   {

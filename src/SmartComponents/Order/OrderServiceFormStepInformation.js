@@ -38,13 +38,13 @@ class OrderServiceFormStepInformation extends React.Component {
             <table>
               <tbody>
               <tr>
-                <td><ImageWithDefault src = {this.props.servicedata.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="100" height="" /></td>
-                <td><h3> {this.props.servicedata.name} </h3></td>
+                <td><ImageWithDefault src = {this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="100" height="" /></td>
+                <td><h3> {this.props.name} </h3></td>
               </tr>
               </tbody>
             </table>
           </div>
-          {this.props.servicedata.description}
+          {this.props.description}
         </Form.FormGroup>
       </Form>
     );

@@ -23,9 +23,9 @@ export function getServicePlans(providerId, catalogId) {
 }
 
 export function getServicePlanParameters(providerId, catalogId, planId) {
-  return api.catalogPlanParameters(providerId, catalogId, planId).then((data) => {
-    console.log('catalogPlanParameters API called successfully. Returned data: ' + data);
-    return data;
+  return api.catalogPlanSchema(providerId, catalogId, planId).then((data) => {
+    console.log('catalogPlanParameters API called successfully. Returned data: ' + data['schema']);
+    return data['schema'];
   }, (error) => {
     console.error(error);
   });
