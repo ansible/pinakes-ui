@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './catalogitemshow.scss';
 import React from 'react';
 import propTypes from 'prop-types';
@@ -7,6 +8,7 @@ import ImageWithDefault from '../ImageWithDefault';
 import OrderServiceForm from '../../SmartComponents/Order/OrderServiceForm';
 import { showServiceOrderWizard, hideServiceOrderWizard} from "../../Store/Actions/OrderActions";
 import { OrderStore } from "../../Store/Actions/OrderActions";
+import {hideModal, showModal} from "../../Store/Actions/MainModalActions";
 
 
 const propLine = (prop, value) => {
@@ -39,16 +41,30 @@ const itemDetails = props => {
     );
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    hideModal: () => dispatch(hideModal()),
+    showModal: (modalProps, modalType) => {
+      dispatch(showModal({ modalProps, modalType }))
+    }
+  };
+};
+
+
 class CatalogItemShow extends React.Component {
   constructor(props) {
     super(props);
     this.handleOnClick = this.handleOnClick.bind(this);
-    this.state = { showOrder:false };
   };
 
-  handleOnClick(props) {
+  handleOnClick() {
     console.log( 'Before OrderService');
-    this.setState({ showOrder: true })
+    this.setState({ showOrder: true });
+    this.props.showModal({
+          open: true,
+          servicedata: this.props,
+          closeModal: this.props.hideModal
+    }, 'order');
     // props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));
   };
 
@@ -56,7 +72,6 @@ class CatalogItemShow extends React.Component {
     return (
         <React.Fragment>
           <div className="pf-l-grid__item pf-m-2-col pf-m-6-row">
-            <OrderServiceForm key = 'OrderServiceForm' showOrder={this.state.showOrder} servicedata = {this.props} />
             <div className="card_style"  onClick={ () => {this.handleOnClick(this.props)}}>
               <div className="card_header">
                 <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="80" height="80" />
@@ -79,9 +94,13 @@ class CatalogItemShow extends React.Component {
 }
 
 CatalogItemShow.propTypes = {
-    history: propTypes.object,
-    catalog_id: propTypes.string
+  history: propTypes.object,
+  catalog_id: propTypes.string,
 };
 
-export default withRouter(CatalogItemShow);
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps)(CatalogItemShow)
+);
 

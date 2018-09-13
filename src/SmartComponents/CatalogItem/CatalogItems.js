@@ -11,6 +11,7 @@ import { fetchCatalogItemsList } from 'Store/Actions/CatalogItemActions';
 import { CatalogItemProperties } from 'PresentationalComponents/CatalogItems/CatalogItemShow';
 import propTypes from 'prop-types';
 import DEFAULT_PAGE_SIZE from '../../Utilities/Constants';
+import MainModal from '../Common/MainModal';
 
 class CatalogItems extends Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class CatalogItems extends Component {
                     <ContentGallery {...catalogItemsList} />
                   </div>
                 </Section>
+              <MainModal />
             </div>
         );
     }
@@ -72,8 +74,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchCatalogItems: apiProps => dispatch(fetchCatalogItemsList(apiProps)),
-        search: value => dispatch(searchCatalogItems(value))
+      fetchCatalogItems: apiProps => dispatch(fetchCatalogItemsList(apiProps)),
+      search: value => dispatch(searchCatalogItems(value))
     };
 };
 
@@ -83,7 +85,7 @@ CatalogItems.propTypes = {
     searchFilter: propTypes.string,
     history: propTypes.object,
     fetchCatalogItems: propTypes.func,
-    searchCatalogItems: propTypes.func
+    searchCatalogItems: propTypes.func,
 };
 
 export default withRouter(
