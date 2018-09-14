@@ -31,6 +31,15 @@ export function getServicePlanParameters(providerId, catalogId, planId) {
   });
 }
 
+export function listOrders() {
+  return api.listOrders().then((data) => {
+    console.log('listOrders API called successfully. Returned data: ' + data);
+    return data;
+  }, (error) => {
+    console.error(error);
+  });
+}
+
 export function sendSubmitOrder(parameters) {
   api.newOrder().then((order) => {
     console.log('Create order called successfully. Returned data: ' + order);
@@ -63,3 +72,5 @@ export function bindMethods (context, methods) {
     context[method] = context[method].bind(context);
   });
 };
+
+

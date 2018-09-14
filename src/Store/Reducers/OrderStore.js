@@ -23,6 +23,17 @@ export const OrderReducer = (state = initialState, action) => {
           servicePlans: action.payload,
           isLoading: false
       };
+    case ActionTypes.LIST_ORDERS + '_PENDING':
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ActionTypes.LIST_ORDERS + '_FULFILLED':
+      return {
+        ...state,
+        orders: action.payload,
+        isLoading: false
+      };
     case ActionTypes.FETCH_SERVICE_PLAN_PARAMETERS + '_PENDING':
       return {
         ...state,

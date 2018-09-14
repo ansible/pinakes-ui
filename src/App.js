@@ -43,6 +43,9 @@ function buildNavigation () {
         title: 'Service Catalog',
         id: 'catalog/catalogitems'
     }, {
+      title: 'Orders',
+      id: 'catalog/orders'
+    }, {
         title: 'Add Provider',
         id: 'catalog/addprovider'
     }].map(item => ({

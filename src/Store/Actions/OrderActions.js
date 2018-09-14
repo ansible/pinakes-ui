@@ -10,10 +10,14 @@ export const fetchServicePlans = (providerId, catalogId) => ({
     payload: OrderHelper.getServicePlans(providerId, catalogId)
 });
 
-
 export const fetchServicePlanParameters = (providerId, catalogId, planId) => ({
   type: ActionTypes.FETCH_SERVICE_PLAN_PARAMETERS,
   payload: OrderHelper.getServicePlanParameters(providerId, catalogId, planId)
+});
+
+export const fetchOrderList = () => ({
+  type: ActionTypes.LIST_ORDERS,
+  payload: OrderHelper.listOrders()
 });
 
 export const updateServiceData = (data) => ({
