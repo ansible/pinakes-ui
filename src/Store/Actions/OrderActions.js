@@ -25,6 +25,11 @@ export const updateServiceData = (data) => ({
   payload: OrderHelper.setServiceData(data)
 });
 
+export const setSelectedPlan = (data) => ({
+  type: ActionTypes.SET_SELECTED_PLAN,
+  payload: data
+});
+
 export const sendSubmitOrder = apiProps => ({
   type: ActionTypes.SUBMIT_SERVICE_ORDER,
   payload: new Promise(resolve => {

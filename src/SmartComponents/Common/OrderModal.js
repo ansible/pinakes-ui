@@ -12,6 +12,8 @@ import { Icon, Form } from 'patternfly-react';
 import {bindMethods} from "../../Helpers/Order/OrderHelper";
 import {OrderServiceFormSteps} from '../Order/OrderServiceFormConstants';
 import {Wizard} from 'patternfly-react';
+import CatItemSvg from '../../assets/images/vendor-openshift.svg';
+import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
 
 class OrderModal extends Component {
   constructor(props) {
@@ -64,7 +66,21 @@ class OrderModal extends Component {
     this.setState({showOrder: false});
   }
 
-  renderWizardSteps() {
+  imgTitle(serviceData){
+    return (
+    <div>
+      <table>
+        <tbody>
+        <tr>
+          <td><ImageWithDefault src = {serviceData.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="100" height="" /></td>
+          <td><h3> {serviceData.name} </h3></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>);
+  }
+
+  renderWizardSteps(serviceData) {
     const { activeStepIndex } = this.state;
     const wizardSteps = OrderServiceFormSteps;
     const activeStep = wizardSteps[activeStepIndex];
@@ -97,7 +113,7 @@ class OrderModal extends Component {
 
       return (
           <React.Fragment>
-            <Wizard.Steps steps={this.renderWizardSteps()}/>
+            <Wizard.Steps steps={this.renderWizardSteps(this.props.servicedata)}/>
               <Wizard.Row>
                 <Wizard.Main>
                   <Grid>
@@ -109,9 +125,13 @@ class OrderModal extends Component {
                       );
                     })}
                     {activeStepIndex !== wizardSteps.length - 1 && (
-                        <Button variant="primary" type="button" onClick={this.onNext}>
-                          Order<Icon type="fa" name="angle-right"/>
-                        </Button>
+                        <div>
+                          <br/>
+                          <br/>
+                          <Button variant="primary" type="button" onClick={this.onNext}>
+                            Order<Icon type="fa" name="angle-right"/>
+                          </Button>
+                        </div>
                     )}
                   </Grid>
                 </Wizard.Main>

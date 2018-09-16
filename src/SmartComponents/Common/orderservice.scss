@@ -1,5 +1,4 @@
 @import "../../App";
-@import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 
 .OrderForm {
@@ -583,5 +582,5 @@
 .wizard-pf-step.disabled > a:hover,
 .wizard-pf-step-alt-substep.disabled > a:hover,
 .wizard-pf-sidebar .list-group-item.disabled > a:hover {
-  cursor: not-allowed;
+
 }

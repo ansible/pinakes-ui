@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Grid, Row } from '@patternfly/react-core';
+import { Button, Grid, Row, Modal } from '@patternfly/react-core';
 import { PageHeader } from '@red-hat-insights/insights-frontend-components';
 import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Section } from '@red-hat-insights/insights-frontend-components';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import './orderservice.scss';
 import propTypes from 'prop-types';
 import {OrderStore} from "../../Store/Reducers/OrderStore";
-import { Modal, Icon, Form } from 'patternfly-react';
+import {Icon, Form } from 'patternfly-react';
 import {bindMethods} from "../../Helpers/Order/OrderHelper";
 import {OrderServiceFormSteps} from './OrderServiceFormConstants';
 import {Wizard} from 'patternfly-react';
@@ -84,7 +84,6 @@ class OrderServiceForm extends Component {
               stepIndex={stepIndex}
               step={step.step}
               label={step.label}
-              title={step.title}
               activeStep={activeStep && activeStep.step}
               onClick={e => this.onStep(activeStep && activeStep.step)}
           />
@@ -105,7 +104,7 @@ class OrderServiceForm extends Component {
 
       return (
         <React.Fragment>
-          <Modal show={showOrder} onHide={this.onCancel} key='OrderModal' dialogClassName="modal-dialog modal-lg wizard-pf">
+          <Modal show={showOrder} onHide={this.onCancel} key='OrderModal' dialogClassName="modal-lg wizard-pf">
             <Wizard show={showOrder} key={'OrderWizard'}>
               <Wizard.Body>
                 <Wizard.Steps steps={this.renderWizardSteps()}/>
@@ -140,7 +139,7 @@ class OrderServiceForm extends Component {
                       Order
                     </Button>
                 )}
-                {activeStepIndex === wizardSteps.length && (
+                {activeStepIndex === wizardSteps.length - 1 && (
                     <Button variant="secondary" type="button" onClick={this.onCancel}>
                       Close
                     </Button>

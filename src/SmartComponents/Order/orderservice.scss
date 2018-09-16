@@ -19,6 +19,7 @@
   padding: 10px;
   margin: 0 auto;
   max-height: 900px;
+  max-width: 700px;
   width: auto;
 }
 .wizard-pf .modal-content {
@@ -583,5 +584,5 @@
 .wizard-pf-step.disabled > a:hover,
 .wizard-pf-step-alt-substep.disabled > a:hover,
 .wizard-pf-sidebar .list-group-item.disabled > a:hover {
-  cursor: not-allowed;
+
 }

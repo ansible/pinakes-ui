@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form as PFForm, Radio } from 'patternfly-react';
+import { Form as PFForm } from 'patternfly-react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from "react-jsonschema-form";
@@ -40,11 +40,21 @@ class OrderServiceFormStepConfiguration extends React.Component {
     this.props.fetchServicePlanParameters(provider_id, catalog_id, plan_id);
   }
 
+  formDatatoArray(obj){
+    let keys = Object.keys(obj);
+    let values = Object.values(obj);
+    let params = [];
+    for (let idx = 0; idx < keys.length; idx++) {
+      params.push({name: keys[idx], value: values[idx]})
+    }
+    return params;
+  }
+
   onSubmit (data) {
     console.log("Data submitted: ", data.formData);
     const {provider_id, catalog_id} = this.props;
     const plan_id = this.props.selectedPlan || catalog_id;
-    sendSubmitOrder({ provider_id: provider_id, catalog_id: catalog_id, plan_id: plan_id, plan_parameters: data.formData});
+    sendSubmitOrder({ provider_id: provider_id, catalog_id: catalog_id, plan_id: plan_id, plan_parameters: this.formDatatoArray(data.formData)});
     this.props.hideModal();
    }
 

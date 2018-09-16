@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './content-list.scss';
 import { BarLoader } from 'react-spinners';
 import propTypes from 'prop-types';
 import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';

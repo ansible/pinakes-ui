@@ -43,6 +43,8 @@ class OrderServiceFormStepInformation extends React.Component {
               </tr>
               </tbody>
             </table>
+            <br/>
+            <br/>
           </div>
           {this.props.description}
         </Form.FormGroup>

@@ -57,7 +57,7 @@ export const OrderReducer = (state = initialState, action) => {
         serviceData: action.payload,
         isLoading: false
       };
-    case ActionTypes.SET_SERVICE_PLAN:
+    case ActionTypes.SET_SELECTED_PLAN:
       return {
         ...state,
         selectedPlan: action.payload,
