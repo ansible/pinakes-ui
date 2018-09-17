@@ -60,6 +60,12 @@ export function sendSubmitOrder(parameters) {
   });
 }
 
+export function setServicePlan(data) {
+  console.log('setServicePlan: ');
+  console.log(data);
+  return data;
+};
+
 export function setServiceData(data) {
   console.log('setServiceData: ');
   console.log(data);

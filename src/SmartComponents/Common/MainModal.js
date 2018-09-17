@@ -49,7 +49,7 @@ class MainModalContainer extends React.Component {
     const SpecifiedModal = MODAL_TYPES[this.props.modalType]
     return (
       <div>
-        <Modal isOpen={this.props.modalProps.open} id='ServiceModal' className="modal-dialog modal-lg" onClose={this.closeModal}>
+        <Modal isOpen={this.props.modalProps.open} id='ServiceModal' className="modal-dialog modal-lg" title={'Order'} onClose={this.closeModal}>
           <ModalBoxHeader>
             <ModalBoxCloseButton onClose={this.closeModal}/>
           </ModalBoxHeader>
