@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { PageHeader } from '@red-hat-insights/insights-frontend-components';
 import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Section } from '@red-hat-insights/insights-frontend-components';
-import { Card } from '@red-hat-insights/insights-frontend-components';
+import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
 import { fetchOrderList } from 'Store/Actions/OrderActions';
-import ContentList from '../ContentGallery/ContentList'
+import ContentList from '../ContentGallery/ContentList';
 import propTypes from 'prop-types';
 
 class Orders extends Component {
@@ -15,28 +14,30 @@ class Orders extends Component {
     }
 
     componentDidMount() {
-      this.props.fetchOrders();
+        this.props.fetchOrders();
     }
 
     render() {
         let orderList = {
             ...this.props.orderList,
-            isLoading: this.props.isLoading,
+            isLoading: this.props.isLoading
         };
         return (
-            <div className="pf-l-stack">
-                <div className="pf-l-stack__item pf-m-secondary ">
-                    <PageHeader>
-                        <PageHeaderTitle title="Orders" />
-                    </PageHeader>
-                </div>
+            <Main>
+                <div className="pf-l-stack">
+                    <div className="pf-l-stack__item pf-m-secondary ">
+                        <PageHeader>
+                            <PageHeaderTitle title="Orders" />
+                        </PageHeader>
+                    </div>
 
-                <Section type="content">
-                  <div className="pf-l-stack__item pf-m-secondary ">
-                    <ContentList {...orderList} />
-                  </div>
-                </Section>
-            </div>
+                    <Section type='content'>
+                        <div className="pf-l-stack__item pf-m-secondary ">
+                            <ContentList {...orderList} />
+                        </div>
+                    </Section>
+                </div>
+            </Main>
         );
     }
 }
@@ -44,7 +45,7 @@ class Orders extends Component {
 function mapStateToProps(state) {
     return {
         orderList: {
-            items: state.OrderStore.orders,
+            items: state.OrderStore.orders
         },
         isLoading: state.OrderStore.isLoading
     };
@@ -52,7 +53,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
     return {
-      fetchOrders: () => dispatch(fetchOrderList()),
+        fetchOrders: () => dispatch(fetchOrderList())
     };
 };
 
@@ -61,7 +62,7 @@ Orders.propTypes = {
     isLoading: propTypes.bool,
     searchFilter: propTypes.string,
     history: propTypes.object,
-    fetchOrders: propTypes.func,
+    fetchOrders: propTypes.func
 };
 
 export default withRouter(
