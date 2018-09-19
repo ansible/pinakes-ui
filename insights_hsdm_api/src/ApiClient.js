@@ -32,14 +32,11 @@ export default class ApiClient {
       /**
       * The base URL against which to resolve every API call's (relative) path.
       * @type {String}
-      * @default https://virtserver.swaggerhub.com/r/insights/platform/service-catalog/1.0.0
+      * @default https://virtserver.swaggerhub.com/r/insights/platform/service-portal/1.0.0
       */
-      //this.basePath = 'https://virtserver.swaggerhub.com/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
       let apiHost = process.env.API_HOST || "localhost";
       let apiPort = process.env.API_PORT || "5000";
-      this.basePath = 'https://' + apiHost + ':' + apiPort + '/r/insights/platform/service-catalog/1.0.0'.replace(/\/+$/, '');
-
-      //this.basePath = 'https://0.0.0.0:5000/mkanoor/InsightsCatalog/1.0.0'.replace(/\/+$/, '');
+      this.basePath = 'https://' + apiHost + ':' + apiPort + '/r/insights/platform/service-portal/1.0.0'.replace(/\/+$/, '');
 
         /**
          * The authentication methods to be included for all API calls.
