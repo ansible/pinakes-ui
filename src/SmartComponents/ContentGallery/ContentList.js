@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { BarLoader } from 'react-spinners';
 import propTypes from 'prop-types';
-import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';
-import { PageHeader, PageHeaderTitle, Table, TableVariant } from '@red-hat-insights/insights-frontend-components';
+import { Pagination, PageHeader, PageHeaderTitle, Table, TableVariant, Section } from '@red-hat-insights/insights-frontend-components';
 import { Bullseye } from '@patternfly/react-core';
 
 const defaultProperty = property => {
@@ -41,14 +40,13 @@ class ContentList extends Component {
           <Bullseye>
             <BarLoader color={'#00b9e4'} loading={this.props.isLoading} />
           </Bullseye>
-          <div className="pf-l-grid pf-m-gutter">
+          <Section type='content'>
             { (this.props.items && this.props.items.length > 0) && (
               <Table
                   header={ Object.keys(this.props.items[0])}
-                  variant={TableVariant.large}
                   rows={ this.props.items.map( order => { let row = {}; row['cells'] = (Object.values(order)).map(val => {return val===undefined ? '' : val.toString()}); return row;}) }/>)
             }
-          </div>
+          </Section>
         </React.Fragment>
       );
     }
