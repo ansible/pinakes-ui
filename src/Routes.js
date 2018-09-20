@@ -22,11 +22,14 @@ const CatalogItems = asyncComponent(() => import('./SmartComponents/CatalogItem/
 const CatalogItemShow = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItem'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const AddPlatformForm = asyncComponent(() => import('./SmartComponents/Platform/AddPlatformForm'));
+const AdminDashboard = asyncComponent(() => import('./SmartComponents/Admin/AdminDashboard'));
+
 const paths = {
     service_details: '/service_portal/services/:catalog_id',
     addplatform:  '/service_portal/addplatform',
     services: '/service_portal/services',
-    orders: '/service_portal/orders'
+    orders: '/service_portal/orders',
+    admin: '/service_portal/admin'
 };
 
 type Props = {
@@ -63,6 +66,7 @@ export const Routes = (props: Props) => {
             <InsightsRoute exact path={paths.services} component={CatalogItems} rootClass="services" />
             <InsightsRoute exact path={paths.orders} component={Orders} rootClass="orders" />
             <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="addplatform" />
+            <InsightsRoute exact path={paths.admin} component={AdminDashboard} rootClass="admin" />
             {/* Finally, catch all unmatched routes */}
             <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.services} />)} />
         </Switch>

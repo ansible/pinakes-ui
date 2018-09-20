@@ -1,0 +1,67 @@
+@import "../../App";
+
+.card_style {
+  box-shadow: 2px 2px 8px grey;
+  background-color: white;
+  margin-top: 0px;
+
+}
+
+.card_header {
+  background-color: white;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  height: 60px;
+};
+
+.card_body {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  background-color: white;
+  text-align: left;
+  height: 200px;
+}
+
+.card_element {
+  background-color: white;
+  textAlign: left;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  font-size: small;
+}
+
+.card_footer {
+ background-color: lightgrey;
+ textAlign: left;
+ position: sticky;
+ bottom: 0px;
+ font-family: '--pf-global--FontFamily--sans-serif';
+ font-size: small;
+}
+
+.card_description {
+  color: blue;
+  textAlign: left;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  height: 48px;
+}
+
+.bottom-48 {
+  align-self: flex-end;
+  min-height: 48px;
+  max-height: 48px;
+  background-color: white;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  font-size: small;
+}
+
+.bottom-24 {
+  align-self: flex-end;
+  min-height: 24px;
+  max-height: 24px;
+  background-color: white;
+  font-family: '--pf-global--FontFamily--sans-serif';
+  font-size: x-small;
+}

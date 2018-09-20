@@ -48,6 +48,9 @@ function buildNavigation () {
     }, {
         title: 'Add Platform',
         id: 'service_portal/addplatform'
+    }, {
+      title: 'Administration',
+      id: 'service_portal/admin'
     }].map(item => ({
         ...item,
         active: item.id === currentPath
