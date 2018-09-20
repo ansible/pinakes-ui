@@ -22,7 +22,7 @@ export function getproviderDataFormat(type) {
   });
 }
 
-export function addProvider(providerData) {
+export function addPlatform(providerData) {
   return api.addProvider(providerData).then((data) => {
     console.log('Add provider API called successfully. Returned data: ' + data);
     return data;

@@ -21,7 +21,7 @@ import some from 'lodash/some';
 const CatalogItems = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItems'));
 const CatalogItemShow = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItem'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
-const AddProviderForm = asyncComponent(() => import('./SmartComponents/Provider/AddProviderForm'));
+const AddPlatformForm = asyncComponent(() => import('./SmartComponents/Platform/AddPlatformForm'));
 const paths = {
     CatalogItemShow: '/catalog/catalogitems/:catalog_id',
     addprovider:  '/catalog/addprovider',
@@ -62,7 +62,7 @@ export const Routes = (props: Props) => {
             <InsightsRoute exact path={paths.CatalogItemShow} component={CatalogItemShow} rootClass="catalogitems" />
             <InsightsRoute exact path={paths.catalogitems} component={CatalogItems} rootClass="catalogitems" />
             <InsightsRoute exact path={paths.orders} component={Orders} rootClass="catalogitems" />
-            <InsightsRoute exact path={paths.addprovider} component={AddProviderForm} rootClass="addprovider" />
+            <InsightsRoute exact path={paths.addprovider} component={AddPlatformForm} rootClass="addprovider" />
             {/* Finally, catch all unmatched routes */}
             <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.catalogitems} />)} />
         </Switch>

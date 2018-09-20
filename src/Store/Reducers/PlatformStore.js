@@ -7,25 +7,25 @@ const initialState = {
 };
 
 // Reducer
-export const ProviderReducer = (state = initialState, action) => {
+export const PlatformReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.FETCH_PROVIDER_DATA + '_PENDING':
+        case ActionTypes.FETCH_PLATFORM_DATA + '_PENDING':
             return {
                 ...state,
                 isLoading: true
             };
-        case ActionTypes.FETCH_PROVIDER_DATA + '_FULFILLED':
+        case ActionTypes.FETCH_PLATFORM_DATA + '_FULFILLED':
             return {
                 ...state,
                 ...action.payload,
                 isLoading: false
            };
-      case ActionTypes.ADD_PROVIDER + '_PENDING':
+      case ActionTypes.ADD_PLATFORM + '_PENDING':
         return {
           ...state,
           isLoading: true
         };
-      case ActionTypes.ADD_PROVIDER + '_FULFILLED':
+      case ActionTypes.ADD_PLATFORM + '_FULFILLED':
         return {
           ...state,
           ...action.payload,

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button } from '@patternfly/react-core';
-import { PageHeader } from '@red-hat-insights/insights-frontend-components';
-import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Main } from '@red-hat-insights/insights-frontend-components';
-import { connect } from 'react-redux';
-import './addprovider.scss';
-import propTypes from 'prop-types';
-import { fetchproviderDataFormat, addProvider } from '../../Store/Actions/ProviderActions';
 import Form from 'react-jsonschema-form';
+import propTypes from 'prop-types';
+import './addplatform.scss';
+import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
+import { fetchproviderDataFormat, addPlatform } from '../../Store/Actions/PlatformActions';
+
 
 const schema1 = {
     type: 'object',
@@ -20,10 +19,10 @@ const schema1 = {
 };
 
 const schema = {
-    title: 'Add an Openshift Provider',
+    title: 'Add an Openshift Platform',
     type: 'object',
     properties: {
-        name: { title: 'Provider Name', type: 'string' },
+        name: { title: 'Platform Name', type: 'string' },
         description: { title: 'Description', type: 'string' },
         url: { title: 'URL', type: 'string' },
         verify_ssl: { title: 'Verify SSL', type: 'boolean', default: false },
@@ -40,7 +39,7 @@ const uischema = {
     }
 };
 
-class AddProviderForm extends Component {
+class AddPlatformForm extends Component {
 
     fetchData() {
         let defaultProps = {};
@@ -54,7 +53,7 @@ class AddProviderForm extends Component {
     };
 
     onSubmit (data) {
-        addProvider(data.formData);
+        addPlatform(data.formData);
         console.log('Data submitted: ', data.formData);
         this.props.history.push('/catalog/catalogitems/');
     }
@@ -65,14 +64,14 @@ class AddProviderForm extends Component {
     }
 
     onError() {
-        console.log('Error in AddProvider form');
+        console.log('Error in AddPlatform form');
         this.props.history.push('/catalog/catalogitems/');
     };
 
     render(store) {
         let providerDataFormat = {
             ...this.props.providerDataFormat,
-            addProvider: this.props.addProvider,
+            addPlatform: this.props.addPlatform,
             isLoading: this.props.isLoading,
             fetchData: () => this.fetchData()
         };
@@ -84,7 +83,7 @@ class AddProviderForm extends Component {
                 <div className="pf-l-stack">
                     <div className="pf-l-stack__item pf-m-secondary ">
                         <PageHeader>
-                            <PageHeaderTitle title= 'Add Provider' />
+                            <PageHeaderTitle title= 'Add Platform' />
                         </PageHeader>
                     </div>
                     <div className="pf-l-stack">
@@ -105,30 +104,30 @@ class AddProviderForm extends Component {
 }
 
 function mapStateToProps(state) {
-    return { providerDataFormat: state.ProviderStore.providerDataFormat,
-        addProvider: state.ProviderStore.addProvider,
-        isLoading: state.ProviderStore.isLoading };
+    return { providerDataFormat: state.PlatformStore.providerDataFormat,
+        addPlatform: state.PlatformStore.addPlatform,
+        isLoading: state.PlatformStore.isLoading };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchproviderDataFormat: () => dispatch(fetchproviderDataFormat()),
-        addProvider: () => dispatch(addProvider())
+        addPlatform: () => dispatch(addPlatform())
     };
 };
 
-AddProviderForm.propTypes = {
+AddPlatformForm.propTypes = {
     providerDataFormat: propTypes.object,
     providerInput: propTypes.object,
     isLoading: propTypes.bool,
     history: propTypes.object,
     fetchproviderDataFormat: propTypes.func,
-    addProvider: propTypes.func
+    addPlatform: propTypes.func
 };
 
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(AddProviderForm)
+    )(AddPlatformForm)
 );
