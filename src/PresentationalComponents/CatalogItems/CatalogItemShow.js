@@ -79,12 +79,10 @@ class CatalogItemShow extends React.Component {
             <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
           </div>
           <div className="card_body">
-            <h>{this.props.name}</h>
-            <br/><br/>
+            <h4>{this.props.name}</h4>
             {itemDetails(this.props)}
           </div>
-          <br/>
-          <div className="bottom-24">
+          <div className="bottom-48">
           </div>
         </div>
       </GridItem>
