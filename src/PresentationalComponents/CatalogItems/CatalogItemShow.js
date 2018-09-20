@@ -5,10 +5,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../ImageWithDefault';
-import OrderServiceForm from '../../SmartComponents/Order/OrderServiceForm';
-import { showServiceOrderWizard, hideServiceOrderWizard} from "../../Store/Actions/OrderActions";
-import { OrderStore } from "../../Store/Actions/OrderActions";
-import {hideModal, showModal} from "../../Store/Actions/MainModalActions";
+import { OrderStore, showServiceOrderWizard, hideServiceOrderWizard } from "../../Store/Actions/OrderActions";
+import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
+import { GridItem } from '@patternfly/react-core'
 
 
 const propLine = (prop, value) => {
@@ -70,22 +69,20 @@ class CatalogItemShow extends React.Component {
 
   render() {
     return (
-        <React.Fragment>
-          <div className="pf-l-grid__item pf-m-2-col pf-m-6-row">
-            <div className="card_style"  onClick={ () => {this.handleOnClick(this.props)}}>
-              <div className="card_header">
-                <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="80" height="80" />
-              </div>
-              <div className="card_body">
-                {itemDetails(this.props)}
-              </div>
-              <br/>
-              <div className="bottom-48">
-                {this.props.name}
-              </div>
-            </div>
+      <GridItem sm={2} md={2} lg={2} xl={2}>
+        <div className="card_style"  onClick={ () => {this.handleOnClick(this.props)}}>
+          <div className="card_header">
+            <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
           </div>
-        </React.Fragment>
+          <div className="card_body">
+            {itemDetails(this.props)}
+          </div>
+          <br/>
+          <div className="bottom-48">
+            {this.props.name}
+          </div>
+        </div>
+      </GridItem>
     );
   };
 }
