@@ -23,10 +23,10 @@ const CatalogItemShow = asyncComponent(() => import('./SmartComponents/CatalogIt
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const AddPlatformForm = asyncComponent(() => import('./SmartComponents/Platform/AddPlatformForm'));
 const paths = {
-    CatalogItemShow: '/catalog/catalogitems/:catalog_id',
-    addprovider:  '/catalog/addprovider',
-    catalogitems: '/catalog/catalogitems',
-    orders: '/catalog/orders'
+    service_details: '/service_portal/services/:catalog_id',
+    addplatform:  '/service_portal/addplatform',
+    services: '/service_portal/services',
+    orders: '/service_portal/orders'
 };
 
 type Props = {
@@ -59,12 +59,12 @@ export const Routes = (props: Props) => {
 
     return (
         <Switch>
-            <InsightsRoute exact path={paths.CatalogItemShow} component={CatalogItemShow} rootClass="catalogitems" />
-            <InsightsRoute exact path={paths.catalogitems} component={CatalogItems} rootClass="catalogitems" />
-            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="catalogitems" />
-            <InsightsRoute exact path={paths.addprovider} component={AddPlatformForm} rootClass="addprovider" />
+            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="service_details" />
+            <InsightsRoute exact path={paths.services} component={CatalogItems} rootClass="services" />
+            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="orders" />
+            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="addplatform" />
             {/* Finally, catch all unmatched routes */}
-            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.catalogitems} />)} />
+            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.services} />)} />
         </Switch>
     );
 };

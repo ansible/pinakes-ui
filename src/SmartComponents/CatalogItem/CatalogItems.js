@@ -43,7 +43,7 @@ class CatalogItems extends Component {
                 <div className="pf-l-stack">
                     <div className="pf-l-stack__item pf-m-secondary ">
                         <PageHeader>
-                            <PageHeaderTitle title="Catalog Items" />
+                            <PageHeaderTitle title="Services" />
                         </PageHeader>
                     </div>
 
