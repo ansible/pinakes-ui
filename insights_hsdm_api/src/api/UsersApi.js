@@ -20,6 +20,7 @@ import Order from '../model/Order';
 import OrderItem from '../model/OrderItem';
 import PlanParameter from '../model/PlanParameter';
 import Portfolio from '../model/Portfolio';
+import PortfolioItem from '../model/PortfolioItem';
 import ProgressMessage from '../model/ProgressMessage';
 import Provider from '../model/Provider';
 
@@ -513,6 +514,116 @@ export default class UsersApi {
 
 
     /**
+     * Fetch a portfolio item from a specific portfolio
+     * By passing in the portfolio id and portfolio_item_id you can fetch the portfolio items in the portfolio.
+     * @param {Number} portfolioId The Portfolio ID
+     * @param {Number} portfolioItemId The Portfolio Item ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PortfolioItem>} and HTTP response
+     */
+    fetchPortfolioItemFromPortfolioWithHttpInfo(portfolioId, portfolioItemId) {
+      let postBody = null;
+
+      // verify the required parameter 'portfolioId' is set
+      if (portfolioId === undefined || portfolioId === null) {
+        throw new Error("Missing the required parameter 'portfolioId' when calling fetchPortfolioItemFromPortfolio");
+      }
+
+      // verify the required parameter 'portfolioItemId' is set
+      if (portfolioItemId === undefined || portfolioItemId === null) {
+        throw new Error("Missing the required parameter 'portfolioItemId' when calling fetchPortfolioItemFromPortfolio");
+      }
+
+
+      let pathParams = {
+        'portfolio_id': portfolioId,
+        'portfolio_item_id': portfolioItemId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AdminSecurity', 'UserSecurity'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [PortfolioItem];
+
+      return this.apiClient.callApi(
+        '/portfolios/{portfolio_id}/portfolio_items/{portfolio_item_id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Fetch a portfolio item from a specific portfolio
+     * By passing in the portfolio id and portfolio_item_id you can fetch the portfolio items in the portfolio.
+     * @param {Number} portfolioId The Portfolio ID
+     * @param {Number} portfolioItemId The Portfolio Item ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PortfolioItem>}
+     */
+    fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId) {
+      return this.fetchPortfolioItemFromPortfolioWithHttpInfo(portfolioId, portfolioItemId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Fetch all portfolio items from a specific portfolio
+     * By passing in the portfolio id you can fetch all the portfolio items in the portfolio.
+     * @param {Number} portfolioId The Portfolio ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PortfolioItem>} and HTTP response
+     */
+    fetchPortfolioItemsWithPortfolioWithHttpInfo(portfolioId) {
+      let postBody = null;
+
+      // verify the required parameter 'portfolioId' is set
+      if (portfolioId === undefined || portfolioId === null) {
+        throw new Error("Missing the required parameter 'portfolioId' when calling fetchPortfolioItemsWithPortfolio");
+      }
+
+
+      let pathParams = {
+        'portfolio_id': portfolioId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AdminSecurity', 'UserSecurity'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [PortfolioItem];
+
+      return this.apiClient.callApi(
+        '/portfolios/{portfolio_id}/portfolio_items', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Fetch all portfolio items from a specific portfolio
+     * By passing in the portfolio id you can fetch all the portfolio items in the portfolio.
+     * @param {Number} portfolioId The Portfolio ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PortfolioItem>}
+     */
+    fetchPortfolioItemsWithPortfolio(portfolioId) {
+      return this.fetchPortfolioItemsWithPortfolioWithHttpInfo(portfolioId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Fetch a specific Portfolio
      * By passing in the portfolio id you can fetch a specific portfolio. 
      * @param {Number} portfolioId The Portfolio ID
@@ -543,7 +654,7 @@ export default class UsersApi {
       let returnType = Portfolio;
 
       return this.apiClient.callApi(
-        '/portfolio/{portfolio_id}', 'GET',
+        '/portfolios/{portfolio_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -710,6 +821,49 @@ export default class UsersApi {
      */
     listOrders() {
       return this.listOrdersWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * API to list portfolio_items
+     * Returns an array of portfolio item objects
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PortfolioItem>} and HTTP response
+     */
+    listPortfolioItemsWithHttpInfo() {
+      let postBody = null;
+
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AdminSecurity', 'UserSecurity'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = [PortfolioItem];
+
+      return this.apiClient.callApi(
+        '/portfolio_items', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * API to list portfolio_items
+     * Returns an array of portfolio item objects
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PortfolioItem>}
+     */
+    listPortfolioItems() {
+      return this.listPortfolioItemsWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });

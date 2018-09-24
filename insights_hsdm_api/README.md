@@ -97,12 +97,17 @@ api.addPortfolio(body).then(function(data) {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/r/insights/platform/service-catalog/1.0.0*
+All URIs are relative to *https://virtserver.swaggerhub.com/r/insights/platform/service-portal/1.0.0*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *InsightsServiceCatalogApi.AdminsApi* | [**addPortfolio**](docs/AdminsApi.md#addPortfolio) | **POST** /portfolios | API to add a new portfolio
-*InsightsServiceCatalogApi.AdminsApi* | [**fetchPortfolioWithId**](docs/AdminsApi.md#fetchPortfolioWithId) | **GET** /portfolio/{portfolio_id} | Fetch a specific Portfolio
+*InsightsServiceCatalogApi.AdminsApi* | [**addPortfolioItem**](docs/AdminsApi.md#addPortfolioItem) | **POST** /portfolio_items | API to add a new portfolio item
+*InsightsServiceCatalogApi.AdminsApi* | [**addPortfolioItemToPortfolio**](docs/AdminsApi.md#addPortfolioItemToPortfolio) | **POST** /portfolios/{portfolio_id}/portfolio_items/{portfolio_item_id} | Add Portfolio item to a portfolio
+*InsightsServiceCatalogApi.AdminsApi* | [**fetchPortfolioItemFromPortfolio**](docs/AdminsApi.md#fetchPortfolioItemFromPortfolio) | **GET** /portfolios/{portfolio_id}/portfolio_items/{portfolio_item_id} | Fetch a portfolio item from a specific portfolio
+*InsightsServiceCatalogApi.AdminsApi* | [**fetchPortfolioItemsWithPortfolio**](docs/AdminsApi.md#fetchPortfolioItemsWithPortfolio) | **GET** /portfolios/{portfolio_id}/portfolio_items | Fetch all portfolio items from a specific portfolio
+*InsightsServiceCatalogApi.AdminsApi* | [**fetchPortfolioWithId**](docs/AdminsApi.md#fetchPortfolioWithId) | **GET** /portfolios/{portfolio_id} | Fetch a specific Portfolio
+*InsightsServiceCatalogApi.AdminsApi* | [**listPortfolioItems**](docs/AdminsApi.md#listPortfolioItems) | **GET** /portfolio_items | API to list portfolio_items
 *InsightsServiceCatalogApi.AdminsApi* | [**listPortfolios**](docs/AdminsApi.md#listPortfolios) | **GET** /portfolios | API to list portfolios
 *InsightsServiceCatalogApi.UsersApi* | [**addProvider**](docs/UsersApi.md#addProvider) | **POST** /providers | Temporary API to add a new provider
 *InsightsServiceCatalogApi.UsersApi* | [**addToOrder**](docs/UsersApi.md#addToOrder) | **POST** /orders/{order_id}/items | Add a Catalog to the Order in Pending State
@@ -112,10 +117,13 @@ Class | Method | HTTP request | Description
 *InsightsServiceCatalogApi.UsersApi* | [**fetchCatalogItemWithProvider**](docs/UsersApi.md#fetchCatalogItemWithProvider) | **GET** /providers/{provider_id}/catalog_items | Fetch all or a specific catalog item from a specific provider
 *InsightsServiceCatalogApi.UsersApi* | [**fetchCatalogItemWithProviderAndCatalogID**](docs/UsersApi.md#fetchCatalogItemWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id} | Fetches a specific catalog item for a provider
 *InsightsServiceCatalogApi.UsersApi* | [**fetchPlansWithProviderAndCatalogID**](docs/UsersApi.md#fetchPlansWithProviderAndCatalogID) | **GET** /providers/{provider_id}/catalog_items/{catalog_id}/plans | Fetches all the plans for a specific catalog item for a provider
-*InsightsServiceCatalogApi.UsersApi* | [**fetchPortfolioWithId**](docs/UsersApi.md#fetchPortfolioWithId) | **GET** /portfolio/{portfolio_id} | Fetch a specific Portfolio
+*InsightsServiceCatalogApi.UsersApi* | [**fetchPortfolioItemFromPortfolio**](docs/UsersApi.md#fetchPortfolioItemFromPortfolio) | **GET** /portfolios/{portfolio_id}/portfolio_items/{portfolio_item_id} | Fetch a portfolio item from a specific portfolio
+*InsightsServiceCatalogApi.UsersApi* | [**fetchPortfolioItemsWithPortfolio**](docs/UsersApi.md#fetchPortfolioItemsWithPortfolio) | **GET** /portfolios/{portfolio_id}/portfolio_items | Fetch all portfolio items from a specific portfolio
+*InsightsServiceCatalogApi.UsersApi* | [**fetchPortfolioWithId**](docs/UsersApi.md#fetchPortfolioWithId) | **GET** /portfolios/{portfolio_id} | Fetch a specific Portfolio
 *InsightsServiceCatalogApi.UsersApi* | [**listOrderItem**](docs/UsersApi.md#listOrderItem) | **GET** /orders/{order_id}/items/{order_item_id} | Get an individual item from a given order
 *InsightsServiceCatalogApi.UsersApi* | [**listOrderItems**](docs/UsersApi.md#listOrderItems) | **GET** /orders/{order_id}/items | Get a list of items in a given order
 *InsightsServiceCatalogApi.UsersApi* | [**listOrders**](docs/UsersApi.md#listOrders) | **GET** /orders | Get a list of orders
+*InsightsServiceCatalogApi.UsersApi* | [**listPortfolioItems**](docs/UsersApi.md#listPortfolioItems) | **GET** /portfolio_items | API to list portfolio_items
 *InsightsServiceCatalogApi.UsersApi* | [**listPortfolios**](docs/UsersApi.md#listPortfolios) | **GET** /portfolios | API to list portfolios
 *InsightsServiceCatalogApi.UsersApi* | [**listProgressMessages**](docs/UsersApi.md#listProgressMessages) | **GET** /order_items/{order_item_id}/progress_messages | Get a list of progress messages in an item
 *InsightsServiceCatalogApi.UsersApi* | [**listProviders**](docs/UsersApi.md#listProviders) | **GET** /providers | Temporary API to list provider

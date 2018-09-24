@@ -58,6 +58,66 @@
         done();
       });
     });
+    describe('addPortfolioItem', function() {
+      it('should call addPortfolioItem successfully', function(done) {
+        //uncomment below and update the code to test addPortfolioItem
+        //instance.addPortfolioItem(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('addPortfolioItemToPortfolio', function() {
+      it('should call addPortfolioItemToPortfolio successfully', function(done) {
+        //uncomment below and update the code to test addPortfolioItemToPortfolio
+        //instance.addPortfolioItemToPortfolio(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('fetchPortfolioItemFromPortfolio', function() {
+      it('should call fetchPortfolioItemFromPortfolio successfully', function(done) {
+        //uncomment below and update the code to test fetchPortfolioItemFromPortfolio
+        //instance.fetchPortfolioItemFromPortfolio(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('fetchPortfolioItemsWithPortfolio', function() {
+      it('should call fetchPortfolioItemsWithPortfolio successfully', function(done) {
+        //uncomment below and update the code to test fetchPortfolioItemsWithPortfolio
+        //instance.fetchPortfolioItemsWithPortfolio(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('fetchPortfolioWithId', function() {
+      it('should call fetchPortfolioWithId successfully', function(done) {
+        //uncomment below and update the code to test fetchPortfolioWithId
+        //instance.fetchPortfolioWithId(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('listPortfolioItems', function() {
+      it('should call listPortfolioItems successfully', function(done) {
+        //uncomment below and update the code to test listPortfolioItems
+        //instance.listPortfolioItems(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('listPortfolios', function() {
       it('should call listPortfolios successfully', function(done) {
         //uncomment below and update the code to test listPortfolios
