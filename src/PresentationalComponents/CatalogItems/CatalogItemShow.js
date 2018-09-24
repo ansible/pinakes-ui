@@ -8,6 +8,7 @@ import ImageWithDefault from '../ImageWithDefault';
 import { OrderStore, showServiceOrderWizard, hideServiceOrderWizard } from "../../Store/Actions/OrderActions";
 import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
 import { GridItem } from '@patternfly/react-core'
+import { Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 
 
 const propLine = (prop, value) => {
@@ -74,18 +75,21 @@ class CatalogItemShow extends React.Component {
   render() {
     return (
       <GridItem sm={2} md={2} lg={2} xl={2}>
-        <div className="card_style"  onClick={ () => {this.handleOnClick(this.props)}}>
-          <div className="card_header">
-            <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
+        <Card>
+          <div className="card_style" onClick={ () => {this.handleOnClick(this.props)}}>
+            <CardHeader className="card_header">
+              <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
+            </CardHeader>
+            <CardBody className="card_body">
+              <h4>{this.props.name}</h4>
+              {itemDetails(this.props)}
+            </CardBody>
+            <CardFooter>
+            </CardFooter>
           </div>
-          <div className="card_body">
-            <h4>{this.props.name}</h4>
-            {itemDetails(this.props)}
-          </div>
-          <div className="bottom-48">
-          </div>
-        </div>
+        </Card>
       </GridItem>
+
     );
   };
 }
