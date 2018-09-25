@@ -88,6 +88,16 @@
         done();
       });
     });
+    describe('catalogPlanSchema', function() {
+      it('should call catalogPlanSchema successfully', function(done) {
+        //uncomment below and update the code to test catalogPlanSchema
+        //instance.catalogPlanSchema(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('fetchCatalogItemWithProvider', function() {
       it('should call fetchCatalogItemWithProvider successfully', function(done) {
         //uncomment below and update the code to test fetchCatalogItemWithProvider
@@ -118,6 +128,36 @@
         done();
       });
     });
+    describe('fetchPortfolioItemFromPortfolio', function() {
+      it('should call fetchPortfolioItemFromPortfolio successfully', function(done) {
+        //uncomment below and update the code to test fetchPortfolioItemFromPortfolio
+        //instance.fetchPortfolioItemFromPortfolio(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('fetchPortfolioItemsWithPortfolio', function() {
+      it('should call fetchPortfolioItemsWithPortfolio successfully', function(done) {
+        //uncomment below and update the code to test fetchPortfolioItemsWithPortfolio
+        //instance.fetchPortfolioItemsWithPortfolio(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('fetchPortfolioWithId', function() {
+      it('should call fetchPortfolioWithId successfully', function(done) {
+        //uncomment below and update the code to test fetchPortfolioWithId
+        //instance.fetchPortfolioWithId(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('listOrderItem', function() {
       it('should call listOrderItem successfully', function(done) {
         //uncomment below and update the code to test listOrderItem
@@ -142,6 +182,26 @@
       it('should call listOrders successfully', function(done) {
         //uncomment below and update the code to test listOrders
         //instance.listOrders(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('listPortfolioItems', function() {
+      it('should call listPortfolioItems successfully', function(done) {
+        //uncomment below and update the code to test listPortfolioItems
+        //instance.listPortfolioItems(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('listPortfolios', function() {
+      it('should call listPortfolios successfully', function(done) {
+        //uncomment below and update the code to test listPortfolios
+        //instance.listPortfolios(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

@@ -60,6 +60,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property portfolioItemId (base name: "portfolio_item_id")', function() {
+      // uncomment below and update the code to test the property portfolioItemId
+      //var instane = new InsightsServiceCatalogApi.CatalogItem();
+      //expect(instance).to.be();
+    });
+
     it('should have the property catalogId (base name: "catalog_id")', function() {
       // uncomment below and update the code to test the property catalogId
       //var instane = new InsightsServiceCatalogApi.CatalogItem();
