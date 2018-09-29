@@ -5,7 +5,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../ImageWithDefault';
-import { PortfolioStore } from "../../Store/Actions/PortfolioActions";
+import { PortfolioStore, fetchPortfolioItems } from "../../Store/Actions/PortfolioActions";
 import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
 import { GridItem } from '@patternfly/react-core'
 import { Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
@@ -53,10 +53,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-class PortfolioItem extends React.Component {
+class PlatformItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: false, showMenu: false };
+    this.state = { isOpen: true, showMenu: false };
     bindMethods(this, ['onSelect','handleMenuOpen', 'handleMenuClose', 'showPortfolioMenu', 'hidePortfolioMenu']);
   };
 
@@ -75,6 +75,7 @@ class PortfolioItem extends React.Component {
   hidePortfolioMenu() {
     this.setState({ showMenu: false })
   }
+
 
   onSelect(event) {
     console.log( 'This is the selected state:', this.state );
@@ -95,14 +96,28 @@ class PortfolioItem extends React.Component {
   render() {
     return (
       <GridItem sm={2} md={2} lg={2} xl={2}>
-        <Card onMouseEnter = { this.handleMenuOpen }
-              onMouseLeave = { this.handleMenuClose }
+        <Card onMouseEnter = { this.showPortfolioMenu }
+              onMouseLeave = { this.hidePortfolioMenu }
         >
           <div className="card_style_with_hover">
             <CardHeader className="card_header">
               <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
             </CardHeader>
             <CardBody className="card_body">
+              { this.state.showMenu &&
+                <div className = "mask flex-center rgba-grey-strong">
+                  <Dropdown
+                      isOpen={ this.state.isOpen }
+                      onToggle={this.onToggle}
+                      onSelect={this.onSelect}
+                      position={DropdownPosition.left}
+                      toggle={<DropdownToggle onToggle={this.onToggle}> Portfolio </DropdownToggle>}
+                      id="dropdown-menu" itemdata={this.props}
+                  >
+                    <DropdownItem>Add Portfolio</DropdownItem>
+                  </Dropdown>
+                </div>
+              }
               <h4>{this.props.name}</h4>
               {itemDetails(this.props)}
             </CardBody>
@@ -115,13 +130,13 @@ class PortfolioItem extends React.Component {
   };
 }
 
-PortfolioItem.propTypes = {
+PlatformItem.propTypes = {
   history: propTypes.object,
 };
 
 export default withRouter(
     connect(
         null,
-        mapDispatchToProps)(PortfolioItem)
+        mapDispatchToProps)(PlatformItem)
 );
 

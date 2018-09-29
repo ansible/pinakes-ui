@@ -9,7 +9,7 @@ import './orderservice.scss';
 import propTypes from 'prop-types';
 import {OrderStore} from "../../Store/Reducers/OrderStore";
 import { Icon, Form } from 'patternfly-react';
-import {bindMethods} from "../../Helpers/Order/OrderHelper";
+import {bindMethods} from "../../Helpers/Shared/Helper";
 import {OrderServiceFormSteps} from '../Order/OrderServiceFormConstants';
 import {Wizard} from 'patternfly-react';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';

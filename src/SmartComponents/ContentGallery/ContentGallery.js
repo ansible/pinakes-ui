@@ -26,9 +26,6 @@ class ContentGallery extends Component {
       return (
         <Section type='content'>
           <div>
-            <PageHeader>
-              <PageHeaderTitle title={'No Catalog Items'}/>
-            </PageHeader>
           </div>
          </Section>
       );

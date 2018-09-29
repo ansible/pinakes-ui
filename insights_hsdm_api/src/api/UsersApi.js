@@ -147,7 +147,7 @@ export default class UsersApi {
     addToOrder(orderId, item) {
       return this.addToOrderWithHttpInfo(orderId, item)
         .then(function(response_and_data) {
-          return response_and_data.data;
+          return response_and_data;
         });
     }
 

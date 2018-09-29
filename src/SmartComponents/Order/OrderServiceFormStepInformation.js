@@ -4,7 +4,6 @@ import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {bindMethods} from "../../Helpers/Order/OrderHelper";
 
 class OrderServiceFormStepInformation extends React.Component {
   constructor(props) {

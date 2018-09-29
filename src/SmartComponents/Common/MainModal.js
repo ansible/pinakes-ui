@@ -13,7 +13,8 @@ import { default as modalTypes } from './ModalTypes';
 
 const MODAL_TYPES = {
   'alert': modalTypes.alertModal,
-  'order': modalTypes.orderModal
+  'order': modalTypes.orderModal,
+  'addportfolio': modalTypes.addPortfolioModal
 }
 
 const mapStateToProps = state => ({
@@ -49,11 +50,11 @@ class MainModalContainer extends React.Component {
     const SpecifiedModal = MODAL_TYPES[this.props.modalType]
     return (
       <div>
-        <Modal isOpen={this.props.modalProps.open} id='ServiceModal' className="modal-dialog modal-lg" title={'Order'} onClose={this.closeModal}>
+        <Modal isOpen={this.props.modalProps.open} id='mainModal' title={''} className="modal-dialog modal-lg" onClose={this.closeModal}>
           <ModalBoxHeader>
             <ModalBoxCloseButton onClose={this.closeModal}/>
           </ModalBoxHeader>
-          <ModalBoxBody id='ServiceBody'>
+          <ModalBoxBody id='modalBody'>
             <SpecifiedModal
                 closeModal={this.closeModal}
                 {...this.props.modalProps}

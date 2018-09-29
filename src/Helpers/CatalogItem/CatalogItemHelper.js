@@ -58,10 +58,6 @@ function retrieveSingleItem(catItems, id) {
 }
 
 function processCatalogItemRow(key, data) {
-    let modifiedData = {
-        ...data,
-        catalog_id: <b>{data.catalog_id}</b>,
-    };
     return <CatalogItemShow key={data.catalog_id} {...data} />;
 }
 

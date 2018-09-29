@@ -1,6 +1,6 @@
 @import "../../App";
 
-.card_style {
+.card_style_with_hover {
   background-color: white;
 }
 
@@ -17,4 +17,9 @@
   textAlign: left;
   font-family: '--pf-global--FontFamily--sans-serif';
   font-size: small;
+}
+
+.card_style_with_hover:hover {
+  background-color:darkgrey;
+  opacity: 0.8
 }

@@ -8,7 +8,7 @@ import { PageHeader, PageHeaderTitle} from '@red-hat-insights/insights-frontend-
 import { Bullseye, Button, Radio } from '@patternfly/react-core'
 import '../../Utilities/jschema.scss';
 import {fetchServicePlanParameters, fetchServicePlans, sendSubmitOrder} from "../../Store/Actions/OrderActions";
-import {bindMethods} from "../../Helpers/Order/OrderHelper";
+import {bindMethods} from "../../Helpers/Shared/Helper";
 
 const uiSchema =
 {

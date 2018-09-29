@@ -62,11 +62,11 @@ export const Routes = (props: Props) => {
 
     return (
         <Switch>
-            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="service_details" />
+            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="services" />
             <InsightsRoute exact path={paths.services} component={CatalogItems} rootClass="services" />
-            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="orders" />
-            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="addplatform" />
-            <InsightsRoute exact path={paths.admin} component={AdminDashboard} rootClass="admin" />
+            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="services" />
+            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="services" />
+            <InsightsRoute exact path={paths.admin} component={AdminDashboard} rootClass="services" />
             {/* Finally, catch all unmatched routes */}
             <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.services} />)} />
         </Switch>

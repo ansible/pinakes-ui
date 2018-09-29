@@ -158,9 +158,9 @@ export default class AdminsApi {
       }
 
       // verify the required parameter 'item' is set
-      if (item === undefined || item === null) {
-        throw new Error("Missing the required parameter 'item' when calling addPortfolioItemToPortfolio");
-      }
+      //if (item === undefined || item === null) {
+       // throw new Error("Missing the required parameter 'item' when calling addPortfolioItemToPortfolio");
+      //}
 
 
       let pathParams = {
