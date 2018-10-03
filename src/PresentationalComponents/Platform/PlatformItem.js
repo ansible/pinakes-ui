@@ -1,14 +1,13 @@
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './portfolioitem.scss';
-import React from 'react';
+import './platformitem.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../ImageWithDefault';
-import { PortfolioStore, fetchPortfolioItems } from "../../Store/Actions/PortfolioActions";
+import { PlatformStore, fetchPlatformItems } from "../../Store/Actions/PlatformActions";
 import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
-import { GridItem } from '@patternfly/react-core'
-import { Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 import { Dropdown, DropdownItem, DropdownPosition, DropdownToggle } from '@patternfly/react-core';
 import {bindMethods} from "../../Helpers/Shared/Helper";
 
@@ -95,11 +94,11 @@ class PlatformItem extends React.Component {
 
   render() {
     return (
-      <GridItem sm={2} md={2} lg={2} xl={2}>
+      <GridItem key={this.props.id} sm={2} md={2} lg={2} xl={2}>
         <Card onMouseEnter = { this.showPortfolioMenu }
               onMouseLeave = { this.hidePortfolioMenu }
         >
-          <div className="card_style_with_hover">
+          <div className="card_style_with_hover" key={this.props.id}>
             <CardHeader className="card_header">
               <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
             </CardHeader>

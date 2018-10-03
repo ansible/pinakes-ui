@@ -48,8 +48,11 @@ export default withRouter(connect()(App));
 function buildNavigation () {
     const currentPath = window.location.pathname.split('/').slice(-1)[0];
     return [{
+      title: 'Service Portal',
+      id: 'service_portal/service_portal'
+    },{
         title: 'Services',
-        id: 'service_portal/services'
+        id: 'service_portal/platform_items'
     }, {
       title: 'Orders',
       id: 'service_portal/orders'

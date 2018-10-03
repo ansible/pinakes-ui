@@ -18,16 +18,20 @@ import some from 'lodash/some';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
-const CatalogItems = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItems'));
+const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePortal/ServicePortal'));
+const PlatformItems = asyncComponent(() => import('./SmartComponents/Platform/PlatformItems'));
+const PortfolioItems = asyncComponent(() => import('./SmartComponents/Portfolio/PortfolioItems'));
 const CatalogItemShow = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItem'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
-const AddPlatformForm = asyncComponent(() => import('./SmartComponents/Platform/AddPlatformForm'));
+const AddPlatformForm = asyncComponent(() => import('./SmartComponents/AddPlatform/AddPlatformForm'));
 const AdminDashboard = asyncComponent(() => import('./SmartComponents/Admin/AdminDashboard'));
 
 const paths = {
+    service_portal: '/service_portal/service_portal',
     service_details: '/service_portal/services/:catalog_id',
     addplatform:  '/service_portal/addplatform',
-    services: '/service_portal/services',
+    platform_items: '/service_portal/platform_items/:filter?',
+    portfolio_items: '/service_portal/portfolio_items/:filter?',
     orders: '/service_portal/orders',
     admin: '/service_portal/admin'
 };
@@ -62,13 +66,14 @@ export const Routes = (props: Props) => {
 
     return (
         <Switch>
-            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="services" />
-            <InsightsRoute exact path={paths.services} component={CatalogItems} rootClass="services" />
-            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="services" />
-            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="services" />
-            <InsightsRoute exact path={paths.admin} component={AdminDashboard} rootClass="services" />
+            <InsightsRoute exact path={paths.service_portal} component={ServicePortal} rootClass="admin" />
+            <InsightsRoute exact path={paths.platform_items} component={PlatformItems} rootClass="platform_items" />
+            <InsightsRoute exact path={paths.portfolio_items} component={PortfolioItems} rootClass="portfolio_items" />
+            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="admin" />
+            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="admin" />
+            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="admin" />
             {/* Finally, catch all unmatched routes */}
-            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.services} />)} />
+            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.service_portal} />)} />
         </Switch>
     );
 };

@@ -1,14 +1,8 @@
 import React from 'react';
 import CatalogItemShow from 'PresentationalComponents/CatalogItems/CatalogItemShow';
+import { getUserApi } from '../Shared/userLogin';
 
-
-const InsightsHsdmApi = require('../../../insights_hsdm_api');
-const defaultClient = InsightsHsdmApi.ApiClient.instance;
-// Configure HTTP basic authorization: UserSecurity
-const UserSecurity = defaultClient.authentications['UserSecurity'];
-
-const api = new InsightsHsdmApi.UsersApi();
-
+const api = getUserApi();
 export function getCatalogItems(apiProps) {
     //return processCatalogItems(loadDemoCatalogItems);
     return api.catalogItems().then((data) => {

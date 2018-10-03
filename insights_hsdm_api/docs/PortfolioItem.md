@@ -3,7 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**portfolioId** | **Number** |  | [optional] 
+**id** | **String** |  | [optional] 
+**portfolioId** | **String** |  | [optional] 
 **favorite** | **Boolean** |  | [optional] 
 **name** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 

@@ -48,26 +48,6 @@
   }
 
   describe('UsersApi', function() {
-    describe('addProvider', function() {
-      it('should call addProvider successfully', function(done) {
-        //uncomment below and update the code to test addProvider
-        //instance.addProvider(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('addToOrder', function() {
-      it('should call addToOrder successfully', function(done) {
-        //uncomment below and update the code to test addToOrder
-        //instance.addToOrder(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('catalogItems', function() {
       it('should call catalogItems successfully', function(done) {
         //uncomment below and update the code to test catalogItems
@@ -212,36 +192,6 @@
       it('should call listProgressMessages successfully', function(done) {
         //uncomment below and update the code to test listProgressMessages
         //instance.listProgressMessages(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('listProviders', function() {
-      it('should call listProviders successfully', function(done) {
-        //uncomment below and update the code to test listProviders
-        //instance.listProviders(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('newOrder', function() {
-      it('should call newOrder successfully', function(done) {
-        //uncomment below and update the code to test newOrder
-        //instance.newOrder(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('submitOrder', function() {
-      it('should call submitOrder successfully', function(done) {
-        //uncomment below and update the code to test submitOrder
-        //instance.submitOrder(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

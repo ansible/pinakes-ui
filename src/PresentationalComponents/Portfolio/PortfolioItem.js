@@ -1,15 +1,13 @@
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './portfolioitem.scss';
-import React from 'react';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../ImageWithDefault';
 import { PortfolioStore } from "../../Store/Actions/PortfolioActions";
 import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
-import { GridItem } from '@patternfly/react-core'
-import { Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
-import { Dropdown, DropdownItem, DropdownPosition, DropdownToggle } from '@patternfly/react-core';
+import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 import {bindMethods} from "../../Helpers/Shared/Helper";
 
 
@@ -56,49 +54,25 @@ const mapDispatchToProps = dispatch => {
 class PortfolioItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: false, showMenu: false };
-    bindMethods(this, ['onSelect','handleMenuOpen', 'handleMenuClose', 'showPortfolioMenu', 'hidePortfolioMenu']);
+    this.handleOnClick = this.handleOnClick.bind(this);
   };
 
-  handleMenuOpen() {
-    this.setState({ isOpen: true })
-  }
-
-  handleMenuClose() {
-    this.setState({ isOpen: false })
-  }
-
-  showPortfolioMenu() {
-    this.setState({ showMenu: true })
-  }
-
-  hidePortfolioMenu() {
-    this.setState({ showMenu: false })
-  }
-
-  onSelect(event) {
-    console.log( 'This is the selected state:', this.state );
-    console.log( 'This is the selected event:', event );
-
+  handleOnClick() {
+    console.log( 'Before OrderService');
+    this.setState({ showOrder: true });
     this.props.showModal({
-      open: true,
-      itemdata: this.props,
-      closeModal: this.props.hideModal
-    }, 'addportfolio');
-
-    this.setState({
-      ...this.state,
-      isOpen: !this.state.isOpen
-    });
+          open: true,
+          servicedata: this.props,
+          closeModal: this.props.hideModal
+    }, 'order');
+    // props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));
   };
 
   render() {
     return (
       <GridItem sm={2} md={2} lg={2} xl={2}>
-        <Card onMouseEnter = { this.handleMenuOpen }
-              onMouseLeave = { this.handleMenuClose }
-        >
-          <div className="card_style_with_hover">
+        <Card>
+          <div className="card_style" onClick={ () => {this.handleOnClick(this.props)}}>
             <CardHeader className="card_header">
               <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
             </CardHeader>
@@ -117,6 +91,7 @@ class PortfolioItem extends React.Component {
 
 PortfolioItem.propTypes = {
   history: propTypes.object,
+  catalog_id: propTypes.string
 };
 
 export default withRouter(

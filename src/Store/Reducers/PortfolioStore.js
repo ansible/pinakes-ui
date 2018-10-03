@@ -1,4 +1,4 @@
-import * as ActionTypes from 'Store/ActionTypes';
+import * as ActionTypes from '../../Store/ActionTypes';
 
 // Initial State
 const initialState = {
@@ -6,8 +6,6 @@ const initialState = {
   portfolioItem: {},
   portfolios: [],
   portfolio: {},
-  platformItems: [],
-  platformItem: {},
   filterValue: '',
   isLoading: true
 };
@@ -15,6 +13,18 @@ const initialState = {
 // Reducer
 export const PortfolioReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionTypes.FETCH_PORTFOLIOS + '_PENDING':
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ActionTypes.FETCH_PORTFOLIOS + '_FULFILLED':
+      return {
+        ...state,
+        portfolios: action.payload,
+        isLoading: false
+      };
+
     case ActionTypes.FETCH_PORTFOLIO_ITEMS + '_PENDING':
       return {
           ...state,
@@ -25,6 +35,17 @@ export const PortfolioReducer = (state = initialState, action) => {
           ...state,
           portfolioItems: action.payload,
           isLoading: false
+      };
+    case ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO + '_PENDING':
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO + '_FULFILLED':
+      return {
+        ...state,
+        portfolioItems: action.payload,
+        isLoading: false
       };
     case ActionTypes.FETCH_PORTFOLIO_ITEM + '_PENDING':
       return {
@@ -42,34 +63,6 @@ export const PortfolioReducer = (state = initialState, action) => {
           ...state,
           filterValue: action.payload
       };
-    case ActionTypes.FETCH_PLATFORM_ITEMS + '_PENDING':
-      return {
-        ...state,
-        isLoading: true
-      };
-    case ActionTypes.FETCH_PLATFORM_ITEMS + '_FULFILLED':
-      return {
-        ...state,
-        platformItems: action.payload,
-        isLoading: false
-      };
-    case ActionTypes.FETCH_PLATFORM_ITEM + '_PENDING':
-      return {
-        ...state,
-        isLoading: true
-      };
-    case ActionTypes.FETCH_PLATFORM_ITEM + '_FULFILLED':
-      return {
-        ...state,
-        portfolioItem: action.payload,
-        isLoading: false
-      };
-    case ActionTypes.FILTER_PLATFORM_ITEMS + '_FULFILLED':
-      return {
-        ...state,
-        filterValue: action.payload
-      };
-
       default:
           return state;
   }

@@ -6,9 +6,8 @@ import { Button } from '@patternfly/react-core';
 import propTypes from 'prop-types';
 import './addplatform.scss';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { fetchproviderDataFormat, addPlatform } from '../../Store/Actions/PlatformActions';
+import { addPlatform } from '../../Store/Actions/AddPlatformActions';
 import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
-import Alerts from '../Common/Alerts';
 import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const schema = {
@@ -33,16 +32,6 @@ const uischema = {
 };
 
 class AddPlatformForm extends Component {
-
-  componentDidMount() {
-    this.fetchData();
-  };
-
-  fetchData = () => {
-    let defaultProps = {};
-    this.props.fetchproviderDataFormat();
-  };
-
   onSubmit = (data) => {
     this.props.addPlatform(data);
   }
@@ -63,13 +52,6 @@ class AddPlatformForm extends Component {
 
 
   render(store) {
-    let providerDataFormat = {
-      ...this.props.providerDataFormat,
-      addPlatform: this.props.addPlatform,
-      isLoading: this.props.isLoading,
-      fetchData: () => this.fetchData()
-    };
-    console.log(providerDataFormat);
     const { handleSubmit } = this.props;
 
     return (
@@ -92,20 +74,17 @@ class AddPlatformForm extends Component {
 }
 
 function mapStateToProps(state) {
-  return { providerDataFormat: state.PlatformStore.providerDataFormat,
-    addPlatform: state.PlatformStore.addPlatform,
-    isLoading: state.PlatformStore.isLoading };
+  return { addPlatform: state.AddPlatformStore.addPlatform,
+           isLoading: state.AddPlatformStore.isLoading };
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   removeAlert,
-  fetchproviderDataFormat,
   addPlatform,
   addAlert,
 }, dispatch);
 
 AddPlatformForm.propTypes = {
-  providerDataFormat: propTypes.object,
   providerInput: propTypes.object,
   isLoading: propTypes.bool,
   history: propTypes.object,

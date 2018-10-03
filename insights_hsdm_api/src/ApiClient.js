@@ -29,14 +29,12 @@ import querystring from "querystring";
 */
 export default class ApiClient {
     constructor() {
-      /**
-      * The base URL against which to resolve every API call's (relative) path.
-      * @type {String}
-      * @default https://virtserver.swaggerhub.com/r/insights/platform/service-portal/1.0.0
-      */
-      let apiHost = process.env.API_HOST || "localhost";
-      let apiPort = process.env.API_PORT || "5000";
-      this.basePath = 'https://' + apiHost + ':' + apiPort + '/r/insights/platform/service-portal/1.0.0'.replace(/\/+$/, '');
+        /**
+         * The base URL against which to resolve every API call's (relative) path.
+         * @type {String}
+         * @default https://localhost/r/insights/platform/service-portal
+         */
+        this.basePath = 'https://localhost:5000/r/insights/platform/service-portal'.replace(/\/+$/, '');
 
         /**
          * The authentication methods to be included for all API calls.

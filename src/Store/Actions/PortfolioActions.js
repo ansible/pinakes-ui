@@ -1,38 +1,9 @@
-import * as ActionTypes from 'Store/ActionTypes';
-import * as PortfolioHelper from 'Helpers/Portfolio/PortfolioHelper';
-import ReducerRegistry from 'Utilities/ReducerRegistry';
-import { PortfolioReducer } from 'Store/Reducers/PortfolioStore';
+import * as ActionTypes from '../ActionTypes';
+import * as PortfolioHelper from '../../Helpers/Portfolio/PortfolioHelper';
+import ReducerRegistry from '../../Utilities/ReducerRegistry';
+import { PortfolioReducer } from '../../Store/Reducers/PortfolioStore';
 
 ReducerRegistry.register({ PortfolioStore: PortfolioReducer });
-
-export const fetchPlatformItems = apiProps => ({
-    type: ActionTypes.FETCH_PLATFORM_ITEMS,
-    payload: new Promise(resolve => {
-        resolve(PortfolioHelper.getPlatformItems(apiProps));
-    })
-});
-
-export const fetchSelectedPlatformItem = id => ({
-    type: ActionTypes.FETCH_PLATFORM_ITEM,
-    payload: new Promise(resolve => {
-        resolve(PortfolioHelper.getPlatformItem(id));
-    })
-});
-
-export const searchPlatformItems = value => ({
-    type: ActionTypes.FILTER_PLATFORM_ITEMS,
-    payload: new Promise(resolve => {
-        resolve(value);
-    })
-});
-
-
-export const fetchPortfolioItems = apiProps => ({
-  type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.listPortfolioItems(apiProps));
-  })
-});
 
 export const fetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
@@ -41,6 +12,12 @@ export const fetchPortfolios = apiProps => ({
   })
 });
 
+export const fetchPortfolioItems = apiProps => ({
+  type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
+  payload: new Promise(resolve => {
+    resolve(PortfolioHelper.getPortfolioItems(apiProps));
+  })
+});
 
 export const fetchPortfolioItemsWithPortfolio = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,

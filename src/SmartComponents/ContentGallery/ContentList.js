@@ -44,7 +44,7 @@ class ContentList extends Component {
             { (this.props.items && this.props.items.length > 0) && (
               <Table
                   header={ Object.keys(this.props.items[0])}
-                  rows={ this.props.items.map( order => { let row = {}; row['cells'] = (Object.values(order)).map(val => {return val===undefined ? '' : val.toString()}); return row;}) }/>)
+                  rows={ this.props.items.map( item => { let row = {}; row['cells'] = (Object.values(item)).map(val => {return val===undefined ? '' : val.toString()}); return row;}) }/>)
             }
           </Section>
         </React.Fragment>

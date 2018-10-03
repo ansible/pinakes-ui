@@ -56,8 +56,8 @@ export default class PortfolioItem {
             
             
 
-            if (data.hasOwnProperty('portfolio_id')) {
-                obj['portfolio_id'] = ApiClient.convertToType(data['portfolio_id'], 'Number');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
             if (data.hasOwnProperty('favorite')) {
                 obj['favorite'] = ApiClient.convertToType(data['favorite'], 'Boolean');
@@ -79,9 +79,9 @@ export default class PortfolioItem {
     }
 
     /**
-    * @member {Number} portfolio_id
+    * @member {String} id
     */
-    portfolio_id = undefined;
+    id = undefined;
     /**
     * @member {Boolean} favorite
     */

@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import { PageHeader, PageHeaderTitle, Main, Section } from '@red-hat-insights/insights-frontend-components';
 import ContentGallery from 'SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
-import { fetchPortfolios, fetchPortfolioItems, fetchPlatformItems, searchPortfolioItems } from 'Store/Actions/PortfolioActions';
+import { fetchPortfolios, fetchPortfolioItems, searchPortfolioItems } from 'Store/Actions/PortfolioActions';
 import {bindMethods} from "../../Helpers/Shared/Helper";
 import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
 import './admindashboard.scss'
@@ -22,6 +22,7 @@ class AdminDashboard extends Component {
   fetchData(apiProps) {
     this.props.fetchPlatformItems({...apiProps });
     this.props.fetchPortfolioItems({...apiProps });
+    this.props.fetchPortfolios({...apiProps });
   }
 
 
@@ -33,6 +34,26 @@ class AdminDashboard extends Component {
   onNavClick()
   {
 
+  }
+
+  platformLink(platform){
+    return(
+    <li className="pf-c-nav__item" onClick={ () => {this.handleOnPlatformClick(itemsForPlatform(platform))}}>
+      <a href="#" className="pf-c-nav__link" aria-current="page">
+        {platform.name}
+      </a>
+    </li>
+    )
+  }
+
+  portfolioLink(portfolio){
+    return(
+    <li className="pf-c-nav__item" onClick={ () => {this.handleOnPortfolioClick(itemsForPortfolio(portfolio))}}>
+      <a href="#" className="pf-c-nav__link" aria-current="page">
+        {portfolio.name}
+      </a>
+    </li>
+    )
   }
 
   renderToolbar() {
@@ -71,23 +92,15 @@ class AdminDashboard extends Component {
             Platforms
           </h2>
           <ul className="pf-c-nav__simple-list">
-            <li className="pf-c-nav__item" onClick={ () => {this.handleOnPlatformClick(this.props)}}>
-              <a href="#" className="pf-c-nav__link" aria-current="page">
-                Openshift Dev
-              </a>
-            </li>
+            {this.platformLinks()}
           </ul>
         </section>
         <section className="pf-c-nav__section" aria-labelledby="portfolios">
-          <h2 className="pf-c-nav__section-title" id="portfoiios">
+          <h2 className="pf-c-nav__section-title" id="portfolios">
             Portfolios
           </h2>
           <ul className="pf-c-nav__simple-list">
-            <li className="pf-c-nav__item" onClick={ () => {this.handleOnPortfolioClick(this.props)}}>
-              <a href="#" className="pf-c-nav__link" aria-current="page">
-                All Portfolios
-              </a>
-            </li>
+            {this.portfolioLinks()}
           </ul>
         </section>
         <section className="pf-c-nav__section" aria-labelledby="filters">

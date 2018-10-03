@@ -1,37 +1,57 @@
-import * as ActionTypes from 'Store/ActionTypes';
+import * as ActionTypes from '../../Store/ActionTypes';
 
 // Initial State
 const initialState = {
-  providerDataFormat: {},
-    isLoading: true
+  isPlatformDataLoading: true,
+  platforms: [],
+  platformItems: [],
+  platformItem: {},
+  filterValue: ''
 };
 
 // Reducer
 export const PlatformReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ActionTypes.FETCH_PLATFORM_DATA + '_PENDING':
-            return {
-                ...state,
-                isLoading: true
-            };
-        case ActionTypes.FETCH_PLATFORM_DATA + '_FULFILLED':
-            return {
-                ...state,
-                ...action.payload,
-                isLoading: false
-           };
-      case ActionTypes.ADD_PLATFORM + '_PENDING':
-        return {
-          ...state,
-          isLoading: true
-        };
-      case ActionTypes.ADD_PLATFORM + '_FULFILLED':
-        return {
-          ...state,
-          ...action.payload,
-          isLoading: false
-        };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case ActionTypes.FETCH_PLATFORMS + '_PENDING':
+      return {
+        ...state,
+        isPlatformDataLoading: true
+      };
+    case ActionTypes.FETCH_PLATFORMS + '_FULFILLED':
+      return {
+        ...state,
+        platforms: action.payload,
+        isPlatformDataLoading: false
+      };
+    case ActionTypes.FETCH_PLATFORM_ITEMS + '_PENDING':
+      return {
+        ...state,
+        isPlatformDataLoading: true
+      };
+    case ActionTypes.FETCH_PLATFORM_ITEMS + '_FULFILLED':
+      return {
+        ...state,
+        platformItems: action.payload,
+        isPlatformDataLoading: false
+      };
+    case ActionTypes.FETCH_PLATFORM_ITEM + '_PENDING':
+      return {
+        ...state,
+        isPlatformDataLoading: true
+      };
+    case ActionTypes.FETCH_PLATFORM_ITEM + '_FULFILLED':
+      return {
+        ...state,
+        portfolioItem: action.payload,
+        isPlatformDataLoading: false
+      };
+    case ActionTypes.FILTER_PLATFORM_ITEMS + '_FULFILLED':
+      return {
+        ...state,
+        filterValue: action.payload
+      };
+
+    default:
+      return state;
+  }
 };

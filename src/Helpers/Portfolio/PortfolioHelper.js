@@ -1,36 +1,24 @@
 import React from 'react';
 import PortfolioItem from 'PresentationalComponents/Portfolio/PortfolioItem';
-import PlatformItem from 'PresentationalComponents/Portfolio/PlatformItem';
+import { getUserApi } from '../Shared/userLogin';
 
-const InsightsHsdmApi = require('../../../insights_hsdm_api');
-const defaultClient = InsightsHsdmApi.ApiClient.instance;
-// Configure HTTP basic authorization: UserSecurity
-const UserSecurity = defaultClient.authentications['UserSecurity'];
-const userApi = new InsightsHsdmApi.UsersApi();
-const adminApi = new InsightsHsdmApi.AdminsApi();
+const userApi = getUserApi();
 
-export function getPlatformItems(apiProps) {
-  return userApi.catalogItems().then((data) => {
-      console.log('API called successfully. Returned data: ' + data);
-      return processPlatformItems(data);
-
+export function listPortfolios() {
+  return userApi.listPortfolios().then((data) => {
+    console.log('API called successfully. Returned portfolios: ' + data);
+    return data;
   }, (error) => {
-      console.error(error);
+    console.error(error);
   });
 }
 
-export function getPlatformItem(platformId) {
-  // TODO - use the single catalog API when available
-  return userApi.catalogItems().then((data) => {
-      console.log('API called successfully. Returned data: ' + data);
-      return retrieveSingleItem(data, catalogId);
-  }, (error) => {
-      console.error(error);
-  });
+export function getPortfolioItems(apiProps) {
+    return listPortfolioItems();
 }
 
 export function listPortfolioItems() {
-  return adminApi.listPortfolioItems().then((data) => {
+  return userApi.listPortfolioItems().then((data) => {
     console.log('API called successfully. Returned portfolio Items: ' + data);
     return processPortfolioItems(data);
   }, (error) => {
@@ -39,7 +27,7 @@ export function listPortfolioItems() {
 }
 
 export function getPortfolioItem(portfolioId, portfolioItemId) {
-  return adminApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId).then((data) => {
+  return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId).then((data) => {
     console.log('API called successfully. Returned data: ' + data);
     return data;
   }, (error) => {
@@ -48,9 +36,9 @@ export function getPortfolioItem(portfolioId, portfolioItemId) {
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return adminApi.fetchPortfolioItemsWithPortfolio(portfolioId).then((data) => {
-    console.log('API called successfully. Returned data: ' + data);
-    return data;
+  return userApi.fetchPortfolioItemsWithPortfolio(portfolioId).then((data) => {
+    console.log('fetchPortfolioItemsWithPortfolio API called successfully. Returned data: ' + data);
+    return processPortfolioItems(data);
   }, (error) => {
     console.error(error);
   });
@@ -69,16 +57,6 @@ function processPortfolioItems(items) {
   };
 }
 
-function processPlatformItems(items) {
-  let platformItems = [];
-  items.forEach( function(item, row, _array) {
-    let newRow = processPlatformItem(row, item);
-    platformItems.push(newRow);
-  });
-
-  return {platformItems};
-}
-
 // TODO - use the PORTFOLIO API and portfolio_id when available
 function retrieveSingleItem(items, id) {
     let pItem = items.find(item => {return item.catalog_id === id;});
@@ -87,19 +65,14 @@ function retrieveSingleItem(items, id) {
     return {portfolioItem: cItem};
 }
 
-// TODO - use the PORTFOLIO API and portfolio_id when available
-function processPlatformItem(key, data) {
-    return <PlatformItem {...data} />;
-}
-
 function processPortfolioItem(key, data) {
   return <PortfolioItem {...data} />;
 }
 
 export async function addPortfolioWithItem(portfolioData, item) {
-  let portfolio = await adminApi.addPortfolio(portfolioData);
-  let portfolioItem = await adminApi.addPortfolioItem(JSON.stringify({name: item.name, description: item.description}));
-  return adminApi.addPortfolioItemToPortfolio(portfolio.id, portfolioItem.id).then((data) => {
+  let portfolio = await userApi.addPortfolio(portfolioData);
+  let portfolioItem = await userApi.addPortfolioItem(JSON.stringify({name: item.name, description: item.description}));
+  return userApi.addPortfolioItemToPortfolio(portfolio.id, portfolioItem.id).then((data) => {
     console.log('Add Portfolio Called successfully.');
   }, (error) => {
     console.error(error);
