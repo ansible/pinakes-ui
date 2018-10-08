@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button } from '@patternfly/react-core';
@@ -7,7 +8,8 @@ import propTypes from 'prop-types';
 import './addplatform.scss';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { fetchproviderDataFormat, addPlatform } from '../../Store/Actions/PlatformActions';
-
+import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
+import Alerts from '../Common/Alerts';
 
 const schema = {
   title: 'Add an Openshift Platform',
@@ -32,32 +34,30 @@ const uischema = {
 
 class AddPlatformForm extends Component {
 
-  fetchData() {
+  componentDidMount() {
+    this.fetchData();
+  };
+
+  fetchData = () => {
     let defaultProps = {};
     this.props.fetchproviderDataFormat();
   };
 
-  componentDidMount() {
-    this.fetchData();
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-  };
 
-  onSubmit (data) {
-    addPlatform(data.formData);
-    console.log('Data submitted: ', data.formData);
-    this.props.history.push('/catalog/catalogitems/');
+  onSubmit = (data) => {
+    this.props.addPlatform(data.formData);
   }
 
-  onCancel () {
+  onCancel = () => {
     console.log(' ');
     this.props.history.push('/catalog/catalogitems/');
   }
 
-  onError() {
+  onError = () => {
     console.log('Error in AddPlatform form');
     this.props.history.push('/catalog/catalogitems/');
   };
+
 
   render(store) {
     let providerDataFormat = {
@@ -100,12 +100,12 @@ function mapStateToProps(state) {
     isLoading: state.PlatformStore.isLoading };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchproviderDataFormat: () => dispatch(fetchproviderDataFormat()),
-    addPlatform: () => dispatch(addPlatform())
-  };
-};
+const mapDispatchToProps = dispatch => bindActionCreators({
+  removeAlert,
+  fetchproviderDataFormat,
+  addPlatform,
+  addAlert,
+}, dispatch);
 
 AddPlatformForm.propTypes = {
   providerDataFormat: propTypes.object,
