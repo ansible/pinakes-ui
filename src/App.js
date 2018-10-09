@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import './App.scss';
+import Alerts from './SmartComponents/Common/Alerts'
+import Portal from './PresentationalComponents/Portal/Portal'
+
 
 class App extends Component {
 
@@ -22,7 +25,12 @@ class App extends Component {
     }
 
     render() {
-        return <Routes childProps={this.props} />;
+        return (
+            <React.Fragment>
+                <Portal><Alerts /></Portal>
+                <Routes childProps={this.props} />
+            </React.Fragment>
+        );
     }
 }
 

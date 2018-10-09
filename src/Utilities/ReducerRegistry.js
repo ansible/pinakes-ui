@@ -1,12 +1,14 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
+import reduxLogger from 'redux-logger';
+import thunk from 'redux-thunk'
 
 /**
  * https://redux.js.org/basics/store
  * https://redux.js.org/api-reference/combinereducers
  * https://redux.js.org/api-reference/applymiddleware
  */
-const store = createStore(f => f, applyMiddleware(promiseMiddleware()));
+const store = createStore(f => f, applyMiddleware(promiseMiddleware(), reduxLogger, thunk))
 
 /**
  * Class used to added reducers to the store during runtime.
