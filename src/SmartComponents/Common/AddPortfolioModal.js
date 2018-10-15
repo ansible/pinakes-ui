@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button } from '@patternfly/react-core';
-import Form from 'react-jsonschema-form';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { addPortfolioWithItem } from '../../Store/Actions/PortfolioActions';
 import {PortfolioStore} from "../../Store/Reducers/PortfolioStore";
 import {bindMethods} from "../../Helpers/Shared/Helper";
+import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const schema = {
   type: 'object',
@@ -50,14 +50,11 @@ class AddPortfolioModal extends Component {
               </PageHeader>
             </div>
             <div className="pf-l-stack">
-              <Form schema={schema}
+              <FormRenderer schema={schema}
                     onSubmit={this.onSubmit}
                     onCancel={this.onCancel}
                     onError={this.onError} {...this.props}>
-                <div style={{'textAlign': 'right'}}>
-                  <Button variant="primary" type="submit">Create</Button>
-                </div>
-              </Form>
+              </FormRenderer>
             </div>
           </div>
         </Main>
