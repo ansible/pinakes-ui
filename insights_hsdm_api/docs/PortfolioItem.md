@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
-**portfolioId** | **String** |  | [optional] 
 **favorite** | **Boolean** |  | [optional] 
 **name** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
