@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button } from '@patternfly/react-core';
-import Form from 'react-jsonschema-form';
 import propTypes from 'prop-types';
 import './addplatform.scss';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { fetchproviderDataFormat, addPlatform } from '../../Store/Actions/PlatformActions';
 import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
 import Alerts from '../Common/Alerts';
+import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const schema = {
   title: 'Add an Openshift Platform',
@@ -43,9 +43,8 @@ class AddPlatformForm extends Component {
     this.props.fetchproviderDataFormat();
   };
 
-
   onSubmit = (data) => {
-    this.props.addPlatform(data.formData);
+    this.props.addPlatform(data);
   }
 
   onCancel = () => {
@@ -82,15 +81,9 @@ class AddPlatformForm extends Component {
               </PageHeader>
             </div>
             <div className="pf-l-stack">
-              <Form schema={schema} uiSchema={uischema}
+              <FormRenderer schema={schema} uiSchema={uischema}
                     onSubmit={this.onSubmit}
-                    onCancel={this.onCancel}
-                    onError={this.onError} >
-                <div>
-                  <Button variant="primary" type="submit">Submit</Button>
-                  <Button variant="secondary" type="button" onClick={this.onCancel}>Cancel</Button>
-                </div>
-              </Form>
+                    onCancel={this.onCancel} />
             </div>
           </div>
         </Main>
