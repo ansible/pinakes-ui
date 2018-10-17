@@ -6,17 +6,19 @@ import { Routes } from './Routes';
 import './App.scss';
 import Alerts from './SmartComponents/Common/Alerts'
 import Portal from './PresentationalComponents/Portal/Portal'
-
+import PortalNav from './SmartComponents/ServicePortal/PortalNav'
+import { Main } from '@red-hat-insights/insights-frontend-components';
+import { Grid, GridItem } from '@patternfly/react-core';
 
 class App extends Component {
 
     componentDidMount () {
-        insights.chrome.init();
-        insights.chrome.identifyApp('settings');
-        insights.chrome.navigation(buildNavigation());
+      insights.chrome.init();
+      insights.chrome.identifyApp('settings');
+      insights.chrome.navigation(buildNavigation());
 
-        this.appNav = insights.chrome.on('APP_NAVIGATION', event => this.props.history.push(`/${event.navId}`));
-        this.buildNav = this.props.history.listen(() => insights.chrome.navigation(buildNavigation()));
+      this.appNav = insights.chrome.on('APP_NAVIGATION', event => this.props.history.push(`/${event.navId}`));
+      this.buildNav = this.props.history.listen(() => insights.chrome.navigation(buildNavigation()));
     }
 
     componentWillUnmount() {
@@ -25,12 +27,21 @@ class App extends Component {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                <Portal><Alerts /></Portal>
+      return (
+        <React.Fragment>
+          <Portal><Alerts /></Portal>
+          <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
+            <Grid>
+              <GridItem sm={2} md={2} lg={2} xl={2}>
+                <PortalNav />
+              </GridItem >
+              <GridItem sm={10} md={10} lg={10} xl={10}>
                 <Routes childProps={this.props} />
-            </React.Fragment>
-        );
+              </GridItem>
+            </Grid>
+          </Main>
+        </React.Fragment>
+      );
     }
 }
 

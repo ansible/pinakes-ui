@@ -631,7 +631,7 @@ apiInstance.listOrderItems(orderId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orderId** | [**String**](.md)| The Order ID | 
+ **orderId** | **String**| The Order ID | 
 
 ### Return type
 

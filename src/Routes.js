@@ -14,7 +14,7 @@ import some from 'lodash/some';
  *      1) code splitting
  *      2) can be used in server-side rendering
  * cons:
- *      1) nameing chunk names adds unnecessary docs to code,
+ *      1) naming chunk names adds unnecessary docs to code,
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
@@ -24,7 +24,6 @@ const PortfolioItems = asyncComponent(() => import('./SmartComponents/Portfolio/
 const CatalogItemShow = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItem'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const AddPlatformForm = asyncComponent(() => import('./SmartComponents/AddPlatform/AddPlatformForm'));
-const AdminDashboard = asyncComponent(() => import('./SmartComponents/Admin/AdminDashboard'));
 
 const paths = {
     service_portal: '/service_portal/service_portal',
@@ -62,18 +61,17 @@ InsightsRoute.propTypes = {
  *      component - component to be rendered when a route has been chosen.
  */
 export const Routes = (props: Props) => {
-    const path = props.childProps.location.pathname;
-
-    return (
-        <Switch>
-            <InsightsRoute exact path={paths.service_portal} component={ServicePortal} rootClass="admin" />
-            <InsightsRoute exact path={paths.platform_items} component={PlatformItems} rootClass="platform_items" />
-            <InsightsRoute exact path={paths.portfolio_items} component={PortfolioItems} rootClass="portfolio_items" />
-            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="admin" />
-            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="admin" />
-            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="admin" />
-            {/* Finally, catch all unmatched routes */}
-            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.service_portal} />)} />
-        </Switch>
-    );
+  const path = props.childProps.location.pathname;
+  return (
+    <Switch>
+        <InsightsRoute exact path={paths.service_portal} component={ServicePortal} rootClass="admin" />
+        <InsightsRoute exact path={paths.platform_items} component={PlatformItems} rootClass="platform_items" />
+        <InsightsRoute exact path={paths.portfolio_items} component={PortfolioItems} rootClass="portfolio_items" />
+        <InsightsRoute exact path={paths.orders} component={Orders} rootClass="admin" />
+        <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="admin" />
+        <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="admin" />
+        {/* Finally, catch all unmatched routes */}
+        <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.service_portal} />)} />
+    </Switch>
+  );
 };
