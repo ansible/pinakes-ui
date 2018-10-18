@@ -4,11 +4,12 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from "react-jsonschema-form";
 import { BarLoader } from 'react-spinners';
-import { PageHeader, PageHeaderTitle} from '@red-hat-insights/insights-frontend-components';
+import { PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Bullseye, Button, Radio } from '@patternfly/react-core'
 import '../../Utilities/jschema.scss';
-import {fetchServicePlanParameters, fetchServicePlans, sendSubmitOrder} from "../../Store/Actions/OrderActions";
-import {bindMethods} from "../../Helpers/Shared/Helper";
+import { fetchServicePlanParameters, fetchServicePlans, sendSubmitOrder } from "../../Store/Actions/OrderActions";
+import { bindMethods } from "../../Helpers/Shared/Helper";
+import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const uiSchema =
 {
