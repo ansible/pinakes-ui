@@ -19,13 +19,6 @@ export const fetchPlatformItems = apiProps => ({
   })
 });
 
-export const fetchSelectedPlatformItem = id => ({
-  type: ActionTypes.FETCH_PLATFORM_ITEM,
-  payload: new Promise(resolve => {
-    resolve(PlatformHelper.getPlatformItem(id));
-  })
-});
-
 export const searchPlatformItems = value => ({
   type: ActionTypes.FILTER_PLATFORM_ITEMS,
   payload: new Promise(resolve => {

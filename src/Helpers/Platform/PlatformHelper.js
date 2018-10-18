@@ -1,12 +1,12 @@
 import React from 'react';
 import PlatformItem from 'PresentationalComponents/Platform/PlatformItem';
+import { getTopologicalUserApi } from '../Shared/userLogin';
 
-import { getUserApi } from '../Shared/userLogin';
+const api = getTopologicalUserApi();
 
-const api = getUserApi();
 export function getPlatforms() {
-  return api.listProviders().then((data) => {
-    console.log('API called successfully. Returned platforms: ' + data);
+  return api.listSources().then((data) => {
+    console.log('listSources API called successfully. Returned platforms: ' + data);
     return data;
   }, (error) => {
     console.error(error);
@@ -17,25 +17,16 @@ export function getPlatformItems(apiProps) {
   console.log('getPlatformItems called with : ' + apiProps.platform);
   let apiPromise = null;
   if( apiProps && apiProps.platform) {
-    apiPromise = api.fetchCatalogItemWithProvider(apiProps.platform);
+    // TODO - replace with offerings per source when available
+    apiPromise = api.listServiceOfferings();
   }
   else {
-    apiPromise = api.catalogItems();
+    apiPromise = api.listServiceOfferings();
   }
 
   return apiPromise.then((data) => {
       console.log('API called successfully. Returned data: ' + data);
       return processPlatformItems(data);
-  }, (error) => {
-      console.error(error);
-  });
-}
-
-export function getPlatformItem(platformId) {
-  // TODO - use the single catalog API when available
-  return api.catalogItems().then((data) => {
-      console.log('API called successfully. Returned data: ' + data);
-      return retrieveSingleItem(data, catalogId);
   }, (error) => {
       console.error(error);
   });
