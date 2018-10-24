@@ -41,10 +41,6 @@ export const searchPortfolioItems = value => ({
 });
 
 export const addPortfolioWithItem = (portfolioData, itemData) => ({
-  type: ActionTypes.ADD_PORTFOLIO,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.addPortfolioWithItem(portfolioData, itemData));
+    type: ActionTypes.ADD_PORTFOLIO,
+    payload: PortfolioHelper.addPortfolioWithItem(portfolioData, itemData)
   })
-});
-
-

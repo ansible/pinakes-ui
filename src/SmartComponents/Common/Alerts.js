@@ -7,7 +7,7 @@ import { TimesIcon } from '@patternfly/react-icons';
 const Alerts = ({ alerts, removeAlert }) => (
 	<div>
 		{alerts.map(({ variant, title, description }, index) => (
-			<Alert style={{marginBottom: 10}}key={index} variant={variant} title={title} action={<Button variant="plain" onClick={() => removeAlert(index)}><TimesIcon /></Button>}>
+			<Alert style={{marginBottom: 10}}key={index} variant={variant} title={title} action={<Button aria-label="Close alert" variant="plain" onClick={() => removeAlert(index)}><TimesIcon /></Button>}>
 				{description}
 			</Alert>
 		))}

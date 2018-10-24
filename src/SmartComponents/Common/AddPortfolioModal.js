@@ -10,6 +10,8 @@ import { addPortfolioWithItem } from '../../Store/Actions/PortfolioActions';
 import { PortfolioStore } from "../../Store/Reducers/PortfolioStore";
 import { bindMethods } from "../../Helpers/Shared/Helper";
 import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
+import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
+import Alerts from '../Common/Alerts';
 
 const schema = {
   type: 'object',
@@ -25,13 +27,26 @@ class AddPortfolioModal extends Component {
   };
 
   onSubmit = data => {
-    this.props.addPortfolioWithItem(data, this.props.itemdata);
-    console.log('Data submitted: ', data, this.props.itemdata);
+    this.props.addPortfolioWithItem(data, this.props.itemdata)
+      .then(() => this.props.addAlert({
+          variant: 'success',
+          title: 'Success adding portfolio',
+          description: 'The portfolio was added successfully.'
+      }))
+      .catch(() => this.props.addAlert({
+          variant: 'danger',
+          title: 'Failed adding portfolio',
+          description: 'The portfolio was not added successfuly.'
+      }));
     this.props.closeModal();
   }
 
   onCancel = () => {
-    console.log('Cancel Add Portfolio');
+    this.props.addAlert({
+      variant: 'warning',
+      title: 'Adding portfolio',
+      description: 'Adding portfolio was cancelled by the user.'
+    })
     this.props.closeModal();
   }
 
@@ -58,7 +73,11 @@ class AddPortfolioModal extends Component {
 
 const mapStateToProps = state => ({ isLoading: state.PortfolioStore.isLoading });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addPortfolioWithItem }, bindActionCreators)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addAlert,
+  removeAlert,
+  addPortfolioWithItem,
+}, dispatch);
 
 AddPortfolioModal.propTypes = {
   isLoading: propTypes.bool,
