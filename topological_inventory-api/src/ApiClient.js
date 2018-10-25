@@ -34,10 +34,10 @@ export default class ApiClient {
         * @type {String}
         * @default https://virtserver.swaggerhub.com/api/v0.0
         */
-        //this.basePath = 'https://topological-inventory-api-topological-inventory-ci.10.8.96.54.nip.io/api/v0.0'.replace(/\/+$/, '');
-        let apiHost = process.env.TOP_API_HOST || "topological-inventory-api-topological-inventory-ci.10.8.96.54.nip.io";
-        let basePath = process.env.TOP_BASE_PATH || "/api/v0.0";
-        this.basePath = 'https://' + apiHost + ':' + basePath.replace(/\/+$/, '');
+        let apiHost = process.env.TOPO_API_HOST || "topological-inventory-api-topological-inventory-ci.10.8.96.54.nip.io";
+        let apiPort = process.env.TOPO_API_PORT || "443";
+        let basePath = process.env.TOPO_BASE_PATH || "/api/v0.0";
+        this.basePath = 'https://' + apiHost + ':' + apiPort + basePath.replace(/\/+$/, '');
 
         /**
          * The authentication methods to be included for all API calls.
