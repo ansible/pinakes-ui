@@ -4,7 +4,7 @@ import { PageHeader } from '@red-hat-insights/insights-frontend-components';
 import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
-import { fetchOrderList } from 'Store/Actions/OrderActions';
+import { fetchOrderList } from '../../Store/Actions/OrderActions';
 import ContentList from '../ContentGallery/ContentList';
 import propTypes from 'prop-types';
 

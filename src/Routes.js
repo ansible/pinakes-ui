@@ -26,13 +26,13 @@ const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const AddPlatformForm = asyncComponent(() => import('./SmartComponents/AddPlatform/AddPlatformForm'));
 
 const paths = {
-    service_portal: '/service_portal/service_portal',
-    service_details: '/service_portal/services/:catalog_id',
-    addplatform:  '/service_portal/addplatform',
-    platform_items: '/service_portal/platform_items/:filter?',
-    portfolio_items: '/service_portal/portfolio_items/:filter?',
-    orders: '/service_portal/orders',
-    admin: '/service_portal/admin'
+    service_portal: '/service_portal',
+    service_details: 'services/:catalog_id',
+    addplatform:  '/addplatform',
+    platform_items: '/platform_items/:filter?',
+    portfolio_items: '/portfolio_items/:filter?',
+    orders: '/orders',
+    admin: '/admin'
 };
 
 type Props = {
@@ -43,8 +43,9 @@ const InsightsRoute = ({ component: Component, rootClass, ...rest }) => {
     const root = document.getElementById('root');
     root.removeAttribute('class');
     root.classList.add(`page__${rootClass}`, 'pf-l-page__main');
+    root.setAttribute('role', 'main');
 
-    return (<Component {...rest} />);
+    return (<Component { ...rest } />);
 };
 
 InsightsRoute.propTypes = {

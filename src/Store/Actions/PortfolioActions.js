@@ -1,7 +1,7 @@
 import * as ActionTypes from '../ActionTypes';
 import * as PortfolioHelper from '../../Helpers/Portfolio/PortfolioHelper';
-import ReducerRegistry from '../../Utilities/ReducerRegistry';
 import { PortfolioReducer } from '../../Store/Reducers/PortfolioStore';
+import ReducerRegistry from '../../Utilities/ReducerRegistry';
 
 ReducerRegistry.register({ PortfolioStore: PortfolioReducer });
 

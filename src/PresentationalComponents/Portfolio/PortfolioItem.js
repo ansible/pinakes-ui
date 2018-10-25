@@ -72,7 +72,7 @@ class PortfolioItem extends React.Component {
     return (
       <GridItem sm={2} md={2} lg={2} xl={2}>
         <Card>
-          <div className="card_style" onClick={ () => {this.handleOnClick(this.props)}}>
+          <div onClick={ () => {this.handleOnClick(this.props)}}>
             <CardHeader className="card_header">
               <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
             </CardHeader>

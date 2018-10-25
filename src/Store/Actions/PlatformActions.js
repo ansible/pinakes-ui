@@ -1,7 +1,7 @@
 import * as ActionTypes from '../ActionTypes';
 import * as PlatformHelper from '../../Helpers/Platform/PlatformHelper';
-import ReducerRegistry from '../../Utilities/ReducerRegistry';
 import { PlatformReducer } from '../../Store/Reducers/PlatformStore';
+import ReducerRegistry from '../../Utilities/ReducerRegistry';
 
 ReducerRegistry.register({ PlatformStore: PlatformReducer });
 

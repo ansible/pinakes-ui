@@ -1,6 +1,6 @@
-import * as ActionTypes from 'Store/ActionTypes';
-import ReducerRegistry from 'Utilities/ReducerRegistry';
-import { MainModalReducer } from 'Store/Reducers/MainModalStore';
+import * as ActionTypes from '../../Store/ActionTypes';
+import { MainModalReducer } from '../../Store/Reducers/MainModalStore';
+import ReducerRegistry from '../../Utilities/ReducerRegistry';
 
 ReducerRegistry.register({ MainModalStore: MainModalReducer });
 

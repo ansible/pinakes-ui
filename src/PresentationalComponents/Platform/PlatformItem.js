@@ -9,6 +9,7 @@ import { PlatformStore, fetchPlatformItems } from "../../Store/Actions/PlatformA
 import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 import { Dropdown, DropdownItem, DropdownPosition, DropdownToggle } from '@patternfly/react-core';
+import { Select, SelectOption, SelectOptionGroup } from '@patternfly/react-core';
 import {bindMethods} from "../../Helpers/Shared/Helper";
 
 
@@ -59,6 +60,8 @@ class PlatformItem extends React.Component {
     bindMethods(this, ['onSelect','handleMenuOpen', 'handleMenuClose', 'showPortfolioMenu', 'hidePortfolioMenu']);
   };
 
+
+
   handleMenuOpen() {
     this.setState({ isOpen: true })
   }
@@ -75,6 +78,13 @@ class PlatformItem extends React.Component {
     this.setState({ showMenu: false })
   }
 
+  portfolioOptions = [
+    { value: 'new', label: 'Add Portfolio', disabled: false }
+  ];
+
+  addPortfolioOptions(){
+    //for each portfolio in portfolios, add an option in the portfolioOptions array
+  };
 
   onSelect(event) {
     console.log( 'This is the selected state:', this.state );

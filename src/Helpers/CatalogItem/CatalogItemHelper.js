@@ -1,5 +1,5 @@
 import React from 'react';
-import CatalogItemShow from 'PresentationalComponents/CatalogItems/CatalogItemShow';
+import CatalogItemShow from '../../PresentationalComponents/CatalogItems/CatalogItemShow';
 import { getUserApi } from '../Shared/userLogin';
 
 const api = getUserApi();

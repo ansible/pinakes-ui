@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { parse } from 'querystring';
-import { PageHeader, PageHeaderTitle, Main, Section } from '@red-hat-insights/insights-frontend-components';
-import ContentGallery from 'SmartComponents/ContentGallery/ContentGallery';
-import { fetchPortfolioItems, fetchPortfolioItemsWithPortfolio } from 'Store/Actions/PortfolioActions';
-import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
+import { Section } from '@red-hat-insights/insights-frontend-components';
+import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
+import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
+import { fetchPortfolioItems, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
 import './portfolioitems.scss'
 

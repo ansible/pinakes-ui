@@ -1,5 +1,5 @@
 import React from 'react';
-import PlatformItem from 'PresentationalComponents/Platform/PlatformItem';
+import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
 import { getTopologicalUserApi } from '../Shared/userLogin';
 
 const api = getTopologicalUserApi();

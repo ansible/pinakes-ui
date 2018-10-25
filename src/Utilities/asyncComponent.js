@@ -32,14 +32,14 @@ export default function asyncComponent(importComponent) {
             const { default: component } = await importComponent();
 
             this.setState({
-                component: component
+                component
             });
         }
 
         render() {
             const C = this.state.component;
 
-            return C ? <C {...this.props} /> : <div>Loading...</div>;
+            return C ? <C { ...this.props } /> : <div>Loading...</div>;
         }
     }
 

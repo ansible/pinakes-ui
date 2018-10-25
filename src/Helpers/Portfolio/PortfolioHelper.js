@@ -1,5 +1,5 @@
 import React from 'react';
-import PortfolioItem from 'PresentationalComponents/Portfolio/PortfolioItem';
+import PortfolioItem from '../../PresentationalComponents/Portfolio/PortfolioItem';
 import { getUserApi } from '../Shared/userLogin';
 
 const userApi = getUserApi();

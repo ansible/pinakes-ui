@@ -1,7 +1,7 @@
-import * as ActionTypes from 'Store/ActionTypes';
-import * as CatalogItemHelper from 'Helpers/CatalogItem/CatalogItemHelper';
-import ReducerRegistry from 'Utilities/ReducerRegistry';
-import { CatalogItemReducer } from 'Store/Reducers/CatalogItemStore';
+import * as ActionTypes from '../../Store/ActionTypes';
+import * as CatalogItemHelper from '../../Helpers/CatalogItem/CatalogItemHelper';
+import { CatalogItemReducer } from '../../Store/Reducers/CatalogItemStore';
+import ReducerRegistry from '../../Utilities/ReducerRegistry';
 
 ReducerRegistry.register({ CatalogStore: CatalogItemReducer });
 

@@ -6,6 +6,7 @@
  */
 const path = require('path');
 const webpack = require('webpack');
+const config = require('./webpack.common.js');
 const plugins = [];
 
 /**
@@ -43,7 +44,7 @@ plugins.push(SourceMapsPlugin);
  * Cleans distribution folder.
  * @type {[type]}
  */
-const CleanWebpackPlugin = new (require('clean-webpack-plugin'))(['dist']);
+const CleanWebpackPlugin = new (require('clean-webpack-plugin'))([ 'dist' ]);
 plugins.push(CleanWebpackPlugin);
 
 /**
@@ -94,5 +95,15 @@ const envPlugin = new webpack.DefinePlugin({
   'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH),
 });
 plugins.push(envPlugin);
+
+/**
+ * Replaces any @@insights in the html files with config.insightsDeployment value.
+ * This handles the path being either insights or insightsbeta in the esi:include.
+ */
+const HtmlReplaceWebpackPlugin = new(require('html-replace-webpack-plugin'))([{
+    pattern: '@@insights',
+    replacement: config.insightsDeployment
+}]);
+plugins.push(HtmlReplaceWebpackPlugin);
 
 module.exports = { plugins };

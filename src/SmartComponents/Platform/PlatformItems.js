@@ -3,11 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { parse } from 'querystring';
-import { PageHeader, PageHeaderTitle, Main, Section } from '@red-hat-insights/insights-frontend-components';
-import ContentGallery from 'SmartComponents/ContentGallery/ContentGallery';
-import { fetchPlatformItems } from 'Store/Actions/PlatformActions';
+import { Main, Section } from '@red-hat-insights/insights-frontend-components';
+import { fetchPlatformItems } from '../../Store/Actions/PlatformActions';
 import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
-import PortalNav from '../ServicePortal/PortalNav'
+import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
 import './platformitems.scss'
 
@@ -56,14 +55,8 @@ class PlatformItems extends Component {
     };
     return (
       <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
-        <Grid>
-          <GridItem sm={10} md={10} lg={10} xl={10}>
-              <GridItem sm={10} md={10} lg={10} xl={10}>
-                <ContentGallery {...filteredItems} />
-              </GridItem>
-          </GridItem>
-        </Grid>
-        <MainModal />
+        <ContentGallery {...filteredItems} />
+      <MainModal />
       </Main>
     );
   }

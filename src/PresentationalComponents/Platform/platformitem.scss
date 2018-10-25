@@ -4,21 +4,6 @@
   background-color: white;
 }
 
-.card_header {
-  height: 60px;
-};
-
-.card_body {
-  height: 200px;
-  overflow: hidden;
-}
-
-.card_element {
-  textAlign: left;
-  font-family: '--pf-global--FontFamily--sans-serif';
-  font-size: small;
-}
-
 .card_style_with_hover:hover {
   background-color:darkgrey;
   opacity: 0.8

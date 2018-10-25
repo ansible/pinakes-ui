@@ -1,4 +1,4 @@
-import * as ActionTypes from 'Store/ActionTypes';
+import * as ActionTypes from '../../Store/ActionTypes';
 import DEFAULT_PAGE_SIZE from '../../Utilities/Constants';
 
 // Initial State

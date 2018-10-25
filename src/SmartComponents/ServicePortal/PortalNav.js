@@ -31,7 +31,7 @@ class PortalNav extends React.Component {
   platformNavItems() {
     return (
       this.props.platforms.map(item => {
-        let itemLink=`/insights/service_portal/platform_items/platform=${item.id}?`;
+        let itemLink=`/insights/platform/service_portal/platform_items/platform=${item.id}?`;
         return (<NavItem to={itemLink} key={item.id}
                          isActive={this.state.activeItem === item.id}>
           {item.name}
@@ -42,7 +42,7 @@ class PortalNav extends React.Component {
   portfolioNavItems() {
     return (
         this.props.portfolios.map(item => {
-          let itemLink=`/insights/service_portal/portfolio_items/portfolio=${item.id}?`;
+          let itemLink=`/insights/platform/service_portal/portfolio_items/portfolio=${item.id}?`;
           return (<NavItem to={itemLink} key={item.id}
                            isActive={this.state.activeItem === item.id}>
             {item.name}
@@ -64,7 +64,7 @@ class PortalNav extends React.Component {
               this.platformNavItems()}
           </NavGroup>
           <NavGroup title="Portfolios">
-            <NavItem to="/insights/service_portal/portfolio_items" key="allPortfolios" isActive={this.state.activeItem === 'allPortfolios'}>
+            <NavItem to="/insights/platform/service_portal/portfolio_items" key="allPortfolios" isActive={this.state.activeItem === 'allPortfolios'}>
               All Portfolios
             </NavItem>
             { !this.props.isLoading && this.portfolioNavItems()}
