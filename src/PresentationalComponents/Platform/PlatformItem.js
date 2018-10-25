@@ -104,7 +104,7 @@ class PlatformItem extends React.Component {
 
   render() {
     return (
-      <GridItem key={this.props.id} sm={2} md={2} lg={2} xl={2}>
+      <GridItem key={this.props.id} span={2}>
         <Card onMouseEnter = { this.showPortfolioMenu }
               onMouseLeave = { this.hidePortfolioMenu }
         >
