@@ -16,7 +16,7 @@ const propLine = (prop, value) => {
 };
 
 const toDisplayProperty = property => {
-  return ['description'].includes(property)
+    return ['description'].includes(property)
 };
 
 const propDetails = item => {
@@ -42,56 +42,56 @@ const itemDetails = props => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    hideModal: () => dispatch(hideModal()),
-    showModal: (modalProps, modalType) => {
-      dispatch(showModal({ modalProps, modalType }))
-    }
-  };
+    return {
+        hideModal: () => dispatch(hideModal()),
+        showModal: (modalProps, modalType) => {
+            dispatch(showModal({ modalProps, modalType }))
+        }
+    };
 };
 
 
 class PortfolioItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleOnClick = this.handleOnClick.bind(this);
-  };
+    constructor(props) {
+        super(props);
+        this.handleOnClick = this.handleOnClick.bind(this);
+    };
 
-  handleOnClick() {
-    console.log( 'Before OrderService');
-    this.setState({ showOrder: true });
-    this.props.showModal({
-          open: true,
-          servicedata: this.props,
-          closeModal: this.props.hideModal
-    }, 'order');
+    handleOnClick() {
+        console.log( 'Before OrderService');
+        this.setState({ showOrder: true });
+        this.props.showModal({
+            open: true,
+            servicedata: this.props,
+            closeModal: this.props.hideModal
+        }, 'order');
     // props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));
-  };
+    };
 
-  render() {
-    return (
-      <GridItem sm={2} md={2} lg={2} xl={2}>
-        <Card>
-          <div onClick={ () => {this.handleOnClick(this.props)}}>
-            <CardHeader className="card_header">
-              <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
-            </CardHeader>
-            <CardBody className="card_body">
-              <h4>{this.props.name}</h4>
-              {itemDetails(this.props)}
-            </CardBody>
-            <CardFooter>
-            </CardFooter>
-          </div>
-        </Card>
-      </GridItem>
-    );
-  };
+    render() {
+        return (
+            <GridItem sm={2} md={2} lg={2} xl={2}>
+                <Card>
+                    <div onClick={ () => {this.handleOnClick(this.props)}}>
+                        <CardHeader className="card_header">
+                            <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
+                        </CardHeader>
+                        <CardBody className="card_body">
+                            <h4>{this.props.name}</h4>
+                            {itemDetails(this.props)}
+                        </CardBody>
+                        <CardFooter>
+                        </CardFooter>
+                    </div>
+                </Card>
+            </GridItem>
+        );
+    };
 }
 
 PortfolioItem.propTypes = {
-  history: propTypes.object,
-  catalog_id: propTypes.string
+    history: propTypes.object,
+    catalog_id: propTypes.string
 };
 
 export default withRouter(

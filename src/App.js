@@ -27,21 +27,21 @@ class App extends Component {
     }
 
     render () {
-      return (
-        <React.Fragment>
-          <Portal><Alerts /></Portal>
-          <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
-            <Grid>
-              <GridItem sm={2} md={2} lg={2} xl={2}>
-                <PortalNav />
-              </GridItem >
-              <GridItem sm={10} md={10} lg={10} xl={10}>
-                <Routes childProps={this.props} />
-              </GridItem>
-            </Grid>
-          </Main>
-        </React.Fragment>
-      );
+        return (
+            <React.Fragment>
+                <Portal><Alerts /></Portal>
+                <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
+                    <Grid>
+                        <GridItem sm={2} md={2} lg={2} xl={2}>
+                            <PortalNav />
+                        </GridItem >
+                        <GridItem sm={10} md={10} lg={10} xl={10}>
+                            <Routes childProps={this.props} />
+                        </GridItem>
+                    </Grid>
+                </Main>
+            </React.Fragment>
+        );
     }
 }
 

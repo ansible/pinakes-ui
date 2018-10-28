@@ -10,7 +10,7 @@ export const showModal = ({ modalProps, modalType }) => ( {
 });
 
 export const hideModal = () => ( {
-  type: ActionTypes.HIDE_MODAL,
-  payload: null
+    type: ActionTypes.HIDE_MODAL,
+    payload: null
 });
 

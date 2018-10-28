@@ -2,7 +2,7 @@ import * as ActionTypes from '../../Store/ActionTypes';
 
 // Initial State
 const initialState = {
-  isLoading: true
+    isLoading: true
 };
 
 // Reducer
@@ -18,18 +18,18 @@ export const AddPlatformReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload,
                 isLoading: false
-           };
-      case ActionTypes.ADD_PLATFORM + '_PENDING':
-        return {
-          ...state,
-          isLoading: true
-        };
-      case ActionTypes.ADD_PLATFORM + '_FULFILLED':
-        return {
-          ...state,
-          ...action.payload,
-          isLoading: false
-        };
+            };
+        case ActionTypes.ADD_PLATFORM + '_PENDING':
+            return {
+                ...state,
+                isLoading: true
+            };
+        case ActionTypes.ADD_PLATFORM + '_FULFILLED':
+            return {
+                ...state,
+                ...action.payload,
+                isLoading: false
+            };
         default:
             return state;
     }

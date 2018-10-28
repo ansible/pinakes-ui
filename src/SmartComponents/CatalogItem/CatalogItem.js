@@ -39,20 +39,20 @@ class CatalogItem extends Component {
                                 <div className="pf-c-card ">
                                     <div className="pf-c-card__header ">
                                         <h6 className="pf-c-title pf-m-xl pf-m-margin">
-                                          <ImageWithDefault src = {catalogItem.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="120" height="120"  />
+                                            <ImageWithDefault src = {catalogItem.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="120" height="120"  />
                                         </h6>
                                     </div>
                                     <div className="pf-c-card__body ">
                                         <table className="content-gallery">
                                             <tbody>
-                                            <tr>
-                                                <td>Name:  </td>
-                                                <td>{catalogItem.name}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Description:  </td>
-                                                <td>{catalogItem.description}</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>Name:  </td>
+                                                    <td>{catalogItem.name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Description:  </td>
+                                                    <td>{catalogItem.description}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

@@ -25,7 +25,7 @@ export const CatalogItemReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload,
                 isLoading: false
-           };
+            };
         case ActionTypes.FETCH_CATALOG_ITEM + '_PENDING':
             return {
                 ...state,

@@ -68,6 +68,10 @@ const webpackConfig = {
                     outputPath: 'fonts/'
                 }
             }]
+        }, {
+            parser: {
+                amd: false
+            }
         }]
     }
 };

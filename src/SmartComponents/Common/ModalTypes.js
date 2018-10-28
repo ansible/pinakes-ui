@@ -2,8 +2,8 @@ import orderModal from './OrderModal'
 import addPortfolioModal from './AddPortfolioModal'
 
 const modalTypes = {
-  orderModal,
-  addPortfolioModal
+    orderModal,
+    addPortfolioModal
 };
 
 export default modalTypes;

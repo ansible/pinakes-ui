@@ -12,75 +12,75 @@ import './portfolioitems.scss'
 
 
 class PortfolioItems extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          showItems: '',
-          filteredItems: []
-      };
-      console.log('PortfolioItems props: ', props)
-  }
-
-  fetchData(apiProps) {
-    if (apiProps && apiProps.portfolio) {
-      this.props.fetchPortfolioItemsWithPortfolio(apiProps.portfolio);
+    constructor(props) {
+        super(props);
+        this.state = {
+            showItems: '',
+            filteredItems: []
+        };
+        console.log('PortfolioItems props: ', props)
     }
-    else {
-      this.props.fetchPortfolioItems({...apiProps});
+
+    fetchData(apiProps) {
+        if (apiProps && apiProps.portfolio) {
+            this.props.fetchPortfolioItemsWithPortfolio(apiProps.portfolio);
+        }
+        else {
+            this.props.fetchPortfolioItems({...apiProps});
+        }
     }
-  }
 
-  componentDidMount() {
-    let filter = this.props.computedMatch.params.filter;
-    console.log('PortfolioItems filter: ', filter);
-    let parsed = parse(filter);
-    console.log('PortfolioItems parsed filter: ', parsed);
-    this.fetchData(parsed);
-  }
+    componentDidMount() {
+        let filter = this.props.computedMatch.params.filter;
+        console.log('PortfolioItems filter: ', filter);
+        let parsed = parse(filter);
+        console.log('PortfolioItems parsed filter: ', parsed);
+        this.fetchData(parsed);
+    }
 
-  renderToolbar() {
-    return(
-      <Toolbar style={{backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px'}}>
-        <ToolbarSection>
-          <ToolbarGroup>
-            <ToolbarItem>Select Portfolio</ToolbarItem>
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <ToolbarItem>Search</ToolbarItem>
-            <ToolbarItem>Sort</ToolbarItem>
-          </ToolbarGroup>
-        </ToolbarSection>
-      </Toolbar>
-    );
-  }
+    renderToolbar() {
+        return(
+            <Toolbar style={{backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px'}}>
+                <ToolbarSection>
+                    <ToolbarGroup>
+                        <ToolbarItem>Select Portfolio</ToolbarItem>
+                    </ToolbarGroup>
+                    <ToolbarGroup>
+                        <ToolbarItem>Search</ToolbarItem>
+                        <ToolbarItem>Sort</ToolbarItem>
+                    </ToolbarGroup>
+                </ToolbarSection>
+            </Toolbar>
+        );
+    }
 
-  render() {
-    let filteredItems = {
-      items: this.props.portfolioItems.portfolioItems,
-      isLoading: this.props.isLoading
-    };
-    return (
-      <Section>
-        <ContentGallery {...filteredItems} />
-        <MainModal />
-      </Section>
-    );
-  }
+    render() {
+        let filteredItems = {
+            items: this.props.portfolioItems.portfolioItems,
+            isLoading: this.props.isLoading
+        };
+        return (
+            <Section>
+                <ContentGallery {...filteredItems} />
+                <MainModal />
+            </Section>
+        );
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    portfolioItems: state.PortfolioStore.portfolioItems,
-    isLoading: state.PortfolioStore.isLoading,
-    searchFilter: state.PortfolioStore.filterValue
-  };
+    return {
+        portfolioItems: state.PortfolioStore.portfolioItems,
+        isLoading: state.PortfolioStore.isLoading,
+        searchFilter: state.PortfolioStore.filterValue
+    };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-      fetchPortfolioItems: apiProps => dispatch(fetchPortfolioItems(apiProps)),
-      fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps)),
-      search: value => dispatch(searchPortfolioItems(value))
+        fetchPortfolioItems: apiProps => dispatch(fetchPortfolioItems(apiProps)),
+        fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps)),
+        search: value => dispatch(searchPortfolioItems(value))
     };
 };
 
