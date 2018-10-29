@@ -87,12 +87,12 @@ plugins.push(CopyFilesWebpackPlugin);
  * Makes build-time env vars available to the client-side as constants
  */
 const envPlugin = new webpack.DefinePlugin({
-  'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
-  'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
-  'process.env.BASE_PATH': JSON.stringify(process.env.BASE_PATH),
-  'process.env.TOPO_API_HOST': JSON.stringify(process.env.TOPO_API_HOST),
-  'process.env.TOPO_API_PORT': JSON.stringify(process.env.TOPO_API_PORT),
-  'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH),
+    'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
+    'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
+    'process.env.BASE_PATH': JSON.stringify(process.env.BASE_PATH),
+    'process.env.TOPO_API_HOST': JSON.stringify(process.env.TOPO_API_HOST),
+    'process.env.TOPO_API_PORT': JSON.stringify(process.env.TOPO_API_PORT),
+    'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH)
 });
 plugins.push(envPlugin);
 

@@ -89,9 +89,9 @@ class OrderServiceFormStepConfiguration extends React.Component {
 
     onSubmit (data) {
         console.log("Data submitted: ", data.formData);
-        const {provider_id, catalog_id} = this.props;
+        const {catalog_id} = this.props;
         const plan_id = this.state.selectedPlan;
-        sendSubmitOrder({ provider_id: provider_id, catalog_id: catalog_id, plan_id: plan_id, plan_parameters: this.formDatatoArray(data.formData)});
+        sendSubmitOrder({ catalog_id: catalog_id, plan_id: plan_id, plan_parameters: this.formDatatoArray(data.formData)});
         this.props.hideModal();
     }
 

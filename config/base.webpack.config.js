@@ -6,12 +6,6 @@ const { resolve } = require('path');
 const pkg = require('../package.json');
 
 const webpackConfig = {
-    resolve: {
-        modules: [
-            resolve('src'),
-            resolve('node_modules')
-        ]
-    },
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: false,
     optimization: {
@@ -39,7 +33,7 @@ const webpackConfig = {
     module: {
         rules: [{
             test: /\.js$/,
-            exclude: /(node_modules|bower_components)/i,
+            exclude: /node_modules\/(?!(service_portal_api|topological_inventory)\/)/i,
             use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }]
         }, {
             test: /\.s?[ac]ss$/,
