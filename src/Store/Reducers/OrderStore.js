@@ -2,10 +2,9 @@ import * as ActionTypes from '../../Store/ActionTypes';
 
 // Initial State
 const initialState = {
-    servicePlans:{},
-    selectedPlan:{},
-    planParameters:{},
-    serviceData: {},
+    servicePlans: {},
+    selectedPlan: {},
+    serviceData:  {},
     isLoading: true
 };
 

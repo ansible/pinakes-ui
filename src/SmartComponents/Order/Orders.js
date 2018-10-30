@@ -22,22 +22,10 @@ class Orders extends Component {
             ...this.props.orderList,
             isLoading: this.props.isLoading
         };
-        return (
-            <Main>
-                <div className="pf-l-stack">
-                    <div className="pf-l-stack__item pf-m-secondary ">
-                        <PageHeader>
-                            <PageHeaderTitle title="Orders" />
-                        </PageHeader>
-                    </div>
-
-                    <Section type='content'>
-                        <div className="pf-l-stack__item pf-m-secondary ">
-                            <ContentList {...orderList} />
-                        </div>
-                    </Section>
-                </div>
-            </Main>
+        return(
+            <div className="pf-l-stack__item pf-m-secondary ">
+                <ContentList {...orderList} />
+            </div>
         );
     }
 }

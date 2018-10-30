@@ -53,7 +53,6 @@ class OrderServiceFormStepInformation extends React.Component {
 }
 
 
-
 OrderServiceFormStepInformation.propTypes = {
     orderData: propTypes.func,
     showOrder: propTypes.bool,

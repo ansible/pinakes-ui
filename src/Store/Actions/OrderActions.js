@@ -5,14 +5,9 @@ import ReducerRegistry from '../../Utilities/ReducerRegistry';
 
 ReducerRegistry.register({ OrderStore: OrderReducer });
 
-export const fetchServicePlans = (providerId, catalogId) => ({
+export const fetchServicePlans = (portfolioItemId) => ({
     type: ActionTypes.FETCH_SERVICE_PLANS,
-    payload: OrderHelper.getServicePlans(providerId, catalogId)
-});
-
-export const fetchServicePlanParameters = (providerId, catalogId, planId) => ({
-    type: ActionTypes.FETCH_SERVICE_PLAN_PARAMETERS,
-    payload: OrderHelper.getServicePlanParameters(providerId, catalogId, planId)
+    payload: OrderHelper.getServicePlans(portfolioItemId)
 });
 
 export const fetchOrderList = () => ({

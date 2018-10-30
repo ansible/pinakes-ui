@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Grid, Row } from '@patternfly/react-core';
+import { Button, Grid, Row, Modal } from '@patternfly/react-core';
 import { PageHeader } from '@red-hat-insights/insights-frontend-components';
 import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
 import './orderservice.scss';
 import propTypes from 'prop-types';
-import {OrderStore} from "../../Store/Reducers/OrderStore";
+import { OrderStore } from '../../Store/Reducers/OrderStore';
 import { Icon, Form } from 'patternfly-react';
-import {bindMethods} from "../../Helpers/Shared/Helper";
-import {OrderServiceFormSteps} from '../Order/OrderServiceFormConstants';
-import {Wizard} from 'patternfly-react';
+import { bindMethods } from '../../Helpers/Shared/Helper';
+import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
+import { Wizard } from 'patternfly-react';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
 
@@ -20,8 +20,7 @@ class OrderModal extends Component {
         super(props);
         this.initialState = {
             serviceData: {},
-            activeStepIndex: 0,
-            stepParametersValid: false,
+            activeStepIndex: 0
         };
 
         this.state = { ...this.initialState };
@@ -31,6 +30,13 @@ class OrderModal extends Component {
         bindMethods(this, ['onCancel', 'onStep', 'onNext', 'onBack', 'onSubmit']);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            stepParametersValid: nextProps.stepParametersValid || false,
+            showOrder: nextProps.showOrder
+        });
+    }
+
     onStep(stepIndex) {
 
     }
@@ -38,10 +44,12 @@ class OrderModal extends Component {
     onNext() {
         const { activeStepIndex } = this.state;
         const numberSteps = OrderServiceFormSteps.length;
+        console.log('OnNext: ActiveStpeIndex:', activeStepIndex);
 
         if (activeStepIndex < numberSteps - 1) {
             this.setState({ activeStepIndex: activeStepIndex + 1 });
         }
+        console.log('NextStep: ActiveStepIndex:', this.state.activeStepIndex);
     }
 
     onBack() {
@@ -53,17 +61,12 @@ class OrderModal extends Component {
     }
 
     onSubmit(event) {
-        const { orderData } = this.props;
-        const { stepParametersValid } = this.state;
-
-        if (stepParametersValid) {
-            // toDO - add submit functionality
-            this.setState({ activeStepIndex: 1 });
-        }
+        console.log('OnSubmit')
+        this.setState({ activeStepIndex: 1 });
     }
 
     onCancel() {
-        this.setState({showOrder: false});
+        this.setState({ showOrder: false });
     }
 
     imgTitle(serviceData){
@@ -80,7 +83,7 @@ class OrderModal extends Component {
             </div>);
     }
 
-    renderWizardSteps(serviceData) {
+    renderWizardSteps() {
         const { activeStepIndex } = this.state;
         const wizardSteps = OrderServiceFormSteps;
         const activeStep = wizardSteps[activeStepIndex];
@@ -106,10 +109,10 @@ class OrderModal extends Component {
         if(!showOrder)
             return null;
         else {
-            const { activeStepIndex, stepParametersValid } = this.state;
+            const { activeStepIndex } = this.state;
             const wizardSteps = OrderServiceFormSteps;
-            console.log('props in OrderServiceForm ', this.props);
-            console.log('state in OrderServiceForm ', this.props);
+            console.log('props in OrderModal ', this.props);
+            console.log('state in OrderModal ', this.state);
 
             return (
                 <React.Fragment>
@@ -129,7 +132,7 @@ class OrderModal extends Component {
                                         <br/>
                                         <br/>
                                         <Button variant="primary" type="button" onClick={this.onNext}>
-                            Order<Icon type="fa" name="angle-right"/>
+                                            Order<Icon type="fa" name="angle-right"/>
                                         </Button>
                                     </div>
                                 )}
@@ -155,14 +158,11 @@ OrderModal.propTypes = {
     error: propTypes.bool,
     history: propTypes.object,
 };
-
-
 function mapStateToProps(state) {
     return {
         isLoading: state.OrderStore.isLoading,
         selectedItem: state.OrderStore.selectedItem,
-        servicePlans: state.OrderStore.servicePlans,
-        planParameters: state.OrderStore.planParameters,
+        servicePlans: state.OrderStore.servicePlans
     }
 };
 
