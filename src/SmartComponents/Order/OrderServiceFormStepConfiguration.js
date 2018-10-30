@@ -89,7 +89,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
         console.log('Data submitted: ', data.formData);
         const { portfolioItemId } = this.props;
         const plan_id = this.state.selectedPlan;
-        sendSubmitOrder({ portfolioItem: portfolioItemId, plan_id, plan_parameters: this.formDatatoArray(data.formData) });
+        sendSubmitOrder({ portfolioItemId: portfolioItemId, plan_id, plan_parameters: this.formDatatoArray(data.formData) });
         this.props.hideModal();
     };
 
@@ -104,7 +104,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
                             <div>{ this.planOptions() }</div>
                         </div> }
                         <div>
-                            <Form schema={ this.props.servicePlans[0].create_json_schema} onSubmit={ this.onSubmit }>
+                            <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema} onSubmit={ this.onSubmit }>
                                 <div>
                                     <Button variant="primary" type="submit">Submit</Button>
                                 </div>
