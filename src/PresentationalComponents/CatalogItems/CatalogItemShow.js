@@ -74,7 +74,7 @@ class CatalogItemShow extends React.Component {
 
     render() {
         return (
-            <GridItem sm={2} md={2} lg={2} xl={2}>
+            <GridItem span={2}>
                 <Card>
                     <div className="card_style" onClick={ () => {this.handleOnClick(this.props)}}>
                         <CardHeader className="card_header">

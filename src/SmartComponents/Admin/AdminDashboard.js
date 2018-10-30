@@ -136,11 +136,11 @@ class AdminDashboard extends Component {
             <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
                 { this.renderToolbar() }
                 <Grid>
-                    <GridItem sm={2} md={2} lg={2} xl={2}>
+                    <GridItem GridItem sm={4} md={4} lg={2} xl={2}>
                         {this.renderNav()}
                     </GridItem >
 
-                    <GridItem sm={10} md={10} lg={10} xl={10}>
+                    <GridItem GridItem sm={8} md={8} lg={10} xl={10}>
                         <ContentGallery {...filteredItems} />
                     </GridItem>
                 </Grid>
