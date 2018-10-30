@@ -32,8 +32,10 @@ export function sendSubmitOrder(parameters) {
         orderId = order.id;
         let orderItem = new ServicePortalApi.OrderItem;
         orderItem.portfolio_item_id = parameters.portfolio_item_id;
-        orderItem.plan_id = parameters.plan_id;
-        orderItem.parameters = parameters.plan_parameters;
+        orderItem.provider_control_parameters =  {'namespace': 'default'};
+        orderItem.count = 1;
+        orderItem.service_plan_ref = parameters.service_plan_ref;
+        orderItem.service_parameters = parameters.service_parameters;
 
         api.addToOrder(orderId, orderItem).then((_dataO) => {
             api.submitOrder(orderId).then((result) => { console.log('Order submitted');

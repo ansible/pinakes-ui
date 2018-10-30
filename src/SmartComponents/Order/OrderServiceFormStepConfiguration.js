@@ -79,7 +79,9 @@ class OrderServiceFormStepConfiguration extends React.Component {
         let values = Object.values(obj);
         let params = [];
         for (let idx = 0; idx < keys.length; idx++) {
-            params.push({ name: keys[idx], value: values[idx] });
+            if (keys[idx] !== 'NAMESPACE') {
+                params.push({ name: keys[idx], value: values[idx] });
+            }
         }
 
         return params;
@@ -87,9 +89,9 @@ class OrderServiceFormStepConfiguration extends React.Component {
 
     onSubmit (data) {
         console.log('Data submitted: ', data.formData);
-        const { portfolioItemId } = this.props;
-        const plan_id = this.state.selectedPlan;
-        sendSubmitOrder({ portfolioItemId: portfolioItemId, plan_id, plan_parameters: this.formDatatoArray(data.formData) });
+        const portfolioItemId = this.props.id;
+        const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
+        sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: this.formDatatoArray(data.formData) });
         this.props.hideModal();
     };
 
