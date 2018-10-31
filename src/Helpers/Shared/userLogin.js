@@ -1,6 +1,6 @@
 import React from 'react';
-let  TopologicalInventory = require('topological_inventory');
 
+let TopologicalInventory = require('topological_inventory');
 let ServicePortalApi = require('service_portal_api');
 
 const defaultClient = ServicePortalApi.ApiClient.instance;

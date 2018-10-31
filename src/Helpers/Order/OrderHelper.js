@@ -1,15 +1,10 @@
 import React from 'react';
-import { getTopologicalUserApi } from '../Shared/userLogin';
 
 let ServicePortalApi = require('service_portal_api');
 let api = new ServicePortalApi.AdminsApi();
 
-const topoApi = getTopologicalUserApi();
-
-let orderId = 0;
-
 export function getServicePlans(portfolioItemId) {
-    return topoApi.listServiceOfferingServicePlans(portfolioItemId).then((data) => {
+    return api.fetchPlansWithPortfolioItemId(portfolioItemId).then((data) => {
         console.log('fetchPlansWithPortfolioItemID API called successfully. Returned data: ' + data);
         return data;
     }, (error) => {
@@ -26,25 +21,18 @@ export function listOrders() {
     });
 }
 
-export function sendSubmitOrder(parameters) {
-    api.newOrder().then((order) => {
-        console.log('Create order called successfully. Returned data: ' + order);
-        orderId = order.id;
-        let orderItem = new ServicePortalApi.OrderItem;
-        orderItem.portfolio_item_id = parameters.portfolio_item_id;
-        orderItem.provider_control_parameters =  {'namespace': 'default'};
-        orderItem.count = 1;
-        orderItem.service_plan_ref = parameters.service_plan_ref;
-        orderItem.service_parameters = parameters.service_parameters;
+export async function sendSubmitOrder(parameters) {
+    let order = await api.newOrder();
+    let orderItem = new ServicePortalApi.OrderItem;
+    orderItem.count = 1;
+    orderItem.provider_control_parameters =  {'namespace': 'default'};
+    orderItem.portfolio_item_id = parameters.portfolio_item_id;
+    orderItem.service_plan_ref = parameters.service_plan_ref;
+    orderItem.service_parameters = parameters.service_parameters;
 
-        api.addToOrder(orderId, orderItem).then((_dataO) => {
-            api.submitOrder(orderId).then((result) => { console.log('Order submitted');
-                return result;},
-            (error)=> {console.error(error);});//submit
-        }, (error) => {console.error(error);});
-    }, (error) => {
-        console.error(error);
-    });
+    await api.addToOrder(order.id, orderItem);
+    api.submitOrder(order.id).then((result) => { console.log('Order submitted'); return result; },
+        (error)=> {console.error(error);});//submit
 }
 
 export function setServicePlan(data) {

@@ -90,7 +90,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
         console.log('Data submitted: ', data.formData);
         const portfolioItemId = this.props.id;
         const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
-        sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: this.formDatatoArray(data.formData) });
+        sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data.formData});
         this.props.hideModal();
     };
 
