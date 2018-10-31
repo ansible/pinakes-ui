@@ -65,7 +65,6 @@ class PortfolioItem extends React.Component {
             servicedata: this.props,
             closeModal: this.props.hideModal
         }, 'order');
-    // props.history.push('/catalog/catalogitems/'.concat(props.catalog_id));
     };
 
     render() {

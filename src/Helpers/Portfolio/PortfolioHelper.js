@@ -44,7 +44,6 @@ export function getPortfolioItemsWithPortfolio(portfolioId) {
     });
 }
 
-
 function processPortfolioItems(items) {
     let portfolioItems = [];
     items.forEach( function(item, row, _array) {
@@ -55,14 +54,6 @@ function processPortfolioItems(items) {
     return {
         portfolioItems,
     };
-}
-
-// TODO - use the PORTFOLIO API and portfolio_id when available
-function retrieveSingleItem(items, id) {
-    let pItem = items.find(item => {return item.catalog_id === id;});
-    console.log('RetrieveSingleItem: ');
-    console.log(pItem);
-    return {portfolioItem: cItem};
 }
 
 function processPortfolioItem(key, data) {

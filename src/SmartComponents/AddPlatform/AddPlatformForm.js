@@ -42,12 +42,12 @@ class AddPlatformForm extends Component {
           title: 'Adding platform',
           description: 'Adding platform was cancelled by the user.'
       })
-      this.props.history.push('/catalog/catalogitems/');
+      this.props.history.push('/service_portal');
   }
 
   onError = () => {
       console.log('Error in AddPlatform form');
-      this.props.history.push('/catalog/catalogitems/');
+      this.props.history.push('/service_portal');
   };
 
 

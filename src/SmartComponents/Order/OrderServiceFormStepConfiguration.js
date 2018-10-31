@@ -58,7 +58,6 @@ class OrderServiceFormStepConfiguration extends React.Component {
     handlePlanChange (arg, event)  {
         const plan = event.currentTarget.value;
         this.setState({ selectedPlan: plan });
-        //this.props.fetchServicePlanParameters(this.props.provider_id, this.props.catalog_id, plan);
         console.log('Plan Id changed to : ', plan);
     };
 

@@ -21,13 +21,11 @@ import some from 'lodash/some';
 const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePortal/ServicePortal'));
 const PlatformItems = asyncComponent(() => import('./SmartComponents/Platform/PlatformItems'));
 const PortfolioItems = asyncComponent(() => import('./SmartComponents/Portfolio/PortfolioItems'));
-const CatalogItemShow = asyncComponent(() => import('./SmartComponents/CatalogItem/CatalogItem'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const AddPlatformForm = asyncComponent(() => import('./SmartComponents/AddPlatform/AddPlatformForm'));
 
 const paths = {
     service_portal: '/service_portal',
-    service_details: 'services/:catalog_id',
     addplatform:  '/addplatform',
     platform_items: '/platform_items/:filter?',
     portfolio_items: '/portfolio_items/:filter?',
@@ -69,7 +67,6 @@ export const Routes = (props: Props) => {
             <InsightsRoute exact path={paths.platform_items} component={PlatformItems} rootClass="platform_items" />
             <InsightsRoute exact path={paths.portfolio_items} component={PortfolioItems} rootClass="portfolio_items" />
             <InsightsRoute exact path={paths.orders} component={Orders} rootClass="admin" />
-            <InsightsRoute exact path={paths.service_details} component={CatalogItemShow} rootClass="admin" />
             <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="admin" />
             {/* Finally, catch all unmatched routes */}
             <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.service_portal} />)} />
