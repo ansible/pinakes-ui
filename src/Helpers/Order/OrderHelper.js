@@ -30,9 +30,9 @@ export async function sendSubmitOrder(parameters) {
     orderItem.service_plan_ref = parameters.service_plan_ref;
     orderItem.service_parameters = parameters.service_parameters;
 
-    await api.addToOrder(order.id, orderItem);
+    let addResult = await api.addToOrder(order.id, orderItem);
     api.submitOrder(order.id).then((result) => { console.log('Order submitted'); return result; },
-        (error)=> {console.error(error);});//submit
+        (error) => {console.error(error);});//submit
 }
 
 export function setServicePlan(data) {
