@@ -2,170 +2,153 @@ import React from 'react';
 import { Form as PFForm } from 'patternfly-react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Form from "react-jsonschema-form";
+import Form from 'react-jsonschema-form';
 import { BarLoader } from 'react-spinners';
-import { PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Bullseye, Button, Radio } from '@patternfly/react-core'
+import { Bullseye, Button, Radio } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
-import { fetchServicePlanParameters, fetchServicePlans, sendSubmitOrder } from "../../Store/Actions/OrderActions";
-import { bindMethods } from "../../Helpers/Shared/Helper";
-import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
+import { fetchServicePlans, sendSubmitOrder } from '../../Store/Actions/OrderActions';
+import { bindMethods } from '../../Helpers/Shared/Helper';
+//import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const uiSchema =
 {
-  "plans": {
-    "ui:widget": "radio",
-    "ui:options": {
-      "inline": false
+    plans: {
+        'ui:widget': 'radio',
+        'ui:options': {
+            inline: false
+        }
     }
-  }
 };
 
-const optionRow = ( plan, option, selected_id, onChange) => {
-  return (
-      <div>
-        <Radio
-            value={plan.plan_id}
-            checked={selected_id === plan.plan_id}
-            name={plan.name}
-            aria-label={plan.description}
-            onChange={onChange}
-        />
-        {plan.description}
-        <br/>
-        <br/>
-      </div>)
+const optionRow = (plan, option, selected_id, onChange) => {
+    return (
+        <div>
+            <Radio
+                value={ plan.plan_id }
+                checked={ selected_id === plan.plan_id }
+                name={ plan.name }
+                aria-label={ plan.description }
+                onChange={ onChange }
+            />
+            { plan.description }
+            <br/>
+            <br/>
+        </div>);
 };
 
 class OrderServiceFormStepConfiguration extends React.Component {
-  constructor(props) {
-    super(props);
-    this.initialState = {
-      showOrder: false,
-      activeStepIndex: 1,
-      stepParametersValid: false,
-      selectedPlan: null,
+    constructor(props) {
+        super(props);
+        this.initialState = {
+            showOrder: false,
+            activeStepIndex: 1,
+            selectedPlan: null,
+            selectedPlanIdx: 0
+        };
+        bindMethods(this, [ 'handlePlanChange', 'planOptions', 'onSubmit' ]);
+        this.state = { ...this.initialState };
+    }
+
+    componentDidMount() {
+        console.log('Config Component did mount - props:', this.props);
+        const { id } = this.props;
+        this.props.fetchPlans(id);
+    }
+
+    handlePlanChange (arg, event)  {
+        const plan = event.currentTarget.value;
+        this.setState({ selectedPlan: plan });
+        console.log('Plan Id changed to : ', plan);
     };
-    bindMethods(this, ['handlePlanChange', 'planOptions', 'onSubmit']);
-    this.state = { ...this.initialState };
-  }
 
-  componentDidMount() {
-    console.log('Component did mount - props:');
-    console.log(this.props);
-    const {provider_id, catalog_id} = this.props;
-    this.props.fetchPlans(provider_id, catalog_id);
-   }
+    planOptions() {
+        let options = [];
+        let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].plan_id;
+        let onChange = this.handlePlanChange;
 
-  handlePlanChange (arg, event)  {
-    const plan = event.currentTarget.value;
-    this.setState({selectedPlan: plan});
-    this.props.fetchServicePlanParameters(this.props.provider_id, this.props.catalog_id, plan);
-    console.log('Plan Id changed to : ', plan );
-  };
-
-  planOptions() {
-    let options = [];
-    let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].plan_id;
-    let onChange = this.handlePlanChange;
-
-    this.props.servicePlans.forEach(function(plan, option, _array) {
-      let new_option = optionRow(plan, option, selected_id, onChange);
-      options.push(new_option);
-    });
-    return options;
- }
-
-
-  formDatatoArray(obj){
-    let keys = Object.keys(obj);
-    let values = Object.values(obj);
-    let params = [];
-    for (let idx = 0; idx < keys.length; idx++) {
-      params.push({name: keys[idx], value: values[idx]})
+        this.props.servicePlans.forEach(function(plan, option, _array) {
+            let new_option = optionRow(plan, option, selected_id, onChange);
+            options.push(new_option);
+        });
+        return options;
     }
-    return params;
-  }
 
-  onSubmit (data) {
-    console.log("Data submitted: ", data.formData);
-    const {provider_id, catalog_id} = this.props;
-    const plan_id = this.state.selectedPlan;
-    sendSubmitOrder({ provider_id: provider_id, catalog_id: catalog_id, plan_id: plan_id, plan_parameters: this.formDatatoArray(data.formData)});
-    this.props.hideModal();
-  }
-
-  componentDidUpdate(){
-    if (!this.state.selectedPlan){
-      this.setState({selectedPlan: this.props.servicePlans[0].plan_id});
-      this.props.fetchServicePlanParameters(this.props.provider_id, this.props.catalog_id, this.props.servicePlans[0].plan_id);
-    }
-  }
-
-  render() {
-    if (!this.props.isLoading && ( this.props.servicePlans.length > 1 || this.props.planParameters )) {
-      return (
-        <PFForm horizontal>
-          <PFForm.FormGroup>
-            {(!this.props.isLoading && this.props.servicePlans.length > 1) &&
-            <div>
-              <h3>Select Plan:</h3>
-              <div>{this.planOptions()}</div>
-            </div>
+    formDatatoArray(obj) {
+        let keys = Object.keys(obj);
+        let values = Object.values(obj);
+        let params = [];
+        for (let idx = 0; idx < keys.length; idx++) {
+            if (keys[idx] !== 'NAMESPACE') {
+                params.push({ name: keys[idx], value: values[idx] });
             }
+        }
 
-            <div>
-              <Form schema={this.props.planParameters} uiSchema={uiSchema} onSubmit={this.onSubmit}>
-                <div>
-                  <Button variant="primary" type="submit">Submit</Button>
-                </div>
-              </Form>
-            </div>
+        return params;
+    }
 
-          </PFForm.FormGroup>
-        </PFForm>
-      );
+    onSubmit (data) {
+        console.log('Data submitted: ', data.formData);
+        const portfolioItemId = this.props.id;
+        const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
+        sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data.formData});
+        this.props.hideModal();
+    };
+
+    render() {
+        if (!this.props.isLoading) {
+            return (
+                <PFForm horizontal>
+                    <PFForm.FormGroup>
+                        { (!this.props.isLoading && this.props.servicePlans.length > 1) &&
+                        <div>
+                            <h3>Select Plan:</h3>
+                            <div>{ this.planOptions() }</div>
+                        </div> }
+                        <div>
+                            <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema} onSubmit={ this.onSubmit }>
+                                <div>
+                                    <Button variant="primary" type="submit">Submit</Button>
+                                </div>
+                            </Form>
+                        </div>
+                    </PFForm.FormGroup>
+                </PFForm>
+            );
+        }
+        else {
+            return (
+                <PFForm horizontal>
+                    <PFForm.FormGroup>
+                        <Bullseye>
+                            <BarLoader color={ '#00b9e4' } loading={ this.props.isLoading } />
+                        </Bullseye>
+                    </PFForm.FormGroup>
+                </PFForm>
+            );
+        }
     }
-    else {
-      return (
-          <PFForm horizontal>
-            <PFForm.FormGroup>
-              <Bullseye>
-                <BarLoader color={'#00b9e4'} loading={this.props.isLoading} />
-              </Bullseye>
-            </PFForm.FormGroup>
-          </PFForm>
-      );
-    }
-  }
 }
 
-
-
 OrderServiceFormStepConfiguration.propTypes = {
-  orderData: propTypes.func,
-  showOrder: propTypes.bool,
-  serviceData: propTypes.object,
-  stepParametersValid: propTypes.bool,
-  fulfilled: propTypes.bool,
-  fetchServicePlanParameters: propTypes.func,
-  error: propTypes.bool
+    orderData: propTypes.func,
+    showOrder: propTypes.bool,
+    serviceData: propTypes.object,
+    stepParametersValid: propTypes.bool,
+    fulfilled: propTypes.bool,
+    error: propTypes.bool
 };
 
-
 function mapStateToProps(state) {
-  return {
-    isLoading: state.OrderStore.isLoading,
-    servicePlans: state.OrderStore.servicePlans,
-    planParameters:  state.OrderStore.planParameters
-  }
+    return {
+        isLoading: state.OrderStore.isLoading,
+        servicePlans: state.OrderStore.servicePlans
+    };
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    fetchPlans: (provider_id, catalog_id) => dispatch(fetchServicePlans(provider_id, catalog_id)),
-    fetchServicePlanParameters: (provider_id, catalog_id, plan_id) => dispatch(fetchServicePlanParameters(provider_id, catalog_id, plan_id)),
-  };
+    return {
+        fetchPlans: (portfolioItemId) => dispatch(fetchServicePlans(portfolioItemId))
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderServiceFormStepConfiguration);

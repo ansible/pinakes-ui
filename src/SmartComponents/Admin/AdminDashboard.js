@@ -11,162 +11,162 @@ import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } fr
 import './admindashboard.scss'
 
 class AdminDashboard extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          showItems: '',
-          filteredItems: []
-      };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            showItems: '',
+            filteredItems: []
+        };
+    }
 
-  fetchData(apiProps) {
-    this.props.fetchPlatformItems({...apiProps });
-    this.props.fetchPortfolioItems({...apiProps });
-    this.props.fetchPortfolios({...apiProps });
-  }
+    fetchData(apiProps) {
+        this.props.fetchPlatformItems({...apiProps });
+        this.props.fetchPortfolioItems({...apiProps });
+        this.props.fetchPortfolios({...apiProps });
+    }
 
 
-  componentDidMount() {
-    this.fetchData();
-    bindMethods(this, ['onNavClick', 'handleOnPlatformClick', 'handleOnPortfolioClick']);
-  }
+    componentDidMount() {
+        this.fetchData();
+        bindMethods(this, ['onNavClick', 'handleOnPlatformClick', 'handleOnPortfolioClick']);
+    }
 
-  onNavClick()
-  {
+    onNavClick()
+    {
 
-  }
+    }
 
-  platformLink(platform){
-    return(
-    <li className="pf-c-nav__item" onClick={ () => {this.handleOnPlatformClick(itemsForPlatform(platform))}}>
-      <a href="#" className="pf-c-nav__link" aria-current="page">
-        {platform.name}
-      </a>
-    </li>
-    )
-  }
-
-  portfolioLink(portfolio){
-    return(
-    <li className="pf-c-nav__item" onClick={ () => {this.handleOnPortfolioClick(itemsForPortfolio(portfolio))}}>
-      <a href="#" className="pf-c-nav__link" aria-current="page">
-        {portfolio.name}
-      </a>
-    </li>
-    )
-  }
-
-  renderToolbar() {
-    return(
-      <Toolbar style={{backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px'}}>
-        <ToolbarSection>
-          <ToolbarGroup>
-            <ToolbarItem>Select Platform</ToolbarItem>
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <ToolbarItem>Search</ToolbarItem>
-            <ToolbarItem>Sort</ToolbarItem>
-          </ToolbarGroup>
-        </ToolbarSection>
-      </Toolbar>);
-  }
-
-  handleOnPlatformClick() {
-    console.log('Changing display items');
-    this.setState({showItems: 'platform'});
-    this.props.fetchPlatformItems();
-  }
-
-  handleOnPortfolioClick() {
-    console.log('Changing display items');
-    this.setState({showItems: 'portfolio'});
-    this.props.fetchPortfolioItems();
-  }
-
-  renderNav() {
-    return(
-    <div style={{backgroundColor: '#ffffff', minHeight: '2000px'}}>
-      <nav className="pf-c-nav " aria-label="Service Portal Admin">
-        <section className="pf-c-nav__section" aria-labelledby={"platform-group"} >
-          <h2 className="pf-c-nav__section-title" id="platform-group">
-            Platforms
-          </h2>
-          <ul className="pf-c-nav__simple-list">
-            {this.platformLinks()}
-          </ul>
-        </section>
-        <section className="pf-c-nav__section" aria-labelledby="portfolios">
-          <h2 className="pf-c-nav__section-title" id="portfolios">
-            Portfolios
-          </h2>
-          <ul className="pf-c-nav__simple-list">
-            {this.portfolioLinks()}
-          </ul>
-        </section>
-        <section className="pf-c-nav__section" aria-labelledby="filters">
-          <h2 className="pf-c-nav__section-title" id="filters">
-            Filters
-          </h2>
-          <ul className="pf-c-nav__simple-list">
-            <li className="pf-c-nav__item">
-              <a href="#" className="pf-c-nav__link pf-m-current" aria-current="page">
-                Favorites
-              </a>
+    platformLink(platform){
+        return(
+            <li className="pf-c-nav__item" onClick={ () => {this.handleOnPlatformClick(itemsForPlatform(platform))}}>
+                <a href="#" className="pf-c-nav__link" aria-current="page">
+                    {platform.name}
+                </a>
             </li>
-          </ul>
-        </section>
-      </nav>
-    </div>);
-  }
-
-  render() {
-    let displayItems = [];
-    if( this.state.showItems == 'platform') {
-      displayItems = this.props.platformItems.platformItems;
-    }
-    else if ( this.state.showItems == 'portfolio') {
-      displayItems = this.props.portfolioItems.portfolioItems;
+        )
     }
 
-    let filteredItems = {
-        items: displayItems,
-        isLoading: this.props.isLoading
-    };
-    return (
-      <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
-        { this.renderToolbar() }
-        <Grid>
-          <GridItem sm={2} md={2} lg={2} xl={2}>
-            {this.renderNav()}
-          </GridItem >
+    portfolioLink(portfolio){
+        return(
+            <li className="pf-c-nav__item" onClick={ () => {this.handleOnPortfolioClick(itemsForPortfolio(portfolio))}}>
+                <a href="#" className="pf-c-nav__link" aria-current="page">
+                    {portfolio.name}
+                </a>
+            </li>
+        )
+    }
 
-          <GridItem sm={10} md={10} lg={10} xl={10}>
-            <ContentGallery {...filteredItems} />
-          </GridItem>
-        </Grid>
-        <MainModal />
-      </Main>
-    );
-  }
+    renderToolbar() {
+        return(
+            <Toolbar style={{backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px'}}>
+                <ToolbarSection>
+                    <ToolbarGroup>
+                        <ToolbarItem>Select Platform</ToolbarItem>
+                    </ToolbarGroup>
+                    <ToolbarGroup>
+                        <ToolbarItem>Search</ToolbarItem>
+                        <ToolbarItem>Sort</ToolbarItem>
+                    </ToolbarGroup>
+                </ToolbarSection>
+            </Toolbar>);
+    }
+
+    handleOnPlatformClick() {
+        console.log('Changing display items');
+        this.setState({showItems: 'platform'});
+        this.props.fetchPlatformItems();
+    }
+
+    handleOnPortfolioClick() {
+        console.log('Changing display items');
+        this.setState({showItems: 'portfolio'});
+        this.props.fetchPortfolioItems();
+    }
+
+    renderNav() {
+        return(
+            <div style={{backgroundColor: '#ffffff', minHeight: '2000px'}}>
+                <nav className="pf-c-nav " aria-label="Service Portal Admin">
+                    <section className="pf-c-nav__section" aria-labelledby={"platform-group"} >
+                        <h2 className="pf-c-nav__section-title" id="platform-group">
+            Platforms
+                        </h2>
+                        <ul className="pf-c-nav__simple-list">
+                            {this.platformLinks()}
+                        </ul>
+                    </section>
+                    <section className="pf-c-nav__section" aria-labelledby="portfolios">
+                        <h2 className="pf-c-nav__section-title" id="portfolios">
+            Portfolios
+                        </h2>
+                        <ul className="pf-c-nav__simple-list">
+                            {this.portfolioLinks()}
+                        </ul>
+                    </section>
+                    <section className="pf-c-nav__section" aria-labelledby="filters">
+                        <h2 className="pf-c-nav__section-title" id="filters">
+            Filters
+                        </h2>
+                        <ul className="pf-c-nav__simple-list">
+                            <li className="pf-c-nav__item">
+                                <a href="#" className="pf-c-nav__link pf-m-current" aria-current="page">
+                Favorites
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </nav>
+            </div>);
+    }
+
+    render() {
+        let displayItems = [];
+        if( this.state.showItems == 'platform') {
+            displayItems = this.props.platformItems.platformItems;
+        }
+        else if ( this.state.showItems == 'portfolio') {
+            displayItems = this.props.portfolioItems.portfolioItems;
+        }
+
+        let filteredItems = {
+            items: displayItems,
+            isLoading: this.props.isLoading
+        };
+        return (
+            <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
+                { this.renderToolbar() }
+                <Grid>
+                    <GridItem GridItem sm={4} md={4} lg={2} xl={2}>
+                        {this.renderNav()}
+                    </GridItem >
+
+                    <GridItem GridItem sm={8} md={8} lg={10} xl={10}>
+                        <ContentGallery {...filteredItems} />
+                    </GridItem>
+                </Grid>
+                <MainModal />
+            </Main>
+        );
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    platformItems: state.PortfolioStore.platformItems,
-    portfolioItems: state.PortfolioStore.portfolioItems,
-    portfolios: state.PortfolioStore.portfolios,
-    platforms: state.PortfolioStore.platforms,
-    isLoading: state.PortfolioStore.isLoading,
-    searchFilter: state.PortfolioStore.filterValue
-  };
+    return {
+        platformItems: state.PortfolioStore.platformItems,
+        portfolioItems: state.PortfolioStore.portfolioItems,
+        portfolios: state.PortfolioStore.portfolios,
+        platforms: state.PortfolioStore.platforms,
+        isLoading: state.PortfolioStore.isLoading,
+        searchFilter: state.PortfolioStore.filterValue
+    };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-      fetchPortfolios: apiProps => dispatch(fetchPortfolios(apiProps)),
-      fetchPlatformItems: apiProps => dispatch(fetchPlatformItems(apiProps)),
-      fetchPortfolioItems: apiProps => dispatch(fetchPortfolioItems(apiProps)),
-      search: value => dispatch(searchPortfolioItems(value))
+        fetchPortfolios: apiProps => dispatch(fetchPortfolios(apiProps)),
+        fetchPlatformItems: apiProps => dispatch(fetchPlatformItems(apiProps)),
+        fetchPortfolioItems: apiProps => dispatch(fetchPortfolioItems(apiProps)),
+        search: value => dispatch(searchPortfolioItems(value))
     };
 };
 

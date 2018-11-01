@@ -14,20 +14,20 @@ import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
 import Alerts from '../Common/Alerts';
 
 const schema = {
-  type: 'object',
-  properties: {
-    name: { title: 'New Portfolio Name', type: 'string' },
-    description: { title: 'Description', type: 'string' },
-  },
-  required: ['name', 'description']
+    type: 'object',
+    properties: {
+        name: { title: 'New Portfolio Name', type: 'string' },
+        description: { title: 'Description', type: 'string' },
+    },
+    required: ['name', 'description']
 };
 
 class AddPortfolioModal extends Component {
-   componentDidMount() {
-  };
+    componentDidMount() {
+    };
 
   onSubmit = data => {
-    this.props.addPortfolioWithItem(data, this.props.itemdata)
+      this.props.addPortfolioWithItem(data, this.props.itemdata)
       .then(() => this.props.addAlert({
           variant: 'success',
           title: 'Success adding portfolio',
@@ -38,50 +38,50 @@ class AddPortfolioModal extends Component {
           title: 'Failed adding portfolio',
           description: 'The portfolio was not added successfuly.'
       }));
-    this.props.closeModal();
+      this.props.closeModal();
   }
 
   onCancel = () => {
-    this.props.addAlert({
-      variant: 'warning',
-      title: 'Adding portfolio',
-      description: 'Adding portfolio was cancelled by the user.'
-    })
-    this.props.closeModal();
+      this.props.addAlert({
+          variant: 'warning',
+          title: 'Adding portfolio',
+          description: 'Adding portfolio was cancelled by the user.'
+      })
+      this.props.closeModal();
   }
 
   render() {
-    console.log('Adding a New Portfolio');
-    return (
-        <Main title={ 'Add Portfolio'}>
-          <div className="pf-l-stack">
-            <div className="pf-l-stack__item pf-m-secondary ">
-              <PageHeader>
-                <PageHeaderTitle title= 'Create Portfolio and Add Product' />
-              </PageHeader>
-            </div>
-            <div className="pf-l-stack">
-              <FormRenderer schema={schema}
-                    onSubmit={this.onSubmit}
-                    onCancel={this.onCancel} />
-            </div>
-          </div>
-        </Main>
-    );
+      console.log('Adding a New Portfolio');
+      return (
+          <Main title={ 'Add Portfolio'}>
+              <div className="pf-l-stack">
+                  <div className="pf-l-stack__item pf-m-secondary ">
+                      <PageHeader>
+                          <PageHeaderTitle title= 'Create Portfolio and Add Product' />
+                      </PageHeader>
+                  </div>
+                  <div className="pf-l-stack">
+                      <FormRenderer schema={schema}
+                          onSubmit={this.onSubmit}
+                          onCancel={this.onCancel} />
+                  </div>
+              </div>
+          </Main>
+      );
   }
 }
 
 const mapStateToProps = state => ({ isLoading: state.PortfolioStore.isLoading });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addAlert,
-  removeAlert,
-  addPortfolioWithItem,
+    addAlert,
+    removeAlert,
+    addPortfolioWithItem,
 }, dispatch);
 
 AddPortfolioModal.propTypes = {
-  isLoading: propTypes.bool,
-  history: propTypes.object
+    isLoading: propTypes.bool,
+    history: propTypes.object
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));

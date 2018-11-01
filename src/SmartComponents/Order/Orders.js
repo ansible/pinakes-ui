@@ -4,7 +4,7 @@ import { PageHeader } from '@red-hat-insights/insights-frontend-components';
 import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
-import { fetchOrderList } from 'Store/Actions/OrderActions';
+import { fetchOrderList } from '../../Store/Actions/OrderActions';
 import ContentList from '../ContentGallery/ContentList';
 import propTypes from 'prop-types';
 
@@ -22,22 +22,10 @@ class Orders extends Component {
             ...this.props.orderList,
             isLoading: this.props.isLoading
         };
-        return (
-            <Main>
-                <div className="pf-l-stack">
-                    <div className="pf-l-stack__item pf-m-secondary ">
-                        <PageHeader>
-                            <PageHeaderTitle title="Orders" />
-                        </PageHeader>
-                    </div>
-
-                    <Section type='content'>
-                        <div className="pf-l-stack__item pf-m-secondary ">
-                            <ContentList {...orderList} />
-                        </div>
-                    </Section>
-                </div>
-            </Main>
+        return(
+            <div className="pf-l-stack__item pf-m-secondary ">
+                <ContentList {...orderList} />
+            </div>
         );
     }
 }

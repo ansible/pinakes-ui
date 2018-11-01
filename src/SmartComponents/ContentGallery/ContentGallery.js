@@ -6,31 +6,31 @@ import { Section, Pagination, PageHeader, PageHeaderTitle } from '@red-hat-insig
 import { Grid } from '@patternfly/react-core'
 
 class ContentGallery extends Component {
-  render() {
-    if ( this.props.isLoading || (this.props.items && this.props.items.length) > 0) {
-      return (
-        <div>
-          <br />
-          <div>
-              <BarLoader color={'#00b9e4'} loading={this.props.isLoading} />
-          </div>
-          <Section type='content'>
-            <Grid gutter='md' >
-              {this.props.items}
-            </Grid>
-          </Section>
-        </div>
-      );
+    render() {
+        if ( this.props.isLoading || (this.props.items && this.props.items.length) > 0) {
+            return (
+                <div>
+                    <br />
+                    <div>
+                        <BarLoader color={'#00b9e4'} loading={this.props.isLoading} />
+                    </div>
+                    <Section type='content'>
+                        <Grid gutter='md' >
+                            {this.props.items}
+                        </Grid>
+                    </Section>
+                </div>
+            );
+        }
+        else if (!this.props.isLoading) {
+            return (
+                <Section type='content'>
+                    <div>
+                    </div>
+                </Section>
+            );
+        }
     }
-    else if (!this.props.isLoading) {
-      return (
-        <Section type='content'>
-          <div>
-          </div>
-         </Section>
-      );
-    }
-  }
 }
 
 ContentGallery.propTypes = {

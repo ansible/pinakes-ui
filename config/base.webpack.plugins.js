@@ -6,6 +6,7 @@
  */
 const path = require('path');
 const webpack = require('webpack');
+const config = require('./webpack.common.js');
 const plugins = [];
 
 /**
@@ -43,7 +44,7 @@ plugins.push(SourceMapsPlugin);
  * Cleans distribution folder.
  * @type {[type]}
  */
-const CleanWebpackPlugin = new (require('clean-webpack-plugin'))(['dist']);
+const CleanWebpackPlugin = new (require('clean-webpack-plugin'))([ 'dist' ]);
 plugins.push(CleanWebpackPlugin);
 
 /**
@@ -86,13 +87,23 @@ plugins.push(CopyFilesWebpackPlugin);
  * Makes build-time env vars available to the client-side as constants
  */
 const envPlugin = new webpack.DefinePlugin({
-  'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
-  'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
-  'process.env.BASE_PATH': JSON.stringify(process.env.BASE_PATH),
-  'process.env.TOPO_API_HOST': JSON.stringify(process.env.TOPO_API_HOST),
-  'process.env.TOPO_API_PORT': JSON.stringify(process.env.TOPO_API_PORT),
-  'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH),
+    'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
+    'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
+    'process.env.BASE_PATH': JSON.stringify(process.env.BASE_PATH),
+    'process.env.TOPO_API_HOST': JSON.stringify(process.env.TOPO_API_HOST),
+    'process.env.TOPO_API_PORT': JSON.stringify(process.env.TOPO_API_PORT),
+    'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH)
 });
 plugins.push(envPlugin);
+
+/**
+ * Replaces any @@insights in the html files with config.insightsDeployment value.
+ * This handles the path being either insights or insightsbeta in the esi:include.
+ */
+const HtmlReplaceWebpackPlugin = new(require('html-replace-webpack-plugin'))([{
+    pattern: '@@insights',
+    replacement: config.insightsDeployment
+}]);
+plugins.push(HtmlReplaceWebpackPlugin);
 
 module.exports = { plugins };
