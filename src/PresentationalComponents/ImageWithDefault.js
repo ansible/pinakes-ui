@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const ImageWithDefault = ({src, defaultSrc, ...other}) => {
+const ImageWithDefault = ({ src, defaultSrc, ...other }) => {
     let element;
 
     const changeSrc = newSrc => {
@@ -10,10 +10,10 @@ const ImageWithDefault = ({src, defaultSrc, ...other}) => {
 
     return (
         <React.Fragment>
-            <img src={src}
-                onError={() => changeSrc(defaultSrc)}
-                ref={el => element=el}
-                {...other} />
+            <img src={ src }
+                onError={ () => changeSrc(defaultSrc) }
+                ref={ el => element = el }
+                { ...other } />
         </React.Fragment>
     );
 };

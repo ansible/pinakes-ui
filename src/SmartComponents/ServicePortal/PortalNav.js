@@ -1,15 +1,13 @@
-import React, { Component }  from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Main } from '@red-hat-insights/insights-frontend-components';
 import { Nav, NavList, NavGroup, NavItem } from '@patternfly/react-core';
-import { bindMethods } from "../../Helpers/Shared/Helper";
+import { bindMethods } from '../../Helpers/Shared/Helper';
 import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
-import { fetchPortfolios } from "../../Store/Actions/PortfolioActions";
-import { toggleEdit } from "../../Store/Actions/UiActions";
+import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
+import { toggleEdit } from '../../Store/Actions/UiActions';
 import { PencilAltIcon } from '@patternfly/react-icons';
-import { Alert } from '@patternfly/react-core';
 import './portalnav.scss'
 
 
@@ -21,7 +19,7 @@ class PortalNav extends Component {
 
     componentDidMount() {
         this.fetchData();
-        bindMethods(this, ['onSelect']);
+        bindMethods(this, [ 'onSelect' ]);
     }
 
     fetchData() {
@@ -94,7 +92,7 @@ function mapStateToProps(state) {
         isPlatformDataLoading: state.PlatformStore.isPlatformDataLoading,
         platforms: state.PlatformStore.platforms,
         isLoading: state.PortfolioStore.isLoading,
-        portfolios: state.PortfolioStore.portfolios,
+        portfolios: state.PortfolioStore.portfolios
 
     };
 }
@@ -107,13 +105,14 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-
 PortalNav.propTypes = {
     portfolios: propTypes.array,
     platforms: propTypes.array,
     isPlatformDataLoading: propTypes.bool,
+    fetchPortfolios: propTypes.function,
+    fetchPlatforms: propTypes.function,
     isLoading: propTypes.bool,
-    history: propTypes.object,
+    history: propTypes.object
 };
 
 export default withRouter(

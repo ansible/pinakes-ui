@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import './App.scss';
-import Alerts from './SmartComponents/Common/Alerts'
-import Portal from './PresentationalComponents/Portal/Portal'
-import PortalNav from './SmartComponents/ServicePortal/PortalNav'
+import Alerts from './SmartComponents/Common/Alerts';
+import Portal from './PresentationalComponents/Portal/Portal';
+import PortalNav from './SmartComponents/ServicePortal/PortalNav';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { Grid, GridItem } from '@patternfly/react-core';
 
@@ -30,13 +30,13 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Portal><Alerts /></Portal>
-                <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
+                <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
                     <Grid>
-                        <GridItem sm={4} md={4} lg={2} xl={2}>
+                        <GridItem sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
                             <PortalNav />
                         </GridItem >
-                        <GridItem sm={8} md={8} lg={10} xl={10}>
-                            <Routes childProps={this.props} />
+                        <GridItem sm={ 8 } md={ 8 } lg={ 10 } xl={ 10 }>
+                            <Routes childProps={ this.props } />
                         </GridItem>
                     </Grid>
                 </Main>

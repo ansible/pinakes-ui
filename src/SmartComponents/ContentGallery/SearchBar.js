@@ -11,7 +11,7 @@ class SearchBar extends Component {
     updateState(e) {
         e.preventDefault();
         this.props.searchCallback(e.target.value);
-        this.props.fetchData({ catalog_items_list: [e.target.value], page: 1});
+        this.props.fetchData({ catalog_items_list: [ e.target.value ], page: 1 });
     }
 
     render() {
@@ -22,7 +22,7 @@ class SearchBar extends Component {
                         <button className="pf-c-button pf-m-secondary">
                             <i className="fas fa-search" />
                         </button>
-                        <Input type="text" name="searchInput" value={this.props.searchValue || ''} onChange={this.updateState} />
+                        <Input type="text" name="searchInput" value={ this.props.searchValue || '' } onChange={ this.updateState } />
                     </div>
                 </div>
             </form>

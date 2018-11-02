@@ -9,9 +9,9 @@ const Portal = ({ children }) => {
 
     return createPortal (
         <div className="portal">
-            {children}
+            { children }
         </div>, document.getElementById('root')
-    )
-}
+    );
+};
 
-export default Portal
+export default Portal;

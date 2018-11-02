@@ -9,7 +9,7 @@ import './orderservice.scss';
 import propTypes from 'prop-types';
 import { OrderStore } from '../../Store/Reducers/OrderStore';
 import { Icon, Form } from 'patternfly-react';
-import { bindMethods } from '../../Helpers/Shared/Helper';
+import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
 import { Wizard } from 'patternfly-react';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
@@ -27,7 +27,7 @@ class OrderModal extends Component {
     }
 
     componentDidMount() {
-        bindMethods(this, ['onCancel', 'onStep', 'onNext', 'onBack', 'onSubmit']);
+        bindMethods(this, [ 'onCancel', 'onStep', 'onNext', 'onBack', 'onSubmit' ]);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,12 +44,13 @@ class OrderModal extends Component {
     onNext() {
         const { activeStepIndex } = this.state;
         const numberSteps = OrderServiceFormSteps.length;
-        console.log('OnNext: ActiveStpeIndex:', activeStepIndex);
+        consoleLog('OnNext: ActiveStpeIndex:', activeStepIndex);
 
         if (activeStepIndex < numberSteps - 1) {
             this.setState({ activeStepIndex: activeStepIndex + 1 });
         }
-        console.log('NextStep: ActiveStepIndex:', this.state.activeStepIndex);
+
+        consoleLog('NextStep: ActiveStepIndex:', this.state.activeStepIndex);
     }
 
     onBack() {
@@ -61,7 +62,7 @@ class OrderModal extends Component {
     }
 
     onSubmit(event) {
-        console.log('OnSubmit')
+        consoleLog('OnSubmit');
         this.setState({ activeStepIndex: 1 });
     }
 
@@ -69,14 +70,14 @@ class OrderModal extends Component {
         this.setState({ showOrder: false });
     }
 
-    imgTitle(serviceData){
+    imgTitle(serviceData) {
         return (
             <div>
                 <table>
                     <tbody>
                         <tr>
-                            <td><ImageWithDefault src = {serviceData.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="100" height="" /></td>
-                            <td><h3> {serviceData.name} </h3></td>
+                            <td><ImageWithDefault src = { serviceData.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="100" height="" /></td>
+                            <td><h3> { serviceData.name } </h3></td>
                         </tr>
                     </tbody>
                 </table>
@@ -91,13 +92,13 @@ class OrderModal extends Component {
         return wizardSteps.map((step, stepIndex) => {
             return (
                 <Wizard.Step
-                    key={stepIndex}
-                    stepIndex={stepIndex}
-                    step={step.step}
-                    label={step.label}
-                    title={step.title}
-                    activeStep={activeStep && activeStep.step}
-                    onClick={e => this.onStep(activeStep && activeStep.step)}
+                    key={ stepIndex }
+                    stepIndex={ stepIndex }
+                    step={ step.step }
+                    label={ step.label }
+                    title={ step.title }
+                    activeStep={ activeStep && activeStep.step }
+                    onClick={ e => this.onStep(activeStep && activeStep.step) }
                 />
             );
         });
@@ -106,36 +107,36 @@ class OrderModal extends Component {
     render() {
         const showOrder = this.props.open;
 
-        if(!showOrder)
-            return null;
+        if (!showOrder)
+        {return null;}
         else {
             const { activeStepIndex } = this.state;
             const wizardSteps = OrderServiceFormSteps;
-            console.log('props in OrderModal ', this.props);
-            console.log('state in OrderModal ', this.state);
+            consoleLog('props in OrderModal ', this.props);
+            consoleLog('state in OrderModal ', this.state);
 
             return (
                 <React.Fragment>
-                    <Wizard.Steps steps={this.renderWizardSteps(this.props.servicedata)}/>
+                    <Wizard.Steps steps={ this.renderWizardSteps(this.props.servicedata) }/>
                     <Wizard.Row>
                         <Wizard.Main>
                             <Grid>
-                                {wizardSteps.map((step, stepIndex) => {
+                                { wizardSteps.map((step, stepIndex) => {
                                     return (
-                                        <Wizard.Contents key={step.title} stepIndex={stepIndex} activeStepIndex={activeStepIndex}>
-                                            {renderStepWizardPage(wizardSteps[stepIndex].page, this.props.servicedata)}
+                                        <Wizard.Contents key={ step.title } stepIndex={ stepIndex } activeStepIndex={ activeStepIndex }>
+                                            { renderStepWizardPage(wizardSteps[stepIndex].page, this.props.servicedata) }
                                         </Wizard.Contents>
                                     );
-                                })}
-                                {activeStepIndex !== wizardSteps.length - 1 && (
+                                }) }
+                                { activeStepIndex !== wizardSteps.length - 1 && (
                                     <div>
                                         <br/>
                                         <br/>
-                                        <Button variant="primary" type="button" onClick={this.onNext}>
+                                        <Button variant="primary" type="button" onClick={ this.onNext }>
                                             Order<Icon type="fa" name="angle-right"/>
                                         </Button>
                                     </div>
-                                )}
+                                ) }
                             </Grid>
                         </Wizard.Main>
                     </Wizard.Row>
@@ -147,23 +148,27 @@ class OrderModal extends Component {
 
 const renderStepWizardPage = (componentPage, props) => {
     const StepComponent = componentPage;
-    return ( <StepComponent {...props} />);
+    return (<StepComponent { ...props } />);
 };
 
 OrderModal.propTypes = {
     orderData: propTypes.func,
-    serviceData: propTypes.object,
+    showOrder: propTypes.bool,
+    servicedata: propTypes.object,
     stepParametersValid: propTypes.bool,
     fulfilled: propTypes.bool,
     error: propTypes.bool,
     history: propTypes.object,
+    open: propTypes.bool
 };
 function mapStateToProps(state) {
     return {
         isLoading: state.OrderStore.isLoading,
         selectedItem: state.OrderStore.selectedItem,
         servicePlans: state.OrderStore.servicePlans
-    }
-};
+    };
+}
+
+;
 
 export default withRouter(connect(mapStateToProps)(OrderModal));

@@ -5,18 +5,17 @@ import './portfolioitem.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../ImageWithDefault';
-import { PortfolioStore } from "../../Store/Actions/PortfolioActions";
-import { hideModal, showModal } from "../../Store/Actions/MainModalActions";
+import { PortfolioStore } from '../../Store/Actions/PortfolioActions';
+import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
-import {bindMethods} from "../../Helpers/Shared/Helper";
-
+import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
 
 const propLine = (prop, value) => {
-    return(<div className = "card_element"> {value} </div>);
+    return (<div className = "card_element"> { value } </div>);
 };
 
 const toDisplayProperty = property => {
-    return ['description'].includes(property)
+    return [ 'description' ].includes(property);
 };
 
 const propDetails = item => {
@@ -29,6 +28,7 @@ const propDetails = item => {
             }
         }
     }
+
     return details;
 };
 
@@ -36,7 +36,7 @@ const itemDetails = props => {
     let details = propDetails(props);
     return (
         <React.Fragment>
-            <div>{details}</div>
+            <div>{ details }</div>
         </React.Fragment>
     );
 };
@@ -45,11 +45,10 @@ const mapDispatchToProps = dispatch => {
     return {
         hideModal: () => dispatch(hideModal()),
         showModal: (modalProps, modalType) => {
-            dispatch(showModal({ modalProps, modalType }))
+            dispatch(showModal({ modalProps, modalType }));
         }
     };
 };
-
 
 class PortfolioItem extends React.Component {
     constructor(props) {
@@ -58,7 +57,7 @@ class PortfolioItem extends React.Component {
     };
 
     handleOnClick() {
-        console.log( 'Before OrderService');
+        consoleLog('Before OrderService');
         this.setState({ showOrder: true });
         this.props.showModal({
             open: true,
@@ -69,15 +68,15 @@ class PortfolioItem extends React.Component {
 
     render() {
         return (
-            <GridItem GridItem sm={6} md={4} lg={4} xl={3}>
+            <GridItem GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
                 <Card>
-                    <div onClick={ () => {this.handleOnClick(this.props)}}>
+                    <div onClick={ () => {this.handleOnClick(this.props);} }>
                         <CardHeader className="card_header">
-                            <ImageWithDefault src={this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="50" height="50" />
+                            <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="50" height="50" />
                         </CardHeader>
                         <CardBody className="card_body">
-                            <h4>{this.props.name}</h4>
-                            {itemDetails(this.props)}
+                            <h4>{ this.props.name }</h4>
+                            { itemDetails(this.props) }
                         </CardBody>
                         <CardFooter>
                         </CardFooter>
@@ -90,7 +89,10 @@ class PortfolioItem extends React.Component {
 
 PortfolioItem.propTypes = {
     history: propTypes.object,
-    catalog_id: propTypes.string
+    showModal: propTypes.func,
+    hideModal: propTypes.func,
+    imageUrl: propTypes.string,
+    name: propTypes.string
 };
 
 export default withRouter(

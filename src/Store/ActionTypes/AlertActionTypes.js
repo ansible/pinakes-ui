@@ -1,4 +1,4 @@
-const prefix = '@@alert/'
+const prefix = '@@alert/';
 
-export const ADD_ALERT = `${prefix}add`
-export const REMOVE_ALERT = `${prefix}remove`
+export const ADD_ALERT = `${prefix}add`;
+export const REMOVE_ALERT = `${prefix}remove`;

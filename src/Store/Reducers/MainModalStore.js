@@ -3,7 +3,7 @@ import * as ActionTypes from '../../Store/ActionTypes';
 const initialState = {
     modalType: null,
     modalProps: {}
-}
+};
 
 export const MainModalReducer = (state = initialState, action) => {
     switch (action.type) {
