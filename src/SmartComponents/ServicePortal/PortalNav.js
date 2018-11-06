@@ -2,17 +2,23 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Nav, NavList, NavGroup, NavItem } from '@patternfly/react-core';
 import { bindMethods } from '../../Helpers/Shared/Helper';
+import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
 import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { toggleEdit } from '../../Store/Actions/UiActions';
 import { PencilAltIcon } from '@patternfly/react-icons';
 import './portalnav.scss';
 
+const PORTFOLIO_ITEMS_URL = '/insights/platform/service_portal/portfolio_items';
+const PLATFORM_ITEM_URL_BASE = `/insights/platform/service_portal/platform_items/platform`;
+const PORTFOLIO_ITEM_URL_BASE = `/insights/platform/service_portal/portfolio_items/portfolio`;
+
+
 class PortalNav extends React.Component {
     state = {
-        activeItem: 0,
+        activeItem: null,
+        activeGroup: 'Platforms',
         isEditing: false
     };
 
