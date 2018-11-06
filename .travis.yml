@@ -1,13 +1,23 @@
+---
 language: node_js
-sudo: required
+sudo: false
 cache:
   directories:
-  - node_modules
-notifications:
-  email: false
+  - "$HOME/.npm"
 node_js:
 - '10'
 install:
-  - npm ci
+- npm ci
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
-  - npm run travis:verify
+- npm run travis:verify
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+deploy:
+  provider: script
+  script: bash .travis/deploy.sh
+  'on':
+    branch: master
