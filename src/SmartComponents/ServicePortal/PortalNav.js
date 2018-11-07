@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { Component }  from 'react';
 import propTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { Nav, NavList, NavGroup, NavItem } from '@patternfly/react-core';
-import {bindMethods} from "../../Helpers/Shared/Helper";
+import { bindMethods } from "../../Helpers/Shared/Helper";
 import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
 import { fetchPortfolios } from "../../Store/Actions/PortfolioActions";
+import { toggleEdit } from "../../Store/Actions/UiActions";
+import { PencilAltIcon } from '@patternfly/react-icons';
+import { Alert } from '@patternfly/react-core';
+import './portalnav.scss'
 
 
-class PortalNav extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeItem: 0
-        };
+class PortalNav extends Component {
+    state = {
+        activeItem: 0,
+        isEditing: false
     };
 
     componentDidMount() {
@@ -28,46 +30,59 @@ class PortalNav extends React.Component {
         this.props.fetchPortfolios();
     }
 
-    platformNavItems() {
-        return (
-            this.props.platforms.map(item => {
-                let itemLink=`/insights/platform/service_portal/platform_items/platform=${item.id}?`;
-                return (<NavItem to={itemLink} key={item.id}
-                    isActive={this.state.activeItem === item.id}>
-                    {item.name}
-                </NavItem>);})
-        );
-    };
+    platformNavItems = () => this.props.platforms.map(item => (
+      <NavItem
+        key={item.id}
+        itemId={item.id}
+        groupId="platforms"
+        activeClassName="pf-m-current"
+      >
+        <NavLink to={`/platform_items/${item.id}`}>
+          {item.name}
+        </NavLink>
+      </NavItem>
+    ));
 
-    portfolioNavItems() {
-        return (
-            this.props.portfolios.map(item => {
-                let itemLink=`/insights/platform/service_portal/portfolio_items/portfolio=${item.id}?`;
-                return (<NavItem to={itemLink} key={item.id}
-                    isActive={this.state.activeItem === item.id}>
-                    {item.name}
-                </NavItem>);})
-        );
-    };
+    portfolioNavItems = () => this.props.portfolios.map(item => (
+      <NavItem
+        key={item.id}
+        itemId={item.id}
+        groupId="portfolios"
+        isActive={this.state.activeItem === item.id && this.state.activeGroup === 'portfolios'}
+        className="portalnav"
+      >
+        <NavLink to={`/portfolio_items/${item.id}`} activeClassName="pf-m-current">
+          {item.name}
+          <span
+            onClick={this.props.toggleEdit}
+            className={this.props.location.pathname === `/portfolio_items/${item.id}` ? '' : 'editable-item'}
+            style={{float: 'right'}}
+          >
+            Edit {' '}
+            <PencilAltIcon />
+          </span>
+        </NavLink>
+      </NavItem>
+    ));
 
-    onSelect(result) {
-        this.setState({
-            activeItem: result.itemId
-        });
-    };
+    onSelect = ({ itemId, groupId }) => this.setState({
+        activeItem: itemId,
+        activeGroup: groupId
+    });
 
     render() {
         return (
             <Nav onSelect={this.onSelect} aria-label="Service Portal">
                 <NavGroup title="Platforms">
-                    { !this.props.isPlatformDataLoading &&
-              this.platformNavItems()}
+                    { !this.props.isPlatformDataLoading && this.platformNavItems()}
                 </NavGroup>
                 <NavGroup title="Portfolios">
-                    <NavItem to="/insights/platform/service_portal/portfolio_items" key="allPortfolios" isActive={this.state.activeItem === 'allPortfolios'}>
-              All Portfolios
-                    </NavItem>
-                    { !this.props.isLoading && this.portfolioNavItems()}
+                  <NavItem className="portalnav" groupId="portfolios">
+                    <NavLink key="allPortfolios" exact to="/" activeClassName="pf-m-current">
+                       All Portfolios
+                    </NavLink>
+                  </NavItem>
+                  { !this.props.isLoading && this.portfolioNavItems()}
                 </NavGroup>
             </Nav>
         );
@@ -88,6 +103,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchPlatforms: () => dispatch(fetchPlatforms()),
         fetchPortfolios: () => dispatch(fetchPortfolios()),
+        toggleEdit: () => dispatch(toggleEdit())
     };
 };
 

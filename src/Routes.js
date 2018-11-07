@@ -25,10 +25,10 @@ const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const AddPlatformForm = asyncComponent(() => import('./SmartComponents/AddPlatform/AddPlatformForm'));
 
 const paths = {
-    service_portal: '/service_portal',
+    service_portal: '/',
     addplatform:  '/addplatform',
-    platform_items: '/platform_items/:filter?',
-    portfolio_items: '/portfolio_items/:filter?',
+    platform_items: '/platform_items/:id',
+    portfolio_items: '/portfolio_items/:id',
     orders: '/orders',
     admin: '/admin'
 };

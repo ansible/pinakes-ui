@@ -1,0 +1,12 @@
+@import "../../App";
+@import '~@red-hat-insights/insights-frontend-components/Utilities/_all';
+
+.editable-item {
+    visibility: hidden;
+}
+
+.portalnav:hover {
+	.editable-item {
+		visibility: initial;
+	}
+}
