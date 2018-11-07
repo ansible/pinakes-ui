@@ -1,8 +1,7 @@
 import React from 'react';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 
-import ServicePortalApi from 'service_portal_api';
-
+let ServicePortalApi = require('service_portal_api');
 let api = new ServicePortalApi.AdminsApi();
 
 export function getServicePlans(portfolioItemId) {
