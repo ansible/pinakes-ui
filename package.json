@@ -1,5 +1,5 @@
 {
-  "name": "service_portal-ui",
+  "name": "service_portal",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -123,5 +123,8 @@
     "travis:build": "webpack --config config/test.webpack.config.js",
     "travis:verify": "npm-run-all travis:build lint test",
     "verify": "npm-run-all build lint test"
+  },
+  "insights": {
+    "appname": "service-portal"
   }
 }
