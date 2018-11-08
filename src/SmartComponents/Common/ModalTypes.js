@@ -1,5 +1,5 @@
-import orderModal from './OrderModal'
-import addPortfolioModal from './AddPortfolioModal'
+import orderModal from './OrderModal';
+import addPortfolioModal from './AddPortfolioModal';
 
 const modalTypes = {
     orderModal,

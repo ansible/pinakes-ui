@@ -5,10 +5,11 @@ import propTypes from 'prop-types';
 import { parse } from 'querystring';
 import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { fetchPlatformItems } from '../../Store/Actions/PlatformActions';
+import { consoleLog } from '../../Helpers/Shared/Helper';
 import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
-import './platformitems.scss'
+import './platformitems.scss';
 
 class PlatformItems extends Component {
     constructor(props) {
@@ -17,25 +18,24 @@ class PlatformItems extends Component {
             showItems: '',
             filteredItems: []
         };
-        console.log('PlatformItems props: ', props)
+        consoleLog('PlatformItems props: ', props);
     }
 
     fetchData(apiProps) {
-        this.props.fetchPlatformItems({...apiProps });
+        this.props.fetchPlatformItems({ ...apiProps });
     }
 
     componentDidMount() {
         let filter = this.props.computedMatch.params.filter;
-        console.log('PlatformItems filter: ', filter);
+        consoleLog('PlatformItems filter: ', filter);
         let parsed = parse(filter);
-        console.log('PlatformItems parsed filter: ', parsed);
+        consoleLog('PlatformItems parsed filter: ', parsed);
         this.fetchData(parsed);
     }
 
-
     renderToolbar() {
-        return(
-            <Toolbar style={{backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px'}}>
+        return (
+            <Toolbar style={ { backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px' } }>
                 <ToolbarSection>
                     <ToolbarGroup>
                         <ToolbarItem>Select Platform</ToolbarItem>
@@ -54,8 +54,8 @@ class PlatformItems extends Component {
             isLoading: this.props.isLoading
         };
         return (
-            <Main style={{marginLeft: 0, paddingLeft:0, paddingTop: 0}}>
-                <ContentGallery {...filteredItems} />
+            <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
+                <ContentGallery { ...filteredItems } />
                 <MainModal />
             </Main>
         );
@@ -65,15 +65,13 @@ class PlatformItems extends Component {
 function mapStateToProps(state, ownProps) {
     return {
         platformItems: state.PlatformStore.platformItems,
-        isLoading: state.PlatformStore.isPlatformDataLoading,
-        searchFilter: state.PlatformStore.filterValue
+        isLoading: state.PlatformStore.isPlatformDataLoading
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchPlatformItems: apiProps => dispatch(fetchPlatformItems(apiProps)),
-        search: value => dispatch(searchPlatormItems(value))
+        fetchPlatformItems: apiProps => dispatch(fetchPlatformItems(apiProps))
     };
 };
 
@@ -82,8 +80,7 @@ PlatformItems.propTypes = {
     portfolios: propTypes.array,
     platforms: propTypes.object,
     isLoading: propTypes.bool,
-    searchFilter: propTypes.string,
-    history: propTypes.object,
+    history: propTypes.object
 };
 
 export default withRouter(

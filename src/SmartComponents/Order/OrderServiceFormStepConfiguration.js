@@ -7,7 +7,7 @@ import { BarLoader } from 'react-spinners';
 import { Bullseye, Button, Radio } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../Store/Actions/OrderActions';
-import { bindMethods } from '../../Helpers/Shared/Helper';
+import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
 //import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const uiSchema =
@@ -50,7 +50,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
     }
 
     componentDidMount() {
-        console.log('Config Component did mount - props:', this.props);
+        consoleLog('Config Component did mount - props:', this.props);
         const { id } = this.props;
         this.props.fetchPlans(id);
     }
@@ -58,7 +58,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
     handlePlanChange (arg, event)  {
         const plan = event.currentTarget.value;
         this.setState({ selectedPlan: plan });
-        console.log('Plan Id changed to : ', plan);
+        consoleLog('Plan Id changed to : ', plan);
     };
 
     planOptions() {
@@ -87,10 +87,10 @@ class OrderServiceFormStepConfiguration extends React.Component {
     }
 
     onSubmit (data) {
-        console.log('Data submitted: ', data.formData);
+        consoleLog('Data submitted: ', data.formData);
         const portfolioItemId = this.props.id;
         const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
-        sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data.formData});
+        sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data.formData });
         this.props.hideModal();
     };
 
@@ -105,7 +105,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
                             <div>{ this.planOptions() }</div>
                         </div> }
                         <div>
-                            <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema} onSubmit={ this.onSubmit }>
+                            <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema } onSubmit={ this.onSubmit }>
                                 <div>
                                     <Button variant="primary" type="submit">Submit</Button>
                                 </div>
@@ -131,11 +131,18 @@ class OrderServiceFormStepConfiguration extends React.Component {
 
 OrderServiceFormStepConfiguration.propTypes = {
     orderData: propTypes.func,
+    fetchPlans: propTypes.func,
+    hideModal: propTypes.func,
     showOrder: propTypes.bool,
+    isLoading: propTypes.bool,
     serviceData: propTypes.object,
+    servicePlans: propTypes.object,
     stepParametersValid: propTypes.bool,
     fulfilled: propTypes.bool,
-    error: propTypes.bool
+    error: propTypes.bool,
+    imageURL: propTypes.string,
+    id: propTypes.string,
+    name: propTypes.string
 };
 
 function mapStateToProps(state) {

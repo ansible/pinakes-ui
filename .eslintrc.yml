@@ -2,6 +2,7 @@ parser: babel-eslint
 env:
   browser: true
   es6: true
+  node: true
 settings:
   react:
     version: '16.0'
@@ -26,7 +27,7 @@ globals:
   React: true
 rules:
   array-bracket-spacing:
-    - error
+    - warn
     - always
     - objectsInArrays: false
   comma-dangle: 2
@@ -34,25 +35,25 @@ rules:
     - 2
     - after: true
   comma-style: 2
-  camelcase: 2
+  camelcase: 1
   curly:
-    - error
+    - warn
     - all
   dot-notation: 2
   eol-last: 2
   eqeqeq: 2
   func-names:
-    - error
+    - warn
     - never
   indent:
-    - error
+    - warn
     - 4
     - SwitchCase: 1
       MemberExpression: 0
       ImportDeclaration: 1
       ObjectExpression: 1
   react/jsx-curly-spacing:
-    - error
+    - warn
     - always
     - children: true
     - allowMultiline: false
@@ -62,59 +63,59 @@ rules:
   key-spacing: 2
   keyword-spacing: 2
   linebreak-style:
-    - error
+    - warn
     - unix
   max-len:
-    - 2
+    - warn
     - 150
   new-cap: 2
   no-bitwise: 2
   no-caller: 2
   no-mixed-spaces-and-tabs: 2
   no-multiple-empty-lines:
-    - error
+    - warn
     - max: 1
   no-trailing-spaces: 2
   no-use-before-define:
-    - error
+    - warn
     - functions: false
   no-undef: 2
-  no-unused-vars: 2
+  no-unused-vars: 1
   no-var: 2
   no-with: 2
   object-shorthand: 2
   object-curly-spacing:
-    - error
+    - warn
     - always
     - objectsInObjects: false
       arraysInObjects: false
   one-var:
-    - error
+    - warn
     - never
   padding-line-between-statements:
-    - error
+    - warn
     - blankLine: always
       prev: block-like
       next: "*"
   quote-props:
-    - error
+    - warn
     - as-needed
   quotes:
-    - error
+    - warn
     - single
     - allowTemplateLiterals: true
   semi:
-    - error
+    - warn
     - always
   space-before-blocks: 2
   space-in-parens: 2
   space-infix-ops: 2
   space-unary-ops:
-    - error
+    - warn
     - words: false
       nonwords: false
   vars-on-top: 2
   wrap-iife: 2
   yoda:
-    - error
+    - warn
     - never

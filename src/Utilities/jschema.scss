@@ -1,4 +1,4 @@
-@import "../App";
+@import "../App.scss";
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 
@@ -9,7 +9,6 @@
   padding-right: 20px;
   max-width: 500px;
 
-  font-family: '--pf-global--FontFamily--sans-serif';
   font-size: small;
 }
 .form-group {

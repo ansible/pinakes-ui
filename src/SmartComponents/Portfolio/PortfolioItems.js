@@ -7,9 +7,9 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchPortfolioItems, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
+import { consoleLog } from '../../Helpers/Shared/Helper';
 import MainModal from '../Common/MainModal';
-import './portfolioitems.scss'
-
+import './portfolioitems.scss';
 
 class PortfolioItems extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class PortfolioItems extends Component {
             showItems: '',
             filteredItems: []
         };
-        console.log('PortfolioItems props: ', props)
+        consoleLog('PortfolioItems props: ', props);
     }
 
     fetchData(apiProps) {
@@ -26,21 +26,21 @@ class PortfolioItems extends Component {
             this.props.fetchPortfolioItemsWithPortfolio(apiProps.portfolio);
         }
         else {
-            this.props.fetchPortfolioItems({...apiProps});
+            this.props.fetchPortfolioItems({ ...apiProps });
         }
     }
 
     componentDidMount() {
         let filter = this.props.computedMatch.params.filter;
-        console.log('PortfolioItems filter: ', filter);
+        consoleLog('PortfolioItems filter: ', filter);
         let parsed = parse(filter);
-        console.log('PortfolioItems parsed filter: ', parsed);
+        consoleLog('PortfolioItems parsed filter: ', parsed);
         this.fetchData(parsed);
     }
 
     renderToolbar() {
-        return(
-            <Toolbar style={{backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px'}}>
+        return (
+            <Toolbar style={ { backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px' } }>
                 <ToolbarSection>
                     <ToolbarGroup>
                         <ToolbarItem>Select Portfolio</ToolbarItem>
@@ -61,7 +61,7 @@ class PortfolioItems extends Component {
         };
         return (
             <Section>
-                <ContentGallery {...filteredItems} />
+                <ContentGallery { ...filteredItems } />
                 <MainModal />
             </Section>
         );
@@ -79,8 +79,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
     return {
         fetchPortfolioItems: apiProps => dispatch(fetchPortfolioItems(apiProps)),
-        fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps)),
-        search: value => dispatch(searchPortfolioItems(value))
+        fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps))
     };
 };
 
@@ -88,7 +87,7 @@ PortfolioItems.propTypes = {
     filteredItems: propTypes.object,
     isLoading: propTypes.bool,
     searchFilter: propTypes.string,
-    history: propTypes.object,
+    history: propTypes.object
 };
 
 export default withRouter(

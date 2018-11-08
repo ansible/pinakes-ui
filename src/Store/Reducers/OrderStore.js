@@ -4,7 +4,7 @@ import * as ActionTypes from '../../Store/ActionTypes';
 const initialState = {
     servicePlans: {},
     selectedPlan: {},
-    serviceData:  {},
+    serviceData: {},
     isLoading: true
 };
 
