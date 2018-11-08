@@ -1,4 +1,4 @@
-import { ADD_ALERT, REMOVE_ALERT } from '../ActionTypes/AlertActionTypes'
+import { ADD_ALERT, REMOVE_ALERT } from '../ActionTypes/AlertActionTypes';
 import ReducerRegistry from '../../Utilities/ReducerRegistry';
 import AlertReducer from '../Reducers/AlertReducer';
 
@@ -13,7 +13,7 @@ ReducerRegistry.register({ AlertReducer });
 export const addAlert = alert => ({
     type: ADD_ALERT,
     payload: alert
-})
+});
 
 /**
 * @param index index of alert
@@ -21,4 +21,4 @@ export const addAlert = alert => ({
 export const removeAlert = index => ({
     type: REMOVE_ALERT,
     payload: index
-})
+});

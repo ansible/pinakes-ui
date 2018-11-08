@@ -4,6 +4,7 @@ import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { consoleLog } from '../../Helpers/Shared/Helper';
 
 class OrderServiceFormStepInformation extends React.Component {
     constructor(props) {
@@ -18,14 +19,14 @@ class OrderServiceFormStepInformation extends React.Component {
     }
 
     componentDidMount() {
-        console.log('Component did mount - data:');
-        console.log(this.props.serviceData)
+        consoleLog('Component did mount - data:');
+        consoleLog(this.props.serviceData);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+        consoleLog(nextProps);
         this.setState({
-            stepParametersValid: nextProps.stepParametersValid || false,
+            stepParametersValid: nextProps.stepParametersValid || false
         });
     }
 
@@ -37,21 +38,20 @@ class OrderServiceFormStepInformation extends React.Component {
                         <table>
                             <tbody>
                                 <tr>
-                                    <td><ImageWithDefault src = {this.props.imageUrl || CatItemSvg} defaultSrc={CatItemSvg} width="100" height="" /></td>
-                                    <td><h3> {this.props.name} </h3></td>
+                                    <td><ImageWithDefault src = { this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="100" height="" /></td>
+                                    <td><h3> { this.props.name } </h3></td>
                                 </tr>
                             </tbody>
                         </table>
                         <br/>
                         <br/>
                     </div>
-                    {this.props.description}
+                    { this.props.description }
                 </Form.FormGroup>
             </Form>
         );
     }
 }
-
 
 OrderServiceFormStepInformation.propTypes = {
     orderData: propTypes.func,
@@ -59,9 +59,11 @@ OrderServiceFormStepInformation.propTypes = {
     serviceData: propTypes.object,
     stepParametersValid: propTypes.bool,
     fulfilled: propTypes.bool,
-    error: propTypes.bool
+    error: propTypes.bool,
+    imageUrl: propTypes.string,
+    description: propTypes.string,
+    name: propTypes.string
 };
-
 
 function mapStateToProps(state) {
     return { serviceData: state.OrderStore.serviceData };

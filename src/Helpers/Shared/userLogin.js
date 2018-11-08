@@ -6,11 +6,11 @@ let ServicePortalApi = require('service_portal_api');
 const defaultClient = ServicePortalApi.ApiClient.instance;
 
 // TODO - replace with actual login info when available
-let admin_hash = {'x-rh-auth-identity': btoa(JSON.stringify({'identity': {'is_org_admin': true }}))};
+let admin_hash = { 'x-rh-auth-identity': btoa(JSON.stringify({ identity: { is_org_admin: true }})) };
 const adminApi = new ServicePortalApi.AdminsApi();
 Object.assign(adminApi.apiClient.defaultHeaders, admin_hash);
 
-export function getUserApi(){
+export function getUserApi() {
     return adminApi;
 }
 //UserSecurity.username = 'YOUR USERNAME'

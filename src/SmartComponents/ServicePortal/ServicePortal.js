@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import asyncComponent from "../../Utilities/asyncComponent";
+import asyncComponent from '../../Utilities/asyncComponent';
 
 const PortalDashboard = asyncComponent(() => import('../ServicePortal/PortalDashboard'));
 

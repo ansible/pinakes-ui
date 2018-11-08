@@ -22,15 +22,12 @@ const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePort
 const PlatformItems = asyncComponent(() => import('./SmartComponents/Platform/PlatformItems'));
 const PortfolioItems = asyncComponent(() => import('./SmartComponents/Portfolio/PortfolioItems'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
-const AddPlatformForm = asyncComponent(() => import('./SmartComponents/AddPlatform/AddPlatformForm'));
 
 const paths = {
-    service_portal: '/service_portal',
-    addplatform:  '/addplatform',
-    platform_items: '/platform_items/:filter?',
-    portfolio_items: '/portfolio_items/:filter?',
-    orders: '/orders',
-    admin: '/admin'
+    service_portal: '/',
+    platform_items: '/platform_items/:id',
+    portfolio_items: '/portfolio_items/:id',
+    orders: '/orders'
 };
 
 type Props = {
@@ -63,13 +60,12 @@ export const Routes = (props: Props) => {
     const path = props.childProps.location.pathname;
     return (
         <Switch>
-            <InsightsRoute exact path={paths.service_portal} component={ServicePortal} rootClass="admin" />
-            <InsightsRoute exact path={paths.platform_items} component={PlatformItems} rootClass="platform_items" />
-            <InsightsRoute exact path={paths.portfolio_items} component={PortfolioItems} rootClass="portfolio_items" />
-            <InsightsRoute exact path={paths.orders} component={Orders} rootClass="admin" />
-            <InsightsRoute exact path={paths.addplatform} component={AddPlatformForm} rootClass="admin" />
-            {/* Finally, catch all unmatched routes */}
-            <Route render={() => (some(paths, p => p === path) ? null : <Redirect to={paths.service_portal} />)} />
+            <InsightsRoute exact path={ paths.service_portal } component={ ServicePortal } rootClass="service_portal" />
+            <InsightsRoute exact path={ paths.platform_items } component={ PlatformItems } rootClass="platform_items" />
+            <InsightsRoute exact path={ paths.portfolio_items } component={ PortfolioItems } rootClass="portfolio_items" />
+            <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />
+            { /* Finally, catch all unmatched routes */ }
+            <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.service_portal } />) } />
         </Switch>
     );
 };

@@ -4,12 +4,12 @@ import ReducerRegistry from '../../Utilities/ReducerRegistry';
 
 ReducerRegistry.register({ MainModalStore: MainModalReducer });
 
-export const showModal = ({ modalProps, modalType }) => ( {
+export const showModal = ({ modalProps, modalType }) => ({
     type: ActionTypes.SHOW_MODAL,
-    payload: {modalProps, modalType}
+    payload: { modalProps, modalType }
 });
 
-export const hideModal = () => ( {
+export const hideModal = () => ({
     type: ActionTypes.HIDE_MODAL,
     payload: null
 });
