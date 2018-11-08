@@ -23,3 +23,8 @@ deploy:
   script: bash .travis/deploy.sh
   'on':
     branch: master
+env:
+    global:
+    - REPO="git@github.com:RedHatInsights/insights-service-portal-build"
+    - REPO_DIR="insights-service-portal-build"
+    - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
