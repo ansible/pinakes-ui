@@ -8,8 +8,6 @@
   padding-left: 20px;
   padding-right: 20px;
   max-width: 500px;
-
-  font-family: '--pf-global--FontFamily--sans-serif';
   font-size: small;
 }
 
@@ -100,7 +98,6 @@
     color: #39a5dc;
     content: "\f105";
     display: block;
-    font-family: FontAwesome;
     font-size: 24px;
     font-weight: 500;
     line-height: 30px;
@@ -134,9 +131,6 @@
 .wizard-pf-steps-indicator {
   background: #ededed;
   border-top: 1px solid #d1d1d1;
-  display: inline-block;
-  display: -ms-flexbox;
-  display: flex;
   font-size: 16px;
   list-style: none;
   margin-bottom: 0;
@@ -240,72 +234,6 @@
     background-color: transparent;
   }
 }
-.wizard-pf-steps-indicator .wizard-pf-step a {
-  color: #030303;
-  cursor: pointer;
-  font-size: 16px;
-  margin-left: 1em;
-  margin-right: 1em;
-  text-decoration: none;
-}
-.wizard-pf-steps-indicator .wizard-pf-step:not(.active):not(.disabled) a:hover .wizard-pf-step-number {
-  background-color: #bbb;
-  border-color: #bbb;
-  color: #fff;
-}
-.wizard-pf-steps-indicator .wizard-pf-step .wizard-pf-step-number {
-  background-color: #fff;
-  border-radius: 50%;
-  border: solid 2px #39a5dc;
-  color: #bbb;
-  font-size: 12px;
-  font-weight: 700;
-  height: 25px;
-  line-height: 22px;
-  width: 25px;
-  display: inline-block;
-}
-@media (min-width: 768px) {
-  .wizard-pf-steps-indicator .wizard-pf-step .wizard-pf-step-number {
-    left: calc(50% - 13px);
-    position: absolute;
-    top: 27px;
-  }
-}
-.wizard-pf-steps-indicator .wizard-pf-step.active .wizard-pf-step-number {
-  background-color: #39a5dc;
-  border-color: #39a5dc;
-  cursor: default;
-  color: #fff;
-}
-.wizard-pf-steps-indicator .wizard-pf-step.active ~ .wizard-pf-step .wizard-pf-step-number {
-  border-color: #bbb;
-  background: #fff;
-}
-/* styles the main content portion of the wizard */
-.wizard-pf-main {
-  height: 100%;
-  padding: 1em;
-  vertical-align: top;
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .wizard-pf-main {
-    overflow: auto;
-    padding: 3em;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-  }
-}
-.wizard-pf-main .blank-slate-pf {
-  background-color: transparent;
-  border: none;
-  left: 0;
-  right: 0;
-}
-.wizard-pf-contents textarea {
-  resize: vertical;
-}
 /* styles the content of a review page */
 .wizard-pf-review-steps {
   list-style: none;
@@ -335,7 +263,6 @@
 .wizard-pf-review-steps > ul > li > a:before {
   content: "\f107";
   display: block;
-  font-family: FontAwesome;
   font-size: 24px;
   font-weight: 500;
   left: 20px;
@@ -367,7 +294,6 @@
 .wizard-pf-review-substeps > ul > li a:before {
   content: "\f107";
   display: block;
-  font-family: FontAwesome;
   font-size: 24px;
   font-weight: 500;
   left: 20px;
@@ -470,7 +396,6 @@
   color: #4d5258;
   content: "\f107";
   display: block;
-  font-family: FontAwesome;
   font-size: 24px;
   font-weight: 500;
   position: absolute;
@@ -580,9 +505,4 @@
 }
 .wizard-pf-step-alt-substep.active a {
   font-weight: 700;
-}
-.wizard-pf-step.disabled > a:hover,
-.wizard-pf-step-alt-substep.disabled > a:hover,
-.wizard-pf-sidebar .list-group-item.disabled > a:hover {
-
 }

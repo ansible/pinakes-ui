@@ -8,10 +8,9 @@ import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { toggleEdit } from '../../Store/Actions/UiActions';
 import { PencilAltIcon } from '@patternfly/react-icons';
-import './portalnav.scss'
+import './portalnav.scss';
 
-
-class PortalNav extends Component {
+class PortalNav extends React.Component {
     state = {
         activeItem: 0,
         isEditing: false
@@ -29,38 +28,38 @@ class PortalNav extends Component {
     }
 
     platformNavItems = () => this.props.platforms.map(item => (
-      <NavItem
-        key={item.id}
-        itemId={item.id}
-        groupId="platforms"
-        activeClassName="pf-m-current"
-      >
-        <NavLink to={`/platform_items/${item.id}`}>
-          {item.name}
-        </NavLink>
-      </NavItem>
+        <NavItem
+            key={ item.id }
+            itemId={ item.id }
+            groupId="platforms"
+            activeClassName="pf-m-current"
+        >
+            <NavLink to={ `/platform_items/${item.id}` }>
+                { item.name }
+            </NavLink>
+        </NavItem>
     ));
 
     portfolioNavItems = () => this.props.portfolios.map(item => (
-      <NavItem
-        key={item.id}
-        itemId={item.id}
-        groupId="portfolios"
-        isActive={this.state.activeItem === item.id && this.state.activeGroup === 'portfolios'}
-        className="portalnav"
-      >
-        <NavLink to={`/portfolio_items/${item.id}`} activeClassName="pf-m-current">
-          {item.name}
-          <span
-            onClick={this.props.toggleEdit}
-            className={this.props.location.pathname === `/portfolio_items/${item.id}` ? '' : 'editable-item'}
-            style={{float: 'right'}}
-          >
-            Edit {' '}
-            <PencilAltIcon />
-          </span>
-        </NavLink>
-      </NavItem>
+        <NavItem
+            key={ item.id }
+            itemId={ item.id }
+            groupId="portfolios"
+            isActive={ this.state.activeItem === item.id && this.state.activeGroup === 'portfolios' }
+            className="portalnav"
+        >
+            <NavLink to={ `/portfolio_items/${item.id}` } activeClassName="pf-m-current">
+                { item.name }
+                <span
+                    onClick={ this.props.toggleEdit }
+                    className={ this.props.location.pathname === `/portfolio_items/${item.id}` ? '' : 'editable-item' }
+                    style={ { float: 'right' } }
+                >
+            Edit { ' ' }
+                    <PencilAltIcon />
+                </span>
+            </NavLink>
+        </NavItem>
     ));
 
     onSelect = ({ itemId, groupId }) => this.setState({
@@ -70,17 +69,17 @@ class PortalNav extends Component {
 
     render() {
         return (
-            <Nav onSelect={this.onSelect} aria-label="Service Portal">
+            <Nav onSelect={ this.onSelect } aria-label="Service Portal">
                 <NavGroup title="Platforms">
-                    { !this.props.isPlatformDataLoading && this.platformNavItems()}
+                    { !this.props.isPlatformDataLoading && this.platformNavItems() }
                 </NavGroup>
                 <NavGroup title="Portfolios">
-                  <NavItem className="portalnav" groupId="portfolios">
-                    <NavLink key="allPortfolios" exact to="/" activeClassName="pf-m-current">
+                    <NavItem className="portalnav" groupId="portfolios">
+                        <NavLink key="allPortfolios" exact to="/" activeClassName="pf-m-current">
                        All Portfolios
-                    </NavLink>
-                  </NavItem>
-                  { !this.props.isLoading && this.portfolioNavItems()}
+                        </NavLink>
+                    </NavItem>
+                    { !this.props.isLoading && this.portfolioNavItems() }
                 </NavGroup>
             </Nav>
         );
@@ -109,9 +108,11 @@ PortalNav.propTypes = {
     portfolios: propTypes.array,
     platforms: propTypes.array,
     isPlatformDataLoading: propTypes.bool,
-    fetchPortfolios: propTypes.function,
-    fetchPlatforms: propTypes.function,
+    fetchPortfolios: propTypes.func,
+    fetchPlatforms: propTypes.func,
+    toggleEdit: propTypes.func,
     isLoading: propTypes.bool,
+    location: propTypes.object,
     history: propTypes.object
 };
 

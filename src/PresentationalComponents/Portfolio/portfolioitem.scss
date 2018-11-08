@@ -1,4 +1,4 @@
-@import "../../App";
+@import "../../App.scss";
 
 .card_style_with_hover {
   background-color: white;
@@ -6,7 +6,7 @@
 
 .card_header {
   height: 60px;
-};
+}
 
 .card_body {
   height: 140px;
@@ -14,8 +14,7 @@
 }
 
 .card_element {
-  textAlign: left;
-  font-family: '--pf-global--FontFamily--sans-serif';
+  text-align: left;
   font-size: small;
 }
 
