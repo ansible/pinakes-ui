@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindMethods } from '../../Helpers/Shared/Helper';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
@@ -10,10 +10,9 @@ import { toggleEdit } from '../../Store/Actions/UiActions';
 import { PencilAltIcon } from '@patternfly/react-icons';
 import './portalnav.scss';
 
-const PORTFOLIO_ITEMS_URL = '/portfolio_items';
-const PLATFORM_ITEM_URL_BASE = `/platform_items/platform=`;
-const PORTFOLIO_ITEM_URL_BASE = `/portfolio_items/portfolio=`;
-
+const PORTFOLIO_ITEMS_URL = '/insights/platform/service_portal/portfolio_items';
+const PLATFORM_ITEM_URL_BASE = `/insights/platform/service_portal/platform_items/platform=`;
+const PORTFOLIO_ITEM_URL_BASE = `/insights/platform/service_portal/portfolio_items/portfolio=`;
 
 class PortalNav extends React.Component {
     state = {
@@ -39,10 +38,9 @@ class PortalNav extends React.Component {
             itemId={ item.id }
             groupId="platforms"
             activeClassName="pf-m-current"
+            to={ PLATFORM_ITEM_URL_BASE + `${item.id}` }
         >
-            <NavLink to={ PLATFORM_ITEM_URL_BASE + `${item.id}` }>
-                { item.name }
-            </NavLink>
+            { item.name }
         </NavItem>
     ));
 
@@ -53,18 +51,18 @@ class PortalNav extends React.Component {
             groupId="portfolios"
             isActive={ this.state.activeItem === item.id && this.state.activeGroup === 'portfolios' }
             className="portalnav"
+            activeClassName="pf-m-current"
+            to={ PORTFOLIO_ITEM_URL_BASE + `${item.id}` }
         >
-            <NavLink to={ PORTFOLIO_ITEM_URL_BASE + `${item.id}` } activeClassName="pf-m-current">
-                { item.name }
-                <span
-                    onClick={ this.props.toggleEdit }
-                    className={ this.props.location.pathname === PORTFOLIO_ITEM_URL_BASE + `${item.id}` ? '' : 'editable-item' }
-                    style={ { float: 'right' } }
-                >
-                    { '' }Edit
-                    <PencilAltIcon />
-                </span>
-            </NavLink>
+            { item.name }
+            <span
+                onClick={ this.props.toggleEdit }
+                className={ this.props.location.pathname === PORTFOLIO_ITEM_URL_BASE + `${item.id}` ? '' : 'editable-item' }
+                style={ { float: 'right' } }
+            >
+                { '' }Edit
+                <PencilAltIcon />
+            </span>
         </NavItem>
     ));
 
@@ -74,21 +72,20 @@ class PortalNav extends React.Component {
     });
 
     render() {
-        return (
-            <Nav onSelect={ this.onSelect } aria-label="Service Portal">
-                <NavGroup title="Platforms">
-                    { !this.props.isPlatformDataLoading && this.platformNavItems() }
-                </NavGroup>
-                <NavGroup title="Portfolios">
-                    <NavItem className="portalnav" groupId="portfolios">
-                        <NavLink key="allPortfolios" exact to= { PORTFOLIO_ITEMS_URL } activeClassName="pf-m-current">
-                            All Portfolios
-                        </NavLink>
-                    </NavItem>
-                    { !this.props.isLoading && this.portfolioNavItems() }
-                </NavGroup>
-            </Nav>
-        );
+        return <Nav onSelect= { this.onSelect } aria-label="Service Portal">
+            <NavGroup title="Platforms">
+                { !this.props.isPlatformDataLoading && this.platformNavItems() }
+            </NavGroup>
+            <NavGroup title="Portfolios">
+                <NavItem className="portalnav"
+                    groupId="portfolios"
+                    to={ PORTFOLIO_ITEMS_URL } activeClassName="pf-m-current"
+                >
+                    All Portfolios
+                </NavItem>
+                { !this.props.isLoading && this.portfolioNavItems() }
+            </NavGroup>
+        </Nav>;
     }
 }
 
@@ -98,7 +95,6 @@ function mapStateToProps(state) {
         platforms: state.PlatformStore.platforms,
         isLoading: state.PortfolioStore.isLoading,
         portfolios: state.PortfolioStore.portfolios
-
     };
 }
 

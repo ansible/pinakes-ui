@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { Button } from '@patternfly/react-core';
-import Form from 'react-jsonschema-form';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { addPortfolioWithItem } from '../../Store/Actions/PortfolioActions';
+import { addPortfolioWithItem, fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { PortfolioStore } from '../../Store/Reducers/PortfolioStore';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms';
@@ -27,11 +25,13 @@ class AddPortfolioModal extends Component {
 
   onSubmit = data => {
       this.props.addPortfolioWithItem(data, this.props.itemdata)
-      .then(() => this.props.addAlert({
+      .then(() => { this.props.addAlert({
           variant: 'success',
           title: 'Success adding portfolio',
           description: 'The portfolio was added successfully.'
-      }))
+      });
+      this.props.fetchPortfolios();
+      })
       .catch(() => this.props.addAlert({
           variant: 'danger',
           title: 'Failed adding portfolio',
@@ -75,7 +75,8 @@ const mapStateToProps = state => ({ isLoading: state.PortfolioStore.isLoading })
 const mapDispatchToProps = dispatch => bindActionCreators({
     addAlert,
     removeAlert,
-    addPortfolioWithItem
+    addPortfolioWithItem,
+    fetchPortfolios
 }, dispatch);
 
 AddPortfolioModal.propTypes = {
@@ -83,6 +84,7 @@ AddPortfolioModal.propTypes = {
     history: propTypes.object,
     addAlert: propTypes.func,
     addPortfolioWithItem: propTypes.func,
+    fetchPortfolios: propTypes.func,
     closeModal: propTypes.func,
     itemdata: propTypes.object
 };
