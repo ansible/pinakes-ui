@@ -17,14 +17,9 @@ script:
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 after_success:
-curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
+- curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
 deploy:
   provider: script
   script: bash .travis/deploy.sh
   'on':
     branch: master
-env:
-    global:
-    - REPO="git@github.com:RedHatInsights/insights-service-portal-build"
-    - REPO_DIR="insights-service-portal-build"
-    - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
