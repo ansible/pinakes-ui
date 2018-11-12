@@ -9,7 +9,7 @@ class PortalDashboard extends Component {
             <Main>
                 <div style={ { textAlign: 'center' } }>
                     <Title size="md">
-              Search Or Select a Platform
+                        Search Or Select a Platform
                     </Title>
                 </div>
                 <div style={ { textAlign: 'center' } }>

@@ -63,8 +63,8 @@ function processPortfolioItem(key, data) {
 
 export async function addPortfolioWithItem(portfolioData, item) {
     let portfolio = await userApi.addPortfolio(portfolioData);
-    let portfolioItem = await userApi.addPortfolioItem(JSON.stringify({ name: item.name, description: item.description }));
-    return userApi.addPortfolioItemToPortfolio(portfolio.id, portfolioItem.id, portfolioItem).then((data) => {
+    let portfolioItem = await userApi.addPortfolioItem(JSON.stringify({ service_offering_ref: item.id }));
+    return userApi.addPortfolioItemToPortfolio(portfolio.id, JSON.stringify({ portfolio_item_id: portfolioItem.id })).then((data) => {
         consoleLog('Add Portfolio Called successfully.');
     }, (error) => {
         window.console.error(error);

@@ -24,9 +24,9 @@ const PortfolioItems = asyncComponent(() => import('./SmartComponents/Portfolio/
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 
 const paths = {
-    service_portal: '/',
-    platform_items: '/platform_items/:id',
-    portfolio_items: '/portfolio_items/:id',
+    service_portal: '/service_portal',
+    platform_items: '/platform_items/:filter?',
+    portfolio_items: '/portfolio_items/:filter?',
     orders: '/orders'
 };
 
