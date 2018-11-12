@@ -21,12 +21,16 @@ import some from 'lodash/some';
 const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePortal/ServicePortal'));
 const PlatformItems = asyncComponent(() => import('./SmartComponents/Platform/PlatformItems'));
 const PortfolioItems = asyncComponent(() => import('./SmartComponents/Portfolio/PortfolioItems'));
+const Portfolios = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolios'));
+const Portfolio = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolio'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 
 const paths = {
     service_portal: '/',
     platform_items: '/platform_items/:filter?',
     portfolio_items: '/portfolio_items/:filter?',
+    portfolios: '/portfolios',
+    portfolio: '/portfolios/:id',
     orders: '/orders'
 };
 
@@ -63,6 +67,8 @@ export const Routes = (props: Props) => {
             <InsightsRoute exact path={ paths.service_portal } component={ ServicePortal } rootClass="service_portal" />
             <InsightsRoute exact path={ paths.platform_items } component={ PlatformItems } rootClass="platform_items" />
             <InsightsRoute exact path={ paths.portfolio_items } component={ PortfolioItems } rootClass="portfolio_items" />
+            <InsightsRoute exact path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
+            <InsightsRoute exact path={ paths.portfolio } component={ Portfolio } rootClass="portfolio" />
             <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />
             { /* Finally, catch all unmatched routes */ }
             <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.service_portal } />) } />

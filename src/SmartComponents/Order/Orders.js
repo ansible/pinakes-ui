@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { PageHeader } from '@red-hat-insights/insights-frontend-components';
-import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Main, Section } from '@red-hat-insights/insights-frontend-components';
+import { Main, Section, Button } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
 import { fetchOrderList } from '../../Store/Actions/OrderActions';
 import ContentList from '../ContentGallery/ContentList';
+import { ListView,
+    ListViewGroupItem,
+    ListViewGroupItemHeader,
+    ListViewMainInfo,
+    ListViewLeft,
+    ListViewActions,
+    ListViewBody,
+    ListViewIcon,
+    ListViewDescriptionHeading,
+    ListViewDescriptionText,
+    ListViewExpand,
+    ListViewCheckBox,
+    ListViewDescription,
+    ListViewGroupItemContainer,
+    ListViewInfoItem,
+    ListViewAdditionalInfo } from 'patternfly-react';
 import propTypes from 'prop-types';
 
 class Orders extends Component {

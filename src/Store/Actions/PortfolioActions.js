@@ -26,10 +26,10 @@ export const fetchPortfolioItemsWithPortfolio = apiProps => ({
     })
 });
 
-export const fetchSelectedPortfolioItem = id => ({
-    type: ActionTypes.FETCH_PORTFOLIO_ITEM,
+export const fetchSelectedPortfolio = id => ({
+    type: ActionTypes.FETCH_PORTFOLIO,
     payload: new Promise(resolve => {
-        resolve(PortfolioHelper.getPortfolioItem(id));
+        resolve(PortfolioHelper.getPortfolio(id));
     })
 });
 
