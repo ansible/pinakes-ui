@@ -33,10 +33,10 @@ class Portfolios extends Component {
             <Toolbar className={css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd)}>
                 <ToolbarGroup>
                     <ToolbarItem className={css(spacingStyles.mrXl)}>
-                        <Title> All Portfolios</Title>
+                        <Title size={ '2xl '}> All Portfolios</Title>
                     </ToolbarItem>
                 </ToolbarGroup>
-                <ToolbarGroup>
+                <ToolbarGroup  className={ 'pf-u-ml-auto-on-xl' }>
                     <ToolbarItem>
                         <Button variant="primary" aria-label="Create Portfolio">
                             Create Portfolio
@@ -61,7 +61,7 @@ class Portfolios extends Component {
 
         return (
             <Section>
-                <div>
+                <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
                     { this.renderToolbar() }
                 </div>
                 <ContentGallery { ...filteredItems } />

@@ -78,7 +78,7 @@ class PortalNav extends React.Component {
                 <NavItem
                     key='all'
                     groupId="portfolios"
-                    to={ PORTFOLIO_ITEMS_URL }
+                    to={ ALL_PORTFOLIOS_URL }
                 >
                     All Portfolios
                 </NavItem>
