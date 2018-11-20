@@ -1,7 +1,6 @@
 import React from 'react';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 
-
 let ServicePortalApi = require('service_portal_api');
 let api = new ServicePortalApi.AdminsApi();
 
@@ -33,12 +32,8 @@ export async function sendSubmitOrder(parameters) {
     orderItem.service_parameters = parameters.service_parameters;
 
     let addResult = await api.addToOrder(order.id, orderItem);
-    api.submitOrder(order.id).then(() => { this.props.addAlert({
-        variant: 'success',
-        title: 'Success ordering product',
-        description: 'The product was successfully ordered.'
-    });},
-    (error) => {window.console.error(error);});//submit
+    api.submitOrder(order.id).then((result) => { consoleLog('Order submitted'); return result; },
+        (error) => {window.console.error(error);});//submit
 }
 
 export function setServicePlan(data) {

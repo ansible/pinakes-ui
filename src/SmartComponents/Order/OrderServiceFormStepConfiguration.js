@@ -103,11 +103,12 @@ class OrderServiceFormStepConfiguration extends React.Component {
                             <div>{ this.planOptions() }</div>
                         </div> }
                         <div>
+                            { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
                             <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema } onSubmit={ this.onSubmit }>
                                 <div>
                                     <Button variant="primary" type="submit">Submit</Button>
                                 </div>
-                            </Form>
+                            </Form> }
                         </div>
                     </PFForm.FormGroup>
                 </PFForm>

@@ -1,4 +1,4 @@
-@import "../../App";
+@import "../../App.scss";
 @import '~@red-hat-insights/insights-frontend-components/Utilities/_all';
 
 .admin-dashboard {
@@ -12,4 +12,9 @@
 
 .side_bar {
   background-color: white;
+}
+.action-toolbar {
+  margin-top: 35px;
+  margin-left: 25px;
+  margin-right: 25px;
 }

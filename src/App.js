@@ -32,7 +32,7 @@ class App extends Component {
                 <Portal><Alerts /></Portal>
                 <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
                     <Grid>
-                        <GridItem sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
+                        <GridItem style={ { backgroundColor: '#FFFFFF' } } sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
                             <PortalNav />
                         </GridItem >
                         <GridItem sm={ 8 } md={ 8 } lg={ 10 } xl={ 10 }>

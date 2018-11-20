@@ -8,7 +8,7 @@ ReducerRegistry.register({ AddPlatformStore: AddPlatformReducer });
 
 export const addPlatform = (apiProps) => dispatch => ({
     type: ActionTypes.ADD_PLATFORM,
-    payload: new Promise((resolve, reject) => {
+    payload: new Promise((resolve) => {
         resolve(AddPlatformHelper.addPlatform(apiProps));
     })
     .then(() =>

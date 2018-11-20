@@ -58,6 +58,17 @@ export const PortfolioReducer = (state = initialState, action) => {
                 portfolioItem: action.payload,
                 isLoading: false
             };
+        case ActionTypes.FETCH_PORTFOLIO + '_PENDING':
+            return {
+                ...state,
+                isLoading: true
+            };
+        case ActionTypes.FETCH_PORTFOLIO + '_FULFILLED':
+            return {
+                ...state,
+                selectedPortfolio: action.payload,
+                isLoading: false
+            };
         case ActionTypes.FILTER_PORTFOLIO_ITEMS + '_FULFILLED':
             return {
                 ...state,

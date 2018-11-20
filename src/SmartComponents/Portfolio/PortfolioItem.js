@@ -4,42 +4,13 @@ import { connect } from 'react-redux';
 import './portfolioitem.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../ImageWithDefault';
+import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
+import itemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import { PortfolioStore } from '../../Store/Actions/PortfolioActions';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
-import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
 
-const propLine = (prop, value) => {
-    return (<div className = "card_element"> { value } </div>);
-};
-
-const toDisplayProperty = property => {
-    return [ 'description' ].includes(property);
-};
-
-const propDetails = item => {
-    let details = [];
-
-    for (let property in item) {
-        if (item.hasOwnProperty(property) && toDisplayProperty(property)) {
-            if (item[property] && item[property] !== undefined) {
-                details.push(propLine(property, item[property].toString()));
-            }
-        }
-    }
-
-    return details;
-};
-
-const itemDetails = props => {
-    let details = propDetails(props);
-    return (
-        <React.Fragment>
-            <div>{ details }</div>
-        </React.Fragment>
-    );
-};
+const TO_DISPLAY = [ 'description' ];
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -51,13 +22,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 class PortfolioItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleOnClick = this.handleOnClick.bind(this);
-    };
 
-    handleOnClick() {
-        consoleLog('Before OrderService');
+    handleOnClick = () => {
         this.setState({ showOrder: true });
         this.props.showModal({
             open: true,
@@ -76,7 +42,7 @@ class PortfolioItem extends React.Component {
                         </CardHeader>
                         <CardBody className="card_body">
                             <h4>{ this.props.name }</h4>
-                            { itemDetails(this.props) }
+                            { itemDetails(this.props, TO_DISPLAY) }
                         </CardBody>
                         <CardFooter>
                         </CardFooter>

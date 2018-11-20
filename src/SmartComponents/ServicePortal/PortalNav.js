@@ -9,9 +9,9 @@ import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { toggleEdit } from '../../Store/Actions/UiActions';
 import './portalnav.scss';
 
-const PORTFOLIO_ITEMS_URL = '/insights/platform/service-portal/portfolio_items';
+const ALL_PORTFOLIOS_URL = '/insights/platform/service-portal/portfolios';
 const PLATFORM_ITEM_URL_BASE = `/insights/platform/service-portal/platform_items/platform=`;
-const PORTFOLIO_ITEM_URL_BASE = `/insights/platform/service-portal/portfolio_items/portfolio=`;
+const PORTFOLIO_URL_BASE = `/insights/platform/service-portal/portfolios/`;
 
 class PortalNav extends React.Component {
     state = {
@@ -54,7 +54,7 @@ class PortalNav extends React.Component {
                 <NavItem
                     key={ item.id }
                     groupId="portfolios"
-                    to={ PORTFOLIO_ITEM_URL_BASE + `${item.id}` }
+                    to={ PORTFOLIO_URL_BASE + `${item.id}` }
                 >
                     { item.name }
                 </NavItem>

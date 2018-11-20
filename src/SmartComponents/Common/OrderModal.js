@@ -13,7 +13,7 @@ import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
 import { Wizard } from 'patternfly-react';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
+import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
 
 class OrderModal extends Component {
     constructor(props) {
