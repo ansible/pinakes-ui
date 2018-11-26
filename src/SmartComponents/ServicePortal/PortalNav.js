@@ -7,7 +7,6 @@ import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
 import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { toggleEdit } from '../../Store/Actions/UiActions';
-import { PencilAltIcon } from '@patternfly/react-icons';
 import './portalnav.scss';
 
 const PORTFOLIO_ITEMS_URL = '/insights/platform/service_portal/portfolio_items';
@@ -32,39 +31,39 @@ class PortalNav extends React.Component {
         this.props.fetchPortfolios();
     }
 
-    platformNavItems = () => this.props.platforms.map(item => (
-        <NavItem
-            key={ item.id }
-            itemId={ item.id }
-            groupId="platforms"
-            activeClassName="pf-m-current"
-            to={ PLATFORM_ITEM_URL_BASE + `${item.id}` }
-        >
-            { item.name }
-        </NavItem>
-    ));
+    platformNavItems = () => {
+        if (this.props.platforms) {
+            this.props.platforms.map(item => (
+                <NavItem key={ item.id }
+                    itemId={ item.id }
+                    groupId="platforms"
+                    to={ PLATFORM_ITEM_URL_BASE + `${item.id}` }
+                >
+                    { item.name }
+                </NavItem>
+            ));
+        }
+        else {
+            return null;
+        }
+    };
 
-    portfolioNavItems = () => this.props.portfolios.map(item => (
-        <NavItem
-            key={ item.id }
-            itemId={ item.id }
-            groupId="portfolios"
-            isActive={ this.state.activeItem === item.id && this.state.activeGroup === 'portfolios' }
-            className="portalnav"
-            activeClassName="pf-m-current"
-            to={ PORTFOLIO_ITEM_URL_BASE + `${item.id}` }
-        >
-            { item.name }
-            <span
-                onClick={ this.props.toggleEdit }
-                className={ this.props.location.pathname === PORTFOLIO_ITEM_URL_BASE + `${item.id}` ? '' : 'editable-item' }
-                style={ { float: 'right' } }
-            >
-                { '' }Edit
-                <PencilAltIcon />
-            </span>
-        </NavItem>
-    ));
+    portfolioNavItems = () => {
+        if (this.props.portfolios) {
+            let navlist = this.props.portfolios.map(item => (
+                <NavItem
+                    key={ item.id }
+                    groupId="portfolios"
+                    to={ PORTFOLIO_ITEM_URL_BASE + `${item.id}` }
+                >
+                    { item.name }
+                </NavItem>
+            ));
+            return navlist;
+        } else {
+            return null;
+        }
+    };
 
     onSelect = ({ itemId, groupId }) => this.setState({
         activeItem: itemId,
@@ -77,9 +76,10 @@ class PortalNav extends React.Component {
                 { !this.props.isPlatformDataLoading && this.platformNavItems() }
             </NavGroup>
             <NavGroup title="Portfolios">
-                <NavItem className="portalnav"
+                <NavItem
+                    key='all'
                     groupId="portfolios"
-                    to={ PORTFOLIO_ITEMS_URL } activeClassName="pf-m-current"
+                    to={ PORTFOLIO_ITEMS_URL }
                 >
                     All Portfolios
                 </NavItem>
