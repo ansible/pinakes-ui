@@ -33,7 +33,7 @@ class PortalNav extends React.Component {
 
     platformNavItems = () => {
         if (this.props.platforms) {
-            this.props.platforms.map(item => (
+            return this.props.platforms.map(item => (
                 <NavItem key={ item.id }
                     itemId={ item.id }
                     groupId="platforms"
@@ -50,7 +50,7 @@ class PortalNav extends React.Component {
 
     portfolioNavItems = () => {
         if (this.props.portfolios) {
-            let navlist = this.props.portfolios.map(item => (
+            return this.props.portfolios.map(item => (
                 <NavItem
                     key={ item.id }
                     groupId="portfolios"
@@ -59,7 +59,6 @@ class PortalNav extends React.Component {
                     { item.name }
                 </NavItem>
             ));
-            return navlist;
         } else {
             return null;
         }
