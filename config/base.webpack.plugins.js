@@ -90,9 +90,11 @@ const envPlugin = new webpack.DefinePlugin({
     'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
     'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
     'process.env.BASE_PATH': JSON.stringify(process.env.BASE_PATH),
+    'process.env.API_VERSION': JSON.stringify(process.env.API_VERSION),
     'process.env.TOPO_API_HOST': JSON.stringify(process.env.TOPO_API_HOST),
     'process.env.TOPO_API_PORT': JSON.stringify(process.env.TOPO_API_PORT),
-    'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH)
+    'process.env.TOPO_BASE_PATH': JSON.stringify(process.env.TOPO_BASE_PATH),
+    'process.env.TOPO_API_VERSION': JSON.stringify(process.env.TOPO_API_VERSION)
 });
 plugins.push(envPlugin);
 
