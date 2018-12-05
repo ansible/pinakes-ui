@@ -14,7 +14,7 @@ webpackConfig.serve = {
     hot: false,
     host: '0.0.0.0',
     dev: {
-        publicPath: '/insights/platform/service_portal'
+        publicPath: '/insights/platform/service-portal'
     },
     // https://github.com/webpack-contrib/webpack-serve/blob/master/docs/addons/history-fallback.config.js
     add: app => app.use(convert(history({})))
