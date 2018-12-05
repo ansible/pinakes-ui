@@ -9,9 +9,9 @@ import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { toggleEdit } from '../../Store/Actions/UiActions';
 import './portalnav.scss';
 
-const PORTFOLIO_ITEMS_URL = '/insights/platform/service_portal/portfolio_items';
-const PLATFORM_ITEM_URL_BASE = `/insights/platform/service_portal/platform_items/platform=`;
-const PORTFOLIO_ITEM_URL_BASE = `/insights/platform/service_portal/portfolio_items/portfolio=`;
+const PORTFOLIO_ITEMS_URL = '/insights/platform/service-portal/portfolio_items';
+const PLATFORM_ITEM_URL_BASE = `/insights/platform/service-portal/platform_items/platform=`;
+const PORTFOLIO_ITEM_URL_BASE = `/insights/platform/service-portal/portfolio_items/portfolio=`;
 
 class PortalNav extends React.Component {
     state = {
