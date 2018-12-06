@@ -3,12 +3,10 @@ import { Form as PFForm } from 'patternfly-react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from 'react-jsonschema-form';
-import { BarLoader } from 'react-spinners';
 import { Bullseye, Button, Radio } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../Store/Actions/OrderActions';
 import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
-//import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms'
 
 const uiSchema =
 {
@@ -120,7 +118,9 @@ class OrderServiceFormStepConfiguration extends React.Component {
                 <PFForm horizontal>
                     <PFForm.FormGroup>
                         <Bullseye>
-                            <BarLoader color={ '#00b9e4' } loading={ this.props.isLoading } />
+                            <div>
+                                { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
+                            </div>
                         </Bullseye>
                     </PFForm.FormGroup>
                 </PFForm>
