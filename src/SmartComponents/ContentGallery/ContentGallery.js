@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './content-gallery.scss';
-import { BarLoader } from 'react-spinners';
 import propTypes from 'prop-types';
 import { Section, Pagination, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Grid } from '@patternfly/react-core';
@@ -12,7 +11,7 @@ class ContentGallery extends Component {
                 <div>
                     <br />
                     <div>
-                        <BarLoader color={ '#00b9e4' } loading={ this.props.isLoading } />
+                        { this.props.isLoading && (<span> Loading...</span>) }
                     </div>
                     <Section type='content'>
                         <Grid gutter='md' >

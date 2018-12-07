@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BarLoader } from 'react-spinners';
 import propTypes from 'prop-types';
 import { PageHeader, PageHeaderTitle, Table, Section } from '@red-hat-insights/insights-frontend-components';
 import { Bullseye } from '@patternfly/react-core';
@@ -38,7 +37,9 @@ class ContentList extends Component {
                 <React.Fragment>
                     <br />
                     <Bullseye>
-                        <BarLoader color={ '#00b9e4' } loading={ this.props.isLoading } />
+                        <div>
+                            { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
+                        </div>
                     </Bullseye>
                     <Section type='content'>
                         { (this.props.items && this.props.items.length > 0) && (
