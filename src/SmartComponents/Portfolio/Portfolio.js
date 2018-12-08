@@ -3,16 +3,17 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Dropdown, DropdownPosition,
-    DropdownToggle, DropdownItem, KebabToggle, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
-import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
-import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
+import { Stack, StackItem} from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
+import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 import MainModal from '../Common/MainModal';
-import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
+import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
+import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
+import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
+
 import './portfolio.scss';
 
 class Portfolio extends Component {
@@ -21,7 +22,8 @@ class Portfolio extends Component {
         this.state = {
             portfolioId: '',
             isKebabOpen: false,
-            isOpen: false
+            isOpen: false,
+            checkedItems: new Map()
         };
         this.onClickEditPortfolio = this.onClickEditPortfolio.bind(this);
         consoleLog('Portfolio props: ', props);
@@ -42,58 +44,20 @@ class Portfolio extends Component {
         }
     }
 
-    onKebabToggle = isOpen => {
-        this.setState({
-            isKebabOpen: isOpen
-        });
+    filterItems = (filterValue) => {
+        let filteredItems = [];
+        if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
+            filteredItems = this.props.portfolioItems.portfolioItems;
+            filteredItems = filteredItems.filter((item) => {
+                let itemName = item.name.toLowerCase();
+                return itemName.indexOf(
+                    filterValue.toLowerCase()) !== -1;
+            });
+        }
+        return filteredItems;
     };
 
-    buildPortfolioActionKebab = () => {
-        const { isKebabOpen } = this.state;
-
-        return (
-            <Dropdown
-                onToggle= { this.onKebabToggle }
-                onSelect= { this.onKebabSelect }
-                position = { DropdownPosition.right }
-                toggle={ <KebabToggle onToggle={ this.onKebabToggle } /> }
-                isOpen={ isKebabOpen }
-                isPlain
-            >
-                <DropdownItem component="button">Add Products</DropdownItem>
-                <DropdownItem component="button">Remove Products</DropdownItem>
-            </Dropdown>
-        );
-    };
-
-    portfolioActionsToolbar() {
-        return (
-            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
-                <ToolbarGroup>
-                    <ToolbarItem className={ css(spacingStyles.mrXl) }>
-                        { this.props.portfolio && <Title size={ '2xl' }> { this.props.portfolio.name }</Title> }
-                    </ToolbarItem>
-                </ToolbarGroup>
-                <ToolbarGroup  className={ 'pf-u-ml-auto-on-xl' }>
-                    <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="plain" onClick={ () => { this.onClickEditPortfolio(this.props); } } aria-label="Edit Portfolio">
-                            Edit Portfolio
-                        </Button>
-                    </ToolbarItem>
-                    <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="plain" aria-label="Remove Portfolio">
-                            Remove Portfolio
-                        </Button>
-                    </ToolbarItem>
-                    <ToolbarItem>
-                        { this.buildPortfolioActionKebab() }
-                    </ToolbarItem>
-                </ToolbarGroup>
-            </Toolbar>
-        );
-    }
-
-    onClickEditPortfolio(event) {
+    onClickEditPortfolio = (event) => {
         this.props.showModal({
             open: true,
             itemdata: this.props,
@@ -106,15 +70,37 @@ class Portfolio extends Component {
         });
     };
 
+    onClickAddProducts = (event) => {
+        this.setState({
+            ...this.state,
+            editMode: true
+        });
+    };
+
+    onCheckboxClick = (e)  =>{
+        const item = e.target.id;
+        const isChecked = e.target.checked;
+        this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
+    };
+
     render() {
         let filteredItems = {
             items: this.props.portfolioItems.portfolioItems,
+            isEditMode: this.state.editMode,
+            checkedItems: this.state.checkedItems,
             isLoading: this.props.isLoading
         };
         return (
             <Section>
                 <div className="action-toolbar">
-                    { this.portfolioActionsToolbar() }
+                    { this.state.editMode && (
+                        <AddProductsToPortfolio items={ filteredItems } portfolio={ this.props } onCheckboxClick={ this.onCheckboxClick } />) }
+                    { !this.state.editMode &&
+                    (
+                        <Stack>
+                            <StackItem><PortfolioFilterToolbar onFilter={ this.filterItems }/> </StackItem>
+                            <StackItem><PortfolioActionToolbar onEditPortfolio={ this.onClickEditPortfolio } onAddProducts={ this.onClickAddProducts }/> </StackItem>
+                        </Stack>) }
                 </div>
                 <ContentGallery { ...filteredItems } />
                 <MainModal />
@@ -148,7 +134,8 @@ Portfolio.propTypes = {
     fetchSelectedPortfolio: propTypes.func,
     showModal: propTypes.func,
     hideModal: propTypes.func,
-    history: propTypes.object
+    history: propTypes.object,
+    onClickEditPortfolio: propTypes.func
 };
 
 export default withRouter(

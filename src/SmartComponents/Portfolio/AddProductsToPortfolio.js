@@ -10,10 +10,14 @@ import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } fr
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
+import '../Platform/platformitems.scss';
+import { Stack, StackItem } from '@patternfly/react-core';
+import '../../SmartComponents/Portfolio/portfolio.scss';
+import EditPortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioOrderToolbar';
+import EditPortfolioTitleToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioTitleToolbar';
+import EditPortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioFilterToolbar';
 
-import './platformitems.scss';
-
-class PlatformItems extends Component {
+class AddProductsToPortfolio extends Component {
     state = {
         filteredItems: [],
         selectable: true,
@@ -21,27 +25,30 @@ class PlatformItems extends Component {
     };
 
     fetchData(apiProps) {
-        this.props.fetchPlatformItems({ ...apiProps });
+        apiProps = { platform: '3' };
+        this.props.fetchPlatformItems(apiProps);
     }
 
     componentDidMount() {
-        this.fetchData(this.props.match.params.id);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.id !== this.props.match.params.id) {
-            this.fetchData(this.props.match.params.id);
-        }
+        this.fetchData();
     }
 
     render() {
         let filteredItems = {
             items: this.props.platformItems.platformItems,
+            selectable: true,
+            clickable: false,
             isLoading: this.props.isLoading
         };
         return (
             <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
-                <PlatformToolbar/>
+                <div>
+                    <Stack>
+                        <StackItem> <EditPortfolioOrderToolbar/> </StackItem>
+                        <StackItem> <EditPortfolioTitleToolbar/> </StackItem>
+                        <StackItem> <EditPortfolioFilterToolbar/> </StackItem>
+                    </Stack>
+                </div>
                 <ContentGallery { ...filteredItems } />
                 <MainModal />
             </Main>
@@ -62,7 +69,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-PlatformItems.propTypes = {
+AddProductsToPortfolio.propTypes = {
     platforms: propTypes.object,
     isLoading: propTypes.bool,
     history: propTypes.object
@@ -72,5 +79,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(PlatformItems)
+    )(AddProductsToPortfolio)
 );

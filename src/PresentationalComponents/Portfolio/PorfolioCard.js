@@ -6,6 +6,7 @@ import DefaultPortfolioImg from '../../assets/images/default-portfolio.jpg';
 import ImageWithDefault from '../Shared/ImageWithDefault';
 import itemDetails from '../Shared/CardCommon';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import '../../SmartComponents/Portfolio/portfolio.scss';
 
 const TO_DISPLAY = [ 'description', 'modified' ];
 

@@ -22,6 +22,7 @@
     "react-transition-group": "^2.4.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "save": "^2.3.3",
     "service_portal_api": "git+https://github.com/lgalis/service_portal-api-jsclient.git",
     "superagent": "^3.8.3",

@@ -76,7 +76,7 @@ class Portfolios extends Component {
 
         return (
             <Section>
-                <div className="action_toolbar">
+                <div className="action-toolbar">
                     { this.renderToolbar() }
                 </div>
                 <ContentGallery { ...filteredItems } />
