@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+NODE_ENV=production npm run build
+
 # If current dev branch is master, push to build repo ci-beta
 if [ "${TRAVIS_BRANCH}" = "master" ]; then
     .travis/release.sh "ci-stable"
