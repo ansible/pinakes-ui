@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, TolbarSection, Title, Button} from '@patternfly/react-core';
+import { Toolbar, ToolbarGroup, ToolbarItem, TolbarSection, Title, Button, Select, SelectOption} from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
 
 class PlatformToolbar extends Component {

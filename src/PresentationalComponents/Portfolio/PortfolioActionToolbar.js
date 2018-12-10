@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
-import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Dropdown, DropdownPosition,
-    DropdownToggle, DropdownItem, KebabToggle, Title, Button } from '@patternfly/react-core';
+import { Section } from '@red-hat-insights/insights-frontend-components';
+import { Toolbar, ToolbarGroup, ToolbarItem, DropdownToggle, DropdownItem, Dropdown, DropdownPosition, KebabToggle, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
 import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
 import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
@@ -55,7 +51,7 @@ class PortfolioActionToolbar extends Component {
                 </ToolbarGroup>
                 <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
                     <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="link" linkto={ this.props.onAddProducts } aria-label="Add Products to Portfolio">
+                        <Button variant="link" aria-label="Add Products to Portfolio">
                             Add Products
                         </Button>
                     </ToolbarItem>

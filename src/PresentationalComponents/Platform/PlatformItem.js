@@ -11,7 +11,7 @@ import { GridItem, Card, CardHeader, CardBody, CardFooter, Checkbox } from '@pat
 import { Dropdown, DropdownItem, DropdownPosition, DropdownToggle } from '@patternfly/react-core';
 import itemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
-import CardCheckbox from "../Shared/CardCheckbox";
+import CardCheckbox from '../Shared/CardCheckbox';
 
 const TO_DISPLAY = [ 'description' ];
 
@@ -27,27 +27,10 @@ const mapDispatchToProps = dispatch => {
 class PlatformItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { isOpen: true, showMenu: false, isEditMode: true };
-        bindMethods(this, [ 'onSelect', 'handleMenuOpen', 'handleMenuClose', 'showPortfolioMenu', 'hidePortfolioMenu' ]);
+        this.state = { isOpen: true, showMenu: false, isEditMode: false };
     };
 
-    handleMenuOpen() {
-        this.setState({ isOpen: true });
-    }
-
-    handleMenuClose() {
-        this.setState({ isOpen: false });
-    }
-
-    showPortfolioMenu() {
-        this.setState({ showMenu: true });
-    }
-
-    hidePortfolioMenu() {
-        this.setState({ showMenu: false });
-    }
-
-    onSelect(event) {
+    onSelect = (event) => {
         consoleLog('This is the selected state:', this.state);
         consoleLog('This is the selected event:', event);
 
@@ -63,13 +46,20 @@ class PlatformItem extends React.Component {
         });
     };
 
+    isChecked = () => {
+        if (this.props.isChecked)
+        {return this.props.isChecked(this.props.id);}
+        else
+        {return false;}
+    }
+
     render() {
         return (
             <GridItem key={ this.props.id } GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
                 <Card key={ this.props.id }>
                     <CardHeader className="card_header">
                         <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="50" height="50" />
-                        { this.state.isEditMode && <CardCheckbox id={ this.props.id } checked={false} onChange={ this.props.onCheckboxClick } /> }
+                        { this.props.isEditMode && <CardCheckbox id={ this.props.id } checked={ this.isChecked } onChange={ this.props.onCheckboxClick } /> }
                     </CardHeader>
                     <CardBody className="card_body">
                         <h4>{ this.props.name }</h4>
@@ -88,11 +78,12 @@ PlatformItem.propTypes = {
     hideModal: propTypes.func,
     imageUrl: propTypes.string,
     id: propTypes.string,
-    name:propTypes.string,
+    name: propTypes.string,
     isEditMode: propTypes.string,
     checkedItems: propTypes.object,
+    isChecked: propTypes.string,
     onCheckboxClick: propTypes.func,
-    onCheckboxClick: propTypes.func,
+    onCheckboxClick: propTypes.func
 };
 
 export default withRouter(PlatformItem);

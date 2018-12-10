@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import asyncComponent from '../../Utilities/asyncComponent';
-
-const PortalDashboard = asyncComponent(() => import('../ServicePortal/PortalDashboard'));
+import Portfolios from '../Portfolio/Portfolios';
 
 class ServicePortal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filteredItems: []
-        };
-    }
-
-    render() {
+     render() {
         return (
-            <PortalDashboard />
+            <Portfolios />
         );
     }
 }
