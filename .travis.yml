@@ -16,8 +16,5 @@ script:
 - npm run travis:verify
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
-deploy:
-  provider: script
-  script: bash .travis/deploy.sh
-  'on':
-    branch: master
+after_success:
+- curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
