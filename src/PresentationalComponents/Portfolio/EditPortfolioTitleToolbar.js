@@ -29,4 +29,4 @@ class EditPortfolioTitleToolbar extends Component {
     };
 };
 
-export default withRouter(EditPortfolioTitleToolbar);
+export default withRouter(EditPortfolioTitleToolbar;

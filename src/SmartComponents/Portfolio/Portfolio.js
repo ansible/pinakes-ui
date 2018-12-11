@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { css } from '@patternfly/react-styles';
-import { Stack, StackItem} from '@patternfly/react-core';
+import { Stack, StackItem } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
@@ -23,9 +23,8 @@ class Portfolio extends Component {
             portfolioId: '',
             isKebabOpen: false,
             isOpen: false,
-            checkedItems: new Map()
+            filteredItems: []
         };
-        this.onClickEditPortfolio = this.onClickEditPortfolio.bind(this);
         consoleLog('Portfolio props: ', props);
     }
 
@@ -44,19 +43,6 @@ class Portfolio extends Component {
         }
     }
 
-    filterItems = (filterValue) => {
-        let filteredItems = [];
-        if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
-            filteredItems = this.props.portfolioItems.portfolioItems;
-            filteredItems = filteredItems.filter((item) => {
-                let itemName = item.name.toLowerCase();
-                return itemName.indexOf(
-                    filterValue.toLowerCase()) !== -1;
-            });
-        }
-        return filteredItems;
-    };
-
     onClickEditPortfolio = (event) => {
         this.props.showModal({
             open: true,
@@ -71,37 +57,35 @@ class Portfolio extends Component {
     };
 
     onClickAddProducts = (event) => {
-        this.setState({
-            ...this.state,
-            editMode: true
-        });
+        this.props.history.push(this.props.location.pathname + `/addproducts`);
     };
 
-    onCheckboxClick = (e)  =>{
-        const item = e.target.id;
-        const isChecked = e.target.checked;
-        this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
+    filterItems = (filterValue) => {
+        let filteredItems = [];
+        if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
+            filteredItems = this.props.portfolioItems.portfolioItems;
+            filteredItems = filteredItems.filter((item) => {
+                let itemName = item.name.toLowerCase();
+                return itemName.indexOf(
+                    filterValue.toLowerCase()) !== -1;
+            });
+        }
+
+        return filteredItems;
     };
 
     render() {
         let filteredItems = {
             items: this.props.portfolioItems.portfolioItems,
-            isEditMode: this.state.editMode,
-            checkedItems: this.state.checkedItems,
             isLoading: this.props.isLoading
         };
+        let title = this.props.portfolio ? this.props.portfolio.name : '';
         return (
             <Section>
-                <div className="action-toolbar">
-                    { this.state.editMode && (
-                        <AddProductsToPortfolio items={ filteredItems } portfolio={ this.props } onCheckboxClick={ this.onCheckboxClick } />) }
-                    { !this.state.editMode &&
-                    (
-                        <Stack>
-                            <StackItem><PortfolioFilterToolbar onFilter={ this.filterItems }/> </StackItem>
-                            <StackItem><PortfolioActionToolbar onEditPortfolio={ this.onClickEditPortfolio } onAddProducts={ this.onClickAddProducts }/> </StackItem>
-                        </Stack>) }
-                </div>
+                <PortfolioFilterToolbar />
+                { (!this.props.isLoading) && <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
+                    <PortfolioActionToolbar title={ title } onClickEditPortfolio={ this.onClickEditPortfolio } onClickAddProducts = { this.onClickAddProducts } filterItems={ this.filterItems }/>
+                </div> }
                 <ContentGallery { ...filteredItems } />
                 <MainModal />
             </Section>

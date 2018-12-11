@@ -1,31 +1,45 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, TolbarSection, Title, Button} from '@patternfly/react-core';
+import { Toolbar, ToolbarGroup, ToolbarItem, DropdownToggle, DropdownItem, Dropdown, DropdownPosition, KebabToggle, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
+import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
+import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
+import '../../SmartComponents/Portfolio/portfolio.scss';
 
-class EditPortfolioFilterToolbar extends Component {
-    state = {
-        searchValue: ''
-    };
-
+class PortfolioActionToolbar extends Component {
     render() {
+        console.info(this.props);
         return (
-            <Toolbar style={ { backgroundColor: '#FFFFFF' } }>
-                <ToolbarGroup className={ 'pf-u-ml-on-md' }>
-                    <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' }>
-                        <div className="pf-c-input-group">
-                            <input className="pf-c-form-control" input="true" type="text" id="searchItem"
-                                   name="searchPlatformItems" placeholder="Filter..."
-                                   aria-label="filter input with platform button"></input>
-                            <Button variant="tertiary" id="filterPlatformButton">
-                                <i className="fas fa-search" aria-hidden="true"></i>
-                            </Button>
-                        </div>
+            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
+                <ToolbarGroup>
+                    <ToolbarItem className={ css(spacingStyles.mrXl) }>
+                        { this.props.title &&  (<Title size={ '2xl' }> { 'Add Products: ' + this.props.title }</Title> )}
                     </ToolbarItem>
                 </ToolbarGroup>
-            </Toolbar>);
-    };
+                <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
+                    <ToolbarItem className={ css(spacingStyles.mxLg) }>
+                        <Button variant="link" aria-label="Cancel Add Products to Portfolio">
+                            Cancel
+                        </Button>
+                    </ToolbarItem>
+                    <ToolbarItem className={ css(spacingStyles.mxLg)} >
+                        <Button variant="plain" aria-label="AddProducts to Portfolio" onClick={ this.props.onClickAddProducts }>
+                            Add
+                        </Button>
+                    </ToolbarItem>
+                </ToolbarGroup>
+            </Toolbar>
+        );
+    }
+}
+
+PortfolioActionToolbar.propTypes = {
+    history: propTypes.object,
+    title: propTypes.string
 };
 
-export default EditPortfolioFilterToolbar;
+export default PortfolioActionToolbar;
+

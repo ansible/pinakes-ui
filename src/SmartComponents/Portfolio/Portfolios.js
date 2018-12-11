@@ -9,6 +9,7 @@ import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing
 import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
+import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
@@ -31,7 +32,7 @@ class Portfolios extends Component {
         this.fetchData();
     }
 
-    renderToolbar() {
+    renderActionToolbar() {
         return (
             <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
                 <ToolbarGroup>
@@ -76,8 +77,9 @@ class Portfolios extends Component {
 
         return (
             <Section>
+                <PortfoliosFilterToolbar/>
                 <div className="action-toolbar">
-                    { this.renderToolbar() }
+                    { this.renderActionToolbar() }
                 </div>
                 <ContentGallery { ...filteredItems } />
                 <MainModal />

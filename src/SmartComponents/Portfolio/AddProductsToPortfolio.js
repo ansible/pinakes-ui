@@ -13,9 +13,8 @@ import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToo
 import '../Platform/platformitems.scss';
 import { Stack, StackItem } from '@patternfly/react-core';
 import '../../SmartComponents/Portfolio/portfolio.scss';
-import EditPortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioOrderToolbar';
-import EditPortfolioTitleToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioTitleToolbar';
-import EditPortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioFilterToolbar';
+import PortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/EditPortfolioOrderToolbar';
+import AddProductsTitleToolbar from '../../PresentationalComponents/Portfolio/AddProductsTitleToolbar';
 
 class AddProductsToPortfolio extends Component {
     state = {
@@ -41,17 +40,12 @@ class AddProductsToPortfolio extends Component {
             isLoading: this.props.isLoading
         };
         return (
-            <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
-                <div>
-                    <Stack>
-                        <StackItem> <EditPortfolioOrderToolbar/> </StackItem>
-                        <StackItem> <EditPortfolioTitleToolbar/> </StackItem>
-                        <StackItem> <EditPortfolioFilterToolbar/> </StackItem>
-                    </Stack>
-                </div>
+            <Section >
+                <PortfolioOrderToolbar/>
+                <AddProductsTitleToolbar />
                 <ContentGallery { ...filteredItems } />
                 <MainModal />
-            </Main>
+            </Section>
         );
     }
 }
@@ -70,7 +64,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 AddProductsToPortfolio.propTypes = {
-    platforms: propTypes.object,
+    platformItems: propTypes.array,
     isLoading: propTypes.bool,
     history: propTypes.object
 };

@@ -4,7 +4,7 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Toolbar, ToolbarGroup, ToolbarItem, TolbarSection, Title, Button} from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
 
-class PortfolioFilterToolbar extends Component {
+class PortfoliosFilterToolbar extends Component {
     state = {
         searchValue: ''
     };
@@ -16,7 +16,7 @@ class PortfolioFilterToolbar extends Component {
                     <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' }>
                         <div className="pf-c-input-group">
                             <input className="pf-c-form-control" input="true" type="text" id="searchItem"
-                                name="searchPortfolio" placeholder="Find Product..."
+                                name="searchPortfolios" placeholder="Find Portfolio..."
                                 aria-label="filter input with platform button"></input>
                             <Button variant="tertiary" id="filterPortfolioButton">
                                 <i className="fas fa-search" aria-hidden="true"></i>
@@ -28,4 +28,4 @@ class PortfolioFilterToolbar extends Component {
     };
 };
 
-export default PortfolioFilterToolbar;
+export default PortfoliosFilterToolbar;
