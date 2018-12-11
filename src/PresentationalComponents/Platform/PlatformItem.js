@@ -4,44 +4,15 @@ import { connect } from 'react-redux';
 import './platformitem.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../ImageWithDefault';
+import ImageWithDefault from '../Shared/ImageWithDefault';
 import { PlatformStore, fetchPlatformItems } from '../../Store/Actions/PlatformActions';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 import { Dropdown, DropdownItem, DropdownPosition, DropdownToggle } from '@patternfly/react-core';
-import { Select, SelectOption, SelectOptionGroup } from '@patternfly/react-core';
+import itemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import { bindMethods, consoleLog } from '../../Helpers/Shared/Helper';
 
-const propLine = (prop, value) => {
-    return (<div className = "card_element"> { value } </div>);
-};
-
-const toDisplayProperty = property => {
-    return [ 'description' ].includes(property);
-};
-
-const propDetails = item => {
-    let details = [];
-
-    for (let property in item) {
-        if (item.hasOwnProperty(property) && toDisplayProperty(property)) {
-            if (item[property] && item[property] !== undefined) {
-                details.push(propLine(property, item[property].toString()));
-            }
-        }
-    }
-
-    return details;
-};
-
-const itemDetails = props => {
-    let details = propDetails(props);
-    return (
-        <React.Fragment>
-            <div>{ details }</div>
-        </React.Fragment>
-    );
-};
+const TO_DISPLAY = ['description'];
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -114,18 +85,19 @@ class PlatformItem extends React.Component {
                 <div className = "mask flex-center rgba-grey-strong">
                     <Dropdown
                         isOpen={ this.state.isOpen }
-                        onToggle={ this.onToggle }
                         onSelect={ this.onSelect }
                         position={ DropdownPosition.left }
                         toggle={ <DropdownToggle onToggle={ this.onToggle }> Portfolio </DropdownToggle> }
-                        id="dropdown-menu" itemdata={ this.props }
+                        id="dropdown-menu" itemdata={ [ this.props ] }
                     >
-                        <DropdownItem>Add Portfolio</DropdownItem>
+                        <DropdownItem key="action" component="button">
+                            Add Portfolio
+                        </DropdownItem>
                     </Dropdown>
                 </div>
                           }
                           <h4>{ this.props.name }</h4>
-                          { itemDetails(this.props) }
+                          { itemDetails(this.props, TO_DISPLAY) }
                       </CardBody>
                       <CardFooter>
                       </CardFooter>

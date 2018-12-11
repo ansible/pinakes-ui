@@ -71,19 +71,6 @@ class OrderServiceFormStepConfiguration extends React.Component {
         return options;
     }
 
-    formDatatoArray(obj) {
-        let keys = Object.keys(obj);
-        let values = Object.values(obj);
-        let params = [];
-        for (let idx = 0; idx < keys.length; idx++) {
-            if (keys[idx] !== 'NAMESPACE') {
-                params.push({ name: keys[idx], value: values[idx] });
-            }
-        }
-
-        return params;
-    }
-
     onSubmit (data) {
         consoleLog('Data submitted: ', data.formData);
         const portfolioItemId = this.props.id;
@@ -97,17 +84,18 @@ class OrderServiceFormStepConfiguration extends React.Component {
             return (
                 <PFForm horizontal>
                     <PFForm.FormGroup>
-                        { (!this.props.isLoading && this.props.servicePlans.length > 1) &&
+                        { (this.props.servicePlans.length > 1) &&
                         <div>
                             <h3>Select Plan:</h3>
                             <div>{ this.planOptions() }</div>
                         </div> }
                         <div>
+                            { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
                             <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema } onSubmit={ this.onSubmit }>
                                 <div>
                                     <Button variant="primary" type="submit">Submit</Button>
                                 </div>
-                            </Form>
+                            </Form> }
                         </div>
                     </PFForm.FormGroup>
                 </PFForm>

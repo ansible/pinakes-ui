@@ -77,7 +77,6 @@ const mapDispatchToProps = dispatch => {
 
 PlatformItems.propTypes = {
     filteredItems: propTypes.object,
-    portfolios: propTypes.array,
     platforms: propTypes.object,
     isLoading: propTypes.bool,
     history: propTypes.object

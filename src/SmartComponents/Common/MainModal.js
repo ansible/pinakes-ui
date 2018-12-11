@@ -13,7 +13,8 @@ import { default as modalTypes } from './ModalTypes';
 
 const MODAL_TYPES = {
     order: modalTypes.orderModal,
-    addportfolio: modalTypes.addPortfolioModal
+    addportfolio: modalTypes.addPortfolioModal,
+    editportfolio: modalTypes.editPortfolioModal
 };
 
 const mapStateToProps = state => ({

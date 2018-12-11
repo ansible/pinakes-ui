@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Radio } from 'patternfly-react';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../../PresentationalComponents/ImageWithDefault';
+import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { consoleLog } from '../../Helpers/Shared/Helper';

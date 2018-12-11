@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { addPortfolioWithItem, fetchPortfolios } from '../../Store/Actions/PortfolioActions';
+import { addPortfolio, fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { PortfolioStore } from '../../Store/Reducers/PortfolioStore';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms';
@@ -23,51 +23,63 @@ class AddPortfolioModal extends Component {
     componentDidMount() {
     };
 
-  onSubmit = data => {
-      this.props.addPortfolioWithItem(data, this.props.itemdata)
-      .then(() => { this.props.addAlert({
-          variant: 'success',
-          title: 'Success adding portfolio',
-          description: 'The portfolio was added successfully.'
-      });
-      this.props.fetchPortfolios();
-      })
-      .catch(() => this.props.addAlert({
-          variant: 'danger',
-          title: 'Failed adding portfolio',
-          description: 'The portfolio was not added successfuly.'
-      }));
-      this.props.closeModal();
-  }
+    onSubmit = data => {
+        let items = null;
+        if (this.props.itemdata) {
+            items = [ this.props.itemdata ];
+        }
+        this.props.addPortfolio(data, items)
+        .then(() => { this.props.addAlert({
+            variant: 'success',
+            title: 'Success adding portfolio',
+            description: 'The portfolio was added successfully.'
+        });
+        this.props.fetchPortfolios();
+        })
+        .catch(() => this.props.addAlert({
+            variant: 'danger',
+            title: 'Failed adding portfolio',
+            description: 'The portfolio was not added successfuly.'
+        }));
+        this.props.closeModal();
+    }
 
-  onCancel = () => {
-      this.props.addAlert({
-          variant: 'warning',
-          title: 'Adding portfolio',
-          description: 'Adding portfolio was cancelled by the user.'
-      });
-      this.props.closeModal();
-  }
+    onCancel = () => {
+        this.props.addAlert({
+            variant: 'warning',
+            title: 'Adding portfolio',
+            description: 'Adding portfolio was cancelled by the user.'
+        });
+        this.props.closeModal();
+    }
 
-  render() {
-      consoleLog('Adding a New Portfolio');
-      return (
-          <Main title={ 'Add Portfolio' }>
-              <div className="pf-l-stack">
-                  <div className="pf-l-stack__item pf-m-secondary ">
-                      <PageHeader>
-                          <PageHeaderTitle title= 'Create Portfolio and Add Product' />
-                      </PageHeader>
-                  </div>
-                  <div className="pf-l-stack">
-                      <FormRenderer schema={ schema }
-                          onSubmit={ this.onSubmit }
-                          onCancel={ this.onCancel } />
-                  </div>
-              </div>
-          </Main>
-      );
-  }
+    render() {
+        consoleLog('Adding a New Portfolio');
+        let title = 'Create Portfolio';
+        let itemsSelected = 0;
+
+        if (this.props.itemdata && this.props.itemdata.length > 1) {
+            title += ' and Add Selected Products';
+            itemsSelected = this.props.itemdata.length;
+        }
+
+        return (
+            <Main title={ 'Add Portfolio' }>
+                <div className="pf-l-stack">
+                    <div className="pf-l-stack__item pf-m-secondary ">
+                        <PageHeader>
+                            <PageHeaderTitle title= { title } />
+                        </PageHeader>
+                    </div>
+                    <div className="pf-l-stack">
+                        <FormRenderer schema={ schema }
+                            onSubmit={ this.onSubmit }
+                            onCancel={ this.onCancel } />
+                    </div>
+                </div>
+            </Main>
+        );
+    }
 }
 
 const mapStateToProps = state => ({ isLoading: state.PortfolioStore.isLoading });
@@ -75,18 +87,18 @@ const mapStateToProps = state => ({ isLoading: state.PortfolioStore.isLoading })
 const mapDispatchToProps = dispatch => bindActionCreators({
     addAlert,
     removeAlert,
-    addPortfolioWithItem,
+    addPortfolio,
     fetchPortfolios
 }, dispatch);
 
 AddPortfolioModal.propTypes = {
     isLoading: propTypes.bool,
-    history: propTypes.object,
     addAlert: propTypes.func,
-    addPortfolioWithItem: propTypes.func,
     fetchPortfolios: propTypes.func,
+    addPortfolio: propTypes.func,
     closeModal: propTypes.func,
-    itemdata: propTypes.object
+    itemdata: propTypes.object,
+    history: propTypes.object
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));

@@ -26,10 +26,10 @@ export const fetchPortfolioItemsWithPortfolio = apiProps => ({
     })
 });
 
-export const fetchSelectedPortfolioItem = id => ({
-    type: ActionTypes.FETCH_PORTFOLIO_ITEM,
+export const fetchSelectedPortfolio = id => ({
+    type: ActionTypes.FETCH_PORTFOLIO,
     payload: new Promise(resolve => {
-        resolve(PortfolioHelper.getPortfolioItem(id));
+        resolve(PortfolioHelper.getPortfolio(id));
     })
 });
 
@@ -40,7 +40,12 @@ export const searchPortfolioItems = value => ({
     })
 });
 
-export const addPortfolioWithItem = (portfolioData, itemData) => ({
+export const addPortfolio = (portfolioData, items) => ({
     type: ActionTypes.ADD_PORTFOLIO,
-    payload: PortfolioHelper.addPortfolioWithItem(portfolioData, itemData)
+    payload: PortfolioHelper.addPortfolio(portfolioData, items)
+});
+
+export const updatePortfolio = (portfolioData) => ({
+    type: ActionTypes.UPDATE_PORTFOLIO,
+    payload: PortfolioHelper.updatePortfolio(portfolioData)
 });

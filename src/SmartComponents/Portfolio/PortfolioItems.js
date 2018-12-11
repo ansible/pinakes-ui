@@ -9,7 +9,7 @@ import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery'
 import { fetchPortfolioItems, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 import MainModal from '../Common/MainModal';
-import './portfolioitems.scss';
+import './portfolio.scss';
 
 class PortfolioItems extends Component {
     constructor(props) {
