@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Toolbar, ToolbarGroup, ToolbarItem, DropdownToggle, DropdownItem, Dropdown, DropdownPosition, KebabToggle, Title, Button } from '@patternfly/react-core';
@@ -49,7 +47,7 @@ class PortfolioActionToolbar extends Component {
             <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
                 <ToolbarGroup>
                     <ToolbarItem className={ css(spacingStyles.mrXl) }>
-                        { this.props.title &&  (<Title size={ '2xl' }> { this.props.title }</Title> )}
+                        { this.props.title && (<Title size={ '2xl' }> { this.props.title }</Title>) }
                     </ToolbarItem>
                 </ToolbarGroup>
                 <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>

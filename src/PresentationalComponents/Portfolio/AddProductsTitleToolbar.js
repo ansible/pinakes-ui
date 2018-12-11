@@ -9,11 +9,12 @@ import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing
 import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 
+
 class AddProductsTitleToolbar extends Component {
     render() {
         console.info(this.props);
         return (
-            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
+            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) } style={ { backgroundColor: '#FFFFFF' } }>
                 <ToolbarGroup>
                     <ToolbarItem className={ css(spacingStyles.mrXl) }>
                         { this.props.title &&  (<Title size={ '2xl' }> { 'Add Products: ' + this.props.title }</Title> )}

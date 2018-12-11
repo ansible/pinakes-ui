@@ -13,7 +13,7 @@ import '../../SmartComponents/Portfolio/portfolio.scss';
 class PortfolioOrderToolbar extends Component {
     render() {
         return (
-            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
+            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) } style={ { backgroundColor: '#FFFFFF' } }>
                 <ToolbarGroup>
                     <ToolbarItem className={ css(spacingStyles.mrXl) }>
                         { this.props.title && <Title size={ '2xl' }> { this.props.title }</Title> }
