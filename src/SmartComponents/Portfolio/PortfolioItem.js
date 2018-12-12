@@ -34,7 +34,7 @@ class PortfolioItem extends React.Component {
 
     render() {
         return (
-            <GridItem GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
+            <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
                 <Card>
                     <div onClick={ () => {this.handleOnClick(this.props);} }>
                         <CardHeader className="card_header">

@@ -75,3 +75,7 @@ export const Routes = (props: Props) => {
         </Switch>
     );
 };
+
+Routes.propTypes = {
+  childProps: PropTypes.object
+};

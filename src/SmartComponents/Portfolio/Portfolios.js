@@ -65,10 +65,13 @@ class Portfolios extends Component {
 
     render() {
         let portfolios = [];
-        this.props.portfolios.forEach(function(item, row, _array) {
-            let newRow = <PortfolioCard { ...item } />;
-            portfolios.push(newRow);
-        });
+        {
+            if (this.props && this.props.portfolio)
+                this.props.portfolios.forEach(function (item, row, _array) {
+                    let newRow = <PortfolioCard {...item} />;
+                    portfolios.push(newRow);
+                });
+        };
 
         let filteredItems = {
             items: portfolios,

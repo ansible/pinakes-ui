@@ -6,7 +6,6 @@ import { parse } from 'querystring';
 import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { fetchPlatformItems } from '../../Store/Actions/PlatformActions';
 import { consoleLog } from '../../Helpers/Shared/Helper';
-import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
@@ -15,9 +14,7 @@ import './platformitems.scss';
 
 class PlatformItems extends Component {
     state = {
-        filteredItems: [],
-        selectable: true,
-        clickable: false
+        filteredItems: []
     };
 
     fetchData(apiProps) {
@@ -63,7 +60,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 PlatformItems.propTypes = {
-    platforms: propTypes.object,
+    platformItems: propTypes.array,
     isLoading: propTypes.bool,
     history: propTypes.object
 };

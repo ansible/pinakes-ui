@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import propTypes from 'prop-types';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Dropdown, DropdownPosition,
     DropdownToggle, DropdownItem, KebabToggle, Title, Button } from '@patternfly/react-core';
@@ -20,9 +18,10 @@ class PortfolioOrderToolbar extends Component {
                     </ToolbarItem>
                 </ToolbarGroup>
                 <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
-                    <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="plain" aria-label="Orders">
-                          Orders
+                    <ToolbarItem className={ css(spacingStyles.mrXL) }>
+                        <Button variant="link" id="ordersButton">
+                            <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                            Orders
                         </Button>
                     </ToolbarItem>
                 </ToolbarGroup>

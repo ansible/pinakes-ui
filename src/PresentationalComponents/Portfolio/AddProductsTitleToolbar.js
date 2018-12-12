@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Toolbar, ToolbarGroup, ToolbarItem, DropdownToggle, DropdownItem, Dropdown, DropdownPosition, KebabToggle, Title, Button } from '@patternfly/react-core';
@@ -8,7 +6,6 @@ import { css } from '@patternfly/react-styles';
 import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
 import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import '../../SmartComponents/Portfolio/portfolio.scss';
-
 
 class AddProductsTitleToolbar extends Component {
     render() {
@@ -22,12 +19,12 @@ class AddProductsTitleToolbar extends Component {
                 </ToolbarGroup>
                 <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
                     <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="link" aria-label="Cancel Add Products to Portfolio">
+                        <Button variant="link" aria-label="Cancel Add Products to Portfolio" onClick={ this.props.onClickCancelAddProducts }>
                             Cancel
                         </Button>
                     </ToolbarItem>
                     <ToolbarItem className={ css(spacingStyles.mxLg)} >
-                        <Button variant="plain" aria-label="AddProducts to Portfolio" onClick={ this.props.onClickAddProducts }>
+                        <Button variant="plain" aria-label="Add Products to Portfolio" onClick={ this.props.onClickAddToPortfolio }>
                             Add
                         </Button>
                     </ToolbarItem>
@@ -39,7 +36,9 @@ class AddProductsTitleToolbar extends Component {
 
 AddProductsTitleToolbar.propTypes = {
     history: propTypes.object,
-    title: propTypes.string
+    title: propTypes.string,
+    onClickAddToPortfolio: propTypes.func,
+    onClickCancelAddProducts: propTypes.func
 };
 
 export default AddProductsTitleToolbar;

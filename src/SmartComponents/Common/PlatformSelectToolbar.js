@@ -3,30 +3,51 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section, Input } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Title, Button, ButtonVariant,
-    Dropdown, DropdownItem, DropdownToggle, DropdownPosition } from '@patternfly/react-core';
-import { css } from '@patternfly/react-styles';
-import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
+import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Title, Button, ButtonVariant, TextInput } from '@patternfly/react-core';
+import Select from 'react-select';
+import { consoleLog } from '../../Helpers/Shared/Helper';
+import '../../PresentationalComponents/Platform/platform.scss';
+
+const customStyles = {
+    option: (provided, state) => ({
+        ...provided,
+        minWidth: '200px'
+    }),
+    control: () => ({
+        // none of react-select's styles are passed to <Control />
+        minWidth: '200px'
+    })
+};
 
 class PlatformSelectToolbar extends Component {
     state = {
         isOpen: false,
-        searchValue: ''
+        searchValue: '',
+        selectedOption: '',
+        arrayValue: []
     };
 
-    onToggle = () => { this.setState(prevState => ({ isOpen: !prevState.isOpen }));};
-
-    onSelect = (event) => {
+    selectMultipleOption = (options) => {
+        consoleLog('Select Multiple Platforms: ', options);
         const { platforms } = this.props;
+        let selectedValues = [];
+        options.map((option) => {selectedValues.push(platforms.find(oneItem => oneItem.id === option.value));});
         this.setState({
             isOpen: false,
-            selected: platforms.find(oneItem => oneItem.value === event.target.getAttribute('data-key'))
+            selected: selectedValues
         });
-        this.fetchData({ platform: this.state.selected });
-        this.props.onOptionSelect && this.props.onOptionSelect(event);
+        this.props.onOptionSelect && this.props.onOptionSelect(selectedValues);
     }
 
-    onSearchSubmit = () => {
+    onMenuClose = () => {
+        consoleLog('Menu Closed!!!!');
+    }
+
+    onInputChange = () => {
+        consoleLog('Search Value changed');
+    }
+
+    onSearchSubmit = (event) => {
         this.props.hasOwnProperty('onSearchClick') && this.props.onSearchClick(this.state.searchValue, this.state.selected);
     };
 
@@ -35,34 +56,35 @@ class PlatformSelectToolbar extends Component {
             platforms,
             ...props
         } = this.props;
+
+        const { value } = this.state.searchValue;
         const placeholder = 'Find a product';
         const { isOpen, selected } = this.state;
-        const dropdownItems = platforms.map(platform =>
-            <DropdownItem key={ platform.id } data-key={ platform.id }>{ platform.name }</DropdownItem>
-        );
+        const dropdownItems = platforms.map(function (platform) { return { value: platform.id, label: platform.name }; });
+
         return (
-            <Toolbar style={ { backgroundColor: '#FFFFFF' } }>
-                <ToolbarGroup className={ 'pf-u-ml-on-md' }>
-                    <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' }>
+            <Toolbar className="platformToolbar">
+                <ToolbarGroup className="searchPlatforms">
+                    <ToolbarItem>
                         <div className="pf-c-input-group">
-                            <Input placeholder={ placeholder } onChange={ this.onInputChange }
-                                aria-label="Find product button"></Input>
+                            <TextInput placeholder={ placeholder } value={ value } type="text" onChange={ this.onInputChange }
+                                aria-label="Find product button"></TextInput>
                             <Button variant="tertiary" id="searchProductButton" onClick={ this.onSearchSubmit }>
                                 <i className="fas fa-search" aria-hidden="true"></i>
                             </Button>
                         </div>
                     </ToolbarItem>
-                    <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' }>
+                </ToolbarGroup>
+                <ToolbarGroup className="searchPlatforms">
+                    <ToolbarItem>
                         { platforms &&
-                        <Dropdown
-                            onSelect={ this.onSelect }
-                            isOpen={ isOpen }
-                            toggle={
-                                <DropdownToggle onToggle={ this.onToggle }>
-                                    { (selected && selected.name) || platforms.name || 'Filter by Platform' }
-                                </DropdownToggle>
-                            }
-                            dropdownItems={ dropdownItems }
+                        <Select
+                            isMulti={ true }
+                            placeholder={ 'Select Platforms' }
+                            options={ dropdownItems }
+                            onChange={ this.selectMultipleOption }
+                            onMenuClose={ this.onMenuClose }
+                            closeMenuOnSelect={ false }
                         /> }
                     </ToolbarItem>
                 </ToolbarGroup>
