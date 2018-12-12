@@ -10,10 +10,10 @@ import App from './App';
  *  https://redux.js.org/advanced/usage-with-react-router
  */
 ReactDOM.render(
-    <Provider store={ ReducerRegistry.getStore() }>
-        <Router basename='/insights/platform/service-portal'>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={ ReducerRegistry.getStore() }>
+    <Router basename='/insights/platform/service-portal'>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 );

@@ -16,32 +16,32 @@ const store = createStore(f => f, applyMiddleware(promiseMiddleware(), reduxLogg
  * http://nicolasgallagher.com/redux-modules-and-code-splitting/
  */
 class ReducerRegistry {
-    constructor () {
-        this.reducers = {};
-    }
+  constructor () {
+    this.reducers = {};
+  }
 
-    getStore () {
-        return store;
-    }
+  getStore () {
+    return store;
+  }
 
-    /**
+  /**
      * adds the reducers to the store.
      *
      * @param reducers object where a key maps to a reducer
      */
-    changeListener (reducers) {
-        store.replaceReducer(combineReducers({ ...this.reducers, ...reducers }));
-    }
+  changeListener (reducers) {
+    store.replaceReducer(combineReducers({ ...this.reducers, ...reducers }));
+  }
 
-    /**
+  /**
      * calls the function to add the new reducers to the store.
      *
      * @param newReducers the object of new reducers.
      */
-    register (newReducers) {
-        this.reducers = { ...this.reducers, ...newReducers };
-        this.changeListener(this.reducers);
-    }
+  register (newReducers) {
+    this.reducers = { ...this.reducers, ...newReducers };
+    this.changeListener(this.reducers);
+  }
 }
 
 /* only need one instance of reducer registry */

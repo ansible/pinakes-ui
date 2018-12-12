@@ -1,22 +1,22 @@
 import * as ActionTypes from '../../Store/ActionTypes';
 
 const initialState = {
-    modalType: null,
-    modalProps: {}
+  modalType: null,
+  modalProps: {}
 };
 
 export const MainModalReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ActionTypes.SHOW_MODAL:
-            return {
-                ...state,
-                modalProps: action.payload.modalProps,
-                modalType: action.payload.modalType,
-                type: action.type
-            };
-        case ActionTypes.HIDE_MODAL:
-            return initialState;
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case ActionTypes.SHOW_MODAL:
+      return {
+        ...state,
+        modalProps: action.payload.modalProps,
+        modalType: action.payload.modalType,
+        type: action.type
+      };
+    case ActionTypes.HIDE_MODAL:
+      return initialState;
+    default:
+      return state;
+  }
 };

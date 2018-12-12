@@ -11,14 +11,14 @@ ReducerRegistry.register({ AlertReducer });
 * @param alert.description description of alert message
 */
 export const addAlert = alert => ({
-    type: ADD_ALERT,
-    payload: alert
+  type: ADD_ALERT,
+  payload: alert
 });
 
 /**
 * @param index index of alert
 */
 export const removeAlert = index => ({
-    type: REMOVE_ALERT,
-    payload: index
+  type: REMOVE_ALERT,
+  payload: index
 });

@@ -12,44 +12,44 @@ import { Grid, GridItem } from '@patternfly/react-core';
 
 class App extends Component {
 
-    componentDidMount () {
-        insights.chrome.init();
-        insights.chrome.identifyApp('service-portal');
+  componentDidMount () {
+    insights.chrome.init();
+    insights.chrome.identifyApp('service-portal');
 
-        this.appNav = insights.chrome.on('APP_NAVIGATION', event => {
-            /**
+    this.appNav = insights.chrome.on('APP_NAVIGATION', event => {
+      /**
              * This breaks navigation on first load it adds /path/undefined to URL and cause router to fallback to '/'
              */
-            //this.props.history.push(`/${event.navId}`);
-        });
-    }
+      //this.props.history.push(`/${event.navId}`);
+    });
+  }
 
-    componentWillUnmount () {
-        this.appNav();
-        this.buildNav();
-    }
+  componentWillUnmount () {
+    this.appNav();
+    this.buildNav();
+  }
 
-    render () {
-        return (
-            <React.Fragment>
-                <Portal><Alerts /></Portal>
-                <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
-                    <Grid>
-                        <GridItem style={ { backgroundColor: '#FFFFFF' } } sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
-                            <PortalNav />
-                        </GridItem >
-                        <GridItem sm={ 8 } md={ 8 } lg={ 10 } xl={ 10 }>
-                            <Routes childProps={ this.props } />
-                        </GridItem>
-                    </Grid>
-                </Main>
-            </React.Fragment>
-        );
-    }
+  render () {
+    return (
+      <React.Fragment>
+        <Portal><Alerts /></Portal>
+        <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
+          <Grid>
+            <GridItem style={ { backgroundColor: '#FFFFFF' } } sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
+              <PortalNav />
+            </GridItem >
+            <GridItem sm={ 8 } md={ 8 } lg={ 10 } xl={ 10 }>
+              <Routes childProps={ this.props } />
+            </GridItem>
+          </Grid>
+        </Main>
+      </React.Fragment>
+    );
+  }
 }
 
 App.propTypes = {
-    history: PropTypes.object
+  history: PropTypes.object
 };
 
 /**

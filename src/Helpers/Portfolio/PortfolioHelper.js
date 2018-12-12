@@ -1,73 +1,42 @@
 import React from 'react';
 import PortfolioItem from '../../SmartComponents/Portfolio/PortfolioItem';
 import { getUserApi } from '../Shared/userLogin';
-import { consoleLog } from '../../Helpers/Shared/Helper';
 
 const userApi = getUserApi();
 
 export function listPortfolios() {
-    return userApi.listPortfolios().then((data) => {
-        consoleLog('API called successfully. Returned portfolios: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.listPortfolios().then(data => data, error => console.error(error));
 }
 
-export function getPortfolioItems(apiProps) {
-    return listPortfolioItems();
+export function getPortfolioItems() {
+  return listPortfolioItems();
 }
 
 export function listPortfolioItems() {
-    return userApi.listPortfolioItems().then((data) => {
-        consoleLog('API called successfully. Returned portfolio Items: ' + data);
-        return processPortfolioItems(data);
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.listPortfolioItems().then(data => processPortfolioItems(data), error => console.error(error));
 }
 
 export function getPortfolioItem(portfolioId, portfolioItemId) {
-    return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId).then((data) => {
-        consoleLog('API called successfully. Returned data: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId)
+  .then(data => data, error => console.error(error));
 }
 
 export function getPortfolio(portfolioId) {
-    return userApi.fetchPortfolioWithId(portfolioId).then((data) => {
-        consoleLog('API called successfully. Returned data: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.fetchPortfolioWithId(portfolioId).then(data => data, error => console.error(error));
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-    return userApi.fetchPortfolioItemsWithPortfolio(portfolioId).then((data) => {
-        consoleLog('fetchPortfolioItemsWithPortfolio API called successfully. Returned data: ' + data);
-        return processPortfolioItems(data);
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.fetchPortfolioItemsWithPortfolio(portfolioId)
+  .then(data => processPortfolioItems(data), error => console.error(error));
 }
 
 function processPortfolioItems(items) {
-    let portfolioItems = [];
-    items.forEach(function(item, row, _array) {
-        let newRow = processPortfolioItem(row, item);
-        portfolioItems.push(newRow);
-    });
-
-    return {
-        portfolioItems
-    };
+  return { portfolioItems: items.map((item, row) => processPortfolioItem(row, item)) };
 }
 
-function processPortfolioItem(key, data) {
-    return <PortfolioItem { ...data } />;
+// Again why components in Redux?
+function processPortfolioItem(data) {
+  return <PortfolioItem { ...data } />;
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
@@ -79,10 +48,7 @@ export async function addPortfolio(portfolioData, items) {
     if (items && items.length > 0) {
         return addToPortfolio(portfolio, items);
     }
-    else {
-        return portfolio;
-    }
-}
+  }
 
 export async function addToPortfolio(portfolioId, items) {
     let idx = 0; let newItem = null;
@@ -107,6 +73,16 @@ export async function updatePortfolio(portfolioData) {
     return userApi.updatePortfolio(portfolioData).then((data) => {
         consoleLog('Update Portfolio Called successfully.');
     }, (error) => {
-        window.console.error(error);
+      window.console.error(error);
     });
+  }
+}
+
+// Why no .catch block?
+export async function updatePortfolio(portfolioData) {
+  return userApi.updatePortfolio(portfolioData).then(() => {
+    console.log('Update Portfolio Called successfully.');
+  }, (error) => {
+    window.console.error(error);
+  });
 }

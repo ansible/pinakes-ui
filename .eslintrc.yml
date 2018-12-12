@@ -27,7 +27,7 @@ globals:
   React: true
 rules:
   array-bracket-spacing:
-    - warn
+    - error
     - always
     - objectsInArrays: false
   comma-dangle: 2
@@ -37,23 +37,23 @@ rules:
   comma-style: 2
   camelcase: 1
   curly:
-    - warn
+    - error
     - all
   dot-notation: 2
   eol-last: 2
   eqeqeq: 2
   func-names:
-    - warn
+    - error
     - never
   indent:
-    - warn
-    - 4
+    - error
+    - 2
     - SwitchCase: 1
       MemberExpression: 0
       ImportDeclaration: 1
       ObjectExpression: 1
   react/jsx-curly-spacing:
-    - warn
+    - error
     - always
     - children: true
     - allowMultiline: false
@@ -66,31 +66,32 @@ rules:
     - warn
     - unix
   max-len:
-    - warn
+    - error
     - 150
   new-cap: 2
   no-bitwise: 2
   no-caller: 2
+  no-console: 1
   no-mixed-spaces-and-tabs: 2
   no-multiple-empty-lines:
-    - warn
+    - error
     - max: 1
   no-trailing-spaces: 2
   no-use-before-define:
     - warn
     - functions: false
   no-undef: 2
-  no-unused-vars: 1
+  no-unused-vars: 2
   no-var: 2
   no-with: 2
   object-shorthand: 2
   object-curly-spacing:
-    - warn
+    - error
     - always
     - objectsInObjects: false
       arraysInObjects: false
   one-var:
-    - warn
+    - error
     - never
   padding-line-between-statements:
     - warn
@@ -98,24 +99,24 @@ rules:
       prev: block-like
       next: "*"
   quote-props:
-    - warn
+    - error
     - as-needed
   quotes:
-    - warn
+    - error
     - single
     - allowTemplateLiterals: true
   semi:
-    - warn
+    - error
     - always
   space-before-blocks: 2
   space-in-parens: 2
   space-infix-ops: 2
   space-unary-ops:
-    - warn
+    - error
     - words: false
       nonwords: false
   vars-on-top: 2
   wrap-iife: 2
   yoda:
-    - warn
+    - error
     - never

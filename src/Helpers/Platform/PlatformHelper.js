@@ -1,49 +1,33 @@
 import React from 'react';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
 import { getTopologicalUserApi } from '../Shared/userLogin';
-import { consoleLog } from '../../Helpers/Shared/Helper';
 
 const api = getTopologicalUserApi();
 
 export function getPlatforms() {
-    return api.listSources().then((data) => {
-        consoleLog('listSources API called successfully. Returned platforms: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return api.listSources().then(data => data, error => console.error(error));
 }
 
 export function getPlatformItems(apiProps) {
-    consoleLog('getPlatformItems called with : ' + apiProps.platform);
-    let apiPromise = null;
-    if (apiProps && apiProps.platform) {
+  let apiPromise = null;
+  if (apiProps && apiProps.platform) {
     // TODO - replace with offerings per source when available
-        apiPromise = api.listSourceServiceOfferings(apiProps.platform);
-    }
-    else {
-        apiPromise = api.listServiceOfferings();
-    }
+    apiPromise = api.listSourceServiceOfferings(apiProps.platform);
+  }
+  else {
+    apiPromise = api.listServiceOfferings();
+  }
 
-    return apiPromise.then((data) => {
-        consoleLog('API called successfully. Returned data: ' + data);
-        return processPlatformItems(data);
-    }, (error) => {
-        window.console.error(error);
-    });
+  return apiPromise.then(data => processPlatformItems(data), error => console.error(error));
 }
 
 function processPlatformItems(items) {
-    let platformItems = [];
-    items.forEach(function(item, row, _array) {
-        let newRow = processPlatformItem(row, item);
-        platformItems.push(newRow);
-    });
-
-    return { platformItems };
+  return { platformItems: items.map((item, row) => processPlatformItem(row, item)) };
 }
 
+// remove rendering from Helper
+// Also why storing React components into Redux?
 function processPlatformItem(key, data) {
-    return <PlatformItem key={ key } { ...data } />;
+  return <PlatformItem key={ key } { ...data } />;
 }
 

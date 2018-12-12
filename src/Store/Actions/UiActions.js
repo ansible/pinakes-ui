@@ -5,5 +5,5 @@ import UiReducer from '../Reducers/UiReducer';
 ReducerRegistry.register({ UiReducer });
 
 export const toggleEdit = () => ({
-    type: TOGGLE_EDIT_SERVICE_PORTAL_ITEM
+  type: TOGGLE_EDIT_SERVICE_PORTAL_ITEM
 });

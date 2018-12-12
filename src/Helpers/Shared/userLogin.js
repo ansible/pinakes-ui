@@ -1,5 +1,3 @@
-import React from 'react';
-
 let TopologicalInventory = require('topological_inventory');
 let ServicePortalApi = require('service_portal_api');
 
@@ -9,7 +7,7 @@ const adminApi = new ServicePortalApi.AdminsApi();
 Object.assign(adminApi.apiClient.defaultHeaders, admin_hash);
 
 export function getUserApi() {
-    return adminApi;
+  return adminApi;
 }
 //UserSecurity.username = 'YOUR USERNAME'
 //UserSecurity.password = 'YOUR PASSWORD'
@@ -17,5 +15,5 @@ export function getUserApi() {
 let userTopologicalApi = new TopologicalInventory.DefaultApi();
 
 export function getTopologicalUserApi() {
-    return userTopologicalApi;
+  return userTopologicalApi;
 }

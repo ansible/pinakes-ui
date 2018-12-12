@@ -1,61 +1,58 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { PageHeader } from '@red-hat-insights/insights-frontend-components';
-import { PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { connect } from 'react-redux';
 import { fetchOrderList } from '../../Store/Actions/OrderActions';
 import ContentList from '../ContentGallery/ContentList';
 import propTypes from 'prop-types';
 
 class Orders extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        this.props.fetchOrders();
-    }
+  componentDidMount() {
+    this.props.fetchOrders();
+  }
 
-    render() {
-        let orderList = {
-            ...this.props.orderList,
-            isLoading: this.props.isLoading
-        };
-        return (
-            <div className="pf-l-stack__item pf-m-secondary ">
-                <ContentList { ...orderList } />
-            </div>
-        );
-    }
+  render() {
+    let orderList = {
+      ...this.props.orderList,
+      isLoading: this.props.isLoading
+    };
+    return (
+      <div className="pf-l-stack__item pf-m-secondary ">
+        <ContentList { ...orderList } />
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {
-    return {
-        orderList: {
-            items: state.OrderStore.orders
-        },
-        isLoading: state.OrderStore.isLoading
-    };
+  return {
+    orderList: {
+      items: state.OrderStore.orders
+    },
+    isLoading: state.OrderStore.isLoading
+  };
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        fetchOrders: () => dispatch(fetchOrderList())
-    };
+  return {
+    fetchOrders: () => dispatch(fetchOrderList())
+  };
 };
 
 Orders.propTypes = {
-    orderList: propTypes.object,
-    isLoading: propTypes.bool,
-    searchFilter: propTypes.string,
-    history: propTypes.object,
-    fetchOrders: propTypes.func
+  orderList: propTypes.object,
+  isLoading: propTypes.bool,
+  searchFilter: propTypes.string,
+  history: propTypes.object,
+  fetchOrders: propTypes.func
 };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(Orders)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Orders)
 );
