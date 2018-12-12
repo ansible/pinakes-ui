@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Form from 'react-jsonschema-form';
 import { Bullseye, Button, Radio } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
-import { fetchServicePlans, sendSubmitOrder } from '../../Store/Actions/OrderActions';
+import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import { bindMethods } from '../../Helpers/Shared/Helper';
 
 const uiSchema =
@@ -131,9 +131,9 @@ OrderServiceFormStepConfiguration.propTypes = {
   name: propTypes.string
 };
 
-const mapStateToProps = state => ({
-  isLoading: state.OrderStore.isLoading,
-  servicePlans: state.OrderStore.servicePlans
+const mapStateToProps = ({ orderReducer: { isLoading, servicePlans }}) => ({
+  isLoading,
+  servicePlans
 });
 
 const mapDispatchToProps = dispatch => ({

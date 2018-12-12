@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { updatePortfolio, fetchPortfolios } from '../../Store/Actions/PortfolioActions';
+import { updatePortfolio, fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import FormRenderer from './FormRenderer';
-import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
+import { addAlert, removeAlert } from '../../redux/Actions/AlertActions';
 
 const schema = {
   type: 'object',
@@ -68,7 +68,7 @@ class EditPortfolioModal extends Component {
   }
 }
 
-const mapStateToProps = state => ({ isLoading: state.PortfolioStore.isLoading });
+const mapStateToProps = ({ portfolioReducer: { isLoading }}) => ({ isLoading });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   addAlert,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { removeAlert } from '../../Store/Actions/AlertActions';
+import { removeAlert } from '../../redux/Actions/AlertActions';
 import { Alert, Button } from '@patternfly/react-core';
 import { TimesIcon } from '@patternfly/react-icons';
 
@@ -29,7 +29,7 @@ const Alerts = ({ alerts, removeAlert }) => (
   </div>
 );
 
-const mapStateToProps = ({ AlertReducer: { alerts }}) => ({
+const mapStateToProps = ({ alertReducer: { alerts }}) => ({
   alerts
 });
 

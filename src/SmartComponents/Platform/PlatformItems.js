@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Main } from '@red-hat-insights/insights-frontend-components';
-import { fetchPlatformItems } from '../../Store/Actions/PlatformActions';
+import { fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
@@ -46,9 +46,9 @@ class PlatformItems extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  platformItems: state.PlatformStore.platformItems,
-  isLoading: state.PlatformStore.isPlatformDataLoading
+const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoading }}) => ({
+  platformItems,
+  isLoading: isPlatformDataLoading
 });
 
 const mapDispatchToProps = dispatch => ({

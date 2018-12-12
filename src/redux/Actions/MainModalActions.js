@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../Store/ActionTypes';
+import * as ActionTypes from '../ActionTypes';
 
 export const showModal = ({ modalProps, modalType }) => ({
   type: ActionTypes.SHOW_MODAL,

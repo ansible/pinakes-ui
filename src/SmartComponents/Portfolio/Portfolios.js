@@ -12,7 +12,7 @@ import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
-import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
+import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import './portfolio.scss';
 
 class Portfolios extends Component {
@@ -87,13 +87,11 @@ class Portfolios extends Component {
     }
 }
 
-function mapStateToProps(state) {
-  return {
-    portfolios: state.PortfolioStore.portfolios,
-    isLoading: state.PortfolioStore.isLoading,
-    searchFilter: state.PortfolioStore.filterValue
-  };
-}
+const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValue }}) => ({
+  portfolios,
+  isLoading,
+  searchFilter: filterValue
+});
 
 const mapDispatchToProps = dispatch => {
   return {

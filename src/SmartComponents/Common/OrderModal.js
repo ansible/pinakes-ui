@@ -153,14 +153,11 @@ OrderModal.propTypes = {
   history: propTypes.object,
   open: propTypes.bool
 };
-function mapStateToProps(state) {
-  return {
-    isLoading: state.OrderStore.isLoading,
-    selectedItem: state.OrderStore.selectedItem,
-    servicePlans: state.OrderStore.servicePlans
-  };
-}
 
-;
+const mapStateToProps = ({ orderReducer: { isLoading, selectedItem, servicePlans }}) => ({
+  isLoading,
+  selectedItem,
+  servicePlans
+});
 
 export default withRouter(connect(mapStateToProps)(OrderModal));

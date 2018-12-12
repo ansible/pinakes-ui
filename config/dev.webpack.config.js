@@ -8,6 +8,7 @@ const convert = require('koa-connect');
 
 webpackConfig.serve = {
   content: config.paths.public,
+  mode: 'development',
   port: 8002,
   dev: {
     publicPath: '/insights/platform/service-portal'

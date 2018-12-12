@@ -55,6 +55,6 @@ OrderServiceFormStepInformation.propTypes = {
   name: propTypes.string
 };
 
-const mapStateToProps = state => ({ serviceData: state.OrderStore.serviceData });
+const mapStateToProps = ({ orderReducer: { serviceData }}) => ({ serviceData });
 
 export default connect(mapStateToProps)(OrderServiceFormStepInformation);

@@ -4,9 +4,9 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
-import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
-import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
-import { toggleEdit } from '../../Store/Actions/UiActions';
+import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
+import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
+import { toggleEdit } from '../../redux/Actions/UiActions';
 import './portalnav.scss';
 
 const ALL_PORTFOLIOS_URL = '/portfolios';
@@ -89,11 +89,14 @@ class PortalNav extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-  isPlatformDataLoading: state.PlatformStore.isPlatformDataLoading,
-  platforms: state.PlatformStore.platforms,
-  isLoading: state.PortfolioStore.isLoading,
-  portfolios: state.PortfolioStore.portfolios
+const mapStateToProps = ({
+  platformReducer: { platforms, isPlatformDataLoading },
+  portfolioReducer: { isLoading, portfolios }
+}) => ({
+  isPlatformDataLoading,
+  platforms,
+  isLoading,
+  portfolios
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

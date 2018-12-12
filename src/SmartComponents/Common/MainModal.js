@@ -15,10 +15,9 @@ const MODAL_TYPES = {
   editportfolio: modalTypes.editPortfolioModal
 };
 
-const mapStateToProps = state => ({
-  ...state.MainModalStore
-});
+const mapStateToProps = ({ mainModalReducer }) => ({ ...mainModalReducer });
 
+// TO DO define hide on click outside the model
 class MainModalContainer extends React.Component {
   constructor(props) {
     super(props);

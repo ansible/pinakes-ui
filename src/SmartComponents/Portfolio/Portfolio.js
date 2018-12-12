@@ -3,23 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem,
-  Dropdown,
-  DropdownPosition,
-  DropdownItem,
-  KebabToggle,
-  Title,
-  Button
-} from '@patternfly/react-core';
-import { css } from '@patternfly/react-styles';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
-import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
+import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
-import MainModal from '../Common/MainModal';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
@@ -48,7 +35,7 @@ class Portfolio extends Component {
     }
   }
 
-    onClickEditPortfolio = (event) => {
+    onClickEditPortfolio = () => {
       this.props.showModal({
         open: true,
         itemdata: this.props,
@@ -61,9 +48,8 @@ class Portfolio extends Component {
       });
     };
 
-    onClickAddProducts = (event) => {
+    onClickAddProducts = () => {
       this.setViewMode('addproducts');
-      //this.props.history.push({ pathname: this.props.location.pathname + `/addproducts`,  state: { title: this.props.portfolio.name }});
     };
 
     onClickCancelAddProducts = () => {
@@ -128,10 +114,10 @@ class Portfolio extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-  portfolio: state.PortfolioStore.selectedPortfolio,
-  portfolioItems: state.PortfolioStore.portfolioItems,
-  isLoading: state.PortfolioStore.isLoading
+const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems, isLoading }}) => ({
+  portfolio: selectedPortfolio,
+  portfolioItems,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

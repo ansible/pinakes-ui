@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchOrderList } from '../../Store/Actions/OrderActions';
+import { fetchOrderList } from '../../redux/Actions/OrderActions';
 import ContentList from '../ContentGallery/ContentList';
 import propTypes from 'prop-types';
 
@@ -27,20 +27,16 @@ class Orders extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    orderList: {
-      items: state.OrderStore.orders
-    },
-    isLoading: state.OrderStore.isLoading
-  };
-}
+const mapStateToProps = ({ orderReducer: { orders, isLoading }}) => ({
+  orderList: {
+    items: orders
+  },
+  isLoading
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchOrders: () => dispatch(fetchOrderList())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchOrders: () => dispatch(fetchOrderList())
+});
 
 Orders.propTypes = {
   orderList: propTypes.object,

@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../Store/ActionTypes';
+import * as ActionTypes from '../ActionTypes';
 import * as AddPlatformHelper from '../../Helpers/Platform/AddPlatformHelper';
 import { addAlert } from './AlertActions';
 
