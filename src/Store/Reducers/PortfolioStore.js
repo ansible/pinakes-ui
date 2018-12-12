@@ -10,8 +10,7 @@ const initialState = {
   isLoading: true
 };
 
-// Reducer
-export const PortfolioReducer = (state = initialState, action) => {
+const PortfolioReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_PORTFOLIOS + '_PENDING':
       return {
@@ -78,3 +77,5 @@ export const PortfolioReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default PortfolioReducer;

@@ -9,7 +9,7 @@ const initialState = {
 };
 
 // Reducer
-export const OrderReducer = (state = initialState, action) => {
+const OrderReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_SERVICE_PLANS + '_PENDING':
       return {
@@ -66,3 +66,5 @@ export const OrderReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default OrderReducer;

@@ -1,10 +1,6 @@
 import * as ActionTypes from '../../Store/ActionTypes';
 import * as AddPlatformHelper from '../../Helpers/Platform/AddPlatformHelper';
-import { AddPlatformReducer } from '../../Store/Reducers/AddPlatformStore';
-import ReducerRegistry from '../../Utilities/ReducerRegistry';
 import { addAlert } from './AlertActions';
-
-ReducerRegistry.register({ AddPlatformStore: AddPlatformReducer });
 
 export const addPlatform = (apiProps) => dispatch => ({
   type: ActionTypes.ADD_PLATFORM,

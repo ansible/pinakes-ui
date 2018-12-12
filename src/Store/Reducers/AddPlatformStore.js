@@ -7,7 +7,7 @@ const initialState = {
 };
 
 // Reducer
-export const AddPlatformReducer = (state = initialState, action) => {
+const AddPlatformReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_PLATFORM_DATA + '_PENDING':
       return {
@@ -35,3 +35,5 @@ export const AddPlatformReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default AddPlatformReducer;

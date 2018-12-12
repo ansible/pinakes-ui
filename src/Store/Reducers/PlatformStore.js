@@ -9,8 +9,7 @@ const initialState = {
   filterValue: ''
 };
 
-// Reducer
-export const PlatformReducer = (state = initialState, action) => {
+const PlatformReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_PLATFORMS + '_PENDING':
       return {
@@ -55,3 +54,5 @@ export const PlatformReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default PlatformReducer;

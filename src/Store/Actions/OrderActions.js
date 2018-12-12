@@ -1,9 +1,5 @@
 import * as ActionTypes from '../ActionTypes';
 import * as OrderHelper from '../../Helpers/Order/OrderHelper';
-import { OrderReducer } from '../../Store/Reducers/OrderStore';
-import ReducerRegistry from '../../Utilities/ReducerRegistry';
-
-ReducerRegistry.register({ OrderStore: OrderReducer });
 
 export const fetchServicePlans = (portfolioItemId) => ({
   type: ActionTypes.FETCH_SERVICE_PLANS,
