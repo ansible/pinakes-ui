@@ -7,7 +7,7 @@ import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-fr
 import { updatePortfolio, fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { PortfolioStore } from '../../Store/Reducers/PortfolioStore';
 import { consoleLog } from '../../Helpers/Shared/Helper';
-import { FormRenderer } from '@red-hat-insights/insights-frontend-components/components/Forms';
+import FormRenderer from './FormRenderer';
 import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
 
 const schema = {
@@ -57,9 +57,12 @@ class EditPortfolioModal extends Component {
                       </PageHeader>
                   </div>
                   <div className="pf-l-stack">
-                      <FormRenderer schema={ schema }
+                      <FormRenderer
+                          schema={ schema }
                           onSubmit={ this.onSubmit }
-                          onCancel={ this.onCancel } />
+                          onCancel={ this.onCancel }
+                          schemaType="mozilla"
+                      />
                   </div>
               </div>
           </Main>
