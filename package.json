@@ -4,6 +4,8 @@
   "private": false,
   "dependencies": {
     "@babel/runtime": "^7.1.2",
+    "@data-driven-forms/pf4-component-mapper": "^0.3.0",
+    "@data-driven-forms/react-form-renderer": "^1.4.3",
     "@patternfly/patternfly-next": "^1.0.95",
     "@patternfly/react-core": "^1.38.5",
     "@patternfly/react-icons": "^2.4.0",
