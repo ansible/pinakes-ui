@@ -153,9 +153,4 @@ Portfolio.propTypes = {
   onClickEditPortfolio: propTypes.func
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Portfolio)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Portfolio));

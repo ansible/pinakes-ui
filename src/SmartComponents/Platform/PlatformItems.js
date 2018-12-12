@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { parse } from 'querystring';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { fetchPlatformItems } from '../../Store/Actions/PlatformActions';
 import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';

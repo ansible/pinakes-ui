@@ -18,6 +18,7 @@ import some from 'lodash/some';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
+
 const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePortal/ServicePortal'));
 const PlatformItems = asyncComponent(() => import('./SmartComponents/Platform/PlatformItems'));
 const Portfolios = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolios'));
@@ -27,13 +28,10 @@ const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const paths = {
   service_portal: '/',
   platform_items: '/platform_items/:id',
+  portfolio_items: '/portfolio_items/:id',
   portfolios: '/portfolios',
   portfolio: '/portfolios/:id',
   orders: '/orders'
-};
-
-type Props = {
-    childProps: any
 };
 
 const InsightsRoute = ({ rootClass, ...rest }) => {
@@ -41,7 +39,6 @@ const InsightsRoute = ({ rootClass, ...rest }) => {
   root.removeAttribute('class');
   root.classList.add(`page__${rootClass}`, 'pf-l-page__main');
   root.setAttribute('role', 'main');
-
   return (<Route { ...rest } />);
 };
 

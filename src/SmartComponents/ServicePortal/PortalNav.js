@@ -1,8 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { withRouter, NavLink } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { bindMethods } from '../../Helpers/Shared/Helper';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
 import { fetchPlatforms } from '../../Store/Actions/PlatformActions';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
@@ -10,8 +10,8 @@ import { toggleEdit } from '../../Store/Actions/UiActions';
 import './portalnav.scss';
 
 const ALL_PORTFOLIOS_URL = '/portfolios';
-const PLATFORM_ITEM_URL_BASE = `/platform_items`;
-const PORTFOLIO_URL_BASE = `/portfolios`;
+const PLATFORM_ITEM_URL_BASE = '/platform_items';
+const PORTFOLIO_URL_BASE = '/portfolios';
 
 class PortalNav extends React.Component {
     state = {
@@ -22,7 +22,6 @@ class PortalNav extends React.Component {
 
     componentDidMount() {
       this.fetchData();
-      bindMethods(this, [ 'onSelect' ]);
     }
 
     fetchData = () => {
@@ -97,11 +96,11 @@ const mapStateToProps = state => ({
   portfolios: state.PortfolioStore.portfolios
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchPlatforms: () => dispatch(fetchPlatforms()),
-  fetchPortfolios: () => dispatch(fetchPortfolios()),
-  toggleEdit: () => dispatch(toggleEdit())
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchPlatforms,
+  fetchPortfolios,
+  toggleEdit
+}, dispatch);
 
 PortalNav.propTypes = {
   portfolios: propTypes.array,
