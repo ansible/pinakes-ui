@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../Shared/ImageWithDefault';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
-import itemDetails from '../../PresentationalComponents/Shared/CardCommon';
+import ItemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import CardCheckbox from '../Shared/CardCheckbox';
 
 const TO_DISPLAY = [ 'description' ];
@@ -25,7 +25,7 @@ class PlatformItem extends React.Component {
             </CardHeader>
             <CardBody className="card_body">
               <h4>{ this.props.name }</h4>
-              { itemDetails(this.props, TO_DISPLAY) }
+              { <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } /> }
             </CardBody>
             <CardFooter/>
           </Card>
