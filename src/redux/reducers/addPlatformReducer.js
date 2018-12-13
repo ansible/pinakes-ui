@@ -18,5 +18,5 @@ export default {
   [`${FETCH_PLATFORM_DATA}_PENDING`]: setLoadingState,
   [`${FETCH_PLATFORM_DATA}_FULFILLED`]: setPlatformData,
   [`${ADD_PLATFORM}_PENDING`]: setLoadingState,
-  [`${ADD_PLATFORM}_FULFILLED`]: setPlatformData,
+  [`${ADD_PLATFORM}_FULFILLED`]: setPlatformData
 };
