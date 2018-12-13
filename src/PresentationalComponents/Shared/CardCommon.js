@@ -1,23 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const propLine = value => <div className = "card_element">{ value }</div>;
+// This whole thing is a bit strange
+const PropLine = ({ value }) => <div className = "card_element">{ value }</div>;
 
-const hasOwnValidDisplayProperty = (item, property, toDisplay) =>
-  (item.hasOwnProperty(property) && toDisplay.includes(property) && item[property] && item[property] !== undefined);
-
-const propertyDetails = (item, toDisplay) => {
-  let details = [];
-  // MAP not for in
-  for (let property in item) {
-    if (hasOwnValidDisplayProperty(item, property, toDisplay)) {
-      details.push(propLine(property, item[property].toString()));
-    }
-  }
-
-  return details;
+PropLine.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node
+    ]))
+  ]).isRequired
 };
 
-// Should be component not function
-const itemDetails = (props, toDisplay) => <div>{ propertyDetails(props, toDisplay) }</div>;
+const ItemDetails = ({ toDisplay = [], ...item }) => (
+  <div>
+    { toDisplay.map(prop => <PropLine key={ `card-prop-${prop}` } value={ item[prop] } />) }
+  </div>
+);
 
-export default itemDetails;
+ItemDetails.propTypes = {
+  toDisplay: PropTypes.arrayOf(PropTypes.string)
+};
+
+ItemDetails.defaultProps = {
+  toDisplay: []
+};
+
+export default ItemDetails;
