@@ -26,11 +26,13 @@ class PlatformItems extends Component {
     }
 
     componentDidMount() {
-        let filter = this.props.computedMatch.params.filter;
-        consoleLog('PlatformItems filter: ', filter);
-        let parsed = parse(filter);
-        consoleLog('PlatformItems parsed filter: ', parsed);
-        this.fetchData(parsed);
+        this.fetchData(this.props.match.params.id);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.fetchData(this.props.match.params.id);
+        }
     }
 
     renderToolbar() {

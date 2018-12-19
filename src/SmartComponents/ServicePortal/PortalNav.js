@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindMethods } from '../../Helpers/Shared/Helper';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
@@ -9,9 +9,9 @@ import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import { toggleEdit } from '../../Store/Actions/UiActions';
 import './portalnav.scss';
 
-const ALL_PORTFOLIOS_URL = '/insights/platform/service-portal/portfolios';
-const PLATFORM_ITEM_URL_BASE = `/insights/platform/service-portal/platform_items/platform=`;
-const PORTFOLIO_URL_BASE = `/insights/platform/service-portal/portfolios/`;
+const ALL_PORTFOLIOS_URL = '/portfolios';
+const PLATFORM_ITEM_URL_BASE = `/platform_items`;
+const PORTFOLIO_URL_BASE = `/portfolios`;
 
 class PortalNav extends React.Component {
     state = {
@@ -25,7 +25,7 @@ class PortalNav extends React.Component {
         bindMethods(this, [ 'onSelect' ]);
     }
 
-    fetchData() {
+    fetchData = () => {
     // TODO - only call if the user is an admin
         this.props.fetchPlatforms();
         this.props.fetchPortfolios();
@@ -34,13 +34,14 @@ class PortalNav extends React.Component {
     platformNavItems = () => {
         if (this.props.platforms) {
             return this.props.platforms.map(item => (
-                <NavItem key={ item.id }
-                    itemId={ item.id }
-                    groupId="platforms"
-                    to={ PLATFORM_ITEM_URL_BASE + `${item.id}` }
-                >
-                    { item.name }
-                </NavItem>
+                <NavLink key={ item.id } to={ `${PLATFORM_ITEM_URL_BASE}/${item.id}` }>
+                    <NavItem
+                        itemId={ item.id }
+                        groupId="platforms"
+                    >
+                        { item.name }
+                    </NavItem>
+                </NavLink>
             ));
         }
         else {
@@ -51,13 +52,13 @@ class PortalNav extends React.Component {
     portfolioNavItems = () => {
         if (this.props.portfolios) {
             return this.props.portfolios.map(item => (
-                <NavItem
-                    key={ item.id }
-                    groupId="portfolios"
-                    to={ PORTFOLIO_URL_BASE + `${item.id}` }
-                >
-                    { item.name }
-                </NavItem>
+                <NavLink key={ item.id } to={ `${PORTFOLIO_URL_BASE}/${item.id}` }>
+                    <NavItem
+                        groupId="portfolios"
+                    >
+                        { item.name }
+                    </NavItem>
+                </NavLink>
             ));
         } else {
             return null;
@@ -75,13 +76,14 @@ class PortalNav extends React.Component {
                 { !this.props.isPlatformDataLoading && this.platformNavItems() }
             </NavGroup>
             <NavGroup title="Portfolios">
-                <NavItem
-                    key='all'
-                    groupId="portfolios"
-                    to={ ALL_PORTFOLIOS_URL }
-                >
-                    All Portfolios
-                </NavItem>
+                <NavLink to={ ALL_PORTFOLIOS_URL }>
+                    <NavItem
+                        key='all'
+                        groupId="portfolios"
+                    >
+                        All Portfolios
+                    </NavItem>
+                </NavLink>
                 { !this.props.isLoading && this.portfolioNavItems() }
             </NavGroup>
         </Nav>;
