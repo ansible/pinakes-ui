@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 import '../../PresentationalComponents/Platform/platform.scss';
 
+
 const customStyles = {
     option: (provided, state) => ({
         ...provided,
@@ -63,7 +64,7 @@ class PlatformSelectToolbar extends Component {
         const dropdownItems = platforms.map(function (platform) { return { value: platform.id, label: platform.name }; });
 
         return (
-            <Toolbar className="platformToolbar">
+            <Toolbar className="searchToolbar">
                 <ToolbarGroup className="searchPlatforms">
                     <ToolbarItem>
                         <div className="pf-c-input-group">
@@ -80,11 +81,11 @@ class PlatformSelectToolbar extends Component {
                         { platforms &&
                         <Select
                             isMulti={ true }
-                            placeholder={ 'Select Platforms' }
+                            placeholder={ 'Filter by Platform' }
                             options={ dropdownItems }
                             onChange={ this.selectMultipleOption }
                             onMenuClose={ this.onMenuClose }
-                            closeMenuOnSelect={ false }
+                            closeMenuOnSelect={ true }
                         /> }
                     </ToolbarItem>
                 </ToolbarGroup>

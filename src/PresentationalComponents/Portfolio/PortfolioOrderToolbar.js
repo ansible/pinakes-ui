@@ -6,13 +6,13 @@ import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Dropdown, DropdownP
     DropdownToggle, DropdownItem, KebabToggle, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
 import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
-import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import '../../SmartComponents/Portfolio/portfolio.scss';
+import '../Shared/toolbarschema.scss';
 
 class PortfolioOrderToolbar extends Component {
     render() {
         return (
-            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) } style={ { backgroundColor: '#FFFFFF' } }>
+            <Toolbar className="searchToolbar">
                 <ToolbarGroup>
                     <ToolbarItem className={ css(spacingStyles.mrXl) }>
                         { this.props.title && <Title size={ '2xl' }> { this.props.title }</Title> }

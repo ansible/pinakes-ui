@@ -1,4 +1,5 @@
 @import "../../App";
+@import "../Shared/toolbarschema";
 
 .card_style_with_hover {
   background-color: white;
@@ -8,18 +9,3 @@
   background-color:darkgrey;
   opacity: 0.8
 }
-.platformToolbar {
-  background-color: white;
-}
-.space-between-toolbar-items > div {
-  margin-right: $ins-gutter;
-  align-self: flex-end;
-}
-
-.searchPlatforms {
-  min-width: 30%;
-  > div {
-    width: 100%;
-  }
-}
-

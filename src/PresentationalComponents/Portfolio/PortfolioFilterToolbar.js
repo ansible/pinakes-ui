@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, TolbarSection, Title, Button} from '@patternfly/react-core';
-import { css } from '@patternfly/react-styles';
+import { Toolbar, ToolbarGroup, ToolbarItem, TolbarSection, Title, Button, TextInput } from '@patternfly/react-core';
+import OrderToolbarItem from '../Shared/OrderToolbarItem';
+import FilterToolbarItem from '../Shared/FilterToolbarItem';
+import '../Shared/toolbarschema.scss';
 
 class PortfolioFilterToolbar extends Component {
-    state = {
-        searchValue: ''
-    };
-
     render() {
         return (
             <Toolbar style={ { backgroundColor: '#FFFFFF' } }>
-                <ToolbarGroup className={ 'pf-u-ml-on-md' }>
-                    <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' }>
-                        <div className="pf-c-input-group">
-                            <input className="pf-c-form-control" input="true" type="text" id="searchItem"
-                                name="searchPortfolio" placeholder="Find Product..."
-                                aria-label="filter input with platform button"></input>
-                            <Button variant="tertiary" id="filterPortfolioButton">
-                                <i className="fas fa-search" aria-hidden="true"></i>
-                            </Button>
-                        </div>
-                    </ToolbarItem>
-                </ToolbarGroup>
+                <FilterToolbarItem { ...this.props } placeholder={'Find a Product'}/>
+                <OrderToolbarItem { ...this.props }/>
             </Toolbar>);
     };
 };

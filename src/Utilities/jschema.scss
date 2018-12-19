@@ -21,5 +21,18 @@
   display: none;
 }
 
+.searchToolbar {
+  background-color: white;
+  padding: 10px;
+}
+.space-between-toolbar-items > div {
+  margin-right: $ins-gutter;
+  align-self: flex-end;
+}
 
-
+.searchPlatforms {
+  min-width: 30%;
+  > div {
+    width: 100%;
+  }
+}
