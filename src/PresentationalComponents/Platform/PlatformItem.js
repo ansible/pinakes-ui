@@ -14,7 +14,7 @@ const TO_DISPLAY = [ 'description' ];
 
 class PlatformItem extends React.Component {
     state = {
-        isOpen: true,
+        isOpen: true
     };
 
     render() {

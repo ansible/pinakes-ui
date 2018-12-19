@@ -42,7 +42,6 @@ class PortfolioActionToolbar extends Component {
     };
 
     render() {
-        console.info(this.props);
         return (
             <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
                 <ToolbarGroup>
@@ -72,7 +71,9 @@ class PortfolioActionToolbar extends Component {
 
 PortfolioActionToolbar.propTypes = {
     history: propTypes.object,
-    title: propTypes.string
-    };
+    title: propTypes.string,
+    onClickEditPortfolio: propTypes.func,
+    onClickAddProducts: propTypes.func
+};
 
 export default PortfolioActionToolbar;

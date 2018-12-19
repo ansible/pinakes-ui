@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Dropdown, DropdownPosition,
@@ -29,6 +30,11 @@ class PortfolioOrderToolbar extends Component {
         );
     }
 }
+
+PortfolioOrderToolbar.propTypes = {
+    history: propTypes.object,
+    title: propTypes.string
+};
 
 export default withRouter(PortfolioOrderToolbar);
 

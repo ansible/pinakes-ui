@@ -4,30 +4,22 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { css } from '@patternfly/react-styles';
-import { Stack, StackItem } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
-import { consoleLog } from '../../Helpers/Shared/Helper';
 import MainModal from '../Common/MainModal';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
-
 import './portfolio.scss';
-import { addAlert, removeAlert } from '../../Store/Actions/AlertActions';
 
 class Portfolio extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            portfolioId: '',
-            isKebabOpen: false,
-            isOpen: false,
-            filteredItems: []
-        };
-        consoleLog('Portfolio props: ', props);
-    }
+    state = {
+        portfolioId: '',
+        isKebabOpen: false,
+        isOpen: false,
+        filteredItems: []
+    };
 
     fetchData(apiProps) {
         this.props.fetchSelectedPortfolio(apiProps);

@@ -9,12 +9,11 @@ import '../../SmartComponents/Portfolio/portfolio.scss';
 
 class AddProductsTitleToolbar extends Component {
     render() {
-        console.info(this.props);
         return (
             <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) } style={ { backgroundColor: '#FFFFFF' } }>
                 <ToolbarGroup>
                     <ToolbarItem className={ css(spacingStyles.mrXl) }>
-                        { this.props.title &&  (<Title size={ '2xl' }> { 'Add Products: ' + this.props.title }</Title> )}
+                        { this.props.title &&  (<Title size={ '2xl' }> { 'Add Products: ' + this.props.title }</Title>) }
                     </ToolbarItem>
                 </ToolbarGroup>
                 <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
@@ -23,7 +22,7 @@ class AddProductsTitleToolbar extends Component {
                             Cancel
                         </Button>
                     </ToolbarItem>
-                    <ToolbarItem className={ css(spacingStyles.mxLg)} >
+                    <ToolbarItem className={ css(spacingStyles.mxLg) } >
                         <Button variant="plain" aria-label="Add Products to Portfolio" onClick={ this.props.onClickAddToPortfolio }>
                             Add
                         </Button>
