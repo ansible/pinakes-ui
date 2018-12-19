@@ -7,18 +7,7 @@ import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Title, Button, Butt
 import Select from 'react-select';
 import { consoleLog } from '../../Helpers/Shared/Helper';
 import '../../PresentationalComponents/Platform/platform.scss';
-
-
-const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        minWidth: '200px'
-    }),
-    control: () => ({
-        // none of react-select's styles are passed to <Control />
-        minWidth: '200px'
-    })
-};
+import FilterToolbarItem from '../../PresentationalComponents/Shared/FilterToolbarItem';
 
 class PlatformSelectToolbar extends Component {
     state = {
@@ -65,17 +54,7 @@ class PlatformSelectToolbar extends Component {
 
         return (
             <Toolbar className="searchToolbar">
-                <ToolbarGroup className="searchPlatforms">
-                    <ToolbarItem>
-                        <div className="pf-c-input-group">
-                            <TextInput placeholder={ placeholder } value={ value } type="text" onChange={ this.onInputChange }
-                                aria-label="Find product button"></TextInput>
-                            <Button variant="tertiary" id="searchProductButton" onClick={ this.onSearchSubmit }>
-                                <i className="fas fa-search" aria-hidden="true"></i>
-                            </Button>
-                        </div>
-                    </ToolbarItem>
-                </ToolbarGroup>
+                <FilterToolbarItem/>
                 <ToolbarGroup className="searchPlatforms">
                     <ToolbarItem>
                         { platforms &&
