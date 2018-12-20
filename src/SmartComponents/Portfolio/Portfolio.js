@@ -6,10 +6,11 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
-import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
+import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
+import PortfolioItem from './PortfolioItem';
 import './portfolio.scss';
 
 class Portfolio extends Component {
@@ -91,7 +92,7 @@ class Portfolio extends Component {
       }
       else {
         let filteredItems = {
-          items: this.props.portfolioItems.portfolioItems,
+          items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
           isLoading: this.props.isLoading
         };
         let title = this.props.portfolio ? this.props.portfolio.name : '';

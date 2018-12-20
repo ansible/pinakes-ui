@@ -17,6 +17,7 @@ PropLine.propTypes = {
 
 const ItemDetails = ({ toDisplay = [], ...item }) => (
   <div>
+    { console.log('foo', item.description) }
     { toDisplay.map(prop => <PropLine key={ `card-prop-${prop}` } value={ item[prop] } />) }
   </div>
 );

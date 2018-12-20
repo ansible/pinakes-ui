@@ -10,7 +10,7 @@ import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
-import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
+import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
 import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import './portfolio.scss';

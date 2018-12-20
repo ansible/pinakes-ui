@@ -5,7 +5,7 @@ import './portfolioitem.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
-import itemDetails from '../../PresentationalComponents/Shared/CardCommon';
+import ItemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 
@@ -37,7 +37,7 @@ class PortfolioItem extends React.Component {
               </CardHeader>
               <CardBody className="card_body">
                 <h4>{ this.props.name }</h4>
-                { itemDetails(this.props, TO_DISPLAY) }
+                <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
               </CardBody>
               <CardFooter>
               </CardFooter>

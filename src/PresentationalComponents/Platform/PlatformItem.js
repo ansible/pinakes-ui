@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import './platform.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
@@ -21,11 +20,18 @@ class PlatformItem extends React.Component {
           <Card key={ this.props.id }>
             <CardHeader className="card_header">
               <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="50" height="50" />
-              { this.props.editMode && <CardCheckbox id={ this.props.id } checked={ this.props.checkedItems.includes(this.props.id) } onChange={ this.props.onToggleSelect } /> }
+              { this.props.editMode && (
+                <CardCheckbox
+                  id={ this.props.id }
+                  checked={ this.props.checkedItems.includes(this.props.id) }
+                  onChange={ this.props.onToggleItemSelect }
+                />
+              ) }
             </CardHeader>
             <CardBody className="card_body">
               <h4>{ this.props.name }</h4>
-              { <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } /> }
+              { console.log('item proops: ', this.props) }
+              <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
             </CardBody>
             <CardFooter/>
           </Card>
@@ -47,5 +53,4 @@ PlatformItem.propTypes = {
   onToggleSelect: propTypes.func
 };
 
-export default withRouter(PlatformItem);
-
+export default PlatformItem;
