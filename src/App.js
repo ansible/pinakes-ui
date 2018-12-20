@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import './App.scss';
-import Alerts from './SmartComponents/Common/Alerts';
-import Portal from './PresentationalComponents/Portal/Portal';
 import PortalNav from './SmartComponents/ServicePortal/PortalNav';
 import { Main } from '@red-hat-insights/insights-frontend-components';
+import { NotificationsPortal } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { Grid, GridItem } from '@patternfly/react-core';
+import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
 
 class App extends Component {
 
@@ -25,7 +25,7 @@ class App extends Component {
   render () {
     return (
       <React.Fragment>
-        <Portal><Alerts /></Portal>
+        <NotificationsPortal />
         <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
           <Grid>
             <GridItem style={ { backgroundColor: '#FFFFFF' } } sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>

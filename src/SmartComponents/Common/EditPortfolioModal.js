@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
+import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { updatePortfolio, fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import FormRenderer from './FormRenderer';
-import { addAlert, removeAlert } from '../../redux/Actions/AlertActions';
 
 const schema = {
   type: 'object',
@@ -19,24 +19,12 @@ const schema = {
 
 class EditPortfolioModal extends Component {
   onSubmit = data => {
-    this.props.updatePortfolio(data)
-    .then(() => { this.props.addAlert({
-      variant: 'success',
-      title: 'Success updating portfolio',
-      description: 'The portfolio was updated successfully.'
-    });
-    this.props.fetchPortfolios();
-    })
-    .catch(() => this.props.addAlert({
-      variant: 'danger',
-      title: 'Failed updating portfolio',
-      description: 'The portfolio was not updated successfuly.'
-    }));
+    this.props.updatePortfolio(data);
     this.props.closeModal();
   }
 
   onCancel = () => {
-    this.props.addAlert({
+    this.props.addNotification({
       variant: 'warning',
       title: 'Editing portfolio',
       description: 'Edit portfolio was cancelled by the user.'
@@ -71,8 +59,7 @@ class EditPortfolioModal extends Component {
 const mapStateToProps = ({ portfolioReducer: { isLoading }}) => ({ isLoading });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addAlert,
-  removeAlert,
+  addNotification,
   updatePortfolio,
   fetchPortfolios
 }, dispatch);
@@ -80,7 +67,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 EditPortfolioModal.propTypes = {
   isLoading: propTypes.bool,
   history: propTypes.object,
-  addAlert: propTypes.func,
+  addNotification: propTypes.func,
   updatePortfolio: propTypes.func,
   fetchPortfolios: propTypes.func,
   closeModal: propTypes.func,

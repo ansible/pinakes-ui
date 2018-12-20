@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
+import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { addPortfolio, fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import FormRenderer from './FormRenderer';
-import { addAlert, removeAlert } from '../../redux/Actions/AlertActions';
 
 const schema = {
   type: 'object',
@@ -24,24 +24,12 @@ class AddPortfolioModal extends Component {
       items = [ this.props.itemdata ];
     }
 
-    this.props.addPortfolio(data, items)
-    .then(() => { this.props.addAlert({
-      variant: 'success',
-      title: 'Success adding portfolio',
-      description: 'The portfolio was added successfully.'
-    });
-    this.props.fetchPortfolios();
-    })
-    .catch(() => this.props.addAlert({
-      variant: 'danger',
-      title: 'Failed adding portfolio',
-      description: 'The portfolio was not added successfuly.'
-    }));
+    this.props.addPortfolio(data, items);
     this.props.closeModal();
   }
 
   onCancel = () => {
-    this.props.addAlert({
+    this.props.addNotification({
       variant: 'warning',
       title: 'Adding portfolio',
       description: 'Adding portfolio was cancelled by the user.'
@@ -82,15 +70,14 @@ class AddPortfolioModal extends Component {
 const mapStateToProps = ({ portfolioReducer: { isLoading }}) => ({ isLoading });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addAlert,
-  removeAlert,
+  addNotification,
   addPortfolio,
   fetchPortfolios
 }, dispatch);
 
 AddPortfolioModal.propTypes = {
   isLoading: propTypes.bool,
-  addAlert: propTypes.func,
+  addNotification: propTypes.func,
   fetchPortfolios: propTypes.func,
   addPortfolio: propTypes.func,
   closeModal: propTypes.func,

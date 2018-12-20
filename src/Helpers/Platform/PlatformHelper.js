@@ -17,4 +17,6 @@ export function getPlatformItems(apiProps) {
   }
 
   return apiPromise.then(data => data, error => console.error(error));
-};
+}
+
+;

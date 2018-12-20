@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
+import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
@@ -14,7 +15,6 @@ import AddProductsTitleToolbar from '../../PresentationalComponents/Portfolio/Ad
 import PlatformDashboard from '../../PresentationalComponents/Platform/PlatformDashboard';
 import PlatformSelectToolbar from '../../SmartComponents/Common/PlatformSelectToolbar';
 import { addToPortfolio } from '../../redux/Actions/PortfolioActions';
-import { addAlert, removeAlert } from '../../redux/Actions/AlertActions';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
 
 class AddProductsToPortfolio extends Component {
@@ -49,19 +49,9 @@ class AddProductsToPortfolio extends Component {
       }
     };
 
-    onAddToPortfolio = () => {
-      this.props.addToPortfolio(this.props.portfolio.id, this.state.checkedItems).then(() => { this.props.addAlert({
-        variant: 'success',
-        title: 'Success adding to portfolio',
-        description: 'The products were addeds successfully.'
-      });
-      this.props.resetViewMode(null, true);
-      }).catch(() => this.props.addAlert({
-        variant: 'danger',
-        title: 'Failed adding portfolio',
-        description: 'The portfolio was not added successfuly.'
-      }));
-    };
+    onAddToPortfolio = () =>
+      this.props.addToPortfolio(this.props.portfolio.id, this.state.checkedItems)
+      .then(() => this.props.resetViewMode(null, true));
 
     render() {
       let filteredItems = [];
@@ -107,8 +97,7 @@ const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoadi
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addAlert,
-  removeAlert,
+  addNotification,
   fetchPlatformItems,
   addToPortfolio
 }, dispatch);
