@@ -30,7 +30,6 @@ class PlatformItem extends React.Component {
             </CardHeader>
             <CardBody className="card_body">
               <h4>{ this.props.name }</h4>
-              { console.log('item proops: ', this.props) }
               <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
             </CardBody>
             <CardFooter/>

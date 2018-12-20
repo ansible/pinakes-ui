@@ -7,8 +7,6 @@ import propTypes from 'prop-types';
 import { Icon } from 'patternfly-react';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
 import { Wizard } from 'patternfly-react';
-import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
 
 // useless
 const renderStepWizardPage = (componentPage, props) => {
@@ -21,10 +19,6 @@ class OrderModal extends Component {
     serviceData: {},
     activeStepIndex: 0
   };
-
-  // transform class properties, should be in constructor
-  componentDidMount() {
-  }
 
   // deprecated in react
   componentWillReceiveProps(nextProps) {

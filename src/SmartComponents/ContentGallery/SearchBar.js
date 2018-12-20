@@ -3,12 +3,8 @@ import propTypes from 'prop-types';
 import { Input } from '@red-hat-insights/insights-frontend-components';
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.updateState = this.updateState.bind(this);
-  }
 
-  updateState(e) {
+  updateState = e => {
     e.preventDefault();
     this.props.searchCallback(e.target.value);
     this.props.fetchData({ catalog_items_list: [ e.target.value ], page: 1 });

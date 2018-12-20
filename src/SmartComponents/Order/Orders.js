@@ -6,9 +6,6 @@ import ContentList from '../ContentGallery/ContentList';
 import propTypes from 'prop-types';
 
 class Orders extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.fetchOrders();

@@ -1,44 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './content-gallery.scss';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Grid } from '@patternfly/react-core';
 
 // swap loading?
-class ContentGallery extends Component {
-  render() {
-    if (this.props.isLoading || (this.props.items && this.props.items.length) > 0) {
-      return (
+const ContentGallery = ({ isLoading, items }) => {
+  if (isLoading || (items && items.length) > 0) {
+    return (
+      <div>
+        <br />
         <div>
-          <br />
-          <div>
-            { this.props.isLoading && (<span> Loading...</span>) }
-          </div>
-          <Section type='content'>
-            <Grid gutter='md' >
-              { this.props.items }
-            </Grid>
-          </Section>
+          { isLoading && (<span> Loading...</span>) }
         </div>
-      );
-    }
-    else if (!this.props.isLoading) {
-      return (
         <Section type='content'>
-          <div>
-          </div>
+          <Grid gutter='md' >
+            { items }
+          </Grid>
         </Section>
-      );
-    }
+      </div>
+    );
   }
-}
+  else if (!isLoading) {
+    return (
+      <Section type='content'>
+        <div>
+        </div>
+      </Section>
+    );
+  }
+};
 
 ContentGallery.propTypes = {
   isLoading: propTypes.bool,
-  items: propTypes.array,
-  page: propTypes.number,
-  pages: propTypes.number,
-  pageSize: propTypes.number,
-  fetchData: propTypes.func
+  items: propTypes.array
 };
 export default ContentGallery;
