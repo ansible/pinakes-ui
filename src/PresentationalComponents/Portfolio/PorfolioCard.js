@@ -4,7 +4,7 @@ import './portfoliocard.scss';
 import propTypes from 'prop-types';
 import DefaultPortfolioImg from '../../assets/images/default-portfolio.jpg';
 import ImageWithDefault from '../Shared/ImageWithDefault';
-import itemDetails from '../Shared/CardCommon';
+import ItemDetails from '../Shared/CardCommon';
 import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 
@@ -20,7 +20,7 @@ class PortfolioCard extends React.Component {
           </CardHeader>
           <CardBody className="pcard_body">
             <h4>{ this.props.name }</h4>
-            { itemDetails(this.props, TO_DISPLAY) }
+            <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
           </CardBody>
           <CardFooter/>
         </Card>
