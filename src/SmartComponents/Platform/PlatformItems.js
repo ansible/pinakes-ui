@@ -6,20 +6,16 @@ import { parse } from 'querystring';
 import { Main, Section } from '@red-hat-insights/insights-frontend-components';
 import { fetchPlatformItems } from '../../Store/Actions/PlatformActions';
 import { consoleLog } from '../../Helpers/Shared/Helper';
-import { Grid, GridItem, Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
+import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
+
 import './platformitems.scss';
 
 class PlatformItems extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showItems: '',
-            filteredItems: []
-        };
-        consoleLog('PlatformItems props: ', props);
-    }
+    state = {
+        filteredItems: []
+    };
 
     fetchData(apiProps) {
         this.props.fetchPlatformItems({ ...apiProps });
@@ -35,21 +31,6 @@ class PlatformItems extends Component {
         }
     }
 
-    renderToolbar() {
-        return (
-            <Toolbar style={ { backgroundColor: '#ffffff', marginLeft: '8px', paddingBottom: '10px', paddingLeft: '20px' } }>
-                <ToolbarSection>
-                    <ToolbarGroup>
-                        <ToolbarItem>Select Platform</ToolbarItem>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarItem>Search</ToolbarItem>
-                        <ToolbarItem>Sort</ToolbarItem>
-                    </ToolbarGroup>
-                </ToolbarSection>
-            </Toolbar>);
-    }
-
     render() {
         let filteredItems = {
             items: this.props.platformItems.platformItems,
@@ -57,6 +38,7 @@ class PlatformItems extends Component {
         };
         return (
             <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
+                <PlatformToolbar/>
                 <ContentGallery { ...filteredItems } />
                 <MainModal />
             </Main>
@@ -78,8 +60,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 PlatformItems.propTypes = {
-    filteredItems: propTypes.object,
-    platforms: propTypes.object,
+    platformItems: propTypes.array,
     isLoading: propTypes.bool,
     history: propTypes.object
 };

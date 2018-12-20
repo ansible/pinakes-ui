@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './content-gallery.scss';
 import propTypes from 'prop-types';
 import { Section, Pagination, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Grid } from '@patternfly/react-core';
+import { Grid, Title } from '@patternfly/react-core';
 
 class ContentGallery extends Component {
     render() {
@@ -13,6 +13,7 @@ class ContentGallery extends Component {
                     <div>
                         { this.props.isLoading && (<span> Loading...</span>) }
                     </div>
+                    { this.props.title && (<Title size={ '2xl' } style={{marginLeft: '25px'}}> { this.props.title }</Title>) }
                     <Section type='content'>
                         <Grid gutter='md' >
                             { this.props.items }
@@ -38,6 +39,7 @@ ContentGallery.propTypes = {
     page: propTypes.number,
     pages: propTypes.number,
     pageSize: propTypes.number,
+    title: propTypes.string,
     fetchData: propTypes.func
 };
 export default ContentGallery;

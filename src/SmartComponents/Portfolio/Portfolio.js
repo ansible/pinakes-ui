@@ -3,29 +3,23 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Dropdown, DropdownPosition,
-    DropdownToggle, DropdownItem, KebabToggle, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
-import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
-import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../Store/Actions/PortfolioActions';
-import { consoleLog } from '../../Helpers/Shared/Helper';
-import MainModal from '../Common/MainModal';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
+import MainModal from '../Common/MainModal';
+import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
+import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
+import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
 import './portfolio.scss';
 
 class Portfolio extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            portfolioId: '',
-            isKebabOpen: false,
-            isOpen: false
-        };
-        this.onClickEditPortfolio = this.onClickEditPortfolio.bind(this);
-        consoleLog('Portfolio props: ', props);
-    }
+    state = {
+        portfolioId: '',
+        isKebabOpen: false,
+        isOpen: false,
+        filteredItems: []
+    };
 
     fetchData(apiProps) {
         this.props.fetchSelectedPortfolio(apiProps);
@@ -42,58 +36,7 @@ class Portfolio extends Component {
         }
     }
 
-    onKebabToggle = isOpen => {
-        this.setState({
-            isKebabOpen: isOpen
-        });
-    };
-
-    buildPortfolioActionKebab = () => {
-        const { isKebabOpen } = this.state;
-
-        return (
-            <Dropdown
-                onToggle= { this.onKebabToggle }
-                onSelect= { this.onKebabSelect }
-                position = { DropdownPosition.right }
-                toggle={ <KebabToggle onToggle={ this.onKebabToggle } /> }
-                isOpen={ isKebabOpen }
-                isPlain
-            >
-                <DropdownItem component="button">Add Products</DropdownItem>
-                <DropdownItem component="button">Remove Products</DropdownItem>
-            </Dropdown>
-        );
-    };
-
-    portfolioActionsToolbar() {
-        return (
-            <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
-                <ToolbarGroup>
-                    <ToolbarItem className={ css(spacingStyles.mrXl) }>
-                        { this.props.portfolio && <Title size={ '2xl' }> { this.props.portfolio.name }</Title> }
-                    </ToolbarItem>
-                </ToolbarGroup>
-                <ToolbarGroup  className={ 'pf-u-ml-auto-on-xl' }>
-                    <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="plain" onClick={ () => { this.onClickEditPortfolio(this.props); } } aria-label="Edit Portfolio">
-                            Edit Portfolio
-                        </Button>
-                    </ToolbarItem>
-                    <ToolbarItem className={ css(spacingStyles.mxLg) }>
-                        <Button variant="plain" aria-label="Remove Portfolio">
-                            Remove Portfolio
-                        </Button>
-                    </ToolbarItem>
-                    <ToolbarItem>
-                        { this.buildPortfolioActionKebab() }
-                    </ToolbarItem>
-                </ToolbarGroup>
-            </Toolbar>
-        );
-    }
-
-    onClickEditPortfolio(event) {
+    onClickEditPortfolio = (event) => {
         this.props.showModal({
             open: true,
             itemdata: this.props,
@@ -106,20 +49,70 @@ class Portfolio extends Component {
         });
     };
 
+    onClickAddProducts = (event) => {
+        this.setViewMode('addproducts');
+        //this.props.history.push({ pathname: this.props.location.pathname + `/addproducts`,  state: { title: this.props.portfolio.name }});
+    };
+
+    onClickCancelAddProducts = () => {
+        this.setViewMode(null);
+    };
+
+    filterItems = (filterValue) => {
+        let filteredItems = [];
+        if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
+            filteredItems = this.props.portfolioItems.portfolioItems;
+            filteredItems = filteredItems.filter((item) => {
+                let itemName = item.name.toLowerCase();
+                return itemName.indexOf(
+                    filterValue.toLowerCase()) !== -1;
+            });
+        }
+
+        return filteredItems;
+    };
+
+    setViewMode = (mode = null, reloadData = false) => {
+        this.setState({
+            ...this.state,
+            viewMode: mode
+        });
+        if (reloadData) {
+            this.props.fetchPortfolioItemsWithPortfolio(this.props.match.params.id);
+        }
+    };
+
     render() {
-        let filteredItems = {
-            items: this.props.portfolioItems.portfolioItems,
-            isLoading: this.props.isLoading
-        };
-        return (
-            <Section>
-                <div className="action-toolbar">
-                    { this.portfolioActionsToolbar() }
-                </div>
-                <ContentGallery { ...filteredItems } />
-                <MainModal />
-            </Section>
-        );
+        if (this.state.viewMode === 'addproducts') {
+            return (
+                <AddProductsToPortfolio
+                    resetViewMode={ this.setViewMode }
+                    onClickCancelAddProducts={ this.onClickCancelAddProducts }
+                    portfolio={ this.props.portfolio } />
+            );
+        }
+        else {
+            let filteredItems = {
+                items: this.props.portfolioItems.portfolioItems,
+                isLoading: this.props.isLoading
+            };
+            let title = this.props.portfolio ? this.props.portfolio.name : '';
+            return (
+                <Section>
+                    <PortfolioFilterToolbar/>
+                    { (!this.props.isLoading) &&
+                    <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
+                        <PortfolioActionToolbar title={ title }
+                            onClickEditPortfolio={ this.onClickEditPortfolio }
+                            onClickAddProducts={ this.onClickAddProducts }
+                            onAddToPortfolio={ this.onAddToPortfolio }
+                            filterItems={ this.filterItems }/>
+                    </div> }
+                    <ContentGallery { ...filteredItems } />
+                    <MainModal/>
+                </Section>
+            );
+        }
     }
 }
 
@@ -148,7 +141,8 @@ Portfolio.propTypes = {
     fetchSelectedPortfolio: propTypes.func,
     showModal: propTypes.func,
     hideModal: propTypes.func,
-    history: propTypes.object
+    history: propTypes.object,
+    onClickEditPortfolio: propTypes.func
 };
 
 export default withRouter(

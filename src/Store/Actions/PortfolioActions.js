@@ -45,6 +45,11 @@ export const addPortfolio = (portfolioData, items) => ({
     payload: PortfolioHelper.addPortfolio(portfolioData, items)
 });
 
+export const addToPortfolio = (portfolioId, items) => ({
+    type: ActionTypes.ADD_TO_PORTFOLIO,
+    payload: PortfolioHelper.addToPortfolio(portfolioId, items)
+});
+
 export const updatePortfolio = (portfolioData) => ({
     type: ActionTypes.UPDATE_PORTFOLIO,
     payload: PortfolioHelper.updatePortfolio(portfolioData)

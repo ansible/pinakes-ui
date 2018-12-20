@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Title, Bullseye } from '@patternfly/react-core';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 
-class PortalDashboard extends Component {
+class PlatformDashboard extends Component {
     render() {
         return (
             <Main>
@@ -20,5 +20,5 @@ class PortalDashboard extends Component {
     }
 }
 
-export default withRouter(PortalDashboard);
+export default withRouter(PlatformDashboard);
 

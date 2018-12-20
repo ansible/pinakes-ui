@@ -8,11 +8,9 @@ export function bindMethods (context, methods) {
 
 ;
 
-export function consoleLog (messages) {
+export function consoleLog (...messages) {
     if (process.env.NODE_ENV === 'development') {
-        window.console.log(messages);
+        window.console.log(...messages);
     }
-}
-
-;
+};
 

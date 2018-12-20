@@ -3,35 +3,33 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Title, Button, Dropdown, DropdownItem, DropdownToggle} from '@patternfly/react-core';
+import { Toolbar, ToolbarGroup, ToolbarItem, ToolbarSection, Title, Button, Dropdown, DropdownItem, DropdownToggle } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
 import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
 import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
+import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
 import { fetchPortfolios } from '../../Store/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
 import { hideModal, showModal } from '../../Store/Actions/MainModalActions';
 import './portfolio.scss';
 
 class Portfolios extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filteredItems: [],
-            isOpen: false
-        };
-    }
+    state = {
+        filteredItems: [],
+        isOpen: false
+    };
 
-    fetchData(apiProps) {
-        this.props.fetchPortfolios(apiProps);
-    }
+    fetchData = () => {
+        this.props.fetchPortfolios();
+    };
 
     componentDidMount() {
         this.fetchData();
     }
 
-    renderToolbar() {
+    renderActionToolbar() {
         return (
             <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
                 <ToolbarGroup>
@@ -64,10 +62,13 @@ class Portfolios extends Component {
 
     render() {
         let portfolios = [];
-        this.props.portfolios.forEach(function(item, row, _array) {
-            let newRow = <PortfolioCard { ...item } />;
-            portfolios.push(newRow);
-        });
+        {
+            if (this.props && this.props.portfolios) {
+                this.props.portfolios.forEach(function (item, row, _array) {
+                    let newRow = <PortfolioCard { ...item } />;
+                    portfolios.push(newRow);
+                });}
+        }
 
         let filteredItems = {
             items: portfolios,
@@ -76,10 +77,11 @@ class Portfolios extends Component {
 
         return (
             <Section>
-                <div className="action_toolbar">
-                    { this.renderToolbar() }
+                <PortfoliosFilterToolbar/>
+                <div className="action-toolbar">
+                    { this.renderActionToolbar() }
                 </div>
-                <ContentGallery { ...filteredItems } />
+                { (!this.props.isLoading) && <ContentGallery { ...filteredItems }/> }
                 <MainModal />
             </Section>
         );

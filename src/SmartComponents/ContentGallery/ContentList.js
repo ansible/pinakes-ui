@@ -32,7 +32,7 @@ const itemDetails = props => {
 
 class ContentList extends Component {
     render() {
-        if (this.props.isLoading || (this.props.items && this.props.items.length) > 0) {
+        if (this.props.isLoading || (this.props.items && this.props.items.length > 0)) {
             return (
                 <React.Fragment>
                     <br />

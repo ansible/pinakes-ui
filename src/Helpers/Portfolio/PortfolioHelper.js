@@ -70,28 +70,37 @@ function processPortfolioItem(key, data) {
     return <PortfolioItem { ...data } />;
 }
 
+// TO DO - change to use the API call that adds multiple items to a portfolio when available
 export async function addPortfolio(portfolioData, items) {
     let portfolio = await userApi.addPortfolio(portfolioData);
+    if (!portfolio)
+    {return portfolio;}
 
-    let portfolioItems = [];
-    let idx = 0;
-    if (portfolio && items && items.length > 0) {
-        for (idx = 0; idx < items.length; idx++) {
-            consoleLog('Adding service offering: ', items[idx]);
-            let newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx].id }));
-            consoleLog('Added portfolio item: ', newItem);
-            portfolioItems.push(newItem);
-        }
-        consoleLog("TEST - portfolio " + portfolio.toString() + 'PortfolioItems: ' + portfolioItems.toString());
-        return userApi.addPortfolioItemToPortfolio(portfolio.id, JSON.stringify({ portfolio_item_id: portfolioItems[0].id })).then((data) => {
-            consoleLog('Add Portfolio Called successfully.');
-        }, (error) => {
-            window.console.error(error);
-        });
+    if (items && items.length > 0) {
+        return addToPortfolio(portfolio, items);
     }
     else {
         return portfolio;
     }
+}
+
+export async function addToPortfolio(portfolioId, items) {
+    let idx = 0; let newItem = null;
+
+    for (idx = 0; idx < items.length; idx++) {
+        consoleLog('Adding service offering: ', items[idx]);
+        newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx] }));
+        consoleLog('Added portfolio item: ', newItem);
+        if (newItem) {
+            let item = await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
+            consoleLog('Added portfolio item: ', item, ' to portfolio: ', portfolioId);
+        }
+        else {
+            consoleLog('Fail to add portfolio item');
+        }
+    }
+
+    return newItem;
 }
 
 export async function updatePortfolio(portfolioData) {
