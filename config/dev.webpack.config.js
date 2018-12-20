@@ -8,10 +8,13 @@ const convert = require('koa-connect');
 
 webpackConfig.serve = {
   content: config.paths.public,
-  mode: 'development',
   port: 8002,
+  // Setting inline and hot to false disables websockets
+  inline: false,
+  hot: false,
+  host: '0.0.0.0',
   dev: {
-    publicPath: '/insights/platform/service-portal'
+    publicPath: '/insights/platform/service_portal'
   },
   // https://github.com/webpack-contrib/webpack-serve/blob/master/docs/addons/history-fallback.config.js
   add: app => app.use(convert(history({})))
