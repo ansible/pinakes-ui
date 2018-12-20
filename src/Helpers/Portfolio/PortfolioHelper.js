@@ -1,112 +1,61 @@
-import React from 'react';
-import PortfolioItem from '../../SmartComponents/Portfolio/PortfolioItem';
 import { getUserApi } from '../Shared/userLogin';
-import { consoleLog } from '../../Helpers/Shared/Helper';
 
 const userApi = getUserApi();
 
 export function listPortfolios() {
-    return userApi.listPortfolios().then((data) => {
-        consoleLog('API called successfully. Returned portfolios: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.listPortfolios().then(data => data, error => console.error(error));
 }
 
-export function getPortfolioItems(apiProps) {
-    return listPortfolioItems();
+export function getPortfolioItems() {
+  return listPortfolioItems();
 }
 
 export function listPortfolioItems() {
-    return userApi.listPortfolioItems().then((data) => {
-        consoleLog('API called successfully. Returned portfolio Items: ' + data);
-        return processPortfolioItems(data);
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.listPortfolioItems().then(data => data, error => console.error(error));
 }
 
 export function getPortfolioItem(portfolioId, portfolioItemId) {
-    return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId).then((data) => {
-        consoleLog('API called successfully. Returned data: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId)
+  .then(data => data, error => console.error(error));
 }
 
 export function getPortfolio(portfolioId) {
-    return userApi.fetchPortfolioWithId(portfolioId).then((data) => {
-        consoleLog('API called successfully. Returned data: ' + data);
-        return data;
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.fetchPortfolioWithId(portfolioId).then(data => data, error => console.error(error));
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-    return userApi.fetchPortfolioItemsWithPortfolio(portfolioId).then((data) => {
-        consoleLog('fetchPortfolioItemsWithPortfolio API called successfully. Returned data: ' + data);
-        return processPortfolioItems(data);
-    }, (error) => {
-        window.console.error(error);
-    });
-}
-
-function processPortfolioItems(items) {
-    let portfolioItems = [];
-    items.forEach(function(item, row, _array) {
-        let newRow = processPortfolioItem(row, item);
-        portfolioItems.push(newRow);
-    });
-
-    return {
-        portfolioItems
-    };
-}
-
-function processPortfolioItem(key, data) {
-    return <PortfolioItem { ...data } />;
+  return userApi.fetchPortfolioItemsWithPortfolio(portfolioId)
+  .then(data => data, error => console.error(error));
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export async function addPortfolio(portfolioData, items) {
-    let portfolio = await userApi.addPortfolio(portfolioData);
-    if (!portfolio)
-    {return portfolio;}
+  let portfolio = await userApi.addPortfolio(portfolioData);
+  if (!portfolio)
+  {return portfolio;}
 
-    if (items && items.length > 0) {
-        return addToPortfolio(portfolio, items);
-    }
-    else {
-        return portfolio;
-    }
+  if (items && items.length > 0) {
+    return addToPortfolio(portfolio, items);
+  }
 }
 
 export async function addToPortfolio(portfolioId, items) {
-    let idx = 0; let newItem = null;
+  let idx = 0; let newItem = null;
 
-    for (idx = 0; idx < items.length; idx++) {
-        consoleLog('Adding service offering: ', items[idx]);
-        newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx] }));
-        consoleLog('Added portfolio item: ', newItem);
-        if (newItem) {
-            let item = await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
-            consoleLog('Added portfolio item: ', item, ' to portfolio: ', portfolioId);
-        }
-        else {
-            consoleLog('Fail to add portfolio item');
-        }
+  for (idx = 0; idx < items.length; idx++) {
+    newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx] }));
+    if (newItem) {
+      await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
     }
+  }
 
-    return newItem;
+  return newItem;
 }
 
 export async function updatePortfolio(portfolioData) {
-    return userApi.updatePortfolio(portfolioData).then((data) => {
-        consoleLog('Update Portfolio Called successfully.');
-    }, (error) => {
-        window.console.error(error);
-    });
+  return userApi.updatePortfolio(portfolioData).then(() => {
+    console.log('Update Portfolio Called successfully.');
+  }, (error) => {
+    window.console.error(error);
+  });
 }

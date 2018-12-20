@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import ReducerRegistry from './Utilities/ReducerRegistry';
+import store from './Utilities/store';
 import App from './App';
 
 /**
@@ -10,10 +10,10 @@ import App from './App';
  *  https://redux.js.org/advanced/usage-with-react-router
  */
 ReactDOM.render(
-    <Provider store={ ReducerRegistry.getStore() }>
-        <Router basename='/insights/platform/service-portal'>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={ store }>
+    <Router basename='/insights/platform/service-portal'>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 );

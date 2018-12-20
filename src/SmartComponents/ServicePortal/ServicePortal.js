@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import asyncComponent from '../../Utilities/asyncComponent';
 import Portfolios from '../Portfolio/Portfolios';
 
+/**
+ * Does not make any sense
+ */
 class ServicePortal extends Component {
-     render() {
-        return (
-            <Portfolios />
-        );
-    }
+  render() {
+    return (
+      <Portfolios />
+    );
+  }
 }
 export default ServicePortal;

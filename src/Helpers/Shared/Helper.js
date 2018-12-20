@@ -1,16 +1,6 @@
-import React from 'react';
-
-export function bindMethods (context, methods) {
-    methods.forEach(method => {
-        context[method] = context[method].bind(context);
-    });
+// ????
+export function consoleLog (messages) {
+  if (process.env.NODE_ENV === 'development') {
+    window.console.log(messages);
+  }
 }
-
-;
-
-export function consoleLog (...messages) {
-    if (process.env.NODE_ENV === 'development') {
-        window.console.log(...messages);
-    }
-};
-

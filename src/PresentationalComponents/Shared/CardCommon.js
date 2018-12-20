@@ -1,31 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const propLine = (prop, value) => {
-    return (<div className = "card_element"> { value } </div>);
+// This whole thing is a bit strange
+const PropLine = ({ value }) => <div className = "card_element">{ value }</div>;
+
+PropLine.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node
+    ]))
+  ]).isRequired
 };
 
-const hasOwnValidDisplayProperty = (item, property, toDisplay) => {
-    return item.hasOwnProperty(property) && toDisplay.includes(property) && item[property] && item[property] !== undefined;
+const ItemDetails = ({ toDisplay = [], ...item }) => (
+  <div>
+    { toDisplay.map(prop => <PropLine key={ `card-prop-${prop}` } value={ item[prop] } />) }
+  </div>
+);
+
+ItemDetails.propTypes = {
+  toDisplay: PropTypes.arrayOf(PropTypes.string)
 };
 
-const propertyDetails = (item, toDisplay) => {
-    let details = [];
-
-    for (let property in item) {
-        if (hasOwnValidDisplayProperty(item, property, toDisplay)) {
-            details.push(propLine(property, item[property].toString()));
-        }
-    }
-    return details;
+ItemDetails.defaultProps = {
+  toDisplay: []
 };
 
-const itemDetails = (props, toDisplay) => {
-    let details = propertyDetails(props, toDisplay);
-    return (
-        <React.Fragment>
-            <div>{ details }</div>
-        </React.Fragment>
-    );
-};
-
-export default itemDetails;
+export default ItemDetails;
