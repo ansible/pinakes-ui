@@ -1,4 +1,4 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -35,7 +35,7 @@ class AddProductsToPortfolio extends Component {
     onToggleItemSelect = (event) => {
       const item = event.target.id;
       const isChecked = event.target.checked;
-      console.log('item select: ', event)
+      console.log('item select: ', event);
       if (isChecked) {
         this.setState(state => {
           const checkedItems = [ ...state.checkedItems, item ];

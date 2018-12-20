@@ -10,16 +10,6 @@ import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import { bindMethods } from '../../Helpers/Shared/Helper';
 
-const uiSchema =
-{
-  plans: {
-    'ui:widget': 'radio',
-    'ui:options': {
-      inline: false
-    }
-  }
-};
-
 const optionRow = (plan, option, selected_id, onChange) => {
   return (
     <div>

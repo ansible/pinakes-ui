@@ -15,13 +15,6 @@ class App extends Component {
   componentDidMount () {
     insights.chrome.init();
     insights.chrome.identifyApp('service-portal');
-
-    this.appNav = insights.chrome.on('APP_NAVIGATION', event => {
-      /**
-             * This breaks navigation on first load it adds /path/undefined to URL and cause router to fallback to '/'
-             */
-      //this.props.history.push(`/${event.navId}`);
-    });
   }
 
   componentWillUnmount () {
