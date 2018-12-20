@@ -8,7 +8,6 @@ import Form from 'react-jsonschema-form';
 import { Bullseye, Button, Radio } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
-import { bindMethods } from '../../Helpers/Shared/Helper';
 
 const optionRow = (plan, option, selected_id, onChange) => {
   return (
@@ -21,44 +20,35 @@ const optionRow = (plan, option, selected_id, onChange) => {
         onChange={ onChange }
       />
       { plan.description }
-      <br/>
-      <br/>
     </div>);
 };
 
 class OrderServiceFormStepConfiguration extends React.Component {
-  constructor(props) {
-    super(props);
-    bindMethods(this, [ 'handlePlanChange', 'planOptions', 'onSubmit' ]);
-    this.state = {
-      showOrder: false,
-      activeStepIndex: 1,
-      selectedPlan: null,
-      selectedPlanIdx: 0
-    };
-  }
+  state = {
+    showOrder: false,
+    activeStepIndex: 1,
+    selectedPlan: null,
+    selectedPlanIdx: 0
+  };
 
   componentDidMount() {
-    console.log('Config Component did mount - props:', this.props);
     const { id } = this.props;
     this.props.fetchPlans(id);
   }
 
-  handlePlanChange (arg, event)  {
+  handlePlanChange = (arg, event) =>  {
     const plan = event.currentTarget.value;
     this.setState({ selectedPlan: plan });
-    console.log('Plan Id changed to : ', plan);
   };
 
-  planOptions() {
+  planOptions = () => {
     let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].plan_id;
     let onChange = this.handlePlanChange;
 
     return this.props.servicePlans.map((plan, option) => optionRow(plan, option, selected_id, onChange));
   }
 
-  onSubmit (data) {
-    console.log('Data submitted: ', data.formData);
+  onSubmit = (data) => {
     const portfolioItemId = this.props.id;
     const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
     sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data.formData });
@@ -89,19 +79,18 @@ class OrderServiceFormStepConfiguration extends React.Component {
         </PFForm>
       );
     }
-    else {
-      return (
-        <PFForm horizontal>
-          <PFForm.FormGroup>
-            <Bullseye>
-              <div>
-                { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
-              </div>
-            </Bullseye>
-          </PFForm.FormGroup>
-        </PFForm>
-      );
-    }
+
+    return (
+      <PFForm horizontal>
+        <PFForm.FormGroup>
+          <Bullseye>
+            <div>
+              { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
+            </div>
+          </Bullseye>
+        </PFForm.FormGroup>
+      </PFForm>
+    );
   }
 }
 

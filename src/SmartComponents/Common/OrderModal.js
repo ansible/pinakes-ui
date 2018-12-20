@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import './orderservice.scss';
 import propTypes from 'prop-types';
 import { Icon } from 'patternfly-react';
-import { bindMethods } from '../../Helpers/Shared/Helper';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
 import { Wizard } from 'patternfly-react';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
@@ -25,7 +24,6 @@ class OrderModal extends Component {
 
   // transform class properties, should be in constructor
   componentDidMount() {
-    bindMethods(this, [ 'onCancel', 'onStep', 'onNext', 'onBack', 'onSubmit' ]);
   }
 
   // deprecated in react
@@ -37,22 +35,19 @@ class OrderModal extends Component {
   }
 
   // why?
-  onStep() {
+  onStep = () => {
   }
 
-  onNext() {
+  onNext = () => {
     const { activeStepIndex } = this.state;
     const numberSteps = OrderServiceFormSteps.length;
-    console.log('OnNext: ActiveStpeIndex:', activeStepIndex);
 
     if (activeStepIndex < numberSteps - 1) {
       this.setState({ activeStepIndex: activeStepIndex + 1 });
     }
-
-    console.log('NextStep: ActiveStepIndex:', this.state.activeStepIndex);
   }
 
-  onBack() {
+  onBack = () => {
     let { activeStepIndex } = this.state;
 
     if (activeStepIndex >= 1) {
@@ -60,86 +55,63 @@ class OrderModal extends Component {
     }
   }
 
-  onSubmit() {
-    console.log('OnSubmit');
-    this.setState({ activeStepIndex: 1 });
-  }
+  onSubmit = () => this.setState({ activeStepIndex: 1 });
 
-  onCancel() {
-    this.setState({ showOrder: false });
-  }
+  onCancel = () => this.setState({ showOrder: false });
 
-  imgTitle(serviceData) {
-    return (
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td><ImageWithDefault src = { serviceData.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="100" height="" /></td>
-              <td><h3> { serviceData.name } </h3></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>);
-  }
-
-  renderWizardSteps() {
+  renderWizardSteps = () => {
     const { activeStepIndex } = this.state;
     const wizardSteps = OrderServiceFormSteps;
     const activeStep = wizardSteps[activeStepIndex];
 
-    return wizardSteps.map((step, stepIndex) => {
-      return (
-        <Wizard.Step
-          key={ stepIndex }
-          stepIndex={ stepIndex }
-          step={ step.step }
-          label={ step.label }
-          title={ step.title }
-          activeStep={ activeStep && activeStep.step }
-          onClick={ () => this.onStep(activeStep && activeStep.step) }
-        />
-      );
-    });
+    return wizardSteps.map((step, stepIndex) => (
+      <Wizard.Step
+        key={ stepIndex }
+        stepIndex={ stepIndex }
+        step={ step.step }
+        label={ step.label }
+        title={ step.title }
+        activeStep={ activeStep && activeStep.step }
+        onClick={ () => this.onStep(activeStep && activeStep.step) }
+      />
+    ));
   };
 
   render() {
     const showOrder = this.props.open;
 
-    if (!showOrder)
-    {return null;}
-    else {
-      const { activeStepIndex } = this.state;
-      const wizardSteps = OrderServiceFormSteps;
-
-      return (
-        <React.Fragment>
-          <Wizard.Steps steps={ this.renderWizardSteps(this.props.servicedata) }/>
-          <Wizard.Row>
-            <Wizard.Main>
-              <Grid>
-                { wizardSteps.map((step, stepIndex) => {
-                  return (
-                    <Wizard.Contents key={ step.title } stepIndex={ stepIndex } activeStepIndex={ activeStepIndex }>
-                      { renderStepWizardPage(wizardSteps[stepIndex].page, this.props.servicedata) }
-                    </Wizard.Contents>
-                  );
-                }) }
-                { activeStepIndex !== wizardSteps.length - 1 && (
-                  <div>
-                    <br/>
-                    <br/>
-                    <Button variant="primary" type="button" onClick={ this.onNext }>
-                                          Order<Icon type="fa" name="angle-right"/>
-                    </Button>
-                  </div>
-                ) }
-              </Grid>
-            </Wizard.Main>
-          </Wizard.Row>
-        </React.Fragment>
-      );
+    if (!showOrder) {
+      return null;
     }
+
+    const { activeStepIndex } = this.state;
+    const wizardSteps = OrderServiceFormSteps;
+
+    return (
+      <React.Fragment>
+        <Wizard.Steps steps={ this.renderWizardSteps(this.props.servicedata) }/>
+        <Wizard.Row>
+          <Wizard.Main>
+            <Grid>
+              { wizardSteps.map((step, stepIndex) => (
+                <Wizard.Contents key={ step.title } stepIndex={ stepIndex } activeStepIndex={ activeStepIndex }>
+                  { renderStepWizardPage(wizardSteps[stepIndex].page, this.props.servicedata) }
+                </Wizard.Contents>
+              )) }
+              { activeStepIndex !== wizardSteps.length - 1 && (
+                <div>
+                  <br/>
+                  <br/>
+                  <Button variant="primary" type="button" onClick={ this.onNext }>
+                    Order<Icon type="fa" name="angle-right"/>
+                  </Button>
+                </div>
+              ) }
+            </Grid>
+          </Wizard.Main>
+        </Wizard.Row>
+      </React.Fragment>
+    );
   }
 }
 
