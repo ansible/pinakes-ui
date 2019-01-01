@@ -8,7 +8,7 @@ import { addNotification } from '@red-hat-insights/insights-frontend-components/
 import { fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
-import '../Platform/platformitems.scss';
+import '../Platform/platform.scss';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 import PortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/PortfolioOrderToolbar';
 import AddProductsTitleToolbar from '../../PresentationalComponents/Portfolio/AddProductsTitleToolbar';
@@ -29,7 +29,7 @@ class AddProductsToPortfolio extends Component {
 
     onPlatformSelectionChange = (selectedValues) => {
       this.setState({ selectedPlatforms: selectedValues });
-      this.fetchData({ platform: selectedValues[0].id });
+      this.fetchData(selectedValues[0].id);
     };
 
     onToggleItemSelect = (event) => {

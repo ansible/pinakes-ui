@@ -1,4 +1,5 @@
 import {
+  FETCH_PLATFORM,
   FETCH_PLATFORMS,
   FETCH_PLATFORM_ITEMS,
   FETCH_PLATFORM_ITEM,
@@ -11,6 +12,7 @@ export const platformInitialState = {
   platforms: [],
   platformItems: [],
   platformItem: {},
+  platform: {},
   filterValue: ''
 };
 
@@ -20,6 +22,7 @@ const setLoadingState = state => ({ ...state, isPlatformDataLoading: true });
 const setPlatforms = (state, { payload }) => ({ ...state, platforms: payload, isPlatformDataLoading: false });
 const setPlatformItems = (state, { payload }) => ({ ...state, platformItems: payload, isPlatformDataLoading: false });
 const setPortfolioItems = (state, { payload }) => ({ ...state, portfolioItem: payload, isPlatformDataLoading: false });
+const selectPlatform = (state, { payload }) => ({ ...state, selectedPlatform: payload, isLoading: false });
 const filterPlatformItems = (state, { payload }) => ({ ...state, filterValue: payload });
 
 export default {
@@ -29,5 +32,7 @@ export default {
   [`${FETCH_PLATFORM_ITEMS}_FULFILLED`]: setPlatformItems,
   [`${FETCH_PLATFORM_ITEM}_PENDING`]: setLoadingState,
   [`${FETCH_PLATFORM_ITEM}_FULFILLED`]: setPortfolioItems,
+  [`${FETCH_PLATFORM}_PENDING`]: setLoadingState,
+  [`${FETCH_PLATFORM}_FULFILLED`]: selectPlatform,
   [`${FILTER_PLATFORM_ITEMS}_FULFILLED`]: filterPlatformItems
 };

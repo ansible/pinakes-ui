@@ -1,5 +1,5 @@
 import React from 'react';
-import './platform.scss';
+import './platformcard.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../Shared/ImageWithDefault';
@@ -18,8 +18,8 @@ class PlatformItem extends React.Component {
       return (
         <GridItem key={ this.props.id } sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
           <Card key={ this.props.id }>
-            <CardHeader className="card_header">
-              <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } width="50" height="50" />
+            <CardHeader className="pcard_header">
+              <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } width="30" height="20" />
               { this.props.editMode && (
                 <CardCheckbox
                   id={ this.props.id }
@@ -28,7 +28,7 @@ class PlatformItem extends React.Component {
                 />
               ) }
             </CardHeader>
-            <CardBody className="card_body">
+            <CardBody className="pcard_body">
               <h4>{ this.props.name }</h4>
               <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
             </CardBody>
