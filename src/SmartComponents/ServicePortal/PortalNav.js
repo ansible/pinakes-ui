@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { withRouter, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
@@ -112,9 +112,7 @@ PortalNav.propTypes = {
   fetchPortfolios: propTypes.func,
   fetchPlatforms: propTypes.func,
   toggleEdit: propTypes.func,
-  isLoading: propTypes.bool,
-  location: propTypes.object,
-  history: propTypes.object
+  isLoading: propTypes.bool
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PortalNav));
+export default connect(mapStateToProps, mapDispatchToProps)(PortalNav);

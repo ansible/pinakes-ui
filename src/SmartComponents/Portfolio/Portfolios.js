@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
@@ -111,12 +110,7 @@ Portfolios.propTypes = {
   searchFilter: propTypes.string,
   showModal: propTypes.func,
   hideModal: propTypes.func,
-  history: propTypes.object
+  fetchPortfolios: propTypes.func.isRequired
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Portfolios)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolios);

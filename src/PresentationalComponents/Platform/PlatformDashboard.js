@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Button, Title } from '@patternfly/react-core';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 
@@ -16,5 +15,5 @@ const PlatformDashboard = () =>(
   </Main>
 );
 
-export default withRouter(PlatformDashboard);
+export default PlatformDashboard;
 

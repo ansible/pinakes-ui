@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
@@ -55,10 +54,16 @@ const mapDispatchToProps = dispatch => ({
 });
 
 PlatformItems.propTypes = {
-  filteredItems: propTypes.object,
-  platforms: propTypes.object,
-  isLoading: propTypes.bool,
-  history: propTypes.object
+  filteredItems: PropTypes.object,
+  platforms: PropTypes.object,
+  isLoading: PropTypes.bool,
+  match: PropTypes.object,
+  fetchPlatformItems: PropTypes.func.isRequired,
+  platformItems: PropTypes.array
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PlatformItems));
+PlatformItem.defaultProps = {
+  platformItems: []
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformItems);

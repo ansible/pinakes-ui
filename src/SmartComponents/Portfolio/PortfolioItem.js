@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './portfolioitem.scss';
 import propTypes from 'prop-types';
@@ -56,4 +55,4 @@ PortfolioItem.propTypes = {
   name: propTypes.string
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(PortfolioItem));
+export default connect(null, mapDispatchToProps)(PortfolioItem);

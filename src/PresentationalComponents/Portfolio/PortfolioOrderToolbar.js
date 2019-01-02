@@ -1,6 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { Toolbar, ToolbarGroup, ToolbarItem, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
 import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
@@ -29,5 +28,5 @@ PortfolioOrderToolbar.propTypes = {
   title: propTypes.string
 };
 
-export default withRouter(PortfolioOrderToolbar);
+export default PortfolioOrderToolbar;
 

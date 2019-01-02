@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
@@ -71,9 +70,8 @@ PlatformSelectToolbar.propTypes = {
   fetchPlatforms: propTypes.func,
   isLoading: propTypes.bool,
   searchFilter: propTypes.string,
-  history: propTypes.object,
   onOptionSelect: propTypes.func,
   onSearchClick: propTypes.func
 };
 
-export default withRouter(connect(mapStateToProps)(PlatformSelectToolbar));
+export default connect(mapStateToProps)(PlatformSelectToolbar);
