@@ -8,6 +8,7 @@ import PortalNav from './SmartComponents/ServicePortal/PortalNav';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { NotificationsPortal } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { Grid, GridItem } from '@patternfly/react-core';
+import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
 
 class App extends Component {
@@ -26,8 +27,8 @@ class App extends Component {
     return (
       <React.Fragment>
         <NotificationsPortal />
-        <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
-          <Grid>
+        <Main style={ { marginLeft: 0, padding: 0 } }>
+          <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
             <GridItem style={ { backgroundColor: '#FFFFFF' } } sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
               <PortalNav />
             </GridItem >
