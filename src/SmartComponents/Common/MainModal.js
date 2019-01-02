@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal,
   ModalBoxHeader,
@@ -65,5 +66,13 @@ class MainModalContainer extends React.Component {
     );
   }
 }
+
+MainModalContainer.propTypes = {
+  modalProps: PropTypes.shape({
+    open: PropTypes.bool,
+    closeModal: PropTypes.func.isRequired
+  }).isRequired,
+  modalType: PropTypes.node
+};
 
 export default connect(mapStateToProps)(MainModalContainer);

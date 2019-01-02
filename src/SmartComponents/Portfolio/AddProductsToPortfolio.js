@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
@@ -105,15 +104,14 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 AddProductsToPortfolio.propTypes = {
   platformItems: propTypes.array,
   isLoading: propTypes.bool,
-  history: propTypes.object,
   isEditMode: propTypes.bool,
   addToPortfolio: propTypes.func,
-  resetViewMode: propTypes.func
+  resetViewMode: propTypes.func,
+  fetchPlatformItems: propTypes.func,
+  portfolio: propTypes.shape({
+    name: propTypes.string,
+    id: propTypes.oneOfType([ propTypes.string, propTypes.number ]).isRequired
+  }).isRequired
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AddProductsToPortfolio)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio);

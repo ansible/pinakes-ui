@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchOrderList } from '../../redux/Actions/OrderActions';
 import ContentList from '../ContentGallery/ContentList';
@@ -39,13 +38,7 @@ Orders.propTypes = {
   orderList: propTypes.object,
   isLoading: propTypes.bool,
   searchFilter: propTypes.string,
-  history: propTypes.object,
   fetchOrders: propTypes.func
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Orders)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

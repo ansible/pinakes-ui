@@ -136,8 +136,16 @@ Portfolio.propTypes = {
   fetchSelectedPortfolio: propTypes.func,
   showModal: propTypes.func,
   hideModal: propTypes.func,
-  history: propTypes.object,
-  onClickEditPortfolio: propTypes.func
+  onClickEditPortfolio: propTypes.func,
+  match: propTypes.object,
+  portfolio: propTypes.shape({
+    name: propTypes.string
+  }),
+  portfolioItems: propTypes.array
+};
+
+Portfolio.defaultProps = {
+  portfolioItems: []
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Portfolio));

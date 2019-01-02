@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import './portfoliocard.scss';
 import propTypes from 'prop-types';
 import DefaultPortfolioImg from '../../assets/images/default-portfolio.jpg';
@@ -31,4 +30,4 @@ PortfolioCard.propTypes = {
   name: propTypes.string
 };
 
-export default withRouter(PortfolioCard);
+export default PortfolioCard;

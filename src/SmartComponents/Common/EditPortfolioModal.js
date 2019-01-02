@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
@@ -66,7 +65,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 EditPortfolioModal.propTypes = {
   isLoading: propTypes.bool,
-  history: propTypes.object,
   addNotification: propTypes.func,
   updatePortfolio: propTypes.func,
   fetchPortfolios: propTypes.func,
@@ -74,4 +72,4 @@ EditPortfolioModal.propTypes = {
   itemdata: propTypes.object
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPortfolioModal));
+export default connect(mapStateToProps, mapDispatchToProps)(EditPortfolioModal);

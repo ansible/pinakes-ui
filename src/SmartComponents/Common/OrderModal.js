@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Button, Grid } from '@patternfly/react-core';
 import { connect } from 'react-redux';
 import './orderservice.scss';
@@ -116,7 +115,6 @@ OrderModal.propTypes = {
   stepParametersValid: propTypes.bool,
   fulfilled: propTypes.bool,
   error: propTypes.bool,
-  history: propTypes.object,
   open: propTypes.bool
 };
 
@@ -126,4 +124,4 @@ const mapStateToProps = ({ orderReducer: { isLoading, selectedItem, servicePlans
   servicePlans
 });
 
-export default withRouter(connect(mapStateToProps)(OrderModal));
+export default connect(mapStateToProps)(OrderModal);

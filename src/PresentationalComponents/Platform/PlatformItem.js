@@ -40,16 +40,12 @@ class PlatformItem extends React.Component {
 }
 
 PlatformItem.propTypes = {
-  history: propTypes.object,
   imageUrl: propTypes.string,
   id: propTypes.string,
   name: propTypes.string,
   editMode: propTypes.bool,
-  isChecked: propTypes.func,
-  onCheckboxClick: propTypes.func,
-  checkSelectionState: propTypes.func,
   checkedItems: propTypes.array,
-  onToggleSelect: propTypes.func
+  onToggleItemSelect: propTypes.func
 };
 
 export default PlatformItem;

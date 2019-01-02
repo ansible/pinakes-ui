@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Toolbar, ToolbarGroup, ToolbarItem, Button } from '@patternfly/react-core';
 
 /**
@@ -32,4 +31,4 @@ class PlatformToolbar extends Component {
     };
 };
 
-export default withRouter(PlatformToolbar);
+export default PlatformToolbar;

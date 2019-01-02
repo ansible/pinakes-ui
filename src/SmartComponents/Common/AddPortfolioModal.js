@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Main, PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
@@ -81,8 +80,7 @@ AddPortfolioModal.propTypes = {
   fetchPortfolios: propTypes.func,
   addPortfolio: propTypes.func,
   closeModal: propTypes.func,
-  itemdata: propTypes.object,
-  history: propTypes.object
+  itemdata: propTypes.object
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));
+export default connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal);
