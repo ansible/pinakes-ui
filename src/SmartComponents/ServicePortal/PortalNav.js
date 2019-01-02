@@ -14,79 +14,50 @@ const PLATFORM_ITEM_URL_BASE = '/platform_items';
 const PORTFOLIO_URL_BASE = '/portfolios';
 
 class PortalNav extends React.Component {
-    state = {
-      activeItem: null,
-      activeGroup: 'platforms',
-      isEditing: false
-    };
 
-    componentDidMount() {
-      this.fetchData();
-    }
+  componentDidMount() {
+    this.fetchData();
+  }
 
-    fetchData = () => {
-    // TODO - only call if the user is an admin
-      this.props.fetchPlatforms();
-      this.props.fetchPortfolios();
-    }
+  fetchData = () => {
+  // TODO - only call if the user is an admin
+    this.props.fetchPlatforms();
+    this.props.fetchPortfolios();
+  }
 
-    platformNavItems = () => {
-      if (this.props.platforms) {
-        return this.props.platforms.map(item => (
-          <NavLink key={ item.id } to={ `${PLATFORM_ITEM_URL_BASE}/${item.id}` }>
-            <NavItem
-              itemId={ item.id }
-              groupId="platforms"
-            >
-              { item.name }
-            </NavItem>
-          </NavLink>
-        ));
-      }
-      else {
-        return null;
-      }
-    };
+  platformNavItems = () => this.props.platforms.map(item => (
+    <NavLink key={ item.id } to={ `${PLATFORM_ITEM_URL_BASE}/${item.id}` }>
+      <NavItem itemId={ item.id } groupId="platforms">
+        { item.name }
+      </NavItem>
+    </NavLink>
+  ));
 
-    portfolioNavItems = () => {
-      if (this.props.portfolios) {
-        return this.props.portfolios.map(item => (
-          <NavLink key={ item.id } to={ `${PORTFOLIO_URL_BASE}/${item.id}` }>
-            <NavItem
-              groupId="portfolios"
-            >
-              { item.name }
-            </NavItem>
-          </NavLink>
-        ));
-      } else {
-        return null;
-      }
-    };
+  portfolioNavItems = () => this.props.portfolios.map(item => (
+    <NavLink key={ item.id } to={ `${PORTFOLIO_URL_BASE}/${item.id}` }>
+      <NavItem groupId="portfolios">
+        { item.name }
+      </NavItem>
+    </NavLink>
+  ));
 
-    onSelect = ({ itemId, groupId }) => this.setState({
-      activeItem: itemId,
-      activeGroup: groupId
-    });
-
-    render() {
-      return <Nav onSelect= { this.onSelect } aria-label="Service Portal">
+  render() {
+    return (
+      <Nav aria-label="Service Portal">
         <NavGroup title="Platforms">
           { !this.props.isPlatformDataLoading && this.platformNavItems() }
         </NavGroup>
         <NavGroup title="Portfolios">
           <NavLink to={ ALL_PORTFOLIOS_URL }>
-            <NavItem
-              key='all'
-              groupId="portfolios"
-            >
-                        All Portfolios
+            <NavItem key='all' groupId="portfolios">
+              All Portfolios
             </NavItem>
           </NavLink>
           { !this.props.isLoading && this.portfolioNavItems() }
         </NavGroup>
-      </Nav>;
-    }
+      </Nav>
+    );
+  }
 }
 
 const mapStateToProps = ({
