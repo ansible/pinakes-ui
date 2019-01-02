@@ -26,34 +26,34 @@ class PortalNav extends React.Component {
   }
 
   platformNavItems = () => this.props.platforms.map(item => (
-    <NavLink key={ item.id } to={ `${PLATFORM_ITEM_URL_BASE}/${item.id}` }>
-      <NavItem itemId={ item.id } groupId="platforms">
+    <NavItem key={ item.id } id={ item.id } groupId="platforms">
+      <NavLink to={ `${PLATFORM_ITEM_URL_BASE}/${item.id}` }>
         { item.name }
-      </NavItem>
-    </NavLink>
+      </NavLink>
+    </NavItem>
   ));
 
   portfolioNavItems = () => this.props.portfolios.map(item => (
-    <NavLink key={ item.id } to={ `${PORTFOLIO_URL_BASE}/${item.id}` }>
-      <NavItem groupId="portfolios">
+    <NavItem key={ item.id } id={ item.id }>
+      <NavLink to={ `${PORTFOLIO_URL_BASE}/${item.id}` }>
         { item.name }
-      </NavItem>
-    </NavLink>
+      </NavLink>
+    </NavItem>
   ));
 
   render() {
     return (
-      <Nav aria-label="Service Portal">
+      <Nav aria-label="Service Portal" className="portal-nav">
         <NavGroup title="Platforms">
-          { !this.props.isPlatformDataLoading && this.platformNavItems() }
+          { this.platformNavItems() }
         </NavGroup>
         <NavGroup title="Portfolios">
-          <NavLink to={ ALL_PORTFOLIOS_URL }>
-            <NavItem key='all' groupId="portfolios">
+          <NavItem key='all' id="all-portfolios">
+            <NavLink exact to={ ALL_PORTFOLIOS_URL }>
               All Portfolios
-            </NavItem>
-          </NavLink>
-          { !this.props.isLoading && this.portfolioNavItems() }
+            </NavLink>
+          </NavItem>
+          { this.portfolioNavItems() }
         </NavGroup>
       </Nav>
     );
