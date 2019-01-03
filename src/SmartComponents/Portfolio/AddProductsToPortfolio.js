@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
@@ -13,7 +14,7 @@ import PortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/Port
 import AddProductsTitleToolbar from '../../PresentationalComponents/Portfolio/AddProductsTitleToolbar';
 import PlatformDashboard from '../../PresentationalComponents/Platform/PlatformDashboard';
 import PlatformSelectToolbar from '../../SmartComponents/Common/PlatformSelectToolbar';
-import { addToPortfolio } from '../../redux/Actions/PortfolioActions';
+import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
 
 class AddProductsToPortfolio extends Component {
@@ -50,7 +51,8 @@ class AddProductsToPortfolio extends Component {
 
     onAddToPortfolio = () =>
       this.props.addToPortfolio(this.props.portfolio.id, this.state.checkedItems)
-      .then(() => this.props.resetViewMode(null, true));
+      .then(() => this.props.history.push(this.props.portfolioRoute))
+      .then(() => this.props.fetchPortfolioItemsWithPortfolio(this.props.match.params.id));
 
     render() {
       let filteredItems = [];
@@ -74,7 +76,8 @@ class AddProductsToPortfolio extends Component {
           <PortfolioOrderToolbar/>
           <AddProductsTitleToolbar title={ title }
             onClickAddToPortfolio = { this.onAddToPortfolio }
-            onClickCancelAddProducts={ this.props.resetViewMode }/>
+            portfolioRoute={ this.props.portfolioRoute }
+          />
           <PlatformSelectToolbar onOptionSelect={ this.onPlatformSelectionChange } { ...this.props } />
           { (this.state.selectedPlatforms.length > 0) &&
                     this.state.selectedPlatforms.map((platform)=> {return (<ContentGallery key={ platform.id } { ...filteredItems }
@@ -98,7 +101,8 @@ const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoadi
 const mapDispatchToProps = dispatch => bindActionCreators({
   addNotification,
   fetchPlatformItems,
-  addToPortfolio
+  addToPortfolio,
+  fetchPortfolioItemsWithPortfolio
 }, dispatch);
 
 AddProductsToPortfolio.propTypes = {
@@ -106,12 +110,21 @@ AddProductsToPortfolio.propTypes = {
   isLoading: propTypes.bool,
   isEditMode: propTypes.bool,
   addToPortfolio: propTypes.func,
-  resetViewMode: propTypes.func,
   fetchPlatformItems: propTypes.func,
   portfolio: propTypes.shape({
     name: propTypes.string,
     id: propTypes.oneOfType([ propTypes.string, propTypes.number ]).isRequired
-  }).isRequired
+  }).isRequired,
+  history: propTypes.shape({
+    push: propTypes.func.isRequired
+  }).isRequired,
+  match: propTypes.shape({
+    params: propTypes.shape({
+      id: propTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  portfolioRoute: propTypes.string.isRequired,
+  fetchPortfolioItemsWithPortfolio: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio));

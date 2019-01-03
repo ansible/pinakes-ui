@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Section } from '@red-hat-insights/insights-frontend-components';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import MainModal from '../Common/MainModal';
@@ -11,6 +10,7 @@ import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsT
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
 import PortfolioItem from './PortfolioItem';
+import NoMatch from '../../PresentationalComponents/Shared/404Route';
 import './portfolio.scss';
 
 class Portfolio extends Component {
@@ -49,14 +49,6 @@ class Portfolio extends Component {
       });
     };
 
-    onClickAddProducts = () => {
-      this.setViewMode('addproducts');
-    };
-
-    onClickCancelAddProducts = () => {
-      this.setViewMode(null);
-    };
-
     filterItems = (filterValue) => {
       let filteredItems = [];
       if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
@@ -81,44 +73,58 @@ class Portfolio extends Component {
       }
     };
 
+    renderProducts = ({ title, filteredItems, addProductsRoute }) => (
+      <Fragment>
+        <PortfolioFilterToolbar/>
+        { (!this.props.isLoading) &&
+          <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
+            <PortfolioActionToolbar title={ title }
+              onClickEditPortfolio={ this.onClickEditPortfolio }
+              filterItems={ this.filterItems }
+              addProductsRoute={ addProductsRoute }
+            />
+          </div>
+        }
+        <ContentGallery { ...filteredItems } />
+        <MainModal/>
+      </Fragment>
+    )
+
+    renderAddProducts = ({ portfolioRoute }) => (
+      <AddProductsToPortfolio
+        portfolio={ this.props.portfolio }
+        portfolioRoute={ portfolioRoute }
+      />
+    );
+
     render() {
-      if (this.state.viewMode === 'addproducts') {
-        return (
-          <AddProductsToPortfolio
-            resetViewMode={ this.setViewMode }
-            onClickCancelAddProducts={ this.onClickCancelAddProducts }
-            portfolio={ this.props.portfolio } />
-        );
+      const portfolioRoute = this.props.match.url;
+      const addProductsRoute = `${this.props.match.url}/add-products`;
+      let filteredItems = {
+        items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
+        isLoading: this.props.isLoading
+      };
+
+      let title = this.props.portfolio ? this.props.portfolio.name : '';
+
+      if (this.props.isLoading) {
+        return <div>Loading</div>;
       }
-      else {
-        let filteredItems = {
-          items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
-          isLoading: this.props.isLoading
-        };
-        let title = this.props.portfolio ? this.props.portfolio.name : '';
-        return (
-          <Section>
-            <PortfolioFilterToolbar/>
-            { (!this.props.isLoading) &&
-                    <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
-                      <PortfolioActionToolbar title={ title }
-                        onClickEditPortfolio={ this.onClickEditPortfolio }
-                        onClickAddProducts={ this.onClickAddProducts }
-                        onAddToPortfolio={ this.onAddToPortfolio }
-                        filterItems={ this.filterItems }/>
-                    </div> }
-            <ContentGallery { ...filteredItems } />
-            <MainModal/>
-          </Section>
-        );
-      }
+
+      return (
+        <Switch>
+          <Route exact path="/portfolios/:id" render={ props => this.renderProducts({ addProductsRoute, filteredItems, title, ...props }) } />
+          <Route exact path="/portfolios/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+          <Route component={ NoMatch } />
+        </Switch>
+      );
     }
 }
 
 const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems, isLoading }}) => ({
   portfolio: selectedPortfolio,
   portfolioItems,
-  isLoading
+  isLoading: !selectedPortfolio || isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -139,7 +145,8 @@ Portfolio.propTypes = {
   onClickEditPortfolio: propTypes.func,
   match: propTypes.object,
   portfolio: propTypes.shape({
-    name: propTypes.string
+    name: propTypes.string,
+    id: propTypes.string.isRequired
   }),
   portfolioItems: propTypes.array
 };
