@@ -5,8 +5,10 @@
     visibility: hidden;
 }
 
-.portalnav:hover {
-	.editable-item {
-		visibility: initial;
+.portal-nav {
+	.pf-c-nav__link.active {
+		color: #007bba;
+		font-weight: 500;
+		background-color: #f5f5f5;
 	}
 }
