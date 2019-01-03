@@ -32,7 +32,7 @@ class PortfolioItem extends React.Component {
           <Card>
             <div onClick={ () => {this.handleOnClick(this.props);} }>
               <CardHeader className="card_header">
-                <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="50" height="50" />
+                <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } width="50" height="50" />
               </CardHeader>
               <CardBody className="card_body">
                 <h4>{ this.props.name }</h4>

@@ -19,7 +19,7 @@ class PlatformItem extends React.Component {
         <GridItem key={ this.props.id } sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
           <Card key={ this.props.id }>
             <CardHeader className="card_header">
-              <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="50" height="50" />
+              <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } width="50" height="50" />
               { this.props.editMode && (
                 <CardCheckbox
                   id={ this.props.id }

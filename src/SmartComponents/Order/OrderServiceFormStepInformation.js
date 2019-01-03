@@ -28,7 +28,7 @@ class OrderServiceFormStepInformation extends React.Component {
             <table>
               <tbody>
                 <tr>
-                  <td><ImageWithDefault src = { this.props.imageUrl || CatItemSvg } defaultSrc={ CatItemSvg } width="100" /></td>
+                  <td><ImageWithDefault src = { this.props.imageUrl || CatItemSvg } width="100" /></td>
                   <td><h3> { this.props.name } </h3></td>
                 </tr>
               </tbody>
