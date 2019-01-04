@@ -11,9 +11,7 @@ import { default as modalTypes } from './ModalTypes';
 
 // why ???
 const MODAL_TYPES = {
-  order: modalTypes.orderModal,
-  addportfolio: modalTypes.addPortfolioModal,
-  editportfolio: modalTypes.editPortfolioModal
+  order: modalTypes.orderModal
 };
 
 const mapStateToProps = ({ mainModalReducer }) => ({ ...mainModalReducer });
