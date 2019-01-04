@@ -101,7 +101,7 @@ OrderServiceFormStepConfiguration.propTypes = {
   showOrder: propTypes.bool,
   isLoading: propTypes.bool,
   serviceData: propTypes.object,
-  servicePlans: propTypes.object,
+  servicePlans: propTypes.array,
   stepParametersValid: propTypes.bool,
   fulfilled: propTypes.bool,
   error: propTypes.bool,
