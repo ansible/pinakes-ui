@@ -57,7 +57,16 @@ export const addPortfolio = (portfolioData, items) => ({
 
 export const addToPortfolio = (portfolioId, items) => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
-  payload: PortfolioHelper.addToPortfolio(portfolioId, items)
+  payload: PortfolioHelper.addToPortfolio(portfolioId, items),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Success adding products',
+        description: 'Products were successfully added to portfolio.'
+      }
+    }
+  }
 });
 
 export const updatePortfolio = (portfolioData) => ({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Toolbar, ToolbarGroup, ToolbarItem, DropdownItem, Dropdown, DropdownPosition, KebabToggle, Title, Button } from '@patternfly/react-core';
 import { css } from '@patternfly/react-styles';
@@ -50,9 +51,11 @@ class PortfolioActionToolbar extends Component {
           </ToolbarGroup>
           <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
             <ToolbarItem className={ css(spacingStyles.mxLg) }>
-              <Button variant="link" onClick={ this.props.onClickAddProducts }  aria-label="Add Products to Portfolio">
-                            Add Products
-              </Button>
+              <Link to={ this.props.addProductsRoute }>
+                <Button variant="link"  aria-label="Add Products to Portfolio">
+                  Add Products
+                </Button>
+              </Link>
             </ToolbarItem>
             <ToolbarItem className={ css(spacingStyles.mxLg) }>
               <Button variant="plain" aria-label="Remove Products from Portfolio">
@@ -69,10 +72,9 @@ class PortfolioActionToolbar extends Component {
 }
 
 PortfolioActionToolbar.propTypes = {
-  history: propTypes.object,
   title: propTypes.string,
   onClickEditPortfolio: propTypes.func,
-  onClickAddProducts: propTypes.func
+  addProductsRoute: propTypes.string.isRequired
 };
 
 export default PortfolioActionToolbar;
