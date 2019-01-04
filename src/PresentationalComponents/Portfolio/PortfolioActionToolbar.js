@@ -31,11 +31,13 @@ class PortfolioActionToolbar extends Component {
           isOpen={ isKebabOpen }
           isPlain
         >
-          <DropdownItem component="button" onClick={ this.props.onClickEditPortfolio } aria-label="Edit Portfolio">
-                        Edit Portfolio
+          <DropdownItem component="button" aria-label="Edit Portfolio">
+            <Link to={ this.props.editPortfolioRoute }>
+              Edit Portfolio
+            </Link>
           </DropdownItem>
           <DropdownItem component="button" aria-label="Remove Portfolio">
-                        Remove Portfolio
+            Remove Portfolio
           </DropdownItem>
         </Dropdown>
       );
@@ -74,7 +76,8 @@ class PortfolioActionToolbar extends Component {
 PortfolioActionToolbar.propTypes = {
   title: propTypes.string,
   onClickEditPortfolio: propTypes.func,
-  addProductsRoute: propTypes.string.isRequired
+  addProductsRoute: propTypes.string.isRequired,
+  editPortfolioRoute: propTypes.string.isRequired
 };
 
 export default PortfolioActionToolbar;

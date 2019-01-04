@@ -11,6 +11,7 @@ import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/Por
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
 import PortfolioItem from './PortfolioItem';
 import NoMatch from '../../PresentationalComponents/Shared/404Route';
+import AddPortfolioModal from './add-portfolio-modal';
 import './portfolio.scss';
 
 class Portfolio extends Component {
@@ -73,7 +74,7 @@ class Portfolio extends Component {
       }
     };
 
-    renderProducts = ({ title, filteredItems, addProductsRoute }) => (
+    renderProducts = ({ title, filteredItems, addProductsRoute, editPortfolioRoute }) => (
       <Fragment>
         <PortfolioFilterToolbar/>
         { (!this.props.isLoading) &&
@@ -82,9 +83,11 @@ class Portfolio extends Component {
               onClickEditPortfolio={ this.onClickEditPortfolio }
               filterItems={ this.filterItems }
               addProductsRoute={ addProductsRoute }
+              editPortfolioRoute={ editPortfolioRoute }
             />
           </div>
         }
+        <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
         <ContentGallery { ...filteredItems } />
         <MainModal/>
       </Fragment>
@@ -100,6 +103,7 @@ class Portfolio extends Component {
     render() {
       const portfolioRoute = this.props.match.url;
       const addProductsRoute = `${this.props.match.url}/add-products`;
+      const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
       let filteredItems = {
         items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
         isLoading: this.props.isLoading
@@ -113,8 +117,11 @@ class Portfolio extends Component {
 
       return (
         <Switch>
-          <Route exact path="/portfolios/:id" render={ props => this.renderProducts({ addProductsRoute, filteredItems, title, ...props }) } />
-          <Route exact path="/portfolios/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+          <Route path="/portfolio/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+          <Route
+            path="/portfolio/:id"
+            render={ props => this.renderProducts({ addProductsRoute, editPortfolioRoute, filteredItems, title, ...props }) }
+          />
           <Route component={ NoMatch } />
         </Switch>
       );
