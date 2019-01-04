@@ -41,7 +41,8 @@ PlatformCard.propTypes = {
   history: propTypes.object,
   imageUrl: propTypes.string,
   name: propTypes.string,
-  source_type_id: propTypes.string
+  source_type_id: propTypes.string,
+  id: propTypes.string
 };
 
 export default PlatformCard;
