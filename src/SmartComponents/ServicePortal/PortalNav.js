@@ -10,7 +10,7 @@ import { toggleEdit } from '../../redux/Actions/UiActions';
 import './portalnav.scss';
 
 const PLATFORM_URL_BASE = '/platforms';
-const PORTFOLIO_URL_BASE = '/portfolios';
+const PORTFOLIO_URL_BASE = '/portfolio';
 
 class PortalNav extends React.Component {
 

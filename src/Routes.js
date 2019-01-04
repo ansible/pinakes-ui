@@ -31,7 +31,7 @@ const paths = {
   platforms: '/platforms',
   platform: '/platforms/:id',
   portfolios: '/portfolios',
-  portfolio: '/portfolios/:id',
+  portfolio: '/portfolio/:id',
   orders: '/orders'
 };
 
@@ -61,9 +61,9 @@ export const Routes = props => {
   return (
     <Switch>
       <InsightsRoute exact path={ paths.service_portal } component={ ServicePortal } rootClass="service_portal" />
-      <InsightsRoute exact path={ paths.platforms } component={ Platforms } rootClass="platforms" />
+      <InsightsRoute path={ paths.platform_items } component={ Platforms } rootClass="platform_items" />
       <InsightsRoute path={ paths.platform } component={ Platform } rootClass="platform" />
-      <InsightsRoute exact path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
+      <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
       <InsightsRoute path={ paths.portfolio } component={ Portfolio } rootClass="portfolio" />
       <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />
       { /* Finally, catch all unmatched routes */ }
