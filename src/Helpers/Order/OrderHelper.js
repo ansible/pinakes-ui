@@ -18,6 +18,6 @@ export async function sendSubmitOrder(parameters) {
   orderItem.portfolio_item_id = parameters.portfolio_item_id;
   orderItem.service_plan_ref = parameters.service_plan_ref;
   orderItem.service_parameters = parameters.service_parameters;
-
+  await api.addToOrder(order.id, orderItem);
   return api.submitOrder(order.id).then(result => result, error => console.error(error));
 }
