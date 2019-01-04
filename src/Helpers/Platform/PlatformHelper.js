@@ -6,17 +6,19 @@ export function getPlatforms() {
   return api.listSources().then(data => data, error => console.error(error));
 }
 
+export function getPlatform(platformId) {
+  return api.showSource(platformId).then(data => data, error => console.error(error));
+}
+
 export function getPlatformItems(apiProps) {
   let apiPromise = null;
-  if (apiProps && apiProps.platform) {
-    // TODO - replace with offerings per source when available
-    apiPromise = api.listSourceServiceOfferings(apiProps.platform);
+  if (apiProps) {
+    apiPromise = api.listSourceServiceOfferings(apiProps);
   }
   else {
     apiPromise = api.listServiceOfferings();
   }
 
   return apiPromise.then(data => data, error => console.error(error));
-}
+};
 
-;

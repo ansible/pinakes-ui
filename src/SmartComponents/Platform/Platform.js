@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Title } from '@patternfly/react-core';
 import { Main } from '@red-hat-insights/insights-frontend-components';
-import { fetchPlatformItems } from '../../redux/Actions/PlatformActions';
+import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
-import MainModal from '../Common/MainModal';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
-import './platformitems.scss';
+import './platform.scss';
 
-class PlatformItems extends Component {
+class Platform extends Component {
   state = {
-    showItems: '',
+    platformId: '',
     filteredItems: []
-  }
+  };
 
   fetchData(apiProps) {
-    this.props.fetchPlatformItems({ ...apiProps });
+    this.props.fetchSelectedPlatform(apiProps);
+    this.props.fetchPlatformItems(apiProps);
   }
 
   componentDidMount() {
@@ -32,33 +33,43 @@ class PlatformItems extends Component {
   render() {
     let filteredItems = {
       items: this.props.platformItems.map(data => <PlatformItem key={ data.id } { ...data } />),
-      isLoading: this.props.isLoading
+      isLoading: this.props.isPlatformDataLoading
     };
+
+    let title = this.props.platform ? this.props.platform.name : '';
+
     return (
       <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
         <PlatformToolbar/>
-        <ContentGallery { ...filteredItems } />
-        <MainModal />
+        <div style={ { marginLeft: 25, paddingTop: 40 } }>
+          { title &&  (<Title size={ '2xl' } > { title }</Title>) }
+        </div>
+        <ContentGallery { ...filteredItems }/>
       </Main>
     );
   }
 }
 
-const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoading }}) => ({
+const mapStateToProps = ({ platformReducer: { selectedPlatform, platformItems, isPlatformDataLoading }}) => ({
+  platform: selectedPlatform,
   platformItems,
-  isLoading: isPlatformDataLoading
+  isPlatformDataLoading: !selectedPlatform || isPlatformDataLoading
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchSelectedPlatform: platformId => dispatch(fetchSelectedPlatform(platformId)),
   fetchPlatformItems: apiProps => dispatch(fetchPlatformItems(apiProps))
 });
 
-PlatformItems.propTypes = {
+Platform.propTypes = {
   filteredItems: PropTypes.object,
-  platforms: PropTypes.object,
-  isLoading: PropTypes.bool,
+  isPlatformDataLoading: PropTypes.bool,
   match: PropTypes.object,
   fetchPlatformItems: PropTypes.func.isRequired,
+  fetchSelectedPlatform: PropTypes.func,
+  platform: PropTypes.shape({
+    name: PropTypes.string
+  }),
   platformItems: PropTypes.array
 };
 
@@ -66,4 +77,4 @@ PlatformItem.defaultProps = {
   platformItems: []
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformItems);
+export default connect(mapStateToProps, mapDispatchToProps)(Platform);

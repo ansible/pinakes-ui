@@ -20,15 +20,16 @@ import some from 'lodash/some';
  */
 
 const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePortal/ServicePortal'));
-const PlatformItems = asyncComponent(() => import('./SmartComponents/Platform/PlatformItems'));
+const Platforms = asyncComponent(() => import('./SmartComponents/Platform/Platforms'));
+const Platform = asyncComponent(() => import('./SmartComponents/Platform/Platform'));
 const Portfolios = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolios'));
 const Portfolio = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolio'));
 const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 
 const paths = {
   service_portal: '/',
-  platform_items: '/platform_items/:id',
-  portfolio_items: '/portfolio_items/:id',
+  platforms: '/platforms',
+  platform: '/platforms/:id',
   portfolios: '/portfolios',
   portfolio: '/portfolios/:id',
   orders: '/orders'
@@ -60,7 +61,8 @@ export const Routes = props => {
   return (
     <Switch>
       <InsightsRoute exact path={ paths.service_portal } component={ ServicePortal } rootClass="service_portal" />
-      <InsightsRoute path={ paths.platform_items } component={ PlatformItems } rootClass="platform_items" />
+      <InsightsRoute exact path={ paths.platforms } component={ Platforms } rootClass="platforms" />
+      <InsightsRoute path={ paths.platform } component={ Platform } rootClass="platform" />
       <InsightsRoute exact path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
       <InsightsRoute path={ paths.portfolio } component={ Portfolio } rootClass="portfolio" />
       <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />

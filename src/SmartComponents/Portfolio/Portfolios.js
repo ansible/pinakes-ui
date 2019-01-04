@@ -41,8 +41,8 @@ class Portfolios extends Component {
               <Button
                 variant="primary"
                 onClick={ () => {
-                // why using this.props to create porftolio?
-                // shoul be only open modal
+                // why using this.props to create portfolio?
+                // should be only open modal
                   this.onClickCreatePortfolio(this.props);
                 } }
                 aria-label="Create Portfolio"
