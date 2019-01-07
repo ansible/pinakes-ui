@@ -23,7 +23,7 @@ class AddPortfolioModal extends Component {
       items = [ this.props.itemdata ];
     }
 
-    this.props.addPortfolio(data, items);
+    this.props.addPortfolio(data, items).then(() => { this.props.fetchPortfolios(); });
     this.props.closeModal();
   }
 
