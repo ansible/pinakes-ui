@@ -4,7 +4,16 @@ import { PageHeader, PageHeaderTitle, Table, Section } from '@red-hat-insights/i
 import { Bullseye } from '@patternfly/react-core';
 
 const ContentList = ({ isLoading, items }) => {
-  if (isLoading || (items && items.length) > 0) {
+  if (isLoading || (items && items.length > 0)) {
+    if (items && items.length > 0)
+    {
+      items.sort(function (a, b) {
+        let dateA = new Date(a.created_at);
+        let dateB = new Date(b.created_at);
+        return dateB - dateA; //sort by date descending
+      });
+    };
+
     return (
       <React.Fragment>
         <br />
