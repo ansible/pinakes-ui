@@ -1,10 +1,7 @@
 import React from 'react';
-// PF3?
-import { Form as PFForm } from 'patternfly-react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-// replce with data driven form
-import { Bullseye, Radio } from '@patternfly/react-core';
+import { Bullseye, Radio, Form, Title } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import FormRenderer from '../Common/FormRenderer';
@@ -13,8 +10,8 @@ const optionRow = (plan, option, selected_id, onChange) => {
   return (
     <div>
       <Radio
-        value={ plan.plan_id }
-        checked={ selected_id === plan.plan_id }
+        value={ plan.id }
+        checked={ selected_id === plan.id }
         name={ plan.name }
         aria-label={ plan.description }
         onChange={ onChange }
@@ -42,7 +39,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
   };
 
   planOptions = () => {
-    let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].plan_id;
+    let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].id;
     let onChange = this.handlePlanChange;
 
     return this.props.servicePlans.map((plan, option) => optionRow(plan, option, selected_id, onChange));
@@ -58,13 +55,14 @@ class OrderServiceFormStepConfiguration extends React.Component {
   render() {
     if (!this.props.isLoading) {
       return (
-        <PFForm horizontal>
-          <PFForm.FormGroup>
+        <React.Fragment>
+          <Title> Configuration </Title>
+          <Form>
             { (this.props.servicePlans.length > 1) &&
-              <div>
-                <h3>Select Plan:</h3>
-                <div>{ this.planOptions() }</div>
-              </div>
+                  <div>
+                    <Title>Select Plan:</Title>
+                    <div>{ this.planOptions() }</div>
+                  </div>
             }
             <div>
               { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
@@ -75,21 +73,19 @@ class OrderServiceFormStepConfiguration extends React.Component {
               />
               }
             </div>
-          </PFForm.FormGroup>
-        </PFForm>
+          </Form>
+        </React.Fragment>
       );
     }
 
     return (
-      <PFForm horizontal>
-        <PFForm.FormGroup>
-          <Bullseye>
-            <div>
-              { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
-            </div>
-          </Bullseye>
-        </PFForm.FormGroup>
-      </PFForm>
+      <Form>
+        <Bullseye>
+          <div>
+            { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
+          </div>
+        </Bullseye>
+      </Form>
     );
   }
 }
@@ -105,7 +101,7 @@ OrderServiceFormStepConfiguration.propTypes = {
   stepParametersValid: propTypes.bool,
   fulfilled: propTypes.bool,
   error: propTypes.bool,
-  imageURL: propTypes.string,
+  imageUrl: propTypes.string,
   id: propTypes.string,
   name: propTypes.string,
   sendSubmitOrder: propTypes.func.isRequired

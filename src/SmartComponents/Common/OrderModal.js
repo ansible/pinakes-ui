@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Grid } from '@patternfly/react-core';
+import { Button, Grid, Modal} from '@patternfly/react-core';
 import { connect } from 'react-redux';
 import './orderservice.scss';
 import propTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
+import CatItemSvg from '../../assets/images/vendor-openshift.svg';
+import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
 import { Wizard } from 'patternfly-react';
 
 // useless
@@ -15,21 +16,8 @@ const renderStepWizardPage = (componentPage, props) => {
 
 class OrderModal extends Component {
   state = {
-    serviceData: {},
     activeStepIndex: 0
   };
-
-  // deprecated in react
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      stepParametersValid: nextProps.stepParametersValid || false,
-      showOrder: nextProps.showOrder
-    });
-  }
-
-  // why?
-  onStep = () => {
-  }
 
   onNext = () => {
     const { activeStepIndex } = this.state;
@@ -39,18 +27,6 @@ class OrderModal extends Component {
       this.setState({ activeStepIndex: activeStepIndex + 1 });
     }
   }
-
-  onBack = () => {
-    let { activeStepIndex } = this.state;
-
-    if (activeStepIndex >= 1) {
-      this.setState({ activeStepIndex: activeStepIndex - 1 });
-    }
-  }
-
-  onSubmit = () => this.setState({ activeStepIndex: 1 });
-
-  onCancel = () => this.setState({ showOrder: false });
 
   renderWizardSteps = () => {
     const { activeStepIndex } = this.state;
@@ -65,7 +41,6 @@ class OrderModal extends Component {
         label={ step.label }
         title={ step.title }
         activeStep={ activeStep && activeStep.step }
-        onClick={ () => this.onStep(activeStep && activeStep.step) }
       />
     ));
   };
@@ -81,14 +56,18 @@ class OrderModal extends Component {
     const wizardSteps = OrderServiceFormSteps;
 
     return (
-      <React.Fragment>
+      <div>
+        <div>
+          <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
+          { this.props.servicedata.name }}
+        </div>
         <Wizard.Steps steps={ this.renderWizardSteps(this.props.servicedata) }/>
         <Wizard.Row>
           <Wizard.Main>
             <Grid>
               { wizardSteps.map((step, stepIndex) => (
                 <Wizard.Contents key={ step.title } stepIndex={ stepIndex } activeStepIndex={ activeStepIndex }>
-                  { renderStepWizardPage(wizardSteps[stepIndex].page, this.props.servicedata) }
+                  { wizardSteps[stepIndex].page, this.props.servicedata }
                 </Wizard.Contents>
               )) }
               { activeStepIndex !== wizardSteps.length - 1 && (
@@ -96,14 +75,14 @@ class OrderModal extends Component {
                   <br/>
                   <br/>
                   <Button variant="primary" type="button" onClick={ this.onNext }>
-                    Order<Icon type="fa" name="angle-right"/>
+                    Order
                   </Button>
                 </div>
               ) }
             </Grid>
           </Wizard.Main>
         </Wizard.Row>
-      </React.Fragment>
+      </div>
     );
   }
 }
