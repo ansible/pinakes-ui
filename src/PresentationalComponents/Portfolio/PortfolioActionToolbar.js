@@ -37,7 +37,9 @@ class PortfolioActionToolbar extends Component {
             </Link>
           </DropdownItem>
           <DropdownItem component="button" aria-label="Remove Portfolio">
-            Remove Portfolio
+            <Link to={ this.props.removePortfolioRoute }>
+              Remove Portfolio
+            </Link>
           </DropdownItem>
         </Dropdown>
       );

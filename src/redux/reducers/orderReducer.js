@@ -20,7 +20,7 @@ const setServicePlans = (state, { payload }) => ({ ...state, servicePlans: paylo
 const setListOrder = (state, { payload }) => ({ ...state, orders: payload, isLoading: false });
 const setPlanParameters = (state, { payload }) => ({ ...state, planParameters: payload, isLoading: false });
 const submitServiceOrder = (state, { payload }) => ({ ...state, ...payload, isLoading: false });
-const updateServiceDate = (state, { payload }) => ({ ...state, serviceData: payload, isLoading: false });
+const updateServiceData = (state, { payload }) => ({ ...state, serviceData: payload, isLoading: false });
 const selectPlan = (state, { payload }) => ({ ...state, selectedPlan: payload, isLoading: false });
 
 export default {
@@ -31,6 +31,6 @@ export default {
   [`${FETCH_SERVICE_PLAN_PARAMETERS}_PENDING`]: setLoadingState,
   [`${FETCH_SERVICE_PLAN_PARAMETERS}_FULFILLED`]: setPlanParameters,
   [`${SUBMIT_SERVICE_ORDER}_FULFILLED`]: submitServiceOrder,
-  [UPDATE_SERVICE_DATA]: updateServiceDate,
+  [UPDATE_SERVICE_DATA]: updateServiceData,
   [SET_SELECTED_PLAN]: selectPlan
 };

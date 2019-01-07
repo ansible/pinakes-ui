@@ -59,3 +59,11 @@ export async function updatePortfolio(portfolioData) {
     window.console.error(error);
   });
 }
+
+export async function removePortfolio(portfolioId) {
+  return userApi.destroyPortfolio(JSON.stringify ({ portfolio_id: portfolioId })).then(() => {
+    console.log('Remove Portfolio Called successfully.');
+  }, (error) => {
+    window.console.error(error);
+  });
+}

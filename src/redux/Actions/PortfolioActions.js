@@ -87,3 +87,22 @@ export const updatePortfolio = (portfolioData) => ({
     }
   }
 });
+
+export const removePortfolio = (portfolio) => ({
+  type: ActionTypes.REMOVE_PORTFOLIO,
+  payload: PortfolioHelper.removePortfolio(portfolio),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Success removing portfolio',
+        description: 'The portfolio was removed successfully.'
+      },
+      rejected: {
+        variant: 'danger',
+        title: 'Failed removing portfolio',
+        description: 'The portfolio was not removed successfuly.'
+      }
+    }
+  }
+});
