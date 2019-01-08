@@ -10,7 +10,7 @@ import FormRenderer from './FormRenderer';
 const schema = {
   type: 'object',
   properties: {
-    name: { title: 'Edit Portfolio', type: 'string' },
+    name: { title: 'Name', type: 'string' },
     description: { title: 'Description', type: 'string' }
   },
   required: [ 'name', 'description' ]
