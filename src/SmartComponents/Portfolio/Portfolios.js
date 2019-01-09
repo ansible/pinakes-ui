@@ -69,6 +69,7 @@ class Portfolios extends Component {
         items: this.props.portfolios.map((item) => <PortfolioCard key={ item.id } { ...item } />),
         isLoading: this.props.isLoading
       };
+      console.log('Portfolios foo');
 
       return (
         <Fragment>

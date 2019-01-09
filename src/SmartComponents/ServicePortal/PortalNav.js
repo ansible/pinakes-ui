@@ -9,7 +9,9 @@ import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { toggleEdit } from '../../redux/Actions/UiActions';
 import './portalnav.scss';
 
-const PLATFORM_URL_BASE = '/platforms';
+const PLATFORMS_URL_BASE = '/platforms';
+const PLATFORM_URL_BASE = '/platform';
+const PORTFOLIOS_URL_BASE = '/portfolios';
 const PORTFOLIO_URL_BASE = '/portfolio';
 
 class PortalNav extends React.Component {
@@ -45,7 +47,7 @@ class PortalNav extends React.Component {
       <Nav aria-label="Service Portal" className="portal-nav">
         <NavGroup title="Platforms">
           <NavItem key='all' id="all-platforms">
-            <NavLink exact to={ PLATFORM_URL_BASE }>
+            <NavLink exact to={ PLATFORMS_URL_BASE }>
                     All Platforms
             </NavLink>
           </NavItem>
@@ -53,7 +55,7 @@ class PortalNav extends React.Component {
         </NavGroup>
         <NavGroup title="Portfolios">
           <NavItem key='all' id="all-portfolios">
-            <NavLink exact to={ PORTFOLIO_URL_BASE }>
+            <NavLink exact to={ PORTFOLIOS_URL_BASE }>
               All Portfolios
             </NavLink>
           </NavItem>
