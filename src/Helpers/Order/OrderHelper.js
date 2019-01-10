@@ -4,7 +4,7 @@ import { SERVICE_PORTAL_API_BASE } from '../../Utilities/Constants';
 
 let api = new ServicePortalApi.AdminsApi();
 
-const sspDefaultClient = ServicePortalApi.ApiClient.instance
+const sspDefaultClient = ServicePortalApi.ApiClient.instance;
 sspDefaultClient.basePath = SERVICE_PORTAL_API_BASE;
 
 export function getServicePlans(portfolioItemId) {

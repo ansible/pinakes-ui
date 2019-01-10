@@ -12,10 +12,10 @@ export function getUserApi() {
 //UserSecurity.username = 'YOUR USERNAME'
 //UserSecurity.password = 'YOUR PASSWORD'
 
-const defaultClient = TopologicalInventoryApiClient.instance;                                    
+const defaultClient = TopologicalInventoryApiClient.instance;
 defaultClient.basePath = SOURCES_API_BASE;
 
-const sspDefaultClient = ServicePortalApiClient.instance
+const sspDefaultClient = ServicePortalApiClient.instance;
 sspDefaultClient.basePath = SERVICE_PORTAL_API_BASE;
 
 let userTopologicalApi = new DefaultApi();
