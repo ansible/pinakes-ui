@@ -12,6 +12,7 @@ import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/Por
 import PortfolioItem from './PortfolioItem';
 import NoMatch from '../../PresentationalComponents/Shared/404Route';
 import AddPortfolioModal from './add-portfolio-modal';
+import RemovePortfolioModal from './remove-portfolio-modal';
 import './portfolio.scss';
 
 class Portfolio extends Component {
@@ -74,73 +75,65 @@ class Portfolio extends Component {
       });
     }
 
-      return filteredItems;
+    return filteredItems;
+  };
+
+  renderProducts = ({ title, filteredItems, addProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
+    <Fragment>
+      <PortfolioFilterToolbar/>
+      { (!this.props.isLoading) &&
+        <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
+          <PortfolioActionToolbar title={ title }
+            onClickEditPortfolio={ this.onClickEditPortfolio }
+            onClickRemovePortfolio={ this.onClickRemovePortfolio }
+            filterItems={ this.filterItems }
+            addProductsRoute={ addProductsRoute }
+            editPortfolioRoute={ editPortfolioRoute }
+            removePortfolioRoute={ removePortfolioRoute }
+          />recirect
+        </div>
+      }
+      <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
+      <Route exact path="/portfolio/:id/remove-portfolio" component={ RemovePortfolioModal } />
+      <ContentGallery { ...filteredItems } />
+      <MainModal/>
+    </Fragment>
+  )
+
+  renderAddProducts = ({ portfolioRoute }) => (
+    <AddProductsToPortfolio
+      portfolio={ this.props.portfolio }
+      portfolioRoute={ portfolioRoute }
+    />
+  );
+
+  render() {
+    const portfolioRoute = this.props.match.url;
+    const addProductsRoute = `${this.props.match.url}/add-products`;
+    const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
+    const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
+    let filteredItems = {
+      items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
+      isLoading: this.props.isLoading
     };
 
-    setViewMode = (mode = null, reloadData = false) => {
-      this.setState({
-        ...this.state,
-        viewMode: mode
-      });
-      if (reloadData) {
-        this.props.fetchPortfolioItemsWithPortfolio(this.props.match.params.id);
-      }
-    };
+    let title = this.props.portfolio ? this.props.portfolio.name : '';
 
-    renderProducts = ({ title, filteredItems, addProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
-      <Fragment>
-        <PortfolioFilterToolbar/>
-        { (!this.props.isLoading) &&
-          <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
-            <PortfolioActionToolbar title={ title }
-              onClickEditPortfolio={ this.onClickEditPortfolio }
-              filterItems={ this.filterItems }
-              addProductsRoute={ addProductsRoute }
-              editPortfolioRoute={ editPortfolioRoute }
-              removePortfolioRoute={ removePortfolioRoute }
-            />
-          </div>
-        }
-        <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
-        <ContentGallery { ...filteredItems } />
-        <MainModal/>
-      </Fragment>
-    )
-
-    renderAddProducts = ({ portfolioRoute }) => (
-      <AddProductsToPortfolio
-        portfolio={ this.props.portfolio }
-        portfolioRoute={ portfolioRoute }
-      />
-    );
-
-    render() {
-      const portfolioRoute = this.props.match.url;
-      const addProductsRoute = `${this.props.match.url}/add-products`;
-      const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
-      const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
-      let filteredItems = {
-        items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
-        isLoading: this.props.isLoading
-      };
-
-      let title = this.props.portfolio ? this.props.portfolio.name : '';
-
-      if (this.props.isLoading) {
-        return <div>Loading</div>;
-      }
-
-      return (
-        <Switch>
-          <Route path="/portfolio/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
-          <Route
-            path="/portfolio/:id"
-            render={ props => this.renderProducts({ addProductsRoute, editPortfolioRoute, filteredItems, title, ...props }) }
-          />
-          <Route component={ NoMatch } />
-        </Switch>
-      );
+    if (this.props.isLoading) {
+      return <div>Loading</div>;
     }
+
+    return (
+      <Switch>
+        <Route path="/portfolio/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+        <Route
+          path="/portfolio/:id"
+          render={ props => this.renderProducts({ addProductsRoute, editPortfolioRoute, removePortfolioRoute, filteredItems, title, ...props }) }
+        />
+        <Route component={ NoMatch } />
+      </Switch>
+    );
+  }
 }
 
 const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems, isLoading }}) => ({
@@ -164,8 +157,8 @@ Portfolio.propTypes = {
   fetchSelectedPortfolio: propTypes.func,
   showModal: propTypes.func,
   hideModal: propTypes.func,
-  onClickEditPortfolio: propTypes.func,
-  onClickRemovePortfolio: propTypes.func,
+  onClickEditPortfolio: propTypes.func.isRequired,
+  onClickRemovePortfolio: propTypes.func.isRequired,
   match: propTypes.object,
   portfolio: propTypes.shape({
     name: propTypes.string,

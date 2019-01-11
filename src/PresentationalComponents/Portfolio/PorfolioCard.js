@@ -20,14 +20,16 @@ const createToolbarActions = (portfolioName, portfolioId) => [
       <EditAltIcon fill={ ICON_FILL } />
     </Button>
   </Link>,
-  <Button
-    key="remove-portfolio-action"
-    variant="plain"
-    aria-label={ `remove-portfolio-${portfolioName}` }
-    onClick={ () => console.log('Remove portfolio api helper not available.') }
-  >
-    <TrashIcon fill={ ICON_FILL } />
-  </Button>
+  <Link key="remove-portfolio-action" to={ `/portfolios/remove/${portfolioId}` }>
+    <Button
+      key="remove-portfolio-action"
+      variant="plain"
+      aria-label={ `remove-portfolio-${portfolioName}` }
+      onClick={ () => console.log('Remove portfolio api helper not available.') }
+    >
+      <TrashIcon fill={ ICON_FILL } />
+    </Button>
+  </Link>
 ];
 
 const PortfolioCard = ({ imageUrl, name, id, ...props }) => (

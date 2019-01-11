@@ -24,9 +24,7 @@ export const fetchPortfolioItemsWithPortfolio = apiProps => ({
 
 export const fetchSelectedPortfolio = id => ({
   type: ActionTypes.FETCH_PORTFOLIO,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.getPortfolio(id));
-  })
+  payload: PortfolioHelper.getPortfolio(id)
 });
 
 export const searchPortfolioItems = value => ({

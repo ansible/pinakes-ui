@@ -79,7 +79,8 @@ PortfolioActionToolbar.propTypes = {
   title: propTypes.string,
   onClickEditPortfolio: propTypes.func,
   addProductsRoute: propTypes.string.isRequired,
-  editPortfolioRoute: propTypes.string.isRequired
+  editPortfolioRoute: propTypes.string.isRequired,
+  removePortfolioRoute: propTypes.string.isRequired
 };
 
 export default PortfolioActionToolbar;
