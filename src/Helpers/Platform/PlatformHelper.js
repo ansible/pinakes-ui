@@ -3,7 +3,7 @@ import { getTopologicalUserApi } from '../Shared/userLogin';
 const api = getTopologicalUserApi();
 
 export function getPlatforms() {
-  return api.listSources().then(data => data, error => console.error(error));
+  return api.listSources();
 }
 
 export function getPlatform(platformId) {
