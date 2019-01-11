@@ -92,4 +92,8 @@ PortalNav.propTypes = {
   isLoading: propTypes.bool
 };
 
+PortalNav.defaultProps = {
+  platforms: []
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(PortalNav);
