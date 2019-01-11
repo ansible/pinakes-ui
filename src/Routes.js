@@ -18,8 +18,6 @@ import some from 'lodash/some';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
-
-const ServicePortal = asyncComponent(() => import('./SmartComponents/ServicePortal/ServicePortal'));
 const Platforms = asyncComponent(() => import('./SmartComponents/Platform/Platforms'));
 const Platform = asyncComponent(() => import('./SmartComponents/Platform/Platform'));
 const Portfolios = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolios'));
@@ -29,9 +27,9 @@ const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
 const paths = {
   service_portal: '/',
   platforms: '/platforms',
-  platform: '/platforms/:id',
+  platform: '/platform/:id',
   portfolios: '/portfolios',
-  portfolio: '/portfolios/:id',
+  portfolio: '/portfolio/:id',
   orders: '/orders'
 };
 
@@ -60,14 +58,13 @@ export const Routes = props => {
   const path = props.childProps.location.pathname;
   return (
     <Switch>
-      <InsightsRoute exact path={ paths.service_portal } component={ ServicePortal } rootClass="service_portal" />
-      <InsightsRoute exact path={ paths.platforms } component={ Platforms } rootClass="platforms" />
-      <InsightsRoute path={ paths.platform } component={ Platform } rootClass="platform" />
-      <InsightsRoute exact path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
+      <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
+      <InsightsRoute path={ paths.platform } component={ Platform } rootClass="platform"/>
+      <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
       <InsightsRoute path={ paths.portfolio } component={ Portfolio } rootClass="portfolio" />
       <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />
       { /* Finally, catch all unmatched routes */ }
-      <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.service_portal } />) } />
+      <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
     </Switch>
   );
 };
