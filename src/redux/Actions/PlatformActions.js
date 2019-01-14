@@ -8,6 +8,13 @@ export const fetchPlatforms = () => ({
   })
 });
 
+export const fetchPlatformsIfNeeded = () => (dispatch, getState) => {
+  const { platformReducer: { isPlatformDataLoading }} = getState();
+  if (!isPlatformDataLoading) {
+    return dispatch(fetchPlatforms());
+  }
+};
+
 export const fetchPlatformItems = platformId => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,
   payload: PlatformHelper.getPlatformItems(platformId),

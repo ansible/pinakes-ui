@@ -49,7 +49,6 @@ const mapStateToProps = ({ platformReducer: { platforms, isPlatformDataLoading }
 
 PlatformSelectToolbar.propTypes = {
   platforms: propTypes.array,
-  fetchPlatforms: propTypes.func,
   isLoading: propTypes.bool,
   searchFilter: propTypes.string,
   onOptionSelect: propTypes.func,

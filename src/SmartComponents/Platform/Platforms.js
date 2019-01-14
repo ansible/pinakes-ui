@@ -7,7 +7,7 @@ import { Toolbar, ToolbarGroup, ToolbarItem, Title } from '@patternfly/react-cor
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformCard from '../../PresentationalComponents/Platform/PlatformCard';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
-import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
+import { fetchPlatformsIfNeeded } from '../../redux/Actions/PlatformActions';
 import MainModal from '../Common/MainModal';
 import './platform.scss';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
@@ -19,7 +19,7 @@ class Platforms extends Component {
     };
 
     fetchData = () => {
-      this.props.fetchPlatforms();
+      this.props.fetchPlatformsIfNeeded();
     };
 
     componentDidMount() {
@@ -66,7 +66,7 @@ const mapStateToProps = ({ platformReducer: { platforms, isLoading, filterValue 
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPlatforms: apiProps => dispatch(fetchPlatforms(apiProps))
+    fetchPlatformsIfNeeded: apiProps => dispatch(fetchPlatformsIfNeeded(apiProps))
   };
 };
 
@@ -78,7 +78,7 @@ Platforms.propTypes = {
   showModal: propTypes.func,
   hideModal: propTypes.func,
   history: propTypes.object,
-  fetchPlatforms: propTypes.func
+  fetchPlatformsIfNeeded: propTypes.func
 };
 
 export default withRouter(

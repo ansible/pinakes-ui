@@ -11,10 +11,10 @@ import platformReducer, { platformInitialState } from '../redux/reducers/platfor
 import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolioReducer';
 import uiReducer, { uiInitialState } from '../redux/reducers/UiReducer';
 
-const registry = new ReducerRegistry({}, [ promiseMiddleware(), notificationsMiddleware({
+const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
   errorTitleKey: [ 'message' ],
   errorDescriptionKey: [ 'errors', 'stack' ]
-}), thunk, reduxLogger ]);
+}), reduxLogger ]);
 
 registry.register({
   mainModalReducer: applyReducerHash(mainModalReducer, mainModalInitialState),
