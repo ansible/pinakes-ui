@@ -8,12 +8,24 @@ export const fetchPlatforms = () => ({
   })
 });
 
-export const fetchPlatformItems = apiProps => ({
+export const fetchPlatformItems = platformId => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,
-  payload: new Promise(resolve => {
-    resolve(PlatformHelper.getPlatformItems(apiProps));
-  })
+  payload: PlatformHelper.getPlatformItems(platformId),
+  meta: {
+    platformId
+  }
 });
+
+export const fetchMultiplePlatformItems = platformsId => {
+  const platformPromisses = platformsId.map(platformId => PlatformHelper.getPlatformItems(platformId).then(data => ({ [platformId]: data })));
+  return {
+    type: ActionTypes.FETCH_MULTIPLE_PLATFORM_ITEMS,
+    payload: Promise.all(platformPromisses).then(data => data.reduce((acc, curr) => ({
+      ...acc,
+      ...curr
+    }), {}))
+  };
+};
 
 export const fetchSelectedPlatform = id => ({
   type: ActionTypes.FETCH_PLATFORM,
