@@ -12,15 +12,26 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
 
 class App extends Component {
+  state = {
+    chromeNavAvailable: true
+  }
 
   componentDidMount () {
     insights.chrome.init();
-    insights.chrome.identifyApp('service-portal');
+    try {
+      insights.chrome.identifyApp('service-portal');
+    } catch (error) {
+      this.setState({
+        chromeNavAvailable: false
+      });
+    }
   }
 
   componentWillUnmount () {
-    this.appNav();
-    this.buildNav();
+    if (this.state.chromeNavAvailable) {
+      this.appNav();
+      this.buildNav();
+    }
   }
 
   render () {
