@@ -1,8 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
-export { BulletList as NavLoader } from 'react-content-loader';
-import { Card, CardBody, Grid, GridItem } from '@patternfly/react-core';
+import { Card, CardBody, Grid, GridItem, NavItem } from '@patternfly/react-core';
 
 export const CardLoader = ({ items, ...props }) => (
   <Grid  gutter="md">
@@ -63,5 +62,29 @@ PortfolioLoader.propTypes = {
 };
 
 PortfolioLoader.defaultProps = {
+  items: 5
+};
+
+export const NavLoader = ({ items, ...props }) => [ ...Array(items) ].map((_item, index) => (
+  <NavItem key={ `loader-placeholder-${index}` } style={ { cursor: 'pointer' } }>
+    <div style={ { overflow: 'hidden' } }>
+      <ContentLoader
+        height={ 16 }
+        width={ 300 }
+        speed={ 2 }
+        primaryColor="#f3f3f3"
+        secondaryColor="#ecebeb"
+        { ...props }>
+        <rect x="0" y="0" rx="0" ry="0" width="420" height="20" />
+      </ContentLoader>
+    </div>
+  </NavItem>
+));
+
+NavLoader.propTypes = {
+  items: PropTypes.number
+};
+
+NavLoader.defaultProps = {
   items: 5
 };
