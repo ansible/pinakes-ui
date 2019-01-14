@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
@@ -119,12 +119,8 @@ class Portfolio extends Component {
 
     let title = this.props.portfolio ? this.props.portfolio.name : '';
 
-    if (this.props.isLoading) {
-      return <div>Loading</div>;
-    }
-
     if (this.state.portfolioRemoved) {
-      this.props.history.push('/portfolios');
+      return <Redirect to="/portfolios" />;
     }
 
     return (
