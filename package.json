@@ -12,6 +12,7 @@
     "@patternfly/react-tokens": "^1.9.6",
     "@red-hat-insights/insights-frontend-components": "^3.28.0",
     "font-awesome": "^4.7.0",
+    "graphql": "^14.0.2",
     "lodash": "^4.17.10",
     "patternfly-react": "^2.13.1",
     "react": "^16.7.0",
