@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { fetchPlatformItems } from '../../redux/Actions/PlatformActions';
+import { fetchMultiplePlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import MainModal from '../Common/MainModal';
 import '../Platform/platform.scss';
@@ -23,49 +23,49 @@ class AddProductsToPortfolio extends Component {
       checkedItems: []
     };
 
-    async fetchData(platforms) {
-      await this.props.fetchPlatformItems(platforms);
-    }
+    onPlatformSelectionChange = (selectedValues = []) =>
+      this.setState(
+        () => ({ selectedPlatforms: selectedValues }),
+        () => this.props.fetchMultiplePlatformItems(selectedValues.filter(({ id }) =>
+          !this.props.platformItems[id]).map(({ id }) => id)));
 
-    onPlatformSelectionChange = (selectedValues) => {
-      this.setState({ selectedPlatforms: selectedValues });
-      this.fetchData(selectedValues[0].id);
-    };
+    onToggleItemSelect = checkedId => this.setState(({ checkedItems }) => {
+      const index = checkedItems.indexOf(checkedId);
+      if (index > -1) {
+        return { checkedItems: [
+          ...checkedItems.slice(0, index),
+          ...checkedItems.slice(index + 1)
+        ]};
+      }
 
-    onToggleItemSelect = (event) => {
-      const item = event.target.id;
-      const isChecked = event.target.checked;
-      console.log('item select: ', event);
-      if (isChecked) {
-        this.setState(state => {
-          const checkedItems = [ ...state.checkedItems, item ];
-          return {
-            checkedItems
-          };
-        });
-      }
-      else {
-        this.setState(prevState => ({ checkedItems: prevState.checkedItems.filter((value) => { return !(value === item.id);}) }));
-      }
-    };
+      return { checkedItems: [ ...checkedItems, checkedId ]};
+    })
 
     onAddToPortfolio = () =>
       this.props.addToPortfolio(this.props.portfolio.id, this.state.checkedItems)
       .then(() => this.props.history.push(this.props.portfolioRoute))
       .then(() => this.props.fetchPortfolioItemsWithPortfolio(this.props.match.params.id));
 
+    createItems = () => {
+      const { selectedPlatforms } = this.state;
+      const { platformItems } = this.props;
+      return selectedPlatforms.map(({ id }) => platformItems[id]
+        ? platformItems[id].map(item =>
+          <PlatformItem
+            key={ item.id }
+            { ...item }
+            editMode
+            onToggleItemSelect={ () => this.onToggleItemSelect(item.id) }
+            checked={ this.state.checkedItems.includes(item.id) }
+          />)
+        : null);
+    }
+
     render() {
       let filteredItems = [];
       if (this.props.platformItems) {
         filteredItems = {
-          items: this.props.platformItems.map(item => (
-            <PlatformItem
-              key={ item.id }
-              { ...item }
-              editMode
-              onToggleItemSelect={ this.onToggleItemSelect }
-              checkedItems={ this.state.checkedItems }
-            />)),
+          items: this.createItems(),
           isLoading: this.props.isLoading
         };
       }
@@ -80,12 +80,16 @@ class AddProductsToPortfolio extends Component {
           />
           <PlatformSelectToolbar onOptionSelect={ this.onPlatformSelectionChange } { ...this.props } />
           { (this.state.selectedPlatforms.length > 0) &&
-                    this.state.selectedPlatforms.map((platform)=> {return (<ContentGallery key={ platform.id } { ...filteredItems }
-                      title={ platform.name }
-                      editMode = { true }
-                      onToggleSelect = { this.onToggleItemSelect }
-                      checkedItems = { this.state.checkedItems }
-                    />);}) }
+            this.state.selectedPlatforms.map(platform => (
+              <ContentGallery
+                key={ platform.label }
+                { ...filteredItems }
+                title={ platform.name }
+                editMode = { true }
+                onToggleSelect = { this.onToggleItemSelect }
+                checkedItems = { this.state.checkedItems }
+              />
+            )) }
           { (this.state.selectedPlatforms.length < 1) && <PlatformDashboard/> }
           <MainModal/>
         </Section>
@@ -100,17 +104,17 @@ const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoadi
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   addNotification,
-  fetchPlatformItems,
+  fetchMultiplePlatformItems,
   addToPortfolio,
   fetchPortfolioItemsWithPortfolio
 }, dispatch);
 
 AddProductsToPortfolio.propTypes = {
-  platformItems: propTypes.array,
+  platformItems: propTypes.object,
   isLoading: propTypes.bool,
   isEditMode: propTypes.bool,
   addToPortfolio: propTypes.func,
-  fetchPlatformItems: propTypes.func,
+  fetchMultiplePlatformItems: propTypes.func,
   portfolio: propTypes.shape({
     name: propTypes.string,
     id: propTypes.oneOfType([ propTypes.string, propTypes.number ]).isRequired
