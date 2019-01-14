@@ -8,6 +8,13 @@ export const fetchPortfolios = apiProps => ({
   })
 });
 
+export const fetchPortfoliosIfNeeded = apiProps => (dispatch, getState) => {
+  const { portfolioReducer: { isLoading }} = getState();
+  if (!isLoading) {
+    return dispatch(fetchPortfolios(apiProps));
+  }
+};
+
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
   payload: new Promise(resolve => {

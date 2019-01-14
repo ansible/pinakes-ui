@@ -14,7 +14,7 @@ export const portfoliosInitialState = {
   portfolios: [],
   portfolio: {},
   filterValue: '',
-  isLoading: true
+  isLoading: false
 };
 
 const setLoadingState = state => ({ ...state, isLoading: true });
