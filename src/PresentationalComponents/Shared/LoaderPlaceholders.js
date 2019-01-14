@@ -88,3 +88,18 @@ NavLoader.propTypes = {
 NavLoader.defaultProps = {
   items: 5
 };
+
+export const AppPlaceholder = props => (
+  <div>
+    <ContentLoader
+      height={ 16 }
+      width={ 300 }
+      speed={ 2 }
+      primaryColor="#FFFFFF"
+      secondaryColor="#FFFFFF"
+      { ...props }>
+      <rect x="0" y="0" rx="0" ry="0" width="420" height="10" />
+    </ContentLoader>
+    <CardLoader />
+  </div>
+);
