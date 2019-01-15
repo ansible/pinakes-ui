@@ -2,21 +2,8 @@
 @import "../../PresentationalComponents/Shared/toolbarschema";
 @import "../../PresentationalComponents/Portfolio/portfoliocard";
 
-
-.admin-dashboard {
-  border: 0;
-  background-color: white;
-  box-shadow: 0px 0px 2px;
-  font-size: $ins-fontSize;
-  margin: $ins-margin;
-  display: block;
-}
-
-.side_bar {
-  background-color: white;
-}
-.action-toolbar {
-  margin-top: 35px;
-  margin-left: 25px;
-  margin-right: 25px;
+.center_message {
+  padding-top: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
 }

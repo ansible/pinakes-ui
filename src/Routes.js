@@ -24,7 +24,7 @@ const Portfolios = lazy(() => import('./SmartComponents/Portfolio/Portfolios'));
 const Portfolio = lazy(() => import('./SmartComponents/Portfolio/Portfolio'));
 const Orders = lazy(() => import('./SmartComponents/Order/Orders'));
 
-const paths = {
+export const paths = {
   service_portal: '/',
   platforms: '/platforms',
   platform: '/platform/:id',
