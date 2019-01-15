@@ -24,9 +24,7 @@ export const fetchPortfolioItemsWithPortfolio = apiProps => ({
 
 export const fetchSelectedPortfolio = id => ({
   type: ActionTypes.FETCH_PORTFOLIO,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.getPortfolio(id));
-  })
+  payload: PortfolioHelper.getPortfolio(id)
 });
 
 export const searchPortfolioItems = value => ({
@@ -83,6 +81,20 @@ export const updatePortfolio = (portfolioData) => ({
         variant: 'danger',
         title: 'Failed updating portfolio',
         description: 'The portfolio was not updated successfuly.'
+      }
+    }
+  }
+});
+
+export const removePortfolio = (portfolio) => ({
+  type: ActionTypes.REMOVE_PORTFOLIO,
+  payload: PortfolioHelper.removePortfolio(portfolio),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Success removing portfolio',
+        description: 'The portfolio was removed successfully.'
       }
     }
   }

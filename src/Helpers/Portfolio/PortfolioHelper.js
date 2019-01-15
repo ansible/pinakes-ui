@@ -59,3 +59,10 @@ export async function updatePortfolio(portfolioData) {
     window.console.error(error);
   });
 }
+
+export async function removePortfolio(portfolioId) {
+  return userApi.destroyPortfolio(portfolioId).then(data => {
+    console.log('Remove Portfolio Called successfully.');
+    return data;
+  });
+}

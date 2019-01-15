@@ -37,7 +37,9 @@ class PortfolioActionToolbar extends Component {
             </Link>
           </DropdownItem>
           <DropdownItem component="button" aria-label="Remove Portfolio">
-            Remove Portfolio
+            <Link to={ this.props.removePortfolioRoute }>
+              Remove Portfolio
+            </Link>
           </DropdownItem>
         </Dropdown>
       );
@@ -77,7 +79,8 @@ PortfolioActionToolbar.propTypes = {
   title: propTypes.string,
   onClickEditPortfolio: propTypes.func,
   addProductsRoute: propTypes.string.isRequired,
-  editPortfolioRoute: propTypes.string.isRequired
+  editPortfolioRoute: propTypes.string.isRequired,
+  removePortfolioRoute: propTypes.string.isRequired
 };
 
 export default PortfolioActionToolbar;
