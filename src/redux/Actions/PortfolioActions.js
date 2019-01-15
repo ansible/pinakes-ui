@@ -95,11 +95,6 @@ export const removePortfolio = (portfolio) => ({
         variant: 'success',
         title: 'Success removing portfolio',
         description: 'The portfolio was removed successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed removing portfolio',
-        description: 'The portfolio was not removed successfuly.'
       }
     }
   }
