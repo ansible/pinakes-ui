@@ -52,7 +52,7 @@ class Platform extends Component {
 
 const mapStateToProps = ({ platformReducer: { selectedPlatform, platformItems, isPlatformDataLoading }}) => ({
   platform: selectedPlatform,
-  platformItems,
+  platformItems: selectedPlatform && platformItems[selectedPlatform.id],
   isPlatformDataLoading: !selectedPlatform || isPlatformDataLoading
 });
 
@@ -73,7 +73,7 @@ Platform.propTypes = {
   platformItems: PropTypes.array
 };
 
-PlatformItem.defaultProps = {
+Platform.defaultProps = {
   platformItems: []
 };
 

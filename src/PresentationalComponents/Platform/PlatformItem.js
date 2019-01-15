@@ -23,7 +23,7 @@ class PlatformItem extends React.Component {
               { this.props.editMode && (
                 <CardCheckbox
                   id={ this.props.id }
-                  checked={ this.props.checkedItems.includes(this.props.id) }
+                  checked={ this.props.checked }
                   onChange={ this.props.onToggleItemSelect }
                 />
               ) }
@@ -44,7 +44,7 @@ PlatformItem.propTypes = {
   id: propTypes.string,
   name: propTypes.string,
   editMode: propTypes.bool,
-  checkedItems: propTypes.array,
+  checked: propTypes.bool,
   onToggleItemSelect: propTypes.func
 };
 

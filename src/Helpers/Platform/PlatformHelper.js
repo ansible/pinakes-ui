@@ -12,13 +12,12 @@ export function getPlatform(platformId) {
 
 export function getPlatformItems(apiProps) {
   let apiPromise = null;
+
   if (apiProps) {
     apiPromise = api.listSourceServiceOfferings(apiProps);
-  }
-  else {
+  } else {
     apiPromise = api.listServiceOfferings();
   }
 
-  return apiPromise.then(data => data, error => console.error(error));
-};
-
+  return apiPromise;
+}
