@@ -68,11 +68,7 @@ class Portfolio extends Component {
     let filteredItems = [];
     if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
       filteredItems = this.props.portfolioItems.portfolioItems;
-      filteredItems = filteredItems.filter((item) => {
-        let itemName = item.name.toLowerCase();
-        return itemName.indexOf(
-          filterValue.toLowerCase()) !== -1;
-      });
+      filteredItems = filteredItems.filter(({ name }) => name.toLowerCase().includes(filterValue.toLowerCase()));
     }
 
     return filteredItems;
