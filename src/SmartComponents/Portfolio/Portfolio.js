@@ -38,23 +38,24 @@ class Portfolio extends Component {
     }
   }
 
-    onClickEditPortfolio = () => {
-      this.props.showModal({
-        open: true,
-        itemdata: this.props,
-        closeModal: this.props.hideModal
-      }, 'editportfolio');
+  onClickEditPortfolio = () => {
+    this.props.showModal({
+      open: true,
+      itemdata: this.props,
+      closeModal: this.props.hideModal
+    }, 'editportfolio');
 
-      this.setState({
-        ...this.state,
-        isOpen: !this.state.isOpen
-      });
-    };
+    this.setState({
+      ...this.state,
+      isOpen: !this.state.isOpen
+    });
+  };
 
   onClickRemovePortfolio = () => {
     this.props.showModal({
       open: true,
       portfolio: this.props.portfolio,
+      onSuccess: this.onPortfolioRemoved,
       closeModal: this.props.hideModal
     }, 'removeportfolio');
 
@@ -86,7 +87,7 @@ class Portfolio extends Component {
             addProductsRoute={ addProductsRoute }
             editPortfolioRoute={ editPortfolioRoute }
             removePortfolioRoute={ removePortfolioRoute }
-          />recirect
+          />
         </div>
       }
       <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
@@ -117,6 +118,10 @@ class Portfolio extends Component {
 
     if (this.props.isLoading) {
       return <div>Loading</div>;
+    }
+
+    if (this.state.portfolioRemoved) {
+      this.props.history.push('/portfolios');
     }
 
     return (
