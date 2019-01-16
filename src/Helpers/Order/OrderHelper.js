@@ -1,6 +1,11 @@
 /* eslint camelcase: 0 */
-let ServicePortalApi = require('service_portal_api');
+import * as ServicePortalApi from '@manageiq/service-portal-api';
+import { SERVICE_PORTAL_API_BASE } from '../../Utilities/Constants';
+
 let api = new ServicePortalApi.AdminsApi();
+
+const sspDefaultClient = ServicePortalApi.ApiClient.instance;
+sspDefaultClient.basePath = SERVICE_PORTAL_API_BASE;
 
 export function getServicePlans(portfolioItemId) {
   return api.fetchPlansWithPortfolioItemId(portfolioItemId).then(data => data, error => console.error(error));

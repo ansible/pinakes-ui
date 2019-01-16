@@ -33,7 +33,7 @@ const webpackConfig = {
     module: {
         rules: [{
             test: /\.js$/,
-            exclude: /node_modules\/(?!(service_portal_api|topological_inventory)\/)/i,
+            exclude: /node_modules/,
             use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }]
         }, {
             test: /\.s?[ac]ss$/,
