@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
@@ -41,33 +41,6 @@ class Portfolio extends Component {
     }
   }
 
-  onClickEditPortfolio = () => {
-    this.props.showModal({
-      open: true,
-      itemdata: this.props,
-      closeModal: this.props.hideModal
-    }, 'editportfolio');
-
-    this.setState({
-      ...this.state,
-      isOpen: !this.state.isOpen
-    });
-  };
-
-  onClickRemovePortfolio = () => {
-    this.props.showModal({
-      open: true,
-      portfolio: this.props.portfolio,
-      onSuccess: this.onPortfolioRemoved,
-      closeModal: this.props.hideModal
-    }, 'removeportfolio');
-
-    this.setState({
-      ...this.state,
-      isOpen: !this.state.isOpen
-    });
-  };
-
   filterItems = (filterValue) => {
     let filteredItems = [];
     if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
@@ -84,8 +57,6 @@ class Portfolio extends Component {
       { (!this.props.isLoading) &&
         <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
           <PortfolioActionToolbar title={ title }
-            onClickEditPortfolio={ this.onClickEditPortfolio }
-            onClickRemovePortfolio={ this.onClickRemovePortfolio }
             filterItems={ this.filterItems }
             addProductsRoute={ addProductsRoute }
             editPortfolioRoute={ editPortfolioRoute }
@@ -118,10 +89,6 @@ class Portfolio extends Component {
     };
 
     let title = this.props.portfolio ? this.props.portfolio.name : '';
-
-    if (this.state.portfolioRemoved) {
-      return <Redirect to="/portfolios" />;
-    }
 
     return (
       <Switch>
@@ -157,8 +124,6 @@ Portfolio.propTypes = {
   fetchSelectedPortfolio: propTypes.func,
   showModal: propTypes.func,
   hideModal: propTypes.func,
-  onClickEditPortfolio: propTypes.func.isRequired,
-  onClickRemovePortfolio: propTypes.func.isRequired,
   match: propTypes.object,
   portfolio: propTypes.shape({
     name: propTypes.string,

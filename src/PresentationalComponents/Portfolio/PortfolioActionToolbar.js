@@ -63,7 +63,7 @@ class PortfolioActionToolbar extends Component {
             </ToolbarItem>
             <ToolbarItem className={ css(spacingStyles.mxLg) }>
               <Button variant="plain" aria-label="Remove Products from Portfolio">
-                            Remove Products
+                Remove Products
               </Button>
             </ToolbarItem>
             <ToolbarItem>
