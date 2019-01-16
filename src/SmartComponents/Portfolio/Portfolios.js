@@ -13,6 +13,7 @@ import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import AddPortfolio from './add-portfolio-modal';
 import './portfolio.scss';
+import { scrollToTop } from '../../Helpers/Shared/helpers';
 
 class Portfolios extends Component {
     state = {
@@ -26,6 +27,7 @@ class Portfolios extends Component {
 
     componentDidMount() {
       this.fetchData();
+      scrollToTop();
     }
 
     renderToolbar() {
@@ -69,7 +71,6 @@ class Portfolios extends Component {
         items: this.props.portfolios.map((item) => <PortfolioCard key={ item.id } { ...item } />),
         isLoading: this.props.isLoading
       };
-      console.log('Portfolios foo');
 
       return (
         <Fragment>

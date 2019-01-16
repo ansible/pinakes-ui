@@ -13,6 +13,7 @@ import PortfolioItem from './PortfolioItem';
 import NoMatch from '../../PresentationalComponents/Shared/404Route';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
+import { scrollToTop } from '../../Helpers/Shared/helpers';
 import './portfolio.scss';
 
 class Portfolio extends Component {
@@ -30,11 +31,13 @@ class Portfolio extends Component {
 
   componentDidMount() {
     this.fetchData(this.props.match.params.id);
+    scrollToTop();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.fetchData(this.props.match.params.id);
+      scrollToTop();
     }
   }
 

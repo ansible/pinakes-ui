@@ -7,6 +7,7 @@ import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/Actions/P
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
+import { scrollToTop } from '../../Helpers/Shared/helpers';
 import './platform.scss';
 
 class Platform extends Component {
@@ -22,11 +23,13 @@ class Platform extends Component {
 
   componentDidMount() {
     this.fetchData(this.props.match.params.id);
+    scrollToTop();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.fetchData(this.props.match.params.id);
+      scrollToTop();
     }
   }
 
