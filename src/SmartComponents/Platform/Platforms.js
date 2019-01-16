@@ -10,6 +10,7 @@ import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToo
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import MainModal from '../Common/MainModal';
 import './platform.scss';
+import { scrollToTop } from '../../Helpers/Shared/helpers';
 
 class Platforms extends Component {
     state = {
@@ -23,6 +24,7 @@ class Platforms extends Component {
 
     componentDidMount() {
       this.fetchData();
+      scrollToTop();
     }
 
     renderToolbar() {
