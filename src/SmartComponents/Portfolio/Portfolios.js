@@ -9,7 +9,7 @@ import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
-import { fetchPortfoliosIfNeeded } from '../../redux/Actions/PortfolioActions';
+import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import AddPortfolio from './add-portfolio-modal';
 import './portfolio.scss';
@@ -22,7 +22,7 @@ class Portfolios extends Component {
     };
 
     fetchData = () => {
-      this.props.fetchPortfoliosIfNeeded();
+      this.props.fetchPortfolios();
     };
 
     componentDidMount() {
@@ -92,7 +92,7 @@ const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValu
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPortfoliosIfNeeded: apiProps => dispatch(fetchPortfoliosIfNeeded(apiProps)),
+    fetchPortfolios: apiProps => dispatch(fetchPortfolios(apiProps)),
     hideModal: () => dispatch(hideModal()),
     showModal: (modalProps, modalType) => {
       dispatch(showModal({ modalProps, modalType }));
@@ -108,7 +108,7 @@ Portfolios.propTypes = {
   searchFilter: propTypes.string,
   showModal: propTypes.func,
   hideModal: propTypes.func,
-  fetchPortfoliosIfNeeded: propTypes.func.isRequired
+  fetchPortfolios: propTypes.func.isRequired
 };
 
 Portfolios.defaultProps = {

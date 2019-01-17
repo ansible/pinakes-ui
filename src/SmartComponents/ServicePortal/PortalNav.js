@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
-import { fetchPlatformsIfNeeded } from '../../redux/Actions/PlatformActions';
-import { fetchPortfoliosIfNeeded } from '../../redux/Actions/PortfolioActions';
+import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
+import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { toggleEdit } from '../../redux/Actions/UiActions';
 import './portalnav.scss';
 import { NavLoader } from '../../PresentationalComponents/Shared/LoaderPlaceholders';
@@ -23,8 +23,8 @@ class PortalNav extends React.Component {
 
   fetchData = () => {
   // TODO - only call if the user is an admin
-    this.props.fetchPortfoliosIfNeeded();
-    this.props.fetchPlatformsIfNeeded();
+    this.props.fetchPortfolios();
+    this.props.fetchPlatforms();
   }
 
   platformNavItems = () => this.props.platforms.map(item => (
@@ -86,17 +86,17 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchPortfoliosIfNeeded,
+  fetchPortfolios,
   toggleEdit,
-  fetchPlatformsIfNeeded
+  fetchPlatforms
 }, dispatch);
 
 PortalNav.propTypes = {
   portfolios: propTypes.array,
   platforms: propTypes.array,
   isPlatformDataLoading: propTypes.bool,
-  fetchPortfoliosIfNeeded: propTypes.func,
-  fetchPlatformsIfNeeded: propTypes.func,
+  fetchPortfolios: propTypes.func,
+  fetchPlatforms: propTypes.func,
   toggleEdit: propTypes.func,
   isLoading: propTypes.bool
 };

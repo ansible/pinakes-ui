@@ -1,17 +1,17 @@
 import * as ActionTypes from '../ActionTypes';
 import * as PlatformHelper from '../../Helpers/Platform/PlatformHelper';
 
-export const fetchPlatforms = () => ({
+const doFetchPlatforms = () => ({
   type: ActionTypes.FETCH_PLATFORMS,
   payload: new Promise(resolve => {
     resolve(PlatformHelper.getPlatforms());
   })
 });
 
-export const fetchPlatformsIfNeeded = () => (dispatch, getState) => {
+export const fetchPlatforms = () => (dispatch, getState) => {
   const { platformReducer: { isPlatformDataLoading }} = getState();
   if (!isPlatformDataLoading) {
-    return dispatch(fetchPlatforms());
+    return dispatch(doFetchPlatforms());
   }
 };
 
