@@ -57,15 +57,17 @@ class PortfolioActionToolbar extends Component {
           <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
             <ToolbarItem className={ css(spacingStyles.mxLg) }>
               <Link to={ this.props.addProductsRoute }>
-                <Button variant="link"  aria-label="Add Products to Portfolio">
+                <Button variant="link" aria-label="Add Products to Portfolio">
                   Add Products
                 </Button>
               </Link>
             </ToolbarItem>
             <ToolbarItem className={ css(spacingStyles.mxLg) }>
-              <Button variant="plain" aria-label="Remove Products from Portfolio">
-                Remove Products
-              </Button>
+              <Link to={ this.props.removeProductsRoute }>
+                <Button variant="plain" aria-label="Remove Products from Portfolio">
+                    Remove Products
+                </Button>
+              </Link>
             </ToolbarItem>
             <ToolbarItem>
               { this.buildPortfolioActionKebab() }
@@ -80,6 +82,7 @@ PortfolioActionToolbar.propTypes = {
   title: propTypes.string,
   onClickEditPortfolio: propTypes.func,
   addProductsRoute: propTypes.string.isRequired,
+  removeProductsRoute: propTypes.string.isRequired,
   editPortfolioRoute: propTypes.string.isRequired,
   removePortfolioRoute: propTypes.string.isRequired
 };
