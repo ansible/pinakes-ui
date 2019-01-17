@@ -22,8 +22,9 @@ class PortalNav extends React.Component {
   }
 
   fetchData = () => {
-    this.props.fetchPlatforms();
+  // TODO - only call if the user is an admin
     this.props.fetchPortfolios();
+    this.props.fetchPlatforms();
   }
 
   platformNavItems = () => this.props.platforms.map(item => (
@@ -85,9 +86,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchPlatforms,
   fetchPortfolios,
-  toggleEdit
+  toggleEdit,
+  fetchPlatforms
 }, dispatch);
 
 PortalNav.propTypes = {

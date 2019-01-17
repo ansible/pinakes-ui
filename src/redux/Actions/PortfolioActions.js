@@ -1,12 +1,19 @@
 import * as ActionTypes from '../ActionTypes';
 import * as PortfolioHelper from '../../Helpers/Portfolio/PortfolioHelper';
 
-export const fetchPortfolios = apiProps => ({
+export const doFetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
   payload: new Promise(resolve => {
     resolve(PortfolioHelper.listPortfolios(apiProps));
   })
 });
+
+export const fetchPortfolios = apiProps => (dispatch, getState) => {
+  const { portfolioReducer: { isLoading }} = getState();
+  if (!isLoading) {
+    return dispatch(doFetchPortfolios(apiProps));
+  }
+};
 
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,

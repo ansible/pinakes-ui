@@ -9,7 +9,7 @@ import {
 
 // Initial State
 export const platformInitialState = {
-  isPlatformDataLoading: true,
+  isPlatformDataLoading: false,
   platforms: [],
   platformItems: {},
   platformItem: {},
