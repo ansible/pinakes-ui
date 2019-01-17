@@ -19,7 +19,8 @@ import { scrollToTop } from '../../Helpers/Shared/helpers';
 class Portfolios extends Component {
     state = {
       filteredItems: [],
-      isOpen: false
+      isOpen: false,
+      filterValue: ''
     };
 
     fetchData = () => {
@@ -30,6 +31,8 @@ class Portfolios extends Component {
       this.fetchData();
       scrollToTop();
     }
+
+    onFilterChange = filterValue => this.setState({ filterValue })
 
     renderToolbar() {
       return (
@@ -69,13 +72,15 @@ class Portfolios extends Component {
 
     render() {
       let filteredItems = {
-        items: this.props.portfolios.map((item) => <PortfolioCard key={ item.id } { ...item } />),
-        isLoading: this.props.isLoading && this.props.portfolios.length === 0
+        items: this.props.portfolios
+        .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
+        .map(item =><PortfolioCard key={ item.id } { ...item } />),
+        isLoading: this.props.isLoading
       };
 
       return (
         <Fragment>
-          <PortfoliosFilterToolbar/>
+          <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
           <Route exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
           <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
           <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
