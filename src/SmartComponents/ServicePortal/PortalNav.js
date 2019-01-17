@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Nav, NavGroup, NavItem } from '@patternfly/react-core';
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
-import { toggleEdit } from '../../redux/Actions/UiActions';
 import './portalnav.scss';
 import { NavLoader } from '../../PresentationalComponents/Shared/LoaderPlaceholders';
 
@@ -15,7 +14,7 @@ const PLATFORM_URL_BASE = '/platform';
 const PORTFOLIOS_URL_BASE = '/portfolios';
 const PORTFOLIO_URL_BASE = '/portfolio';
 
-class PortalNav extends React.Component {
+class PortalNav extends Component {
 
   componentDidMount() {
     this.fetchData();
@@ -86,9 +85,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchPortfolios,
-  toggleEdit,
-  fetchPlatforms
+  fetchPlatforms,
+  fetchPortfolios
 }, dispatch);
 
 PortalNav.propTypes = {
@@ -97,7 +95,6 @@ PortalNav.propTypes = {
   isPlatformDataLoading: propTypes.bool,
   fetchPortfolios: propTypes.func,
   fetchPlatforms: propTypes.func,
-  toggleEdit: propTypes.func,
   isLoading: propTypes.bool
 };
 

@@ -9,7 +9,6 @@ import mainModalReducer, { mainModalInitialState } from '../redux/reducers/mainM
 import orderReducer, { orderInitialState } from '../redux/reducers/orderReducer';
 import platformReducer, { platformInitialState } from '../redux/reducers/platformReducer';
 import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolioReducer';
-import uiReducer, { uiInitialState } from '../redux/reducers/UiReducer';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
   errorTitleKey: [ 'message' ],
@@ -21,7 +20,6 @@ registry.register({
   orderReducer: applyReducerHash(orderReducer, orderInitialState),
   platformReducer: applyReducerHash(platformReducer, platformInitialState),
   portfolioReducer: applyReducerHash(portfolioReducer, portfoliosInitialState),
-  uiReducer: applyReducerHash(uiReducer, uiInitialState),
   notifications
 });
 
