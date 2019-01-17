@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal, Button } from '@patternfly/react-core';
+import { Modal, Button, Title, Bullseye } from '@patternfly/react-core';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { removePortfolio, fetchPortfolios } from '../../redux/Actions/PortfolioActions';
+import { fetchPortfolios, removePortfolio } from '../../redux/Actions/PortfolioActions';
+import { hideModal } from '../../redux/Actions/MainModalActions';
 import { pipe } from 'rxjs';
+import './portfolio.scss';
 
 const RemovePortfolioModal = ({
   history: { goBack, push },
   removePortfolio,
-  fetchPortfolios,
   addNotification,
   portfolioId,
   portfolioName
@@ -30,8 +31,8 @@ const RemovePortfolioModal = ({
 
   return (
     <Modal
-      title={ 'Remove portfolio' }
       isOpen
+      title = { '' }
       onClose={ onCancel }
       actions={ [
         <Button key="cancel" variant="secondary" type="button" onClick={ onCancel }>
@@ -42,7 +43,13 @@ const RemovePortfolioModal = ({
         </Button>
       ] }
     >
-      Removing Portfolio { portfolioName }
+      <Bullseye>
+        <div className="center_message">
+          <Title size={ '1xl' }>
+            Removing Portfolio:  { portfolioName }
+          </Title>
+        </div>
+      </Bullseye>
     </Modal>
   );
 };
@@ -54,21 +61,26 @@ RemovePortfolioModal.propTypes = {
   }).isRequired,
   removePortfolio: PropTypes.func.isRequired,
   addNotification: PropTypes.func.isRequired,
-  hideModal: PropTypes.func.isRequired,
+  fetchPortfolios: PropTypes.func.isRequired,
   portfolioId: PropTypes.string,
-  portfolioName: PropTypes.func.portfolioName,
-  fetchPortfolios: PropTypes.func.isRequired
+  portfolioName: PropTypes.string
 };
 
-const mapStateToProps = ({ portfolioReducer: { selectedPortfolio }}) => ({
-  portfolioId: selectedPortfolio.id,
-  portfolioName: selectedPortfolio.name
-});
+const portfolioDetailsFromState = (state, id) =>
+  state.portfolioReducer.portfolios.find(portfolio => portfolio.id  === id);
+
+const mapStateToProps = (state, { match: { params: { id }}}) => {
+  let portfolio = portfolioDetailsFromState(state, id);
+  return {
+    portfolioId: portfolio.id,
+    portfolioName: portfolio.name
+  };
+};
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,
   removePortfolio,
-  fetchPortfolios
+  hideModal
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RemovePortfolioModal));
