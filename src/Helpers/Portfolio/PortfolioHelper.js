@@ -53,16 +53,9 @@ export async function addToPortfolio(portfolioId, items) {
 }
 
 export async function updatePortfolio(portfolioData) {
-  return userApi.updatePortfolio(portfolioData).then(() => {
-    console.log('Update Portfolio Called successfully.');
-  }, (error) => {
-    window.console.error(error);
-  });
+  await userApi.editPortfolio(portfolioData.id, portfolioData);
 }
 
 export async function removePortfolio(portfolioId) {
-  return userApi.destroyPortfolio(portfolioId).then(data => {
-    console.log('Remove Portfolio Called successfully.');
-    return data;
-  });
+  await userApi.destroyPortfolio(portfolioId);
 }
