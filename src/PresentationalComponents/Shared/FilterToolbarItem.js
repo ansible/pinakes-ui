@@ -8,7 +8,7 @@ const FilterToolbarItem = ({ searchValue, onFilterChange, placeholder }) => (
       <div className="pf-c-input-group">
         <TextInput placeholder={ placeholder } value={ searchValue } type="text" onChange={ onFilterChange }
           aria-label="Find product button"></TextInput>
-        <Button variant="tertiary" id="searchProductButton" onClick={ console.log }>
+        <Button variant="tertiary" id="searchProductButton" onClick={ () => onFilterChange(searchValue) }>
           <i className="fas fa-search" aria-hidden="true"></i>
         </Button>
       </div>
