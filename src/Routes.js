@@ -1,8 +1,8 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React from 'react';
-import asyncComponent from './Utilities/asyncComponent';
+import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
+import { AppPlaceholder } from './PresentationalComponents/Shared/LoaderPlaceholders';
 
 /**
  * Aysnc imports of components
@@ -18,11 +18,11 @@ import some from 'lodash/some';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
-const Platforms = asyncComponent(() => import('./SmartComponents/Platform/Platforms'));
-const Platform = asyncComponent(() => import('./SmartComponents/Platform/Platform'));
-const Portfolios = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolios'));
-const Portfolio = asyncComponent(() => import('./SmartComponents/Portfolio/Portfolio'));
-const Orders = asyncComponent(() => import('./SmartComponents/Order/Orders'));
+const Platforms = lazy(() => import('./SmartComponents/Platform/Platforms'));
+const Platform = lazy(() => import('./SmartComponents/Platform/Platform'));
+const Portfolios = lazy(() => import('./SmartComponents/Portfolio/Portfolios'));
+const Portfolio = lazy(() => import('./SmartComponents/Portfolio/Portfolio'));
+const Orders = lazy(() => import('./SmartComponents/Order/Orders'));
 
 const paths = {
   service_portal: '/',
@@ -57,15 +57,17 @@ InsightsRoute.propTypes = {
 export const Routes = props => {
   const path = props.childProps.location.pathname;
   return (
-    <Switch>
-      <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
-      <InsightsRoute path={ paths.platform } component={ Platform } rootClass="platform"/>
-      <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
-      <InsightsRoute path={ paths.portfolio } component={ Portfolio } rootClass="portfolio" />
-      <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />
-      { /* Finally, catch all unmatched routes */ }
-      <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
-    </Switch>
+    <Suspense fallback={ <AppPlaceholder /> }>
+      <Switch>
+        <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
+        <InsightsRoute path={ paths.platform } component={ Platform } rootClass="platform"/>
+        <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
+        <InsightsRoute path={ paths.portfolio } component={ Portfolio } rootClass="portfolio" />
+        <InsightsRoute exact path={ paths.orders } component={ Orders } rootClass="service_portal" />
+        { /* Finally, catch all unmatched routes */ }
+        <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
+      </Switch>
+    </Suspense>
   );
 };
 

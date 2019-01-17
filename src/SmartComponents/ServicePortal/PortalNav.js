@@ -8,6 +8,7 @@ import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { toggleEdit } from '../../redux/Actions/UiActions';
 import './portalnav.scss';
+import { NavLoader } from '../../PresentationalComponents/Shared/LoaderPlaceholders';
 
 const PLATFORMS_URL_BASE = '/platforms';
 const PLATFORM_URL_BASE = '/platform';
@@ -21,7 +22,6 @@ class PortalNav extends React.Component {
   }
 
   fetchData = () => {
-  // TODO - only call if the user is an admin
     this.props.fetchPlatforms();
     this.props.fetchPortfolios();
   }
@@ -32,7 +32,7 @@ class PortalNav extends React.Component {
         { item.name }
       </NavLink>
     </NavItem>
-  ));
+  ))
 
   portfolioNavItems = () => this.props.portfolios.map(item => (
     <NavItem key={ item.id } id={ item.id }>
@@ -42,16 +42,24 @@ class PortalNav extends React.Component {
     </NavItem>
   ));
 
+  renderPlatformNav = () => this.props.isPlatformDataLoading && this.props.platforms.length === 0
+    ? <NavLoader items={ 3 } />
+    : this.platformNavItems()
+
+  renderPortfilioNav = () => this.props.isLoading && this.props.portfolios.length === 0
+    ? <NavLoader items={ 5 } />
+    : this.portfolioNavItems()
+
   render() {
     return (
       <Nav aria-label="Service Portal" className="portal-nav">
         <NavGroup title="Platforms">
           <NavItem key='all' id="all-platforms">
             <NavLink exact to={ PLATFORMS_URL_BASE }>
-                    All Platforms
+            All Platforms
             </NavLink>
           </NavItem>
-          { this.platformNavItems() }
+          { this.renderPlatformNav() }
         </NavGroup>
         <NavGroup title="Portfolios">
           <NavItem key='all' id="all-portfolios">
@@ -59,7 +67,7 @@ class PortalNav extends React.Component {
               All Portfolios
             </NavLink>
           </NavItem>
-          { this.portfolioNavItems() }
+          { this.renderPortfilioNav() }
         </NavGroup>
       </Nav>
     );

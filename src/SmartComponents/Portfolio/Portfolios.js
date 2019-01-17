@@ -69,7 +69,7 @@ class Portfolios extends Component {
     render() {
       let filteredItems = {
         items: this.props.portfolios.map((item) => <PortfolioCard key={ item.id } { ...item } />),
-        isLoading: this.props.isLoading
+        isLoading: this.props.isLoading && this.props.portfolios.length === 0
       };
 
       return (
@@ -109,6 +109,10 @@ Portfolios.propTypes = {
   showModal: propTypes.func,
   hideModal: propTypes.func,
   fetchPortfolios: propTypes.func.isRequired
+};
+
+Portfolios.defaultProps = {
+  portfolios: []
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Portfolios);
