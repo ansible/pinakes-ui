@@ -71,14 +71,10 @@ AddPortfolioModal.propTypes = {
   fetchSelectedPortfolio: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, { match: { params: { id }}}) => {
-  // TODO fill initial values after hooks are available
-  const initialvalues = {};
-  return {
-    initialValues: id && initialvalues,
-    portfolioId: id
-  };
-};
+const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
+  initialValues: id && portfolios.find(item => item.id === id),
+  portfolioId: id
+});
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,
