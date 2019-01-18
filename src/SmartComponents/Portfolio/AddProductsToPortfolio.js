@@ -20,14 +20,17 @@ import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
 class AddProductsToPortfolio extends Component {
     state = {
       selectedPlatforms: [],
-      checkedItems: []
+      checkedItems: [],
+      searchValue: ''
     };
+
+    handleFilterChange = searchValue => this.setState({ searchValue })
 
     onPlatformSelectionChange = (selectedValues = []) =>
       this.setState(
         () => ({ selectedPlatforms: selectedValues }),
         () => this.props.fetchMultiplePlatformItems(selectedValues.filter(({ id }) =>
-          !this.props.platformItems[id]).map(({ id }) => id)));
+          !this.props.platformItems.hasOwnProperty(id)).map(({ id }) => id)));
 
     onToggleItemSelect = checkedId => this.setState(({ checkedItems }) => {
       const index = checkedItems.indexOf(checkedId);
@@ -50,7 +53,7 @@ class AddProductsToPortfolio extends Component {
       const { selectedPlatforms } = this.state;
       const { platformItems } = this.props;
       return selectedPlatforms.map(({ id }) => platformItems[id]
-        ? platformItems[id].map(item =>
+        ? platformItems[id].filter(({ name }) => name.trim().toLowerCase().includes(this.state.searchValue.toLocaleLowerCase())).map(item =>
           <PlatformItem
             key={ item.id }
             { ...item }
@@ -78,7 +81,12 @@ class AddProductsToPortfolio extends Component {
             onClickAddToPortfolio = { this.onAddToPortfolio }
             portfolioRoute={ this.props.portfolioRoute }
           />
-          <PlatformSelectToolbar onOptionSelect={ this.onPlatformSelectionChange } { ...this.props } />
+          <PlatformSelectToolbar
+            searchValue={ this.state.searchValue }
+            onFilterChange={ this.handleFilterChange }
+            onOptionSelect={ this.onPlatformSelectionChange }
+            { ...this.props }
+          />
           { (this.state.selectedPlatforms.length > 0) &&
             this.state.selectedPlatforms.map(platform => (
               <ContentGallery
