@@ -29,19 +29,20 @@ class PortfolioActionToolbar extends Component {
           position={ DropdownPosition.right }
           toggle={ <KebabToggle onToggle={ this.onKebabToggle }/> }
           isOpen={ isKebabOpen }
+          dropdownItems={ [
+            <DropdownItem component="button" aria-label="Edit Portfolio" key="edit-portfolio">
+              <Link to={ this.props.editPortfolioRoute }>
+                Edit Portfolio
+              </Link>
+            </DropdownItem>,
+            <DropdownItem component="button" aria-label="Remove Portfolio" key="delete-portfolio">
+              <Link to={ this.props.removePortfolioRoute }>
+                Remove Portfolio
+              </Link>
+            </DropdownItem>
+          ] }
           isPlain
-        >
-          <DropdownItem component="button" aria-label="Edit Portfolio">
-            <Link to={ this.props.editPortfolioRoute }>
-              Edit Portfolio
-            </Link>
-          </DropdownItem>
-          <DropdownItem component="button" aria-label="Remove Portfolio">
-            <Link to={ this.props.removePortfolioRoute }>
-              Remove Portfolio
-            </Link>
-          </DropdownItem>
-        </Dropdown>
+        />
       );
     };
 
