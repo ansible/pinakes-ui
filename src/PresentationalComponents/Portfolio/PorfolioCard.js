@@ -34,18 +34,20 @@ const createToolbarActions = (portfolioName, portfolioId) => [
 
 const PortfolioCard = ({ imageUrl, name, id, ...props }) => (
   <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
-    <Card>
-      <CardHeader className="card-image-header">
-        <PortfolioCardHeader
-          portfolioName={ name }
-          headerActions={ createToolbarActions(name, id) }
-        />
-      </CardHeader>
-      <CardBody>
-        <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
-      </CardBody>
-      <CardFooter/>
-    </Card>
+    <Link style={ { textDecoration: 'none' } } to={ `/portfolio/${id}` }>
+      <Card>
+        <CardHeader className="card-image-header">
+          <PortfolioCardHeader
+            portfolioName={ name }
+            headerActions={ createToolbarActions(name, id) }
+          />
+        </CardHeader>
+        <CardBody>
+          <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
+        </CardBody>
+        <CardFooter/>
+      </Card>
+    </Link>
   </GridItem>
 );
 

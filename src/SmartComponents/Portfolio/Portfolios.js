@@ -74,7 +74,7 @@ class Portfolios extends Component {
       let filteredItems = {
         items: this.props.portfolios
         .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
-        .map(item =><PortfolioCard key={ item.id } { ...item } />),
+        .map(item => <PortfolioCard key={ item.id } { ...item } />),
         isLoading: this.props.isLoading
       };
 
