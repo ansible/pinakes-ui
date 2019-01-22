@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Title } from '@patternfly/react-core';
-import { Main } from '@red-hat-insights/insights-frontend-components';
 import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
@@ -42,13 +41,13 @@ class Platform extends Component {
     let title = this.props.platform ? this.props.platform.name : '';
 
     return (
-      <Main style={ { marginLeft: 0, paddingLeft: 0, paddingTop: 0 } }>
+      <Fragment>
         <PlatformToolbar/>
-        <div style={ { marginLeft: 25, paddingTop: 40 } }>
+        <div className="toolbar-padding">
           { title &&  (<Title size={ '2xl' } > { title }</Title>) }
         </div>
         <ContentGallery { ...filteredItems }/>
-      </Main>
+      </Fragment>
     );
   }
 }

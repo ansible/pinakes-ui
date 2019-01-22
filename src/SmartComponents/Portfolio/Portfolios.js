@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
 import { Toolbar, ToolbarGroup, ToolbarItem, Title, Button } from '@patternfly/react-core';
-import { css } from '@patternfly/react-styles';
-import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing.css';
-import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
@@ -36,10 +33,10 @@ class Portfolios extends Component {
 
     renderToolbar() {
       return (
-        <Toolbar className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }>
+        <Toolbar className="toolbar-padding">
           <ToolbarGroup>
-            <ToolbarItem className={ css(spacingStyles.mrXl) }>
-              <Title size={ '2xl' }> All Portfolios</Title>
+            <ToolbarItem>
+              <Title size={ '2xl' }>All Portfolios</Title>
             </ToolbarItem>
           </ToolbarGroup>
           <ToolbarGroup  className={ 'pf-u-ml-auto-on-xl' }>

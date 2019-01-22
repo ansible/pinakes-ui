@@ -80,15 +80,14 @@ class Portfolio extends Component {
     <Fragment>
       <PortfolioFilterToolbar/>
       { !this.props.isLoading &&
-        <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
-          <PortfolioActionToolbar title={ title }
+          <PortfolioActionToolbar
+            title={ title }
             filterItems={ this.filterItems }
             addProductsRoute={ addProductsRoute }
             removeProductsRoute={ removeProductsRoute }
             editPortfolioRoute={ editPortfolioRoute }
             removePortfolioRoute={ removePortfolioRoute }
           />
-        </div>
       }
       <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolio/:id/remove-portfolio" component={ RemovePortfolioModal } />

@@ -29,7 +29,7 @@ class Platforms extends Component {
 
     renderToolbar() {
       return (
-        <Toolbar>
+        <Toolbar className="toolbar-padding">
           <ToolbarGroup>
             <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' } >
               <Title size={ '2xl' }>  All Platforms  </Title>
