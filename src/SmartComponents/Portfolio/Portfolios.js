@@ -58,24 +58,12 @@ class Portfolios extends Component {
       );
     }
 
-    onClickCreatePortfolio = () => {
-      this.props.showModal({
-        open: true,
-        closeModal: this.props.hideModal
-      }, 'addportfolio');
-
-      this.setState({
-        ...this.state,
-        isOpen: !this.state.isOpen
-      });
-    };
-
     render() {
       let filteredItems = {
         items: this.props.portfolios
         .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
         .map(item => <PortfolioCard key={ item.id } { ...item } />),
-        isLoading: this.props.isLoading
+        isLoading: this.props.isLoading && this.props.portfolios.length === 0
       };
 
       return (

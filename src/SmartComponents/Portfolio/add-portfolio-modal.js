@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal } from '@patternfly/react-core';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { addPortfolio, fetchPortfolios, updatePortfolio, fetchSelectedPortfolio } from '../../redux/Actions/PortfolioActions';
+import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/Actions/PortfolioActions';
 import { pipe } from 'rxjs';
 
 const AddPortfolioModal = ({
@@ -14,14 +14,12 @@ const AddPortfolioModal = ({
   addPortfolio,
   addNotification,
   fetchPortfolios,
-  portfolioId,
   initialValues,
-  updatePortfolio,
-  fetchSelectedPortfolio
+  updatePortfolio
 }) => {
   const onSubmit = data => initialValues
-    ? updatePortfolio(data).then(fetchSelectedPortfolio(portfolioId)).then(goBack)
-    : addPortfolio(data).then(fetchPortfolios()).then(goBack());
+    ? updatePortfolio(data).then(() => fetchPortfolios()).then(goBack)
+    : addPortfolio(data).then(() => fetchPortfolios()).then(goBack);
 
   const onCancel = () => pipe(
     addNotification({
@@ -66,9 +64,7 @@ AddPortfolioModal.propTypes = {
   addNotification: PropTypes.func.isRequired,
   fetchPortfolios: PropTypes.func.isRequired,
   initialValues: PropTypes.object,
-  portfolioId: PropTypes.string,
-  updatePortfolio: PropTypes.func.isRequired,
-  fetchSelectedPortfolio: PropTypes.func.isRequired
+  updatePortfolio: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
@@ -80,8 +76,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,
   addPortfolio,
   updatePortfolio,
-  fetchPortfolios,
-  fetchSelectedPortfolio
+  fetchPortfolios
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));
