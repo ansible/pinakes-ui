@@ -15,14 +15,17 @@ import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 import './portfolio.scss';
+import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfolioItems';
+import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
 
 class Portfolio extends Component {
-    state = {
-      portfolioId: '',
-      isKebabOpen: false,
-      isOpen: false,
-      filteredItems: []
-    };
+  state = {
+    portfolioId: '',
+    isKebabOpen: false,
+    isOpen: false,
+    filteredItems: [],
+    selectItems: []
+  };
 
   fetchData = (apiProps) => {
     this.props.fetchSelectedPortfolio(apiProps);
@@ -41,6 +44,28 @@ class Portfolio extends Component {
     }
   }
 
+  removeProducts = () => {
+    const itemIdsToRemove = this.state.selectItems;
+
+    this.props.history.goBack();
+
+    removePortfolioItems(itemIdsToRemove).then(() => {
+      this.fetchData(this.props.match.params.id);
+      this.setState({
+        selectItems: []
+      });
+    });
+  };
+
+  handleItemSelect = selectedItem =>
+    this.setState(({ selectItems }) =>
+      selectItems.includes(selectedItem)
+        ? ({ selectItems: [
+          ...selectItems.slice(0, selectItems.indexOf(selectedItem)),
+          ...selectItems.slice(selectItems.indexOf(selectedItem) + 1)
+        ]})
+        : ({ selectItems: [ ...selectItems, selectedItem ]}));
+
   filterItems = (filterValue) => {
     let filteredItems = [];
     if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
@@ -51,14 +76,15 @@ class Portfolio extends Component {
     return filteredItems;
   };
 
-  renderProducts = ({ title, filteredItems, addProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
+  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
     <Fragment>
       <PortfolioFilterToolbar/>
-      { (!this.props.isLoading) &&
+      { !this.props.isLoading &&
         <div style={ { marginTop: '15px', marginLeft: '25px', marginRight: '25px' } }>
           <PortfolioActionToolbar title={ title }
             filterItems={ this.filterItems }
             addProductsRoute={ addProductsRoute }
+            removeProductsRoute={ removeProductsRoute }
             editPortfolioRoute={ editPortfolioRoute }
             removePortfolioRoute={ removePortfolioRoute }
           />
@@ -78,24 +104,44 @@ class Portfolio extends Component {
     />
   );
 
+  renderRemoveProducts = ({ portfolioRoute, filteredItems }) => (
+    <React.Fragment>
+      <RemovePortfolioItems
+        portfolioRoute={ portfolioRoute }
+        onRemove={ this.removeProducts } />
+      <ContentGallery { ...filteredItems } />
+    </React.Fragment>
+  );
+
   render() {
     const portfolioRoute = this.props.match.url;
     const addProductsRoute = `${this.props.match.url}/add-products`;
+    const removeProductsRoute = `${this.props.match.url}/remove-products`;
     const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
     const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
-    let filteredItems = {
-      items: this.props.portfolioItems.map(item => <PortfolioItem key={ item.id } { ...item }/>),
+    const title = this.props.portfolio ? this.props.portfolio.name : '';
+
+    const filteredItems = {
+      items: this.props.portfolioItems.map(item => (
+        <PortfolioItem
+          key={ item.id }
+          { ...item }
+          isSelectable={ this.props.location.pathname.includes('/remove-products') }
+          onSelect={ this.handleItemSelect }
+          isSelected={ this.state.selectItems.includes(item.id) }
+        />
+      )),
       isLoading: this.props.isLoading
     };
-
-    let title = this.props.portfolio ? this.props.portfolio.name : '';
 
     return (
       <Switch>
         <Route path="/portfolio/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+        <Route path="/portfolio/:id/remove-products" render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, ...props }) } />
         <Route
           path="/portfolio/:id"
-          render={ props => this.renderProducts({ addProductsRoute, editPortfolioRoute, removePortfolioRoute, filteredItems, title, ...props }) }
+          render={ props => this.renderProducts(
+            { addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, filteredItems, title, ...props }) }
         />
         <Route component={ NoMatch } />
       </Switch>
@@ -129,6 +175,8 @@ Portfolio.propTypes = {
     name: propTypes.string,
     id: propTypes.string.isRequired
   }),
+  location: propTypes.object,
+  history: propTypes.object,
   portfolioItems: propTypes.array
 };
 

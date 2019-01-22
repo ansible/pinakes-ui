@@ -43,9 +43,9 @@ export async function addToPortfolio(portfolioId, items) {
   let idx = 0; let newItem = null;
 
   for (idx = 0; idx < items.length; idx++) {
-    newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx] }));
+    newItem = await userApi.addPortfolioItem(JSON.stringify({ serviceOfferingRef: items[idx] }));
     if (newItem) {
-      await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
+      await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolioItemId: newItem.id }));
     }
   }
 
@@ -58,4 +58,12 @@ export async function updatePortfolio(portfolioData) {
 
 export async function removePortfolio(portfolioId) {
   await userApi.destroyPortfolio(portfolioId);
+}
+
+export async function removePortfolioItem(portfolioItemId) {
+  return userApi.destroyPortfolioItem(portfolioItemId);
+}
+
+export async function removePortfolioItems(portfolioItemIds) {
+  return Promise.all(portfolioItemIds.map(async itemId => await removePortfolioItem(itemId)));
 }
