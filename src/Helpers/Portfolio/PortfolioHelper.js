@@ -43,9 +43,9 @@ export async function addToPortfolio(portfolioId, items) {
   let idx = 0; let newItem = null;
 
   for (idx = 0; idx < items.length; idx++) {
-    newItem = await userApi.addPortfolioItem(JSON.stringify({ serviceOfferingRef: items[idx] }));
+    newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx] }));
     if (newItem) {
-      await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolioItemId: newItem.id }));
+      await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
     }
   }
 
