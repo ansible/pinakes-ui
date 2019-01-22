@@ -14,11 +14,12 @@ const RemovePortfolioModal = ({
   history: { goBack, push },
   removePortfolio,
   addNotification,
+  fetchPortfolios,
   portfolioId,
   portfolioName
 }) => {
   const onSubmit = () => removePortfolio(portfolioId)
-  .then(() => pipe(push('/portfolios'), fetchPortfolios()));
+  .then(() => pipe(fetchPortfolios(), push('/portfolios')));
 
   const onCancel = () => pipe(
     addNotification({
@@ -45,7 +46,7 @@ const RemovePortfolioModal = ({
     >
       <Bullseye>
         <div className="center_message">
-          <Title size={ '1xl' }>
+          <Title size={ 'xl' }>
             Removing Portfolio:  { portfolioName }
           </Title>
         </div>
@@ -79,6 +80,7 @@ const mapStateToProps = (state, { match: { params: { id }}}) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,
+  fetchPortfolios,
   removePortfolio,
   hideModal
 }, dispatch);
