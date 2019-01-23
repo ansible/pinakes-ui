@@ -32,16 +32,16 @@ class OrderModal extends Component {
 
     return (
       <React.Fragment>
-        <Title>
+        <div>
           <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
           { this.props.servicedata.name }
-        </Title>
-        <Grid>
-          { this.renderStepPage(steps[activeStepIndex].page, this.props.servicedata) }
-          { (activeStepIndex < steps.length - 1) && <Button variant="primary" type="button" onClick={ this.onNext }>
-            Order
-          </Button> }
-        </Grid>
+        </div>
+        { this.renderStepPage(steps[activeStepIndex].page, this.props.servicedata) }
+        { (activeStepIndex < steps.length - 1) &&
+            <Button variant="primary" aria-label="Order portfolio item" onClick={ this.onNext }>
+              Order
+            </Button>
+        }
       </React.Fragment>
     );
   }
