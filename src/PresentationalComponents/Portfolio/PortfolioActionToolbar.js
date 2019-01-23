@@ -61,7 +61,7 @@ class PortfolioActionToolbar extends Component {
             </ToolbarItem>
             <ToolbarItem>
               <Link to={ this.props.removeProductsRoute }>
-                <Button variant="plain" aria-label="Remove Products from Portfolio">
+                <Button variant="link" style={ { color: '#FF0000' } } aria-label="Remove Products from Portfolio">
                   Remove Products
                 </Button>
               </Link>
