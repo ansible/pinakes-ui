@@ -21,17 +21,20 @@ class PortfolioItem extends Component {
   handleOnClick = () => {
     this.setState({ showOrder: true });
     this.props.showModal({
-      open: true,
-      servicedata: this.props,
-      closeModal: this.props.hideModal
-    }, 'order');
+      modalProps: {
+        open: true,
+        servicedata: this.props,
+        closeModal: this.props.hideModal
+      },
+      modalType: 'order'
+    });
   };
 
   render() {
     return (
       <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
         <Card>
-          <div onClick={ () => {this.handleOnClick(this.props);} }>
+          <div onClick={ () => this.handleOnClick(this.props) }>
             <CardHeader className="card_header">
               { this.props.isSelectable && <CardCheckbox
                 handleCheck={ () => { this.props.onSelect(this.props.id); } }
