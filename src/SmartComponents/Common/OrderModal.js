@@ -13,7 +13,7 @@ class OrderModal extends Component {
     activeStepIndex: 0
   };
 
-  onNext = () => this.setState((prevState, props) => ({ activeStepIndex: prevState.activeStepIndex + 1 }));
+  onNext = () => this.setState((prevState) => ({ activeStepIndex: prevState.activeStepIndex + 1 }));
 
   renderStepPage = (componentPage, props) => {
     const StepComponent = componentPage;

@@ -13,7 +13,6 @@ import PortfolioItem from './PortfolioItem';
 import NoMatch from '../../PresentationalComponents/Shared/404Route';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
-import OrderPortfolioModal from './order-portfolio-modal';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 import './portfolio.scss';
 import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfolioItems';
@@ -77,7 +76,7 @@ class Portfolio extends Component {
     return filteredItems;
   };
 
-  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, orderPortfolioRoute }) => (
+  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
     <Fragment>
       <PortfolioFilterToolbar/>
       { !this.props.isLoading &&
@@ -88,12 +87,10 @@ class Portfolio extends Component {
             removeProductsRoute={ removeProductsRoute }
             editPortfolioRoute={ editPortfolioRoute }
             removePortfolioRoute={ removePortfolioRoute }
-            orderPortfolioRoute={ orderPortfolioRoute }
           />
       }
       <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolio/:id/remove-portfolio" component={ RemovePortfolioModal } />
-      <Route exact path="/portfolio/:id/order-portfolio" component={ OrderPortfolioModal } />
       <ContentGallery { ...filteredItems } />
       <MainModal/>
     </Fragment>
@@ -121,7 +118,6 @@ class Portfolio extends Component {
     const removeProductsRoute = `${this.props.match.url}/remove-products`;
     const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
     const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
-    const orderPortfolioRoute = `${this.props.match.url}/order-portfolio`;
     const title = this.props.portfolio ? this.props.portfolio.name : '';
 
     const filteredItems = {
@@ -144,7 +140,7 @@ class Portfolio extends Component {
         <Route
           path="/portfolio/:id"
           render={ props => this.renderProducts(
-            { addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, orderPortfolioRoute, filteredItems, title, ...props }) }
+            { addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, filteredItems, title, ...props }) }
         />
         <Route component={ NoMatch } />
       </Switch>

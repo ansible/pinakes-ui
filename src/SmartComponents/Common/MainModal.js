@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal,
-  ModalBoxHeader,
-  ModalBoxBody,
-  ModalBoxCloseButton
-} from '@patternfly/react-core';
+import { Modal } from '@patternfly/react-core';
 
 import { default as modalTypes } from './ModalTypes';
 
@@ -68,7 +64,8 @@ MainModalContainer.propTypes = {
     open: PropTypes.bool,
     closeModal: PropTypes.func.isRequired
   }).isRequired,
-  modalType: PropTypes.node
+  modalType: PropTypes.node,
+  title: PropTypes.string
 };
 
 export default connect(mapStateToProps)(MainModalContainer);
