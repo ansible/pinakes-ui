@@ -51,7 +51,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
   onSubmit = (data) => {
     const portfolioItemId = this.props.id;
     const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
-    sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data.formData });
+    this.props.sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data });
     this.props.hideModal();
   };
 
@@ -107,7 +107,8 @@ OrderServiceFormStepConfiguration.propTypes = {
   error: propTypes.bool,
   imageURL: propTypes.string,
   id: propTypes.string,
-  name: propTypes.string
+  name: propTypes.string,
+  sendSubmitOrder: propTypes.func.isRequired
 };
 
 const mapStateToProps = ({ orderReducer: { isLoading, servicePlans }}) => ({
@@ -116,7 +117,8 @@ const mapStateToProps = ({ orderReducer: { isLoading, servicePlans }}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPlans: (portfolioItemId) => dispatch(fetchServicePlans(portfolioItemId))
+  fetchPlans: (portfolioItemId) => dispatch(fetchServicePlans(portfolioItemId)),
+  sendSubmitOrder: data => dispatch(sendSubmitOrder(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderServiceFormStepConfiguration);
