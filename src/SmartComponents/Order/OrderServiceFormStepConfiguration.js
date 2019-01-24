@@ -4,10 +4,10 @@ import { Form as PFForm } from 'patternfly-react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 // replce with data driven form
-import Form from 'react-jsonschema-form';
-import { Bullseye, Button, Radio } from '@patternfly/react-core';
+import { Bullseye, Radio } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
+import FormRenderer from '../Common/FormRenderer';
 
 const optionRow = (plan, option, selected_id, onChange) => {
   return (
@@ -68,11 +68,11 @@ class OrderServiceFormStepConfiguration extends React.Component {
             }
             <div>
               { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
-                <Form schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema } onSubmit={ this.onSubmit }>
-                  <div>
-                    <Button variant="primary" type="submit">Submit</Button>
-                  </div>
-                </Form>
+              <FormRenderer
+                schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
+                onSubmit={ this.onSubmit }
+                schemaType="mozilla"
+              />
               }
             </div>
           </PFForm.FormGroup>
