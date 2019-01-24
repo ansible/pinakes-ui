@@ -34,3 +34,10 @@ ul.navigation-secondary {
 .toolbar-padding {
   padding: 24px 24px 0 24px
 }
+
+.card-link {
+  &:hover {
+    text-decoration: none;
+  }
+  cursor: pointer;
+}

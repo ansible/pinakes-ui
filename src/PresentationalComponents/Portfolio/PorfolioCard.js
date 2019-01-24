@@ -34,7 +34,7 @@ const createToolbarActions = (portfolioName, portfolioId) => [
 
 const PortfolioCard = ({ imageUrl, name, id, ...props }) => (
   <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
-    <Link style={ { textDecoration: 'none' } } to={ `/portfolio/${id}` }>
+    <Link className="card-link" to={ `/portfolio/${id}` }>
       <Card>
         <CardHeader className="card-image-header">
           <PortfolioCardHeader
