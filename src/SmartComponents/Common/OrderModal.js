@@ -32,7 +32,7 @@ class OrderModal extends Component {
 
     return (
       <React.Fragment>
-        <div>
+        <div className="OrderFormTitle">
           <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
           { this.props.servicedata.name }
         </div>

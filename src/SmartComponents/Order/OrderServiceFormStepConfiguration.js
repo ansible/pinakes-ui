@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Bullseye, Radio, Form, Title } from '@patternfly/react-core';
+import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import FormRenderer from '../Common/FormRenderer';
@@ -23,9 +23,7 @@ const optionRow = (plan, option, selected_id, onChange) => {
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
     showOrder: false,
-    activeStepIndex: 1,
-    selectedPlan: null,
-    selectedPlanIdx: 0
+    selectedPlanId: 0
   };
 
   componentDidMount() {
@@ -56,24 +54,30 @@ class OrderServiceFormStepConfiguration extends React.Component {
     if (!this.props.isLoading) {
       return (
         <React.Fragment>
-          <Title> Configuration </Title>
-          <Form>
-            { (this.props.servicePlans.length > 1) &&
-                  <div>
-                    <Title>Select Plan:</Title>
-                    <div>{ this.planOptions() }</div>
-                  </div>
-            }
-            <div>
-              { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
-              <FormRenderer
-                schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
-                onSubmit={ this.onSubmit }
-                schemaType="mozilla"
-              />
-              }
-            </div>
-          </Form>
+          <Stack gutter="md">
+            <StackItem>
+              <Title size={ 'md' } > Configuration </Title>
+            </StackItem>
+            <StackItem isMain>
+              <Form>
+                { (this.props.servicePlans.length > 1) &&
+                      <div>
+                        <Title>Select Plan:</Title>
+                        <div>{ this.planOptions() }</div>
+                      </div>
+                }
+                <div>
+                  { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
+                  <FormRenderer
+                    schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
+                    onSubmit={ this.onSubmit }
+                    schemaType="mozilla"
+                  />
+                  }
+                </div>
+              </Form>
+            </StackItem>
+          </Stack>
         </React.Fragment>
       );
     }
