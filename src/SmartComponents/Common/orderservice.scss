@@ -2,62 +2,10 @@
 
 
 .OrderForm {
-  border: 10px;
+  border: 5px;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
   max-width: 500px;
   font-size: small;
 }
-
-.wizard-pf {
-  padding: 10px;
-  margin: 0 auto;
-  max-height: 900px;
-  width: auto;
-}
-.wizard-pf .modal-content {
-  min-height: 100%;
-}
-.wizard-pf-body {
-  background: #fff;
-  padding: 0;
-  position: static;
-}
-/* styles the sidebard containing the sub-steps */
-.wizard-pf-sidebar {
-  background: #fafafa;
-  border-right: 1px solid #d1d1d1;
-  display: none;
-}
-.wizard-pf-substep-number {
-  display: inline-block;
-  margin-right: 5px;
-  vertical-align: middle;
-  width: 25px;
-}
-.wizard-pf-substep-title {
-  display: inline-block;
-  margin-right: 5px;
-  text-align: left;
-  vertical-align: middle;
-}
-/* styles the steps indicator across the top of the wizard */
-.wizard-pf-steps {
-  border-bottom: solid 1px #d1d1d1;
-}
-@media (min-width: 768px) {
-  .wizard-pf-steps {
-    text-align: center;
-  }
-}
-.wizard-pf-steps-indicator {
-  background: #ededed;
-  border-top: 1px solid #d1d1d1;
-  display: none;
-  font-size: 16px;
-  list-style: none;
-  margin-bottom: 0;
-  padding: 15px 0;
-}
-

@@ -16,6 +16,8 @@ class OrderServiceFormStepConfiguration extends React.Component {
     return (
       <div>
         <Radio
+          id={ plan.id }
+          key={ plan.id }
           value={ plan.id }
           checked={ selectedId === plan.id }
           name={ plan.name }
@@ -25,7 +27,6 @@ class OrderServiceFormStepConfiguration extends React.Component {
         { plan.description }
       </div>);
   };
-
 
   componentDidMount() {
     const { id } = this.props;

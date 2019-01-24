@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Form, Title } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import { connect } from 'react-redux';
 import './orderservice.scss';
 import propTypes from 'prop-types';
@@ -32,7 +32,7 @@ class OrderModal extends Component {
 
     return (
       <React.Fragment>
-        <div className="OrderFormTitle">
+        <div style={ { border: '2px' } }>
           <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
           { this.props.servicedata.name }
         </div>
