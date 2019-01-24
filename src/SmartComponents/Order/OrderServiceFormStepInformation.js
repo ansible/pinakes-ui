@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form } from 'patternfly-react';
+import { CardBody } from '@patternfly/react-core';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './orderservice.scss';
 
 class OrderServiceFormStepInformation extends React.Component {
   state = {
@@ -12,11 +13,9 @@ class OrderServiceFormStepInformation extends React.Component {
 
   render() {
     return (
-      <Form horizontal>
-        <Form.FormGroup>
-          { this.props.description }
-        </Form.FormGroup>
-      </Form>
+      <CardBody className="order_card">
+        { this.props.description }
+      </CardBody>
     );
   }
 }

@@ -11,8 +11,15 @@
   font-size: small;
 }
 
-.orderformtitle {
-  border-bottom: 2px;
-  border-bottom-color: #666666;
-  border-bottom-style: solid;
+.order_header {
+  border-bottom: 2px solid #D3D3D3
+}
+
+.order_card {
+  min-height: 140px;
+  border: 0px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: small;
 }

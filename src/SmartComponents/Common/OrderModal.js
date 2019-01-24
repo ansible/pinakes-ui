@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from '@patternfly/react-core';
+import { Button, CardHeader } from '@patternfly/react-core';
 import { connect } from 'react-redux';
-import './orderservice.scss';
+import '../Order/orderservice.scss';
 import propTypes from 'prop-types';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
@@ -32,10 +32,10 @@ class OrderModal extends Component {
 
     return (
       <React.Fragment>
-        <div style={ { border: '2px' } }>
+        <CardHeader className="order_header">
           <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
           { this.props.servicedata.name }
-        </div>
+        </CardHeader>
         { this.renderStepPage(steps[activeStepIndex].page, this.props.servicedata) }
         { (activeStepIndex < steps.length - 1) &&
             <Button variant="primary" aria-label="Order portfolio item" onClick={ this.onNext }>

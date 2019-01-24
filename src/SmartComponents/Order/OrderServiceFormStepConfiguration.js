@@ -12,21 +12,15 @@ class OrderServiceFormStepConfiguration extends React.Component {
     selectedPlanIdx: 0
   };
 
-  optionRow = (plan, option, selectedId, onChange) => {
-    return (
-      <div>
-        <Radio
-          id={ plan.id }
-          key={ plan.id }
-          value={ plan.id }
-          checked={ selectedId === plan.id }
-          name={ plan.name }
-          aria-label={ plan.description }
-          onChange={ onChange }
-        />
-        { plan.description }
-      </div>);
-  };
+  optionRow = (plan, option, selectedId, onChange) =>
+    <Radio id={ plan.id }
+      key={ plan.id }
+      value={ plan.id }
+      checked={ selectedId === plan.id }
+      name={ plan.name }
+      aria-label={ plan.description }
+      onChange={ onChange }
+      label={ plan.description } />;
 
   componentDidMount() {
     const { id } = this.props;
@@ -57,27 +51,25 @@ class OrderServiceFormStepConfiguration extends React.Component {
     if (!this.props.isLoading) {
       return (
         <React.Fragment>
-          <Stack gutter="md">
+          <Stack gutter={ 'md' } className="order_card">
             <StackItem>
               <Title size={ 'lg' } > Configuration </Title>
             </StackItem>
-            <StackItem isMain>
+            <StackItem>
               <Form>
                 { (this.props.servicePlans.length > 1) &&
-                      <div>
-                        <Title size={ 'md' }>Select Plan:</Title>
-                        <div>{ this.planOptions() }</div>
-                      </div>
+                        <div>
+                          <Title size={ 'md' }>Select Plan:</Title>
+                          <div>{ this.planOptions() }</div>
+                        </div>
                 }
-                <div>
-                  { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
+                { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
                   <FormRenderer
                     schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
                     onSubmit={ this.onSubmit }
                     schemaType="mozilla"
                   />
-                  }
-                </div>
+                }
               </Form>
             </StackItem>
           </Stack>
