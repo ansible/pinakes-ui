@@ -6,25 +6,26 @@ import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import FormRenderer from '../Common/FormRenderer';
 
-const optionRow = (plan, option, selected_id, onChange) => {
-  return (
-    <div>
-      <Radio
-        value={ plan.id }
-        checked={ selected_id === plan.id }
-        name={ plan.name }
-        aria-label={ plan.description }
-        onChange={ onChange }
-      />
-      { plan.description }
-    </div>);
-};
-
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
     showOrder: false,
-    selectedPlanId: 0
+    selectedPlanIdx: 0
   };
+
+  optionRow = (plan, option, selectedId, onChange) => {
+    return (
+      <div>
+        <Radio
+          value={ plan.id }
+          checked={ selectedId === plan.id }
+          name={ plan.name }
+          aria-label={ plan.description }
+          onChange={ onChange }
+        />
+        { plan.description }
+      </div>);
+  };
+
 
   componentDidMount() {
     const { id } = this.props;
@@ -32,15 +33,16 @@ class OrderServiceFormStepConfiguration extends React.Component {
   }
 
   handlePlanChange = (arg, event) =>  {
-    const plan = event.currentTarget.value;
-    this.setState({ selectedPlan: plan });
+    const planId = event.currentTarget.value;
+    console.log('Plan value received:', planId);
+    this.setState({ selectedPlanIdx: this.props.servicePlans.findIndex(plan=> plan.id === planId) });
   };
 
   planOptions = () => {
-    let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].id;
+    let selectedId = this.props.servicePlans[this.state.selectedPlanIdx].id;
     let onChange = this.handlePlanChange;
 
-    return this.props.servicePlans.map((plan, option) => optionRow(plan, option, selected_id, onChange));
+    return this.props.servicePlans.map((plan, option) => this.optionRow(plan, option, selectedId, onChange));
   }
 
   onSubmit = (data) => {
@@ -56,13 +58,13 @@ class OrderServiceFormStepConfiguration extends React.Component {
         <React.Fragment>
           <Stack gutter="md">
             <StackItem>
-              <Title size={ 'md' } > Configuration </Title>
+              <Title size={ 'lg' } > Configuration </Title>
             </StackItem>
             <StackItem isMain>
               <Form>
                 { (this.props.servicePlans.length > 1) &&
                       <div>
-                        <Title>Select Plan:</Title>
+                        <Title size={ 'md' }>Select Plan:</Title>
                         <div>{ this.planOptions() }</div>
                       </div>
                 }
