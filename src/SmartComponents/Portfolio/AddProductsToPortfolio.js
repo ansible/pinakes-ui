@@ -49,6 +49,8 @@ class AddProductsToPortfolio extends Component {
       .then(() => this.props.history.push(this.props.portfolioRoute))
       .then(() => this.props.fetchPortfolioItemsWithPortfolio(this.props.match.params.id));
 
+    itemsSelected = () => this.state.checkedItems.length > 0;
+
     createItems = () => {
       const { selectedPlatforms } = this.state;
       const { platformItems } = this.props;
@@ -79,6 +81,7 @@ class AddProductsToPortfolio extends Component {
           <PortfolioOrderToolbar/>
           <AddProductsTitleToolbar title={ title }
             onClickAddToPortfolio = { this.onAddToPortfolio }
+            itemsSelected = { this.itemsSelected() }
             portfolioRoute={ this.props.portfolioRoute }
           />
           <PlatformSelectToolbar

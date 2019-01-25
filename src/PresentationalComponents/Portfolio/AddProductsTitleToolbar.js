@@ -7,7 +7,7 @@ import spacingStyles from '@patternfly/patternfly-next/utilities/Spacing/spacing
 import flexStyles from '@patternfly/patternfly-next/utilities/Flex/flex.css';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 
-const AddProductsTitleToolbar = ({ title, onClickAddToPortfolio, portfolioRoute }) =>(
+const AddProductsTitleToolbar = ({ title, onClickAddToPortfolio, itemsSelected, portfolioRoute }) =>(
   <Toolbar
     className={ css(flexStyles.justifyContentSpaceBetween, spacingStyles.mxXl, spacingStyles.myMd) }
     style={ { backgroundColor: '#FFFFFF' } }
@@ -26,7 +26,11 @@ const AddProductsTitleToolbar = ({ title, onClickAddToPortfolio, portfolioRoute 
         </Link>
       </ToolbarItem>
       <ToolbarItem className={ css(spacingStyles.mxLg) } >
-        <Button variant="plain" aria-label="Add Products to Portfolio" onClick={ onClickAddToPortfolio }>
+        <Button key="addproducts"
+          variant="primary"
+          aria-label="Add Products to Portfolio"
+          type="button" onClick={ onClickAddToPortfolio }
+          isDisabled={ !itemsSelected }>
           Add
         </Button>
       </ToolbarItem>
@@ -38,6 +42,7 @@ AddProductsTitleToolbar.propTypes = {
   history: propTypes.object,
   title: propTypes.string,
   onClickAddToPortfolio: propTypes.func,
+  itemsSelected: propTypes.bool,
   portfolioRoute: propTypes.string.isRequired
 };
 
