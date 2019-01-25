@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Grid } from '@patternfly/react-core';
+import { Button, CardHeader } from '@patternfly/react-core';
 import { connect } from 'react-redux';
-import './orderservice.scss';
+import '../Order/orderservice.scss';
 import propTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
-import { Wizard } from 'patternfly-react';
-
-// useless
-const renderStepWizardPage = (componentPage, props) => {
-  const StepComponent = componentPage;
-  return (<StepComponent { ...props } />);
-};
+import CatItemSvg from '../../assets/images/vendor-openshift.svg';
+import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
 
 class OrderModal extends Component {
   state = {
@@ -19,55 +13,11 @@ class OrderModal extends Component {
     activeStepIndex: 0
   };
 
-  // deprecated in react
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      stepParametersValid: nextProps.stepParametersValid || false,
-      showOrder: nextProps.showOrder
-    });
-  }
+  onNext = () => this.setState((prevState) => ({ activeStepIndex: prevState.activeStepIndex + 1 }));
 
-  // why?
-  onStep = () => {
-  }
-
-  onNext = () => {
-    const { activeStepIndex } = this.state;
-    const numberSteps = OrderServiceFormSteps.length;
-
-    if (activeStepIndex < numberSteps - 1) {
-      this.setState({ activeStepIndex: activeStepIndex + 1 });
-    }
-  }
-
-  onBack = () => {
-    let { activeStepIndex } = this.state;
-
-    if (activeStepIndex >= 1) {
-      this.setState({ activeStepIndex: activeStepIndex - 1 });
-    }
-  }
-
-  onSubmit = () => this.setState({ activeStepIndex: 1 });
-
-  onCancel = () => this.setState({ showOrder: false });
-
-  renderWizardSteps = () => {
-    const { activeStepIndex } = this.state;
-    const wizardSteps = OrderServiceFormSteps;
-    const activeStep = wizardSteps[activeStepIndex];
-
-    return wizardSteps.map((step, stepIndex) => (
-      <Wizard.Step
-        key={ stepIndex }
-        stepIndex={ stepIndex }
-        step={ step.step }
-        label={ step.label }
-        title={ step.title }
-        activeStep={ activeStep && activeStep.step }
-        onClick={ () => this.onStep(activeStep && activeStep.step) }
-      />
-    ));
+  renderStepPage = (componentPage, props) => {
+    const StepComponent = componentPage;
+    return (<StepComponent { ...props } />);
   };
 
   render() {
@@ -78,31 +28,20 @@ class OrderModal extends Component {
     }
 
     const { activeStepIndex } = this.state;
-    const wizardSteps = OrderServiceFormSteps;
+    const steps = OrderServiceFormSteps;
 
     return (
       <React.Fragment>
-        <Wizard.Steps steps={ this.renderWizardSteps(this.props.servicedata) }/>
-        <Wizard.Row>
-          <Wizard.Main>
-            <Grid>
-              { wizardSteps.map((step, stepIndex) => (
-                <Wizard.Contents key={ step.title } stepIndex={ stepIndex } activeStepIndex={ activeStepIndex }>
-                  { renderStepWizardPage(wizardSteps[stepIndex].page, this.props.servicedata) }
-                </Wizard.Contents>
-              )) }
-              { activeStepIndex !== wizardSteps.length - 1 && (
-                <div>
-                  <br/>
-                  <br/>
-                  <Button variant="primary" type="button" onClick={ this.onNext }>
-                    Order<Icon type="fa" name="angle-right"/>
-                  </Button>
-                </div>
-              ) }
-            </Grid>
-          </Wizard.Main>
-        </Wizard.Row>
+        <CardHeader className="order_header">
+          <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
+          { this.props.servicedata.name }
+        </CardHeader>
+        { this.renderStepPage(steps[activeStepIndex].page, this.props.servicedata) }
+        { (activeStepIndex < steps.length - 1) &&
+            <Button variant="primary" aria-label="Order portfolio item" onClick={ this.onNext }>
+              Order
+            </Button>
+        }
       </React.Fragment>
     );
   }

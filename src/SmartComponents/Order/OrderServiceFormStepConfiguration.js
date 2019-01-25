@@ -1,35 +1,26 @@
 import React from 'react';
-// PF3?
-import { Form as PFForm } from 'patternfly-react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-// replce with data driven form
-import { Bullseye, Radio } from '@patternfly/react-core';
+import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import FormRenderer from '../Common/FormRenderer';
 
-const optionRow = (plan, option, selected_id, onChange) => {
-  return (
-    <div>
-      <Radio
-        value={ plan.plan_id }
-        checked={ selected_id === plan.plan_id }
-        name={ plan.name }
-        aria-label={ plan.description }
-        onChange={ onChange }
-      />
-      { plan.description }
-    </div>);
-};
-
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
     showOrder: false,
-    activeStepIndex: 1,
-    selectedPlan: null,
     selectedPlanIdx: 0
   };
+
+  optionRow = (plan, option, selectedId, onChange) =>
+    <Radio id={ plan.id }
+      key={ plan.id }
+      value={ plan.id }
+      checked={ selectedId === plan.id }
+      name={ plan.name }
+      aria-label={ plan.description }
+      onChange={ onChange }
+      label={ plan.description } />;
 
   componentDidMount() {
     const { id } = this.props;
@@ -37,15 +28,16 @@ class OrderServiceFormStepConfiguration extends React.Component {
   }
 
   handlePlanChange = (arg, event) =>  {
-    const plan = event.currentTarget.value;
-    this.setState({ selectedPlan: plan });
+    const planId = event.currentTarget.value;
+    console.log('Plan value received:', planId);
+    this.setState({ selectedPlanIdx: this.props.servicePlans.findIndex(plan=> plan.id === planId) });
   };
 
   planOptions = () => {
-    let selected_id = this.state.selectedPlan ? this.state.selectedPlan : this.props.servicePlans[0].plan_id;
+    let selectedId = this.props.servicePlans[this.state.selectedPlanIdx].id;
     let onChange = this.handlePlanChange;
 
-    return this.props.servicePlans.map((plan, option) => optionRow(plan, option, selected_id, onChange));
+    return this.props.servicePlans.map((plan, option) => this.optionRow(plan, option, selectedId, onChange));
   }
 
   onSubmit = (data) => {
@@ -58,38 +50,41 @@ class OrderServiceFormStepConfiguration extends React.Component {
   render() {
     if (!this.props.isLoading) {
       return (
-        <PFForm horizontal>
-          <PFForm.FormGroup>
-            { (this.props.servicePlans.length > 1) &&
-              <div>
-                <h3>Select Plan:</h3>
-                <div>{ this.planOptions() }</div>
-              </div>
-            }
-            <div>
-              { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
-              <FormRenderer
-                schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
-                onSubmit={ this.onSubmit }
-                schemaType="mozilla"
-              />
-              }
-            </div>
-          </PFForm.FormGroup>
-        </PFForm>
+        <React.Fragment>
+          <Stack gutter={ 'md' } className="order_card">
+            <StackItem>
+              <Title size={ 'lg' } > Configuration </Title>
+            </StackItem>
+            <StackItem>
+              <Form>
+                { (this.props.servicePlans.length > 1) &&
+                        <div>
+                          <Title size={ 'md' }>Select Plan:</Title>
+                          <div>{ this.planOptions() }</div>
+                        </div>
+                }
+                { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
+                  <FormRenderer
+                    schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
+                    onSubmit={ this.onSubmit }
+                    schemaType="mozilla"
+                  />
+                }
+              </Form>
+            </StackItem>
+          </Stack>
+        </React.Fragment>
       );
     }
 
     return (
-      <PFForm horizontal>
-        <PFForm.FormGroup>
-          <Bullseye>
-            <div>
-              { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
-            </div>
-          </Bullseye>
-        </PFForm.FormGroup>
-      </PFForm>
+      <Form>
+        <Bullseye>
+          <div>
+            { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
+          </div>
+        </Bullseye>
+      </Form>
     );
   }
 }
@@ -105,7 +100,7 @@ OrderServiceFormStepConfiguration.propTypes = {
   stepParametersValid: propTypes.bool,
   fulfilled: propTypes.bool,
   error: propTypes.bool,
-  imageURL: propTypes.string,
+  imageUrl: propTypes.string,
   id: propTypes.string,
   name: propTypes.string,
   sendSubmitOrder: propTypes.func.isRequired
