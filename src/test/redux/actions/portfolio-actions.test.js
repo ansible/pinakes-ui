@@ -41,7 +41,7 @@ describe('Portfolio actions', () => {
       payload: [{ id: '1', name: 'foo' }]
     }];
 
-    apiClientMock.get('https://localhost:5000/api/v0.0/portfolios', mockOnce({
+    apiClientMock.get('/r/insights/platform/service-portal/v0.0/portfolios', mockOnce({
       body: [{
         id: '1',
         name: 'foo'
@@ -86,7 +86,7 @@ describe('Portfolio actions', () => {
 
     }) ]);
 
-    apiClientMock.get('https://localhost:5000/api/v0.0/portfolios', mockOnce({
+    apiClientMock.get('/r/insights/platform/service-portal/v0.0/portfolios', mockOnce({
       status: 500
     }));
 
@@ -99,7 +99,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItems action was called', () => {
     const store = mockStore({});
 
-    apiClientMock.get('https://localhost:5000/api/v0.0/portfolio_items', mockOnce({
+    apiClientMock.get('/r/insights/platform/service-portal/v0.0/portfolio_items', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -119,7 +119,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItemsWithPortfolio action was called', () => {
     const store = mockStore({});
 
-    apiClientMock.get('https://localhost:5000/api/v0.0/portfolios/123/portfolio_items', mockOnce({
+    apiClientMock.get('/r/insights/platform/service-portal/v0.0/portfolios/123/portfolio_items', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -138,7 +138,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when adding portfolio', () => {
     const store = mockStore({});
-    apiClientMock.post('https://localhost:5000/api/v0.0/portfolios', mockOnce({
+    apiClientMock.post('/r/insights/platform/service-portal/v0.0/portfolios', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -156,7 +156,7 @@ describe('Portfolio actions', () => {
 
   it('should create error action creators when adding portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.post('https://localhost:5000/api/v0.0/portfolios', mockOnce({
+    apiClientMock.post('/r/insights/platform/service-portal/v0.0/portfolios', mockOnce({
       status: 500
     }));
 
@@ -174,7 +174,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when updating portfolio', () => {
     const store = mockStore({});
-    apiClientMock.patch('https://localhost:5000/api/v0.0/portfolios/123', mockOnce({
+    apiClientMock.patch('/r/insights/platform/service-portal/v0.0/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -192,7 +192,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when updating portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.patch('https://localhost:5000/api/v0.0/portfolios/123', mockOnce({
+    apiClientMock.patch('/r/insights/platform/service-portal/v0.0/portfolios/123', mockOnce({
       status: 500
     }));
 
@@ -210,7 +210,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio', () => {
     const store = mockStore({});
-    apiClientMock.delete('https://localhost:5000/api/v0.0/portfolios/123', mockOnce({
+    apiClientMock.delete('/r/insights/platform/service-portal/v0.0/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -228,7 +228,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio faled', () => {
     const store = mockStore({});
-    apiClientMock.delete('https://localhost:5000/api/v0.0/portfolios/123', mockOnce({
+    apiClientMock.delete('/r/insights/platform/service-portal/v0.0/portfolios/123', mockOnce({
       status: 500
     }));
 
