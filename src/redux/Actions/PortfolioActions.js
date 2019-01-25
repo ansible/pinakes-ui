@@ -3,9 +3,7 @@ import * as PortfolioHelper from '../../Helpers/Portfolio/PortfolioHelper';
 
 export const doFetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.listPortfolios(apiProps));
-  })
+  payload: PortfolioHelper.listPortfolios(apiProps)
 });
 
 export const fetchPortfolios = apiProps => (dispatch, getState) => {
@@ -17,16 +15,12 @@ export const fetchPortfolios = apiProps => (dispatch, getState) => {
 
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.getPortfolioItems(apiProps));
-  })
+  payload: PortfolioHelper.getPortfolioItems(apiProps)
 });
 
 export const fetchPortfolioItemsWithPortfolio = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
-  payload: new Promise(resolve => {
-    resolve(PortfolioHelper.getPortfolioItemsWithPortfolio(apiProps));
-  })
+  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(apiProps)
 });
 
 export const fetchSelectedPortfolio = id => ({

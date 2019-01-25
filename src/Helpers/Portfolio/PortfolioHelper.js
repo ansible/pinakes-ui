@@ -3,7 +3,7 @@ import { getUserApi } from '../Shared/userLogin';
 const userApi = getUserApi();
 
 export function listPortfolios() {
-  return userApi.listPortfolios().then(data => data, error => console.error(error));
+  return userApi.listPortfolios();
 }
 
 export function getPortfolioItems() {
@@ -11,21 +11,19 @@ export function getPortfolioItems() {
 }
 
 export function listPortfolioItems() {
-  return userApi.listPortfolioItems().then(data => data, error => console.error(error));
+  return userApi.listPortfolioItems();
 }
 
 export function getPortfolioItem(portfolioId, portfolioItemId) {
-  return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId)
-  .then(data => data, error => console.error(error));
+  return userApi.fetchPortfolioItemFromPortfolio(portfolioId, portfolioItemId);
 }
 
 export function getPortfolio(portfolioId) {
-  return userApi.fetchPortfolioWithId(portfolioId).then(data => data, error => console.error(error));
+  return userApi.fetchPortfolioWithId(portfolioId);
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return userApi.fetchPortfolioItemsWithPortfolio(portfolioId)
-  .then(data => data, error => console.error(error));
+  return userApi.fetchPortfolioItemsWithPortfolio(portfolioId);
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available

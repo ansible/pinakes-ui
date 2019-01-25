@@ -1,0 +1,10 @@
+{
+  "env": {
+    "jest": true,
+    "es6": true
+  },
+  "globals": {
+    "apiClientMock": true,
+    "mockOnce": true
+  }
+}
