@@ -29,7 +29,6 @@ class OrderServiceFormStepConfiguration extends React.Component {
 
   handlePlanChange = (arg, event) =>  {
     const planId = event.currentTarget.value;
-    console.log('Plan value received:', planId);
     this.setState({ selectedPlanIdx: this.props.servicePlans.findIndex(plan=> plan.id === planId) });
   };
 
@@ -48,6 +47,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
   };
 
   render() {
+    console.log('service plan', this.props);
     if (!this.props.isLoading) {
       return (
         <React.Fragment>
@@ -104,6 +104,10 @@ OrderServiceFormStepConfiguration.propTypes = {
   id: propTypes.string,
   name: propTypes.string,
   sendSubmitOrder: propTypes.func.isRequired
+};
+
+OrderServiceFormStepConfiguration.defaultProps = {
+  servicePlans: []
 };
 
 const mapStateToProps = ({ orderReducer: { isLoading, servicePlans }}) => ({
