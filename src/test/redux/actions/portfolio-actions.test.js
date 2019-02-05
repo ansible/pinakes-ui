@@ -37,16 +37,16 @@ describe('Portfolio actions', () => {
         isLoading: false
       }
     });
+    const expectedPortfolio = new Portfolio('Name', 'Description');
 
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: [ new Portfolio('name', 'description') ]
+      payload: [ expectedPortfolio ]
     }];
-
     apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
-      body: { data: [ new Portfolio('name', 'description') ]}
+      body: { data: [ expectedPortfolio ]}
     }));
 
     return store.dispatch(fetchPortfolios())

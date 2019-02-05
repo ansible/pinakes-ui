@@ -1,4 +1,5 @@
 import { getUserApi } from '../Shared/userLogin';
+import { SERVICE_PORTAL_API_BASE } from '../../Utilities/Constants';
 
 const userApi = getUserApi();
 
@@ -64,4 +65,19 @@ export async function removePortfolioItem(portfolioItemId) {
 
 export async function removePortfolioItems(portfolioItemIds) {
   return Promise.all(portfolioItemIds.map(async itemId => await removePortfolioItem(itemId)));
+}
+
+export function fetchProviderControlParameters(portfolioItemId) {
+  return fetch(`${SERVICE_PORTAL_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`)
+  .then(data => data.json())
+  .then(data => ({
+    required: [],
+    ...data,
+    properties: {
+      ...data.properties,
+      namespace: {
+        ...data.properties.namespace,
+        enum: Array.from(new Set([ ...data.properties.namespace.enum ]))
+      }
+    }}));
 }
