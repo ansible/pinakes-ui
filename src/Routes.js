@@ -42,7 +42,6 @@ const InsightsRoute = ({ rootClass, ...rest }) => {
 };
 
 InsightsRoute.propTypes = {
-  component: PropTypes.func,
   rootClass: PropTypes.string
 };
 

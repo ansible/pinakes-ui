@@ -1,1 +1,25 @@
 @import "../../App";
+
+.order-tabs {
+ background-color: #FFFFFF;
+ padding: 32px 32px 0 32px;
+ li {
+   padding: initial
+ }
+}
+
+.order-data-list {
+  .order-cell {
+    align-self: center
+  }
+}
+
+.order-toolbar-breadcrumbs {
+  .pf-c-breadcrumb__item {
+    .active{ 
+      color: var(--pf-c-breadcrumb__item--Color);
+      text-decoration: none;
+      pointer-events: none;
+    }
+  }
+}
