@@ -16,3 +16,8 @@ global.React = React;
 mock.setup();
 global.mockOnce = once;
 global.apiClientMock = mock;
+
+/**
+ * setup ENV vars
+ */
+process.env.BASE_PATH = '/r/insights/platform';

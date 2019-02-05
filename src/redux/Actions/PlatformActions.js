@@ -3,9 +3,7 @@ import * as PlatformHelper from '../../Helpers/Platform/PlatformHelper';
 
 const doFetchPlatforms = () => ({
   type: ActionTypes.FETCH_PLATFORMS,
-  payload: new Promise(resolve => {
-    resolve(PlatformHelper.getPlatforms());
-  })
+  payload: PlatformHelper.getPlatforms()
 });
 
 export const fetchPlatforms = () => (dispatch, getState) => {
@@ -36,9 +34,7 @@ export const fetchMultiplePlatformItems = platformsId => {
 
 export const fetchSelectedPlatform = id => ({
   type: ActionTypes.FETCH_PLATFORM,
-  payload: new Promise(resolve => {
-    resolve(PlatformHelper.getPlatform(id));
-  })
+  payload: PlatformHelper.getPlatform(id)
 });
 
 export const searchPlatformItems = value => ({

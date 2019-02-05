@@ -7,7 +7,7 @@ export function getPlatforms() {
 }
 
 export function getPlatform(platformId) {
-  return api.showSource(platformId).then(data => data, error => console.error(error));
+  return api.showSource(platformId);
 }
 
 export function getPlatformItems(apiProps) {
