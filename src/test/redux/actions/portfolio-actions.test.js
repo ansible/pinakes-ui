@@ -1,6 +1,7 @@
 import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
+import { Portfolio } from '@manageiq/service-portal-api';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import {
   FETCH_PORTFOLIOS,
@@ -41,14 +42,11 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: [{ id: '1', name: 'foo' }]
+      payload: [ new Portfolio('name', 'description') ]
     }];
 
     apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
-      body: [{
-        id: '1',
-        name: 'foo'
-      }]
+      body: [ new Portfolio('name', 'description') ]
     }));
 
     return store.dispatch(fetchPortfolios())
