@@ -46,7 +46,7 @@ describe('Portfolio actions', () => {
     }];
 
     apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
-      body: [ new Portfolio('name', 'description') ]
+      body: { data: [ new Portfolio('name', 'description') ]}
     }));
 
     return store.dispatch(fetchPortfolios())
@@ -101,7 +101,7 @@ describe('Portfolio actions', () => {
     const store = mockStore({});
 
     apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolio_items', mockOnce({
-      body: [{ data: 'foo' }]
+      body: { data: [ 'foo' ]}
     }));
 
     const expectedActions = [{
@@ -121,7 +121,7 @@ describe('Portfolio actions', () => {
     const store = mockStore({});
 
     apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolios/123/portfolio_items', mockOnce({
-      body: [{ data: 'foo' }]
+      body: { data: [ 'foo' ]}
     }));
 
     const expectedActions = [{
