@@ -31,10 +31,10 @@ describe('Platform actions', () => {
       }
     });
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({
-      body: [{
+      body: { data: [{
         id: '1',
         name: 'Source 1'
-      }]
+      }]}
     }));
 
     const expectedActions = [{
@@ -97,10 +97,10 @@ describe('Platform actions', () => {
       }
     });
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings`, mockOnce({
-      body: [{
+      body: { data: [{
         id: '1',
         name: 'Offering 1'
-      }]
+      }]}
     }));
 
     const expectedActions = [{
@@ -150,22 +150,22 @@ describe('Platform actions', () => {
       }
     });
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings`, mockOnce({
-      body: [{
+      body: { data: [{
         id: '1',
         name: 'Offering 1'
-      }]
+      }]}
     }));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings`, mockOnce({
-      body: [{
+      body: { data: [{
         id: '2',
         name: 'Offering 2'
-      }]
+      }]}
     }));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings`, mockOnce({
-      body: [{
+      body: { data: [{
         id: '3',
         name: 'Offering 3'
-      }]
+      }]}
     }));
 
     const expectedActions = [{
