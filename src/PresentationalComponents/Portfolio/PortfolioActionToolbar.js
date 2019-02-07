@@ -55,14 +55,14 @@ class PortfolioActionToolbar extends Component {
             <ToolbarItem>
               <Link to={ this.props.addProductsRoute }>
                 <Button variant="link" aria-label="Add Products to Portfolio">
-                  Add Products
+                  Add products
                 </Button>
               </Link>
             </ToolbarItem>
             <ToolbarItem>
               <Link to={ this.props.removeProductsRoute }>
                 <Button variant="link" style={ { color: '#FF0000' } } aria-label="Remove Products from Portfolio">
-                  Remove Products
+                  Remove products
                 </Button>
               </Link>
             </ToolbarItem>

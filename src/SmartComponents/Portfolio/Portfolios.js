@@ -44,9 +44,9 @@ class Portfolios extends Component {
               <Link to="/portfolios/add-portfolio">
                 <Button
                   variant="primary"
-                  aria-label="Create Portfolio"
+                  aria-label="Create portfolio"
                 >
-                Create Portfolio
+                Create portfolio
                 </Button>
               </Link>
             </ToolbarItem>

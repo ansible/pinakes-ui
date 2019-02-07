@@ -14,13 +14,13 @@ const AddProductsTitleToolbar = ({ title, onClickAddToPortfolio, itemsSelected, 
   >
     <ToolbarGroup>
       <ToolbarItem className={ css(spacingStyles.mrXl) }>
-        { title &&  (<Title size={ '2xl' }> { 'Add Products: ' + title }</Title>) }
+        { title &&  (<Title size={ '2xl' }> { 'Add products: ' + title }</Title>) }
       </ToolbarItem>
     </ToolbarGroup>
     <ToolbarGroup className={ 'pf-u-ml-auto-on-xl' }>
       <ToolbarItem className={ css(spacingStyles.mxLg) }>
         <Link to={ portfolioRoute }>
-          <Button variant="link" aria-label="Cancel Add Products to Portfolio">
+          <Button variant="link" aria-label="Cancel Add products to Portfolio">
             Cancel
           </Button>
         </Link>
@@ -28,7 +28,7 @@ const AddProductsTitleToolbar = ({ title, onClickAddToPortfolio, itemsSelected, 
       <ToolbarItem className={ css(spacingStyles.mxLg) } >
         <Button key="addproducts"
           variant="primary"
-          aria-label="Add Products to Portfolio"
+          aria-label="Add products to Portfolio"
           type="button" onClick={ onClickAddToPortfolio }
           isDisabled={ !itemsSelected }>
           Add

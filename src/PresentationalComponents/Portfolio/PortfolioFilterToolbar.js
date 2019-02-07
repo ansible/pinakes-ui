@@ -1,14 +1,17 @@
 import React from 'react';
-import { Toolbar } from '@patternfly/react-core';
+import { ToolbarSection } from '@patternfly/react-core';
+import TopToolbar from '../Shared/top-toolbar';
 import OrderToolbarItem from '../Shared/OrderToolbarItem';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
 import '../Shared/toolbarschema.scss';
 
 const PortfolioFilterToolbar = props => (
-  <Toolbar style={ { backgroundColor: '#FFFFFF' } }>
-    <FilterToolbarItem { ...props } placeholder={ 'Find a Product' }/>
-    <OrderToolbarItem { ...props }/>
-  </Toolbar>
+  <TopToolbar paddingBottom>
+    <ToolbarSection>
+      <FilterToolbarItem { ...props } placeholder={ 'Find a Product' }/>
+      <OrderToolbarItem { ...props }/>
+    </ToolbarSection>
+  </TopToolbar>
 );
 
 export default PortfolioFilterToolbar;

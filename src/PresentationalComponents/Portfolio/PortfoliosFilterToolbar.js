@@ -6,7 +6,7 @@ import FilterToolbarItem from '../Shared/FilterToolbarItem';
 import '../Shared/toolbarschema.scss';
 
 const PortfoliosFilterToolbar = ({ onFilterChange, filterValue, ...props }) => (
-  <Toolbar className="searchToolbar">
+  <Toolbar paddingBottom>
     <FilterToolbarItem { ...props } searchValue={ filterValue } onFilterChange={ onFilterChange } placeholder={ 'Find a Portfolio' }/>
     <OrderToolbarItem { ...props }/>
   </Toolbar>

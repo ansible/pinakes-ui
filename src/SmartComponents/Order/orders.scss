@@ -13,13 +13,3 @@
     align-self: center
   }
 }
-
-.order-toolbar-breadcrumbs {
-  .pf-c-breadcrumb__item {
-    .active{ 
-      color: var(--pf-c-breadcrumb__item--Color);
-      text-decoration: none;
-      pointer-events: none;
-    }
-  }
-}
