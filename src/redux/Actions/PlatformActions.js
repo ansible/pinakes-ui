@@ -3,7 +3,7 @@ import * as PlatformHelper from '../../Helpers/Platform/PlatformHelper';
 
 const doFetchPlatforms = () => ({
   type: ActionTypes.FETCH_PLATFORMS,
-  payload: PlatformHelper.getPlatforms()
+  payload: PlatformHelper.getPlatforms().then(({ data }) => data)
 });
 
 export const fetchPlatforms = () => (dispatch, getState) => {
@@ -15,14 +15,14 @@ export const fetchPlatforms = () => (dispatch, getState) => {
 
 export const fetchPlatformItems = platformId => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,
-  payload: PlatformHelper.getPlatformItems(platformId),
+  payload: PlatformHelper.getPlatformItems(platformId).then(({ data }) => data),
   meta: {
     platformId
   }
 });
 
 export const fetchMultiplePlatformItems = platformsId => {
-  const platformPromisses = platformsId.map(platformId => PlatformHelper.getPlatformItems(platformId).then(data => ({ [platformId]: data })));
+  const platformPromisses = platformsId.map(platformId => PlatformHelper.getPlatformItems(platformId).then(({ data }) => ({ [platformId]: data })));
   return {
     type: ActionTypes.FETCH_MULTIPLE_PLATFORM_ITEMS,
     payload: Promise.all(platformPromisses).then(data => data.reduce((acc, curr) => ({

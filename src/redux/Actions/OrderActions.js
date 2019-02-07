@@ -8,7 +8,7 @@ export const fetchServicePlans = (portfolioItemId) => ({
 
 export const fetchOrderList = () => ({
   type: ActionTypes.LIST_ORDERS,
-  payload: OrderHelper.listOrders()
+  payload: OrderHelper.listOrders().then(({ data }) => data)
 });
 
 export const updateServiceData = (data) => ({
