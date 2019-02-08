@@ -148,7 +148,10 @@ class Portfolio extends Component {
     return (
       <Switch>
         <Route path="/portfolio/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
-        <Route path="/portfolio/:id/remove-products" render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, title, ...props }) } />
+        <Route
+          path="/portfolio/:id/remove-products"
+          render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, title, ...props }) }
+        />
         <Route
           path="/portfolio/:id"
           render={ props => this.renderProducts(

@@ -51,6 +51,7 @@ const AddPortfolioModal = ({
         onSubmit={ onSubmit }
         onCancel={ onCancel }
         initialValues={ { ...initialValues } }
+        formContainer="modal"
         buttonsLabels={ {
           submitLabel: 'Save'
         } }
