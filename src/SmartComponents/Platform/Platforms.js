@@ -3,54 +3,53 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import { Toolbar, ToolbarGroup, ToolbarItem, Title } from '@patternfly/react-core';
+import { Text, TextContent, TextVariants, Level, LevelItem } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformCard from '../../PresentationalComponents/Platform/PlatformCard';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import MainModal from '../Common/MainModal';
-import './platform.scss';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 
 class Platforms extends Component {
     state = {
-      filteredItems: [],
+      filterValue: '',
       isOpen: false
     };
 
-    fetchData = () => {
-      this.props.fetchPlatforms();
-    };
+    fetchData = () => this.props.fetchPlatforms();
 
     componentDidMount() {
       this.fetchData();
       scrollToTop();
     }
 
+    handleFilterChange = filterValue => this.setState({ filterValue })
+
     renderToolbar() {
       return (
-        <Toolbar className="toolbar-padding">
-          <ToolbarGroup>
-            <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' } >
-              <Title size={ '2xl' }>  All Platforms  </Title>
-            </ToolbarItem>
-          </ToolbarGroup>
-        </Toolbar>
+        <Level className="pf-u-pt-md pf-u-pr-xl pf-u-pl-xl">
+          <LevelItem>
+            <TextContent>
+              <Text component={ TextVariants.h2 }>All Platforms </Text>
+            </TextContent>
+          </LevelItem>
+        </Level>
       );
     }
 
     render() {
       let filteredItems = {
-        items: this.props.platforms.map((item) => <PlatformCard key={ item.id } { ...item } />),
+        items: this.props.platforms
+        .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
+        .map((item) => <PlatformCard key={ item.id } { ...item } />),
         isLoading: this.props.isLoading
       };
 
       return (
         <Section>
-          <PlatformToolbar/>
-          <div className="action_toolbar">
-            { this.renderToolbar() }
-          </div>
+          <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } />
+          { this.renderToolbar() }
           <ContentGallery { ...filteredItems } />
           <MainModal />
         </Section>
