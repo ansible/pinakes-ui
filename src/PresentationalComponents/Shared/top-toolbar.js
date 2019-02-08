@@ -16,4 +16,8 @@ TopToolbar.propTypes = {
   paddingBottom: PropTypes.bool
 };
 
+TopToolbar.defaultProps = {
+  paddingBottom: true
+};
+
 export default TopToolbar;

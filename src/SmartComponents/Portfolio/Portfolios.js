@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
-import { Toolbar, ToolbarGroup, ToolbarItem, Title, Button } from '@patternfly/react-core';
+import { Level, LevelItem, Text, TextContent, TextVariants, Button } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
@@ -33,25 +33,23 @@ class Portfolios extends Component {
 
     renderToolbar() {
       return (
-        <Toolbar className="toolbar-padding">
-          <ToolbarGroup>
-            <ToolbarItem>
-              <Title size={ '2xl' }>All Portfolios</Title>
-            </ToolbarItem>
-          </ToolbarGroup>
-          <ToolbarGroup  className={ 'pf-u-ml-auto-on-xl' }>
-            <ToolbarItem>
-              <Link to="/portfolios/add-portfolio">
-                <Button
-                  variant="primary"
-                  aria-label="Create portfolio"
-                >
+        <Level className="pf-u-pt-md pf-u-pr-xl pf-u-pl-xl">
+          <LevelItem>
+            <TextContent>
+              <Text component={ TextVariants.h2 }>All Portfolios</Text>
+            </TextContent>
+          </LevelItem>
+          <LevelItem>
+            <Link to="/portfolios/add-portfolio">
+              <Button
+                variant="primary"
+                aria-label="Create portfolio"
+              >
                 Create portfolio
-                </Button>
-              </Link>
-            </ToolbarItem>
-          </ToolbarGroup>
-        </Toolbar>
+              </Button>
+            </Link>
+          </LevelItem>
+        </Level>
       );
     }
 

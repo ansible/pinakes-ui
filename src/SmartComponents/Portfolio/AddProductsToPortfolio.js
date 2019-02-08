@@ -11,9 +11,7 @@ import MainModal from '../Common/MainModal';
 import '../Platform/platform.scss';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 import PortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/PortfolioOrderToolbar';
-import AddProductsTitleToolbar from '../../PresentationalComponents/Portfolio/AddProductsTitleToolbar';
 import PlatformDashboard from '../../PresentationalComponents/Platform/PlatformDashboard';
-import PlatformSelectToolbar from '../../SmartComponents/Common/PlatformSelectToolbar';
 import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
 
@@ -78,17 +76,15 @@ class AddProductsToPortfolio extends Component {
       let title = (this.props.portfolio) ? this.props.portfolio.name : '';
       return (
         <Section>
-          <PortfolioOrderToolbar/>
-          <AddProductsTitleToolbar title={ title }
+          <PortfolioOrderToolbar
+            portfolioName={ title }
             onClickAddToPortfolio = { this.onAddToPortfolio }
             itemsSelected = { this.itemsSelected() }
             portfolioRoute={ this.props.portfolioRoute }
-          />
-          <PlatformSelectToolbar
             searchValue={ this.state.searchValue }
             onFilterChange={ this.handleFilterChange }
             onOptionSelect={ this.onPlatformSelectionChange }
-            { ...this.props }
+            options={ this.props.platforms.map(platform => ({ value: platform.id, label: platform.name, id: platform.id })) }
           />
           { (this.state.selectedPlatforms.length > 0) &&
             this.state.selectedPlatforms.map(platform => (
@@ -108,9 +104,10 @@ class AddProductsToPortfolio extends Component {
     }
 }
 
-const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoading }}) => ({
+const mapStateToProps = ({ platformReducer: { platformItems, isPlatformDataLoading, platforms }}) => ({
   platformItems,
-  isLoading: isPlatformDataLoading
+  isLoading: isPlatformDataLoading,
+  platforms
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -139,7 +136,15 @@ AddProductsToPortfolio.propTypes = {
     }).isRequired
   }).isRequired,
   portfolioRoute: propTypes.string.isRequired,
-  fetchPortfolioItemsWithPortfolio: propTypes.func.isRequired
+  fetchPortfolioItemsWithPortfolio: propTypes.func.isRequired,
+  platforms: propTypes.arrayOf(propTypes.shape({
+    name: propTypes.string.isRequired,
+    id: propTypes.oneOfType([ propTypes.string, propTypes.number ]).isRequired
+  }))
+};
+
+AddProductsToPortfolio.defaultProps = {
+  platforms: []
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio));

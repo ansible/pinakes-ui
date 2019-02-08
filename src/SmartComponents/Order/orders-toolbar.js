@@ -15,7 +15,7 @@ import TopToolbar from '../../PresentationalComponents/Shared/top-toolbar';
 import './orders.scss';
 
 const OrdersToolbar = ({ match: { path }}) => (
-  <TopToolbar>
+  <TopToolbar paddingBottom={ false }>
     <ToolbarSection aria-label="order-toolbar-breadcrumbs">
       <ToolbarGroup>
         <ToolbarItem>

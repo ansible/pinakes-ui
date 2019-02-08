@@ -24,7 +24,8 @@ class Portfolio extends Component {
     isKebabOpen: false,
     isOpen: false,
     filteredItems: [],
-    selectItems: []
+    selectedItems: [],
+    filterValue: ''
   };
 
   fetchData = (apiProps) => {
@@ -45,26 +46,26 @@ class Portfolio extends Component {
   }
 
   removeProducts = () => {
-    const itemIdsToRemove = this.state.selectItems;
+    const itemIdsToRemove = this.state.selectedItems;
 
     this.props.history.goBack();
 
     removePortfolioItems(itemIdsToRemove).then(() => {
       this.fetchData(this.props.match.params.id);
       this.setState({
-        selectItems: []
+        selectedItems: []
       });
     });
   };
 
   handleItemSelect = selectedItem =>
-    this.setState(({ selectItems }) =>
-      selectItems.includes(selectedItem)
-        ? ({ selectItems: [
-          ...selectItems.slice(0, selectItems.indexOf(selectedItem)),
-          ...selectItems.slice(selectItems.indexOf(selectedItem) + 1)
+    this.setState(({ selectedItems }) =>
+      selectedItems.includes(selectedItem)
+        ? ({ selectedItems: [
+          ...selectedItems.slice(0, selectedItems.indexOf(selectedItem)),
+          ...selectedItems.slice(selectedItems.indexOf(selectedItem) + 1)
         ]})
-        : ({ selectItems: [ ...selectItems, selectedItem ]}));
+        : ({ selectedItems: [ ...selectedItems, selectedItem ]}));
 
   filterItems = (filterValue) => {
     let filteredItems = [];
@@ -76,13 +77,17 @@ class Portfolio extends Component {
     return filteredItems;
   };
 
+  handleFilterChange = filterValue => {
+    console.log('filterValue: ', filterValue);
+    this.setState({ filterValue });
+  };
+
   renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
     <Fragment>
-      <PortfolioFilterToolbar/>
+      <PortfolioFilterToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange }/>
       { !this.props.isLoading &&
           <PortfolioActionToolbar
             title={ title }
-            filterItems={ this.filterItems }
             addProductsRoute={ addProductsRoute }
             removeProductsRoute={ removeProductsRoute }
             editPortfolioRoute={ editPortfolioRoute }
@@ -106,9 +111,13 @@ class Portfolio extends Component {
   renderRemoveProducts = ({ portfolioRoute, filteredItems, title }) => (
     <React.Fragment>
       <RemovePortfolioItems
+        filterValue={ this.state.filterValue }
+        onFilterChange={ this.handleFilterChange }
         portfolioName={ title }
         portfolioRoute={ portfolioRoute }
-        onRemove={ this.removeProducts } />
+        onRemove={ this.removeProducts }
+        disableButton={ this.state.selectedItems.length === 0 }
+      />
       <ContentGallery { ...filteredItems } />
     </React.Fragment>
   );
@@ -122,13 +131,15 @@ class Portfolio extends Component {
     const title = this.props.portfolio ? this.props.portfolio.name : '';
 
     const filteredItems = {
-      items: this.props.portfolioItems.map(item => (
+      items: this.props.portfolioItems
+      .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
+      .map(item => (
         <PortfolioItem
           key={ item.id }
           { ...item }
           isSelectable={ this.props.location.pathname.includes('/remove-products') }
           onSelect={ this.handleItemSelect }
-          isSelected={ this.state.selectItems.includes(item.id) }
+          isSelected={ this.state.selectedItems.includes(item.id) }
         />
       )),
       isLoading: this.props.isLoading
