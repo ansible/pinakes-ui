@@ -5,6 +5,7 @@
   },
   "globals": {
     "apiClientMock": true,
-    "mockOnce": true
+    "mockOnce": true,
+    "fetchMock": true
   }
 }

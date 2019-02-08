@@ -1,4 +1,5 @@
 import { getTopologicalUserApi } from '../Shared/userLogin';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../Utilities/Constants';
 
 const api = getTopologicalUserApi();
 
@@ -14,7 +15,7 @@ export function getPlatformItems(apiProps) {
   let apiPromise = null;
 
   if (apiProps) {
-    apiPromise = api.listSourceServiceOfferings(apiProps);
+    apiPromise = fetch(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?archived_at=`).then(data => data.json());
   } else {
     apiPromise = api.listServiceOfferings();
   }
