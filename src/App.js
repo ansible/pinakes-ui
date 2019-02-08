@@ -11,6 +11,8 @@ import { Grid, GridItem } from '@patternfly/react-core';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
 
+import 'whatwg-fetch';
+
 class App extends Component {
   state = {
     chromeNavAvailable: true
