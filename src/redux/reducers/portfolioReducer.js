@@ -35,5 +35,5 @@ export default {
   [`${FETCH_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem,
   [`${FETCH_PORTFOLIO}_PENDING`]: setLoadingState,
   [`${FETCH_PORTFOLIO}_FULFILLED`]: selectPortfolio,
-  [`${FILTER_PORTFOLIO_ITEMS}_FULFILLED`]: filterPortfolios
+  [FILTER_PORTFOLIO_ITEMS]: filterPortfolios
 };
