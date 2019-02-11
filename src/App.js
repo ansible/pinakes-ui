@@ -12,14 +12,17 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
 
 import 'whatwg-fetch';
+import { AppPlaceholder } from './PresentationalComponents/Shared/LoaderPlaceholders';
 
 class App extends Component {
   state = {
-    chromeNavAvailable: true
+    chromeNavAvailable: true,
+    auth: false
   }
 
   componentDidMount () {
     insights.chrome.init();
+    insights.chrome.auth.getUser().then(() => this.setState({ auth: true }));
     try {
       insights.chrome.identifyApp('service-portal');
     } catch (error) {
@@ -37,6 +40,11 @@ class App extends Component {
   }
 
   render () {
+    const { auth } = this.state;
+    if (!auth) {
+      return <AppPlaceholder />;
+    }
+
     return (
       <React.Fragment>
         <NotificationsPortal />
