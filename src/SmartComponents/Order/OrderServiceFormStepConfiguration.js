@@ -68,6 +68,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
                     schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
                     onSubmit={ this.onSubmit }
                     schemaType="mozilla"
+                    formContainer="modal"
                   />
                 }
               </Form>

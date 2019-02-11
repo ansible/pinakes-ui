@@ -1,34 +1,26 @@
-import React, { Component } from 'react';
-import { Toolbar, ToolbarGroup, ToolbarItem, Button } from '@patternfly/react-core';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Level, LevelItem } from '@patternfly/react-core';
+import TopToolbar from '../Shared/top-toolbar';
+import FilterToolbarItem from '../Shared/FilterToolbarItem';
+import OrderToolbarItem from '../Shared/OrderToolbarItem';
 
-/**
- * TODO Use PF4 input components
- */
-class PlatformToolbar extends Component {
-    state = {
-      searchValue: ''
-    };
+const PlatformToolbar = ({ searchValue, onFilterChange }) => (
+  <TopToolbar>
+    <Level>
+      <LevelItem>
+        <FilterToolbarItem searchValue={ searchValue } onFilterChange={ onFilterChange } placeholder="Find a product" />
+      </LevelItem>
+      <LevelItem>
+        <OrderToolbarItem />
+      </LevelItem>
+    </Level>
+  </TopToolbar>
+);
 
-    render() {
-      return (
-        <Toolbar style={ { backgroundColor: '#FFFFFF' } }>
-          <ToolbarGroup className={ 'pf-u-ml-on-md' }>
-            <ToolbarItem className={ 'pf-u-ml-sm pf-u-my-sm' }>
-              <div className="pf-c-input-group">
-                <input className="pf-c-form-control"
-                  input="true" type="text" id="searchItem"
-                  name="searchPlatformItems"
-                  placeholder="Filter..."
-                  aria-label="filter input with platform button"
-                />
-                <Button variant="tertiary" id="filterPlatformButton">
-                  <i className="fas fa-search" aria-hidden="true"></i>
-                </Button>
-              </div>
-            </ToolbarItem>
-          </ToolbarGroup>
-        </Toolbar>);
-    };
+PlatformToolbar.propTypes = {
+  searchValue: PropTypes.string,
+  onFilterChange: PropTypes.func.isRequired
 };
 
 export default PlatformToolbar;

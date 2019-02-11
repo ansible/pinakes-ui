@@ -18,8 +18,8 @@ const AddPortfolioModal = ({
   updatePortfolio
 }) => {
   const onSubmit = data => initialValues
-    ? updatePortfolio(data).then(() => fetchPortfolios()).then(goBack)
-    : addPortfolio(data).then(() => fetchPortfolios()).then(goBack);
+    ? updatePortfolio(data).then(goBack).then(() => fetchPortfolios())
+    : addPortfolio(data).then(goBack).then(() => fetchPortfolios());
 
   const onCancel = () => pipe(
     addNotification({
@@ -41,7 +41,7 @@ const AddPortfolioModal = ({
 
   return (
     <Modal
-      title={ initialValues ? 'Edit portfolio' : 'Add portfolio' }
+      title={ initialValues ? 'Edit portfolio' : 'Create portfolio' }
       isOpen
       onClose={ onCancel }
     >
@@ -51,6 +51,10 @@ const AddPortfolioModal = ({
         onSubmit={ onSubmit }
         onCancel={ onCancel }
         initialValues={ { ...initialValues } }
+        formContainer="modal"
+        buttonsLabels={ {
+          submitLabel: 'Save'
+        } }
       />
     </Modal>
   );

@@ -4,7 +4,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  Toolbar,
   ToolbarGroup,
   ToolbarSection,
   ToolbarItem,
@@ -12,10 +11,11 @@ import {
   Text,
   TextVariants
 } from '@patternfly/react-core';
+import TopToolbar from '../../PresentationalComponents/Shared/top-toolbar';
 import './orders.scss';
 
 const OrdersToolbar = ({ match: { path }}) => (
-  <Toolbar className="pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl order-toolbar-breadcrumbs" style={ { backgroundColor: '#FFFFFF' } }>
+  <TopToolbar paddingBottom={ false }>
     <ToolbarSection aria-label="order-toolbar-breadcrumbs">
       <ToolbarGroup>
         <ToolbarItem>
@@ -39,7 +39,7 @@ const OrdersToolbar = ({ match: { path }}) => (
         </ToolbarItem>
       </ToolbarGroup>
     </ToolbarSection>
-  </Toolbar>
+  </TopToolbar>
 );
 
 OrdersToolbar.propTypes = {

@@ -3,7 +3,7 @@ import './platformcard.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../Shared/ImageWithDefault';
-import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import { GridItem, Card, CardHeader, CardBody, CardFooter, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import ItemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import CardCheckbox from '../Shared/CardCheckbox';
 
@@ -28,8 +28,10 @@ class PlatformItem extends React.Component {
                 />
               ) }
             </CardHeader>
-            <CardBody className="pcard_body">
-              <h4>{ this.props.name }</h4>
+            <CardBody>
+              <TextContent>
+                <Text component={ TextVariants.h3 }>{ this.props.name }</Text>
+              </TextContent>
               <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
             </CardBody>
             <CardFooter/>

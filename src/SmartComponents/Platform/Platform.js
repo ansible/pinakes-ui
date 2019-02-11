@@ -11,8 +11,7 @@ import './platform.scss';
 
 class Platform extends Component {
   state = {
-    platformId: '',
-    filteredItems: []
+    filterValue: ''
   };
 
   fetchData(apiProps) {
@@ -32,9 +31,13 @@ class Platform extends Component {
     }
   }
 
+  handleFilterChange = filterValue => this.setState({ filterValue });
+
   render() {
     let filteredItems = {
-      items: this.props.platformItems.map(data => <PlatformItem key={ data.id } { ...data } />),
+      items: this.props.platformItems
+      .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
+      .map(data => <PlatformItem key={ data.id } { ...data } />),
       isLoading: this.props.isPlatformDataLoading
     };
 
@@ -42,7 +45,7 @@ class Platform extends Component {
 
     return (
       <Fragment>
-        <PlatformToolbar/>
+        <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange }/>
         <div className="toolbar-padding">
           { title &&  (<Title size={ '2xl' } > { title }</Title>) }
         </div>
