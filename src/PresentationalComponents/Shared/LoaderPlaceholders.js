@@ -1,6 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
+import { Main } from '@red-hat-insights/insights-frontend-components';
 import { Card, CardBody, Grid, GridItem, NavItem } from '@patternfly/react-core';
 
 export const CardLoader = ({ items, ...props }) => (
@@ -90,7 +91,7 @@ NavLoader.defaultProps = {
 };
 
 export const AppPlaceholder = props => (
-  <div>
+  <Main style={ { marginLeft: 0, padding: 0 } }>
     <ContentLoader
       height={ 16 }
       width={ 300 }
@@ -101,5 +102,5 @@ export const AppPlaceholder = props => (
       <rect x="0" y="0" rx="0" ry="0" width="420" height="10" />
     </ContentLoader>
     <CardLoader />
-  </div>
+  </Main>
 );
