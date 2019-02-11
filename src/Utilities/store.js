@@ -11,8 +11,8 @@ import platformReducer, { platformInitialState } from '../redux/reducers/platfor
 import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolioReducer';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
-  errorTitleKey: [ 'message' ],
-  errorDescriptionKey: [ 'errors', 'stack' ]
+  errorTitleKey: [ 'errors', 'message' ],
+  errorDescriptionKey: [ 'response.body.errors', 'errors', 'stack' ]
 }), reduxLogger ]);
 
 registry.register({

@@ -44,11 +44,6 @@ export const addPortfolio = (portfolioData, items) => ({
         variant: 'success',
         title: 'Success adding portfolio',
         description: 'The portfolio was added successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed adding portfolio',
-        description: 'The portfolio was not added successfuly.'
       }
     }
   }
