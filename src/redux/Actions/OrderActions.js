@@ -23,7 +23,5 @@ export const setSelectedPlan = (data) => ({
 
 export const sendSubmitOrder = apiProps => ({
   type: ActionTypes.SUBMIT_SERVICE_ORDER,
-  payload: new Promise(resolve => {
-    resolve(OrderHelper.sendSubmitOrder(apiProps));
-  })
+  payload: OrderHelper.sendSubmitOrder(apiProps)
 });
