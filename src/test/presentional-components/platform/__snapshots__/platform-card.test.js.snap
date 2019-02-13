@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlatformCard /> should choose card image 1`] = `
+<PlatformCard
+  description="desc"
+  modified="Foo"
+>
+  <GridItem
+    className=""
+    lg={4}
+    lgOffset={null}
+    lgRowSpan={null}
+    md={4}
+    mdOffset={null}
+    mdRowSpan={null}
+    offset={null}
+    rowSpan={null}
+    sm={6}
+    smOffset={null}
+    smRowSpan={null}
+    span={null}
+    xl={3}
+    xlOffset={null}
+    xlRowSpan={null}
+  >
+    <div
+      className="pf-l-grid__item pf-m-6-col-on-sm pf-m-4-col-on-md pf-m-4-col-on-lg pf-m-3-col-on-xl"
+    >
+      <Link
+        className="card-link"
+        replace={false}
+        to="/platform/undefined"
+      >
+        <a
+          className="card-link"
+          href="/platform/undefined"
+          onClick={[Function]}
+        >
+          <Card
+            className=""
+            component="article"
+          >
+            <article
+              className="pf-c-card"
+            >
+              <CardHeader
+                className="pcard_header"
+                component="div"
+              >
+                <div
+                  className="pf-c-card__header pcard_header"
+                >
+                  <ImageWithDefault
+                    height="40"
+                    src="test-file-stub"
+                    width="80"
+                  >
+                    <img
+                      height="40"
+                      src="test-file-stub"
+                      width="80"
+                    />
+                  </ImageWithDefault>
+                </div>
+              </CardHeader>
+              <CardBody
+                className="pcard_body"
+                component="div"
+              >
+                <div
+                  className="pf-c-card__body pcard_body"
+                >
+                  <h4 />
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
+                  >
+                    <div
+                      className="line-clamp"
+                    >
+                      <PropLine
+                        key="card-prop-description"
+                        value="desc"
+                      >
+                        <div>
+                          desc
+                        </div>
+                      </PropLine>
+                      <PropLine
+                        key="card-prop-modified"
+                        value="Foo"
+                      >
+                        <div>
+                          Foo
+                        </div>
+                      </PropLine>
+                    </div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+              <CardFooter
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__footer"
+                />
+              </CardFooter>
+            </article>
+          </Card>
+        </a>
+      </Link>
+    </div>
+  </GridItem>
+</PlatformCard>
+`;
+
+exports[`<PlatformCard /> should render correctly 1`] = `
+<PlatformCard
+  description="desc"
+  modified="Foo"
+>
+  <GridItem
+    className=""
+    lg={4}
+    lgOffset={null}
+    lgRowSpan={null}
+    md={4}
+    mdOffset={null}
+    mdRowSpan={null}
+    offset={null}
+    rowSpan={null}
+    sm={6}
+    smOffset={null}
+    smRowSpan={null}
+    span={null}
+    xl={3}
+    xlOffset={null}
+    xlRowSpan={null}
+  >
+    <div
+      className="pf-l-grid__item pf-m-6-col-on-sm pf-m-4-col-on-md pf-m-4-col-on-lg pf-m-3-col-on-xl"
+    >
+      <Link
+        className="card-link"
+        replace={false}
+        to="/platform/undefined"
+      >
+        <a
+          className="card-link"
+          href="/platform/undefined"
+          onClick={[Function]}
+        >
+          <Card
+            className=""
+            component="article"
+          >
+            <article
+              className="pf-c-card"
+            >
+              <CardHeader
+                className="pcard_header"
+                component="div"
+              >
+                <div
+                  className="pf-c-card__header pcard_header"
+                >
+                  <ImageWithDefault
+                    height="40"
+                    src="test-file-stub"
+                    width="80"
+                  >
+                    <img
+                      height="40"
+                      src="test-file-stub"
+                      width="80"
+                    />
+                  </ImageWithDefault>
+                </div>
+              </CardHeader>
+              <CardBody
+                className="pcard_body"
+                component="div"
+              >
+                <div
+                  className="pf-c-card__body pcard_body"
+                >
+                  <h4 />
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
+                  >
+                    <div
+                      className="line-clamp"
+                    >
+                      <PropLine
+                        key="card-prop-description"
+                        value="desc"
+                      >
+                        <div>
+                          desc
+                        </div>
+                      </PropLine>
+                      <PropLine
+                        key="card-prop-modified"
+                        value="Foo"
+                      >
+                        <div>
+                          Foo
+                        </div>
+                      </PropLine>
+                    </div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+              <CardFooter
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__footer"
+                />
+              </CardFooter>
+            </article>
+          </Card>
+        </a>
+      </Link>
+    </div>
+  </GridItem>
+</PlatformCard>
+`;

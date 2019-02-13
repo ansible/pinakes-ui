@@ -6,8 +6,13 @@ const FilterToolbarItem = ({ searchValue, onFilterChange, placeholder }) => (
   <ToolbarGroup className="searchToolbar">
     <ToolbarItem>
       <div className="pf-c-input-group">
-        <TextInput placeholder={ placeholder } value={ searchValue } type="text" onChange={ onFilterChange }
-          aria-label="Find product button"></TextInput>
+        <TextInput
+          placeholder={ placeholder }
+          value={ searchValue }
+          type="text"
+          onChange={ onFilterChange }
+          aria-label="Find product button"
+        />
         <Button variant="tertiary" id="searchProductButton" onClick={ () => onFilterChange(searchValue) }>
           <i className="fas fa-search" aria-hidden="true"></i>
         </Button>

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopToolbar /> should render correctly 1`] = `
+<TopToolbar
+  paddingBottom={true}
+>
+  <div
+    className="pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl pf-u-pb-xl top-toolbar"
+  />
+</TopToolbar>
+`;

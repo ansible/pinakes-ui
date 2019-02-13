@@ -28,3 +28,14 @@ global.apiClientMock = mock;
  * setup ENV vars
  */
 process.env.BASE_PATH = '/r/insights/platform';
+
+/**
+ * Setup JSDOM
+ */
+global.SVGPathElement = function () {};
+
+global.MutationObserver = class {
+  constructor(callback) {}
+  disconnect() {}
+  observe(element, initObject) {}
+};
