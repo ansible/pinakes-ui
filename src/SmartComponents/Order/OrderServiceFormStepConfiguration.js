@@ -5,11 +5,13 @@ import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/reac
 import '../../Utilities/jschema.scss';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import FormRenderer from '../Common/FormRenderer';
+import { fetchProviderControlParameters } from '../../Helpers/Portfolio/PortfolioHelper';
 
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
     showOrder: false,
-    selectedPlanIdx: 0
+    selectedPlanIdx: 0,
+    controlParametersLoaded: false
   };
 
   optionRow = (plan, option, selectedId, onChange) =>
@@ -25,6 +27,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
   componentDidMount() {
     const { id } = this.props;
     this.props.fetchPlans(id);
+    fetchProviderControlParameters(id).then(providerControlParameters => this.setState({ providerControlParameters, controlParametersLoaded: true }));
   }
 
   handlePlanChange = (arg, event) =>  {
@@ -47,8 +50,13 @@ class OrderServiceFormStepConfiguration extends React.Component {
   };
 
   render() {
-    console.log('service plan', this.props);
-    if (!this.props.isLoading) {
+    const { controlParametersLoaded, providerControlParameters } = this.state;
+    if (!this.props.isLoading && controlParametersLoaded) {
+      const initialSchema = { ...this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema };
+      const formSchema = {
+        ...initialSchema,
+        properties: { providerControlParameters, ...initialSchema.properties  }
+      };
       return (
         <React.Fragment>
           <Stack gutter={ 'md' } className="order_card">
@@ -63,15 +71,15 @@ class OrderServiceFormStepConfiguration extends React.Component {
                           <div>{ this.planOptions() }</div>
                         </div>
                 }
-                { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
+              </Form>
+              { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
                   <FormRenderer
-                    schema={ this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema }
+                    schema={ formSchema }
                     onSubmit={ this.onSubmit }
                     schemaType="mozilla"
                     formContainer="modal"
                   />
-                }
-              </Form>
+              }
             </StackItem>
           </Stack>
         </React.Fragment>

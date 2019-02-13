@@ -46,8 +46,9 @@ class MainModalContainer extends React.Component {
     return (
       <div>
         <Modal isOpen={ this.props.modalProps.open }
-          id='mainModal' title={ this.props.title || '' }
-          className="modal-dialog modal-lg"
+          id='mainModal'
+          title={ this.props.title || '' }
+          style={ { width: 600 } }
           onClose={ this.closeModal }>
           <SpecifiedModal
             closeModal={ this.closeModal }
