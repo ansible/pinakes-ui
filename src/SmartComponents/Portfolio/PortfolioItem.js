@@ -5,12 +5,10 @@ import './portfolioitem.scss';
 import propTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
-import ItemDetails from '../../PresentationalComponents/Shared/CardCommon';
 import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
-import { GridItem, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import { GridItem, Card, CardHeader, CardFooter } from '@patternfly/react-core';
 import CardCheckbox from '../../SmartComponents/Common/CardCheckbox';
-
-const TO_DISPLAY = [ 'description' ];
+import ServiceOfferingCardBody from '../../PresentationalComponents/Shared/service-offering-body';
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   hideModal,
@@ -43,10 +41,7 @@ class PortfolioItem extends Component {
               }
               <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } width="30" height="20" />
             </CardHeader>
-            <CardBody className="card_body">
-              <h4>{ this.props.name }</h4>
-              <ItemDetails { ...this.props } toDisplay={ TO_DISPLAY } />
-            </CardBody>
+            <ServiceOfferingCardBody { ...this.props }/>
             <CardFooter>
             </CardFooter>
           </div>

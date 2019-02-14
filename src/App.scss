@@ -61,3 +61,11 @@ ul.navigation-secondary {
     }
   }
 }
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  word-wrap: break-word;
+}
