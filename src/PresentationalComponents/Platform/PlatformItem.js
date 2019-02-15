@@ -15,8 +15,8 @@ const PlatformItem = props =>(
         { props.editMode && (
           <CardCheckbox
             id={ props.id }
-            checked={ props.checked }
-            onChange={ props.onToggleItemSelect }
+            isChecked={ props.checked }
+            handleCheck={ props.onToggleItemSelect }
           />
         ) }
       </CardHeader>

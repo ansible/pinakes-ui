@@ -1,23 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
+import { Checkbox } from '@patternfly/react-core';
 
-const CardCheckbox = ({ type = 'checkbox', id, onChange, checked = false }) => (
+const CardCheckbox = ({ handleCheck, isChecked, id }) => (
   <div style={ { float: 'right' } }>
-    <input
-      type={ type }
-      id = { id }
-      checked={ checked }
-      onChange={ onChange }
+    <Checkbox
+      checked={ isChecked }
+      onChange={ handleCheck }
+      onClick={ event => event.stopPropagation() }
       aria-label="card checkbox"
+      id={ id }
     />
   </div>
 );
 
 CardCheckbox.propTypes = {
-  type: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  checked: PropTypes.bool,
-  onChange: PropTypes.func.isRequired
+  handleCheck: propTypes.func,
+  isChecked: propTypes.bool,
+  id: propTypes.string
 };
 
 export default CardCheckbox;

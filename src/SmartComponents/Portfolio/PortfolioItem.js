@@ -7,8 +7,8 @@ import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
 import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import { GridItem, Card, CardHeader, CardFooter } from '@patternfly/react-core';
-import CardCheckbox from '../../SmartComponents/Common/CardCheckbox';
 import ServiceOfferingCardBody from '../../PresentationalComponents/Shared/service-offering-body';
+import CardCheckbox from '../../PresentationalComponents/Shared/CardCheckbox';
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   hideModal,
