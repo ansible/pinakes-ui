@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
@@ -8,25 +8,33 @@ import ServiceOfferingCardBody from '../../PresentationalComponents/Shared/servi
 import CardCheckbox from '../../PresentationalComponents/Shared/CardCheckbox';
 import './portfolioitem.scss';
 
-const PortfolioItem = props =>(
-  <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
-    <Card>
-      <Link to={ props.orderUrl } className="card-link" >
-        <CardHeader className="card_header">
-          { props.isSelectable && <CardCheckbox
-            handleCheck={ () => props.onSelect(props.id) }
-            isChecked={ props.isSelected }
-            id={ props.id } />
-          }
-          <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
-        </CardHeader>
-        <ServiceOfferingCardBody { ...props }/>
-        <CardFooter>
-        </CardFooter>
-      </Link>
-    </Card>
-  </GridItem>
-);
+const PortfolioItem = props => {
+  const renderCardContent = () => (
+    <Fragment>
+      <CardHeader className="card_header">
+        { props.isSelectable && <CardCheckbox
+          handleCheck={ () => props.onSelect(props.id) }
+          isChecked={ props.isSelected }
+          id={ props.id } />
+        }
+        <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
+      </CardHeader>
+      <ServiceOfferingCardBody { ...props }/>
+      <CardFooter>
+      </CardFooter>
+    </Fragment>
+  );
+  return (
+    <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
+      <Card>
+        { props.isSelectable ? renderCardContent() : (
+          <Link to={ props.orderUrl } className="card-link" >
+            { renderCardContent() }
+          </Link>
+        ) }
+      </Card>
+    </GridItem>
+  );};
 
 PortfolioItem.propTypes = {
   history: PropTypes.object,
