@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
-import MainModal from '../Common/MainModal';
-import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
@@ -17,12 +15,12 @@ import { scrollToTop } from '../../Helpers/Shared/helpers';
 import './portfolio.scss';
 import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfolioItems';
 import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
+import OrderModal from '../Common/OrderModal';
 
 class Portfolio extends Component {
   state = {
     portfolioId: '',
     isKebabOpen: false,
-    isOpen: false,
     filteredItems: [],
     selectedItems: [],
     filterValue: ''
@@ -78,7 +76,6 @@ class Portfolio extends Component {
   };
 
   handleFilterChange = filterValue => {
-    console.log('filterValue: ', filterValue);
     this.setState({ filterValue });
   };
 
@@ -96,8 +93,8 @@ class Portfolio extends Component {
       }
       <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolio/:id/remove-portfolio" component={ RemovePortfolioModal } />
+      <Route exact path="/portfolio/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ this.props.match.url } /> } />
       <ContentGallery { ...filteredItems } />
-      <MainModal/>
     </Fragment>
   )
 
@@ -140,6 +137,7 @@ class Portfolio extends Component {
           isSelectable={ this.props.location.pathname.includes('/remove-products') }
           onSelect={ this.handleItemSelect }
           isSelected={ this.state.selectedItems.includes(item.id) }
+          orderUrl={ `${this.props.match.url}/order/${item.id}` }
         />
       )),
       isLoading: this.props.isLoading
@@ -172,18 +170,12 @@ const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems
 const mapDispatchToProps = dispatch => ({
   fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps)),
   fetchSelectedPortfolio: apiProps => dispatch(fetchSelectedPortfolio(apiProps)),
-  hideModal: () => dispatch(hideModal()),
-  showModal: (modalProps, modalType) => {
-    dispatch(showModal({ modalProps, modalType }));
-  }
 });
 
 Portfolio.propTypes = {
   isLoading: propTypes.bool,
   fetchPortfolioItemsWithPortfolio: propTypes.func,
   fetchSelectedPortfolio: propTypes.func,
-  showModal: propTypes.func,
-  hideModal: propTypes.func,
   match: propTypes.object,
   portfolio: propTypes.shape({
     name: propTypes.string,

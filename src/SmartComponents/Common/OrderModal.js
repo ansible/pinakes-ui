@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Button, CardHeader } from '@patternfly/react-core';
+import { withRouter } from 'react-router-dom';
+import { Button, CardHeader, Modal } from '@patternfly/react-core';
 import { connect } from 'react-redux';
 import '../Order/orderservice.scss';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
-
 class OrderModal extends Component {
   state = {
-    serviceData: {},
     activeStepIndex: 0
   };
 
@@ -21,46 +20,47 @@ class OrderModal extends Component {
   };
 
   render() {
-    const showOrder = this.props.open;
-
-    if (!showOrder) {
-      return null;
-    }
-
     const { activeStepIndex } = this.state;
     const steps = OrderServiceFormSteps;
-
-    return (
-      <React.Fragment>
+    return this.props.serviceData ? (
+      <Modal
+        isOpen
+        title=""
+        onClose={ () => this.props.history.push(this.props.closeUrl) }
+        style={ { maxWidth: 800 } }
+      >
         <CardHeader className="order_header">
-          <ImageWithDefault src = { this.props.servicedata.imageUrl || CatItemSvg } width="40" />
-          { this.props.servicedata.name }
+          <ImageWithDefault src = { this.props.serviceData.imageUrl || CatItemSvg } width="40" />
+          { this.props.serviceData.name }
         </CardHeader>
-        { this.renderStepPage(steps[activeStepIndex].page, this.props.servicedata) }
+        { this.renderStepPage(steps[activeStepIndex].page, this.props.serviceData) }
         { (activeStepIndex < steps.length - 1) &&
-            <Button variant="primary" aria-label="Order portfolio item" onClick={ this.onNext }>
-              Order
-            </Button>
+          <Button variant="primary" aria-label="Order portfolio item" onClick={ this.onNext }>
+            Order
+          </Button>
         }
-      </React.Fragment>
-    );
+      </Modal>
+    ) : null;
   }
 }
 
 OrderModal.propTypes = {
-  orderData: propTypes.func,
-  showOrder: propTypes.bool,
-  servicedata: propTypes.object,
-  stepParametersValid: propTypes.bool,
-  fulfilled: propTypes.bool,
-  error: propTypes.bool,
-  open: propTypes.bool
+  orderData: PropTypes.func,
+  serviceData: PropTypes.object,
+  closeUrl: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
-const mapStateToProps = ({ orderReducer: { isLoading, selectedItem, servicePlans }}) => ({
+const mapStateToProps = ({
+  portfolioReducer: { portfolioItems },
+  orderReducer: { isLoading, selectedItem, servicePlans }
+}, { match: { params: { itemId }}}) => ({
   isLoading,
   selectedItem,
-  servicePlans
+  servicePlans,
+  serviceData: portfolioItems.find(({ id }) => id === itemId)
 });
 
-export default connect(mapStateToProps)(OrderModal);
+export default withRouter(connect(mapStateToProps)(OrderModal));
