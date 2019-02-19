@@ -39,3 +39,9 @@ global.MutationObserver = class {
   disconnect() {}
   observe(element, initObject) {}
 };
+
+// prepare root element
+const root = document.createElement('div');
+root.id = 'root';
+document.body.appendChild(root);
+Element.prototype.scrollTo = () => {};
