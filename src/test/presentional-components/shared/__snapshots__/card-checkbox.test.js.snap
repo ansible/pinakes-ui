@@ -17,6 +17,7 @@ exports[`<CardCheckbox /> should render correctly 1`] = `
     isDisabled={false}
     isValid={true}
     onChange={[MockFunction]}
+    onClick={[Function]}
   />
 </div>
 `;

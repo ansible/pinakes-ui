@@ -7,7 +7,7 @@ import '../Shared/toolbarschema.scss';
 
 const PortfolioFilterToolbar = props => (
   <TopToolbar paddingBottom>
-    <ToolbarSection>
+    <ToolbarSection aria-label="portfolio-filter-toolbar">
       <FilterToolbarItem { ...props } placeholder={ 'Find a Product' }/>
       <OrderToolbarItem { ...props }/>
     </ToolbarSection>

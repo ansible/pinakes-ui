@@ -169,7 +169,7 @@ const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems
 
 const mapDispatchToProps = dispatch => ({
   fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps)),
-  fetchSelectedPortfolio: apiProps => dispatch(fetchSelectedPortfolio(apiProps)),
+  fetchSelectedPortfolio: apiProps => dispatch(fetchSelectedPortfolio(apiProps))
 });
 
 Portfolio.propTypes = {
