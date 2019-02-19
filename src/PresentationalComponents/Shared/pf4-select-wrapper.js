@@ -32,13 +32,13 @@ const Select = ({
 Select.propTypes = {
   input: PropTypes.object.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any.isRequired,
-    label: PropTypes.string
+    value: PropTypes.any,
+    label: PropTypes.string.isRequired
   })).isRequired,
   isReadOnly: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
-  FieldProvider: PropTypes
+  FieldProvider: PropTypes.any
 };
 
 const Pf4SelectWrapper = ({

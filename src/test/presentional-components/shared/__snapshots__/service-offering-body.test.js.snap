@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
+<ServiceOfferingCardBody
+  display_name="display name"
+  distributor="Red Hat"
+  long_description="long description"
+  name="Foo"
+>
+  <CardBody
+    className=""
+    component="div"
+    style={
+      Object {
+        "height": 240,
+      }
+    }
+  >
+    <div
+      className="pf-c-card__body"
+      style={
+        Object {
+          "height": 240,
+        }
+      }
+    >
+      <TextContent
+        className=""
+      >
+        <div
+          className="pf-c-content"
+        >
+          <Text
+            className="elipsis-text-overflow"
+            component="h3"
+            title="display name"
+          >
+            <h3
+              className="elipsis-text-overflow"
+              data-pf-content={true}
+              title="display name"
+            >
+              display name
+            </h3>
+          </Text>
+          <Text
+            className=""
+            component="small"
+          >
+            <small
+              className=""
+              data-pf-content={true}
+            >
+              Red Hat
+               
+            </small>
+          </Text>
+        </div>
+      </TextContent>
+      <ItemDetails
+        long_description="long description"
+        toDisplay={
+          Array [
+            "long_description",
+          ]
+        }
+      >
+        <div
+          className="line-clamp"
+        >
+          <PropLine
+            key="card-prop-long_description"
+            value="long description"
+          >
+            <div>
+              long description
+            </div>
+          </PropLine>
+        </div>
+      </ItemDetails>
+    </div>
+  </CardBody>
+</ServiceOfferingCardBody>
+`;
+
+exports[`<ServiceOfferingCardBody /> should render correctly with alternative values 1`] = `
+<ServiceOfferingCardBody
+  description="Bar"
+  name="Foo"
+>
+  <CardBody
+    className=""
+    component="div"
+    style={
+      Object {
+        "height": 240,
+      }
+    }
+  >
+    <div
+      className="pf-c-card__body"
+      style={
+        Object {
+          "height": 240,
+        }
+      }
+    >
+      <TextContent
+        className=""
+      >
+        <div
+          className="pf-c-content"
+        >
+          <Text
+            className="elipsis-text-overflow"
+            component="h3"
+            title="Foo"
+          >
+            <h3
+              className="elipsis-text-overflow"
+              data-pf-content={true}
+              title="Foo"
+            >
+              Foo
+            </h3>
+          </Text>
+          <Text
+            className=""
+            component="small"
+          >
+            <small
+              className=""
+              data-pf-content={true}
+            >
+               
+            </small>
+          </Text>
+        </div>
+      </TextContent>
+      <ItemDetails
+        description="Bar"
+        toDisplay={
+          Array [
+            "description",
+          ]
+        }
+      >
+        <div
+          className="line-clamp"
+        >
+          <PropLine
+            key="card-prop-description"
+            value="Bar"
+          >
+            <div>
+              Bar
+            </div>
+          </PropLine>
+        </div>
+      </ItemDetails>
+    </div>
+  </CardBody>
+</ServiceOfferingCardBody>
+`;

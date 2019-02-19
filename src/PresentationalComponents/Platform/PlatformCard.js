@@ -12,15 +12,9 @@ import './platformcard.scss';
 const TO_DISPLAY = [ 'description', 'modified' ];
 
 // TO DO - use webpack to load all images
-const platformTypeImg = (sourceTypeId) => {
-  switch (sourceTypeId) {
-    case '1':
-      return OpenshiftPlatformImg;
-    case '2':
-      return AmazonPlatformImg;
-    default:
-      return DefaultPlatformImg;
-  }
+const platformTypeImg = {
+  1: OpenshiftPlatformImg,
+  2: AmazonPlatformImg
 };
 
 const PlatformCard = ({ name, id, ...props }) => (
@@ -28,7 +22,7 @@ const PlatformCard = ({ name, id, ...props }) => (
     <Link to={ `/platform/${id}` } className="card-link">
       <Card key={ id }>
         <CardHeader className="pcard_header">
-          <ImageWithDefault src={ platformTypeImg(props.source_type_id || '0') } defaultSrc={ DefaultPlatformImg } width="80" height="40"/>
+          <ImageWithDefault src={ platformTypeImg[props.source_type_id] || DefaultPlatformImg } width="80" height="40"/>
         </CardHeader>
         <CardBody className="pcard_body">
           <h4>{ name }</h4>

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CardCommon /> should render correctly empty 1`] = `
+<ItemDetails
+  toDisplay={Array []}
+>
+  <div
+    className="line-clamp"
+  />
+</ItemDetails>
+`;
+
+exports[`<CardCommon /> should render correctly with content 1`] = `
+<ItemDetails
+  bar={
+    <h1>
+      Bar content
+    </h1>
+  }
+  foo="Foo content"
+  toDisplay={
+    Array [
+      "foo",
+      "bar",
+    ]
+  }
+>
+  <div
+    className="line-clamp"
+  >
+    <PropLine
+      key="card-prop-foo"
+      value="Foo content"
+    >
+      <div>
+        Foo content
+      </div>
+    </PropLine>
+    <PropLine
+      key="card-prop-bar"
+      value={
+        <h1>
+          Bar content
+        </h1>
+      }
+    >
+      <div>
+        <h1>
+          Bar content
+        </h1>
+      </div>
+    </PropLine>
+  </div>
+</ItemDetails>
+`;

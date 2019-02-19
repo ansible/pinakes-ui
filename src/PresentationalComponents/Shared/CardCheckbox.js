@@ -7,7 +7,6 @@ const CardCheckbox = ({ handleCheck, isChecked, id }) => (
     <Checkbox
       checked={ isChecked }
       onChange={ handleCheck }
-      onClick={ event => event.stopPropagation() }
       aria-label="card checkbox"
       id={ id }
     />

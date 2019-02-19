@@ -21,7 +21,7 @@ const ItemDetails = ({ toDisplay = [], ...item }) => (
 );
 
 ItemDetails.propTypes = {
-  toDisplay: PropTypes.arrayOf(PropTypes.string)
+  toDisplay: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.node, PropTypes.arrayOf(PropTypes.node) ]))
 };
 
 ItemDetails.defaultProps = {
