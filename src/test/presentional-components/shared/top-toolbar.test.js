@@ -5,6 +5,6 @@ import TopToolbar from '../../../PresentationalComponents/Shared/top-toolbar';
 
 describe('<TopToolbar />', () => {
   it('should render correctly', () => {
-    expect(toJson(mount(<TopToolbar />))).toMatchSnapshot();
+    expect(toJson(mount(<TopToolbar><div>Children</div></TopToolbar>))).toMatchSnapshot();
   });
 });

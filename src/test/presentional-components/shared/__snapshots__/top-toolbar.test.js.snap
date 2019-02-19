@@ -6,6 +6,10 @@ exports[`<TopToolbar /> should render correctly 1`] = `
 >
   <div
     className="pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl pf-u-pb-xl top-toolbar"
-  />
+  >
+    <div>
+      Children
+    </div>
+  </div>
 </TopToolbar>
 `;
