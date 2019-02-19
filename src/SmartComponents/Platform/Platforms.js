@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
@@ -8,7 +7,6 @@ import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery'
 import PlatformCard from '../../PresentationalComponents/Platform/PlatformCard';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
-import MainModal from '../Common/MainModal';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 
 class Platforms extends Component {
@@ -51,7 +49,6 @@ class Platforms extends Component {
           <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } />
           { this.renderToolbar() }
           <ContentGallery { ...filteredItems } />
-          <MainModal />
         </Section>
       );
     }
@@ -80,9 +77,4 @@ Platforms.propTypes = {
   fetchPlatforms: propTypes.func
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Platforms)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Platforms);
