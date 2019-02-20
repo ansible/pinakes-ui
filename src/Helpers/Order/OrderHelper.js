@@ -15,14 +15,16 @@ export function listOrders() {
   return api.listOrders();
 }
 
-export async function sendSubmitOrder(parameters) {
+export async function sendSubmitOrder({ service_parameters: { providerControlParameters, ...service_parameters }, ...parameters }) {
   let order = await api.newOrder();
   let orderItem = new ServicePortalApi.OrderItem;
   orderItem.count = 1;
-  orderItem.provider_control_parameters =  { namespace: 'default' };
-  orderItem.portfolio_item_id = parameters.portfolio_item_id;
-  orderItem.service_plan_ref = parameters.service_plan_ref;
-  orderItem.service_parameters = parameters.service_parameters;
+  orderItem = {
+    ...orderItem,
+    ...parameters,
+    service_parameters,
+    provider_control_parameters: providerControlParameters
+  };
   await api.addToOrder(order.id, orderItem);
   return api.submitOrder(order.id);
 }

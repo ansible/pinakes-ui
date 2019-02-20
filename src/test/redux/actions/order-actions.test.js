@@ -133,7 +133,7 @@ describe('Order actions', () => {
         provider_control_parameters: { namespace: 'default' },
         portfolio_item_id: 'Foo',
         service_plan_ref: 'Bar',
-        service_parameters: 'Quxx'
+        service_parameters: { bax: 'quxx' }
       });
       return res.status(200);
     }));
@@ -149,7 +149,7 @@ describe('Order actions', () => {
     return store.dispatch(sendSubmitOrder({
       portfolio_item_id: 'Foo',
       service_plan_ref: 'Bar',
-      service_parameters: 'Quxx'
+      service_parameters: { bax: 'quxx', providerControlParameters: { namespace: 'default' }}
     })).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
