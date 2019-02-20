@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlatformItem /> should render correctly 1`] = `
+<GridItem
+  className=""
+  lg={4}
+  lgOffset={null}
+  lgRowSpan={null}
+  md={6}
+  mdOffset={null}
+  mdRowSpan={null}
+  offset={null}
+  rowSpan={null}
+  sm={12}
+  smOffset={null}
+  smRowSpan={null}
+  span={null}
+  xl={3}
+  xlOffset={null}
+  xlRowSpan={null}
+>
+  <Card
+    className=""
+    component="article"
+  >
+    <CardHeader
+      className="pcard_header"
+      component="div"
+    >
+      <ImageWithDefault
+        height="20"
+        src="test-file-stub"
+        width="30"
+      />
+    </CardHeader>
+    <ServiceOfferingCardBody />
+    <CardFooter
+      className=""
+      component="div"
+    />
+  </Card>
+</GridItem>
+`;

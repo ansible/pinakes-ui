@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Title } from '@patternfly/react-core';
@@ -61,10 +62,10 @@ const mapStateToProps = ({ platformReducer: { selectedPlatform, platformItems, i
   isPlatformDataLoading: !selectedPlatform || isPlatformDataLoading
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchSelectedPlatform: platformId => dispatch(fetchSelectedPlatform(platformId)),
-  fetchPlatformItems: apiProps => dispatch(fetchPlatformItems(apiProps))
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchSelectedPlatform,
+  fetchPlatformItems
+}, dispatch);
 
 Platform.propTypes = {
   filteredItems: PropTypes.object,

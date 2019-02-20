@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContentGallery /> should render all items 1`] = `
+<ContentGallery
+  isLoading={false}
+  items={
+    Array [
+      <div>
+        1
+      </div>,
+      <div>
+        2
+      </div>,
+      <div>
+        3
+      </div>,
+    ]
+  }
+>
+  <Section
+    type="content"
+  >
+    <section
+      className="ins-l-content"
+    >
+       
+      <Grid
+        className=""
+        gutter="md"
+        lg={null}
+        md={null}
+        sm={null}
+        span={null}
+        xl={null}
+      >
+        <div
+          className="pf-l-grid pf-m-gutter"
+        >
+          <div
+            key="1"
+          >
+            1
+          </div>
+          <div
+            key="2"
+          >
+            2
+          </div>
+          <div
+            key="3"
+          >
+            3
+          </div>
+        </div>
+      </Grid>
+       
+    </section>
+  </Section>
+</ContentGallery>
+`;
+
+exports[`<ContentGallery /> should render in loading state 1`] = `
+<Fragment>
+  <CardLoader
+    items={5}
+  />
+</Fragment>
+`;
+
+exports[`<ContentGallery /> should render no items placeholder 1`] = `
+<ContentGallery
+  isLoading={false}
+  items={Array []}
+>
+  <Section
+    type="content"
+  >
+    <section
+      className="ins-l-content"
+    >
+       
+      <Grid
+        className=""
+        gutter="md"
+        lg={null}
+        md={null}
+        sm={null}
+        span={null}
+        xl={null}
+      >
+        <div
+          className="pf-l-grid pf-m-gutter"
+        >
+          <NoItems>
+            <Bullseye
+              className=""
+              component="div"
+            >
+              <div
+                className="pf-l-bullseye"
+              >
+                <Text
+                  className=""
+                  component="h1"
+                >
+                  <h1
+                    className=""
+                    data-pf-content={true}
+                  >
+                    No items found
+                  </h1>
+                </Text>
+              </div>
+            </Bullseye>
+          </NoItems>
+        </div>
+      </Grid>
+       
+    </section>
+  </Section>
+</ContentGallery>
+`;
