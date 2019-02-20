@@ -5,6 +5,7 @@ import { Checkbox } from '@patternfly/react-core';
 const CardCheckbox = ({ handleCheck, isChecked, id }) => (
   <div style={ { float: 'right' } }>
     <Checkbox
+      onClick={ event => event.stopPropagation() }
       checked={ isChecked }
       onChange={ handleCheck }
       aria-label="card checkbox"

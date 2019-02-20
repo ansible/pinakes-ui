@@ -35,11 +35,11 @@ ul.navigation-secondary {
   padding: 24px 24px 0 24px
 }
 
-.card-link {
-  &:hover {
-    text-decoration: none;
-  }
-  cursor: pointer;
+.card-link, .card-link:hover, .card-link:active {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  color: #282d33 !important;
+  font-weight: 400 !important;
 }
 
 .text-align-right {

@@ -5,7 +5,6 @@ import { notifications, notificationsMiddleware } from '@red-hat-insights/insigh
 
 import reduxLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import mainModalReducer, { mainModalInitialState } from '../redux/reducers/mainModalReducer';
 import orderReducer, { orderInitialState } from '../redux/reducers/orderReducer';
 import platformReducer, { platformInitialState } from '../redux/reducers/platformReducer';
 import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolioReducer';
@@ -16,7 +15,6 @@ const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificat
 }), reduxLogger ]);
 
 registry.register({
-  mainModalReducer: applyReducerHash(mainModalReducer, mainModalInitialState),
   orderReducer: applyReducerHash(orderReducer, orderInitialState),
   platformReducer: applyReducerHash(platformReducer, platformInitialState),
   portfolioReducer: applyReducerHash(portfolioReducer, portfoliosInitialState),

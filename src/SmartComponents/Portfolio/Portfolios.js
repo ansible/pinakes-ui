@@ -7,7 +7,6 @@ import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery'
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
-import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import AddPortfolio from './add-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
 import './portfolio.scss';
@@ -80,15 +79,9 @@ const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValu
   searchFilter: filterValue
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchPortfolios: apiProps => dispatch(fetchPortfolios(apiProps)),
-    hideModal: () => dispatch(hideModal()),
-    showModal: (modalProps, modalType) => {
-      dispatch(showModal({ modalProps, modalType }));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchPortfolios: apiProps => dispatch(fetchPortfolios(apiProps))
+});
 
 Portfolios.propTypes = {
   filteredItems: propTypes.array,
@@ -97,7 +90,6 @@ Portfolios.propTypes = {
   isLoading: propTypes.bool,
   searchFilter: propTypes.string,
   showModal: propTypes.func,
-  hideModal: propTypes.func,
   fetchPortfolios: propTypes.func.isRequired
 };
 

@@ -1,66 +1,52 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import './portfolioitem.scss';
-import propTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
-import { hideModal, showModal } from '../../redux/Actions/MainModalActions';
 import { GridItem, Card, CardHeader, CardFooter } from '@patternfly/react-core';
 import ServiceOfferingCardBody from '../../PresentationalComponents/Shared/service-offering-body';
 import CardCheckbox from '../../PresentationalComponents/Shared/CardCheckbox';
+import './portfolioitem.scss';
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  hideModal,
-  showModal
-}, dispatch);
-
-class PortfolioItem extends Component {
-  handleOnClick = () => {
-    this.setState({ showOrder: true });
-    this.props.showModal({
-      modalProps: {
-        open: true,
-        servicedata: this.props,
-        closeModal: this.props.hideModal
-      },
-      modalType: 'order'
-    });
-  };
-
-  render() {
-    return (
-      <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
-        <Card>
-          <div onClick={ () => this.handleOnClick(this.props) }>
-            <CardHeader className="card_header">
-              { this.props.isSelectable && <CardCheckbox
-                handleCheck={ () => { this.props.onSelect(this.props.id); } }
-                isChecked={ this.props.isSelected }
-                id={ this.props.id } />
-              }
-              <ImageWithDefault src={ this.props.imageUrl || CatItemSvg } width="30" height="20" />
-            </CardHeader>
-            <ServiceOfferingCardBody { ...this.props }/>
-            <CardFooter>
-            </CardFooter>
-          </div>
-        </Card>
-      </GridItem>
-    );
-  };
-}
+const PortfolioItem = props => {
+  const renderCardContent = () => (
+    <Fragment>
+      <CardHeader className="card_header">
+        { props.isSelectable && <CardCheckbox
+          handleCheck={ () => props.onSelect(props.id) }
+          isChecked={ props.isSelected }
+          id={ props.id } />
+        }
+        <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
+      </CardHeader>
+      <ServiceOfferingCardBody { ...props }/>
+      <CardFooter>
+      </CardFooter>
+    </Fragment>
+  );
+  return (
+    <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
+      <Card>
+        { props.isSelectable ? renderCardContent() : (
+          <Link to={ props.orderUrl } className="card-link" >
+            { renderCardContent() }
+          </Link>
+        ) }
+      </Card>
+    </GridItem>
+  );};
 
 PortfolioItem.propTypes = {
-  history: propTypes.object,
-  showModal: propTypes.func,
-  hideModal: propTypes.func,
-  imageUrl: propTypes.string,
-  name: propTypes.string,
-  id: propTypes.string,
-  isSelectable: propTypes.bool,
-  isSelected: propTypes.bool,
-  onSelect: propTypes.func
+  history: PropTypes.object,
+  showModal: PropTypes.func,
+  hideModal: PropTypes.func,
+  imageUrl: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  isSelectable: PropTypes.bool,
+  isSelected: PropTypes.bool,
+  onSelect: PropTypes.func,
+  orderUrl: PropTypes.string.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(PortfolioItem);
+export default PortfolioItem;

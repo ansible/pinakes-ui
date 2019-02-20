@@ -7,7 +7,6 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchMultiplePlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
-import MainModal from '../Common/MainModal';
 import '../Platform/platform.scss';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 import PortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/PortfolioOrderToolbar';
@@ -98,7 +97,6 @@ class AddProductsToPortfolio extends Component {
               />
             )) }
           { (this.state.selectedPlatforms.length < 1) && <PlatformDashboard/> }
-          <MainModal/>
         </Section>
       );
     }

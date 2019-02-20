@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { Modal, Button, Title, Bullseye } from '@patternfly/react-core';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchPortfolios, removePortfolio } from '../../redux/Actions/PortfolioActions';
-import { hideModal } from '../../redux/Actions/MainModalActions';
 import { pipe } from 'rxjs';
 import './portfolio.scss';
 
@@ -81,8 +80,7 @@ const mapStateToProps = (state, { match: { params: { id }}}) => {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,
   fetchPortfolios,
-  removePortfolio,
-  hideModal
+  removePortfolio
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RemovePortfolioModal));
