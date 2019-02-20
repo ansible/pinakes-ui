@@ -26,7 +26,7 @@ class Orders extends Component {
 
   componentDidMount() {
     this.props.fetchOrders()
-    .then(() => this.setState({ orders: this.props.orderList.items }));
+    .then(() => this.setState({ orders: this.props.orderList.items.sort((a, b) => b.id - a.id) }));
   }
 
   handleTabClick = (_event, activeTabKey) => this.setState({ activeTabKey })
@@ -35,7 +35,7 @@ class Orders extends Component {
     dataListExpanded: { ...dataListExpanded, [id]: !dataListExpanded[id] }
   }))
 
-  renderDataListItems = data => data.map((item, index) => (
+  renderDataListItems = data => data.map(item => (
     <DataListItem key={ item.id } aria-labelledby={ `${item.id}-expand` } isExpanded={ this.state.dataListExpanded[item.id] }>
       { data.id }
       <DataListToggle
@@ -47,7 +47,7 @@ class Orders extends Component {
       />
       <DataListCell>
         <TextContent>
-          <Text component={ TextVariants.h4 }>Order { index }</Text>
+          <Text component={ TextVariants.h4 }>Order { item.id }</Text>
           <Text style={ { marginBottom: 0 } } component={ TextVariants.small }>{ item.created_at.toString() }</Text>
         </TextContent>
       </DataListCell>
