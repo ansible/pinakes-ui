@@ -7,7 +7,7 @@ import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/Actions/P
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
-import { scrollToTop } from '../../Helpers/Shared/helpers';
+import { scrollToTop, filterServiceOffering } from '../../Helpers/Shared/helpers';
 import './platform.scss';
 
 class Platform extends Component {
@@ -37,7 +37,7 @@ class Platform extends Component {
   render() {
     let filteredItems = {
       items: this.props.platformItems
-      .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
+      .filter(item => filterServiceOffering(item, this.state.filterValue))
       .map(data => <PlatformItem key={ data.id } { ...data } />),
       isLoading: this.props.isPlatformDataLoading
     };

@@ -8,7 +8,7 @@ const sspDefaultClient = ServicePortalApi.ApiClient.instance;
 sspDefaultClient.basePath = SERVICE_PORTAL_API_BASE;
 
 export function getServicePlans(portfolioItemId) {
-  return api.fetchPlansWithPortfolioItemId(portfolioItemId);
+  return api.listServicePlans(portfolioItemId);
 }
 
 export function listOrders() {
@@ -16,7 +16,7 @@ export function listOrders() {
 }
 
 export async function sendSubmitOrder({ service_parameters: { providerControlParameters, ...service_parameters }, ...parameters }) {
-  let order = await api.newOrder();
+  let order = await api.createOrder();
   let orderItem = new ServicePortalApi.OrderItem;
   orderItem.count = 1;
   orderItem = {

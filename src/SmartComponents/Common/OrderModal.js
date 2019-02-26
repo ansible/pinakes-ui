@@ -60,7 +60,7 @@ const mapStateToProps = ({
   isLoading,
   selectedItem,
   servicePlans,
-  serviceData: portfolioItems.find(({ id }) => id === itemId)
+  serviceData: portfolioItems.find(({ id }) => id == itemId) // eslint-disable-line eqeqeq
 });
 
 export default withRouter(connect(mapStateToProps)(OrderModal));

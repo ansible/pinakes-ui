@@ -20,16 +20,16 @@ export function getPortfolioItem(portfolioId, portfolioItemId) {
 }
 
 export function getPortfolio(portfolioId) {
-  return userApi.fetchPortfolioWithId(portfolioId);
+  return userApi.showPortfolio(portfolioId);
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return userApi.fetchPortfolioItemsWithPortfolio(portfolioId);
+  return fetch(`${SERVICE_PORTAL_API_BASE}/portfolios/${portfolioId}/portfolio_items`).then(data => data.json());
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export async function addPortfolio(portfolioData, items) {
-  let portfolio = await userApi.addPortfolio(portfolioData);
+  let portfolio = await userApi.createPortfolio(portfolioData);
   if (!portfolio)
   {return portfolio;}
 
@@ -42,7 +42,7 @@ export async function addToPortfolio(portfolioId, items) {
   let idx = 0; let newItem = null;
 
   for (idx = 0; idx < items.length; idx++) {
-    newItem = await userApi.addPortfolioItem (JSON.stringify ({ service_offering_ref: items[idx] }));
+    newItem = await userApi.createPortfolioItem(JSON.stringify ({ service_offering_ref: items[idx] }));
     if (newItem) {
       await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
     }
@@ -52,7 +52,7 @@ export async function addToPortfolio(portfolioId, items) {
 }
 
 export async function updatePortfolio(portfolioData) {
-  await userApi.editPortfolio(portfolioData.id, portfolioData);
+  await userApi.updatePortfolio(portfolioData.id, portfolioData);
 }
 
 export async function removePortfolio(portfolioId) {

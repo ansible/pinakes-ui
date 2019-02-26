@@ -1,5 +1,6 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
 import '../../Utilities/jschema.scss';
@@ -46,7 +47,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
     const portfolioItemId = this.props.id;
     const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
     this.props.sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data });
-    this.props.hideModal();
+    this.props.history.push('/orders');
   };
 
   render() {
@@ -99,20 +100,23 @@ class OrderServiceFormStepConfiguration extends React.Component {
 }
 
 OrderServiceFormStepConfiguration.propTypes = {
-  orderData: propTypes.func,
-  fetchPlans: propTypes.func,
-  hideModal: propTypes.func,
-  showOrder: propTypes.bool,
-  isLoading: propTypes.bool,
-  serviceData: propTypes.object,
-  servicePlans: propTypes.array,
-  stepParametersValid: propTypes.bool,
-  fulfilled: propTypes.bool,
-  error: propTypes.bool,
-  imageUrl: propTypes.string,
-  id: propTypes.string,
-  name: propTypes.string,
-  sendSubmitOrder: propTypes.func.isRequired
+  orderData: PropTypes.func,
+  fetchPlans: PropTypes.func,
+  hideModal: PropTypes.func,
+  showOrder: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  serviceData: PropTypes.object,
+  servicePlans: PropTypes.array,
+  stepParametersValid: PropTypes.bool,
+  fulfilled: PropTypes.bool,
+  error: PropTypes.bool,
+  imageUrl: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  sendSubmitOrder: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 OrderServiceFormStepConfiguration.defaultProps = {
@@ -129,4 +133,4 @@ const mapDispatchToProps = dispatch => ({
   sendSubmitOrder: data => dispatch(sendSubmitOrder(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderServiceFormStepConfiguration);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderServiceFormStepConfiguration));
