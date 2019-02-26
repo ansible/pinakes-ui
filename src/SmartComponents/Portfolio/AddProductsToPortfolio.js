@@ -13,6 +13,7 @@ import PortfolioOrderToolbar from '../../PresentationalComponents/Portfolio/Port
 import PlatformDashboard from '../../PresentationalComponents/Platform/PlatformDashboard';
 import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
+import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 
 class AddProductsToPortfolio extends Component {
     state = {
@@ -52,7 +53,7 @@ class AddProductsToPortfolio extends Component {
       const { selectedPlatforms } = this.state;
       const { platformItems } = this.props;
       return selectedPlatforms.map(({ id }) => platformItems[id]
-        ? platformItems[id].filter(({ name }) => name.trim().toLowerCase().includes(this.state.searchValue.toLocaleLowerCase())).map(item =>
+        ? platformItems[id].filter(item => filterServiceOffering(item, this.state.searchValue)).map(item =>
           <PlatformItem
             key={ item.id }
             { ...item }

@@ -127,7 +127,7 @@ describe('Order actions', () => {
     apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
       body: { id: 123 }
     }));
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/items`, mockOnce((req, res) => {
+    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/order_items`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
         count: 1,
         provider_control_parameters: { namespace: 'default' },
@@ -137,7 +137,7 @@ describe('Order actions', () => {
       });
       return res.status(200);
     }));
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123`, mockOnce({
+    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/submit_order`, mockOnce({
       status: 200
     }));
     const expectedActions = [{

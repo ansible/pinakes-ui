@@ -16,7 +16,7 @@ import './portfolio.scss';
 import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfolioItems';
 import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
 import OrderModal from '../Common/OrderModal';
-
+import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 class Portfolio extends Component {
   state = {
     portfolioId: '',
@@ -69,7 +69,7 @@ class Portfolio extends Component {
     let filteredItems = [];
     if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
       filteredItems = this.props.portfolioItems.portfolioItems;
-      filteredItems = filteredItems.filter(({ name }) => name.toLowerCase().includes(filterValue.toLowerCase()));
+      filteredItems = filteredItems.filter(item => filterServiceOffering(item, filterValue));
     }
 
     return filteredItems;
@@ -129,7 +129,7 @@ class Portfolio extends Component {
 
     const filteredItems = {
       items: this.props.portfolioItems
-      .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
+      .filter(item => filterServiceOffering(item, this.state.filterValue))
       .map(item => (
         <PortfolioItem
           key={ item.id }

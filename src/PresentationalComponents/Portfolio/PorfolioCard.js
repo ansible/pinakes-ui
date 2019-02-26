@@ -15,7 +15,6 @@ const createToolbarActions = (portfolioName, portfolioId) => [
     <Button
       variant="plain"
       aria-label={ `edit-portfolio-${portfolioName}` }
-      onClick={ () => console.log('Edit portfolio api helper not available.') }
     >
       <EditAltIcon fill={ ICON_FILL } />
     </Button>
@@ -25,7 +24,6 @@ const createToolbarActions = (portfolioName, portfolioId) => [
       key="remove-portfolio-action"
       variant="plain"
       aria-label={ `remove-portfolio-${portfolioName}` }
-      onClick={ () => console.log('Remove portfolio api helper not available.') }
     >
       <TrashIcon fill={ ICON_FILL } />
     </Button>
