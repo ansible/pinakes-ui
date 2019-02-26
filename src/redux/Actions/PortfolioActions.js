@@ -13,6 +13,11 @@ export const fetchPortfolioItems = apiProps => ({
   payload: PortfolioHelper.getPortfolioItems(apiProps).then(({ data }) => data)
 });
 
+export const fetchPortfolioItem = (productId) => ({
+  type: ActionTypes.FETCH_PORTFOLIO_ITEM,
+  payload: PortfolioHelper.getPortfolioItem(productId)
+});
+
 export const fetchPortfolioItemsWithPortfolio = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   payload: PortfolioHelper.getPortfolioItemsWithPortfolio(apiProps).then(({ data }) => data)

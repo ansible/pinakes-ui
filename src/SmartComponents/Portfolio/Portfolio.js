@@ -15,6 +15,8 @@ import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
 import OrderModal from '../Common/OrderModal';
 import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
+import PorftolioProduct from '../products/portfolio-product';
+
 import './portfolio.scss';
 class Portfolio extends Component {
   state = {
@@ -125,6 +127,7 @@ class Portfolio extends Component {
     const removeProductsRoute = `${this.props.match.url}/remove-products`;
     const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
     const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
+    const orderUrl = `${this.props.match.url}/product`;
     const title = this.props.portfolio ? this.props.portfolio.name : '';
 
     const filteredItems = {
@@ -137,7 +140,7 @@ class Portfolio extends Component {
           isSelectable={ this.props.location.pathname.includes('/remove-products') }
           onSelect={ this.handleItemSelect }
           isSelected={ this.state.selectedItems.includes(item.id) }
-          orderUrl={ `${this.props.match.url}/order/${item.id}` }
+          orderUrl={ `${orderUrl}/${item.id}` }
         />
       )),
       isLoading: this.props.isLoading && this.props.portfolioItems.length === 0
@@ -146,6 +149,7 @@ class Portfolio extends Component {
     return (
       <Switch>
         <Route path={ addProductsRoute } render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+        <Route path={ `${orderUrl}/:productId` } component={ PorftolioProduct }/>
         <Route
           path={ removeProductsRoute }
           render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, title, ...props }) }

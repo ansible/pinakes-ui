@@ -42,7 +42,7 @@ PortfolioItem.propTypes = {
   hideModal: PropTypes.func,
   imageUrl: PropTypes.string,
   name: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.number,
   isSelectable: PropTypes.bool,
   isSelected: PropTypes.bool,
   onSelect: PropTypes.func,
