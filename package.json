@@ -5,7 +5,7 @@
   "dependencies": {
     "@data-driven-forms/pf4-component-mapper": "^0.4.1",
     "@data-driven-forms/react-form-renderer": "^1.6.0",
-    "@manageiq/service-portal-api": "~1.3.1",
+    "@manageiq/service-portal-api": "~1.3.2",
     "@manageiq/topological_inventory": "~1.1.0",
     "@patternfly/patternfly-next": "^1.0.131",
     "@patternfly/react-core": "^1.51.6",
