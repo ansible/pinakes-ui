@@ -124,7 +124,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItemsWithPortfolio action was called', () => {
     const store = mockStore({});
 
-    fetchMock.getOnce(SERVICE_PORTAL_API_BASE + '/portfolios/123/portfolio_items', { data: [ 'foo' ]});
+    apiClientMock.get(`${SERVICE_PORTAL_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: [ 'foo' ]}}));
 
     const expectedActions = [{
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
