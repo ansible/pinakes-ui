@@ -3,21 +3,22 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
-import './App.scss';
-import PortalNav from './SmartComponents/ServicePortal/PortalNav';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { NotificationsPortal } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
-import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
+import { AppPlaceholder } from './PresentationalComponents/Shared/LoaderPlaceholders';
 
 import 'whatwg-fetch';
-import { AppPlaceholder } from './PresentationalComponents/Shared/LoaderPlaceholders';
+
+import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
+import './App.scss';
 
 class App extends Component {
   state = {
     chromeNavAvailable: true,
-    auth: false
+    auth: false,
+    ignoreRedirect: true
   }
 
   componentDidMount () {
@@ -25,6 +26,29 @@ class App extends Component {
     insights.chrome.auth.getUser().then(() => this.setState({ auth: true }));
     try {
       insights.chrome.identifyApp('service-portal');
+      insights.chrome.navigation([{
+        id: 'portfolios',
+        title: 'Portfolios'
+      }, {
+        id: 'platforms',
+        title: 'Platforms'
+      }, {
+        id: 'orders',
+        title: 'Orders'
+      }]);
+
+      this.unregister = insights.chrome.on('APP_NAVIGATION', event => {
+        /**
+         * Handle navigation from insights main nav
+         * Uses React history directly instead of browser history to avoid template realod.
+         * only redirect after first application mount
+         */
+        if (!this.state.ignoreRedirect) {
+          this.props.history.push(`/${event.navId}`);
+        }
+
+        this.setState({ ignoreRedirect: false });
+      });
     } catch (error) {
       this.setState({
         chromeNavAvailable: false
@@ -33,10 +57,7 @@ class App extends Component {
   }
 
   componentWillUnmount () {
-    if (this.state.chromeNavAvailable) {
-      this.appNav();
-      this.buildNav();
-    }
+    this.unregister();
   }
 
   render () {
@@ -50,10 +71,7 @@ class App extends Component {
         <NotificationsPortal />
         <Main style={ { marginLeft: 0, padding: 0 } }>
           <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
-            <GridItem style={ { backgroundColor: '#FFFFFF' } } sm={ 4 } md={ 4 } lg={ 2 } xl={ 2 }>
-              <PortalNav />
-            </GridItem >
-            <GridItem sm={ 8 } md={ 8 } lg={ 10 } xl={ 10 }>
+            <GridItem sm={ 12 }>
               <Routes childProps={ this.props } />
             </GridItem>
           </Grid>
@@ -67,4 +85,4 @@ App.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter (connect()(App));
+export default withRouter(connect()(App));
