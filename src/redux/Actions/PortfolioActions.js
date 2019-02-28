@@ -6,12 +6,7 @@ export const doFetchPortfolios = apiProps => ({
   payload: PortfolioHelper.listPortfolios(apiProps).then(({ data }) => data)
 });
 
-export const fetchPortfolios = apiProps => (dispatch, getState) => {
-  const { portfolioReducer: { isLoading }} = getState();
-  if (!isLoading) {
-    return dispatch(doFetchPortfolios(apiProps));
-  }
-};
+export const fetchPortfolios = apiProps => (dispatch) => dispatch(doFetchPortfolios(apiProps));
 
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
