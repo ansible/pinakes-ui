@@ -8,7 +8,6 @@ import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsT
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
 import PortfolioItem from './PortfolioItem';
-import NoMatch from '../../PresentationalComponents/Shared/404Route';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
 import { scrollToTop } from '../../Helpers/Shared/helpers';

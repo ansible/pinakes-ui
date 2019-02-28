@@ -71,10 +71,11 @@ describe('<Platforms />', () => {
     };
     const store = mockStore(initialState);
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
-    const wrapper = mount(<MemoryRouter><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
+    const wrapper = mount(<MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
 
     setImmediate(() => {
       const search = wrapper.find('input');
+
       search.getDOMNode().value = 'foo';
       search.simulate('change');
       wrapper.update();

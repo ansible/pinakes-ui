@@ -53,24 +53,6 @@ describe('Platform actions', () => {
     });
   });
 
-  it('should not dispatch any actions if fetching platforms is in progress', () => {
-    const store = mockStore({
-      platformReducer: {
-        isPlatformDataLoading: true
-      }
-    });
-
-    /**
-     * throws TypeError: Cannot read property 'then' of undefined
-     * Because no Promise has been returned
-     */
-    expect(() => {
-      return store.dispatch(fetchPlatforms()).then(() => {
-        expect(store.getActions()).toEqual([]);
-      });
-    }).toThrowErrorMatchingSnapshot();
-  });
-
   it('should dispatch correct actions after failed fetching platforms', () => {
     const store = mockStore({
       platformReducer: {
