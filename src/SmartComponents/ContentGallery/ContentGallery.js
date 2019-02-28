@@ -1,10 +1,8 @@
-import React, { Fragment } from 'react';
-import './content-gallery.scss';
+import React from 'react';
 import propTypes from 'prop-types';
-import { Grid } from '@patternfly/react-core';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { CardLoader } from '../../PresentationalComponents/Shared/LoaderPlaceholders';
-import { Bullseye, Text, TextVariants } from '@patternfly/react-core';
+import { Bullseye, Grid, Text, TextVariants } from '@patternfly/react-core';
 
 const NoItems = () => (
   <Bullseye>
@@ -12,16 +10,12 @@ const NoItems = () => (
   </Bullseye>
 );
 
-const ContentGallery = ({ isLoading, items }) => (
-  <Fragment>
-    { isLoading ? <CardLoader /> : (
-      <Section type="content">
-        <Grid gutter='md' >
-          { items.length > 0 ? items : <NoItems /> }
-        </Grid>
-      </Section>
-    ) }
-  </Fragment>
+const ContentGallery = ({ isLoading, items }) => isLoading ? <CardLoader /> : (
+  <Section type="content">
+    <div className="content-gallery" >
+      { items.length > 0 ? items : <NoItems /> }
+    </div>
+  </Section>
 );
 
 ContentGallery.propTypes = {
