@@ -8,7 +8,6 @@ import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsT
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
 import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
 import PortfolioItem from './PortfolioItem';
-import NoMatch from '../../PresentationalComponents/Shared/404Route';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
@@ -20,7 +19,6 @@ import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 class Portfolio extends Component {
   state = {
     portfolioId: '',
-    isKebabOpen: false,
     filteredItems: [],
     selectedItems: [],
     filterValue: ''
@@ -82,7 +80,7 @@ class Portfolio extends Component {
   renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
     <Fragment>
       <PortfolioFilterToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange }/>
-      { !this.props.isLoading &&
+      { !(this.props.isLoading && this.props.portfolioItems.length === 0) &&
           <PortfolioActionToolbar
             title={ title }
             addProductsRoute={ addProductsRoute }
@@ -91,9 +89,9 @@ class Portfolio extends Component {
             removePortfolioRoute={ removePortfolioRoute }
           />
       }
-      <Route exact path="/portfolio/:id/edit-portfolio" component={ AddPortfolioModal } />
-      <Route exact path="/portfolio/:id/remove-portfolio" component={ RemovePortfolioModal } />
-      <Route exact path="/portfolio/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ this.props.match.url } /> } />
+      <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
+      <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
+      <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ this.props.match.url } /> } />
       <ContentGallery { ...filteredItems } />
     </Fragment>
   )
@@ -140,22 +138,21 @@ class Portfolio extends Component {
           orderUrl={ `${this.props.match.url}/order/${item.id}` }
         />
       )),
-      isLoading: this.props.isLoading
+      isLoading: this.props.isLoading && this.props.portfolioItems.length === 0
     };
 
     return (
       <Switch>
-        <Route path="/portfolio/:id/add-products" render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
+        <Route path={ addProductsRoute } render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
         <Route
-          path="/portfolio/:id/remove-products"
+          path={ removeProductsRoute }
           render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, title, ...props }) }
         />
         <Route
-          path="/portfolio/:id"
+          path={ portfolioRoute }
           render={ props => this.renderProducts(
             { addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, filteredItems, title, ...props }) }
         />
-        <Route component={ NoMatch } />
       </Switch>
     );
   }

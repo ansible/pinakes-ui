@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { fetchMultiplePlatformItems } from '../../redux/Actions/PlatformActions';
+import { fetchMultiplePlatformItems, fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import '../Platform/platform.scss';
 import '../../SmartComponents/Portfolio/portfolio.scss';
@@ -23,6 +23,10 @@ class AddProductsToPortfolio extends Component {
     };
 
     handleFilterChange = searchValue => this.setState({ searchValue })
+
+    componentDidMount() {
+      this.props.fetchPlatforms();
+    }
 
     onPlatformSelectionChange = (selectedValues = []) =>
       this.setState(
@@ -45,7 +49,7 @@ class AddProductsToPortfolio extends Component {
     onAddToPortfolio = () =>
       this.props.addToPortfolio(this.props.portfolio.id, this.state.checkedItems)
       .then(() => this.props.history.push(this.props.portfolioRoute))
-      .then(() => this.props.fetchPortfolioItemsWithPortfolio(this.props.match.params.id));
+      .then(() => this.props.fetchPortfolioItemsWithPortfolio(this.props.portfolio.id));
 
     itemsSelected = () => this.state.checkedItems.length > 0;
 
@@ -69,7 +73,7 @@ class AddProductsToPortfolio extends Component {
       if (this.props.platformItems) {
         filteredItems = {
           items: this.createItems(),
-          isLoading: this.props.isLoading
+          isLoading: this.props.isLoading && this.props.platformItems === 0
         };
       }
 
@@ -113,7 +117,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   addNotification,
   fetchMultiplePlatformItems,
   addToPortfolio,
-  fetchPortfolioItemsWithPortfolio
+  fetchPortfolioItemsWithPortfolio,
+  fetchPlatforms
 }, dispatch);
 
 AddProductsToPortfolio.propTypes = {
@@ -129,17 +134,13 @@ AddProductsToPortfolio.propTypes = {
   history: propTypes.shape({
     push: propTypes.func.isRequired
   }).isRequired,
-  match: propTypes.shape({
-    params: propTypes.shape({
-      id: propTypes.string.isRequired
-    }).isRequired
-  }).isRequired,
   portfolioRoute: propTypes.string.isRequired,
   fetchPortfolioItemsWithPortfolio: propTypes.func.isRequired,
   platforms: propTypes.arrayOf(propTypes.shape({
     name: propTypes.string.isRequired,
     id: propTypes.oneOfType([ propTypes.string, propTypes.number ]).isRequired
-  }))
+  })),
+  fetchPlatforms: propTypes.func.isRequired
 };
 
 AddProductsToPortfolio.defaultProps = {

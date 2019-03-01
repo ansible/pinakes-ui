@@ -5,119 +5,96 @@ exports[`<PlatformCard /> should choose card image 1`] = `
   description="desc"
   modified="Foo"
 >
-  <GridItem
-    className=""
-    lg={4}
-    lgOffset={null}
-    lgRowSpan={null}
-    md={4}
-    mdOffset={null}
-    mdRowSpan={null}
-    offset={null}
-    rowSpan={null}
-    sm={6}
-    smOffset={null}
-    smRowSpan={null}
-    span={null}
-    xl={3}
-    xlOffset={null}
-    xlRowSpan={null}
+  <Link
+    className="card-link"
+    replace={false}
+    to="/platforms/detail/undefined"
   >
-    <div
-      className="pf-l-grid__item pf-m-6-col-on-sm pf-m-4-col-on-md pf-m-4-col-on-lg pf-m-3-col-on-xl"
+    <a
+      className="card-link"
+      href="/platforms/detail/undefined"
+      onClick={[Function]}
     >
-      <Link
-        className="card-link"
-        replace={false}
-        to="/platform/undefined"
+      <Card
+        className="content-gallery-card"
+        component="article"
       >
-        <a
-          className="card-link"
-          href="/platform/undefined"
-          onClick={[Function]}
+        <article
+          className="pf-c-card content-gallery-card"
         >
-          <Card
-            className=""
-            component="article"
+          <CardHeader
+            className="pcard_header"
+            component="div"
           >
-            <article
-              className="pf-c-card"
+            <div
+              className="pf-c-card__header pcard_header"
             >
-              <CardHeader
-                className="pcard_header"
-                component="div"
+              <ImageWithDefault
+                height="40"
+                src="test-file-stub"
+                width="80"
               >
-                <div
-                  className="pf-c-card__header pcard_header"
-                >
-                  <ImageWithDefault
-                    height="40"
-                    src="test-file-stub"
-                    width="80"
-                  >
-                    <img
-                      height="40"
-                      src="test-file-stub"
-                      width="80"
-                    />
-                  </ImageWithDefault>
-                </div>
-              </CardHeader>
-              <CardBody
-                className="pcard_body"
-                component="div"
-              >
-                <div
-                  className="pf-c-card__body pcard_body"
-                >
-                  <h4 />
-                  <ItemDetails
-                    description="desc"
-                    modified="Foo"
-                    toDisplay={
-                      Array [
-                        "description",
-                        "modified",
-                      ]
-                    }
-                  >
-                    <div
-                      className="line-clamp"
-                    >
-                      <PropLine
-                        key="card-prop-description"
-                        value="desc"
-                      >
-                        <div>
-                          desc
-                        </div>
-                      </PropLine>
-                      <PropLine
-                        key="card-prop-modified"
-                        value="Foo"
-                      >
-                        <div>
-                          Foo
-                        </div>
-                      </PropLine>
-                    </div>
-                  </ItemDetails>
-                </div>
-              </CardBody>
-              <CardFooter
-                className=""
-                component="div"
-              >
-                <div
-                  className="pf-c-card__footer"
+                <img
+                  height="40"
+                  src="test-file-stub"
+                  width="80"
                 />
-              </CardFooter>
-            </article>
-          </Card>
-        </a>
-      </Link>
-    </div>
-  </GridItem>
+              </ImageWithDefault>
+            </div>
+          </CardHeader>
+          <CardBody
+            className="pcard_body"
+            component="div"
+          >
+            <div
+              className="pf-c-card__body pcard_body"
+            >
+              <h4 />
+              <ItemDetails
+                description="desc"
+                modified="Foo"
+                toDisplay={
+                  Array [
+                    "description",
+                    "modified",
+                  ]
+                }
+              >
+                <div
+                  className="line-clamp"
+                >
+                  <PropLine
+                    key="card-prop-description"
+                    value="desc"
+                  >
+                    <div>
+                      desc
+                    </div>
+                  </PropLine>
+                  <PropLine
+                    key="card-prop-modified"
+                    value="Foo"
+                  >
+                    <div>
+                      Foo
+                    </div>
+                  </PropLine>
+                </div>
+              </ItemDetails>
+            </div>
+          </CardBody>
+          <CardFooter
+            className=""
+            component="div"
+          >
+            <div
+              className="pf-c-card__footer"
+            />
+          </CardFooter>
+        </article>
+      </Card>
+    </a>
+  </Link>
 </PlatformCard>
 `;
 
@@ -126,118 +103,95 @@ exports[`<PlatformCard /> should render correctly 1`] = `
   description="desc"
   modified="Foo"
 >
-  <GridItem
-    className=""
-    lg={4}
-    lgOffset={null}
-    lgRowSpan={null}
-    md={4}
-    mdOffset={null}
-    mdRowSpan={null}
-    offset={null}
-    rowSpan={null}
-    sm={6}
-    smOffset={null}
-    smRowSpan={null}
-    span={null}
-    xl={3}
-    xlOffset={null}
-    xlRowSpan={null}
+  <Link
+    className="card-link"
+    replace={false}
+    to="/platforms/detail/undefined"
   >
-    <div
-      className="pf-l-grid__item pf-m-6-col-on-sm pf-m-4-col-on-md pf-m-4-col-on-lg pf-m-3-col-on-xl"
+    <a
+      className="card-link"
+      href="/platforms/detail/undefined"
+      onClick={[Function]}
     >
-      <Link
-        className="card-link"
-        replace={false}
-        to="/platform/undefined"
+      <Card
+        className="content-gallery-card"
+        component="article"
       >
-        <a
-          className="card-link"
-          href="/platform/undefined"
-          onClick={[Function]}
+        <article
+          className="pf-c-card content-gallery-card"
         >
-          <Card
-            className=""
-            component="article"
+          <CardHeader
+            className="pcard_header"
+            component="div"
           >
-            <article
-              className="pf-c-card"
+            <div
+              className="pf-c-card__header pcard_header"
             >
-              <CardHeader
-                className="pcard_header"
-                component="div"
+              <ImageWithDefault
+                height="40"
+                src="test-file-stub"
+                width="80"
               >
-                <div
-                  className="pf-c-card__header pcard_header"
-                >
-                  <ImageWithDefault
-                    height="40"
-                    src="test-file-stub"
-                    width="80"
-                  >
-                    <img
-                      height="40"
-                      src="test-file-stub"
-                      width="80"
-                    />
-                  </ImageWithDefault>
-                </div>
-              </CardHeader>
-              <CardBody
-                className="pcard_body"
-                component="div"
-              >
-                <div
-                  className="pf-c-card__body pcard_body"
-                >
-                  <h4 />
-                  <ItemDetails
-                    description="desc"
-                    modified="Foo"
-                    toDisplay={
-                      Array [
-                        "description",
-                        "modified",
-                      ]
-                    }
-                  >
-                    <div
-                      className="line-clamp"
-                    >
-                      <PropLine
-                        key="card-prop-description"
-                        value="desc"
-                      >
-                        <div>
-                          desc
-                        </div>
-                      </PropLine>
-                      <PropLine
-                        key="card-prop-modified"
-                        value="Foo"
-                      >
-                        <div>
-                          Foo
-                        </div>
-                      </PropLine>
-                    </div>
-                  </ItemDetails>
-                </div>
-              </CardBody>
-              <CardFooter
-                className=""
-                component="div"
-              >
-                <div
-                  className="pf-c-card__footer"
+                <img
+                  height="40"
+                  src="test-file-stub"
+                  width="80"
                 />
-              </CardFooter>
-            </article>
-          </Card>
-        </a>
-      </Link>
-    </div>
-  </GridItem>
+              </ImageWithDefault>
+            </div>
+          </CardHeader>
+          <CardBody
+            className="pcard_body"
+            component="div"
+          >
+            <div
+              className="pf-c-card__body pcard_body"
+            >
+              <h4 />
+              <ItemDetails
+                description="desc"
+                modified="Foo"
+                toDisplay={
+                  Array [
+                    "description",
+                    "modified",
+                  ]
+                }
+              >
+                <div
+                  className="line-clamp"
+                >
+                  <PropLine
+                    key="card-prop-description"
+                    value="desc"
+                  >
+                    <div>
+                      desc
+                    </div>
+                  </PropLine>
+                  <PropLine
+                    key="card-prop-modified"
+                    value="Foo"
+                  >
+                    <div>
+                      Foo
+                    </div>
+                  </PropLine>
+                </div>
+              </ItemDetails>
+            </div>
+          </CardBody>
+          <CardFooter
+            className=""
+            component="div"
+          >
+            <div
+              className="pf-c-card__footer"
+            />
+          </CardFooter>
+        </article>
+      </Card>
+    </a>
+  </Link>
 </PlatformCard>
 `;

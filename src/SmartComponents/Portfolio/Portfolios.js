@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
-import { Level, LevelItem, Text, TextContent, TextVariants, Button } from '@patternfly/react-core';
+import { Route, Switch } from 'react-router-dom';
+import { Level, LevelItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
@@ -11,6 +11,13 @@ import AddPortfolio from './add-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
 import './portfolio.scss';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
+import Portfolio from './Portfolio';
+import TopToolbar from '../../PresentationalComponents/Shared/top-toolbar';
+
+const portfoliosRoutes = {
+  portfolios: '',
+  detail: 'detail/:id'
+};
 
 class Portfolios extends Component {
     state = {
@@ -30,45 +37,42 @@ class Portfolios extends Component {
 
     onFilterChange = filterValue => this.setState({ filterValue })
 
-    renderToolbar() {
-      return (
-        <Level className="pf-u-pt-md pf-u-pr-xl pf-u-pl-xl">
-          <LevelItem>
-            <TextContent>
-              <Text component={ TextVariants.h2 }>All Portfolios</Text>
-            </TextContent>
-          </LevelItem>
-          <LevelItem>
-            <Link to="/portfolios/add-portfolio">
-              <Button
-                variant="primary"
-                aria-label="Create portfolio"
-              >
-                Create portfolio
-              </Button>
-            </Link>
-          </LevelItem>
-        </Level>
-      );
-    }
+    renderToolbar = () => (
+      <Level className="pf-u-mb-xl">
+        <LevelItem>
+          <TextContent>
+            <Text component={ TextVariants.h2 }>Portfolios</Text>
+          </TextContent>
+        </LevelItem>
+      </Level>
+    );
 
-    render() {
+    renderItems = props => {
       let filteredItems = {
         items: this.props.portfolios
         .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
         .map(item => <PortfolioCard key={ item.id } { ...item } />),
         isLoading: this.props.isLoading && this.props.portfolios.length === 0
       };
-
       return (
         <Fragment>
-          <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
-          <Route exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
+          <TopToolbar>
+            { this.renderToolbar() }
+            <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
+          </TopToolbar>
+          <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
           <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
-          <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
-          { this.renderToolbar() }
+          <Route exact path="/portfolios/remove/remove/:id" component={ RemovePortfolio } />
           <ContentGallery { ...filteredItems } />
         </Fragment>
+      );}
+
+    render() {
+      return (
+        <Switch>
+          <Route path={ `/portfolios/${portfoliosRoutes.detail}` } component={ Portfolio } />
+          <Route path={ `/portfolios/${portfoliosRoutes.portfolios}` } render={ this.renderItems } />
+        </Switch>
       );
     }
 }

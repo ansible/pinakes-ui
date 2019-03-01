@@ -25,8 +25,8 @@ const PortfolioItem = props => {
     </Fragment>
   );
   return (
-    <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
-      <Card>
+    <GridItem sm={ 12 } md={ 6 } lg={ 4 } xl={ 3 }>
+      <Card className="content-gallery-card">
         { props.isSelectable ? renderCardContent() : (
           <Link to={ props.orderUrl } className="card-link" >
             { renderCardContent() }

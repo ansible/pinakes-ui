@@ -69,3 +69,17 @@ ul.navigation-secondary {
   overflow: hidden;
   word-wrap: break-word;
 }
+
+.content-gallery {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  .content-gallery-card {
+    width: 240px;
+    height: 330px;
+    margin: 16px;
+    .card-link {
+      height: 100%;
+    }
+  }
+}

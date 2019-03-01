@@ -1,22 +1,29 @@
 import React from 'react';
-import { Level, LevelItem } from '@patternfly/react-core';
+import { Link } from 'react-router-dom';
+import { Button, Toolbar, ToolbarItem, ToolbarGroup } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
-import OrderToolbarItem from '../Shared/OrderToolbarItem';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
-import TopToolbar from '../Shared/top-toolbar';
-import '../Shared/toolbarschema.scss';
 
 const PortfoliosFilterToolbar = ({ onFilterChange, filterValue, ...props }) => (
-  <TopToolbar>
-    <Level>
-      <LevelItem>
-        <FilterToolbarItem { ...props } searchValue={ filterValue } onFilterChange={ onFilterChange } placeholder="Find a Portfolio" />
-      </LevelItem>
-      <LevelItem>
-        <OrderToolbarItem { ...props }/>
-      </LevelItem>
-    </Level>
-  </TopToolbar>
+  <Toolbar className="pf-u-mt-md">
+    <ToolbarGroup>
+      <ToolbarItem>
+        <FilterToolbarItem { ...props } searchValue={ filterValue } onFilterChange={ onFilterChange } placeholder="Filter by name..." />
+      </ToolbarItem>
+    </ToolbarGroup>
+    <ToolbarGroup>
+      <ToolbarItem>
+        <Link to="/portfolios/add-portfolio">
+          <Button
+            variant="primary"
+            aria-label="Create portfolio"
+          >
+              Create portfolio
+          </Button>
+        </Link>
+      </ToolbarItem>
+    </ToolbarGroup>
+  </Toolbar>
 );
 
 PortfoliosFilterToolbar.propTypes = {

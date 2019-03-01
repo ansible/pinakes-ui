@@ -3,27 +3,25 @@ import './platformcard.scss';
 import PropTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../Shared/ImageWithDefault';
-import { GridItem, Card, CardHeader, CardFooter } from '@patternfly/react-core';
+import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
 import CardCheckbox from '../Shared/CardCheckbox';
 import ServiceOfferingCardBody from '../Shared/service-offering-body';
 
 const PlatformItem = props =>(
-  <GridItem key={ props.id } sm={ 12 } md={ 6 } lg={ 4 } xl={ 3 }>
-    <Card key={ props.id }>
-      <CardHeader className="pcard_header">
-        <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
-        { props.editMode && (
-          <CardCheckbox
-            id={ props.id }
-            isChecked={ props.checked }
-            handleCheck={ props.onToggleItemSelect }
-          />
-        ) }
-      </CardHeader>
-      <ServiceOfferingCardBody { ...props }/>
-      <CardFooter/>
-    </Card>
-  </GridItem>
+  <Card key={ props.id } className="content-gallery-card">
+    <CardHeader>
+      <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
+      { props.editMode && (
+        <CardCheckbox
+          id={ props.id }
+          isChecked={ props.checked }
+          handleCheck={ props.onToggleItemSelect }
+        />
+      ) }
+    </CardHeader>
+    <ServiceOfferingCardBody { ...props }/>
+    <CardFooter/>
+  </Card>
 );
 
 PlatformItem.propTypes = {

@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { Route, Switch } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { Text, TextContent, TextVariants, Level, LevelItem } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
@@ -8,6 +9,12 @@ import PlatformCard from '../../PresentationalComponents/Platform/PlatformCard';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
+import Platform from './Platform';
+
+const platformsRoutes = {
+  platforms: '',
+  detail: '/detail/:id'
+};
 
 class Platforms extends Component {
     state = {
@@ -36,19 +43,29 @@ class Platforms extends Component {
       );
     }
 
-    render() {
-      let filteredItems = {
+    renderPlatforms = () => {
+      const filteredItems = {
         items: this.props.platforms
         .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
         .map((item) => <PlatformCard key={ item.id } { ...item } />),
         isLoading: this.props.isLoading
       };
-
       return (
-        <Section>
+        <Fragment>
           <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } />
           { this.renderToolbar() }
           <ContentGallery { ...filteredItems } />
+        </Fragment>
+      );
+    }
+
+    render() {
+      return (
+        <Section>
+          <Switch>
+            <Route path={ `/platforms${platformsRoutes.detail}` } component={ Platform } />
+            <Route path={ `/platforms${platformsRoutes.platforms}` } render={ () => this.renderPlatforms() } />
+          </Switch>
         </Section>
       );
     }

@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Platform actions should not dispatch any actions if fetching platforms is in progress 1`] = `"Cannot read property 'then' of undefined"`;

@@ -1,11 +1,11 @@
 import React from 'react';
-import './portfoliocard.scss';
 import propTypes from 'prop-types';
 import ItemDetails from '../Shared/CardCommon';
 import { Link } from 'react-router-dom';
-import { GridItem, Card, CardHeader, CardBody, CardFooter, Button } from '@patternfly/react-core';
+import { Card, CardHeader, CardBody, CardFooter, Button } from '@patternfly/react-core';
 import { EditAltIcon, TrashIcon } from '@patternfly/react-icons';
 import PortfolioCardHeader from './portfolio-card-header';
+import './portfoliocard.scss';
 
 const TO_DISPLAY = [ 'description', 'modified' ];
 const ICON_FILL = 'white';
@@ -31,22 +31,20 @@ const createToolbarActions = (portfolioName, portfolioId) => [
 ];
 
 const PortfolioCard = ({ imageUrl, name, id, ...props }) => (
-  <GridItem sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
-    <Link className="card-link" to={ `/portfolio/${id}` }>
-      <Card>
-        <CardHeader className="card-image-header">
-          <PortfolioCardHeader
-            portfolioName={ name }
-            headerActions={ createToolbarActions(name, id) }
-          />
-        </CardHeader>
-        <CardBody>
-          <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
-        </CardBody>
-        <CardFooter/>
-      </Card>
+  <Card className="content-gallery-card">
+    <Link className="card-link" to={ `/portfolios/detail/${id}` }>
+      <CardHeader className="card-image-header">
+        <PortfolioCardHeader
+          portfolioName={ name }
+          headerActions={ createToolbarActions(name, id) }
+        />
+      </CardHeader>
+      <CardBody>
+        <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
+      </CardBody>
+      <CardFooter/>
     </Link>
-  </GridItem>
+  </Card>
 );
 
 PortfolioCard.propTypes = {

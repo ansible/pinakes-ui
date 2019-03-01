@@ -59,19 +59,6 @@ describe('Portfolio actions', () => {
     });
   });
 
-  it('should not call fetch portfolios if another request is in progress', () => {
-    const store = mockStore({
-      platformReducer: {
-        isPlatformDataLoading: false
-      },
-      portfolioReducer: {
-        isLoading: true
-      }
-    });
-    store.dispatch(fetchPortfolios());
-    expect(store.getActions()).toEqual([]);
-  });
-
   it('should dispatch error notification if fetch portfolios fails', () => {
     const store = mockStore({
       portfolioReducer: {

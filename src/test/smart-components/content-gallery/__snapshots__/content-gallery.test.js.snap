@@ -24,35 +24,25 @@ exports[`<ContentGallery /> should render all items 1`] = `
       className="ins-l-content"
     >
        
-      <Grid
-        className=""
-        gutter="md"
-        lg={null}
-        md={null}
-        sm={null}
-        span={null}
-        xl={null}
+      <div
+        className="content-gallery"
       >
         <div
-          className="pf-l-grid pf-m-gutter"
+          key="1"
         >
-          <div
-            key="1"
-          >
-            1
-          </div>
-          <div
-            key="2"
-          >
-            2
-          </div>
-          <div
-            key="3"
-          >
-            3
-          </div>
+          1
         </div>
-      </Grid>
+        <div
+          key="2"
+        >
+          2
+        </div>
+        <div
+          key="3"
+        >
+          3
+        </div>
+      </div>
        
     </section>
   </Section>
@@ -60,11 +50,9 @@ exports[`<ContentGallery /> should render all items 1`] = `
 `;
 
 exports[`<ContentGallery /> should render in loading state 1`] = `
-<Fragment>
-  <CardLoader
-    items={5}
-  />
-</Fragment>
+<CardLoader
+  items={5}
+/>
 `;
 
 exports[`<ContentGallery /> should render no items placeholder 1`] = `
@@ -79,42 +67,32 @@ exports[`<ContentGallery /> should render no items placeholder 1`] = `
       className="ins-l-content"
     >
        
-      <Grid
-        className=""
-        gutter="md"
-        lg={null}
-        md={null}
-        sm={null}
-        span={null}
-        xl={null}
+      <div
+        className="content-gallery"
       >
-        <div
-          className="pf-l-grid pf-m-gutter"
-        >
-          <NoItems>
-            <Bullseye
-              className=""
-              component="div"
+        <NoItems>
+          <Bullseye
+            className=""
+            component="div"
+          >
+            <div
+              className="pf-l-bullseye"
             >
-              <div
-                className="pf-l-bullseye"
+              <Text
+                className=""
+                component="h1"
               >
-                <Text
+                <h1
                   className=""
-                  component="h1"
+                  data-pf-content={true}
                 >
-                  <h1
-                    className=""
-                    data-pf-content={true}
-                  >
-                    No items found
-                  </h1>
-                </Text>
-              </div>
-            </Bullseye>
-          </NoItems>
-        </div>
-      </Grid>
+                  No items found
+                </h1>
+              </Text>
+            </div>
+          </Bullseye>
+        </NoItems>
+      </div>
        
     </section>
   </Section>
