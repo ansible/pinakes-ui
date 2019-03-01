@@ -2,12 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
-import { Level, LevelItem, TextContent, Text, TextVariants, Button } from '@patternfly/react-core';
-import TopToolbar from '../Shared/top-toolbar';
-import OrderToolbarItem from '../Shared/OrderToolbarItem';
+import { Level, Button, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
+import TopToolbar, { TopToolbarTitle } from '../Shared/top-toolbar';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
 import '../../SmartComponents/Portfolio/portfolio.scss';
 import '../Shared/toolbarschema.scss';
+
+const selectStyles = {
+  container: base => ({ ...base, minWidth: 260 }),
+  valueContainer: provided => ({
+    ...provided,
+    padding: '1px 8px'
+  }),
+  control: provided => ({
+    ...provided,
+    height: 34
+  }),
+  input: provided => ({
+    ...provided,
+    paddingTop: 1,
+    paddingBottom: 1
+  })
+};
 
 const PortfolioOrderToolbar = ({
   portfolioName,
@@ -20,44 +36,47 @@ const PortfolioOrderToolbar = ({
   searchValue
 }) => (
   <TopToolbar>
-    <Level>
-      <LevelItem>
-        <TextContent>
-          <Text component={ TextVariants.h2 }>Add products: { portfolioName }</Text>
-        </TextContent>
-      </LevelItem>
-      <LevelItem>
-        <OrderToolbarItem/>
-      </LevelItem>
-    </Level>
+    <TopToolbarTitle title={ `Add products: ${portfolioName}` } />
     <Level  className="pf-u-mt-lg">
-      <LevelItem className="pf-u-display-flex pf-u-flex-direction-row">
-        <div className="pf-u-mr-md">
-          <FilterToolbarItem onFilterChange={ onFilterChange } searchValue={ searchValue } placeholder="Filter products"/>
-        </div>
-        <Select
-          styles={ { container: base => ({ ...base, minWidth: 260 }) } }
-          isMulti={ true }
-          placeholder={ 'Filter by Platform' }
-          options={ options }
-          onChange={ onOptionSelect }
-          closeMenuOnSelect={ false }
-        />
-      </LevelItem>
-      <LevelItem>
-        <Link to={ portfolioRoute }>
-          <Button variant="link" aria-label="Cancel Add products to Portfolio">
-            Cancel
-          </Button>
-        </Link>
-        <Button key="addproducts"
-          variant="primary"
-          aria-label="Add products to Portfolio"
-          type="button" onClick={ onClickAddToPortfolio }
-          isDisabled={ !itemsSelected }>
-          Add
-        </Button>
-      </LevelItem>
+      <Toolbar>
+        <ToolbarGroup>
+          <ToolbarItem>
+            <FilterToolbarItem onFilterChange={ onFilterChange } searchValue={ searchValue } placeholder="Filter products"/>
+          </ToolbarItem>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <ToolbarItem>
+            <Select
+              styles={ selectStyles }
+              isMulti={ true }
+              placeholder={ 'Filter by Platform' }
+              options={ options }
+              onChange={ onOptionSelect }
+              closeMenuOnSelect={ false }
+            />
+          </ToolbarItem>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <ToolbarItem>
+            <Link to={ portfolioRoute }>
+              <Button variant="link" aria-label="Cancel Add products to Portfolio">
+                Cancel
+              </Button>
+            </Link>
+          </ToolbarItem>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <ToolbarItem>
+            <Button
+              variant="primary"
+              aria-label="Add products to Portfolio"
+              type="button" onClick={ onClickAddToPortfolio }
+              isDisabled={ !itemsSelected }>
+              Add
+            </Button>
+          </ToolbarItem>
+        </ToolbarGroup>
+      </Toolbar>
     </Level>
   </TopToolbar>
 );

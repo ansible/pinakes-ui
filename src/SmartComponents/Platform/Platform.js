@@ -46,10 +46,7 @@ class Platform extends Component {
 
     return (
       <Fragment>
-        <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange }/>
-        <div className="toolbar-padding">
-          { title &&  (<Title size={ '2xl' } > { title }</Title>) }
-        </div>
+        <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange } title={ title }/>
         <ContentGallery { ...filteredItems }/>
       </Fragment>
     );

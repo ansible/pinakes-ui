@@ -12,7 +12,7 @@ import RemovePortfolio from './remove-portfolio-modal';
 import './portfolio.scss';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 import Portfolio from './Portfolio';
-import TopToolbar from '../../PresentationalComponents/Shared/top-toolbar';
+import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
 
 const portfoliosRoutes = {
   portfolios: '',
@@ -37,16 +37,6 @@ class Portfolios extends Component {
 
     onFilterChange = filterValue => this.setState({ filterValue })
 
-    renderToolbar = () => (
-      <Level className="pf-u-mb-xl">
-        <LevelItem>
-          <TextContent>
-            <Text component={ TextVariants.h2 }>Portfolios</Text>
-          </TextContent>
-        </LevelItem>
-      </Level>
-    );
-
     renderItems = props => {
       let filteredItems = {
         items: this.props.portfolios
@@ -57,7 +47,7 @@ class Portfolios extends Component {
       return (
         <Fragment>
           <TopToolbar>
-            { this.renderToolbar() }
+            <TopToolbarTitle title="Portfolios" />
             <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
           </TopToolbar>
           <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />

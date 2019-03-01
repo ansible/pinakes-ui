@@ -6,16 +6,16 @@ import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery'
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/AddProductsToPortfolio';
 import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
-import PortfolioActionToolbar from '../../PresentationalComponents/Portfolio/PortfolioActionToolbar';
 import PortfolioItem from './PortfolioItem';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
-import './portfolio.scss';
 import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfolioItems';
 import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
 import OrderModal from '../Common/OrderModal';
 import { filterServiceOffering } from '../../Helpers/Shared/helpers';
+import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
+import './portfolio.scss';
 class Portfolio extends Component {
   state = {
     portfolioId: '',
@@ -79,16 +79,18 @@ class Portfolio extends Component {
 
   renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
     <Fragment>
-      <PortfolioFilterToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange }/>
-      { !(this.props.isLoading && this.props.portfolioItems.length === 0) &&
-          <PortfolioActionToolbar
-            title={ title }
-            addProductsRoute={ addProductsRoute }
-            removeProductsRoute={ removeProductsRoute }
-            editPortfolioRoute={ editPortfolioRoute }
-            removePortfolioRoute={ removePortfolioRoute }
-          />
-      }
+      <TopToolbar>
+        <TopToolbarTitle title={ title }/>
+        <PortfolioFilterToolbar
+          searchValue={ this.state.filterValue }
+          onFilterChange={ this.handleFilterChange }
+          addProductsRoute={ addProductsRoute }
+          removeProductsRoute={ removeProductsRoute }
+          editPortfolioRoute={ editPortfolioRoute }
+          removePortfolioRoute={ removePortfolioRoute }
+          isLoading={ this.props.isLoading }
+        />
+      </TopToolbar>
       <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
       <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ this.props.match.url } /> } />

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Level, LevelItem, Text, TextContent, TextVariants  } from '@patternfly/react-core';
+import { ToolbarTitlePlaceholder } from './LoaderPlaceholders';
 import './top-toolbar.scss';
 
 const TopToolbar = ({ children, paddingBottom }) => (
@@ -21,3 +23,22 @@ TopToolbar.defaultProps = {
 };
 
 export default TopToolbar;
+
+export const TopToolbarTitle = ({ title, children }) => (
+  <Level className="pf-u-mb-xl">
+    <LevelItem>
+      <TextContent className="top-toolbar-title">
+        { <Text component={ TextVariants.h2 }>{ title || <ToolbarTitlePlaceholder /> }</Text> }
+      </TextContent>
+    </LevelItem>
+    { children }
+  </Level>
+);
+
+TopToolbarTitle.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ])
+};

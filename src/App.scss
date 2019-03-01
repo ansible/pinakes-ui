@@ -83,3 +83,9 @@ ul.navigation-secondary {
     }
   }
 }
+
+.destructive-color {
+  &:not(:disabled) {
+    color: #FF0000 !important;
+  }
+}
