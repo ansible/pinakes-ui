@@ -24,25 +24,30 @@ exports[`<ContentGallery /> should render all items 1`] = `
       className="ins-l-content"
     >
        
-      <div
-        className="content-gallery"
+      <Gallery
+        className=""
+        gutter="md"
       >
         <div
-          key="1"
+          className="pf-l-gallery pf-m-gutter"
         >
-          1
+          <div
+            key="1"
+          >
+            1
+          </div>
+          <div
+            key="2"
+          >
+            2
+          </div>
+          <div
+            key="3"
+          >
+            3
+          </div>
         </div>
-        <div
-          key="2"
-        >
-          2
-        </div>
-        <div
-          key="3"
-        >
-          3
-        </div>
-      </div>
+      </Gallery>
        
     </section>
   </Section>
@@ -67,32 +72,37 @@ exports[`<ContentGallery /> should render no items placeholder 1`] = `
       className="ins-l-content"
     >
        
-      <div
-        className="content-gallery"
+      <Gallery
+        className=""
+        gutter="md"
       >
-        <NoItems>
-          <Bullseye
-            className=""
-            component="div"
-          >
-            <div
-              className="pf-l-bullseye"
+        <div
+          className="pf-l-gallery pf-m-gutter"
+        >
+          <NoItems>
+            <Bullseye
+              className=""
+              component="div"
             >
-              <Text
-                className=""
-                component="h1"
+              <div
+                className="pf-l-bullseye"
               >
-                <h1
+                <Text
                   className=""
-                  data-pf-content={true}
+                  component="h1"
                 >
-                  No items found
-                </h1>
-              </Text>
-            </div>
-          </Bullseye>
-        </NoItems>
-      </div>
+                  <h1
+                    className=""
+                    data-pf-content={true}
+                  >
+                    No items found
+                  </h1>
+                </Text>
+              </div>
+            </Bullseye>
+          </NoItems>
+        </div>
+      </Gallery>
        
     </section>
   </Section>

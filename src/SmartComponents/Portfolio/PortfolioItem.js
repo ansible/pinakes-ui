@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
-import { GridItem, Card, CardHeader, CardFooter } from '@patternfly/react-core';
+import { Card, CardHeader, CardFooter, GalleryItem } from '@patternfly/react-core';
 import ServiceOfferingCardBody from '../../PresentationalComponents/Shared/service-offering-body';
 import CardCheckbox from '../../PresentationalComponents/Shared/CardCheckbox';
 import './portfolioitem.scss';
@@ -25,7 +25,7 @@ const PortfolioItem = props => {
     </Fragment>
   );
   return (
-    <GridItem sm={ 12 } md={ 6 } lg={ 4 } xl={ 3 }>
+    <GalleryItem>
       <Card className="content-gallery-card">
         { props.isSelectable ? renderCardContent() : (
           <Link to={ props.orderUrl } className="card-link" >
@@ -33,7 +33,7 @@ const PortfolioItem = props => {
           </Link>
         ) }
       </Card>
-    </GridItem>
+    </GalleryItem>
   );};
 
 PortfolioItem.propTypes = {
