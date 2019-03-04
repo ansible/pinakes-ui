@@ -1,5 +1,5 @@
 import React from 'react';
-import { at } from 'lodash';
+import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
@@ -78,10 +78,11 @@ const findRoutes = (url) => {
 
 const CatalogBreadrubms = ({ match: { url }, location: { pathname }, reducers }) => {
   const routes = findRoutes(url);
+
   const items = routes.map((route, index) => (
     <BreadcrumbItem key={ route.path } isActive={ route.path === pathname || index === routes.length - 1 }>
       <NavLink exact to={ route.path }>
-        { route.meta.title || at(reducers, route.reducer) }
+        { route.meta.title || get(reducers, route.reducer) }
       </NavLink>
     </BreadcrumbItem>
   ));
