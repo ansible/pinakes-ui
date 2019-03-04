@@ -52,7 +52,7 @@ class Portfolios extends Component {
           </TopToolbar>
           <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
           <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
-          <Route exact path="/portfolios/remove/remove/:id" component={ RemovePortfolio } />
+          <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
           <ContentGallery { ...filteredItems } />
         </Fragment>
       );}
