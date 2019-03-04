@@ -1,15 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TopToolbar /> should render correctly 1`] = `
-<TopToolbar
-  paddingBottom={true}
+<div
+  className="pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl pf-u-pb-xl top-toolbar"
 >
-  <div
-    className="pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl pf-u-pb-xl top-toolbar"
+  <Level
+    className="pf-u-mb-md"
+    gutter={null}
   >
-    <div>
-      Children
-    </div>
+    <withRouter(Connect(CatalogBreadrubms)) />
+  </Level>
+  <div>
+    Children
   </div>
-</TopToolbar>
+</div>
 `;

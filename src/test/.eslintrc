@@ -9,6 +9,7 @@
     "fetchMock": true
   },
   "rules": {
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "react/prop-types": "off"
   }
 }

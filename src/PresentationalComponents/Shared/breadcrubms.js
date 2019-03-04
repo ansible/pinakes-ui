@@ -42,6 +42,11 @@ const findRoutes = (url) => {
       isId: !!key.match(/^[0-9]+$/)
     };
   });
+
+  if (cleanFragments.length === 0) {
+    return [];
+  }
+
   const rootReducer = cleanFragments.find(({ reducer }) => reducer !== undefined).reducer;
   let finalFragments = [];
   let actualIndex = 0;
@@ -78,7 +83,6 @@ const findRoutes = (url) => {
 
 const CatalogBreadrubms = ({ match: { url }, location: { pathname }, reducers }) => {
   const routes = findRoutes(url);
-
   const items = routes.map((route, index) => (
     <BreadcrumbItem key={ route.path } isActive={ route.path === pathname || index === routes.length - 1 }>
       <NavLink exact to={ route.path }>

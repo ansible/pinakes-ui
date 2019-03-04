@@ -4,7 +4,9 @@ exports[`<PlatformToolbar /> should render correctly 1`] = `
 <TopToolbar
   paddingBottom={true}
 >
-  <TopToolbarTitle />
+  <TopToolbarTitle
+    title="toolbar title"
+  />
   <Level
     className=""
     gutter={null}
