@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 import { CardLoader } from '../../PresentationalComponents/Shared/LoaderPlaceholders';
-import { Bullseye, Text, TextVariants } from '@patternfly/react-core';
+import { Bullseye, Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 const NoItems = () => (
   <Bullseye>
@@ -12,9 +12,9 @@ const NoItems = () => (
 
 const ContentGallery = ({ isLoading, items }) => isLoading ? <CardLoader /> : (
   <Section type="content">
-    <div className="content-gallery" >
+    <Gallery gutter="md">
       { items.length > 0 ? items : <NoItems /> }
-    </div>
+    </Gallery>
   </Section>
 );
 
