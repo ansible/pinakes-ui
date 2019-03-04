@@ -32,6 +32,32 @@ const fragmentMapper = {
   }
 };
 
+const createPaths = fragments => {
+  const rootReducer = fragments.find(({ reducer }) => reducer !== undefined).reducer;
+  let finalFragments = [];
+  let fragmentIndex = 0;
+  fragments.forEach(({ reducer, isId, urlFragment }) => {
+    if (isId) {
+      finalFragments[fragmentIndex - 1] = {
+        ...finalFragments[fragmentIndex - 1],
+        path: `${finalFragments[fragmentIndex - 1].path}/${urlFragment}`
+      };
+      finalFragments = [
+        ...finalFragments.slice(0, fragmentIndex),
+        ...finalFragments.slice(fragmentIndex + 1)
+      ];
+    } else {
+      finalFragments[fragmentIndex] = {
+        reducer: reducer || rootReducer,
+        path: fragmentIndex === 0 ? `/${urlFragment}` : `${finalFragments[fragmentIndex - 1].path}/${urlFragment}`,
+        urlFragment
+      };
+      fragmentIndex++;
+    }
+  });
+  return finalFragments;
+};
+
 const findRoutes = (url) => {
   const fragments = (url.split('/')).filter(item => item !== '');
   const cleanFragments = fragments.map((key, index) => {
@@ -47,35 +73,7 @@ const findRoutes = (url) => {
     return [];
   }
 
-  const rootReducer = cleanFragments.find(({ reducer }) => reducer !== undefined).reducer;
-  let finalFragments = [];
-  let actualIndex = 0;
-  cleanFragments.forEach(({ reducer, isId, urlFragment }) => {
-    if (isId) {
-      finalFragments[actualIndex - 1] = {
-        ...finalFragments[actualIndex - 1],
-        path: `${finalFragments[actualIndex - 1].path}/${urlFragment}`
-      };
-      /**
-       * remove id from URL fragments
-       */
-      finalFragments = [
-        ...finalFragments.slice(0, actualIndex),
-        ...finalFragments.slice(actualIndex + 1)
-      ];
-    } else {
-      finalFragments[actualIndex] = {
-        reducer: reducer || rootReducer,
-        path: actualIndex === 0 ? `/${urlFragment}` : `${finalFragments[actualIndex - 1].path}/${urlFragment}`,
-        urlFragment
-      };
-      /**
-       * Increase the real index of finalFragments
-       */
-      actualIndex++;
-    }
-  });
-  return finalFragments.map(fragment => ({
+  return createPaths(cleanFragments).map(fragment => ({
     ...fragment,
     meta: fragmentMapper[Object.keys(fragmentMapper).find(key => fragment.urlFragment.includes(key))]
   }));

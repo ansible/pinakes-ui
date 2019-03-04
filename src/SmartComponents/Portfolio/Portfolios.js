@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import { Level, LevelItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
 import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';

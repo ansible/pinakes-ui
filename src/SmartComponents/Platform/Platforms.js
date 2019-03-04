@@ -9,7 +9,6 @@ import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToo
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 import Platform from './Platform';
-import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
 
 const platformsRoutes = {
   platforms: '',

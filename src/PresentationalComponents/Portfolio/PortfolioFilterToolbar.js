@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Dropdown, DropdownItem, DropdownPosition, KebabToggle, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
@@ -64,6 +65,15 @@ const PortfolioFilterToolbar = ({
         </ToolbarItem>
       </ToolbarGroup>
     </Toolbar>
-  );};
+  );
+};
+
+PortfolioFilterToolbar.propTypes = {
+  addProductsRoute: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+  editPortfolioRoute: PropTypes.string.isRequired,
+  removePortfolioRoute: PropTypes.string.isRequired,
+  removeProductsRoute: PropTypes.string.isRequired
+};
 
 export default PortfolioFilterToolbar;
