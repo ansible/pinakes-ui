@@ -4,20 +4,30 @@ exports[`<PlatformToolbar /> should render correctly 1`] = `
 <TopToolbar
   paddingBottom={true}
 >
+  <TopToolbarTitle
+    title="toolbar title"
+  />
   <Level
     className=""
     gutter={null}
   >
-    <LevelItem>
-      <FilterToolbarItem
-        onFilterChange={[MockFunction]}
-        placeholder="Find a product"
-        searchValue=""
-      />
-    </LevelItem>
-    <LevelItem>
-      <OrderToolbarItem />
-    </LevelItem>
+    <Toolbar
+      className={null}
+    >
+      <ToolbarGroup
+        className={null}
+      >
+        <ToolbarItem
+          className={null}
+        >
+          <FilterToolbarItem
+            onFilterChange={[MockFunction]}
+            placeholder="Filter by name..."
+            searchValue=""
+          />
+        </ToolbarItem>
+      </ToolbarGroup>
+    </Toolbar>
   </Level>
 </TopToolbar>
 `;

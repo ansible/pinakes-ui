@@ -10,6 +10,7 @@ import Platform from '../../../SmartComponents/Platform/Platform';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
 import { platformInitialState } from '../../../redux/reducers/platformReducer';
 import PlatformItem from '../../../PresentationalComponents/Platform/PlatformItem';
+import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 
 describe('<Platform />', () => {
   let initialProps;
@@ -41,6 +42,7 @@ describe('<Platform />', () => {
   });
 
   it('should mount and fetch data after mount and after source change', (done) => {
+    const Provider = mockBreacrumbsStore();
     expect.assertions(3);
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo' }}));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2`, mockOnce({ body: { name: 'Foo' }}));
@@ -50,7 +52,7 @@ describe('<Platform />', () => {
 
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?archived_at=`, {
       data: [{ id: 111 }]});
-    const Root = props => <MemoryRouter><Platform store={ mockStore(intiailState) } { ...props } /></MemoryRouter>;
+    const Root = props => <Provider><MemoryRouter><Platform store={ mockStore(intiailState) } { ...props } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);
     wrapper.setProps({ match: { params: { id: 2 }}});
     wrapper.update();
@@ -78,12 +80,13 @@ describe('<Platform />', () => {
         }
       }
     };
+    const Provider = mockBreacrumbsStore(stateWithItems);
 
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo', id: 1 }}));
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=`, {
       data: [{ id: 111, name: 'Platform item 1', description: 'description 1' }, { id: 2, name: 'Platform item 2', description: 'description 2' }]});
 
-    const Root = props => <MemoryRouter><Platform store={ mockStore(stateWithItems) } { ...props } /></MemoryRouter>;
+    const Root = props => <Provider><MemoryRouter><Platform { ...props } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);
     setImmediate(() => {
       expect(wrapper.find(PlatformItem)).toHaveLength(2);

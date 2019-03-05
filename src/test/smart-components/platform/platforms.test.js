@@ -10,6 +10,7 @@ import { platformInitialState } from '../../../redux/reducers/platformReducer';
 import Platforms from '../../../SmartComponents/Platform/Platforms';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
 import { FETCH_PLATFORMS } from '../../../redux/ActionTypes';
+import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 
 describe('<Platforms />', () => {
   let initialProps;
@@ -69,9 +70,13 @@ describe('<Platforms />', () => {
         }]
       }
     };
-    const store = mockStore(initialState);
+    const Provider = mockBreacrumbsStore(initialState, middlewares);
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
-    const wrapper = mount(<MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
+    const wrapper = mount(
+      <Provider>
+        <MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } /></MemoryRouter>
+      </Provider>
+    );
 
     setImmediate(() => {
       const search = wrapper.find('input');

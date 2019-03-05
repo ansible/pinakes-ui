@@ -1,10 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import { shallow } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
 import TopToolbar from '../../../PresentationalComponents/Shared/top-toolbar';
 
 describe('<TopToolbar />', () => {
   it('should render correctly', () => {
-    expect(toJson(mount(<TopToolbar><div>Children</div></TopToolbar>))).toMatchSnapshot();
+    expect(shallowToJson(shallow(
+      <TopToolbar>
+        <div>Children</div>
+      </TopToolbar>
+    ))).toMatchSnapshot();
   });
 });

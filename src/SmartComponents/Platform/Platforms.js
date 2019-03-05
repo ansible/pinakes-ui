@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import { Text, TextContent, TextVariants, Level, LevelItem } from '@patternfly/react-core';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformCard from '../../PresentationalComponents/Platform/PlatformCard';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
@@ -31,18 +30,6 @@ class Platforms extends Component {
 
     handleFilterChange = filterValue => this.setState({ filterValue })
 
-    renderToolbar() {
-      return (
-        <Level className="pf-u-pt-md pf-u-pr-xl pf-u-pl-xl">
-          <LevelItem>
-            <TextContent>
-              <Text component={ TextVariants.h2 }>All Platforms </Text>
-            </TextContent>
-          </LevelItem>
-        </Level>
-      );
-    }
-
     renderPlatforms = () => {
       const filteredItems = {
         items: this.props.platforms
@@ -52,8 +39,7 @@ class Platforms extends Component {
       };
       return (
         <Fragment>
-          <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } />
-          { this.renderToolbar() }
+          <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } title="Platforms" />
           <ContentGallery { ...filteredItems } />
         </Fragment>
       );
@@ -64,7 +50,7 @@ class Platforms extends Component {
         <Section>
           <Switch>
             <Route path={ `/platforms${platformsRoutes.detail}` } component={ Platform } />
-            <Route path={ `/platforms${platformsRoutes.platforms}` } render={ () => this.renderPlatforms() } />
+            <Route exact path={ `/platforms${platformsRoutes.platforms}` } render={ () => this.renderPlatforms() } />
           </Switch>
         </Section>
       );
@@ -84,14 +70,14 @@ const mapDispatchToProps = dispatch => {
 };
 
 Platforms.propTypes = {
-  filteredItems: propTypes.array,
-  platforms: propTypes.array,
-  isLoading: propTypes.bool,
-  searchFilter: propTypes.string,
-  showModal: propTypes.func,
-  hideModal: propTypes.func,
-  history: propTypes.object,
-  fetchPlatforms: propTypes.func
+  filteredItems: PropTypes.array,
+  platforms: PropTypes.array,
+  isLoading: PropTypes.bool,
+  searchFilter: PropTypes.string,
+  showModal: PropTypes.func,
+  hideModal: PropTypes.func,
+  history: PropTypes.object,
+  fetchPlatforms: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Platforms);

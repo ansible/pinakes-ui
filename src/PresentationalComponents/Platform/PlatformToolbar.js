@@ -1,26 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Level, LevelItem } from '@patternfly/react-core';
-import TopToolbar from '../Shared/top-toolbar';
+import { Level, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
+import TopToolbar, { TopToolbarTitle } from '../Shared/top-toolbar';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
-import OrderToolbarItem from '../Shared/OrderToolbarItem';
 
-const PlatformToolbar = ({ searchValue, onFilterChange }) => (
+const PlatformToolbar = ({ searchValue, onFilterChange, title }) => (
   <TopToolbar>
+    <TopToolbarTitle title={ title } />
     <Level>
-      <LevelItem>
-        <FilterToolbarItem searchValue={ searchValue } onFilterChange={ onFilterChange } placeholder="Find a product" />
-      </LevelItem>
-      <LevelItem>
-        <OrderToolbarItem />
-      </LevelItem>
+      <Toolbar>
+        <ToolbarGroup>
+          <ToolbarItem>
+            <FilterToolbarItem searchValue={ searchValue } onFilterChange={ onFilterChange } placeholder="Filter by name..." />
+          </ToolbarItem>
+        </ToolbarGroup>
+      </Toolbar>
     </Level>
   </TopToolbar>
 );
 
 PlatformToolbar.propTypes = {
   searchValue: PropTypes.string,
-  onFilterChange: PropTypes.func.isRequired
+  onFilterChange: PropTypes.func.isRequired,
+  title: PropTypes.string
 };
 
 export default PlatformToolbar;

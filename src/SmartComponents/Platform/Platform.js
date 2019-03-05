@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Title } from '@patternfly/react-core';
 import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/Actions/PlatformActions';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
@@ -46,10 +45,7 @@ class Platform extends Component {
 
     return (
       <Fragment>
-        <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange }/>
-        <div className="toolbar-padding">
-          { title &&  (<Title size={ '2xl' } > { title }</Title>) }
-        </div>
+        <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange } title={ title }/>
         <ContentGallery { ...filteredItems }/>
       </Fragment>
     );

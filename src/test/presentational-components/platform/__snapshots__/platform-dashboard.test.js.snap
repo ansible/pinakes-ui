@@ -17,27 +17,5 @@ exports[`<PlatformDashboard /> should render correctly 1`] = `
       Search Or Select a Platform
     </Title>
   </div>
-  <div
-    style={
-      Object {
-        "textAlign": "center",
-      }
-    }
-  >
-    <Button
-      aria-label={null}
-      className=""
-      component="button"
-      isActive={false}
-      isBlock={false}
-      isDisabled={false}
-      isFocus={false}
-      isHover={false}
-      type="button"
-      variant="secondary"
-    >
-      Take Action
-    </Button>
-  </div>
 </Connect(Main)>
 `;
