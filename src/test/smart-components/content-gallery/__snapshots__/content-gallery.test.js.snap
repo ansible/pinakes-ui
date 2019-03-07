@@ -56,7 +56,7 @@ exports[`<ContentGallery /> should render all items 1`] = `
 
 exports[`<ContentGallery /> should render in loading state 1`] = `
 <CardLoader
-  items={5}
+  items={13}
 />
 `;
 

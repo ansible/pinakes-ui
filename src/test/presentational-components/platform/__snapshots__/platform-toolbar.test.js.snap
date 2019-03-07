@@ -27,6 +27,13 @@ exports[`<PlatformToolbar /> should render correctly 1`] = `
           />
         </ToolbarItem>
       </ToolbarGroup>
+      <ToolbarGroup
+        className={null}
+      >
+        <ToolbarItem
+          className={null}
+        />
+      </ToolbarGroup>
     </Toolbar>
   </Level>
 </TopToolbar>

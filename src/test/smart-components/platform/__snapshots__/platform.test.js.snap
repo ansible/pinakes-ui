@@ -12,6 +12,7 @@ exports[`<Platform /> should render correctly 1`] = `
       },
     }
   }
+  paginationCurrent={Object {}}
   platformItems={Array []}
   store={
     Object {

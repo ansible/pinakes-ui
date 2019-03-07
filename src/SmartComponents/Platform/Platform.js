@@ -108,7 +108,12 @@ Platform.propTypes = {
   platform: PropTypes.shape({
     name: PropTypes.string
   }),
-  platformItems: PropTypes.array
+  platformItems: PropTypes.array,
+  paginationCurrent: PropTypes.shape({
+    limit: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired
+  })
 };
 
 Platform.defaultProps = {
