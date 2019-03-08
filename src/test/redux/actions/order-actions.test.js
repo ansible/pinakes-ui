@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { SERVICE_PORTAL_API_BASE } from '../../../Utilities/Constants';
+import { CATALOG_API_BASE } from '../../../Utilities/Constants';
 import {
   fetchServicePlans,
   fetchOrderList,
@@ -28,7 +28,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after fetching service plans', () => {
     const store = mockStore({});
-    apiClientMock.get(`${SERVICE_PORTAL_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
       body: [ 'Foo' ]
     }));
     const expectedActions = [{
@@ -44,7 +44,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after fetching service plans fails', () => {
     const store = mockStore({});
-    apiClientMock.get(`${SERVICE_PORTAL_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
       status: 500
     }));
     const expectedActions = [{
@@ -65,7 +65,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after fetching orders', () => {
     const store = mockStore({});
-    apiClientMock.get(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
+    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({
       body: [ 'Foo' ]
     }));
     const expectedActions = [{
@@ -81,7 +81,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after fetching orders fails', () => {
     const store = mockStore({});
-    apiClientMock.get(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
+    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({
       status: 500
     }));
     const expectedActions = [{
@@ -124,10 +124,10 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
       body: { id: 123 }
     }));
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/order_items`, mockOnce((req, res) => {
+    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/order_items`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
         count: 1,
         provider_control_parameters: { namespace: 'default' },
@@ -137,7 +137,7 @@ describe('Order actions', () => {
       });
       return res.status(200);
     }));
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/submit_order`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/submit_order`, mockOnce({
       status: 200
     }));
     const expectedActions = [{
@@ -157,7 +157,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order fails to get new order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
       status: 500
     }));
     const expectedActions = [{
@@ -182,11 +182,11 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order fails to add to new order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
       body: { id: 123 }
     }));
 
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/items`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/items`, mockOnce({
       status: 500
     }));
 
@@ -208,14 +208,14 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order fails to submit order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
       body: { id: 123 }
     }));
 
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123/items`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/items`, mockOnce({
       status: 200
     }));
-    apiClientMock.post(`${SERVICE_PORTAL_API_BASE}/orders/123`, mockOnce({
+    apiClientMock.post(`${CATALOG_API_BASE}/orders/123`, mockOnce({
       status: 500
     }));
 

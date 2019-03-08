@@ -20,7 +20,7 @@ import {
   removePortfolio
 } from '../../../redux/Actions/PortfolioActions';
 import {
-  SERVICE_PORTAL_API_BASE
+  CATALOG_API_BASE
 } from '../../../Utilities/Constants';
 
 describe('Portfolio actions', () => {
@@ -49,7 +49,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
       payload: [ expectedPortfolio ]
     }];
-    apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
+    apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
       body: { data: [ expectedPortfolio ]}
     }));
 
@@ -78,7 +78,7 @@ describe('Portfolio actions', () => {
 
     }) ]);
 
-    apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
+    apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
       status: 500
     }));
 
@@ -91,7 +91,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItems action was called', () => {
     const store = mockStore({});
 
-    apiClientMock.get(SERVICE_PORTAL_API_BASE + '/portfolio_items', mockOnce({
+    apiClientMock.get(CATALOG_API_BASE + '/portfolio_items', mockOnce({
       body: { data: [ 'foo' ]}
     }));
 
@@ -111,7 +111,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItemsWithPortfolio action was called', () => {
     const store = mockStore({});
 
-    apiClientMock.get(`${SERVICE_PORTAL_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: [ 'foo' ]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: [ 'foo' ]}}));
 
     const expectedActions = [{
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
@@ -128,7 +128,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when adding portfolio', () => {
     const store = mockStore({});
-    apiClientMock.post(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
+    apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -146,7 +146,7 @@ describe('Portfolio actions', () => {
 
   it('should create error action creators when adding portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.post(SERVICE_PORTAL_API_BASE + '/portfolios', mockOnce({
+    apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
       status: 500
     }));
 
@@ -164,7 +164,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when updating portfolio', () => {
     const store = mockStore({});
-    apiClientMock.patch(SERVICE_PORTAL_API_BASE + '/portfolios/123', mockOnce({
+    apiClientMock.patch(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -182,7 +182,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when updating portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.patch(SERVICE_PORTAL_API_BASE + '/portfolios/123', mockOnce({
+    apiClientMock.patch(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       status: 500
     }));
 
@@ -200,7 +200,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio', () => {
     const store = mockStore({});
-    apiClientMock.delete(SERVICE_PORTAL_API_BASE + '/portfolios/123', mockOnce({
+    apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -218,7 +218,7 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio faled', () => {
     const store = mockStore({});
-    apiClientMock.delete(SERVICE_PORTAL_API_BASE + '/portfolios/123', mockOnce({
+    apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       status: 500
     }));
 

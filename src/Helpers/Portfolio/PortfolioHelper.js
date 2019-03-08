@@ -1,5 +1,5 @@
 import { getUserApi } from '../Shared/userLogin';
-import { SERVICE_PORTAL_API_BASE } from '../../Utilities/Constants';
+import { CATALOG_API_BASE } from '../../Utilities/Constants';
 
 const userApi = getUserApi();
 
@@ -68,7 +68,7 @@ export async function removePortfolioItems(portfolioItemIds) {
 }
 
 export function fetchProviderControlParameters(portfolioItemId) {
-  return fetch(`${SERVICE_PORTAL_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`)
+  return fetch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`)
   .then(data => data.json())
   .then(data => ({
     required: [],

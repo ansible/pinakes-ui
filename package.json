@@ -1,5 +1,5 @@
 {
-  "name": "service_portal",
+  "name": "catalog",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -118,6 +118,6 @@
     "verify": "npm-run-all build lint test"
   },
   "insights": {
-    "appname": "service-portal"
+    "appname": "catalog"
   }
 }

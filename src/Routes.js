@@ -34,7 +34,7 @@ export const Routes = props => {
       <Switch>
         <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
         <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
-        <InsightsRoute path={ paths.orders } component={ Orders } rootClass="service_portal" />
+        <InsightsRoute path={ paths.orders } component={ Orders } rootClass="catalog" />
         { /* Finally, catch all unmatched routes */ }
         <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
       </Switch>

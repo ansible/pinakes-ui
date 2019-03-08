@@ -11,7 +11,7 @@ import App from './App';
  */
 ReactDOM.render(
   <Provider store={ store }>
-    <Router basename='/insights/platform/service-portal'>
+    <Router basename='/insights/platform/catalog'>
       <App />
     </Router>
   </Provider>,
