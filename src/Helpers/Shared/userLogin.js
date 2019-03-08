@@ -1,14 +1,14 @@
-import { AdminsApi, ApiClient as ServicePortalApiClient } from '@manageiq/service-portal-api';
+import { AdminsApi, ApiClient as CatalogApiClient } from '@manageiq/service-portal-api';
 import { DefaultApi, ApiClient as TopologicalInventoryApiClient } from '@manageiq/topological_inventory';
-import { TOPOLOGICAL_INVENTORY_API_BASE, SERVICE_PORTAL_API_BASE } from '../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../Utilities/Constants';
 
 const adminApi = new AdminsApi();
 
 const defaultClient = TopologicalInventoryApiClient.instance;
 defaultClient.basePath = TOPOLOGICAL_INVENTORY_API_BASE;
 
-const sspDefaultClient = ServicePortalApiClient.instance;
-sspDefaultClient.basePath = SERVICE_PORTAL_API_BASE;
+const sspDefaultClient = CatalogApiClient.instance;
+sspDefaultClient.basePath = CATALOG_API_BASE;
 
 let userTopologicalApi = new DefaultApi();
 

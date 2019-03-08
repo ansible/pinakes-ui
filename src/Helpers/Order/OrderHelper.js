@@ -1,11 +1,11 @@
 /* eslint camelcase: 0 */
-import * as ServicePortalApi from '@manageiq/service-portal-api';
-import { SERVICE_PORTAL_API_BASE } from '../../Utilities/Constants';
+import * as CatalogApi from '@manageiq/service-portal-api';
+import { CATALOG_API_BASE } from '../../Utilities/Constants';
 
-let api = new ServicePortalApi.AdminsApi();
+let api = new CatalogApi.AdminsApi();
 
-const sspDefaultClient = ServicePortalApi.ApiClient.instance;
-sspDefaultClient.basePath = SERVICE_PORTAL_API_BASE;
+const sspDefaultClient = CatalogApi.ApiClient.instance;
+sspDefaultClient.basePath = CATALOG_API_BASE;
 
 export function getServicePlans(portfolioItemId) {
   return api.listServicePlans(portfolioItemId);
@@ -17,7 +17,7 @@ export function listOrders() {
 
 export async function sendSubmitOrder({ service_parameters: { providerControlParameters, ...service_parameters }, ...parameters }) {
   let order = await api.createOrder();
-  let orderItem = new ServicePortalApi.OrderItem;
+  let orderItem = new CatalogApi.OrderItem;
   orderItem.count = 1;
   orderItem = {
     ...orderItem,

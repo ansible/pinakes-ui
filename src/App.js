@@ -25,7 +25,7 @@ class App extends Component {
     insights.chrome.init();
     insights.chrome.auth.getUser().then(() => this.setState({ auth: true }));
     try {
-      insights.chrome.identifyApp('service-portal');
+      insights.chrome.identifyApp('catalog');
       insights.chrome.navigation([{
         id: 'portfolios',
         title: 'Portfolios'
