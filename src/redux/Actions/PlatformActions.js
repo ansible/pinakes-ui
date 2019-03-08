@@ -17,7 +17,7 @@ export const fetchPlatformItems = (platformId, options) => ({
 });
 
 export const fetchMultiplePlatformItems = platformsId => {
-  const platformPromisses = platformsId.map(platformId => PlatformHelper.getPlatformItems(platformId).then(({ data }) => ({ [platformId]: data })));
+  const platformPromisses = platformsId.map(platformId => PlatformHelper.getPlatformItems(platformId).then(data => ({ [platformId]: data })));
   return {
     type: ActionTypes.FETCH_MULTIPLE_PLATFORM_ITEMS,
     payload: Promise.all(platformPromisses).then(data => data.reduce((acc, curr) => ({

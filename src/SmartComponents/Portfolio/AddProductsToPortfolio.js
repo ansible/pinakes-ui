@@ -57,7 +57,7 @@ class AddProductsToPortfolio extends Component {
       const { selectedPlatforms } = this.state;
       const { platformItems } = this.props;
       return selectedPlatforms.map(({ id }) => platformItems[id]
-        ? platformItems[id].filter(item => filterServiceOffering(item, this.state.searchValue)).map(item =>
+        ? platformItems[id].data.filter(item => filterServiceOffering(item, this.state.searchValue)).map(item =>
           <PlatformItem
             key={ item.id }
             { ...item }

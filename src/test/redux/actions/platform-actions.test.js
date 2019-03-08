@@ -151,9 +151,9 @@ describe('Platform actions', () => {
     }, {
       type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`,
       payload: {
-        1: [{ id: '1', name: 'Offering 1' }],
-        2: [{ id: '2', name: 'Offering 2' }],
-        3: [{ id: '3', name: 'Offering 3' }]
+        1: { data: [{ id: '1', name: 'Offering 1' }]},
+        2: { data: [{ id: '2', name: 'Offering 2' }]},
+        3: { data: [{ id: '3', name: 'Offering 3' }]}
       }
     }];
 
