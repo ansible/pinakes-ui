@@ -4,7 +4,7 @@ import { Level, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-cor
 import TopToolbar, { TopToolbarTitle } from '../Shared/top-toolbar';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
 
-const PlatformToolbar = ({ searchValue, onFilterChange, title }) => (
+const PlatformToolbar = ({ searchValue, onFilterChange, title, children }) => (
   <TopToolbar>
     <TopToolbarTitle title={ title } />
     <Level>
@@ -12,6 +12,11 @@ const PlatformToolbar = ({ searchValue, onFilterChange, title }) => (
         <ToolbarGroup>
           <ToolbarItem>
             <FilterToolbarItem searchValue={ searchValue } onFilterChange={ onFilterChange } placeholder="Filter by name..." />
+          </ToolbarItem>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <ToolbarItem>
+            { children }
           </ToolbarItem>
         </ToolbarGroup>
       </Toolbar>
@@ -22,7 +27,11 @@ const PlatformToolbar = ({ searchValue, onFilterChange, title }) => (
 PlatformToolbar.propTypes = {
   searchValue: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ])
 };
 
 export default PlatformToolbar;

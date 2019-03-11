@@ -83,7 +83,7 @@ describe('Platform actions', () => {
       }
     });
 
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=`, { data: [{
+    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=`, { data: [{
       id: '1',
       name: 'Offering 1'
     }]});
@@ -94,7 +94,7 @@ describe('Platform actions', () => {
     }, {
       meta: { platformId: '1' },
       type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
-      payload: [{ id: '1', name: 'Offering 1' }]
+      payload: { data: [{ id: '1', name: 'Offering 1' }]}
     }];
 
     return store.dispatch(fetchPlatformItems('1')).then(() => {
@@ -133,15 +133,15 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=`, { data: [{
+    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=`, { data: [{
       id: '1',
       name: 'Offering 1'
     }]});
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?archived_at=`, { data: [{
+    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?archived_at=`, { data: [{
       id: '2',
       name: 'Offering 2'
     }]});
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?archived_at=`, { data: [{
+    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?archived_at=`, { data: [{
       id: '3',
       name: 'Offering 3'
     }]});
@@ -151,9 +151,9 @@ describe('Platform actions', () => {
     }, {
       type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`,
       payload: {
-        1: [{ id: '1', name: 'Offering 1' }],
-        2: [{ id: '2', name: 'Offering 2' }],
-        3: [{ id: '3', name: 'Offering 3' }]
+        1: { data: [{ id: '1', name: 'Offering 1' }]},
+        2: { data: [{ id: '2', name: 'Offering 2' }]},
+        3: { data: [{ id: '3', name: 'Offering 3' }]}
       }
     }];
 

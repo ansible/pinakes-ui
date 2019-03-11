@@ -27,7 +27,7 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
     />
   </Holder>
   <CardLoader
-    items={5}
+    items={13}
   />
 </Connect(Main)>
 `;
@@ -65,37 +65,21 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
     xlOffset={null}
     xlRowSpan={null}
   >
-    <Grid
+    <Gallery
       className=""
       gutter="md"
-      lg={null}
-      md={null}
-      sm={null}
-      span={null}
-      xl={null}
     >
-      <GridItem
-        className=""
+      <GalleryItem
         key="0"
-        lg={3}
-        lgOffset={null}
-        lgRowSpan={null}
-        md={6}
-        mdOffset={null}
-        mdRowSpan={null}
-        offset={null}
-        rowSpan={null}
-        sm={12}
-        smOffset={null}
-        smRowSpan={null}
-        span={null}
-        xl={null}
-        xlOffset={null}
-        xlRowSpan={null}
       >
         <Card
           className=""
           component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
         >
           <CardBody
             className=""
@@ -151,29 +135,18 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
             </Holder>
           </CardBody>
         </Card>
-      </GridItem>
-      <GridItem
-        className=""
+      </GalleryItem>
+      <GalleryItem
         key="1"
-        lg={3}
-        lgOffset={null}
-        lgRowSpan={null}
-        md={6}
-        mdOffset={null}
-        mdRowSpan={null}
-        offset={null}
-        rowSpan={null}
-        sm={12}
-        smOffset={null}
-        smRowSpan={null}
-        span={null}
-        xl={null}
-        xlOffset={null}
-        xlRowSpan={null}
       >
         <Card
           className=""
           component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
         >
           <CardBody
             className=""
@@ -229,29 +202,18 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
             </Holder>
           </CardBody>
         </Card>
-      </GridItem>
-      <GridItem
-        className=""
+      </GalleryItem>
+      <GalleryItem
         key="2"
-        lg={3}
-        lgOffset={null}
-        lgRowSpan={null}
-        md={6}
-        mdOffset={null}
-        mdRowSpan={null}
-        offset={null}
-        rowSpan={null}
-        sm={12}
-        smOffset={null}
-        smRowSpan={null}
-        span={null}
-        xl={null}
-        xlOffset={null}
-        xlRowSpan={null}
       >
         <Card
           className=""
           component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
         >
           <CardBody
             className=""
@@ -307,29 +269,18 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
             </Holder>
           </CardBody>
         </Card>
-      </GridItem>
-      <GridItem
-        className=""
+      </GalleryItem>
+      <GalleryItem
         key="3"
-        lg={3}
-        lgOffset={null}
-        lgRowSpan={null}
-        md={6}
-        mdOffset={null}
-        mdRowSpan={null}
-        offset={null}
-        rowSpan={null}
-        sm={12}
-        smOffset={null}
-        smRowSpan={null}
-        span={null}
-        xl={null}
-        xlOffset={null}
-        xlRowSpan={null}
       >
         <Card
           className=""
           component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
         >
           <CardBody
             className=""
@@ -385,29 +336,18 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
             </Holder>
           </CardBody>
         </Card>
-      </GridItem>
-      <GridItem
-        className=""
+      </GalleryItem>
+      <GalleryItem
         key="4"
-        lg={3}
-        lgOffset={null}
-        lgRowSpan={null}
-        md={6}
-        mdOffset={null}
-        mdRowSpan={null}
-        offset={null}
-        rowSpan={null}
-        sm={12}
-        smOffset={null}
-        smRowSpan={null}
-        span={null}
-        xl={null}
-        xlOffset={null}
-        xlRowSpan={null}
       >
         <Card
           className=""
           component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
         >
           <CardBody
             className=""
@@ -463,8 +403,544 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
             </Holder>
           </CardBody>
         </Card>
-      </GridItem>
-    </Grid>
+      </GalleryItem>
+      <GalleryItem
+        key="5"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="6"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="7"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="8"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="9"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="10"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="11"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+      <GalleryItem
+        key="12"
+      >
+        <Card
+          className=""
+          component="article"
+          style={
+            Object {
+              "height": 350,
+            }
+          }
+        >
+          <CardBody
+            className=""
+            component="div"
+          >
+            <Holder
+              height={160}
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+              speed={2}
+              width={300}
+            >
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="300"
+                x="2"
+                y="99"
+              />
+              <rect
+                height="5.76"
+                rx="3"
+                ry="3"
+                width="290"
+                x="2"
+                y="119.72"
+              />
+              <rect
+                height="6.4"
+                rx="3"
+                ry="3"
+                width="201"
+                x="2"
+                y="139"
+              />
+              <rect
+                height="82.74"
+                rx="0"
+                ry="0"
+                width="271.6"
+                x="-2.16"
+                y="0.67"
+              />
+              <rect
+                height="3"
+                rx="0"
+                ry="0"
+                width="6"
+                x="136.84"
+                y="37.67"
+              />
+            </Holder>
+          </CardBody>
+        </Card>
+      </GalleryItem>
+    </Gallery>
   </GridItem>
 </Grid>
 `;

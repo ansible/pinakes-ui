@@ -10,7 +10,8 @@
     "@patternfly/react-core": "^2.1.4",
     "@patternfly/react-icons": "^2.10.0",
     "@patternfly/react-tokens": "^1.10.0",
-    "@red-hat-insights/insights-frontend-components": "^3.33.65",
+    "@red-hat-insights/insights-frontend-components": "^3.39.1",
+    "awesome-debounce-promise": "^2.1.0",
     "font-awesome": "^4.7.0",
     "patternfly-react": "^2.13.1",
     "react": "^16.8.3",
@@ -20,7 +21,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.3.3",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "3.0.0"
   },
   "sassIncludes": {
     "patternfly": "node_modules/patternfly/dist/sass",
@@ -70,7 +71,7 @@
     "eslint-config-prettier": "^2.10.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-react": "^7.11.1",
-    "fetch-mock": "^7.3.0",
+    "fetch-mock": "7.3.0",
     "file-loader": "^1.1.11",
     "git-revision-webpack-plugin": "^3.0.3",
     "glob": "^7.1.3",
