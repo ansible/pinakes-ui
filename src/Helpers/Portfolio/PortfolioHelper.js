@@ -16,7 +16,7 @@ export function listPortfolioItems() {
 }
 
 export function getPortfolioItem(portfolioItemId) {
-  return fetch(`${SERVICE_PORTAL_API_BASE}/portfolio_items/${portfolioItemId}`).then(data => data.json());
+  return fetch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}`).then(data => data.json());
 }
 
 export function getPortfolio(portfolioId) {
@@ -24,7 +24,7 @@ export function getPortfolio(portfolioId) {
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return fetch(`${SERVICE_PORTAL_API_BASE}/portfolios/${portfolioId}/portfolio_items`).then(data => data.json());
+  return fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items`).then(data => data.json());
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
