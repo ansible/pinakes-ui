@@ -16,7 +16,7 @@ class OrderModal extends Component {
 
   renderStepPage = (componentPage, props) => {
     const StepComponent = componentPage;
-    return (<StepComponent { ...props } />);
+    return (<StepComponent { ...props } closeUrl={ this.props.closeUrl } />);
   };
 
   render() {

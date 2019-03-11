@@ -47,7 +47,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
     const portfolioItemId = this.props.id;
     const service_plan_id = this.props.servicePlans[this.state.selectedPlanIdx].id;
     this.props.sendSubmitOrder({ portfolio_item_id: portfolioItemId, service_plan_ref: service_plan_id, service_parameters: data });
-    this.props.history.push('/orders');
+    this.props.history.push(this.props.closeUrl);
   };
 
   render() {
@@ -116,7 +116,8 @@ OrderServiceFormStepConfiguration.propTypes = {
   sendSubmitOrder: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  closeUrl: PropTypes.string.isRequired
 };
 
 OrderServiceFormStepConfiguration.defaultProps = {
