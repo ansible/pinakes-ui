@@ -15,7 +15,7 @@ import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
 import OrderModal from '../Common/OrderModal';
 import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
-import PorftolioProduct from '../products/portfolio-product';
+import PortfolioItemDetail from './portfolio-item-detail';
 
 import './portfolio.scss';
 class Portfolio extends Component {
@@ -149,7 +149,7 @@ class Portfolio extends Component {
     return (
       <Switch>
         <Route path={ addProductsRoute } render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
-        <Route path={ `${orderUrl}/:productId` } component={ PorftolioProduct }/>
+        <Route path={ `${orderUrl}/:portfolioItemId` } component={ PortfolioItemDetail }/>
         <Route
           path={ removeProductsRoute }
           render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, title, ...props }) }

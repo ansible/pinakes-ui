@@ -12,8 +12,8 @@ import { bindActionCreators } from 'redux';
 import { fetchPortfolioItem } from '../../redux/Actions/PortfolioActions';
 import { ProductLoaderPlaceholder } from '../../PresentationalComponents/Shared/LoaderPlaceholders';
 
-const PorftolioProduct = ({
-  match: { path, url, params: { productId }},
+const PortfolioItemDetail = ({
+  match: { path, url, params: { portfolioItemId }},
   portfolio,
   product,
   source,
@@ -23,7 +23,7 @@ const PorftolioProduct = ({
 }) => {
   useEffect(() => {
     fetchPlatforms();
-    fetchPortfolioItem(productId);
+    fetchPortfolioItem(portfolioItemId);
   }, [ path ]);
   if (isLoading) {
     return (
@@ -91,7 +91,7 @@ const PorftolioProduct = ({
   );
 };
 
-PorftolioProduct.propTypes = {
+PortfolioItemDetail.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string.isRequired
   }).isRequired,
@@ -134,4 +134,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchPortfolioItem
 }, dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PorftolioProduct));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PortfolioItemDetail));

@@ -13,9 +13,9 @@ export const fetchPortfolioItems = apiProps => ({
   payload: PortfolioHelper.getPortfolioItems(apiProps).then(({ data }) => data)
 });
 
-export const fetchPortfolioItem = (productId) => ({
+export const fetchPortfolioItem = (portfolioItemId) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEM,
-  payload: PortfolioHelper.getPortfolioItem(productId)
+  payload: PortfolioHelper.getPortfolioItem(portfolioItemId)
 });
 
 export const fetchPortfolioItemsWithPortfolio = apiProps => ({
