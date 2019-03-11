@@ -2,12 +2,12 @@
 
 NODE_ENV=production npm run build
 
-# If current dev branch is master, push to build repo ci-beta
 if [ "${TRAVIS_BRANCH}" = "master" ]; then
-    .travis/release.sh "ci-stable"
-fi
+    .travis/release.sh "ci-beta"
 
-# If current dev branch is deployment branch, push to build repo
-if [[ "${TRAVIS_BRANCH}" = "ci-beta"  || "${TRAVIS_BRANCH}" = "qa-beta" || "${TRAVIS_BRANCH}" = "qa-stable" || "${TRAVIS_BRANCH}" = "prod-beta" || "${TRAVIS_BRANCH}" = "prod-stable" ]]; then
+    .travis/promote.sh "qa-beta"
+    .travis/promote.sh "ci-stable"
+    .travis/promote.sh "qa-stable"
+else if [[ "${TRAVIS_BRANCH}" = "ci-stable"  || "${TRAVIS_BRANCH}" = "qa-beta" || "${TRAVIS_BRANCH}" = "qa-stable" || "${TRAVIS_BRANCH}" = "prod-beta" || "${TRAVIS_BRANCH}" = "prod-stable" ]]; then
     .travis/release.sh "${TRAVIS_BRANCH}"
 fi
