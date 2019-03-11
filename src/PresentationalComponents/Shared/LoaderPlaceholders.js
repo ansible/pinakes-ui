@@ -1,5 +1,5 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React, { Fragment } from 'react';
+import ContentLoader, { List } from 'react-content-loader';
 import PropTypes from 'prop-types';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { Card, CardBody, Grid, GridItem, Gallery, GalleryItem } from '@patternfly/react-core';
@@ -95,4 +95,24 @@ export const ToolbarTitlePlaceholder = props => (
   >
     <rect x="0" y="0" rx="0" ry="0" width="200" height="21" />
   </ContentLoader>
+);
+
+export const ProductLoaderPlaceholder = props => (
+  <Fragment>
+    <ContentLoader
+      height={ 15 }
+      width={ 200 }
+      speed={ 2 }
+      primaryColor="#f3f3f3"
+      secondaryColor="#ecebeb"
+      { ...props }
+    >
+      <rect x="0" y="0" rx="0" ry="0" width="200" height="10" />
+    </ContentLoader>
+    <div style={ { width: 300 } }>
+      <List />
+      <List speed={ 3 } />
+      <List />
+    </div>
+  </Fragment>
 );

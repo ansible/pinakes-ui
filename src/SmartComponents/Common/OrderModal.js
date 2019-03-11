@@ -16,7 +16,7 @@ class OrderModal extends Component {
 
   renderStepPage = (componentPage, props) => {
     const StepComponent = componentPage;
-    return (<StepComponent { ...props } />);
+    return (<StepComponent { ...props } closeUrl={ this.props.closeUrl } />);
   };
 
   render() {
@@ -54,13 +54,11 @@ OrderModal.propTypes = {
 };
 
 const mapStateToProps = ({
-  portfolioReducer: { portfolioItems },
   orderReducer: { isLoading, selectedItem, servicePlans }
-}, { match: { params: { itemId }}}) => ({
+}) => ({
   isLoading,
   selectedItem,
-  servicePlans,
-  serviceData: portfolioItems.find(({ id }) => id == itemId) // eslint-disable-line eqeqeq
+  servicePlans // eslint-disable-line eqeqeq
 });
 
 export default withRouter(connect(mapStateToProps)(OrderModal));

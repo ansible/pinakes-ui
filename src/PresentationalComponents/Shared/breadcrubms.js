@@ -15,9 +15,7 @@ const fragmentMapper = {
   portfolios: {
     title: 'Portfolios'
   },
-  detail: {
-    attribute: 'name'
-  },
+  detail: {},
   'add-products': {
     title: 'Add products'
   },
@@ -29,6 +27,9 @@ const fragmentMapper = {
   },
   orders: {
     title: 'Orders'
+  },
+  product: {
+    reducer: 'portfolioReducer.portfolioItem.display_name'
   }
 };
 
@@ -36,7 +37,7 @@ const createPaths = fragments => {
   const rootReducer = fragments.find(({ reducer }) => reducer !== undefined).reducer;
   let finalFragments = [];
   let fragmentIndex = 0;
-  fragments.forEach(({ reducer, isId, urlFragment }) => {
+  fragments.forEach(({ isId, urlFragment }) => {
     if (isId) {
       finalFragments[fragmentIndex - 1] = {
         ...finalFragments[fragmentIndex - 1],
@@ -48,7 +49,7 @@ const createPaths = fragments => {
       ];
     } else {
       finalFragments[fragmentIndex] = {
-        reducer: reducer || rootReducer,
+        reducer: fragmentMapper[urlFragment].reducer || rootReducer,
         path: fragmentIndex === 0 ? `/${urlFragment}` : `${finalFragments[fragmentIndex - 1].path}/${urlFragment}`,
         urlFragment
       };
