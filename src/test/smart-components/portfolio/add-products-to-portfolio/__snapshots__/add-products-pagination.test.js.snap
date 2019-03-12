@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddProductsPagination /> should render correctly 1`] = `
+<Pagination
+  direction="down"
+  itemsPerPage={50}
+  numberOfItems={123}
+  onPerPageSelect={[Function]}
+  onSetPage={[Function]}
+  page={1}
+/>
+`;
