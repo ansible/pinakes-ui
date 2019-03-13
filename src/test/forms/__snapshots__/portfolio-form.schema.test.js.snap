@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPortfolioSchema should create edit portfolio form schema variant 1`] = `
+Object {
+  "fields": Array [
+    Object {
+      "component": "text-field",
+      "isRequired": true,
+      "label": "Portfolio Name",
+      "name": "name",
+      "validate": Array [
+        Object {
+          "type": "required-validator",
+        },
+      ],
+    },
+    Object {
+      "component": "textarea-field",
+      "label": "Description",
+      "name": "description",
+    },
+    Object {
+      "component": "select-field",
+      "label": "Approval workflow",
+      "name": "workflow_ref",
+      "options": Array [
+        Object {
+          "label": "foo",
+          "value": "bar",
+        },
+        Object {
+          "label": "baz",
+          "value": "quxx",
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`createPortfolioSchema should create new portfolio form schema variant 1`] = `
+Object {
+  "fields": Array [
+    Object {
+      "component": "text-field",
+      "isRequired": true,
+      "label": "New Portfolio Name",
+      "name": "name",
+      "validate": Array [
+        Object {
+          "type": "required-validator",
+        },
+      ],
+    },
+    Object {
+      "component": "textarea-field",
+      "label": "Description",
+      "name": "description",
+    },
+    Object {
+      "component": "select-field",
+      "label": "Approval workflow",
+      "name": "workflow_ref",
+      "options": Array [
+        Object {
+          "label": "foo",
+          "value": "bar",
+        },
+        Object {
+          "label": "baz",
+          "value": "quxx",
+        },
+      ],
+    },
+  ],
+}
+`;

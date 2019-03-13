@@ -37,10 +37,6 @@ const AddPortfolioModal = ({
     goBack()
   );
 
-  if (!workflows) {
-    return null;
-  }
-
   return (
     <Modal
       title={ initialValues ? 'Edit portfolio' : 'Create portfolio' }
