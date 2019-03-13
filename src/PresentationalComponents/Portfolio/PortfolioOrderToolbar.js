@@ -33,7 +33,8 @@ const PortfolioOrderToolbar = ({
   onOptionSelect,
   options,
   onFilterChange,
-  searchValue
+  searchValue,
+  children
 }) => (
   <TopToolbar>
     <TopToolbarTitle title={ `Add products: ${portfolioName}` } />
@@ -47,12 +48,12 @@ const PortfolioOrderToolbar = ({
         <ToolbarGroup>
           <ToolbarItem>
             <Select
+              id="products-platform-select"
               styles={ selectStyles }
-              isMulti={ true }
+              isMulti={ false }
               placeholder={ 'Filter by Platform' }
               options={ options }
               onChange={ onOptionSelect }
-              closeMenuOnSelect={ false }
             />
           </ToolbarItem>
         </ToolbarGroup>
@@ -77,6 +78,7 @@ const PortfolioOrderToolbar = ({
           </ToolbarItem>
         </ToolbarGroup>
       </Toolbar>
+      { children }
     </Level>
   </TopToolbar>
 );
@@ -92,7 +94,11 @@ PortfolioOrderToolbar.propTypes = {
     value: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
   })).isRequired,
   onFilterChange: PropTypes.func.isRequired,
-  searchValue: PropTypes.string
+  searchValue: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ])
 };
 
 export default PortfolioOrderToolbar;
