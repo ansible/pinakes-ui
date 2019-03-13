@@ -37,7 +37,10 @@ export const searchPortfolioItems = value => ({
 
 export const addPortfolio = (portfolioData, items) => ({
   type: ActionTypes.ADD_PORTFOLIO,
-  payload: PortfolioHelper.addPortfolio(portfolioData, items),
+  payload: PortfolioHelper.addPortfolio({
+    ...portfolioData,
+    workflow_ref: portfolioData.workflow_ref || null
+  }, items),
   meta: {
     notifications: {
       fulfilled: {
@@ -65,7 +68,10 @@ export const addToPortfolio = (portfolioId, items) => ({
 
 export const updatePortfolio = (portfolioData) => ({
   type: ActionTypes.UPDATE_PORTFOLIO,
-  payload: PortfolioHelper.updatePortfolio(portfolioData),
+  payload: PortfolioHelper.updatePortfolio({
+    ...portfolioData,
+    workflow_ref: portfolioData.workflow_ref || null
+  }),
   meta: {
     notifications: {
       fulfilled: {
