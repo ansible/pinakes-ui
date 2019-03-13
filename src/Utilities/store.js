@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import orderReducer, { orderInitialState } from '../redux/reducers/orderReducer';
 import platformReducer, { platformInitialState } from '../redux/reducers/platformReducer';
 import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolioReducer';
+import approvalReducer, { approvalInitialState } from '../redux/reducers/approval-reducer';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
   errorTitleKey: [ 'errors', 'message' ],
@@ -18,6 +19,7 @@ registry.register({
   orderReducer: applyReducerHash(orderReducer, orderInitialState),
   platformReducer: applyReducerHash(platformReducer, platformInitialState),
   portfolioReducer: applyReducerHash(portfolioReducer, portfoliosInitialState),
+  approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
   notifications
 });
 
