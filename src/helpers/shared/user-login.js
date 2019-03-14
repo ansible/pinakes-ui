@@ -3,7 +3,7 @@ import { WorkflowApi } from '@redhat-cloud-services/approval-client';
 import { AdminsApi as CatalogAdminsApi } from '@redhat-cloud-services/catalog-client';
 import { DefaultApi, ApiClient as TopologicalInventoryApiClient } from '@manageiq/topological_inventory';
 
-import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE } from '../../utilities/constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
 
 const axiosInstance = axios.create();
 
@@ -25,6 +25,24 @@ export function getTopologicalUserApi() {
 
 export function getUserApi() {
   return catalogAdmin;
+}
+const defaultRbacClient = ApiClient.instance;
+defaultRbacClient.basePath = RBAC_API_BASE;
+
+let rbacAccessApi = new AccessApi();
+let rbacPrincipalApi = new PrincipalApi();
+let rbacGroupApi = new GroupApi();
+
+export function getRbacAccessApi() {
+  return rbacAccessApi;
+}
+
+export function getRbacPrincipalApi() {
+  return rbacPrincipalApi;
+}
+
+export function getRbacGroupApi() {
+  return rbacGroupApi;
 }
 
 export function getWorkflowApi() {

@@ -16,6 +16,8 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
+import { Card, CardHeader, CardBody, CardFooter, Button, GalleryItem } from '@patternfly/react-core';
+import { EditAltIcon, TrashIcon, ShareAltIcon } from '@patternfly/react-icons';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';

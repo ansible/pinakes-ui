@@ -5,3 +5,4 @@ export const APPROVAL_API_BASE = `${process.env.BASE_PATH}/approval/v1`;
 // should be based on locale in future. Dont know why we use en-GB format in mocks
 export const dateOptions = [ 'en-GB', { year: 'numeric', month: 'short', day: 'numeric' }];
 
+export const RBAC_API_BASE = `${process.env.BASE_PATH}/rbac/v1`;

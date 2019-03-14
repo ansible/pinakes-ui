@@ -58,7 +58,7 @@ const Pf4SelectWrapper = ({
     <FormGroup
       isRequired={ isRequired }
       label={ !hideLabel && label }
-      fieldId={ rest.id }
+      fieldId={ rest.id || rest.uuid}
       isValid={ !showError }
       helperText={ helperText }
       helperTextInvalid={ meta.error }
