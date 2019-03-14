@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddPortfolioModal /> should render correctly 1`] = `
+<MemoryRouter
+  initialEntries={
+    Array [
+      "portfolios/undefined",
+    ]
+  }
+>
+  <withRouter(Connect(AddPortfolioModal)) />
+</MemoryRouter>
+`;
