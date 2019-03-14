@@ -11,7 +11,7 @@ import App from './App';
  */
 ReactDOM.render(
   <Provider store={ store }>
-    <Router basename='/insights/platform/catalog'>
+      <Router basename={`${RELEASE ? `/${RELEASE}` : ''}/hcm/catalog`}>
       <App />
     </Router>
   </Provider>,

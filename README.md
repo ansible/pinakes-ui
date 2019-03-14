@@ -7,6 +7,13 @@
 ## Getting Started
 There is a [Dev Setup Wiki](https://gitlab.cloudforms.lab.eng.rdu2.redhat.com/insights/insights-ui-service_catalog/wikis/Dev-Setup) for setting up this Frontend.
 
+## Running locally
+Have [insights-proxy](https://github.com/RedHatInsights/insights-proxy) installed under PROXY_PATH
+
+```shell
+SPANDX_CONFIG="./config/spandx.config.js" bash $PROXY_PATH/scripts/run.sh
+```
+
 ## License
 
 This project is available as open source under the terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
