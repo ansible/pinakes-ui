@@ -2,11 +2,14 @@
 
 if [ "${CI}" = "true" ]; then
   cd "${TRAVIS_BUILD_DIR}"
-  git clean -df
-
   REMOTE=https://${GITHUB_PROMOTION_AUTH}@github.com/${TRAVIS_REPO_SLUG}.git
   SOURCE=${TRAVIS_BRANCH}
 else
+  if ! git diff-index --quiet HEAD -- ; then
+    echo "Cannot promote with a dirty working tree."
+    exit 1
+  fi
+
   REMOTE=${2:-upstream}
   SOURCE=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse HEAD)
 fi
@@ -14,11 +17,6 @@ fi
 DEST=$1
 if [ -z "${DEST}" ]; then
   echo "Usage: $0 dest-branch [dest-remote]"
-  exit 1
-fi
-
-if ! git diff-index --quiet HEAD -- ; then
-  echo "Cannot promote with a dirty working tree."
   exit 1
 fi
 
