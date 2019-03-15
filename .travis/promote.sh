@@ -2,6 +2,8 @@
 
 if [ "${CI}" = "true" ]; then
   cd "${TRAVIS_BUILD_DIR}"
+  git clean -xdf
+
   REMOTE=https://${GITHUB_PROMOTION_AUTH}@github.com/${TRAVIS_REPO_SLUG}.git
   SOURCE=${TRAVIS_BRANCH}
 else
@@ -26,8 +28,9 @@ set -x
 
 git checkout "${DEST}" || git checkout -b "${DEST}"
 git merge --no-ff --no-edit "${SOURCE}"
+
 { set +x; } 2>/dev/null
-echo "+ git push ${DEST}"
+echo "+git push ${DEST}"
 git push "${REMOTE}" "${DEST}" &>/dev/null
 
 if [ ! "${CI}" = "true" ]; then
