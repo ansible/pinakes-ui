@@ -2,7 +2,7 @@
 
 if [ "${CI}" = "true" ]; then
   cd "${TRAVIS_BUILD_DIR}"
-  git clean -xdf
+  git clean -df
 
   REMOTE=https://${GITHUB_PROMOTION_AUTH}@github.com/${TRAVIS_REPO_SLUG}.git
   SOURCE=${TRAVIS_BRANCH}
