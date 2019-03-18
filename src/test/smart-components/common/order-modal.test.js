@@ -27,7 +27,7 @@ const dummySchema = {
         type: 'string',
         title: 'Enable OAuth in Jenkins',
         default: 'true',
-        description: 'Whether to enable OAuth OpenShift integration. If false, the static account \'admin\' will be initialized with the password \'password\'.'
+        description: 'Whether to enable OAuth OpenShift integration. If false, the static account \'admin\' will be initialized with the password \'password\'.' // eslint-disable-line max-len
       },
       MEMORY_LIMIT: {
         type: 'string',
