@@ -8,3 +8,15 @@ export const fetchRbacGroups = () => ({
   ])
 });
 
+
+export async function queryPortfolio(portfolioData) {
+  // TODO - link API call
+}
+
+export async function sharePortfolio(portfolioData) {
+  // TODO - link API call
+}
+
+export async function unsharePortfolio(portfolioData) {
+  // TODO - link API call
+}
