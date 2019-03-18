@@ -11,7 +11,7 @@ import App from './App';
  */
 ReactDOM.render(
   <Provider store={ store }>
-    <Router basename={ `./hcm/catalog` }>
+    <Router basename={ `hcm/catalog` }>
       <App />
     </Router>
   </Provider>,
