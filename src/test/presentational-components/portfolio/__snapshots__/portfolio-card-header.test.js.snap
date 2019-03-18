@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PortfolioCardHeader /> should render correctly 1`] = `
+<div
+  className="portfolio-card-header"
+  style={
+    Object {
+      "backgroundImage": "url(test-file-stub)",
+    }
+  }
+>
+  <Toolbar
+    className={null}
+  >
+    <ToolbarGroup
+      className={null}
+      style={
+        Object {
+          "marginLeft": "auto",
+          "paddingBottom": 16,
+        }
+      }
+    />
+  </Toolbar>
+  <Text
+    className="elipsis-text-overflow"
+    component="h4"
+  >
+    foo
+  </Text>
+</div>
+`;

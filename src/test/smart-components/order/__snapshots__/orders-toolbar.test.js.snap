@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrdersToolbar /> should render correctly 1`] = `
+<TopToolbar
+  paddingBottom={false}
+>
+  <ToolbarSection
+    aria-label="order-toolbar-heading"
+    className={null}
+  >
+    <ToolbarGroup
+      className={null}
+    >
+      <ToolbarItem
+        className={null}
+      >
+        <TextContent
+          className=""
+        >
+          <Text
+            className=""
+            component="h1"
+          >
+            Orders
+          </Text>
+        </TextContent>
+      </ToolbarItem>
+    </ToolbarGroup>
+  </ToolbarSection>
+</TopToolbar>
+`;

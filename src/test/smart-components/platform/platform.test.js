@@ -67,7 +67,7 @@ describe('<Platform />', () => {
   /**
    * issues with promisses
    */
-  it.skip('should filter platforms correctly', (done) => {
+  it('should filter platforms correctly', (done) => {
     const stateWithItems = {
       platformReducer: {
         ...intiailState.platformReducer,
@@ -80,16 +80,20 @@ describe('<Platform />', () => {
           name: 'Foo'
         }],
         platformItems: {
-          11: [
-            { id: '111', name: 'Platform item 1', description: 'description 1' },
-            { id: '222', name: 'Platform item 2', description: 'description 1' }
-          ]
+          11: {
+            data: [
+              { id: '111', name: 'Platform item 1', description: 'description 1' },
+              { id: '222', name: 'Platform item 2', description: 'description 1' }
+            ],
+            limit: 50
+          }
         }
       }
     };
     const Provider = mockBreacrumbsStore(stateWithItems);
 
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/11`, mockOnce({ body: { name: 'Foo', id: '11' }}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo', id: '11' }}));
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/11/service_offerings?archived_at=&limit=50&offset=0`, {
       data: [{ id: 111, name: 'Platform item 1', description: 'description 1' }, { id: 2, name: 'Platform item 2', description: 'description 2' }],
       meta: {
@@ -98,24 +102,19 @@ describe('<Platform />', () => {
         offset: 0
       }
     });
+    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=&limit=50&offset=0`, {
+      data: []
+    });
 
     const Root = props => <Provider><MemoryRouter><Platform { ...props } /></MemoryRouter></Provider>;
-    let props = {
-      ...initialProps,
-      platformReducer: {
-        platformItems: {
-          11: [
-            { id: '111', name: 'Platform item 1', description: 'description 1' },
-            { id: '222', name: 'Platform item 2', description: 'description 1' }
-          ]
-        }
-      },
-      match: { params: { id: 11 }}
-    };
-    const wrapper = mount(<Root { ...props } />);
+    const wrapper = mount(<Root { ...initialProps } />);
     setImmediate(() => {
+      wrapper.setProps({ platformItems: [
+        { id: '111', name: 'Platform item 1', description: 'description 1' },
+        { id: '222', name: 'Platform item 2', description: 'description 1' }
+      ]});
       expect(wrapper.find(PlatformItem)).toHaveLength(2);
-      const search = wrapper.find('input');
+      const search = wrapper.find('input').first();
       search.getDOMNode().value = 'item 1';
       search.simulate('change');
       wrapper.update();

@@ -44,11 +44,9 @@ class Portfolio extends Component {
   }
 
   removeProducts = () => {
-    const itemIdsToRemove = this.state.selectedItems;
-
     this.props.history.goBack();
 
-    removePortfolioItems(itemIdsToRemove).then(() => {
+    removePortfolioItems(this.state.selectedItems).then(() => {
       this.fetchData(this.props.match.params.id);
       this.setState({
         selectedItems: []
@@ -65,15 +63,7 @@ class Portfolio extends Component {
         ]})
         : ({ selectedItems: [ ...selectedItems, selectedItem ]}));
 
-  filterItems = (filterValue) => {
-    let filteredItems = [];
-    if (this.props.portfolioItems && this.props.portfolioItems.portfolioItems) {
-      filteredItems = this.props.portfolioItems.portfolioItems;
-      filteredItems = filteredItems.filter(item => filterServiceOffering(item, filterValue));
-    }
-
-    return filteredItems;
-  };
+  filterItems = filterValue => this.props.portfolioItems.filter(item => filterServiceOffering(item, filterValue));
 
   handleFilterChange = filterValue => {
     this.setState({ filterValue });
@@ -145,7 +135,6 @@ class Portfolio extends Component {
       )),
       isLoading: this.props.isLoading && this.props.portfolioItems.length === 0
     };
-
     return (
       <Switch>
         <Route path={ addProductsRoute } render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />

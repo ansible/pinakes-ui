@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RemovePortfolioItems /> should render correctly 1`] = `
+<TopToolbar
+  paddingBottom={true}
+>
+  <TopToolbarTitle
+    title="Remove products: Foo"
+  />
+  <Level
+    className=""
+    gutter={null}
+  >
+    <Toolbar
+      className={null}
+    >
+      <ToolbarGroup
+        className={null}
+      >
+        <ToolbarItem
+          className={null}
+        >
+          <FilterToolbarItem
+            onFilterChange={[MockFunction]}
+            placeholder="Filter by name..."
+            searchValue=""
+          />
+        </ToolbarItem>
+      </ToolbarGroup>
+      <ToolbarGroup
+        className={null}
+      >
+        <ToolbarItem
+          className={null}
+        >
+          <Link
+            replace={false}
+            to="/"
+          >
+            <Button
+              aria-label="Cancel removing portfolio items"
+              className=""
+              component="button"
+              isActive={false}
+              isBlock={false}
+              isDisabled={false}
+              isFocus={false}
+              isHover={false}
+              type="button"
+              variant="link"
+            >
+              Cancel
+            </Button>
+          </Link>
+        </ToolbarItem>
+      </ToolbarGroup>
+      <ToolbarGroup
+        className={null}
+      >
+        <ToolbarItem
+          className={null}
+        >
+          <Button
+            aria-label="Remove selected portfolio items"
+            className=""
+            component="button"
+            isActive={false}
+            isBlock={false}
+            isDisabled={false}
+            isFocus={false}
+            isHover={false}
+            type="button"
+            variant="danger"
+          >
+            Remove
+          </Button>
+        </ToolbarItem>
+      </ToolbarGroup>
+    </Toolbar>
+  </Level>
+</TopToolbar>
+`;

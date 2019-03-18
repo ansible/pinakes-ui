@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   ToolbarGroup,
   ToolbarSection,
@@ -24,11 +23,5 @@ const OrdersToolbar = () => (
     </ToolbarSection>
   </TopToolbar>
 );
-
-OrdersToolbar.propTypes = {
-  match: PropTypes.shape({
-    path: PropTypes.string.isRequired
-  }).isRequired
-};
 
 export default OrdersToolbar;
