@@ -19,51 +19,51 @@ const portfoliosRoutes = {
 };
 
 class Portfolios extends Component {
-    state = {
-      filteredItems: [],
-      isOpen: false,
-      filterValue: ''
+  state = {
+    filteredItems: [],
+    isOpen: false,
+    filterValue: ''
+  };
+
+  fetchData = () => {
+    this.props.fetchPortfolios();
+  };
+
+  componentDidMount() {
+    this.fetchData();
+    scrollToTop();
+  }
+
+  onFilterChange = filterValue => this.setState({ filterValue })
+
+  renderItems = props => {
+    let filteredItems = {
+      items: this.props.portfolios
+      .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
+      .map(item => <PortfolioCard key={ item.id } { ...item } />),
+      isLoading: this.props.isLoading && this.props.portfolios.length === 0
     };
+    return (
+      <Fragment>
+        <TopToolbar>
+          <TopToolbarTitle title="Portfolios" />
+          <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
+        </TopToolbar>
+        <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
+        <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
+        <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
+        <ContentGallery { ...filteredItems } />
+      </Fragment>
+    );}
 
-    fetchData = () => {
-      this.props.fetchPortfolios();
-    };
-
-    componentDidMount() {
-      this.fetchData();
-      scrollToTop();
-    }
-
-    onFilterChange = filterValue => this.setState({ filterValue })
-
-    renderItems = props => {
-      let filteredItems = {
-        items: this.props.portfolios
-        .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
-        .map(item => <PortfolioCard key={ item.id } { ...item } />),
-        isLoading: this.props.isLoading && this.props.portfolios.length === 0
-      };
-      return (
-        <Fragment>
-          <TopToolbar>
-            <TopToolbarTitle title="Portfolios" />
-            <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
-          </TopToolbar>
-          <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
-          <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
-          <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
-          <ContentGallery { ...filteredItems } />
-        </Fragment>
-      );}
-
-    render() {
-      return (
-        <Switch>
-          <Route path={ `/portfolios/${portfoliosRoutes.detail}` } component={ Portfolio } />
-          <Route path={ `/portfolios/${portfoliosRoutes.portfolios}` } render={ this.renderItems } />
-        </Switch>
-      );
-    }
+  render() {
+    return (
+      <Switch>
+        <Route path={ `/portfolios/${portfoliosRoutes.detail}` } component={ Portfolio } />
+        <Route path={ `/portfolios/${portfoliosRoutes.portfolios}` } render={ this.renderItems } />
+      </Switch>
+    );
+  }
 }
 
 const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValue }}) => ({
