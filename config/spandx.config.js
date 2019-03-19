@@ -7,7 +7,5 @@ const localhost = (process.env.PLATFORM === 'linux') ? 'localhost' : 'host.docke
 exports.routes = {
     '/hcm/catalog': { host: `http://${localhost}:8002` },
     '/apps/catalog': { host: `http://${localhost}:8002` },
-    '/r/insights/platform': { host: 'http://access.ci.cloud.paas.upshift.redhat.com' },
-    '/apps/chrome': { host: 'https://ci.cloud.paas.upshift.redhat.com' },
-    '/r/insights/platform': { host: 'https://access.ci.cloud.paas.upshift.redhat.com' }
+    '/apps/chrome': { host: 'https://ci.cloud.paas.upshift.redhat.com' }
 };
