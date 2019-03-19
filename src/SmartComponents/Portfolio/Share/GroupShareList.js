@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend-components';
 import { DataList } from '@patternfly/react-core';
-import Group from './Group';
+import GroupShare from './GroupShare';
 
-class GroupList extends Component {
+class GroupShareList extends Component {
 
   state= {
     expanded: []
@@ -41,7 +41,7 @@ class GroupList extends Component {
           <DataList aria-label="Expandable data list">
             { this.props.items.map((item) => {
               return (
-                <Group key= { item.uuid } item={ item } isExpanded={ this.isExpanded } toggleExpand={ this.toggleExpand }/>);
+                <GroupShare key= { item.uuid } item={ item } isExpanded={ this.isExpanded } toggleExpand={ this.toggleExpand }/>);
             }
             )
             }
@@ -52,10 +52,10 @@ class GroupList extends Component {
   };
 }
 
-GroupList.propTypes = {
+GroupShareList.propTypes = {
   isLoading: propTypes.bool,
   items: propTypes.array,
   noItems: propTypes.string
 };
 
-export default GroupList;
+export default GroupShareList;

@@ -10,7 +10,7 @@ import { addNotification } from '@red-hat-insights/insights-frontend-components/
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { queryPortfolio, sharePortfolio, unsharePortfolio } from '../../redux/Actions/rbac-actions';
 import { fetchRbacGroups } from '../../redux/Actions/rbac-actions';
-import GroupShareList from './GroupShareList'
+import GroupShareList from './Share/GroupShareList'
 import { pipe } from 'rxjs';
 
 // TODO - actual permission verbs
@@ -43,6 +43,10 @@ const SharePortfolioModal = ({
     goBack()
   );
 
+  let shareItems = {
+    items: rbacGroups
+  };
+
   return (
     <Modal
       title={ 'Share portfolio' }
@@ -60,7 +64,7 @@ const SharePortfolioModal = ({
           formContainer="modal"
           buttonsLabels={ { submitLabel: 'Send' } }
         />
-        <GroupShareList/>
+        <GroupShareList { ...shareItems } noItems={ 'No Groups' }/>
       </div>
     </Modal>
   );

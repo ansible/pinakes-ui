@@ -17,7 +17,7 @@ import {
   TextVariants,
   TextContent } from '@patternfly/react-core';
 
-class Group extends Component {
+class GroupShare extends Component {
   state = {
     isKebabOpen: false
   };
@@ -56,11 +56,11 @@ class Group extends Component {
     );
   };
 
-  fetchUserListForGroup = (group) => {
-    if (!group.members) {
+  fetchPermissionsForGroup = (group) => {
+    if (!group.permissions) {
       return '';
     }
-    return group.members.map(user => ` ${user.username}`).join(', ');
+    return group.permissions.map(verb => ` ${verb.description}`).join(', ');
   };
 
   render() {
@@ -82,7 +82,7 @@ class Group extends Component {
           <span id={ item.uuid }>{ item.name } </span>
         </DataListCell>
         <DataListCell>
-          { this.fetchUserListForGroup(item) }
+          { this.fetchPermissionsForGroup(item) }
         </DataListCell>
         <DataListCell
           class="pf-c-data-list__action"
@@ -105,11 +105,11 @@ class Group extends Component {
             <StackItem>
             </StackItem>
             <StackItem>
-              <Title size="md">Members</Title>
+              <Title size="md">Permissions</Title>
             </StackItem>
             <StackItem>
               <TextContent component={ TextVariants.h6 }>
-                { this.fetchUserListForGroup(item) }
+                { this.fetchPermissionsForGroup(item) }
               </TextContent>
             </StackItem>
           </Stack>
@@ -119,7 +119,7 @@ class Group extends Component {
   };
 }
 
-Group.propTypes = {
+GroupShare.propTypes = {
   isLoading: propTypes.bool,
   item: propTypes.object,
   isExpanded: propTypes.func.isRequired,
@@ -127,4 +127,4 @@ Group.propTypes = {
   noItems: propTypes.string
 };
 
-export default Group;
+export default GroupShare;
