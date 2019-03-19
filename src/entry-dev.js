@@ -5,13 +5,16 @@ import { Provider } from 'react-redux';
 import store from './Utilities/store';
 import App from './App';
 
-/**
- * Hooks up redux to app.
- *  https://redux.js.org/advanced/usage-with-react-router
- */
+const pathName = window.location.pathname.split('/');
+pathName.shift();
+
+if (pathName[0] === 'beta') {
+  pathName.shift();
+}
+
 ReactDOM.render(
   <Provider store={ store }>
-    <Router basename={ `hcm/catalog` }>
+    <Router basename={ `${pathName[0]}/${pathName[1]}` }>
       <App />
     </Router>
   </Provider>,
