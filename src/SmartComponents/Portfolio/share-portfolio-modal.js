@@ -7,14 +7,13 @@ import { bindActionCreators } from 'redux';
 import { Modal } from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
-import { queryPortfolio, sharePortfolio, unsharePortfolio } from '../../redux/Actions/rbac-actions';
+import { fetchPortfolios, queryPortfolio, sharePortfolio, unsharePortfolio } from '../../redux/Actions/PortfolioActions';
 import { fetchRbacGroups } from '../../redux/Actions/rbac-actions';
 import GroupShareList from './Share/GroupShareList'
 import { pipe } from 'rxjs';
 
 // TODO - actual permission verbs
-const permissionOptions = [{ value: 'read,order', label: 'Can order/edit' }, { value: 'read,write,order', label: 'Can order/view'} ];
+const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' }, { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
 const groupsShareList = [{ id: 'uuid1', name: 'group_name1', permissions: { value: 'read,write,order', label: 'Can write/view'} },
                          { id: 'uuid2', name: 'group_name2', permissions: { value: 'read,order', label: 'Can order/view'} }];
 
@@ -32,7 +31,7 @@ const SharePortfolioModal = ({
   useEffect(() => {
     fetchRbacGroups();
   }, []);
-  const onSubmit = data => updatePortfolio(data).then(goBack).then(() => fetchPortfolios());
+  const onSubmit = data => sharePortfolio(data).then(goBack).then(() => fetchPortfolios());
 
   const onCancel = () => pipe(
     addNotification({

@@ -94,3 +94,16 @@ export async function updatePortfolioItem(portfolioItem) {
     })
   });
 }
+
+export function queryPortfolio(portfolioId) {
+  return userApi.queryPortfolio(portfolioId);
+}
+
+export async function sharePortfolio(portfolioData) {
+  let policy = new CatalogApi.SharePolicy(portfolioData.permissions.split(','), [portfolioData.group]);
+  await userApi.sharePortfolio(portfolioData.id, policy);
+}
+
+export async function unsharePortfolio(portfolioData) {
+  await userApi.unsharePortfolio(portfolioData.id, portfolioData);
+}

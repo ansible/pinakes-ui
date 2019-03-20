@@ -4,6 +4,8 @@ import { AdminsApi as CatalogAdminsApi } from '@redhat-cloud-services/catalog-cl
 import { DefaultApi, ApiClient as TopologicalInventoryApiClient } from '@manageiq/topological_inventory';
 
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
+import { AccessApi, PrincipalApi, GroupApi, ApiClient } from 'rbac_api_jsclient';
+
 
 const axiosInstance = axios.create();
 
