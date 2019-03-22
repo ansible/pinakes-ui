@@ -13,28 +13,43 @@ import {
   TextVariants,
   TextContent } from '@patternfly/react-core';
 
-const permissionOptions = [{ value: 'read,order', label: 'Can order/edit' }, { value: 'read,write,order', label: 'Can order/view'} ];
+
+// TODO - actual permission verbs
+const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
+  { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
+
 
 class GroupShare extends Component {
 
-  fetchPermissionsForGroup = (group) => {
-    if (!group.permissions) {
+  onChange = () => {
+
+  };
+
+  permissionsDetails = (group) => {
+    if (!group.group_permission) {
       return '';
     }
-    return group.permissions.map(verb => ` ${verb.description}`).join(', ');
+    else {
+      return (
+          <FormSelect value={this.state.value} onChange={this.onChange} aria-label="FormSelect Input">
+            {this.group.map((option, index) => (
+                <FormSelectOption key={index} value={option.permission} label={option.permission}/>
+            ))}
+          </FormSelect>)
+    }
   };
 
   render() {
     let { item } = this.props;
 
     return (
-      <DataListItem key={ `group-${item.uuid}` }
+      <DataListItem key={ `group-${item.group_uuid}` }
         aria-labelledby={ `check-group-${item.uuid}` }>
         <DataListCell>
-          <span id={ item.uuid }>{ item.name } </span>
+          <span id={ item.group_uuid }>{ item.group_name } </span>
         </DataListCell>
         <DataListCell>
-          { this.fetchPermissionsForGroup(item) }
+          { this.permissionsDetails(item) }
         </DataListCell>
       </DataListItem>
     );
@@ -42,7 +57,6 @@ class GroupShare extends Component {
 }
 
 GroupShare.propTypes = {
-  isLoading: propTypes.bool,
   item: propTypes.object,
   noItems: propTypes.string
 };

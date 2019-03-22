@@ -10,6 +10,7 @@ import platformReducer, { platformInitialState } from '../redux/reducers/platfor
 import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolio-reducer';
 import approvalReducer, { approvalInitialState } from '../redux/reducers/approval-reducer';
 import rbacReducer, { rbacInitialState } from '../redux/reducers/rbac-reducer';
+import shareReducer, { shareInfoInitialState } from '../redux/reducers/share-reducer';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
   errorTitleKey: [ 'errors', 'message' ],
@@ -22,6 +23,7 @@ registry.register({
   portfolioReducer: applyReducerHash(portfolioReducer, portfoliosInitialState),
   approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
   rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
+  shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
   notifications
 });
 

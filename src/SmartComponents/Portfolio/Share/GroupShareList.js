@@ -4,6 +4,10 @@ import { PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend
 import { DataList } from '@patternfly/react-core';
 import GroupShare from './GroupShare';
 
+// TODO - actual permission verbs
+const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
+  { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
+
 class GroupShareList extends Component {
 
   state= {
@@ -34,14 +38,11 @@ class GroupShareList extends Component {
     // <GroupDetail isExpanded={ expandedList.includes(item.name) } toggle={ toggle }/>) }
     return (
       <React.Fragment>
-        <div>
-          { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
-        </div>
         { (this.props.items && this.props.items.length > 0) && (
           <DataList aria-label="Expandable data list">
             { this.props.items.map((item) => {
               return (
-                <GroupShare key= { item.uuid } item={ item } isExpanded={ this.isExpanded } toggleExpand={ this.toggleExpand }/>);
+                <GroupShare key= { item.group_uuid } item={ item } isExpanded={ this.isExpanded } toggleExpand={ this.toggleExpand }/>);
             }
             )
             }

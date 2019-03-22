@@ -96,7 +96,8 @@ export async function updatePortfolioItem(portfolioItem) {
 }
 
 export function queryPortfolio(portfolioId) {
-  return userApi.queryPortfolio(portfolioId);
+  //return userApi.shareInfo(portfolioId);
+  return fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`).then(data => data.json());
 }
 
 export async function sharePortfolio(portfolioData) {
