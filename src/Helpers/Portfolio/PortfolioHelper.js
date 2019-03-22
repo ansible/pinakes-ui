@@ -81,3 +81,16 @@ export function fetchProviderControlParameters(portfolioItemId) {
       }
     }}));
 }
+
+export async function updatePortfolioItem(portfolioItem) {
+  return await fetch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...portfolioItem,
+      workflow_ref: portfolioItem.workflow_ref || null
+    })
+  });
+}
