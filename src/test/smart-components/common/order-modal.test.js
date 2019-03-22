@@ -4,41 +4,15 @@ import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
 import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
-import { MemoryRouter } from 'react-router-dom';
+import { Button } from '@patternfly/react-core';
+import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { orderInitialState } from '../../../redux/reducers/orderReducer';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import OrderModal from '../../../SmartComponents/Common/OrderModal';
+import dummySchema from '../order/order-mock-form-schema';
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-
-const dummySchema = {
-  create_json_schema: {
-    type: 'object',
-    $schema: 'http://json-schema.org/draft-04/schema',
-    properties: {
-      NAMESPACE: {
-        type: 'string',
-        title: 'Jenkins ImageStream Namespace',
-        default: 'openshift',
-        description: 'The OpenShift Namespace where the Jenkins ImageStream resides.'
-      },
-      ENABLE_OAUTH: {
-        type: 'string',
-        title: 'Enable OAuth in Jenkins',
-        default: 'true',
-        description: 'Whether to enable OAuth OpenShift integration. If false, the static account \'admin\' will be initialized with the password \'password\'.' // eslint-disable-line max-len
-      },
-      MEMORY_LIMIT: {
-        type: 'string',
-        title: 'Memory Limit',
-        default: '512Mi',
-        description: 'Maximum amount of memory the container can use.'
-      }
-    },
-    additionalProperties: false
-  }
-};
+import OrderModal from '../../../SmartComponents/Common/OrderModal';
+import { orderInitialState } from '../../../redux/reducers/orderReducer';
 
 describe('<OrderModal />', () => {
   let initialProps;
@@ -46,9 +20,9 @@ describe('<OrderModal />', () => {
   let mockStore;
   let initialState;
 
-  const OrderWrapper = ({ store, children }) => (
+  const OrderWrapper = ({ store, children, initialEntries = []}) => (
     <Provider store={ store }>
-      <MemoryRouter>
+      <MemoryRouter initialEntries={ initialEntries }>
         { children }
       </MemoryRouter>
     </Provider>
@@ -79,11 +53,9 @@ describe('<OrderModal />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should proceed to order', (done) => {
+  it('should redirect back to close URL', (done) => {
     const store = mockStore(initialState);
-    const wrapper = mount(<OrderWrapper store={ store }><OrderModal { ...initialProps } /></OrderWrapper>);
 
-    // mock api calls
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
       body: [ dummySchema ]
     }));
@@ -99,12 +71,17 @@ describe('<OrderModal />', () => {
       }
     });
 
-    //go to next step
-    wrapper.find('button').last().simulate('click');
-    wrapper.update();
+    const wrapper = mount(
+      <OrderWrapper store={ store } initialEntries={ [ '/foo/url' ] }>
+        <Route to="/foo/url" render={ args => <OrderModal { ...initialProps } { ...args } /> }  />
+      </OrderWrapper>
+    );
+
     setImmediate(() => {
-      expect(wrapper.find(OrderModal).children().children().children().instance().state.activeStepIndex).toEqual(1);
+      wrapper.find(Button).first().simulate('click');
+      expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual('/close');
       done();
     });
   });
 });
+
