@@ -15,7 +15,7 @@ import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
 import OrderModal from '../Common/OrderModal';
 import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
-import PortfolioItemDetail from './portfolio-item-detail';
+import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 
 import './portfolio.scss';
 class Portfolio extends Component {
