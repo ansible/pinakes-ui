@@ -34,8 +34,14 @@ const fragmentMapper = {
 };
 
 const createPaths = fragments => {
-  const rootReducer = fragments.find(({ reducer }) => reducer !== undefined).reducer;
+  let rootReducer = fragments.find(({ reducer }) => reducer !== undefined);
   let finalFragments = [];
+  if (!rootReducer) {
+    return finalFragments;
+  } else {
+    rootReducer = rootReducer.reducer;
+  }
+
   let fragmentIndex = 0;
   fragments.forEach(({ isId, urlFragment }) => {
     if (isId) {
@@ -80,11 +86,11 @@ const findRoutes = (url) => {
   }));
 };
 
-const CatalogBreadrubms = ({ match: { url }, location: { pathname }, reducers }) => {
+const CatalogBreadrubms = ({ match: { url }, reducers }) => {
   const routes = findRoutes(url);
   const items = routes.map((route, index) => (
-    <BreadcrumbItem key={ route.path } isActive={ route.path === pathname || index === routes.length - 1 }>
-      <NavLink exact to={ route.path }>
+    <BreadcrumbItem key={ route.path } isActive={ route.path === url || index === routes.length - 1 }>
+      <NavLink exact to={ route.path } isActive={ () => route.path === url || index === routes.length - 1 }>
         { route.meta.title || get(reducers, route.reducer) }
       </NavLink>
     </BreadcrumbItem>
@@ -104,9 +110,6 @@ CatalogBreadrubms.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   }).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }),
   reducers: PropTypes.object
 };
 
