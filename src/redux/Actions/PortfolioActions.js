@@ -101,3 +101,9 @@ export const removePortfolio = (portfolio) => ({
     }
   }
 });
+
+export const selectPortfolioItem = (portfolioItem) => ({
+  type: ActionTypes.SELECT_PORTFOLIO_ITEM,
+  payload: portfolioItem
+});
+

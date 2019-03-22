@@ -4,7 +4,8 @@ import {
   FETCH_PORTFOLIO_ITEMS,
   FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   FETCH_PORTFOLIO_ITEM,
-  FILTER_PORTFOLIO_ITEMS
+  FILTER_PORTFOLIO_ITEMS,
+  SELECT_PORTFOLIO_ITEM
 } from '../../redux/ActionTypes';
 
 // Initial State
@@ -35,5 +36,6 @@ export default {
   [`${FETCH_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem,
   [`${FETCH_PORTFOLIO}_PENDING`]: setLoadingState,
   [`${FETCH_PORTFOLIO}_FULFILLED`]: selectPortfolio,
-  [FILTER_PORTFOLIO_ITEMS]: filterPortfolios
+  [FILTER_PORTFOLIO_ITEMS]: filterPortfolios,
+  [`${SELECT_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem
 };
