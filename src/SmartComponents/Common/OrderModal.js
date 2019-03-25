@@ -1,48 +1,25 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Button, CardHeader, Modal } from '@patternfly/react-core';
-import { connect } from 'react-redux';
-import '../Order/orderservice.scss';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { OrderServiceFormSteps } from '../Order/OrderServiceFormConstants';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Modal } from '@patternfly/react-core';
+
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
-class OrderModal extends Component {
-  state = {
-    activeStepIndex: 0
-  };
+import OrderServiceFormStepConfiguration from '../Order/OrderServiceFormStepConfiguration';
 
-  onNext = () => this.setState((prevState) => ({ activeStepIndex: prevState.activeStepIndex + 1 }));
-
-  renderStepPage = (componentPage, props) => {
-    const StepComponent = componentPage;
-    return (<StepComponent { ...props } closeUrl={ this.props.closeUrl } />);
-  };
-
-  render() {
-    const { activeStepIndex } = this.state;
-    const steps = OrderServiceFormSteps;
-    return this.props.serviceData ? (
-      <Modal
-        isOpen
-        title=""
-        onClose={ () => this.props.history.push(this.props.closeUrl) }
-        style={ { maxWidth: 800 } }
-      >
-        <CardHeader className="order_header">
-          <ImageWithDefault src = { this.props.serviceData.imageUrl || CatItemSvg } width="40" />
-          { this.props.serviceData.name }
-        </CardHeader>
-        { this.renderStepPage(steps[activeStepIndex].page, this.props.serviceData) }
-        { (activeStepIndex < steps.length - 1) &&
-          <Button variant="primary" aria-label="Order portfolio item" onClick={ this.onNext }>
-            Order
-          </Button>
-        }
-      </Modal>
-    ) : null;
-  }
-}
+const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (
+  <Modal
+    isOpen
+    hideTitle
+    onClose={ () => push(closeUrl) }
+    style={ { maxWidth: 800, minHeight: 300 } }
+  >
+    <ImageWithDefault src = { serviceData.imageUrl || CatItemSvg } width="40" />
+    { serviceData.name }
+    <OrderServiceFormStepConfiguration { ...serviceData } />
+  </Modal>
+) : null;
 
 OrderModal.propTypes = {
   orderData: PropTypes.func,
@@ -54,11 +31,10 @@ OrderModal.propTypes = {
 };
 
 const mapStateToProps = ({
-  orderReducer: { isLoading, selectedItem, servicePlans }
+  orderReducer: { selectedItem, servicePlans }
 }) => ({
-  isLoading,
   selectedItem,
-  servicePlans // eslint-disable-line eqeqeq
+  servicePlans
 });
 
 export default withRouter(connect(mapStateToProps)(OrderModal));

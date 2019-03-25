@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
-import '../../Utilities/jschema.scss';
-import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
+
 import FormRenderer from '../Common/FormRenderer';
+import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
 import { fetchProviderControlParameters } from '../../Helpers/Portfolio/PortfolioHelper';
 
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
-    showOrder: false,
     selectedPlanIdx: 0,
     controlParametersLoaded: false
   };
 
-  optionRow = (plan, option, selectedId, onChange) =>
+  optionRow = (plan, _option, selectedId, onChange) =>
     <Radio id={ plan.id }
       key={ plan.id }
       value={ plan.id }
@@ -59,42 +58,36 @@ class OrderServiceFormStepConfiguration extends React.Component {
         properties: { providerControlParameters, ...initialSchema.properties  }
       };
       return (
-        <React.Fragment>
-          <Stack gutter={ 'md' } className="order_card">
-            <StackItem>
-              <Title size={ 'lg' } > Configuration </Title>
-            </StackItem>
-            <StackItem>
-              <Form>
-                { (this.props.servicePlans.length > 1) &&
-                        <div>
-                          <Title size={ 'md' }>Select Plan:</Title>
-                          <div>{ this.planOptions() }</div>
-                        </div>
-                }
-              </Form>
-              { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
-                  <FormRenderer
-                    schema={ formSchema }
-                    onSubmit={ this.onSubmit }
-                    schemaType="mozilla"
-                    formContainer="modal"
-                  />
+        <Stack gutter="md">
+          <StackItem>
+            <Title size="lg" > Configuration </Title>
+          </StackItem>
+          <StackItem>
+            <Form>
+              { (this.props.servicePlans.length > 1) &&
+                <div>
+                  <Title size="md">Select Plan:</Title>
+                  <div>{ this.planOptions() }</div>
+                </div>
               }
-            </StackItem>
-          </Stack>
-        </React.Fragment>
+            </Form>
+            { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
+              <FormRenderer
+                schema={ formSchema }
+                onSubmit={ this.onSubmit }
+                schemaType="mozilla"
+                formContainer="modal"
+              />
+            }
+          </StackItem>
+        </Stack>
       );
     }
 
     return (
-      <Form>
-        <Bullseye>
-          <div>
-            { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
-          </div>
-        </Bullseye>
-      </Form>
+      <Bullseye>
+        { this.props.isLoading && (<span color={ '#00b9e4' }> Loading...</span>) }
+      </Bullseye>
     );
   }
 }
@@ -102,22 +95,16 @@ class OrderServiceFormStepConfiguration extends React.Component {
 OrderServiceFormStepConfiguration.propTypes = {
   orderData: PropTypes.func,
   fetchPlans: PropTypes.func,
-  hideModal: PropTypes.func,
-  showOrder: PropTypes.bool,
   isLoading: PropTypes.bool,
   serviceData: PropTypes.object,
   servicePlans: PropTypes.array,
-  stepParametersValid: PropTypes.bool,
-  fulfilled: PropTypes.bool,
-  error: PropTypes.bool,
-  imageUrl: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
   sendSubmitOrder: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  closeUrl: PropTypes.string.isRequired
+  closeUrl: PropTypes.string
 };
 
 OrderServiceFormStepConfiguration.defaultProps = {
