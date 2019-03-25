@@ -25,11 +25,11 @@ exports[`<PlatformCard /> should choose card image 1`] = `
               className="pf-c-card content-gallery-card"
             >
               <CardHeader
-                className="pcard_header"
+                className=""
                 component="div"
               >
                 <div
-                  className="pf-c-card__header pcard_header"
+                  className="pf-c-card__header"
                 >
                   <ImageWithDefault
                     height="40"
@@ -45,11 +45,11 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                 </div>
               </CardHeader>
               <CardBody
-                className="pcard_body"
+                className=""
                 component="div"
               >
                 <div
-                  className="pf-c-card__body pcard_body"
+                  className="pf-c-card__body"
                 >
                   <h4 />
                   <ItemDetails
@@ -127,11 +127,11 @@ exports[`<PlatformCard /> should render correctly 1`] = `
               className="pf-c-card content-gallery-card"
             >
               <CardHeader
-                className="pcard_header"
+                className=""
                 component="div"
               >
                 <div
-                  className="pf-c-card__header pcard_header"
+                  className="pf-c-card__header"
                 >
                   <ImageWithDefault
                     height="40"
@@ -147,11 +147,11 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                 </div>
               </CardHeader>
               <CardBody
-                className="pcard_body"
+                className=""
                 component="div"
               >
                 <div
-                  className="pf-c-card__body pcard_body"
+                  className="pf-c-card__body"
                 >
                   <h4 />
                   <ItemDetails

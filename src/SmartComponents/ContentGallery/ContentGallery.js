@@ -12,7 +12,7 @@ const NoItems = () => (
 
 const ContentGallery = ({ isLoading, items }) => isLoading ? <CardLoader /> : (
   <Section type="content">
-    <Gallery gutter="md">
+    <Gallery gutter="md" className="content-gallery">
       { items.length > 0 ? items : <NoItems /> }
     </Gallery>
   </Section>

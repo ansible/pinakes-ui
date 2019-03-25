@@ -21,10 +21,10 @@ const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
     <Link to={ `/platforms/detail/${id}` } className="card-link">
       <Card key={ id } className="content-gallery-card">
-        <CardHeader className="pcard_header">
+        <CardHeader>
           <ImageWithDefault src={ platformTypeImg[props.source_type_id] || DefaultPlatformImg } width="80" height="40"/>
         </CardHeader>
-        <CardBody className="pcard_body">
+        <CardBody>
           <h4>{ name }</h4>
           <ItemDetails { ...{ name, ...props } } toDisplay={ TO_DISPLAY } />
         </CardBody>

@@ -3,21 +3,19 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal, Button, Title, Bullseye } from '@patternfly/react-core';
+import { Modal, Button, Bullseye, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchPortfolios, removePortfolio } from '../../redux/Actions/PortfolioActions';
 import { pipe } from 'rxjs';
-import './portfolio.scss';
 
 const RemovePortfolioModal = ({
   history: { goBack, push },
   removePortfolio,
   addNotification,
   fetchPortfolios,
-  portfolioId,
-  portfolioName
+  portfolio
 }) => {
-  const onSubmit = () => removePortfolio(portfolioId)
+  const onSubmit = () => removePortfolio(portfolio.id)
   .then(() => pipe(fetchPortfolios(), push('/portfolios')));
 
   const onCancel = () => pipe(
@@ -29,10 +27,16 @@ const RemovePortfolioModal = ({
     goBack()
   );
 
+  if (!portfolio) {
+    return null;
+  }
+
   return (
     <Modal
+      title=" "
       isOpen
-      title = { '' }
+      isSmall
+      hideTitle
       onClose={ onCancel }
       actions={ [
         <Button key="cancel" variant="secondary" type="button" onClick={ onCancel }>
@@ -44,11 +48,11 @@ const RemovePortfolioModal = ({
       ] }
     >
       <Bullseye>
-        <div className="center_message">
-          <Title size={ 'xl' }>
-            Removing Portfolio:  { portfolioName }
-          </Title>
-        </div>
+        <TextContent>
+          <Text component={ TextVariants.h1 }>
+            Removing Portfolio:  { portfolio.name }
+          </Text>
+        </TextContent>
       </Bullseye>
     </Modal>
   );
@@ -62,20 +66,16 @@ RemovePortfolioModal.propTypes = {
   removePortfolio: PropTypes.func.isRequired,
   addNotification: PropTypes.func.isRequired,
   fetchPortfolios: PropTypes.func.isRequired,
-  portfolioId: PropTypes.string,
-  portfolioName: PropTypes.string
+  portfolio: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  })
 };
 
 const portfolioDetailsFromState = (state, id) =>
   state.portfolioReducer.portfolios.find(portfolio => portfolio.id  === id);
 
-const mapStateToProps = (state, { match: { params: { id }}}) => {
-  let portfolio = portfolioDetailsFromState(state, id);
-  return {
-    portfolioId: portfolio.id,
-    portfolioName: portfolio.name
-  };
-};
+const mapStateToProps = (state, { match: { params: { id }}}) => ({ portfolio: portfolioDetailsFromState(state, id) });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,

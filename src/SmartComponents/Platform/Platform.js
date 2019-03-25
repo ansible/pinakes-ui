@@ -11,8 +11,6 @@ import { defaultSettings, getCurrentPage, getNewPage } from '../../Helpers/Share
 import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';
 import debouncePromise from 'awesome-debounce-promise';
 
-import './platform.scss';
-
 class Platform extends Component {
   state = {
     filterValue: ''

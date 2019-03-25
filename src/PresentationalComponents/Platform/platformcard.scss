@@ -1,11 +1,5 @@
 @import "../../App.scss";
 
-.pcard_header {
-  height: 60px;
-}
-
 .pcard_body {
-  height: 140px;
-  overflow: hidden;
-  font-size: small;
+  min-height: 140px;
 }

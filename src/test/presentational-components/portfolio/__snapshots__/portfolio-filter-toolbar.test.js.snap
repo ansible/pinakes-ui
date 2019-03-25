@@ -130,7 +130,7 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
           ]
         }
         isOpen={false}
-        isPlain={false}
+        isPlain={true}
         onSelect={[Function]}
         onToggle={[Function]}
         position="right"
