@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { Level, Button, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
 import TopToolbar, { TopToolbarTitle } from '../Shared/top-toolbar';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
-import '../../SmartComponents/Portfolio/portfolio.scss';
-import '../Shared/toolbarschema.scss';
 
 const selectStyles = {
   container: base => ({ ...base, minWidth: 260 }),

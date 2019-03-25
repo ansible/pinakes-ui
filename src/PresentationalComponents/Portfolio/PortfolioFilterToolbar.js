@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Dropdown, DropdownItem, DropdownPosition, KebabToggle, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
 import FilterToolbarItem from '../Shared/FilterToolbarItem';
-import '../Shared/toolbarschema.scss';
 
 const PortfolioFilterToolbar = ({
   addProductsRoute,
@@ -44,6 +43,7 @@ const PortfolioFilterToolbar = ({
             position={ DropdownPosition.right }
             toggle={ <KebabToggle onToggle={ setKebabOpen }/> }
             isOpen={ isKebabOpen }
+            isPlain
             dropdownItems={ [
               <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
                 <Link to={ editPortfolioRoute } role="link" className="pf-c-dropdown__menu-item">

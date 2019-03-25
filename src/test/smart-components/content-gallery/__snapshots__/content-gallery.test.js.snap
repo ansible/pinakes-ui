@@ -25,11 +25,11 @@ exports[`<ContentGallery /> should render all items 1`] = `
     >
        
       <Gallery
-        className=""
+        className="content-gallery"
         gutter="md"
       >
         <div
-          className="pf-l-gallery pf-m-gutter"
+          className="pf-l-gallery pf-m-gutter content-gallery"
         >
           <div
             key="1"
@@ -73,11 +73,11 @@ exports[`<ContentGallery /> should render no items placeholder 1`] = `
     >
        
       <Gallery
-        className=""
+        className="content-gallery"
         gutter="md"
       >
         <div
-          className="pf-l-gallery pf-m-gutter"
+          className="pf-l-gallery pf-m-gutter content-gallery"
         >
           <NoItems>
             <Bullseye

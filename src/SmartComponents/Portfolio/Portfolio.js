@@ -17,7 +17,6 @@ import { filterServiceOffering } from '../../Helpers/Shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 
-import './portfolio.scss';
 class Portfolio extends Component {
   state = {
     portfolioId: '',

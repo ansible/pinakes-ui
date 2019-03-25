@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Button, Level, Toolbar, ToolbarGroup, ToolbarItem  } from '@patternfly/react-core';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
 import FilterToolbarItem from '../../PresentationalComponents/Shared/FilterToolbarItem';
-import './removeportfolioitems.scss';
 
 const RemovePortfolioItems = ({ portfolioRoute, onRemove, portfolioName, filterValue, onFilterChange, disableButton }) => (
   <TopToolbar>

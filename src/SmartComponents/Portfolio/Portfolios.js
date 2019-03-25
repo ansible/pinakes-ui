@@ -8,7 +8,6 @@ import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/Po
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import AddPortfolio from './add-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
-import './portfolio.scss';
 import { scrollToTop } from '../../Helpers/Shared/helpers';
 import Portfolio from './Portfolio';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';

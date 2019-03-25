@@ -35,7 +35,7 @@ class Platforms extends Component {
         items: this.props.platforms
         .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.toLowerCase()))
         .map((item) => <PlatformCard key={ item.id } { ...item } />),
-        isLoading: this.props.isLoading
+        isLoading: this.props.isLoading && this.props.platforms.length === 0
       };
       return (
         <Fragment>
@@ -57,9 +57,9 @@ class Platforms extends Component {
     }
 }
 
-const mapStateToProps = ({ platformReducer: { platforms, isLoading, filterValue }}) => ({
+const mapStateToProps = ({ platformReducer: { platforms, isPlatformDataLoading, filterValue }}) => ({
   platforms,
-  isLoading,
+  isLoading: isPlatformDataLoading,
   searchFilter: filterValue
 });
 
