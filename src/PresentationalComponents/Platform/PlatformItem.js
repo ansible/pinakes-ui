@@ -1,16 +1,20 @@
 import React from 'react';
 import './platformcard.scss';
 import PropTypes from 'prop-types';
-import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../Shared/ImageWithDefault';
 import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
+
+import CardIcon from '../Shared/card-icon';
 import CardCheckbox from '../Shared/CardCheckbox';
 import ServiceOfferingCardBody from '../Shared/service-offering-body';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../Utilities/Constants';
 
 const PlatformItem = props =>(
   <Card key={ props.id } className="content-gallery-card">
     <CardHeader>
-      <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
+      <CardIcon
+        src={ `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offering_icons/${props.service_offering_icon_id}/icon_data` }
+        style={ { height: 40 } }
+      />
       { props.editMode && (
         <CardCheckbox
           id={ props.id }
@@ -25,8 +29,8 @@ const PlatformItem = props =>(
 );
 
 PlatformItem.propTypes = {
-  imageUrl: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  service_offering_icon_id: PropTypes.string,
   name: PropTypes.string,
   editMode: PropTypes.bool,
   checked: PropTypes.bool,
