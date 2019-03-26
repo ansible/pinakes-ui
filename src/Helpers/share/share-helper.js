@@ -4,9 +4,9 @@ import * as CatalogApi from 'catalog_api' //'@manageiq/service-portal-api';
 
 const userApi = getUserApi();
 
-export function getShareInfo(portfolioId) {
+export async function getShareInfo(portfolioId) {
   //return userApi.shareInfo(portfolioId);
-  return fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`).then(data => data.json());
+  return await fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`).then(data => data.json());
 }
 
 export async function sharePortfolio(portfolioData) {

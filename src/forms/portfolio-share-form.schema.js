@@ -3,64 +3,68 @@ import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-re
 /**
  * Creates a data-driven-form schema for sharing/un-sharing portfolio
  */
-export const createPortfolioShareSchema = (rbacGroups, permissionVerbs) => (
+const newShareSchema = ( rbacGroups, permissionVerbs ) => (
     { fields: [
         {
           component: "sub-form",
           title: "Invite Group",
-          description: "New share",
           name: "new_share",
           key: "1",
           fields: [{
-            label: 'Invite Group',
             name: 'group',
             component: componentTypes.SELECT,
             options: rbacGroups
           }, {
-            label: 'Permissions',
             name: 'permissions',
             isRequired: true,
             component: componentTypes.SELECT,
             options: permissionVerbs
           }
-          ],
-        },{
-          component: "sub-form",
-          title: "Groups With Access",
-          description: "Groups with access",
-          name: "shares",
-          key: "2",
-          fields: [
-            {
-              component: "fields-array",
-              description: "Group",
-              name: "group",
-              key: "3",
-              fields: [{
-                name: 'group name',
-                component: componentTypes.TEXT_FIELD,
-                value: 'Name1'
-              }, {
-                label: 'Permissions',
-                name: 'permissions',
-                isRequired: true,
-                component: componentTypes.SELECT,
-                options: permissionVerbs
-              }]
-            },
-              {
-            label: ' ',
-            name: 'group',
-            component: componentTypes.SELECT,
-            options: rbacGroups
-          }, {
-            label: 'Permissions',
-            name: 'permissions',
-            isRequired: true,
-            component: componentTypes.SELECT,
-            options: permissionVerbs
-          }]
+          ]
         }
       ]
     }
 );
+
+const groupListSchema = (groupFieldList) => (
+{
+ fields: [
+  {
+    component: "sub-form",
+    title: "Groups With Access",
+    name: "share_list",
+    key: "share_list",
+    fields: [...groupFieldList]
+  }
+]
+}
+
+);
+
+const groupShareSchema = ( groupShareInfo, permissionVerbs ) => (
+  {
+    component: "sub-form",
+    name: `${groupShareInfo.group_name}`,
+    key: `${groupShareInfo.group_uuid}`,
+    fields: [{
+      name: `${groupShareInfo.group_name}`,
+      label: `${groupShareInfo.group_name}`,
+      isRequired: true,
+      component: componentTypes.SELECT,
+      options: permissionVerbs
+    }]
+  }
+);
+
+export const createPortfolioShareSchema = ( shareInfo, rbacGroups, permissionVerbs) => {
+  let formSchema = newShareSchema(rbacGroups, permissionVerbs);
+  let groupInfoFields = shareInfo.map((group) =>( groupShareSchema(group, permissionVerbs)));
+  console.log('permissionVerbs', permissionVerbs);
+  console.log('groupInfoFields', groupInfoFields);
+  console.log('formSchema', formSchema);
+  let shareListSchema =  {...groupListSchema([...groupInfoFields])};
+  console.log('shareListSchema', shareListSchema);
+  let portfolioSchema =  {fields: [...formSchema.fields, ...shareListSchema.fields] };
+  console.log('portfolioSchema', portfolioSchema);
+  return portfolioSchema;
+};

@@ -13,11 +13,9 @@ import { fetchRbacGroups } from '../../redux/Actions/rbac-actions';
 import GroupShareList from './Share/GroupShareList'
 import { pipe } from 'rxjs';
 
-// TODO - actual permission verbs
-const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' }, { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
-
 const SharePortfolioModal = ({
   history: { goBack },
+  isLoading,
   addNotification,
   fetchPortfolios,
   initialValues,
@@ -49,6 +47,10 @@ const SharePortfolioModal = ({
     items: shareInfo
   };
 
+// TODO - actual permission verbs
+  const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
+    { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
+
   return (
     <Modal
       title={ 'Share portfolio' }
@@ -57,16 +59,17 @@ const SharePortfolioModal = ({
       onClose={ onCancel }
     >
       <div style={ { padding: 8 } }>
+        {(!isLoading && rbacGroups.length > 0) &&
         <FormRenderer
-          schema={ createPortfolioShareSchema(rbacGroups, permissionOptions) }
-          schemaType="default"
-          onSubmit={ onSubmit }
-          onCancel={ onCancel }
-          initialValues={ { ...initialValues } }
-          formContainer="modal"
-          buttonsLabels={ { submitLabel: 'Send' } }
+            schema={createPortfolioShareSchema(shareInfo, rbacGroups, permissionOptions)}
+            schemaType="default"
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+            initialValues={{...initialValues}}
+            formContainer="modal"
+            buttonsLabels={{submitLabel: 'Send'}}
         />
-        <GroupShareList { ...shareItems }/>
+        }
       </div>
     </Modal>
   );
@@ -76,6 +79,7 @@ SharePortfolioModal.propTypes = {
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired
   }).isRequired,
+  isLoading: PropTypes.bool,
   addNotification: PropTypes.func.isRequired,
   fetchPortfolios: PropTypes.func.isRequired,
   fetchRbacGroups: PropTypes.func.isRequired,
@@ -89,9 +93,10 @@ SharePortfolioModal.propTypes = {
   initialValues: PropTypes.object
 };
 
-const mapStateToProps = ({ rbacReducer: { rbacGroups }, portfolioReducer: { portfolios }, shareReducer: { shareInfo }}, { match: { params: { id }}}) => ({
+const mapStateToProps = ({ rbacReducer: { rbacGroups }, portfolioReducer: { portfolios }, shareReducer: { shareInfo, isLoading }}, { match: { params: { id }}}) => ({
   initialValues: id && portfolios.find(item => item.id === id),
   portfolioId: id,
+  isLoading,
   shareInfo,
   rbacGroups
 });
