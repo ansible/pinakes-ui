@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Level, Toolbar, ToolbarGroup, ToolbarItem  } from '@patternfly/react-core';
-import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
-import FilterToolbarItem from '../../PresentationalComponents/Shared/FilterToolbarItem';
+import TopToolbar, { TopToolbarTitle } from '../../presentational-components/Shared/top-toolbar';
+import FilterToolbarItem from '../../presentational-components/Shared/FilterToolbarItem';
 
 const RemovePortfolioItems = ({ portfolioRoute, onRemove, portfolioName, filterValue, onFilterChange, disableButton }) => (
   <TopToolbar>

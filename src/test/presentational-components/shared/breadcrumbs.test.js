@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store' ;
 import { MemoryRouter, Route } from 'react-router-dom';
-import CatalogBreadrubms from '../../../PresentationalComponents/Shared/breadcrubms';
+import CatalogBreadrubms from '../../../presentational-components/Shared/breadcrubms';
 
 describe('<BreadCrumbs />', () => {
   let BreadcrumbWrapper;

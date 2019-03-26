@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import PortfolioFilterToolbar from '../../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
+import PortfolioFilterToolbar from '../../../presentational-components/Portfolio/PortfolioFilterToolbar';
 
 describe('<PortfolioFilterToolbar />', () => {
   let initialProps;

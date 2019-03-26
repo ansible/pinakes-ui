@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
-import PortfolioCard from '../../PresentationalComponents/Portfolio/PorfolioCard';
-import PortfoliosFilterToolbar from '../../PresentationalComponents/Portfolio/PortfoliosFilterToolbar';
+import PortfolioCard from '../../presentational-components/Portfolio/PorfolioCard';
+import PortfoliosFilterToolbar from '../../presentational-components/Portfolio/PortfoliosFilterToolbar';
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import AddPortfolio from './add-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import Portfolio from './Portfolio';
-import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
+import TopToolbar, { TopToolbarTitle } from '../../presentational-components/Shared/top-toolbar';
 
 const portfoliosRoutes = {
   portfolios: '',

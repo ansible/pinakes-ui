@@ -5,7 +5,7 @@ import { Level, LevelItem, Text, TextContent, TextVariants } from '@patternfly/r
 
 import EditToolbarActions from './edit-toolbar-actions';
 import DetailToolbarActions from './detail-toolbar-actions';
-import TopToolbar from '../../../PresentationalComponents/Shared/top-toolbar';
+import TopToolbar from '../../../presentational-components/Shared/top-toolbar';
 
 const PortfolioItemDetailToolbar = ({
   url,

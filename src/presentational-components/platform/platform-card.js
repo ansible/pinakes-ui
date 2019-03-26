@@ -7,7 +7,8 @@ import OpenshiftPlatformImg from '../../assets/images/platform-openshift.svg';
 import AmazonPlatformImg from '../../assets/images/platform-amazon.png';
 import ImageWithDefault from '../Shared/ImageWithDefault';
 import ItemDetails from '../Shared/CardCommon';
-import './platformcard.scss';
+
+import './platform-card.scss';
 
 const TO_DISPLAY = [ 'description', 'modified' ];
 

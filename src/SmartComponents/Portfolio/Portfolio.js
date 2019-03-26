@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/add-products-to-portfolio';
-import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/PortfolioFilterToolbar';
+import PortfolioFilterToolbar from '../../presentational-components/Portfolio/PortfolioFilterToolbar';
 import PortfolioItem from './PortfolioItem';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
@@ -14,7 +14,7 @@ import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfoli
 import { removePortfolioItems } from '../../helpers/portfolio/portfolio-helper';
 import OrderModal from '../Common/OrderModal';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
-import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
+import TopToolbar, { TopToolbarTitle } from '../../presentational-components/Shared/top-toolbar';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 
 class Portfolio extends Component {

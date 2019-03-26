@@ -11,9 +11,9 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
 import { FETCH_PORTFOLIOS } from '../../../redux/ActionTypes';
 import Portfolios from '../../../SmartComponents/Portfolio/Portfolios';
-import PortfolioCard from '../../../PresentationalComponents/Portfolio/PorfolioCard';
-import { CardLoader } from '../../../PresentationalComponents/Shared/LoaderPlaceholders';
-import FilterToolbarItem from '../../../PresentationalComponents/Shared/FilterToolbarItem';
+import PortfolioCard from '../../../presentational-components/Portfolio/PorfolioCard';
+import { CardLoader } from '../../../presentational-components/Shared/LoaderPlaceholders';
+import FilterToolbarItem from '../../../presentational-components/Shared/FilterToolbarItem';
 
 describe('<Portfolios />', () => {
   let initialProps;

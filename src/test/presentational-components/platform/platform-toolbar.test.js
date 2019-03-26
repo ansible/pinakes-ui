@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import { shallowToJson } from 'enzyme-to-json';
-import PlatformToolbar from '../../../PresentationalComponents/Platform/PlatformToolbar';
+import PlatformToolbar from '../../../presentational-components/platform/platform-toolbar';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 
 describe('<PlatformToolbar />', () => {

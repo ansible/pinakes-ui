@@ -14,10 +14,10 @@ import ItemDetailDescription from './item-detail-description';
 import { fetchPlatforms } from '../../../redux/Actions/PlatformActions';
 import { fetchWorkflows } from '../../../redux/Actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
-import TopToolbar from '../../../PresentationalComponents/Shared/top-toolbar';
+import TopToolbar from '../../../presentational-components/Shared/top-toolbar';
 import { updatePortfolioItem } from '../../../helpers/portfolio/portfolio-helper';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/Actions/PortfolioActions';
-import { ProductLoaderPlaceholder } from '../../../PresentationalComponents/Shared/LoaderPlaceholders';
+import { ProductLoaderPlaceholder } from '../../../presentational-components/Shared/LoaderPlaceholders';
 
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},

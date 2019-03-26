@@ -7,7 +7,7 @@ import {
   Text,
   TextVariants
 } from '@patternfly/react-core';
-import TopToolbar from '../../PresentationalComponents/Shared/top-toolbar';
+import TopToolbar from '../../presentational-components/Shared/top-toolbar';
 import './orders.scss';
 
 const OrdersToolbar = () => (

@@ -1,5 +1,4 @@
 import React from 'react';
-import './platformcard.scss';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
 
@@ -7,6 +6,8 @@ import CardIcon from '../Shared/card-icon';
 import CardCheckbox from '../Shared/CardCheckbox';
 import ServiceOfferingCardBody from '../Shared/service-offering-body';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../Utilities/Constants';
+
+import './platform-card.scss';
 
 const PlatformItem = props =>(
   <Card key={ props.id } className="content-gallery-card">

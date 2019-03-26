@@ -10,8 +10,9 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../Utilities/Constants';
-import PlatformItem from '../../../../PresentationalComponents/Platform/PlatformItem';
+import PlatformItem from '../../../../presentational-components/platform/platform-item';
 import AddProductsToPortfolio from '../../../../SmartComponents/Portfolio/add-products-to-portfolio';
+
 describe('<AddProductsToPortfolio />', () => {
   let initialProps;
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];

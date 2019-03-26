@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import CardCheckbox from '../../../PresentationalComponents/Shared/CardCheckbox';
+import CardCheckbox from '../../../presentational-components/Shared/CardCheckbox';
 
 describe('<CardCheckbox />', () => {
   let initialProps;

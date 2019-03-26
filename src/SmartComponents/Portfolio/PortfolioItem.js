@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../../PresentationalComponents/Shared/ImageWithDefault';
+import ImageWithDefault from '../../presentational-components/Shared/ImageWithDefault';
 import { Card, CardHeader, CardFooter, GalleryItem } from '@patternfly/react-core';
-import ServiceOfferingCardBody from '../../PresentationalComponents/Shared/service-offering-body';
-import CardCheckbox from '../../PresentationalComponents/Shared/CardCheckbox';
+import ServiceOfferingCardBody from '../../presentational-components/Shared/service-offering-body';
+import CardCheckbox from '../../presentational-components/Shared/CardCheckbox';
 import './portfolioitem.scss';
 
 const PortfolioItem = props => {

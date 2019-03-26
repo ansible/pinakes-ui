@@ -11,8 +11,8 @@ import AddProductsPagination from './add-products-pagination';
 import { defaultSettings } from '../../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../../helpers/shared/helpers';
 import { fetchPlatformItems, fetchPlatforms } from '../../../redux/Actions/PlatformActions';
-import PlatformItem from '../../../PresentationalComponents/Platform/PlatformItem';
-import PortfolioOrderToolbar from '../../../PresentationalComponents/Portfolio/PortfolioOrderToolbar';
+import PlatformItem from '../../../presentational-components/platform/platform-item';
+import PortfolioOrderToolbar from '../../../presentational-components/Portfolio/PortfolioOrderToolbar';
 import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../../redux/Actions/PortfolioActions';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) => items.filter(item => filterServiceOffering(item, filter))

@@ -7,7 +7,7 @@ import { Main } from '@red-hat-insights/insights-frontend-components';
 import { NotificationsPortal } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
-import { AppPlaceholder } from './PresentationalComponents/Shared/LoaderPlaceholders';
+import { AppPlaceholder } from './presentational-components/Shared/LoaderPlaceholders';
 
 import 'whatwg-fetch';
 
