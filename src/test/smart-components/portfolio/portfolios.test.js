@@ -10,7 +10,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
 import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
-import Portfolios from '../../../SmartComponents/Portfolio/Portfolios';
+import Portfolios from '../../../smart-components/portfolio/portfolios';
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
 import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';

@@ -8,9 +8,9 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import EditToolbarActions from '../../../../SmartComponents/Portfolio/portfolio-item-detail/edit-toolbar-actions';
-import DetailToolbarActions from '../../../../SmartComponents/Portfolio/portfolio-item-detail/detail-toolbar-actions';
-import PortfolioItemDetailToolbar from '../../../../SmartComponents/Portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import EditToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/edit-toolbar-actions';
+import DetailToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/detail-toolbar-actions';
+import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 
 describe('<PortfolioItemDetailToolbar />', () => {
   let initialProps;

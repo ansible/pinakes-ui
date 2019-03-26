@@ -6,7 +6,7 @@ import ImageWithDefault from '../../presentational-components/shared/image-with-
 import { Card, CardHeader, CardFooter, GalleryItem } from '@patternfly/react-core';
 import ServiceOfferingCardBody from '../../presentational-components/shared/service-offering-body';
 import CardCheckbox from '../../presentational-components/shared/card-checkbox';
-import './portfolioitem.scss';
+import './portfolio-item.scss';
 
 const PortfolioItem = props => {
   const renderCardContent = () => (

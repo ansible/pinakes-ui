@@ -11,9 +11,9 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 
 import dummySchema from './order-mock-form-schema';
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-import FormRenderer from '../../../SmartComponents/Common/FormRenderer';
+import FormRenderer from '../../../smart-components/common/form-renderer';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
-import OrderServiceFormStepConfiguration from '../../../SmartComponents/Order/OrderServiceFormStepConfiguration';
+import OrderServiceFormStepConfiguration from '../../../smart-components/order/order-service-form-step-configuration';
 
 const servicePlansResponse = {
   ...dummySchema,

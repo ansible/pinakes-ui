@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
 
-import FormRenderer from '../Common/FormRenderer';
+import FormRenderer from '../common/form-renderer';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/actions/order-actions';
 import { fetchProviderControlParameters } from '../../helpers/portfolio/portfolio-helper';
 

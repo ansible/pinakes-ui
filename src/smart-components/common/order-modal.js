@@ -6,7 +6,7 @@ import { Modal } from '@patternfly/react-core';
 
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../presentational-components/shared/image-with-default';
-import OrderServiceFormStepConfiguration from '../Order/OrderServiceFormStepConfiguration';
+import OrderServiceFormStepConfiguration from '../order/order-service-form-step-configuration';
 
 const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (
   <Modal

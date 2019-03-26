@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 
-import OrderModal from '../../Common/OrderModal';
+import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
 import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';

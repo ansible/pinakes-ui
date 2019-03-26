@@ -9,7 +9,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import Orders from '../../../SmartComponents/Order/Orders';
+import Orders from '../../../smart-components/order/orders';
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
 
 describe('<Orders />', () => {

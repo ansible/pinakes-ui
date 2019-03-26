@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import Platform from '../../../SmartComponents/Platform/Platform';
+import Platform from '../../../smart-components/platform/platform';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import PlatformItem from '../../../presentational-components/platform/platform-item';

@@ -7,7 +7,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
-import Platforms from '../../../SmartComponents/Platform/Platforms';
+import Platforms from '../../../smart-components/platform/platforms';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';

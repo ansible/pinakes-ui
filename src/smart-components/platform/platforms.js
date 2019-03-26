@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
+import ContentGallery from '../content-gallery/content-gallery';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import PlatformToolbar from '../../presentational-components/platform/platform-toolbar';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { scrollToTop } from '../../helpers/shared/helpers';
-import Platform from './Platform';
+import Platform from './platform';
 
 const platformsRoutes = {
   platforms: '',

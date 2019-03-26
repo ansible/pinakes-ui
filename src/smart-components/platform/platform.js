@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/actions/platform-actions';
-import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
+import ContentGallery from '../content-gallery/content-gallery';
 import PlatformToolbar from '../../presentational-components/platform/platform-toolbar';
 import PlatformItem from '../../presentational-components/platform/platform-item';
 import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';

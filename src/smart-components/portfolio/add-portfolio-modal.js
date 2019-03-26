@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
+import { pipe } from 'rxjs';
 import PropTypes from 'prop-types';
-import FormRenderer from '../Common/FormRenderer';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
+import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+
+import FormRenderer from '../common/form-renderer';
 import { fetchWorkflows } from '../../redux/actions/approval-actions';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
-import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/actions/portfolio-actions';
-import { pipe } from 'rxjs';
 
 const AddPortfolioModal = ({
   history: { goBack },

@@ -11,7 +11,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../Utilities/Constants';
 import PlatformItem from '../../../../presentational-components/platform/platform-item';
-import AddProductsToPortfolio from '../../../../SmartComponents/Portfolio/add-products-to-portfolio';
+import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-products-to-portfolio';
 
 describe('<AddProductsToPortfolio />', () => {
   let initialProps;

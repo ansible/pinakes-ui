@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import AddProductsGallery from '../../../../SmartComponents/Portfolio/add-products-to-portfolio/add-products-gallery';
+import AddProductsGallery from '../../../../smart-components/portfolio/add-products-to-portfolio/add-products-gallery';
 
 describe('<AddProductsGallery />', () => {
   let initialProps;
