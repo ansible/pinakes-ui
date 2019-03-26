@@ -9,13 +9,13 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 
 import OrderModal from '../../Common/OrderModal';
 import ItemDetailInfoBar from './item-detail-info-bar';
-import { allowNull } from '../../../Helpers/Shared/helpers';
+import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
 import { fetchPlatforms } from '../../../redux/Actions/PlatformActions';
 import { fetchWorkflows } from '../../../redux/Actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../PresentationalComponents/Shared/top-toolbar';
-import { updatePortfolioItem } from '../../../Helpers/Portfolio/PortfolioHelper';
+import { updatePortfolioItem } from '../../../helpers/portfolio/portfolio-helper';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/Actions/PortfolioActions';
 import { ProductLoaderPlaceholder } from '../../../PresentationalComponents/Shared/LoaderPlaceholders';
 

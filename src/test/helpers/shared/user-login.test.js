@@ -1,4 +1,4 @@
-import { getTopologicalUserApi, getUserApi } from '../../../Helpers/Shared/userLogin';
+import { getTopologicalUserApi, getUserApi } from '../../../helpers/shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../Utilities/Constants';
 
 describe('user login', () => {

@@ -6,7 +6,7 @@ import debouncePromise from 'awesome-debounce-promise';
 
 import { Pagination } from '@red-hat-insights/insights-frontend-components';
 
-import { getCurrentPage, getNewPage } from '../../../Helpers/Shared/pagination';
+import { getCurrentPage, getNewPage } from '../../../helpers/shared/pagination';
 import { fetchPlatformItems } from '../../../redux/Actions/PlatformActions';
 
 const AddProductsPagination = ({ meta: { limit, count, offset }, platformId, fetchPlatformItems }) => {

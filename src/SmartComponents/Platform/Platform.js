@@ -6,8 +6,8 @@ import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/Actions/P
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import PlatformItem from '../../PresentationalComponents/Platform/PlatformItem';
-import { scrollToTop, filterServiceOffering } from '../../Helpers/Shared/helpers';
-import { defaultSettings, getCurrentPage, getNewPage } from '../../Helpers/Shared/pagination';
+import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
+import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';
 import debouncePromise from 'awesome-debounce-promise';
 

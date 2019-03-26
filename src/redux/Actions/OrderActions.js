@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import * as ActionTypes from '../ActionTypes';
-import * as OrderHelper from '../../Helpers/Order/OrderHelper';
+import * as OrderHelper from '../../helpers/order/order-helper';
 
 export const fetchServicePlans = (portfolioItemId) => ({
   type: ActionTypes.FETCH_SERVICE_PLANS,

@@ -7,7 +7,7 @@ import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery'
 import PlatformCard from '../../PresentationalComponents/Platform/PlatformCard';
 import PlatformToolbar from '../../PresentationalComponents/Platform/PlatformToolbar';
 import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
-import { scrollToTop } from '../../Helpers/Shared/helpers';
+import { scrollToTop } from '../../helpers/shared/helpers';
 import Platform from './Platform';
 
 const platformsRoutes = {

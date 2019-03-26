@@ -9,11 +9,11 @@ import PortfolioFilterToolbar from '../../PresentationalComponents/Portfolio/Por
 import PortfolioItem from './PortfolioItem';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
-import { scrollToTop } from '../../Helpers/Shared/helpers';
+import { scrollToTop } from '../../helpers/shared/helpers';
 import RemovePortfolioItems from '../../SmartComponents/Portfolio/RemovePortfolioItems';
-import { removePortfolioItems } from '../../Helpers/Portfolio/PortfolioHelper';
+import { removePortfolioItems } from '../../helpers/portfolio/portfolio-helper';
 import OrderModal from '../Common/OrderModal';
-import { filterServiceOffering } from '../../Helpers/Shared/helpers';
+import { filterServiceOffering } from '../../helpers/shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../PresentationalComponents/Shared/top-toolbar';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 

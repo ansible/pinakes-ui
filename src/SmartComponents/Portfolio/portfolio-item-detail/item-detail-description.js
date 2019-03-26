@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { Text, TextContent, TextVariants, Grid, GridItem } from '@patternfly/react-core';
 
-import { allowNull } from '../../../Helpers/Shared/helpers';
+import { allowNull } from '../../../helpers/shared/helpers';
 import Pf4SelectWrapper from '../../../PresentationalComponents/Shared/pf4-select-wrapper';
 
 const getWorkflowTitle = (workflows, workflowRef) => {

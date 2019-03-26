@@ -1,5 +1,5 @@
 import * as ActionTypes from '../ActionTypes';
-import * as PortfolioHelper from '../../Helpers/Portfolio/PortfolioHelper';
+import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 
 export const doFetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,

@@ -6,7 +6,7 @@ import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/reac
 
 import FormRenderer from '../Common/FormRenderer';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
-import { fetchProviderControlParameters } from '../../Helpers/Portfolio/PortfolioHelper';
+import { fetchProviderControlParameters } from '../../helpers/portfolio/portfolio-helper';
 
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {

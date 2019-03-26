@@ -1,4 +1,4 @@
-import { getTopologicalUserApi } from '../Shared/userLogin';
+import { getTopologicalUserApi } from '../shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../Utilities/Constants';
 
 const api = getTopologicalUserApi();

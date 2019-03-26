@@ -8,8 +8,8 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 
 import AddProductsGallery from './add-products-gallery';
 import AddProductsPagination from './add-products-pagination';
-import { defaultSettings } from '../../../Helpers/Shared/pagination';
-import { filterServiceOffering } from '../../../Helpers/Shared/helpers';
+import { defaultSettings } from '../../../helpers/shared/pagination';
+import { filterServiceOffering } from '../../../helpers/shared/helpers';
 import { fetchPlatformItems, fetchPlatforms } from '../../../redux/Actions/PlatformActions';
 import PlatformItem from '../../../PresentationalComponents/Platform/PlatformItem';
 import PortfolioOrderToolbar from '../../../PresentationalComponents/Portfolio/PortfolioOrderToolbar';

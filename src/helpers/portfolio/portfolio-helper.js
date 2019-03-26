@@ -1,4 +1,4 @@
-import { getUserApi } from '../Shared/userLogin';
+import { getUserApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../Utilities/Constants';
 
 const userApi = getUserApi();
