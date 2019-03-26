@@ -6,10 +6,10 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { platformInitialState } from '../../../redux/reducers/platformReducer';
+import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../SmartComponents/Platform/Platforms';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
-import { FETCH_PLATFORMS } from '../../../redux/ActionTypes';
+import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 
 describe('<Platforms />', () => {

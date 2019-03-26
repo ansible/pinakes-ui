@@ -1,4 +1,4 @@
-import * as ActionTypes from '../ActionTypes';
+import * as ActionTypes from '../action-types';
 import * as PlatformHelper from '../../helpers/platform/platform-helper';
 
 const doFetchPlatforms = () => ({

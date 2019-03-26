@@ -3,7 +3,7 @@ import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
-import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
+import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/add-products-to-portfolio';
 import PortfolioFilterToolbar from '../../presentational-components/portfolio/portfolio-filter-toolbar';
 import PortfolioItem from './PortfolioItem';

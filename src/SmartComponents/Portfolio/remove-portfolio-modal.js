@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal, Button, Bullseye, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { fetchPortfolios, removePortfolio } from '../../redux/Actions/PortfolioActions';
+import { fetchPortfolios, removePortfolio } from '../../redux/actions/portfolio-actions';
 import { pipe } from 'rxjs';
 
 const RemovePortfolioModal = ({

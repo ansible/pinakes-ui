@@ -1,4 +1,4 @@
-import portfolioReducer from '../../../redux/reducers/portfolioReducer';
+import portfolioReducer from '../../../redux/reducers/portfolio-reducer';
 import { callReducer } from '../redux-helpers';
 
 import {
@@ -8,7 +8,7 @@ import {
   FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   FETCH_PORTFOLIO_ITEM,
   FILTER_PORTFOLIO_ITEMS
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 
 describe('Portfolio reducer', () => {
   let initialState;

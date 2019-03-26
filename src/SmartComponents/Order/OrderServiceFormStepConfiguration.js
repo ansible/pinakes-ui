@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
 
 import FormRenderer from '../Common/FormRenderer';
-import { fetchServicePlans, sendSubmitOrder } from '../../redux/Actions/OrderActions';
+import { fetchServicePlans, sendSubmitOrder } from '../../redux/actions/order-actions';
 import { fetchProviderControlParameters } from '../../helpers/portfolio/portfolio-helper';
 
 class OrderServiceFormStepConfiguration extends React.Component {

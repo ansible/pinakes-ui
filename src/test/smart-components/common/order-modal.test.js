@@ -12,7 +12,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 import dummySchema from '../order/order-mock-form-schema';
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
 import OrderModal from '../../../SmartComponents/Common/OrderModal';
-import { orderInitialState } from '../../../redux/reducers/orderReducer';
+import { orderInitialState } from '../../../redux/reducers/order-reducer';
 
 describe('<OrderModal />', () => {
   let initialProps;

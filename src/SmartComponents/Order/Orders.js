@@ -12,7 +12,7 @@ import {
   TextVariants,
   TextContent
 } from '@patternfly/react-core';
-import { fetchOrderList } from '../../redux/Actions/OrderActions';
+import { fetchOrderList } from '../../redux/actions/order-actions';
 import propTypes from 'prop-types';
 import OrdersToolbar from './orders-toolbar';
 import './orders.scss';

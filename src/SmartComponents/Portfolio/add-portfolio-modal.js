@@ -5,10 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal } from '@patternfly/react-core';
-import { fetchWorkflows } from '../../redux/Actions/approval-actions';
+import { fetchWorkflows } from '../../redux/actions/approval-actions';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/Actions/PortfolioActions';
+import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/actions/portfolio-actions';
 import { pipe } from 'rxjs';
 
 const AddPortfolioModal = ({

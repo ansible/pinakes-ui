@@ -10,10 +10,10 @@ import AddProductsGallery from './add-products-gallery';
 import AddProductsPagination from './add-products-pagination';
 import { defaultSettings } from '../../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../../helpers/shared/helpers';
-import { fetchPlatformItems, fetchPlatforms } from '../../../redux/Actions/PlatformActions';
+import { fetchPlatformItems, fetchPlatforms } from '../../../redux/actions/platform-actions';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
 import PortfolioOrderToolbar from '../../../presentational-components/portfolio/portfolio-order-toolbar';
-import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../../redux/Actions/PortfolioActions';
+import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../../redux/actions/portfolio-actions';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) => items.filter(item => filterServiceOffering(item, filter))
 .map(item => (

@@ -10,7 +10,7 @@ import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/ins
 
 import RemovePortfolioModal from '../../../SmartComponents/Portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS } from '../../../redux/ActionTypes';
+import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS } from '../../../redux/action-types';
 
 describe('<RemovePortfolioModal />', () => {
   let initialProps;

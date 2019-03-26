@@ -5,7 +5,7 @@ import {
   SUBMIT_SERVICE_ORDER,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN
-} from '../ActionTypes';
+} from '../action-types';
 
 // Initial State
 export const orderInitialState = {

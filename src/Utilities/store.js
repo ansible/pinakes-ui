@@ -5,9 +5,9 @@ import { notifications, notificationsMiddleware } from '@red-hat-insights/insigh
 
 import reduxLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import orderReducer, { orderInitialState } from '../redux/reducers/orderReducer';
-import platformReducer, { platformInitialState } from '../redux/reducers/platformReducer';
-import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolioReducer';
+import orderReducer, { orderInitialState } from '../redux/reducers/order-reducer';
+import platformReducer, { platformInitialState } from '../redux/reducers/platform-reducer';
+import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/portfolio-reducer';
 import approvalReducer, { approvalInitialState } from '../redux/reducers/approval-reducer';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({

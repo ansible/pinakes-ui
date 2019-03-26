@@ -6,7 +6,7 @@ import { Section } from '@red-hat-insights/insights-frontend-components';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import PlatformToolbar from '../../presentational-components/platform/platform-toolbar';
-import { fetchPlatforms } from '../../redux/Actions/PlatformActions';
+import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import Platform from './Platform';
 

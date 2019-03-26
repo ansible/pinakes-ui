@@ -9,7 +9,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-import { FETCH_PORTFOLIOS } from '../../../redux/ActionTypes';
+import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
 import Portfolios from '../../../SmartComponents/Portfolio/Portfolios';
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';

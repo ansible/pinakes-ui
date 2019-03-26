@@ -16,7 +16,7 @@ import RemovePortfolioItems from '../../../SmartComponents/Portfolio/RemovePortf
 import RemovePortfolioModal from '../../../SmartComponents/Portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
 import AddProductsToPortfolio from '../../../SmartComponents/Portfolio/add-products-to-portfolio';
-import { FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/ActionTypes';
+import { FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
 
 describe('<Portfolio />', () => {
 

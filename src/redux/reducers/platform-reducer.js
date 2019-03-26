@@ -5,7 +5,7 @@ import {
   FETCH_PLATFORM_ITEM,
   FILTER_PLATFORM_ITEMS,
   FETCH_MULTIPLE_PLATFORM_ITEMS
-} from '../../redux/ActionTypes';
+} from '../action-types';
 
 // Initial State
 export const platformInitialState = {

@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { orderInitialState } from '../../../redux/reducers/orderReducer';
+import { orderInitialState } from '../../../redux/reducers/order-reducer';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import Orders from '../../../SmartComponents/Order/Orders';

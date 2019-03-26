@@ -6,7 +6,7 @@ import {
   FETCH_PORTFOLIO_ITEM,
   FILTER_PORTFOLIO_ITEMS,
   SELECT_PORTFOLIO_ITEM
-} from '../../redux/ActionTypes';
+} from '../action-types';
 
 // Initial State
 export const portfoliosInitialState = {

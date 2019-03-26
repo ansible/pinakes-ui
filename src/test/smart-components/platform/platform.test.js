@@ -8,7 +8,7 @@ import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import Platform from '../../../SmartComponents/Platform/Platform';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
-import { platformInitialState } from '../../../redux/reducers/platformReducer';
+import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 

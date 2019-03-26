@@ -11,12 +11,12 @@ import OrderModal from '../../Common/OrderModal';
 import ItemDetailInfoBar from './item-detail-info-bar';
 import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
-import { fetchPlatforms } from '../../../redux/Actions/PlatformActions';
-import { fetchWorkflows } from '../../../redux/Actions/approval-actions';
+import { fetchPlatforms } from '../../../redux/actions/platform-actions';
+import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { updatePortfolioItem } from '../../../helpers/portfolio/portfolio-helper';
-import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/Actions/PortfolioActions';
+import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 
 const PortfolioItemDetail = ({

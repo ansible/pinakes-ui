@@ -9,14 +9,14 @@ import {
   updateServiceData,
   setSelectedPlan,
   sendSubmitOrder
-} from '../../../redux/Actions/OrderActions';
+} from '../../../redux/actions/order-actions';
 import {
   FETCH_SERVICE_PLANS,
   LIST_ORDERS,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
   SUBMIT_SERVICE_ORDER
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 
 describe('Order actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];

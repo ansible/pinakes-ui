@@ -7,13 +7,13 @@ import {
   FETCH_PLATFORMS,
   FETCH_PLATFORM_ITEMS,
   FETCH_MULTIPLE_PLATFORM_ITEMS
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 import {
   fetchPlatforms,
   fetchPlatformItems,
   fetchMultiplePlatformItems,
   fetchSelectedPlatform
-} from '../../../redux/Actions/PlatformActions';
+} from '../../../redux/actions/platform-actions';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
 
 describe('Platform actions', () => {

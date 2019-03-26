@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import * as ActionTypes from '../ActionTypes';
+import * as ActionTypes from '../action-types';
 import * as OrderHelper from '../../helpers/order/order-helper';
 
 export const fetchServicePlans = (portfolioItemId) => ({
