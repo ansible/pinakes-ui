@@ -17,7 +17,7 @@ const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData 
   >
     <ImageWithDefault src = { serviceData.imageUrl || CatItemSvg } width="40" />
     { serviceData.name }
-    <OrderServiceFormStepConfiguration { ...serviceData } />
+    <OrderServiceFormStepConfiguration closeUrl={ closeUrl } { ...serviceData } />
   </Modal>
 ) : null;
 

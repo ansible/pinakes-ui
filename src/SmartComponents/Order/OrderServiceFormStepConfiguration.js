@@ -104,7 +104,7 @@ OrderServiceFormStepConfiguration.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  closeUrl: PropTypes.string
+  closeUrl: PropTypes.string.isRequired
 };
 
 OrderServiceFormStepConfiguration.defaultProps = {
