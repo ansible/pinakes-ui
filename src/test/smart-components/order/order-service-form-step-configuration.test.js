@@ -111,7 +111,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
   });
 
   it('should submit data', (done) => {
-    expect.assertions(2);
+    expect.assertions(3);
     const store = mockStore(initialState);
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({ body: [ servicePlansResponse ]}));
@@ -145,6 +145,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
       wrapper.update();
       wrapper.find(Button).last().simulate('click');
       setImmediate(() => {
+        expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual('/close');
         done();
       });
     });
