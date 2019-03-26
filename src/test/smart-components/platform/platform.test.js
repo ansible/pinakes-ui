@@ -7,7 +7,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import Platform from '../../../smart-components/platform/platform';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';

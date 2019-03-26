@@ -14,7 +14,7 @@ import {
   fetchMultiplePlatformItems,
   fetchSelectedPlatform
 } from '../../../redux/actions/platform-actions';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 
 describe('Platform actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];

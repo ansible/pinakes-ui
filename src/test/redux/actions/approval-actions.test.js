@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store' ;
 import promiseMiddleware from 'redux-promise-middleware';
-import { APPROVAL_API_BASE } from '../../../Utilities/Constants';
+import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import { ASYNC_ACTIONS } from '../../../redux/action-types/approval-action-types';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';

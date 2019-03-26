@@ -10,7 +10,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 
 import { ProductLoaderPlaceholder } from '../../../../presentational-components/shared/loader-placeholders';
 import PortfolioItemDetail from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail';
-import { APPROVAL_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../Utilities/Constants';
+import { APPROVAL_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../utilities/constants';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';

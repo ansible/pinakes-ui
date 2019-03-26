@@ -10,7 +10,7 @@ import { orderInitialState } from '../../../redux/reducers/order-reducer';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import Orders from '../../../smart-components/order/orders';
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 
 describe('<Orders />', () => {
 

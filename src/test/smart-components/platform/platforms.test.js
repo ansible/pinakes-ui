@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../smart-components/platform/platforms';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 

@@ -27,7 +27,7 @@ module.exports = {
     public: path.resolve(__dirname, '../dist'),
     src: path.resolve(__dirname, '../src'),
     presentationalComponents: path.resolve(__dirname, '../src/presentational-components'),
-    smartComponents: path.resolve(__dirname, '../src/SmartComponents'),
+    smartComponents: path.resolve(__dirname, '../src/smart-components'),
     pages: path.resolve(__dirname, '../src/pages'),
     static: path.resolve(__dirname, '../static'),
     publicPath

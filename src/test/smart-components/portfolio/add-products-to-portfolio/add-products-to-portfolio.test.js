@@ -9,7 +9,7 @@ import configureStore from 'redux-mock-store' ;
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../utilities/constants';
 import PlatformItem from '../../../../presentational-components/platform/platform-item';
 import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-products-to-portfolio';
 

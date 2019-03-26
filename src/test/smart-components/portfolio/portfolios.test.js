@@ -8,7 +8,7 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
 import Portfolios from '../../../smart-components/portfolio/portfolios';
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';

@@ -14,7 +14,7 @@ import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
 import RemovePortfolioItems from '../../../smart-components/portfolio/remove-portfolio-items';
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
-import { CATALOG_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
+import { CATALOG_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 import AddProductsToPortfolio from '../../../smart-components/portfolio/add-products-to-portfolio';
 import { FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
 

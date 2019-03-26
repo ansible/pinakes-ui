@@ -21,7 +21,7 @@ import {
 } from '../../../redux/actions/portfolio-actions';
 import {
   CATALOG_API_BASE
-} from '../../../Utilities/Constants';
+} from '../../../utilities/constants';
 
 describe('Portfolio actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];

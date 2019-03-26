@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 import {
   fetchServicePlans,
   fetchOrderList,

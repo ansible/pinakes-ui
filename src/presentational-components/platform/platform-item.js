@@ -5,7 +5,7 @@ import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
 import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
 
 import './platform-card.scss';
 

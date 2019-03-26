@@ -1,6 +1,6 @@
 import { AdminsApi, ApiClient as CatalogApiClient } from '@manageiq/service-portal-api';
 import { DefaultApi, ApiClient as TopologicalInventoryApiClient } from '@manageiq/topological_inventory';
-import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../Utilities/Constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../utilities/constants';
 
 const adminApi = new AdminsApi();
 
