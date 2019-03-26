@@ -11,7 +11,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 import OrderModal from '../../../SmartComponents/Common/OrderModal';
 import Portfolio from '../../../SmartComponents/Portfolio/Portfolio';
 import PortfolioItem from '../../../SmartComponents/Portfolio/PortfolioItem';
-import FilterToolbarItem from '../../../presentational-components/Shared/FilterToolbarItem';
+import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
 import RemovePortfolioItems from '../../../SmartComponents/Portfolio/RemovePortfolioItems';
 import RemovePortfolioModal from '../../../SmartComponents/Portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';

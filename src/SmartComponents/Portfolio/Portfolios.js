@@ -10,7 +10,7 @@ import AddPortfolio from './add-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import Portfolio from './Portfolio';
-import TopToolbar, { TopToolbarTitle } from '../../presentational-components/Shared/top-toolbar';
+import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
 
 const portfoliosRoutes = {
   portfolios: '',

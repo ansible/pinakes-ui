@@ -2,7 +2,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
-import { AppPlaceholder } from './presentational-components/Shared/LoaderPlaceholders';
+import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
 
 const Platforms = lazy(() => import('./SmartComponents/Platform/Platforms'));
 const Portfolios = lazy(() => import('./SmartComponents/Portfolio/Portfolios'));

@@ -12,8 +12,8 @@ import { CATALOG_API_BASE } from '../../../Utilities/Constants';
 import { FETCH_PORTFOLIOS } from '../../../redux/ActionTypes';
 import Portfolios from '../../../SmartComponents/Portfolio/Portfolios';
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
-import { CardLoader } from '../../../presentational-components/Shared/LoaderPlaceholders';
-import FilterToolbarItem from '../../../presentational-components/Shared/FilterToolbarItem';
+import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
+import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
 
 describe('<Portfolios />', () => {
   let initialProps;

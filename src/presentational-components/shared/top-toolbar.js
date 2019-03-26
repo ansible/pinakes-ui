@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Level, LevelItem, Text, TextContent, TextVariants  } from '@patternfly/react-core';
-import { ToolbarTitlePlaceholder } from './LoaderPlaceholders';
+import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import CatalogBreadrubms from './breadcrubms';
 import './top-toolbar.scss';
 

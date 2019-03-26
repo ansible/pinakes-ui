@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
-import { CardLoader } from '../../presentational-components/Shared/LoaderPlaceholders';
+import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
 import { Bullseye, Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 const NoItems = () => (

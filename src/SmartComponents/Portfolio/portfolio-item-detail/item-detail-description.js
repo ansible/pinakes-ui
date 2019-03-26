@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { Text, TextContent, TextVariants, Grid, GridItem } from '@patternfly/react-core';
 
 import { allowNull } from '../../../helpers/shared/helpers';
-import Pf4SelectWrapper from '../../../presentational-components/Shared/pf4-select-wrapper';
+import Pf4SelectWrapper from '../../../presentational-components/shared/pf4-select-wrapper';
 
 const getWorkflowTitle = (workflows, workflowRef) => {
   let workflow = workflows.find(({ value }) => value === workflowRef);

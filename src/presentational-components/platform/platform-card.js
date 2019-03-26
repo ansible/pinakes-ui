@@ -5,8 +5,8 @@ import { Card, CardHeader, CardBody, CardFooter, GalleryItem } from '@patternfly
 import DefaultPlatformImg from '../../assets/images/platform-default.svg';
 import OpenshiftPlatformImg from '../../assets/images/platform-openshift.svg';
 import AmazonPlatformImg from '../../assets/images/platform-amazon.png';
-import ImageWithDefault from '../Shared/ImageWithDefault';
-import ItemDetails from '../Shared/CardCommon';
+import ImageWithDefault from '../shared/image-with-default';
+import ItemDetails from '../shared/card-common';
 
 import './platform-card.scss';
 

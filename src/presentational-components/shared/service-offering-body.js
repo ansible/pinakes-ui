@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardBody, Text, TextContent, TextVariants } from '@patternfly/react-core';
-import ItemDetails from './CardCommon';
+import ItemDetails from './card-common';
 
 const ServiceOfferingCardBody = ({ name, display_name, distributor, ...props }) =>(
   <CardBody style={ { height: 240 } }>

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../../presentational-components/Shared/ImageWithDefault';
+import ImageWithDefault from '../../presentational-components/shared/image-with-default';
 import OrderServiceFormStepConfiguration from '../Order/OrderServiceFormStepConfiguration';
 
 const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (

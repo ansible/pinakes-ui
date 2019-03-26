@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Level, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
-import TopToolbar, { TopToolbarTitle } from '../Shared/top-toolbar';
-import FilterToolbarItem from '../Shared/FilterToolbarItem';
+import TopToolbar, { TopToolbarTitle } from '../shared/top-toolbar';
+import FilterToolbarItem from '../shared/filter-toolbar-item';
 
 const PlatformToolbar = ({ searchValue, onFilterChange, title, children }) => (
   <TopToolbar>

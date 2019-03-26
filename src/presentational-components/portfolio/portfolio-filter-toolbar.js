@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Dropdown, DropdownItem, DropdownPosition, KebabToggle, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
-import FilterToolbarItem from '../Shared/FilterToolbarItem';
+import FilterToolbarItem from '../shared/filter-toolbar-item';
 
 const PortfolioFilterToolbar = ({
   addProductsRoute,

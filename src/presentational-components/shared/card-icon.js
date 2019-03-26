@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { IconPlaceholder } from './LoaderPlaceholders';
+import { IconPlaceholder } from './loader-placeholders';
 
 const CardIcon = ({ src, style, ...props }) => {
   const [ isLoaded, setLoaded ] = useState(false);

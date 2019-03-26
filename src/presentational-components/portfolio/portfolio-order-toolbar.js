@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { Level, Button, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
-import TopToolbar, { TopToolbarTitle } from '../Shared/top-toolbar';
-import FilterToolbarItem from '../Shared/FilterToolbarItem';
+import TopToolbar, { TopToolbarTitle } from '../shared/top-toolbar';
+import FilterToolbarItem from '../shared/filter-toolbar-item';
 
 const selectStyles = {
   container: base => ({ ...base, minWidth: 260 }),

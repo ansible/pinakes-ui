@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Toolbar, ToolbarItem, ToolbarGroup } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
-import FilterToolbarItem from '../Shared/FilterToolbarItem';
+import FilterToolbarItem from '../shared/filter-toolbar-item';
 
 const PortfoliosFilterToolbar = ({ onFilterChange, filterValue, ...props }) => (
   <Toolbar className="pf-u-mt-md">

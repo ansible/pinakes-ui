@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import ItemDetails from '../Shared/CardCommon';
+import ItemDetails from '../shared/card-common';
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardBody, CardFooter, Button, GalleryItem } from '@patternfly/react-core';
 import { EditAltIcon, TrashIcon } from '@patternfly/react-icons';
