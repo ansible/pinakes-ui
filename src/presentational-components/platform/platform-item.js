@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
 
 import CardIcon from '../Shared/card-icon';
-import CardCheckbox from '../Shared/CardCheckbox';
+import CardCheckbox from '../Shared/card-checkbox';
 import ServiceOfferingCardBody from '../Shared/service-offering-body';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../Utilities/Constants';
 

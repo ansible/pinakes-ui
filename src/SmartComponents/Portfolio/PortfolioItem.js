@@ -5,7 +5,7 @@ import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 import ImageWithDefault from '../../presentational-components/Shared/ImageWithDefault';
 import { Card, CardHeader, CardFooter, GalleryItem } from '@patternfly/react-core';
 import ServiceOfferingCardBody from '../../presentational-components/Shared/service-offering-body';
-import CardCheckbox from '../../presentational-components/Shared/CardCheckbox';
+import CardCheckbox from '../../presentational-components/Shared/card-checkbox';
 import './portfolioitem.scss';
 
 const PortfolioItem = props => {

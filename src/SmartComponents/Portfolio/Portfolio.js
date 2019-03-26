@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import ContentGallery from '../../SmartComponents/ContentGallery/ContentGallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/Actions/PortfolioActions';
 import AddProductsToPortfolio from '../../SmartComponents/Portfolio/add-products-to-portfolio';
-import PortfolioFilterToolbar from '../../presentational-components/Portfolio/PortfolioFilterToolbar';
+import PortfolioFilterToolbar from '../../presentational-components/portfolio/portfolio-filter-toolbar';
 import PortfolioItem from './PortfolioItem';
 import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';

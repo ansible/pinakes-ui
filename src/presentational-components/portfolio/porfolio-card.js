@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardBody, CardFooter, Button, GalleryItem } from '@patternfly/react-core';
 import { EditAltIcon, TrashIcon } from '@patternfly/react-icons';
 import PortfolioCardHeader from './portfolio-card-header';
-import './portfoliocard.scss';
+
+import './portfolio-card.scss';
 
 const TO_DISPLAY = [ 'description', 'modified' ];
 const ICON_FILL = 'white';

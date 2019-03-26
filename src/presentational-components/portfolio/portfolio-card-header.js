@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Text, TextVariants, Toolbar, ToolbarGroup } from '@patternfly/react-core';
 import DefaultPortfolioImg from '../../assets/images/default-portfolio.jpg';
 
-import './portfoliocard.scss';
+import './portfolio-card.scss';
 
 const PortfolioCardHeader = ({ backgroundSrc, portfolioName, headerActions }) => (
   <div className="portfolio-card-header" style={ { backgroundImage: `url(${backgroundSrc})` } }>

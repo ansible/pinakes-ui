@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import PortfolioCardHeader from '../../../presentational-components/Portfolio/portfolio-card-header';
+import PortfolioCardHeader from '../../../presentational-components/portfolio/portfolio-card-header';
 
 describe('<PortfolioCardHeader />', () => {
   let initialProps;

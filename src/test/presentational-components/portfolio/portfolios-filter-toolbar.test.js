@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import PortfoliosFilterToolbar from '../../../presentational-components/Portfolio/PortfoliosFilterToolbar';
+import PortfoliosFilterToolbar from '../../../presentational-components/portfolio/portfolios-filter-toolbar';
 
 describe('<PortfoliosFilterToolbar />', () => {
   let initialProps;
