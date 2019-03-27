@@ -4,10 +4,6 @@ import { PageHeader, PageHeaderTitle } from '@red-hat-insights/insights-frontend
 import { DataList } from '@patternfly/react-core';
 import GroupShare from './GroupShare';
 
-// TODO - actual permission verbs
-const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
-  { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
-
 class GroupShareList extends Component {
 
   state= {

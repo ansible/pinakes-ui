@@ -28,6 +28,7 @@ export function getTopologicalUserApi() {
 export function getUserApi() {
   return catalogAdmin;
 }
+
 const defaultRbacClient = ApiClient.instance;
 defaultRbacClient.basePath = RBAC_API_BASE;
 
@@ -52,11 +53,11 @@ export function getWorkflowApi() {
 }
 
 export async function getUserAccess() {
-  let application = "catalog"; // String | The application name to obtain access for the principal
+  let application = 'rbac'; // String | The application name to obtain access for the principal
   let opts = {
-    'username': "lgalis@redhat.com", // String | Unique username of the principal to obtain access for
-    'pageSize': 10, // Number | Parameter for selecting the amount of data in a page.
-    'page': 1 // Number | Parameter for selecting the page of data.
+    //'username': "mkanoor@redhat.com", // String | Unique username of the principal to obtain access for
+    pageSize: 10, // Number | Parameter for selecting the amount of data in a page.
+    page: 1 // Number | Parameter for selecting the page of data.
   };
 
   rbacAccessApi.getPrincipalAccess(application, opts).then((data) => {

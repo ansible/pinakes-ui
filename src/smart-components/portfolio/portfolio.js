@@ -69,7 +69,8 @@ class Portfolio extends Component {
     this.setState({ filterValue });
   };
 
-  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, addPortfolioRoute, editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute }) => (
+  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute,
+    editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute }) => (
     <Fragment>
       <TopToolbar>
         <TopToolbarTitle title={ title }/>
@@ -149,7 +150,8 @@ class Portfolio extends Component {
         <Route
           path={ portfolioRoute }
           render={ props => this.renderProducts(
-            { addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute, filteredItems, title, ...props }) }
+            { addProductsRoute, removeProductsRoute, editPortfolioRoute,
+              removePortfolioRoute, sharePortfolioRoute, filteredItems, title, ...props }) }
         />
       </Switch>
     );

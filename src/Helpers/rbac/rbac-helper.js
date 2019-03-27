@@ -1,4 +1,3 @@
-import { RBAC_API_BASE } from '../../Utilities/Constants';
 import { getRbacGroupApi } from '../Shared/userLogin';
 
 const api = getRbacGroupApi();

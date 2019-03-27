@@ -112,28 +112,28 @@ export const queryPortfolio = apiProps => ({
   payload: PortfolioHelper.queryPortfolio(apiProps).then(({ data }) => data)
 });
 
-export const sharePortfolio=(portfolioData) => ({
+export const sharePortfolio = (portfolioData) => ({
   type: ActionTypes.SHARE_PORTFOLIO,
-      payload: PortfolioHelper.sharePortfolio({
+  payload: PortfolioHelper.sharePortfolio({
     ...portfolioData
   }),
-      meta: {
+  meta: {
     notifications: {
       fulfilled: {
         variant: 'success',
-            title: 'Success updating portfolio',
-            description: 'The portfolio was shared successfully.'
+        title: 'Success updating portfolio',
+        description: 'The portfolio was shared successfully.'
       },
       rejected: {
         variant: 'danger',
-            title: 'Failed updating portfolio',
-            description: 'The portfolio was not shared successfully.'
+        title: 'Failed updating portfolio',
+        description: 'The portfolio was not shared successfully.'
       }
     }
   }
 });
 
-export const unsharePortfolio=(portfolioData) => ({
+export const unsharePortfolio = (portfolioData) => ({
   type: ActionTypes.UNSHARE_PORTFOLIO,
   payload: PortfolioHelper.unsharePortfolio({
     ...portfolioData

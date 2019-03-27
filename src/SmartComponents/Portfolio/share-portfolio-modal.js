@@ -10,7 +10,6 @@ import { addNotification } from '@red-hat-insights/insights-frontend-components/
 import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
 import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/Actions/share-actions';
 import { fetchRbacGroups } from '../../redux/Actions/rbac-actions';
-import GroupShareList from './Share/GroupShareList'
 import { pipe } from 'rxjs';
 
 const SharePortfolioModal = ({
@@ -21,7 +20,6 @@ const SharePortfolioModal = ({
   initialValues,
   fetchShareInfo,
   sharePortfolio,
-  unsharePortfolio,
   fetchRbacGroups,
   shareInfo,
   portfolioId,
@@ -42,14 +40,22 @@ const SharePortfolioModal = ({
     goBack()
   );
 
-  let shareItems = {
-    rbacGroups: rbacGroups,
-    items: shareInfo
+  const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
+    { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view' }];
+
+  const shareItems = () => {
+    let groupsWithNoSharing = rbacGroups;
+    return { groups: groupsWithNoSharing,
+      items: shareInfo
+    };
   };
 
-// TODO - actual permission verbs
-  const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
-    { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
+  const initialShares = () => {
+    let initialGroupShareList = shareInfo.map((group) => { const groupName = group.group_name;
+      return { [groupName]: (permissionOptions.find(perm => (perm.value === group.permissions.join(',')))) };});
+    console.log('initialGroupShareList', initialGroupShareList);
+    return initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+  };
 
   return (
     <Modal
@@ -59,15 +65,15 @@ const SharePortfolioModal = ({
       onClose={ onCancel }
     >
       <div style={ { padding: 8 } }>
-        {(!isLoading && rbacGroups.length > 0) &&
+        { (!isLoading && rbacGroups.length > 0) &&
         <FormRenderer
-            schema={createPortfolioShareSchema(shareInfo, rbacGroups, permissionOptions)}
-            schemaType="default"
-            onSubmit={onSubmit}
-            onCancel={onCancel}
-            initialValues={{...initialValues}}
-            formContainer="modal"
-            buttonsLabels={{submitLabel: 'Send'}}
+          schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
+          schemaType="default"
+          onSubmit={ onSubmit }
+          onCancel={ onCancel }
+          initialValues={{ ...initialValues, ...initialShares()} }
+          formContainer="modal"
+          buttonsLabels={ { submitLabel: 'Send' } }
         />
         }
       </div>
@@ -86,6 +92,8 @@ SharePortfolioModal.propTypes = {
   sharePortfolio: PropTypes.func.isRequired,
   unsharePortfolio: PropTypes.func.isRequired,
   fetchShareInfo: PropTypes.func.isRequired,
+  portfolioId: PropTypes.string.isRequired,
+  shareInfo: PropTypes.array.isRequired,
   rbacGroups: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
     label: PropTypes.string.isRequired
@@ -93,7 +101,10 @@ SharePortfolioModal.propTypes = {
   initialValues: PropTypes.object
 };
 
-const mapStateToProps = ({ rbacReducer: { rbacGroups }, portfolioReducer: { portfolios }, shareReducer: { shareInfo, isLoading }}, { match: { params: { id }}}) => ({
+const mapStateToProps = ({ rbacReducer: { rbacGroups },
+  portfolioReducer: { portfolios },
+  shareReducer: { shareInfo, isLoading }},
+{ match: { params: { id }}}) => ({
   initialValues: id && portfolios.find(item => item.id === id),
   portfolioId: id,
   isLoading,

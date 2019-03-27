@@ -1,23 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import {
-  Stack,
-  StackItem,
-  DataListItem,
-  DataListCell,
-  DropdownItem,
-  Dropdown,
-  DropdownPosition,
-  Title,
-  TextVariants,
-  TextContent } from '@patternfly/react-core';
-
-
-// TODO - actual permission verbs
-const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
-  { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view'} ];
-
+import { DataListItem,  DataListCell, FormSelect, FormSelectOption } from '@patternfly/react-core';
 
 class GroupShare extends Component {
 
@@ -31,11 +14,11 @@ class GroupShare extends Component {
     }
     else {
       return (
-          <FormSelect value={this.state.value} onChange={this.onChange} aria-label="FormSelect Input">
-            {this.group.map((option, index) => (
-                <FormSelectOption key={index} value={option.permission} label={option.permission}/>
-            ))}
-          </FormSelect>)
+        <FormSelect value={ this.state.value } onChange={ this.onChange } aria-label="FormSelect Input">
+          { this.group.map((option, index) => (
+            <FormSelectOption key={ index } value={ option.permission } label={ option.permission }/>
+          )) }
+        </FormSelect>);
     }
   };
 

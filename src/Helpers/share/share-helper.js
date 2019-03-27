@@ -1,6 +1,6 @@
 import { getUserApi } from '../Shared/userLogin';
 import { CATALOG_API_BASE } from '../../Utilities/Constants';
-import * as CatalogApi from 'catalog_api' //'@manageiq/service-portal-api';
+import * as CatalogApi from '@manageiq/service-portal-api';
 
 const userApi = getUserApi();
 
@@ -10,7 +10,7 @@ export async function getShareInfo(portfolioId) {
 }
 
 export async function sharePortfolio(portfolioData) {
-  let policy = new CatalogApi.SharePolicy(portfolioData.permissions.split(','), [portfolioData.group]);
+  let policy = new CatalogApi.SharePolicy(portfolioData.permissions.split(','), [ portfolioData.group ]);
   await userApi.sharePortfolio(portfolioData.id, policy);
 }
 

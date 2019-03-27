@@ -1,13 +1,13 @@
 import { QUERY_PORTFOLIO } from '../ActionTypes';
 import * as ShareHelper from '../../Helpers/share/share-helper';
-import * as ActionTypes from "../ActionTypes";
+import * as ActionTypes from '../ActionTypes';
 
 export const fetchShareInfo = (portfolioId) => ({
   type: QUERY_PORTFOLIO,
   payload: ShareHelper.getShareInfo(portfolioId)
 });
 
-export const sharePortfolio=(portfolioData) => ({
+export const sharePortfolio = (portfolioData) => ({
   type: ActionTypes.SHARE_PORTFOLIO,
   payload: ShareHelper.sharePortfolio({
     ...portfolioData
@@ -28,7 +28,7 @@ export const sharePortfolio=(portfolioData) => ({
   }
 });
 
-export const unsharePortfolio=(portfolioData) => ({
+export const unsharePortfolio = (portfolioData) => ({
   type: ActionTypes.UNSHARE_PORTFOLIO,
   payload: ShareHelper.unsharePortfolio({
     ...portfolioData

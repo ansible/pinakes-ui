@@ -4,7 +4,7 @@ import { CATALOG_API_BASE } from '../../utilities/constants';
 const userApi = getUserApi();
 
 export function listPortfolios() {
-  //getUserAccess();
+  getUserAccess();
   return userApi.listPortfolios();
 }
 
@@ -102,7 +102,7 @@ export function queryPortfolio(portfolioId) {
 }
 
 export async function sharePortfolio(portfolioData) {
-  let policy = new CatalogApi.SharePolicy(portfolioData.permissions.split(','), [portfolioData.group]);
+  let policy = new CatalogApi.SharePolicy(portfolioData.permissions.split(','), [ portfolioData.group ]);
   await userApi.sharePortfolio(portfolioData.id, policy);
 }
 
