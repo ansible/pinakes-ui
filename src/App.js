@@ -10,9 +10,12 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './PresentationalComponents/Shared/LoaderPlaceholders';
 
 import 'whatwg-fetch';
+import smoothscroll from 'smoothscroll-polyfill';
 
 import '@red-hat-insights/insights-frontend-components/components/Notifications.css';
 import './App.scss';
+
+smoothscroll.polyfill();
 
 class App extends Component {
   state = {
