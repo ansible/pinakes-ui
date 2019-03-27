@@ -21,6 +21,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.3.3",
+    "smoothscroll-polyfill": "^0.4.4",
     "whatwg-fetch": "3.0.0"
   },
   "sassIncludes": {
