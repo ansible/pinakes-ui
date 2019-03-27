@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import * as ActionTypes from '../ActionTypes';
 import * as OrderHelper from '../../Helpers/Order/OrderHelper';
 
@@ -21,7 +24,23 @@ export const setSelectedPlan = (data) => ({
   payload: data
 });
 
+const OrderNotification = () => (
+  <p>
+    You can track the progress of the order in your <Link to="/orders">Orders</Link> page.
+  </p>
+);
+
 export const sendSubmitOrder = apiProps => ({
   type: ActionTypes.SUBMIT_SERVICE_ORDER,
-  payload: OrderHelper.sendSubmitOrder(apiProps)
+  payload: OrderHelper.sendSubmitOrder(apiProps),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Your order has been accepted successfully',
+        description: <OrderNotification />,
+        dismissable: true
+      }
+    }
+  }
 });

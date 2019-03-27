@@ -141,9 +141,22 @@ describe('Order actions', () => {
       status: 200
     }));
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
-      type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`
+      type: ADD_NOTIFICATION,
+      payload: expect.objectContaining({
+        variant: 'success',
+        dismissable: true
+      })
+    }),
+    expect.objectContaining({
+      type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }) ];
 
     return store.dispatch(sendSubmitOrder({
@@ -161,7 +174,10 @@ describe('Order actions', () => {
       status: 500
     }));
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
@@ -191,7 +207,10 @@ describe('Order actions', () => {
     }));
 
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
@@ -220,7 +239,10 @@ describe('Order actions', () => {
     }));
 
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
