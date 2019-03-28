@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import PortfolioCard from '../../../PresentationalComponents/Portfolio/PorfolioCard';
+import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
 
 describe('<PortfolioCard />', () => {
   let initialProps;

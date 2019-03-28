@@ -8,12 +8,12 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-import { FETCH_PORTFOLIOS } from '../../../redux/ActionTypes';
-import Portfolios from '../../../SmartComponents/Portfolio/Portfolios';
-import PortfolioCard from '../../../PresentationalComponents/Portfolio/PorfolioCard';
-import { CardLoader } from '../../../PresentationalComponents/Shared/LoaderPlaceholders';
-import FilterToolbarItem from '../../../PresentationalComponents/Shared/FilterToolbarItem';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
+import Portfolios from '../../../smart-components/portfolio/portfolios';
+import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
+import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
+import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
 
 describe('<Portfolios />', () => {
   let initialProps;

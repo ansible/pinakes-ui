@@ -8,9 +8,9 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import RemovePortfolioModal from '../../../SmartComponents/Portfolio/remove-portfolio-modal';
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS } from '../../../redux/ActionTypes';
+import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS } from '../../../redux/action-types';
 
 describe('<RemovePortfolioModal />', () => {
   let initialProps;

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import RemovePortfolioItems from '../../../SmartComponents/Portfolio/RemovePortfolioItems';
+import RemovePortfolioItems from '../../../smart-components/portfolio/remove-portfolio-items';
 
 describe('<RemovePortfolioItems />', () => {
   let initialProps;

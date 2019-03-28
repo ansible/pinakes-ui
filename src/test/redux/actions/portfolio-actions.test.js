@@ -10,7 +10,7 @@ import {
   ADD_PORTFOLIO,
   UPDATE_PORTFOLIO,
   REMOVE_PORTFOLIO
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 import {
   fetchPortfolios,
   fetchPortfolioItems,
@@ -18,10 +18,10 @@ import {
   addPortfolio,
   updatePortfolio,
   removePortfolio
-} from '../../../redux/Actions/PortfolioActions';
+} from '../../../redux/actions/portfolio-actions';
 import {
   CATALOG_API_BASE
-} from '../../../Utilities/Constants';
+} from '../../../utilities/constants';
 
 describe('Portfolio actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];

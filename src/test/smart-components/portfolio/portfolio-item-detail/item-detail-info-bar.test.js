@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import ItemDetailInfoBar from '../../../../SmartComponents/Portfolio/portfolio-item-detail/item-detail-info-bar';
+import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 
 describe('<ItemDetailInfoBar />', () => {
   let initialProps;

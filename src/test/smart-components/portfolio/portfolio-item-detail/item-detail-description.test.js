@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 
-import ItemDetailDescription from '../../../../SmartComponents/Portfolio/portfolio-item-detail/item-detail-description';
+import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 
 describe('<ItemDetailDescription />', () => {
   let initialProps;

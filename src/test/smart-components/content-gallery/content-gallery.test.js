@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import ContentGallery from '../../../SmartComponents/ContentGallery/ContentGallery';
+import ContentGallery from '../../../smart-components/content-gallery/content-gallery';
 
 describe('<ContentGallery />', () => {
   it('should render in loading state', () => {

@@ -10,9 +10,9 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import dummySchema from '../order/order-mock-form-schema';
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
-import OrderModal from '../../../SmartComponents/Common/OrderModal';
-import { orderInitialState } from '../../../redux/reducers/orderReducer';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
+import OrderModal from '../../../smart-components/common/order-modal';
+import { orderInitialState } from '../../../redux/reducers/order-reducer';
 
 describe('<OrderModal />', () => {
   let initialProps;

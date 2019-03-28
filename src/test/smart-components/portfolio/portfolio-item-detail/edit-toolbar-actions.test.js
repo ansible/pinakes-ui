@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 
-import EditToolbarActions from '../../../../SmartComponents/Portfolio/portfolio-item-detail/edit-toolbar-actions';
+import EditToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/edit-toolbar-actions';
 
 describe('<EditToolbarActions />', () => {
   let initialProps;

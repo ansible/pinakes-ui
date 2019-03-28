@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 
-import PortfolioItem from '../../../SmartComponents/Portfolio/PortfolioItem';
+import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 
 describe('<PortfolioItem />', () => {
   let initialProps;

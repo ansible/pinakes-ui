@@ -10,9 +10,9 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { APPROVAL_API_BASE, CATALOG_API_BASE } from '../../../Utilities/Constants';
-import FormRenderer from '../../../SmartComponents/Common/FormRenderer';
-import AddPortfolioModal from '../../../SmartComponents/Portfolio/add-portfolio-modal';
+import { APPROVAL_API_BASE, CATALOG_API_BASE } from '../../../utilities/constants';
+import FormRenderer from '../../../smart-components/common/form-renderer';
+import AddPortfolioModal from '../../../smart-components/portfolio/add-portfolio-modal';
 
 describe('<AddPortfolioModal />', () => {
   let initialProps;

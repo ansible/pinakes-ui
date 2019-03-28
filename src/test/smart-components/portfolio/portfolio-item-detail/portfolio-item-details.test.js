@@ -8,12 +8,12 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { ProductLoaderPlaceholder } from '../../../../PresentationalComponents/Shared/LoaderPlaceholders';
-import PortfolioItemDetail from '../../../../SmartComponents/Portfolio/portfolio-item-detail/portfolio-item-detail';
-import { APPROVAL_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../Utilities/Constants';
-import PortfolioItemDetailToolbar from '../../../../SmartComponents/Portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
-import ItemDetailInfoBar from '../../../../SmartComponents/Portfolio/portfolio-item-detail/item-detail-info-bar';
-import ItemDetailDescription from '../../../../SmartComponents/Portfolio/portfolio-item-detail/item-detail-description';
+import { ProductLoaderPlaceholder } from '../../../../presentational-components/shared/loader-placeholders';
+import PortfolioItemDetail from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail';
+import { APPROVAL_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../utilities/constants';
+import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
+import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;

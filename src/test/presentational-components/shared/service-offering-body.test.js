@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import ServiceOfferingCardBody from '../../../PresentationalComponents/Shared/service-offering-body';
+import ServiceOfferingCardBody from '../../../presentational-components/shared/service-offering-body';
 
 describe('<ServiceOfferingCardBody />', () => {
   let initialProps;

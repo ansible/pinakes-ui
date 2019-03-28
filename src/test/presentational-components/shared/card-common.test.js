@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import ItemDetails from '../../../PresentationalComponents/Shared/CardCommon';
+import ItemDetails from '../../../presentational-components/shared/card-common';
 
 describe('<CardCommon />', () => {
   let initialProps;

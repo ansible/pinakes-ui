@@ -7,14 +7,14 @@ import {
   FETCH_PLATFORMS,
   FETCH_PLATFORM_ITEMS,
   FETCH_MULTIPLE_PLATFORM_ITEMS
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 import {
   fetchPlatforms,
   fetchPlatformItems,
   fetchMultiplePlatformItems,
   fetchSelectedPlatform
-} from '../../../redux/Actions/PlatformActions';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../Utilities/Constants';
+} from '../../../redux/actions/platform-actions';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 
 describe('Platform actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];

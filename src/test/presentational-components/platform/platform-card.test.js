@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import toJson from 'enzyme-to-json';
-import PlatformCard from '../../../PresentationalComponents/Platform/PlatformCard';
+import PlatformCard from '../../../presentational-components/platform/platform-card';
 
 describe('<PlatformCard />', () => {
   let initialProps;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import ImageWithDefault from '../../../PresentationalComponents/Shared/ImageWithDefault';
+import ImageWithDefault from '../../../presentational-components/shared/image-with-default';
 
 describe('<ImageWithDefault />', () => {
   let initialProps;
