@@ -9,6 +9,6 @@ describe('user login', () => {
 
   it('should set correct basePath for ssp api instance', () => {
     const sspApi = getUserApi();
-    expect(sspApi.apiClient.basePath).toEqual(CATALOG_API_BASE);
+    expect(sspApi.basePath).toEqual(CATALOG_API_BASE);
   });
 });

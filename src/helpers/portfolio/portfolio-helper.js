@@ -39,16 +39,16 @@ export async function addPortfolio(portfolioData, items) {
 }
 
 export async function addToPortfolio(portfolioId, items) {
-  let idx = 0; let newItem = null;
-
-  for (idx = 0; idx < items.length; idx++) {
-    newItem = await userApi.createPortfolioItem(JSON.stringify ({ service_offering_ref: items[idx] }));
+  const request = async item => {
+    const newItem = await userApi.createPortfolioItem({ service_offering_ref: item });
     if (newItem) {
-      await userApi.addPortfolioItemToPortfolio(portfolioId, JSON.stringify({ portfolio_item_id: newItem.id }));
+      await userApi.addPortfolioItemToPortfolio(portfolioId, { portfolio_item_id: newItem.id });
     }
-  }
 
-  return newItem;
+    return newItem;
+  };
+
+  return Promise.all(items.map(item => request(item)));
 }
 
 export async function updatePortfolio(portfolioData) {

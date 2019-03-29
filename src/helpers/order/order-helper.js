@@ -1,11 +1,7 @@
 /* eslint camelcase: 0 */
-import * as CatalogApi from '@manageiq/catalog-api-jsclient';
-import { CATALOG_API_BASE } from '../../utilities/constants';
+import { getUserApi } from '../shared/user-login';
 
-let api = new CatalogApi.AdminsApi();
-
-const sspDefaultClient = CatalogApi.ApiClient.instance;
-sspDefaultClient.basePath = CATALOG_API_BASE;
+let api = getUserApi();
 
 export function getServicePlans(portfolioItemId) {
   return api.listServicePlans(portfolioItemId);
@@ -17,7 +13,7 @@ export function listOrders() {
 
 export async function sendSubmitOrder({ service_parameters: { providerControlParameters, ...service_parameters }, ...parameters }) {
   let order = await api.createOrder();
-  let orderItem = new CatalogApi.OrderItem;
+  let orderItem = {};
   orderItem.count = 1;
   orderItem = {
     ...orderItem,
