@@ -45,13 +45,13 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => (
   {
     component: 'sub-form',
     name: `${groupShareInfo.group_name}`,
-    key: `${groupShareInfo.group_uuid}`,
+    key: `${groupShareInfo.group_name}`,
     fields: [{
       name: `${groupShareInfo.group_name}`,
       label: `${groupShareInfo.group_name}`,
       isRequired: false,
       component: componentTypes.SELECT,
-      options: permissionVerbs
+      options: [ ...permissionVerbs, { value: '', label: 'None' }]
     }]
   }
 );

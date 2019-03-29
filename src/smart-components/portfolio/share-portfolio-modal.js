@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import FormRenderer from '../Common/FormRenderer';
+import FormRenderer from '../common/form-renderer';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal } from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { fetchPortfolios } from '../../redux/Actions/PortfolioActions';
-import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/Actions/share-actions';
-import { fetchRbacGroups } from '../../redux/Actions/rbac-actions';
+import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
+import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/actions/share-actions';
+import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { pipe } from 'rxjs';
 
 const SharePortfolioModal = ({
@@ -30,20 +30,37 @@ const SharePortfolioModal = ({
     fetchRbacGroups();
   }, []);
 
-  useEffect(() => {
-    setInitialSharesList(shareInfo);
-  }, [ isLoading ]);
-
-  const [ initialSharesList, setInitialSharesList ] = useState();
+  const initialShares = () => {
+    let initialGroupShareList = shareInfo.map((group) => { const groupName = group.group_name;
+      return { [groupName]: (permissionOptions.find(perm => (perm.value === group.permissions.join(',')))).value };});
+    console.log('initialGroupShareList', initialGroupShareList);
+    let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    console.log('initialShareList', initialShareList);
+    return initialShareList;
+  };
 
   const onSubmit = data =>
   {
-    console.log( 'InitialShareList', initialSharesList );
-    console.log( 'shareInfo', shareInfo );
-    console.log( 'OnSubmit data', data);
-    console.log( 'rbacGroups', rbacGroups );
-    sharePortfolio(data).then(goBack).then(() => fetchPortfolios());
-  }
+    console.log('InitialShares', initialShares());
+    console.log('shareInfo', shareInfo);
+    console.log('OnSubmit data', data);
+    console.log('rbacGroups', rbacGroups);
+    let sharePromises = [];
+    if (data.group && data.permissions) {
+      sharePromises.push(sharePortfolio(data));
+    }
+
+    shareInfo.map(share => {
+      let initialPerm = share.permissions.join(',');
+      if (data[share.group_name] !== initialPerm) {
+        if (!data[share.group_name]) {
+          sharePromises.push(unsharePortfolio({ portfolioId, permissions: share.permissions, group_uuid: share.group_uuid }));
+        }
+      }
+    });
+
+    Promise.all(sharePromises).then(goBack).then(() => fetchPortfolios());
+  };
 
   const onCancel = () => pipe(
     addNotification({
@@ -54,21 +71,15 @@ const SharePortfolioModal = ({
     goBack()
   );
 
-  const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/edit' },
-    { value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/view' }];
+  const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/edit' },
+    { value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/view' }];
 
   const shareItems = () => {
-    let groupsWithNoSharing = rbacGroups;
+    let groupsWithNoSharing = rbacGroups.filter((item) => {
+      return !shareInfo.find(shareGroup => shareGroup.group_uuid === item.value);});
     return { groups: groupsWithNoSharing,
       items: shareInfo
     };
-  };
-
-  const initialShares = () => {
-    let initialGroupShareList = shareInfo.map((group) => { const groupName = group.group_name;
-      return { [groupName]: (permissionOptions.find(perm => (perm.value === group.permissions.join(',')))) };});
-    console.log('initialGroupShareList', initialGroupShareList);
-    return initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
   };
 
   return (

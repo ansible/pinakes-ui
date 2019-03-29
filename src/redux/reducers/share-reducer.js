@@ -1,6 +1,6 @@
 import {
   QUERY_PORTFOLIO
-} from '../ActionTypes';
+} from '../action-types';
 
 // Initial State
 export const shareInfoInitialState = {

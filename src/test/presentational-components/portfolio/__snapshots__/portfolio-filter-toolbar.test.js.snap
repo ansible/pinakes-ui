@@ -101,7 +101,6 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
             >
               <Link
                 className="pf-c-dropdown__menu-item"
-                replace={false}
                 role="link"
                 to="/edit"
               >

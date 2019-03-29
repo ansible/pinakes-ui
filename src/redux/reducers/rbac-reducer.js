@@ -1,6 +1,6 @@
 import {
   FETCH_RBAC_GROUPS
-} from '../ActionTypes';
+} from '../action-types';
 
 // Initial State
 export const rbacInitialState = {

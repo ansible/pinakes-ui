@@ -1,9 +1,8 @@
-import { QUERY_PORTFOLIO } from '../ActionTypes';
-import * as ShareHelper from '../../Helpers/share/share-helper';
-import * as ActionTypes from '../ActionTypes';
+import * as ShareHelper from '../../helpers/share/share-helper';
+import * as ActionTypes from '../action-types';
 
 export const fetchShareInfo = (portfolioId) => ({
-  type: QUERY_PORTFOLIO,
+  type: ActionTypes.QUERY_PORTFOLIO,
   payload: ShareHelper.getShareInfo(portfolioId)
 });
 

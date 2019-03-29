@@ -1,4 +1,4 @@
-import { getRbacGroupApi } from '../Shared/userLogin';
+import { getRbacGroupApi } from '../shared/user-login';
 
 const api = getRbacGroupApi();
 

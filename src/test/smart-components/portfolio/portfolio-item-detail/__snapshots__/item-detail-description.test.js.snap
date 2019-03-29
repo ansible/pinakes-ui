@@ -445,21 +445,6 @@ exports[`<ItemDetailDescription /> should render correctly in edit variant 1`] =
                         <FormSelectOption
                           className=""
                           isDisabled={false}
-                          key="None"
-                          label="None"
-                          value=""
-                        >
-                          <option
-                            className=""
-                            disabled={false}
-                            value=""
-                          >
-                            None
-                          </option>
-                        </FormSelectOption>
-                        <FormSelectOption
-                          className=""
-                          isDisabled={false}
                           key="foo"
                           label="Foo"
                           value="foo"

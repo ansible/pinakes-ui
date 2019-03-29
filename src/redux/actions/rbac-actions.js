@@ -1,5 +1,5 @@
-import { FETCH_RBAC_GROUPS } from '../ActionTypes';
-import { getRbacGroups } from '../../Helpers/rbac/rbac-helper';
+import { FETCH_RBAC_GROUPS } from '../action-types';
+import { getRbacGroups } from '../../helpers/rbac/rbac-helper';
 
 export const fetchRbacGroups = () => ({
   type: FETCH_RBAC_GROUPS,
