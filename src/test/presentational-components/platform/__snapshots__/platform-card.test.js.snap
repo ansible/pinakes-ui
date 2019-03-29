@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlatformCard /> should choose card image 1`] = `
+<PlatformCard
+  description="desc"
+  modified="Foo"
+>
+  <GalleryItem>
+    <div>
+      <Link
+        className="card-link"
+        to="/platforms/detail/undefined"
+      >
+        <a
+          className="card-link"
+          href="/platforms/detail/undefined"
+          onClick={[Function]}
+        >
+          <Card
+            className="content-gallery-card"
+            component="article"
+          >
+            <article
+              className="pf-c-card content-gallery-card"
+            >
+              <CardHeader
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__header"
+                >
+                  <ImageWithDefault
+                    height="40"
+                    src="test-file-stub"
+                    width="80"
+                  >
+                    <img
+                      height="40"
+                      src="test-file-stub"
+                      width="80"
+                    />
+                  </ImageWithDefault>
+                </div>
+              </CardHeader>
+              <CardBody
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__body"
+                >
+                  <h4 />
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
+                  >
+                    <div
+                      className="line-clamp"
+                    >
+                      <PropLine
+                        key="card-prop-description"
+                        value="desc"
+                      >
+                        <div>
+                          desc
+                        </div>
+                      </PropLine>
+                      <PropLine
+                        key="card-prop-modified"
+                        value="Foo"
+                      >
+                        <div>
+                          Foo
+                        </div>
+                      </PropLine>
+                    </div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+              <CardFooter
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__footer"
+                />
+              </CardFooter>
+            </article>
+          </Card>
+        </a>
+      </Link>
+    </div>
+  </GalleryItem>
+</PlatformCard>
+`;
+
+exports[`<PlatformCard /> should render correctly 1`] = `
+<PlatformCard
+  description="desc"
+  modified="Foo"
+>
+  <GalleryItem>
+    <div>
+      <Link
+        className="card-link"
+        to="/platforms/detail/undefined"
+      >
+        <a
+          className="card-link"
+          href="/platforms/detail/undefined"
+          onClick={[Function]}
+        >
+          <Card
+            className="content-gallery-card"
+            component="article"
+          >
+            <article
+              className="pf-c-card content-gallery-card"
+            >
+              <CardHeader
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__header"
+                >
+                  <ImageWithDefault
+                    height="40"
+                    src="test-file-stub"
+                    width="80"
+                  >
+                    <img
+                      height="40"
+                      src="test-file-stub"
+                      width="80"
+                    />
+                  </ImageWithDefault>
+                </div>
+              </CardHeader>
+              <CardBody
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__body"
+                >
+                  <h4 />
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
+                  >
+                    <div
+                      className="line-clamp"
+                    >
+                      <PropLine
+                        key="card-prop-description"
+                        value="desc"
+                      >
+                        <div>
+                          desc
+                        </div>
+                      </PropLine>
+                      <PropLine
+                        key="card-prop-modified"
+                        value="Foo"
+                      >
+                        <div>
+                          Foo
+                        </div>
+                      </PropLine>
+                    </div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+              <CardFooter
+                className=""
+                component="div"
+              >
+                <div
+                  className="pf-c-card__footer"
+                />
+              </CardFooter>
+            </article>
+          </Card>
+        </a>
+      </Link>
+    </div>
+  </GalleryItem>
+</PlatformCard>
+`;

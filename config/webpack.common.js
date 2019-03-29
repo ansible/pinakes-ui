@@ -3,34 +3,36 @@
 const path = require('path');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const gitRevisionPlugin = new GitRevisionPlugin({
-    branch: true
+  branch: true
 });
 const entry = process.env.NODE_ENV === 'production' ?
-    path.resolve(__dirname, '../src/entry.js') :
-    path.resolve(__dirname, '../src/entry-dev.js');
+  path.resolve(__dirname, '../src/entry.js') :
+  path.resolve(__dirname, '../src/entry-dev.js');
+const { insights } = require('../package.json');
 
-let insightsDeployment = 'insights';
-const gitBranch = process.env.BRANCH || gitRevisionPlugin.branch();
+let appDeploy = 'apps';
+const gitBranch = process.env.TRAVIS_BRANCH || process.env.BRANCH || gitRevisionPlugin.branch();
 const betaBranch =
+    gitBranch === 'master' ||
     gitBranch === 'ci-beta' ||
     gitBranch === 'qa-beta' ||
     gitBranch === 'prod-beta';
 if (process.env.NODE_ENV === 'production' && betaBranch) {
-    insightsDeployment = 'insightsbeta';
+  appDeploy = 'beta/apps';
 }
 
-const publicPath = `/${insightsDeployment}/platform/catalog/`;
+const publicPath = `/${appDeploy}/${insights.appname}/`;
 
 module.exports = {
-    paths: {
-        entry,
-        public: path.resolve(__dirname, '../dist'),
-        src: path.resolve(__dirname, '../src'),
-        presentationalComponents: path.resolve(__dirname, '../src/PresentationalComponents'),
-        smartComponents: path.resolve(__dirname, '../src/SmartComponents'),
-        pages: path.resolve(__dirname, '../src/pages'),
-        static: path.resolve(__dirname, '../static'),
-        publicPath
-    },
-    insightsDeployment
+  paths: {
+    entry,
+    public: path.resolve(__dirname, '../dist'),
+    src: path.resolve(__dirname, '../src'),
+    presentationalComponents: path.resolve(__dirname, '../src/presentational-components'),
+    smartComponents: path.resolve(__dirname, '../src/smart-components'),
+    pages: path.resolve(__dirname, '../src/pages'),
+    static: path.resolve(__dirname, '../static'),
+    publicPath
+  },
+  appDeploy
 };

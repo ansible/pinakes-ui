@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PortfolioCard /> should render correctly 1`] = `
+<GalleryItem>
+  <Card
+    className="content-gallery-card"
+    component="article"
+  >
+    <Link
+      className="card-link"
+      to="/portfolios/detail/123"
+    >
+      <CardHeader
+        className="card-image-header"
+        component="div"
+      >
+        <PortfolioCardHeader
+          backgroundSrc="test-file-stub"
+          headerActions={
+            Array [
+              <Link
+                to="/portfolios/edit/123"
+              >
+                <Button
+                  aria-label="edit-portfolio-name"
+                  className=""
+                  component="button"
+                  isActive={false}
+                  isBlock={false}
+                  isDisabled={false}
+                  isFocus={false}
+                  isHover={false}
+                  type="button"
+                  variant="plain"
+                >
+                  <EditAltIcon
+                    color="currentColor"
+                    fill="white"
+                    size="sm"
+                    title={null}
+                  />
+                </Button>
+              </Link>,
+              <Link
+                to="/portfolios/remove/123"
+              >
+                <Button
+                  aria-label="remove-portfolio-name"
+                  className=""
+                  component="button"
+                  isActive={false}
+                  isBlock={false}
+                  isDisabled={false}
+                  isFocus={false}
+                  isHover={false}
+                  type="button"
+                  variant="plain"
+                >
+                  <TrashIcon
+                    color="currentColor"
+                    fill="white"
+                    size="sm"
+                    title={null}
+                  />
+                </Button>
+              </Link>,
+            ]
+          }
+          portfolioName="name"
+        />
+      </CardHeader>
+      <CardBody
+        className=""
+        component="div"
+      >
+        <ItemDetails
+          description="description"
+          modified="modified"
+          name="name"
+          portfolioName="foo"
+          toDisplay={
+            Array [
+              "description",
+              "modified",
+            ]
+          }
+        />
+      </CardBody>
+      <CardFooter
+        className=""
+        component="div"
+      />
+    </Link>
+  </Card>
+</GalleryItem>
+`;

@@ -11,30 +11,14 @@ exports[`<PlatformToolbar /> should render correctly 1`] = `
     className=""
     gutter={null}
   >
-    <Toolbar
-      className={null}
-    >
-      <ToolbarGroup
-        className={null}
-      >
-        <ToolbarItem
-          className={null}
-        >
-          <FilterToolbarItem
-            onFilterChange={[MockFunction]}
-            placeholder="Filter by name..."
-            searchValue=""
-          />
-        </ToolbarItem>
-      </ToolbarGroup>
-      <ToolbarGroup
-        className={null}
-      >
-        <ToolbarItem
-          className={null}
-        />
-      </ToolbarGroup>
-    </Toolbar>
+    <LevelItem>
+      <FilterToolbarItem
+        onFilterChange={[MockFunction]}
+        placeholder="Filter by name..."
+        searchValue=""
+      />
+    </LevelItem>
+    <LevelItem />
   </Level>
 </TopToolbar>
 `;

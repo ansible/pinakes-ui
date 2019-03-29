@@ -1,4 +1,4 @@
-import orderReducer from '../../../redux/reducers/orderReducer';
+import orderReducer from '../../../redux/reducers/order-reducer';
 import { callReducer } from '../redux-helpers';
 
 import {
@@ -8,7 +8,7 @@ import {
   SUBMIT_SERVICE_ORDER,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 
 describe('Platform reducer', () => {
   let initialState;

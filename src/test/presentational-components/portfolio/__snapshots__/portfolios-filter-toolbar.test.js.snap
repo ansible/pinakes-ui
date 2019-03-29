@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
+<Toolbar
+  className="pf-u-mt-md"
+>
+  <ToolbarGroup
+    className={null}
+  >
+    <ToolbarItem
+      className={null}
+    >
+      <FilterToolbarItem
+        onFilterChange={[MockFunction]}
+        placeholder="Filter by name..."
+        searchValue=""
+      />
+    </ToolbarItem>
+  </ToolbarGroup>
+  <ToolbarGroup
+    className={null}
+  >
+    <ToolbarItem
+      className={null}
+    >
+      <Link
+        to="/portfolios/add-portfolio"
+      >
+        <Button
+          aria-label="Create portfolio"
+          className=""
+          component="button"
+          isActive={false}
+          isBlock={false}
+          isDisabled={false}
+          isFocus={false}
+          isHover={false}
+          type="button"
+          variant="primary"
+        >
+          Create portfolio
+        </Button>
+      </Link>
+    </ToolbarItem>
+  </ToolbarGroup>
+</Toolbar>
+`;

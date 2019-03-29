@@ -1,7 +1,6 @@
 import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { Portfolio } from '@manageiq/service-portal-api';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import {
   FETCH_PORTFOLIOS,
@@ -10,7 +9,7 @@ import {
   ADD_PORTFOLIO,
   UPDATE_PORTFOLIO,
   REMOVE_PORTFOLIO
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 import {
   fetchPortfolios,
   fetchPortfolioItems,
@@ -18,10 +17,10 @@ import {
   addPortfolio,
   updatePortfolio,
   removePortfolio
-} from '../../../redux/Actions/PortfolioActions';
+} from '../../../redux/actions/portfolio-actions';
 import {
   CATALOG_API_BASE
-} from '../../../Utilities/Constants';
+} from '../../../utilities/constants';
 
 describe('Portfolio actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
@@ -41,7 +40,7 @@ describe('Portfolio actions', () => {
         isLoading: false
       }
     });
-    const expectedPortfolio = new Portfolio('Name', 'Description');
+    const expectedPortfolio = { name: 'Name', description: 'Description' };
 
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`

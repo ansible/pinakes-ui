@@ -2,21 +2,21 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { CATALOG_API_BASE } from '../../../Utilities/Constants';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 import {
   fetchServicePlans,
   fetchOrderList,
   updateServiceData,
   setSelectedPlan,
   sendSubmitOrder
-} from '../../../redux/Actions/OrderActions';
+} from '../../../redux/actions/order-actions';
 import {
   FETCH_SERVICE_PLANS,
   LIST_ORDERS,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
   SUBMIT_SERVICE_ORDER
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 
 describe('Order actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
@@ -141,9 +141,22 @@ describe('Order actions', () => {
       status: 200
     }));
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
-      type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`
+      type: ADD_NOTIFICATION,
+      payload: expect.objectContaining({
+        variant: 'success',
+        dismissable: true
+      })
+    }),
+    expect.objectContaining({
+      type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }) ];
 
     return store.dispatch(sendSubmitOrder({
@@ -161,7 +174,10 @@ describe('Order actions', () => {
       status: 500
     }));
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
@@ -191,7 +207,10 @@ describe('Order actions', () => {
     }));
 
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
@@ -220,7 +239,10 @@ describe('Order actions', () => {
     }));
 
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
+      meta: {
+        notifications: expect.any(Object)
+      }
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({

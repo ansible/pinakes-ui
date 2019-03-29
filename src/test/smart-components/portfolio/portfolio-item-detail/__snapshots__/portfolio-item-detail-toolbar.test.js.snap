@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PortfolioItemDetailToolbar /> should render correctly 1`] = `
+<PortfolioItemDetailToolbar
+  handleUpdate={[MockFunction]}
+  isOpen={false}
+  product={
+    Object {
+      "name": "bar",
+    }
+  }
+  setOpen={[MockFunction]}
+  setWorkflow={[MockFunction]}
+  url="/foo"
+/>
+`;

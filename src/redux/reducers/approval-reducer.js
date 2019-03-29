@@ -1,4 +1,4 @@
-import { ASYNC_ACTIONS } from '../ActionTypes/approval-action-types';
+import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 
 export const approvalInitialState = {
   isFetching: false,

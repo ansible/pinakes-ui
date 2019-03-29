@@ -3,6 +3,7 @@
 exports[`<Platforms /> should render correctly 1`] = `
 <Platforms
   fetchPlatforms={[Function]}
+  isLoading={false}
   platforms={Array []}
   searchFilter=""
   store={

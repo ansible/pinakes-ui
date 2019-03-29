@@ -1,4 +1,4 @@
-import platformReducer from '../../../redux/reducers/platformReducer';
+import platformReducer from '../../../redux/reducers/platform-reducer';
 import { callReducer } from '../redux-helpers';
 
 import {
@@ -8,7 +8,7 @@ import {
   FETCH_PLATFORM_ITEM,
   FILTER_PLATFORM_ITEMS,
   FETCH_MULTIPLE_PLATFORM_ITEMS
-} from '../../../redux/ActionTypes';
+} from '../../../redux/action-types';
 
 describe('Platform reducer', () => {
   let initialState;

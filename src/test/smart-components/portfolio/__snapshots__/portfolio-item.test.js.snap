@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PortfolioItem /> should render correctly 1`] = `
+<GalleryItem>
+  <Card
+    className="content-gallery-card"
+    component="article"
+  >
+    <Link
+      className="card-link"
+      to="/order"
+    >
+      <CardHeader
+        className="card_header"
+        component="div"
+      >
+        <ImageWithDefault
+          height="20"
+          src="test-file-stub"
+          width="30"
+        />
+      </CardHeader>
+      <ServiceOfferingCardBody
+        description="Bar"
+        display_name="quux"
+        id="1"
+        name="Foo"
+        orderUrl="/order"
+      />
+      <CardFooter
+        className=""
+        component="div"
+      />
+    </Link>
+  </Card>
+</GalleryItem>
+`;

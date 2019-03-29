@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import PlatformItem from '../../../PresentationalComponents/Platform/PlatformItem';
+import PlatformItem from '../../../presentational-components/platform/platform-item';
 
 describe('<PlatformItem />', () => {
   let initialProps;

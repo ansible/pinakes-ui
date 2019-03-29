@@ -6,8 +6,8 @@ import configureStore from 'redux-mock-store' ;
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../../Utilities/Constants';
-import AddProductsPagination from '../../../../SmartComponents/Portfolio/add-products-to-portfolio/add-products-pagination';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../../utilities/constants';
+import AddProductsPagination from '../../../../smart-components/portfolio/add-products-to-portfolio/add-products-pagination';
 
 describe('<AddProductsPagination />', () => {
   let initialProps;

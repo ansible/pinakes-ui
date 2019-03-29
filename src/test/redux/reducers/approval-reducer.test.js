@@ -1,6 +1,6 @@
 import { callReducer } from '../redux-helpers';
 import approvalReducer from '../../../redux/reducers/approval-reducer';
-import { ASYNC_ACTIONS } from '../../../redux/ActionTypes/approval-action-types';
+import { ASYNC_ACTIONS } from '../../../redux/action-types/approval-action-types';
 
 describe('approvalReducer', () => {
   let initialState;
