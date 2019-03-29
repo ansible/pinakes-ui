@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production' && betaBranch) {
   appDeploy = 'beta/apps';
 }
 
-const publicPath = `/${appDeploy}/${insights.appName}/`;
+const publicPath = `/${appDeploy}/${insights.appname}/`;
 
 module.exports = {
   paths: {

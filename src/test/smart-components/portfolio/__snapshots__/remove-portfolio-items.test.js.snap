@@ -34,7 +34,6 @@ exports[`<RemovePortfolioItems /> should render correctly 1`] = `
           className={null}
         >
           <Link
-            replace={false}
             to="/"
           >
             <Button

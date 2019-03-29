@@ -9,7 +9,6 @@ exports[`<EditToolbarActions /> should render correctly 1`] = `
   <LevelItem>
     <div>
       <Link
-        replace={false}
         to="/foo/bar"
       >
         <a

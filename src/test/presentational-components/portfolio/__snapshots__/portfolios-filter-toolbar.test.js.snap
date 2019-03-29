@@ -24,7 +24,6 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
       className={null}
     >
       <Link
-        replace={false}
         to="/portfolios/add-portfolio"
       >
         <Button

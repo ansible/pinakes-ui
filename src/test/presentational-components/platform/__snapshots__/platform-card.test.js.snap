@@ -9,7 +9,6 @@ exports[`<PlatformCard /> should choose card image 1`] = `
     <div>
       <Link
         className="card-link"
-        replace={false}
         to="/platforms/detail/undefined"
       >
         <a
@@ -111,7 +110,6 @@ exports[`<PlatformCard /> should render correctly 1`] = `
     <div>
       <Link
         className="card-link"
-        replace={false}
         to="/platforms/detail/undefined"
       >
         <a

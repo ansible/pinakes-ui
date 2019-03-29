@@ -39,7 +39,7 @@ describe('<AddProductsToPortfolio />', () => {
   it('should render correctly', () => {
     const store = mockStore({});
     const wrapper = shallow(<MemoryRouter><AddProductsToPortfolio store={ store } { ...initialProps } /></MemoryRouter>).dive();
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
+    expect(shallowToJson(wrapper.find(AddProductsToPortfolio))).toMatchSnapshot();
   });
 
   it('should correctly filter service offerings', done => {
