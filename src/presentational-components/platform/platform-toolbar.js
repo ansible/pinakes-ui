@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Level, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
+import { Level, LevelItem } from '@patternfly/react-core';
 import TopToolbar, { TopToolbarTitle } from '../shared/top-toolbar';
 import FilterToolbarItem from '../shared/filter-toolbar-item';
 
@@ -8,18 +8,12 @@ const PlatformToolbar = ({ searchValue, onFilterChange, title, children }) => (
   <TopToolbar>
     <TopToolbarTitle title={ title } />
     <Level>
-      <Toolbar>
-        <ToolbarGroup>
-          <ToolbarItem>
-            <FilterToolbarItem searchValue={ searchValue } onFilterChange={ onFilterChange } placeholder="Filter by name..." />
-          </ToolbarItem>
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <ToolbarItem>
-            { children }
-          </ToolbarItem>
-        </ToolbarGroup>
-      </Toolbar>
+      <LevelItem>
+        <FilterToolbarItem searchValue={ searchValue } onFilterChange={ onFilterChange } placeholder="Filter by name..." />
+      </LevelItem>
+      <LevelItem>
+        { children }
+      </LevelItem>
     </Level>
   </TopToolbar>
 );
