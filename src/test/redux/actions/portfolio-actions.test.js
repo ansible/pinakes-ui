@@ -1,7 +1,6 @@
 import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { Portfolio } from '@manageiq/catalog-api-jsclient';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import {
   FETCH_PORTFOLIOS,
@@ -41,7 +40,7 @@ describe('Portfolio actions', () => {
         isLoading: false
       }
     });
-    const expectedPortfolio = new Portfolio('Name', 'Description');
+    const expectedPortfolio = { name: 'Name', description: 'Description' };
 
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`

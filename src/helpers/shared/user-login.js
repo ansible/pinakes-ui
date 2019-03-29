@@ -11,7 +11,6 @@ const resolveInterceptor = response => response.data || response;
 axiosInstance.interceptors.response.use(resolveInterceptor);
 
 const catalogAdmin = new CatalogAdminsApi(undefined, CATALOG_API_BASE, axiosInstance);
-window.magix = catalogAdmin;
 
 const defaultClient = TopologicalInventoryApiClient.instance;
 defaultClient.basePath = TOPOLOGICAL_INVENTORY_API_BASE;
