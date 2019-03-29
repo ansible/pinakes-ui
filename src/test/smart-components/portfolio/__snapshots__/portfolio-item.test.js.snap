@@ -8,7 +8,6 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
   >
     <Link
       className="card-link"
-      replace={false}
       to="/order"
     >
       <CardHeader

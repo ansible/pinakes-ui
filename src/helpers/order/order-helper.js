@@ -1,5 +1,5 @@
 /* eslint camelcase: 0 */
-import * as CatalogApi from '@manageiq/service-portal-api';
+import * as CatalogApi from '@manageiq/catalog-api-jsclient';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
 let api = new CatalogApi.AdminsApi();

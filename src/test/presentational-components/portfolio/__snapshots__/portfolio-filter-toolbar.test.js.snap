@@ -24,7 +24,6 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
       className={null}
     >
       <Link
-        replace={false}
         to="/add"
       >
         <Button
@@ -51,7 +50,6 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
       className={null}
     >
       <Link
-        replace={false}
         to="/remove-products"
       >
         <Button
@@ -88,7 +86,6 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
             >
               <Link
                 className="pf-c-dropdown__menu-item"
-                replace={false}
                 role="link"
                 to="/edit"
               >
@@ -120,7 +117,6 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
             >
               <Link
                 className="pf-c-dropdown__menu-item destructive-color"
-                replace={false}
                 role="link"
                 to="/remove-portfolio"
               >

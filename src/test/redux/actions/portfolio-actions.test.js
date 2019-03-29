@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { Portfolio } from '@manageiq/service-portal-api';
+import { Portfolio } from '@manageiq/catalog-api-jsclient';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import {
   FETCH_PORTFOLIOS,
