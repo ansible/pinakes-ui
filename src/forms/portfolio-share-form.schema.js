@@ -49,7 +49,7 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => (
     fields: [{
       name: `${groupShareInfo.group_name}`,
       label: `${groupShareInfo.group_name}`,
-      isRequired: true,
+      isRequired: false,
       component: componentTypes.SELECT,
       options: permissionVerbs
     }]

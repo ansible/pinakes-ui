@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormSelect, FormSelectOption, FormGroup, TextContent, Text, TextVariants } from '@patternfly/react-core';
 
 const createOptions = (options, inputValue, isRequired) => {
-  if (inputValue && isRequired) {
+  if (inputValue) {
     return options;
   }
 

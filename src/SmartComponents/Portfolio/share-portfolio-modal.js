@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FormRenderer from '../Common/FormRenderer';
 import { withRouter } from 'react-router-dom';
@@ -29,7 +29,21 @@ const SharePortfolioModal = ({
     fetchShareInfo(portfolioId);
     fetchRbacGroups();
   }, []);
-  const onSubmit = data => sharePortfolio(data).then(goBack).then(() => fetchPortfolios());
+
+  useEffect(() => {
+    setInitialSharesList(shareInfo);
+  }, [ isLoading ]);
+
+  const [ initialSharesList, setInitialSharesList ] = useState();
+
+  const onSubmit = data =>
+  {
+    console.log( 'InitialShareList', initialSharesList );
+    console.log( 'shareInfo', shareInfo );
+    console.log( 'OnSubmit data', data);
+    console.log( 'rbacGroups', rbacGroups );
+    sharePortfolio(data).then(goBack).then(() => fetchPortfolios());
+  }
 
   const onCancel = () => pipe(
     addNotification({
@@ -71,7 +85,7 @@ const SharePortfolioModal = ({
           schemaType="default"
           onSubmit={ onSubmit }
           onCancel={ onCancel }
-          initialValues={{ ...initialValues, ...initialShares()} }
+          initialValues={ { ...initialValues, ...initialShares() } }
           formContainer="modal"
           buttonsLabels={ { submitLabel: 'Send' } }
         />
