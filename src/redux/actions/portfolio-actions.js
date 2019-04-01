@@ -1,5 +1,6 @@
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
+import * as ShareHelper from '../../helpers/share/share-helper';
 
 export const doFetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
@@ -109,12 +110,12 @@ export const selectPortfolioItem = (portfolioItem) => ({
 
 export const queryPortfolio = apiProps => ({
   type: ActionTypes.QUERY_PORTFOLIO,
-  payload: PortfolioHelper.queryPortfolio(apiProps).then(({ data }) => data)
+  payload: ShareHelper.queryPortfolio(apiProps).then(({ data }) => data)
 });
 
 export const sharePortfolio = (portfolioData) => ({
   type: ActionTypes.SHARE_PORTFOLIO,
-  payload: PortfolioHelper.sharePortfolio({
+  payload: ShareHelper.sharePortfolio({
     ...portfolioData
   }),
   meta: {
@@ -135,7 +136,7 @@ export const sharePortfolio = (portfolioData) => ({
 
 export const unsharePortfolio = (portfolioData) => ({
   type: ActionTypes.UNSHARE_PORTFOLIO,
-  payload: PortfolioHelper.unsharePortfolio({
+  payload: ShareHelper.unsharePortfolio({
     ...portfolioData
   }),
   meta: {

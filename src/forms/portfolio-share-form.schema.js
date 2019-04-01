@@ -11,7 +11,7 @@ const newShareSchema = (rbacGroups, permissionVerbs) => (
       name: 'new_share',
       key: '1',
       fields: [{
-        name: 'group',
+        name: 'group_uuid',
         component: componentTypes.SELECT,
         options: rbacGroups
       }, {
@@ -61,12 +61,7 @@ export const createPortfolioShareSchema = (shareItems, permissionVerbs) => {
   let rbacGroups = shareItems.groups;
   let formSchema = newShareSchema(rbacGroups, permissionVerbs);
   let groupInfoFields = shareInfo.map((group) =>(groupShareSchema(group, permissionVerbs)));
-  console.log('permissionVerbs', permissionVerbs);
-  console.log('groupInfoFields', groupInfoFields);
-  console.log('formSchema', formSchema);
   let shareListSchema =  { ...groupListSchema([ ...groupInfoFields ]) };
-  console.log('shareListSchema', shareListSchema);
   let portfolioSchema =  { fields: [ ...formSchema.fields, ...shareListSchema.fields ]};
-  console.log('portfolioSchema', portfolioSchema);
   return portfolioSchema;
 };

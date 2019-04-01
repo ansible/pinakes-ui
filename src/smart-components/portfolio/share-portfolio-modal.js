@@ -32,29 +32,41 @@ const SharePortfolioModal = ({
 
   const initialShares = () => {
     let initialGroupShareList = shareInfo.map((group) => { const groupName = group.group_name;
-      return { [groupName]: (permissionOptions.find(perm => (perm.value === group.permissions.join(',')))).value };});
-    console.log('initialGroupShareList', initialGroupShareList);
+      let options = permissionOptions.find(perm => (perm.value === group.permissions.sort().join(',')));
+      return { [groupName]: options ? options.value : 'Unknown' };});
     let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
-    console.log('initialShareList', initialShareList);
+
     return initialShareList;
   };
 
   const onSubmit = data =>
   {
-    console.log('InitialShares', initialShares());
-    console.log('shareInfo', shareInfo);
-    console.log('OnSubmit data', data);
-    console.log('rbacGroups', rbacGroups);
     let sharePromises = [];
-    if (data.group && data.permissions) {
+    if (data.group_uuid && data.permissions) {
       sharePromises.push(sharePortfolio(data));
     }
 
     shareInfo.map(share => {
-      let initialPerm = share.permissions.join(',');
+      let initialPerm = share.permissions.sort().join(',');
       if (data[share.group_name] !== initialPerm) {
         if (!data[share.group_name]) {
-          sharePromises.push(unsharePortfolio({ portfolioId, permissions: share.permissions, group_uuid: share.group_uuid }));
+          sharePromises.push(unsharePortfolio({ id: portfolioId, permissions: share.permissions, group_uuid: share.group_uuid }));
+        }
+        else {
+          if (share.permissions.length > data[share.group_name].split(',').length) {
+            sharePromises.push(unsharePortfolio({
+              id: portfolioId,
+              permissions: [ 'catalog:portfolios:write' ],
+              group_uuid: share.group_uuid
+            }));
+          }
+          else {
+            sharePromises.push(sharePortfolio({
+              id: portfolioId,
+              permissions: data[share.group_name],
+              group_uuid: share.group_uuid
+            }));
+          }
         }
       }
     });
@@ -71,8 +83,9 @@ const SharePortfolioModal = ({
     goBack()
   );
 
-  const permissionOptions = [{ value: 'catalog:portfolios:read,catalog:portfolios:write,catalog:portfolios:order', label: 'Can order/edit' },
-    { value: 'catalog:portfolios:read,catalog:portfolios:order', label: 'Can order/view' }];
+  const permissionOptions = [{ value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
+    label: 'Can order/edit' },
+  { value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view' }];
 
   const shareItems = () => {
     let groupsWithNoSharing = rbacGroups.filter((item) => {

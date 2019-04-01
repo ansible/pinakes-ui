@@ -1,10 +1,9 @@
-import { getUserApi, getUserAccess } from '../shared/user-login';
+import { getUserApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
 const userApi = getUserApi();
 
 export function listPortfolios() {
-  getUserAccess();
   return userApi.listPortfolios();
 }
 

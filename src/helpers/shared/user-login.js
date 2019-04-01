@@ -50,17 +50,3 @@ export function getRbacGroupApi() {
 export function getWorkflowApi() {
   return workflowApi;
 }
-
-export async function getUserAccess() {
-  let application = 'rbac'; // String | The application name to obtain access for the principal
-  let opts = {
-    pageSize: 10, // Number | Parameter for selecting the amount of data in a page.
-    page: 1 // Number | Parameter for selecting the page of data.
-  };
-
-  rbacAccessApi.getPrincipalAccess(application, opts).then((data) => {
-    console.log('User Access API called successfully. Returned data: ' + data);
-  }, (error) => {
-    console.error(error);
-  });
-}
