@@ -8,7 +8,7 @@ import './portfolio-card.scss';
 const PortfolioCardHeader = ({ backgroundSrc, portfolioName, headerActions }) => (
   <div className="portfolio-card-header" style={ { backgroundImage: `url(${backgroundSrc})` } }>
     <Toolbar>
-      <ToolbarGroup style={ {
+      <ToolbarGroup onClick={ event => event.preventDefault() } style={ {
         marginLeft: 'auto',
         paddingBottom: 16
       } }>
