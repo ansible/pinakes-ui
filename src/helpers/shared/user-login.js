@@ -6,7 +6,6 @@ import { DefaultApi, ApiClient as TopologicalInventoryApiClient } from '@managei
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
 import { AccessApi, PrincipalApi, GroupApi, ApiClient } from 'rbac_api_jsclient';
 
-
 const axiosInstance = axios.create();
 
 const resolveInterceptor = response => response.data || response;
@@ -55,7 +54,6 @@ export function getWorkflowApi() {
 export async function getUserAccess() {
   let application = 'rbac'; // String | The application name to obtain access for the principal
   let opts = {
-    //'username': "mkanoor@redhat.com", // String | Unique username of the principal to obtain access for
     pageSize: 10, // Number | Parameter for selecting the amount of data in a page.
     page: 1 // Number | Parameter for selecting the page of data.
   };

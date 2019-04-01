@@ -37,12 +37,12 @@ export const unsharePortfolio = (portfolioData) => ({
       fulfilled: {
         variant: 'success',
         title: 'Success updating portfolio',
-        description: 'The portfolio was shared successfully.'
+        description: 'The portfolio was unshared successfully.'
       },
       rejected: {
         variant: 'danger',
         title: 'Failed updating portfolio',
-        description: 'The portfolio was not shared successfully.'
+        description: 'The portfolio was not unshared successfully.'
       }
     }
   }

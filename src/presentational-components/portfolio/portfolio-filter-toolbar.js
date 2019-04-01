@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, Dropdown, DropdownItem, DropdownPosition, KebabToggle, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
+import { Button, Dropdown, DropdownItem, DropdownPosition,
+  DropdownSeparator, KebabToggle, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
 import FilterToolbarItem from '../shared/filter-toolbar-item';
 
 const PortfolioFilterToolbar = ({
@@ -51,6 +52,7 @@ const PortfolioFilterToolbar = ({
                   Share
                 </Link>
               </DropdownItem>,
+              <DropdownSeparator key="separator"/>,
               <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
                 <Link to={ editPortfolioRoute } role="link" className="pf-c-dropdown__menu-item">
                   Edit

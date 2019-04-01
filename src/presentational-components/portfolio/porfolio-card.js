@@ -10,14 +10,13 @@ import {
   Dropdown,
   DropdownItem,
   DropdownPosition,
+  DropdownSeparator,
   GalleryItem,
   KebabToggle,
   Text,
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
-import { Card, CardHeader, CardBody, CardFooter, Button, GalleryItem } from '@patternfly/react-core';
-import { EditAltIcon, TrashIcon, ShareAltIcon } from '@patternfly/react-icons';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
@@ -35,6 +34,12 @@ const createToolbarActions = (portfolioName, portfolioId, isOpen, setOpen) => [
     position={ DropdownPosition.right }
     toggle={ <KebabToggle onToggle={ setOpen } style={ { color: ICON_FILL } }/> }
     dropdownItems={ [
+      <DropdownItem key="share-portfolio-action">
+        <Link to={ `/portfolios/share/${portfolioId}` } className="pf-c-dropdown__menu-item" >
+          Share
+        </Link>
+      </DropdownItem>,
+      <DropdownSeparator key="share-portfolio-separator"/>,
       <DropdownItem key="edit-portfolio-action">
         <Link to={ `/portfolios/edit/${portfolioId}` } className="pf-c-dropdown__menu-item" >
           Edit

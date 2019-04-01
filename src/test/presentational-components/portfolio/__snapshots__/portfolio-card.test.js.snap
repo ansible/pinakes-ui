@@ -32,6 +32,27 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                     >
                       <Link
                         className="pf-c-dropdown__menu-item"
+                        to="/portfolios/share/123"
+                      >
+                        Share
+                      </Link>
+                    </Item>,
+                    <Separator
+                      className=""
+                      component="a"
+                      href="#"
+                      isDisabled={false}
+                      isHovered={false}
+                    />,
+                    <Item
+                      className=""
+                      component="a"
+                      href="#"
+                      isDisabled={false}
+                      isHovered={false}
+                    >
+                      <Link
+                        className="pf-c-dropdown__menu-item"
                         to="/portfolios/edit/123"
                       >
                         Edit

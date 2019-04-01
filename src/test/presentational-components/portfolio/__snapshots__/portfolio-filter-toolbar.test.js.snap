@@ -91,6 +91,13 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
                 Share
               </Link>
             </Item>,
+            <Separator
+              className=""
+              component="a"
+              href="#"
+              isDisabled={false}
+              isHovered={false}
+            />,
             <Item
               aria-label="Edit Portfolio"
               className=""
