@@ -68,7 +68,15 @@ describe('<PortfolioItemDetail />', () => {
 
   it.skip('should mount show loader', done => {
     const store = mockStore(initialState);
-    fetchMock.getOnce(`${APPROVAL_API_BASE}/workflows`, { data: []});
+
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
+      body: {
+        data: [{
+          name: 'workflow',
+          id: '123'
+        }]
+      }
+    }));
     fetchMock.getOnce(`begin:${CATALOG_API_BASE}/portfolio_items`, { name: 'foo', id: 'bar' });
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
     const wrapper = mount(
@@ -94,7 +102,15 @@ describe('<PortfolioItemDetail />', () => {
       }
     };
     const store = mockStore(loadedState);
-    fetchMock.getOnce(`${APPROVAL_API_BASE}/workflows`, { data: []});
+
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
+      body: {
+        data: [{
+          name: 'workflow',
+          id: '123'
+        }]
+      }
+    }));
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 

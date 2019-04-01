@@ -58,12 +58,15 @@ describe('<AddPortfolioModal />', () => {
 
   it('should create edit variant of portfolio modal', done => {
     const store = mockStore(initialState);
-    fetchMock.getOnce(`${APPROVAL_API_BASE}/workflows`, {
-      data: [{
-        label: 'foo',
-        value: 'bar'
-      }]
-    });
+
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
+      body: {
+        data: [{
+          name: 'workflow',
+          id: '123'
+        }]
+      }
+    }));
 
     const expectedSchema = {
       fields: [{
