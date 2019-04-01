@@ -18,52 +18,65 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           backgroundSrc="test-file-stub"
           headerActions={
             Array [
-              <Link
-                to="/portfolios/edit/123"
-              >
-                <Button
-                  aria-label="edit-portfolio-name"
-                  className=""
-                  component="button"
-                  isActive={false}
-                  isBlock={false}
-                  isDisabled={false}
-                  isFocus={false}
-                  isHover={false}
-                  type="button"
-                  variant="plain"
-                >
-                  <EditAltIcon
-                    color="currentColor"
-                    fill="white"
-                    size="sm"
-                    title={null}
+              <Dropdown
+                className=""
+                direction="down"
+                dropdownItems={
+                  Array [
+                    <Item
+                      className=""
+                      component="a"
+                      href="#"
+                      isDisabled={false}
+                      isHovered={false}
+                    >
+                      <Link
+                        className="pf-c-dropdown__menu-item"
+                        to="/portfolios/edit/123"
+                      >
+                        Edit
+                      </Link>
+                    </Item>,
+                    <Item
+                      className=""
+                      component="a"
+                      href="#"
+                      isDisabled={false}
+                      isHovered={false}
+                    >
+                      <Link
+                        className="pf-c-dropdown__menu-item destructive-color"
+                        to="/portfolios/remove/123"
+                      >
+                        Delete
+                      </Link>
+                    </Item>,
+                  ]
+                }
+                isOpen={false}
+                isPlain={true}
+                onSelect={[Function]}
+                position="right"
+                toggle={
+                  <Kebab
+                    aria-label="Actions"
+                    className=""
+                    id=""
+                    isActive={false}
+                    isFocused={false}
+                    isHovered={false}
+                    isOpen={false}
+                    isPlain={false}
+                    onToggle={[Function]}
+                    parentRef={null}
+                    style={
+                      Object {
+                        "color": "white",
+                      }
+                    }
                   />
-                </Button>
-              </Link>,
-              <Link
-                to="/portfolios/remove/123"
-              >
-                <Button
-                  aria-label="remove-portfolio-name"
-                  className=""
-                  component="button"
-                  isActive={false}
-                  isBlock={false}
-                  isDisabled={false}
-                  isFocus={false}
-                  isHover={false}
-                  type="button"
-                  variant="plain"
-                >
-                  <TrashIcon
-                    color="currentColor"
-                    fill="white"
-                    size="sm"
-                    title={null}
-                  />
-                </Button>
-              </Link>,
+                }
+              />,
             ]
           }
           portfolioName="name"
@@ -73,6 +86,18 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         className=""
         component="div"
       >
+        <TextContent
+          className=""
+        >
+          <Text
+            className=""
+            component="small"
+          >
+            Last modified 
+            Invalid Date
+             by 
+          </Text>
+        </TextContent>
         <ItemDetails
           description="description"
           modified="modified"
@@ -81,7 +106,6 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           toDisplay={
             Array [
               "description",
-              "modified",
             ]
           }
         />
