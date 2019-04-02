@@ -40,7 +40,7 @@ describe('<AddProductsPagination />', () => {
     const fetchPlatformItems = jest.fn();
     const wrapper = mount(<AddProductsPagination { ...initialProps } store={ store } fetchPlatformItems={ fetchPlatformItems } />);
     const lastPageButton = wrapper.find('button').at(3);
-    const expectedUrl = `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?archived_at=&limit=50&offset=50`;
+    const expectedUrl = `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?filter[archived_at][nil]&limit=50&offset=50`;
     fetchMock.getOnce(`begin:${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?`, {
       data: [],
       meta: {
@@ -63,7 +63,7 @@ describe('<AddProductsPagination />', () => {
     const fetchPlatformItems = jest.fn();
     const wrapper = mount(<AddProductsPagination { ...initialProps } store={ store } fetchPlatformItems={ fetchPlatformItems } />);
     const lastPageButton = wrapper.find('button').last();
-    const expectedUrl = `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?archived_at=&limit=50&offset=100`;
+    const expectedUrl = `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?filter[archived_at][nil]&limit=50&offset=100`;
     fetchMock.getOnce(`begin:${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?`, {
       data: [],
       meta: {
