@@ -15,13 +15,8 @@ export const sharePortfolio = (portfolioData) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: 'Success updating portfolio',
+        title: 'Success sharing portfolio',
         description: 'The portfolio was shared successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed updating portfolio',
-        description: 'The portfolio was not shared successfully.'
       }
     }
   }
@@ -36,13 +31,8 @@ export const unsharePortfolio = (portfolioData) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: 'Success updating portfolio',
+        title: 'Success unsharing portfolio',
         description: 'The portfolio was unshared successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed updating portfolio',
-        description: 'The portfolio was not unshared successfully.'
       }
     }
   }

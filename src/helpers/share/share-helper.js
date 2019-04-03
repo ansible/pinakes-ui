@@ -4,7 +4,7 @@ import { CATALOG_API_BASE } from '../../utilities/constants';
 const userApi = getUserApi();
 
 export async function getShareInfo(portfolioId) {
-  //return userApi.shareInfo(portfolioId);
+  // TODO - switch to calling tne API client method: return userApi.shareInfo(portfolioId);
   return await fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`).then(data => data.json());
 }
 

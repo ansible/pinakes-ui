@@ -5,7 +5,7 @@
 const localhost = (process.env.PLATFORM === 'linux') ? 'localhost' : 'host.docker.internal';
 
 exports.routes = {
-    '/hcm/catalog': { host: `http://${localhost}:8002` },
+    '/hybrid/catalog': { host: `http://${localhost}:8002` },
     '/apps/catalog': { host: `http://${localhost}:8002` },
     '/apps/chrome': { host: 'https://ci.cloud.paas.upshift.redhat.com' }
 };

@@ -16,7 +16,6 @@ const newShareSchema = (rbacGroups, permissionVerbs) => (
         options: rbacGroups
       }, {
         name: 'permissions',
-        isRequired: true,
         component: componentTypes.SELECT,
         options: permissionVerbs
       }
@@ -49,7 +48,6 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => (
     fields: [{
       name: `${groupShareInfo.group_name}`,
       label: `${groupShareInfo.group_name}`,
-      isRequired: false,
       component: componentTypes.SELECT,
       options: [ ...permissionVerbs, { value: '', label: 'None' }]
     }]
@@ -57,11 +55,11 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => (
 );
 
 export const createPortfolioShareSchema = (shareItems, permissionVerbs) => {
-  let shareInfo = shareItems.items;
-  let rbacGroups = shareItems.groups;
-  let formSchema = newShareSchema(rbacGroups, permissionVerbs);
-  let groupInfoFields = shareInfo.map((group) =>(groupShareSchema(group, permissionVerbs)));
-  let shareListSchema =  { ...groupListSchema([ ...groupInfoFields ]) };
-  let portfolioSchema =  { fields: [ ...formSchema.fields, ...shareListSchema.fields ]};
+  const shareInfo = shareItems.items;
+  const rbacGroups = shareItems.groups;
+  const formSchema = newShareSchema(rbacGroups, permissionVerbs);
+  const groupInfoFields = shareInfo.map((group) => (groupShareSchema(group, permissionVerbs)));
+  const shareListSchema =  { ...groupListSchema([ ...groupInfoFields ]) };
+  const portfolioSchema =  { fields: [ ...formSchema.fields, ...shareListSchema.fields ]};
   return portfolioSchema;
 };

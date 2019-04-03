@@ -1,6 +1,5 @@
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
-import * as ShareHelper from '../../helpers/share/share-helper';
 
 export const doFetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
@@ -108,49 +107,3 @@ export const selectPortfolioItem = (portfolioItem) => ({
   payload: portfolioItem
 });
 
-export const queryPortfolio = apiProps => ({
-  type: ActionTypes.QUERY_PORTFOLIO,
-  payload: ShareHelper.queryPortfolio(apiProps).then(({ data }) => data)
-});
-
-export const sharePortfolio = (portfolioData) => ({
-  type: ActionTypes.SHARE_PORTFOLIO,
-  payload: ShareHelper.sharePortfolio({
-    ...portfolioData
-  }),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success updating portfolio',
-        description: 'The portfolio was shared successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed updating portfolio',
-        description: 'The portfolio was not shared successfully.'
-      }
-    }
-  }
-});
-
-export const unsharePortfolio = (portfolioData) => ({
-  type: ActionTypes.UNSHARE_PORTFOLIO,
-  payload: ShareHelper.unsharePortfolio({
-    ...portfolioData
-  }),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success updating portfolio',
-        description: 'The portfolio was shared successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed updating portfolio',
-        description: 'The portfolio was not shared successfully.'
-      }
-    }
-  }
-});

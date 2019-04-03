@@ -46,7 +46,7 @@ const SharePortfolioModal = ({
       sharePromises.push(sharePortfolio(data));
     }
 
-    shareInfo.map(share => {
+    shareInfo.forEach(share => {
       let initialPerm = share.permissions.sort().join(',');
       if (data[share.group_name] !== initialPerm) {
         if (!data[share.group_name]) {
