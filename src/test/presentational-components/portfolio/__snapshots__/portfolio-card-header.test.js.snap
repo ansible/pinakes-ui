@@ -14,6 +14,7 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
   >
     <ToolbarGroup
       className={null}
+      onClick={[Function]}
       style={
         Object {
           "marginLeft": "auto",

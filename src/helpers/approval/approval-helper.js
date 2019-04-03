@@ -1,3 +1,3 @@
-import { APPROVAL_API_BASE } from '../../utilities/constants';
+import { getWorkflowApi } from '../shared/user-login';
 
-export const getApprovalWorkflows = () => fetch(`${APPROVAL_API_BASE}/workflows`).then(data => data.json());
+export const getApprovalWorkflows = () => getWorkflowApi().listWorkflows();

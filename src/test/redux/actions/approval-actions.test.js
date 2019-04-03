@@ -31,15 +31,18 @@ describe('approval actions', () => {
       type: ASYNC_ACTIONS.FETCH_WORKFLOWS_FULFILLED
     }];
 
-    fetchMock.getOnce(`${APPROVAL_API_BASE}/workflows`, {
-      data: [{
-        name: 'workflow',
-        id: '123'
-      }]
-    });
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
+      body: {
+        data: [{
+          name: 'workflow',
+          id: '123'
+        }]
+      }
+    }));
 
     return store.dispatch(fetchWorkflows()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
+

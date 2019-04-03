@@ -15,7 +15,7 @@ export function getPlatformItems(apiProps, options) {
   let apiPromise = null;
 
   if (apiProps) {
-    apiPromise = fetch(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?archived_at=${options
+    apiPromise = fetch(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?filter[archived_at][nil]${options
       ? `&limit=${options.limit}&offset=${options.offset}`
       : ''}`).then(data =>  data.json());
   } else {

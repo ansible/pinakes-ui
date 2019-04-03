@@ -29,7 +29,7 @@ describe('<PortfolioCard />', () => {
         <PortfolioCard { ...initialProps } />
       </MemoryRouter>
     );
-    expect(wrapper.find('button')).toHaveLength(2);
+    expect(wrapper.find('button')).toHaveLength(1);
 
   });
 });

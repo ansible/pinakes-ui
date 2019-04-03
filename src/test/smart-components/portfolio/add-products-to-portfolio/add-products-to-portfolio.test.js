@@ -62,7 +62,7 @@ describe('<AddProductsToPortfolio />', () => {
         <AddProductsToPortfolio { ...initialProps } />
       </ComponentWrapper>
     );
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=&limit=50&offset=0`, {
+    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
       data: [{
         id: '123', name: 'platformItem', description: 'description'
       }],
@@ -109,7 +109,7 @@ describe('<AddProductsToPortfolio />', () => {
         <AddProductsToPortfolio { ...initialProps } portfolio={ { id: '321' } } />
       </ComponentWrapper>
     );
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?archived_at=&limit=50&offset=0`, {
+    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
       data: [{
         id: '123', name: 'platformItem', description: 'description'
       }],
