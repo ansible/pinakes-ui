@@ -4,12 +4,13 @@ import FormRenderer from '../common/form-renderer';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal } from '@patternfly/react-core';
+import { Modal, Title } from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/actions/share-actions';
 import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
+import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 import { pipe } from 'rxjs';
 
 const SharePortfolioModal = ({
@@ -95,28 +96,44 @@ const SharePortfolioModal = ({
     };
   };
 
-  return (
-    <Modal
-      title={ 'Share portfolio' }
-      isOpen
-      isLarge
-      onClose={ onCancel }
-    >
-      <div style={ { padding: 8 } }>
-        { (!isLoading && rbacGroups.length > 0) &&
-        <FormRenderer
-          schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
-          schemaType="default"
-          onSubmit={ onSubmit }
-          onCancel={ onCancel }
-          initialValues={ { ...initialValues, ...initialShares() } }
-          formContainer="modal"
-          buttonsLabels={ { submitLabel: 'Send' } }
-        />
-        }
-      </div>
-    </Modal>
-  );
+  if (rbacGroups.length === 0) {
+    return (
+      <Modal
+        title={ 'Share portfolio' }
+        isOpen
+        isLarge
+        onClose={ onCancel }
+      >
+        { isLoading && <ShareLoader/> }
+        { !isLoading &&
+          <div style={ { padding: 8 } }>
+            <Title headingLevel="h2" size="1xl">
+              No groups available for sharing.
+            </Title>
+          </div> }
+      </Modal>);
+  } else {
+    return (
+      <Modal
+        title={ 'Share portfolio' }
+        isOpen
+        isLarge
+        onClose={ onCancel }
+      >
+        <div style={ { padding: 8 } }>
+          <FormRenderer
+            schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
+            schemaType="default"
+            onSubmit={ onSubmit }
+            onCancel={ onCancel }
+            initialValues={ { ...initialValues, ...initialShares() } }
+            formContainer="modal"
+            buttonsLabels={ { submitLabel: 'Send' } }
+          />
+        </div>
+      </Modal>
+    );
+  }
 };
 
 SharePortfolioModal.propTypes = {

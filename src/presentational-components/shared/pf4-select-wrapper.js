@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormSelect, FormSelectOption, FormGroup, TextContent, Text, TextVariants } from '@patternfly/react-core';
 
 const createOptions = (options, inputValue, isRequired) => {
-  if (inputValue) {
+  if (inputValue && isRequired) {
     return options;
   }
 
@@ -58,7 +58,7 @@ const Pf4SelectWrapper = ({
     <FormGroup
       isRequired={ isRequired }
       label={ !hideLabel && label }
-      fieldId={ rest.id || rest.uuid }
+      fieldId={ rest.id }
       isValid={ !showError }
       helperText={ helperText }
       helperTextInvalid={ meta.error }
