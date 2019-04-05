@@ -16,6 +16,7 @@ import OrderModal from '../common/order-modal';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
+import SharePortfolioModal from './share-portfolio-modal';
 
 class Portfolio extends Component {
   state = {
@@ -68,7 +69,8 @@ class Portfolio extends Component {
     this.setState({ filterValue });
   };
 
-  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute }) => (
+  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute,
+    editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute }) => (
     <Fragment>
       <TopToolbar>
         <TopToolbarTitle title={ title }/>
@@ -79,11 +81,13 @@ class Portfolio extends Component {
           removeProductsRoute={ removeProductsRoute }
           editPortfolioRoute={ editPortfolioRoute }
           removePortfolioRoute={ removePortfolioRoute }
+          sharePortfolioRoute={ sharePortfolioRoute }
           isLoading={ this.props.isLoading }
         />
       </TopToolbar>
       <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
+      <Route exact path="/portfolios/detail/:id/share-portfolio" component={ SharePortfolioModal } />
       <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ this.props.match.url } /> } />
       <ContentGallery { ...filteredItems } />
     </Fragment>
@@ -116,6 +120,7 @@ class Portfolio extends Component {
     const removeProductsRoute = `${this.props.match.url}/remove-products`;
     const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
     const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
+    const sharePortfolioRoute = `${this.props.match.url}/share-portfolio`;
     const orderUrl = `${this.props.match.url}/product`;
     const title = this.props.portfolio ? this.props.portfolio.name : '';
 
@@ -145,7 +150,8 @@ class Portfolio extends Component {
         <Route
           path={ portfolioRoute }
           render={ props => this.renderProducts(
-            { addProductsRoute, removeProductsRoute, editPortfolioRoute, removePortfolioRoute, filteredItems, title, ...props }) }
+            { addProductsRoute, removeProductsRoute, editPortfolioRoute,
+              removePortfolioRoute, sharePortfolioRoute, filteredItems, title, ...props }) }
         />
       </Switch>
     );

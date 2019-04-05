@@ -1,32 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, TextVariants, Toolbar, ToolbarGroup } from '@patternfly/react-core';
-import DefaultPortfolioImg from '../../assets/images/default-portfolio.jpg';
+import { Level, LevelItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 import './portfolio-card.scss';
 
-const PortfolioCardHeader = ({ backgroundSrc, portfolioName, headerActions }) => (
-  <div className="portfolio-card-header" style={ { backgroundImage: `url(${backgroundSrc})` } }>
-    <Toolbar>
-      <ToolbarGroup onClick={ event => event.preventDefault() } style={ {
-        marginLeft: 'auto',
-        paddingBottom: 16
-      } }>
-        { headerActions }
-      </ToolbarGroup>
-    </Toolbar>
-    <Text className="elipsis-text-overflow" component={ TextVariants.h4 }>{ portfolioName }</Text>
-  </div>
+const PortfolioCardHeader = ({ portfolioName, headerActions }) => (
+  <Level>
+    <LevelItem>
+      <TextContent>
+        <Text className="elipsis-text-overflow pf-u-mb-0" component={ TextVariants.h3 }>{ portfolioName }</Text>
+      </TextContent>
+    </LevelItem>
+    <LevelItem onClick={ event => event.preventDefault() }>
+      { headerActions }
+    </LevelItem>
+  </Level>
 );
 
 PortfolioCardHeader.propTypes = {
-  backgroundSrc: PropTypes.string,
   portfolioName: PropTypes.string.isRequired,
   headerActions: PropTypes.arrayOf(PropTypes.node)
 };
 
 PortfolioCardHeader.defaultProps = {
-  backgroundSrc: DefaultPortfolioImg,
   headerActions: []
 };
 

@@ -1,34 +1,37 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { IconPlaceholder } from './loader-placeholders';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-const CardIcon = ({ src, style, ...props }) => {
+import { IconPlaceholder } from './loader-placeholders';
+import CatItemSvg from '../../assets/images/vendor-openshift.svg';
+
+const CardIcon = ({ src, height }) => {
   const [ isLoaded, setLoaded ] = useState(false);
+  const [ isUnknow, setUnknown ] = useState(false);
   return (
-    <Fragment>
-      <img
-        src={ src }
-        { ...props }
+    <div style={ { display: 'inline-block' } }>
+      { !isLoaded && <IconPlaceholder style={ { height } } /> }
+      <LazyLoadImage
+        height={ isLoaded ? height : 0 }
+        style={ { height: isLoaded ? height : 0 } }
+        className={ `card-image ${!isLoaded ? 'hide' : ''}` }
+        onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        style={ isLoaded ? {
-          height: 40,
-          ...style
-        } : {
-          display: 'none'
-        } }
+        src={ isUnknow ? CatItemSvg : src }
       />
-      <IconPlaceholder style={ isLoaded ? { display: 'none' } : { height: 40 } } />
-    </Fragment>
+    </div>
   );
 };
 
 CardIcon.propTypes = {
   src: PropTypes.string.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  height: PropTypes.number
 };
 
 CardIcon.defaultProps = {
-  style: {}
+  style: {},
+  height: 40
 };
 
 export default CardIcon;

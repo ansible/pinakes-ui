@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import CatItemSvg from '../../assets/images/vendor-openshift.svg';
-import ImageWithDefault from '../../presentational-components/shared/image-with-default';
+import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardFooter, GalleryItem } from '@patternfly/react-core';
-import ServiceOfferingCardBody from '../../presentational-components/shared/service-offering-body';
+
+import { CATALOG_API_BASE } from '../../utilities/constants';
+import CardIcon from '../../presentational-components/shared/card-icon';
 import CardCheckbox from '../../presentational-components/shared/card-checkbox';
+import ServiceOfferingCardBody from '../../presentational-components/shared/service-offering-body';
+
 import './portfolio-item.scss';
 
 const PortfolioItem = props => {
@@ -17,7 +19,8 @@ const PortfolioItem = props => {
           isChecked={ props.isSelected }
           id={ props.id } />
         }
-        <ImageWithDefault src={ props.imageUrl || CatItemSvg } width="30" height="20" />
+
+        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon` }/>
       </CardHeader>
       <ServiceOfferingCardBody { ...props }/>
       <CardFooter>

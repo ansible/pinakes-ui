@@ -96,8 +96,8 @@ const CatalogBreadrubms = ({ match: { url }, reducers }) => {
     </BreadcrumbItem>
   ));
   return (
-    <Breadcrumb>
-      { items }
+    <Breadcrumb style={ { minHeight: 18 } }>
+      { items.length > 1 && items }
     </Breadcrumb>
   );
 };
