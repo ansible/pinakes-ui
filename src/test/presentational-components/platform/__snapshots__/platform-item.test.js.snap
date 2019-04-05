@@ -10,6 +10,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     component="div"
   >
     <CardIcon
+      height={40}
       src="/api/topological-inventory/v0.1/service_offering_icons/undefined/icon_data"
       style={
         Object {
