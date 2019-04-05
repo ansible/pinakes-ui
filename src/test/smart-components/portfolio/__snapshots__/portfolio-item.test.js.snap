@@ -14,10 +14,13 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
         className="card_header"
         component="div"
       >
-        <ImageWithDefault
-          height="20"
-          src="test-file-stub"
-          width="30"
+        <CardIcon
+          src="/api/catalog/v1.0/portfolio_items/1/icon"
+          style={
+            Object {
+              "height": 40,
+            }
+          }
         />
       </CardHeader>
       <ServiceOfferingCardBody
