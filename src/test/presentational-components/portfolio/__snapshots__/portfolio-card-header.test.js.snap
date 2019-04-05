@@ -1,33 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfolioCardHeader /> should render correctly 1`] = `
-<div
-  className="portfolio-card-header"
-  style={
-    Object {
-      "backgroundImage": "url(test-file-stub)",
-    }
-  }
+<Level
+  className=""
+  gutter={null}
 >
-  <Toolbar
-    className={null}
-  >
-    <ToolbarGroup
-      className={null}
-      onClick={[Function]}
-      style={
-        Object {
-          "marginLeft": "auto",
-          "paddingBottom": 16,
-        }
-      }
-    />
-  </Toolbar>
-  <Text
-    className="elipsis-text-overflow"
-    component="h4"
-  >
-    foo
-  </Text>
-</div>
+  <LevelItem>
+    <TextContent
+      className=""
+    >
+      <Text
+        className="elipsis-text-overflow pf-u-mb-0"
+        component="h3"
+      >
+        foo
+      </Text>
+    </TextContent>
+  </LevelItem>
+  <LevelItem
+    onClick={[Function]}
+  />
+</Level>
 `;
