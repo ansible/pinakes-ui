@@ -20,10 +20,9 @@ import {
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
-import { dateOptions } from '../../utilities/constants';
+import { createModifiedLabel } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = [ 'description' ];
-const ICON_FILL = 'white';
 
 const createToolbarActions = (portfolioName, portfolioId, isOpen, setOpen) => [
   <Dropdown
@@ -32,7 +31,7 @@ const createToolbarActions = (portfolioName, portfolioId, isOpen, setOpen) => [
     isPlain
     onSelect={ () => setOpen(false) }
     position={ DropdownPosition.right }
-    toggle={ <KebabToggle onToggle={ setOpen } style={ { color: ICON_FILL } }/> }
+    toggle={ <KebabToggle onToggle={ setOpen }/> }
     dropdownItems={ [
       <DropdownItem key="share-portfolio-action">
         <Link to={ `/portfolios/share/${portfolioId}` } className="pf-c-dropdown__menu-item" >
@@ -59,7 +58,7 @@ const PortfolioCard = ({ imageUrl, name, id, ...props }) => {
     <GalleryItem>
       <Card className="content-gallery-card">
         <Link className="card-link" to={ `/portfolios/detail/${id}` }>
-          <CardHeader className="card-image-header">
+          <CardHeader>
             <PortfolioCardHeader
               portfolioName={ name }
               headerActions={ createToolbarActions(name, id, isOpen, setOpen) }
@@ -68,10 +67,7 @@ const PortfolioCard = ({ imageUrl, name, id, ...props }) => {
           <CardBody>
             <TextContent>
               <Text component={ TextVariants.small }>
-                { `Last modified ` }
-                { new Date(props.updated_at || props.created_at).toLocaleDateString(...dateOptions) }
-                { ` by ` }
-                { props.owner }
+                { createModifiedLabel(new Date(props.updated_at || props.created_at), props.owner) }
               </Text>
             </TextContent>
             <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
