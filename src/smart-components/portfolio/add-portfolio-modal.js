@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
-import { pipe } from 'rxjs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
-import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import FormRenderer from '../common/form-renderer';
 import { fetchWorkflows } from '../../redux/actions/approval-actions';
@@ -15,7 +13,6 @@ import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/acti
 const AddPortfolioModal = ({
   history: { goBack },
   addPortfolio,
-  addNotification,
   fetchPortfolios,
   initialValues,
   updatePortfolio,
@@ -29,14 +26,7 @@ const AddPortfolioModal = ({
     ? updatePortfolio(data).then(goBack).then(() => fetchPortfolios())
     : addPortfolio(data).then(goBack).then(() => fetchPortfolios());
 
-  const onCancel = () => pipe(
-    addNotification({
-      variant: 'warning',
-      title: initialValues ? 'Editing portfolio' : 'Adding portfolio',
-      description: initialValues ? 'Edit portfolio was cancelled by the user.' : 'Adding portfolio was cancelled by the user.'
-    }),
-    goBack()
-  );
+  const onCancel = () => goBack();
 
   return (
     <Modal
@@ -83,7 +73,6 @@ const mapStateToProps = ({ approvalReducer: { workflows }, portfolioReducer: { p
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addNotification,
   addPortfolio,
   updatePortfolio,
   fetchPortfolios,
