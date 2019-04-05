@@ -11,6 +11,7 @@ import RemovePortfolio from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import Portfolio from './portfolio';
 import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
+import SharePortfolio from './share-portfolio-modal';
 
 const portfoliosRoutes = {
   portfolios: '',
@@ -51,6 +52,7 @@ class Portfolios extends Component {
         <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
+        <Route exact path="/portfolios/share/:id" component={ SharePortfolio } />
         <ContentGallery { ...filteredItems } />
       </Fragment>
     );}

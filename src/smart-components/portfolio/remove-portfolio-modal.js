@@ -11,21 +11,13 @@ import { pipe } from 'rxjs';
 const RemovePortfolioModal = ({
   history: { goBack, push },
   removePortfolio,
-  addNotification,
   fetchPortfolios,
   portfolio
 }) => {
   const onSubmit = () => removePortfolio(portfolio.id)
   .then(() => pipe(fetchPortfolios(), push('/portfolios')));
 
-  const onCancel = () => pipe(
-    addNotification({
-      variant: 'warning',
-      title: 'Removing portfolio',
-      description: 'Removing portfolio was cancelled by the user.'
-    }),
-    goBack()
-  );
+  const onCancel = () => goBack();
 
   if (!portfolio) {
     return null;

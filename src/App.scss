@@ -54,3 +54,13 @@
     color: #FF0000 !important;
   }
 }
+
+.card-image {
+  height: 40px;
+  &.hide {
+    display: none;
+    float: left;
+    height: 0px;
+    width: 0px;
+  }
+}
