@@ -6,17 +6,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal, Title } from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
-import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/actions/share-actions';
 import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
-import { pipe } from 'rxjs';
 
 const SharePortfolioModal = ({
   history: { goBack },
   isLoading,
-  addNotification,
   fetchPortfolios,
   initialValues,
   fetchShareInfo,
@@ -75,14 +72,7 @@ const SharePortfolioModal = ({
     Promise.all(sharePromises).then(goBack).then(() => fetchPortfolios());
   };
 
-  const onCancel = () => pipe(
-    addNotification({
-      variant: 'warning',
-      title: 'Share portfolio',
-      description: 'Share portfolio was cancelled by the user.'
-    }),
-    goBack()
-  );
+  const onCancel = () => goBack();
 
   const permissionOptions = [{ value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
     label: 'Can order/edit' },
@@ -168,7 +158,6 @@ const mapStateToProps = ({ rbacReducer: { rbacGroups },
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addNotification,
   fetchRbacGroups,
   fetchPortfolios,
   sharePortfolio,
