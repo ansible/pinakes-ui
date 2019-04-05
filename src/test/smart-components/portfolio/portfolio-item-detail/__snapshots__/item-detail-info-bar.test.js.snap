@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ItemDetailInfoBar /> should render coeectly 1`] = `
+exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
 <ItemDetailInfoBar
   portfolio={
     Object {
@@ -84,7 +84,7 @@ exports[`<ItemDetailInfoBar /> should render coeectly 1`] = `
 </ItemDetailInfoBar>
 `;
 
-exports[`<ItemDetailInfoBar /> should render coeectly with fallback values 1`] = `
+exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] = `
 <ItemDetailInfoBar
   portfolio={
     Object {

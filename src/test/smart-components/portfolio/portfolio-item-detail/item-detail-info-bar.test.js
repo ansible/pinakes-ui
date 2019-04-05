@@ -23,12 +23,12 @@ describe('<ItemDetailInfoBar />', () => {
     };
   });
 
-  it('should render coeectly', () => {
+  it('should render correctly', () => {
     const wrapper = mount(<ItemDetailInfoBar { ...initialProps } />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should render coeectly with fallback values', () => {
+  it('should render correctly with fallback values', () => {
     initialProps = {
       product: {
         created_at: 'Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)'

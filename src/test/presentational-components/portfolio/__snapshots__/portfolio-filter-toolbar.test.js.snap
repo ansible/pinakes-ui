@@ -77,6 +77,28 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
         dropdownItems={
           Array [
             <Item
+              aria-label="Share Portfolio"
+              className=""
+              component="a"
+              href="#"
+              isDisabled={false}
+              isHovered={false}
+            >
+              <Link
+                className="pf-c-dropdown__menu-item"
+                role="link"
+              >
+                Share
+              </Link>
+            </Item>,
+            <Separator
+              className=""
+              component="a"
+              href="#"
+              isDisabled={false}
+              isHovered={false}
+            />,
+            <Item
               aria-label="Edit Portfolio"
               className=""
               component="a"
@@ -91,21 +113,6 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
               >
                 Edit
               </Link>
-            </Item>,
-            <Item
-              aria-label="Share Portfolio"
-              className=""
-              component="a"
-              href="#"
-              isDisabled={false}
-              isHovered={false}
-            >
-              <span
-                className="pf-c-dropdown__menu-item"
-                role="link"
-              >
-                Share
-              </span>
             </Item>,
             <Item
               aria-label="Remove Portfolio"
