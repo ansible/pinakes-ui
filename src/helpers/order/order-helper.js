@@ -1,19 +1,22 @@
 /* eslint camelcase: 0 */
-import { getPortfolioItemApi, getOrderApi } from '../shared/user-login';
+import { getPortfolioItemApi, getOrderApi, getOrderItemApi, getRequestsApi } from '../shared/user-login';
+import { CATALOG_API_BASE } from '../../utilities/constants';
 
-let api = getOrderApi();
+const orderApi = getOrderApi();
+const orderItemApi = getOrderItemApi();
 const portfolioItemApi = getPortfolioItemApi();
+const requestsApi = getRequestsApi();
 
 export function getServicePlans(portfolioItemId) {
   return portfolioItemApi.listServicePlans(portfolioItemId);
 }
 
 export function listOrders() {
-  return api.listOrders();
+  return orderApi.listOrders();
 }
 
 export async function sendSubmitOrder({ service_parameters: { providerControlParameters, ...service_parameters }, ...parameters }) {
-  let order = await api.createOrder();
+  let order = await orderApi.createOrder();
   let orderItem = {};
   orderItem.count = 1;
   orderItem = {
@@ -22,6 +25,15 @@ export async function sendSubmitOrder({ service_parameters: { providerControlPar
     service_parameters,
     provider_control_parameters: providerControlParameters
   };
-  await api.addToOrder(order.id, orderItem);
-  return api.submitOrder(order.id);
+  await orderApi.addToOrder(order.id, orderItem);
+  return orderApi.submitOrder(order.id);
 }
+
+export function listRequests() {
+  return requestsApi.listRequests();
+}
+
+export function listOrderItems() {
+  return fetch(`${CATALOG_API_BASE}/order_items`).then(data => data.json());
+}
+
