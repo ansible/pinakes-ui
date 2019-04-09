@@ -22,3 +22,17 @@ export const calcuateDiffDays = (firstDate, secondDate) => Math.round(Math.abs((
 
 export const createModifiedLabel = (date, user) => `Last modified ${calcuateDiffDays(new Date(), date)} days ago${ user ? ` by ${user}.` : '.'  }`;
 
+export const createOrderedLabel = date => {
+  const orderedAgo = calcuateDiffDays(date, new Date());
+  return `Ordered ${orderedAgo} ${orderedAgo > 1 ? 'days' : 'day'} ago`;
+};
+
+export const createUpdatedLabel = orderItem => {
+  if (!orderItem[0]) {
+    return null;
+  };
+
+  const orderedAgo = calcuateDiffDays(new Date(orderItem[0].updated_at), new Date());
+  return `Updated ${orderedAgo} ${orderedAgo > 1 ? 'days' : 'day'} ago`;
+};
+
