@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderDetailTable /> should render correctly 1`] = `
+<table
+  className="requests-table"
+>
+  <thead>
+    <tr>
+      <th>
+        Steps
+      </th>
+      <th>
+        Performed by
+      </th>
+      <th>
+        Date & time
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      className="baz"
+      key="0"
+    >
+      <td>
+        <StepLabel
+          index={0}
+          text="foo"
+        />
+      </td>
+      <td>
+        bar
+      </td>
+      <td>
+        4/10/2019
+      </td>
+      <td>
+        baz
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

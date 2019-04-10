@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Order actions should dispatch correct actions after calling getLinkedOrders and create correct data structure 1`] = `
+Array [
+  Object {
+    "type": "FETCH_LINKED_ORDERS_PENDING",
+  },
+  Object {
+    "payload": Object {
+      "current": Array [
+        Object {
+          "id": "1",
+          "name": "super-order",
+          "orderItems": Array [
+            Object {
+              "name": "super-order-item",
+              "order_id": "1",
+            },
+          ],
+          "requests": Array [
+            Object {
+              "content": Object {
+                "order_id": "1",
+              },
+              "name": "super-order-request",
+            },
+          ],
+        },
+        Object {
+          "id": "2",
+          "name": "sad-lonely-order",
+          "orderItems": Array [],
+          "requests": Array [],
+        },
+      ],
+      "past": Array [
+        Object {
+          "id": "3",
+          "name": "completed-order",
+          "orderItems": Array [],
+          "requests": Array [],
+          "state": "Completed",
+        },
+        Object {
+          "id": "4",
+          "name": "failed-order",
+          "orderItems": Array [],
+          "requests": Array [],
+          "state": "Failed",
+        },
+      ],
+    },
+    "type": "FETCH_LINKED_ORDERS_FULFILLED",
+  },
+]
+`;

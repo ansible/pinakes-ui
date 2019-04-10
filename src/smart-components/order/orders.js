@@ -9,7 +9,7 @@ import OrderItem from './order-item';
 import OrdersToolbar from './orders-toolbar';
 import { getLinkedOrders } from '../../redux/actions/order-actions';
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
-import { AppPlaceholder } from '../../presentational-components/shared/loader-placeholders';
+import { PortfolioLoader } from '../../presentational-components/shared/loader-placeholders';
 
 import './orders.scss';
 
@@ -33,7 +33,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoadin
   ));
 
   if (isLoading) {
-    return <AppPlaceholder />;
+    return <PortfolioLoader />;
   }
 
   return (

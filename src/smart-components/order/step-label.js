@@ -11,6 +11,6 @@ const StepLabel = ({ index, text }) => (
 StepLabel.propTypes = {
   index: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired
-}
+};
 
 export default StepLabel;

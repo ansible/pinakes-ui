@@ -7,7 +7,8 @@ import {
   FETCH_SERVICE_PLAN_PARAMETERS,
   SUBMIT_SERVICE_ORDER,
   UPDATE_SERVICE_DATA,
-  SET_SELECTED_PLAN
+  SET_SELECTED_PLAN,
+  FETCH_LINKED_ORDERS
 } from '../../../redux/action-types';
 
 describe('Platform reducer', () => {
@@ -29,6 +30,8 @@ describe('Platform reducer', () => {
     expect(reducer(initialState, { type: `${LIST_ORDERS}_PENDING` })).toEqual(expectedState);
 
     expect(reducer(initialState, { type: `${FETCH_SERVICE_PLAN_PARAMETERS}_PENDING` })).toEqual(expectedState);
+
+    expect(reducer(initialState, { type: `${FETCH_LINKED_ORDERS}_PENDING` })).toEqual(expectedState);
   });
 
   it('should set servicePlans and loading state to false', () => {
@@ -59,5 +62,10 @@ describe('Platform reducer', () => {
   it('should select plan and set loading state to false', () => {
     const expectedState = expect.objectContaining({ isLoading: false, selectedPlan: payload });
     expect(reducer(initialState, { type: SET_SELECTED_PLAN, payload })).toEqual(expectedState);
+  });
+
+  it('should set linkedOrders loading state to false', () => {
+    const expectedState = expect.objectContaining({ isLoading: false, linkedOrders: payload });
+    expect(reducer(initialState, { type: `${FETCH_LINKED_ORDERS}_FULFILLED`, payload })).toEqual(expectedState);
   });
 });
