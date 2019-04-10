@@ -11,7 +11,7 @@
     "@patternfly/react-tokens": "^1.10.0",
     "@red-hat-insights/insights-frontend-components": "^3.39.1",
     "@redhat-cloud-services/approval-client": "^1.0.4",
-    "@redhat-cloud-services/catalog-client": "^1.0.0",
+    "@redhat-cloud-services/catalog-client": "^1.0.6",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.18.0",
     "font-awesome": "^4.7.0",

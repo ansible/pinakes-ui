@@ -1,10 +1,11 @@
 /* eslint camelcase: 0 */
-import { getUserApi } from '../shared/user-login';
+import { getPortfolioItemApi, getOrderApi } from '../shared/user-login';
 
-let api = getUserApi();
+let api = getOrderApi();
+const portfolioItemApi = getPortfolioItemApi();
 
 export function getServicePlans(portfolioItemId) {
-  return api.listServicePlans(portfolioItemId);
+  return portfolioItemApi.listServicePlans(portfolioItemId);
 }
 
 export function listOrders() {
