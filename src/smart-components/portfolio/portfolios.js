@@ -1,17 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import ContentGallery from '../content-gallery/content-gallery';
-import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
-import PortfoliosFilterToolbar from '../../presentational-components/portfolio/portfolios-filter-toolbar';
-import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
+import { SearchIcon } from '@patternfly/react-icons';
+
+import Portfolio from './portfolio';
 import AddPortfolio from './add-portfolio-modal';
+import SharePortfolio from './share-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
-import Portfolio from './portfolio';
+import ContentGallery from '../content-gallery/content-gallery';
+import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
+import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
+import PortfoliosFilterToolbar from '../../presentational-components/portfolio/portfolios-filter-toolbar';
 import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
-import SharePortfolio from './share-portfolio-modal';
+import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
 
 const portfoliosRoutes = {
   portfolios: '',
@@ -53,7 +56,14 @@ class Portfolios extends Component {
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
         <Route exact path="/portfolios/share/:id" component={ SharePortfolio } />
-        <ContentGallery { ...filteredItems } />
+        <ContentGallery { ...filteredItems } renderEmptyState={ () => (
+          <ContentGalleryEmptyState
+            title="No portfolios"
+            Icon={ SearchIcon }
+            description="You haven’t created a portfolio yet."
+            PrimaryAction={ () => <EmptyStatePrimaryAction url="/portfolios/add-portfolio" label="Create portfolio" /> }
+          />
+        ) } />
       </Fragment>
     );}
 

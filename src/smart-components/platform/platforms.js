@@ -3,12 +3,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
+import {
+  Text,
+  TextContent,
+  TextVariants
+} from '@patternfly/react-core';
+import { SearchIcon } from '@patternfly/react-icons';
+
 import ContentGallery from '../content-gallery/content-gallery';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import PlatformToolbar from '../../presentational-components/platform/platform-toolbar';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import Platform from './platform';
+import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 
 const platformsRoutes = {
   platforms: '',
@@ -30,6 +38,23 @@ class Platforms extends Component {
 
     handleFilterChange = filterValue => this.setState({ filterValue })
 
+    renderEmptyStateDescription = () => (
+      <Fragment>
+        <TextContent>
+          <Text component={ TextVariants.p }>
+            Configure a source in order to add products to portfolios.
+          </Text>
+          <Text component={ TextVariants.p }>
+            To connect to a source, go to <a href={ `${document.baseURI}hybrid/settings/catalog-sources` }>Catalog sources</a>&nbsp;
+            under <a href="javascript:void(0)">Settings</a>
+          </Text>
+          <Text component={ TextVariants.p }>
+            <a href="javascript:void(0)">Learn more in the documentation</a>
+          </Text>
+        </TextContent>
+      </Fragment>
+    )
+
     renderPlatforms = () => {
       const filteredItems = {
         items: this.props.platforms
@@ -40,7 +65,16 @@ class Platforms extends Component {
       return (
         <Fragment>
           <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } title="Platforms" />
-          <ContentGallery { ...filteredItems } />
+          <ContentGallery
+            { ...filteredItems }
+            renderEmptyState={ () => (
+              <ContentGalleryEmptyState
+                title="No platforms yet"
+                renderDescription={ this.renderEmptyStateDescription }
+                Icon={ SearchIcon }
+              />
+            ) }
+          />
         </Fragment>
       );
     }

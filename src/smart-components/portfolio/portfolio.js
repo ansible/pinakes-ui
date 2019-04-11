@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { Button } from '@patternfly/react-core';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AddProductsToPortfolio from './add-products-to-portfolio';
@@ -17,6 +18,8 @@ import { filterServiceOffering } from '../../helpers/shared/helpers';
 import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import SharePortfolioModal from './share-portfolio-modal';
+import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
+import { SearchIcon } from '@patternfly/react-icons';
 
 class Portfolio extends Component {
   state = {
@@ -69,6 +72,15 @@ class Portfolio extends Component {
     this.setState({ filterValue });
   };
 
+  renderEmptyState = () => (
+    <ContentGalleryEmptyState
+      Icon={ SearchIcon }
+      title={ `No products in ${this.props.portfolio.name} portfolio` }
+      description="You haven’t added any products to the portfolio"
+      PrimaryAction={ () => <EmptyStatePrimaryAction url={ `${this.props.match.url}/add-products` } label="Add products" /> }
+    />
+  )
+
   renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute,
     editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute }) => (
     <Fragment>
@@ -89,7 +101,7 @@ class Portfolio extends Component {
       <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
       <Route exact path="/portfolios/detail/:id/share-portfolio" component={ SharePortfolioModal } />
       <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ this.props.match.url } /> } />
-      <ContentGallery { ...filteredItems } />
+      <ContentGallery { ...filteredItems } renderEmptyState={ this.renderEmptyState } />
     </Fragment>
   )
 
