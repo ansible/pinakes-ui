@@ -20,41 +20,11 @@ import OrderSteps from './order-steps';
 import OrderDetailTable from './order-detail-table';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName } from '../../helpers/shared/orders';
-import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
-
-const completedWhiteList = state => [ 'Order Completed', 'finished' ].includes(state);
-
-const countFinishedSteps = step => step.filter(({ state }) => completedWhiteList(state));
-
-const createTableRows = order => [{
-  reason: 'Order initiated',
-  requester: 'System',
-  updated_at: order.orderItems[0] && createDateString(order.orderItems[0].updated_at || order.orderItems[0].created_at),
-  state: order.orderItems[0] && order.orderItems[0].state
-}, {
-  reason: 'Approval',
-  requester: 'System',
-  updated_at: order.requests[0] && createDateString(order.requests[0].updated_at || order.requests[0].created_at),
-  state: order.requests[0] && order.requests[0].state
-}, {
-  reason: 'Provision',
-  requester: 'System',
-  updated_at: createDateString(order.ordered_at || order.created_at),
-  state: order.state
-}, {
-  reason: 'Approval',
-  requester: 'System',
-  updated_at: createDateString(order.ordered_at || order.created_at),
-  state: order.state
-}];
+import { createOrderedLabel, createUpdatedLabel } from '../../helpers/shared/helpers';
+import createOrderRow from './create-order-row';
 
 const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) => {
-  const initialSteps = createTableRows(item);
-  const finishedSteps = countFinishedSteps(initialSteps);
-  const steps = initialSteps.map((item, index) => ({
-    ...item,
-    state: index < finishedSteps.length ? item.state : null
-  }));
+  const { finishedSteps, steps } = createOrderRow(item);
 
   return (
     <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
