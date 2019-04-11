@@ -2,20 +2,22 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { CATALOG_API_BASE, APPROVAL_API_BASE } from '../../../utilities/constants';
 import {
   fetchServicePlans,
   fetchOrderList,
   updateServiceData,
   setSelectedPlan,
-  sendSubmitOrder
+  sendSubmitOrder,
+  getLinkedOrders
 } from '../../../redux/actions/order-actions';
 import {
   FETCH_SERVICE_PLANS,
   LIST_ORDERS,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
-  SUBMIT_SERVICE_ORDER
+  SUBMIT_SERVICE_ORDER,
+  FETCH_LINKED_ORDERS
 } from '../../../redux/action-types';
 
 describe('Order actions', () => {
@@ -253,6 +255,84 @@ describe('Order actions', () => {
     }) ];
 
     return store.dispatch(sendSubmitOrder({})).catch(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch correct actions after calling getLinkedOrders and create correct data structure', () => {
+    const store = mockStore({});
+    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({
+      body: { data: [{
+        id: '1',
+        name: 'super-order'
+      }, {
+        id: '2',
+        name: 'sad-lonely-order'
+      }, {
+        id: '3',
+        name: 'completed-order',
+        state: 'Completed'
+      }, {
+        id: '4',
+        name: 'failed-order',
+        state: 'Failed'
+      }]}
+    }));
+    apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({
+      body: { data: [{
+        content: {
+          order_id: '1'
+        },
+        name: 'super-order-request'
+      }]}
+    }));
+    fetchMock.getOnce(`${CATALOG_API_BASE}/order_items`, { data: [{
+      order_id: '1',
+      name: 'super-order-item'
+    }]});
+
+    const expectedActions = [{
+      type: `${FETCH_LINKED_ORDERS}_PENDING`
+    }, {
+      type: `${FETCH_LINKED_ORDERS}_FULFILLED`,
+      payload: {
+        current: [{
+          id: '1',
+          name: 'super-order',
+          orderItems: [{
+            order_id: '1',
+            name: 'super-order-item'
+          }],
+          requests: [{
+            content: {
+              order_id: '1'
+            },
+            name: 'super-order-request'
+          }]
+        }, {
+          id: '2',
+          name: 'sad-lonely-order',
+          orderItems: [],
+          requests: []
+        }
+        ],
+        past: [{
+          id: '3',
+          name: 'completed-order',
+          state: 'Completed',
+          orderItems: [],
+          requests: []
+        }, {
+          id: '4',
+          name: 'failed-order',
+          state: 'Failed',
+          orderItems: [],
+          requests: []
+        }]
+      }
+    }];
+
+    return store.dispatch(getLinkedOrders()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

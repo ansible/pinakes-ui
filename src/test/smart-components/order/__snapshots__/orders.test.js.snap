@@ -2,13 +2,16 @@
 
 exports[`<Orders /> should render correctly 1`] = `
 <Orders
-  fetchOrders={[Function]}
-  isLoading={true}
-  orderList={
+  fetchPortfolioItems={[Function]}
+  getLinkedOrders={[Function]}
+  isLoading={false}
+  linkedOrders={
     Object {
-      "items": undefined,
+      "current": Array [],
+      "past": Array [],
     }
   }
+  portfolioItems={Array []}
   store={
     Object {
       "clearActions": [Function],
@@ -45,13 +48,16 @@ exports[`<Orders /> should render correctly 1`] = `
 
 exports[`<Orders /> should render correctly in loading state 1`] = `
 <Orders
-  fetchOrders={[Function]}
-  isLoading={true}
-  orderList={
+  fetchPortfolioItems={[Function]}
+  getLinkedOrders={[Function]}
+  isLoading={false}
+  linkedOrders={
     Object {
-      "items": undefined,
+      "current": Array [],
+      "past": Array [],
     }
   }
+  portfolioItems={Array []}
   store={
     Object {
       "clearActions": [Function],
