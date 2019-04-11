@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const scrollToTop = () => document.getElementById('root').scrollTo({
   behavior: 'smooth',
   top: 0,
@@ -36,3 +38,4 @@ export const createUpdatedLabel = orderItem => {
   return `Updated ${orderedAgo} ${orderedAgo > 1 ? 'days' : 'day'} ago`;
 };
 
+export const createDateString = date => moment(new Date(date), 'DD-MMM-YYYY').format('DD MMM YYYY');

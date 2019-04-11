@@ -25,7 +25,7 @@ const OrderDetailTable = ({ requests }) => (
         <tr key={ index } className={ state }>
           <td><StepLabel index={ index } text={ reason } /></td>
           <td>{ requester }</td>
-          <td>{ new Date(updated_at).toLocaleDateString() }</td>
+          <td>{ updated_at }</td>
           <td>{ state }</td>
         </tr>
       )) }
