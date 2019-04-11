@@ -8,12 +8,13 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
+import OrderModal from '../../../../smart-components/common/order-modal';
 import { ProductLoaderPlaceholder } from '../../../../presentational-components/shared/loader-placeholders';
+import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 import PortfolioItemDetail from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail';
 import { APPROVAL_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../utilities/constants';
-import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
-import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
+import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -21,9 +22,9 @@ describe('<PortfolioItemDetail />', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
 
-  const ComponentWrapper = ({ store, children, initialEntries }) => (
+  const ComponentWrapper = ({ store, children, initialEntries, initialIndex }) => (
     <Provider store={ store }>
-      <MemoryRouter initialEntries={ initialEntries }>
+      <MemoryRouter initialEntries={ initialEntries } initialIndex={ initialIndex }>
         { children }
       </MemoryRouter>
     </Provider>
@@ -123,6 +124,42 @@ describe('<PortfolioItemDetail />', () => {
       expect(wrapper.find(ItemDetailInfoBar)).toHaveLength(1);
       expect(wrapper.find(ItemDetailDescription)).toHaveLength(1);
       expect(wrapper.find(PortfolioItemDetailToolbar)).toHaveLength(1);
+      done();
+    });
+  });
+
+  it('should mount and open order modal', done => {
+    let loadedState = {
+      ...initialState,
+      portfolioReducer: {
+        ...initialState.portfolioReducer,
+        selectedPortfolio: {
+          name: 'foo',
+          id: '321'
+        }
+      },
+      orderReducer: {
+        selectedItem: {},
+        sevicePlans: {}
+      }
+    };
+    const store = mockStore(loadedState);
+
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: [{ name: 'workflow', id: '123' }]}}));
+    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
+    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, { properties: {}});
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+
+    const wrapper = mount(
+      <ComponentWrapper store={ store } initialEntries={ [ '/foo/123', '/foo/123/order' ] } initialIndex={ 0 }>
+        <Route path="/foo/:portfolioItemId" render={ (...args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
+      </ComponentWrapper>
+    );
+    setImmediate(() => {
+      // navigate to order route
+      wrapper.find(MemoryRouter).instance().history.push('/foo/123/order');
+      wrapper.update();
+      expect(wrapper.find(OrderModal)).toHaveLength(1);
       done();
     });
   });
