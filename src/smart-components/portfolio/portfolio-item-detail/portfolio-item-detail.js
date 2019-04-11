@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Route } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 
+import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
 import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
@@ -65,10 +66,7 @@ const PortfolioItemDetail = ({
 
   return (
     <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
-      { /**
-         * Disabled product editing
-         * <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ product }/> }/>
-         */ }
+      <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ product }/> }/>
       <PortfolioItemDetailToolbar
         url={ url }
         isOpen={ isOpen }
