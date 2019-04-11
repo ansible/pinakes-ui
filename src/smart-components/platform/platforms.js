@@ -46,7 +46,7 @@ class Platforms extends Component {
           </Text>
           <Text component={ TextVariants.p }>
             To connect to a source, go to <a href={ `${document.baseURI}hybrid/settings/catalog-sources` }>Catalog sources</a>&nbsp;
-            under <a href="javascript:void(0)">Settings</a>
+            under Settings
           </Text>
           <Text component={ TextVariants.p }>
             <a href="javascript:void(0)">Learn more in the documentation</a>
