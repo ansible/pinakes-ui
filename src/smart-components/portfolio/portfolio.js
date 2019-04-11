@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter, Route, Switch, Link } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Button } from '@patternfly/react-core';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AddProductsToPortfolio from './add-products-to-portfolio';
