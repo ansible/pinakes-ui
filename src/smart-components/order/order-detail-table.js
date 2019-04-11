@@ -21,8 +21,8 @@ const OrderDetailTable = ({ requests }) => (
       </tr>
     </thead>
     <tbody>
-      { requests.map(({ reason, requester, updated_at, state }, index) => (
-        <tr key={ index } className={ state }>
+      { requests.map(({ reason, requester, updated_at, state, isFinished }, index) => (
+        <tr key={ index } className={ isFinished ? 'finished' : '' }>
           <td><StepLabel index={ index } text={ reason } /></td>
           <td>{ requester }</td>
           <td>{ updated_at }</td>
@@ -38,7 +38,7 @@ OrderDetailTable.propTypes = {
     reason: PropTypes.string,
     requester: PropTypes.string,
     updated_at: PropTypes.string,
-    state: PropTypes.string
+    state: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ])
   })).isRequired
 };
 

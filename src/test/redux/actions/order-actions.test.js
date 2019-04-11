@@ -333,7 +333,7 @@ describe('Order actions', () => {
     }];
 
     return store.dispatch(getLinkedOrders()).then(() => {
-      expect(store.getActions()).toMatchSnapshot();
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

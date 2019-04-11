@@ -13,7 +13,6 @@ import { orderInitialState } from '../../../redux/reducers/order-reducer';
 import OrderDetailTable from '../../../smart-components/order/order-detail-table';
 import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
 import { CATALOG_API_BASE, APPROVAL_API_BASE } from '../../../utilities/constants';
-import { PortfolioLoader } from '../../../presentational-components/shared/loader-placeholders';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 describe('<Orders />', () => {

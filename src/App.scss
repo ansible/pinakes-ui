@@ -111,11 +111,11 @@
   tbody {
     tr {
       font-size: 14px;
-      &.finished:last-child {
-        .requests-step-label {
-          span:first-child {
-            background-color: #007BBA;
-            color: #FFFFFF
+      &.finished {
+          .requests-step-label {
+            span:first-child {
+              background-color: #007BBA;
+              color: #FFFFFF
           }
         }
       }

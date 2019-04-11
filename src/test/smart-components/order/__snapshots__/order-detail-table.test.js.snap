@@ -22,7 +22,7 @@ exports[`<OrderDetailTable /> should render correctly 1`] = `
   </thead>
   <tbody>
     <tr
-      className="baz"
+      className=""
       key="0"
     >
       <td>
@@ -35,7 +35,7 @@ exports[`<OrderDetailTable /> should render correctly 1`] = `
         bar
       </td>
       <td>
-        4/10/2019
+        Wed Apr 10 2019 14:26:42 GMT+0200 (Central European Summer Time)
       </td>
       <td>
         baz
