@@ -65,18 +65,23 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           ]
         }
       >
-        <div
-          className="line-clamp"
+        <Dotdotdot
+          clamp={6}
+          tagName="div"
+          truncationChar="…"
+          useNativeClamp={true}
         >
-          <PropLine
-            key="card-prop-long_description"
-            value="long description"
-          >
-            <div>
-              long description
-            </div>
-          </PropLine>
-        </div>
+          <div>
+            <PropLine
+              key="card-prop-long_description"
+              value="long description"
+            >
+              <div>
+                long description
+              </div>
+            </PropLine>
+          </div>
+        </Dotdotdot>
       </ItemDetails>
     </div>
   </CardBody>
@@ -145,18 +150,23 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
           ]
         }
       >
-        <div
-          className="line-clamp"
+        <Dotdotdot
+          clamp={6}
+          tagName="div"
+          truncationChar="…"
+          useNativeClamp={true}
         >
-          <PropLine
-            key="card-prop-description"
-            value="Bar"
-          >
-            <div>
-              Bar
-            </div>
-          </PropLine>
-        </div>
+          <div>
+            <PropLine
+              key="card-prop-description"
+              value="Bar"
+            >
+              <div>
+                Bar
+              </div>
+            </PropLine>
+          </div>
+        </Dotdotdot>
       </ItemDetails>
     </div>
   </CardBody>
