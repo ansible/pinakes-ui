@@ -10,8 +10,6 @@ exports[`<PlatformDashboard /> should render correctly 1`] = `
     }
   >
     <Title
-      className=""
-      headingLevel="h1"
       size="md"
     >
       Search Or Select a Platform

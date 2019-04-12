@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { pipe } from 'rxjs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -59,10 +58,10 @@ const AddProductsToPortfolio = ({
   .then(() => push(portfolioRoute))
   .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id));
 
-  const onPlatformSelect = platform => pipe(
-    setSelectedPlatform(platform),
-    fetchPlatformItems(platform.id, defaultSettings)
-  );
+  const onPlatformSelect = platform => {
+    setSelectedPlatform(platform);
+    fetchPlatformItems(platform.id, defaultSettings);
+  };
 
   return (
     <Section>

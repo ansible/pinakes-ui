@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { Modal, Button, Bullseye, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { fetchPortfolios, removePortfolio } from '../../redux/actions/portfolio-actions';
-import { pipe } from 'rxjs';
 
 const RemovePortfolioModal = ({
   history: { goBack, push },
@@ -15,7 +14,10 @@ const RemovePortfolioModal = ({
   portfolio
 }) => {
   const onSubmit = () => removePortfolio(portfolio.id)
-  .then(() => pipe(fetchPortfolios(), push('/portfolios')));
+  .then(() => {
+    fetchPortfolios();
+    push('/portfolios');
+  });
 
   const onCancel = () => goBack();
 
