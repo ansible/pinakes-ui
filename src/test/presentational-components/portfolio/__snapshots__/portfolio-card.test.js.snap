@@ -83,6 +83,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                     className=""
                     id=""
                     isActive={false}
+                    isDisabled={false}
                     isFocused={false}
                     isHovered={false}
                     isOpen={false}
