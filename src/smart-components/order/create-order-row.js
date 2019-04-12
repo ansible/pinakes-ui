@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckIcon, InProgressIcon } from '@patternfly/react-icons';
+
 import { createDateString } from '../../helpers/shared/helpers';
 
 const completedWhiteList = state => [ 'Order Completed', 'finished' ].includes(state);
