@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect, Route } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 
@@ -22,6 +21,7 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
   history: { push },
+  location: { pathname },
   source,
   product,
   portfolio,
@@ -49,6 +49,10 @@ const PortfolioItemDetail = ({
   const handleUpdate = () => {
     updatePortfolioItem({ ...product, workflow_ref: workflow }).then(updatedItem => selectPortfolioItem(updatedItem.json())).then(() => push(url));
   };
+
+  if (pathname.match(/\/product\/[0-9]+\/edit/)) {
+    return <Redirect to={ url } />;
+  }
 
   if (isLoading) {
     return (
@@ -92,6 +96,9 @@ PortfolioItemDetail.propTypes = {
   portfolio: PropTypes.shape({
     id: PropTypes.string.isRequired
   }),
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired,
   product: PropTypes.shape({
     id: PropTypes.string
   }).isRequired,

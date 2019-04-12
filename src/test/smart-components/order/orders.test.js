@@ -6,11 +6,14 @@ import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { orderInitialState } from '../../../redux/reducers/order-reducer';
-import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { DataList, DataListContent } from '@patternfly/react-core';
 
 import Orders from '../../../smart-components/order/orders';
-import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { orderInitialState } from '../../../redux/reducers/order-reducer';
+import OrderDetailTable from '../../../smart-components/order/order-detail-table';
+import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
+import { CATALOG_API_BASE, APPROVAL_API_BASE } from '../../../utilities/constants';
+import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 describe('<Orders />', () => {
 
@@ -18,11 +21,16 @@ describe('<Orders />', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
   let initialState;
-  const orders = [{
-    id: 'order-1',
-    created_at: new Date(),
-    state: 'ordered'
-  }];
+  const linkedOrders = {
+    current: [{
+      id: 'order-1',
+      created_at: new Date(),
+      state: 'ordered',
+      requests: [],
+      orderItems: []
+    }],
+    past: []
+  };
 
   const ComponentWrapper = ({ store, children }) => (
     <Provider store={ store }>
@@ -35,7 +43,11 @@ describe('<Orders />', () => {
   beforeEach(() => {
     initialProps = {};
     mockStore = configureStore(middlewares);
-    initialState = { orderReducer: orderInitialState };
+    initialState = { orderReducer: { ...orderInitialState, isLoading: false }, portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
+  });
+
+  afterEach(() => {
+    fetchMock.reset();
   });
 
   it('should render correctly', () => {
@@ -51,47 +63,33 @@ describe('<Orders />', () => {
   });
 
   it('should fetch orders data on component mount', (done) => {
-    expect.assertions(1);
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, orders }});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce((req, res) => {
-      expect(req).toBeTruthy();
-      return res.status(200).body({ data: orders });
-    }));
-
-    mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
-    setImmediate(() => {
-      done();
-    });
-  });
-
-  it('should switch between tabs', (done) => {
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, orders }});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce((req, res) => {
-      expect(req).toBeTruthy();
-      return res.status(200).body({ data: orders });
-    }));
+    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, linkedOrders }});
+    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
+    fetchMock.getOnce(`${CATALOG_API_BASE}/order_items`, { data: []});
 
     const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
     setImmediate(() => {
-      wrapper.find('button.pf-c-tabs__button').last().simulate('click');
-      wrapper.update();
-      expect(wrapper.find(Orders).children().instance().state.activeTabKey).toEqual(1);
+      expect(wrapper.find(DataList)).toHaveLength(2);
       done();
     });
   });
 
   it('should expand data list', (done) => {
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, orders }});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce((req, res) => {
-      expect(req).toBeTruthy();
-      return res.status(200).body({ data: orders });
-    }));
+    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, linkedOrders }});
+    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
+    fetchMock.getOnce(`${CATALOG_API_BASE}/order_items`, { data: []});
 
     const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
     setImmediate(() => {
       wrapper.update();
+      expect(wrapper.find(DataListContent).props().isHidden).toEqual(true);
       wrapper.find('.pf-c-data-list__toggle').first().simulate('click');
-      expect(wrapper.find(Orders).children().instance().state.dataListExpanded).toEqual({ 'order-1': true });
+      expect(wrapper.find(DataListContent).props().isHidden).toEqual(false);
+      expect(wrapper.find(OrderDetailTable)).toHaveLength(1);
       done();
     });
   });

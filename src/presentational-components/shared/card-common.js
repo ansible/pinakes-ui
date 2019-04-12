@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Dotdotdot from 'react-dotdotdot';
 
 const PropLine = ({ value }) => <div>{ value }</div>;
 
@@ -15,9 +16,9 @@ PropLine.propTypes = {
 };
 
 const ItemDetails = ({ toDisplay = [], ...item }) => (
-  <div className="line-clamp">
+  <Dotdotdot clamp={ 6 }>
     { toDisplay.map(prop => <PropLine key={ `card-prop-${prop}` } value={ item[prop] } />) }
-  </div>
+  </Dotdotdot>
 );
 
 ItemDetails.propTypes = {

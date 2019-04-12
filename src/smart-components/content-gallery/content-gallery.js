@@ -1,25 +1,34 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Section } from '@red-hat-insights/insights-frontend-components';
+import { Text, TextVariants, Gallery } from '@patternfly/react-core';
+
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
-import { Bullseye, Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 const NoItems = () => (
-  <Bullseye>
+  <div>
     <Text component={ TextVariants.h1 }>No items found</Text>
-  </Bullseye>
+  </div>
 );
 
-const ContentGallery = ({ isLoading, items }) => isLoading ? <CardLoader /> : (
-  <Section type="content">
-    <Gallery gutter="md" className="content-gallery">
-      { items.length > 0 ? items : <NoItems /> }
-    </Gallery>
-  </Section>
-);
+const ContentGallery = ({ isLoading, items, renderEmptyState }) =>
+  isLoading ?
+    <CardLoader /> :
+    items.length === 0
+      ? renderEmptyState
+        ? renderEmptyState()
+        : <NoItems />
+      : (
+        <Section type="content">
+          <Gallery gutter="md" className="content-gallery">
+            { items }
+          </Gallery>
+        </Section>
+      );
 
 ContentGallery.propTypes = {
-  isLoading: propTypes.bool,
-  items: propTypes.array
+  isLoading: PropTypes.bool,
+  items: PropTypes.array,
+  renderEmptyState: PropTypes.func
 };
 export default ContentGallery;
