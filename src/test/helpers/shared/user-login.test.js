@@ -1,4 +1,4 @@
-import { getTopologicalUserApi, getUserApi } from '../../../helpers/shared/user-login';
+import { getTopologicalUserApi, getPortfolioApi } from '../../../helpers/shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../utilities/constants';
 
 describe('user login', () => {
@@ -8,7 +8,7 @@ describe('user login', () => {
   });
 
   it('should set correct basePath for ssp api instance', () => {
-    const sspApi = getUserApi();
+    const sspApi = getPortfolioApi();
     expect(sspApi.basePath).toEqual(CATALOG_API_BASE);
   });
 });

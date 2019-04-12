@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepLabel /> should render correctly 1`] = `
+<StepLabel
+  index={123456789}
+  text="Foo"
+>
+  <div
+    className="requests-step-label"
+  >
+    <span>
+      123456790
+    </span>
+    <span>
+      Foo
+    </span>
+  </div>
+</StepLabel>
+`;

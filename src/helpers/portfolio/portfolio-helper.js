@@ -1,10 +1,11 @@
-import { getUserApi } from '../shared/user-login';
+import { getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
-const userApi = getUserApi();
+const portfolioApi = getPortfolioApi();
+const portfolioItemApi = getPortfolioItemApi();
 
 export function listPortfolios() {
-  return userApi.listPortfolios();
+  return portfolioApi.listPortfolios();
 }
 
 export function getPortfolioItems() {
@@ -12,7 +13,7 @@ export function getPortfolioItems() {
 }
 
 export function listPortfolioItems() {
-  return userApi.listPortfolioItems();
+  return portfolioItemApi.listPortfolioItems();
 }
 
 export function getPortfolioItem(portfolioItemId) {
@@ -20,7 +21,7 @@ export function getPortfolioItem(portfolioItemId) {
 }
 
 export function getPortfolio(portfolioId) {
-  return userApi.showPortfolio(portfolioId);
+  return portfolioApi.showPortfolio(portfolioId);
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
@@ -29,7 +30,7 @@ export function getPortfolioItemsWithPortfolio(portfolioId) {
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export async function addPortfolio(portfolioData, items) {
-  let portfolio = await userApi.createPortfolio(portfolioData);
+  let portfolio = await portfolioApi.createPortfolio(portfolioData);
   if (!portfolio)
   {return portfolio;}
 
@@ -40,9 +41,9 @@ export async function addPortfolio(portfolioData, items) {
 
 export async function addToPortfolio(portfolioId, items) {
   const request = async item => {
-    const newItem = await userApi.createPortfolioItem({ service_offering_ref: item });
+    const newItem = await portfolioItemApi.createPortfolioItem({ service_offering_ref: item });
     if (newItem) {
-      await userApi.addPortfolioItemToPortfolio(portfolioId, { portfolio_item_id: newItem.id });
+      await portfolioApi.addPortfolioItemToPortfolio(portfolioId, { portfolio_item_id: newItem.id });
     }
 
     return newItem;
@@ -52,15 +53,15 @@ export async function addToPortfolio(portfolioId, items) {
 }
 
 export async function updatePortfolio(portfolioData) {
-  await userApi.updatePortfolio(portfolioData.id, portfolioData);
+  await portfolioApi.updatePortfolio(portfolioData.id, portfolioData);
 }
 
 export async function removePortfolio(portfolioId) {
-  await userApi.destroyPortfolio(portfolioId);
+  await portfolioApi.destroyPortfolio(portfolioId);
 }
 
 export async function removePortfolioItem(portfolioItemId) {
-  return userApi.destroyPortfolioItem(portfolioItemId);
+  return portfolioItemApi.destroyPortfolioItem(portfolioItemId);
 }
 
 export async function removePortfolioItems(portfolioItemIds) {

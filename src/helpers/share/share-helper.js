@@ -1,7 +1,7 @@
-import { getUserApi } from '../shared/user-login';
+import { getPortfolioApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
-const userApi = getUserApi();
+const userApi = getPortfolioApi();
 
 export async function getShareInfo(portfolioId) {
   // TODO - switch to calling tne API client method: return userApi.shareInfo(portfolioId);
