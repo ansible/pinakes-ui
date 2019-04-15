@@ -113,5 +113,7 @@
   "insights": {
     "appname": "catalog"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "*.scss"
+  ]
 }
