@@ -37,7 +37,7 @@ const webpackConfig = {
     }, {
       test: /\.s?[ac]ss$/,
       use: [
-        process.env.NODE_ENV === 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+        MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader'
         },
