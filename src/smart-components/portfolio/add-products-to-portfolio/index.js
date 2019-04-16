@@ -78,6 +78,7 @@ const AddProductsToPortfolio = ({
         { meta && <AddProductsPagination meta={ meta } platformId={ selectedPlatform.id } /> }
       </PortfolioOrderToolbar>
       <AddProductsGallery
+        platform={ !!selectedPlatform }
         checkedItems={ checkedItems }
         isLoading={ isLoading }
         items={ renderGalleryItems(items, itemId => setCheckedItems(checkItem(itemId)), checkedItems, searchValue) }

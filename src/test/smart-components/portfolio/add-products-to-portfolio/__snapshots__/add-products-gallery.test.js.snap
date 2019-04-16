@@ -4,5 +4,6 @@ exports[`<AddProductsGallery /> should render correctly 1`] = `
 <ContentGallery
   checkedItems={Array []}
   editMode={true}
+  renderEmptyState={[Function]}
 />
 `;
