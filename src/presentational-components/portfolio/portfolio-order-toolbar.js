@@ -1,26 +1,25 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
+import { FilterIcon } from '@patternfly/react-icons';
 import { Level, Button, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
 import TopToolbar, { TopToolbarTitle } from '../shared/top-toolbar';
 import FilterToolbarItem from '../shared/filter-toolbar-item';
+import selectStyles from '../../constants/select-styles-override';
 
-const selectStyles = {
-  container: base => ({ ...base, minWidth: 260 }),
-  valueContainer: provided => ({
-    ...provided,
-    padding: '1px 8px'
-  }),
-  control: provided => ({
-    ...provided,
-    height: 34
-  }),
-  input: provided => ({
-    ...provided,
-    paddingTop: 1,
-    paddingBottom: 1
-  })
+const ValueContainer = ({ children }) => (
+  <Fragment>
+    <FilterIcon style={ { marginLeft: 4 } } fill="#393F44" />
+    { children }
+  </Fragment>
+);
+
+ValueContainer.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ]).isRequired
 };
 
 const PortfolioOrderToolbar = ({
@@ -40,11 +39,6 @@ const PortfolioOrderToolbar = ({
       <Toolbar>
         <ToolbarGroup>
           <ToolbarItem>
-            <FilterToolbarItem onFilterChange={ onFilterChange } searchValue={ searchValue } placeholder="Filter products"/>
-          </ToolbarItem>
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <ToolbarItem>
             <Select
               id="products-platform-select"
               styles={ selectStyles }
@@ -52,7 +46,11 @@ const PortfolioOrderToolbar = ({
               placeholder={ 'Filter by Platform' }
               options={ options }
               onChange={ onOptionSelect }
+              components={ { ValueContainer } }
             />
+          </ToolbarItem>
+          <ToolbarItem>
+            <FilterToolbarItem onFilterChange={ onFilterChange } searchValue={ searchValue } placeholder="Filter products"/>
           </ToolbarItem>
         </ToolbarGroup>
         <ToolbarGroup>

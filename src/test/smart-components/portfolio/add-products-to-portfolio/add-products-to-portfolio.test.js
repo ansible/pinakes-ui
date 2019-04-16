@@ -80,7 +80,7 @@ describe('<AddProductsToPortfolio />', () => {
       });
       wrapper.update();
       expect(wrapper.find(PlatformItem)).toHaveLength(1);
-      const searchInput = wrapper.find('input').first();
+      const searchInput = wrapper.find('input').at(1);
       searchInput.getDOMNode().value = 'foo';
       searchInput.simulate('change');
       wrapper.update();
@@ -134,7 +134,7 @@ describe('<AddProductsToPortfolio />', () => {
       });
       wrapper.update();
       wrapper.find('input').last().simulate('change');
-      wrapper.find('button').at(2).simulate('click');
+      wrapper.find('button').last().simulate('click');
     });
   });
 });
