@@ -14,7 +14,7 @@ import RemovePortfolioItems from './remove-portfolio-items';
 import { removePortfolioItems } from '../../helpers/portfolio/portfolio-helper';
 import OrderModal from '../common/order-modal';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
-import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
+import TopToolbar from '../../presentational-components/shared/top-toolbar';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import SharePortfolioModal from './share-portfolio-modal';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
@@ -84,8 +84,8 @@ class Portfolio extends Component {
     editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute }) => (
     <Fragment>
       <TopToolbar>
-        <TopToolbarTitle title={ title }/>
         <PortfolioFilterToolbar
+          title={ title }
           searchValue={ this.state.filterValue }
           onFilterChange={ this.handleFilterChange }
           addProductsRoute={ addProductsRoute }

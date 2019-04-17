@@ -150,3 +150,13 @@
     fill: #72767B
   }
 }
+
+.toolbar-override {
+  display: flex;
+  align-items: center;
+  .toolbar-override-item {
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+}
