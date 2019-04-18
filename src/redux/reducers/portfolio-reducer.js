@@ -5,7 +5,8 @@ import {
   FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   FETCH_PORTFOLIO_ITEM,
   FILTER_PORTFOLIO_ITEMS,
-  SELECT_PORTFOLIO_ITEM
+  SELECT_PORTFOLIO_ITEM,
+  UPDATE_PORTFOLIO
 } from '../action-types';
 
 // Initial State
@@ -37,5 +38,6 @@ export default {
   [`${FETCH_PORTFOLIO}_PENDING`]: setLoadingState,
   [`${FETCH_PORTFOLIO}_FULFILLED`]: selectPortfolio,
   [FILTER_PORTFOLIO_ITEMS]: filterPortfolios,
-  [`${SELECT_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem
+  [`${SELECT_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem,
+  [`${UPDATE_PORTFOLIO}_FULFILLED`]: selectPortfolio
 };

@@ -53,7 +53,7 @@ export async function addToPortfolio(portfolioId, items) {
 }
 
 export async function updatePortfolio(portfolioData) {
-  await portfolioApi.updatePortfolio(portfolioData.id, portfolioData);
+  return await portfolioApi.updatePortfolio(portfolioData.id, portfolioData);
 }
 
 export async function removePortfolio(portfolioId) {
