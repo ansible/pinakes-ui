@@ -297,6 +297,11 @@ describe('Order actions', () => {
       type: `${FETCH_LINKED_ORDERS}_FULFILLED`,
       payload: {
         current: [{
+          id: '2',
+          name: 'sad-lonely-order',
+          orderItems: [],
+          requests: []
+        }, {
           id: '1',
           name: 'super-order',
           orderItems: [{
@@ -309,28 +314,21 @@ describe('Order actions', () => {
             },
             name: 'super-order-request'
           }]
-        }, {
-          id: '2',
-          name: 'sad-lonely-order',
-          orderItems: [],
-          requests: []
-        }
-        ],
+        }],
         past: [{
-          id: '3',
-          name: 'completed-order',
-          state: 'Completed',
-          orderItems: [],
-          requests: []
-        }, {
           id: '4',
           name: 'failed-order',
           state: 'Failed',
           orderItems: [],
           requests: []
+        }, {
+          id: '3',
+          name: 'completed-order',
+          state: 'Completed',
+          orderItems: [],
+          requests: []
         }]
-      }
-    }];
+      }}];
 
     return store.dispatch(getLinkedOrders()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);

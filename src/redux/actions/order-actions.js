@@ -71,7 +71,11 @@ const separateOrders = orders => orders.reduce((acc, curr) => [ 'Completed', 'Fa
 
 export const getLinkedOrders = () => dispatch => {
   dispatch({ type: `${ActionTypes.FETCH_LINKED_ORDERS}_PENDING` });
-  return Promise.all([ OrderHelper.listOrders(), OrderHelper.listRequests(), OrderHelper.listOrderItems() ])
+  return Promise.all([
+    OrderHelper.listOrders().then(response => ({ ...response, data: response.data.sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10)) })),
+    OrderHelper.listRequests(),
+    OrderHelper.listOrderItems()
+  ])
   .then(([ orders, requests, orderItems ]) => linkOrders(orders.data, orderItems.data, requests.data))
   .then(linkedOrders => separateOrders(linkedOrders))
   .then(payload => dispatch({
