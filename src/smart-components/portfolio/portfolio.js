@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ContentGallery from '../content-gallery/content-gallery';
-import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
+import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio, removeProductsFromPortfolio } from '../../redux/actions/portfolio-actions';
 import AddProductsToPortfolio from './add-products-to-portfolio';
 import PortfolioFilterToolbar from '../../presentational-components/portfolio/portfolio-filter-toolbar';
 import PortfolioItem from './portfolio-item';
@@ -11,7 +11,6 @@ import AddPortfolioModal from './add-portfolio-modal';
 import RemovePortfolioModal from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import RemovePortfolioItems from './remove-portfolio-items';
-import { removePortfolioItems } from '../../helpers/portfolio/portfolio-helper';
 import OrderModal from '../common/order-modal';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
 import TopToolbar from '../../presentational-components/shared/top-toolbar';
@@ -19,6 +18,7 @@ import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import SharePortfolioModal from './share-portfolio-modal';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
 import { SearchIcon } from '@patternfly/react-icons';
+import { bindActionCreators } from 'redux';
 
 class Portfolio extends Component {
   state = {
@@ -48,7 +48,7 @@ class Portfolio extends Component {
   removeProducts = () => {
     this.props.history.goBack();
 
-    removePortfolioItems(this.state.selectedItems).then(() => {
+    this.props.removeProductsFromPortfolio(this.state.selectedItems, this.props.portfolio.name).then(() => {
       this.fetchData(this.props.match.params.id);
       this.setState({
         selectedItems: []
@@ -175,23 +175,25 @@ const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems
   isLoading: !selectedPortfolio || isLoading
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchPortfolioItemsWithPortfolio: apiProps => dispatch(fetchPortfolioItemsWithPortfolio(apiProps)),
-  fetchSelectedPortfolio: apiProps => dispatch(fetchSelectedPortfolio(apiProps))
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchPortfolioItemsWithPortfolio,
+  fetchSelectedPortfolio,
+  removeProductsFromPortfolio
+}, dispatch);
 
 Portfolio.propTypes = {
-  isLoading: propTypes.bool,
-  fetchPortfolioItemsWithPortfolio: propTypes.func,
-  fetchSelectedPortfolio: propTypes.func,
-  match: propTypes.object,
-  portfolio: propTypes.shape({
-    name: propTypes.string,
-    id: propTypes.string.isRequired
+  isLoading: PropTypes.bool,
+  fetchPortfolioItemsWithPortfolio: PropTypes.func,
+  fetchSelectedPortfolio: PropTypes.func,
+  match: PropTypes.object,
+  portfolio: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string.isRequired
   }),
-  location: propTypes.object,
-  history: propTypes.object,
-  portfolioItems: propTypes.array
+  location: PropTypes.object,
+  history: PropTypes.object,
+  portfolioItems: PropTypes.array,
+  removeProductsFromPortfolio: PropTypes.func.isRequired
 };
 
 Portfolio.defaultProps = {
