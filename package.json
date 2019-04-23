@@ -8,7 +8,7 @@
     "@manageiq/topological_inventory": "~1.1.0",
     "@patternfly/react-core": "2.10.9",
     "@patternfly/react-icons": "3.7.1",
-    "@red-hat-insights/insights-frontend-components": "3.39.1",
+    "@red-hat-insights/insights-frontend-components": "3.41.28",
     "@redhat-cloud-services/approval-client": "^1.0.4",
     "@redhat-cloud-services/catalog-client": "^1.0.6",
     "@redhat-cloud-services/sources-client": "^1.0.11",
