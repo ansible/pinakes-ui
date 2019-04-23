@@ -1,14 +1,16 @@
-import { getTopologicalUserApi } from '../shared/user-login';
+import { getSourcesApi, getTopologocalInventoryApi } from '../shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
 
-const api = getTopologicalUserApi();
+const sourcesApi = getSourcesApi();
+const topologicalApi = getTopologocalInventoryApi();
+window.magix = topologicalApi;
 
 export function getPlatforms() {
-  return api.listSources();
+  return sourcesApi.listSources();
 }
 
 export function getPlatform(platformId) {
-  return api.showSource(platformId);
+  return sourcesApi.showSource(platformId);
 }
 
 export function getPlatformItems(apiProps, options) {
@@ -19,7 +21,7 @@ export function getPlatformItems(apiProps, options) {
       ? `&limit=${options.limit}&offset=${options.offset}`
       : ''}`).then(data =>  data.json());
   } else {
-    apiPromise = api.listServiceOfferings();
+    apiPromise = topologicalApi.listServiceOfferings();
   }
 
   return apiPromise;

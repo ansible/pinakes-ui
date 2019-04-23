@@ -14,7 +14,7 @@ import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
 import RemovePortfolioItems from '../../../smart-components/portfolio/remove-portfolio-items';
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
-import { CATALOG_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
+import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import AddProductsToPortfolio from '../../../smart-components/portfolio/add-products-to-portfolio';
 import { FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
 
@@ -91,7 +91,7 @@ describe('<Portfolio />', () => {
     const store = mockStore({ ...initialState, platformReducer: { platforms: []}});
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/add-products' ] }>
@@ -126,7 +126,7 @@ describe('<Portfolio />', () => {
       expect(req).toBeTruthy();
       return res.status(200);
     }));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
     fetchMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
 
     const wrapper = mount(
@@ -160,7 +160,7 @@ describe('<Portfolio />', () => {
     });
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-portfolio' ] }>
@@ -193,7 +193,7 @@ describe('<Portfolio />', () => {
     });
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/order/321' ] }>
@@ -224,7 +224,7 @@ describe('<Portfolio />', () => {
     });
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123' ] }>

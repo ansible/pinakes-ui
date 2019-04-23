@@ -12,7 +12,7 @@ import OrderModal from '../../../../smart-components/common/order-modal';
 import { ProductLoaderPlaceholder } from '../../../../presentational-components/shared/loader-placeholders';
 import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 import PortfolioItemDetail from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail';
-import { APPROVAL_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../utilities/constants';
+import { APPROVAL_API_BASE, CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 
@@ -79,7 +79,7 @@ describe('<PortfolioItemDetail />', () => {
       }
     }));
     fetchMock.getOnce(`begin:${CATALOG_API_BASE}/portfolio_items`, { name: 'foo', id: 'bar' });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
     const wrapper = mount(
       <ComponentWrapper store={ store }>
         <PortfolioItemDetail { ...initialProps } />
@@ -113,7 +113,7 @@ describe('<PortfolioItemDetail />', () => {
       }
     }));
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo/123' ] }>
@@ -148,7 +148,7 @@ describe('<PortfolioItemDetail />', () => {
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: [{ name: 'workflow', id: '123' }]}}));
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, { properties: {}});
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo/123', '/foo/123/order' ] } initialIndex={ 0 }>

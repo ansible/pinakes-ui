@@ -7,7 +7,7 @@ import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-com
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import Platform from '../../../smart-components/platform/platform';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
@@ -44,8 +44,8 @@ describe('<Platform />', () => {
   it('should mount and fetch data after mount and after source change', (done) => {
     const Provider = mockBreacrumbsStore();
     expect.assertions(3);
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo' }}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2`, mockOnce({ body: { name: 'Foo' }}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo' }}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/2`, mockOnce({ body: { name: 'Foo' }}));
 
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
       data: [{ id: 111 }]});
@@ -94,8 +94,8 @@ describe('<Platform />', () => {
     };
     const Provider = mockBreacrumbsStore(stateWithItems);
 
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/11`, mockOnce({ body: { name: 'Foo', id: '11' }}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo', id: '11' }}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/11`, mockOnce({ body: { name: 'Foo', id: '11' }}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo', id: '11' }}));
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/11/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
       data: [{ id: 111, name: 'Platform item 1', description: 'description 1' }, { id: 2, name: 'Platform item 2', description: 'description 2' }],
       meta: {

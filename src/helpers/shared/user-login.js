@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {  RequestApi, WorkflowApi } from '@redhat-cloud-services/approval-client';
+import { DefaultApi as SourcesDefaultApi } from '@redhat-cloud-services/sources-client';
+import { DefaultApi as TopologicalDefaultApi } from '@redhat-cloud-services/topological-inventory-client';
 import { PortfolioApi, PortfolioItemApi, OrderApi, OrderItemApi } from '@redhat-cloud-services/catalog-client';
-import { DefaultApi, ApiClient as TopologicalInventoryApiClient } from '@manageiq/topological_inventory';
 
-import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
+import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
 import { AccessApi, PrincipalApi, GroupApi, ApiClient } from 'rbac_api_jsclient';
 
 const axiosInstance = axios.create();
@@ -18,23 +19,15 @@ const portfolioApi = new PortfolioApi(undefined, CATALOG_API_BASE, axiosInstance
 const portfolioItemApi = new PortfolioItemApi(undefined, CATALOG_API_BASE, axiosInstance);
 const requestsApi = new RequestApi(undefined, APPROVAL_API_BASE, axiosInstance);
 const workflowApi = new WorkflowApi(undefined, APPROVAL_API_BASE, axiosInstance);
+const sourcesApi = new SourcesDefaultApi(undefined, SOURCES_API_BASE, axiosInstance);
+const topologicalInventoryApi = new TopologicalDefaultApi(undefined, TOPOLOGICAL_INVENTORY_API_BASE, axiosInstance);
 
-window.magix = {
-  orderApi,
-  orderItemApi,
-  portfolioApi,
-  portfolioItemApi,
-  requestsApi,
-  workflowApi
-};
+export function getSourcesApi() {
+  return sourcesApi;
+}
 
-const defaultClient = TopologicalInventoryApiClient.instance;
-defaultClient.basePath = TOPOLOGICAL_INVENTORY_API_BASE;
-
-let userTopologicalApi = new DefaultApi();
-
-export function getTopologicalUserApi() {
-  return userTopologicalApi;
+export function getTopologocalInventoryApi() {
+  return topologicalInventoryApi;
 }
 
 export function getPortfolioApi() {
