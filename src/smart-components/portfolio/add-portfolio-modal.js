@@ -55,7 +55,6 @@ AddPortfolioModal.propTypes = {
     goBack: PropTypes.func.isRequired
   }).isRequired,
   addPortfolio: PropTypes.func.isRequired,
-  addNotification: PropTypes.func.isRequired,
   fetchPortfolios: PropTypes.func.isRequired,
   initialValues: PropTypes.object,
   updatePortfolio: PropTypes.func.isRequired,

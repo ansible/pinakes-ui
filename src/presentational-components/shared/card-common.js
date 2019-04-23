@@ -5,14 +5,7 @@ import Dotdotdot from 'react-dotdotdot';
 const PropLine = ({ value }) => <div>{ value }</div>;
 
 PropLine.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node
-    ]))
-  ]).isRequired
+  value: PropTypes.any.isRequired
 };
 
 const ItemDetails = ({ toDisplay = [], ...item }) => (

@@ -28,7 +28,9 @@ describe('<AddPortfolioModal />', () => {
   );
 
   beforeEach(() => {
-    initialProps = {};
+    initialProps = {
+
+    };
     initialState = {
       approvalReducer: {
         workflows: [{
@@ -52,8 +54,12 @@ describe('<AddPortfolioModal />', () => {
 
   it('should render correctly', () => {
     const store = mockStore({});
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     const wrapper = shallow(<ComponentWrapper store={ store }><AddPortfolioModal { ...initialProps } /></ComponentWrapper>).dive();
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
+
+    setImmediate(() => {
+      expect(shallowToJson(wrapper)).toMatchSnapshot();
+    });
   });
 
   it('should create edit variant of portfolio modal', done => {

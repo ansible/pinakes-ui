@@ -6,7 +6,9 @@ import PlatformItem from '../../../presentational-components/platform/platform-i
 describe('<PlatformItem />', () => {
   let initialProps;
   beforeEach(() => {
-    initialProps = {};
+    initialProps = {
+      id: 'Foo'
+    };
   });
 
   it('should render correctly', () => {

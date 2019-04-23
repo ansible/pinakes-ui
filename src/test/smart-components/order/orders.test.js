@@ -25,9 +25,12 @@ describe('<Orders />', () => {
     current: [{
       id: 'order-1',
       created_at: new Date(),
+      ordered_at: 'Foo',
       state: 'ordered',
       requests: [],
-      orderItems: []
+      orderItems: [{
+        portfolio_item_id: 'foo'
+      }]
     }],
     past: []
   };

@@ -28,7 +28,22 @@ describe('<Platform />', () => {
     };
     mockStore = configureStore(middlewares);
     intiailState = {
-      platformReducer: { ...platformInitialState }
+      platformReducer: {
+        ...platformInitialState,
+        selectedPlatform: {
+          id: '1',
+          name: 'Foo'
+        },
+        platformItems: {
+          1: {
+            meta: {
+              limit: 50,
+              offset: 0,
+              count: 0
+            }
+          }
+        }
+      }
     };
   });
 
@@ -52,7 +67,7 @@ describe('<Platform />', () => {
 
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
       data: [{ id: 111 }]});
-    const Root = props => <Provider><MemoryRouter><Platform store={ mockStore(intiailState) } { ...props } /></MemoryRouter></Provider>;
+    const Root = props => <Provider><MemoryRouter><Platform { ...props } store={ mockStore(intiailState) } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);
     wrapper.setProps({ match: { params: { id: 2 }}});
     wrapper.update();
@@ -69,41 +84,35 @@ describe('<Platform />', () => {
   /**
    * issues with promisses
    */
-  it('should filter platforms correctly', (done) => {
+  it('should filter platform items correctly', (done) => {
     const stateWithItems = {
       platformReducer: {
-        ...intiailState.platformReducer,
         selectedPlatform: {
-          id: '11',
+          id: '1',
           name: 'Foo'
         },
         platforms: [{
-          id: '11',
+          id: '1',
           name: 'Foo'
         }],
         platformItems: {
-          11: {
+          1: {
             data: [
               { id: '111', name: 'Platform item 1', description: 'description 1' },
               { id: '222', name: 'Platform item 2', description: 'description 1' }
             ],
-            limit: 50
+            meta: {
+              limit: 50,
+              offset: 0,
+              count: 2
+            }
           }
         }
       }
     };
     const Provider = mockBreacrumbsStore(stateWithItems);
 
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/11`, mockOnce({ body: { name: 'Foo', id: '11' }}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo', id: '11' }}));
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/11/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [{ id: 111, name: 'Platform item 1', description: 'description 1' }, { id: 2, name: 'Platform item 2', description: 'description 2' }],
-      meta: {
-        count: 2,
-        limit: 50,
-        offset: 0
-      }
-    });
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
       data: []
     });
@@ -111,10 +120,6 @@ describe('<Platform />', () => {
     const Root = props => <Provider><MemoryRouter><Platform { ...props } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);
     setImmediate(() => {
-      wrapper.setProps({ platformItems: [
-        { id: '111', name: 'Platform item 1', description: 'description 1' },
-        { id: '222', name: 'Platform item 2', description: 'description 1' }
-      ]});
       expect(wrapper.find(PlatformItem)).toHaveLength(2);
       const search = wrapper.find('input').first();
       search.getDOMNode().value = 'item 1';

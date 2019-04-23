@@ -28,7 +28,10 @@ describe('<AddProductsToPortfolio />', () => {
 
   beforeEach(() => {
     initialProps = {
-      portfolioRoute: '/portfolio/foo'
+      portfolioRoute: '/portfolio/foo',
+      portfolio: {
+        name: 'Foo'
+      }
     };
   });
 
@@ -63,9 +66,7 @@ describe('<AddProductsToPortfolio />', () => {
       </ComponentWrapper>
     );
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [{
-        id: '123', name: 'platformItem', description: 'description'
-      }],
+      data: [],
       meta: {
         count: 123,
         limit: 50,
@@ -103,29 +104,20 @@ describe('<AddProductsToPortfolio />', () => {
       }
     });
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
-
-    const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <AddProductsToPortfolio { ...initialProps } portfolio={ { id: '321' } } />
-      </ComponentWrapper>
-    );
     fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [{
-        id: '123', name: 'platformItem', description: 'description'
-      }],
-      meta: {
-        count: 123,
-        limit: 50,
-        offset: 123
-      }
-    });
+      data: [], meta: {}});
     apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { id: '999' }}));
     apiClientMock.post(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({ portfolio_item_id: '999' });
-      done();
       return res.status(200);
     }));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { id: '999' }}));
+    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, { data: []});
+
+    const wrapper = mount(
+      <ComponentWrapper store={ store }>
+        <AddProductsToPortfolio { ...initialProps } portfolio={ { id: '321', name: 'Foo' } } />
+      </ComponentWrapper>
+    );
 
     setImmediate(() => {
       const select = wrapper.find(Select);
@@ -135,6 +127,11 @@ describe('<AddProductsToPortfolio />', () => {
       wrapper.update();
       wrapper.find('input').last().simulate('change');
       wrapper.find('button').last().simulate('click');
+      setImmediate(() => {
+        // wait for redirect and portfolio items refresh
+        expect(wrapper.find(MemoryRouter).childAt(0).props().history.location.pathname).toEqual('/portfolio/foo');
+        done();
+      });
     });
   });
 });

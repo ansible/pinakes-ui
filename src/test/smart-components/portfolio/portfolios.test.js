@@ -39,7 +39,9 @@ describe('<Portfolios />', () => {
           id: '123',
           name: 'bar',
           description: 'description',
-          modified: 'sometimes'
+          modified: 'sometimes',
+          created_at: 'foo',
+          owner: 'Owner'
         }]
       }
     };

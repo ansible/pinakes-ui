@@ -2,7 +2,9 @@
 
 exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
 <Fragment>
-  <TopToolbarTitle>
+  <TopToolbarTitle
+    title="Toolbar title"
+  >
     <LevelItem>
       <div
         className="toolbar-override"
@@ -10,7 +12,9 @@ exports[`<PortfolioFilterToolbar /> should render correctly 1`] = `
         <span
           className="toolbar-override-item"
         >
-          <Link>
+          <Link
+            to="/share"
+          >
             <Button
               aria-label={null}
               className=""

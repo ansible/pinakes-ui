@@ -45,7 +45,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoadin
             <TextContent>
               <Text component="h2">Current orders</Text>
             </TextContent>
-            <DataList>
+            <DataList aria-label="current-orders">
               { renderDataListItems(current) }
             </DataList>
           </GridItem>
@@ -53,7 +53,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoadin
             <TextContent>
               <Text component="h2">Past orders</Text>
             </TextContent>
-            <DataList>
+            <DataList aria-label="past-orders">
               { renderDataListItems(past) }
             </DataList>
           </GridItem>
