@@ -111,6 +111,9 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
+        selectedPortfolio: {
+          name: 'Foo'
+        },
         portfolioItems: [{
           id: 123,
           name: 'Foo',

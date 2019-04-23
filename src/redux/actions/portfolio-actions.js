@@ -107,3 +107,17 @@ export const selectPortfolioItem = (portfolioItem) => ({
   payload: portfolioItem
 });
 
+export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => ({
+  type: ActionTypes.REMOVE_PORTFOLIO_ITEMS,
+  payload: PortfolioHelper.removePortfolioItems(portfolioItems),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Products removed',
+        description: `You have removed ${portfolioItems.length} product${portfolioItems.length !== 1 ? 's' : ''} from the ${portfolioName} portfolio. Undo this if it was a mistake.` // eslint-disable-line max-len
+      }
+    }
+  }
+});
+
