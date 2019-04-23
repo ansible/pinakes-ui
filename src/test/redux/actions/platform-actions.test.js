@@ -14,7 +14,7 @@ import {
   fetchMultiplePlatformItems,
   fetchSelectedPlatform
 } from '../../../redux/actions/platform-actions';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
+import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 
 describe('Platform actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
@@ -34,7 +34,7 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({
       body: { data: [{
         id: '1',
         name: 'Source 1'
@@ -59,7 +59,7 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({
       status: 500
     }));
 
@@ -198,7 +198,7 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({
       body: {
         id: '1',
         name: 'Source 1'
@@ -223,7 +223,7 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1`, mockOnce({
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({
       status: 500
     }));
 

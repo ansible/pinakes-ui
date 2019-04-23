@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../smart-components/platform/platforms';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
+import { SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 
@@ -34,7 +34,7 @@ describe('<Platforms />', () => {
 
   it('should mount and fetch platforms data', (done) => {
     const store = mockStore(initialState);
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
     mount(<MemoryRouter><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
     setImmediate(() => {
       const expectedActions = [{
@@ -71,7 +71,7 @@ describe('<Platforms />', () => {
       }
     };
     const Provider = mockBreacrumbsStore(initialState, middlewares);
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
     const wrapper = mount(
       <Provider>
         <MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } /></MemoryRouter>
