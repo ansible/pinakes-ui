@@ -10,8 +10,12 @@ import { AccessApi, PrincipalApi, GroupApi } from '@redhat-cloud-services/rbac-c
 const axiosInstance = axios.create();
 
 const resolveInterceptor = response => response.data || response;
+const errorInterceptor = error => {
+  throw { ...error.response };
+};
 
 axiosInstance.interceptors.response.use(resolveInterceptor);
+axiosInstance.interceptors.response.use(null, errorInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(undefined, CATALOG_API_BASE, axiosInstance);
