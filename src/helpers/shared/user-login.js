@@ -5,7 +5,7 @@ import { DefaultApi as TopologicalDefaultApi } from '@redhat-cloud-services/topo
 import { PortfolioApi, PortfolioItemApi, OrderApi, OrderItemApi } from '@redhat-cloud-services/catalog-client';
 
 import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
-import { AccessApi, PrincipalApi, GroupApi, ApiClient } from 'rbac_api_jsclient';
+import { AccessApi, PrincipalApi, GroupApi } from '@redhat-cloud-services/rbac-client';
 
 const axiosInstance = axios.create();
 
@@ -50,12 +50,9 @@ export function getRequestsApi() {
   return requestsApi;
 }
 
-const defaultRbacClient = ApiClient.instance;
-defaultRbacClient.basePath = RBAC_API_BASE;
-
-let rbacAccessApi = new AccessApi();
-let rbacPrincipalApi = new PrincipalApi();
-let rbacGroupApi = new GroupApi();
+let rbacAccessApi = new AccessApi(undefined, RBAC_API_BASE, axiosInstance);
+let rbacPrincipalApi = new PrincipalApi(undefined, RBAC_API_BASE, axiosInstance);
+let rbacGroupApi = new GroupApi(undefined, RBAC_API_BASE, axiosInstance);
 
 export function getRbacAccessApi() {
   return rbacAccessApi;
