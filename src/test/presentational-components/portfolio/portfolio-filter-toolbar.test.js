@@ -14,7 +14,9 @@ describe('<PortfolioFilterToolbar />', () => {
       editPortfolioRoute: '/edit',
       removePortfolioRoute: '/remove-portfolio',
       removeProductsRoute: '/remove-products',
-      onFilterChange: jest.fn()
+      onFilterChange: jest.fn(),
+      sharePortfolioRoute: '/share',
+      title: 'Toolbar title'
     };
   });
 

@@ -62,7 +62,6 @@ class Platform extends Component {
     };
 
     let title = this.props.platform ? this.props.platform.name : '';
-
     return (
       <Fragment>
         <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange } title={ title }>
