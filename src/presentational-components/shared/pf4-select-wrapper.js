@@ -49,22 +49,25 @@ const Pf4SelectWrapper = ({
   meta,
   description,
   hideLabel,
+  formOptions,
+  dataType,
   ...rest
 }) => {
   const { error, touched } = meta;
   const showError = touched && error;
+  const { name, id } = rest.input;
 
   return (
     <FormGroup
       isRequired={ isRequired }
       label={ !hideLabel && label }
-      fieldId={ rest.id }
+      fieldId={ id || name }
       isValid={ !showError }
       helperText={ helperText }
       helperTextInvalid={ meta.error }
     >
       { description && <TextContent><Text component={ TextVariants.small }>{ description }</Text></TextContent> }
-      <Select label={ label } isValid={ !showError } isRequired={ isRequired } { ...rest }/>
+      <Select id={ id || name } label={ label } isValid={ !showError } isRequired={ isRequired } { ...rest }/>
     </FormGroup>
   );
 };
@@ -76,7 +79,9 @@ Pf4SelectWrapper.propTypes = {
   helperText: PropTypes.string,
   meta: PropTypes.object,
   description: PropTypes.string,
-  hideLabel: PropTypes.bool
+  hideLabel: PropTypes.bool,
+  formOptions: PropTypes.object,
+  dataType: PropTypes.string
 };
 
 export default Pf4SelectWrapper;
