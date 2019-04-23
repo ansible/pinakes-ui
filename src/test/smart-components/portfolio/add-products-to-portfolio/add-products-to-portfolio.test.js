@@ -9,7 +9,7 @@ import configureStore from 'redux-mock-store' ;
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
-import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE } from '../../../../utilities/constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import PlatformItem from '../../../../presentational-components/platform/platform-item';
 import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-products-to-portfolio';
 
@@ -55,7 +55,7 @@ describe('<AddProductsToPortfolio />', () => {
         }
       }
     });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store }>
@@ -102,7 +102,7 @@ describe('<AddProductsToPortfolio />', () => {
         }
       }
     });
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store }>
