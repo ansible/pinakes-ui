@@ -22,7 +22,7 @@ describe('<ItemDetailDescription />', () => {
         value: 'foo'
       }, {
         label: 'Bar',
-        value: null
+        value: 'bar'
       }],
       workflow: 'foo',
       setWorkflow: jest.fn()

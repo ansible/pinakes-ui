@@ -33,7 +33,8 @@ describe('<RemovePortfolioModal />', () => {
     initialState = {
       portfolioReducer: {
         portfolios: [{
-          id: '123'
+          id: '123',
+          name: 'Foo'
         }]
       }
     };

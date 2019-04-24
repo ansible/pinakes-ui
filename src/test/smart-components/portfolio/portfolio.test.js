@@ -38,9 +38,16 @@ describe('<Portfolio />', () => {
       id: '123'
     };
     initialState = {
+      platformReducer: {
+        platformItems: []
+      },
       portfolioReducer: {
+        selectedPortfolio: {
+          id: '123',
+          name: 'Foo'
+        },
         portfolios: [{
-          id: 123,
+          id: '123',
           name: 'bar',
           description: 'description',
           modified: 'sometimes'
@@ -88,7 +95,7 @@ describe('<Portfolio />', () => {
   });
 
   it('should mount and render add products page', (done) => {
-    const store = mockStore({ ...initialState, platformReducer: { platforms: []}});
+    const store = mockStore({ ...initialState, platformReducer: { platforms: [], platformItems: {}}});
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
@@ -115,7 +122,7 @@ describe('<Portfolio />', () => {
           name: 'Foo'
         },
         portfolioItems: [{
-          id: 123,
+          id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
@@ -187,7 +194,7 @@ describe('<Portfolio />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         portfolioItems: [{
-          id: 123,
+          id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
@@ -216,9 +223,8 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        selectedPortfolio: { name: 'Foo' },
         portfolioItems: [{
-          id: 123,
+          id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'

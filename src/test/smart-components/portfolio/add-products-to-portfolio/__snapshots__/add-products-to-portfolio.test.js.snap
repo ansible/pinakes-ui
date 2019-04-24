@@ -2,6 +2,11 @@
 
 exports[`<AddProductsToPortfolio /> should render correctly 1`] = `
 <withRouter(Connect(AddProductsToPortfolio))
+  portfolio={
+    Object {
+      "name": "Foo",
+    }
+  }
   portfolioRoute="/portfolio/foo"
   store={
     Object {

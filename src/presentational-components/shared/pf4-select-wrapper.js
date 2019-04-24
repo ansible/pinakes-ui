@@ -51,6 +51,7 @@ const Pf4SelectWrapper = ({
   hideLabel,
   formOptions,
   dataType,
+  initialKey,
   ...rest
 }) => {
   const { error, touched } = meta;
@@ -81,7 +82,8 @@ Pf4SelectWrapper.propTypes = {
   description: PropTypes.string,
   hideLabel: PropTypes.bool,
   formOptions: PropTypes.object,
-  dataType: PropTypes.string
+  dataType: PropTypes.string,
+  initialKey: PropTypes.any
 };
 
 export default Pf4SelectWrapper;

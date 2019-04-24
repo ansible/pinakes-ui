@@ -11,6 +11,7 @@ import OrderServiceFormStepConfiguration from '../order/order-service-form-step-
 const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (
   <Modal
     isOpen
+    title=""
     hideTitle
     onClose={ () => push(closeUrl) }
     style={ { maxWidth: 800, minHeight: 300 } }
