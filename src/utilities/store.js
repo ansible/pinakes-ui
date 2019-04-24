@@ -13,8 +13,8 @@ import rbacReducer, { rbacInitialState } from '../redux/reducers/rbac-reducer';
 import shareReducer, { shareInfoInitialState } from '../redux/reducers/share-reducer';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
-  errorTitleKey: [ 'errors', 'message' ],
-  errorDescriptionKey: [ 'response.body.errors', 'errors', 'stack' ]
+  errorTitleKey: [ 'errors', 'message', 'statusText' ],
+  errorDescriptionKey: [ 'data', 'response.body.errors', 'errors', 'stack' ]
 }), reduxLogger ]);
 
 registry.register({
