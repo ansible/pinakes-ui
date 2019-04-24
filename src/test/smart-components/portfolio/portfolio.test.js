@@ -73,10 +73,11 @@ describe('<Portfolio />', () => {
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, expect.objectContaining({
-      type: `${FETCH_PORTFOLIO}_FULFILLED`
-    }), expect.objectContaining({
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
+    }), expect.objectContaining({
+      type: `${FETCH_PORTFOLIO}_FULFILLED`
     }) ];
+
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({
       body: {}
     }));
@@ -89,6 +90,7 @@ describe('<Portfolio />', () => {
       </ComponentWrapper>
     );
     setImmediate(() => {
+      console.log(store.getActions());
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
