@@ -48,7 +48,7 @@ const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) =
                     style={ { marginBottom: 0 } }
                     component={ TextVariants.h5 }
                   >
-                    { getOrderPortfolioName(item, portfolioItems) }
+                    { `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }
                   </Text>
                 </GridItem>
                 <GridItem>
