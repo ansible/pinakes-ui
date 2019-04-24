@@ -4,6 +4,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
 <Card
   className="content-gallery-card"
   component="article"
+  key="Foo"
 >
   <CardHeader
     className=""
@@ -19,7 +20,9 @@ exports[`<PlatformItem /> should render correctly 1`] = `
       }
     />
   </CardHeader>
-  <ServiceOfferingCardBody />
+  <ServiceOfferingCardBody
+    id="Foo"
+  />
   <CardFooter
     className=""
     component="div"

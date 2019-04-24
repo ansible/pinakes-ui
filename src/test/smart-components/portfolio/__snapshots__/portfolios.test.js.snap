@@ -7,10 +7,12 @@ exports[`<Portfolios /> should render correctly 1`] = `
   portfolios={
     Array [
       Object {
+        "created_at": "foo",
         "description": "description",
         "id": "123",
         "modified": "sometimes",
         "name": "bar",
+        "owner": "Owner",
       },
     ]
   }

@@ -14,7 +14,9 @@ describe('<PortfolioCard />', () => {
       description: 'description',
       modified: 'modified',
       name: 'name',
-      id: '123'
+      id: '123',
+      created_at: 'created at',
+      owner: 'Owner'
     };
   });
 

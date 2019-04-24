@@ -21,7 +21,7 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
       },
       Object {
         "label": "Bar",
-        "value": null,
+        "value": "bar",
       },
     ]
   }
@@ -162,7 +162,7 @@ exports[`<ItemDetailDescription /> should render correctly in edit variant 1`] =
       },
       Object {
         "label": "Bar",
-        "value": null,
+        "value": "bar",
       },
     ]
   }

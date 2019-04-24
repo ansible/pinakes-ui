@@ -109,13 +109,15 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             className=""
             component="small"
           >
-            Last modified NaN days ago.
+            Last modified NaN days ago by Owner.
           </Text>
         </TextContent>
         <ItemDetails
+          created_at="created at"
           description="description"
           modified="modified"
           name="name"
+          owner="Owner"
           portfolioName="foo"
           toDisplay={
             Array [

@@ -15,6 +15,12 @@ import PortfolioItemDetail from '../../../../smart-components/portfolio/portfoli
 import { APPROVAL_API_BASE, CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import dummySchema from '../../order/order-mock-form-schema';
+
+const servicePlansResponse = {
+  ...dummySchema,
+  type: 'object'
+};
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -64,6 +70,7 @@ describe('<PortfolioItemDetail />', () => {
 
   it('should render correctly', () => {
     const wrapper = shallow(<PortfolioItemDetail { ...initialProps } />);
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: { data: []}}));
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -140,14 +147,15 @@ describe('<PortfolioItemDetail />', () => {
       },
       orderReducer: {
         selectedItem: {},
-        sevicePlans: {}
+        isLoading: true,
+        sevicePlans: [ servicePlansResponse ]
       }
     };
     const store = mockStore(loadedState);
 
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: [{ name: 'workflow', id: '123' }]}}));
     fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, { properties: {}});
+    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, { properties: { namespace: { enum: []}}});
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
@@ -159,8 +167,10 @@ describe('<PortfolioItemDetail />', () => {
       // navigate to order route
       wrapper.find(MemoryRouter).instance().history.push('/foo/123/order');
       wrapper.update();
-      expect(wrapper.find(OrderModal)).toHaveLength(1);
-      done();
+      setImmediate(() => {
+        expect(wrapper.find(OrderModal)).toHaveLength(1);
+        done();
+      });
     });
   });
 });
