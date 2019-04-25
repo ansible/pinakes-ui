@@ -19,7 +19,7 @@ const PortfolioItemDetailToolbar = ({
 }) => (
   <Fragment>
     <TopToolbar>
-      <div style={ { float: 'left' } }>
+      <div style={ { float: 'left' } } className="pf-u-mr-sm">
         <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` } height={ 64 }/>
       </div>
       <Level>
