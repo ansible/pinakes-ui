@@ -53,7 +53,7 @@ const createOrderRow = order => {
     requester: index <= finishedSteps.length ? item.requester : null,
     state: index <= finishedSteps.length ? iconsMapper(item.state) : null,
     updated_at: index <= finishedSteps.length ? item.updated_at : null,
-    isFinished: index === finishedSteps.length - 1
+    isFinished: firstFailedIndex >= 0 ? (finishedSteps.length === index) : (finishedSteps.length - 1 === index)
   }));
 
   return { steps, finishedSteps };
