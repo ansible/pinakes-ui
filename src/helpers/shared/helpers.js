@@ -38,4 +38,4 @@ export const createUpdatedLabel = orderItem => {
   return `Updated ${orderedAgo} ${orderedAgo > 1 ? 'days' : 'day'} ago`;
 };
 
-export const createDateString = date => moment(new Date(date), 'DD-MMM-YYYY').format('DD MMM YYYY');
+export const createDateString = date => moment(new Date(date).toUTCString(), 'DD-MMM-YYYY, HH:mm').format('DD MMM YYYY, HH:mm UTC');

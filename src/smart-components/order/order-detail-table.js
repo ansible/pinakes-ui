@@ -25,7 +25,9 @@ const OrderDetailTable = ({ requests }) => (
         <tr key={ index } className={ isFinished ? 'finished' : '' }>
           <td><StepLabel index={ index } text={ reason } /></td>
           <td>{ requester }</td>
-          <td>{ updated_at }</td>
+          <td>
+            <span>{ updated_at }</span>
+          </td>
           <td>{ state }</td>
         </tr>
       )) }
