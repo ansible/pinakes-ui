@@ -8,7 +8,7 @@ const failedList = state => [ 'Failed' ].includes(state);
 
 const countFinishedSteps = step => step.filter(({ state }) => !failedList(state) && completedWhiteList(state));
 
-const overrideOrderinitiated = (request = {}, orderItem = {}) => !failedList(orderItem.state) && completedWhiteList(request.state);
+// const overrideOrderinitiated = (request = {}, orderItem = {}) => !failedList(orderItem.state) && completedWhiteList(request.state);
 
 const iconsMapper  = name => ({
   finished: <CheckIcon />,
@@ -20,9 +20,7 @@ const createTableRows = order => [{
   reason: 'Order initiated',
   requester: 'System',
   updated_at: order.orderItems[0] && createDateString(order.orderItems[0].updated_at || order.orderItems[0].created_at),
-  state: overrideOrderinitiated(order.requests[0], order.orderItems[0])
-    ? order.requests[0] && order.requests[0].state
-    : order.orderItems[0] && order.orderItems[0].state
+  state: 'finished'
 }, {
   reason: 'Approval',
   requester: 'System',
@@ -53,7 +51,7 @@ const createOrderRow = order => {
     requester: index <= finishedSteps.length ? item.requester : null,
     state: index <= finishedSteps.length ? iconsMapper(item.state) : null,
     updated_at: index <= finishedSteps.length ? item.updated_at : null,
-    isFinished: index === finishedSteps.length - 1
+    isFinished: firstFailedIndex >= 0 ? (finishedSteps.length === index) : (finishedSteps.length - 1 === index)
   }));
 
   return { steps, finishedSteps };
