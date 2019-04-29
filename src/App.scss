@@ -68,12 +68,23 @@
 .data-list-expand-fix {
   .pf-c-data-list__toggle {
     align-self: flex-start;
-    margin-top: 32px;
+    margin-top: 0;
+  }
+  .pf-c-data-list__expandable-content-body {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 }
 
 .cell-grow {
-  flex-grow: 20 !important
+  flex-grow: 20 !important;
+  .pf-l-split {
+    .pf-l-split__item:nth-child(2) {
+      width: 100%;
+    }
+  }
 }
 
 .requests-table {
