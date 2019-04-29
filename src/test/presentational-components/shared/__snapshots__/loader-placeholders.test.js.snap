@@ -84,6 +84,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -151,6 +152,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -218,6 +220,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -285,6 +288,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -352,6 +356,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -419,6 +424,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -486,6 +492,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -553,6 +560,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -620,6 +628,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -687,6 +696,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -754,6 +764,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -821,6 +832,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
@@ -888,6 +900,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           <CardBody
             className=""
             component="div"
+            isFilled={true}
           >
             <Holder
               height={160}
