@@ -66,7 +66,7 @@ const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) =
                         style={ { marginBottom: 0 } }
                         component={ TextVariants.small }
                       >
-                            Ordered by
+                        Ordered by { item.owner }
                       </Text>
                     </LevelItem>
                     <LevelItem>
