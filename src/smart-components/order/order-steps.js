@@ -4,7 +4,7 @@ import { Progress, ProgressMeasureLocation } from '@patternfly/react-core';
 
 const OrderSteps = ({ requests }) => (
   <Progress
-    style={ { minWidth: 200 } }
+    style={ { minWidth: 200, gridGap: 8 } }
     value={ requests.length }
     title="Steps"
     size="sm"

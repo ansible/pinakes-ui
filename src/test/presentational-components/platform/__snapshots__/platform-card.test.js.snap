@@ -25,10 +25,9 @@ exports[`<PlatformCard /> should choose card image 1`] = `
             >
               <CardHeader
                 className=""
-                component="div"
               >
                 <div
-                  className="pf-c-card__header"
+                  className="pf-c-card__header pf-c-title pf-m-lg"
                 >
                   <ImageWithDefault
                     height="40"
@@ -46,6 +45,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
               <CardBody
                 className=""
                 component="div"
+                isFilled={true}
               >
                 <div
                   className="pf-c-card__body"
@@ -131,10 +131,9 @@ exports[`<PlatformCard /> should render correctly 1`] = `
             >
               <CardHeader
                 className=""
-                component="div"
               >
                 <div
-                  className="pf-c-card__header"
+                  className="pf-c-card__header pf-c-title pf-m-lg"
                 >
                   <ImageWithDefault
                     height="40"
@@ -152,6 +151,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
               <CardBody
                 className=""
                 component="div"
+                isFilled={true}
               >
                 <div
                   className="pf-c-card__body"

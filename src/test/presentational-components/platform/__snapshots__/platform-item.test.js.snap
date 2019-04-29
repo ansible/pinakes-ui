@@ -8,7 +8,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
 >
   <CardHeader
     className=""
-    component="div"
   >
     <CardIcon
       height={40}
