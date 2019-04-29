@@ -8,8 +8,6 @@ import CardIcon from '../../presentational-components/shared/card-icon';
 import CardCheckbox from '../../presentational-components/shared/card-checkbox';
 import ServiceOfferingCardBody from '../../presentational-components/shared/service-offering-body';
 
-import './portfolio-item.scss';
-
 const PortfolioItem = props => {
   const renderCardContent = () => (
     <Fragment>

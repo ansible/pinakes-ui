@@ -12,7 +12,6 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
     >
       <CardHeader
         className="card_header"
-        component="div"
       >
         <CardIcon
           height={40}
