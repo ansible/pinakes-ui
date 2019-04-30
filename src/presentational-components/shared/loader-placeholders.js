@@ -1,8 +1,22 @@
 import React, { Fragment } from 'react';
 import ContentLoader, { List } from 'react-content-loader';
 import PropTypes from 'prop-types';
-import { Main } from '@red-hat-insights/insights-frontend-components';
-import { Card, CardBody, Grid, GridItem, Gallery, GalleryItem } from '@patternfly/react-core';
+import { Main, Spinner } from '@red-hat-insights/insights-frontend-components';
+import {
+  Bullseye,
+  Card,
+  CardBody,
+  DataList,
+  DataListCell,
+  DataListItem,
+  DataListItemRow,
+  DataListItemCells,
+  Grid,
+  GridItem,
+  Gallery,
+  GalleryItem
+} from '@patternfly/react-core';
+import OrdersToolbar from '../../smart-components/order/orders-toolbar';
 
 export const CardLoader = ({ items, ...props }) => (
   <Grid  gutter="md">
@@ -80,7 +94,11 @@ export const AppPlaceholder = props => (
       { ...props }>
       <rect x="0" y="0" rx="0" ry="0" width="420" height="10" />
     </ContentLoader>
-    <CardLoader />
+    <div>
+      <Bullseye>
+        <Spinner />
+      </Bullseye>
+    </div>
   </Main>
 );
 
@@ -140,3 +158,40 @@ export const ShareLoader = () => (
     <rect x="392" y="380" rx="0" ry="0" width="1" height="60" />
   </ContentLoader>
 );
+
+export const OrderLoader = ({ items, ...props }) => (
+  <Fragment>
+    <OrdersToolbar />
+    <DataList aria-label="orders-placeholder" style={ { margin: 32 } }>
+      { [ ...Array(items) ].map((_item, index) => (
+        <DataListItem key={ index } aria-label="order-item-placeholder">
+          <DataListItemRow>
+            <DataListItemCells dataListCells={ [
+              <DataListCell key="1">
+                <ContentLoader
+                  height={ 12 }
+                  width={ 300 }
+                  speed={ 2 }
+                  primaryColor="#FFFFFF"
+                  secondaryColor="#ecebeb"
+                  { ...props }>
+                  <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
+                </ContentLoader>
+              </DataListCell>
+            ] }
+            />
+          </DataListItemRow>
+
+        </DataListItem>
+      )) }
+    </DataList>
+  </Fragment>
+);
+
+OrderLoader.propTypes = {
+  items: PropTypes.number
+};
+
+OrderLoader.defaultProps = {
+  items: 5
+};

@@ -11,11 +11,12 @@ import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/port
 import approvalReducer, { approvalInitialState } from '../redux/reducers/approval-reducer';
 import rbacReducer, { rbacInitialState } from '../redux/reducers/rbac-reducer';
 import shareReducer, { shareInfoInitialState } from '../redux/reducers/share-reducer';
+import loadingStateMiddleware from './loading-state-middleware';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
   errorTitleKey: [ 'errors', 'message', 'statusText' ],
-  errorDescriptionKey: [ 'data', 'response.body.errors', 'errors', 'stack' ]
-}), reduxLogger ]);
+  errorDescriptionKey: [ 'data.message', 'response.body.errors', 'errors', 'data', 'stack' ]
+}), loadingStateMiddleware, reduxLogger ]);
 
 registry.register({
   orderReducer: applyReducerHash(orderReducer, orderInitialState),
