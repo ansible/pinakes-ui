@@ -26,9 +26,14 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
       y="0"
     />
   </Holder>
-  <CardLoader
-    items={13}
-  />
+  <div>
+    <Bullseye
+      className=""
+      component="div"
+    >
+      <Spinner />
+    </Bullseye>
+  </div>
 </Connect(Main)>
 `;
 
