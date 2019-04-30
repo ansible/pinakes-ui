@@ -35,7 +35,9 @@ exports[`<OrderDetailTable /> should render correctly 1`] = `
         bar
       </td>
       <td>
-        Wed Apr 10 2019 14:26:42 GMT+0200 (Central European Summer Time)
+        <span>
+          Wed Apr 10 2019 14:26:42 GMT+0200 (Central European Summer Time)
+        </span>
       </td>
       <td>
         baz

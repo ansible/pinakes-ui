@@ -4,7 +4,8 @@ import {
   FETCH_PLATFORM_ITEMS,
   FETCH_PLATFORM_ITEM,
   FILTER_PLATFORM_ITEMS,
-  FETCH_MULTIPLE_PLATFORM_ITEMS
+  FETCH_MULTIPLE_PLATFORM_ITEMS,
+  SET_LOADING_STATE
 } from '../action-types';
 
 // Initial State
@@ -19,7 +20,7 @@ export const platformInitialState = {
 
 // rename isPlatformLoading.. to isLoaing so we can use common action for loading states
 
-const setLoadingState = state => ({ ...state, isPlatformDataLoading: true });
+const setLoadingState = (state, { payload = true }) => ({ ...state, isPlatformDataLoading: payload });
 const setPlatforms = (state, { payload }) => ({ ...state, platforms: payload, isPlatformDataLoading: false });
 const setPlatformItems = (state, { payload, meta: { platformId }}) =>
   ({ ...state, platformItems: { ...state.platformItems, [platformId]: payload }, isPlatformDataLoading: false });
@@ -39,5 +40,6 @@ export default {
   [`${FETCH_PLATFORM}_PENDING`]: setLoadingState,
   [`${FETCH_PLATFORM}_FULFILLED`]: selectPlatform,
   [`${FILTER_PLATFORM_ITEMS}_FULFILLED`]: filterPlatformItems,
-  [`${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`]: setMultiplePlatformItems
+  [`${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`]: setMultiplePlatformItems,
+  [SET_LOADING_STATE]: setLoadingState
 };

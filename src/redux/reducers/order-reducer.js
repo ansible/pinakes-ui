@@ -7,7 +7,8 @@ import {
   SET_SELECTED_PLAN,
   FETCH_REQUESTS,
   FETCH_ORDER_ITEMS,
-  FETCH_LINKED_ORDERS
+  FETCH_LINKED_ORDERS,
+  SET_LOADING_STATE
 } from '../action-types';
 
 // Initial State
@@ -20,7 +21,7 @@ export const orderInitialState = {
   linkedOrders: { current: [], past: []}
 };
 
-const setLoadingState = state => ({ ...state, isLoading: true });
+const setLoadingState = (state, { payload = true }) => ({ ...state, isLoading: payload });
 const setServicePlans = (state, { payload }) => ({ ...state, servicePlans: payload, isLoading: false });
 const setListOrder = (state, { payload }) => ({ ...state, orders: payload, isLoading: false });
 const setPlanParameters = (state, { payload }) => ({ ...state, planParameters: payload, isLoading: false });
@@ -46,5 +47,6 @@ export default {
   [`${FETCH_ORDER_ITEMS}_PENDING`]: setLoadingState,
   [`${FETCH_ORDER_ITEMS}_FULFILLED`]: setOrderItems,
   [`${FETCH_LINKED_ORDERS}_PENDING`]: setLoadingState,
-  [`${FETCH_LINKED_ORDERS}_FULFILLED`]: setLinkedOrders
+  [`${FETCH_LINKED_ORDERS}_FULFILLED`]: setLinkedOrders,
+  [SET_LOADING_STATE]: setLoadingState
 };

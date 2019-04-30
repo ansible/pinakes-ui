@@ -35,3 +35,8 @@ export const FETCH_REQUESTS = 'FETCH_REQUESTS';
 export const FETCH_ORDER_ITEMS = 'FETCH_ORDER_ITEMS';
 
 export const FETCH_LINKED_ORDERS = 'FETCH_LINKED_ORDERS';
+
+/**
+ * Global redux loading state
+ */
+export const SET_LOADING_STATE = 'SET_LOADING_STATE';
