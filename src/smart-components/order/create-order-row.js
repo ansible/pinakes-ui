@@ -20,7 +20,8 @@ const createTableRows = order => [{
   reason: 'Order initiated',
   requester: 'System',
   updated_at: order.orderItems[0] && createDateString(order.orderItems[0].updated_at || order.orderItems[0].created_at),
-  state: 'finished'
+  state: 'finished',
+  orderItemId: order.orderItems[0] && order.orderItems[0].id
 }, {
   reason: 'Approval',
   requester: 'System',
