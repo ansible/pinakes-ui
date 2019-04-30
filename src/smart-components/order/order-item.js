@@ -108,7 +108,7 @@ const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) =
         />
       </DataListItemRow>
       <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-        <OrderDetailTable requests={ steps } />
+        <OrderDetailTable requests={ steps } isExpanded={ isExpanded } />
       </DataListContent>
     </DataListItem>
   );};
