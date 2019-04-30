@@ -1,12 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Grid, GridItem, DataList, Text, TextContent } from '@patternfly/react-core';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 
 import OrderItem from './order-item';
 import OrdersToolbar from './orders-toolbar';
+import OrderMessagesModal from './order-messages-modal';
 import { getLinkedOrders } from '../../redux/actions/order-actions';
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
 import { OrderLoader } from '../../presentational-components/shared/loader-placeholders';
@@ -38,6 +40,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoadin
 
   return (
     <Fragment>
+      <Route path="/orders/:orderItemId/messages" component={ OrderMessagesModal } />
       <OrdersToolbar />
       <Section type="content">
         <Grid gutter="md">
