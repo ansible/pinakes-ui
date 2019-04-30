@@ -25,17 +25,20 @@ const createTableRows = order => [{
   reason: 'Approval',
   requester: 'System',
   updated_at: order.requests[0] && createDateString(order.requests[0].updated_at || order.requests[0].created_at),
-  state: order.requests[0] && order.requests[0].state
+  state: order.requests[0] && order.requests[0].state,
+  initialUpdate: order.requests[0] && (order.requests[0].updated_at || order.requests[0].created_at)
 }, {
   reason: 'Provision',
   requester: 'System',
   updated_at: createDateString(order.ordered_at || order.created_at),
-  state: order.state
+  state: order.state,
+  initialUpdate: order.ordered_at || order.created_at
 }, {
   reason: 'Order completed',
   requester: 'System',
   updated_at: createDateString(order.ordered_at || order.created_at),
-  state: order.state
+  state: order.state,
+  initialUpdate: order.ordered_at || order.created_at
 }];
 
 const createOrderRow = order => {

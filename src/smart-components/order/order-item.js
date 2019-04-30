@@ -15,18 +15,22 @@ import {
   SplitItem,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  Tooltip,
+  TooltipPosition
 } from '@patternfly/react-core';
 
 import OrderSteps from './order-steps';
 import OrderDetailTable from './order-detail-table';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName } from '../../helpers/shared/orders';
-import { createOrderedLabel, createUpdatedLabel } from '../../helpers/shared/helpers';
+import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
 import createOrderRow from './create-order-row';
 
 const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) => {
   const { finishedSteps, steps } = createOrderRow(item);
+  const orderedAt = createOrderedLabel(new Date(item.ordered_at));
+  const updatedAt = createUpdatedLabel(item.orderItems);
 
   return (
     <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
@@ -59,12 +63,14 @@ const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) =
                       <GridItem>
                         <Level>
                           <LevelItem>
-                            <Text
-                              style={ { marginBottom: 0 } }
-                              component={ TextVariants.small }
-                            >
-                              { `${createOrderedLabel(new Date(item.ordered_at))}` }
-                            </Text>
+                            <Tooltip enableFlip position={ TooltipPosition.top } content={ <span>{ createDateString(item.ordered_at) }</span> }>
+                              <Text
+                                style={ { marginBottom: 0 } }
+                                component={ TextVariants.small }
+                              >
+                                { orderedAt }
+                              </Text>
+                            </Tooltip>
                           </LevelItem>
                           <LevelItem>
                             <Text
@@ -75,12 +81,18 @@ const OrderItem = ({ item, isExpanded, handleDataItemToggle, portfolioItems }) =
                             </Text>
                           </LevelItem>
                           <LevelItem>
-                            <Text
-                              style={ { marginBottom: 0 } }
-                              component={ TextVariants.small }
+                            <Tooltip
+                              enableFlip
+                              position={ TooltipPosition.top }
+                              content={ <span>{ createDateString(item.updated_at || item.ordered_at) }</span> }
                             >
-                              { `${createUpdatedLabel(item.orderItems)}` }
-                            </Text>
+                              <Text
+                                style={ { marginBottom: 0 } }
+                                component={ TextVariants.small }
+                              >
+                                { updatedAt }
+                              </Text>
+                            </Tooltip>
                           </LevelItem>
                         </Level>
                       </GridItem>
