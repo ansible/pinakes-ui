@@ -29,7 +29,12 @@ export async function sendSubmitOrder({ service_parameters: { providerControlPar
 }
 
 export function listRequests() {
-  return requestsApi.listRequests();
+  return requestsApi.listRequests().then(data => ({
+    ...data,
+    data: data.data.map(({ decision, ...item }) => ({
+      ...item,
+      state: decision
+    })) }));
 }
 
 export function listOrderItems() {

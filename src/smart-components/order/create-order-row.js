@@ -3,8 +3,8 @@ import { CheckIcon, InProgressIcon, OutlinedTimesCircleIcon } from '@patternfly/
 
 import { createDateString } from '../../helpers/shared/helpers';
 
-const completedWhiteList = state => [ 'Order Completed', 'finished' ].includes(state);
-const failedList = state => [ 'Failed' ].includes(state);
+const completedWhiteList = state => [ 'Order Completed', 'finished', 'Completed', 'approved' ].includes(state);
+const failedList = state => [ 'Failed', 'denied', 'Denied' ].includes(state);
 
 const countFinishedSteps = step => step.filter(({ state }) => !failedList(state) && completedWhiteList(state));
 
@@ -13,7 +13,10 @@ const countFinishedSteps = step => step.filter(({ state }) => !failedList(state)
 const iconsMapper  = name => ({
   finished: <CheckIcon />,
   'Order Completed': <CheckIcon />,
-  Failed: <OutlinedTimesCircleIcon />
+  Completed: <CheckIcon />,
+  approved: <CheckIcon />,
+  Failed: <OutlinedTimesCircleIcon />,
+  denied: <OutlinedTimesCircleIcon />
 })[name] || <span><InProgressIcon /> &nbsp; Pending</span>;
 
 const createTableRows = order => [{
@@ -55,7 +58,7 @@ const createOrderRow = order => {
     requester: index <= finishedSteps.length ? item.requester : null,
     state: index <= finishedSteps.length ? iconsMapper(item.state) : null,
     updated_at: index <= finishedSteps.length ? item.updated_at : null,
-    isFinished: firstFailedIndex >= 0 ? (finishedSteps.length === index) : (finishedSteps.length - 1 === index)
+    isFinished: finishedSteps.length === index
   }));
 
   return { steps, finishedSteps };

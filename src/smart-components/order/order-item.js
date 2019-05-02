@@ -107,14 +107,22 @@ class OrderItem extends Component {
                   </SplitItem>
                 </Split>
               </DataListCell>,
-              <DataListCell key="2" style={ { alignSelf: 'center' } }>
-                <OrderSteps requests={ finishedSteps } />
+              <DataListCell key="2" style={ { alignSelf: item.state === 'Completed' ? 'flex-end' : 'center' } }>
+                { item.state === 'Completed'
+                  ? (
+                    <div style={ { minWidth: 200, textAlign: 'end' } }>
+                      <a href={ item.orderItems && item.orderItems[0].external_url }>
+                        Manage product
+                      </a>
+                    </div>)
+                  : <OrderSteps requests={ finishedSteps } />
+                }
               </DataListCell>
             ] }
           />
         </DataListItemRow>
         <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-          { isExpanded && <OrderDetailTable requests={ steps } /> }
+          { isExpanded && <OrderDetailTable requests={ steps } orderState={ item.state } orderItem={ item.orderItems && item.orderItems[0] }  /> }
         </DataListContent>
       </DataListItem>
     );
