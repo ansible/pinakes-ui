@@ -125,9 +125,16 @@
       &.finished {
           .requests-step-label {
             span:first-child {
-              background-color: #007BBA;
+              background-color: var(--pf-global--primary-color--100);
               color: #FFFFFF
+            }
           }
+          &.failed {
+            .requests-step-label {
+              span:first-child {
+                background-color: var(--pf-global--danger-color--100);
+              }
+            }
         }
       }
       td {
