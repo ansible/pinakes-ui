@@ -114,7 +114,7 @@ class OrderItem extends Component {
           />
         </DataListItemRow>
         <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-          { isExpanded && <OrderDetailTable requests={ steps } /> }
+          { isExpanded && <OrderDetailTable requests={ steps } orderState={ item.state } /> }
         </DataListContent>
       </DataListItem>
     );

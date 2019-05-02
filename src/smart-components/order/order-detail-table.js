@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { MessagesIcon } from '@patternfly/react-icons';
 import StepLabel from './step-label';
 
-const OrderDetailTable = ({ requests }) => (
+const OrderDetailTable = ({ requests, orderState }) => (
   <Fragment>
     <table className="requests-table">
       <thead>
@@ -25,7 +25,7 @@ const OrderDetailTable = ({ requests }) => (
       </thead>
       <tbody>
         { requests.map(({ reason, requester, updated_at, state, isFinished }, index) => (
-          <tr key={ index } className={ isFinished ? 'finished' : '' }>
+          <tr key={ index } className={ `${isFinished ? 'finished' : ''} ${orderState === 'Failed' ? 'failed' : ''}` }>
             <td><StepLabel index={ index } text={ reason } /></td>
             <td>{ requester }</td>
             <td>{ updated_at }</td>
@@ -50,7 +50,8 @@ OrderDetailTable.propTypes = {
     requester: PropTypes.string,
     updated_at: PropTypes.string,
     state: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ])
-  })).isRequired
+  })).isRequired,
+  orderState: PropTypes.string
 };
 
 export default withRouter(OrderDetailTable);
