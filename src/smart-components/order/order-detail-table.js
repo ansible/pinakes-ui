@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { MessagesIcon } from '@patternfly/react-icons';
 import StepLabel from './step-label';
 
+const orderFailedStates = state => [ 'Failed', 'Denied' ].includes(state);
+
 const OrderDetailTable = ({ requests, orderState }) => (
   <Fragment>
     <table className="requests-table">
@@ -25,7 +27,7 @@ const OrderDetailTable = ({ requests, orderState }) => (
       </thead>
       <tbody>
         { requests.map(({ reason, requester, updated_at, state, isFinished }, index) => (
-          <tr key={ index } className={ `${isFinished ? 'finished' : ''} ${orderState === 'Failed' ? 'failed' : ''}` }>
+          <tr key={ index } className={ `${isFinished ? 'finished' : ''} ${orderFailedStates(orderState) ? 'failed' : ''}` }>
             <td><StepLabel index={ index } text={ reason } /></td>
             <td>{ requester }</td>
             <td>{ updated_at }</td>

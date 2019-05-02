@@ -3,8 +3,8 @@ import { CheckIcon, InProgressIcon, OutlinedTimesCircleIcon } from '@patternfly/
 
 import { createDateString } from '../../helpers/shared/helpers';
 
-const completedWhiteList = state => [ 'Order Completed', 'finished', 'Completed' ].includes(state);
-const failedList = state => [ 'Failed' ].includes(state);
+const completedWhiteList = state => [ 'Order Completed', 'finished', 'Completed', 'approved' ].includes(state);
+const failedList = state => [ 'Failed', 'denied', 'Denied' ].includes(state);
 
 const countFinishedSteps = step => step.filter(({ state }) => !failedList(state) && completedWhiteList(state));
 
@@ -14,7 +14,9 @@ const iconsMapper  = name => ({
   finished: <CheckIcon />,
   'Order Completed': <CheckIcon />,
   Completed: <CheckIcon />,
-  Failed: <OutlinedTimesCircleIcon />
+  approved: <CheckIcon />,
+  Failed: <OutlinedTimesCircleIcon />,
+  denied: <OutlinedTimesCircleIcon />
 })[name] || <span><InProgressIcon /> &nbsp; Pending</span>;
 
 const createTableRows = order => [{
