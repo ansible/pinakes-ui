@@ -9,9 +9,7 @@ Object {
       "label": "Portfolio Name",
       "name": "name",
       "validate": Array [
-        Object {
-          "type": "required-validator",
-        },
+        [Function],
       ],
     },
     Object {
@@ -47,9 +45,7 @@ Object {
       "label": "New Portfolio Name",
       "name": "name",
       "validate": Array [
-        Object {
-          "type": "required-validator",
-        },
+        [Function],
       ],
     },
     Object {
