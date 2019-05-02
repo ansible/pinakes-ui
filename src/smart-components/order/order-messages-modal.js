@@ -18,6 +18,7 @@ const OrderMessagesModal = ({ history: { push }, match: { params: { orderItemId 
       title={ `Progress messages of order item with id: ${orderItemId}` }
       isLarge
       onClose={ () => push('/orders') }
+      style={ { overflowX: 'scroll' } }
     >
       <pre>
         { JSON.stringify(messages, null, 2) }
