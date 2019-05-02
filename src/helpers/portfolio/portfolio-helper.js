@@ -95,3 +95,8 @@ export async function updatePortfolioItem(portfolioItem) {
     })
   });
 }
+
+export function fetchPortfolioByName(name = '') {
+  return fetch(`${CATALOG_API_BASE}/portfolios?filter[name]=${name}`)
+  .then(data => data.json());
+}

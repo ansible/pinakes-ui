@@ -12,6 +12,7 @@ import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/acti
 
 const AddPortfolioModal = ({
   history: { goBack },
+  match: { params: { id }},
   addPortfolio,
   fetchPortfolios,
   initialValues,
@@ -37,7 +38,7 @@ const AddPortfolioModal = ({
     >
       <div style={ { padding: 8 } }>
         <FormRenderer
-          schema={ createPortfolioSchema(!initialValues, workflows) }
+          schema={ createPortfolioSchema(!initialValues, workflows, id) }
           schemaType="default"
           onSubmit={ onSubmit }
           onCancel={ onCancel }
@@ -53,6 +54,11 @@ const AddPortfolioModal = ({
 AddPortfolioModal.propTypes = {
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    }).isRequired
   }).isRequired,
   addPortfolio: PropTypes.func.isRequired,
   fetchPortfolios: PropTypes.func.isRequired,

@@ -15,22 +15,22 @@ import { OrderLoader } from '../../presentational-components/shared/loader-place
 
 import './orders.scss';
 
-const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoading, linkedOrders: { current, past }}) => {
+const Orders = ({ getLinkedOrders, fetchPortfolioItems, isLoading, linkedOrders: { current, past }}) => {
   const [ dataListExpanded, setDataListExpanded ] = useState({});
   useEffect(() => {
     getLinkedOrders();
     fetchPortfolioItems();
   }, []);
 
-  const handleDataItemToggle = id => setDataListExpanded({ ...dataListExpanded, [id]: !dataListExpanded[id] });
+  const handleDataItemToggle = id => setDataListExpanded(prevState => ({ ...prevState, [id]: !dataListExpanded[id] }));
 
-  const renderDataListItems = data => data.map(item => (
+  const renderDataListItems = (data, type = 'current') => data.map(({ id }, index) => (
     <OrderItem
-      key={ item.id }
-      item={ item }
-      isExpanded={ dataListExpanded[item.id] }
+      key={ id }
+      index={ index }
+      isExpanded={ dataListExpanded[id] }
       handleDataItemToggle={ handleDataItemToggle }
-      portfolioItems={ portfolioItems }
+      type={ type }
     />
   ));
 
@@ -49,7 +49,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoadin
               <Text component="h2">Current orders</Text>
             </TextContent>
             <DataList aria-label="current-orders">
-              { renderDataListItems(current) }
+              { renderDataListItems(current, 'current') }
             </DataList>
           </GridItem>
           <GridItem>
@@ -57,7 +57,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, portfolioItems, isLoadin
               <Text component="h2">Past orders</Text>
             </TextContent>
             <DataList aria-label="past-orders">
-              { renderDataListItems(past) }
+              { renderDataListItems(past, 'past') }
             </DataList>
           </GridItem>
         </Grid>

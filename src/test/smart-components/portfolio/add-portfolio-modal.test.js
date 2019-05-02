@@ -7,7 +7,7 @@ import { Modal } from '@patternfly/react-core';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
+import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import { APPROVAL_API_BASE, CATALOG_API_BASE } from '../../../utilities/constants';
@@ -80,9 +80,7 @@ describe('<AddPortfolioModal />', () => {
         isRequired: true,
         label: 'Portfolio Name',
         name: 'name',
-        validate: [{
-          type: validatorTypes.REQUIRED
-        }]
+        validate: [ expect.any(Function) ]
       }, {
         component: componentTypes.TEXTAREA,
         label: 'Description',

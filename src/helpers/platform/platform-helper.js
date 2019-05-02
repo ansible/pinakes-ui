@@ -3,7 +3,6 @@ import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
 
 const sourcesApi = getSourcesApi();
 const topologicalApi = getTopologocalInventoryApi();
-window.magix = topologicalApi;
 
 export function getPlatforms() {
   return sourcesApi.listSources();
