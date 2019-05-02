@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckIcon, InProgressIcon, OutlinedTimesCircleIcon } from '@patternfly/react-icons';
+import { CheckCircleIcon, InProgressIcon, TimesCircleIcon } from '@patternfly/react-icons';
 
 import { createDateString } from '../../helpers/shared/helpers';
 
@@ -11,13 +11,13 @@ const countFinishedSteps = step => step.filter(({ state }) => !failedList(state)
 // const overrideOrderinitiated = (request = {}, orderItem = {}) => !failedList(orderItem.state) && completedWhiteList(request.state);
 
 const iconsMapper  = name => ({
-  finished: <CheckIcon />,
-  'Order Completed': <CheckIcon />,
-  Completed: <CheckIcon />,
-  approved: <CheckIcon />,
-  Failed: <OutlinedTimesCircleIcon />,
-  denied: <OutlinedTimesCircleIcon />
-})[name] || <span><InProgressIcon /> &nbsp; Pending</span>;
+  finished: <span><CheckCircleIcon fill="#92D400" />&nbsp; Success</span>,
+  'Order Completed': <CheckCircleIcon fill="#92D400" />,
+  Completed: <span><CheckCircleIcon fill="#92D400" />&nbsp; Success</span>,
+  approved: <span><CheckCircleIcon fill="#92D400" />&nbsp; Approved</span>,
+  Failed: <span><TimesCircleIcon />&nbsp; Failed</span>,
+  denied: <span><TimesCircleIcon />&nbsp; Denied</span>
+})[name] || <span><InProgressIcon />&nbsp; Pending</span>;
 
 const createTableRows = order => [{
   reason: 'Order initiated',
