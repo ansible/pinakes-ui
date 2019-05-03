@@ -48,10 +48,6 @@ describe('<AddPortfolioModal />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const store = mockStore({});
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
@@ -121,12 +117,12 @@ describe('<AddPortfolioModal />', () => {
       return res.body(200);
     }));
 
-    fetchMock.get(`${APPROVAL_API_BASE}/workflows`, {
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: {
       data: [{
         label: 'foo',
         value: 'bar'
       }]
-    });
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } portfolioId="123">

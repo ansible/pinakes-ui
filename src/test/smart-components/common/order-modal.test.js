@@ -60,16 +60,17 @@ describe('<OrderModal />', () => {
       body: [ dummySchema ]
     }));
 
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, {
-      required: [ 'namespace' ],
-      type: 'object',
-      properties: {
-        namespace: {
-          title: 'Namespace',
-          enum: [ '1', '2', '3', '4' ]
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, mockOnce(
+      { body: {
+        required: [ 'namespace' ],
+        type: 'object',
+        properties: {
+          namespace: {
+            title: 'Namespace',
+            enum: [ '1', '2', '3', '4' ]
+          }
         }
-      }
-    });
+      }}));
 
     const wrapper = mount(
       <OrderWrapper store={ store } initialEntries={ [ '/foo/url' ] }>

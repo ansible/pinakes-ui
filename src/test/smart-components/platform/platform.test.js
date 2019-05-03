@@ -47,10 +47,6 @@ describe('<Platform />', () => {
     };
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const wrapper = shallow(<Platform store={ mockStore(intiailState) } { ...initialProps } />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
@@ -58,27 +54,27 @@ describe('<Platform />', () => {
 
   it('should mount and fetch data after mount and after source change', (done) => {
     const Provider = mockBreacrumbsStore();
-    expect.assertions(3);
+    expect.assertions(1);
     apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo' }}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources/2`, mockOnce({ body: { name: 'Foo' }}));
 
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [{ id: 111 }]});
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
+      body: {
+        data: [{ id: 111 }]}
+    }));
 
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [{ id: 111 }]});
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`,
+      mockOnce((req, res) => {
+        expect(req).toBeTruthy();
+        done();
+        return res.status(200).body({
+          data: [{ id: 111 }]
+        });
+      }));
     const Root = props => <Provider><MemoryRouter><Platform { ...props } store={ mockStore(intiailState) } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);
     wrapper.setProps({ match: { params: { id: 2 }}});
     wrapper.update();
-    setImmediate(() => {
-      expect(fetchMock.calls()).toHaveLength(2);
-      expect(fetchMock.calls()[0][0])
-      .toEqual(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`);
-      expect(fetchMock.lastCall()[0])
-      .toEqual(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]&limit=50&offset=0`);
-      done();
-    });
   });
 
   /**
@@ -113,9 +109,11 @@ describe('<Platform />', () => {
     const Provider = mockBreacrumbsStore(stateWithItems);
 
     apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo', id: '11' }}));
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: []
-    });
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
+      body: {
+        data: []
+      }
+    }));
 
     const Root = props => <Provider><MemoryRouter><Platform { ...props } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);

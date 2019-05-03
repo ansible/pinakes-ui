@@ -1,8 +1,9 @@
-import { getSourcesApi, getTopologocalInventoryApi } from '../shared/user-login';
+import { getAxiosInstance, getSourcesApi, getTopologocalInventoryApi } from '../shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
 
 const sourcesApi = getSourcesApi();
 const topologicalApi = getTopologocalInventoryApi();
+const axiosInstance = getAxiosInstance();
 
 export function getPlatforms() {
   return sourcesApi.listSources();
@@ -16,9 +17,9 @@ export function getPlatformItems(apiProps, options) {
   let apiPromise = null;
 
   if (apiProps) {
-    apiPromise = fetch(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?filter[archived_at][nil]${options
+    apiPromise = axiosInstance.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?filter[archived_at][nil]${options
       ? `&limit=${options.limit}&offset=${options.offset}`
-      : ''}`).then(data =>  data.json());
+      : ''}`);
   } else {
     apiPromise = topologicalApi.listServiceOfferings();
   }

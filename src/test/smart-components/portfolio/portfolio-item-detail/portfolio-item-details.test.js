@@ -64,10 +64,6 @@ describe('<PortfolioItemDetail />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const wrapper = shallow(<PortfolioItemDetail { ...initialProps } />);
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: { data: []}}));
@@ -85,7 +81,7 @@ describe('<PortfolioItemDetail />', () => {
         }]
       }
     }));
-    fetchMock.getOnce(`begin:${CATALOG_API_BASE}/portfolio_items`, { name: 'foo', id: 'bar' });
+    apiClientMock.get(`begin:${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
     const wrapper = mount(
       <ComponentWrapper store={ store }>
@@ -119,7 +115,7 @@ describe('<PortfolioItemDetail />', () => {
         }]
       }
     }));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
@@ -154,8 +150,10 @@ describe('<PortfolioItemDetail />', () => {
     const store = mockStore(loadedState);
 
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: [{ name: 'workflow', id: '123' }]}}));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123`, { name: 'foo', id: 'bar' });
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, { properties: { namespace: { enum: []}}});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, mockOnce({
+      body: { properties: { namespace: { enum: []}}}
+    }));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(

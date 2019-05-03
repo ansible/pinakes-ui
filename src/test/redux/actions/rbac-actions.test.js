@@ -15,10 +15,6 @@ describe('rbac actions', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should dispatch correct actions after fetching groups', () => {
     const store = mockStore({});
     const expectedActions = [{

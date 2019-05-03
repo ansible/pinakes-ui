@@ -2,13 +2,11 @@ import { configure, mount, render, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import mock, { once } from 'xhr-mock';
-import fetchMock from 'fetch-mock';
 
 /**
  * mock fetch
  */
 import 'whatwg-fetch';
-global.fetchMock = fetchMock;
 
 configure({ adapter: new Adapter() });
 
@@ -45,3 +43,12 @@ const root = document.createElement('div');
 root.id = 'root';
 document.body.appendChild(root);
 Element.prototype.scrollTo = () => {};
+
+// mock insights instance
+global.insights = {
+  chrome: {
+    auth: {
+      getUser: () => new Promise(resolve => resolve(true))
+    }
+  }
+};
