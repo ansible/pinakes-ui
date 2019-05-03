@@ -5,7 +5,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 import { mount, shallow } from 'enzyme';
-import toJson, { shallowToJson } from 'enzyme-to-json';
+import { shallowToJson } from 'enzyme-to-json';
 import Platform from '../../../smart-components/platform/platform';
 import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';

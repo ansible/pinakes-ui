@@ -91,7 +91,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
     const store = mockStore(initialState);
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({ body: [ servicePlansResponse ]}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, mockOnce({body: providerControlParametersResponse }));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, mockOnce({ body: providerControlParametersResponse }));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>

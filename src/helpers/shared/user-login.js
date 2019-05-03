@@ -10,10 +10,15 @@ import { AccessApi, PrincipalApi, GroupApi } from '@redhat-cloud-services/rbac-c
 const axiosInstance = axios.create();
 
 const resolveInterceptor = response => response.data || response;
-const errorInterceptor = error => {
+const errorInterceptor = (error = {}) => {
   throw { ...error.response };
 };
 
+// check identity before each request. If the token is expired it will log out user
+axiosInstance.interceptors.request.use(async config => {
+  await window.insights.chrome.auth.getUser();
+  return config;
+});
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(null, errorInterceptor);
 
