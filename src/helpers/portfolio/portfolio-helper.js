@@ -1,6 +1,7 @@
-import { getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
+import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
+const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
 
@@ -17,7 +18,7 @@ export function listPortfolioItems() {
 }
 
 export function getPortfolioItem(portfolioItemId) {
-  return fetch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}`).then(data => data.json());
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}`);
 }
 
 export function getPortfolio(portfolioId) {
@@ -25,7 +26,7 @@ export function getPortfolio(portfolioId) {
 }
 
 export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items`).then(data => data.json());
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items`);
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
@@ -69,8 +70,7 @@ export async function removePortfolioItems(portfolioItemIds) {
 }
 
 export function fetchProviderControlParameters(portfolioItemId) {
-  return fetch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`)
-  .then(data => data.json())
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`)
   .then(data => ({
     required: [],
     ...data,
@@ -84,19 +84,12 @@ export function fetchProviderControlParameters(portfolioItemId) {
 }
 
 export async function updatePortfolioItem(portfolioItem) {
-  return await fetch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      ...portfolioItem,
-      workflow_ref: portfolioItem.workflow_ref || null
-    })
+  return await axiosInstance.patch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}`, {
+    ...portfolioItem,
+    workflow_ref: portfolioItem.workflow_ref || null
   });
 }
 
 export function fetchPortfolioByName(name = '') {
-  return fetch(`${CATALOG_API_BASE}/portfolios?filter[name]=${name}`)
-  .then(data => data.json());
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios?filter[name]=${name}`);
 }

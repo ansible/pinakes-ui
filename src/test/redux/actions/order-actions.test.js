@@ -286,10 +286,10 @@ describe('Order actions', () => {
         name: 'super-order-request'
       }]}
     }));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/order_items`, { data: [{
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: [{
       order_id: '1',
       name: 'super-order-item'
-    }]});
+    }]}}));
 
     const expectedActions = [{
       type: `${FETCH_LINKED_ORDERS}_PENDING`

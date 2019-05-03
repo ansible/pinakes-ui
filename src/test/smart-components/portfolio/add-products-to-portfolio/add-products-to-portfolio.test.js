@@ -35,10 +35,6 @@ describe('<AddProductsToPortfolio />', () => {
     };
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const store = mockStore({});
     const wrapper = shallow(<MemoryRouter><AddProductsToPortfolio store={ store } { ...initialProps } /></MemoryRouter>).dive();
@@ -65,14 +61,16 @@ describe('<AddProductsToPortfolio />', () => {
         <AddProductsToPortfolio { ...initialProps } />
       </ComponentWrapper>
     );
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [],
-      meta: {
-        count: 123,
-        limit: 50,
-        offset: 123
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
+      body: {
+        data: [],
+        meta: {
+          count: 123,
+          limit: 50,
+          offset: 123
+        }
       }
-    });
+    }));
 
     setImmediate(() => {
       const select = wrapper.find(Select);
@@ -104,14 +102,16 @@ describe('<AddProductsToPortfolio />', () => {
       }
     });
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`, {
-      data: [], meta: {}});
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
+      body: {
+        data: [], meta: {}}
+    }));
     apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { id: '999' }}));
     apiClientMock.post(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({ portfolio_item_id: '999' });
       return res.status(200);
     }));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store }>

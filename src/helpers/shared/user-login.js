@@ -73,3 +73,7 @@ export function getRbacGroupApi() {
 export function getWorkflowApi() {
   return workflowApi;
 }
+
+export function getAxiosInstance() {
+  return axiosInstance;
+}

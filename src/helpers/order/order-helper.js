@@ -1,10 +1,11 @@
 /* eslint camelcase: 0 */
-import { getPortfolioItemApi, getOrderApi, getRequestsApi } from '../shared/user-login';
+import { getAxiosInstance, getPortfolioItemApi, getOrderApi, getRequestsApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
 const orderApi = getOrderApi();
 const portfolioItemApi = getPortfolioItemApi();
 const requestsApi = getRequestsApi();
+const axiosInstance = getAxiosInstance();
 
 export function getServicePlans(portfolioItemId) {
   return portfolioItemApi.listServicePlans(portfolioItemId);
@@ -38,6 +39,6 @@ export function listRequests() {
 }
 
 export function listOrderItems() {
-  return fetch(`${CATALOG_API_BASE}/order_items`).then(data => data.json());
+  return axiosInstance.get(`${CATALOG_API_BASE}/order_items`);
 }
 

@@ -82,10 +82,6 @@ describe('<OrderServiceFormStepConfiguration />', () => {
     };
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const wrapper = shallow(<OrderServiceFormStepConfiguration { ...initialProps } />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
@@ -95,7 +91,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
     const store = mockStore(initialState);
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({ body: [ servicePlansResponse ]}));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, providerControlParametersResponse);
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, mockOnce({body: providerControlParametersResponse }));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>
@@ -115,7 +111,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
     const store = mockStore(initialState);
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({ body: [ servicePlansResponse ]}));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, providerControlParametersResponse);
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`, mockOnce({ body: providerControlParametersResponse }));
 
     // order endpoints
     apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({ body: { id: '231' }}));
