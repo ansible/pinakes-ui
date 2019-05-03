@@ -25,10 +25,6 @@ describe('<AddProductsPagination />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const store = mockStore({});
     const wrapper = shallow(<AddProductsPagination { ...initialProps } store={ store } />).dive();
@@ -40,22 +36,22 @@ describe('<AddProductsPagination />', () => {
     const fetchPlatformItems = jest.fn();
     const wrapper = mount(<AddProductsPagination { ...initialProps } store={ store } fetchPlatformItems={ fetchPlatformItems } />);
     const lastPageButton = wrapper.find('button').at(3);
-    const expectedUrl = `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?filter[archived_at][nil]&limit=50&offset=50`;
-    fetchMock.getOnce(`begin:${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?`, {
-      data: [],
-      meta: {
-        count: 123,
-        limit: 50,
-        offset: 123
-      }
-    });
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=50`,
+      mockOnce((req, res) =>
+      {
+        expect(req).toBeTruthy();
+        done();
+        return res.status(200).body({
+          data: [],
+          meta: {
+            count: 123,
+            limit: 50,
+            offset: 123
+          }}
+        );
+      }));
 
     lastPageButton.simulate('click');
-    setImmediate(() => {
-
-      expect(fetchMock.lastUrl()).toMatch(expectedUrl);
-      done();
-    });
   });
 
   it('should correctly request last page', done => {
@@ -63,20 +59,20 @@ describe('<AddProductsPagination />', () => {
     const fetchPlatformItems = jest.fn();
     const wrapper = mount(<AddProductsPagination { ...initialProps } store={ store } fetchPlatformItems={ fetchPlatformItems } />);
     const lastPageButton = wrapper.find('button').last();
-    const expectedUrl = `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?filter[archived_at][nil]&limit=50&offset=100`;
-    fetchMock.getOnce(`begin:${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?`, {
-      data: [],
-      meta: {
-        count: 123,
-        limit: 50,
-        offset: 123
-      }
-    });
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/999/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=100`,
+      mockOnce((req, res) => {
+        expect(req).toBeTruthy();
+        done();
+        return res.status(200).body({
+          data: [],
+          meta: {
+            count: 123,
+            limit: 50,
+            offset: 123
+          }
+        });
+      }));
 
     lastPageButton.simulate('click');
-    setImmediate(() => {
-      expect(fetchMock.lastUrl()).toMatch(expectedUrl);
-      done();
-    });
   });
 });

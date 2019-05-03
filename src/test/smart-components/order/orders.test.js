@@ -49,10 +49,6 @@ describe('<Orders />', () => {
     initialState = { orderReducer: { ...orderInitialState, isLoading: false }, portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const store = mockStore(initialState);
     const wrapper = shallow(<Orders store={ store } { ...initialProps } />);
@@ -70,7 +66,7 @@ describe('<Orders />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/order_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
     setImmediate(() => {
@@ -84,7 +80,7 @@ describe('<Orders />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    fetchMock.getOnce(`${CATALOG_API_BASE}/order_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
     setImmediate(() => {

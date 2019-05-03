@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderNotification /> should render correctly 1`] = `
+<OrderNotification
+  dispatch={[MockFunction]}
+  id="123"
+/>
+`;

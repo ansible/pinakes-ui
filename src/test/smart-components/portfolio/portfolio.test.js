@@ -57,10 +57,6 @@ describe('<Portfolio />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should render correctly', () => {
     const wrapper = shallow(<Portfolio { ...initialProps } />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
@@ -73,16 +69,15 @@ describe('<Portfolio />', () => {
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, expect.objectContaining({
-      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
-    }), expect.objectContaining({
       type: `${FETCH_PORTFOLIO}_FULFILLED`
+    }), expect.objectContaining({
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
     }) ];
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({
-      body: {}
-    }));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
 
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
 
     mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123' ] }>
@@ -90,7 +85,6 @@ describe('<Portfolio />', () => {
       </ComponentWrapper>
     );
     setImmediate(() => {
-      console.log(store.getActions());
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -98,7 +92,7 @@ describe('<Portfolio />', () => {
 
   it('should mount and render add products page', (done) => {
     const store = mockStore({ ...initialState, platformReducer: { platforms: [], platformItems: {}}});
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -139,7 +133,7 @@ describe('<Portfolio />', () => {
       return res.status(200);
     }));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
-    fetchMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-products' ] }>
@@ -170,7 +164,7 @@ describe('<Portfolio />', () => {
         }]
       }
     });
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -203,7 +197,7 @@ describe('<Portfolio />', () => {
         }]
       }
     });
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -233,7 +227,7 @@ describe('<Portfolio />', () => {
         }]
       }
     });
-    fetchMock.getOnce(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, { data: []});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 

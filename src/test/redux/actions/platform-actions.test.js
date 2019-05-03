@@ -24,10 +24,6 @@ describe('Platform actions', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should dispatch correct actions after fetching platforms', () => {
     const store = mockStore({
       platformReducer: {
@@ -83,10 +79,10 @@ describe('Platform actions', () => {
       }
     });
 
-    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`, { data: [{
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
       id: '1',
       name: 'Offering 1'
-    }]});
+    }]}}));
 
     const expectedActions = [{
       type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
@@ -109,7 +105,7 @@ describe('Platform actions', () => {
       }
     });
 
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`, 500);
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ status: 500 }));
 
     const expectedActions = [
       {
@@ -133,18 +129,18 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`, { data: [{
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
       id: '1',
       name: 'Offering 1'
-    }]});
-    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`, { data: [{
+    }]}}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
       id: '2',
       name: 'Offering 2'
-    }]});
-    fetchMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`, { data: [{
+    }]}}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
       id: '3',
       name: 'Offering 3'
-    }]});
+    }]}}));
 
     const expectedActions = [{
       type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_PENDING`
@@ -168,15 +164,15 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`, { data: [{
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
       id: '1',
       name: 'Offering 1'
-    }]});
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`, { data: [{
+    }]}}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
       id: '2',
       name: 'Offering 2'
-    }]});
-    fetchMock.getOnce(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`, 500);
+    }]}}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ status: 500 }));
 
     const expectedActions = [{
       type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_PENDING`
