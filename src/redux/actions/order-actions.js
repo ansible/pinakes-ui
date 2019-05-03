@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { addNotification } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
 import * as ActionTypes from '../action-types';
 import * as OrderHelper from '../../helpers/order/order-helper';
+import OrderNotification from '../../presentational-components/order/order-notification';
 
 export const fetchServicePlans = (portfolioItemId) => ({
   type: ActionTypes.FETCH_SERVICE_PLANS,
@@ -24,25 +25,14 @@ export const setSelectedPlan = (data) => ({
   payload: data
 });
 
-const OrderNotification = () => (
-  <p>
-    You can track the progress of the order in your <Link to="/orders">Orders</Link> page.
-  </p>
-);
-
-export const sendSubmitOrder = apiProps => ({
+export const sendSubmitOrder = apiProps => dispatch => dispatch({
   type: ActionTypes.SUBMIT_SERVICE_ORDER,
-  payload: OrderHelper.sendSubmitOrder(apiProps),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Your order has been accepted successfully',
-        description: <OrderNotification />,
-        dismissable: true
-      }
-    }
-  }
+  payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id }) => dispatch(addNotification({
+    variant: 'success',
+    title: 'Your order has been accepted successfully',
+    description: <OrderNotification id={ id } dispatch={ dispatch } />,
+    dismissable: true
+  })))
 });
 
 export const fetchRequests = () => ({

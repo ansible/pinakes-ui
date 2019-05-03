@@ -128,7 +128,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
     }));
     apiClientMock.post(`${CATALOG_API_BASE}/orders/231/submit_order`, mockOnce((req, res) => {
       expect(req).toBeTruthy();
-      return res.status(200);
+      return res.status(200).body({ id: '231' });
     }));
 
     const wrapper = mount(

@@ -127,7 +127,7 @@ describe('Order actions', () => {
   it('should dispatch correct actions after submitting order', () => {
     const store = mockStore({});
     apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
-      body: { id: 123 }
+      body: { id: '123' }
     }));
     apiClientMock.post(`${CATALOG_API_BASE}/orders/123/order_items`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
@@ -140,25 +140,20 @@ describe('Order actions', () => {
       return res.status(200);
     }));
     apiClientMock.post(`${CATALOG_API_BASE}/orders/123/submit_order`, mockOnce({
-      status: 200
+      body: { id: '123' }
     }));
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
-      meta: {
-        notifications: expect.any(Object)
-      }
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
         variant: 'success',
-        dismissable: true
+        dismissable: true,
+        title: 'Your order has been accepted successfully'
       })
     }),
     expect.objectContaining({
-      type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`,
-      meta: {
-        notifications: expect.any(Object)
-      }
+      type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`
     }) ];
 
     return store.dispatch(sendSubmitOrder({
@@ -176,10 +171,7 @@ describe('Order actions', () => {
       status: 500
     }));
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
-      meta: {
-        notifications: expect.any(Object)
-      }
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
@@ -209,10 +201,7 @@ describe('Order actions', () => {
     }));
 
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
-      meta: {
-        notifications: expect.any(Object)
-      }
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
@@ -241,10 +230,7 @@ describe('Order actions', () => {
     }));
 
     const expectedActions = [{
-      type: `${SUBMIT_SERVICE_ORDER}_PENDING`,
-      meta: {
-        notifications: expect.any(Object)
-      }
+      type: `${SUBMIT_SERVICE_ORDER}_PENDING`
     }, expect.objectContaining({
       type: ADD_NOTIFICATION,
       payload: expect.objectContaining({
