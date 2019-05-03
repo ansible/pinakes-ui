@@ -90,7 +90,6 @@ describe('<Portfolio />', () => {
       </ComponentWrapper>
     );
     setImmediate(() => {
-      console.log(store.getActions());
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
