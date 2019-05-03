@@ -1,11 +1,11 @@
-import { getPortfolioApi } from '../shared/user-login';
+import { getAxiosInstance, getPortfolioApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
+const axiosInstance = getAxiosInstance();
 const userApi = getPortfolioApi();
 
 export async function getShareInfo(portfolioId) {
-  // TODO - switch to calling tne API client method: return userApi.shareInfo(portfolioId);
-  return await fetch(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`).then(data => data.json());
+  return await axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`);
 }
 
 export async function sharePortfolio(data) {

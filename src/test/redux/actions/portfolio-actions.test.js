@@ -30,10 +30,6 @@ describe('Portfolio actions', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should dispatch correct actions after fetching portfolios', () => {
     const store = mockStore({
       portfolioReducer: {

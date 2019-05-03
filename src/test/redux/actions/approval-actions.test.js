@@ -15,10 +15,6 @@ describe('approval actions', () => {
     mockStore = configureStore(middlewares);
   });
 
-  afterEach(() => {
-    fetchMock.reset();
-  });
-
   it('should dispatch correct actions after fetching workflows', () => {
     const store = mockStore({});
     const expectedActions = [{
