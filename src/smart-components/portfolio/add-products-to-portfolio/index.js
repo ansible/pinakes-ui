@@ -40,6 +40,7 @@ const AddProductsToPortfolio = ({
   const [ searchValue, handleFilterChange ] = useState('');
   const [ selectedPlatform, setSelectedPlatform ] = useState(undefined);
   const [ checkedItems, setCheckedItems ] = useState([]);
+  const [ isFetching, setFetching ] = useState(false);
 
   useEffect(() => { fetchPlatforms(); }, []);
 
@@ -54,9 +55,14 @@ const AddProductsToPortfolio = ({
   const items = selectedPlatform && platformItems[selectedPlatform.id] ? platformItems[selectedPlatform.id].data : [];
   const meta = selectedPlatform && platformItems[selectedPlatform.id] && platformItems[selectedPlatform.id].meta;
 
-  const handleAddToPortfolio = () => addToPortfolio(portfolio.id, checkedItems)
-  .then(() => push(portfolioRoute))
-  .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id));
+  const handleAddToPortfolio = () => {
+    setFetching(true);
+    return addToPortfolio(portfolio.id, checkedItems)
+    .then(() => setFetching(false))
+    .then(() => push(portfolioRoute))
+    .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id))
+    .catch(() => setFetching(false));
+  };
 
   const onPlatformSelect = platform => {
     setSelectedPlatform(platform);
@@ -74,6 +80,7 @@ const AddProductsToPortfolio = ({
         onFilterChange={ value => handleFilterChange(value) }
         onOptionSelect={ onPlatformSelect }
         options={ platforms.map(platform => ({ value: platform.id, label: platform.name, id: platform.id })) }
+        isFetching={ isFetching }
       >
         { meta && <AddProductsPagination meta={ meta } platformId={ selectedPlatform.id } /> }
       </PortfolioOrderToolbar>

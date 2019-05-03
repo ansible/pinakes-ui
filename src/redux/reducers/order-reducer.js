@@ -16,7 +16,7 @@ export const orderInitialState = {
   servicePlans: [],
   selectedPlan: {},
   serviceData: {},
-  isLoading: true,
+  isLoading: false,
   requests: [],
   linkedOrders: { current: [], past: []}
 };
@@ -39,6 +39,7 @@ export default {
   [`${LIST_ORDERS}_FULFILLED`]: setListOrder,
   [`${FETCH_SERVICE_PLAN_PARAMETERS}_PENDING`]: setLoadingState,
   [`${FETCH_SERVICE_PLAN_PARAMETERS}_FULFILLED`]: setPlanParameters,
+  [`${SUBMIT_SERVICE_ORDER}_PENDING`]: setLoadingState,
   [`${SUBMIT_SERVICE_ORDER}_FULFILLED`]: submitServiceOrder,
   [UPDATE_SERVICE_DATA]: updateServiceData,
   [SET_SELECTED_PLAN]: selectPlan,

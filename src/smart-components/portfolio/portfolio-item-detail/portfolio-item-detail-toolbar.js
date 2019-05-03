@@ -14,6 +14,7 @@ const PortfolioItemDetailToolbar = ({
   isOpen,
   product,
   setOpen,
+  isFetching,
   setWorkflow,
   handleUpdate
 }) => (
@@ -38,6 +39,7 @@ const PortfolioItemDetailToolbar = ({
                 setOpen={ setOpen }
                 orderUrl={ `${url}/order` }
                 editUrl={ `${url}/edit` }
+                isFetching={ isFetching }
                 { ...args }
               />) }/>
             <Route exact path={ `${url}/edit` } render={ (...args) => (
@@ -76,7 +78,12 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   setWorkflow: PropTypes.func.isRequired,
-  handleUpdate: PropTypes.func.isRequired
+  handleUpdate: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool
+};
+
+PortfolioItemDetailToolbar.defaultProps = {
+  isFetching: false
 };
 
 export default PortfolioItemDetailToolbar;
