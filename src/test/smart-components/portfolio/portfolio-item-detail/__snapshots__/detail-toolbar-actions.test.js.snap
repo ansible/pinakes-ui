@@ -3,6 +3,7 @@
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
   editUrl="foo/baz"
+  isFetching={false}
   isOpen={false}
   orderUrl="foo/bar"
   setOpen={[MockFunction]}
@@ -10,35 +11,43 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   <LevelItem>
     <div>
       <Link
+        disabled={false}
         to="foo/bar"
       >
         <a
+          disabled={false}
           href="/foo/bar"
           onClick={[Function]}
         >
-          <Button
-            aria-label={null}
-            className=""
-            component="button"
-            isActive={false}
-            isBlock={false}
+          <ButtonWithSpinner
             isDisabled={false}
-            isFocus={false}
-            isHover={false}
-            type="button"
+            showSpinner={false}
             variant="primary"
           >
-            <button
-              aria-disabled={null}
+            <Button
               aria-label={null}
-              className="pf-c-button pf-m-primary"
-              disabled={false}
-              tabIndex={null}
+              className=""
+              component="button"
+              isActive={false}
+              isBlock={false}
+              isDisabled={false}
+              isFocus={false}
+              isHover={false}
               type="button"
+              variant="primary"
             >
-              Order
-            </button>
-          </Button>
+              <button
+                aria-disabled={null}
+                aria-label={null}
+                className="pf-c-button pf-m-primary"
+                disabled={false}
+                tabIndex={null}
+                type="button"
+              >
+                Order
+              </button>
+            </Button>
+          </ButtonWithSpinner>
         </a>
       </Link>
     </div>

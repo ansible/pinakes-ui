@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { LevelItem, Button } from '@patternfly/react-core';
+import { LevelItem } from '@patternfly/react-core';
+import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
-const DetailToolbarActions = ({ orderUrl, editUrl, isOpen, setOpen }) => ( // eslint-disable-line no-unused-vars
+const DetailToolbarActions = ({ orderUrl, editUrl, isOpen, setOpen, isFetching }) => ( // eslint-disable-line no-unused-vars
   <Fragment>
     <LevelItem>
-      <Link to={ orderUrl }>
-        <Button variant="primary">Order</Button>
+      <Link disabled={ isFetching } to={ orderUrl }>
+        <ButtonWithSpinner isDisabled={ isFetching } showSpinner={ isFetching } variant="primary">Order</ButtonWithSpinner>
       </Link>
     </LevelItem>
     {
@@ -38,7 +39,12 @@ DetailToolbarActions.propTypes = {
   orderUrl: PropTypes.string.isRequired,
   editUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
-  setOpen: PropTypes.func.isRequired
+  setOpen: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool
+};
+
+DetailToolbarActions.defaultProps = {
+  isFetching: false
 };
 
 export default DetailToolbarActions;
