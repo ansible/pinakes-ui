@@ -27,6 +27,7 @@ const PortfolioItemDetail = ({
   portfolio,
   isLoading,
   workflows,
+  orderFetching,
   fetchWorkflows,
   fetchPlatforms,
   fetchPortfolioItem,
@@ -74,6 +75,7 @@ const PortfolioItemDetail = ({
         setOpen={ setOpen }
         handleUpdate={ handleUpdate }
         setWorkflow={ setWorkflow }
+        isFetching={ orderFetching }
       />
       <div style={ { padding: 32 } }>
         <Grid>
@@ -114,13 +116,15 @@ PortfolioItemDetail.propTypes = {
   fetchPlatforms: PropTypes.func.isRequired,
   fetchPortfolioItem: PropTypes.func.isRequired,
   fetchWorkflows: PropTypes.func.isRequired,
-  selectPortfolioItem: PropTypes.func.isRequired
+  selectPortfolioItem: PropTypes.func.isRequired,
+  orderFetching: PropTypes.bool
 };
 
 const mapStateToProps = ({
   portfolioReducer: { portfolioItem, isLoading, selectedPortfolio },
   platformReducer: { platforms },
-  approvalReducer: { workflows, isFetching }
+  approvalReducer: { workflows, isFetching },
+  orderReducer: { isLoading: orderFetching }
 }) => {
   const portfolio = selectedPortfolio;
   const product = portfolioItem;
@@ -135,7 +139,8 @@ const mapStateToProps = ({
     workflows,
     portfolio,
     product,
-    source
+    source,
+    orderFetching
   });
 };
 

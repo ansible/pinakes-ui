@@ -59,7 +59,8 @@ describe('<PortfolioItemDetail />', () => {
           id: '123',
           name: 'source'
         }]
-      }
+      },
+      orderReducer: {}
     };
     mockStore = configureStore(middlewares);
   });

@@ -40,6 +40,7 @@ describe('<OrderModal />', () => {
     initialState = {
       orderReducer: {
         ...orderInitialState,
+        isLoading: true,
         serviceData: {
           name: 'Foo',
           id: '1'
