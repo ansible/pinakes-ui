@@ -4,9 +4,11 @@ import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { FilterIcon } from '@patternfly/react-icons';
 import { Level, Button, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
-import TopToolbar, { TopToolbarTitle } from '../shared/top-toolbar';
+
 import FilterToolbarItem from '../shared/filter-toolbar-item';
+import ButtonWithSpinner from '../shared/button-with-spinner';
 import selectStyles from '../../constants/select-styles-override';
+import TopToolbar, { TopToolbarTitle } from '../shared/top-toolbar';
 
 const ValueContainer = ({ children }) => (
   <Fragment>
@@ -31,6 +33,7 @@ const PortfolioOrderToolbar = ({
   options,
   onFilterChange,
   searchValue,
+  isFetching,
   children
 }) => (
   <TopToolbar>
@@ -64,13 +67,16 @@ const PortfolioOrderToolbar = ({
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarItem>
-            <Button
+            <ButtonWithSpinner
               variant="primary"
               aria-label="Add products to Portfolio"
-              type="button" onClick={ onClickAddToPortfolio }
-              isDisabled={ !itemsSelected }>
+              type="button"
+              onClick={ onClickAddToPortfolio }
+              isDisabled={ !itemsSelected || isFetching }
+              showSpinner={ isFetching }
+            >
               Add
-            </Button>
+            </ButtonWithSpinner>
           </ToolbarItem>
         </ToolbarGroup>
       </Toolbar>
@@ -94,7 +100,12 @@ PortfolioOrderToolbar.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
-  ])
+  ]),
+  isFetching: PropTypes.bool
+};
+
+PortfolioOrderToolbar.defaultProps = {
+  isFetching: false
 };
 
 export default PortfolioOrderToolbar;

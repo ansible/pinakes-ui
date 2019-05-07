@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Routes } from './Routes';
+import { Grid, GridItem } from '@patternfly/react-core';
 import { Main } from '@red-hat-insights/insights-frontend-components';
 import { NotificationsPortal } from '@red-hat-insights/insights-frontend-components/components/Notifications';
-import { Grid, GridItem } from '@patternfly/react-core';
+
+import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
 
@@ -16,7 +17,6 @@ import '@red-hat-insights/insights-frontend-components/components/Notifications.
 import './App.scss';
 
 smoothscroll.polyfill();
-
 class App extends Component {
   state = {
     chromeNavAvailable: true,

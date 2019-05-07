@@ -3,6 +3,7 @@
 exports[`<PortfolioItemDetailToolbar /> should render correctly 1`] = `
 <PortfolioItemDetailToolbar
   handleUpdate={[MockFunction]}
+  isFetching={false}
   isOpen={false}
   product={
     Object {
