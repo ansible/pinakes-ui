@@ -36,6 +36,7 @@
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
+    "verbose": true,
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/**/stories/*"

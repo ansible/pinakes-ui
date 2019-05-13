@@ -29,16 +29,19 @@ const SharePortfolioModal = ({
   }, []);
 
   const initialShares = () => {
-    let initialGroupShareList = shareInfo.map((group) => { const groupName = group.group_name;
+    let initialGroupShareList = shareInfo.map((group) => {
+      const groupName = group.group_name;
       let options = permissionOptions.find(perm => (perm.value === group.permissions.sort().join(',')));
-      return { [groupName]: options ? options.value : 'Unknown' };});
+      return {
+        [groupName]: options ? options.value : 'Unknown'
+      };
+    });
     let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
 
     return initialShareList;
   };
 
-  const onSubmit = data =>
-  {
+  const onSubmit = data => {
     let sharePromises = [];
     if (data.group_uuid && data.permissions) {
       sharePromises.push(sharePortfolio(data));
@@ -74,9 +77,12 @@ const SharePortfolioModal = ({
 
   const onCancel = () => goBack();
 
-  const permissionOptions = [{ value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
-    label: 'Can order/edit' },
-  { value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view' }];
+  const permissionOptions = [{
+    value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
+    label: 'Can order/edit'
+  }, {
+    value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
+  }];
 
   const shareItems = () => {
     let groupsWithNoSharing = rbacGroups.filter((item) => {
