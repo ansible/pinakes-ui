@@ -5,7 +5,7 @@ const axiosInstance = getAxiosInstance();
 const userApi = getPortfolioApi();
 
 export async function getShareInfo(portfolioId) {
-  return await axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`);
+  return await axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`).catch(console.log);
 }
 
 export async function sharePortfolio(data) {
