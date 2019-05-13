@@ -103,7 +103,7 @@ describe('Portfolio actions', () => {
     });
   });
 
-  it.skip('should dispatch correct actions after fetchPortfolioItemsWithPortfolio action was called', () => {
+  it('should dispatch correct actions after fetchPortfolioItemsWithPortfolio action was called', () => {
     const store = mockStore({});
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: [ 'foo' ]}}));
