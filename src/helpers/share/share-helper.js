@@ -10,10 +10,10 @@ export async function getShareInfo(portfolioId) {
 
 export async function sharePortfolio(data) {
   let policy = { permissions: data.permissions.split(','), group_uuids: [ data.group_uuid ]};
-  await userApi.sharePortfolio(data.id, policy);
+  return await userApi.sharePortfolio(data.id, policy);
 }
 
 export async function unsharePortfolio(data) {
   let policy = { permissions: data.permissions, group_uuids: [ data.group_uuid ]};
-  await userApi.unsharePortfolio(data.id, policy);
+  return await userApi.unsharePortfolio(data.id, policy);
 }
