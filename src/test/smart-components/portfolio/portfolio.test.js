@@ -115,6 +115,7 @@ describe('<Portfolio />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         selectedPortfolio: {
+          id: '123',
           name: 'Foo'
         },
         portfolioItems: [{
@@ -150,7 +151,7 @@ describe('<Portfolio />', () => {
     });
   });
 
-  it.skip('should mount and render remove portfolio modal', (done) => {
+  it('should mount and render remove portfolio modal', (done) => {
     const store = mockStore({
       ...initialState,
       platformReducer: { platforms: []},

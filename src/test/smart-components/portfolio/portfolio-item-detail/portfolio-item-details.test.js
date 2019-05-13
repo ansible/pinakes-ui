@@ -71,7 +71,7 @@ describe('<PortfolioItemDetail />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it.skip('should mount show loader', done => {
+  it('should mount show loader', done => {
     const store = mockStore(initialState);
 
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
@@ -82,7 +82,7 @@ describe('<PortfolioItemDetail />', () => {
         }]
       }
     }));
-    apiClientMock.get(`begin:${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
+    apiClientMock.get(new RegExp(`${CATALOG_API_BASE}/portfolio_items/*`), mockOnce({ body: { name: 'foo', id: 'bar' }}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
     const wrapper = mount(
       <ComponentWrapper store={ store }>
