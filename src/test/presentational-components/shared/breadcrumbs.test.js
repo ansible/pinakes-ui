@@ -1,8 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store' ;
 import { MemoryRouter, Route } from 'react-router-dom';
+import { BreadcrumbItem } from '@patternfly/react-core';
+
 import CatalogBreadrubms from '../../../presentational-components/shared/breadcrubms';
 
 describe('<BreadCrumbs />', () => {
@@ -17,15 +18,14 @@ describe('<BreadCrumbs />', () => {
     mockStore = configureStore([]);
   });
 
-  // generated ids
-  it.skip('breadcrubms should render correctly empty breadcrumbs', () => {
+  it('breadcrubms should render correctly empty breadcrumbs', () => {
     const store = mockStore({});
     const wrapper = mount(
       <BreadcrumbWrapper>
         <CatalogBreadrubms store={ store } />
       </BreadcrumbWrapper>
     );
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper.find(BreadcrumbItem)).toHaveLength(0);
   });
 
   it('breadcrubms should render correctly two portfolio children', () => {

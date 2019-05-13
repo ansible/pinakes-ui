@@ -55,7 +55,7 @@ class OrderItem extends Component {
                   <SplitItem>
                     <CardIcon src={ getOrderIcon(item) } />
                   </SplitItem>
-                  <SplitItem isMain>
+                  <SplitItem>
                     <TextContent>
                       <Grid gutter="sm" style={ { gridGap: 8 } }>
                         <GridItem>
