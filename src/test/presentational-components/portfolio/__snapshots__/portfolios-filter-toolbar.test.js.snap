@@ -1,47 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
-<Toolbar
-  className="pf-u-mt-md"
+<ContextProvider
+  value={
+    Object {
+      "componentMapper": Object {
+        "Button": [Function],
+        "FilterToolbarItem": [Function],
+        "Link": [Function],
+        "Toolbar": [Function],
+        "ToolbarGroup": [Function],
+        "ToolbarItem": [Function],
+        "TopToolbar": [Function],
+        "TopToolbarTitle": [Function],
+      },
+      "render": [Function],
+    }
+  }
 >
-  <ToolbarGroup
-    className={null}
+  <Component
+    component="TopToolbar"
+    key="portfolios-top-toolbar"
   >
-    <ToolbarItem
-      className={null}
+    <Component
+      component="TopToolbarTitle"
+      key="portfolios-toolbar-title"
+      title="Portfolios"
+    />
+    <Component
+      className="pf-u-mt-md"
+      component="Toolbar"
+      key="main-portfolio-toolbar"
     >
-      <FilterToolbarItem
-        onFilterChange={[MockFunction]}
-        placeholder="Filter by name..."
-        searchValue=""
-      />
-    </ToolbarItem>
-  </ToolbarGroup>
-  <ToolbarGroup
-    className={null}
-  >
-    <ToolbarItem
-      className={null}
-    >
-      <Link
-        to="/portfolios/add-portfolio"
+      <Component
+        component="ToolbarGroup"
+        key="filter-group"
       >
-        <Button
-          aria-label="Create portfolio"
-          className=""
-          component="button"
-          isActive={false}
-          isBlock={false}
-          isDisabled={false}
-          isFocus={false}
-          isHover={false}
-          type="button"
-          variant="primary"
+        <Component
+          component="ToolbarItem"
+          key="filter-input-container"
         >
-          Create portfolio
-        </Button>
-      </Link>
-    </ToolbarItem>
-  </ToolbarGroup>
-</Toolbar>
+          <Component
+            component="FilterToolbarItem"
+            key="filter-input"
+            onFilterChange={[MockFunction]}
+            searchValue=""
+          />
+        </Component>
+      </Component>
+      <Component
+        component="ToolbarGroup"
+        key="portfolios-button-group"
+      >
+        <Component
+          component="ToolbarItem"
+          key="create-portfolio-item"
+        >
+          <Component
+            component="Link"
+            key="create-portfolio-link"
+            to="/portfolios/add-portfolio"
+          >
+            <Component
+              aria-label="Create portfolio"
+              component="Button"
+              key="create-portfolio-button"
+              title="Create portfolio"
+              variant="primary"
+            />
+          </Component>
+        </Component>
+      </Component>
+    </Component>
+  </Component>
+</ContextProvider>
 `;
