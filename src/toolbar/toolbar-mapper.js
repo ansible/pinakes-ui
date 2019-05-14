@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, Toolbar, ToolbarItem, ToolbarGroup } from '@patternfly/react-core';
+import { Button, Level, LevelItem, Toolbar, ToolbarItem, ToolbarGroup } from '@patternfly/react-core';
 
 import FilterToolbarItem from '../presentational-components/shared/filter-toolbar-item';
 import TopToolbar, { TopToolbarTitle } from '../presentational-components/shared/top-toolbar';
@@ -20,6 +20,8 @@ const toolbarMapper = {
   ToolbarItem,
   FilterToolbarItem,
   Link,
+  Level,
+  LevelItem,
   Button: ToolbarButton
 };
 
@@ -31,7 +33,9 @@ export const toolbarComponentTypes = {
   TOOLBAR_GROUP: 'ToolbarGroup',
   FILTER_TOOLBAR_ITEM: 'FilterToolbarItem',
   LINK: 'Link',
-  BUTTON: 'Button'
+  BUTTON: 'Button',
+  LEVEL: 'Level',
+  LEVEL_ITEM: 'LevelItem'
 };
 
 export default toolbarMapper;

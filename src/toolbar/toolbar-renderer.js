@@ -23,9 +23,10 @@ Component.propTypes = {
  * @param {Array} fields list of React components to be rendered
  */
 const render = fields =>
-  fields.map(({ fields, key, ...field }) => (
-    <Component key={ key } { ...field }>{ fields && render(fields) }</Component>
-  ));
+  fields.map(({ fields, key, ...field }) => fields ? (
+    <Component key={ key } { ...field }>{ render(fields) }</Component>
+  ) : <Component key={ key } { ...field } />
+  );
 
 const ToolbarRenderer = ({ schema, componentMapper }) => (
   <ToolbarContext.Provider value={ { render, componentMapper } }>

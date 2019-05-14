@@ -45,6 +45,7 @@ exports[`<RemovePortfolioItems /> should render correctly 1`] = `
               isDisabled={false}
               isFocus={false}
               isHover={false}
+              isInline={false}
               type="button"
               variant="link"
             >
@@ -68,6 +69,7 @@ exports[`<RemovePortfolioItems /> should render correctly 1`] = `
             isDisabled={false}
             isFocus={false}
             isHover={false}
+            isInline={false}
             type="button"
             variant="danger"
           >
