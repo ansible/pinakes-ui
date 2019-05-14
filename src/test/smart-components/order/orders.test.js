@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { DataList, DataListContent } from '@patternfly/react-core';
+import { DataList, DataListContent, DataListCell } from '@patternfly/react-core';
 
 import Orders from '../../../smart-components/order/orders';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
@@ -32,8 +32,20 @@ describe('<Orders />', () => {
         portfolio_item_id: 'foo'
       }]
     }],
-    past: []
-  };
+    past: [{
+      id: 'order-2',
+      created_at: new Date(),
+      ordered_at: 'past_date',
+      state: 'Completed',
+      requests: [],
+      orderItems: [{
+        portfolio_item_id: '123',
+        order_id: 'order-2',
+        state: 'Completed',
+        external_url: 'https://example.com/fake-done'
+      }]
+    }
+    ]};
 
   const ComponentWrapper = ({ store, children }) => (
     <Provider store={ store }>
@@ -46,7 +58,8 @@ describe('<Orders />', () => {
   beforeEach(() => {
     initialProps = {};
     mockStore = configureStore(middlewares);
-    initialState = { orderReducer: { ...orderInitialState, isLoading: false }, portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
+    initialState = { orderReducer: { ...orderInitialState, isLoading: false },
+      portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
   });
 
   it('should render correctly', () => {
@@ -85,10 +98,38 @@ describe('<Orders />', () => {
     const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
     setImmediate(() => {
       wrapper.update();
-      expect(wrapper.find(DataListContent).props().isHidden).toEqual(true);
+      expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);
       wrapper.find('.pf-c-data-list__toggle').first().simulate('click');
-      expect(wrapper.find(DataListContent).props().isHidden).toEqual(false);
+      expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(false);
       expect(wrapper.find(OrderDetailTable)).toHaveLength(1);
+      done();
+    });
+  });
+
+  it('should render past orders correctly', () => {
+    initialState = { orderReducer: { ...orderInitialState, linkedOrders, isLoading: false },
+      portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
+    const store = mockStore(initialState);
+    const wrapper = shallow(<Orders store={ store } { ...initialProps } />);
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+  });
+
+  it('should set the Manage Product link to open in a new tab', (done) => {
+    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, linkedOrders }});
+    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
+
+    const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } linkedOrders /></ComponentWrapper>);
+    setImmediate(() => {
+      wrapper.update();
+      expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);
+      expect(wrapper.find(DataListCell).last().props().children.props.children.props).toMatchObject(
+        { children: 'Manage product',
+          href: 'https://example.com/fake-done',
+          rel: 'noopener noreferrer',
+          target: '_blank' });
       done();
     });
   });
