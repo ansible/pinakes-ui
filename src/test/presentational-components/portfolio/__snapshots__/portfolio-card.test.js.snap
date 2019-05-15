@@ -5,6 +5,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
   <Card
     className="content-gallery-card"
     component="article"
+    isHoverable={false}
   >
     <Link
       className="card-link"
