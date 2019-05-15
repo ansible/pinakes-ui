@@ -5,8 +5,8 @@ import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import CatalogBreadrubms from './breadcrubms';
 import './top-toolbar.scss';
 
-const TopToolbar = ({ children, paddingBottom }) => (
-  <div className={ `pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl ${paddingBottom ? 'pf-u-pb-xl' : ''} top-toolbar` }>
+const TopToolbar = ({ children, paddingBottom, ...props }) => (
+  <div className={ `pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl ${paddingBottom ? 'pf-u-pb-xl' : ''} top-toolbar` } { ...props }>
     <Level className="pf-u-mb-md">
       <CatalogBreadrubms />
     </Level>

@@ -51,8 +51,8 @@ const createAddProductsSchema = ({
         },
         createSingleItemGroup({
           groupName: 'cancel-group-item',
-          key: 'portfolio-items-cancel-group',
           ...createLinkButton({
+            key: 'add-products-cancel-button',
             to: portfolioRoute,
             variant: 'link',
             'aria-label': 'Cancel Add products to Portfolio',
@@ -62,18 +62,15 @@ const createAddProductsSchema = ({
         createSingleItemGroup({
           groupName: 'add-group-item',
           key: 'portfolio-items-add-group',
-          ...createLinkButton({
-            to: portfolioRoute,
-            component: ButtonWithSpinner,
-            variant: 'primary',
-            'aria-label': 'Add products to Portfolio',
-            title: 'Add',
-            type: 'button',
-            onClick: onClickAddToPortfolio,
-            isDisabled: !itemsSelected || isFetching,
-            showSpinner: isFetching,
-            children: 'Add'
-          })
+          component: ButtonWithSpinner,
+          variant: 'primary',
+          'aria-label': 'Add products to Portfolio',
+          title: 'Add',
+          type: 'button',
+          onClick: onClickAddToPortfolio,
+          isDisabled: !itemsSelected || isFetching,
+          showSpinner: isFetching,
+          children: 'Add'
         })  ]
       }, {
         component: toolbarComponentTypes.LEVEL_ITEM,
