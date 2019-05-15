@@ -6,6 +6,9 @@ import { Dropdown, DropdownPosition, KebabToggle, DropdownItem } from '@patternf
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
 
+/**
+ * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
+ */
 const PortfolioActionsToolbar = ({ setKebabOpen, isKebabOpen, removePortfolioRoute }) => (
   <Dropdown
     onSelect={ () => setKebabOpen(false) }
@@ -56,33 +59,25 @@ const createPortfolioToolbarSchema = ({
         component: toolbarComponentTypes.LEVEL_ITEM,
         key: 'portfolio-actions',
         className: 'toolbar-override',
-        fields: [{
-          component: toolbarComponentTypes.LINK,
-          key: 'portfolio-share-action',
-          to: sharePortfolioRoute,
-          fields: [{
-            component: toolbarComponentTypes.BUTTON,
-            key: 'portfolio-share-button',
+        fields: [
+          createLinkButton({
+            to: sharePortfolioRoute,
+            variant: 'secondary',
             title: 'Share',
-            variant: 'secondary'
-          }]
-        }, {
-          component: toolbarComponentTypes.LINK,
-          key: 'portfolio-edit-action',
-          to: editPortfolioRoute,
-          fields: [{
-            component: toolbarComponentTypes.BUTTON,
-            key: 'portfolio-edit-button',
+            key: 'portfolio-share-button'
+          }),
+          createLinkButton({
+            to: editPortfolioRoute,
+            variant: 'link',
             title: 'Edit',
-            variant: 'link'
+            key: 'portfolio-edit-button'
+          }), {
+            component: PortfolioActionsToolbar,
+            removePortfolioRoute,
+            isKebabOpen,
+            setKebabOpen,
+            key: 'portfolio-actions-dropdown'
           }]
-        }, {
-          component: PortfolioActionsToolbar,
-          removePortfolioRoute,
-          isKebabOpen,
-          setKebabOpen,
-          key: 'portfolio-actions-dropdown'
-        }]
       }]
     }, {
       component: toolbarComponentTypes.TOOLBAR,

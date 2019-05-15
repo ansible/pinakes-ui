@@ -36,11 +36,11 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
     >
       <Component
         component="ToolbarGroup"
-        key="filter-group"
+        key="filter-group/single-toolbar-item-group"
       >
         <Component
           component="ToolbarItem"
-          key="filter-input-container"
+          key="filter-group/single-toolbar-item"
         >
           <Component
             component="FilterToolbarItem"
@@ -52,15 +52,15 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
       </Component>
       <Component
         component="ToolbarGroup"
-        key="portfolios-button-group"
+        key="portfolio-button-group/single-toolbar-item-group"
       >
         <Component
           component="ToolbarItem"
-          key="create-portfolio-item"
+          key="portfolio-button-group/single-toolbar-item"
         >
           <Component
             component="Link"
-            key="create-portfolio-link"
+            key="create-portfolio-button/button-link"
             to="/portfolios/add-portfolio"
           >
             <Component

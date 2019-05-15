@@ -1,4 +1,5 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
+import { createSingleItemGroup, createLinkButton } from '../helpers';
 
 const createPortfolioToolbarSchema = ({
   filterProps: {
@@ -18,40 +19,26 @@ const createPortfolioToolbarSchema = ({
       component: toolbarComponentTypes.TOOLBAR,
       key: 'main-portfolio-toolbar',
       className: 'pf-u-mt-md',
-      fields: [{
-        component: toolbarComponentTypes.TOOLBAR_GROUP,
-        key: 'filter-group',
-        fields: [{
-          component: toolbarComponentTypes.TOOLBAR_ITEM,
-          key: 'filter-input-container',
-          fields: [{
-            component: 'FilterToolbarItem',
-            key: 'filter-input',
-            searchValue,
-            onFilterChange,
-            placeholder
-          }]
-        }]
-      }, {
-        component: toolbarComponentTypes.TOOLBAR_GROUP,
-        key: 'portfolios-button-group',
-        fields: [{
-          component: toolbarComponentTypes.TOOLBAR_ITEM,
-          key: 'create-portfolio-item',
-          fields: [{
-            component: toolbarComponentTypes.LINK,
-            key: 'create-portfolio-link',
+      fields: [
+        createSingleItemGroup({
+          groupName: 'filter-group',
+          component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
+          key: 'filter-input',
+          searchValue,
+          onFilterChange,
+          placeholder
+        }),
+        createSingleItemGroup({
+          groupName: 'portfolio-button-group',
+          key: 'create-portfolio',
+          ...createLinkButton({
             to: '/portfolios/add-portfolio',
-            fields: [{
-              component: toolbarComponentTypes.BUTTON,
-              key: 'create-portfolio-button',
-              variant: 'primary',
-              'aria-label': 'Create portfolio',
-              title: 'Create portfolio'
-            }]
-          }]
-        }]
-      }]
+            variant: 'primary',
+            key: 'create-portfolio-button',
+            'aria-label': 'Create portfolio',
+            title: 'Create portfolio'
+          })
+        }) ]
     }]
   }]
 });
