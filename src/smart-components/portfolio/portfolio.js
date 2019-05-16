@@ -11,7 +11,6 @@ import AddPortfolioModal from './add-portfolio-modal';
 import SharePortfolioModal from './share-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import RemovePortfolioModal from './remove-portfolio-modal';
-import RemovePortfolioItems from './remove-portfolio-items';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import AddProductsToPortfolio from './add-products-to-portfolio';
@@ -20,6 +19,7 @@ import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
 import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio, removeProductsFromPortfolio } from '../../redux/actions/portfolio-actions';
+import createRemoveProductsSchema from '../../toolbar/schemas/remove-products-toolbar.schema';
 
 class Portfolio extends Component {
   state = {
@@ -127,14 +127,14 @@ class Portfolio extends Component {
 
   renderRemoveProducts = ({ portfolioRoute, filteredItems, title }) => (
     <React.Fragment>
-      <RemovePortfolioItems
-        filterValue={ this.state.filterValue }
-        onFilterChange={ this.handleFilterChange }
-        portfolioName={ title }
-        portfolioRoute={ portfolioRoute }
-        onRemove={ this.removeProducts }
-        disableButton={ this.state.selectedItems.length === 0 }
-      />
+      <ToolbarRenderer schema={ createRemoveProductsSchema({
+        filterValue: this.state.filterValue,
+        onFilterChange: this.handleFilterChange,
+        portfolioName: title,
+        portfolioRoute,
+        onRemove: this.removeProducts,
+        disableButton: this.state.selectedItems.length === 0
+      }) } />
       <ContentGallery { ...filteredItems } />
     </React.Fragment>
   );
