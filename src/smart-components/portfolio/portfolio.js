@@ -1,32 +1,36 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ContentGallery from '../content-gallery/content-gallery';
-import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio, removeProductsFromPortfolio } from '../../redux/actions/portfolio-actions';
-import AddProductsToPortfolio from './add-products-to-portfolio';
-import PortfolioFilterToolbar from '../../presentational-components/portfolio/portfolio-filter-toolbar';
-import PortfolioItem from './portfolio-item';
-import AddPortfolioModal from './add-portfolio-modal';
-import RemovePortfolioModal from './remove-portfolio-modal';
-import { scrollToTop } from '../../helpers/shared/helpers';
-import RemovePortfolioItems from './remove-portfolio-items';
-import OrderModal from '../common/order-modal';
-import { filterServiceOffering } from '../../helpers/shared/helpers';
-import TopToolbar from '../../presentational-components/shared/top-toolbar';
-import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
-import SharePortfolioModal from './share-portfolio-modal';
-import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
-import { SearchIcon } from '@patternfly/react-icons';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { SearchIcon } from '@patternfly/react-icons';
+import { withRouter, Route, Switch } from 'react-router-dom';
+
+import PortfolioItem from './portfolio-item';
+import OrderModal from '../common/order-modal';
+import AddPortfolioModal from './add-portfolio-modal';
+import SharePortfolioModal from './share-portfolio-modal';
+import { scrollToTop } from '../../helpers/shared/helpers';
+import RemovePortfolioModal from './remove-portfolio-modal';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
+import ContentGallery from '../content-gallery/content-gallery';
+import AddProductsToPortfolio from './add-products-to-portfolio';
+import { filterServiceOffering } from '../../helpers/shared/helpers';
+import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
+import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
+import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
+import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio, removeProductsFromPortfolio } from '../../redux/actions/portfolio-actions';
+import createRemoveProductsSchema from '../../toolbar/schemas/remove-products-toolbar.schema';
 
 class Portfolio extends Component {
   state = {
     portfolioId: '',
     filteredItems: [],
     selectedItems: [],
-    filterValue: ''
+    filterValue: '',
+    isKebabOpen: false
   };
+
+  handleKebabOpen = isKebabOpen => this.setState({ isKebabOpen });
 
   fetchData = (apiProps) => {
     this.props.fetchSelectedPortfolio(apiProps);
@@ -80,22 +84,32 @@ class Portfolio extends Component {
     />
   )
 
-  renderProducts = ({ title, filteredItems, addProductsRoute, removeProductsRoute,
-    editPortfolioRoute, removePortfolioRoute, sharePortfolioRoute }) => (
+  renderProducts = ({
+    title,
+    filteredItems,
+    addProductsRoute,
+    editPortfolioRoute,
+    sharePortfolioRoute,
+    removeProductsRoute,
+    removePortfolioRoute
+  }) => (
     <Fragment>
-      <TopToolbar>
-        <PortfolioFilterToolbar
-          title={ title }
-          searchValue={ this.state.filterValue }
-          onFilterChange={ this.handleFilterChange }
-          addProductsRoute={ addProductsRoute }
-          removeProductsRoute={ removeProductsRoute }
-          editPortfolioRoute={ editPortfolioRoute }
-          removePortfolioRoute={ removePortfolioRoute }
-          sharePortfolioRoute={ sharePortfolioRoute }
-          isLoading={ this.props.isLoading }
-        />
-      </TopToolbar>
+      <ToolbarRenderer schema={ createPortfolioToolbarSchema({
+        filterProps: {
+          searchValue: this.state.filterValue,
+          onFilterChange: this.handleFilterChange,
+          placeholder: 'Filter by name...'
+        },
+        title,
+        addProductsRoute,
+        removeProductsRoute,
+        editPortfolioRoute,
+        sharePortfolioRoute,
+        removePortfolioRoute,
+        isLoading: this.props.isLoading,
+        setKebabOpen: this.handleKebabOpen,
+        isKebabOpen: this.state.isKebabOpen
+      }) } />
       <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
       <Route exact path="/portfolios/detail/:id/share-portfolio" component={ SharePortfolioModal } />
@@ -113,14 +127,14 @@ class Portfolio extends Component {
 
   renderRemoveProducts = ({ portfolioRoute, filteredItems, title }) => (
     <React.Fragment>
-      <RemovePortfolioItems
-        filterValue={ this.state.filterValue }
-        onFilterChange={ this.handleFilterChange }
-        portfolioName={ title }
-        portfolioRoute={ portfolioRoute }
-        onRemove={ this.removeProducts }
-        disableButton={ this.state.selectedItems.length === 0 }
-      />
+      <ToolbarRenderer schema={ createRemoveProductsSchema({
+        filterValue: this.state.filterValue,
+        onFilterChange: this.handleFilterChange,
+        portfolioName: title,
+        portfolioRoute,
+        onRemove: this.removeProducts,
+        disableButton: this.state.selectedItems.length === 0
+      }) } />
       <ContentGallery { ...filteredItems } />
     </React.Fragment>
   );

@@ -16,7 +16,8 @@ import {
   Gallery,
   GalleryItem
 } from '@patternfly/react-core';
-import OrdersToolbar from '../../smart-components/order/orders-toolbar';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
+import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 
 export const CardLoader = ({ items, ...props }) => (
   <Grid  gutter="md">
@@ -161,7 +162,7 @@ export const ShareLoader = () => (
 
 export const OrderLoader = ({ items, ...props }) => (
   <Fragment>
-    <OrdersToolbar />
+    <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
     <DataList aria-label="orders-placeholder" style={ { margin: 32 } }>
       { [ ...Array(items) ].map((_item, index) => (
         <DataListItem key={ index } aria-label="order-item-placeholder">

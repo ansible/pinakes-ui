@@ -19,6 +19,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
           <Card
             className="content-gallery-card"
             component="article"
+            isHoverable={false}
           >
             <article
               className="pf-c-card content-gallery-card"
@@ -125,6 +126,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
           <Card
             className="content-gallery-card"
             component="article"
+            isHoverable={false}
           >
             <article
               className="pf-c-card content-gallery-card"

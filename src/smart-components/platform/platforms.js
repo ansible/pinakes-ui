@@ -10,12 +10,13 @@ import {
 } from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
 
-import ContentGallery from '../content-gallery/content-gallery';
-import PlatformCard from '../../presentational-components/platform/platform-card';
-import PlatformToolbar from '../../presentational-components/platform/platform-toolbar';
-import { fetchPlatforms } from '../../redux/actions/platform-actions';
-import { scrollToTop } from '../../helpers/shared/helpers';
 import Platform from './platform';
+import { scrollToTop } from '../../helpers/shared/helpers';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
+import ContentGallery from '../content-gallery/content-gallery';
+import { fetchPlatforms } from '../../redux/actions/platform-actions';
+import PlatformCard from '../../presentational-components/platform/platform-card';
+import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 
 const platformsRoutes = {
@@ -64,7 +65,11 @@ class Platforms extends Component {
       };
       return (
         <Fragment>
-          <PlatformToolbar onFilterChange={ this.handleFilterChange } searchValue={ this.state.filterValue } title="Platforms" />
+          <ToolbarRenderer schema={ createPlatformsToolbarSchema({
+            onFilterChange: this.handleFilterChange,
+            searchValue: this.state.filterValue,
+            title: 'Platforms'
+          }) }/>
           <ContentGallery
             { ...filteredItems }
             renderEmptyState={ () => (
