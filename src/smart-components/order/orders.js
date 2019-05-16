@@ -7,10 +7,11 @@ import { Grid, GridItem, DataList, Text, TextContent } from '@patternfly/react-c
 import { Section } from '@red-hat-insights/insights-frontend-components';
 
 import OrderItem from './order-item';
-import OrdersToolbar from './orders-toolbar';
 import OrderMessagesModal from './order-messages-modal';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { getLinkedOrders } from '../../redux/actions/order-actions';
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
+import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 import { OrderLoader } from '../../presentational-components/shared/loader-placeholders';
 
 import './orders.scss';
@@ -41,7 +42,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, isLoading, linkedOrders:
   return (
     <Fragment>
       <Route path="/orders/:orderItemId/messages" component={ OrderMessagesModal } />
-      <OrdersToolbar />
+      <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
       <Section type="content">
         <Grid gutter="md">
           <GridItem>
