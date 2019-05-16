@@ -1,4 +1,4 @@
-import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';
+import { Pagination } from '@redhat-cloud-services/frontend-components';
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
 

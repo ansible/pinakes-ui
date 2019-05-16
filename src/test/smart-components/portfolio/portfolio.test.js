@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import OrderModal from '../../../smart-components/common/order-modal';

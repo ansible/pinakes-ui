@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { Section } from '@red-hat-insights/insights-frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components';
 
 import AddProductsGallery from './add-products-gallery';
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
