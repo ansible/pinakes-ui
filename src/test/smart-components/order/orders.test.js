@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { DataList, DataListContent, DataListCell } from '@patternfly/react-core';
+import { DataList, DataListContent } from '@patternfly/react-core';
 
 import Orders from '../../../smart-components/order/orders';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
@@ -21,11 +21,14 @@ describe('<Orders />', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
   let initialState;
+
+  const createDate = new Date('2019-05-16T12:54:18.827');
+
   const linkedOrders = {
     current: [{
       id: 'order-1',
-      created_at: new Date(),
-      ordered_at: 'Foo',
+      created_at: createDate,
+      ordered_at: 'order_date',
       state: 'ordered',
       requests: [],
       orderItems: [{
@@ -34,8 +37,8 @@ describe('<Orders />', () => {
     }],
     past: [{
       id: 'order-2',
-      created_at: new Date(),
-      ordered_at: 'past_date',
+      created_at: createDate,
+      ordered_at: 'order_date',
       state: 'Completed',
       requests: [],
       orderItems: [{
@@ -110,7 +113,7 @@ describe('<Orders />', () => {
     initialState = { orderReducer: { ...orderInitialState, linkedOrders, isLoading: false },
       portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
     const store = mockStore(initialState);
-    const wrapper = shallow(<Orders store={ store } { ...initialProps } />);
+    const wrapper = shallow(<Orders store={ store } { ...initialProps } linkedOrders />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -125,7 +128,7 @@ describe('<Orders />', () => {
     setImmediate(() => {
       wrapper.update();
       expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);
-      expect(wrapper.find(DataListCell).last().props().children.props.children.props).toMatchObject(
+      expect(wrapper.find('a').props()).toMatchObject(
         { children: 'Manage product',
           href: 'https://example.com/fake-done',
           rel: 'noopener noreferrer',

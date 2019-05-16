@@ -101,21 +101,21 @@ exports[`<Orders /> should render past orders correctly 1`] = `
     Object {
       "current": Array [
         Object {
-          "created_at": 2019-05-15T17:25:07.257Z,
+          "created_at": 2019-05-16T16:54:18.827Z,
           "id": "order-1",
           "orderItems": Array [
             Object {
               "portfolio_item_id": "foo",
             },
           ],
-          "ordered_at": "Foo",
+          "ordered_at": "order_date",
           "requests": Array [],
           "state": "ordered",
         },
       ],
       "past": Array [
         Object {
-          "created_at": 2019-05-15T17:25:07.257Z,
+          "created_at": 2019-05-16T16:54:18.827Z,
           "id": "order-2",
           "orderItems": Array [
             Object {
@@ -125,7 +125,7 @@ exports[`<Orders /> should render past orders correctly 1`] = `
               "state": "Completed",
             },
           ],
-          "ordered_at": "past_date",
+          "ordered_at": "order_date",
           "requests": Array [],
           "state": "Completed",
         },
