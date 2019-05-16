@@ -101,7 +101,7 @@ exports[`<Orders /> should render past orders correctly 1`] = `
     Object {
       "current": Array [
         Object {
-          "created_at": 2019-05-16T16:54:18.827Z,
+          "created_at": 2019-06-01T00:00:00.000Z,
           "id": "order-1",
           "orderItems": Array [
             Object {
@@ -115,7 +115,7 @@ exports[`<Orders /> should render past orders correctly 1`] = `
       ],
       "past": Array [
         Object {
-          "created_at": 2019-05-16T16:54:18.827Z,
+          "created_at": 2019-06-01T00:00:00.000Z,
           "id": "order-2",
           "orderItems": Array [
             Object {

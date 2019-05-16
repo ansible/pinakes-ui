@@ -22,7 +22,7 @@ describe('<Orders />', () => {
   let mockStore;
   let initialState;
 
-  const createDate = new Date('2019-05-16T12:54:18.827');
+  const createDate = new Date(Date.UTC(2019, 5, 1, 0));
 
   const linkedOrders = {
     current: [{
