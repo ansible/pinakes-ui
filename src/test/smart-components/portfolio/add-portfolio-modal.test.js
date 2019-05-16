@@ -8,7 +8,7 @@ import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
-import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import { APPROVAL_API_BASE, CATALOG_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';

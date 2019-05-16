@@ -1,10 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import store from '../../utilities/store';
 
 describe('redux store', () => {
+  console.log('middleware: ', notificationsMiddleware);
   it('should create redux store context', () => {
     const wrapper = mount(<Provider store={ store }><div>Foo</div></Provider>);
     const expectedState = {
