@@ -6,12 +6,12 @@ import { withRouter } from 'react-router-dom';
 import { Section } from '@red-hat-insights/insights-frontend-components';
 
 import AddProductsGallery from './add-products-gallery';
-import AddProductsPagination from './add-products-pagination';
+import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../../helpers/shared/helpers';
-import { fetchPlatformItems, fetchPlatforms } from '../../../redux/actions/platform-actions';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
-import PortfolioOrderToolbar from '../../../presentational-components/portfolio/portfolio-order-toolbar';
+import createAddProductsSchema from '../../../toolbar/schemas/add-products-toolbar.schema';
+import { fetchPlatformItems, fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../../redux/actions/portfolio-actions';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) => items.filter(item => filterServiceOffering(item, filter))
@@ -71,19 +71,18 @@ const AddProductsToPortfolio = ({
 
   return (
     <Section>
-      <PortfolioOrderToolbar
-        portfolioName={ `${portfolio && portfolio.name || ''} new One` }
-        onClickAddToPortfolio={ handleAddToPortfolio }
-        itemsSelected={ checkedItems.length > 0 }
-        portfolioRoute={ portfolioRoute }
-        searchValue={ searchValue }
-        onFilterChange={ value => handleFilterChange(value) }
-        onOptionSelect={ onPlatformSelect }
-        options={ platforms.map(platform => ({ value: platform.id, label: platform.name, id: platform.id })) }
-        isFetching={ isFetching }
-      >
-        { meta && <AddProductsPagination meta={ meta } platformId={ selectedPlatform.id } /> }
-      </PortfolioOrderToolbar>
+      <ToolbarRenderer schema={ createAddProductsSchema({
+        options: platforms.map(platform => ({ value: platform.id, label: platform.name, id: platform.id })),
+        isFetching,
+        portfolioName: portfolio && portfolio.name || '',
+        itemsSelected: checkedItems.length > 0,
+        onOptionSelect: onPlatformSelect,
+        onFilterChange: value => handleFilterChange(value),
+        portfolioRoute,
+        onClickAddToPortfolio: handleAddToPortfolio,
+        meta,
+        platformId: selectedPlatform && selectedPlatform.id
+      }) } />
       <AddProductsGallery
         platform={ !!selectedPlatform }
         checkedItems={ checkedItems }

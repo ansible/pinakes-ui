@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/actions/platform-actions';
-import ContentGallery from '../content-gallery/content-gallery';
-import PlatformToolbar from '../../presentational-components/platform/platform-toolbar';
-import PlatformItem from '../../presentational-components/platform/platform-item';
-import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
-import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
-import { Pagination } from '@red-hat-insights/insights-frontend-components/components/Pagination';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import debouncePromise from 'awesome-debounce-promise';
+
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
+import ContentGallery from '../content-gallery/content-gallery';
+import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
+import PlatformItem from '../../presentational-components/platform/platform-item';
+import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
+import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
+import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/actions/platform-actions';
 
 class Platform extends Component {
   state = {
@@ -64,16 +65,19 @@ class Platform extends Component {
     let title = this.props.platform ? this.props.platform.name : '';
     return (
       <Fragment>
-        <PlatformToolbar searchValue={ this.state.filterValue } onFilterChange={ this.handleFilterChange } title={ title }>
-          <Pagination
-            itemsPerPage={ this.props.paginationCurrent.limit || 50 }
-            numberOfItems={ this.props.paginationCurrent.count || 50 }
-            onPerPageSelect={ this.handleOnPerPageSelect }
-            page={ getCurrentPage(this.props.paginationCurrent.limit, this.props.paginationCurrent.offset) }
-            onSetPage={ this.handleSetPage }
-            direction="down"
-          />
-        </PlatformToolbar>
+        <ToolbarRenderer schema={ createPlatformsToolbarSchema({
+          onFilterChange: this.handleFilterChange,
+          searchValue: this.state.filterValue,
+          title,
+          pagination: {
+            itemsPerPage: this.props.paginationCurrent.limit || 50,
+            numberOfItems: this.props.paginationCurrent.count || 50,
+            onPerPageSelect: this.handleOnPerPageSelect,
+            page: getCurrentPage(this.props.paginationCurrent.limit, this.props.paginationCurrent.offset),
+            onSetPage: this.handleSetPage,
+            direction: 'down'
+          }
+        }) }/>
         <ContentGallery { ...filteredItems }/>
       </Fragment>
     );

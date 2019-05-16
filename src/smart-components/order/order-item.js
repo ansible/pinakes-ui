@@ -111,7 +111,7 @@ class OrderItem extends Component {
                 { item.state === 'Completed'
                   ? (
                     <div style={ { minWidth: 200, textAlign: 'end' } }>
-                      <a href={ item.orderItems && item.orderItems[0].external_url }>
+                      <a href={ item.orderItems && item.orderItems[0].external_url } target="_blank" rel="noopener noreferrer">
                         Manage product
                       </a>
                     </div>)

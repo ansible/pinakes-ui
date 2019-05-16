@@ -172,7 +172,7 @@
 .toolbar-override {
   display: flex;
   align-items: center;
-  .toolbar-override-item {
+  > div, > a {
     &:not(:last-child) {
       margin-right: 16px;
     }

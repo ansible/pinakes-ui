@@ -9,11 +9,11 @@ import AddPortfolio from './add-portfolio-modal';
 import SharePortfolio from './share-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
-import PortfoliosFilterToolbar from '../../presentational-components/portfolio/portfolios-filter-toolbar';
-import TopToolbar, { TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
+import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
 
 const portfoliosRoutes = {
@@ -48,10 +48,14 @@ class Portfolios extends Component {
     };
     return (
       <Fragment>
-        <TopToolbar>
-          <TopToolbarTitle title="Portfolios" />
-          <PortfoliosFilterToolbar onFilterChange={ this.onFilterChange } filterValue={ this.state.filterValue }/>
-        </TopToolbar>
+        <ToolbarRenderer
+          schema={ createPortfolioToolbarSchema({
+            filterProps: {
+              searchValue: this.state.filterValue,
+              onFilterChange: this.onFilterChange,
+              placeholder: 'Filter by name...'
+            }}) }
+        />
         <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />

@@ -8,13 +8,13 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
 
+import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import OrderModal from '../../../smart-components/common/order-modal';
 import Portfolio from '../../../smart-components/portfolio/portfolio';
 import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
-import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
-import RemovePortfolioItems from '../../../smart-components/portfolio/remove-portfolio-items';
-import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
+import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
+import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import AddProductsToPortfolio from '../../../smart-components/portfolio/add-products-to-portfolio';
 import { FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
 
@@ -143,7 +143,7 @@ describe('<Portfolio />', () => {
     );
 
     setImmediate(() => {
-      expect(wrapper.find(RemovePortfolioItems)).toHaveLength(1);
+      expect(wrapper.find(ToolbarRenderer)).toHaveLength(1);
       wrapper.find(PortfolioItem).props().onSelect('123');
       wrapper.update();
       wrapper.find('button').last().simulate('click');

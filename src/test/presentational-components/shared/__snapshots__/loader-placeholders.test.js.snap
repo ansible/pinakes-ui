@@ -80,6 +80,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -148,6 +149,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -216,6 +218,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -284,6 +287,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -352,6 +356,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -420,6 +425,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -488,6 +494,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -556,6 +563,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -624,6 +632,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -692,6 +701,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -760,6 +770,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -828,6 +839,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
@@ -896,6 +908,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         <Card
           className=""
           component="article"
+          isHoverable={false}
           style={
             Object {
               "height": 350,
