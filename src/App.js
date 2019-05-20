@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Main } from '@redhat-cloud-services/frontend-components';
@@ -12,6 +12,9 @@ import { AppPlaceholder } from './presentational-components/shared/loader-placeh
 
 import 'whatwg-fetch';
 import smoothscroll from 'smoothscroll-polyfill';
+
+// react-int eng locale data
+import { IntlProvider } from 'react-intl';
 
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import './App.scss';
@@ -70,16 +73,18 @@ class App extends Component {
     }
 
     return (
-      <React.Fragment>
-        <NotificationsPortal />
-        <Main style={ { marginLeft: 0, padding: 0 } }>
-          <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
-            <GridItem sm={ 12 }>
-              <Routes childProps={ this.props } />
-            </GridItem>
-          </Grid>
-        </Main>
-      </React.Fragment>
+      <IntlProvider locale="en">
+        <Fragment>
+          <NotificationsPortal />
+          <Main style={ { marginLeft: 0, padding: 0 } }>
+            <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
+              <GridItem sm={ 12 }>
+                <Routes childProps={ this.props } />
+              </GridItem>
+            </Grid>
+          </Main>
+        </Fragment>
+      </IntlProvider>
     );
   }
 }
