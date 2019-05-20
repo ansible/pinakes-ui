@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Grid, GridItem, DataList, Text, TextContent } from '@patternfly/react-core';
-import { Section } from '@red-hat-insights/insights-frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components';
 
 import OrderItem from './order-item';
 import OrderMessagesModal from './order-messages-modal';

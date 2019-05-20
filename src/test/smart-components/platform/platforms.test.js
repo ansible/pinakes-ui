@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter } from 'react-router-dom';
-import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../smart-components/platform/platforms';
 import { SOURCES_API_BASE } from '../../../utilities/constants';

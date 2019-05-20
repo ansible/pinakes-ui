@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { clearNotifications } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications';
 
 const OrderNotification = ({ id, dispatch }) => (
   <p>
