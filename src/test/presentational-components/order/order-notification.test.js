@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import { CLEAR_NOTIFICATIONS } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/frontend-components-notifications';
 
 import OrderNotification from '../../../presentational-components/order/order-notification';
 

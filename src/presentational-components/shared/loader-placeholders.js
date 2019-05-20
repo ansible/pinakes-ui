@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import ContentLoader, { List } from 'react-content-loader';
 import PropTypes from 'prop-types';
-import { Main, Spinner } from '@red-hat-insights/insights-frontend-components';
+import { Main, Spinner } from '@redhat-cloud-services/frontend-components';
 import {
   Bullseye,
   Card,

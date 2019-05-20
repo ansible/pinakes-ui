@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title } from '@patternfly/react-core';
-import { Main } from '@red-hat-insights/insights-frontend-components';
+import { Main } from '@redhat-cloud-services/frontend-components';
 
 const PlatformDashboard = () =>(
   <Main>

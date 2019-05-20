@@ -7,7 +7,7 @@ import { shallowToJson } from 'enzyme-to-json';
 import { Button } from '@patternfly/react-core';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware } from '@red-hat-insights/insights-frontend-components/components/Notifications';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import dummySchema from './order-mock-form-schema';
 import { CATALOG_API_BASE } from '../../../utilities/constants';

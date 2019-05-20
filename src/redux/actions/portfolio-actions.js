@@ -1,3 +1,6 @@
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 
@@ -115,7 +118,19 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => ({
       fulfilled: {
         variant: 'success',
         title: 'Products removed',
-        description: `You have removed ${portfolioItems.length} product${portfolioItems.length !== 1 ? 's' : ''} from the ${portfolioName} portfolio. Undo this if it was a mistake.` // eslint-disable-line max-len
+        description: (
+          <FormattedMessage
+            id="portfolio.remove-portfolio-items"
+            defaultMessage={ `You have removed {count, number} {count, plural,
+              one {product}
+              other {products}
+            } from the {portfolioName} portfolio. Undo if this was a mistake.` }
+            values={ {
+              count: portfolioItems.length,
+              portfolioName
+            } }
+          />
+        )
       }
     }
   }

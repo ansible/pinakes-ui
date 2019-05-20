@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, Redirect, Route } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Section } from '@red-hat-insights/insights-frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components';
 
 import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';

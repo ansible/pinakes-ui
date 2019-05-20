@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debouncePromise from 'awesome-debounce-promise';
 
-import { Pagination } from '@red-hat-insights/insights-frontend-components';
+import { Pagination } from '@redhat-cloud-services/frontend-components';
 
 import { getCurrentPage, getNewPage } from '../../../helpers/shared/pagination';
 import { fetchPlatformItems } from '../../../redux/actions/platform-actions';
