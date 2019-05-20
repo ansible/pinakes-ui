@@ -57,23 +57,23 @@ const PortfolioCard = ({ imageUrl, name, id, ...props }) => {
   return (
     <GalleryItem>
       <Card className="content-gallery-card">
-        <Link className="card-link" to={ `/portfolios/detail/${id}` }>
-          <CardHeader>
-            <PortfolioCardHeader
-              portfolioName={ name }
-              headerActions={ createToolbarActions(name, id, isOpen, setOpen) }
-            />
-          </CardHeader>
-          <CardBody>
+        <CardHeader>
+          <PortfolioCardHeader
+            portfolioName={ name }
+            headerActions={ createToolbarActions(name, id, isOpen, setOpen) }
+          />
+        </CardHeader>
+        <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
+          <Link className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg" to={ `/portfolios/detail/${id}` }>
             <TextContent>
               <Text component={ TextVariants.small }>
                 { createModifiedLabel(new Date(props.updated_at || props.created_at), props.owner) }
               </Text>
             </TextContent>
             <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
-          </CardBody>
-          <CardFooter/>
-        </Link>
+          </Link>
+        </CardBody>
+        <CardFooter/>
       </Card>
     </GalleryItem>
   );};

@@ -187,3 +187,11 @@
     border-top-color: var(--pf-c-button--disabled--BackgroundColor);
   }
 }
+
+//pf-4 fixes
+/**
+* non working pf display modifier: https://www.patternfly.org/v4/documentation/core/utilities/display#display-block
+*/
+.pf-u-display-block {
+  display: block
+}
