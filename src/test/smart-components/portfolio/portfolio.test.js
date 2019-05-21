@@ -2,6 +2,7 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
@@ -248,4 +249,64 @@ describe('<Portfolio />', () => {
     });
   });
 
+  it('should remove portfolio items and call undo action', (done) => {
+    expect.assertions(1);
+    let store = mockStore({
+      ...initialState,
+      platformReducer: { platforms: []},
+      portfolioReducer: {
+        ...initialState.portfolioReducer,
+        portfolioItems: [{
+          id: '123',
+          name: 'Foo',
+          description: 'desc',
+          modified: 'sometimes'
+        }]
+      }
+    });
+    const restoreKey = 'restore-123';
+
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+
+    /**
+     * remove portfolio items calls
+     */
+    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { restore_key: restoreKey }}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
+
+    /**
+     * undo endpoint
+     */
+    apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items/123/undelete`, mockOnce((req, res) => {
+      expect(JSON.parse(req.body())).toEqual({ restore_key: 'restore-123' });
+      done();
+      return res.status(200).body({ id: '123' });
+    }));
+
+    const wrapper = mount(
+      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-products' ] }>
+        <Route path="/portfolios/detail/:id/remove-products" render={ (...args) => <Portfolio { ...initialProps } { ...args } /> } />
+      </ComponentWrapper>
+    );
+
+    setImmediate(() => {
+      const checkbox = wrapper.find(PortfolioItem).find('input');
+      checkbox.simulate('change');
+      /**
+       * Trigger remove portfolio items action
+       */
+      wrapper.find(Portfolio).children().children().children().instance().removeProducts();
+      setImmediate(() => {
+        /**
+         * trigger notification undo click
+         */
+        const notification = store.getActions()[5].payload.description;
+        const notificationWrapper = mount(<IntlProvider locale="en">{ notification }</IntlProvider>);
+        notificationWrapper.find('a span').simulate('click');
+      });
+    });
+  });
 });

@@ -1,14 +1,16 @@
 import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/';
+import { notificationsMiddleware, ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/frontend-components-notifications/';
 import {
   FETCH_PORTFOLIOS,
   FETCH_PORTFOLIO_ITEMS,
   FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   ADD_PORTFOLIO,
   UPDATE_PORTFOLIO,
-  REMOVE_PORTFOLIO
+  REMOVE_PORTFOLIO,
+  REMOVE_PORTFOLIO_ITEMS,
+  RESTORE_PORTFOLIO_ITEMS
 } from '../../../redux/action-types';
 import {
   fetchPortfolios,
@@ -16,7 +18,9 @@ import {
   fetchPortfolioItemsWithPortfolio,
   addPortfolio,
   updatePortfolio,
-  removePortfolio
+  removePortfolio,
+  removeProductsFromPortfolio,
+  undoRemoveProductsFromPortfolio
 } from '../../../redux/actions/portfolio-actions';
 import {
   CATALOG_API_BASE
@@ -227,5 +231,78 @@ describe('Portfolio actions', () => {
     .catch(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
+  });
+
+  it('should create correct actions after remove portfolio items action success', () => {
+    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const expectedActions = [{
+      type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
+    },
+    expect.objectContaining({ type: ADD_NOTIFICATION }), {
+      type: `${REMOVE_PORTFOLIO_ITEMS}_FULFILLED`
+    }];
+
+    apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/1', mockOnce({ body: { restore_key: 'restore-1' }}));
+    apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/2', mockOnce({ body: { restore_key: 'restore-2' }}));
+    apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/3', mockOnce({ body: { restore_key: 'restore-3' }}));
+
+    return store.dispatch(removeProductsFromPortfolio([ '1', '2', '3' ], 'Foo portfolio'))
+    .then(() => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  it('should create correct actions after remove portfolio items action fals', () => {
+    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const expectedActions = [{
+      type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
+    },
+    expect.objectContaining({ type: ADD_NOTIFICATION }),
+    expect.objectContaining({ type: `${REMOVE_PORTFOLIO_ITEMS}_REJECTED` }) ];
+
+    apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/1', mockOnce({ status: 500 }));
+
+    return store.dispatch(removeProductsFromPortfolio([ '1' ], 'Foo portfolio'))
+    .then(() => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  it('should create correct actions after restore portfolio items action succes', () => {
+    const store = mockStore({});
+    const restoreData = [
+      { portfolioItemId: '1', restoreKey: 'restore-1'  },
+      { portfolioItemId: '2', restoreKey: 'restore-2'  }
+    ];
+    const expectedActions = [{
+      type: `${RESTORE_PORTFOLIO_ITEMS}_PENDING`
+    }, {
+      type: `${RESTORE_PORTFOLIO_ITEMS}_FULFILLED`
+    },
+    expect.objectContaining({ type: CLEAR_NOTIFICATIONS }),
+    expect.objectContaining({ type: ADD_NOTIFICATION }), {
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+    }, {
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+      payload: []
+    }];
+
+    apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/1/undelete', mockOnce({ body: { id: '1' }}));
+    apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/2/undelete', mockOnce({ body: { id: '2' }}));
+    apiClientMock.get(CATALOG_API_BASE + '/portfolios/123/portfolio_items', mockOnce({ body: { data: []}}));
+
+    return store.dispatch(undoRemoveProductsFromPortfolio(restoreData, '123'))
+    .then(() => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  it('should create correct actions after restore portfolio items action fails', () => {
+    const store = mockStore({});
+    const restoreData = [{ portfolioItemId: '1', restoreKey: 'restore-1'  }];
+    const expectedActions = [{
+      type: `${RESTORE_PORTFOLIO_ITEMS}_PENDING`
+    },
+    expect.objectContaining({ type: ADD_NOTIFICATION }),
+    expect.objectContaining({ type: `${RESTORE_PORTFOLIO_ITEMS}_REJECTED` }) ];
+
+    apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/1/undelete', mockOnce({ status: 500 }));
+
+    return store.dispatch(undoRemoveProductsFromPortfolio(restoreData, '123'))
+    .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 });
