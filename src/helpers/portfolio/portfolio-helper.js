@@ -66,7 +66,13 @@ export async function removePortfolioItem(portfolioItemId) {
 }
 
 export async function removePortfolioItems(portfolioItemIds) {
-  return Promise.all(portfolioItemIds.map(async itemId => await removePortfolioItem(itemId)));
+  return Promise.all(portfolioItemIds.map(async itemId => {
+    const { restore_key } = await removePortfolioItem(itemId);
+    return {
+      portfolioItemId: itemId,
+      restoreKey: restore_key
+    };
+  }));
 }
 
 export function fetchProviderControlParameters(portfolioItemId) {
@@ -93,3 +99,7 @@ export async function updatePortfolioItem(portfolioItem) {
 export function fetchPortfolioByName(name = '') {
   return axiosInstance.get(`${CATALOG_API_BASE}/portfolios?filter[name]=${name}`);
 }
+
+export const restorePortfolioItems = restoreData =>
+  Promise.all(restoreData.map(({ portfolioItemId, restoreKey }) =>
+    portfolioItemApi.portfolioItemsPortfolioItemIdUndeletePost(portfolioItemId, { restore_key: restoreKey })));
