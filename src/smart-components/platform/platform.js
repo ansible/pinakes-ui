@@ -70,7 +70,7 @@ class Platform extends Component {
           searchValue: this.state.filterValue,
           title,
           pagination: {
-            itemsPerPage: this.props.paginationCurrent.limit || 50,
+            itemsPerPage: this.props.paginationCurrent.limit,
             numberOfItems: this.props.paginationCurrent.count || 50,
             onPerPageSelect: this.handleOnPerPageSelect,
             page: getCurrentPage(this.props.paginationCurrent.limit, this.props.paginationCurrent.offset),
@@ -119,7 +119,9 @@ Platform.propTypes = {
 
 Platform.defaultProps = {
   platformItems: [],
-  paginationCurrent: {}
+  paginationCurrent: {
+    limit: 50
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Platform);

@@ -165,7 +165,7 @@ export const OrderLoader = ({ items, ...props }) => (
     <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
     <DataList aria-label="orders-placeholder" style={ { margin: 32 } }>
       { [ ...Array(items) ].map((_item, index) => (
-        <DataListItem key={ index } aria-label="order-item-placeholder">
+        <DataListItem key={ index } aria-label="order-item-placeholder" aria-labelledby={ `${index}-orders-placeholder` }>
           <DataListItemRow>
             <DataListItemCells dataListCells={ [
               <DataListCell key="1">
