@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
@@ -110,29 +111,55 @@ export const selectPortfolioItem = (portfolioItem) => ({
   payload: portfolioItem
 });
 
-export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => ({
-  type: ActionTypes.REMOVE_PORTFOLIO_ITEMS,
-  payload: PortfolioHelper.removePortfolioItems(portfolioItems),
-  meta: {
-    notifications: {
-      fulfilled: {
+export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => dispatch => {
+  dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_PENDING` });
+  return PortfolioHelper.restorePortfolioItems(restoreData)
+  .then(() => dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_FULFILLED` }))
+  .then(() => dispatch({ type: CLEAR_NOTIFICATIONS }))
+  .then(() => dispatch({
+    type: ADD_NOTIFICATION,
+    payload: {
+      variant: 'success',
+      dismissable: true,
+      title: 'Products have been restored'
+    }
+  }))
+  .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)))
+  .catch(err => dispatch({
+    type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_REJECTED`,
+    payload: err
+  }));
+};
+
+export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (dispatch, getState) => {
+  dispatch({
+    type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
+  });
+  const { portfolioReducer: { selectedPortfolio: { id: portfolioId }}} = getState();
+  return PortfolioHelper.removePortfolioItems(portfolioItems).then(data => {
+    return dispatch({
+      type: ADD_NOTIFICATION,
+      payload: {
         variant: 'success',
         title: 'Products removed',
+        dismissable: true,
         description: (
           <FormattedMessage
             id="portfolio.remove-portfolio-items"
             defaultMessage={ `You have removed {count, number} {count, plural,
-              one {product}
-              other {products}
-            } from the {portfolioName} portfolio. Undo if this was a mistake.` }
+            one {product}
+            other {products}
+          } from the {portfolioName} portfolio. {undo} if this was a mistake.` }
             values={ {
               count: portfolioItems.length,
-              portfolioName
+              portfolioName,
+              undo: <a href="javascript:void(0)"><span onClick={ () => dispatch(undoRemoveProductsFromPortfolio(data, portfolioId)) }>Undo</span></a>
             } }
           />
         )
       }
-    }
-  }
-});
+    });})
+  .then(() => dispatch({ type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_FULFILLED` }))
+  .catch(err => dispatch({ type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_REJECTED`, payload: err }));
+};
 

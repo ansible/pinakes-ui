@@ -24,7 +24,7 @@ import { createModifiedLabel } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = [ 'description' ];
 
-const createToolbarActions = (portfolioName, portfolioId, isOpen, setOpen) => [
+const createToolbarActions = (portfolioId, isOpen, setOpen) => [
   <Dropdown
     key="portfolio-dropdown"
     isOpen={ isOpen }
@@ -60,7 +60,7 @@ const PortfolioCard = ({ imageUrl, name, id, ...props }) => {
         <CardHeader>
           <PortfolioCardHeader
             portfolioName={ name }
-            headerActions={ createToolbarActions(name, id, isOpen, setOpen) }
+            headerActions={ createToolbarActions(id, isOpen, setOpen) }
           />
         </CardHeader>
         <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
@@ -85,7 +85,7 @@ PortfolioCard.propTypes = {
   id: PropTypes.string.isRequired,
   updated_at: PropTypes.string,
   created_at: PropTypes.string.isRequired,
-  owner: PropTypes.string.isRequired
+  owner: PropTypes.string
 };
 
 export default PortfolioCard;
