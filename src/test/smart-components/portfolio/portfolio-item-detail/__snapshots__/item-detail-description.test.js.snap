@@ -136,8 +136,41 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
           </a>
         </p>
       </Text>
+      <Route
+        exact={true}
+        path="/base/url"
+        render={[Function]}
+      >
+        <Text
+          className=""
+          component="h6"
+        >
+          <h6
+            className=""
+            data-pf-content={true}
+          >
+            Approval workflow
+          </h6>
+        </Text>
+        <Text
+          className=""
+          component="p"
+        >
+          <p
+            className=""
+            data-pf-content={true}
+          >
+            None
+          </p>
+        </Text>
+      </Route>
     </div>
   </TextContent>
+  <Route
+    exact={true}
+    path="/base/url/edit"
+    render={[Function]}
+  />
 </ItemDetailDescription>
 `;
 
@@ -277,7 +310,193 @@ exports[`<ItemDetailDescription /> should render correctly in edit variant 1`] =
           </a>
         </p>
       </Text>
+      <Route
+        exact={true}
+        path="/base/url"
+        render={[Function]}
+      />
     </div>
   </TextContent>
+  <Route
+    exact={true}
+    path="/base/url/edit"
+    render={[Function]}
+  >
+    <Grid
+      className=""
+      gutter={null}
+      lg={null}
+      md={null}
+      sm={null}
+      span={null}
+      xl={null}
+    >
+      <div
+        className="pf-l-grid"
+      >
+        <GridItem
+          className=""
+          lg={null}
+          lgOffset={null}
+          lgRowSpan={null}
+          md={6}
+          mdOffset={null}
+          mdRowSpan={null}
+          offset={null}
+          rowSpan={null}
+          sm={null}
+          smOffset={null}
+          smRowSpan={null}
+          span={null}
+          xl={null}
+          xlOffset={null}
+          xlRowSpan={null}
+        >
+          <div
+            className="pf-l-grid__item pf-m-6-col-on-md"
+          >
+            <Pf4SelectWrapper
+              id="change-workflow"
+              input={
+                Object {
+                  "onChange": [Function],
+                  "value": "foo",
+                }
+              }
+              label="Approval workflow"
+              meta={Object {}}
+              options={
+                Array [
+                  Object {
+                    "label": "Foo",
+                    "value": "foo",
+                  },
+                  Object {
+                    "label": "Bar",
+                    "value": "bar",
+                  },
+                ]
+              }
+            >
+              <FormGroup
+                className=""
+                fieldId="change-workflow"
+                isInline={false}
+                isRequired={false}
+                isValid={true}
+                label="Approval workflow"
+              >
+                <div
+                  className="pf-c-form__group"
+                >
+                  <label
+                    className="pf-c-form__label"
+                    htmlFor="change-workflow"
+                  >
+                    Approval workflow
+                  </label>
+                  <Select
+                    id="change-workflow"
+                    input={
+                      Object {
+                        "onChange": [Function],
+                        "value": "foo",
+                      }
+                    }
+                    isValid={true}
+                    label="Approval workflow"
+                    options={
+                      Array [
+                        Object {
+                          "label": "Foo",
+                          "value": "foo",
+                        },
+                        Object {
+                          "label": "Bar",
+                          "value": "bar",
+                        },
+                      ]
+                    }
+                  >
+                    <FormSelect
+                      aria-label={null}
+                      className=""
+                      id="change-workflow"
+                      isDisabled={false}
+                      isValid={true}
+                      label="Approval workflow"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      value="foo"
+                    >
+                      <select
+                        aria-invalid={false}
+                        aria-label={null}
+                        className="pf-c-form-control"
+                        disabled={false}
+                        id="change-workflow"
+                        label="Approval workflow"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        value="foo"
+                      >
+                        <FormSelectOption
+                          className=""
+                          isDisabled={false}
+                          key="None"
+                          label="None"
+                          value=""
+                        >
+                          <option
+                            className=""
+                            disabled={false}
+                            value=""
+                          >
+                            None
+                          </option>
+                        </FormSelectOption>
+                        <FormSelectOption
+                          className=""
+                          isDisabled={false}
+                          key="foo"
+                          label="Foo"
+                          value="foo"
+                        >
+                          <option
+                            className=""
+                            disabled={false}
+                            value="foo"
+                          >
+                            Foo
+                          </option>
+                        </FormSelectOption>
+                        <FormSelectOption
+                          className=""
+                          isDisabled={false}
+                          key="bar"
+                          label="Bar"
+                          value="bar"
+                        >
+                          <option
+                            className=""
+                            disabled={false}
+                            value="bar"
+                          >
+                            Bar
+                          </option>
+                        </FormSelectOption>
+                      </select>
+                    </FormSelect>
+                  </Select>
+                </div>
+              </FormGroup>
+            </Pf4SelectWrapper>
+          </div>
+        </GridItem>
+      </div>
+    </Grid>
+  </Route>
 </ItemDetailDescription>
 `;

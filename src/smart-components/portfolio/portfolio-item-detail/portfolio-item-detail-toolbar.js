@@ -33,7 +33,7 @@ const PortfolioItemDetailToolbar = ({
         </LevelItem>
         <LevelItem>
           <Level>
-            <Route exact path={ [ url, `${url}/order` ] } render={ (...args) => (
+            <Route exact path={ url } render={ (...args) => (
               <DetailToolbarActions
                 isOpen={ isOpen }
                 setOpen={ setOpen }
