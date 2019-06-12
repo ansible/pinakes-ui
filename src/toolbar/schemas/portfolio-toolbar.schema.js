@@ -9,14 +9,18 @@ import { createSingleItemGroup, createLinkButton } from '../helpers';
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
  */
-const PortfolioActionsToolbar = ({ setKebabOpen, isKebabOpen, removePortfolioRoute }) => (
+const PortfolioActionsToolbar = ({ setKebabOpen, isKebabOpen, removePortfolioRoute, copyInProgress, copyPortfolio }) => (
   <Dropdown
     onSelect={ () => setKebabOpen(false) }
     position={ DropdownPosition.right }
-    toggle={ <KebabToggle onToggle={ setKebabOpen }/> }
+    toggle={ <KebabToggle onToggle={ setKebabOpen } isDisabled={ copyInProgress }/> }
     isOpen={ isKebabOpen }
+    isDisabled
     isPlain
     dropdownItems={ [
+      <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
+        Copy
+      </DropdownItem>,
       <DropdownItem aria-label="Remove Portfolio" key="delete-portfolio">
         <Link to={ removePortfolioRoute } role="link" className="pf-c-dropdown__menu-item destructive-color">
           Delete
@@ -29,16 +33,20 @@ const PortfolioActionsToolbar = ({ setKebabOpen, isKebabOpen, removePortfolioRou
 PortfolioActionsToolbar.propTypes = {
   setKebabOpen: PropTypes.func.isRequired,
   isKebabOpen: PropTypes.bool,
-  removePortfolioRoute: PropTypes.string.isRequired
+  removePortfolioRoute: PropTypes.string.isRequired,
+  copyPortfolio: PropTypes.func.isRequired,
+  copyInProgress: PropTypes.bool
 };
 
 const createPortfolioToolbarSchema = ({
   title,
   addProductsRoute,
+  copyPortfolio,
   sharePortfolioRoute,
   editPortfolioRoute,
   removePortfolioRoute,
   removeProductsRoute,
+  copyInProgress,
   isKebabOpen,
   setKebabOpen,
   isLoading,
@@ -64,18 +72,22 @@ const createPortfolioToolbarSchema = ({
             to: sharePortfolioRoute,
             variant: 'secondary',
             title: 'Share',
+            isDisabled: copyInProgress,
             key: 'portfolio-share-button'
           }),
           createLinkButton({
             to: editPortfolioRoute,
             variant: 'link',
+            isDisabled: copyInProgress,
             title: 'Edit',
             key: 'portfolio-edit-button'
           }), {
             component: PortfolioActionsToolbar,
             removePortfolioRoute,
+            copyPortfolio,
             isKebabOpen,
             setKebabOpen,
+            copyInProgress,
             key: 'portfolio-actions-dropdown'
           }]
       }]
@@ -97,7 +109,7 @@ const createPortfolioToolbarSchema = ({
           key: 'portfolio-items-add-group',
           ...createLinkButton({
             to: addProductsRoute,
-            isDisabled: isLoading,
+            isDisabled: isLoading || copyInProgress,
             variant: 'primary',
             title: 'Add products',
             key: 'add-products-button'
@@ -108,7 +120,7 @@ const createPortfolioToolbarSchema = ({
           key: 'portfolio-items-add-group',
           ...createLinkButton({
             to: removeProductsRoute,
-            isDisabled: isLoading,
+            isDisabled: isLoading || copyInProgress,
             variant: 'link',
             className: 'destructive-color',
             title: 'Remove products',

@@ -103,3 +103,5 @@ export function fetchPortfolioByName(name = '') {
 export const restorePortfolioItems = restoreData =>
   Promise.all(restoreData.map(({ portfolioItemId, restoreKey }) =>
     portfolioItemApi.portfolioItemsPortfolioItemIdUndeletePost(portfolioItemId, { restore_key: restoreKey })));
+
+export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portfolioId);

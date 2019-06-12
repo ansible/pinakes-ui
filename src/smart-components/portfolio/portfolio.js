@@ -18,8 +18,14 @@ import { filterServiceOffering } from '../../helpers/shared/helpers';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
-import { fetchSelectedPortfolio, fetchPortfolioItemsWithPortfolio, removeProductsFromPortfolio } from '../../redux/actions/portfolio-actions';
 import createRemoveProductsSchema from '../../toolbar/schemas/remove-products-toolbar.schema';
+import {
+  copyPortfolio,
+  fetchPortfolios,
+  fetchSelectedPortfolio,
+  removeProductsFromPortfolio,
+  fetchPortfolioItemsWithPortfolio
+} from '../../redux/actions/portfolio-actions';
 
 class Portfolio extends Component {
   state = {
@@ -27,7 +33,8 @@ class Portfolio extends Component {
     filteredItems: [],
     selectedItems: [],
     filterValue: '',
-    isKebabOpen: false
+    isKebabOpen: false,
+    copyInProgress: false
   };
 
   handleKebabOpen = isKebabOpen => this.setState({ isKebabOpen });
@@ -47,6 +54,15 @@ class Portfolio extends Component {
       this.fetchData(this.props.match.params.id);
       scrollToTop();
     }
+  }
+
+  copyPortfolio = () => {
+    this.setState({ copyInProgress: true });
+    return this.props.copyPortfolio(this.props.match.params.id)
+    .then(({ id }) => this.props.history.push(`/portfolios/detail/${id}`))
+    .then(() => this.setState({ copyInProgress: false }))
+    .then(() => this.props.fetchPortfolios())
+    .catch(() => this.setState({ copyInProgress: false }));
   }
 
   removeProducts = () => {
@@ -106,9 +122,11 @@ class Portfolio extends Component {
         editPortfolioRoute,
         sharePortfolioRoute,
         removePortfolioRoute,
+        copyPortfolio: this.copyPortfolio,
         isLoading: this.props.isLoading,
         setKebabOpen: this.handleKebabOpen,
-        isKebabOpen: this.state.isKebabOpen
+        isKebabOpen: this.state.isKebabOpen,
+        copyInProgress: this.state.copyInProgress
       }) } />
       <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
@@ -192,7 +210,9 @@ const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchPortfolioItemsWithPortfolio,
   fetchSelectedPortfolio,
-  removeProductsFromPortfolio
+  removeProductsFromPortfolio,
+  fetchPortfolios,
+  copyPortfolio
 }, dispatch);
 
 Portfolio.propTypes = {
@@ -200,6 +220,7 @@ Portfolio.propTypes = {
   fetchPortfolioItemsWithPortfolio: PropTypes.func,
   fetchSelectedPortfolio: PropTypes.func,
   match: PropTypes.object,
+  fetchPortfolios: PropTypes.func.isRequired,
   portfolio: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.string.isRequired
@@ -207,7 +228,8 @@ Portfolio.propTypes = {
   location: PropTypes.object,
   history: PropTypes.object,
   portfolioItems: PropTypes.array,
-  removeProductsFromPortfolio: PropTypes.func.isRequired
+  removeProductsFromPortfolio: PropTypes.func.isRequired,
+  copyPortfolio: PropTypes.func.isRequired
 };
 
 Portfolio.defaultProps = {
