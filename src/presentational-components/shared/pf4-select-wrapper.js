@@ -52,11 +52,12 @@ const Pf4SelectWrapper = ({
   formOptions,
   dataType,
   initialKey,
+  id,
   ...rest
 }) => {
   const { error, touched } = meta;
   const showError = touched && error;
-  const { name, id } = rest.input;
+  const { name } = rest.input;
 
   return (
     <FormGroup
@@ -75,6 +76,7 @@ const Pf4SelectWrapper = ({
 
 Pf4SelectWrapper.propTypes = {
   componentType: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.string,
   isRequired: PropTypes.bool,
   helperText: PropTypes.string,

@@ -40,6 +40,7 @@ export default {
   [`${FETCH_PORTFOLIO}_FULFILLED`]: selectPortfolio,
   [FILTER_PORTFOLIO_ITEMS]: filterPortfolios,
   [`${SELECT_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem,
+  [SELECT_PORTFOLIO_ITEM]: setPortfolioItem,
   [`${UPDATE_PORTFOLIO}_FULFILLED`]: selectPortfolio,
   [SET_LOADING_STATE]: setLoadingState
 };
