@@ -163,3 +163,15 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
   .catch(err => dispatch({ type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_REJECTED`, payload: err }));
 };
 
+export const copyPortfolio = id => dispatch => {
+  dispatch({ type: 'COPY_PORTFOLIO_PENDING' });
+  return PortfolioHelper.copyPortfolio(id)
+  .then(portfolio => {
+    console.log('portfolio: ', portfolio);
+    dispatch({ type: 'COPY_PORTFOLIO_FULFILLED' });
+    dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success', title: 'You have successfully copied a portfolio' }});
+    return portfolio;
+  })
+  .catch(err => dispatch({ type: 'COPY_PORTFOLIO_REJECTED', payload: err }));
+};
+
