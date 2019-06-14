@@ -5,13 +5,16 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
   className=""
   gutter={null}
 >
-  <LevelItem>
+  <LevelItem
+    className="portfolio-card-header-title"
+  >
     <TextContent
       className=""
     >
       <Text
         className="elipsis-text-overflow pf-u-mb-0"
         component="h3"
+        title="foo"
       >
         foo
       </Text>
