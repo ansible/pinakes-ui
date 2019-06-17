@@ -24,7 +24,7 @@ registry.register({
   approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
   rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
   shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
-  notifications: applyReducerHash(notifications, [])
+  notifications
 });
 
 export default registry.getStore();
