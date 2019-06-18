@@ -176,3 +176,17 @@ export const copyPortfolio = id => dispatch => {
   .catch(err => dispatch({ type: 'COPY_PORTFOLIO_REJECTED', payload: err }));
 };
 
+export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => dispatch => {
+  return PortfolioHelper.copyPortfolioItem(portfolioItemId, copyObject)
+  .then(data => {
+    dispatch({ type: ADD_NOTIFICATION, payload: {
+      variant: 'success',
+      title: 'You have successfully copied a product',
+      description: `${data.display_name} has been copied into ${newPortfolio.name}`,
+      dismissable: true
+    }});
+    return data;
+  })
+  .catch(err => dispatch({ type: 'COPY_PORTFOLIO_ITEM_REJECTED', payload: err }));
+};
+
