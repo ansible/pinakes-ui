@@ -7,7 +7,8 @@ import {
   FILTER_PORTFOLIO_ITEMS,
   SELECT_PORTFOLIO_ITEM,
   UPDATE_PORTFOLIO,
-  SET_LOADING_STATE
+  SET_LOADING_STATE,
+  REMOVE_PORTFOLIO_ITEMS
 } from '../action-types';
 
 // Initial State
@@ -42,5 +43,6 @@ export default {
   [`${SELECT_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem,
   [SELECT_PORTFOLIO_ITEM]: setPortfolioItem,
   [`${UPDATE_PORTFOLIO}_FULFILLED`]: selectPortfolio,
-  [SET_LOADING_STATE]: setLoadingState
+  [SET_LOADING_STATE]: setLoadingState,
+  [`${REMOVE_PORTFOLIO_ITEMS}_PENDING`]: setLoadingState
 };

@@ -188,6 +188,20 @@
   }
 }
 
+.portfolio-item-progress {
+  position: relative;
+  height: 330px;
+  .content-gallery-card {
+    position: absolute;
+    width: 100%;
+    &.progress-overlay {
+      background-color: rgba(210, 210, 210, .5);
+      z-index: 1;
+      cursor: progress;
+    }
+  }
+}
+
 //pf-4 fixes
 /**
 * non working pf display modifier: https://www.patternfly.org/v4/documentation/core/utilities/display#display-block

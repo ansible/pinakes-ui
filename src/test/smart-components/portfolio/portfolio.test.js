@@ -276,6 +276,7 @@ describe('<Portfolio />', () => {
     apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { restore_key: restoreKey }}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
 
     /**
      * undo endpoint
@@ -303,7 +304,7 @@ describe('<Portfolio />', () => {
         /**
          * trigger notification undo click
          */
-        const notification = store.getActions()[5].payload.description;
+        const notification = store.getActions()[7].payload.description;
         const notificationWrapper = mount(<IntlProvider locale="en">{ notification }</IntlProvider>);
         notificationWrapper.find('a span').simulate('click');
       });
