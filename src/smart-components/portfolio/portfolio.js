@@ -34,7 +34,8 @@ class Portfolio extends Component {
     selectedItems: [],
     filterValue: '',
     isKebabOpen: false,
-    copyInProgress: false
+    copyInProgress: false,
+    removeInProgress: false
   };
 
   handleKebabOpen = isKebabOpen => this.setState({ isKebabOpen });
@@ -66,14 +67,11 @@ class Portfolio extends Component {
   }
 
   removeProducts = () => {
+    this.setState({ removeInProgress: true });
     this.props.history.goBack();
-
-    this.props.removeProductsFromPortfolio(this.state.selectedItems, this.props.portfolio.name).then(() => {
-      this.fetchData(this.props.match.params.id);
-      this.setState({
-        selectedItems: []
-      });
-    });
+    this.props.removeProductsFromPortfolio(this.state.selectedItems, this.props.portfolio.name)
+    .then(() => this.setState({ selectedItems: [], removeInProgress: false }))
+    .catch(() => this.setState({ removeInProgress: false }));
   };
 
   handleItemSelect = selectedItem =>
@@ -178,6 +176,7 @@ class Portfolio extends Component {
           onSelect={ this.handleItemSelect }
           isSelected={ this.state.selectedItems.includes(item.id) }
           orderUrl={ `${orderUrl}/${item.id}` }
+          removeInProgress={ this.state.removeInProgress }
         />
       )),
       isLoading: this.props.isLoading && this.props.portfolioItems.length === 0

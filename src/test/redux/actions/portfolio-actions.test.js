@@ -237,6 +237,10 @@ describe('Portfolio actions', () => {
     const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
+    }, {
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+    }, {
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
     },
     expect.objectContaining({ type: ADD_NOTIFICATION }), {
       type: `${REMOVE_PORTFOLIO_ITEMS}_FULFILLED`
@@ -245,6 +249,7 @@ describe('Portfolio actions', () => {
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/1', mockOnce({ body: { restore_key: 'restore-1' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/2', mockOnce({ body: { restore_key: 'restore-2' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/3', mockOnce({ body: { restore_key: 'restore-3' }}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: []}));
 
     return store.dispatch(removeProductsFromPortfolio([ '1', '2', '3' ], 'Foo portfolio'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -275,13 +280,12 @@ describe('Portfolio actions', () => {
     }, {
       type: `${RESTORE_PORTFOLIO_ITEMS}_FULFILLED`
     },
-    expect.objectContaining({ type: CLEAR_NOTIFICATIONS }),
-    expect.objectContaining({ type: ADD_NOTIFICATION }), {
+    expect.objectContaining({ type: CLEAR_NOTIFICATIONS }), {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
       payload: []
-    }];
+    }, expect.objectContaining({ type: ADD_NOTIFICATION }) ];
 
     apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/1/undelete', mockOnce({ body: { id: '1' }}));
     apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/2/undelete', mockOnce({ body: { id: '2' }}));

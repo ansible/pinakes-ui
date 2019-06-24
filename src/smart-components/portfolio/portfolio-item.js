@@ -25,15 +25,21 @@ const PortfolioItem = props => {
       </CardFooter>
     </Fragment>
   );
+
   return (
     <GalleryItem>
-      <Card className="content-gallery-card">
-        { props.isSelectable ? renderCardContent() : (
-          <Link to={ props.orderUrl } className="card-link" >
-            { renderCardContent() }
-          </Link>
+      <div className={ `${props.removeInProgress && props.isSelected ? 'portfolio-item-progress' : ''} ` }>
+        { props.removeInProgress && props.isSelected && (
+          <Card className="content-gallery-card progress-overlay" />
         ) }
-      </Card>
+        <Card className="content-gallery-card">
+          { props.isSelectable ? renderCardContent() : (
+            <Link to={ props.orderUrl } className="card-link" >
+              { renderCardContent() }
+            </Link>
+          ) }
+        </Card>
+      </div>
     </GalleryItem>
   );};
 
@@ -47,7 +53,8 @@ PortfolioItem.propTypes = {
   isSelectable: PropTypes.bool,
   isSelected: PropTypes.bool,
   onSelect: PropTypes.func,
-  orderUrl: PropTypes.string.isRequired
+  orderUrl: PropTypes.string.isRequired,
+  removeInProgress: PropTypes.bool
 };
 
 export default PortfolioItem;

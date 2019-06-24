@@ -116,6 +116,7 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => dis
   return PortfolioHelper.restorePortfolioItems(restoreData)
   .then(() => dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_FULFILLED` }))
   .then(() => dispatch({ type: CLEAR_NOTIFICATIONS }))
+  .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)))
   .then(() => dispatch({
     type: ADD_NOTIFICATION,
     payload: {
@@ -124,7 +125,6 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => dis
       title: 'Products have been restored'
     }
   }))
-  .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)))
   .catch(err => dispatch({
     type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_REJECTED`,
     payload: err
@@ -136,7 +136,9 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
   const { portfolioReducer: { selectedPortfolio: { id: portfolioId }}} = getState();
-  return PortfolioHelper.removePortfolioItems(portfolioItems).then(data => {
+  return PortfolioHelper.removePortfolioItems(portfolioItems)
+  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)).then(() => data))
+  .then(data => {
     return dispatch({
       type: ADD_NOTIFICATION,
       payload: {
@@ -167,7 +169,6 @@ export const copyPortfolio = id => dispatch => {
   dispatch({ type: 'COPY_PORTFOLIO_PENDING' });
   return PortfolioHelper.copyPortfolio(id)
   .then(portfolio => {
-    console.log('portfolio: ', portfolio);
     dispatch({ type: 'COPY_PORTFOLIO_FULFILLED' });
     dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success', title: 'You have successfully copied a portfolio' }});
     return portfolio;

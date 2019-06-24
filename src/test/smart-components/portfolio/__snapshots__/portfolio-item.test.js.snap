@@ -2,36 +2,40 @@
 
 exports[`<PortfolioItem /> should render correctly 1`] = `
 <GalleryItem>
-  <Card
-    className="content-gallery-card"
-    component="article"
-    isHoverable={false}
+  <div
+    className=" "
   >
-    <Link
-      className="card-link"
-      to="/order"
+    <Card
+      className="content-gallery-card"
+      component="article"
+      isHoverable={false}
     >
-      <CardHeader
-        className="card_header"
+      <Link
+        className="card-link"
+        to="/order"
       >
-        <CardIcon
-          height={40}
-          src="/api/catalog/v1.0/portfolio_items/1/icon"
-          style={Object {}}
+        <CardHeader
+          className="card_header"
+        >
+          <CardIcon
+            height={40}
+            src="/api/catalog/v1.0/portfolio_items/1/icon"
+            style={Object {}}
+          />
+        </CardHeader>
+        <ServiceOfferingCardBody
+          description="Bar"
+          display_name="quux"
+          id="1"
+          name="Foo"
+          orderUrl="/order"
         />
-      </CardHeader>
-      <ServiceOfferingCardBody
-        description="Bar"
-        display_name="quux"
-        id="1"
-        name="Foo"
-        orderUrl="/order"
-      />
-      <CardFooter
-        className=""
-        component="div"
-      />
-    </Link>
-  </Card>
+        <CardFooter
+          className=""
+          component="div"
+        />
+      </Link>
+    </Card>
+  </div>
 </GalleryItem>
 `;
