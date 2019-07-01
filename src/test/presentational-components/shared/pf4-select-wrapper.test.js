@@ -19,6 +19,9 @@ describe('<Pf4SelectWrapper />', () => {
         label: 'Foo',
         value: 'bar'
       }],
+      formOptions: {
+        change: jest.fn()
+      },
       FieldProvider: () => <div />
     };
   });

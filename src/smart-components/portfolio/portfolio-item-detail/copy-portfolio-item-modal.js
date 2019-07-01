@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,9 +13,10 @@ import {
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '../../common/form-renderer';
+import { getPortfolioItemApi } from '../../../helpers/shared/user-login';
 import { copyPortfolioItem } from '../../../redux/actions/portfolio-actions';
 
-const copySchema = (portfolios, portfolioName) => ({
+const copySchema = (portfolios, portfolioName, portfolioChange, nameFetching) => ({
   fields: [{
     component: 'value-only',
     name: 'portfolio_item_name',
@@ -26,7 +27,9 @@ const copySchema = (portfolios, portfolioName) => ({
     name: 'portfolio_id',
     label: 'Portfolio',
     isRequired: true,
-    options: portfolios.map(({ id, display_name, name }) => ({ label: display_name || name, value: id }))
+    options: portfolios.map(({ id, display_name, name }) => ({ label: display_name || name, value: id })),
+    onChange: portfolioChange,
+    isDisabled: nameFetching
   }]
 });
 
@@ -45,18 +48,31 @@ ValueOnly.propTypes = {
 const CopyPortfolioItemModal = ({
   copyPortfolioItem,
   portfolios,
-  copyName,
   portfolioId,
   portfolioItemId,
   closeUrl,
   history: { push }
 }) => {
   const [ submitting, setSubmitting ] = useState(false);
+  const [ name, setName ] = useState();
+  const [ nameFetching, setNameFetching ] = useState(false);
+
+  useEffect(() => {
+    getPortfolioItemApi().getPortfolioItemNextName(portfolioItemId, portfolioId).then(({ next_name }) => setName(next_name));
+  }, []);
   const onSubmit = values => {
     setSubmitting(true);
     copyPortfolioItem(portfolioItemId, values, portfolios.find(({ id }) => id === values.portfolio_id))
     .then(({ id }) => push(`/portfolios/detail/${values.portfolio_id}/product/${id}`))
     .catch(() => setSubmitting(false));
+  };
+
+  const portfolioChange = portfolioId => {
+    setNameFetching(true);
+    return getPortfolioItemApi().getPortfolioItemNextName(portfolioItemId, portfolioId)
+    .then(({ next_name }) => {
+      setName(next_name);
+    }).then(() => setNameFetching(false));
   };
 
   return (
@@ -67,8 +83,8 @@ const CopyPortfolioItemModal = ({
       isSmall
     >
       <FormRenderer
-        initialValues={ { portfolio_id: portfolioId, portfolio_item_name: copyName } }
-        schema={ copySchema(portfolios, copyName) }
+        initialValues={ { portfolio_id: portfolioId, portfolio_item_name: name } }
+        schema={ copySchema(portfolios, name, portfolioChange, nameFetching) }
         onSubmit={ onSubmit }
         onCancel={ () => push(closeUrl) }
         componentMapper={ { 'value-only': ValueOnly } }
@@ -90,10 +106,7 @@ CopyPortfolioItemModal.propTypes = {
   portfolioItemId: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({
-  portfolioReducer: { portfolios, portfolioItem: { display_name }}
-}) => ({
-  copyName: `Copy of ${display_name}`,
+const mapStateToProps = ({ portfolioReducer: { portfolios }}) => ({
   portfolios
 });
 

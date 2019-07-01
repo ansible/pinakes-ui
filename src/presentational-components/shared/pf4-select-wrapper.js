@@ -20,11 +20,24 @@ const Select = ({
   isDisabled,
   FieldProvider,
   isRequired,
+  formOptions: { change },
   ...rest
 }) => (
-  <FormSelect { ...input } { ...rest } isDisabled={ isDisabled || isReadOnly }>
+  <FormSelect { ...input } { ...rest }
+    onChange={ (value, ...args) => {
+      if (rest.onChange) {
+        rest.onChange(value);
+        change(input.name, [ value, ...args ]);
+      } else {
+        input.onChange(value, ...args);
+      }
+    } } isDisabled={ isDisabled || isReadOnly }>
     { createOptions(options, input.value, isRequired).map((props) => (
-      <FormSelectOption key={ props.value || props.label } { ...props } label={ props.label.toString() }/> // eslint-disable-line react/prop-types
+      <FormSelectOption
+        key={ props.value || props.label } // eslint-disable-line react/prop-types
+        { ...props }
+        label={ props.label.toString() }
+      />
     )) }
   </FormSelect>
 );
@@ -38,7 +51,14 @@ Select.propTypes = {
   isReadOnly: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
-  FieldProvider: PropTypes.any
+  FieldProvider: PropTypes.any,
+  formOptions: PropTypes.shape({
+    change: PropTypes.func
+  })
+};
+
+Select.defaultProps = {
+  formOptions: {}
 };
 
 const Pf4SelectWrapper = ({
@@ -69,7 +89,7 @@ const Pf4SelectWrapper = ({
       helperTextInvalid={ meta.error }
     >
       { description && <TextContent><Text component={ TextVariants.small }>{ description }</Text></TextContent> }
-      <Select id={ id || name } label={ label } isValid={ !showError } isRequired={ isRequired } { ...rest }/>
+      <Select formOptions={ formOptions } id={ id || name } label={ label } isValid={ !showError } isRequired={ isRequired } { ...rest }/>
     </FormGroup>
   );
 };
