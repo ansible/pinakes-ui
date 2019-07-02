@@ -27,7 +27,7 @@ const Select = ({
     onChange={ (value, ...args) => {
       if (rest.onChange) {
         rest.onChange(value);
-        change(input.name, [ value, ...args ]);
+        change(input.name, value);
       } else {
         input.onChange(value, ...args);
       }

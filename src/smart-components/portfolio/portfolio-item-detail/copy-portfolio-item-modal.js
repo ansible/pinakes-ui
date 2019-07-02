@@ -14,7 +14,7 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '../../common/form-renderer';
 import { getPortfolioItemApi } from '../../../helpers/shared/user-login';
-import { copyPortfolioItem } from '../../../redux/actions/portfolio-actions';
+import { copyPortfolioItem, fetchPortfolioItemsWithPortfolio } from '../../../redux/actions/portfolio-actions';
 
 const copySchema = (portfolios, portfolioName, portfolioChange, nameFetching) => ({
   fields: [{
@@ -51,7 +51,8 @@ const CopyPortfolioItemModal = ({
   portfolioId,
   portfolioItemId,
   closeUrl,
-  history: { push }
+  history: { push },
+  fetchPortfolioItemsWithPortfolio
 }) => {
   const [ submitting, setSubmitting ] = useState(false);
   const [ name, setName ] = useState();
@@ -64,6 +65,10 @@ const CopyPortfolioItemModal = ({
     setSubmitting(true);
     copyPortfolioItem(portfolioItemId, values, portfolios.find(({ id }) => id === values.portfolio_id))
     .then(({ id }) => push(`/portfolios/detail/${values.portfolio_id}/product/${id}`))
+    .then(() => {
+      console.log('Ids: ', values.portfolio_id === portfolioId);
+      return values.portfolio_id === portfolioId && fetchPortfolioItemsWithPortfolio(portfolioId);
+    })
     .catch(() => setSubmitting(false));
   };
 
@@ -100,10 +105,10 @@ CopyPortfolioItemModal.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired,
   portfolioId: PropTypes.string.isRequired,
-  copyName: PropTypes.string.isRequired,
   portfolios: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   copyPortfolioItem: PropTypes.func.isRequired,
-  portfolioItemId: PropTypes.string.isRequired
+  portfolioItemId: PropTypes.string.isRequired,
+  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ portfolioReducer: { portfolios }}) => ({
@@ -111,7 +116,8 @@ const mapStateToProps = ({ portfolioReducer: { portfolios }}) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  copyPortfolioItem
+  copyPortfolioItem,
+  fetchPortfolioItemsWithPortfolio
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CopyPortfolioItemModal));
