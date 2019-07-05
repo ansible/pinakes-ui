@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dropdown, DropdownItem, DropdownPosition, KebabToggle, LevelItem } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
-const DetailToolbarActions = ({ orderUrl, editUrl, isOpen, setOpen, isFetching }) => ( // eslint-disable-line no-unused-vars
+const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, isOpen, setOpen, isFetching }) => ( // eslint-disable-line no-unused-vars
   <Fragment>
     <LevelItem>
       <Link disabled={ isFetching } to={ orderUrl }>
@@ -23,7 +23,12 @@ const DetailToolbarActions = ({ orderUrl, editUrl, isOpen, setOpen, isFetching }
           dropdownItems={ [
             <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
               <Link to={ editUrl } role="link" className="pf-c-dropdown__menu-item">
-                   Edit
+                Edit
+              </Link>
+            </DropdownItem>,
+            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio">
+              <Link to={ copyUrl } role="link" className="pf-c-dropdown__menu-item">
+                Copy
               </Link>
             </DropdownItem>
           ] }
@@ -36,6 +41,7 @@ const DetailToolbarActions = ({ orderUrl, editUrl, isOpen, setOpen, isFetching }
 DetailToolbarActions.propTypes = {
   orderUrl: PropTypes.string.isRequired,
   editUrl: PropTypes.string.isRequired,
+  copyUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool

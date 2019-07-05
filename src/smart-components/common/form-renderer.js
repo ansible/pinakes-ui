@@ -7,7 +7,7 @@ import Pf4SelectWrapper from '../../presentational-components/shared/pf4-select-
 const buttonPositioning = {
   default: {},
   modal: {
-    buttonOrder: [ 'cancel', 'reset', 'save' ],
+    buttonOrder: [ 'save', 'cancel', 'reset' ],
     buttonClassName: 'modal-form-right-align'
   }
 };
@@ -17,7 +17,7 @@ const FormRenderer = ({ componentMapper, formContainer, ...rest }) => (
     <ReactFormRender
       formFieldsMapper={ {
         ...formFieldsMapper,
-        componentMapper,
+        ...componentMapper,
         [componentTypes.SELECT]: Pf4SelectWrapper
       } }
       layoutMapper={ layoutMapper }

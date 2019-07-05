@@ -105,3 +105,5 @@ export const restorePortfolioItems = restoreData =>
     portfolioItemApi.portfolioItemsPortfolioItemIdUndeletePost(portfolioItemId, { restore_key: restoreKey })));
 
 export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portfolioId);
+
+export const copyPortfolioItem = (portfolioItemId, copyObject = {}) => portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);

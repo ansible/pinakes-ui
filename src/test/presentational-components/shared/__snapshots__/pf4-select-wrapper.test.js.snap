@@ -3,6 +3,11 @@
 exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
 <Pf4SelectWrapper
   FieldProvider={[Function]}
+  formOptions={
+    Object {
+      "change": [MockFunction],
+    }
+  }
   id="bazz"
   input={
     Object {
@@ -33,6 +38,11 @@ exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
     >
       <Select
         FieldProvider={[Function]}
+        formOptions={
+          Object {
+            "change": [MockFunction],
+          }
+        }
         id="bazz"
         input={
           Object {
@@ -59,7 +69,7 @@ exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
           isValid={true}
           name="bazz"
           onBlur={[Function]}
-          onChange={[MockFunction]}
+          onChange={[Function]}
           onFocus={[Function]}
           value=""
         >
@@ -116,6 +126,11 @@ exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
 exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
 <Pf4SelectWrapper
   FieldProvider={[Function]}
+  formOptions={
+    Object {
+      "change": [MockFunction],
+    }
+  }
   id="bazz"
   input={
     Object {
@@ -152,6 +167,11 @@ exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
     >
       <Select
         FieldProvider={[Function]}
+        formOptions={
+          Object {
+            "change": [MockFunction],
+          }
+        }
         id="bazz"
         input={
           Object {
@@ -178,7 +198,7 @@ exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
           isValid={false}
           name="bazz"
           onBlur={[Function]}
-          onChange={[MockFunction]}
+          onChange={[Function]}
           onFocus={[Function]}
           value=""
         >
@@ -243,6 +263,11 @@ exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
 <Pf4SelectWrapper
   FieldProvider={[Function]}
   description="description"
+  formOptions={
+    Object {
+      "change": [MockFunction],
+    }
+  }
   id="bazz"
   input={
     Object {
@@ -292,6 +317,11 @@ exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
       </TextContent>
       <Select
         FieldProvider={[Function]}
+        formOptions={
+          Object {
+            "change": [MockFunction],
+          }
+        }
         id="bazz"
         input={
           Object {
@@ -318,7 +348,7 @@ exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
           isValid={true}
           name="bazz"
           onBlur={[Function]}
-          onChange={[MockFunction]}
+          onChange={[Function]}
           onFocus={[Function]}
           value=""
         >
