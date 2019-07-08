@@ -33,11 +33,9 @@ const PortfolioItem = props => {
           <Card className="content-gallery-card progress-overlay" />
         ) }
         <Card className="content-gallery-card">
-          { props.isSelectable ? renderCardContent() : (
-            <Link to={ props.orderUrl } className="card-link" >
-              { renderCardContent() }
-            </Link>
-          ) }
+          <Link to={ props.orderUrl } className="card-link" >
+            { renderCardContent() }
+          </Link>
         </Card>
       </div>
     </GalleryItem>
