@@ -250,46 +250,45 @@ describe('<Portfolio />', () => {
   });
 
   it('should remove portfolio items and call undo action', (done) => {
-    expect.assertions(1);
     let store = mockStore({
       ...initialState,
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
         portfolioItems: [{
-          id: '123',
+          id: '321',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
         }]
       }
     });
-    const restoreKey = 'restore-123';
+    const restoreKey = 'restore-321';
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
     /**
      * remove portfolio items calls
      */
-    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { restore_key: restoreKey }}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce((_req, res) => res.status(200).body({ restore_key: restoreKey })));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
 
     /**
      * undo endpoint
      */
-    apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items/123/undelete`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({ restore_key: 'restore-123' });
+    apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items/321/undelete`, mockOnce((req, res) => {
+      expect(JSON.parse(req.body())).toEqual({ restore_key: 'restore-321' });
       done();
-      return res.status(200).body({ id: '123' });
+      return res.status(200).body({ id: '321' });
     }));
 
     const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-products' ] }>
-        <Route path="/portfolios/detail/:id/remove-products" render={ (...args) => <Portfolio { ...initialProps } { ...args } /> } />
+      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/321' ] }>
+        <Route path="/portfolios/detail/:id" render={ (...args) => <Portfolio { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 
@@ -299,7 +298,9 @@ describe('<Portfolio />', () => {
       /**
        * Trigger remove portfolio items action
        */
-      wrapper.find(Portfolio).children().children().children().instance().removeProducts();
+      const removeTrigger = wrapper.find(Portfolio).children().children().children().instance();
+      // console.log(removeTrigger.state);
+      removeTrigger.removeProducts();
       setImmediate(() => {
         /**
          * trigger notification undo click
