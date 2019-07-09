@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownPosition, KebabToggle, DropdownItem } from '@patternfly/react-core';
@@ -38,6 +38,33 @@ PortfolioActionsToolbar.propTypes = {
   copyInProgress: PropTypes.bool
 };
 
+const PortfolioItemsActionsDropdown = ({ removeProducts, isDisabled, itemsSelected }) => {
+  const [ isOpen, setOpen ] =  useState(false);
+
+  return (
+    <Dropdown
+      onSelect={ () => setOpen(false) }
+      position={ DropdownPosition.right }
+      toggle={ <KebabToggle onToggle={ open => setOpen(open) } isDisabled={ isDisabled }/> }
+      isOpen={ isOpen }
+      isPlain
+      dropdownItems={ [
+        <DropdownItem isDisabled={ !itemsSelected } onClick={ removeProducts } aria-label="Remove products from portfolio" key="remove-products">
+          <span style={ { cursor: 'pointer' } } className={ `pf-c-dropdown__menu-item ${!itemsSelected ? 'disabled-color' : 'destructive-color'}` }>
+            Remove products
+          </span>
+        </DropdownItem>
+      ] }
+    />
+  );
+};
+
+PortfolioItemsActionsDropdown.propTypes = {
+  removeProducts: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool,
+  itemsSelected: PropTypes.bool
+};
+
 const createPortfolioToolbarSchema = ({
   title,
   addProductsRoute,
@@ -45,11 +72,12 @@ const createPortfolioToolbarSchema = ({
   sharePortfolioRoute,
   editPortfolioRoute,
   removePortfolioRoute,
-  removeProductsRoute,
   copyInProgress,
   isKebabOpen,
   setKebabOpen,
   isLoading,
+  removeProducts,
+  itemsSelected,
   filterProps: {
     searchValue,
     onFilterChange,
@@ -114,19 +142,13 @@ const createPortfolioToolbarSchema = ({
             title: 'Add products',
             key: 'add-products-button'
           })
-        }),
-        createSingleItemGroup({
-          groupName: 'remove-portfolio-items',
-          key: 'portfolio-items-add-group',
-          ...createLinkButton({
-            to: removeProductsRoute,
-            isDisabled: isLoading || copyInProgress,
-            variant: 'link',
-            className: 'destructive-color',
-            title: 'Remove products',
-            key: 'remove-products-button'
-          })
-        }) ]
+        }), {
+          component: PortfolioItemsActionsDropdown,
+          isDisabled: copyInProgress,
+          key: 'remove-products-actions-dropdown',
+          removeProducts,
+          itemsSelected
+        }]
     }]
   }]
 });

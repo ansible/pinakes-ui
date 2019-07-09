@@ -396,6 +396,7 @@ exports[`<ItemDetailDescription /> should render correctly in edit variant 1`] =
                     Approval workflow
                   </label>
                   <Select
+                    formOptions={Object {}}
                     id="change-workflow"
                     input={
                       Object {
