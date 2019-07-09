@@ -47,12 +47,16 @@
     }
   }
 }
+.disabled-color {
+  color: #d2d2d2;
+}
 
 .destructive-color {
   &:not(:disabled) {
     color: #FF0000 !important;
   }
 }
+
 
 .card-image {
   height: 40px;

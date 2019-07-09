@@ -10,6 +10,7 @@ import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
 import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
+import CopyPortfolioItemModal from './copy-portfolio-item-modal';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
@@ -63,6 +64,12 @@ const PortfolioItemDetail = ({
   return (
     <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
       <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ product }/> }/>
+      <Route
+        path={ `${url}/copy` }
+        render={ props => (
+          <CopyPortfolioItemModal { ...props }  portfolioItemId={ product.id } portfolioId={ portfolio.id } closeUrl={ url }/>
+        ) }
+      />
       <PortfolioItemDetailToolbar
         url={ url }
         isOpen={ isOpen }
