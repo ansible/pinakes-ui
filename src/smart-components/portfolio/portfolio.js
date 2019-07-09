@@ -18,7 +18,6 @@ import { filterServiceOffering } from '../../helpers/shared/helpers';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
-import createRemoveProductsSchema from '../../toolbar/schemas/remove-products-toolbar.schema';
 import {
   copyPortfolio,
   fetchPortfolios,
@@ -68,7 +67,6 @@ class Portfolio extends Component {
 
   removeProducts = () => {
     this.setState({ removeInProgress: true });
-    this.props.history.goBack();
     this.props.removeProductsFromPortfolio(this.state.selectedItems, this.props.portfolio.name)
     .then(() => this.setState({ selectedItems: [], removeInProgress: false }))
     .catch(() => this.setState({ removeInProgress: false }));
@@ -104,7 +102,6 @@ class Portfolio extends Component {
     addProductsRoute,
     editPortfolioRoute,
     sharePortfolioRoute,
-    removeProductsRoute,
     removePortfolioRoute
   }) => (
     <Fragment>
@@ -116,7 +113,6 @@ class Portfolio extends Component {
         },
         title,
         addProductsRoute,
-        removeProductsRoute,
         editPortfolioRoute,
         sharePortfolioRoute,
         removePortfolioRoute,
@@ -124,7 +120,9 @@ class Portfolio extends Component {
         isLoading: this.props.isLoading,
         setKebabOpen: this.handleKebabOpen,
         isKebabOpen: this.state.isKebabOpen,
-        copyInProgress: this.state.copyInProgress
+        copyInProgress: this.state.copyInProgress,
+        removeProducts: this.removeProducts,
+        itemsSelected: this.state.selectedItems.length > 0
       }) } />
       <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
       <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
@@ -141,24 +139,9 @@ class Portfolio extends Component {
     />
   );
 
-  renderRemoveProducts = ({ portfolioRoute, filteredItems, title }) => (
-    <React.Fragment>
-      <ToolbarRenderer schema={ createRemoveProductsSchema({
-        filterValue: this.state.filterValue,
-        onFilterChange: this.handleFilterChange,
-        portfolioName: title,
-        portfolioRoute,
-        onRemove: this.removeProducts,
-        disableButton: this.state.selectedItems.length === 0
-      }) } />
-      <ContentGallery { ...filteredItems } />
-    </React.Fragment>
-  );
-
   render() {
     const portfolioRoute = this.props.match.url;
     const addProductsRoute = `${this.props.match.url}/add-products`;
-    const removeProductsRoute = `${this.props.match.url}/remove-products`;
     const editPortfolioRoute = `${this.props.match.url}/edit-portfolio`;
     const removePortfolioRoute = `${this.props.match.url}/remove-portfolio`;
     const sharePortfolioRoute = `${this.props.match.url}/share-portfolio`;
@@ -172,7 +155,7 @@ class Portfolio extends Component {
         <PortfolioItem
           key={ item.id }
           { ...item }
-          isSelectable={ this.props.location.pathname.includes('/remove-products') }
+          isSelectable
           onSelect={ this.handleItemSelect }
           isSelected={ this.state.selectedItems.includes(item.id) }
           orderUrl={ `${orderUrl}/${item.id}` }
@@ -186,13 +169,9 @@ class Portfolio extends Component {
         <Route path={ addProductsRoute } render={ props => this.renderAddProducts({ portfolioRoute, ...props }) } />
         <Route path={ `${orderUrl}/:portfolioItemId` } component={ PortfolioItemDetail }/>
         <Route
-          path={ removeProductsRoute }
-          render={ props => this.renderRemoveProducts({ filteredItems, portfolioRoute, title, ...props }) }
-        />
-        <Route
           path={ portfolioRoute }
           render={ props => this.renderProducts(
-            { addProductsRoute, removeProductsRoute, editPortfolioRoute,
+            { addProductsRoute, editPortfolioRoute,
               removePortfolioRoute, sharePortfolioRoute, filteredItems, title, ...props }) }
         />
       </Switch>
