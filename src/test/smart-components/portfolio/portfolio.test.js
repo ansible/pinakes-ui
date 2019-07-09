@@ -144,11 +144,12 @@ describe('<Portfolio />', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(ToolbarRenderer)).toHaveLength(1);
       wrapper.find(PortfolioItem).props().onSelect('123');
       wrapper.update();
       wrapper.find('button').last().simulate('click');
-      setImmediate(() => done());
+      done();
     });
   });
 
@@ -240,6 +241,7 @@ describe('<Portfolio />', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(PortfolioItem)).toHaveLength(1);
       const filterInput = wrapper.find(FilterToolbarItem).first();
       filterInput.props().onFilterChange('nothing');
@@ -255,6 +257,10 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
+        selectedPortfolio: {
+          id: '321',
+          name: 'Foo'
+        },
         portfolioItems: [{
           id: '321',
           name: 'Foo',
@@ -288,25 +294,35 @@ describe('<Portfolio />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/321' ] }>
-        <Route path="/portfolios/detail/:id" render={ (...args) => <Portfolio { ...initialProps } { ...args } /> } />
+        <Route path="/portfolios/detail/:id" render={ (...args) => <Portfolio { ...initialProps } id="321" { ...args } /> } />
       </ComponentWrapper>
     );
 
     setImmediate(() => {
+      wrapper.update();
       const checkbox = wrapper.find(PortfolioItem).find('input');
       checkbox.simulate('change');
       /**
        * Trigger remove portfolio items action
        */
-      const removeTrigger = wrapper.find(Portfolio).children().children().children().instance();
-      // console.log(removeTrigger.state);
-      removeTrigger.removeProducts();
+      const removeTrigger = wrapper.find('button#remove-products-dropdown-toggle');
+
+      /**
+       * open dropdown
+       */
+      removeTrigger.simulate('click');
+      wrapper.update();
+
+      /**
+       * trigger remove actions
+       */
+      wrapper.find('li').last().find('span').simulate('click');
       setImmediate(() => {
         /**
          * trigger notification undo click
          */
         const notification = store.getActions()[7].payload.description;
-        const notificationWrapper = mount(<IntlProvider locale="en">{ notification }</IntlProvider>);
+        const notificationWrapper = mount(<IntlProvider locale="en"><React.Fragment>{ notification }</React.Fragment></IntlProvider>);
         notificationWrapper.find('a span').simulate('click');
       });
     });
