@@ -3,10 +3,29 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Bullseye, Radio, Form, Title, Stack, StackItem } from '@patternfly/react-core';
+import { schemaParsers } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '../common/form-renderer';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/actions/order-actions';
 import { fetchProviderControlParameters } from '../../helpers/portfolio/portfolio-helper';
+
+/**
+ * TO DO
+ * We need some explicit way of telling what kind of schema is being received
+ */
+const createFormSchema = (servicePlanSchema, providerControlParameters) => {
+  const providerFields = schemaParsers.mozillaParser(providerControlParameters).schema.fields
+  .map(({ name, ...rest }) => ({ name: `providerControlParameters.${name}`, ...rest }));
+  let initialSchema = servicePlanSchema.schema;
+  let initialValues = {};
+  if (!servicePlanSchema.schemaType) {
+    const parsedSchema = schemaParsers.mozillaParser(servicePlanSchema);
+    initialSchema = parsedSchema.schema;
+    initialValues = parsedSchema.defaultValues;
+  }
+
+  return { schema: { ...initialSchema, fields: [ ...providerFields, ...initialSchema.fields ]}, initialValues };
+};
 
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
@@ -52,11 +71,7 @@ class OrderServiceFormStepConfiguration extends React.Component {
   render() {
     const { controlParametersLoaded, providerControlParameters } = this.state;
     if (!this.props.isLoading && controlParametersLoaded) {
-      const initialSchema = { ...this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema };
-      const formSchema = {
-        ...initialSchema,
-        properties: { providerControlParameters, ...initialSchema.properties  }
-      };
+      const formSchema = createFormSchema(this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema, providerControlParameters);
       return (
         <Stack gutter="md">
           <StackItem>
@@ -73,9 +88,8 @@ class OrderServiceFormStepConfiguration extends React.Component {
             </Form>
             { (!this.props.isLoading && this.props.servicePlans.length > 0) &&
               <FormRenderer
-                schema={ formSchema }
+                { ...formSchema }
                 onSubmit={ this.onSubmit }
-                schemaType="mozilla"
                 formContainer="modal"
               />
             }
