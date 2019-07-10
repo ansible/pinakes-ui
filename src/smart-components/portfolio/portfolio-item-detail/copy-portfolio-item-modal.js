@@ -65,10 +65,7 @@ const CopyPortfolioItemModal = ({
     setSubmitting(true);
     copyPortfolioItem(portfolioItemId, values, portfolios.find(({ id }) => id === values.portfolio_id))
     .then(({ id }) => push(`/portfolios/detail/${values.portfolio_id}/product/${id}`))
-    .then(() => {
-      console.log('Ids: ', values.portfolio_id === portfolioId);
-      return values.portfolio_id === portfolioId && fetchPortfolioItemsWithPortfolio(portfolioId);
-    })
+    .then(() => values.portfolio_id === portfolioId && fetchPortfolioItemsWithPortfolio(portfolioId))
     .catch(() => setSubmitting(false));
   };
 
