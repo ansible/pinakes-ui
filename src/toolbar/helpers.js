@@ -14,6 +14,7 @@ export const createLinkButton = ({ to, ...item }) => ({
   component: toolbarComponentTypes.LINK,
   to,
   key: `${item.key}/button-link`,
+  className: item.isDisabled ? 'disabled-link' : '',
   fields: [{
     component: toolbarComponentTypes.BUTTON,
     ...item
