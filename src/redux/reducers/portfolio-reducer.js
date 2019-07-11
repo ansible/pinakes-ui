@@ -13,7 +13,7 @@ import {
 
 // Initial State
 export const portfoliosInitialState = {
-  portfolioItems: [],
+  portfolioItems: { data: [], meta: {}},
   portfolioItem: {},
   portfolios: { data: [], meta: {}},
   portfolio: {},

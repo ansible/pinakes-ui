@@ -103,7 +103,7 @@ describe('<Portfolios />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         isLoading: true,
-        portfolios: []
+        portfolios: { data: []}
       }
     });
 

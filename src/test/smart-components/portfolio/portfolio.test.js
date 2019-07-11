@@ -47,6 +47,7 @@ describe('<Portfolio />', () => {
           id: '123',
           name: 'Foo'
         },
+        portfolioItems: { data: []},
         portfolios: { data: [{
           id: '123',
           name: 'bar',
@@ -119,12 +120,12 @@ describe('<Portfolio />', () => {
           id: '123',
           name: 'Foo'
         },
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
 
@@ -159,12 +160,12 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
@@ -192,12 +193,12 @@ describe('<Portfolio />', () => {
       },
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
@@ -222,12 +223,12 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
@@ -261,12 +262,12 @@ describe('<Portfolio />', () => {
           id: '321',
           name: 'Foo'
         },
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '321',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
     const restoreKey = 'restore-321';

@@ -132,7 +132,7 @@ const Portfolio = props => {
 
 const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems }}) => ({
   portfolio: selectedPortfolio,
-  portfolioItems
+  portfolioItems: portfolioItems.data
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

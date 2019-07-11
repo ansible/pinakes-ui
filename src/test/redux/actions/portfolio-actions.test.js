@@ -98,7 +98,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
-      payload: expect.any(Array)
+      payload: { data: [ 'foo' ]}
     }];
 
     return store.dispatch(fetchPortfolioItems(123))
@@ -116,7 +116,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-      payload: expect.any(Array)
+      payload: { data: [ 'foo' ]}
     }];
 
     return store.dispatch(fetchPortfolioItemsWithPortfolio(123))
@@ -240,7 +240,8 @@ describe('Portfolio actions', () => {
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
-      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+      payload: []
     },
     expect.objectContaining({ type: ADD_NOTIFICATION }), {
       type: `${REMOVE_PORTFOLIO_ITEMS}_FULFILLED`
@@ -284,7 +285,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-      payload: []
+      payload: { data: []}
     }, expect.objectContaining({ type: ADD_NOTIFICATION }) ];
 
     apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/1/undelete', mockOnce({ body: { id: '1' }}));
