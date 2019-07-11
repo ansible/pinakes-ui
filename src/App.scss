@@ -206,6 +206,10 @@
   }
 }
 
+.disabled-link {
+  pointer-events: none
+}
+
 //pf-4 fixes
 /**
 * non working pf display modifier: https://www.patternfly.org/v4/documentation/core/utilities/display#display-block

@@ -81,7 +81,8 @@ const AddProductsToPortfolio = ({
         portfolioRoute,
         onClickAddToPortfolio: handleAddToPortfolio,
         meta,
-        platformId: selectedPlatform && selectedPlatform.id
+        platformId: selectedPlatform && selectedPlatform.id,
+        searchValue
       }) } />
       <AddProductsGallery
         platform={ !!selectedPlatform }
