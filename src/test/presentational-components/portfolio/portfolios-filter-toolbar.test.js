@@ -35,7 +35,7 @@ describe('<PortfoliosFilterToolbar />', () => {
       </MemoryRouter>
     );
 
-    const input = wrapper.find('input');
+    const input = wrapper.find('input').first();
     input.getDOMNode.value = 'foo';
     input.simulate('change');
     expect(onFilterChange).toHaveBeenCalled();

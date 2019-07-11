@@ -5,6 +5,7 @@ import { Dropdown, DropdownPosition, KebabToggle, DropdownItem } from '@patternf
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
+import AsyncPagination from '../../smart-components/common/async-pagination';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -81,6 +82,9 @@ const createPortfolioToolbarSchema = ({
   isLoading,
   removeProducts,
   itemsSelected,
+  meta,
+  fetchPortfolioItemsWithPortfolio,
+  portfolioId,
   filterProps: {
     searchValue,
     onFilterChange,
@@ -121,35 +125,49 @@ const createPortfolioToolbarSchema = ({
           }]
       }]
     }, {
-      component: toolbarComponentTypes.TOOLBAR,
-      key: 'portfolio-items-actions',
-      fields: [
-        createSingleItemGroup({
-          groupName: 'filter-portfolio-items',
-          component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
-          key: 'portfolio-items-filter',
-          searchValue,
-          onFilterChange,
-          placeholder
+      component: toolbarComponentTypes.LEVEL,
+      key: 'porftolio-items-actions',
+      fields: [{
+        component: toolbarComponentTypes.TOOLBAR,
+        key: 'portfolio-items-actions',
+        fields: [
+          createSingleItemGroup({
+            groupName: 'filter-portfolio-items',
+            component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
+            key: 'portfolio-items-filter',
+            searchValue,
+            onFilterChange,
+            placeholder
 
-        }),
-        createSingleItemGroup({
-          groupName: 'add-portfolio-items',
-          key: 'portfolio-items-add-group',
-          ...createLinkButton({
-            to: addProductsRoute,
-            isDisabled: isLoading || copyInProgress,
-            variant: 'primary',
-            title: 'Add products',
-            key: 'add-products-button'
-          })
-        }), {
-          component: PortfolioItemsActionsDropdown,
-          isDisabled: copyInProgress,
-          key: 'remove-products-actions-dropdown',
-          removeProducts,
-          itemsSelected
+          }),
+          createSingleItemGroup({
+            groupName: 'add-portfolio-items',
+            key: 'portfolio-items-add-group',
+            ...createLinkButton({
+              to: addProductsRoute,
+              isDisabled: isLoading || copyInProgress,
+              variant: 'primary',
+              title: 'Add products',
+              key: 'add-products-button'
+            })
+          }), {
+            component: PortfolioItemsActionsDropdown,
+            isDisabled: copyInProgress,
+            key: 'remove-products-actions-dropdown',
+            removeProducts,
+            itemsSelected
+          }]
+      }, {
+        component: toolbarComponentTypes.LEVEL_ITEM,
+        key: 'pagination-item',
+        fields: [{
+          component: AsyncPagination,
+          key: 'porftolio-items-pagination',
+          meta,
+          apiRequest: fetchPortfolioItemsWithPortfolio,
+          apiProps: portfolioId
         }]
+      }]
     }]
   }]
 });

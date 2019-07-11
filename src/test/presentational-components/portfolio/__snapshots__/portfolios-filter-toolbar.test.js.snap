@@ -30,49 +30,63 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
       title="Portfolios"
     />
     <Component
-      className="pf-u-mt-md"
-      component="Toolbar"
-      key="main-portfolio-toolbar"
+      component="Level"
+      key="porftolios-actions"
     >
       <Component
-        component="ToolbarGroup"
-        key="filter-group/single-toolbar-item-group"
+        className="pf-u-mt-md"
+        component="Toolbar"
+        key="main-portfolio-toolbar"
       >
         <Component
-          component="ToolbarItem"
-          key="filter-group/single-toolbar-item"
+          component="ToolbarGroup"
+          key="filter-group/single-toolbar-item-group"
         >
           <Component
-            component="FilterToolbarItem"
-            key="filter-input"
-            onFilterChange={[MockFunction]}
-            searchValue=""
-          />
-        </Component>
-      </Component>
-      <Component
-        component="ToolbarGroup"
-        key="portfolio-button-group/single-toolbar-item-group"
-      >
-        <Component
-          component="ToolbarItem"
-          key="portfolio-button-group/single-toolbar-item"
-        >
-          <Component
-            className=""
-            component="Link"
-            key="create-portfolio-button/button-link"
-            to="/portfolios/add-portfolio"
+            component="ToolbarItem"
+            key="filter-group/single-toolbar-item"
           >
             <Component
-              aria-label="Create portfolio"
-              component="Button"
-              key="create-portfolio-button"
-              title="Create portfolio"
-              variant="primary"
+              component="FilterToolbarItem"
+              key="filter-input"
+              onFilterChange={[MockFunction]}
+              searchValue=""
             />
           </Component>
         </Component>
+        <Component
+          component="ToolbarGroup"
+          key="portfolio-button-group/single-toolbar-item-group"
+        >
+          <Component
+            component="ToolbarItem"
+            key="portfolio-button-group/single-toolbar-item"
+          >
+            <Component
+              className=""
+              component="Link"
+              key="create-portfolio-button/button-link"
+              to="/portfolios/add-portfolio"
+            >
+              <Component
+                aria-label="Create portfolio"
+                component="Button"
+                key="create-portfolio-button"
+                title="Create portfolio"
+                variant="primary"
+              />
+            </Component>
+          </Component>
+        </Component>
+      </Component>
+      <Component
+        component="LevelItem"
+        key="pagination-item"
+      >
+        <Component
+          component={[Function]}
+          key="porftolios-pagination"
+        />
       </Component>
     </Component>
   </Component>

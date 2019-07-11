@@ -46,7 +46,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: [ expectedPortfolio ]
+      payload: { data: [ expectedPortfolio ]}
     }];
     apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
       body: { data: [ expectedPortfolio ]}
@@ -98,7 +98,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
-      payload: expect.any(Array)
+      payload: { data: [ 'foo' ]}
     }];
 
     return store.dispatch(fetchPortfolioItems(123))
@@ -116,7 +116,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-      payload: expect.any(Array)
+      payload: { data: [ 'foo' ]}
     }];
 
     return store.dispatch(fetchPortfolioItemsWithPortfolio(123))
@@ -234,13 +234,14 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action success', () => {
-    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
-      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+      payload: []
     },
     expect.objectContaining({ type: ADD_NOTIFICATION }), {
       type: `${REMOVE_PORTFOLIO_ITEMS}_FULFILLED`
@@ -256,7 +257,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action fals', () => {
-    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     },
@@ -284,7 +285,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-      payload: []
+      payload: { data: []}
     }, expect.objectContaining({ type: ADD_NOTIFICATION }) ];
 
     apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/1/undelete', mockOnce({ body: { id: '1' }}));
