@@ -5,12 +5,14 @@ import { ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/fr
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 
-export const doFetchPortfolios = apiProps => ({
+export const doFetchPortfolios = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  payload: PortfolioHelper.listPortfolios(apiProps)
+  payload: PortfolioHelper.listPortfolios(...args)
 });
 
-export const fetchPortfolios = apiProps => (dispatch) => dispatch(doFetchPortfolios(apiProps));
+export const fetchPortfolios = (...args) => (dispatch) => {
+  return dispatch(doFetchPortfolios(...args));
+};
 
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,

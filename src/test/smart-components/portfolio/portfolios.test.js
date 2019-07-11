@@ -57,7 +57,7 @@ describe('<Portfolios />', () => {
   it('should mount and fetch data', (done) => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, expect.objectContaining({
@@ -78,7 +78,7 @@ describe('<Portfolios />', () => {
   it('should mount filter portfolios', (done) => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
@@ -107,7 +107,7 @@ describe('<Portfolios />', () => {
       }
     });
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>

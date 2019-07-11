@@ -5,8 +5,8 @@ const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
 
-export function listPortfolios() {
-  return portfolioApi.listPortfolios();
+export function listPortfolios(_apiProps, { limit, offset, filter, ...options } = {}) {
+  return portfolioApi.listPortfolios(limit, offset, filter, options);
 }
 
 export function getPortfolioItems() {
