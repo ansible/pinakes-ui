@@ -69,7 +69,8 @@ class Portfolios extends Component {
           />
         ) } />
       </Fragment>
-    );}
+    );
+  }
 
   render() {
     return (
@@ -82,7 +83,7 @@ class Portfolios extends Component {
 }
 
 const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValue }}) => ({
-  portfolios,
+  portfolios: portfolios.data,
   isLoading,
   searchFilter: filterValue
 });

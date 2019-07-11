@@ -47,12 +47,12 @@ describe('<Portfolio />', () => {
           id: '123',
           name: 'Foo'
         },
-        portfolios: [{
+        portfolios: { data: [{
           id: '123',
           name: 'bar',
           description: 'description',
           modified: 'sometimes'
-        }]
+        }]}
       }
     };
     mockStore = configureStore(middlewares);

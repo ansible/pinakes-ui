@@ -35,14 +35,14 @@ describe('<Portfolios />', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: [{
+        portfolios: { data: [{
           id: '123',
           name: 'bar',
           description: 'description',
           modified: 'sometimes',
           created_at: 'foo',
           owner: 'Owner'
-        }]
+        }]}
       }
     };
     mockStore = configureStore(middlewares);
@@ -87,6 +87,7 @@ describe('<Portfolios />', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(PortfolioCard)).toHaveLength(1);
       const filterInput = wrapper.find(FilterToolbarItem).first();
       filterInput.props().onFilterChange('nothing');

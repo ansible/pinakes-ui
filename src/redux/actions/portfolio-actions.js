@@ -7,7 +7,7 @@ import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 
 export const doFetchPortfolios = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  payload: PortfolioHelper.listPortfolios(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.listPortfolios(apiProps)
 });
 
 export const fetchPortfolios = apiProps => (dispatch) => dispatch(doFetchPortfolios(apiProps));

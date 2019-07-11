@@ -15,7 +15,7 @@ import {
 export const portfoliosInitialState = {
   portfolioItems: [],
   portfolioItem: {},
-  portfolios: [],
+  portfolios: { data: []},
   portfolio: {},
   filterValue: '',
   isLoading: false

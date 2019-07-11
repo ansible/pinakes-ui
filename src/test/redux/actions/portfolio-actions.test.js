@@ -46,7 +46,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: [ expectedPortfolio ]
+      payload: { data: [ expectedPortfolio ]}
     }];
     apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
       body: { data: [ expectedPortfolio ]}
