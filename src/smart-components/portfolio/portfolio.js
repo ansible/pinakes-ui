@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 
 import PortfolioItem from './portfolio-item';
-import PortolioItems from './portfolio-items';
+import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import AddProductsToPortfolio from './add-products-to-portfolio';
 import { defaultSettings } from '../../helpers/shared/pagination';
@@ -106,13 +106,13 @@ const Portfolio = props => {
     <Switch>
       <Route
         path={ routes.addProductsRoute }
-        render={ props => (<AddProductsToPortfolio portfolio={ props.portfolio } portfolioRoute={ routes.portfolioRoute }/>) }
+        render={ () => (<AddProductsToPortfolio portfolio={ props.portfolio } portfolioRoute={ routes.portfolioRoute }/>) }
       />
       <Route path={ `${routes.orderUrl}/:portfolioItemId` } component={ PortfolioItemDetail }/>
       <Route
         path={ routes.portfolioRoute }
         render={ args => (
-          <PortolioItems
+          <PortfolioItems
             { ...routes }
             { ...args }
             selectedItems={ selectedItems }

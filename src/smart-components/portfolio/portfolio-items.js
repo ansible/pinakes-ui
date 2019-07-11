@@ -11,7 +11,7 @@ import OrderModal from '../common/order-modal';
 import PortfolioEmptyState from './portfolio-empty-state';
 import ContentGallery from '../content-gallery/content-gallery';
 
-const PortolioItems = ({
+const PortfolioItems = ({
   title,
   filteredItems,
   addProductsRoute,
@@ -59,7 +59,7 @@ const PortolioItems = ({
   </Fragment>
 );
 
-PortolioItems.propTypes = {
+PortfolioItems.propTypes = {
   title: PropTypes.string.isRequired,
   filteredItems: PropTypes.shape({ items: PropTypes.arrayOf(PropTypes.node), isLoading: PropTypes.bool }),
   portfolioRoute: PropTypes.string.isRequired,
@@ -79,8 +79,8 @@ PortolioItems.propTypes = {
   portfolio: PropTypes.shape({ id: PropTypes.string })
 };
 
-PortolioItems.defaultProps = {
+PortfolioItems.defaultProps = {
   portfolio: {}
 };
 
-export default PortolioItems;
+export default PortfolioItems;
