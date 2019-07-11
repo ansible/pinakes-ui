@@ -25,8 +25,8 @@ export function getPortfolio(portfolioId) {
   return portfolioApi.showPortfolio(portfolioId);
 }
 
-export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items`);
+export function getPortfolioItemsWithPortfolio(portfolioId, { limit, offset } = {}) {
+  return portfolioApi.fetchPortfolioItemsWithPortfolio(portfolioId, limit, offset);
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available

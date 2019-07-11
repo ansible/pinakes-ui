@@ -46,7 +46,7 @@ const createPortfolioToolbarSchema = ({
               title: 'Create portfolio'
             })
           }) ]
-      },  {
+      }, {
         component: toolbarComponentTypes.LEVEL_ITEM,
         key: 'pagination-item',
         fields: [{

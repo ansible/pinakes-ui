@@ -78,8 +78,8 @@ describe('<Portfolio />', () => {
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
 
     mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123' ] }>
@@ -94,7 +94,7 @@ describe('<Portfolio />', () => {
 
   it('should mount and render add products page', (done) => {
     const store = mockStore({ ...initialState, platformReducer: { platforms: [], platformItems: {}}});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -131,12 +131,12 @@ describe('<Portfolio />', () => {
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
+    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123?limit=50&offset=0`, mockOnce((req, res) => {
       expect(req).toBeTruthy();
       return res.status(200);
     }));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-products' ] }>
@@ -168,7 +168,7 @@ describe('<Portfolio />', () => {
         }]}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -201,7 +201,7 @@ describe('<Portfolio />', () => {
         }]}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -231,7 +231,7 @@ describe('<Portfolio />', () => {
         }]}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -272,7 +272,7 @@ describe('<Portfolio />', () => {
     });
     const restoreKey = 'restore-321';
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 

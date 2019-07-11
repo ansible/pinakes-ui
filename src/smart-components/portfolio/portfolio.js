@@ -8,6 +8,7 @@ import PortfolioItem from './portfolio-item';
 import PortolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import AddProductsToPortfolio from './add-products-to-portfolio';
+import { defaultSettings } from '../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
@@ -43,7 +44,7 @@ const Portfolio = props => {
     dispatch({ type: 'setIsFetching', payload: true });
     Promise.all([
       props.fetchSelectedPortfolio(apiProps),
-      props.fetchPortfolioItemsWithPortfolio(apiProps)
+      props.fetchPortfolioItemsWithPortfolio(apiProps, defaultSettings)
     ])
     .then(() => dispatch({ type: 'setIsFetching', payload: false }))
     .catch(() => dispatch({ type: 'setIsFetching', payload: false }));
@@ -99,7 +100,7 @@ const Portfolio = props => {
         removeInProgress={ removeInProgress }
       />
     )),
-    isLoading: isFetching
+    isLoading: isFetching || props.isLoading
   };
   return (
     <Switch>
@@ -110,10 +111,10 @@ const Portfolio = props => {
       <Route path={ `${routes.orderUrl}/:portfolioItemId` } component={ PortfolioItemDetail }/>
       <Route
         path={ routes.portfolioRoute }
-        render={ props => (
+        render={ args => (
           <PortolioItems
             { ...routes }
-            { ...props }
+            { ...args }
             selectedItems={ selectedItems }
             filteredItems={ galleryItems }
             title={ title }
@@ -123,6 +124,9 @@ const Portfolio = props => {
             copyInProgress={ copyInProgress }
             removeProducts={ removeProducts }
             copyPortfolio={ copyPortfolio }
+            fetchPortfolioItemsWithPortfolio={ props.fetchPortfolioItemsWithPortfolio }
+            portfolio={ props.portfolio }
+            pagination={ props.pagination }
           />
         ) }
       />
@@ -130,9 +134,11 @@ const Portfolio = props => {
   );
 };
 
-const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems }}) => ({
+const mapStateToProps = ({ portfolioReducer: { selectedPortfolio, portfolioItems, isLoading }}) => ({
   portfolio: selectedPortfolio,
-  portfolioItems: portfolioItems.data
+  portfolioItems: portfolioItems.data,
+  pagination: portfolioItems.meta,
+  isLoading
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -150,17 +156,20 @@ Portfolio.propTypes = {
   fetchPortfolios: PropTypes.func.isRequired,
   portfolio: PropTypes.shape({
     name: PropTypes.string,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string
   }),
   location: PropTypes.object,
   history: PropTypes.object,
   portfolioItems: PropTypes.array,
   removeProductsFromPortfolio: PropTypes.func.isRequired,
-  copyPortfolio: PropTypes.func.isRequired
+  copyPortfolio: PropTypes.func.isRequired,
+  pagination: PropTypes.object,
+  isLoading: PropTypes.bool
 };
 
 Portfolio.defaultProps = {
-  portfolioItems: []
+  portfolioItems: [],
+  portfolio: {}
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Portfolio));

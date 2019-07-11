@@ -234,7 +234,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action success', () => {
-    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     }, {
@@ -257,7 +257,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action fals', () => {
-    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     },

@@ -25,7 +25,10 @@ const PortolioItems = ({
   copyInProgress,
   removeProducts,
   copyPortfolio,
-  portfolioRoute
+  portfolioRoute,
+  pagination,
+  fetchPortfolioItemsWithPortfolio,
+  portfolio: { id }
 }) => (
   <Fragment>
     <ToolbarRenderer schema={ createPortfolioToolbarSchema({
@@ -43,7 +46,10 @@ const PortolioItems = ({
       isLoading,
       copyInProgress,
       removeProducts: () => removeProducts(selectedItems),
-      itemsSelected: selectedItems.length > 0
+      itemsSelected: selectedItems.length > 0,
+      meta: pagination,
+      fetchPortfolioItemsWithPortfolio,
+      portfolioId: id
     }) } />
     <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
     <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
@@ -67,8 +73,14 @@ PortolioItems.propTypes = {
   isLoading: PropTypes.bool,
   copyInProgress: PropTypes.bool,
   removeProducts: PropTypes.func.isRequired,
-  copyPortfolio: PropTypes.func.isRequired
+  copyPortfolio: PropTypes.func.isRequired,
+  pagination: PropTypes.object.isRequired,
+  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
+  portfolio: PropTypes.shape({ id: PropTypes.string })
+};
 
+PortolioItems.defaultProps = {
+  portfolio: {}
 };
 
 export default PortolioItems;
