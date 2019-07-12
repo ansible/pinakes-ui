@@ -5,7 +5,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { IconPlaceholder } from './loader-placeholders';
 import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 
-const CardIcon = ({ src, height }) => {
+const CardIcon = ({ src, height, defaultIcon }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
   return (
@@ -17,7 +17,7 @@ const CardIcon = ({ src, height }) => {
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }
         onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        src={ isUnknown ? CatItemSvg : src }
+        src={ isUnknown && defaultIcon ? defaultIcon : src }
       />
     </div>
   );

@@ -8,6 +8,7 @@ import DetailToolbarActions from './detail-toolbar-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
+import { defaultPlatformIcon } from '../../../helpers/shared/platform';
 
 const PortfolioItemDetailToolbar = ({
   url,
@@ -21,7 +22,7 @@ const PortfolioItemDetailToolbar = ({
   <Fragment>
     <TopToolbar>
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` } height={ 64 }/>
+        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` } default={ defaultPlatformIcon(product.platformId) } height={ 64 }/>
       </div>
       <Level>
         <LevelItem>

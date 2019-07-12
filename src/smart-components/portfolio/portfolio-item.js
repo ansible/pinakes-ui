@@ -7,6 +7,7 @@ import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import CardCheckbox from '../../presentational-components/shared/card-checkbox';
 import ServiceOfferingCardBody from '../../presentational-components/shared/service-offering-body';
+import { defaultPlatformIcon } from '../../helpers/shared/platform';
 
 const PortfolioItem = props => {
   const renderCardContent = () => (
@@ -18,7 +19,7 @@ const PortfolioItem = props => {
           id={ props.id } />
         }
 
-        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon` }/>
+        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon` } default={ defaultPlatformIcon(props.platformId) }/>
       </CardHeader>
       <ServiceOfferingCardBody { ...props }/>
       <CardFooter>
