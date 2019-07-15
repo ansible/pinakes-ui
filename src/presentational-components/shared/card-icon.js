@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-
 import { IconPlaceholder } from './loader-placeholders';
-import CatItemSvg from '../../assets/images/vendor-openshift.svg';
+import CardIconDefault from '../../assets/images/card-icon-default.svg';
 
 const CardIcon = ({ src, height, defaultIcon }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
+  console.log('DEBUG: defaultIcon: ', defaultIcon);
   return (
     <div style={ { display: 'inline-block' } }>
       { !isLoaded && <IconPlaceholder style={ { height } } /> }
@@ -17,7 +17,7 @@ const CardIcon = ({ src, height, defaultIcon }) => {
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }
         onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        src={ isUnknown && defaultIcon ? defaultIcon : src }
+        src={ isUnknown ? defaultIcon || CardIconDefault : src }
       />
     </div>
   );
@@ -25,6 +25,7 @@ const CardIcon = ({ src, height, defaultIcon }) => {
 
 CardIcon.propTypes = {
   src: PropTypes.string.isRequired,
+  defaultIcon: PropTypes.string,
   style: PropTypes.object,
   height: PropTypes.number
 };

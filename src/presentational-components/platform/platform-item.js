@@ -16,7 +16,7 @@ const PlatformItem = props =>(
       <CardIcon
         src={ `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offering_icons/${props.service_offering_icon_id}/icon_data` }
         style={ { height: 40 } }
-        default={ defaultPlatformIcon(props.platformId) }
+        defaultIcon={ defaultPlatformIcon(props.source_id) }
       />
       { props.editMode && (
         <CardCheckbox
@@ -34,6 +34,7 @@ const PlatformItem = props =>(
 PlatformItem.propTypes = {
   id: PropTypes.string.isRequired,
   service_offering_icon_id: PropTypes.string,
+  platformId: PropTypes.string,
   name: PropTypes.string,
   editMode: PropTypes.bool,
   checked: PropTypes.bool,

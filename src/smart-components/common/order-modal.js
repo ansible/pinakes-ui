@@ -7,6 +7,7 @@ import { Modal, Level, LevelItem, Title, TextContent, Text, TextVariants } from 
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import OrderServiceFormStepConfiguration from '../order/order-service-form-step-configuration';
+import { defaultPlatformIcon } from '../../helpers/shared/platform';
 
 const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (
   <Modal
@@ -18,7 +19,8 @@ const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData 
   >
     <div className="pf-u-mb-md">
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <CardIcon height={ 64 } src={ `${CATALOG_API_BASE}/portfolio_items/${serviceData.id}/icon` } />
+        <CardIcon height={ 64 } src={ `${CATALOG_API_BASE}/portfolio_items/${serviceData.id}/icon` }
+          defaultIcon={ defaultPlatformIcon(serviceData.source_type_id) }  />
       </div>
       <Level>
         <LevelItem className="elipsis-text-overflow">

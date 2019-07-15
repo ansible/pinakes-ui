@@ -22,7 +22,8 @@ const PortfolioItemDetailToolbar = ({
   <Fragment>
     <TopToolbar>
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` } default={ defaultPlatformIcon(product.platformId) } height={ 64 }/>
+        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
+          defaultIcon={ defaultPlatformIcon(product.service_offering_source_ref) } height={ 64 }/>
       </div>
       <Level>
         <LevelItem>

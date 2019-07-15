@@ -10,6 +10,6 @@ export const getOrderPortfolioName = ({ orderItems, id }, portfolioItems) => {
 
 export const getOrderPlatformIcon = ({ orderItems }, portfolioItems) => {
   const portfolioItem = orderItems[0] && portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
-  return defaultPlatformIcon(portfolioItem.platformId);
+  return defaultPlatformIcon(portfolioItem && portfolioItem.platformId);
 };
 

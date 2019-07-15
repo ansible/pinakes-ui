@@ -76,7 +76,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           Created at 
           <br />
-          3/22/2019
+          2019-3-22
         </h6>
       </Text>
     </div>
@@ -157,7 +157,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] 
         >
           Created at 
           <br />
-          3/22/2019
+          2019-3-22
         </h6>
       </Text>
     </div>

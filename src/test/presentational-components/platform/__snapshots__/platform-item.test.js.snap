@@ -11,6 +11,11 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     className=""
   >
     <CardIcon
+      default={
+        <DefaultPlatformIcon
+          platformId="Foo"
+        />
+      }
       height={40}
       src="/api/topological-inventory/v1.0/service_offering_icons/undefined/icon_data"
       style={
