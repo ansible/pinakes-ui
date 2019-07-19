@@ -3,11 +3,37 @@ import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { IconPlaceholder } from './loader-placeholders';
 import CardIconDefault from '../../assets/images/card-icon-default.svg';
+import { useSelector } from 'react-redux';
+import OpenshiftIcon from '../../assets/images/openshift-icon.svg';
+import AmazonIcon from '../../assets/images/amazon-icon.png';
+import TowerIcon from '../../assets/images/tower-icon.svg';
 
-const CardIcon = ({ src, height, defaultIcon }) => {
+// TO DO - use webpack to load all images
+const platformTypeIcon = {
+  1: OpenshiftIcon,
+  2: AmazonIcon,
+  3: TowerIcon
+};
+
+const defaultPlatformIcon = (platformId, platformList) => {
+  if (!platformId) {
+    return CardIconDefault;
+  }
+
+  if (!platformList || platformList.empty || !platformId) {
+    return CardIconDefault;
+  }
+
+  const source = platformList.find(item => item.id === platformId);
+  if (source) {
+    return platformTypeIcon[source.source_type_id];
+  }
+};
+
+const CardIcon = ({ src, height, platformId = undefined }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
-  console.log('DEBUG: defaultIcon: ', defaultIcon);
+  const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
   return (
     <div style={ { display: 'inline-block' } }>
       { !isLoaded && <IconPlaceholder style={ { height } } /> }
@@ -17,7 +43,7 @@ const CardIcon = ({ src, height, defaultIcon }) => {
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }
         onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        src={ isUnknown ? defaultIcon || CardIconDefault : src }
+        src={ isUnknown && platformId ? defaultPlatformIcon(platformId, platformList) : src }
       />
     </div>
   );
@@ -25,7 +51,7 @@ const CardIcon = ({ src, height, defaultIcon }) => {
 
 CardIcon.propTypes = {
   src: PropTypes.string.isRequired,
-  defaultIcon: PropTypes.string,
+  platformId: PropTypes.string,
   style: PropTypes.object,
   height: PropTypes.number
 };
