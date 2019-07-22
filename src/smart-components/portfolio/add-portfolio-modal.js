@@ -72,7 +72,7 @@ AddPortfolioModal.propTypes = {
 };
 
 const mapStateToProps = ({ approvalReducer: { workflows }, portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
-  initialValues: id && portfolios.find(item => item.id === id),
+  initialValues: id && portfolios.data.find(item => item.id === id),
   portfolioId: id,
   workflows
 });

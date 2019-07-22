@@ -47,12 +47,13 @@ describe('<Portfolio />', () => {
           id: '123',
           name: 'Foo'
         },
-        portfolios: [{
+        portfolioItems: { data: []},
+        portfolios: { data: [{
           id: '123',
           name: 'bar',
           description: 'description',
           modified: 'sometimes'
-        }]
+        }]}
       }
     };
     mockStore = configureStore(middlewares);
@@ -77,8 +78,8 @@ describe('<Portfolio />', () => {
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
 
     mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123' ] }>
@@ -93,7 +94,7 @@ describe('<Portfolio />', () => {
 
   it('should mount and render add products page', (done) => {
     const store = mockStore({ ...initialState, platformReducer: { platforms: [], platformItems: {}}});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -119,23 +120,23 @@ describe('<Portfolio />', () => {
           id: '123',
           name: 'Foo'
         },
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
+    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123?limit=50&offset=0`, mockOnce((req, res) => {
       expect(req).toBeTruthy();
       return res.status(200);
     }));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-products' ] }>
@@ -144,11 +145,12 @@ describe('<Portfolio />', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(ToolbarRenderer)).toHaveLength(1);
       wrapper.find(PortfolioItem).props().onSelect('123');
       wrapper.update();
       wrapper.find('button').last().simulate('click');
-      setImmediate(() => done());
+      done();
     });
   });
 
@@ -158,15 +160,15 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -191,15 +193,15 @@ describe('<Portfolio />', () => {
       },
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -221,15 +223,15 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        portfolioItems: { data: [{
           id: '123',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -240,6 +242,7 @@ describe('<Portfolio />', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(PortfolioItem)).toHaveLength(1);
       const filterInput = wrapper.find(FilterToolbarItem).first();
       filterInput.props().onFilterChange('nothing');
@@ -255,17 +258,21 @@ describe('<Portfolio />', () => {
       platformReducer: { platforms: []},
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: [{
+        selectedPortfolio: {
+          id: '321',
+          name: 'Foo'
+        },
+        portfolioItems: { data: [{
           id: '321',
           name: 'Foo',
           description: 'desc',
           modified: 'sometimes'
-        }]
+        }]}
       }
     });
     const restoreKey = 'restore-321';
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
 
@@ -288,25 +295,35 @@ describe('<Portfolio />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/321' ] }>
-        <Route path="/portfolios/detail/:id" render={ (...args) => <Portfolio { ...initialProps } { ...args } /> } />
+        <Route path="/portfolios/detail/:id" render={ (...args) => <Portfolio { ...initialProps } id="321" { ...args } /> } />
       </ComponentWrapper>
     );
 
     setImmediate(() => {
+      wrapper.update();
       const checkbox = wrapper.find(PortfolioItem).find('input');
       checkbox.simulate('change');
       /**
        * Trigger remove portfolio items action
        */
-      const removeTrigger = wrapper.find(Portfolio).children().children().children().instance();
-      // console.log(removeTrigger.state);
-      removeTrigger.removeProducts();
+      const removeTrigger = wrapper.find('button#remove-products-dropdown-toggle');
+
+      /**
+       * open dropdown
+       */
+      removeTrigger.simulate('click');
+      wrapper.update();
+
+      /**
+       * trigger remove actions
+       */
+      wrapper.find('li').last().find('span').simulate('click');
       setImmediate(() => {
         /**
          * trigger notification undo click
          */
         const notification = store.getActions()[7].payload.description;
-        const notificationWrapper = mount(<IntlProvider locale="en">{ notification }</IntlProvider>);
+        const notificationWrapper = mount(<IntlProvider locale="en"><React.Fragment>{ notification }</React.Fragment></IntlProvider>);
         notificationWrapper.find('a span').simulate('click');
       });
     });

@@ -148,7 +148,7 @@ OrderItem.defaultProps = {
 
 const mapStateToProps = ({ orderReducer: { linkedOrders }, portfolioReducer: { portfolioItems }}, { index, type }) => ({
   item: linkedOrders[type][index],
-  portfolioItems
+  portfolioItems: portfolioItems.data
 });
 
 export default connect(mapStateToProps)(OrderItem);

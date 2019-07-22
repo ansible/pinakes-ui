@@ -5,6 +5,7 @@ import { Card, CardHeader, CardBody, CardFooter, GalleryItem } from '@patternfly
 import DefaultPlatformImg from '../../assets/images/platform-default.svg';
 import OpenshiftPlatformImg from '../../assets/images/platform-openshift.svg';
 import AmazonPlatformImg from '../../assets/images/platform-amazon.png';
+import TowerPlatformImg from '../../assets/images/platform-tower.png';
 import ImageWithDefault from '../shared/image-with-default';
 import ItemDetails from '../shared/card-common';
 
@@ -15,7 +16,8 @@ const TO_DISPLAY = [ 'description', 'modified' ];
 // TO DO - use webpack to load all images
 const platformTypeImg = {
   1: OpenshiftPlatformImg,
-  2: AmazonPlatformImg
+  2: AmazonPlatformImg,
+  3: TowerPlatformImg
 };
 
 const PlatformCard = ({ name, id, ...props }) => (

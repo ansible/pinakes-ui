@@ -35,14 +35,14 @@ describe('<Portfolios />', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: [{
+        portfolios: { data: [{
           id: '123',
           name: 'bar',
           description: 'description',
           modified: 'sometimes',
           created_at: 'foo',
           owner: 'Owner'
-        }]
+        }]}
       }
     };
     mockStore = configureStore(middlewares);
@@ -57,7 +57,7 @@ describe('<Portfolios />', () => {
   it('should mount and fetch data', (done) => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, expect.objectContaining({
@@ -78,7 +78,7 @@ describe('<Portfolios />', () => {
   it('should mount filter portfolios', (done) => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
@@ -87,6 +87,7 @@ describe('<Portfolios />', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(PortfolioCard)).toHaveLength(1);
       const filterInput = wrapper.find(FilterToolbarItem).first();
       filterInput.props().onFilterChange('nothing');
@@ -102,11 +103,11 @@ describe('<Portfolios />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         isLoading: true,
-        portfolios: []
+        portfolios: { data: []}
       }
     });
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>

@@ -70,7 +70,7 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, isLoading, linkedOrders:
 const mapStateToProps = ({ orderReducer: { linkedOrders, isLoading }, portfolioReducer: { portfolioItems, isLoading: portfolioLoading }}) => ({
   linkedOrders,
   isLoading: isLoading || portfolioLoading,
-  portfolioItems
+  portfolioItems: portfolioItems.data
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
