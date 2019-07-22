@@ -2,7 +2,7 @@ import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
 import FilterSelect from '../../presentational-components/shared/filter-select';
 import ButtonWithSpinner from '../../presentational-components/shared/button-with-spinner';
-import AddProductsPagination from '../../smart-components/portfolio/add-products-to-portfolio/add-products-pagination';
+import AsyncPagination from '../../smart-components/common/async-pagination';
 
 const createAddProductsSchema = ({
   options,
@@ -15,7 +15,8 @@ const createAddProductsSchema = ({
   portfolioRoute,
   onClickAddToPortfolio,
   meta,
-  platformId
+  platformId,
+  fetchPlatformItems
 }) => ({
   fields: [{
     component: toolbarComponentTypes.TOP_TOOLBAR,
@@ -76,10 +77,11 @@ const createAddProductsSchema = ({
         component: toolbarComponentTypes.LEVEL_ITEM,
         key: 'pagination-item',
         fields: meta ? [{
-          component: AddProductsPagination,
+          component: AsyncPagination,
           key: 'add-products-pagination',
           meta,
-          platformId
+          apiProps: platformId,
+          apiRequest: fetchPlatformItems
         }] : []
       }]
     }]

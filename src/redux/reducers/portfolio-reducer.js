@@ -13,9 +13,9 @@ import {
 
 // Initial State
 export const portfoliosInitialState = {
-  portfolioItems: [],
+  portfolioItems: { data: [], meta: {}},
   portfolioItem: {},
-  portfolios: [],
+  portfolios: { data: [], meta: {}},
   portfolio: {},
   filterValue: '',
   isLoading: false

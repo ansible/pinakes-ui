@@ -34,10 +34,10 @@ describe('<SharePortfolioModal', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: [{
+        portfolios: { data: [{
           id: '123',
           name: 'Portfolio 1'
-        }]
+        }]}
       },
       shareReducer: {
         shareInfo: [{

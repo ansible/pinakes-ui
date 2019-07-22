@@ -7,7 +7,7 @@ import CatItemSvg from '../../assets/images/vendor-openshift.svg';
 
 const CardIcon = ({ src, height }) => {
   const [ isLoaded, setLoaded ] = useState(false);
-  const [ isUnknow, setUnknown ] = useState(false);
+  const [ isUnknown, setUnknown ] = useState(false);
   return (
     <div style={ { display: 'inline-block' } }>
       { !isLoaded && <IconPlaceholder style={ { height } } /> }
@@ -17,7 +17,7 @@ const CardIcon = ({ src, height }) => {
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }
         onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        src={ isUnknow ? CatItemSvg : src }
+        src={ isUnknown ? CatItemSvg : src }
       />
     </div>
   );

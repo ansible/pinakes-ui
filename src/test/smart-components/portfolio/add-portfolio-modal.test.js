@@ -39,10 +39,10 @@ describe('<AddPortfolioModal />', () => {
         }]
       },
       portfolioReducer: {
-        portfolios: [{
+        portfolios: { data: [{
           id: '123',
           name: 'Portfolio'
-        }]
+        }]}
       }
     };
     mockStore = configureStore(middlewares);

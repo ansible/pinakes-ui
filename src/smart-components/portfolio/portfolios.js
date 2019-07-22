@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Route, Switch } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 
@@ -11,6 +12,7 @@ import RemovePortfolio from './remove-portfolio-modal';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
+import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
@@ -29,7 +31,7 @@ class Portfolios extends Component {
   };
 
   fetchData = () => {
-    this.props.fetchPortfolios();
+    this.props.fetchPortfolios(undefined, defaultSettings);
   };
 
   componentDidMount() {
@@ -44,12 +46,14 @@ class Portfolios extends Component {
       items: this.props.portfolios
       .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
       .map(item => <PortfolioCard key={ item.id } { ...item } />),
-      isLoading: this.props.isLoading && this.props.portfolios.length === 0
+      isLoading: this.props.isLoading
     };
     return (
       <Fragment>
         <ToolbarRenderer
           schema={ createPortfolioToolbarSchema({
+            meta: this.props.pagination || {},
+            fetchPortfolios: this.props.fetchPortfolios,
             filterProps: {
               searchValue: this.state.filterValue,
               onFilterChange: this.onFilterChange,
@@ -69,7 +73,8 @@ class Portfolios extends Component {
           />
         ) } />
       </Fragment>
-    );}
+    );
+  }
 
   render() {
     return (
@@ -82,27 +87,30 @@ class Portfolios extends Component {
 }
 
 const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValue }}) => ({
-  portfolios,
+  portfolios: portfolios.data,
+  pagination: portfolios.meta,
   isLoading,
   searchFilter: filterValue
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchPortfolios: apiProps => dispatch(fetchPortfolios(apiProps))
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchPortfolios
+}, dispatch);
 
 Portfolios.propTypes = {
-  filteredItems: propTypes.array,
-  portfolios: propTypes.array,
-  platforms: propTypes.array,
-  isLoading: propTypes.bool,
-  searchFilter: propTypes.string,
-  showModal: propTypes.func,
-  fetchPortfolios: propTypes.func.isRequired
+  filteredItems: PropTypes.array,
+  portfolios: PropTypes.array,
+  platforms: PropTypes.array,
+  isLoading: PropTypes.bool,
+  searchFilter: PropTypes.string,
+  showModal: PropTypes.func,
+  fetchPortfolios: PropTypes.func.isRequired,
+  pagination: PropTypes.object
 };
 
 Portfolios.defaultProps = {
-  portfolios: []
+  portfolios: [],
+  pagination: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Portfolios);
