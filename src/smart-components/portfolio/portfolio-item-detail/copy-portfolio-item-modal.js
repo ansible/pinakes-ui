@@ -109,7 +109,7 @@ CopyPortfolioItemModal.propTypes = {
 };
 
 const mapStateToProps = ({ portfolioReducer: { portfolios }}) => ({
-  portfolios
+  portfolios: portfolios.data
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

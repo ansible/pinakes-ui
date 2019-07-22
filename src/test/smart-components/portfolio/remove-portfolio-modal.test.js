@@ -32,10 +32,10 @@ describe('<RemovePortfolioModal />', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: [{
+        portfolios: { data: [{
           id: '123',
           name: 'Foo'
-        }]
+        }]}
       }
     };
     mockStore = configureStore(middlewares);
@@ -88,7 +88,7 @@ describe('<RemovePortfolioModal />', () => {
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }), expect.objectContaining({
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: []
+      payload: { data: []}
     }) ];
 
     wrapper.find('button').last().simulate('click');

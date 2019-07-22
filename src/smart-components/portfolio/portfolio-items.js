@@ -11,7 +11,7 @@ import OrderModal from '../common/order-modal';
 import PortfolioEmptyState from './portfolio-empty-state';
 import ContentGallery from '../content-gallery/content-gallery';
 
-const PortolioItems = ({
+const PortfolioItems = ({
   title,
   filteredItems,
   addProductsRoute,
@@ -25,7 +25,10 @@ const PortolioItems = ({
   copyInProgress,
   removeProducts,
   copyPortfolio,
-  portfolioRoute
+  portfolioRoute,
+  pagination,
+  fetchPortfolioItemsWithPortfolio,
+  portfolio: { id }
 }) => (
   <Fragment>
     <ToolbarRenderer schema={ createPortfolioToolbarSchema({
@@ -43,7 +46,10 @@ const PortolioItems = ({
       isLoading,
       copyInProgress,
       removeProducts: () => removeProducts(selectedItems),
-      itemsSelected: selectedItems.length > 0
+      itemsSelected: selectedItems.length > 0,
+      meta: pagination,
+      fetchPortfolioItemsWithPortfolio,
+      portfolioId: id
     }) } />
     <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
     <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
@@ -53,7 +59,7 @@ const PortolioItems = ({
   </Fragment>
 );
 
-PortolioItems.propTypes = {
+PortfolioItems.propTypes = {
   title: PropTypes.string.isRequired,
   filteredItems: PropTypes.shape({ items: PropTypes.arrayOf(PropTypes.node), isLoading: PropTypes.bool }),
   portfolioRoute: PropTypes.string.isRequired,
@@ -67,8 +73,14 @@ PortolioItems.propTypes = {
   isLoading: PropTypes.bool,
   copyInProgress: PropTypes.bool,
   removeProducts: PropTypes.func.isRequired,
-  copyPortfolio: PropTypes.func.isRequired
-
+  copyPortfolio: PropTypes.func.isRequired,
+  pagination: PropTypes.object.isRequired,
+  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
+  portfolio: PropTypes.shape({ id: PropTypes.string })
 };
 
-export default PortolioItems;
+PortfolioItems.defaultProps = {
+  portfolio: {}
+};
+
+export default PortfolioItems;

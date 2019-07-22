@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import debouncePromise from 'awesome-debounce-promise';
 
 import { Pagination } from '@redhat-cloud-services/frontend-components';
 
-import { getCurrentPage, getNewPage } from '../../../helpers/shared/pagination';
-import { fetchPlatformItems } from '../../../redux/actions/platform-actions';
+import { getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 
-const AddProductsPagination = ({ meta: { limit, count, offset }, platformId, fetchPlatformItems }) => {
+const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest }) => {
 
-  const handleOnPerPageSelect = limit => fetchPlatformItems(platformId, {
+  const handleOnPerPageSelect = limit => apiRequest(apiProps, {
     offset,
     limit
   });
@@ -22,7 +19,7 @@ const AddProductsPagination = ({ meta: { limit, count, offset }, platformId, fet
       limit
     };
 
-    const request = () => fetchPlatformItems(platformId, options);
+    const request = () => apiRequest(apiProps, options);
     if (debounce) {
       return debouncePromise(request, 250)();
     }
@@ -42,17 +39,17 @@ const AddProductsPagination = ({ meta: { limit, count, offset }, platformId, fet
   );
 };
 
-AddProductsPagination.propTypes = {
+AsyncPagination.propTypes = {
   meta: PropTypes.shape({
     count: PropTypes.number.isRequired,
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired
   }),
-  fetchPlatformItems: PropTypes.func.isRequired,
-  platformId: PropTypes.string.isRequired
+  apiRequest: PropTypes.func.isRequired,
+  apiProps: PropTypes.any
 };
 
-AddProductsPagination.defaultProps = {
+AsyncPagination.defaultProps = {
   meta: {
     count: 0,
     limit: 50,
@@ -60,9 +57,5 @@ AddProductsPagination.defaultProps = {
   }
 };
 
-const mapDistapchToProps = dispatch => bindActionCreators({
-  fetchPlatformItems
-}, dispatch);
-
-export default connect(() => ({}), mapDistapchToProps)(AddProductsPagination);
+export default AsyncPagination;
 

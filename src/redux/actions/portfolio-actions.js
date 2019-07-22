@@ -5,16 +5,18 @@ import { ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/fr
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 
-export const doFetchPortfolios = apiProps => ({
+export const doFetchPortfolios = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  payload: PortfolioHelper.listPortfolios(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.listPortfolios(...args)
 });
 
-export const fetchPortfolios = apiProps => (dispatch) => dispatch(doFetchPortfolios(apiProps));
+export const fetchPortfolios = (...args) => (dispatch) => {
+  return dispatch(doFetchPortfolios(...args));
+};
 
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  payload: PortfolioHelper.getPortfolioItems(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.getPortfolioItems(apiProps)
 });
 
 export const fetchPortfolioItem = (portfolioItemId) => ({
@@ -22,9 +24,9 @@ export const fetchPortfolioItem = (portfolioItemId) => ({
   payload: PortfolioHelper.getPortfolioItem(portfolioItemId)
 });
 
-export const fetchPortfolioItemsWithPortfolio = apiProps => ({
+export const fetchPortfolioItemsWithPortfolio = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
-  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(...args)
 });
 
 export const fetchSelectedPortfolio = id => ({
@@ -135,9 +137,9 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
   dispatch({
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
-  const { portfolioReducer: { selectedPortfolio: { id: portfolioId }}} = getState();
+  const { portfolioReducer: { portfolioItems: { meta }, selectedPortfolio: { id: portfolioId }}} = getState();
   return PortfolioHelper.removePortfolioItems(portfolioItems)
-  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)).then(() => data))
+  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId, meta)).then(() => data))
   .then(data => {
     return dispatch({
       type: ADD_NOTIFICATION,
