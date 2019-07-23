@@ -7,13 +7,12 @@ import { schemaParsers } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '../common/form-renderer';
 import { fetchServicePlans, sendSubmitOrder } from '../../redux/actions/order-actions';
-import { fetchProviderControlParameters } from '../../helpers/portfolio/portfolio-helper';
 
 /**
  * TO DO
  * We need some explicit way of telling what kind of schema is being received
  */
-const createFormSchema = (servicePlanSchema, providerControlParameters) => {
+const createFormSchema = (servicePlanSchema, providerControlParameters = { type: 'object', properties: {}}) => {
   const providerFields = schemaParsers.mozillaParser(providerControlParameters).schema.fields
   .map(({ name, ...rest }) => ({ name: `providerControlParameters.${name}`, ...rest }));
   let initialSchema = servicePlanSchema.schema;
@@ -29,8 +28,7 @@ const createFormSchema = (servicePlanSchema, providerControlParameters) => {
 
 class OrderServiceFormStepConfiguration extends React.Component {
   state = {
-    selectedPlanIdx: 0,
-    controlParametersLoaded: false
+    selectedPlanIdx: 0
   };
 
   optionRow = (plan, _option, selectedId, onChange) =>
@@ -46,7 +44,6 @@ class OrderServiceFormStepConfiguration extends React.Component {
   componentDidMount() {
     const { id } = this.props;
     this.props.fetchPlans(id);
-    fetchProviderControlParameters(id).then(providerControlParameters => this.setState({ providerControlParameters, controlParametersLoaded: true }));
   }
 
   handlePlanChange = (arg, event) =>  {
@@ -69,9 +66,8 @@ class OrderServiceFormStepConfiguration extends React.Component {
   };
 
   render() {
-    const { controlParametersLoaded, providerControlParameters } = this.state;
-    if (!this.props.isLoading && controlParametersLoaded) {
-      const formSchema = createFormSchema(this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema, providerControlParameters);
+    if (!this.props.isLoading && this.props.servicePlans.length > 0) {
+      const formSchema = createFormSchema(this.props.servicePlans[this.state.selectedPlanIdx].create_json_schema);
       return (
         <Stack gutter="md">
           <StackItem>
