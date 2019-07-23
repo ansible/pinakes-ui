@@ -123,6 +123,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
           ENABLE_OAUTH: 'true',
           MEMORY_LIMIT: '512Mi'
         },
+        provider_control_parameters: {},
         portfolio_item_id: '1' });
       return res.status(200);
     }));

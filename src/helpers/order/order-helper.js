@@ -23,7 +23,7 @@ export async function sendSubmitOrder({ service_parameters: { providerControlPar
     ...orderItem,
     ...parameters,
     service_parameters,
-    provider_control_parameters: providerControlParameters
+    provider_control_parameters: providerControlParameters || {}
   };
   await orderApi.addToOrder(order.id, orderItem);
   return orderApi.submitOrder(order.id);
