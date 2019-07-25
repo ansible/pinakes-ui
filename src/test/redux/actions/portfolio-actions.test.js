@@ -190,7 +190,7 @@ describe('Portfolio actions', () => {
       { type: UPDATE_TEMPORARY_PORTFOLIO, payload: { data: { foo: 'bar' }, id: '123' }},
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
-      expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'success' }) }),
+      expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'success' }) })
     ];
 
     return store.dispatch(updatePortfolio({ id: '123', data: { foo: 'bar' }}))
