@@ -10,7 +10,8 @@ import {
   UPDATE_PORTFOLIO,
   REMOVE_PORTFOLIO,
   REMOVE_PORTFOLIO_ITEMS,
-  RESTORE_PORTFOLIO_ITEMS
+  RESTORE_PORTFOLIO_ITEMS,
+  RESET_SELECTED_PORTFOLIO
 } from '../../../redux/action-types';
 import {
   fetchPortfolios,
@@ -309,5 +310,11 @@ describe('Portfolio actions', () => {
 
     return store.dispatch(undoRemoveProductsFromPortfolio(restoreData, '123'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  it('should call correct action creator for reset selected portfolio', () => {
+    const store = mockStore({});
+    store.dispatch({ type: RESET_SELECTED_PORTFOLIO });
+    expect(store.getActions()).toEqual([{ type: RESET_SELECTED_PORTFOLIO }]);
   });
 });

@@ -17,7 +17,8 @@ import {
   fetchPortfolios,
   fetchSelectedPortfolio,
   removeProductsFromPortfolio,
-  fetchPortfolioItemsWithPortfolio
+  fetchPortfolioItemsWithPortfolio,
+  resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
 
 const initialState = {
@@ -25,7 +26,7 @@ const initialState = {
   removeInProgress: false,
   filterValue: '',
   copyInProgress: false,
-  isFetching: false
+  isFetching: true
 };
 
 const porftolioUiReducer = (state, { type, payload }) => ({
@@ -53,6 +54,7 @@ const Portfolio = props => {
   useEffect(() => {
     fetchData(props.match.params.id);
     scrollToTop();;
+    return () => props.resetSelectedPortfolio();
   }, [ props.match.params.id ]);
 
   const copyPortfolio = () => {
@@ -146,7 +148,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchSelectedPortfolio,
   removeProductsFromPortfolio,
   fetchPortfolios,
-  copyPortfolio
+  copyPortfolio,
+  resetSelectedPortfolio
 }, dispatch);
 
 Portfolio.propTypes = {
@@ -164,7 +167,8 @@ Portfolio.propTypes = {
   removeProductsFromPortfolio: PropTypes.func.isRequired,
   copyPortfolio: PropTypes.func.isRequired,
   pagination: PropTypes.object,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  resetSelectedPortfolio: PropTypes.func.isRequired
 };
 
 Portfolio.defaultProps = {

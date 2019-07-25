@@ -192,3 +192,6 @@ export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => 
   .catch(err => dispatch({ type: 'COPY_PORTFOLIO_ITEM_REJECTED', payload: err }));
 };
 
+export const resetSelectedPortfolio = () => ({
+  type: ActionTypes.RESET_SELECTED_PORTFOLIO
+});
