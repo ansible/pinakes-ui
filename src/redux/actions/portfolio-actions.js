@@ -5,16 +5,18 @@ import { ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/fr
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 
-export const doFetchPortfolios = apiProps => ({
+export const doFetchPortfolios = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  payload: PortfolioHelper.listPortfolios(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.listPortfolios(...args)
 });
 
-export const fetchPortfolios = apiProps => (dispatch) => dispatch(doFetchPortfolios(apiProps));
+export const fetchPortfolios = (...args) => (dispatch) => {
+  return dispatch(doFetchPortfolios(...args));
+};
 
 export const fetchPortfolioItems = apiProps => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  payload: PortfolioHelper.getPortfolioItems(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.getPortfolioItems(apiProps)
 });
 
 export const fetchPortfolioItem = (portfolioItemId) => ({
@@ -22,9 +24,9 @@ export const fetchPortfolioItem = (portfolioItemId) => ({
   payload: PortfolioHelper.getPortfolioItem(portfolioItemId)
 });
 
-export const fetchPortfolioItemsWithPortfolio = apiProps => ({
+export const fetchPortfolioItemsWithPortfolio = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
-  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(apiProps).then(({ data }) => data)
+  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(...args)
 });
 
 export const fetchSelectedPortfolio = id => ({
@@ -116,6 +118,7 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => dis
   return PortfolioHelper.restorePortfolioItems(restoreData)
   .then(() => dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_FULFILLED` }))
   .then(() => dispatch({ type: CLEAR_NOTIFICATIONS }))
+  .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)))
   .then(() => dispatch({
     type: ADD_NOTIFICATION,
     payload: {
@@ -124,7 +127,6 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => dis
       title: 'Products have been restored'
     }
   }))
-  .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)))
   .catch(err => dispatch({
     type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_REJECTED`,
     payload: err
@@ -135,8 +137,10 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
   dispatch({
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
-  const { portfolioReducer: { selectedPortfolio: { id: portfolioId }}} = getState();
-  return PortfolioHelper.removePortfolioItems(portfolioItems).then(data => {
+  const { portfolioReducer: { portfolioItems: { meta }, selectedPortfolio: { id: portfolioId }}} = getState();
+  return PortfolioHelper.removePortfolioItems(portfolioItems)
+  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId, meta)).then(() => data))
+  .then(data => {
     return dispatch({
       type: ADD_NOTIFICATION,
       payload: {
@@ -163,3 +167,31 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
   .catch(err => dispatch({ type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_REJECTED`, payload: err }));
 };
 
+export const copyPortfolio = id => dispatch => {
+  dispatch({ type: 'COPY_PORTFOLIO_PENDING' });
+  return PortfolioHelper.copyPortfolio(id)
+  .then(portfolio => {
+    dispatch({ type: 'COPY_PORTFOLIO_FULFILLED' });
+    dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success', title: 'You have successfully copied a portfolio' }});
+    return portfolio;
+  })
+  .catch(err => dispatch({ type: 'COPY_PORTFOLIO_REJECTED', payload: err }));
+};
+
+export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => dispatch => {
+  return PortfolioHelper.copyPortfolioItem(portfolioItemId, copyObject)
+  .then(data => {
+    dispatch({ type: ADD_NOTIFICATION, payload: {
+      variant: 'success',
+      title: 'You have successfully copied a product',
+      description: `${data.display_name} has been copied into ${newPortfolio.name}`,
+      dismissable: true
+    }});
+    return data;
+  })
+  .catch(err => dispatch({ type: 'COPY_PORTFOLIO_ITEM_REJECTED', payload: err }));
+};
+
+export const resetSelectedPortfolio = () => ({
+  type: ActionTypes.RESET_SELECTED_PORTFOLIO
+});

@@ -6,9 +6,9 @@ import './portfolio-card.scss';
 
 const PortfolioCardHeader = ({ portfolioName, headerActions }) => (
   <Level>
-    <LevelItem>
+    <LevelItem className="portfolio-card-header-title">
       <TextContent>
-        <Text className="elipsis-text-overflow pf-u-mb-0" component={ TextVariants.h3 }>{ portfolioName }</Text>
+        <Text title={ portfolioName } className="elipsis-text-overflow pf-u-mb-0" component={ TextVariants.h3 }>{ portfolioName }</Text>
       </TextContent>
     </LevelItem>
     <LevelItem onClick={ event => event.preventDefault() }>

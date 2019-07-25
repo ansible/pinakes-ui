@@ -7,14 +7,16 @@ import {
   FILTER_PORTFOLIO_ITEMS,
   SELECT_PORTFOLIO_ITEM,
   UPDATE_PORTFOLIO,
-  SET_LOADING_STATE
+  SET_LOADING_STATE,
+  REMOVE_PORTFOLIO_ITEMS,
+  RESET_SELECTED_PORTFOLIO
 } from '../action-types';
 
 // Initial State
 export const portfoliosInitialState = {
-  portfolioItems: [],
+  portfolioItems: { data: [], meta: {}},
   portfolioItem: {},
-  portfolios: [],
+  portfolios: { data: [], meta: {}},
   portfolio: {},
   filterValue: '',
   isLoading: false
@@ -26,6 +28,7 @@ const setPortfolioItems = (state, { payload }) => ({ ...state, portfolioItems: p
 const setPortfolioItem = (state, { payload }) => ({ ...state, portfolioItem: payload, isLoading: false });
 const selectPortfolio = (state, { payload }) => ({ ...state, selectedPortfolio: payload, isLoading: false });
 const filterPortfolios = (state, { payload }) => ({ ...state, filterValue: payload });
+const resetSelectedPortfolio = state => ({ ...state, selectedPortfolio: undefined, portfolioItems: portfoliosInitialState.portfolioItems });
 
 export default {
   [`${FETCH_PORTFOLIOS}_PENDING`]: setLoadingState,
@@ -40,6 +43,9 @@ export default {
   [`${FETCH_PORTFOLIO}_FULFILLED`]: selectPortfolio,
   [FILTER_PORTFOLIO_ITEMS]: filterPortfolios,
   [`${SELECT_PORTFOLIO_ITEM}_FULFILLED`]: setPortfolioItem,
+  [SELECT_PORTFOLIO_ITEM]: setPortfolioItem,
   [`${UPDATE_PORTFOLIO}_FULFILLED`]: selectPortfolio,
-  [SET_LOADING_STATE]: setLoadingState
+  [SET_LOADING_STATE]: setLoadingState,
+  [`${REMOVE_PORTFOLIO_ITEMS}_PENDING`]: setLoadingState,
+  [RESET_SELECTED_PORTFOLIO]: resetSelectedPortfolio
 };

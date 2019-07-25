@@ -1,47 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownPosition, KebabToggle, DropdownItem } from '@patternfly/react-core';
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
+import AsyncPagination from '../../smart-components/common/async-pagination';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
  */
-const PortfolioActionsToolbar = ({ setKebabOpen, isKebabOpen, removePortfolioRoute }) => (
-  <Dropdown
-    onSelect={ () => setKebabOpen(false) }
-    position={ DropdownPosition.right }
-    toggle={ <KebabToggle onToggle={ setKebabOpen }/> }
-    isOpen={ isKebabOpen }
-    isPlain
-    dropdownItems={ [
-      <DropdownItem aria-label="Remove Portfolio" key="delete-portfolio">
-        <Link to={ removePortfolioRoute } role="link" className="pf-c-dropdown__menu-item destructive-color">
+const PortfolioActionsToolbar = ({ removePortfolioRoute, copyInProgress, copyPortfolio }) => {
+  const [ isOpen, setOpen ] =  useState(false);
+  return (
+    <Dropdown
+      onSelect={ () => setOpen(false) }
+      position={ DropdownPosition.right }
+      toggle={ <KebabToggle onToggle={ setOpen } isDisabled={ copyInProgress }/> }
+      isOpen={ isOpen }
+      isPlain
+      dropdownItems={ [
+        <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
+        Copy
+        </DropdownItem>,
+        <DropdownItem aria-label="Remove Portfolio" key="delete-portfolio">
+          <Link to={ removePortfolioRoute } role="link" className="pf-c-dropdown__menu-item destructive-color">
           Delete
-        </Link>
-      </DropdownItem>
-    ] }
-  />
-);
+          </Link>
+        </DropdownItem>
+      ] }
+    />
+  );};
 
 PortfolioActionsToolbar.propTypes = {
-  setKebabOpen: PropTypes.func.isRequired,
-  isKebabOpen: PropTypes.bool,
-  removePortfolioRoute: PropTypes.string.isRequired
+  removePortfolioRoute: PropTypes.string.isRequired,
+  copyPortfolio: PropTypes.func.isRequired,
+  copyInProgress: PropTypes.bool
+};
+
+const PortfolioItemsActionsDropdown = ({ removeProducts, isDisabled, itemsSelected }) => {
+  const [ isOpen, setOpen ] =  useState(false);
+
+  return (
+    <Dropdown
+      onSelect={ () => setOpen(false) }
+      position={ DropdownPosition.right }
+      toggle={ <KebabToggle id="remove-products-dropdown-toggle" onToggle={ open => setOpen(open) } isDisabled={ isDisabled }/> }
+      isOpen={ isOpen }
+      isPlain
+      dropdownItems={ [
+        <DropdownItem
+          id="remove-products"
+          isDisabled={ !itemsSelected }
+          onClick={ removeProducts }
+          aria-label="Remove products from portfolio"
+          key="remove-products"
+        >
+          <span style={ { cursor: 'pointer' } } className={ `pf-c-dropdown__menu-item ${!itemsSelected ? 'disabled-color' : 'destructive-color'}` }>
+            Remove products
+          </span>
+        </DropdownItem>
+      ] }
+    />
+  );
+};
+
+PortfolioItemsActionsDropdown.propTypes = {
+  removeProducts: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool,
+  itemsSelected: PropTypes.bool
 };
 
 const createPortfolioToolbarSchema = ({
   title,
   addProductsRoute,
+  copyPortfolio,
   sharePortfolioRoute,
   editPortfolioRoute,
   removePortfolioRoute,
-  removeProductsRoute,
-  isKebabOpen,
-  setKebabOpen,
+  copyInProgress,
   isLoading,
+  removeProducts,
+  itemsSelected,
+  meta,
+  fetchPortfolioItemsWithPortfolio,
+  portfolioId,
   filterProps: {
     searchValue,
     onFilterChange,
@@ -64,57 +107,67 @@ const createPortfolioToolbarSchema = ({
             to: sharePortfolioRoute,
             variant: 'secondary',
             title: 'Share',
+            isDisabled: copyInProgress,
             key: 'portfolio-share-button'
           }),
           createLinkButton({
             to: editPortfolioRoute,
             variant: 'link',
+            isDisabled: copyInProgress,
             title: 'Edit',
             key: 'portfolio-edit-button'
           }), {
             component: PortfolioActionsToolbar,
             removePortfolioRoute,
-            isKebabOpen,
-            setKebabOpen,
+            copyPortfolio,
+            copyInProgress,
             key: 'portfolio-actions-dropdown'
           }]
       }]
     }, {
-      component: toolbarComponentTypes.TOOLBAR,
-      key: 'portfolio-items-actions',
-      fields: [
-        createSingleItemGroup({
-          groupName: 'filter-portfolio-items',
-          component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
-          key: 'portfolio-items-filter',
-          searchValue,
-          onFilterChange,
-          placeholder
+      component: toolbarComponentTypes.LEVEL,
+      key: 'porftolio-items-actions',
+      fields: [{
+        component: toolbarComponentTypes.TOOLBAR,
+        key: 'portfolio-items-actions',
+        fields: [
+          createSingleItemGroup({
+            groupName: 'filter-portfolio-items',
+            component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
+            key: 'portfolio-items-filter',
+            searchValue,
+            onFilterChange,
+            placeholder
 
-        }),
-        createSingleItemGroup({
-          groupName: 'add-portfolio-items',
-          key: 'portfolio-items-add-group',
-          ...createLinkButton({
-            to: addProductsRoute,
-            isDisabled: isLoading,
-            variant: 'primary',
-            title: 'Add products',
-            key: 'add-products-button'
-          })
-        }),
-        createSingleItemGroup({
-          groupName: 'remove-portfolio-items',
-          key: 'portfolio-items-add-group',
-          ...createLinkButton({
-            to: removeProductsRoute,
-            isDisabled: isLoading,
-            variant: 'link',
-            className: 'destructive-color',
-            title: 'Remove products',
-            key: 'remove-products-button'
-          })
-        }) ]
+          }),
+          createSingleItemGroup({
+            groupName: 'add-portfolio-items',
+            key: 'portfolio-items-add-group',
+            ...createLinkButton({
+              to: addProductsRoute,
+              isDisabled: isLoading || copyInProgress,
+              variant: 'primary',
+              title: 'Add products',
+              key: 'add-products-button'
+            })
+          }), {
+            component: PortfolioItemsActionsDropdown,
+            isDisabled: copyInProgress,
+            key: 'remove-products-actions-dropdown',
+            removeProducts,
+            itemsSelected
+          }]
+      }, {
+        component: toolbarComponentTypes.LEVEL_ITEM,
+        key: 'pagination-item',
+        fields: [{
+          component: AsyncPagination,
+          key: 'porftolio-items-pagination',
+          meta,
+          apiRequest: fetchPortfolioItemsWithPortfolio,
+          apiProps: portfolioId
+        }]
+      }]
     }]
   }]
 });

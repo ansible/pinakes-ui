@@ -5,8 +5,8 @@ const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
 
-export function listPortfolios() {
-  return portfolioApi.listPortfolios();
+export function listPortfolios(_apiProps, { limit, offset, filter, ...options } = {}) {
+  return portfolioApi.listPortfolios(limit, offset, filter, options);
 }
 
 export function getPortfolioItems() {
@@ -25,8 +25,8 @@ export function getPortfolio(portfolioId) {
   return portfolioApi.showPortfolio(portfolioId);
 }
 
-export function getPortfolioItemsWithPortfolio(portfolioId) {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items`);
+export function getPortfolioItemsWithPortfolio(portfolioId, { limit, offset } = {}) {
+  return portfolioApi.fetchPortfolioItemsWithPortfolio(portfolioId, limit, offset);
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
@@ -103,3 +103,7 @@ export function fetchPortfolioByName(name = '') {
 export const restorePortfolioItems = restoreData =>
   Promise.all(restoreData.map(({ portfolioItemId, restoreKey }) =>
     portfolioItemApi.portfolioItemsPortfolioItemIdUndeletePost(portfolioItemId, { restore_key: restoreKey })));
+
+export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portfolioId);
+
+export const copyPortfolioItem = (portfolioItemId, copyObject = {}) => portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
