@@ -47,12 +47,16 @@
     }
   }
 }
+.disabled-color {
+  color: #d2d2d2;
+}
 
 .destructive-color {
   &:not(:disabled) {
     color: #FF0000 !important;
   }
 }
+
 
 .card-image {
   height: 40px;
@@ -186,6 +190,24 @@
     border-color: #ededed;
     border-top-color: var(--pf-c-button--disabled--BackgroundColor);
   }
+}
+
+.portfolio-item-progress {
+  position: relative;
+  height: 330px;
+  .content-gallery-card {
+    position: absolute;
+    width: 100%;
+    &.progress-overlay {
+      background-color: rgba(210, 210, 210, .5);
+      z-index: 1;
+      cursor: progress;
+    }
+  }
+}
+
+.disabled-link {
+  pointer-events: none
 }
 
 //pf-4 fixes

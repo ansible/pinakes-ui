@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter, Redirect, Route } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
@@ -10,6 +10,7 @@ import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
 import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
+import CopyPortfolioItemModal from './copy-portfolio-item-modal';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
@@ -21,7 +22,6 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
   history: { push },
-  location: { pathname },
   source,
   product,
   portfolio,
@@ -47,13 +47,9 @@ const PortfolioItemDetail = ({
     setWorkflow(product.workflow_ref);
   }, [ isLoading ]);
 
-  const handleUpdate = () => {
-    updatePortfolioItem({ ...product, workflow_ref: workflow }).then(updatedItem => selectPortfolioItem(updatedItem.json())).then(() => push(url));
-  };
-
-  if (pathname.match(/\/product\/[0-9]+\/edit/)) {
-    return <Redirect to={ url } />;
-  }
+  const handleUpdate = () => updatePortfolioItem({ ...product, workflow_ref: workflow })
+  .then(updatedItem => selectPortfolioItem(updatedItem))
+  .then(() => push(url));
 
   if (isLoading) {
     return (
@@ -68,6 +64,12 @@ const PortfolioItemDetail = ({
   return (
     <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
       <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ product }/> }/>
+      <Route
+        path={ `${url}/copy` }
+        render={ props => (
+          <CopyPortfolioItemModal { ...props }  portfolioItemId={ product.id } portfolioId={ portfolio.id } closeUrl={ url }/>
+        ) }
+      />
       <PortfolioItemDetailToolbar
         url={ url }
         isOpen={ isOpen }
@@ -98,9 +100,6 @@ PortfolioItemDetail.propTypes = {
   portfolio: PropTypes.shape({
     id: PropTypes.string.isRequired
   }),
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired,
   product: PropTypes.shape({
     id: PropTypes.string
   }).isRequired,

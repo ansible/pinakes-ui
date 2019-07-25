@@ -53,5 +53,156 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
       </Link>
     </div>
   </LevelItem>
+  <LevelItem
+    style={
+      Object {
+        "marginLeft": 16,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "marginLeft": 16,
+        }
+      }
+    >
+      <Dropdown
+        className=""
+        direction="down"
+        dropdownItems={
+          Array [
+            <Item
+              aria-label="Edit Portfolio"
+              className=""
+              component="a"
+              href="#"
+              isDisabled={false}
+              isHovered={false}
+            >
+              <Link
+                className="pf-c-dropdown__menu-item"
+                role="link"
+                to="foo/baz"
+              >
+                Edit
+              </Link>
+            </Item>,
+            <Item
+              aria-label="Copy Portfolio"
+              className=""
+              component="a"
+              href="#"
+              isDisabled={false}
+              isHovered={false}
+            >
+              <Link
+                className="pf-c-dropdown__menu-item"
+                role="link"
+              >
+                Copy
+              </Link>
+            </Item>,
+          ]
+        }
+        isOpen={false}
+        isPlain={true}
+        onSelect={[Function]}
+        onToggle={[MockFunction]}
+        position="right"
+        toggle={
+          <Kebab
+            aria-label="Actions"
+            className=""
+            id=""
+            isActive={false}
+            isDisabled={false}
+            isFocused={false}
+            isHovered={false}
+            isOpen={false}
+            isPlain={false}
+            onToggle={[MockFunction]}
+            parentRef={null}
+          />
+        }
+      >
+        <div
+          className="pf-c-dropdown"
+          onToggle={[MockFunction]}
+        >
+          <Kebab
+            aria-label="Actions"
+            ariaHasPopup={true}
+            className=""
+            id="pf-toggle-id-0"
+            isActive={false}
+            isDisabled={false}
+            isFocused={false}
+            isHovered={false}
+            isOpen={false}
+            isPlain={true}
+            key=".0"
+            onEnter={[Function]}
+            onToggle={[MockFunction]}
+            parentRef={null}
+          >
+            <Toggle
+              aria-label="Actions"
+              ariaHasPopup={true}
+              className=""
+              id="pf-toggle-id-0"
+              isActive={false}
+              isDisabled={false}
+              isFocused={false}
+              isHovered={false}
+              isOpen={false}
+              isPlain={true}
+              onEnter={[Function]}
+              onToggle={[MockFunction]}
+              parentRef={null}
+            >
+              <button
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-label="Actions"
+                className="pf-c-dropdown__toggle pf-m-plain"
+                disabled={false}
+                id="pf-toggle-id-0"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                type="button"
+              >
+                <EllipsisVIcon
+                  color="currentColor"
+                  size="sm"
+                  title={null}
+                >
+                  <svg
+                    aria-hidden={true}
+                    aria-labelledby={null}
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style={
+                      Object {
+                        "verticalAlign": "-0.125em",
+                      }
+                    }
+                    viewBox="0 0 192 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </EllipsisVIcon>
+              </button>
+            </Toggle>
+          </Kebab>
+        </div>
+      </Dropdown>
+    </div>
+  </LevelItem>
 </DetailToolbarActions>
 `;

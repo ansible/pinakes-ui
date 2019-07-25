@@ -10,7 +10,8 @@ import {
   UPDATE_PORTFOLIO,
   REMOVE_PORTFOLIO,
   REMOVE_PORTFOLIO_ITEMS,
-  RESTORE_PORTFOLIO_ITEMS
+  RESTORE_PORTFOLIO_ITEMS,
+  RESET_SELECTED_PORTFOLIO
 } from '../../../redux/action-types';
 import {
   fetchPortfolios,
@@ -46,7 +47,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: [ expectedPortfolio ]
+      payload: { data: [ expectedPortfolio ]}
     }];
     apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
       body: { data: [ expectedPortfolio ]}
@@ -98,7 +99,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
-      payload: expect.any(Array)
+      payload: { data: [ 'foo' ]}
     }];
 
     return store.dispatch(fetchPortfolioItems(123))
@@ -116,7 +117,7 @@ describe('Portfolio actions', () => {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-      payload: expect.any(Array)
+      payload: { data: [ 'foo' ]}
     }];
 
     return store.dispatch(fetchPortfolioItemsWithPortfolio(123))
@@ -234,9 +235,14 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action success', () => {
-    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
+    }, {
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+    }, {
+      type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+      payload: []
     },
     expect.objectContaining({ type: ADD_NOTIFICATION }), {
       type: `${REMOVE_PORTFOLIO_ITEMS}_FULFILLED`
@@ -245,13 +251,14 @@ describe('Portfolio actions', () => {
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/1', mockOnce({ body: { restore_key: 'restore-1' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/2', mockOnce({ body: { restore_key: 'restore-2' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/3', mockOnce({ body: { restore_key: 'restore-3' }}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: []}));
 
     return store.dispatch(removeProductsFromPortfolio([ '1', '2', '3' ], 'Foo portfolio'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   it('should create correct actions after remove portfolio items action fals', () => {
-    const store = mockStore({ portfolioReducer: { selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     },
@@ -275,13 +282,12 @@ describe('Portfolio actions', () => {
     }, {
       type: `${RESTORE_PORTFOLIO_ITEMS}_FULFILLED`
     },
-    expect.objectContaining({ type: CLEAR_NOTIFICATIONS }),
-    expect.objectContaining({ type: ADD_NOTIFICATION }), {
+    expect.objectContaining({ type: CLEAR_NOTIFICATIONS }), {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-      payload: []
-    }];
+      payload: { data: []}
+    }, expect.objectContaining({ type: ADD_NOTIFICATION }) ];
 
     apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/1/undelete', mockOnce({ body: { id: '1' }}));
     apiClientMock.post(CATALOG_API_BASE + '/portfolio_items/2/undelete', mockOnce({ body: { id: '2' }}));
@@ -304,5 +310,11 @@ describe('Portfolio actions', () => {
 
     return store.dispatch(undoRemoveProductsFromPortfolio(restoreData, '123'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  it('should call correct action creator for reset selected portfolio', () => {
+    const store = mockStore({});
+    store.dispatch({ type: RESET_SELECTED_PORTFOLIO });
+    expect(store.getActions()).toEqual([{ type: RESET_SELECTED_PORTFOLIO }]);
   });
 });

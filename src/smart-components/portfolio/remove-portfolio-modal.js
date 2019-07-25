@@ -67,7 +67,7 @@ RemovePortfolioModal.propTypes = {
 };
 
 const portfolioDetailsFromState = (state, id) =>
-  state.portfolioReducer.portfolios.find(portfolio => portfolio.id  === id);
+  state.portfolioReducer.portfolios.data.find(portfolio => portfolio.id  === id);
 
 const mapStateToProps = (state, { match: { params: { id }}}) => ({ portfolio: portfolioDetailsFromState(state, id) });
 
