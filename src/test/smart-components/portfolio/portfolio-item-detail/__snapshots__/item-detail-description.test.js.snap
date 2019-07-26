@@ -34,32 +34,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
     >
       <Text
         className=""
-        component="p"
-      >
-        <p
-          className=""
-          data-pf-content={true}
-        >
-          Product description
-        </p>
-      </Text>
-      <Text
-        className=""
-        component="p"
-      >
-        <p
-          className=""
-          data-pf-content={true}
-        >
-          <a
-            href="javascript:void(0)"
-          >
-            Sample repository
-          </a>
-        </p>
-      </Text>
-      <Text
-        className=""
         component="h6"
       >
         <h6
@@ -206,32 +180,6 @@ exports[`<ItemDetailDescription /> should render correctly in edit variant 1`] =
     <div
       className="pf-c-content"
     >
-      <Text
-        className=""
-        component="p"
-      >
-        <p
-          className=""
-          data-pf-content={true}
-        >
-          Product description
-        </p>
-      </Text>
-      <Text
-        className=""
-        component="p"
-      >
-        <p
-          className=""
-          data-pf-content={true}
-        >
-          <a
-            href="javascript:void(0)"
-          >
-            Sample repository
-          </a>
-        </p>
-      </Text>
       <Text
         className=""
         component="h6"
