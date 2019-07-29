@@ -9,7 +9,11 @@ import {
   UPDATE_PORTFOLIO,
   SET_LOADING_STATE,
   REMOVE_PORTFOLIO_ITEMS,
-  RESET_SELECTED_PORTFOLIO
+  RESET_SELECTED_PORTFOLIO,
+  ADD_TEMPORARY_PORTFOLIO,
+  UPDATE_TEMPORARY_PORTFOLIO,
+  DELETE_TEMPORARY_PORTFOLIO,
+  RESTORE_PORTFOLIO_PREV_STATE
 } from '../action-types';
 
 // Initial State
@@ -30,6 +34,40 @@ const selectPortfolio = (state, { payload }) => ({ ...state, selectedPortfolio: 
 const filterPortfolios = (state, { payload }) => ({ ...state, filterValue: payload });
 const resetSelectedPortfolio = state => ({ ...state, selectedPortfolio: undefined, portfolioItems: portfoliosInitialState.portfolioItems });
 
+// these are optimistic UI updates that mutate the portfolio state immediately after user action.
+// State is synchronized with API after actions are sucesfull
+const addTemporaryPortfolio = (state, { payload }) => ({
+  prevState: { ...state },
+  ...state, portfolios: {
+    ...state.portfolios,
+    data: [ ...state.portfolios.data, payload ]
+  }
+});
+const updateTemporaryPortfolio = (state, { payload }) => ({
+  prevState: { ...state },
+  ...state,
+  selectedPortfolio: payload,
+  portfolios: {
+    ...state.portfolios,
+    data: state.portfolios.data.map(item => item.id === payload.id ? ({
+      ...item,
+      ...payload
+    }) : item)
+  }
+});
+
+const deleteTemporaryPortfolio = (state, { payload }) => ({
+  prevState: { ...state },
+  ...state,
+  selectedPortfolio: undefined,
+  portfolios: {
+    ...state.portfolios,
+    data: state.portfolios.data.filter(({ id }) => id !== payload)
+  }
+});
+
+const restorePrevState = state => state.prevState ? ({ ...state.prevState }) : ({ ...state });
+
 export default {
   [`${FETCH_PORTFOLIOS}_PENDING`]: setLoadingState,
   [`${FETCH_PORTFOLIOS}_FULFILLED`]: setPortfolios,
@@ -47,5 +85,9 @@ export default {
   [`${UPDATE_PORTFOLIO}_FULFILLED`]: selectPortfolio,
   [SET_LOADING_STATE]: setLoadingState,
   [`${REMOVE_PORTFOLIO_ITEMS}_PENDING`]: setLoadingState,
-  [RESET_SELECTED_PORTFOLIO]: resetSelectedPortfolio
+  [RESET_SELECTED_PORTFOLIO]: resetSelectedPortfolio,
+  [ADD_TEMPORARY_PORTFOLIO]: addTemporaryPortfolio,
+  [UPDATE_TEMPORARY_PORTFOLIO]: updateTemporaryPortfolio,
+  [DELETE_TEMPORARY_PORTFOLIO]: deleteTemporaryPortfolio,
+  [RESTORE_PORTFOLIO_PREV_STATE]: restorePrevState
 };
