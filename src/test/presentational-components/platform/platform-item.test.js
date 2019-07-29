@@ -1,11 +1,13 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
+import { mount } from 'enzyme';
+import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store' ;
-import { Provider, thunk } from 'react-redux';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/index';
 import promiseMiddleware from 'redux-promise-middleware';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import { platformInitialState } from '../../../redux/reducers/platform-reducer';
+import PlatformItem from '../../../presentational-components/platform/platform-item';
 
 describe('<PlatformItem />', () => {
   let initialProps;
@@ -13,7 +15,7 @@ describe('<PlatformItem />', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
 
-  const PlatformItemWrapper = ({ store, children }) => (
+  const ComponentWrapper = ({ store, children }) => (
     <Provider store={ store }>
       <MemoryRouter>
         { children }
@@ -26,20 +28,16 @@ describe('<PlatformItem />', () => {
       id: 'Foo'
     };
     mockStore = configureStore(middlewares);
+    initialState = { platformReducer: { ...platformInitialState, isLoading: false }};
   });
 
   it('should render correctly', () => {
     const store = mockStore(initialState);
-    const wrapper = mount(<PlatformItemWrapper  store={ store } { ...initialProps } />);
-    expect(shallowToJson(shallow(wrapper))).toMatchSnapshot();
-  });
-
-  it('should call handle check callback', () => {
-    const store = mockStore(initialState);
-    const onToggleItemSelect = jest.fn();
-    const wrapper = mount(<PlatformItemWrapper  store={ store } { ...initialProps }
-      editMode onToggleItemSelect={ onToggleItemSelect } description="Foo" id="foo" />);
-    wrapper.find('input').simulate('change');
-    expect(onToggleItemSelect).toHaveBeenCalled();
+    const wrapper = mount(
+      <ComponentWrapper store={ store }>
+        <PlatformItem { ...initialProps } />
+      </ComponentWrapper>
+    );
+    expect(wrapper).toMatchSnapshot();
   });
 });

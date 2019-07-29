@@ -1,12 +1,28 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
+import { mount } from 'enzyme';
+import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store' ;
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import promiseMiddleware from 'redux-promise-middleware';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
 
 import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 
 describe('<PortfolioItem />', () => {
   let initialProps;
+  let initialState;
+  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  let mockStore;
+
+  const ComponentWrapper = ({ store, children }) => (
+    <Provider store={ store }>
+      <MemoryRouter>
+        { children }
+      </MemoryRouter>
+    </Provider>
+  );
 
   beforeEach(() => {
     initialProps = {
@@ -16,21 +32,35 @@ describe('<PortfolioItem />', () => {
       description: 'Bar',
       display_name: 'quux'
     };
+    mockStore = configureStore(middlewares);
+    initialState = { portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
   });
 
-  it('should render correctly', () => {
-    const wrapper = shallow(<PortfolioItem { ...initialProps } />);
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-  });
-
-  it('should check the item corecttly', () => {
-    const onSelect = jest.fn();
+  it('should render correctly', (done) => {
+    const store = mockStore(initialState);
     const wrapper = mount(
-      <MemoryRouter>
-        <PortfolioItem { ...initialProps } onSelect={ onSelect } isSelectable />
-      </MemoryRouter>
+      <ComponentWrapper store={ store }>
+        <PortfolioItem { ...initialProps } />
+      </ComponentWrapper>
     );
-    wrapper.find('input').simulate('change');
-    expect(onSelect).toHaveBeenCalledWith('1');
+    setImmediate(() => {
+      expect(wrapper.find(PortfolioItem)).toMatchSnapshot();
+      done();
+    });
+  });
+
+  it('should check the item correctly', (done) => {
+    const onSelect = jest.fn();
+    const store = mockStore(initialState);
+    const wrapper = mount(
+      <ComponentWrapper store={ store }>
+        <PortfolioItem { ...initialProps } onSelect={ onSelect } isSelectable />
+      </ComponentWrapper>
+    );
+    setImmediate(() => {
+      wrapper.find(PortfolioItem).find('input').simulate('change');
+      expect(onSelect).toHaveBeenCalledWith('1');
+      done();
+    });
   });
 });
