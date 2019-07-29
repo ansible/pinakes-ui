@@ -16,15 +16,17 @@ const platformTypeIcon = {
 };
 
 const defaultPlatformIcon = (platformId, platformList) => {
+  console.log('DEBUG - platformId: ', platformId);
   if (!platformId) {
     return CardIconDefault;
   }
-
+  console.log('DEBUG - platformList: ', platformList);
   if (!platformList || platformList.empty || !platformId) {
     return CardIconDefault;
   }
 
   const source = platformList.find(item => item.id === platformId);
+  console.log('DEBUG - source: ', source);
   if (source) {
     return platformTypeIcon[source.source_type_id];
   }

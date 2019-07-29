@@ -12,13 +12,15 @@ const platformTypeIcon = {
 };
 
 export const defaultPlatformIcon = (platformId) => {
+  console.log('DEBUG - getting the default platform icon for platformID: ', platformId);
   const platformList = useSelector(state => state.platformReducer.platforms);
-
+  console.log('DEBUG - platformList: ', platformList);
   if (!platformList || platformList.empty || !platformId) {
     return CardIconDefault;
   }
 
   const source = platformList.find(item => item.id === platformId);
+  console.log('DEBUG - source: ', source);
   if (source) {
     return platformTypeIcon[source.source_type_id];
   }
