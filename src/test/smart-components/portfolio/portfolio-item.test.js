@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store' ;
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
-import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
 
 import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 
@@ -32,8 +32,18 @@ describe('<PortfolioItem />', () => {
       description: 'Bar',
       display_name: 'quux'
     };
+    initialState = {
+      portfolioReducer: {
+        portfolioItems: { data: [{
+          orderUrl: '/order',
+          id: '1',
+          name: 'Foo',
+          description: 'Bar',
+          display_name: 'quux'
+        }]}
+      }
+    };
     mockStore = configureStore(middlewares);
-    initialState = { portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
   });
 
   it('should render correctly', (done) => {
@@ -44,7 +54,7 @@ describe('<PortfolioItem />', () => {
       </ComponentWrapper>
     );
     setImmediate(() => {
-      expect(wrapper.find(PortfolioItem)).toMatchSnapshot();
+      expect(shallowToJson(wrapper.find(PortfolioItem))).toMatchSnapshot();
       done();
     });
   });

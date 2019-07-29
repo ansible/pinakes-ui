@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store' ;
 import { Provider } from 'react-redux';
@@ -31,13 +32,29 @@ describe('<PlatformItem />', () => {
     initialState = { platformReducer: { ...platformInitialState, isLoading: false }};
   });
 
-  it('should render correctly', () => {
+  it('should render correctly', (done) => {
     const store = mockStore(initialState);
     const wrapper = mount(
       <ComponentWrapper store={ store }>
         <PlatformItem { ...initialProps } />
       </ComponentWrapper>
     );
-    expect(wrapper).toMatchSnapshot();
+    setImmediate(() => {
+      expect(shallowToJson(wrapper.find(PlatformItem))).toMatchSnapshot();
+      done();
+    });
+  });
+
+  it('should call handle check callback', (done) => {
+    const onToggleItemSelect = jest.fn();
+    const store = mockStore(initialState);
+    const wrapper = mount(<ComponentWrapper store={ store }>
+      <PlatformItem { ...initialProps } editMode onToggleItemSelect={ onToggleItemSelect } description="Foo" id="foo" />);
+    </ComponentWrapper>);
+    setImmediate(() => {
+      wrapper.find(PlatformItem).find('input').simulate('change');
+      expect(onToggleItemSelect).toHaveBeenCalled();
+      done();
+    });
   });
 });
