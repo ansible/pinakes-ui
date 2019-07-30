@@ -12,7 +12,7 @@ import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 
 const SharePortfolioModal = ({
-  history: { goBack },
+  history: { push },
   isLoading,
   fetchPortfolios,
   initialValues,
@@ -21,7 +21,8 @@ const SharePortfolioModal = ({
   fetchRbacGroups,
   shareInfo,
   portfolioId,
-  rbacGroups
+  rbacGroups,
+  closeUrl
 }) => {
   useEffect(() => {
     fetchShareInfo(portfolioId);
@@ -71,11 +72,12 @@ const SharePortfolioModal = ({
         }
       }
     });
+    push(closeUrl);
 
-    Promise.all(sharePromises).then(goBack).then(() => fetchPortfolios());
+    return Promise.all(sharePromises).then(() => fetchPortfolios());
   };
 
-  const onCancel = () => goBack();
+  const onCancel = () => push(closeUrl);
 
   const permissionOptions = [{
     value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
