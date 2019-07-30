@@ -17,8 +17,8 @@ const PortfolioItem = props => {
           isChecked={ props.isSelected }
           id={ props.id } />
         }
-
-        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon` }/>
+        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon` }
+          platformId={ props.service_offering_source_ref }/>
       </CardHeader>
       <ServiceOfferingCardBody { ...props }/>
       <CardFooter>
@@ -48,6 +48,8 @@ PortfolioItem.propTypes = {
   imageUrl: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
+  platformId: PropTypes.string,
+  service_offering_source_ref: PropTypes.string,
   isSelectable: PropTypes.bool,
   isSelected: PropTypes.bool,
   onSelect: PropTypes.func,

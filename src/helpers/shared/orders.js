@@ -6,3 +6,9 @@ export const getOrderPortfolioName = ({ orderItems, id }, portfolioItems) => {
   const portfolioItem = orderItems[0] && portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
   return portfolioItem ? portfolioItem.display_name || portfolioItem.name : `Order ${id}`;
 };
+
+export const getOrderPlatformId = ({ orderItems }, portfolioItems) => {
+  const portfolioItem = orderItems[0] && portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
+  return (portfolioItem && portfolioItem.service_offering_source_ref);
+};
+
