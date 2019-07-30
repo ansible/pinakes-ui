@@ -63,7 +63,7 @@ class Portfolios extends Component {
         <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
-        <Route exact path="/portfolios/share/:id" component={ SharePortfolio } />
+        <Route exact path="/portfolios/share/:id" render={ (...args) => <SharePortfolio closeUrl={ this.props.match.url } { ...args } /> } />
         <ContentGallery { ...filteredItems } renderEmptyState={ () => (
           <ContentGalleryEmptyState
             title="No portfolios"
@@ -105,7 +105,8 @@ Portfolios.propTypes = {
   searchFilter: PropTypes.string,
   showModal: PropTypes.func,
   fetchPortfolios: PropTypes.func.isRequired,
-  pagination: PropTypes.object
+  pagination: PropTypes.object,
+  match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired
 };
 
 Portfolios.defaultProps = {
