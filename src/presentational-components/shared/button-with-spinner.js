@@ -5,7 +5,7 @@ import { Spinner } from '@redhat-cloud-services/frontend-components';
 
 const ButtonWithSpinner = ({ children, showSpinner, isDisabled, ...props }) => (
   <Button className={ isDisabled && showSpinner ? 'button-with-spinner' : '' } { ...props } isDisabled={ isDisabled }>
-    { children }
+    <span>{ children }</span>
     { showSpinner && <Spinner /> }
   </Button>
 );

@@ -104,7 +104,7 @@ const Portfolio = props => {
         removeInProgress={ removeInProgress }
       />
     )),
-    isLoading: isFetching || props.isLoading
+    isLoading: isFetching
   };
   return (
     <Switch>
