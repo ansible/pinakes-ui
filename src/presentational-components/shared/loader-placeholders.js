@@ -14,7 +14,10 @@ import {
   Grid,
   GridItem,
   Gallery,
-  GalleryItem
+  GalleryItem,
+  Form,
+  FormGroup,
+  Title
 } from '@patternfly/react-core';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
@@ -144,20 +147,35 @@ export const IconPlaceholder = props => (
   </div>
 );
 
-export const ShareLoader = () => (
+const FormItemLoader = () => (
   <ContentLoader
-    height={ 800 }
-    width={ 600 }
+    height={ 36 }
+    width={ 400 }
     speed={ 2 }
     primaryColor="#ffffff"
     secondaryColor="#ecebeb"
   >
-    <rect x="290" y="225" rx="0" ry="0" width="0" height="0" />
-    <rect x="168" y="187" rx="0" ry="0" width="0" height="0" />
-    <rect x="368" y="280" rx="0" ry="0" width="0" height="0" />
-    <rect x="28" y="19" rx="0" ry="0" width="518" height="413" />
-    <rect x="392" y="380" rx="0" ry="0" width="1" height="60" />
+    <rect x="0" y="0" rx="0" ry="0" width="400" height="36" />
   </ContentLoader>
+);
+
+export const ShareLoader = () => (
+  <Form>
+    <Title size="xl">Invite group</Title>
+    <FormGroup fieldId="1">
+      <FormItemLoader />
+    </FormGroup>
+    <FormGroup fieldId="2">
+      <FormItemLoader />
+    </FormGroup>
+    <Title size="xl">Groups with access</Title>
+    <FormGroup fieldId="3">
+      <FormItemLoader />
+    </FormGroup>
+    <FormGroup fieldId="4">
+      <FormItemLoader />
+    </FormGroup>
+  </Form>
 );
 
 export const OrderLoader = ({ items, ...props }) => (
