@@ -17,7 +17,7 @@ import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants
 import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import AddProductsToPortfolio from '../../../smart-components/portfolio/add-products-to-portfolio';
-import { FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
+import { FETCH_PLATFORMS, FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
 
 describe('<Portfolio />', () => {
 
@@ -67,6 +67,8 @@ describe('<Portfolio />', () => {
   it('should mount and fetch correct data', (done) => {
     const store = mockStore(initialState);
     const expectedActions = [{
+      type: `${FETCH_PLATFORMS}_PENDING`
+    }, {
       type: `${FETCH_PORTFOLIO}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
@@ -74,8 +76,11 @@ describe('<Portfolio />', () => {
       type: `${FETCH_PORTFOLIO}_FULFILLED`
     }), expect.objectContaining({
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
+    }), expect.objectContaining({
+      type: `${FETCH_PLATFORMS}_FULFILLED`
     }) ];
 
+    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
@@ -322,7 +327,7 @@ describe('<Portfolio />', () => {
         /**
          * trigger notification undo click
          */
-        const notification = store.getActions()[7].payload.description;
+        const notification = store.getActions()[9].payload.description;
         const notificationWrapper = mount(<IntlProvider locale="en"><React.Fragment>{ notification }</React.Fragment></IntlProvider>);
         notificationWrapper.find('a span').simulate('click');
       });
