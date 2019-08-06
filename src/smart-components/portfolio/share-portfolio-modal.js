@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FormRenderer from '../common/form-renderer';
 import { withRouter } from 'react-router-dom';
@@ -12,8 +12,7 @@ import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 
 const SharePortfolioModal = ({
-  history: { goBack },
-  isLoading,
+  history: { push },
   fetchPortfolios,
   initialValues,
   fetchShareInfo,
@@ -21,11 +20,15 @@ const SharePortfolioModal = ({
   fetchRbacGroups,
   shareInfo,
   portfolioId,
-  rbacGroups
+  rbacGroups,
+  closeUrl
 }) => {
+  const [ isFetching, setFetching ] = useState(true);
   useEffect(() => {
-    fetchShareInfo(portfolioId);
-    fetchRbacGroups();
+    setFetching(true);
+    Promise.all([ fetchShareInfo(portfolioId), fetchRbacGroups() ])
+    .then(() => setFetching(false))
+    .catch(() => setFetching(false));
   }, []);
 
   const initialShares = () => {
@@ -71,11 +74,12 @@ const SharePortfolioModal = ({
         }
       }
     });
+    push(closeUrl);
 
-    Promise.all(sharePromises).then(goBack).then(() => fetchPortfolios());
+    return Promise.all(sharePromises).then(() => fetchPortfolios());
   };
 
-  const onCancel = () => goBack();
+  const onCancel = () => push(closeUrl);
 
   const permissionOptions = [{
     value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
@@ -92,44 +96,31 @@ const SharePortfolioModal = ({
     };
   };
 
-  if (rbacGroups.length === 0) {
-    return (
-      <Modal
-        title={ 'Share portfolio' }
-        isOpen
-        isLarge
-        onClose={ onCancel }
-      >
-        { isLoading && <ShareLoader/> }
-        { !isLoading &&
-          <div style={ { padding: 8 } }>
-            <Title headingLevel="h2" size="1xl">
-              No groups available for sharing.
-            </Title>
-          </div> }
-      </Modal>);
-  } else {
-    return (
-      <Modal
-        title={ 'Share portfolio' }
-        isOpen
-        isLarge
-        onClose={ onCancel }
-      >
-        <div style={ { padding: 8 } }>
-          <FormRenderer
-            schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
-            schemaType="default"
-            onSubmit={ onSubmit }
-            onCancel={ onCancel }
-            initialValues={ { ...initialValues, ...initialShares() } }
-            formContainer="modal"
-            buttonsLabels={ { submitLabel: 'Send' } }
-          />
-        </div>
-      </Modal>
-    );
-  }
+  return (
+    <Modal
+      title={ 'Share portfolio' }
+      isOpen
+      isSmall
+      onClose={ onCancel }
+    >
+      { isFetching && <ShareLoader /> }
+      { !isFetching && rbacGroups.length === 0 && (
+        <Title headingLevel="h2" size="1xl">
+            No groups available for sharing.
+        </Title>) }
+      { !isFetching && rbacGroups.length > 0 && (
+        <FormRenderer
+          schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
+          schemaType="default"
+          onSubmit={ onSubmit }
+          onCancel={ onCancel }
+          initialValues={ { ...initialValues, ...initialShares() } }
+          formContainer="modal"
+          buttonsLabels={ { submitLabel: 'Send' } }
+        />
+      ) }
+    </Modal>
+  );
 };
 
 SharePortfolioModal.propTypes = {
@@ -149,16 +140,16 @@ SharePortfolioModal.propTypes = {
     value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
     label: PropTypes.string.isRequired
   })).isRequired,
-  initialValues: PropTypes.object
+  initialValues: PropTypes.object,
+  closeUrl: PropTypes.string.isRequired
 };
 
 const mapStateToProps = ({ rbacReducer: { rbacGroups },
   portfolioReducer: { portfolios },
-  shareReducer: { shareInfo, isLoading }},
+  shareReducer: { shareInfo }},
 { match: { params: { id }}}) => ({
   initialValues: id && portfolios.data.find(item => item.id === id),
   portfolioId: id,
-  isLoading,
   shareInfo,
   rbacGroups
 });

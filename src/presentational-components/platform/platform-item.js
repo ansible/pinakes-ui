@@ -6,7 +6,6 @@ import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
-
 import './platform-card.scss';
 
 const PlatformItem = props =>(
@@ -15,6 +14,7 @@ const PlatformItem = props =>(
       <CardIcon
         src={ `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offering_icons/${props.service_offering_icon_id}/icon_data` }
         style={ { height: 40 } }
+        platformId={ props.source_id }
       />
       { props.editMode && (
         <CardCheckbox
@@ -32,6 +32,8 @@ const PlatformItem = props =>(
 PlatformItem.propTypes = {
   id: PropTypes.string.isRequired,
   service_offering_icon_id: PropTypes.string,
+  source_id: PropTypes.string,
+  platformId: PropTypes.string,
   name: PropTypes.string,
   editMode: PropTypes.bool,
   checked: PropTypes.bool,

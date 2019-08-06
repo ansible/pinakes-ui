@@ -16,6 +16,6 @@ describe('redux store', () => {
       shareReducer: expect.any(Object),
       notifications: expect.any(Object)
     };
-    expect(wrapper.instance().store.getState()).toEqual(expectedState);
+    expect(wrapper.instance().props.store.getState()).toEqual(expectedState);
   });
 });

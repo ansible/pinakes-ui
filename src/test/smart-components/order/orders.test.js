@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
 import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { DataList, DataListContent } from '@patternfly/react-core';
 
@@ -50,9 +50,9 @@ describe('<Orders />', () => {
     }
     ]};
 
-  const ComponentWrapper = ({ store, children }) => (
+  const ComponentWrapper = ({ store, children, ...props }) => (
     <Provider store={ store }>
-      <MemoryRouter>
+      <MemoryRouter { ...props }>
         { children }
       </MemoryRouter>
     </Provider>
@@ -84,9 +84,14 @@ describe('<Orders />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
 
-    const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
+    const wrapper = mount(
+      <ComponentWrapper store={ store } initialEntries={ [ '/orders' ] }>
+        <Route path="/orders" render={ () => <Orders { ...initialProps } linkedOrders /> } />
+      </ComponentWrapper>
+    );
+
     setImmediate(() => {
-      expect(wrapper.find(DataList)).toHaveLength(2);
+      expect(wrapper.find(DataList)).toHaveLength(1);
       done();
     });
   });
@@ -98,7 +103,11 @@ describe('<Orders />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
 
-    const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } /></ComponentWrapper>);
+    const wrapper = mount(
+      <ComponentWrapper store={ store } initialEntries={ [ '/orders' ] }>
+        <Route path="/orders" render={ () => <Orders { ...initialProps } linkedOrders /> } />
+      </ComponentWrapper>
+    );
     setImmediate(() => {
       wrapper.update();
       expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);
@@ -113,7 +122,11 @@ describe('<Orders />', () => {
     initialState = { orderReducer: { ...orderInitialState, linkedOrders, isLoading: false },
       portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
     const store = mockStore(initialState);
-    const wrapper = shallow(<Orders store={ store } { ...initialProps } linkedOrders />);
+    const wrapper = shallow(
+      <ComponentWrapper store={ store } initialEntries={ [ '/orders/closed' ] }>
+        <Route path="/orders/closed" render={ () => <Orders { ...initialProps } linkedOrders /> } />
+      </ComponentWrapper>
+    ).dive();
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -124,7 +137,11 @@ describe('<Orders />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
 
-    const wrapper = mount(<ComponentWrapper store={ store }><Orders { ...initialProps } linkedOrders /></ComponentWrapper>);
+    const wrapper = mount(
+      <ComponentWrapper store={ store } initialEntries={ [ '/orders/closed' ] }>
+        <Route path="/orders/closed" render={ () => <Orders { ...initialProps } linkedOrders /> } />
+      </ComponentWrapper>
+    );
     setImmediate(() => {
       wrapper.update();
       expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);

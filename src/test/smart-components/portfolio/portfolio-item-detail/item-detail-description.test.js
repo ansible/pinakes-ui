@@ -39,7 +39,7 @@ describe('<ItemDetailDescription />', () => {
   });
 
   it('should render correctly in edit variant', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <MemoryRouter initialEntries={ [ '/base/url/edit' ] }>
         <Route path="/base/url/edit" render={ () => <ItemDetailDescription { ...initialProps } /> } />
       </MemoryRouter>
