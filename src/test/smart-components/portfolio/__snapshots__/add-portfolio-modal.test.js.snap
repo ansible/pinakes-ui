@@ -1,13 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AddPortfolioModal /> should create edit variant of portfolio modal 1`] = `
-<MemoryRouter
-  initialEntries={
-    Array [
-      "portfolios/undefined",
-    ]
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Subscription {
+        "handleChangeWrapper": [Function],
+        "listeners": Object {
+          "clear": [Function],
+          "get": [Function],
+          "notify": [Function],
+          "subscribe": [Function],
+        },
+        "onStateChange": [Function],
+        "parentSub": undefined,
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+        "unsubscribe": [Function],
+      },
+    }
   }
 >
-  <withRouter(Connect(AddPortfolioModal)) />
-</MemoryRouter>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "portfolios/undefined",
+      ]
+    }
+  >
+    <withRouter(Connect(AddPortfolioModal)) />
+  </MemoryRouter>
+</ContextProvider>
 `;

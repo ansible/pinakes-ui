@@ -30,7 +30,8 @@ describe('<SharePortfolioModal', () => {
   beforeEach(() => {
     initialProps = {
       addNotification: jest.fn(),
-      portfolioId: '123'
+      portfolioId: '123',
+      closeUrl: '/foo'
     };
     initialState = {
       portfolioReducer: {
@@ -72,6 +73,7 @@ describe('<SharePortfolioModal', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       expect(wrapper.find(SharePortfolioModal)).toHaveLength(1);
       expect(wrapper.find(FormRenderer)).toHaveLength(1);
       done();
@@ -100,8 +102,9 @@ describe('<SharePortfolioModal', () => {
       </ComponentWrapper>
     );
 
+    expect(wrapper.find(ShareLoader)).toHaveLength(1);
     setImmediate(() => {
-      expect(wrapper.find(ShareLoader)).toHaveLength(1);
+      wrapper.update();
       done();
     });
   });
@@ -147,6 +150,7 @@ describe('<SharePortfolioModal', () => {
     );
 
     setImmediate(() => {
+      wrapper.update();
       const form = wrapper.find(ReactFormRender).children().instance().form;
       /*
       * simulate form changes

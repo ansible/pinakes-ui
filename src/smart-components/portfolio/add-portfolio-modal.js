@@ -8,13 +8,12 @@ import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import { fetchWorkflows } from '../../redux/actions/approval-actions';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
-import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/actions/portfolio-actions';
+import { addPortfolio, updatePortfolio } from '../../redux/actions/portfolio-actions';
 
 const AddPortfolioModal = ({
   history: { goBack },
   match: { params: { id }},
   addPortfolio,
-  fetchPortfolios,
   initialValues,
   updatePortfolio,
   fetchWorkflows,
@@ -23,9 +22,12 @@ const AddPortfolioModal = ({
   useEffect(() => {
     fetchWorkflows();
   }, []);
-  const onSubmit = data => initialValues
-    ? updatePortfolio(data).then(goBack).then(() => fetchPortfolios())
-    : addPortfolio(data).then(goBack).then(() => fetchPortfolios());
+  const onSubmit = data => {
+    goBack();
+    return initialValues
+      ? updatePortfolio(data)
+      : addPortfolio(data);
+  };
 
   const onCancel = () => goBack();
 
@@ -80,7 +82,6 @@ const mapStateToProps = ({ approvalReducer: { workflows }, portfolioReducer: { p
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addPortfolio,
   updatePortfolio,
-  fetchPortfolios,
   fetchWorkflows
 }, dispatch);
 
