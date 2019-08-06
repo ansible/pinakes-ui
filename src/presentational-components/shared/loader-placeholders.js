@@ -180,7 +180,7 @@ export const ShareLoader = () => (
 
 export const OrderLoader = ({ items, ...props }) => (
   <Fragment>
-    <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
+    <ToolbarRenderer schema={ createOrdersToolbarSchema({ Tabs: Fragment }) } />
     <DataList aria-label="orders-placeholder" style={ { margin: 32 } }>
       { [ ...Array(items) ].map((_item, index) => (
         <DataListItem key={ index } aria-label="order-item-placeholder" aria-labelledby={ `${index}-orders-placeholder` }>
