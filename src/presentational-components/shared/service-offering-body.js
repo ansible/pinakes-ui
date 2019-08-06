@@ -15,7 +15,7 @@ const ServiceOfferingCardBody = ({ name, display_name, distributor, ...props }) 
       </Text>
       <Text component={ TextVariants.small }>{ distributor }&nbsp;</Text>
     </TextContent>
-    <ItemDetails { ...props } toDisplay={ [ props.long_description ? 'long_description' : 'description' ] } />
+    <ItemDetails { ...props } toDisplay={ [ props.description ? 'description' : 'long_description' ] } />
   </CardBody>
 );
 
@@ -23,7 +23,8 @@ ServiceOfferingCardBody.propTypes = {
   name: PropTypes.string,
   display_name: PropTypes.string,
   distributor: PropTypes.string,
-  long_description: PropTypes.string
+  long_description: PropTypes.string,
+  description: PropTypes.string
 };
 
 export default ServiceOfferingCardBody;

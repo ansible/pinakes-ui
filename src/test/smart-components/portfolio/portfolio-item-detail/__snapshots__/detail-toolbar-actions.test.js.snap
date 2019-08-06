@@ -45,7 +45,9 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 tabIndex={null}
                 type="button"
               >
-                Order
+                <span>
+                  Order
+                </span>
               </button>
             </Button>
           </ButtonWithSpinner>

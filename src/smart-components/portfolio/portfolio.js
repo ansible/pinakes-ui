@@ -12,12 +12,14 @@ import { defaultSettings } from '../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
+import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import {
   copyPortfolio,
   fetchPortfolios,
   fetchSelectedPortfolio,
   removeProductsFromPortfolio,
-  fetchPortfolioItemsWithPortfolio
+  fetchPortfolioItemsWithPortfolio,
+  resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
 
 const initialState = {
@@ -25,7 +27,7 @@ const initialState = {
   removeInProgress: false,
   filterValue: '',
   copyInProgress: false,
-  isFetching: false
+  isFetching: true
 };
 
 const porftolioUiReducer = (state, { type, payload }) => ({
@@ -43,6 +45,7 @@ const Portfolio = props => {
   const fetchData = (apiProps) => {
     dispatch({ type: 'setIsFetching', payload: true });
     Promise.all([
+      props.fetchPlatforms(),
       props.fetchSelectedPortfolio(apiProps),
       props.fetchPortfolioItemsWithPortfolio(apiProps, defaultSettings)
     ])
@@ -53,6 +56,7 @@ const Portfolio = props => {
   useEffect(() => {
     fetchData(props.match.params.id);
     scrollToTop();;
+    return () => props.resetSelectedPortfolio();
   }, [ props.match.params.id ]);
 
   const copyPortfolio = () => {
@@ -100,7 +104,7 @@ const Portfolio = props => {
         removeInProgress={ removeInProgress }
       />
     )),
-    isLoading: isFetching || props.isLoading
+    isLoading: isFetching
   };
   return (
     <Switch>
@@ -146,7 +150,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchSelectedPortfolio,
   removeProductsFromPortfolio,
   fetchPortfolios,
-  copyPortfolio
+  fetchPlatforms,
+  copyPortfolio,
+  resetSelectedPortfolio
 }, dispatch);
 
 Portfolio.propTypes = {
@@ -154,6 +160,7 @@ Portfolio.propTypes = {
   fetchSelectedPortfolio: PropTypes.func,
   match: PropTypes.object,
   fetchPortfolios: PropTypes.func.isRequired,
+  fetchPlatforms: PropTypes.func,
   portfolio: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.string
@@ -164,7 +171,8 @@ Portfolio.propTypes = {
   removeProductsFromPortfolio: PropTypes.func.isRequired,
   copyPortfolio: PropTypes.func.isRequired,
   pagination: PropTypes.object,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  resetSelectedPortfolio: PropTypes.func.isRequired
 };
 
 Portfolio.defaultProps = {

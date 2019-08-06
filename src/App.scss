@@ -183,6 +183,8 @@
 }
 
 .button-with-spinner {
+  display: flex;
+  align-items: center;
   .ins-c-spinner::before {
     height: 16px;
     width: 16px;

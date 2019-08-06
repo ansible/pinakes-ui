@@ -10,7 +10,7 @@ import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-service
 
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
-import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS } from '../../../redux/action-types';
+import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS, DELETE_TEMPORARY_PORTFOLIO } from '../../../redux/action-types';
 
 describe('<RemovePortfolioModal />', () => {
   let initialProps;
@@ -77,18 +77,21 @@ describe('<RemovePortfolioModal />', () => {
       </ComponentWrapper>
     );
     const expectedActions = [{
+      type: DELETE_TEMPORARY_PORTFOLIO,
+      payload: '123'
+    }, {
       type: `${REMOVE_PORTFOLIO}_PENDING`,
       meta: expect.any(Object)
     }, expect.objectContaining({
-      type: ADD_NOTIFICATION,
-      payload: expect.objectContaining({ variant: 'success' })
-    }), expect.objectContaining({
-      type: `${REMOVE_PORTFOLIO}_FULFILLED`
-    }), expect.objectContaining({
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }), expect.objectContaining({
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
       payload: { data: []}
+    }), expect.objectContaining({
+      type: ADD_NOTIFICATION,
+      payload: expect.objectContaining({ variant: 'success' })
+    }), expect.objectContaining({
+      type: `${REMOVE_PORTFOLIO}_FULFILLED`
     }) ];
 
     wrapper.find('button').last().simulate('click');

@@ -14,14 +14,26 @@ const getWorkflowTitle = (workflows, workflowRef) => {
 const ItemDetailDescription = ({ product, url, workflows, workflow, setWorkflow }) => (
   <Fragment>
     <TextContent>
-      <Text component={ TextVariants.p }>{ product.description }</Text>
-      <Text component={ TextVariants.p }><a href="javascript:void(0)">Sample repository</a></Text>
-      <Text component={ TextVariants.h6 }>Overview</Text>
-      <Text component={ TextVariants.p }>{ product.description }</Text>
-      <Text component={ TextVariants.p }>{ product.long_description }</Text>
-      <Text component={ TextVariants.p }><a href={ product.support_url } target="_blank" rel="noopener noreferrer">Learn more</a></Text>
-      <Text component={ TextVariants.h6 }>Documentation</Text>
-      <Text component={ TextVariants.p }><a href={ product.documentation_url } target="_blank" rel="noopener noreferrer">Doc link</a></Text>
+      { (product.description || product.long_description) && (
+        <Text component={ TextVariants.h6 }>Overview</Text>
+      ) }
+      { product.description && (
+        <Text component={ TextVariants.p }>{ product.description }</Text>
+      ) }
+      { product.long_description && (
+        <Text component={ TextVariants.p }>{ product.long_description }</Text>
+      ) }
+      { product.support_url && (
+        <Text component={ TextVariants.p }><a href={ product.support_url } target="_blank" rel="noopener noreferrer">Learn more</a></Text>
+      ) }
+      { product.documentation_url && (
+        <Fragment>
+          <Text component={ TextVariants.h6 }>Documentation</Text>
+          <Text component={ TextVariants.p }>
+            <a href={ product.documentation_url } target="_blank" rel="noopener noreferrer">Doc link</a>
+          </Text>
+        </Fragment>
+      ) }
       <Route exact path={ `${url}` } render={ () => (
         <Fragment>
           <Text component={ TextVariants.h6 }>Approval workflow</Text>

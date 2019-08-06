@@ -7,7 +7,7 @@ const newShareSchema = (rbacGroups, permissionVerbs) => (
   { fields: [
     {
       component: 'sub-form',
-      title: 'Invite Group',
+      title: 'Invite group',
       name: 'new_share',
       key: '1',
       fields: [{
@@ -30,7 +30,7 @@ const groupListSchema = (groupFieldList) => (
     fields: [
       {
         component: 'sub-form',
-        title: 'Groups With Access',
+        title: 'Groups with access',
         name: 'share_list',
         key: 'share_list',
         fields: [ ...groupFieldList ]

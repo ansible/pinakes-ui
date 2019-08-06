@@ -10,7 +10,12 @@ import {
   UPDATE_PORTFOLIO,
   REMOVE_PORTFOLIO,
   REMOVE_PORTFOLIO_ITEMS,
-  RESTORE_PORTFOLIO_ITEMS
+  RESTORE_PORTFOLIO_ITEMS,
+  RESET_SELECTED_PORTFOLIO,
+  DELETE_TEMPORARY_PORTFOLIO,
+  ADD_TEMPORARY_PORTFOLIO,
+  RESTORE_PORTFOLIO_PREV_STATE,
+  UPDATE_TEMPORARY_PORTFOLIO
 } from '../../../redux/action-types';
 import {
   fetchPortfolios,
@@ -127,12 +132,19 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when adding portfolio', () => {
     const store = mockStore({});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
     const expectedActions = [
+      {
+        type: ADD_TEMPORARY_PORTFOLIO,
+        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+      },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
       expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'success' }) }),
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_FULFILLED` })
     ];
@@ -145,12 +157,18 @@ describe('Portfolio actions', () => {
 
   it('should create error action creators when adding portfolio failed', () => {
     const store = mockStore({});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
       status: 500
     }));
 
     const expectedActions = [
+      {
+        type: ADD_TEMPORARY_PORTFOLIO,
+        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+      },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
+      { type: RESTORE_PORTFOLIO_PREV_STATE },
       expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'danger' }) }),
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_REJECTED` })
     ];
@@ -163,17 +181,19 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when updating portfolio', () => {
     const store = mockStore({});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.patch(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
     const expectedActions = [
-      expect.objectContaining({ type: `${UPDATE_PORTFOLIO}_PENDING` }),
-      expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'success' }) }),
-      expect.objectContaining({ type: `${UPDATE_PORTFOLIO}_FULFILLED` })
+      { type: UPDATE_TEMPORARY_PORTFOLIO, payload: { data: { foo: 'bar' }, id: '123' }},
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
+      expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'success' }) })
     ];
 
-    return store.dispatch(updatePortfolio({ id: 123, data: { foo: 'bar' }}))
+    return store.dispatch(updatePortfolio({ id: '123', data: { foo: 'bar' }}))
     .then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -199,35 +219,45 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio', () => {
     const store = mockStore({});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
 
     const expectedActions = [
+      {
+        type: DELETE_TEMPORARY_PORTFOLIO,
+        payload: '123'
+      },
       expect.objectContaining({ type: `${REMOVE_PORTFOLIO}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
       expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'success' }) }),
       expect.objectContaining({ type: `${REMOVE_PORTFOLIO}_FULFILLED` })
     ];
 
-    return store.dispatch(removePortfolio(123))
+    return store.dispatch(removePortfolio('123'))
     .then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
-  it('should create correct action creators when removing portfolio faled', () => {
+  it('should create correct action creators when removing portfolio failed', () => {
     const store = mockStore({});
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       status: 500
     }));
 
     const expectedActions = [
+      { type: DELETE_TEMPORARY_PORTFOLIO, payload: '123' },
       expect.objectContaining({ type: `${REMOVE_PORTFOLIO}_PENDING` }),
+      { type: RESTORE_PORTFOLIO_PREV_STATE },
       expect.objectContaining({ type: ADD_NOTIFICATION, payload: expect.objectContaining({ variant: 'danger' }) }),
       expect.objectContaining({ type: `${REMOVE_PORTFOLIO}_REJECTED` })
     ];
 
-    return store.dispatch(removePortfolio(123))
+    return store.dispatch(removePortfolio('123'))
     .catch(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -309,5 +339,11 @@ describe('Portfolio actions', () => {
 
     return store.dispatch(undoRemoveProductsFromPortfolio(restoreData, '123'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));
+  });
+
+  it('should call correct action creator for reset selected portfolio', () => {
+    const store = mockStore({});
+    store.dispatch({ type: RESET_SELECTED_PORTFOLIO });
+    expect(store.getActions()).toEqual([{ type: RESET_SELECTED_PORTFOLIO }]);
   });
 });
