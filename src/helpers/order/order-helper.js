@@ -42,3 +42,6 @@ export function listOrderItems() {
   return axiosInstance.get(`${CATALOG_API_BASE}/order_items`);
 }
 
+export function cancelOrder(orderId) {
+  return orderApi.cancelOrder(orderId);
+}

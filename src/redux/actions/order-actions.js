@@ -73,3 +73,7 @@ export const getLinkedOrders = () => dispatch => {
     payload
   }));
 };
+
+export const cancelOrder = orderId => {
+  return OrderHelper.cancelOrder(orderId);
+};

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   DataListCell,
   DataListContent,
@@ -27,6 +28,11 @@ import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
 import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
 import createOrderRow from './create-order-row';
+import { cancelOrder } from '../../redux/actions/order-actions';
+
+const UNCANCELABLE_STATES = [ 'Completed', 'Failed' ];
+
+const canCancel = state => !UNCANCELABLE_STATES.includes(state);
 
 class OrderItem extends Component {
   shouldComponentUpdate({ isExpanded }) {
@@ -34,7 +40,7 @@ class OrderItem extends Component {
   }
 
   render() {
-    const { item, isExpanded, handleDataItemToggle, portfolioItems } = this.props;
+    const { item, isExpanded, handleDataItemToggle, portfolioItems, cancelOrder } = this.props;
     const { finishedSteps, steps } = createOrderRow(item);
     const orderedAt = createOrderedLabel(new Date(item.created_at));
     const updatedAt = createUpdatedLabel(item.orderItems);
@@ -122,7 +128,17 @@ class OrderItem extends Component {
           />
         </DataListItemRow>
         <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-          { isExpanded && <OrderDetailTable requests={ steps } orderState={ item.state } orderItem={ item.orderItems && item.orderItems[0] }  /> }
+          { isExpanded && (
+            <div>
+              <OrderDetailTable
+                canCancel={ canCancel(item.state) }
+                requests={ steps }
+                orderState={ item.state }
+                orderItem={ item.orderItems && item.orderItems[0] }
+                onCancel={ () => cancelOrder(item.id) }
+              />
+            </div>
+          ) }
         </DataListContent>
       </DataListItem>
     );
@@ -151,5 +167,9 @@ const mapStateToProps = ({ orderReducer: { linkedOrders }, portfolioReducer: { p
   portfolioItems: portfolioItems.data
 });
 
-export default connect(mapStateToProps)(OrderItem);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  cancelOrder
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);
 
