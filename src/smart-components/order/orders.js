@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, DataList, Text, TextContent } from '@patternfly/react-core';
+import { Grid, GridItem, DataList, Tabs, Tab } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
 import OrderItem from './order-item';
@@ -16,8 +16,28 @@ import { OrderLoader } from '../../presentational-components/shared/loader-place
 
 import './orders.scss';
 
-const Orders = ({ getLinkedOrders, fetchPortfolioItems, isLoading, linkedOrders: { current, past }}) => {
+const tabItems = [{
+  eventKey: 0,
+  title: 'Open',
+  name: '/open'
+}, {
+  eventKey: 1,
+  title: 'Closed',
+  name: '/closed'
+}];
+
+const Orders = ({
+  history: { push },
+  location: { pathname },
+  getLinkedOrders,
+  fetchPortfolioItems,
+  isLoading,
+  linkedOrders: { current, past }}
+) => {
   const [ dataListExpanded, setDataListExpanded ] = useState({});
+  const activeTab = tabItems.find(({ name }) => pathname.includes(name));
+  const handleTabClick = (_event, tabIndex) => push(`/orders${tabItems[tabIndex].name}`);
+
   useEffect(() => {
     getLinkedOrders();
     fetchPortfolioItems();
@@ -39,27 +59,30 @@ const Orders = ({ getLinkedOrders, fetchPortfolioItems, isLoading, linkedOrders:
     return <OrderLoader />;
   }
 
+  const OrderTabs = () => (
+    <Tabs className="pf-u-mt-md" activeKey={ activeTab ? activeTab.eventKey : 0 } onSelect={ handleTabClick }>
+      { tabItems.map((item) => <Tab title={ item.title } key={ item.eventKey } eventKey={ item.eventKey } name={ item.name }/>) }
+    </Tabs>
+  );
+
   return (
     <Fragment>
+      <ToolbarRenderer schema={ createOrdersToolbarSchema({ Tabs: OrderTabs }) } />
       <Route path="/orders/:orderItemId/messages" component={ OrderMessagesModal } />
-      <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
+
       <Section type="content">
         <Grid gutter="md">
           <GridItem>
-            <TextContent>
-              <Text component="h2">Current orders</Text>
-            </TextContent>
-            <DataList aria-label="current-orders">
-              { renderDataListItems(current, 'current') }
-            </DataList>
-          </GridItem>
-          <GridItem>
-            <TextContent>
-              <Text component="h2">Past orders</Text>
-            </TextContent>
-            <DataList aria-label="past-orders">
-              { renderDataListItems(past, 'past') }
-            </DataList>
+            <Route exact path={ [ '/orders', '/orders/open' ] } render={ () => (
+              <DataList aria-label="current-orders">
+                { renderDataListItems(current, 'current') }
+              </DataList>
+            ) } />
+            <Route exact path="/orders/closed" render={ () => (
+              <DataList aria-label="past-orders">
+                { renderDataListItems(past, 'past') }
+              </DataList>
+            ) } />
           </GridItem>
         </Grid>
       </Section>
@@ -86,7 +109,9 @@ Orders.propTypes = {
   isLoading: PropTypes.bool,
   getLinkedOrders: PropTypes.func.isRequired,
   fetchPortfolioItems: PropTypes.func.isRequired,
-  portfolioItems: PropTypes.array.isRequired
+  portfolioItems: PropTypes.array.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Orders);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Orders));
