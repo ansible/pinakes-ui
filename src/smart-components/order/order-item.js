@@ -24,7 +24,7 @@ import {
 import OrderSteps from './order-steps';
 import OrderDetailTable from './order-detail-table';
 import CardIcon from '../../presentational-components/shared/card-icon';
-import { getOrderIcon, getOrderPortfolioName } from '../../helpers/shared/orders';
+import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
 import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
 import createOrderRow from './create-order-row';
 
@@ -53,7 +53,7 @@ class OrderItem extends Component {
               <DataListCell key="1" className="cell-grow">
                 <Split gutter="sm">
                   <SplitItem>
-                    <CardIcon src={ getOrderIcon(item) } />
+                    <CardIcon src={ getOrderIcon(item) } platformId={ getOrderPlatformId(item, portfolioItems) }/>
                   </SplitItem>
                   <SplitItem>
                     <TextContent>

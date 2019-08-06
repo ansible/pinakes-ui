@@ -18,7 +18,8 @@ const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData 
   >
     <div className="pf-u-mb-md">
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <CardIcon height={ 64 } src={ `${CATALOG_API_BASE}/portfolio_items/${serviceData.id}/icon` } />
+        <CardIcon height={ 64 } src={ `${CATALOG_API_BASE}/portfolio_items/${serviceData.id}/icon` }
+          platformId={ serviceData.service_offering_source_ref }/>
       </div>
       <Level>
         <LevelItem className="elipsis-text-overflow">

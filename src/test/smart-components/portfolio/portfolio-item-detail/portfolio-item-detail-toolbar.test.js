@@ -38,7 +38,7 @@ describe('<PortfolioItemDetailToolbar />', () => {
       handleUpdate: jest.fn()
     };
 
-    initialState = {};
+    initialState = { platforms: {}};
     mockStore = configureStore(middlewares);
   });
 

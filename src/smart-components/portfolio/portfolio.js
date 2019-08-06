@@ -12,6 +12,7 @@ import { defaultSettings } from '../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
+import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import {
   copyPortfolio,
   fetchPortfolios,
@@ -44,6 +45,7 @@ const Portfolio = props => {
   const fetchData = (apiProps) => {
     dispatch({ type: 'setIsFetching', payload: true });
     Promise.all([
+      props.fetchPlatforms(),
       props.fetchSelectedPortfolio(apiProps),
       props.fetchPortfolioItemsWithPortfolio(apiProps, defaultSettings)
     ])
@@ -102,7 +104,7 @@ const Portfolio = props => {
         removeInProgress={ removeInProgress }
       />
     )),
-    isLoading: isFetching || props.isLoading
+    isLoading: isFetching
   };
   return (
     <Switch>
@@ -148,6 +150,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchSelectedPortfolio,
   removeProductsFromPortfolio,
   fetchPortfolios,
+  fetchPlatforms,
   copyPortfolio,
   resetSelectedPortfolio
 }, dispatch);
@@ -157,6 +160,7 @@ Portfolio.propTypes = {
   fetchSelectedPortfolio: PropTypes.func,
   match: PropTypes.object,
   fetchPortfolios: PropTypes.func.isRequired,
+  fetchPlatforms: PropTypes.func,
   portfolio: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.string
