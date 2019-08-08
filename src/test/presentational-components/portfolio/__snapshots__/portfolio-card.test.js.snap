@@ -95,6 +95,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             ]
           }
           portfolioName="name"
+          route="/portfolios/detail/123"
         />
       </CardHeader>
       <CardBody

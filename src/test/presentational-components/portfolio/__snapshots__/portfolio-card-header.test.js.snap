@@ -7,18 +7,25 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
 >
   <LevelItem
     className="portfolio-card-header-title"
+    style={
+      Object {
+        "flexGrow": 1,
+      }
+    }
   >
-    <TextContent
-      className=""
-    >
-      <Text
-        className="elipsis-text-overflow pf-u-mb-0"
-        component="h3"
-        title="foo"
+    <Link>
+      <TextContent
+        className=""
       >
-        foo
-      </Text>
-    </TextContent>
+        <Text
+          className="elipsis-text-overflow pf-u-mb-0"
+          component="h3"
+          title="foo"
+        >
+          foo
+        </Text>
+      </TextContent>
+    </Link>
   </LevelItem>
   <LevelItem
     onClick={[Function]}
