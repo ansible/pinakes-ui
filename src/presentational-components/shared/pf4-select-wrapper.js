@@ -49,7 +49,7 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string.isRequired
-  })).isRequired,
+  })),
   isReadOnly: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
@@ -64,7 +64,8 @@ Select.propTypes = {
 Select.defaultProps = {
   formOptions: {},
   isSearchable: false,
-  multi: false
+  multi: false,
+  options: []
 };
 
 const Pf4SelectWrapper = ({
