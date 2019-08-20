@@ -59,7 +59,7 @@ const PortfolioItems = ({
       render={ (...args) => <SharePortfolioModal closeUrl={ portfolioRoute } { ...args } /> }
     />
     <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
-    <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState /> } />
+    <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />
   </Fragment>
 );
 

@@ -54,6 +54,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
 
 const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
   const [ isOpen, setOpen ] = useState(false);
+  const route = `/portfolios/detail/${id}`;
   return (
     <GalleryItem>
       <div className={ isDisabled ? 'portfolio-item-progress' : '' }>
@@ -63,12 +64,13 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
         <Card className="content-gallery-card">
           <CardHeader>
             <PortfolioCardHeader
+              route={ route }
               portfolioName={ name }
               headerActions={ createToolbarActions(id, isOpen, setOpen) }
             />
           </CardHeader>
           <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
-            <Link className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg" to={ `/portfolios/detail/${id}` }>
+            <Link className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg" to={ route }>
               <TextContent>
                 <Text component={ TextVariants.small }>
                   { createModifiedLabel(new Date(props.updated_at || props.created_at), props.owner) }
