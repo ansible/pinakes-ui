@@ -19,18 +19,10 @@ Object {
     },
     Object {
       "component": "select-field",
+      "isSearchable": true,
       "label": "Approval workflow",
+      "loadOptions": [Function],
       "name": "workflow_ref",
-      "options": Array [
-        Object {
-          "label": "foo",
-          "value": "bar",
-        },
-        Object {
-          "label": "baz",
-          "value": "quxx",
-        },
-      ],
     },
   ],
 }
@@ -55,18 +47,10 @@ Object {
     },
     Object {
       "component": "select-field",
+      "isSearchable": true,
       "label": "Approval workflow",
+      "loadOptions": [Function],
       "name": "workflow_ref",
-      "options": Array [
-        Object {
-          "label": "foo",
-          "value": "bar",
-        },
-        Object {
-          "label": "baz",
-          "value": "quxx",
-        },
-      ],
     },
   ],
 }

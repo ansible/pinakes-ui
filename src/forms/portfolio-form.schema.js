@@ -19,9 +19,9 @@ const debouncedValidator = asyncFormValidator(validateName);
 /**
  * Creates a data-driven-form schema for adding/editing portfolio
  * @param {bool} newRecord sets the variant of portfolio form
- * @param {Array} workflows array of options for workflows
+ * @param {Function} loadWorkflows async callback that loads workflows
  */
-export const createPortfolioSchema = (newRecord, workflows, portfolioId) => ({
+export const createPortfolioSchema = (newRecord, loadWorkflows, portfolioId) => ({
   fields: [{
     label: newRecord ? 'New Portfolio Name' : 'Portfolio Name',
     name: 'name',
@@ -36,6 +36,7 @@ export const createPortfolioSchema = (newRecord, workflows, portfolioId) => ({
     label: 'Approval workflow',
     name: 'workflow_ref',
     component: componentTypes.SELECT,
-    options: workflows
+    loadOptions: asyncFormValidator(loadWorkflows),
+    isSearchable: true
   }]
 });

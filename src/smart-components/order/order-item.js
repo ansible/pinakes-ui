@@ -36,7 +36,7 @@ class OrderItem extends Component {
   render() {
     const { item, isExpanded, handleDataItemToggle, portfolioItems } = this.props;
     const { finishedSteps, steps } = createOrderRow(item);
-    const orderedAt = createOrderedLabel(new Date(item.ordered_at));
+    const orderedAt = createOrderedLabel(new Date(item.created_at));
     const updatedAt = createUpdatedLabel(item.orderItems);
     return (
       <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
@@ -69,7 +69,7 @@ class OrderItem extends Component {
                         <GridItem>
                           <Level>
                             <LevelItem>
-                              <Tooltip enableFlip position={ TooltipPosition.top } content={ <span>{ createDateString(item.ordered_at) }</span> }>
+                              <Tooltip enableFlip position={ TooltipPosition.top } content={ <span>{ createDateString(item.created_at) }</span> }>
                                 <Text
                                   style={ { marginBottom: 0 } }
                                   component={ TextVariants.small }
