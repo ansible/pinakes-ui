@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
+import { MemoryRouter } from 'react-router-dom';
 
 import PortfolioCardHeader from '../../../presentational-components/portfolio/portfolio-card-header';
 
@@ -22,7 +23,11 @@ describe('<PortfolioCardHeader />', () => {
     const actions = [
       <button key="foo" onClick={ () => actionClick('foo') }></button>
     ];
-    const wrapper = mount(<PortfolioCardHeader { ...initialProps } headerActions={ actions } />);
+    const wrapper = mount(
+      <MemoryRouter>
+        <PortfolioCardHeader { ...initialProps } headerActions={ actions } />
+      </MemoryRouter>
+    );
 
     const buttons = wrapper.find('button');
     expect(buttons).toHaveLength(1);
