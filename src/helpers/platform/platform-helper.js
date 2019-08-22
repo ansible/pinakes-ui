@@ -1,12 +1,27 @@
-import { getAxiosInstance, getSourcesApi, getTopologocalInventoryApi } from '../shared/user-login';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
+import { getAxiosInstance, getSourcesApi, getTopologocalInventoryApi, getGraphqlInstance } from '../shared/user-login';
+import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
 
 const sourcesApi = getSourcesApi();
 const topologicalApi = getTopologocalInventoryApi();
 const axiosInstance = getAxiosInstance();
+const graphqlInstance = getGraphqlInstance();
+
+const sourcesQuery = `
+query {
+  application_types (filter: { name: "/insights/platform/catalog" }) {
+    id
+    name
+    sources {
+      id
+      name
+    }
+  }
+}`;
 
 export function getPlatforms() {
-  return sourcesApi.listSources();
+  return graphqlInstance.post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
+  .then(({ data: { application_types }}) => application_types)
+  .then(([{ sources }]) => sources);
 }
 
 export function getPlatform(platformId) {
