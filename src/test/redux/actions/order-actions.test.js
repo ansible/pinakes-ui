@@ -262,6 +262,10 @@ describe('Order actions', () => {
         id: '4',
         name: 'failed-order',
         state: 'Failed'
+      }, {
+        id: '5',
+        name: 'canceled-order',
+        state: 'Canceled'
       }]}
     }));
     apiClientMock.get(`${APPROVAL_API_BASE}/requests`, mockOnce({
@@ -302,6 +306,12 @@ describe('Order actions', () => {
           }]
         }],
         past: [{
+          id: '5',
+          name: 'canceled-order',
+          state: 'Canceled',
+          orderItems: [],
+          requests: []
+        }, {
           id: '4',
           name: 'failed-order',
           state: 'Failed',
