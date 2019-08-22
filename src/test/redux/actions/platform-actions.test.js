@@ -30,11 +30,15 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({
-      body: { data: [{
-        id: '1',
-        name: 'Source 1'
-      }]}
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({
+      body: { data: {
+        application_types: [{
+          sources: [{
+            id: '1',
+            name: 'Source 1'
+          }]
+        }]
+      }}
     }));
 
     const expectedActions = [{
@@ -55,19 +59,21 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({
-      status: 500
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      errors: [{ message: 'error', errorType: 'Some error title' }]
+    }
     }));
 
     const expectedActions = [
       { type: `${FETCH_PLATFORMS}_PENDING` }, {
         type: `${ADD_NOTIFICATION}`,
-        payload: expect.objectContaining({ variant: 'danger' })
+        payload: expect.objectContaining({ variant: 'danger', message: 'Some error title', data: 'error' })
       },
       expect.objectContaining({ type: `${FETCH_PLATFORMS}_REJECTED` })
     ];
 
     return store.dispatch(fetchPlatforms()).catch(() => {
+      console.log(store.getActions());
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

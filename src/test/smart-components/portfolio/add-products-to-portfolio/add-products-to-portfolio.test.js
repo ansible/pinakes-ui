@@ -54,7 +54,13 @@ describe('<AddProductsToPortfolio />', () => {
         }
       }
     });
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources:
+          [{ id: '1', name: 'foo' }]
+        }]
+      }
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store }>
@@ -101,7 +107,13 @@ describe('<AddProductsToPortfolio />', () => {
         }
       }
     });
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources:
+          [{ id: '1', name: 'foo' }]
+        }]
+      }
+    }}));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
       body: {
         data: [], meta: {}}

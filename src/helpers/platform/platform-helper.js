@@ -14,6 +14,7 @@ query {
     sources {
       id
       name
+      source_type_id
     }
   }
 }`;

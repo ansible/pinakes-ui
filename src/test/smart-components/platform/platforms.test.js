@@ -34,7 +34,13 @@ describe('<Platforms />', () => {
 
   it('should mount and fetch platforms data', (done) => {
     const store = mockStore(initialState);
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{
+          sources: [{ id: '1', name: 'foo' }]
+        }]
+      }}
+    }));
     mount(<MemoryRouter><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
     setImmediate(() => {
       const expectedActions = [{
@@ -71,7 +77,9 @@ describe('<Platforms />', () => {
       }
     };
     const Provider = mockBreacrumbsStore(initialState, middlewares);
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: [{ id: '1', name: 'foo' }]}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}
+    }}));
     const wrapper = mount(
       <Provider>
         <MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } /></MemoryRouter>
