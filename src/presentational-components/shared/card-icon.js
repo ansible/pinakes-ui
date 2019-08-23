@@ -19,6 +19,7 @@ const defaultPlatformIcon = (platformId, platformList) => {
   if (!platformId) {
     return CardIconDefault;
   }
+
   if (!platformList || platformList.empty || !platformId) {
     return CardIconDefault;
   }
@@ -29,7 +30,7 @@ const defaultPlatformIcon = (platformId, platformList) => {
   }
 };
 
-const CardIcon = ({ src, height, platformId = undefined }) => {
+const CardIcon = ({ src, height, platformId  }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
   const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
