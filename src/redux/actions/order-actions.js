@@ -51,7 +51,7 @@ const linkOrders = (orders, orderItems, requests) => orders.map(order => ({
   requests: requests.filter(({ content: { order_id }}) => order_id == order.id) // eslint-disable-line eqeqeq
 }));
 
-const separateOrders = orders => orders.reduce((acc, curr) => [ 'Completed', 'Failed', 'Denied' ].includes(curr.state) ? ({
+const separateOrders = orders => orders.reduce((acc, curr) => [ 'Completed', 'Failed', 'Denied', 'Canceled' ].includes(curr.state) ? ({
   current: acc.current,
   past: [ ...acc.past, curr ]
 }) : ({
