@@ -80,7 +80,13 @@ describe('<Portfolio />', () => {
       type: `${FETCH_PLATFORMS}_FULFILLED`
     }) ];
 
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{
+          sources: []
+        }]
+      }
+    }}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
@@ -101,7 +107,13 @@ describe('<Portfolio />', () => {
     const store = mockStore({ ...initialState, platformReducer: { platforms: [], platformItems: {}}});
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{
+          sources: []
+        }]
+      }
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/add-products' ] }>
@@ -140,7 +152,13 @@ describe('<Portfolio />', () => {
       expect(req).toBeTruthy();
       return res.status(200);
     }));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources:
+          []
+        }]
+      }
+    }}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
 
     const wrapper = mount(
@@ -175,7 +193,12 @@ describe('<Portfolio />', () => {
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources: []
+        }]
+      }
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-portfolio' ] }>
@@ -208,7 +231,11 @@ describe('<Portfolio />', () => {
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources: []}]
+      }
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/order/321' ] }>
@@ -238,7 +265,9 @@ describe('<Portfolio />', () => {
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: { application_types: [{ sources: []}]}
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123' ] }>
@@ -279,7 +308,13 @@ describe('<Portfolio />', () => {
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{
+          sources: []
+        }]
+      }
+    }}));
 
     /**
      * remove portfolio items calls

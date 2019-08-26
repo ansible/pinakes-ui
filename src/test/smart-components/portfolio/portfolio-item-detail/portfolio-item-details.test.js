@@ -83,7 +83,13 @@ describe('<PortfolioItemDetail />', () => {
       }
     }));
     apiClientMock.get(new RegExp(`${CATALOG_API_BASE}/portfolio_items/*`), mockOnce({ body: { name: 'foo', id: 'bar' }}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources:
+          []
+        }]
+      }
+    }}));
     const wrapper = mount(
       <ComponentWrapper store={ store }>
         <PortfolioItemDetail { ...initialProps } />
@@ -117,7 +123,13 @@ describe('<PortfolioItemDetail />', () => {
       }
     }));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources:
+          []
+        }]
+      }
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo/123' ] }>
@@ -155,7 +167,13 @@ describe('<PortfolioItemDetail />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, mockOnce({
       body: { properties: { namespace: { enum: []}}}
     }));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
+      data: {
+        application_types: [{ sources:
+          []
+        }]
+      }
+    }}));
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo/123', '/foo/123/order' ] } initialIndex={ 0 }>
