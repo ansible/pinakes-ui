@@ -13,6 +13,7 @@ import { getLinkedOrders } from '../../redux/actions/order-actions';
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
 import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 import { OrderLoader } from '../../presentational-components/shared/loader-placeholders';
+import { fetchPlatforms } from '../../redux/actions/platform-actions';
 
 import './orders.scss';
 
@@ -32,15 +33,18 @@ const Orders = ({
   getLinkedOrders,
   fetchPortfolioItems,
   isLoading,
+  fetchPlatforms,
   linkedOrders: { current, past }}
 ) => {
   const [ dataListExpanded, setDataListExpanded ] = useState({});
+  const [ isFetchting, setFetching ] = useState(true);
   const activeTab = tabItems.find(({ name }) => pathname.includes(name));
   const handleTabClick = (_event, tabIndex) => push(`/orders${tabItems[tabIndex].name}`);
 
   useEffect(() => {
-    getLinkedOrders();
-    fetchPortfolioItems();
+    Promise.all([ getLinkedOrders(), fetchPortfolioItems(), fetchPlatforms() ])
+    .then(() => setFetching(false))
+    .catch(() => setFetching(false));
   }, []);
 
   const handleDataItemToggle = id => setDataListExpanded(prevState => ({ ...prevState, [id]: !dataListExpanded[id] }));
@@ -55,7 +59,7 @@ const Orders = ({
     />
   ));
 
-  if (isLoading) {
+  if (isLoading || isFetchting) {
     return <OrderLoader />;
   }
 
@@ -98,7 +102,8 @@ const mapStateToProps = ({ orderReducer: { linkedOrders, isLoading }, portfolioR
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getLinkedOrders,
-  fetchPortfolioItems
+  fetchPortfolioItems,
+  fetchPlatforms
 }, dispatch);
 
 Orders.propTypes = {
@@ -111,7 +116,8 @@ Orders.propTypes = {
   fetchPortfolioItems: PropTypes.func.isRequired,
   portfolioItems: PropTypes.array.isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
+  fetchPlatforms: PropTypes.func.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Orders));
