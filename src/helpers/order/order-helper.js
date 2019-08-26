@@ -45,3 +45,32 @@ export function listOrderItems() {
 export function cancelOrder(orderId) {
   return orderApi.cancelOrder(orderId);
 }
+
+const OPEN_ORDER_STATES = [ 'Ordered', 'Approval Pending' ];
+const CLOSED_ORDER_STATES = [ 'Completed', 'Failed', 'Denied', 'Canceled' ];
+
+const getOrderItems = orderIds =>
+  axiosInstance.get(`${CATALOG_API_BASE}/order_items?${orderIds.map(orderId => `filter[order_id][]=${orderId}`).join('&')}`);
+
+const getOrders = states =>
+  axiosInstance.get(`${CATALOG_API_BASE}/orders?${states.map(state => `filter[state][]=${state}`).join('&')}`)
+  .then(orders =>
+    getOrderItems(orders.data.map(({ id }) => id))
+    .then(orderItems => {
+      return {
+        ...orders,
+        data: orders.data.map(order => ({
+          ...order,
+          orderItems: orderItems.data.filter(({ order_id }) => order_id === order.id)
+        }))
+      };
+    })
+  );
+
+export function getOpenOrders() {
+  return getOrders(OPEN_ORDER_STATES);
+}
+
+export function getClosedOrders() {
+  return getOrders(CLOSED_ORDER_STATES);
+}

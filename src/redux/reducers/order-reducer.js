@@ -9,7 +9,9 @@ import {
   FETCH_ORDER_ITEMS,
   FETCH_LINKED_ORDERS,
   SET_LOADING_STATE,
-  SET_ORDERS
+  SET_ORDERS,
+  FETCH_OPEN_ORDERS,
+  FETCH_CLOSED_ORDERS
 } from '../action-types';
 
 // Initial State
@@ -19,7 +21,15 @@ export const orderInitialState = {
   serviceData: {},
   isLoading: false,
   requests: [],
-  linkedOrders: { current: [], past: []}
+  linkedOrders: { current: [], past: []},
+  openOrders: {
+    data: [],
+    meta: {}
+  },
+  closedOrders: {
+    data: [],
+    meta: {}
+  }
 };
 
 const setLoadingState = (state, { payload = true }) => ({ ...state, isLoading: payload });
@@ -32,6 +42,8 @@ const selectPlan = (state, { payload }) => ({ ...state, selectedPlan: payload, i
 const setRequests = (state, { payload }) => ({ ...state, requests: payload, isLoading: false });
 const setOrderItems = (state, { payload }) => ({ ...state, orderItems: payload, isLoading: false });
 const setLinkedOrders = (state, { payload }) => ({ ...state, linkedOrders: payload, isLoading: false });
+const setOpenOrders = (state, { payload }) => ({ ...state, openOrders: payload, isLoading: false });
+const setClosedOrders = (state, { payload }) => ({ ...state, closedOrders: payload, isLoading: false });
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -51,5 +63,9 @@ export default {
   [`${FETCH_LINKED_ORDERS}_PENDING`]: setLoadingState,
   [`${FETCH_LINKED_ORDERS}_FULFILLED`]: setLinkedOrders,
   [SET_LOADING_STATE]: setLoadingState,
-  [SET_ORDERS]: setLinkedOrders
+  [SET_ORDERS]: setLinkedOrders,
+  [`${FETCH_OPEN_ORDERS}_FULFILLED`]: setOpenOrders,
+  [`${FETCH_CLOSED_ORDERS}_FULFILLED`]: setClosedOrders,
+  [`${FETCH_OPEN_ORDERS}_PENDING`]: setLoadingState,
+  [`${FETCH_CLOSED_ORDERS}_PENDING`]: setLoadingState
 };

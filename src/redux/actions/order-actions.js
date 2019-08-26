@@ -45,35 +45,6 @@ export const fetchOrderItems = () => ({
   payload: OrderHelper.listOrderItems()
 });
 
-const linkOrders = (orders, orderItems, requests) => orders.map(order => ({
-  ...order,
-  orderItems: orderItems.filter(({ order_id }) => order_id === order.id),
-  requests: requests.filter(({ content: { order_id }}) => order_id == order.id) // eslint-disable-line eqeqeq
-}));
-
-const separateOrders = orders => orders.reduce((acc, curr) => [ 'Completed', 'Failed', 'Denied', 'Canceled' ].includes(curr.state) ? ({
-  current: acc.current,
-  past: [ ...acc.past, curr ]
-}) : ({
-  current: [ ...acc.current, curr ],
-  past: acc.past
-}), { current: [], past: []});
-
-export const getLinkedOrders = () => dispatch => {
-  dispatch({ type: `${ActionTypes.FETCH_LINKED_ORDERS}_PENDING` });
-  return Promise.all([
-    OrderHelper.listOrders().then(response => ({ ...response, data: response.data.sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10)) })),
-    OrderHelper.listRequests(),
-    OrderHelper.listOrderItems()
-  ])
-  .then(([ orders, requests, orderItems ]) => linkOrders(orders.data, orderItems.data, requests.data))
-  .then(linkedOrders => separateOrders(linkedOrders))
-  .then(payload => dispatch({
-    type: `${ActionTypes.FETCH_LINKED_ORDERS}_FULFILLED`,
-    payload
-  }));
-};
-
 const setOrders = orders => ({
   type: ActionTypes.SET_ORDERS,
   payload: orders
@@ -110,3 +81,13 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
   .catch((error) => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error }));
 };
+
+export const fetchOpenOrders = () => ({
+  type: ActionTypes.FETCH_OPEN_ORDERS,
+  payload: OrderHelper.getOpenOrders
+});
+
+export const fetchCloseOrders = () => ({
+  type: ActionTypes.FETCH_CLOSED_ORDERS,
+  payload: OrderHelper.getClosedOrders
+});
