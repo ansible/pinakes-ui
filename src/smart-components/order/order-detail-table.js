@@ -7,7 +7,7 @@ import StepLabel from './step-label';
 
 const orderFailedStates = state => [ 'Failed', 'Denied' ].includes(state);
 
-const OrderDetailTable = ({ onCancel, canCancel, requests, orderState }) => (
+const OrderDetailTable = ({ orderId, onCancel, canCancel, requests, orderState }) => (
   <table className="requests-table">
     <thead>
       <tr>
@@ -34,7 +34,7 @@ const OrderDetailTable = ({ onCancel, canCancel, requests, orderState }) => (
           <td>{ updated_at }</td>
           <td>{ state }</td>
           { canCancel
-            && <td>{ index === 0 && <Button onClick={ onCancel } variant="secondary">Cancel</Button> }</td> }
+            && <td>{ index === 0 && <Button id={ `cancel-order-${orderId}` } onClick={ onCancel } variant="secondary">Cancel</Button> }</td> }
         </tr>
       )) }
       <tr>
@@ -55,7 +55,10 @@ OrderDetailTable.propTypes = {
     updated_at: PropTypes.string,
     state: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ])
   })).isRequired,
-  orderState: PropTypes.string
+  orderId: PropTypes.string.isRequired,
+  orderState: PropTypes.string,
+  onCancel: PropTypes.func,
+  canCancel: PropTypes.bool
 };
 
 export default withRouter(OrderDetailTable);
