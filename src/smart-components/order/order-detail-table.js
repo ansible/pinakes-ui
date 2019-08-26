@@ -39,9 +39,9 @@ const OrderDetailTable = ({ orderId, onCancel, canCancel, requests, orderState }
       )) }
       <tr>
         <td>
-          <Link to={ `/orders/${requests[0].orderItemId}/messages` }>
+          { /**<Link to={ `/orders/${requests[0].orderItemId}/messages` }>
             <MessagesIcon /> Show progress messages
-          </Link>
+          </Link>*/ }
         </td>
       </tr>
     </tbody>

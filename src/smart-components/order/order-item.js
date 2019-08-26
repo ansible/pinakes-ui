@@ -46,7 +46,6 @@ class OrderItem extends Component {
 
   render() {
     const { item, isExpanded, handleDataItemToggle, portfolioItems, cancelOrder } = this.props;
-    const { finishedSteps, steps } = createOrderRow(item);
     const orderedAt = createOrderedLabel(new Date(item.created_at));
     const updatedAt = createUpdatedLabel(item.orderItems);
     return (
@@ -127,7 +126,7 @@ class OrderItem extends Component {
                         Manage product
                         </a>
                       </div>)
-                    : <OrderSteps requests={ finishedSteps } />
+                    : <div>Steps</div>
                   }
                 </DataListCell>
               ] }
@@ -138,7 +137,7 @@ class OrderItem extends Component {
               <div>
                 <OrderDetailTable
                   canCancel={ canCancel(item.state) }
-                  requests={ steps }
+                  requests={ [] }
                   orderId={ item.id }
                   orderState={ item.state }
                   orderItem={ item.orderItems && item.orderItems[0] }
@@ -182,8 +181,8 @@ OrderItem.defaultProps = {
   isExpanded: false
 };
 
-const mapStateToProps = ({ orderReducer: { linkedOrders }, portfolioReducer: { portfolioItems }}, { index, type }) => ({
-  item: linkedOrders[type][index],
+const mapStateToProps = ({ orderReducer, portfolioReducer: { portfolioItems }}, { index, type }) => ({
+  item: orderReducer[type].data[index],
   portfolioItems: portfolioItems.data
 });
 
