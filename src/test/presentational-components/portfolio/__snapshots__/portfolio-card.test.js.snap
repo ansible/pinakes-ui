@@ -7,69 +7,39 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
   >
     <Card
       className="content-gallery-card"
-      component="article"
-      isHoverable={false}
     >
-      <CardHeader
-        className=""
-      >
+      <CardHeader>
         <PortfolioCardHeader
           headerActions={
             Array [
               <Dropdown
-                className=""
-                direction="down"
                 dropdownItems={
                   Array [
-                    <Item
-                      className=""
-                      component="a"
-                      href="#"
-                      isDisabled={false}
-                      isHovered={false}
-                    >
+                    <DropdownItem>
                       <Link
                         className="pf-c-dropdown__menu-item"
                         to="/portfolios/share/123"
                       >
                         Share
                       </Link>
-                    </Item>,
-                    <Separator
-                      className=""
-                      component="a"
-                      href="#"
-                      isDisabled={false}
-                      isHovered={false}
-                    />,
-                    <Item
-                      className=""
-                      component="a"
-                      href="#"
-                      isDisabled={false}
-                      isHovered={false}
-                    >
+                    </DropdownItem>,
+                    <DropdownSeparator />,
+                    <DropdownItem>
                       <Link
                         className="pf-c-dropdown__menu-item"
                         to="/portfolios/edit/123"
                       >
                         Edit
                       </Link>
-                    </Item>,
-                    <Item
-                      className=""
-                      component="a"
-                      href="#"
-                      isDisabled={false}
-                      isHovered={false}
-                    >
+                    </DropdownItem>,
+                    <DropdownItem>
                       <Link
                         className="pf-c-dropdown__menu-item destructive-color"
                         to="/portfolios/remove/123"
                       >
                         Delete
                       </Link>
-                    </Item>,
+                    </DropdownItem>,
                   ]
                 }
                 isOpen={false}
@@ -77,18 +47,8 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                 onSelect={[Function]}
                 position="right"
                 toggle={
-                  <Kebab
-                    aria-label="Actions"
-                    className=""
-                    id=""
-                    isActive={false}
-                    isDisabled={false}
-                    isFocused={false}
-                    isHovered={false}
-                    isOpen={false}
-                    isPlain={false}
+                  <KebabToggle
                     onToggle={[Function]}
-                    parentRef={null}
                   />
                 }
               />,
@@ -100,18 +60,13 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
       </CardHeader>
       <CardBody
         className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0"
-        component="div"
-        isFilled={true}
       >
         <Link
           className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
           to="/portfolios/detail/123"
         >
-          <TextContent
-            className=""
-          >
+          <TextContent>
             <Text
-              className=""
               component="small"
             >
               Last modified NaN days ago by Owner.
@@ -132,10 +87,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           />
         </Link>
       </CardBody>
-      <CardFooter
-        className=""
-        component="div"
-      />
+      <CardFooter />
     </Card>
   </div>
 </GalleryItem>

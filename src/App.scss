@@ -92,6 +92,9 @@
 
 .requests-table {
   width: 100%;
+  th.action-row {
+    width: 1px;
+  }
   .requests-step-label {
     span:first-child {
       width: 24px;

@@ -8,7 +8,8 @@ import {
   FETCH_REQUESTS,
   FETCH_ORDER_ITEMS,
   FETCH_LINKED_ORDERS,
-  SET_LOADING_STATE
+  SET_LOADING_STATE,
+  SET_ORDERS
 } from '../action-types';
 
 // Initial State
@@ -49,5 +50,6 @@ export default {
   [`${FETCH_ORDER_ITEMS}_FULFILLED`]: setOrderItems,
   [`${FETCH_LINKED_ORDERS}_PENDING`]: setLoadingState,
   [`${FETCH_LINKED_ORDERS}_FULFILLED`]: setLinkedOrders,
-  [SET_LOADING_STATE]: setLoadingState
+  [SET_LOADING_STATE]: setLoadingState,
+  [SET_ORDERS]: setLinkedOrders
 };
