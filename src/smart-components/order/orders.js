@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, DataList, Tabs, Tab } from '@patternfly/react-core';
+import { Grid, GridItem, Tabs, Tab } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
 import OrderMessagesModal from './order-messages-modal';
@@ -25,11 +25,8 @@ const Orders = ({
   history: { push },
   location: { pathname }
 }) => {
-  const [ dataListExpanded, setDataListExpanded ] = useState({});
   const activeTab = tabItems.find(({ name }) => pathname.includes(name));
   const handleTabClick = (_event, tabIndex) => push(`/orders${tabItems[tabIndex].name}`);
-
-  const handleDataItemToggle = id => setDataListExpanded(prevState => ({ ...prevState, [id]: !dataListExpanded[id] }));
 
   const OrderTabs = () => (
     <Tabs className="pf-u-mt-md" activeKey={ activeTab ? activeTab.eventKey : 0 } onSelect={ handleTabClick }>
@@ -45,22 +42,14 @@ const Orders = ({
         <Grid gutter="md">
           <GridItem>
             <Route exact path={ [ '/orders', '/orders/open' ] } render={ () => (
-              <DataList aria-label="current-orders">
-                <OrdersList
-                  type="openOrders"
-                  dataListExpanded={ dataListExpanded }
-                  handleDataItemToggle={ handleDataItemToggle }
-                />
-              </DataList>
+              <OrdersList
+                type="openOrders"
+              />
             ) } />
             <Route exact path="/orders/closed" render={ () => (
-              <DataList aria-label="past-orders">
-                <OrdersList
-                  type="closedOrders"
-                  dataListExpanded={ dataListExpanded }
-                  handleDataItemToggle={ handleDataItemToggle }
-                />
-              </DataList>
+              <OrdersList
+                type="closedOrders"
+              />
             ) } />
           </GridItem>
         </Grid>
