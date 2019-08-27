@@ -215,6 +215,35 @@
   pointer-events: none
 }
 
+/**
+* Update DDF select styles for select component
+*/
+.filter-select {
+  width: 300px;
+  .filter-value-container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .ddorg__pf4-component-mapper__select__indicators {
+    margin-left: auto
+  }
+  .ddorg__pf4-component-mapper__select__placeholder {
+    margin-left: 29px !important;
+  }
+  .ddorg__pf4-component-mapper__select__single-value {
+    margin-left: 22px !important;
+  }
+  .ddorg__pf4-component-mapper__select__control::before {
+    border-right: none !important;
+  }
+  .ddorg__pf4-component-mapper__select__control {
+    min-height: 36px !important;
+  }
+}
+
 //pf-4 fixes
 /**
 * non working pf display modifier: https://www.patternfly.org/v4/documentation/core/utilities/display#display-block

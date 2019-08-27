@@ -1,6 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
-import Select from 'react-select';
+import { rawComponents } from '@data-driven-forms/pf4-component-mapper'
 import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';;
 import { MemoryRouter } from 'react-router-dom';
@@ -79,7 +79,7 @@ describe('<AddProductsToPortfolio />', () => {
     }));
 
     setImmediate(() => {
-      const select = wrapper.find(Select);
+      const select = wrapper.find(rawComponents.Select);
       select.props().onChange({
         id: '1'
       });
@@ -132,7 +132,7 @@ describe('<AddProductsToPortfolio />', () => {
     );
 
     setImmediate(() => {
-      const select = wrapper.find(Select);
+      const select = wrapper.find(rawComponents.Select);
       select.props().onChange({
         id: '1'
       });
