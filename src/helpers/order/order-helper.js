@@ -1,8 +1,9 @@
 /* eslint camelcase: 0 */
-import { getAxiosInstance, getPortfolioItemApi, getOrderApi, getRequestsApi } from '../shared/user-login';
+import { getAxiosInstance, getPortfolioItemApi, getOrderApi, getRequestsApi, getOrderItemApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
 const orderApi = getOrderApi();
+const orderItemApi = getOrderItemApi();
 const portfolioItemApi = getPortfolioItemApi();
 const requestsApi = getRequestsApi();
 const axiosInstance = getAxiosInstance();
@@ -65,7 +66,7 @@ const getOrders = states =>
         }))
       };
     })
-  );
+  ).catch(console.log);
 
 export function getOpenOrders() {
   return getOrders(OPEN_ORDER_STATES);
@@ -73,4 +74,8 @@ export function getOpenOrders() {
 
 export function getClosedOrders() {
   return getOrders(CLOSED_ORDER_STATES);
+}
+
+export function getOrderApprovalRequests(orderItemId) {
+  return orderItemApi.listApprovalRequests(orderItemId);
 }

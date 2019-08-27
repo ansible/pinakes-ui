@@ -71,7 +71,6 @@ const Orders = ({
       { tabItems.map((item) => <Tab title={ item.title } key={ item.eventKey } eventKey={ item.eventKey } name={ item.name }/>) }
     </Tabs>
   );
-
   return (
     <Fragment>
       <ToolbarRenderer schema={ createOrdersToolbarSchema({ Tabs: OrderTabs }) } />
@@ -107,8 +106,7 @@ const Orders = ({
 
 Orders.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
-  fetchPlatforms: PropTypes.func.isRequired
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired
 };
 
 export default withRouter(Orders);

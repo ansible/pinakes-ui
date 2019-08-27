@@ -54,9 +54,9 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
   return OrderHelper.cancelOrder(orderId)
   .then(() => {
-    const { linkedOrders } = getState().orderReducer;
+    const { openOrders, closedOrders } = getState().orderReducer;
     let orderIndex;
-    const order = linkedOrders.current.find(({ id }, index) => {
+    const order = openOrders.data.find(({ id }, index) => {
       if (id === orderId) {
         orderIndex = index;
         return true;
@@ -64,12 +64,20 @@ export const cancelOrder = orderId => (dispatch, getState) => {
 
       return false;
     });
-    const current = [ ...linkedOrders.current.slice(0, orderIndex), ...linkedOrders.current.slice(orderIndex + 1) ];
-    const past = [
+    const open = [ ...openOrders.data.slice(0, orderIndex), ...openOrders.data.slice(orderIndex + 1) ];
+    const closed = [
       { ...order, state: 'Canceled', requests: order.requests.map(item => ({ ...item, state: 'canceled' })) },
-      ...linkedOrders.past
+      ...closedOrders.data
     ];
-    dispatch(setOrders({ current, past }));
+    dispatch(setOrders({
+      openOrders: {
+        ...openOrders,
+        data: open
+      },
+      closedOrders: {
+        ...closedOrders,
+        data: closed
+      }}));
     return order;
   })
   .then((order) => dispatch(addNotification({

@@ -182,13 +182,13 @@ export const OrderLoader = ({ items, ...props }) => (
         <DataListItemCells dataListCells={ [
           <DataListCell key="1">
             <ContentLoader
-              height={ 12 }
+              height={ 9 }
               width={ 300 }
               speed={ 2 }
               primaryColor="#FFFFFF"
               secondaryColor="#ecebeb"
               { ...props }>
-              <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
+              <rect x="0" y="0" rx="0" ry="0" width="300" height="9" />
             </ContentLoader>
           </DataListCell>
         ] }

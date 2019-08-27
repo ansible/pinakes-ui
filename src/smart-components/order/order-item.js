@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  Bullseye,
   DataListCell,
   DataListContent,
   DataListItem,
@@ -20,6 +21,7 @@ import {
   Tooltip,
   TooltipPosition
 } from '@patternfly/react-core';
+import { Spinner } from '@redhat-cloud-services/frontend-components';
 
 import OrderSteps from './order-steps';
 import OrderDetailTable from './order-detail-table';
@@ -29,6 +31,7 @@ import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../
 import createOrderRow from './create-order-row';
 import { cancelOrder } from '../../redux/actions/order-actions';
 import CancelOrderModal from './cancel-order-modal';
+import { getOrderApprovalRequests } from '../../helpers/order/order-helper';
 
 const CANCELABLE_STATES = [ 'Approval Pending' ];
 
@@ -40,10 +43,21 @@ const OrderItem = ({
 }) => {
   const [ isOpen, setIsOpen ] = useState(false);
   const [ isExpanded, setIsExpanded ] = useState(false);
+  const [ requestData, setRequestData ] = useState();
+  const [ requestDataFetching, setRequestDataFetching ] = useState(false);
   const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems: { data }}}) => data);
   const item = useSelector(({ orderReducer }) => orderReducer[type].data[index]);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (isExpanded && !requestDataFetching && !requestData) {
+      setRequestDataFetching(true);
+      getOrderApprovalRequests(item.orderItems[0].id).then(({ data }) => {
+        setRequestData(createOrderRow({ ...item, requests: data }).steps);
+        setRequestDataFetching(false);
+      });
+    }
+  }, [ isExpanded ]);
   const orderedAt = createOrderedLabel(new Date(item.created_at));
   const updatedAt = createUpdatedLabel(item.orderItems);
   return (
@@ -117,25 +131,28 @@ const OrderItem = ({
                 </Split>
               </DataListCell>,
               <DataListCell key="2" style={ { alignSelf: item.state === 'Completed' ? 'flex-end' : 'center' } }>
-                { item.state === 'Completed'
-                  ? (
-                    <div style={ { minWidth: 200, textAlign: 'end' } }>
-                      <a href={ item.orderItems && item.orderItems[0].external_url } target="_blank" rel="noopener noreferrer">
-                        Manage product
-                      </a>
-                    </div>)
-                  : <div>Steps</div>
-                }
+                <div style={ { minWidth: 200, textAlign: 'end' } }>
+                  { item.state === 'Completed' && (
+                    <a href={ item.orderItems && item.orderItems[0].external_url } target="_blank" rel="noopener noreferrer">
+                      Manage product
+                    </a>
+                  ) }
+                </div>
               </DataListCell>
             ] }
           />
         </DataListItemRow>
         <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-          { isExpanded && (
+          { requestDataFetching && (
+            <Bullseye>
+              <Spinner />
+            </Bullseye>
+          ) }
+          { isExpanded && !requestDataFetching && requestData && (
             <div>
               <OrderDetailTable
                 canCancel={ canCancel(item.state) }
-                requests={ [] }
+                requests={ requestData || [] }
                 orderId={ item.id }
                 orderState={ item.state }
                 orderItem={ item.orderItems && item.orderItems[0] }
