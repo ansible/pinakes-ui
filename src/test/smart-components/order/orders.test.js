@@ -162,7 +162,7 @@ describe('<Orders />', () => {
 
   it('should set the Manage Product link to open in a new tab', (done) => {
     const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, ...linkedOrders }});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5B%5D=Completed&filter%5Bstate%5D%5B%5D=Failed&filter%5Bstate%5D%5B%5D=Denied&filter%5Bstate%5D%5B%5D=Canceled`, mockOnce({ body: {
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5B%5D=Completed&filter%5Bstate%5D%5B%5D=Failed&filter%5Bstate%5D%5B%5D=Denied&filter%5Bstate%5D%5B%5D=Canceled`, mockOnce({ body: { // eslint-disable-line max-len
       data: [{ id: '1' }, { id: '2' }]}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items?filter%5Border_id%5D%5B%5D=1&filter%5Border_id%5D%5B%5D=2`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
@@ -204,14 +204,10 @@ describe('<Orders />', () => {
     apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-2/approval_requests`, mockOnce({ body: { data: []}}));
 
     const expectedActions = [
-      { type: `${FETCH_PORTFOLIO_ITEMS}_PENDING` },
       { type: `${FETCH_OPEN_ORDERS}_PENDING` },
       { type: `${FETCH_PLATFORMS}_PENDING` },
-      { type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`, payload: { data: []}},
       { type: `${FETCH_PLATFORMS}_FULFILLED`, payload: []},
-      { type: `${FETCH_OPEN_ORDERS}_FULFILLED`, payload: {
-        data: [{ id: '1', orderItems: []}, { id: '2', orderItems: []}]
-      }},
+      { type: `${FETCH_OPEN_ORDERS}_FULFILLED`, payload: {}},
       { type: `${CANCEL_ORDER}_PENDING` },
       { type: 'SET_ORDERS',
         payload: { openOrders: {

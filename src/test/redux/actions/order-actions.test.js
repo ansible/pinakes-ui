@@ -2,22 +2,20 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/';
-import { CATALOG_API_BASE, APPROVAL_API_BASE } from '../../../utilities/constants';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 import {
   fetchServicePlans,
   fetchOrderList,
   updateServiceData,
   setSelectedPlan,
-  sendSubmitOrder,
-  getLinkedOrders
+  sendSubmitOrder
 } from '../../../redux/actions/order-actions';
 import {
   FETCH_SERVICE_PLANS,
   LIST_ORDERS,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
-  SUBMIT_SERVICE_ORDER,
-  FETCH_LINKED_ORDERS
+  SUBMIT_SERVICE_ORDER
 } from '../../../redux/action-types';
 
 describe('Order actions', () => {

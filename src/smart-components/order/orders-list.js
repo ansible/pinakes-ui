@@ -1,47 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DataList } from '@patternfly/react-core';
+import { DataList, Level, LevelItem } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 
 import { fetchOpenOrders, fetchCloseOrders } from '../../redux/actions/order-actions';
-import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { OrderLoader } from '../../presentational-components/shared/loader-placeholders';
 import OrderItem from './order-item';
+import FilterToolbarItem from '../../presentational-components/shared/filter-toolbar-item';
+import AsyncPagination from '../common/async-pagination';
+import { getOrderPortfolioName } from '../../helpers/shared/orders';
+
+const apiRequest = {
+  openOrders: fetchOpenOrders,
+  closedOrders: fetchCloseOrders
+};
 
 const OrdersList = ({ type  }) => {
   const [ isFetching, setFetching ] = useState(true);
-  const { data } = useSelector(({ orderReducer }) => orderReducer[type]);
+  const [ searchValue, setSearchValue ] = useState('');
+  const { data, meta } = useSelector(({ orderReducer }) => orderReducer[type]);
+  const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems }}) => portfolioItems.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    let ordersRequest;
-    if (type === 'openOrders') {
-      ordersRequest = fetchOpenOrders;
-    } else {
-      ordersRequest = fetchCloseOrders;
-    }
-
-    Promise.all([ dispatch(fetchPortfolioItems()), dispatch(ordersRequest()), dispatch(fetchPlatforms()) ])
+    Promise.all([ dispatch(apiRequest[type]()), dispatch(fetchPlatforms()) ])
     .then(() => setFetching(false));
   }, []);
-  if (isFetching) {
-    return (
-      <DataList aria-label="orders-loading">
-        <OrderLoader />
-      </DataList>
-    );
-  }
+
+  const handlePagination = (...args) => {
+    setFetching(true);
+    dispatch(apiRequest[type](...args))
+    .then(() => setFetching(false))
+    .catch(() => setFetching(false));
+  };
 
   return (
-    <DataList aria-label={ type }>
-      { data.map(({ id }, index) => (
-        <OrderItem
-          key={ id }
-          index={ index }
-          type={ type }
-        />
-      )) }
-    </DataList>
+    <Fragment>
+      <div className="pf-u-pb-md pf-u-pl-xl pf-u-pr-xl orders-list">
+        <Level>
+          <LevelItem className="pf-u-mt-md">
+            <FilterToolbarItem searchValue={ searchValue } onFilterChange={ value => setSearchValue(value) } placeholder="Filter by name..." />
+          </LevelItem>
+          <LevelItem>
+            <AsyncPagination isDisabled={ isFetching } apiRequest={ handlePagination } meta={ meta } />
+          </LevelItem>
+        </Level>
+      </div>
+      <DataList aria-label={ type }>
+        { isFetching
+          ? <OrderLoader />
+          : data
+          .filter(item => getOrderPortfolioName(item, portfolioItems).toLowerCase().includes(searchValue.toLowerCase()))
+          .map((item, index) => (
+            <OrderItem
+              key={ item.id }
+              index={ index }
+              type={ type }
+              item={ item }
+            />
+          )) }
+      </DataList>
+    </Fragment>
   );
 };
 

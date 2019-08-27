@@ -23,7 +23,6 @@ import {
 } from '@patternfly/react-core';
 import { Spinner } from '@redhat-cloud-services/frontend-components';
 
-import OrderSteps from './order-steps';
 import OrderDetailTable from './order-detail-table';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
@@ -38,15 +37,13 @@ const CANCELABLE_STATES = [ 'Approval Pending' ];
 const canCancel = state => CANCELABLE_STATES.includes(state);
 
 const OrderItem = ({
-  type,
-  index
+  item
 }) => {
   const [ isOpen, setIsOpen ] = useState(false);
   const [ isExpanded, setIsExpanded ] = useState(false);
   const [ requestData, setRequestData ] = useState();
   const [ requestDataFetching, setRequestDataFetching ] = useState(false);
   const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems: { data }}}) => data);
-  const item = useSelector(({ orderReducer }) => orderReducer[type].data[index]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -180,8 +177,7 @@ const OrderItem = ({
 OrderItem.displayName = 'OrderItem';
 
 OrderItem.propTypes = {
-  type: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired
+  item: PropTypes.object.isRequired
 };
 
 export default OrderItem;

@@ -1,6 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper'
+import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
 import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';;
 import { MemoryRouter } from 'react-router-dom';

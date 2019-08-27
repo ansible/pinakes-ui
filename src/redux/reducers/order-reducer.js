@@ -12,7 +12,7 @@ import {
   FETCH_CLOSED_ORDERS,
   SET_ORDERS
 } from '../action-types';
-
+import { defaultSettings } from '../../helpers/shared/pagination';
 // Initial State
 export const orderInitialState = {
   servicePlans: [],
@@ -22,11 +22,11 @@ export const orderInitialState = {
   requests: [],
   openOrders: {
     data: [],
-    meta: {}
+    meta: { ...defaultSettings }
   },
   closedOrders: {
     data: [],
-    meta: {}
+    meta: { ...defaultSettings }
   }
 };
 
