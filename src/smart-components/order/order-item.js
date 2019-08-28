@@ -161,7 +161,7 @@ const OrderItem = ({
       </DataListItem>
       { canCancel(item.state) &&
           <CancelOrderModal
-            onClose={ () => setIsOpen(true) }
+            onClose={ () => setIsOpen(false) }
             cancelOrder={ () => {
               setIsOpen(false);
               dispatch(cancelOrder(item.id));

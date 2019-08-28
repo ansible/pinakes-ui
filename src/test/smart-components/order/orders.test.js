@@ -14,7 +14,7 @@ import OrderDetailTable from '../../../smart-components/order/order-detail-table
 import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
-import { FETCH_PORTFOLIO_ITEMS, CANCEL_ORDER, FETCH_OPEN_ORDERS, FETCH_PLATFORMS } from '../../../redux/action-types';
+import { CANCEL_ORDER, FETCH_OPEN_ORDERS, FETCH_PLATFORMS } from '../../../redux/action-types';
 import OrderItem from '../../../smart-components/order/order-item';
 
 describe('<Orders />', () => {
