@@ -95,7 +95,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>
-        <Route path="/foo" render={ (...args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
+        <Route path="/foo" render={ (args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 
@@ -136,7 +136,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>
-        <Route path="/foo" render={ (...args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
+        <Route path="/foo" render={ (args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 

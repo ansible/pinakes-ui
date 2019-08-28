@@ -55,7 +55,10 @@ describe('<Portfolios />', () => {
 
   it('should render correctly', () => {
     const store = mockStore(initialState);
-    const wrapper = shallow(<Portfolios { ...initialProps } store={ store }/>);
+    const wrapper = shallow(
+      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
+        <Portfolios { ...initialProps } store={ store }/>
+      </ComponentWrapper>).find(Portfolios);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -69,8 +72,8 @@ describe('<Portfolios />', () => {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`
     }) ];
     mount(
-      <ComponentWrapper store={ store }>
-        <Portfolios { ...initialProps } />
+      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
+        <Route path="/portfolios" render={ args => <Portfolios { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 

@@ -12,7 +12,6 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import { CATALOG_API_BASE, RBAC_API_BASE } from '../../../utilities/constants';
 import SharePortfolioModal from '../../../smart-components/portfolio/share-portfolio-modal';
-import { ShareLoader } from '../../../presentational-components/shared/loader-placeholders';
 
 describe('<SharePortfolioModal', () => {
   let initialProps;
@@ -121,7 +120,7 @@ describe('<SharePortfolioModal', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
-          <Route path="/portfolio/:id" render={ (...args) => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
+          <Route path="/portfolio/:id" render={ (args) => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
         </ComponentWrapper>
       );
     });

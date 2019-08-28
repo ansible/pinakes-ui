@@ -133,7 +133,7 @@ describe('<PortfolioItemDetail />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo/123' ] }>
-        <Route path="/foo/:portfolioItemId" render={ (...args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
+        <Route path="/foo/:portfolioItemId" render={ (args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
     setImmediate(() => {
@@ -177,7 +177,7 @@ describe('<PortfolioItemDetail />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo/123', '/foo/123/order' ] } initialIndex={ 0 }>
-        <Route path="/foo/:portfolioItemId" render={ (...args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
+        <Route path="/foo/:portfolioItemId" render={ (args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
     setImmediate(() => {
