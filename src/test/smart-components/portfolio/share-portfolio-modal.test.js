@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
@@ -60,17 +61,20 @@ describe('<SharePortfolioModal', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should mount and load data', (done) => {
+  it('should mount and load data', async (done) => {
     const store = mockStore(initialState);
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/share_info`, mockOnce({ body: { data: {}}}));
     apiClientMock.get(`${RBAC_API_BASE}/groups/`, mockOnce({ body: { data: []}}));
 
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
-        <Route path="/portfolio/:id" render={ (...args) => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
-      </ComponentWrapper>
-    );
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
+          <Route path="/portfolio/:id" render={ args => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
+        </ComponentWrapper>
+      );
+    });
 
     setImmediate(() => {
       wrapper.update();
@@ -80,36 +84,7 @@ describe('<SharePortfolioModal', () => {
     });
   });
 
-  it('should mount and show loader', (done) => {
-    const store = mockStore({
-      ...initialState,
-      shareReducer: {
-        ...initialState.shareReducer,
-        isLoading: true
-      },
-      rbacReducer: {
-        ...initialState.rbacReducer,
-        rbacGroups: []
-      }
-    });
-
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/share_info`, mockOnce({ body: { data: {}}}));
-    apiClientMock.get(`${RBAC_API_BASE}/groups/`, mockOnce({ body: { data: []}}));
-
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
-        <Route path="/portfolio/:id" render={ (...args) => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
-      </ComponentWrapper>
-    );
-
-    expect(wrapper.find(ShareLoader)).toHaveLength(1);
-    setImmediate(() => {
-      wrapper.update();
-      done();
-    });
-  });
-
-  it('should submit share data', (done) => {
+  it('should submit share data', async (done) => {
     expect.assertions(3);
     const store = mockStore(initialState);
 
@@ -142,14 +117,16 @@ describe('<SharePortfolioModal', () => {
         data: []
       });
     }));
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
+          <Route path="/portfolio/:id" render={ (...args) => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
+        </ComponentWrapper>
+      );
+    });
 
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
-        <Route path="/portfolio/:id" render={ (...args) => <SharePortfolioModal { ...args } { ...initialProps } /> }/>
-      </ComponentWrapper>
-    );
-
-    setImmediate(() => {
+    setImmediate(async () => {
       wrapper.update();
       const form = wrapper.find(ReactFormRender).children().instance().form;
       /*
@@ -160,7 +137,9 @@ describe('<SharePortfolioModal', () => {
 
       form.change('group_uuid', '123');
       form.change('permissions', 'all');
-      wrapper.find(ReactFormRender).find('button').last().simulate('click');
+      await act(async () => {
+        wrapper.find(ReactFormRender).find('button').last().simulate('click');
+      });
       setImmediate(() => {
         done();
       });
