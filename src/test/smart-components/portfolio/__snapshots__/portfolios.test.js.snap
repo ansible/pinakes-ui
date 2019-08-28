@@ -7,7 +7,12 @@ exports[`<Portfolios /> should render correctly 1`] = `
   <Portfolios
     fetchPortfolios={[Function]}
     id="123"
-    pagination={Object {}}
+    pagination={
+      Object {
+        "limit": 50,
+        "offset": 0,
+      }
+    }
     portfolios={
       Array [
         Object {

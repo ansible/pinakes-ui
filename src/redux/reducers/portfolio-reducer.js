@@ -24,7 +24,10 @@ export const portfoliosInitialState = {
     offset: 0
   }},
   portfolioItem: {},
-  portfolios: { data: [], meta: {}},
+  portfolios: { data: [], meta: {
+    limit: 50,
+    offset: 0
+  }},
   portfolio: {},
   filterValue: '',
   isLoading: false
