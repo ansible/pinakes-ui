@@ -45,35 +45,6 @@ export const fetchOrderItems = () => ({
   payload: OrderHelper.listOrderItems()
 });
 
-const linkOrders = (orders, orderItems, requests) => orders.map(order => ({
-  ...order,
-  orderItems: orderItems.filter(({ order_id }) => order_id === order.id),
-  requests: requests.filter(({ content: { order_id }}) => order_id == order.id) // eslint-disable-line eqeqeq
-}));
-
-const separateOrders = orders => orders.reduce((acc, curr) => [ 'Completed', 'Failed', 'Denied', 'Canceled' ].includes(curr.state) ? ({
-  current: acc.current,
-  past: [ ...acc.past, curr ]
-}) : ({
-  current: [ ...acc.current, curr ],
-  past: acc.past
-}), { current: [], past: []});
-
-export const getLinkedOrders = () => dispatch => {
-  dispatch({ type: `${ActionTypes.FETCH_LINKED_ORDERS}_PENDING` });
-  return Promise.all([
-    OrderHelper.listOrders().then(response => ({ ...response, data: response.data.sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10)) })),
-    OrderHelper.listRequests(),
-    OrderHelper.listOrderItems()
-  ])
-  .then(([ orders, requests, orderItems ]) => linkOrders(orders.data, orderItems.data, requests.data))
-  .then(linkedOrders => separateOrders(linkedOrders))
-  .then(payload => dispatch({
-    type: `${ActionTypes.FETCH_LINKED_ORDERS}_FULFILLED`,
-    payload
-  }));
-};
-
 const setOrders = orders => ({
   type: ActionTypes.SET_ORDERS,
   payload: orders
@@ -83,9 +54,9 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
   return OrderHelper.cancelOrder(orderId)
   .then(() => {
-    const { linkedOrders } = getState().orderReducer;
+    const { openOrders, closedOrders } = getState().orderReducer;
     let orderIndex;
-    const order = linkedOrders.current.find(({ id }, index) => {
+    const order = openOrders.data.find(({ id }, index) => {
       if (id === orderId) {
         orderIndex = index;
         return true;
@@ -93,12 +64,20 @@ export const cancelOrder = orderId => (dispatch, getState) => {
 
       return false;
     });
-    const current = [ ...linkedOrders.current.slice(0, orderIndex), ...linkedOrders.current.slice(orderIndex + 1) ];
-    const past = [
+    const open = [ ...openOrders.data.slice(0, orderIndex), ...openOrders.data.slice(orderIndex + 1) ];
+    const closed = [
       { ...order, state: 'Canceled', requests: order.requests.map(item => ({ ...item, state: 'canceled' })) },
-      ...linkedOrders.past
+      ...closedOrders.data
     ];
-    dispatch(setOrders({ current, past }));
+    dispatch(setOrders({
+      openOrders: {
+        ...openOrders,
+        data: open
+      },
+      closedOrders: {
+        ...closedOrders,
+        data: closed
+      }}));
     return order;
   })
   .then((order) => dispatch(addNotification({
@@ -109,4 +88,24 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   })))
   .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
   .catch((error) => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error }));
+};
+
+export const fetchOpenOrders = (...args) => dispatch => {
+  dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_PENDING` });
+  return OrderHelper.getOpenOrders(...args)
+  .then(({ portfolioItems, ...orders }) => {
+    dispatch({ type: ActionTypes.SET_PORTFOLIO_ITEMS, payload: portfolioItems });
+    return dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_FULFILLED`, payload: orders });
+  })
+  .catch(error => dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_FULFILLED`, payload: error }));
+};
+
+export const fetchCloseOrders = (...args) => dispatch => {
+  dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_PENDING` });
+  return OrderHelper.getClosedOrders(...args)
+  .then(({ portfolioItems, ...orders }) => {
+    dispatch({ type: ActionTypes.SET_PORTFOLIO_ITEMS, payload: portfolioItems });
+    return dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_FULFILLED`, payload: orders });
+  })
+  .catch(error => dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_FULFILLED`, payload: error }));
 };
