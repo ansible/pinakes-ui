@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Grid, GridItem, Tabs, Tab } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
-import OrderMessagesModal from './order-messages-modal';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 
@@ -36,21 +35,21 @@ const Orders = ({
   return (
     <Fragment>
       <ToolbarRenderer schema={ createOrdersToolbarSchema({ Tabs: OrderTabs }) } />
-      <Route path="/orders/:orderItemId/messages" component={ OrderMessagesModal } />
-
       <Section type="content">
         <Grid gutter="md">
           <GridItem>
-            <Route exact path={ [ '/orders', '/orders/open' ] } render={ () => (
-              <OrdersList
-                type="openOrders"
-              />
-            ) } />
-            <Route exact path="/orders/closed" render={ () => (
-              <OrdersList
-                type="closedOrders"
-              />
-            ) } />
+            <Switch>
+              <Route path="/orders/closed" render={ () => (
+                <OrdersList
+                  type="closedOrders"
+                />
+              ) } />
+              <Route path={ [ '/orders', '/orders/open' ] } render={ () => (
+                <OrdersList
+                  type="openOrders"
+                />
+              ) } />
+            </Switch>
           </GridItem>
         </Grid>
       </Section>
