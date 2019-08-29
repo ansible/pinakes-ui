@@ -7,7 +7,7 @@ import StepLabel from './step-label';
 
 const orderFailedStates = state => [ 'Failed', 'Denied' ].includes(state);
 
-const OrderDetailTable = ({ orderId, onCancel, canCancel, requests, orderState }) => {
+const OrderDetailTable = ({ orderId, onCancel, canCancel, requests, orderState, match: { url }}) => {
   return (
     <table className="requests-table">
       <thead>
@@ -40,7 +40,7 @@ const OrderDetailTable = ({ orderId, onCancel, canCancel, requests, orderState }
         )) }
         <tr>
           <td>
-            <Link to={ `/orders/${requests[0].orderItemId}/messages` }>
+            <Link to={ `${url}/${requests[0].orderItemId}/messages` }>
               <MessagesIcon /> Show progress messages
             </Link>
           </td>
@@ -59,7 +59,10 @@ OrderDetailTable.propTypes = {
   orderId: PropTypes.string.isRequired,
   orderState: PropTypes.string,
   onCancel: PropTypes.func,
-  canCancel: PropTypes.bool
+  canCancel: PropTypes.bool,
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default withRouter(OrderDetailTable);
