@@ -19,9 +19,15 @@ import {
 
 // Initial State
 export const portfoliosInitialState = {
-  portfolioItems: { data: [], meta: {}},
+  portfolioItems: { data: [], meta: {
+    limit: 50,
+    offset: 0
+  }},
   portfolioItem: {},
-  portfolios: { data: [], meta: {}},
+  portfolios: { data: [], meta: {
+    limit: 50,
+    offset: 0
+  }},
   portfolio: {},
   filterValue: '',
   isLoading: false

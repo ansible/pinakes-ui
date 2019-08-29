@@ -13,7 +13,8 @@ describe('<DetailToolbarActions />', () => {
       orderUrl: 'foo/bar',
       editUrl: 'foo/baz',
       isOpen: false,
-      setOpen: jest.fn()
+      setOpen: jest.fn(),
+      copyUrl: 'foo/copy'
     };
   });
 

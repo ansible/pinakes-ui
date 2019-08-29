@@ -9,7 +9,8 @@ describe('<PortfolioCardHeader />', () => {
   let initialProps;
   beforeEach(() => {
     initialProps = {
-      portfolioName: 'foo'
+      portfolioName: 'foo',
+      route: 'foo/bar'
     };
   });
 

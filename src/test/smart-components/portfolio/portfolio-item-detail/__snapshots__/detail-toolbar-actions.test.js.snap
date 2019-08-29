@@ -2,6 +2,7 @@
 
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
+  copyUrl="foo/copy"
   editUrl="foo/baz"
   isFetching={false}
   isOpen={false}
@@ -81,6 +82,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               <Link
                 className="pf-c-dropdown__menu-item"
                 role="link"
+                to="foo/copy"
               >
                 Copy
               </Link>
@@ -120,6 +122,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 <Link
                   className="pf-c-dropdown__menu-item"
                   role="link"
+                  to="foo/copy"
                 >
                   Copy
                 </Link>

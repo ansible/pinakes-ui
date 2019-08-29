@@ -10,7 +10,9 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
       }
     }
   >
-    <Link>
+    <Link
+      to="foo/bar"
+    >
       <TextContent>
         <Text
           className="elipsis-text-overflow pf-u-mb-0"

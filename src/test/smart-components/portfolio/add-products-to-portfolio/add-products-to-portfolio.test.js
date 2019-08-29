@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
 import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
 import { Provider } from 'react-redux';
@@ -41,47 +42,31 @@ describe('<AddProductsToPortfolio />', () => {
     expect(shallowToJson(wrapper.find(AddProductsToPortfolio))).toMatchSnapshot();
   });
 
-  it('should correctly filter service offerings', done => {
+  it('should correctly filter service offerings', async done => {
     const store = mockStore({
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
-        platformItems: {
-          1: {
-            data: [{
-              id: '123', name: 'platformItem', description: 'description'
-            }]
-          }
-        }
+        platformItems: { 1: { data: [{ id: '123', name: 'platformItem', description: 'description' }]}}
       }
     });
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{ sources:
-          [{ id: '1', name: 'foo' }]
-        }]
-      }
-    }}));
-
-    const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <AddProductsToPortfolio { ...initialProps } />
-      </ComponentWrapper>
-    );
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}}}));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
-      body: {
-        data: [],
-        meta: {
-          count: 123,
-          limit: 50,
-          offset: 123
-        }
-      }
-    }));
+      body: { data: [], meta: { count: 123, limit: 50, offset: 123 }}}));
+
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store }>
+          <AddProductsToPortfolio { ...initialProps } />
+        </ComponentWrapper>
+      );
+    });
 
     setImmediate(() => {
       const select = wrapper.find(rawComponents.Select);
-      select.props().onChange({
-        id: '1'
+      act(() => {
+        select.props().onChange({ id: '1' });
       });
       wrapper.update();
       expect(wrapper.find(PlatformItem)).toHaveLength(1);
@@ -94,26 +79,15 @@ describe('<AddProductsToPortfolio />', () => {
     });
   });
 
-  it('should check item and send correct data on submit', done => {
+  it('should check item and send correct data on submit', async done => {
     const store = mockStore({
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
-        platformItems: {
-          1: {
-            data: [{
-              id: '123', name: 'platformItem', description: 'description'
-            }]
-          }
-        }
+        platformItems: { 1: { data: [{ id: '123', name: 'platformItem', description: 'description' }]}}
       }
     });
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{ sources:
-          [{ id: '1', name: 'foo' }]
-        }]
-      }
-    }}));
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}}}));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
       body: {
         data: [], meta: {}}
@@ -125,20 +99,27 @@ describe('<AddProductsToPortfolio />', () => {
     }));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
 
-    const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <AddProductsToPortfolio { ...initialProps } portfolio={ { id: '321', name: 'Foo' } } />
-      </ComponentWrapper>
-    );
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store }>
+          <AddProductsToPortfolio { ...initialProps } portfolio={ { id: '321', name: 'Foo' } } />
+        </ComponentWrapper>
+      );
+    });
 
-    setImmediate(() => {
+    setImmediate(async () => {
       const select = wrapper.find(rawComponents.Select);
-      select.props().onChange({
-        id: '1'
+      act(() => {
+        select.props().onChange({
+          id: '1'
+        });
       });
       wrapper.update();
       wrapper.find('input').last().simulate('change');
-      wrapper.find('button').last().simulate('click');
+      await act(async () => {
+        wrapper.find('button').last().simulate('click');
+      });
       setImmediate(() => {
         // wait for redirect and portfolio items refresh
         expect(wrapper.find(MemoryRouter).childAt(0).props().history.location.pathname).toEqual('/portfolio/foo');
