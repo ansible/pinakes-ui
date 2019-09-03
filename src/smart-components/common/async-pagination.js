@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import debouncePromise from 'awesome-debounce-promise';
 
-import { Pagination } from '@redhat-cloud-services/frontend-components';
+import { Pagination } from '@patternfly/react-core';
 
 import { getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 
-const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest }) => {
+const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest, ...props }) => {
 
-  const handleOnPerPageSelect = limit => apiRequest(apiProps, {
+  const handleOnPerPageSelect = (_event, limit) => apiRequest(apiProps, {
     offset,
     limit
   });
 
-  const handleSetPage = (number, debounce) => {
+  const handleSetPage = (_event, number, debounce) => {
     const options = {
       offset: getNewPage(number, limit),
       limit
@@ -28,20 +28,23 @@ const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest 
   };
 
   return (
-    <Pagination
-      itemsPerPage={ limit || 50 }
-      numberOfItems={ count || 50 }
-      onPerPageSelect={ handleOnPerPageSelect }
-      page={ getCurrentPage(limit, offset) }
-      onSetPage={ handleSetPage }
-      direction="down"
-    />
+    <div className="pf-u-mt-md">
+      <Pagination
+        perPage={ limit || 50 }
+        itemCount={ count || 50 }
+        onPerPageSelect={ handleOnPerPageSelect }
+        page={ getCurrentPage(limit, offset) }
+        onSetPage={ handleSetPage }
+        direction="down"
+        { ...props }
+      />
+    </div>
   );
 };
 
 AsyncPagination.propTypes = {
   meta: PropTypes.shape({
-    count: PropTypes.number.isRequired,
+    count: PropTypes.number,
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired
   }),

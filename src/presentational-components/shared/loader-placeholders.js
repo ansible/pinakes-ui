@@ -6,7 +6,6 @@ import {
   Bullseye,
   Card,
   CardBody,
-  DataList,
   DataListCell,
   DataListItem,
   DataListItemRow,
@@ -19,8 +18,6 @@ import {
   FormGroup,
   Title
 } from '@patternfly/react-core';
-import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 
 export const CardLoader = ({ items, ...props }) => (
   <Grid  gutter="md">
@@ -179,32 +176,27 @@ export const ShareLoader = () => (
 );
 
 export const OrderLoader = ({ items, ...props }) => (
-  <Fragment>
-    <ToolbarRenderer schema={ createOrdersToolbarSchema({ Tabs: Fragment }) } />
-    <DataList aria-label="orders-placeholder" style={ { margin: 32 } }>
-      { [ ...Array(items) ].map((_item, index) => (
-        <DataListItem key={ index } aria-label="order-item-placeholder" aria-labelledby={ `${index}-orders-placeholder` }>
-          <DataListItemRow>
-            <DataListItemCells dataListCells={ [
-              <DataListCell key="1">
-                <ContentLoader
-                  height={ 12 }
-                  width={ 300 }
-                  speed={ 2 }
-                  primaryColor="#FFFFFF"
-                  secondaryColor="#ecebeb"
-                  { ...props }>
-                  <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
-                </ContentLoader>
-              </DataListCell>
-            ] }
-            />
-          </DataListItemRow>
+  [ ...Array(items) ].map((_item, index) => (
+    <DataListItem key={ index } aria-label="order-item-placeholder" aria-labelledby={ `${index}-orders-placeholder` }>
+      <DataListItemRow>
+        <DataListItemCells dataListCells={ [
+          <DataListCell key="1">
+            <ContentLoader
+              height={ 9 }
+              width={ 300 }
+              speed={ 2 }
+              primaryColor="#FFFFFF"
+              secondaryColor="#ecebeb"
+              { ...props }>
+              <rect x="0" y="0" rx="0" ry="0" width="300" height="9" />
+            </ContentLoader>
+          </DataListCell>
+        ] }
+        />
+      </DataListItemRow>
 
-        </DataListItem>
-      )) }
-    </DataList>
-  </Fragment>
+    </DataListItem>
+  ))
 );
 
 OrderLoader.propTypes = {

@@ -68,7 +68,6 @@ exports[`<ContentGallery /> should render no items placeholder 1`] = `
   <NoItems>
     <div>
       <Text
-        className=""
         component="h1"
       >
         <h1

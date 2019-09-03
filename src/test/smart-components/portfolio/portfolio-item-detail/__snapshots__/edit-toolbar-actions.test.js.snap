@@ -16,17 +16,7 @@ exports[`<EditToolbarActions /> should render correctly 1`] = `
           onClick={[Function]}
         >
           <Button
-            aria-label={null}
-            className=""
-            component="button"
-            isActive={false}
-            isBlock={false}
-            isDisabled={false}
-            isFocus={false}
-            isHover={false}
-            isInline={false}
             onClick={[MockFunction]}
-            type="button"
             variant="link"
           >
             <button
@@ -48,17 +38,7 @@ exports[`<EditToolbarActions /> should render correctly 1`] = `
   <LevelItem>
     <div>
       <Button
-        aria-label={null}
-        className=""
-        component="button"
-        isActive={false}
-        isBlock={false}
-        isDisabled={false}
-        isFocus={false}
-        isHover={false}
-        isInline={false}
         onClick={[MockFunction]}
-        type="button"
         variant="primary"
       >
         <button

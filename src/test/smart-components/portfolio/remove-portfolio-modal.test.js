@@ -50,7 +50,7 @@ describe('<RemovePortfolioModal />', () => {
     const store = mockStore(initialState);
     const wrapper = mount(
       <ComponentWrapper store={ store }>
-        <Route path="/foo/:id" render={ (...args) => <RemovePortfolioModal { ...args } { ...initialProps } /> } />
+        <Route path="/foo/:id" render={ (args) => <RemovePortfolioModal { ...args } { ...initialProps } /> } />
       </ComponentWrapper>
     );
     wrapper.find('button').first().simulate('click');
@@ -73,7 +73,7 @@ describe('<RemovePortfolioModal />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store }>
-        <Route path="/foo/:id" render={ (...args) => <RemovePortfolioModal { ...args } { ...initialProps } /> } />
+        <Route path="/foo/:id" render={ (args) => <RemovePortfolioModal { ...args } { ...initialProps } /> } />
       </ComponentWrapper>
     );
     const expectedActions = [{

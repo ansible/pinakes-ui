@@ -10,10 +10,9 @@ exports[`<CardCheckbox /> should render correctly 1`] = `
 >
   <Checkbox
     aria-label="card checkbox"
-    checked={false}
     className=""
     id="foo-id"
-    isChecked={null}
+    isChecked={false}
     isDisabled={false}
     isValid={true}
     onChange={[MockFunction]}

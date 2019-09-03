@@ -2,10 +2,7 @@
 
 exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
 <FormGroup
-  className=""
   fieldId="bazz"
-  isInline={false}
-  isRequired={false}
   isValid={true}
 >
   <Select
@@ -40,11 +37,8 @@ exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
 
 exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
 <FormGroup
-  className=""
   fieldId="bazz"
   helperTextInvalid="Error"
-  isInline={false}
-  isRequired={false}
   isValid={false}
 >
   <Select
@@ -79,17 +73,11 @@ exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
 
 exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
 <FormGroup
-  className=""
   fieldId="bazz"
-  isInline={false}
-  isRequired={false}
   isValid={true}
 >
-  <TextContent
-    className=""
-  >
+  <TextContent>
     <Text
-      className=""
       component="small"
     >
       description

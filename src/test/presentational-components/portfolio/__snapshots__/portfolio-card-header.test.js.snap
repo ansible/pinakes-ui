@@ -1,24 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfolioCardHeader /> should render correctly 1`] = `
-<Level
-  className=""
-  gutter={null}
->
+<Level>
   <LevelItem
     className="portfolio-card-header-title"
+    style={
+      Object {
+        "flexGrow": 1,
+      }
+    }
   >
-    <TextContent
-      className=""
+    <Link
+      to="foo/bar"
     >
-      <Text
-        className="elipsis-text-overflow pf-u-mb-0"
-        component="h3"
-        title="foo"
-      >
-        foo
-      </Text>
-    </TextContent>
+      <TextContent>
+        <Text
+          className="elipsis-text-overflow pf-u-mb-0"
+          component="h3"
+          title="foo"
+        >
+          foo
+        </Text>
+      </TextContent>
+    </Link>
   </LevelItem>
   <LevelItem
     onClick={[Function]}

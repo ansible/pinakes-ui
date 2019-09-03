@@ -6,18 +6,14 @@ exports[`<PlatformItem /> should render correctly 1`] = `
 >
   <Card
     className="content-gallery-card"
-    component="article"
-    isHoverable={false}
     key="Foo"
   >
     <article
       className="pf-c-card content-gallery-card"
     >
-      <CardHeader
-        className=""
-      >
+      <CardHeader>
         <div
-          className="pf-c-card__header pf-c-title pf-m-lg"
+          className="pf-c-card__header pf-c-title pf-m-md"
         >
           <CardIcon
             height={40}
@@ -120,9 +116,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         id="Foo"
       >
         <CardBody
-          className=""
-          component="div"
-          isFilled={true}
           style={
             Object {
               "height": 240,
@@ -137,9 +130,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
               }
             }
           >
-            <TextContent
-              className=""
-            >
+            <TextContent>
               <div
                 className="pf-c-content"
               >
@@ -153,7 +144,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   />
                 </Text>
                 <Text
-                  className=""
                   component="small"
                 >
                   <small
@@ -191,10 +181,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
           </div>
         </CardBody>
       </ServiceOfferingCardBody>
-      <CardFooter
-        className=""
-        component="div"
-      >
+      <CardFooter>
         <div
           className="pf-c-card__footer"
         />

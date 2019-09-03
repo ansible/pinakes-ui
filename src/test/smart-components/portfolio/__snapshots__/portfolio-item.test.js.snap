@@ -15,8 +15,6 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
       >
         <Card
           className="content-gallery-card"
-          component="article"
-          isHoverable={false}
         >
           <article
             className="pf-c-card content-gallery-card"
@@ -34,7 +32,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                   className="card_header"
                 >
                   <div
-                    className="pf-c-card__header pf-c-title pf-m-lg card_header"
+                    className="pf-c-card__header pf-c-title pf-m-md card_header"
                   >
                     <CardIcon
                       height={40}
@@ -137,9 +135,6 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                   orderUrl="/order"
                 >
                   <CardBody
-                    className=""
-                    component="div"
-                    isFilled={true}
                     style={
                       Object {
                         "height": 240,
@@ -154,9 +149,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         }
                       }
                     >
-                      <TextContent
-                        className=""
-                      >
+                      <TextContent>
                         <div
                           className="pf-c-content"
                         >
@@ -174,7 +167,6 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                             </h3>
                           </Text>
                           <Text
-                            className=""
                             component="small"
                           >
                             <small
@@ -217,10 +209,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                     </div>
                   </CardBody>
                 </ServiceOfferingCardBody>
-                <CardFooter
-                  className=""
-                  component="div"
-                >
+                <CardFooter>
                   <div
                     className="pf-c-card__footer"
                   />

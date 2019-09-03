@@ -95,7 +95,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>
-        <Route path="/foo" render={ (...args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
+        <Route path="/foo" render={ (args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 
@@ -119,10 +119,12 @@ describe('<OrderServiceFormStepConfiguration />', () => {
       expect(JSON.parse(req.body())).toEqual({
         count: 1,
         service_parameters: {
-          NAMESPACE: 'openshift',
-          ENABLE_OAUTH: 'true',
-          MEMORY_LIMIT: '512Mi'
+          airspeed: '',
+          int_value: 5,
+          quest: '',
+          username: ''
         },
+        service_plan_ref: '911153',
         provider_control_parameters: {},
         portfolio_item_id: '1' });
       return res.status(200);
@@ -134,7 +136,7 @@ describe('<OrderServiceFormStepConfiguration />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>
-        <Route path="/foo" render={ (...args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
+        <Route path="/foo" render={ (args) => <OrderServiceFormStepConfiguration { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 
