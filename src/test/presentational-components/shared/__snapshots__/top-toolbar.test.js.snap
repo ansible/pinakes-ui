@@ -6,7 +6,6 @@ exports[`<TopToolbar /> should render correctly 1`] = `
 >
   <Level
     className="pf-u-mb-md"
-    gutter={null}
   >
     <withRouter(Connect(CatalogBreadrubms)) />
   </Level>

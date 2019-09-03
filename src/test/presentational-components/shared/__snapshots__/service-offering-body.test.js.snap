@@ -8,9 +8,6 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
   name="Foo"
 >
   <CardBody
-    className=""
-    component="div"
-    isFilled={true}
     style={
       Object {
         "height": 240,
@@ -25,9 +22,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
         }
       }
     >
-      <TextContent
-        className=""
-      >
+      <TextContent>
         <div
           className="pf-c-content"
         >
@@ -45,7 +40,6 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
             </h3>
           </Text>
           <Text
-            className=""
             component="small"
           >
             <small
@@ -95,9 +89,6 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
   name="Foo"
 >
   <CardBody
-    className=""
-    component="div"
-    isFilled={true}
     style={
       Object {
         "height": 240,
@@ -112,9 +103,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
         }
       }
     >
-      <TextContent
-        className=""
-      >
+      <TextContent>
         <div
           className="pf-c-content"
         >
@@ -132,7 +121,6 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
             </h3>
           </Text>
           <Text
-            className=""
             component="small"
           >
             <small
