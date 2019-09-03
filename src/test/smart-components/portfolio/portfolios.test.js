@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
@@ -42,7 +43,11 @@ describe('<Portfolios />', () => {
           modified: 'sometimes',
           created_at: 'foo',
           owner: 'Owner'
-        }]}
+        }],
+        meta: {
+          limit: 50,
+          offset: 0
+        }}
       }
     };
     mockStore = configureStore(middlewares);
@@ -50,7 +55,10 @@ describe('<Portfolios />', () => {
 
   it('should render correctly', () => {
     const store = mockStore(initialState);
-    const wrapper = shallow(<Portfolios { ...initialProps } store={ store }/>);
+    const wrapper = shallow(
+      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
+        <Portfolios { ...initialProps } store={ store }/>
+      </ComponentWrapper>).find(Portfolios);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -64,8 +72,8 @@ describe('<Portfolios />', () => {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`
     }) ];
     mount(
-      <ComponentWrapper store={ store }>
-        <Portfolios { ...initialProps } />
+      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
+        <Route path="/portfolios" render={ args => <Portfolios { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 
@@ -82,7 +90,7 @@ describe('<Portfolios />', () => {
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
-        <Route path="/portfolios" render={ (...args) => <Portfolios { ...initialProps } { ...args } /> } />
+        <Route path="/portfolios" render={ args => <Portfolios { ...initialProps } { ...args } /> } />
       </ComponentWrapper>
     );
 
@@ -97,23 +105,25 @@ describe('<Portfolios />', () => {
     });
   });
 
-  it('should render in loading state', (done) => {
+  it('should render in loading state', async (done) => {
     const store = mockStore({
       ...initialState,
       portfolioReducer: {
         ...initialState.portfolioReducer,
         isLoading: true,
-        portfolios: { data: []}
+        portfolios: { data: [], meta: { limit: 50, offset: 0 }}
       }
     });
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`, mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
-
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
-        <Route path="/portfolios" render={ (...args) => <Portfolios { ...initialProps } { ...args } /> } />
-      </ComponentWrapper>
-    );
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
+          <Route exact path="/portfolios" render={ props => <Portfolios { ...initialProps } { ...props } /> } />
+        </ComponentWrapper>
+      );
+    });
 
     setImmediate(() => {
       expect(wrapper.find(CardLoader)).toHaveLength(1);

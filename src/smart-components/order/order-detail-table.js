@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button } from '@patternfly/react-core';
 import { MessagesIcon } from '@patternfly/react-icons';
 import StepLabel from './step-label';
 
 const orderFailedStates = state => [ 'Failed', 'Denied' ].includes(state);
 
-const OrderDetailTable = ({ requests, orderState }) => (
-  <Fragment>
+const OrderDetailTable = ({ orderId, onCancel, canCancel, requests, orderState, match: { url }}) => {
+  return (
     <table className="requests-table">
       <thead>
         <tr>
@@ -23,6 +24,7 @@ const OrderDetailTable = ({ requests, orderState }) => (
           <th>
             Status
           </th>
+          { canCancel && <th className="action-row"></th> }
         </tr>
       </thead>
       <tbody>
@@ -32,19 +34,20 @@ const OrderDetailTable = ({ requests, orderState }) => (
             <td>{ requester }</td>
             <td>{ updated_at }</td>
             <td>{ state }</td>
+            { canCancel
+            && <td>{ index === 0 && <Button id={ `cancel-order-${orderId}` } onClick={ onCancel } variant="secondary">Cancel</Button> }</td> }
           </tr>
         )) }
         <tr>
           <td>
-            <Link to={ `/orders/${requests[0].orderItemId}/messages` }>
+            <Link to={ `${url}/${requests[0].orderItemId}/messages` }>
               <MessagesIcon /> Show progress messages
             </Link>
           </td>
         </tr>
       </tbody>
     </table>
-  </Fragment>
-);
+  );};
 
 OrderDetailTable.propTypes = {
   requests: PropTypes.arrayOf(PropTypes.shape({
@@ -53,7 +56,13 @@ OrderDetailTable.propTypes = {
     updated_at: PropTypes.string,
     state: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ])
   })).isRequired,
-  orderState: PropTypes.string
+  orderId: PropTypes.string.isRequired,
+  orderState: PropTypes.string,
+  onCancel: PropTypes.func,
+  canCancel: PropTypes.bool,
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default withRouter(OrderDetailTable);

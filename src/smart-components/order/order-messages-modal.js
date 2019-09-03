@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import { getOrderItemApi } from '../../helpers/shared/user-login';
 
-const OrderMessagesModal = ({ history: { push }, match: { params: { orderItemId }}}) => {
+const OrderMessagesModal = ({ closeUrl, history: { push }, match: { params: { orderItemId }}}) => {
   const [ messages, setMessages ] = useState([{ message: 'Loading messages' }]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const OrderMessagesModal = ({ history: { push }, match: { params: { orderItemId 
       isOpen
       title={ `Progress messages of order item with id: ${orderItemId}` }
       isLarge
-      onClose={ () => push('/orders') }
+      onClose={ () => push(closeUrl) }
       style={ { overflowX: 'scroll' } }
     >
       <pre>
@@ -35,7 +35,8 @@ OrderMessagesModal.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  closeUrl: PropTypes.string.isRequired
 };
 
 export default withRouter(OrderMessagesModal);

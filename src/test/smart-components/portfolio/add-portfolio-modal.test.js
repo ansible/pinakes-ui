@@ -29,7 +29,9 @@ describe('<AddPortfolioModal />', () => {
 
   beforeEach(() => {
     initialProps = {
-
+      fetchPortfolios: jest.fn(),
+      fetchWorkflows: jest.fn(),
+      workflows: []
     };
     initialState = {
       approvalReducer: {
@@ -85,12 +87,8 @@ describe('<AddPortfolioModal />', () => {
         component: componentTypes.SELECT,
         label: 'Approval workflow',
         name: 'workflow_ref',
-        options: [
-          {
-            label: 'foo',
-            value: 'bar'
-          }
-        ]
+        loadOptions: expect.any(Function),
+        isSearchable: true
       }]
     };
 

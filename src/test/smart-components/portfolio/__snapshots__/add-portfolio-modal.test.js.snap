@@ -42,7 +42,11 @@ exports[`<AddPortfolioModal /> should create edit variant of portfolio modal 1`]
       ]
     }
   >
-    <withRouter(Connect(AddPortfolioModal)) />
+    <withRouter(Connect(AddPortfolioModal))
+      fetchPortfolios={[MockFunction]}
+      fetchWorkflows={[MockFunction]}
+      workflows={Array []}
+    />
   </MemoryRouter>
 </ContextProvider>
 `;

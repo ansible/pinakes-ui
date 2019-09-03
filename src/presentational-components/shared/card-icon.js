@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import { IconPlaceholder } from './loader-placeholders';
 import CardIconDefault from '../../assets/images/card-icon-default.svg';
-import { useSelector } from 'react-redux';
 import OpenshiftIcon from '../../assets/images/openshift-icon.svg';
 import AmazonIcon from '../../assets/images/amazon-icon.png';
 import TowerIcon from '../../assets/images/tower-icon.svg';
@@ -19,6 +20,7 @@ const defaultPlatformIcon = (platformId, platformList) => {
   if (!platformId) {
     return CardIconDefault;
   }
+
   if (!platformList || platformList.empty || !platformId) {
     return CardIconDefault;
   }
@@ -29,7 +31,7 @@ const defaultPlatformIcon = (platformId, platformList) => {
   }
 };
 
-const CardIcon = ({ src, height, platformId = undefined }) => {
+const CardIcon = ({ src, height, platformId  }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
   const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
