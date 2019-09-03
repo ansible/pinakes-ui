@@ -13,14 +13,21 @@ import {
   ADD_TEMPORARY_PORTFOLIO,
   UPDATE_TEMPORARY_PORTFOLIO,
   DELETE_TEMPORARY_PORTFOLIO,
-  RESTORE_PORTFOLIO_PREV_STATE
+  RESTORE_PORTFOLIO_PREV_STATE,
+  SET_PORTFOLIO_ITEMS
 } from '../action-types';
 
 // Initial State
 export const portfoliosInitialState = {
-  portfolioItems: { data: [], meta: {}},
+  portfolioItems: { data: [], meta: {
+    limit: 50,
+    offset: 0
+  }},
   portfolioItem: {},
-  portfolios: { data: [], meta: {}},
+  portfolios: { data: [], meta: {
+    limit: 50,
+    offset: 0
+  }},
   portfolio: {},
   filterValue: '',
   isLoading: false
@@ -89,5 +96,6 @@ export default {
   [ADD_TEMPORARY_PORTFOLIO]: addTemporaryPortfolio,
   [UPDATE_TEMPORARY_PORTFOLIO]: updateTemporaryPortfolio,
   [DELETE_TEMPORARY_PORTFOLIO]: deleteTemporaryPortfolio,
-  [RESTORE_PORTFOLIO_PREV_STATE]: restorePrevState
+  [RESTORE_PORTFOLIO_PREV_STATE]: restorePrevState,
+  [SET_PORTFOLIO_ITEMS]: setPortfolioItems
 };

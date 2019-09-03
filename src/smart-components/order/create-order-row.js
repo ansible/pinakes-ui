@@ -16,7 +16,9 @@ const iconsMapper  = name => ({
   Completed: <span><CheckCircleIcon fill="#92D400" />&nbsp; Success</span>,
   approved: <span><CheckCircleIcon fill="#92D400" />&nbsp; Approved</span>,
   Failed: <span><TimesCircleIcon />&nbsp; Failed</span>,
-  denied: <span><TimesCircleIcon />&nbsp; Denied</span>
+  denied: <span><TimesCircleIcon />&nbsp; Denied</span>,
+  Canceled: <span><TimesCircleIcon />&nbsp; Canceled</span>,
+  canceled: <span><TimesCircleIcon />&nbsp; Canceled</span>
 })[name] || <span><InProgressIcon />&nbsp; Pending</span>;
 
 const createTableRows = order => [{

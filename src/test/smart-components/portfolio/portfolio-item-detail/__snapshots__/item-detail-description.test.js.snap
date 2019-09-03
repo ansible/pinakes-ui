@@ -26,14 +26,11 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
     ]
   }
 >
-  <TextContent
-    className=""
-  >
+  <TextContent>
     <div
       className="pf-c-content"
     >
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -44,7 +41,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
         </h6>
       </Text>
       <Text
-        className=""
         component="p"
       >
         <p
@@ -55,7 +51,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
         </p>
       </Text>
       <Text
-        className=""
         component="p"
       >
         <p
@@ -66,7 +61,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
         </p>
       </Text>
       <Text
-        className=""
         component="p"
       >
         <p
@@ -83,7 +77,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
         </p>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -94,7 +87,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
         </h6>
       </Text>
       <Text
-        className=""
         component="p"
       >
         <p
@@ -116,7 +108,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
         render={[Function]}
       >
         <Text
-          className=""
           component="h6"
         >
           <h6
@@ -127,7 +118,6 @@ exports[`<ItemDetailDescription /> should render correctly 1`] = `
           </h6>
         </Text>
         <Text
-          className=""
           component="p"
         >
           <p

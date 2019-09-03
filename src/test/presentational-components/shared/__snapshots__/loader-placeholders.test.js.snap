@@ -27,10 +27,7 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
     />
   </Holder>
   <div>
-    <Bullseye
-      className=""
-      component="div"
-    >
+    <Bullseye>
       <Spinner />
     </Bullseye>
   </div>
@@ -39,59 +36,30 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
 
 exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
 <Grid
-  className=""
   gutter="md"
-  lg={null}
-  md={null}
-  sm={null}
-  span={null}
-  xl={null}
 >
   <GridItem
-    className=""
-    lg={null}
-    lgOffset={null}
-    lgRowSpan={null}
-    md={null}
-    mdOffset={null}
-    mdRowSpan={null}
-    offset={null}
-    rowSpan={null}
     sm={12}
-    smOffset={null}
-    smRowSpan={null}
-    span={null}
     style={
       Object {
         "padding": 24,
       }
     }
-    xl={null}
-    xlOffset={null}
-    xlRowSpan={null}
   >
     <Gallery
-      className=""
       gutter="md"
     >
       <GalleryItem
         key="0"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -147,20 +115,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="1"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -216,20 +177,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="2"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -285,20 +239,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="3"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -354,20 +301,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="4"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -423,20 +363,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="5"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -492,20 +425,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="6"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -561,20 +487,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="7"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -630,20 +549,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="8"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -699,20 +611,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="9"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -768,20 +673,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="10"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -837,20 +735,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="11"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -906,20 +797,13 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
         key="12"
       >
         <Card
-          className=""
-          component="article"
-          isHoverable={false}
           style={
             Object {
               "height": 350,
             }
           }
         >
-          <CardBody
-            className=""
-            component="div"
-            isFilled={true}
-          >
+          <CardBody>
             <Holder
               height={160}
               primaryColor="#f3f3f3"
@@ -978,31 +862,10 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
 
 exports[`Loader placeholders should render <PortfolioLoader /> correctly 1`] = `
 <Grid
-  className=""
   gutter="md"
-  lg={null}
-  md={null}
-  sm={null}
-  span={null}
-  xl={null}
 >
   <GridItem
-    className=""
-    lg={null}
-    lgOffset={null}
-    lgRowSpan={null}
-    md={null}
-    mdOffset={null}
-    mdRowSpan={null}
-    offset={null}
-    rowSpan={null}
     sm={12}
-    smOffset={null}
-    smRowSpan={null}
-    span={null}
-    xl={null}
-    xlOffset={null}
-    xlRowSpan={null}
   >
     <Holder
       height={16}
@@ -1022,28 +885,13 @@ exports[`Loader placeholders should render <PortfolioLoader /> correctly 1`] = `
     </Holder>
   </GridItem>
   <GridItem
-    className=""
-    lg={null}
-    lgOffset={null}
-    lgRowSpan={null}
-    md={null}
-    mdOffset={null}
-    mdRowSpan={null}
-    offset={null}
-    rowSpan={null}
     sm={12}
-    smOffset={null}
-    smRowSpan={null}
-    span={null}
     style={
       Object {
         "paddingLeft": 16,
         "paddingRight": 16,
       }
     }
-    xl={null}
-    xlOffset={null}
-    xlRowSpan={null}
   >
     <CardLoader
       items={5}

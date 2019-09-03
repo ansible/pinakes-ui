@@ -29,7 +29,9 @@ describe('<AddPortfolioModal />', () => {
 
   beforeEach(() => {
     initialProps = {
-
+      fetchPortfolios: jest.fn(),
+      fetchWorkflows: jest.fn(),
+      workflows: []
     };
     initialState = {
       approvalReducer: {

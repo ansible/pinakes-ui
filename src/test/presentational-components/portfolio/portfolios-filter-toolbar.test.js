@@ -12,10 +12,13 @@ describe('<PortfoliosFilterToolbar />', () => {
 
   beforeEach(() => {
     initialProps = {
-      schema: createPortfolioToolbarSchema({ filterProps: {
-        searchValue: '',
-        onFilterChange: jest.fn()
-      }})
+      schema: createPortfolioToolbarSchema({
+        filterProps: {
+          searchValue: '',
+          onFilterChange: jest.fn()
+        },
+        fetchPortfolios: () => new Promise(resolve => resolve([]))
+      })
     };
   });
 
@@ -30,7 +33,10 @@ describe('<PortfoliosFilterToolbar />', () => {
     const wrapper = mount(
       <MemoryRouter>
         <Provider>
-          <ToolbarRenderer schema={ createPortfolioToolbarSchema({ filterProps: { onFilterChange, searchValue: '' }}) } />
+          <ToolbarRenderer schema={ createPortfolioToolbarSchema({
+            fetchPortfolios: () => new Promise(resolve => resolve([])),
+            filterProps: { onFilterChange, searchValue: '' }}) }
+          />
         </Provider>
       </MemoryRouter>
     );
