@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormSelect, FormSelectOption, FormGroup, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { FormGroup, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
 
 const createOptions = (options, inputValue, isRequired) => {
   if (inputValue && isRequired) {
@@ -21,9 +22,13 @@ const Select = ({
   FieldProvider,
   isRequired,
   formOptions: { change },
+  multi,
   ...rest
 }) => (
-  <FormSelect { ...input } { ...rest }
+  <rawComponents.Select
+    hideSelectedOptions={ false }
+    { ...input }
+    { ...rest }
     onChange={ (value, ...args) => {
       if (rest.onChange) {
         rest.onChange(value);
@@ -31,15 +36,12 @@ const Select = ({
       } else {
         input.onChange(value, ...args);
       }
-    } } isDisabled={ isDisabled || isReadOnly }>
-    { createOptions(options, input.value, isRequired).map((props) => (
-      <FormSelectOption
-        key={ props.value || props.label } // eslint-disable-line react/prop-types
-        { ...props }
-        label={ props.label.toString() }
-      />
-    )) }
-  </FormSelect>
+    } }
+    isMulti={ multi }
+    options={ createOptions(options, input.value, isRequired) }
+    isDisabled={ isDisabled || isReadOnly }
+    closeMenuOnSelect={ !multi }
+  />
 );
 
 Select.propTypes = {
@@ -47,18 +49,23 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string.isRequired
-  })).isRequired,
+  })),
   isReadOnly: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
+  isSearchable: PropTypes.bool,
   FieldProvider: PropTypes.any,
   formOptions: PropTypes.shape({
     change: PropTypes.func
-  })
+  }),
+  multi: PropTypes.bool
 };
 
 Select.defaultProps = {
-  formOptions: {}
+  formOptions: {},
+  isSearchable: false,
+  multi: false,
+  options: []
 };
 
 const Pf4SelectWrapper = ({

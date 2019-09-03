@@ -1,10 +1,12 @@
 import * as ActionTypes from '../action-types';
 import * as PlatformHelper from '../../helpers/platform/platform-helper';
 
-const doFetchPlatforms = () => ({
-  type: ActionTypes.FETCH_PLATFORMS,
-  payload: PlatformHelper.getPlatforms().then(({ data }) => data)
-});
+const doFetchPlatforms = () => dispatch => {
+  dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_PENDING` });
+  return PlatformHelper.getPlatforms()
+  .then(data => dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_FULFILLED`, payload: data }))
+  .catch(error => dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_REJECTED`, payload: error }));
+};
 
 export const fetchPlatforms = () => (dispatch) => dispatch(doFetchPlatforms());
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,26 +6,23 @@ import { withRouter } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 
 import FormRenderer from '../common/form-renderer';
-import { fetchWorkflows } from '../../redux/actions/approval-actions';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
-import { addPortfolio, fetchPortfolios, updatePortfolio } from '../../redux/actions/portfolio-actions';
+import { addPortfolio, updatePortfolio } from '../../redux/actions/portfolio-actions';
+import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 
 const AddPortfolioModal = ({
   history: { goBack },
   match: { params: { id }},
   addPortfolio,
-  fetchPortfolios,
   initialValues,
-  updatePortfolio,
-  fetchWorkflows,
-  workflows
+  updatePortfolio
 }) => {
-  useEffect(() => {
-    fetchWorkflows();
-  }, []);
-  const onSubmit = data => initialValues
-    ? updatePortfolio(data).then(goBack).then(() => fetchPortfolios())
-    : addPortfolio(data).then(goBack).then(() => fetchPortfolios());
+  const onSubmit = data => {
+    goBack();
+    return initialValues
+      ? updatePortfolio(data)
+      : addPortfolio(data);
+  };
 
   const onCancel = () => goBack();
 
@@ -38,7 +35,7 @@ const AddPortfolioModal = ({
     >
       <div style={ { padding: 8 } }>
         <FormRenderer
-          schema={ createPortfolioSchema(!initialValues, workflows, id) }
+          schema={ createPortfolioSchema(!initialValues, loadWorkflowOptions, id) }
           schemaType="default"
           onSubmit={ onSubmit }
           onCancel={ onCancel }
@@ -71,17 +68,14 @@ AddPortfolioModal.propTypes = {
   })).isRequired
 };
 
-const mapStateToProps = ({ approvalReducer: { workflows }, portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
+const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
   initialValues: id && portfolios.data.find(item => item.id === id),
-  portfolioId: id,
-  workflows
+  portfolioId: id
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addPortfolio,
-  updatePortfolio,
-  fetchPortfolios,
-  fetchWorkflows
+  updatePortfolio
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));

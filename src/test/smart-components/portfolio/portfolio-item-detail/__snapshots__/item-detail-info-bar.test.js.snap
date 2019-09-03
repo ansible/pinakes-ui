@@ -21,14 +21,11 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
     }
   }
 >
-  <TextContent
-    className=""
-  >
+  <TextContent>
     <div
       className="pf-c-content"
     >
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -41,7 +38,6 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         </h6>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -54,7 +50,6 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         </h6>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -67,7 +62,6 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         </h6>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -102,14 +96,11 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] 
     }
   }
 >
-  <TextContent
-    className=""
-  >
+  <TextContent>
     <div
       className="pf-c-content"
     >
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -122,7 +113,6 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] 
         </h6>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -135,7 +125,6 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] 
         </h6>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6
@@ -148,7 +137,6 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] 
         </h6>
       </Text>
       <Text
-        className=""
         component="h6"
       >
         <h6

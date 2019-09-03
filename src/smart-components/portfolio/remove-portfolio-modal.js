@@ -3,21 +3,19 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal, Button, Bullseye, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Modal, Button } from '@patternfly/react-core';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
-import { fetchPortfolios, removePortfolio } from '../../redux/actions/portfolio-actions';
+import { removePortfolio } from '../../redux/actions/portfolio-actions';
 
 const RemovePortfolioModal = ({
   history: { goBack, push },
   removePortfolio,
-  fetchPortfolios,
   portfolio
 }) => {
-  const onSubmit = () => removePortfolio(portfolio.id)
-  .then(() => {
-    fetchPortfolios();
+  const onSubmit = () => {
     push('/portfolios');
-  });
+    return removePortfolio(portfolio.id);
+  };
 
   const onCancel = () => goBack();
 
@@ -27,10 +25,9 @@ const RemovePortfolioModal = ({
 
   return (
     <Modal
-      title=" "
+      title={ `Removing Portfolio:  ${ portfolio.name }` }
       isOpen
       isSmall
-      hideTitle
       onClose={ onCancel }
       actions={ [
         <Button key="cancel" variant="secondary" type="button" onClick={ onCancel }>
@@ -41,13 +38,7 @@ const RemovePortfolioModal = ({
         </Button>
       ] }
     >
-      <Bullseye>
-        <TextContent>
-          <Text component={ TextVariants.h1 }>
-            Removing Portfolio:  { portfolio.name }
-          </Text>
-        </TextContent>
-      </Bullseye>
+      <React.Fragment />
     </Modal>
   );
 };
@@ -59,7 +50,6 @@ RemovePortfolioModal.propTypes = {
   }).isRequired,
   removePortfolio: PropTypes.func.isRequired,
   addNotification: PropTypes.func.isRequired,
-  fetchPortfolios: PropTypes.func.isRequired,
   portfolio: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
@@ -73,7 +63,6 @@ const mapStateToProps = (state, { match: { params: { id }}}) => ({ portfolio: po
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   addNotification,
-  fetchPortfolios,
   removePortfolio
 }, dispatch);
 

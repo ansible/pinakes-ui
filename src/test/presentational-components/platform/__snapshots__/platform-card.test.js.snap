@@ -18,17 +18,13 @@ exports[`<PlatformCard /> should choose card image 1`] = `
         >
           <Card
             className="content-gallery-card"
-            component="article"
-            isHoverable={false}
           >
             <article
               className="pf-c-card content-gallery-card"
             >
-              <CardHeader
-                className=""
-              >
+              <CardHeader>
                 <div
-                  className="pf-c-card__header pf-c-title pf-m-lg"
+                  className="pf-c-card__header pf-c-title pf-m-md"
                 >
                   <ImageWithDefault
                     height="40"
@@ -43,11 +39,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                   </ImageWithDefault>
                 </div>
               </CardHeader>
-              <CardBody
-                className=""
-                component="div"
-                isFilled={true}
-              >
+              <CardBody>
                 <div
                   className="pf-c-card__body"
                 >
@@ -90,10 +82,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                   </ItemDetails>
                 </div>
               </CardBody>
-              <CardFooter
-                className=""
-                component="div"
-              >
+              <CardFooter>
                 <div
                   className="pf-c-card__footer"
                 />
@@ -125,17 +114,13 @@ exports[`<PlatformCard /> should render correctly 1`] = `
         >
           <Card
             className="content-gallery-card"
-            component="article"
-            isHoverable={false}
           >
             <article
               className="pf-c-card content-gallery-card"
             >
-              <CardHeader
-                className=""
-              >
+              <CardHeader>
                 <div
-                  className="pf-c-card__header pf-c-title pf-m-lg"
+                  className="pf-c-card__header pf-c-title pf-m-md"
                 >
                   <ImageWithDefault
                     height="40"
@@ -150,11 +135,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                   </ImageWithDefault>
                 </div>
               </CardHeader>
-              <CardBody
-                className=""
-                component="div"
-                isFilled={true}
-              >
+              <CardBody>
                 <div
                   className="pf-c-card__body"
                 >
@@ -197,10 +178,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                   </ItemDetails>
                 </div>
               </CardBody>
-              <CardFooter
-                className=""
-                component="div"
-              >
+              <CardFooter>
                 <div
                   className="pf-c-card__footer"
                 />

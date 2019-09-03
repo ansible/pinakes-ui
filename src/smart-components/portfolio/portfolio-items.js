@@ -53,9 +53,13 @@ const PortfolioItems = ({
     }) } />
     <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
     <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
-    <Route exact path="/portfolios/detail/:id/share-portfolio" component={ SharePortfolioModal } />
+    <Route
+      exact
+      path="/portfolios/detail/:id/share-portfolio"
+      render={ (...args) => <SharePortfolioModal closeUrl={ portfolioRoute } { ...args } /> }
+    />
     <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
-    <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState /> } />
+    <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />
   </Fragment>
 );
 

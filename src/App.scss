@@ -92,6 +92,9 @@
 
 .requests-table {
   width: 100%;
+  th.action-row {
+    width: 1px;
+  }
   .requests-step-label {
     span:first-child {
       width: 24px;
@@ -183,6 +186,8 @@
 }
 
 .button-with-spinner {
+  display: flex;
+  align-items: center;
   .ins-c-spinner::before {
     height: 16px;
     width: 16px;
@@ -208,6 +213,39 @@
 
 .disabled-link {
   pointer-events: none
+}
+
+.orders-list {
+  background-color: var(--pf-global--BackgroundColor--100)
+}
+
+/**
+* Update DDF select styles for select component
+*/
+.filter-select {
+  width: 300px;
+  .filter-value-container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .ddorg__pf4-component-mapper__select__indicators {
+    margin-left: auto
+  }
+  .ddorg__pf4-component-mapper__select__placeholder {
+    margin-left: 29px !important;
+  }
+  .ddorg__pf4-component-mapper__select__single-value {
+    margin-left: 22px !important;
+  }
+  .ddorg__pf4-component-mapper__select__control::before {
+    border-right: none !important;
+  }
+  .ddorg__pf4-component-mapper__select__control {
+    min-height: 36px !important;
+  }
 }
 
 //pf-4 fixes

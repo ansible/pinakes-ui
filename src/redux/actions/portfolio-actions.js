@@ -41,22 +41,33 @@ export const searchPortfolioItems = value => ({
   })
 });
 
-export const addPortfolio = (portfolioData, items) => ({
-  type: ActionTypes.ADD_PORTFOLIO,
-  payload: PortfolioHelper.addPortfolio({
-    ...portfolioData,
-    workflow_ref: portfolioData.workflow_ref || null
-  }, items),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success adding portfolio',
-        description: 'The portfolio was added successfully.'
+export const addPortfolio = (portfolioData, items) => dispatch => {
+  dispatch({
+    type: ActionTypes.ADD_TEMPORARY_PORTFOLIO,
+    payload: { ...portfolioData, isDisabled: true, isTemporary: true }
+  });
+  return dispatch({
+    type: ActionTypes.ADD_PORTFOLIO,
+    payload: PortfolioHelper.addPortfolio({
+      ...portfolioData,
+      workflow_ref: portfolioData.workflow_ref || null
+    }, items)
+    .then(()=> dispatch(doFetchPortfolios()))
+    .catch(error => {
+      dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_PREV_STATE });
+      throw error;
+    }),
+    meta: {
+      notifications: {
+        fulfilled: {
+          variant: 'success',
+          title: 'Success adding portfolio',
+          description: 'The portfolio was added successfully.'
+        }
       }
     }
-  }
-});
+  });
+};
 
 export const addToPortfolio = (portfolioId, items) => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
@@ -72,41 +83,58 @@ export const addToPortfolio = (portfolioId, items) => ({
   }
 });
 
-export const updatePortfolio = (portfolioData) => ({
-  type: ActionTypes.UPDATE_PORTFOLIO,
-  payload: PortfolioHelper.updatePortfolio({
+export const updatePortfolio = portfolioData => dispatch => {
+  dispatch({
+    type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO,
+    payload: portfolioData
+  });
+
+  return PortfolioHelper.updatePortfolio({
     ...portfolioData,
     workflow_ref: portfolioData.workflow_ref || null
-  }),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success updating portfolio',
-        description: 'The portfolio was updated successfully.'
-      },
-      rejected: {
-        variant: 'danger',
-        title: 'Failed updating portfolio',
-        description: 'The portfolio was not updated successfuly.'
-      }
-    }
-  }
-});
+  })
+  .then(() => dispatch(doFetchPortfolios()))
+  .then(() => dispatch({
+    type: ADD_NOTIFICATION,
+    payload: {
+      dismissable: true,
+      variant: 'success',
+      title: 'Success updating portfolio',
+      description: 'The portfolio was updated successfully.'
+    }}))
+  .catch(error => {
+    dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_PREV_STATE });
+    throw error;
+  })
+  .catch((error) => dispatch({
+    type: `${ActionTypes.UPDATE_TEMPORARY_PORTFOLIO}_REJECTED`,
+    payload: error
+  }));
+};
 
-export const removePortfolio = (portfolio) => ({
-  type: ActionTypes.REMOVE_PORTFOLIO,
-  payload: PortfolioHelper.removePortfolio(portfolio),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success removing portfolio',
-        description: 'The portfolio was removed successfully.'
+export const removePortfolio = portfolioId => dispatch => {
+  dispatch({
+    type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
+    payload: portfolioId
+  });
+  return dispatch({
+    type: ActionTypes.REMOVE_PORTFOLIO,
+    payload: PortfolioHelper.removePortfolio(portfolioId)
+    .then(() => dispatch(doFetchPortfolios()))
+    .catch(error => {
+      dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_PREV_STATE });
+      throw error;
+    }),
+    meta: {
+      notifications: {
+        fulfilled: {
+          variant: 'success',
+          title: 'Success removing portfolio',
+          description: 'The portfolio was removed successfully.'
+        }
       }
     }
-  }
-});
+  });};
 
 export const selectPortfolioItem = (portfolioItem) => ({
   type: ActionTypes.SELECT_PORTFOLIO_ITEM,
@@ -157,7 +185,11 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
             values={ {
               count: portfolioItems.length,
               portfolioName,
-              undo: <a href="javascript:void(0)"><span onClick={ () => dispatch(undoRemoveProductsFromPortfolio(data, portfolioId)) }>Undo</span></a>
+              undo: (
+                <a href="#" onClick={ event => event.preventDefault() }>
+                  <span onClick={ () => dispatch(undoRemoveProductsFromPortfolio(data, portfolioId)) }>Undo</span>
+                </a>
+              )
             } }
           />
         )
@@ -192,3 +224,6 @@ export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => 
   .catch(err => dispatch({ type: 'COPY_PORTFOLIO_ITEM_REJECTED', payload: err }));
 };
 
+export const resetSelectedPortfolio = () => ({
+  type: ActionTypes.RESET_SELECTED_PORTFOLIO
+});

@@ -6,9 +6,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
   placeholder="Foo"
   searchValue=""
 >
-  <ToolbarItem
-    className={null}
-  >
+  <ToolbarItem>
     <div
       className="pf-l-toolbar__item"
     >
