@@ -15,13 +15,11 @@ import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
-import { updatePortfolioItem } from '../../../helpers/portfolio/portfolio-helper';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
-  history: { push },
   source,
   product,
   portfolio,
@@ -30,11 +28,9 @@ const PortfolioItemDetail = ({
   orderFetching,
   fetchWorkflows,
   fetchPlatforms,
-  fetchPortfolioItem,
-  selectPortfolioItem
+  fetchPortfolioItem
 }) => {
   const [ isOpen, setOpen ] = useState(false);
-  const [ workflow, setWorkflow ] = useState(product.workflow_ref);
   useEffect(() => {
     fetchWorkflows();
   }, []);
@@ -42,14 +38,6 @@ const PortfolioItemDetail = ({
     fetchPlatforms();
     fetchPortfolioItem(portfolioItemId);
   }, [ path ]);
-
-  useEffect(() => {
-    setWorkflow(product.workflow_ref);
-  }, [ isLoading ]);
-
-  const handleUpdate = () => updatePortfolioItem({ ...product, workflow_ref: workflow })
-  .then(updatedItem => selectPortfolioItem(updatedItem))
-  .then(() => push(url));
 
   if (isLoading) {
     return (
@@ -75,8 +63,6 @@ const PortfolioItemDetail = ({
         isOpen={ isOpen }
         product={ product }
         setOpen={ setOpen }
-        handleUpdate={ handleUpdate }
-        setWorkflow={ setWorkflow }
         isFetching={ orderFetching }
       />
       <div style={ { padding: 32 } }>
@@ -85,7 +71,7 @@ const PortfolioItemDetail = ({
             <ItemDetailInfoBar product={ product } portfolio={ portfolio } source={ source } />
           </GridItem>
           <GridItem md={ 10 }>
-            <ItemDetailDescription product={ product } url={ url } workflows={ workflows } workflow={ workflow } setWorkflow={ setWorkflow }  />
+            <ItemDetailDescription product={ product } url={ url } workflows={ workflows } />
           </GridItem>
         </Grid>
       </div>
