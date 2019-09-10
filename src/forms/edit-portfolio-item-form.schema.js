@@ -1,6 +1,7 @@
 import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
+import asyncFormValidator from '../utilities/async-form-validator';
 
-const editPortfolioItemSchema = workflows => ({
+const editPortfolioItemSchema = (loadWorkflows) => ({
   fields: [{
     component: componentTypes.TEXT_FIELD,
     name: 'display_name',
@@ -35,7 +36,9 @@ const editPortfolioItemSchema = workflows => ({
     component: componentTypes.SELECT,
     name: 'workflow_ref',
     label: 'Approval workflow',
-    options: workflows
+    loadOptions: asyncFormValidator(loadWorkflows),
+    isSearchable: true,
+    isClearable: true
   }]
 });
 

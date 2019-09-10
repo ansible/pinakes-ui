@@ -43,7 +43,7 @@ const ItemDetailDescription = ({ product, url, workflows }) => (
 
       </TextContent>
     ) }/>
-    <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } workflows={ workflows } /> } />
+    <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
   </Switch>
 );
 

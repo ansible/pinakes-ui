@@ -11,6 +11,7 @@ import { MemoryRouter } from 'react-router-dom';
 import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-item-detail/edit-portfolio-item';
 import { CATALOG_API_BASE } from '../../../../utilities/constants';
 import { UPDATE_TEMPORARY_PORTFOLIO_ITEM, UPDATE_PORTFOLIO_ITEM } from '../../../../redux/action-types';
+
 describe('<EditPortfolioItem />', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
