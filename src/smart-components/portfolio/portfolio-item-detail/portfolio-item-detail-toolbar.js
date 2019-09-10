@@ -7,17 +7,20 @@ import DetailToolbarActions from './detail-toolbar-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
+import IconUpload from './icon-upload';
 
 const PortfolioItemDetailToolbar = ({
   url,
   isOpen,
   product,
   setOpen,
-  isFetching
+  isFetching,
+  uploadIcon
 }) => (
   <Fragment>
     <TopToolbar>
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
+        <Route path={ `${url}/edit` } render={ () => <IconUpload uploadIcon={ uploadIcon } /> }/>
         <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
           platformId={ product.service_offering_source_ref } height={ 64 }/>
       </div>

@@ -1,4 +1,4 @@
-import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
+import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi, getIconApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import { PORTFOLIO_ITEM_NULLABLE, PORTFOLIO_NULLABLE } from '../../constants/nullable-attributes';
 import { udefinedToNull } from '../shared/helpers';
@@ -6,6 +6,7 @@ import { udefinedToNull } from '../shared/helpers';
 const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
+const iconApi = getIconApi();
 
 export function listPortfolios(_apiProps, { limit, offset, filter, ...options } = {}) {
   return portfolioApi.listPortfolios(limit, offset, filter, options);
@@ -106,3 +107,24 @@ export const restorePortfolioItems = restoreData =>
 export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portfolioId);
 
 export const copyPortfolioItem = (portfolioItemId, copyObject = {}) => portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
+
+export const uploadPortfolioItemIcon = (portfolioItemId, file) => {
+  let data = new FormData();
+  data.append('icon', file, file.name);
+  window.magix = {
+    file,
+    axiosInstance
+  };
+  //return fetch(`${CATALOG_API_BASE}/icons`, {
+  //  method: 'POST',
+  //  body: file
+  //});
+  return axiosInstance.post(`${CATALOG_API_BASE}/icons`, data, {
+    headers: {
+      accept: 'application/json',
+      'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+    }
+  });
+  return iconApi.iconsPost({ ...file }).then(({ id }) =>
+    portfolioItemApi.addIconToPortfolioItem(portfolioItemId, { iconId: id }));
+};
