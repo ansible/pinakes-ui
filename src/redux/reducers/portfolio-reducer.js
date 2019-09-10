@@ -14,7 +14,9 @@ import {
   UPDATE_TEMPORARY_PORTFOLIO,
   DELETE_TEMPORARY_PORTFOLIO,
   RESTORE_PORTFOLIO_PREV_STATE,
-  SET_PORTFOLIO_ITEMS
+  SET_PORTFOLIO_ITEMS,
+  UPDATE_TEMPORARY_PORTFOLIO_ITEM,
+  UPDATE_PORTFOLIO_ITEM
 } from '../action-types';
 
 // Initial State
@@ -73,6 +75,25 @@ const deleteTemporaryPortfolio = (state, { payload }) => ({
   }
 });
 
+const updateTemporaryPortfolioItem = (state, { payload }) => ({
+  ...state,
+  prevState: { ...state },
+  portfolioItem: payload,
+  portfolioItems: {
+    ...state.portfolioItems,
+    data: state.portfolioItems.data.map(item => item.id === payload.id ? ({ ...payload }) : item)
+  }
+});
+
+const updatePortfolioItem = (state, { payload }) => ({
+  ...state,
+  portfolioItem: payload,
+  portfolioItems: {
+    ...state.portfolioItems,
+    data: state.portfolioItems.data.map(item => item.id === payload.id ? ({ ...payload }) : item)
+  }
+});
+
 const restorePrevState = state => state.prevState ? ({ ...state.prevState }) : ({ ...state });
 
 export default {
@@ -97,5 +118,7 @@ export default {
   [UPDATE_TEMPORARY_PORTFOLIO]: updateTemporaryPortfolio,
   [DELETE_TEMPORARY_PORTFOLIO]: deleteTemporaryPortfolio,
   [RESTORE_PORTFOLIO_PREV_STATE]: restorePrevState,
-  [SET_PORTFOLIO_ITEMS]: setPortfolioItems
+  [SET_PORTFOLIO_ITEMS]: setPortfolioItems,
+  [UPDATE_TEMPORARY_PORTFOLIO_ITEM]: updateTemporaryPortfolioItem,
+  [UPDATE_PORTFOLIO_ITEM]: updatePortfolioItem
 };
