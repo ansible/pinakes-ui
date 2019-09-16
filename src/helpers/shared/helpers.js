@@ -39,3 +39,8 @@ export const createUpdatedLabel = orderItem => {
 };
 
 export const createDateString = date => moment(new Date(date).toUTCString(), 'DD-MMM-YYYY, HH:mm').format('DD MMM YYYY, HH:mm UTC');
+
+export const udefinedToNull = (entity, keys) => [ ...Object.keys(entity), ...keys ].reduce((acc, curr) => ({
+  ...acc,
+  [curr]: entity[curr] === undefined ? null : entity[curr]
+}), {});

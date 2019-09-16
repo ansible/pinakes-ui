@@ -227,3 +227,23 @@ export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => 
 export const resetSelectedPortfolio = () => ({
   type: ActionTypes.RESET_SELECTED_PORTFOLIO
 });
+
+export const updatePortfolioItem = values => dispatch => {
+  dispatch({ type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO_ITEM, payload: values });
+  return PortfolioHelper.updatePortfolioItem(values)
+  .then(() => {
+    dispatch({ type: ActionTypes.UPDATE_PORTFOLIO_ITEM, payload: values });
+    return values;
+  })
+  .then(item => dispatch({
+    type: ADD_NOTIFICATION, payload: {
+      variant: 'success',
+      title: `Portfolio item "${item.display_name}" was successfully updated`,
+      dismissable: true
+    }
+  }))
+  .catch(error => {
+    dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_ITEM_PREV_STATE });
+    throw error;
+  }).catch(error => dispatch({ type: `${ActionTypes.UPDATE_TEMPORARY_PORTFOLIO_ITEM}_REJECTED`, payload: error }));
+};

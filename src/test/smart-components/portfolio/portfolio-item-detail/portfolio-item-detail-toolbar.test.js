@@ -8,7 +8,6 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
-import EditToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/edit-toolbar-actions';
 import DetailToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/detail-toolbar-actions';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 
@@ -47,7 +46,7 @@ describe('<PortfolioItemDetailToolbar />', () => {
       <MemoryRouter>
         <PortfolioItemDetailToolbar { ...initialProps } />
       </MemoryRouter>
-    );
+    ).find(PortfolioItemDetailToolbar);
     expect(shallowToJson(wrapper.find(PortfolioItemDetailToolbar))).toMatchSnapshot();
   });
 
@@ -59,15 +58,5 @@ describe('<PortfolioItemDetailToolbar />', () => {
       </ComponentWrapper>
     );
     expect(wrapper.find(DetailToolbarActions)).toHaveLength(1);
-  });
-
-  it('should render edit variant', () => {
-    const store = mockStore(initialState);
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/foo/edit' ] }>
-        <Route path="/foo" render={ () => <PortfolioItemDetailToolbar { ...initialProps } /> } />
-      </ComponentWrapper>
-    );
-    expect(wrapper.find(EditToolbarActions)).toHaveLength(1);
   });
 });
