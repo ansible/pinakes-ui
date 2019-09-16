@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 
@@ -27,15 +27,6 @@ describe('<ItemDetailDescription />', () => {
       workflow: 'foo',
       setWorkflow: jest.fn()
     };
-  });
-
-  it('should render correctly', () => {
-    const wrapper = mount(
-      <MemoryRouter initialEntries={ [ '/base/url' ] }>
-        <Route path="/base/url" render={ () => <ItemDetailDescription { ...initialProps } /> } />
-      </MemoryRouter>
-    );
-    expect(toJson(wrapper.find(ItemDetailDescription))).toMatchSnapshot();
   });
 
   it('should render correctly in edit variant', () => {
