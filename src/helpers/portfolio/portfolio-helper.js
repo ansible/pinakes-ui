@@ -1,5 +1,7 @@
 import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
+import { PORTFOLIO_ITEM_NULLABLE } from '../../constants/nullable-attributes';
+import { udefinedToNull } from '../shared/helpers';
 
 const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
@@ -90,10 +92,7 @@ export function fetchProviderControlParameters(portfolioItemId) {
 }
 
 export async function updatePortfolioItem(portfolioItem) {
-  return await axiosInstance.patch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}`, {
-    ...portfolioItem,
-    workflow_ref: portfolioItem.workflow_ref || null
-  });
+  return await axiosInstance.patch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}`, udefinedToNull(portfolioItem, PORTFOLIO_ITEM_NULLABLE));
 }
 
 export function fetchPortfolioByName(name = '') {
