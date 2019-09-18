@@ -9,6 +9,11 @@ import { AccessApi, PrincipalApi, GroupApi } from '@redhat-cloud-services/rbac-c
 
 const axiosInstance = axios.create();
 
+const paramSerializer = config => {
+  config.url = config.url.replace(/(?==)*%+/g, value => value.replace(/%/g, '%25%0A'));
+  return config;
+};
+
 const resolveInterceptor = response => response.data || response;
 const errorInterceptor = (error = {}) => {
   throw { ...error.response };
@@ -19,6 +24,7 @@ axiosInstance.interceptors.request.use(async config => {
   await window.insights.chrome.auth.getUser();
   return config;
 });
+axiosInstance.interceptors.request.use(paramSerializer);
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(null, errorInterceptor);
 

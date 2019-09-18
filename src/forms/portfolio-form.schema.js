@@ -12,7 +12,7 @@ const validateName = (name, portfolioId) => fetchPortfolioByName(name)
   return data.find(portfolio => portfolio.name === name && portfolio.id !== portfolioId)
     ? 'Name has already been taken'
     : undefined;
-});
+}).catch(error => error.data);
 
 const debouncedValidator = asyncFormValidator(validateName);
 
