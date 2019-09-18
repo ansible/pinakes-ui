@@ -1,6 +1,6 @@
 import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { PORTFOLIO_ITEM_NULLABLE } from '../../constants/nullable-attributes';
+import { PORTFOLIO_ITEM_NULLABLE, PORTFOLIO_NULLABLE } from '../../constants/nullable-attributes';
 import { udefinedToNull } from '../shared/helpers';
 
 const axiosInstance = getAxiosInstance();
@@ -56,7 +56,7 @@ export async function addToPortfolio(portfolioId, items) {
 }
 
 export async function updatePortfolio(portfolioData) {
-  return await portfolioApi.updatePortfolio(portfolioData.id, portfolioData);
+  return await portfolioApi.updatePortfolio(portfolioData.id,  udefinedToNull(portfolioData, PORTFOLIO_NULLABLE));
 }
 
 export async function removePortfolio(portfolioId) {
