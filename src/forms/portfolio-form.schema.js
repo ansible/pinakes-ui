@@ -37,6 +37,7 @@ export const createPortfolioSchema = (newRecord, loadWorkflows, portfolioId) => 
     name: 'workflow_ref',
     component: componentTypes.SELECT,
     loadOptions: asyncFormValidator(loadWorkflows),
-    isSearchable: true
+    isSearchable: true,
+    isClearable: true
   }]
 });
