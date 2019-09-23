@@ -5,6 +5,10 @@
 const localhost = (process.env.PLATFORM === 'linux') ? 'localhost' : 'host.docker.internal';
 
 exports.routes = {
-  '/hybrid/catalog': { host: `http://${localhost}:8002` },
-  '/apps/catalog': { host: `http://${localhost}:8002` }
+  '/hybrid/catalog/portfolios': { host: `http://${localhost}:8002` },
+  '/hybrid/catalog/platforms': { host: `http://${localhost}:8002` },
+  '/hybrid/catalog/orders': { host: `http://${localhost}:8002` },
+  '/apps/catalog/portfolios': { host: `http://${localhost}:8002` },
+  '/apps/catalog/platforms': { host: `http://${localhost}:8002` },
+  '/apps/catalog/orders': { host: `http://${localhost}:8002` },
 };
