@@ -8,7 +8,7 @@ exports[`<CardCommon /> should render correctly empty 1`] = `
     clamp={6}
     tagName="div"
     truncationChar="…"
-    useNativeClamp={true}
+    useNativeClamp={false}
   >
     <div />
   </Dotdotdot>
@@ -34,7 +34,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
     clamp={6}
     tagName="div"
     truncationChar="…"
-    useNativeClamp={true}
+    useNativeClamp={false}
   >
     <div>
       <PropLine
