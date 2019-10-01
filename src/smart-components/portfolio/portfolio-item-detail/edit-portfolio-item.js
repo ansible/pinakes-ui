@@ -8,8 +8,9 @@ import editPortfolioItemSchema from '../../../forms/edit-portfolio-item-form.sch
 import { updatePortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { loadWorkflowOptions } from '../../../helpers/approval/approval-helper';
 
-const EditPortfolioItem = ({ history: { push }, cancelUrl, product }) => {
+const EditPortfolioItem = ({ history: { push }, cancelUrl, product: { owner, created_at, updated_at, ...product }}) => {
   const dispatch = useDispatch();
+  console.log('fooo')
   return (
     <FormRenderer
       initialValues={ { ...product } }
