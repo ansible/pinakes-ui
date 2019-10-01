@@ -31,7 +31,8 @@ describe('<EditPortfolioItem />', () => {
       cancelUrl: '/cancel',
       product: {
         display_name: 'foo',
-        id: '123'
+        id: '123',
+        workflow_ref: '123'
       }
     };
   });
@@ -56,24 +57,44 @@ describe('<EditPortfolioItem />', () => {
     const store = mockStore({});
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
-        description: null,
-        distributor: null,
-        long_description: null,
-        support_url: null,
         display_name: 'foo',
         id: '123',
+        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
-        workflow_ref: null
+        support_url: 'https://www.google.com/',
+        long_description: 'https://www.google.com/',
+        description: 'https://www.google.com/',
+        distributor: 'https://www.google.com/'
       });
       return res.status(200).body({});
     }));
 
     const expectedActions = [{
       type: UPDATE_TEMPORARY_PORTFOLIO_ITEM,
-      payload: { ...initialProps.product, documentation_url: 'https://www.google.com/' }
+      payload: {
+        
+        display_name: 'foo',
+        id: '123',
+        workflow_ref: '123',
+        documentation_url: 'https://www.google.com/',
+        support_url: 'https://www.google.com/',
+        long_description: 'https://www.google.com/',
+        description: 'https://www.google.com/',
+        distributor: 'https://www.google.com/'
+      }
     }, {
       type: UPDATE_PORTFOLIO_ITEM,
-      payload: { ...initialProps.product, documentation_url: 'https://www.google.com/'  }
+      payload: {
+        
+        display_name: 'foo',
+        id: '123',
+        workflow_ref: '123',
+        documentation_url: 'https://www.google.com/',
+        support_url: 'https://www.google.com/',
+        long_description: 'https://www.google.com/',
+        description: 'https://www.google.com/',
+        distributor: 'https://www.google.com/'
+      }
     }, {
       type: ADD_NOTIFICATION,
       payload: expect.any(Object)
@@ -84,7 +105,22 @@ describe('<EditPortfolioItem />', () => {
         <EditPortfolioItem { ...initialProps } />
       </ComponentWrapper>
     );
-    const input = wrapper.find('input#documentation_url');
+    let input = wrapper.find('input#documentation_url');
+    input.getDOMNode().value = 'https://www.google.com/';
+    input.simulate('change');
+    input = wrapper.find('input#support_url');
+    input.getDOMNode().value = 'https://www.google.com/';
+    input.simulate('change');
+    input = wrapper.find('input#long_description');
+    input.getDOMNode().value = 'https://www.google.com/';
+    input.simulate('change');
+    input = wrapper.find('input#long_description');
+    input.getDOMNode().value = 'https://www.google.com/';
+    input.simulate('change');
+    input = wrapper.find('input#description');
+    input.getDOMNode().value = 'https://www.google.com/';
+    input.simulate('change');
+    input = wrapper.find('input#distributor');
     input.getDOMNode().value = 'https://www.google.com/';
     input.simulate('change');
     wrapper.update();
