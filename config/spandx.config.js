@@ -8,7 +8,5 @@ exports.routes = {
   '/beta/hybrid/catalog/portfolios': { host: `http://${localhost}:8002` },
   '/beta/hybrid/catalog/platforms': { host: `http://${localhost}:8002` },
   '/beta/hybrid/catalog/orders': { host: `http://${localhost}:8002` },
-  '/beta/apps/catalog/portfolios': { host: `http://${localhost}:8002` },
-  '/beta/apps/catalog/platforms': { host: `http://${localhost}:8002` },
-  '/beta/apps/catalog/orders': { host: `http://${localhost}:8002` }
+  '/beta/apps/catalog': { host: `http://${localhost}:8002` }
 };
