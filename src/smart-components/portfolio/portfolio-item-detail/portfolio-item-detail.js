@@ -18,7 +18,6 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
-uploadPortfolioItemIcon;
 
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
