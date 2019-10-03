@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { Level, LevelItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
 
-import EditToolbarActions from './edit-toolbar-actions';
 import DetailToolbarActions from './detail-toolbar-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
+import IconUpload from './icon-upload';
 
 const PortfolioItemDetailToolbar = ({
   url,
@@ -15,14 +15,15 @@ const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  setWorkflow,
-  handleUpdate
+  uploadIcon
 }) => (
   <Fragment>
     <TopToolbar>
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
-          platformId={ product.service_offering_source_ref } height={ 64 }/>
+        <IconUpload uploadIcon={ uploadIcon }>
+          <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
+            platformId={ product.service_offering_source_ref } height={ 64 }/>
+        </IconUpload>
       </div>
       <Level>
         <LevelItem>
@@ -32,27 +33,18 @@ const PortfolioItemDetailToolbar = ({
             </Text>
           </TextContent>
         </LevelItem>
-        <LevelItem>
+        <LevelItem style={ { minHeight: 36 } }>
           <Level>
             <Route exact path={ url } render={ (...args) => (
               <DetailToolbarActions
                 isOpen={ isOpen }
-                setOpen={ setOpen }
+                setOpen={ open => setOpen(open) }
                 orderUrl={ `${url}/order` }
                 editUrl={ `${url}/edit` }
                 copyUrl={ `${url}/copy` }
                 isFetching={ isFetching }
                 { ...args }
               />) }/>
-            <Route exact path={ `${url}/edit` } render={ (...args) => (
-              <EditToolbarActions
-                detailUrl={ url }
-                onSave={ handleUpdate }
-                resetWorkflow={ () => setWorkflow(product.workflow_ref) }
-                { ...args }
-              />
-            ) }
-            />
           </Level>
         </LevelItem>
       </Level>
@@ -79,9 +71,8 @@ PortfolioItemDetailToolbar.propTypes = {
     workflow_ref: PropTypes.string
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
-  setWorkflow: PropTypes.func.isRequired,
-  handleUpdate: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  uploadIcon: PropTypes.func.isRequired
 };
 
 PortfolioItemDetailToolbar.defaultProps = {

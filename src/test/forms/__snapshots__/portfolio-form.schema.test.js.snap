@@ -19,6 +19,7 @@ Object {
     },
     Object {
       "component": "select-field",
+      "isClearable": true,
       "isSearchable": true,
       "label": "Approval workflow",
       "loadOptions": [Function],
@@ -47,6 +48,7 @@ Object {
     },
     Object {
       "component": "select-field",
+      "isClearable": true,
       "isSearchable": true,
       "label": "Approval workflow",
       "loadOptions": [Function],
