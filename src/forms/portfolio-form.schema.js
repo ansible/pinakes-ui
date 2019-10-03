@@ -12,7 +12,7 @@ const validateName = (name, portfolioId) => fetchPortfolioByName(name)
   return data.find(portfolio => portfolio.name === name && portfolio.id !== portfolioId)
     ? 'Name has already been taken'
     : undefined;
-});
+}).catch(error => error.data);
 
 const debouncedValidator = asyncFormValidator(validateName);
 
@@ -37,6 +37,7 @@ export const createPortfolioSchema = (newRecord, loadWorkflows, portfolioId) => 
     name: 'workflow_ref',
     component: componentTypes.SELECT,
     loadOptions: asyncFormValidator(loadWorkflows),
-    isSearchable: true
+    isSearchable: true,
+    isClearable: true
   }]
 });

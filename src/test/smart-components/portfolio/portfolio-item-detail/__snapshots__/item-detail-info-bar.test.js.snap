@@ -78,7 +78,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
 </ItemDetailInfoBar>
 `;
 
-exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] = `
+exports[`<ItemDetailInfoBar /> should render correctly with fallback values withouth vendor 1`] = `
 <ItemDetailInfoBar
   portfolio={
     Object {
@@ -131,9 +131,76 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values 1`] 
           className=""
           data-pf-content={true}
         >
+          Created at 
+          <br />
+          3/22/2019
+        </h6>
+      </Text>
+    </div>
+  </TextContent>
+</ItemDetailInfoBar>
+`;
+
+exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
+<ItemDetailInfoBar
+  distributor="Foo distributor"
+  portfolio={
+    Object {
+      "display_name": "baz",
+      "name": "quux",
+    }
+  }
+  product={
+    Object {
+      "created_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
+      "distributor": "foo",
+      "updated_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
+    }
+  }
+  source={
+    Object {
+      "name": "bar",
+    }
+  }
+>
+  <TextContent>
+    <div
+      className="pf-c-content"
+    >
+      <Text
+        component="h6"
+      >
+        <h6
+          className=""
+          data-pf-content={true}
+        >
+          Platform 
+          <br />
+          bar
+        </h6>
+      </Text>
+      <Text
+        component="h6"
+      >
+        <h6
+          className=""
+          data-pf-content={true}
+        >
+          Portfolio 
+          <br />
+          baz
+        </h6>
+      </Text>
+      <Text
+        component="h6"
+      >
+        <h6
+          className=""
+          data-pf-content={true}
+        >
           Vendor 
           <br />
-          Missing API data
+          foo
         </h6>
       </Text>
       <Text

@@ -2,12 +2,17 @@ import axios from 'axios';
 import {  RequestApi, WorkflowApi } from '@redhat-cloud-services/approval-client';
 import { DefaultApi as SourcesDefaultApi } from '@redhat-cloud-services/sources-client';
 import { DefaultApi as TopologicalDefaultApi } from '@redhat-cloud-services/topological-inventory-client';
-import { PortfolioApi, PortfolioItemApi, OrderApi, OrderItemApi } from '@redhat-cloud-services/catalog-client';
+import { PortfolioApi, PortfolioItemApi, OrderApi, OrderItemApi, IconApi } from '@redhat-cloud-services/catalog-client';
 
 import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
 import { AccessApi, PrincipalApi, GroupApi } from '@redhat-cloud-services/rbac-client';
 
 const axiosInstance = axios.create();
+
+const paramSerializer = config => {
+  config.url = config.url.replace(/(?==)*%+/g, value => value.replace(/%/g, '%25%0A'));
+  return config;
+};
 
 const resolveInterceptor = response => response.data || response;
 const errorInterceptor = (error = {}) => {
@@ -19,6 +24,7 @@ axiosInstance.interceptors.request.use(async config => {
   await window.insights.chrome.auth.getUser();
   return config;
 });
+axiosInstance.interceptors.request.use(paramSerializer);
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(null, errorInterceptor);
 
@@ -30,6 +36,7 @@ const requestsApi = new RequestApi(undefined, APPROVAL_API_BASE, axiosInstance);
 const workflowApi = new WorkflowApi(undefined, APPROVAL_API_BASE, axiosInstance);
 const sourcesApi = new SourcesDefaultApi(undefined, SOURCES_API_BASE, axiosInstance);
 const topologicalInventoryApi = new TopologicalDefaultApi(undefined, TOPOLOGICAL_INVENTORY_API_BASE, axiosInstance);
+const iconApi = new IconApi(undefined, CATALOG_API_BASE, axiosInstance);
 
 export function getSourcesApi() {
   return sourcesApi;
@@ -81,6 +88,10 @@ export function getWorkflowApi() {
 
 export function getAxiosInstance() {
   return axiosInstance;
+}
+
+export function getIconApi() {
+  return iconApi;
 }
 
 const grapqlInstance = axios.create();
