@@ -6,7 +6,9 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
     <Text component={ TextVariants.h6 }>Platform <br />{ source.name }</Text>
     <Text component={ TextVariants.h6 }>Portfolio <br />{ portfolio.display_name || portfolio.name }</Text>
-    <Text component={ TextVariants.h6 }>Vendor <br />{ product.distributor || 'Missing API data' }</Text>
+    { product.distributor && (
+      <Text component={ TextVariants.h6 }>Vendor <br />{ product.distributor }</Text>
+    ) }
     <Text component={ TextVariants.h6 }>Created at <br />{ new Date(product.updated_at || product.created_at).toLocaleDateString() }</Text>
   </TextContent>
 );
