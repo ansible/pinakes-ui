@@ -66,7 +66,7 @@ export const cancelOrder = orderId => (dispatch, getState) => {
     });
     const open = [ ...openOrders.data.slice(0, orderIndex), ...openOrders.data.slice(orderIndex + 1) ];
     const closed = [
-      { ...order, state: 'Canceled', requests: order.requests.map(item => ({ ...item, state: 'canceled' })) },
+      { ...order, state: 'Canceled' },
       ...closedOrders.data
     ];
     dispatch(setOrders({
@@ -83,7 +83,7 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   .then((order) => dispatch(addNotification({
     variant: 'success',
     title: 'Your order has been canceled successfully',
-    description: `Order ${order.requests[0] && order.requests[0].name || `Order #${orderId}`} was canceled and has been moved to closed orders.`,
+    description: `Order ${order && order.name || `Order #${orderId}`} was canceled and has been moved to closed orders.`,
     dismissable: true
   })))
   .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
