@@ -88,7 +88,8 @@ describe('<AddPortfolioModal />', () => {
         label: 'Approval workflow',
         name: 'workflow_ref',
         loadOptions: expect.any(Function),
-        isSearchable: true
+        isSearchable: true,
+        isClearable: true
       }]
     };
 

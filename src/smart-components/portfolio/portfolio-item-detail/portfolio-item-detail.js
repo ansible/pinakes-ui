@@ -17,6 +17,7 @@ import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
+import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
@@ -39,6 +40,8 @@ const PortfolioItemDetail = ({
     fetchPortfolioItem(portfolioItemId);
   }, [ path ]);
 
+  const uploadIcon = file => uploadPortfolioItemIcon(product.id, file);
+
   if (isLoading) {
     return (
       <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
@@ -59,6 +62,7 @@ const PortfolioItemDetail = ({
         ) }
       />
       <PortfolioItemDetailToolbar
+        uploadIcon={ uploadIcon }
         url={ url }
         isOpen={ isOpen }
         product={ product }
