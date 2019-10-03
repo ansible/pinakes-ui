@@ -165,6 +165,7 @@ describe('<Portfolio />', () => {
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
       data: { application_types: [{ sources: []}]}}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -345,6 +346,7 @@ describe('<Portfolio />', () => {
      * remove portfolio items calls
      */
     apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce((_req, res) => res.status(200).body({ restore_key: restoreKey })));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));

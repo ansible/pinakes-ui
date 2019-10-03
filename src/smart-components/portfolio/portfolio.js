@@ -68,9 +68,18 @@ const Portfolio = props => {
     .catch(() => dispatch({ type: 'setCopyInProgress', payload: false }));
   };
 
+  const handleEmptyPage = () => {
+    dispatch({ type: 'setIsFetching', payload: true });
+    return props.fetchPortfolioItemsWithPortfolio(props.match.params.id, defaultSettings)
+    .then(() => dispatch({ type: 'setIsFetching', payload: false }))
+    .catch(() => dispatch({ type: 'setIsFetching', payload: true }));
+  };
+
   const removeProducts = products => {
     dispatch({ type: 'setRemoveInProgress', payload: true });
     props.removeProductsFromPortfolio(products, props.portfolio.name)
+    .then(() => props.portfolioItems.filter(({ id }) =>
+      !products.includes(id)).length === 0 && handleEmptyPage())
     .then(() => dispatch({ type: 'removeSucessfull' }))
     .catch(() => dispatch({ type: 'setRemoveInProgress', payload: false }));
   };
