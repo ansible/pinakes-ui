@@ -70,7 +70,7 @@ const Portfolio = props => {
 
   const handleEmptyPage = () => {
     dispatch({ type: 'setIsFetching', payload: true });
-    return props.fetchPortfolioItemsWithPortfolio(props.match.params.id, defaultSettings)
+    return props.fetchPortfolioItemsWithPortfolio(props.match.params.id, { ...props.pagination, offset: 0 })
     .then(() => dispatch({ type: 'setIsFetching', payload: false }))
     .catch(() => dispatch({ type: 'setIsFetching', payload: true }));
   };
