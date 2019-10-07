@@ -72,7 +72,7 @@ describe('<EditPortfolioItem />', () => {
     const expectedActions = [{
       type: UPDATE_TEMPORARY_PORTFOLIO_ITEM,
       payload: {
-        
+
         display_name: 'foo',
         id: '123',
         workflow_ref: '123',
@@ -85,7 +85,7 @@ describe('<EditPortfolioItem />', () => {
     }, {
       type: UPDATE_PORTFOLIO_ITEM,
       payload: {
-        
+
         display_name: 'foo',
         id: '123',
         workflow_ref: '123',
