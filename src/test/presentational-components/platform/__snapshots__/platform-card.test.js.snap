@@ -58,7 +58,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                       clamp={6}
                       tagName="div"
                       truncationChar="…"
-                      useNativeClamp={false}
+                      useNativeClamp={true}
                     >
                       <div>
                         <PropLine
@@ -154,7 +154,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                       clamp={6}
                       tagName="div"
                       truncationChar="…"
-                      useNativeClamp={false}
+                      useNativeClamp={true}
                     >
                       <div>
                         <PropLine

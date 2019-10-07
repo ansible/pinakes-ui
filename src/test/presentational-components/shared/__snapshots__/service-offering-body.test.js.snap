@@ -64,7 +64,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           clamp={6}
           tagName="div"
           truncationChar="…"
-          useNativeClamp={false}
+          useNativeClamp={true}
         >
           <div>
             <PropLine
@@ -144,7 +144,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
           clamp={6}
           tagName="div"
           truncationChar="…"
-          useNativeClamp={false}
+          useNativeClamp={true}
         >
           <div>
             <PropLine

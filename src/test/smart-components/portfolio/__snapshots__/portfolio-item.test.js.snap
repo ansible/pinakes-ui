@@ -192,7 +192,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           clamp={6}
                           tagName="div"
                           truncationChar="…"
-                          useNativeClamp={false}
+                          useNativeClamp={true}
                         >
                           <div>
                             <PropLine
