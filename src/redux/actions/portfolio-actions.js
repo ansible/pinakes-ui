@@ -167,7 +167,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
   });
   const { portfolioReducer: { portfolioItems: { meta }, selectedPortfolio: { id: portfolioId }}} = getState();
   return PortfolioHelper.removePortfolioItems(portfolioItems)
-  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId, meta)).then(() => data))
+  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId, { offset: 0, limit: meta.limit })).then(() => data))
   .then(data => {
     return dispatch({
       type: ADD_NOTIFICATION,
