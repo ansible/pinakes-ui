@@ -4,12 +4,52 @@ import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
-    <Text component={ TextVariants.h6 }>Platform <br />{ source.name }</Text>
-    <Text component={ TextVariants.h6 }>Portfolio <br />{ portfolio.display_name || portfolio.name }</Text>
+    <Text component={ TextVariants.h6 }>
+      <span>
+        Platform
+      </span>
+      <br />
+      <div className="elipsis-text-overflow">
+        <span>
+          { source.name }
+        </span>
+      </div>
+    </Text>
+    <Text component={ TextVariants.h6 }>
+      <span>
+        Portfolio
+      </span>
+      <br />
+      <div className="elipsis-text-overflow">
+        <span>
+          { portfolio.display_name || portfolio.name }
+        </span>
+      </div>
+    </Text>
     { product.distributor && (
-      <Text component={ TextVariants.h6 }>Vendor <br />{ product.distributor }</Text>
+      <Text component={ TextVariants.h6 }>
+        <span>
+          Vendor
+        </span>
+        <br />
+        <div className="elipsis-text-overflow">
+          <span>
+            { product.distributor }
+          </span>
+        </div>
+      </Text>
     ) }
-    <Text component={ TextVariants.h6 }>Created at <br />{ new Date(product.updated_at || product.created_at).toLocaleDateString() }</Text>
+    <Text component={ TextVariants.h6 }>
+      <span>
+        Created at
+      </span>
+      <br />
+      <div className="elipsis-text-overflow">
+        <span>
+          { new Date(product.updated_at || product.created_at).toLocaleDateString() }
+        </span>
+      </div>
+    </Text>
   </TextContent>
 );
 

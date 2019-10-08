@@ -68,8 +68,10 @@ AddPortfolioModal.propTypes = {
   })).isRequired
 };
 
+const stripValues = ({ owner, created_at, updated_at, ...rest }) => rest;
+
 const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
-  initialValues: id && portfolios.data.find(item => item.id === id),
+  initialValues: id && stripValues(portfolios.data.find(item => item.id === id)),
   portfolioId: id
 });
 
