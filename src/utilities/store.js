@@ -15,7 +15,16 @@ import loadingStateMiddleware from './loading-state-middleware';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
   errorTitleKey: [ 'errors', 'message', 'statusText' ],
-  errorDescriptionKey: [ 'data.errors', 'data.error', 'data.message', 'response.body.errors', 'data', 'errorMessage', 'stack' ]
+  errorDescriptionKey: [
+    'data.errors[0].detail',
+    'data.errors',
+    'data.error',
+    'data.message',
+    'response.body.errors',
+    'data',
+    'errorMessage',
+    'stack'
+  ]
 }), loadingStateMiddleware, reduxLogger ]);
 registry.register({
   orderReducer: applyReducerHash(orderReducer, orderInitialState),
