@@ -96,7 +96,13 @@ export async function updatePortfolioItem(portfolioItem) {
 }
 
 export function fetchPortfolioByName(name = '') {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios?filter[name]=${name}`);
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios`, {
+    params: {
+      filter: {
+        name
+      }
+    }
+  });
 }
 
 export const restorePortfolioItems = restoreData =>
