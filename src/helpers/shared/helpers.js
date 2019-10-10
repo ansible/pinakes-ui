@@ -32,7 +32,7 @@ export const createOrderedLabel = date => {
 export const createUpdatedLabel = orderItem => {
   if (!orderItem[0]) {
     return null;
-  };
+  }
 
   const orderedAgo = calcuateDiffDays(new Date(orderItem[0].updated_at), new Date());
   return `Updated ${orderedAgo} ${orderedAgo > 1 ? 'days' : 'day'} ago`;
