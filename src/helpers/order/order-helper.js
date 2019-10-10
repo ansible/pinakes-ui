@@ -13,10 +13,6 @@ export function getServicePlans(portfolioItemId) {
   return portfolioItemApi.listServicePlans(portfolioItemId);
 }
 
-export function listOrders() {
-  return orderApi.listOrders();
-}
-
 export async function sendSubmitOrder({ service_parameters: { providerControlParameters, ...service_parameters }, ...parameters }) {
   let order = await orderApi.createOrder();
   let orderItem = {};
@@ -38,10 +34,6 @@ export function listRequests() {
       ...item,
       state: decision
     })) }));
-}
-
-export function listOrderItems() {
-  return axiosInstance.get(`${CATALOG_API_BASE}/order_items`);
 }
 
 export function cancelOrder(orderId) {
