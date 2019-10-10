@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ConditionalLink should render children wrapped in router Link component 1`] = `
+<ConditionalLink
+  to="/some/url"
+>
+  <Link
+    to="/some/url"
+  >
+    <a
+      href="/some/url"
+      onClick={[Function]}
+    >
+      <div>
+        Link children
+      </div>
+    </a>
+  </Link>
+</ConditionalLink>
+`;
+
+exports[`<ConditionalLink should render only children withouth link 1`] = `
+<ConditionalLink>
+  <div>
+    Link children
+  </div>
+</ConditionalLink>
+`;
