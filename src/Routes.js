@@ -4,11 +4,13 @@ import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
 
+const Products = lazy(() => import('./smart-components/products/products'));
 const Platforms = lazy(() => import('./smart-components/platform/platforms'));
 const Portfolios = lazy(() => import('./smart-components/portfolio/portfolios'));
 const Orders = lazy(() => import('./smart-components/order/orders'));
 
 const paths = {
+  products: '/products',
   platforms: '/platforms',
   portfolios: '/portfolios',
   portfolioItem: '/portfolios/:id',
@@ -32,6 +34,7 @@ export const Routes = props => {
   return (
     <Suspense fallback={ <AppPlaceholder /> }>
       <Switch>
+        <InsightsRoute path={ paths.products } component={ Products } rootClass="products" />
         <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
         <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
         <InsightsRoute path={ paths.orders } component={ Orders } rootClass="catalog" />

@@ -33,6 +33,9 @@ class App extends Component {
     try {
       insights.chrome.identifyApp('catalog');
       insights.chrome.navigation([{
+        id: 'products',
+        title: 'Products'
+      }, {
         id: 'portfolios',
         title: 'Portfolios'
       }, {
