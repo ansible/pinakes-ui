@@ -24,7 +24,7 @@ const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData 
       <Level>
         <LevelItem className="elipsis-text-overflow">
           <Title headingLevel="h2" size="3xl">
-            { serviceData.display_name }
+            { serviceData.name }
           </Title>
         </LevelItem>
       </Level>

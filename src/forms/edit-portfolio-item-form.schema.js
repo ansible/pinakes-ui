@@ -4,8 +4,8 @@ import asyncFormValidator from '../utilities/async-form-validator';
 const editPortfolioItemSchema = (loadWorkflows) => ({
   fields: [{
     component: componentTypes.TEXT_FIELD,
-    name: 'display_name',
-    label: 'Display name',
+    name: 'name',
+    label: 'Name',
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }]
   }, {

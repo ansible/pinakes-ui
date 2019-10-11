@@ -216,7 +216,7 @@ export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => 
     dispatch({ type: ADD_NOTIFICATION, payload: {
       variant: 'success',
       title: 'You have successfully copied a product',
-      description: `${data.display_name} has been copied into ${newPortfolio.name}`,
+      description: `${data.name} has been copied into ${newPortfolio.name}`,
       dismissable: true
     }});
     return data;
@@ -238,7 +238,7 @@ export const updatePortfolioItem = values => dispatch => {
   .then(item => dispatch({
     type: ADD_NOTIFICATION, payload: {
       variant: 'success',
-      title: `Portfolio item "${item.display_name}" was successfully updated`,
+      title: `Portfolio item "${item.name}" was successfully updated`,
       dismissable: true
     }
   }))
