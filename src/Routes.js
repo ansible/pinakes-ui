@@ -17,27 +17,15 @@ const paths = {
   orders: '/orders'
 };
 
-const InsightsRoute = ({ rootClass, ...rest }) => {
-  const root = document.getElementById('root');
-  root.removeAttribute('class');
-  root.classList.add(`page__${rootClass}`, 'pf-l-page__main', 'pf-c-page__main');
-  root.setAttribute('role', 'main');
-  return (<Route { ...rest } />);
-};
-
-InsightsRoute.propTypes = {
-  rootClass: PropTypes.string
-};
-
 export const Routes = props => {
   const path = props.childProps.location.pathname;
   return (
     <Suspense fallback={ <AppPlaceholder /> }>
       <Switch>
-        <InsightsRoute path={ paths.products } component={ Products } rootClass="products" />
-        <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
-        <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
-        <InsightsRoute path={ paths.orders } component={ Orders } rootClass="catalog" />
+        <Route path={ paths.products } component={ Products }/>
+        <Route path={ paths.portfolios } component={ Portfolios }/>
+        <Route path={ paths.platforms } component={ Platforms }/>
+        <Route path={ paths.orders } component={ Orders }/>
         { /* Finally, catch all unmatched routes */ }
         <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
       </Switch>
