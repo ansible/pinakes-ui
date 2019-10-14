@@ -92,11 +92,17 @@ export function fetchProviderControlParameters(portfolioItemId) {
 }
 
 export async function updatePortfolioItem(portfolioItem) {
-  return await axiosInstance.patch(`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}`, udefinedToNull(portfolioItem, PORTFOLIO_ITEM_NULLABLE));
+  return await portfolioItemApi.updatePortfolioItem(portfolioItem.id, udefinedToNull(portfolioItem, PORTFOLIO_ITEM_NULLABLE));
 }
 
 export function fetchPortfolioByName(name = '') {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios?filter[name]=${name}`);
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios`, {
+    params: {
+      filter: {
+        name
+      }
+    }
+  });
 }
 
 export const restorePortfolioItems = restoreData =>

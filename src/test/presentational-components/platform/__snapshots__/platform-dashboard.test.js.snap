@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PlatformDashboard /> should render correctly 1`] = `
-<ConnectFunction>
+<Connect(Main)>
   <div
     style={
       Object {
@@ -15,5 +15,5 @@ exports[`<PlatformDashboard /> should render correctly 1`] = `
       Search Or Select a Platform
     </Title>
   </div>
-</ConnectFunction>
+</Connect(Main)>
 `;

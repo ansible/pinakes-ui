@@ -10,6 +10,7 @@ import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/actions/share-actions';
 import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
+import { permissionOptions } from '../../utilities/constants';
 
 const SharePortfolioModal = ({
   history: { push },
@@ -80,13 +81,6 @@ const SharePortfolioModal = ({
   };
 
   const onCancel = () => push(closeUrl);
-
-  const permissionOptions = [{
-    value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
-    label: 'Can order/edit'
-  }, {
-    value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
-  }];
 
   const shareItems = () => {
     let groupsWithNoSharing = rbacGroups.filter((item) => {

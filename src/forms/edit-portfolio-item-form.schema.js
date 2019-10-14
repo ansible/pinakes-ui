@@ -11,27 +11,40 @@ const editPortfolioItemSchema = (loadWorkflows) => ({
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'description',
-    label: 'Description'
+    label: 'Description',
+    isRequired: true,
+    validate: [{ type: validatorTypes.REQUIRED }]
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'long_description',
-    label: 'Long description'
+    label: 'Long description',
+    isRequired: true,
+    validate: [{ type: validatorTypes.REQUIRED }]
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'distributor',
-    label: 'Vendor'
+    label: 'Vendor',
+    isRequired: true,
+    validate: [{ type: validatorTypes.REQUIRED }]
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'documentation_url',
     label: 'Documentation URL',
+
+    isRequired: true,
     validate: [{
+      type: validatorTypes.REQUIRED
+    }, {
       type: validatorTypes.URL
     }]
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'support_url',
     label: 'Support URL',
+    isRequired: true,
     validate: [{
+      type: validatorTypes.REQUIRED
+    }, {
       type: validatorTypes.URL
     }]
   }, {
