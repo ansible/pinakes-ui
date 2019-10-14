@@ -73,7 +73,6 @@ describe('Platform actions', () => {
     ];
 
     return store.dispatch(fetchPlatforms()).catch(() => {
-      console.log(store.getActions());
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

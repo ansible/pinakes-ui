@@ -77,11 +77,11 @@ describe('<Portfolio />', () => {
     }, {
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
     }, expect.objectContaining({
-      type: `${FETCH_PLATFORMS}_FULFILLED`
-    }), expect.objectContaining({
       type: `${FETCH_PORTFOLIO}_FULFILLED`
     }), expect.objectContaining({
       type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
+    }),  expect.objectContaining({
+      type: `${FETCH_PLATFORMS}_FULFILLED`
     }) ];
 
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {

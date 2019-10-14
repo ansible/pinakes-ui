@@ -134,15 +134,17 @@ exports[`<PlatformItem /> should render correctly 1`] = `
               <div
                 className="pf-c-content"
               >
-                <Text
-                  className="elipsis-text-overflow"
-                  component="h3"
-                >
-                  <h3
+                <ConditionalLink>
+                  <Text
                     className="elipsis-text-overflow"
-                    data-pf-content={true}
-                  />
-                </Text>
+                    component="h3"
+                  >
+                    <h3
+                      className="elipsis-text-overflow"
+                      data-pf-content={true}
+                    />
+                  </Text>
+                </ConditionalLink>
                 <Text
                   component="small"
                 >

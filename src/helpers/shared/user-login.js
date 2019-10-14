@@ -6,13 +6,11 @@ import { PortfolioApi, PortfolioItemApi, OrderApi, OrderItemApi, IconApi } from 
 
 import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
 import { AccessApi, PrincipalApi, GroupApi } from '@redhat-cloud-services/rbac-client';
+import { stringify } from 'qs';
 
-const axiosInstance = axios.create();
-
-const paramSerializer = config => {
-  config.url = config.url.replace(/(?==)*%+/g, value => value.replace(/%/g, '%25%0A'));
-  return config;
-};
+const axiosInstance = axios.create({
+  paramsSerializer: params => stringify(params)
+});
 
 const resolveInterceptor = response => response.data || response;
 const errorInterceptor = (error = {}) => {
@@ -24,7 +22,6 @@ axiosInstance.interceptors.request.use(async config => {
   await window.insights.chrome.auth.getUser();
   return config;
 });
-axiosInstance.interceptors.request.use(paramSerializer);
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(null, errorInterceptor);
 

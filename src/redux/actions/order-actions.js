@@ -10,11 +10,6 @@ export const fetchServicePlans = (portfolioItemId) => ({
   payload: OrderHelper.getServicePlans(portfolioItemId)
 });
 
-export const fetchOrderList = () => ({
-  type: ActionTypes.LIST_ORDERS,
-  payload: OrderHelper.listOrders().then(({ data }) => data)
-});
-
 export const updateServiceData = (data) => ({
   type: ActionTypes.UPDATE_SERVICE_DATA,
   payload: { serviceData: data }
@@ -38,11 +33,6 @@ export const sendSubmitOrder = apiProps => dispatch => dispatch({
 export const fetchRequests = () => ({
   type: ActionTypes.FETCH_REQUESTS,
   payload: OrderHelper.listRequests()
-});
-
-export const fetchOrderItems = () => ({
-  type: ActionTypes.FETCH_ORDER_ITEMS,
-  payload: OrderHelper.listOrderItems()
 });
 
 const setOrders = orders => ({
