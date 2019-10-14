@@ -26,19 +26,21 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
         <div
           className="pf-c-content"
         >
-          <Text
-            className="elipsis-text-overflow"
-            component="h3"
-            title="display name"
-          >
-            <h3
+          <ConditionalLink>
+            <Text
               className="elipsis-text-overflow"
-              data-pf-content={true}
+              component="h3"
               title="display name"
             >
-              display name
-            </h3>
-          </Text>
+              <h3
+                className="elipsis-text-overflow"
+                data-pf-content={true}
+                title="display name"
+              >
+                display name
+              </h3>
+            </Text>
+          </ConditionalLink>
           <Text
             component="small"
           >
@@ -107,19 +109,21 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
         <div
           className="pf-c-content"
         >
-          <Text
-            className="elipsis-text-overflow"
-            component="h3"
-            title="Foo"
-          >
-            <h3
+          <ConditionalLink>
+            <Text
               className="elipsis-text-overflow"
-              data-pf-content={true}
+              component="h3"
               title="Foo"
             >
-              Foo
-            </h3>
-          </Text>
+              <h3
+                className="elipsis-text-overflow"
+                data-pf-content={true}
+                title="Foo"
+              >
+                Foo
+              </h3>
+            </Text>
+          </ConditionalLink>
           <Text
             component="small"
           >

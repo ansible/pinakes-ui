@@ -264,7 +264,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action success', () => {
-    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: { limit: 0, offset: 0 }}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     }, {
@@ -280,7 +280,7 @@ describe('Portfolio actions', () => {
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/1', mockOnce({ body: { restore_key: 'restore-1' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/2', mockOnce({ body: { restore_key: 'restore-2' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/3', mockOnce({ body: { restore_key: 'restore-3' }}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: []}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=0&offset=0`, mockOnce({ body: []}));
 
     return store.dispatch(removeProductsFromPortfolio([ '1', '2', '3' ], 'Foo portfolio'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));

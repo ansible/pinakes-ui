@@ -47,6 +47,7 @@ Element.prototype.scrollTo = () => {};
 // mock insights instance
 global.insights = {
   chrome: {
+    appNavClick: () => {},
     auth: {
       getUser: () => new Promise(resolve => resolve(true))
     }
