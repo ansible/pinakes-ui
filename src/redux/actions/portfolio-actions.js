@@ -204,7 +204,10 @@ export const copyPortfolio = id => dispatch => {
   return PortfolioHelper.copyPortfolio(id)
   .then(portfolio => {
     dispatch({ type: 'COPY_PORTFOLIO_FULFILLED' });
-    dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success', title: 'You have successfully copied a portfolio' }});
+    dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success',
+      title: 'You have successfully copied a portfolio',
+      description: `${portfolio.name} has been copied.}`,
+      dismissable: true }});
     return portfolio;
   })
   .catch(err => dispatch({ type: 'COPY_PORTFOLIO_REJECTED', payload: err }));
