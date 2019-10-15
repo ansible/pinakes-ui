@@ -95,7 +95,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItems action was called', () => {
     const store = mockStore({});
 
-    apiClientMock.get(CATALOG_API_BASE + '/portfolio_items', mockOnce({
+    apiClientMock.get(CATALOG_API_BASE + '/portfolio_items?filter%5Bname%5D%5Bcontains%5D=123&limit=50&offset=0', mockOnce({
       body: { data: [ 'foo' ]}
     }));
 

@@ -4,6 +4,7 @@ import { ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/fr
 
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 export const doFetchPortfolios = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
@@ -14,9 +15,9 @@ export const fetchPortfolios = (...args) => (dispatch) => {
   return dispatch(doFetchPortfolios(...args));
 };
 
-export const fetchPortfolioItems = apiProps => ({
+export const fetchPortfolioItems = (filter, options = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  payload: PortfolioHelper.getPortfolioItems(apiProps)
+  payload: PortfolioHelper.listPortfolioItems(options.limit, options.offset, filter)
 });
 
 export const fetchPortfolioItem = (portfolioItemId) => ({
