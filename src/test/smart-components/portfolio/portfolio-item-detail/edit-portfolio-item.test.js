@@ -30,7 +30,7 @@ describe('<EditPortfolioItem />', () => {
       workflows: [],
       cancelUrl: '/cancel',
       product: {
-        display_name: 'foo',
+        name: 'foo',
         id: '123',
         workflow_ref: '123'
       }
@@ -58,7 +58,7 @@ describe('<EditPortfolioItem />', () => {
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
-        display_name: 'foo',
+        name: 'foo',
         id: '123',
         workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
@@ -74,7 +74,7 @@ describe('<EditPortfolioItem />', () => {
       type: UPDATE_TEMPORARY_PORTFOLIO_ITEM,
       payload: {
 
-        display_name: 'foo',
+        name: 'foo',
         id: '123',
         workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
@@ -87,7 +87,7 @@ describe('<EditPortfolioItem />', () => {
       type: UPDATE_PORTFOLIO_ITEM,
       payload: {
 
-        display_name: 'foo',
+        name: 'foo',
         id: '123',
         workflow_ref: '123',
         documentation_url: 'https://www.google.com/',

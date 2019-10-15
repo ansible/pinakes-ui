@@ -29,7 +29,7 @@ const PortfolioItemDetailToolbar = ({
         <LevelItem>
           <TextContent>
             <Text component={ TextVariants.h1 }>
-              { product.display_name || product.name }
+              { product.name }
             </Text>
           </TextContent>
         </LevelItem>
@@ -65,7 +65,6 @@ PortfolioItemDetailToolbar.propTypes = {
   url: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   product: PropTypes.shape({
-    display_name: PropTypes.string,
     distributor: PropTypes.string,
     name: PropTypes.string.isRequired,
     workflow_ref: PropTypes.string
