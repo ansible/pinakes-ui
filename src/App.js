@@ -52,7 +52,7 @@ class App extends Component {
          * Uses React history directly instead of browser history to avoid template realod.
          * only redirect after first application mount
          */
-        if (!this.state.ignoreRedirect) {
+        if (!this.state.ignoreRedirect && event.domEvent) {
           this.props.history.push(`/${event.navId}`);
         }
 

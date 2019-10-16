@@ -37,6 +37,7 @@ class Portfolios extends Component {
   componentDidMount() {
     this.fetchData();
     scrollToTop();
+    insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }
 
   onFilterChange = filterValue => this.setState({ filterValue })
