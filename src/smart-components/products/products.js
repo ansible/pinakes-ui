@@ -18,6 +18,8 @@ const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback) 
   dispatch(fetchPortfolioItems(value, defaultSettings)).then(() => filteringCallback(false));
 }, 1000);
 
+const buildItemUrl = ({ portfolio_id, id }) => portfolio_id && `/portfolios/detail/${portfolio_id}/product/${id}`;
+
 const initialState = {
   filterValue: '',
   isOpen: false,
@@ -56,7 +58,7 @@ const Products = () => {
     debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }));
   };
 
-  const galleryItems = data.map(item => <PortfolioItem key={ item.id } { ...item } />);
+  const galleryItems = data.map(item => <PortfolioItem key={ item.id } url={ buildItemUrl(item) } { ...item } />);
 
   return (
     <div>
