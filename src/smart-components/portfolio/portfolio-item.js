@@ -45,7 +45,7 @@ PortfolioItem.propTypes = {
   isSelectable: PropTypes.bool,
   isSelected: PropTypes.bool,
   onSelect: PropTypes.func,
-  orderUrl: PropTypes.string.isRequired,
+  orderUrl: PropTypes.string,
   removeInProgress: PropTypes.bool
 };
 
