@@ -12,7 +12,7 @@ export function listPortfolios(_apiProps, { limit, offset, filter, ...options } 
 }
 
 export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filter}&limit=${limit}&offset=${offset}`);
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`);
 }
 
 export function getPortfolioItem(portfolioItemId) {
