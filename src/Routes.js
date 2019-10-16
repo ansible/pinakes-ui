@@ -4,27 +4,17 @@ import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
 
+const Products = lazy(() => import('./smart-components/products/products'));
 const Platforms = lazy(() => import('./smart-components/platform/platforms'));
 const Portfolios = lazy(() => import('./smart-components/portfolio/portfolios'));
 const Orders = lazy(() => import('./smart-components/order/orders'));
 
 const paths = {
+  products: '/products',
   platforms: '/platforms',
   portfolios: '/portfolios',
   portfolioItem: '/portfolios/:id',
   orders: '/orders'
-};
-
-const InsightsRoute = ({ rootClass, ...rest }) => {
-  const root = document.getElementById('root');
-  root.removeAttribute('class');
-  root.classList.add(`page__${rootClass}`, 'pf-l-page__main', 'pf-c-page__main');
-  root.setAttribute('role', 'main');
-  return (<Route { ...rest } />);
-};
-
-InsightsRoute.propTypes = {
-  rootClass: PropTypes.string
 };
 
 export const Routes = props => {
@@ -32,9 +22,10 @@ export const Routes = props => {
   return (
     <Suspense fallback={ <AppPlaceholder /> }>
       <Switch>
-        <InsightsRoute path={ paths.portfolios } component={ Portfolios } rootClass="portfolios" />
-        <InsightsRoute path={ paths.platforms } component={ Platforms } rootClass="platforms"/>
-        <InsightsRoute path={ paths.orders } component={ Orders } rootClass="catalog" />
+        <Route path={ paths.products } component={ Products }/>
+        <Route path={ paths.portfolios } component={ Portfolios }/>
+        <Route path={ paths.platforms } component={ Platforms }/>
+        <Route path={ paths.orders } component={ Orders }/>
         { /* Finally, catch all unmatched routes */ }
         <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
       </Switch>

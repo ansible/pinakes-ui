@@ -11,12 +11,8 @@ export function listPortfolios(_apiProps, { limit, offset, filter, ...options } 
   return portfolioApi.listPortfolios(limit, offset, filter, options);
 }
 
-export function getPortfolioItems() {
-  return listPortfolioItems();
-}
-
-export function listPortfolioItems() {
-  return portfolioItemApi.listPortfolioItems();
+export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`);
 }
 
 export function getPortfolioItem(portfolioItemId) {

@@ -21,7 +21,7 @@ const defaultPlatformIcon = (platformId, platformList) => {
     return CardIconDefault;
   }
 
-  if (!platformList || platformList.empty || !platformId) {
+  if (!platformList || platformList.lenght === 0 || !platformId) {
     return CardIconDefault;
   }
 
@@ -29,6 +29,8 @@ const defaultPlatformIcon = (platformId, platformList) => {
   if (source) {
     return platformTypeIcon[source.source_type_id];
   }
+
+  return CardIconDefault;
 };
 
 const CardIcon = ({ src, height, platformId  }) => {

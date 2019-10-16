@@ -35,6 +35,7 @@ class Platforms extends Component {
     componentDidMount() {
       this.fetchData();
       scrollToTop();
+      insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
     }
 
     handleFilterChange = filterValue => this.setState({ filterValue })
