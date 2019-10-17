@@ -15,7 +15,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         className="toolbar-filter-input-group"
       >
         <TextInput
-          aria-label="Find product button"
+          aria-label="Foo"
           className=""
           isDisabled={false}
           isReadOnly={false}
@@ -28,7 +28,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         >
           <input
             aria-invalid={false}
-            aria-label="Find product button"
+            aria-label="Foo"
             className="pf-c-form-control"
             disabled={false}
             onChange={[Function]}
