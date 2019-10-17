@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Orders /> should render correctly 1`] = `
-<Route>
+<ContextConsumer>
   <Component />
-</Route>
+</ContextConsumer>
 `;
 
 exports[`<Orders /> should render correctly in loading state 1`] = `
-<Route>
+<ContextConsumer>
   <Component />
-</Route>
+</ContextConsumer>
 `;
 
 exports[`<Orders /> should render past orders correctly 1`] = `

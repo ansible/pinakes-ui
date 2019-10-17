@@ -7,14 +7,19 @@ exports[`<ConditionalLink should render children wrapped in router Link componen
   <Link
     to="/some/url"
   >
-    <a
+    <LinkAnchor
       href="/some/url"
-      onClick={[Function]}
+      navigate={[Function]}
     >
-      <div>
-        Link children
-      </div>
-    </a>
+      <a
+        href="/some/url"
+        onClick={[Function]}
+      >
+        <div>
+          Link children
+        </div>
+      </a>
+    </LinkAnchor>
   </Link>
 </ConditionalLink>
 `;

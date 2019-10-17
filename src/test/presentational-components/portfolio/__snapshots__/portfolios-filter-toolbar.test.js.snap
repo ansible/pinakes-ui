@@ -9,7 +9,18 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
         "FilterToolbarItem": [Function],
         "Level": [Function],
         "LevelItem": [Function],
-        "Link": [Function],
+        "Link": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        },
         "Toolbar": [Function],
         "ToolbarGroup": [Function],
         "ToolbarItem": [Function],
@@ -48,6 +59,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
           >
             <Component
               component="FilterToolbarItem"
+              isClearable={true}
               key="filter-input"
               onFilterChange={[MockFunction]}
               searchValue=""
