@@ -30,7 +30,7 @@ const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest,
     <div className="pf-u-mt-md">
       <Pagination
         perPage={ limit || 50 }
-        itemCount={ count || 50 }
+        itemCount={ count || 0 }
         onPerPageSelect={ handleOnPerPageSelect }
         page={ getCurrentPage(limit, offset) }
         onSetPage={ handleSetPage }
