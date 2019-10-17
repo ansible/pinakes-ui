@@ -33,7 +33,8 @@ const createPortfolioToolbarSchema = ({
             key: 'filter-input',
             searchValue,
             onFilterChange,
-            placeholder
+            placeholder,
+            isClearable: true
           }),
           createSingleItemGroup({
             groupName: 'portfolio-button-group',

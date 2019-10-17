@@ -157,7 +157,8 @@ describe('Portfolio actions', () => {
 
   it('should create error action creators when adding portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
       status: 500
     }));
@@ -246,7 +247,8 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       status: 500
     }));
