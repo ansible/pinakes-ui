@@ -109,9 +109,13 @@ export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portf
 
 export const copyPortfolioItem = (portfolioItemId, copyObject = {}) => portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
 
-export const uploadPortfolioItemIcon = (portfolioItemId, file) => {
+export const uploadPortfolioItemIcon = (portfolioItemId, file, iconId) => {
   let data = new FormData();
   data.append('content', file, file.name);
+  if (iconId) {
+    return axiosInstance.patch(`${CATALOG_API_BASE}/icons/${iconId}`, data);
+  }
+
   data.append('portfolio_item_id', portfolioItemId);
   return axiosInstance.post(`${CATALOG_API_BASE}/icons`, data, {
     headers: {

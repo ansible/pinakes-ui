@@ -15,14 +15,19 @@ const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon
+  uploadIcon,
+  setEditing
 }) => (
   <Fragment>
     <TopToolbar>
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
         <IconUpload uploadIcon={ uploadIcon }>
-          <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
-            platformId={ product.service_offering_source_ref } height={ 64 }/>
+          <CardIcon
+            src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
+            platformId={ product.service_offering_source_ref }
+            height={ 64 }
+            iconDidLoad={ setEditing }
+          />
         </IconUpload>
       </div>
       <Level>
@@ -71,7 +76,8 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  setEditing: PropTypes.func.isRequired
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
