@@ -110,7 +110,7 @@ describe('<SharePortfolioModal', () => {
       });
       return res.status(200);
     }));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce((req, res) => {
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce((req, res) => {
       expect(req).toBeTruthy();
       return res.status(200).body({
         data: []
