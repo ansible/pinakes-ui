@@ -16,29 +16,29 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                 dropdownItems={
                   Array [
                     <DropdownItem>
-                      <Link
+                      <ForwardRef
                         className="pf-c-dropdown__menu-item"
                         to="/portfolios/share/123"
                       >
                         Share
-                      </Link>
+                      </ForwardRef>
                     </DropdownItem>,
                     <DropdownSeparator />,
                     <DropdownItem>
-                      <Link
+                      <ForwardRef
                         className="pf-c-dropdown__menu-item"
                         to="/portfolios/edit/123"
                       >
                         Edit
-                      </Link>
+                      </ForwardRef>
                     </DropdownItem>,
                     <DropdownItem>
-                      <Link
+                      <ForwardRef
                         className="pf-c-dropdown__menu-item destructive-color"
                         to="/portfolios/remove/123"
                       >
                         Delete
-                      </Link>
+                      </ForwardRef>
                     </DropdownItem>,
                   ]
                 }

@@ -2,13 +2,14 @@ import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../share
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import { PORTFOLIO_ITEM_NULLABLE, PORTFOLIO_NULLABLE } from '../../constants/nullable-attributes';
 import { udefinedToNull } from '../shared/helpers';
+import { defaultSettings } from '../shared/pagination';
 
 const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
 
-export function listPortfolios(_apiProps, { limit, offset, filter, ...options } = {}) {
-  return portfolioApi.listPortfolios(limit, offset, filter, options);
+export function listPortfolios(filter = '', { limit, offset } = defaultSettings) {
+  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`);
 }
 
 export function listPortfolioItems(limit = 50, offset = 0, filter = '') {

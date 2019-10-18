@@ -11,7 +11,7 @@ const FilterToolbarItem = ({ searchValue, onFilterChange, placeholder, isClearab
         value={ searchValue }
         type="text"
         onChange={ onFilterChange }
-        aria-label="Find product button"
+        aria-label={ placeholder }
       />
       <span className="filter-icons-container">
         {
