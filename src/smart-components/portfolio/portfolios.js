@@ -17,9 +17,9 @@ import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolb
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 
-const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback) => {
+const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
   filteringCallback(true);
-  dispatch(fetchPortfolios(value, defaultSettings)).then(() => filteringCallback(false));
+  dispatch(fetchPortfolios(value, meta)).then(() => filteringCallback(false));
 }, 1000);
 
 const portfoliosRoutes = {
@@ -61,7 +61,10 @@ const Portfolios = () => {
 
   const handleFilterItems = value => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }));
+    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }), {
+      ...meta,
+      offset: 0
+    });
   };
 
   const renderItems = () => {
