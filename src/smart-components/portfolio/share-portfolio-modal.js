@@ -61,7 +61,7 @@ const SharePortfolioModal = ({
           if (share.permissions.length > data[share.group_name].split(',').length) {
             sharePromises.push(unsharePortfolio({
               id: portfolioId,
-              permissions: [ 'catalog:portfolios:write' ],
+              permissions: [ 'catalog:portfolios:update' ],
               group_uuid: share.group_uuid
             }));
           }

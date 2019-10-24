@@ -5,7 +5,7 @@ export const TOPOLOGICAL_INVENTORY_API_BASE = `${process.env.BASE_PATH}/topologi
 export const RBAC_API_BASE = `${process.env.BASE_PATH}/rbac/v1`;
 
 export const permissionOptions = [{
-  value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
+  value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:update',
   label: 'Can order/edit'
 }, {
   value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
