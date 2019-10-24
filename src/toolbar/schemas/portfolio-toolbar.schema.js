@@ -10,7 +10,7 @@ import AsyncPagination from '../../smart-components/common/async-pagination';
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
  */
-const PortfolioActionsToolbar = ({ removePortfolioRoute, copyInProgress, copyPortfolio }) => {
+const PortfolioActionsToolbar = ({ editPortfolioRoute, removePortfolioRoute, copyInProgress, copyPortfolio }) => {
   const [ isOpen, setOpen ] =  useState(false);
   return (
     <Dropdown
@@ -23,6 +23,11 @@ const PortfolioActionsToolbar = ({ removePortfolioRoute, copyInProgress, copyPor
         <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
         Copy
         </DropdownItem>,
+        <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
+          <Link to={ editPortfolioRoute } role="link">
+            Edit
+          </Link>
+        </DropdownItem>,
         <DropdownItem aria-label="Remove Portfolio" key="delete-portfolio">
           <Link to={ removePortfolioRoute } role="link" className="pf-c-dropdown__menu-item destructive-color">
           Delete
@@ -34,6 +39,7 @@ const PortfolioActionsToolbar = ({ removePortfolioRoute, copyInProgress, copyPor
 
 PortfolioActionsToolbar.propTypes = {
   removePortfolioRoute: PropTypes.string.isRequired,
+  editPortfolioRoute: PropTypes.string.isRequired,
   copyPortfolio: PropTypes.func.isRequired,
   copyInProgress: PropTypes.bool
 };
@@ -110,14 +116,9 @@ const createPortfolioToolbarSchema = ({
             isDisabled: copyInProgress,
             key: 'portfolio-share-button'
           }),
-          createLinkButton({
-            to: editPortfolioRoute,
-            variant: 'link',
-            isDisabled: copyInProgress,
-            title: 'Edit',
-            key: 'portfolio-edit-button'
-          }), {
+          {
             component: PortfolioActionsToolbar,
+            editPortfolioRoute,
             removePortfolioRoute,
             copyPortfolio,
             copyInProgress,
