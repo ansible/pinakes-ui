@@ -42,7 +42,6 @@ const SharePortfolioModal = ({
       };
     });
     let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
-    console.log('Initial shares: ', initialShareList);
     return initialShareList;
   };
 
