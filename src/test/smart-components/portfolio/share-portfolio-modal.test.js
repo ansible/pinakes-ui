@@ -105,7 +105,7 @@ describe('<SharePortfolioModal', () => {
     }));
     apiClientMock.post(`${CATALOG_API_BASE}/portfolios/123/unshare`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
-        permissions: [ 'catalog:portfolios:write' ],
+        permissions: [ 'catalog:portfolios:update' ],
         group_uuids: [ null ]
       });
       return res.status(200);
