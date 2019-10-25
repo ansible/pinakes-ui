@@ -56,7 +56,8 @@ const SharePortfolioModal = ({
       let initialPerm = share.permissions.sort().join(',');
       if (data[share.group_name] !== initialPerm) {
         if (!data[share.group_name]) {
-          sharePromises.push(unsharePortfolio({ id: portfolioId, permissions: share.permissions, group_uuid: share.group_uuid }));
+          const sharePermissions = share.permissions.filter((permission) => permissionValues.indexOf(permission) > -1);
+          sharePromises.push(unsharePortfolio({ id: portfolioId, permissions: sharePermissions, group_uuid: share.group_uuid }));
         }
         else {
           if (share.permissions.length > data[share.group_name].split(',').length) {
