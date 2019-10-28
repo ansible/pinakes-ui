@@ -15,36 +15,42 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         disabled={false}
         to="foo/bar"
       >
-        <a
+        <LinkAnchor
           disabled={false}
           href="/foo/bar"
-          onClick={[Function]}
+          navigate={[Function]}
         >
-          <ButtonWithSpinner
-            isDisabled={false}
-            showSpinner={false}
-            variant="primary"
+          <a
+            disabled={false}
+            href="/foo/bar"
+            onClick={[Function]}
           >
-            <Button
-              className=""
+            <ButtonWithSpinner
               isDisabled={false}
+              showSpinner={false}
               variant="primary"
             >
-              <button
-                aria-disabled={null}
-                aria-label={null}
-                className="pf-c-button pf-m-primary"
-                disabled={false}
-                tabIndex={null}
-                type="button"
+              <Button
+                className=""
+                isDisabled={false}
+                variant="primary"
               >
-                <span>
-                  Order
-                </span>
-              </button>
-            </Button>
-          </ButtonWithSpinner>
-        </a>
+                <button
+                  aria-disabled={null}
+                  aria-label={null}
+                  className="pf-c-button pf-m-primary"
+                  disabled={false}
+                  tabIndex={null}
+                  type="button"
+                >
+                  <span>
+                    Order
+                  </span>
+                </button>
+              </Button>
+            </ButtonWithSpinner>
+          </a>
+        </LinkAnchor>
       </Link>
     </div>
   </LevelItem>
@@ -68,24 +74,24 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             <DropdownItem
               aria-label="Edit Portfolio"
             >
-              <Link
+              <ForwardRef
                 className="pf-c-dropdown__menu-item"
                 role="link"
                 to="foo/baz"
               >
                 Edit
-              </Link>
+              </ForwardRef>
             </DropdownItem>,
             <DropdownItem
               aria-label="Copy Portfolio"
             >
-              <Link
+              <ForwardRef
                 className="pf-c-dropdown__menu-item"
                 role="link"
                 to="foo/copy"
               >
                 Copy
-              </Link>
+              </ForwardRef>
             </DropdownItem>,
           ]
         }
@@ -108,24 +114,24 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               <DropdownItem
                 aria-label="Edit Portfolio"
               >
-                <Link
+                <ForwardRef
                   className="pf-c-dropdown__menu-item"
                   role="link"
                   to="foo/baz"
                 >
                   Edit
-                </Link>
+                </ForwardRef>
               </DropdownItem>,
               <DropdownItem
                 aria-label="Copy Portfolio"
               >
-                <Link
+                <ForwardRef
                   className="pf-c-dropdown__menu-item"
                   role="link"
                   to="foo/copy"
                 >
                   Copy
-                </Link>
+                </ForwardRef>
               </DropdownItem>,
             ]
           }

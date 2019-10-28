@@ -166,13 +166,20 @@
     width: 300px;
     background: transparent;
   }
-  svg {
-    vertical-align: -0.125em;
-    z-index: 1000;
+  .filter-icons-container {
     position: absolute;
     right: 8px;
-    top: 10px;
-    fill: #72767B
+    top: 8px;
+    svg {
+      z-index: 1000;
+      fill: #72767B;
+    }
+    &:hover {
+      svg.clear-filter {
+        fill: var(--pf-global--Color--100);
+        cursor: pointer;
+      }
+    }
   }
 }
 

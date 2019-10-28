@@ -1,11 +1,12 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
-import { createSingleItemGroup, createLinkButton } from '../helpers';
+import { createSingleItemGroup } from '../helpers';
 
 import AsyncPagination from '../../smart-components/common/async-pagination';
 
 const createPortfolioToolbarSchema = ({
   meta,
-  fetchPortfolios,
+  fetchProducts,
+  isLoading,
   filterProps: {
     searchValue,
     onFilterChange,
@@ -14,14 +15,14 @@ const createPortfolioToolbarSchema = ({
 }) => ({
   fields: [{
     component: toolbarComponentTypes.TOP_TOOLBAR,
-    key: 'portfolios-top-toolbar',
+    key: 'products-top-toolbar',
     fields: [{
       component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
-      key: 'portfolios-toolbar-title',
-      title: 'Portfolios'
+      key: 'products-toolbar-title',
+      title: 'Products'
     }, {
       component: toolbarComponentTypes.LEVEL,
-      key: 'porftolios-actions',
+      key: 'Products-actions',
       fields: [{
         component: toolbarComponentTypes.TOOLBAR,
         key: 'main-portfolio-toolbar',
@@ -35,26 +36,17 @@ const createPortfolioToolbarSchema = ({
             onFilterChange,
             placeholder,
             isClearable: true
-          }),
-          createSingleItemGroup({
-            groupName: 'portfolio-button-group',
-            key: 'create-portfolio',
-            ...createLinkButton({
-              to: '/portfolios/add-portfolio',
-              variant: 'primary',
-              key: 'create-portfolio-button',
-              'aria-label': 'Create portfolio',
-              title: 'Create portfolio'
-            })
           }) ]
       }, {
         component: toolbarComponentTypes.LEVEL_ITEM,
         key: 'pagination-item',
         fields: [{
           component: AsyncPagination,
-          key: 'porftolios-pagination',
+          key: 'products-pagination',
           meta,
-          apiRequest: fetchPortfolios
+          apiProps: searchValue,
+          apiRequest: fetchProducts,
+          isDisabled: isLoading
         }]
       }]
     }]

@@ -27,7 +27,7 @@ const copySchema = (portfolios, portfolioName, portfolioChange, nameFetching) =>
     name: 'portfolio_id',
     label: 'Portfolio',
     isRequired: true,
-    options: portfolios.map(({ id, display_name, name }) => ({ label: display_name || name, value: id })),
+    options: portfolios.map(({ id, name }) => ({ label: name, value: id })),
     onChange: portfolioChange,
     isDisabled: nameFetching
   }]

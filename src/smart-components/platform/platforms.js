@@ -35,6 +35,7 @@ class Platforms extends Component {
     componentDidMount() {
       this.fetchData();
       scrollToTop();
+      insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
     }
 
     handleFilterChange = filterValue => this.setState({ filterValue })
@@ -46,7 +47,7 @@ class Platforms extends Component {
             Configure a source in order to add products to portfolios.
           </Text>
           <Text component={ TextVariants.p }>
-            To connect to a source, go to <a href={ `${document.baseURI}hybrid/settings/sources` }>Catalog sources</a>&nbsp;
+            To connect to a source, go to <a href={ `${document.baseURI}ansible/settings/sources` }>Catalog sources</a>&nbsp;
             under Settings
           </Text>
           <Text component={ TextVariants.p }>

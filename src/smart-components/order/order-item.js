@@ -110,7 +110,7 @@ const OrderItem = ({
                               <Tooltip
                                 enableFlip
                                 position={ TooltipPosition.top }
-                                content={ <span>{ createDateString(item.updated_at || item.ordered_at) }</span> }
+                                content={ <span>{ createDateString(item.orderItems[0].updated_at) }</span> }
                               >
                                 <Text
                                   style={ { marginBottom: 0 } }

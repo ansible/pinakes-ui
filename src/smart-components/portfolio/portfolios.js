@@ -1,8 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Route, Switch } from 'react-router-dom';
+import React, { Fragment, useEffect, useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 
 import Portfolio from './portfolio';
@@ -17,101 +15,93 @@ import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
+import asyncFormValidator from '../../utilities/async-form-validator';
+
+const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
+  filteringCallback(true);
+  dispatch(fetchPortfolios(value, meta)).then(() => filteringCallback(false));
+}, 1000);
 
 const portfoliosRoutes = {
   portfolios: '',
   detail: 'detail/:id'
 };
 
-class Portfolios extends Component {
-  state = {
-    filteredItems: [],
-    isOpen: false,
-    filterValue: ''
-  };
+const initialState = {
+  filterValue: '',
+  isOpen: false,
+  isFetching: true,
+  isFiltering: false
+};
 
-  fetchData = () => {
-    this.props.fetchPortfolios(undefined, defaultSettings);
-  };
-
-  componentDidMount() {
-    this.fetchData();
-    scrollToTop();
+const portfoliosState = (state, action) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+    case 'setFilterValue':
+      return { ...state, filterValue: action.payload };
+    case 'setFilteringFlag':
+      return { ...state, isFiltering: action.payload };
   }
 
-  onFilterChange = filterValue => this.setState({ filterValue })
+  return state;
+};
 
-  renderItems = props => {
-    let filteredItems = {
-      items: this.props.portfolios
-      .filter(({ name }) => name.toLowerCase().includes(this.state.filterValue.trim().toLowerCase()))
-      .map(item => <PortfolioCard key={ item.id } { ...item } />),
-      isLoading: this.props.isLoading && this.props.portfolios.length === 0
-    };
+const Portfolios = () => {
+  const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(portfoliosState, initialState);
+  const { data, meta } = useSelector(({ portfolioReducer: { portfolios }}) => portfolios);
+  const match = useRouteMatch('/portfolios');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPortfolios(filterValue, defaultSettings)).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    scrollToTop();
+    insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
+  }, []);
+
+  const handleFilterItems = value => {
+    stateDispatch({ type: 'setFilterValue', payload: value });
+    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }), {
+      ...meta,
+      offset: 0
+    });
+  };
+
+  const renderItems = () => {
+    const galleryItems = data.map(item => <PortfolioCard key={ item.id } { ...item } />);
     return (
       <Fragment>
         <ToolbarRenderer
           schema={ createPortfolioToolbarSchema({
-            meta: this.props.pagination || {},
-            fetchPortfolios: this.props.fetchPortfolios,
+            meta,
+            fetchPortfolios: (...args) => dispatch(fetchPortfolios(...args)),
             filterProps: {
-              searchValue: this.state.filterValue,
-              onFilterChange: this.onFilterChange,
+              searchValue: filterValue,
+              onFilterChange: handleFilterItems,
               placeholder: 'Filter by name...'
             }}) }
         />
-        <Route { ...props } exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
+        <Route exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
-        <Route exact path="/portfolios/share/:id" render={ (...args) => <SharePortfolio closeUrl={ this.props.match.url } { ...args } /> } />
-        <ContentGallery { ...filteredItems } renderEmptyState={ () => (
+        <Route exact path="/portfolios/share/:id" render={ (...args) => <SharePortfolio closeUrl={ match.url } { ...args } /> } />
+        <ContentGallery items={ galleryItems } isLoading={ isFetching || isFiltering } renderEmptyState={ () => (
           <ContentGalleryEmptyState
             title="No portfolios"
             Icon={ SearchIcon }
-            description="You haven’t created a portfolio yet."
+            description={ filterValue === '' ? 'You haven’t created a portfolio yet.' : 'No portfolios match your filter criteria.' }
             PrimaryAction={ () => <EmptyStatePrimaryAction url="/portfolios/add-portfolio" label="Create portfolio" /> }
           />
         ) } />
       </Fragment>
-    );
-  }
+    );};
 
-  render() {
-    return (
-      <Switch>
-        <Route path={ `/portfolios/${portfoliosRoutes.detail}` } component={ Portfolio } />
-        <Route path={ `/portfolios/${portfoliosRoutes.portfolios}` } render={ this.renderItems } />
-      </Switch>
-    );
-  }
-}
-
-const mapStateToProps = ({ portfolioReducer: { portfolios, isLoading, filterValue }}) => ({
-  portfolios: portfolios.data,
-  pagination: portfolios.meta,
-  isLoading,
-  searchFilter: filterValue
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchPortfolios
-}, dispatch);
-
-Portfolios.propTypes = {
-  filteredItems: PropTypes.array,
-  portfolios: PropTypes.array,
-  platforms: PropTypes.array,
-  isLoading: PropTypes.bool,
-  searchFilter: PropTypes.string,
-  showModal: PropTypes.func,
-  fetchPortfolios: PropTypes.func.isRequired,
-  pagination: PropTypes.object,
-  match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired
+  return (
+    <Switch>
+      <Route path={ `/portfolios/${portfoliosRoutes.detail}` } component={ Portfolio } />
+      <Route path={ `/portfolios/${portfoliosRoutes.portfolios}` } render={ renderItems } />
+    </Switch>
+  );
 };
 
-Portfolios.defaultProps = {
-  portfolios: [],
-  pagination: {}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Portfolios);
+export default Portfolios;

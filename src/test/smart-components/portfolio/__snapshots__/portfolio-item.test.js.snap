@@ -151,24 +151,29 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         <Link
                           to="/order"
                         >
-                          <a
+                          <LinkAnchor
                             href="/order"
-                            onClick={[Function]}
+                            navigate={[Function]}
                           >
-                            <Text
-                              className="elipsis-text-overflow"
-                              component="h3"
-                              title="quux"
+                            <a
+                              href="/order"
+                              onClick={[Function]}
                             >
-                              <h3
+                              <Text
                                 className="elipsis-text-overflow"
-                                data-pf-content={true}
+                                component="h3"
                                 title="quux"
                               >
-                                quux
-                              </h3>
-                            </Text>
-                          </a>
+                                <h3
+                                  className="elipsis-text-overflow"
+                                  data-pf-content={true}
+                                  title="quux"
+                                >
+                                  quux
+                                </h3>
+                              </Text>
+                            </a>
+                          </LinkAnchor>
                         </Link>
                       </ConditionalLink>
                       <Text
