@@ -60,7 +60,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             className="elipsis-text-overflow"
           >
             <span>
-              baz
+              quux
             </span>
           </div>
         </h6>
@@ -258,7 +258,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             className="elipsis-text-overflow"
           >
             <span>
-              baz
+              quux
             </span>
           </div>
         </h6>

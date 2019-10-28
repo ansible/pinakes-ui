@@ -22,7 +22,7 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
       <br />
       <div className="elipsis-text-overflow">
         <span>
-          { portfolio.display_name || portfolio.name }
+          { portfolio.name }
         </span>
       </div>
     </Text>
@@ -63,7 +63,6 @@ ItemDetailInfoBar.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   portfolio: PropTypes.shape({
-    display_name: PropTypes.string,
     name: PropTypes.string.isRequired
   }).isRequired
 };

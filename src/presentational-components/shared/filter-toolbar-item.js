@@ -1,9 +1,9 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import { SearchIcon } from '@patternfly/react-icons';
+import PropTypes from 'prop-types';
+import { SearchIcon, CloseIcon } from '@patternfly/react-icons';
 import { ToolbarItem, TextInput } from '@patternfly/react-core';
 
-const FilterToolbarItem = ({ searchValue, onFilterChange, placeholder }) => (
+const FilterToolbarItem = ({ searchValue, onFilterChange, placeholder, isClearable }) => (
   <ToolbarItem>
     <div className="toolbar-filter-input-group">
       <TextInput
@@ -11,21 +11,30 @@ const FilterToolbarItem = ({ searchValue, onFilterChange, placeholder }) => (
         value={ searchValue }
         type="text"
         onChange={ onFilterChange }
-        aria-label="Find product button"
+        aria-label={ placeholder }
       />
-      <SearchIcon />
+      <span className="filter-icons-container">
+        {
+          isClearable
+          && searchValue
+          && <CloseIcon className="clear-filter" width="16" height="16" onClick={ () => onFilterChange('') } />
+          || <SearchIcon />
+        }
+      </span>
     </div>
   </ToolbarItem>
 );
 
 FilterToolbarItem.propTypes = {
-  onFilterChange: propTypes.func.isRequired,
-  placeholder: propTypes.string,
-  searchValue: propTypes.string
+  onFilterChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  searchValue: PropTypes.string,
+  isClearable: PropTypes.bool
 };
 
 FilterToolbarItem.defaultProps = {
-  searchValue: ''
+  searchValue: '',
+  isClearable: false
 };
 
 export default FilterToolbarItem;
