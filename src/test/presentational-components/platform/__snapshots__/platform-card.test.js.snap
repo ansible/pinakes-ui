@@ -11,85 +11,91 @@ exports[`<PlatformCard /> should choose card image 1`] = `
         className="card-link"
         to="/platforms/detail/undefined"
       >
-        <a
+        <LinkAnchor
           className="card-link"
           href="/platforms/detail/undefined"
-          onClick={[Function]}
+          navigate={[Function]}
         >
-          <Card
-            className="content-gallery-card"
+          <a
+            className="card-link"
+            href="/platforms/detail/undefined"
+            onClick={[Function]}
           >
-            <article
-              className="pf-c-card content-gallery-card"
+            <Card
+              className="content-gallery-card"
             >
-              <CardHeader>
-                <div
-                  className="pf-c-card__header pf-c-title pf-m-md"
-                >
-                  <ImageWithDefault
-                    height="40"
-                    src="test-file-stub"
-                    width="80"
+              <article
+                className="pf-c-card content-gallery-card"
+              >
+                <CardHeader>
+                  <div
+                    className="pf-c-card__header pf-c-title pf-m-md"
                   >
-                    <img
+                    <ImageWithDefault
                       height="40"
                       src="test-file-stub"
                       width="80"
-                    />
-                  </ImageWithDefault>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div
-                  className="pf-c-card__body"
-                >
-                  <h4 />
-                  <ItemDetails
-                    description="desc"
-                    modified="Foo"
-                    toDisplay={
-                      Array [
-                        "description",
-                        "modified",
-                      ]
-                    }
-                  >
-                    <Dotdotdot
-                      clamp={6}
-                      tagName="div"
-                      truncationChar="…"
-                      useNativeClamp={true}
                     >
-                      <div>
-                        <PropLine
-                          key="card-prop-description"
-                          value="desc"
-                        >
-                          <div>
-                            desc
-                          </div>
-                        </PropLine>
-                        <PropLine
-                          key="card-prop-modified"
-                          value="Foo"
-                        >
-                          <div>
-                            Foo
-                          </div>
-                        </PropLine>
-                      </div>
-                    </Dotdotdot>
-                  </ItemDetails>
-                </div>
-              </CardBody>
-              <CardFooter>
-                <div
-                  className="pf-c-card__footer"
-                />
-              </CardFooter>
-            </article>
-          </Card>
-        </a>
+                      <img
+                        height="40"
+                        src="test-file-stub"
+                        width="80"
+                      />
+                    </ImageWithDefault>
+                  </div>
+                </CardHeader>
+                <CardBody>
+                  <div
+                    className="pf-c-card__body"
+                  >
+                    <h4 />
+                    <ItemDetails
+                      description="desc"
+                      modified="Foo"
+                      toDisplay={
+                        Array [
+                          "description",
+                          "modified",
+                        ]
+                      }
+                    >
+                      <Dotdotdot
+                        clamp={6}
+                        tagName="div"
+                        truncationChar="…"
+                        useNativeClamp={true}
+                      >
+                        <div>
+                          <PropLine
+                            key="card-prop-description"
+                            value="desc"
+                          >
+                            <div>
+                              desc
+                            </div>
+                          </PropLine>
+                          <PropLine
+                            key="card-prop-modified"
+                            value="Foo"
+                          >
+                            <div>
+                              Foo
+                            </div>
+                          </PropLine>
+                        </div>
+                      </Dotdotdot>
+                    </ItemDetails>
+                  </div>
+                </CardBody>
+                <CardFooter>
+                  <div
+                    className="pf-c-card__footer"
+                  />
+                </CardFooter>
+              </article>
+            </Card>
+          </a>
+        </LinkAnchor>
       </Link>
     </div>
   </GalleryItem>
@@ -107,85 +113,91 @@ exports[`<PlatformCard /> should render correctly 1`] = `
         className="card-link"
         to="/platforms/detail/undefined"
       >
-        <a
+        <LinkAnchor
           className="card-link"
           href="/platforms/detail/undefined"
-          onClick={[Function]}
+          navigate={[Function]}
         >
-          <Card
-            className="content-gallery-card"
+          <a
+            className="card-link"
+            href="/platforms/detail/undefined"
+            onClick={[Function]}
           >
-            <article
-              className="pf-c-card content-gallery-card"
+            <Card
+              className="content-gallery-card"
             >
-              <CardHeader>
-                <div
-                  className="pf-c-card__header pf-c-title pf-m-md"
-                >
-                  <ImageWithDefault
-                    height="40"
-                    src="test-file-stub"
-                    width="80"
+              <article
+                className="pf-c-card content-gallery-card"
+              >
+                <CardHeader>
+                  <div
+                    className="pf-c-card__header pf-c-title pf-m-md"
                   >
-                    <img
+                    <ImageWithDefault
                       height="40"
                       src="test-file-stub"
                       width="80"
-                    />
-                  </ImageWithDefault>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div
-                  className="pf-c-card__body"
-                >
-                  <h4 />
-                  <ItemDetails
-                    description="desc"
-                    modified="Foo"
-                    toDisplay={
-                      Array [
-                        "description",
-                        "modified",
-                      ]
-                    }
-                  >
-                    <Dotdotdot
-                      clamp={6}
-                      tagName="div"
-                      truncationChar="…"
-                      useNativeClamp={true}
                     >
-                      <div>
-                        <PropLine
-                          key="card-prop-description"
-                          value="desc"
-                        >
-                          <div>
-                            desc
-                          </div>
-                        </PropLine>
-                        <PropLine
-                          key="card-prop-modified"
-                          value="Foo"
-                        >
-                          <div>
-                            Foo
-                          </div>
-                        </PropLine>
-                      </div>
-                    </Dotdotdot>
-                  </ItemDetails>
-                </div>
-              </CardBody>
-              <CardFooter>
-                <div
-                  className="pf-c-card__footer"
-                />
-              </CardFooter>
-            </article>
-          </Card>
-        </a>
+                      <img
+                        height="40"
+                        src="test-file-stub"
+                        width="80"
+                      />
+                    </ImageWithDefault>
+                  </div>
+                </CardHeader>
+                <CardBody>
+                  <div
+                    className="pf-c-card__body"
+                  >
+                    <h4 />
+                    <ItemDetails
+                      description="desc"
+                      modified="Foo"
+                      toDisplay={
+                        Array [
+                          "description",
+                          "modified",
+                        ]
+                      }
+                    >
+                      <Dotdotdot
+                        clamp={6}
+                        tagName="div"
+                        truncationChar="…"
+                        useNativeClamp={true}
+                      >
+                        <div>
+                          <PropLine
+                            key="card-prop-description"
+                            value="desc"
+                          >
+                            <div>
+                              desc
+                            </div>
+                          </PropLine>
+                          <PropLine
+                            key="card-prop-modified"
+                            value="Foo"
+                          >
+                            <div>
+                              Foo
+                            </div>
+                          </PropLine>
+                        </div>
+                      </Dotdotdot>
+                    </ItemDetails>
+                  </div>
+                </CardBody>
+                <CardFooter>
+                  <div
+                    className="pf-c-card__footer"
+                  />
+                </CardFooter>
+              </article>
+            </Card>
+          </a>
+        </LinkAnchor>
       </Link>
     </div>
   </GalleryItem>

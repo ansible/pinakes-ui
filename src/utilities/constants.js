@@ -4,8 +4,10 @@ export const APPROVAL_API_BASE = `${process.env.BASE_PATH}/approval/v1.0`;
 export const TOPOLOGICAL_INVENTORY_API_BASE = `${process.env.BASE_PATH}/topological-inventory/v1.0`;
 export const RBAC_API_BASE = `${process.env.BASE_PATH}/rbac/v1`;
 
+export const permissionValues = [ 'catalog:portfolios:order', 'catalog:portfolios:read', 'catalog:portfolios:update' ];
+
 export const permissionOptions = [{
-  value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
+  value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:update',
   label: 'Can order/edit'
 }, {
   value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
