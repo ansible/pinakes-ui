@@ -59,7 +59,6 @@ describe('<EditPortfolioItem />', () => {
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
         name: 'foo',
-        id: '123',
         workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
