@@ -88,8 +88,8 @@ export function fetchProviderControlParameters(portfolioItemId) {
     }}));
 }
 
-export async function updatePortfolioItem(portfolioItem) {
-  return await portfolioItemApi.updatePortfolioItem(portfolioItem.id, udefinedToNull(portfolioItem, PORTFOLIO_ITEM_NULLABLE));
+export async function updatePortfolioItem({ id, service_offering_source_ref, portfolio_id, ...portfolioItem }) {
+  return await portfolioItemApi.updatePortfolioItem(id, udefinedToNull(portfolioItem, PORTFOLIO_ITEM_NULLABLE));
 }
 
 export function fetchPortfolioByName(name = '') {
