@@ -5,7 +5,9 @@ import {
   FETCH_PLATFORM_ITEM,
   FILTER_PLATFORM_ITEMS,
   FETCH_MULTIPLE_PLATFORM_ITEMS,
-  SET_LOADING_STATE
+  SET_LOADING_STATE,
+  FETCH_PLATFORM_INVENTORIES,
+  SET_INVENTORIES_LOADING_STATE
 } from '../action-types';
 
 // Initial State
@@ -30,6 +32,11 @@ const setPortfolioItems = (state, { payload }) => ({ ...state, portfolioItem: pa
 const selectPlatform = (state, { payload }) => ({ ...state, selectedPlatform: payload, isLoading: false });
 const filterPlatformItems = (state, { payload }) => ({ ...state, filterValue: payload });
 
+const setInventoriesDataLoadingState = (state, { payload = true }) => ({ ...state, isInventoriesDataLoading: payload });
+const filterPlatformInventories = (state, { payload }) => ({ ...state, filterValue: payload });
+const setPlatformInventories = (state, { payload, meta: { platformId }}) =>
+  ({ ...state, platformInventories: { ...state.platformInventories, [platformId]: payload }, isInventoriesDataLoading: false });
+
 export default {
   [`${FETCH_PLATFORMS}_PENDING`]: setLoadingState,
   [`${FETCH_PLATFORMS}_FULFILLED`]: setPlatforms,
@@ -41,5 +48,9 @@ export default {
   [`${FETCH_PLATFORM}_FULFILLED`]: selectPlatform,
   [`${FILTER_PLATFORM_ITEMS}_FULFILLED`]: filterPlatformItems,
   [`${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`]: setMultiplePlatformItems,
-  [SET_LOADING_STATE]: setLoadingState
+  [SET_LOADING_STATE]: setLoadingState,
+  [`${FETCH_PLATFORM_INVENTORIES}_PENDING`]: setInventoriesDataLoadingState,
+  [`${FETCH_PLATFORM_INVENTORIES}_FULFILLED`]: setPlatformInventories,
+  [SET_INVENTORIES_LOADING_STATE]: setInventoriesDataLoadingState
+
 };
