@@ -15,6 +15,7 @@ export const platformInitialState = {
   isPlatformDataLoading: false,
   platforms: [],
   platformItems: {},
+  platformInventories: [],
   platformItem: {},
   platform: {},
   filterValue: ''
@@ -33,7 +34,6 @@ const selectPlatform = (state, { payload }) => ({ ...state, selectedPlatform: pa
 const filterPlatformItems = (state, { payload }) => ({ ...state, filterValue: payload });
 
 const setInventoriesDataLoadingState = (state, { payload = true }) => ({ ...state, isInventoriesDataLoading: payload });
-const filterPlatformInventories = (state, { payload }) => ({ ...state, filterValue: payload });
 const setPlatformInventories = (state, { payload, meta: { platformId }}) =>
   ({ ...state, platformInventories: { ...state.platformInventories, [platformId]: payload }, isInventoriesDataLoading: false });
 

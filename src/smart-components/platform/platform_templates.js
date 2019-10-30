@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debouncePromise from 'awesome-debounce-promise';
-
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
@@ -11,11 +10,15 @@ import PlatformItem from '../../presentational-components/platform/platform-item
 import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/actions/platform-actions';
+import AppTabs from './../../presentational-components/shared/app-tabs';
 
 class PlatformTemplates extends Component {
   state = {
     filterValue: ''
   };
+
+  tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${this.props.match.params.id}/platform-templates` },
+    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${this.props.match.params.id}/platform-inventories` }];
 
   fetchData(apiProps, pagination) {
     this.props.fetchSelectedPlatform(apiProps);
@@ -78,6 +81,7 @@ class PlatformTemplates extends Component {
             direction: 'down'
           }
         }) }/>
+        <AppTabs tabItems={ this.tabItems }/>
         <ContentGallery { ...filteredItems }/>
       </Fragment>
     );

@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import debouncePromise from 'awesome-debounce-promise';
-
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import ContentGallery from '../content-gallery/content-gallery';
-import { scrollToTop, filterPlatformInventories } from '../../helpers/shared/helpers';
+import { ContentList } from '../../presentational-components/shared/content-list';
+import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
 import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 import { fetchSelectedPlatform, fetchPlatformInventories } from '../../redux/actions/platform-actions';
+import AppTabs from './../../presentational-components/shared/app-tabs';
 
 class PlatformInventories extends Component {
   state = {
     filterValue: ''
   };
 
+  tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${this.props.match.params.id}/platform-templates` },
+    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${this.props.match.params.id}/platform-inventories` }];
+
   fetchData(apiProps, pagination) {
-    this.props.fetchPlatformItems(apiProps, pagination);
+    this.props.fetchSelectedPlatform(apiProps);
+    this.props.fetchPlatformInventories(apiProps, pagination);
   }
 
   componentDidMount() {
@@ -32,7 +36,7 @@ class PlatformInventories extends Component {
     }
   }
 
-  handleOnPerPageSelect = limit => this.props.fetchPlatformItems(this.props.match.params.id, {
+  handleOnPerPageSelect = limit => this.props.fetchPlatformInventories(this.props.match.params.id, {
     offset: this.props.paginationCurrent.offset,
     limit
   });
@@ -42,7 +46,7 @@ class PlatformInventories extends Component {
       offset: getNewPage(number, this.props.paginationCurrent.limit),
       limit: this.props.paginationCurrent.limit
     };
-    const request = () => this.props.fetchPlatformItems(this.props.match.params.id, options);
+    const request = () => this.props.isInventoriesDataLoading(this.props.match.params.id, options);
     if (debounce) {
       return debouncePromise(request, 250)();
     }
@@ -55,7 +59,8 @@ class PlatformInventories extends Component {
   render() {
     let filteredItems = {
       items: this.props.platformInventories
-      .filter(item => filterPlatformInventories(item, this.state.filterValue))
+      .filter(item => filterServiceOffering(item, this.state.filterValue)),
+      isLoading: this.props.isInventoriesDataLoading
     };
 
     let title = this.props.platform ? this.props.platform.name : '';
@@ -74,19 +79,21 @@ class PlatformInventories extends Component {
             direction: 'down'
           }
         }) }/>
-        <ContentGallery { ...filteredItems }/>
+        <AppTabs tabItems={ this.tabItems }/>
+        <ContentList { ...filteredItems }/>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = ({ platformReducer: { selectedPlatform, platformInventories }}) => {
+const mapStateToProps = ({ platformReducer: { selectedPlatform, platformInventories, isInventoriesDataLoading }}) => {
+  const platformInventoriesData = selectedPlatform && platformInventories[selectedPlatform.id];
   return {
-    paginationLinks: platformInventories.data && platformInventories.data.links,
-    paginationCurrent: platformInventories.data && platformInventories.data.meta,
+    paginationLinks: platformInventoriesData && platformInventoriesData.links,
+    paginationCurrent: platformInventoriesData && platformInventoriesData.meta,
     platform: selectedPlatform,
-    platformInventories: platformInventories.data,
-    isPlatformDataLoading: !selectedPlatform || isPlatformInventoriesLoading
+    platformInventories: platformInventoriesData && platformInventoriesData.data,
+    isInventoriesDataLoading: !selectedPlatform || isInventoriesDataLoading
   };
 };
 
@@ -97,7 +104,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 PlatformInventories.propTypes = {
   filteredItems: PropTypes.object,
-  isPlatformDataLoading: PropTypes.bool,
+  isInventoriesDataLoading: PropTypes.bool,
   match: PropTypes.object,
   fetchPlatformInventories: PropTypes.func.isRequired,
   fetchSelectedPlatform: PropTypes.func,
@@ -108,13 +115,14 @@ PlatformInventories.propTypes = {
   paginationCurrent: PropTypes.shape({
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired
+    count: PropTypes.number
   })
 };
 
 PlatformInventories.defaultProps = {
-  platformItems: [],
+  platformInventories: [],
   paginationCurrent: {
+    offset: 0,
     limit: 50
   }
 };
