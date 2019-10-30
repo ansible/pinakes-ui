@@ -6,11 +6,10 @@ import debouncePromise from 'awesome-debounce-promise';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
-import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
-import PlatformItem from '../../presentational-components/platform/platform-item';
+import { scrollToTop, filterPlatformInventories } from '../../helpers/shared/helpers';
 import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
-import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/actions/platform-actions';
+import { fetchSelectedPlatform, fetchPlatformInventories } from '../../redux/actions/platform-actions';
 
 class PlatformInventories extends Component {
   state = {
@@ -18,7 +17,6 @@ class PlatformInventories extends Component {
   };
 
   fetchData(apiProps, pagination) {
-    this.props.fetchSelectedPlatform(apiProps);
     this.props.fetchPlatformItems(apiProps, pagination);
   }
 
@@ -56,10 +54,8 @@ class PlatformInventories extends Component {
 
   render() {
     let filteredItems = {
-      items: this.props.platformItems
-      .filter(item => filterServiceOffering(item, this.state.filterValue))
-      .map(data => <PlatformItem key={ data.id } { ...data } />),
-      isLoading: this.props.isPlatformDataLoading
+      items: this.props.platformInventories
+      .filter(item => filterPlatformInventories(item, this.state.filterValue))
     };
 
     let title = this.props.platform ? this.props.platform.name : '';
@@ -84,32 +80,31 @@ class PlatformInventories extends Component {
   }
 }
 
-const mapStateToProps = ({ platformReducer: { selectedPlatform, platformItems, isPlatformDataLoading }}) => {
-  const platformItemsData = selectedPlatform && platformItems[selectedPlatform.id];
+const mapStateToProps = ({ platformReducer: { selectedPlatform, platformInventories }}) => {
   return {
-    paginationLinks: platformItemsData && platformItemsData.links,
-    paginationCurrent: platformItemsData && platformItemsData.meta,
+    paginationLinks: platformInventories.data && platformInventories.data.links,
+    paginationCurrent: platformInventories.data && platformInventories.data.meta,
     platform: selectedPlatform,
-    platformItems: platformItemsData && platformItemsData.data,
-    isPlatformDataLoading: !selectedPlatform || isPlatformDataLoading
+    platformInventories: platformInventories.data,
+    isPlatformDataLoading: !selectedPlatform || isPlatformInventoriesLoading
   };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchSelectedPlatform,
-  fetchPlatformItems
+  fetchPlatformInventories
 }, dispatch);
 
 PlatformInventories.propTypes = {
   filteredItems: PropTypes.object,
   isPlatformDataLoading: PropTypes.bool,
   match: PropTypes.object,
-  fetchPlatformItems: PropTypes.func.isRequired,
+  fetchPlatformInventories: PropTypes.func.isRequired,
   fetchSelectedPlatform: PropTypes.func,
   platform: PropTypes.shape({
     name: PropTypes.string
   }),
-  platformItems: PropTypes.array,
+  platformInventories: PropTypes.array,
   paginationCurrent: PropTypes.shape({
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
