@@ -6,9 +6,9 @@ import CatalogBreadrubms from './breadcrubms';
 import './top-toolbar.scss';
 
 const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
-  <div className={ `pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl ${paddingBottom ? 'pf-u-pb-xl' : ''} top-toolbar` } { ...rest }>
+  <div className={ `pf-u-pt-lg pf-u-pr-lg pf-u-pl-xl top-toolbar` } { ...rest }>
     { breadcrumbs && (
-      <Level className="pf-u-mb-md">
+      <Level className="pf-u-mb-lg">
         <CatalogBreadrubms />
       </Level>
     ) }
@@ -34,7 +34,7 @@ export default TopToolbar;
 
 export const TopToolbarTitle = ({ title, children, ...rest }) => (
   <Fragment>
-    <Level className="pf-u-mb-xl" { ...rest }>
+    <Level className="pf-u-mb-md" { ...rest }>
       <LevelItem>
         <TextContent className="top-toolbar-title">
           { <Text component={ TextVariants.h2 }>{ title || <ToolbarTitlePlaceholder /> }</Text> }
