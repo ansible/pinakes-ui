@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import React, { Component, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect, Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Main } from '@redhat-cloud-services/frontend-components';
 import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications/';
@@ -9,6 +8,7 @@ import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-
 import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
+import { SET_OPENAPI_SCHEMA } from './redux/action-types';
 
 import 'whatwg-fetch';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -18,82 +18,73 @@ import { IntlProvider } from 'react-intl';
 
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import './App.scss';
+import { getAxiosInstance } from './helpers/shared/user-login';
+import { CATALOG_API_BASE } from './utilities/constants';
 
 smoothscroll.polyfill();
-class App extends Component {
-  state = {
-    chromeNavAvailable: true,
-    auth: false,
-    ignoreRedirect: true
-  }
 
-  componentDidMount () {
+const App = () => {
+  const [ auth, setAuth ] = useState(false);
+  const [ ignoreRedirect, setIgnoreRedirect ] = useState(true);
+  const schema = useSelector(({ openApiReducer }) => openApiReducer);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  let unregister;
+
+  useEffect(() => {
+    getAxiosInstance().get(`${CATALOG_API_BASE}/openapi.json`).then(payload => dispatch({ type: SET_OPENAPI_SCHEMA, payload }));
+
     insights.chrome.init();
-    insights.chrome.auth.getUser().then(() => this.setState({ auth: true }));
-    try {
-      insights.chrome.identifyApp('catalog');
-      insights.chrome.navigation([{
-        id: 'products',
-        title: 'Products'
-      }, {
-        id: 'portfolios',
-        title: 'Portfolios'
-      }, {
-        id: 'platforms',
-        title: 'Platforms'
-      }, {
-        id: 'orders',
-        title: 'Orders'
-      }]);
+    insights.chrome.auth.getUser().then(() => setAuth(true));
+    insights.chrome.identifyApp('catalog');
+    insights.chrome.navigation([{
+      id: 'products',
+      title: 'Products'
+    }, {
+      id: 'portfolios',
+      title: 'Portfolios'
+    }, {
+      id: 'platforms',
+      title: 'Platforms'
+    }, {
+      id: 'orders',
+      title: 'Orders'
+    }]);
 
-      this.unregister = insights.chrome.on('APP_NAVIGATION', event => {
-        /**
+    unregister = insights.chrome.on('APP_NAVIGATION', event => {
+      /**
          * Handle navigation from insights main nav
          * Uses React history directly instead of browser history to avoid template realod.
          * only redirect after first application mount
          */
-        if (!this.state.ignoreRedirect && event.domEvent) {
-          this.props.history.push(`/${event.navId}`);
-        }
+      if (!ignoreRedirect && event.domEvent) {
+        history.push(`/${event.navId}`);
+      }
 
-        this.setState({ ignoreRedirect: false });
-      });
-    } catch (error) {
-      this.setState({
-        chromeNavAvailable: false
-      });
-    }
+      setIgnoreRedirect(false);
+    });
+
+    return () => unregister();
+  }, []);
+
+  if (!auth || !schema) {
+    return <AppPlaceholder />;
   }
 
-  componentWillUnmount () {
-    this.unregister();
-  }
-
-  render () {
-    const { auth } = this.state;
-    if (!auth) {
-      return <AppPlaceholder />;
-    }
-
-    return (
-      <IntlProvider locale="en">
-        <Fragment>
-          <NotificationsPortal />
-          <Main style={ { marginLeft: 0, padding: 0 } }>
-            <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
-              <GridItem sm={ 12 }>
-                <Routes childProps={ this.props } />
-              </GridItem>
-            </Grid>
-          </Main>
-        </Fragment>
-      </IntlProvider>
-    );
-  }
-}
-
-App.propTypes = {
-  history: PropTypes.object
+  return (
+    <IntlProvider locale="en">
+      <Fragment>
+        <NotificationsPortal />
+        <Main style={ { marginLeft: 0, padding: 0 } }>
+          <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
+            <GridItem sm={ 12 }>
+              <Routes/>
+            </GridItem>
+          </Grid>
+        </Main>
+      </Fragment>
+    </IntlProvider>
+  );
 };
 
-export default withRouter(connect()(App));
+export default App;
