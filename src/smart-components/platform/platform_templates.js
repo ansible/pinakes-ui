@@ -69,6 +69,7 @@ class PlatformTemplates extends Component {
       <Fragment>
         <ToolbarRenderer schema={ createPlatformsTopToolbarSchema({
           title,
+          paddingBottom: false,
           tabItems: this.tabItems
         }) }/>
         <ToolbarRenderer schema={ createPlatformsFilterToolbarSchema({

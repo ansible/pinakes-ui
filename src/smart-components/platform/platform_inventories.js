@@ -6,10 +6,9 @@ import debouncePromise from 'awesome-debounce-promise';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { ContentList } from '../../presentational-components/shared/content-list';
 import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
-import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
+import { createPlatformsTopToolbarSchema, createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 import { fetchSelectedPlatform, fetchPlatformInventories } from '../../redux/actions/platform-actions';
-import AppTabs from './../../presentational-components/shared/app-tabs';
 
 class PlatformInventories extends Component {
   state = {
@@ -66,10 +65,14 @@ class PlatformInventories extends Component {
     let title = this.props.platform ? this.props.platform.name : '';
     return (
       <Fragment>
-        <ToolbarRenderer schema={ createPlatformsToolbarSchema({
+        <ToolbarRenderer schema={ createPlatformsTopToolbarSchema({
+          title,
+          paddingBottom: false,
+          tabItems: this.tabItems
+        }) }/>
+        <ToolbarRenderer schema={ createPlatformsFilterToolbarSchema({
           onFilterChange: this.handleFilterChange,
           searchValue: this.state.filterValue,
-          title,
           pagination: {
             itemsPerPage: this.props.paginationCurrent.limit,
             numberOfItems: this.props.paginationCurrent.count || 50,
@@ -79,7 +82,6 @@ class PlatformInventories extends Component {
             direction: 'down'
           }
         }) }/>
-        <AppTabs tabItems={ this.tabItems }/>
         <ContentList { ...filteredItems }/>
       </Fragment>
     );

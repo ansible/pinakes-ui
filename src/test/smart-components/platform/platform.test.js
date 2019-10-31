@@ -16,7 +16,7 @@ describe('<Platform />', () => {
   let initialProps;
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
-  let intiailState;
+  let intialState;
 
   beforeEach(() => {
     initialProps = {
@@ -27,7 +27,7 @@ describe('<Platform />', () => {
       }
     };
     mockStore = configureStore(middlewares);
-    intiailState = {
+    intialState = {
       platformReducer: {
         ...platformInitialState,
         selectedPlatform: {
@@ -48,7 +48,7 @@ describe('<Platform />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<Platform store={ mockStore(intiailState) } { ...initialProps } />);
+    const wrapper = shallow(<Platform store={ mockStore(intialState) } { ...initialProps } />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -71,7 +71,7 @@ describe('<Platform />', () => {
           data: [{ id: 111 }]
         });
       }));
-    const Root = props => <Provider><MemoryRouter><Platform { ...props } store={ mockStore(intiailState) } /></MemoryRouter></Provider>;
+    const Root = props => <Provider><MemoryRouter><Platform { ...props } store={ mockStore(intialState) } /></MemoryRouter></Provider>;
     const wrapper = mount(<Root { ...initialProps } />);
     wrapper.setProps({ match: { params: { id: 2 }}});
     wrapper.update();
