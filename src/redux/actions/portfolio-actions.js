@@ -84,16 +84,13 @@ export const addToPortfolio = (portfolioId, items) => ({
   }
 });
 
-export const updatePortfolio = portfolioData => dispatch => {
+export const updatePortfolio = portfolioData => (dispatch, getState) => {
   dispatch({
     type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO,
     payload: portfolioData
   });
 
-  return PortfolioHelper.updatePortfolio({
-    ...portfolioData,
-    workflow_ref: portfolioData.workflow_ref || null
-  })
+  return PortfolioHelper.updatePortfolio(portfolioData, { getState })
   .then(() => dispatch(doFetchPortfolios()))
   .then(() => dispatch({
     type: ADD_NOTIFICATION,
@@ -232,9 +229,9 @@ export const resetSelectedPortfolio = () => ({
   type: ActionTypes.RESET_SELECTED_PORTFOLIO
 });
 
-export const updatePortfolioItem = values => dispatch => {
+export const updatePortfolioItem = values => (dispatch, getState) => {
   dispatch({ type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO_ITEM, payload: values });
-  return PortfolioHelper.updatePortfolioItem(values)
+  return PortfolioHelper.updatePortfolioItem(values, { getState })
   .then(() => {
     dispatch({ type: ActionTypes.UPDATE_PORTFOLIO_ITEM, payload: values });
     return values;
