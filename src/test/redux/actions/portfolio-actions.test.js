@@ -31,6 +31,8 @@ import {
   CATALOG_API_BASE
 } from '../../../utilities/constants';
 
+import { openApiReducerMock } from '../../__mocks__/open-api-mock';
+
 describe('Portfolio actions', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
@@ -181,7 +183,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct action creators when updating portfolio', () => {
-    const store = mockStore({});
+    const store = mockStore({ openApiReducer: openApiReducerMock });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.patch(CATALOG_API_BASE + '/portfolios/123', mockOnce({
