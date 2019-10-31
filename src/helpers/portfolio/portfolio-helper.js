@@ -1,7 +1,6 @@
 import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { PORTFOLIO_ITEM_NULLABLE, PORTFOLIO_NULLABLE } from '../../constants/nullable-attributes';
-import { udefinedToNull } from '../shared/helpers';
+import { sanitizeValues } from '../shared/helpers';
 import { defaultSettings } from '../shared/pagination';
 
 const axiosInstance = getAxiosInstance();
@@ -52,8 +51,8 @@ export async function addToPortfolio(portfolioId, items) {
   return Promise.all(items.map(item => request(item)));
 }
 
-export async function updatePortfolio(portfolioData) {
-  return await portfolioApi.updatePortfolio(portfolioData.id,  udefinedToNull(portfolioData, PORTFOLIO_NULLABLE));
+export async function updatePortfolio({ id, ...portfolioData }, store) {
+  return await portfolioApi.updatePortfolio(id,  sanitizeValues(portfolioData, 'Portfolio', store));
 }
 
 export async function removePortfolio(portfolioId) {
@@ -88,8 +87,8 @@ export function fetchProviderControlParameters(portfolioItemId) {
     }}));
 }
 
-export async function updatePortfolioItem({ id, service_offering_source_ref, portfolio_id, ...portfolioItem }) {
-  return await portfolioItemApi.updatePortfolioItem(id, udefinedToNull(portfolioItem, PORTFOLIO_ITEM_NULLABLE));
+export async function updatePortfolioItem({ id, ...portfolioItem }, store) {
+  return await portfolioItemApi.updatePortfolioItem(id, sanitizeValues(portfolioItem, 'PortfolioItem', store));
 }
 
 export function fetchPortfolioByName(name = '') {
