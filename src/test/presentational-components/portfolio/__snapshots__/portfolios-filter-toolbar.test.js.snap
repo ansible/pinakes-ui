@@ -5,6 +5,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
   value={
     Object {
       "componentMapper": Object {
+        "AppTabs": [Function],
         "Button": [Function],
         "FilterToolbarItem": [Function],
         "Level": [Function],

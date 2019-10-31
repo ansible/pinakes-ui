@@ -5,21 +5,18 @@ exports[`<Platform /> should render correctly 1`] = `
   value={null}
 >
   <Platform
-    fetchPlatformItems={[Function]}
     fetchSelectedPlatform={[Function]}
-    isPlatformDataLoading={false}
+    isPlatformDataLoading={
+      Object {
+        "id": "1",
+        "name": "Foo",
+      }
+    }
     match={
       Object {
         "params": Object {
           "id": 1,
         },
-      }
-    }
-    paginationCurrent={
-      Object {
-        "count": 0,
-        "limit": 50,
-        "offset": 0,
       }
     }
     platform={
@@ -28,7 +25,6 @@ exports[`<Platform /> should render correctly 1`] = `
         "name": "Foo",
       }
     }
-    platformItems={Array []}
     store={
       Object {
         "clearActions": [Function],
