@@ -52,3 +52,8 @@ export const FETCH_ORDER_ITEMS = 'FETCH_ORDER_ITEMS';
  * Global redux loading state
  */
 export const SET_LOADING_STATE = 'SET_LOADING_STATE';
+
+/**
+ * OpenApi action
+ */
+export const SET_OPENAPI_SCHEMA = '@@open-api/set-schema';
