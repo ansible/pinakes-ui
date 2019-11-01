@@ -23,9 +23,13 @@ import { CATALOG_API_BASE } from './utilities/constants';
 
 smoothscroll.polyfill();
 
+/**
+ * has to be in global context because nav listener is not a part of component lifecycle
+ */
+let ignoreRedirect = true;
+
 const App = () => {
   const [ auth, setAuth ] = useState(false);
-  const [ ignoreRedirect, setIgnoreRedirect ] = useState(true);
   const schema = useSelector(({ openApiReducer }) => openApiReducer);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -61,7 +65,7 @@ const App = () => {
         history.push(`/${event.navId}`);
       }
 
-      setIgnoreRedirect(false);
+      ignoreRedirect = false;
     });
 
     return () => unregister();
