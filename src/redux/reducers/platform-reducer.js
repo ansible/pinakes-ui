@@ -34,8 +34,8 @@ const selectPlatform = (state, { payload }) => ({ ...state, selectedPlatform: pa
 const filterPlatformItems = (state, { payload }) => ({ ...state, filterValue: payload });
 
 const setInventoriesDataLoadingState = (state, { payload = true }) => ({ ...state, isInventoriesDataLoading: payload });
-const setPlatformInventories = (state, { payload, meta: { platformId }}) =>
-  ({ ...state, platformInventories: { ...state.platformInventories, [platformId]: payload }, isInventoriesDataLoading: false });
+const setPlatformInventories = (state, { payload }) =>
+  ({ ...state, platformInventories: { ...state.platformInventories, ...payload }, isInventoriesDataLoading: false });
 
 export default {
   [`${FETCH_PLATFORMS}_PENDING`]: setLoadingState,

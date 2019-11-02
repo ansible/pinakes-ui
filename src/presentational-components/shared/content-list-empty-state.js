@@ -1,0 +1,65 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import {
+  Bullseye,
+  Button,
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStateBody,
+  EmptyStateSecondaryActions,
+  Text,
+  TextContent,
+  TextVariants
+} from '@patternfly/react-core';
+
+const ContentListEmptyState = ({
+  title,
+  Icon,
+  description,
+  PrimaryAction,
+  renderDescription
+}) => (
+  <Bullseye style={ { height: 'calc(100% - 197px)' } }>
+    <EmptyState>
+      <EmptyStateIcon icon={ Icon } />
+      <TextContent>
+        <Text component={ TextVariants.h1 }>
+          { title }
+        </Text>
+      </TextContent>
+      <EmptyStateBody>
+        { description }
+        { renderDescription() }
+      </EmptyStateBody>
+      <EmptyStateSecondaryActions>
+        { PrimaryAction && <PrimaryAction /> }
+      </EmptyStateSecondaryActions>
+    </EmptyState>
+  </Bullseye>
+);
+
+ContentListEmptyState.defaultProps = {
+  renderDescription: () => null
+};
+
+ContentListEmptyState.propTypes = {
+  title: PropTypes.string.isRequired,
+  Icon: PropTypes.any.isRequired,
+  description: PropTypes.string.isRequired,
+  PrimaryAction: PropTypes.any,
+  renderDescription: PropTypes.func
+};
+
+export default ContentListEmptyState;
+
+export const EmptyStatePrimaryAction = ({ url, label }) => (
+  <Link to={ url }>
+    <Button variant="secondary">{ label }</Button>
+  </Link>
+);
+
+EmptyStatePrimaryAction.propTypes = {
+  url: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
+};

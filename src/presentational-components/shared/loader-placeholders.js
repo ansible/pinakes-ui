@@ -6,6 +6,7 @@ import {
   Bullseye,
   Card,
   CardBody,
+  DataList,
   DataListCell,
   DataListItem,
   DataListItemRow,
@@ -211,5 +212,39 @@ OrderLoader.propTypes = {
 };
 
 OrderLoader.defaultProps = {
+  items: 5
+};
+
+export const ListLoader = ({ items, ...props }) => (
+  <DataList aria-labelledby="datalist-placeholder">
+    { [ ...Array(items) ].map((_item, index) => (
+      <DataListItem key={ index } aria-labelledby="datalist-item-placeholder">
+        <DataListItemRow aria-label="datalist-item-placeholder-row">
+          <DataListItemCells dataListCells={ [
+            <DataListCell key="1">
+              <ContentLoader
+                height={ 12 }
+                width={ 300 }
+                speed={ 2 }
+                primaryColor="#FFFFFF"
+                secondaryColor="#ecebeb"
+                { ...props }>
+                <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
+              </ContentLoader>
+            </DataListCell>
+          ] }
+          />
+        </DataListItemRow>
+
+      </DataListItem>
+    )) }
+  </DataList>
+);
+
+ListLoader.propTypes = {
+  items: PropTypes.number
+};
+
+ListLoader.defaultProps = {
   items: 5
 };
