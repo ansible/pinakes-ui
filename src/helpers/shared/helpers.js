@@ -63,3 +63,5 @@ export const sanitizeValues = (values, entityType, store) => {
   {});
   return udefinedToNull(permittedValues, nullableMapper[entityType]);
 };
+
+export const timeAgo = (date) => moment(date).fromNow();

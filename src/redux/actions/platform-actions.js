@@ -43,8 +43,5 @@ export const searchPlatformItems = value => ({
 
 export const fetchPlatformInventories = (platformId, options) => ({
   type: ActionTypes.FETCH_PLATFORM_INVENTORIES,
-  payload: PlatformHelper.getPlatformInventories(platformId, options),
-  meta: {
-    platformId
-  }
+  payload: PlatformHelper.getPlatformInventories(platformId, options)
 });
