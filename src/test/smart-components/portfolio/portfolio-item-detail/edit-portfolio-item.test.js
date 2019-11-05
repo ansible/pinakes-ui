@@ -56,7 +56,6 @@ describe('<EditPortfolioItem />', () => {
   it('should submit form data', async done => {
     expect.assertions(3);
     const store = mockStore({ openApiReducer: openApiReducerMock });
-    console.log(store.getState());
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
