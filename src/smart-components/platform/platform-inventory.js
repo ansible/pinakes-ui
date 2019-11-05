@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@patternfly/react-core';
 
 export const PlatformInventoryRow = (item) => {
+  console.log('Debug - PlatformInventoryRow - item:', item);
   return {
     id: item.id,
     isOpen: false,

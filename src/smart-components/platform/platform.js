@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import { fetchSelectedPlatform } from '../../redux/actions/platform-actions';
-import PlatformTemplates from './platform_templates';
-import PlatformInventories from './platform_inventories';
+import PlatformTemplates from './platform-templates';
+import PlatformInventories from './platform-inventories';
 
 const Platform = (props) => {
 

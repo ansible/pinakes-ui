@@ -21,7 +21,7 @@ export const platformInitialState = {
   filterValue: ''
 };
 
-// rename isPlatformLoading.. to isLoaing so we can use common action for loading states
+// rename isPlatformLoading.. to isLoading so we can use common action for loading states
 
 const setLoadingState = (state, { payload = true }) => ({ ...state, isPlatformDataLoading: payload });
 const setPlatforms = (state, { payload }) => ({ ...state, platforms: payload, isPlatformDataLoading: false });
