@@ -19,7 +19,7 @@ import ContentListEmptyState from '../../presentational-components/shared/conten
 import asyncFormValidator from '../../utilities/async-form-validator';
 import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentList from '../../presentational-components/shared/content-list';
-import { createRows } from './platform-table-helpers';
+import { createRows } from './platform-table-helpers.js';
 
 const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
   filteringCallback(true);
