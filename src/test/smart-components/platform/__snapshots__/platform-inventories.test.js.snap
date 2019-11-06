@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlatformInventories /> should render correctly 1`] = `
+<PlatformInventories
+  match={
+    Object {
+      "params": Object {
+        "id": 123,
+      },
+    }
+  }
+  paginationCurrent={
+    Object {
+      "limit": 50,
+      "offset": 0,
+    }
+  }
+  platformItems={Array []}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+/>
+`;
