@@ -69,10 +69,11 @@ describe('<PlatformInventories />', () => {
     const store = mockStore(initialState);
     expect.assertions(1);
     apiClientMock.get(`${SOURCES_API_BASE}/sources/123`, mockOnce({ body: { name: 'Foo' }}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({
-      body: {
-        data: [{ id: 111 }]}
-    }));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({
+        body: {
+          data: [{ id: 111 }]}
+      }));
 
     const expectedActions = [
       { type: `${FETCH_PLATFORM}_PENDING` },

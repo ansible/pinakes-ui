@@ -1,5 +1,6 @@
 import { getAxiosInstance, getSourcesApi, getTopologocalInventoryApi, getGraphqlInstance } from '../shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
+import { defaultSettings } from '../shared/pagination';
 
 const sourcesApi = getSourcesApi();
 const topologicalApi = getTopologocalInventoryApi();
@@ -43,15 +44,16 @@ export function getPlatformItems(apiProps, options) {
   return apiPromise;
 }
 
-export function getPlatformInventories(apiProps, options) {
+export function getPlatformInventories(platformId, filter = '', options = defaultSettings) {
   let apiPromise = null;
 
-  if (apiProps) {
-    apiPromise = axiosInstance.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_inventories?filter[archived_at][nil]${options
+  if (platformId) {
+    apiPromise = axiosInstance.
+    get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${options
       ? `&limit=${options.limit}&offset=${options.offset}`
       : ''}`);
   } else {
-    apiPromise = topologicalApi.listServiceInventories();
+    apiPromise = topologicalApi.listServiceInventories(options);
   }
 
   return apiPromise;

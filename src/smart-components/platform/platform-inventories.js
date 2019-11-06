@@ -21,11 +21,6 @@ import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentList from '../../presentational-components/shared/content-list';
 import { createRows } from './platform-table-helpers.js';
 
-const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
-  filteringCallback(true);
-  dispatch(fetchPlatformInventories(value, meta)).then(() => filteringCallback(false));
-}, 1000);
-
 const initialState = {
   filterValue: '',
   isOpen: false,
@@ -53,6 +48,11 @@ const PlatformInventories = (props) => {
   const { data, meta } = useSelector(({ platformReducer: { platformInventories }}) => platformInventories);
   const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
   const dispatch = useDispatch();
+
+  const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPlatformInventories(props.match.params.id, value, meta)).then(() => filteringCallback(false));
+  }, 1000);
 
   const tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${props.match.params.id}/platform-templates` },
     { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${props.match.params.id}/platform-inventories` }];
@@ -83,7 +83,7 @@ const PlatformInventories = (props) => {
       limit: props.paginationCurrent.limit
     };
 
-    const request = () => dispatch(fetchPlatformInventories(props.match.params.id, options));
+    const request = () => dispatch(fetchPlatformInventories(props.match.params.id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
     }
