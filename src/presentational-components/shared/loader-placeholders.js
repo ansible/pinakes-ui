@@ -16,7 +16,9 @@ import {
   GalleryItem,
   Form,
   FormGroup,
-  Title
+  TextContent,
+  Text,
+  TextVariants
 } from '@patternfly/react-core';
 
 export const CardLoader = ({ items, ...props }) => (
@@ -158,14 +160,19 @@ const FormItemLoader = () => (
 
 export const ShareLoader = () => (
   <Form>
-    <Title size="xl">Invite group</Title>
+    <TextContent>
+      <Text component={ TextVariants.small }>
+        Invite group
+      </Text>
+    </TextContent>
     <FormGroup fieldId="1">
       <FormItemLoader />
     </FormGroup>
-    <FormGroup fieldId="2">
-      <FormItemLoader />
-    </FormGroup>
-    <Title size="xl">Groups with access</Title>
+    <TextContent>
+      <Text component={ TextVariants.small }>
+        Groups with access
+      </Text>
+    </TextContent>
     <FormGroup fieldId="3">
       <FormItemLoader />
     </FormGroup>
