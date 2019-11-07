@@ -20,17 +20,17 @@ query {
   }
 }`;
 
-export function getPlatforms() {
+export const getPlatforms = () => {
   return graphqlInstance.post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
   .then(({ data: { application_types }}) => application_types)
   .then(([{ sources }]) => sources);
-}
+};
 
-export function getPlatform(platformId) {
+export const getPlatform = (platformId) => {
   return sourcesApi.showSource(platformId);
-}
+};
 
-export function getPlatformItems(apiProps, options) {
+export const getPlatformItems = (apiProps, options) => {
   let apiPromise = null;
 
   if (apiProps) {
@@ -42,7 +42,7 @@ export function getPlatformItems(apiProps, options) {
   }
 
   return apiPromise;
-}
+};
 
 export const getPlatformInventories = (platformId, filter = '', options = defaultSettings) => {
   if (platformId) {
