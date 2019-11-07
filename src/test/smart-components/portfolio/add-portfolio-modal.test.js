@@ -105,7 +105,7 @@ describe('<AddPortfolioModal />', () => {
     const store = mockStore(initialState);
 
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolios/123`, ((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({ id: '123', name: 'Portfolio', workflow_ref: null });
+      expect(JSON.parse(req.body())).toEqual({ id: '123', name: 'Portfolio' });
       return res.body(200);
     }));
 

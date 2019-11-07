@@ -67,7 +67,6 @@ PortfolioItemDetailToolbar.propTypes = {
   product: PropTypes.shape({
     distributor: PropTypes.string,
     name: PropTypes.string.isRequired,
-    workflow_ref: PropTypes.string
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,

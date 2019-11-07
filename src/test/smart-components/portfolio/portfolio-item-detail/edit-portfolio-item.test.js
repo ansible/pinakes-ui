@@ -32,8 +32,7 @@ describe('<EditPortfolioItem />', () => {
       cancelUrl: '/cancel',
       product: {
         name: 'foo',
-        id: '123',
-        workflow_ref: '123'
+        id: '123'
       }
     };
   });
@@ -76,7 +75,6 @@ describe('<EditPortfolioItem />', () => {
 
         name: 'foo',
         id: '123',
-        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
         long_description: 'https://www.google.com/',

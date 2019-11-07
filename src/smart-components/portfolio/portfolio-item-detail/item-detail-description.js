@@ -5,7 +5,12 @@ import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 import EditPortfolioItem from './edit-portfolio-item';
 
-const ItemDetailDescription = ({ product, url }) => (
+const getWorkflowTitle = (workflows, workflowRef) => {
+  let workflow = workflows.find(({ value }) => value === workflowRef);
+  return workflow ? workflow.label : 'None';
+};
+
+const ItemDetailDescription = ({ product, url, workflows }) => (
   <Switch>
     <Route exact path={ `${url}` } render={ () => (
       <TextContent>
@@ -29,6 +34,12 @@ const ItemDetailDescription = ({ product, url }) => (
             </Text>
           </Fragment>
         ) }
+        <Route exact path={ `${url}` } render={ () => (
+          <Fragment>
+            <Text component={ TextVariants.h6 }>Approval workflow</Text>
+          </Fragment>
+        ) } />
+
       </TextContent>
     ) }/>
     <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
@@ -42,7 +53,11 @@ ItemDetailDescription.propTypes = {
     support_url: PropTypes.string,
     documentation_url: PropTypes.string
   }).isRequired,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  workflows: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  })).isRequired
 };
 
 export default ItemDetailDescription;
