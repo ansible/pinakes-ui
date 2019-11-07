@@ -1,6 +1,6 @@
 import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
 
-const editPortfolioItemSchema = {
+const editPortfolioItemSchema = () => ({
   fields: [{
     component: componentTypes.TEXT_FIELD,
     name: 'name',
@@ -34,6 +34,6 @@ const editPortfolioItemSchema = {
       type: validatorTypes.URL
     }]
   }]
-};
+});
 
 export default editPortfolioItemSchema;
