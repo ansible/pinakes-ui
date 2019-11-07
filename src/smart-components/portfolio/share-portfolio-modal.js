@@ -10,6 +10,7 @@ import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/actions/share-actions';
 import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
+import { permissionOptions, permissionValues } from '../../utilities/constants';
 
 const SharePortfolioModal = ({
   history: { push },
@@ -33,14 +34,14 @@ const SharePortfolioModal = ({
 
   const initialShares = () => {
     let initialGroupShareList = shareInfo.map((group) => {
+      const groupPermissions = group.permissions.filter((permission) => permissionValues.indexOf(permission) > -1);
       const groupName = group.group_name;
-      let options = permissionOptions.find(perm => (perm.value === group.permissions.sort().join(',')));
+      let options = permissionOptions.find(perm => (perm.value === groupPermissions.sort().join(',')));
       return {
         [groupName]: options ? options.value : 'Unknown'
       };
     });
     let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
-
     return initialShareList;
   };
 
@@ -54,13 +55,14 @@ const SharePortfolioModal = ({
       let initialPerm = share.permissions.sort().join(',');
       if (data[share.group_name] !== initialPerm) {
         if (!data[share.group_name]) {
-          sharePromises.push(unsharePortfolio({ id: portfolioId, permissions: share.permissions, group_uuid: share.group_uuid }));
+          const sharePermissions = share.permissions.filter((permission) => permissionValues.indexOf(permission) > -1);
+          sharePromises.push(unsharePortfolio({ id: portfolioId, permissions: sharePermissions, group_uuid: share.group_uuid }));
         }
         else {
           if (share.permissions.length > data[share.group_name].split(',').length) {
             sharePromises.push(unsharePortfolio({
               id: portfolioId,
-              permissions: [ 'catalog:portfolios:write' ],
+              permissions: [ 'catalog:portfolios:update' ],
               group_uuid: share.group_uuid
             }));
           }
@@ -80,13 +82,6 @@ const SharePortfolioModal = ({
   };
 
   const onCancel = () => push(closeUrl);
-
-  const permissionOptions = [{
-    value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:write',
-    label: 'Can order/edit'
-  }, {
-    value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
-  }];
 
   const shareItems = () => {
     let groupsWithNoSharing = rbacGroups.filter((item) => {

@@ -4,6 +4,7 @@ import { ADD_NOTIFICATION, CLEAR_NOTIFICATIONS } from '@redhat-cloud-services/fr
 
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 export const doFetchPortfolios = (...args) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
@@ -14,9 +15,9 @@ export const fetchPortfolios = (...args) => (dispatch) => {
   return dispatch(doFetchPortfolios(...args));
 };
 
-export const fetchPortfolioItems = apiProps => ({
+export const fetchPortfolioItems = (filter, options = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  payload: PortfolioHelper.getPortfolioItems(apiProps)
+  payload: PortfolioHelper.listPortfolioItems(options.limit, options.offset, filter)
 });
 
 export const fetchPortfolioItem = (portfolioItemId) => ({
@@ -167,7 +168,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (d
   });
   const { portfolioReducer: { portfolioItems: { meta }, selectedPortfolio: { id: portfolioId }}} = getState();
   return PortfolioHelper.removePortfolioItems(portfolioItems)
-  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId, meta)).then(() => data))
+  .then(data => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId, { offset: 0, limit: meta.limit })).then(() => data))
   .then(data => {
     return dispatch({
       type: ADD_NOTIFICATION,
@@ -204,7 +205,10 @@ export const copyPortfolio = id => dispatch => {
   return PortfolioHelper.copyPortfolio(id)
   .then(portfolio => {
     dispatch({ type: 'COPY_PORTFOLIO_FULFILLED' });
-    dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success', title: 'You have successfully copied a portfolio' }});
+    dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success',
+      title: 'You have successfully copied a portfolio',
+      description: `${portfolio.name} has been copied.}`,
+      dismissable: true }});
     return portfolio;
   })
   .catch(err => dispatch({ type: 'COPY_PORTFOLIO_REJECTED', payload: err }));
@@ -216,7 +220,7 @@ export const copyPortfolioItem = (portfolioItemId, copyObject, newPortfolio) => 
     dispatch({ type: ADD_NOTIFICATION, payload: {
       variant: 'success',
       title: 'You have successfully copied a product',
-      description: `${data.display_name} has been copied into ${newPortfolio.name}`,
+      description: `${data.name} has been copied into ${newPortfolio.name}`,
       dismissable: true
     }});
     return data;
@@ -238,7 +242,7 @@ export const updatePortfolioItem = values => dispatch => {
   .then(item => dispatch({
     type: ADD_NOTIFICATION, payload: {
       variant: 'success',
-      title: `Portfolio item "${item.display_name}" was successfully updated`,
+      title: `Portfolio item "${item.name}" was successfully updated`,
       dismissable: true
     }
   }))

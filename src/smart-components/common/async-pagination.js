@@ -7,7 +7,6 @@ import { Pagination } from '@patternfly/react-core';
 import { getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 
 const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest, ...props }) => {
-
   const handleOnPerPageSelect = (_event, limit) => apiRequest(apiProps, {
     offset,
     limit
@@ -31,7 +30,7 @@ const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest,
     <div className="pf-u-mt-md">
       <Pagination
         perPage={ limit || 50 }
-        itemCount={ count || 50 }
+        itemCount={ count || 0 }
         onPerPageSelect={ handleOnPerPageSelect }
         page={ getCurrentPage(limit, offset) }
         onSetPage={ handleSetPage }

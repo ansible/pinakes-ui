@@ -32,9 +32,17 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           className=""
           data-pf-content={true}
         >
-          Platform 
+          <span>
+            Platform
+          </span>
           <br />
-          bar
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              bar
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -44,9 +52,17 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           className=""
           data-pf-content={true}
         >
-          Portfolio 
+          <span>
+            Portfolio
+          </span>
           <br />
-          baz
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              quux
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -56,9 +72,17 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           className=""
           data-pf-content={true}
         >
-          Vendor 
+          <span>
+            Vendor
+          </span>
           <br />
-          foo
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              foo
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -68,9 +92,17 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           className=""
           data-pf-content={true}
         >
-          Created at 
+          <span>
+            Created at
+          </span>
           <br />
-          3/22/2019
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              3/22/2019
+            </span>
+          </div>
         </h6>
       </Text>
     </div>
@@ -107,9 +139,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
           className=""
           data-pf-content={true}
         >
-          Platform 
+          <span>
+            Platform
+          </span>
           <br />
-          bar
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              bar
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -119,9 +159,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
           className=""
           data-pf-content={true}
         >
-          Portfolio 
+          <span>
+            Portfolio
+          </span>
           <br />
-          quux
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              quux
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -131,9 +179,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
           className=""
           data-pf-content={true}
         >
-          Created at 
+          <span>
+            Created at
+          </span>
           <br />
-          3/22/2019
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              3/22/2019
+            </span>
+          </div>
         </h6>
       </Text>
     </div>
@@ -174,9 +230,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           className=""
           data-pf-content={true}
         >
-          Platform 
+          <span>
+            Platform
+          </span>
           <br />
-          bar
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              bar
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -186,9 +250,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           className=""
           data-pf-content={true}
         >
-          Portfolio 
+          <span>
+            Portfolio
+          </span>
           <br />
-          baz
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              quux
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -198,9 +270,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           className=""
           data-pf-content={true}
         >
-          Vendor 
+          <span>
+            Vendor
+          </span>
           <br />
-          foo
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              foo
+            </span>
+          </div>
         </h6>
       </Text>
       <Text
@@ -210,9 +290,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           className=""
           data-pf-content={true}
         >
-          Created at 
+          <span>
+            Created at
+          </span>
           <br />
-          3/22/2019
+          <div
+            className="elipsis-text-overflow"
+          >
+            <span>
+              3/22/2019
+            </span>
+          </div>
         </h6>
       </Text>
     </div>

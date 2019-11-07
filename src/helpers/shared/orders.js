@@ -4,7 +4,7 @@ export const getOrderIcon = ({ orderItems }) => orderItems[0] && `${CATALOG_API_
 
 export const getOrderPortfolioName = ({ orderItems, id }, portfolioItems) => {
   const portfolioItem = orderItems[0] && portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
-  return portfolioItem ? portfolioItem.display_name || portfolioItem.name : `Order ${id}`;
+  return portfolioItem ? portfolioItem.name : `Order ${id}`;
 };
 
 export const getOrderPlatformId = ({ orderItems }, portfolioItems) => {

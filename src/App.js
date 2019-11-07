@@ -33,6 +33,9 @@ class App extends Component {
     try {
       insights.chrome.identifyApp('catalog');
       insights.chrome.navigation([{
+        id: 'products',
+        title: 'Products'
+      }, {
         id: 'portfolios',
         title: 'Portfolios'
       }, {
@@ -49,7 +52,7 @@ class App extends Component {
          * Uses React history directly instead of browser history to avoid template realod.
          * only redirect after first application mount
          */
-        if (!this.state.ignoreRedirect) {
+        if (!this.state.ignoreRedirect && event.domEvent) {
           this.props.history.push(`/${event.navId}`);
         }
 

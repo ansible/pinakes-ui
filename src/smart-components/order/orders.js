@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Grid, GridItem, Tabs, Tab } from '@patternfly/react-core';
@@ -24,6 +24,10 @@ const Orders = ({
   history: { push },
   location: { pathname }
 }) => {
+  useEffect(() => {
+    insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
+  }, []);
+
   const activeTab = tabItems.find(({ name }) => pathname.includes(name));
   const handleTabClick = (_event, tabIndex) => push(`/orders${tabItems[tabIndex].name}`);
 
