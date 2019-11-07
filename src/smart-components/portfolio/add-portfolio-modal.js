@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { Modal } from '@patternfly/react-core';
+import { Bullseye, Modal } from '@patternfly/react-core';
+import { Spinner } from '@redhat-cloud-services/frontend-components';
 
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
@@ -33,17 +34,25 @@ const AddPortfolioModal = ({
       onClose={ onCancel }
       isSmall
     >
-      <div style={ { padding: 8 } }>
-        <FormRenderer
-          schema={ createPortfolioSchema(!initialValues, loadWorkflowOptions, id) }
-          schemaType="default"
-          onSubmit={ onSubmit }
-          onCancel={ onCancel }
-          initialValues={ { ...initialValues } }
-          formContainer="modal"
-          buttonsLabels={ { submitLabel: 'Save' } }
-        />
-      </div>
+      { !id || (id && initialValues) ? (
+        <div style={ { padding: 8 } }>
+          <FormRenderer
+            schema={ createPortfolioSchema(!initialValues, loadWorkflowOptions, id) }
+            schemaType="default"
+            onSubmit={ onSubmit }
+            onCancel={ onCancel }
+            initialValues={ { ...initialValues } }
+            formContainer="modal"
+            buttonsLabels={ { submitLabel: 'Save' } }
+          />
+        </div>
+      ) : (
+        <Bullseye>
+          <div className="pf-u-m-md">
+            <Spinner />
+          </div>
+        </Bullseye>
+      ) }
     </Modal>
   );
 };
@@ -68,8 +77,13 @@ AddPortfolioModal.propTypes = {
   })).isRequired
 };
 
+const stripValues = ({ owner, created_at, updated_at, ...rest }) => rest;
+
 const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
-  initialValues: id && portfolios.data.find(item => item.id === id),
+  initialValues: id && (() => {
+    const portfolio = portfolios.data.find(item => item.id === id);
+    return portfolio && stripValues(portfolio);
+  })(),
   portfolioId: id
 });
 

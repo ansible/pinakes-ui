@@ -5,14 +5,12 @@ import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-service
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import {
   fetchServicePlans,
-  fetchOrderList,
   updateServiceData,
   setSelectedPlan,
   sendSubmitOrder
 } from '../../../redux/actions/order-actions';
 import {
   FETCH_SERVICE_PLANS,
-  LIST_ORDERS,
   UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
   SUBMIT_SERVICE_ORDER
@@ -59,43 +57,6 @@ describe('Order actions', () => {
     }) ];
 
     return store.dispatch(fetchServicePlans(1)).catch(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  it('should dispatch correct actions after fetching orders', () => {
-    const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({
-      body: [ 'Foo' ]
-    }));
-    const expectedActions = [{
-      type: `${LIST_ORDERS}_PENDING`
-    }, expect.objectContaining({
-      type: `${LIST_ORDERS}_FULFILLED`
-    }) ];
-
-    return store.dispatch(fetchOrderList()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  it('should dispatch correct actions after fetching orders fails', () => {
-    const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders`, mockOnce({
-      status: 500
-    }));
-    const expectedActions = [{
-      type: `${LIST_ORDERS}_PENDING`
-    }, expect.objectContaining({
-      type: ADD_NOTIFICATION,
-      payload: expect.objectContaining({
-        variant: 'danger'
-      })
-    }), expect.objectContaining({
-      type: `${LIST_ORDERS}_REJECTED`
-    }) ];
-
-    return store.dispatch(fetchOrderList()).catch(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

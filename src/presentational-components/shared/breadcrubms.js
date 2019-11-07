@@ -29,7 +29,7 @@ const fragmentMapper = {
     title: 'Orders'
   },
   product: {
-    reducer: 'portfolioReducer.portfolioItem.display_name'
+    reducer: 'portfolioReducer.portfolioItem.name'
   }
 };
 

@@ -40,22 +40,21 @@ describe('Portfolio actions', () => {
   });
 
   it('should dispatch correct actions after fetching portfolios', () => {
+    const expectedPortfolio = { name: 'Name', description: 'Description' };
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: { data: [ expectedPortfolio ], meta: {}}}));
     const store = mockStore({
       portfolioReducer: {
         isLoading: false
       }
     });
-    const expectedPortfolio = { name: 'Name', description: 'Description' };
 
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, {
       type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: { data: [ expectedPortfolio ]}
+      payload: { data: [ expectedPortfolio ], meta: {}}
     }];
-    apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
-      body: { data: [ expectedPortfolio ]}
-    }));
 
     return store.dispatch(fetchPortfolios())
     .then(() => {
@@ -82,7 +81,7 @@ describe('Portfolio actions', () => {
 
     }) ]);
 
-    apiClientMock.get(CATALOG_API_BASE + '/portfolios', mockOnce({
+    apiClientMock.get(CATALOG_API_BASE + '/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0', mockOnce({
       status: 500
     }));
 
@@ -95,7 +94,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetchPortfolioItems action was called', () => {
     const store = mockStore({});
 
-    apiClientMock.get(CATALOG_API_BASE + '/portfolio_items', mockOnce({
+    apiClientMock.get(CATALOG_API_BASE + '/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=123&limit=50&offset=0', mockOnce({
       body: { data: [ 'foo' ]}
     }));
 
@@ -132,8 +131,9 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when adding portfolio', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
-    apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.post(`${CATALOG_API_BASE}/portfolios`, mockOnce({
       body: [{ data: 'foo' }]
     }));
 
@@ -157,7 +157,8 @@ describe('Portfolio actions', () => {
 
   it('should create error action creators when adding portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.post(CATALOG_API_BASE + '/portfolios', mockOnce({
       status: 500
     }));
@@ -181,7 +182,8 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when updating portfolio', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.patch(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
@@ -219,7 +221,8 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       body: [{ data: 'foo' }]
     }));
@@ -244,7 +247,8 @@ describe('Portfolio actions', () => {
 
   it('should create correct action creators when removing portfolio failed', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios`, mockOnce({ body: [{ data: [], meta: {}}]}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: [{ data: [], meta: {}}]}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolios/123', mockOnce({
       status: 500
     }));
@@ -264,7 +268,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct actions after remove portfolio items action success', () => {
-    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: {}}, selectedPortfolio: { id: '123' }}});
+    const store = mockStore({ portfolioReducer: { portfolioItems: { meta: { limit: 0, offset: 0 }}, selectedPortfolio: { id: '123' }}});
     const expectedActions = [{
       type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
     }, {
@@ -280,7 +284,7 @@ describe('Portfolio actions', () => {
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/1', mockOnce({ body: { restore_key: 'restore-1' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/2', mockOnce({ body: { restore_key: 'restore-2' }}));
     apiClientMock.delete(CATALOG_API_BASE + '/portfolio_items/3', mockOnce({ body: { restore_key: 'restore-3' }}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`, mockOnce({ body: []}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=0&offset=0`, mockOnce({ body: []}));
 
     return store.dispatch(removeProductsFromPortfolio([ '1', '2', '3' ], 'Foo portfolio'))
     .then(() => expect(store.getActions()).toEqual(expectedActions));

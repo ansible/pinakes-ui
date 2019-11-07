@@ -1,6 +1,7 @@
 export const defaultSettings = {
   limit: 50,
-  offset: 0
+  offset: 0,
+  count: 0
 };
 
 export const getCurrentPage = (limit = 1, offset = 0) => Math.floor(offset / limit) + 1;
