@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import FormRenderer from '../../common/form-renderer';
 import editPortfolioItemSchema from '../../../forms/edit-portfolio-item-form.schema';
 import { updatePortfolioItem } from '../../../redux/actions/portfolio-actions';
-import { loadWorkflowOptions } from '../../../helpers/approval/approval-helper';
 
 const EditPortfolioItem = ({ history: { push }, cancelUrl, product: { owner, created_at, updated_at, ...product }}) => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const EditPortfolioItem = ({ history: { push }, cancelUrl, product: { owner, cre
       } }
       canReset
       onCancel={ () => push(cancelUrl) }
-      schema={ editPortfolioItemSchema(loadWorkflowOptions) }
+      schema={ editPortfolioItemSchema }
       buttonsLabels={ { submitLabel: 'Save' } }
     />
   );
