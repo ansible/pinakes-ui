@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { Tabs, Tab } from '@patternfly/react-core';
+import { useHistory, useLocation } from 'react-router-dom';
 
-const AppTabs = ({ history: { push }, location: { pathname }, tabItems }) => {
-  const activeTab = tabItems.find(({ name }) => pathname.includes(name));
-  const handleTabClick = (_event, tabIndex) => push(tabItems[tabIndex].name);
+const AppTabs = ({ tabItems }) => {
+  const history = useHistory();
+  const location = useLocation();
+  const activeTab = tabItems.find(({ name }) => location.pathname.includes(name));
+  const handleTabClick = (_event, tabIndex) => history.push(tabItems[tabIndex].name);
 
   return (
     <Tabs activeKey={ activeTab ? activeTab.eventKey : 0 } onSelect={ handleTabClick }>
@@ -15,13 +17,8 @@ const AppTabs = ({ history: { push }, location: { pathname }, tabItems }) => {
 };
 
 AppTabs.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }),
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }),
   tabItems: PropTypes.array.isRequired
 };
 
-export default withRouter(AppTabs);
+export default AppTabs;
+

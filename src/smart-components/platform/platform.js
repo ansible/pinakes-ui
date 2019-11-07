@@ -26,10 +26,10 @@ const Platform = (props) => {
   );
 };
 
-const mapStateToProps = ({ platformReducer: { selectedPlatform }}) => {
+const mapStateToProps = ({ platformReducer: { selectedPlatform, isPlatformDataLoading }}) => {
   return {
     platform: selectedPlatform,
-    isPlatformDataLoading: selectedPlatform
+    isPlatformDataLoading
   };
 };
 

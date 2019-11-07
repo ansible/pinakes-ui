@@ -6,12 +6,7 @@ exports[`<Platform /> should render correctly 1`] = `
 >
   <Platform
     fetchSelectedPlatform={[Function]}
-    isPlatformDataLoading={
-      Object {
-        "id": "1",
-        "name": "Foo",
-      }
-    }
+    isPlatformDataLoading={false}
     match={
       Object {
         "params": Object {

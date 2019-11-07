@@ -6,9 +6,7 @@ import { Table, TableHeader, TableBody, TableVariant } from '@patternfly/react-t
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
 
 const NoItems = () => (
-  <div>
-    <Text component={ TextVariants.h1 }>No items found</Text>
-  </div>
+  <Text component={ TextVariants.h1 }>No items found</Text>
 );
 
 const ContentList = ({ data, columns, isCompact, isLoading, actionResolver, areActionsDisabled,
@@ -20,9 +18,9 @@ const ContentList = ({ data, columns, isCompact, isLoading, actionResolver, areA
     setRows(data);
   }, [ data ]);
 
-  return isLoading ? <ListLoader/> : !rows || rows.length === 0
-    ? renderEmptyState ? renderEmptyState()
-      : <NoItems/>
+  return isLoading ? <ListLoader/> : (!rows || rows.length === 0)
+    ? (renderEmptyState ? renderEmptyState()
+      : <NoItems/>)
     : (<Fragment>
       { routes() }
       <Table

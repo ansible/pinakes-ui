@@ -20,7 +20,7 @@ const ContentListEmptyState = ({
   PrimaryAction,
   renderDescription
 }) => (
-  <Bullseye style={ { height: 'calc(100% - 197px)' } }>
+  <Bullseye className="empty-state">
     <EmptyState>
       <EmptyStateIcon icon={ Icon } />
       <TextContent>
@@ -45,9 +45,9 @@ ContentListEmptyState.defaultProps = {
 
 ContentListEmptyState.propTypes = {
   title: PropTypes.string.isRequired,
-  Icon: PropTypes.any.isRequired,
+  Icon: PropTypes.node.isRequired,
   description: PropTypes.string.isRequired,
-  PrimaryAction: PropTypes.any,
+  PrimaryAction: PropTypes.node,
   renderDescription: PropTypes.func
 };
 

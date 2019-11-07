@@ -183,38 +183,6 @@ export const ShareLoader = () => (
   </Form>
 );
 
-export const OrderLoader = ({ items, ...props }) => (
-  [ ...Array(items) ].map((_item, index) => (
-    <DataListItem key={ index } aria-label="order-item-placeholder" aria-labelledby={ `${index}-orders-placeholder` }>
-      <DataListItemRow>
-        <DataListItemCells dataListCells={ [
-          <DataListCell key="1">
-            <ContentLoader
-              height={ 9 }
-              width={ 300 }
-              speed={ 2 }
-              primaryColor="#FFFFFF"
-              secondaryColor="#ecebeb"
-              { ...props }>
-              <rect x="0" y="0" rx="0" ry="0" width="300" height="9" />
-            </ContentLoader>
-          </DataListCell>
-        ] }
-        />
-      </DataListItemRow>
-
-    </DataListItem>
-  ))
-);
-
-OrderLoader.propTypes = {
-  items: PropTypes.number
-};
-
-OrderLoader.defaultProps = {
-  items: 5
-};
-
 export const ListLoader = ({ items, ...props }) => (
   <DataList aria-labelledby="datalist-placeholder">
     { [ ...Array(items) ].map((_item, index) => (

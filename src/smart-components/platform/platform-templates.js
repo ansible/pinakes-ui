@@ -97,7 +97,7 @@ const mapStateToProps = ({ platformReducer: { selectedPlatform, platformItems, i
     paginationCurrent: platformItemsData && platformItemsData.meta,
     platform: selectedPlatform,
     platformItems: platformItemsData && platformItemsData.data,
-    isPlatformDataLoading: !selectedPlatform || isPlatformDataLoading
+    isPlatformDataLoading
   };
 };
 

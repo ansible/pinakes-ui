@@ -44,17 +44,13 @@ export function getPlatformItems(apiProps, options) {
   return apiPromise;
 }
 
-export function getPlatformInventories(platformId, filter = '', options = defaultSettings) {
-  let apiPromise = null;
-
+export const getPlatformInventories = (platformId, filter = '', options = defaultSettings) => {
   if (platformId) {
-    apiPromise = axiosInstance.
+    return axiosInstance.
     get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${options
       ? `&limit=${options.limit}&offset=${options.offset}`
       : ''}`);
   } else {
-    apiPromise = topologicalApi.listServiceInventories(options);
+    return topologicalApi.listServiceInventories(options);
   }
-
-  return apiPromise;
-}
+};
