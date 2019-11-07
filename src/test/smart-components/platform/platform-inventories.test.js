@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store' ;
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
-import { MemoryRouter } from 'react-router-dom';
+import { Route, MemoryRouter } from 'react-router-dom';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
@@ -22,18 +22,15 @@ describe('<PlatformInventories />', () => {
   const ComponentWrapper = ({ store, initialEntries = [ '/foo' ], children }) => (
     <Provider store={ store }>
       <MemoryRouter initialEntries={ initialEntries }>
-        { children }
+        <Route path='/platforms/detail/:id/platform-inventories'>
+          { children }
+        </Route>
       </MemoryRouter>
     </Provider>
   );
 
   beforeEach(() => {
     initialProps = {
-      match: {
-        params: {
-          id: 123
-        }
-      }
     };
     mockStore = configureStore(middlewares);
     initialState = {
@@ -59,7 +56,7 @@ describe('<PlatformInventories />', () => {
   it('should render correctly', () => {
     const store = mockStore(initialState);
     const wrapper = shallow(
-      <ComponentWrapper store={ store } initialEntries={ [ '/platforms' ] }>
+      <ComponentWrapper store={ store } initialEntries={ [ '/platforms/detail/123/platform-inventories' ] }>
         <PlatformInventories store={ mockStore(initialState) } { ...initialProps } />);
       </ComponentWrapper>).find(PlatformInventories);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
@@ -67,7 +64,6 @@ describe('<PlatformInventories />', () => {
 
   it('should mount and fetch data', async done=> {
     const store = mockStore(initialState);
-    expect.assertions(1);
     apiClientMock.get(`${SOURCES_API_BASE}/sources/123`, mockOnce({ body: { name: 'Foo' }}));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
@@ -83,7 +79,7 @@ describe('<PlatformInventories />', () => {
     ];
 
     await act(async () => {
-      mount(<ComponentWrapper store={ store } initialEntries={ [ '/platforms' ] }>
+      mount(<ComponentWrapper store={ store } initialEntries={ [ '/platforms/detail/123/platform-inventories' ] }>
         <PlatformInventories { ...initialProps } store={ mockStore(initialState) }/>
       </ComponentWrapper>);
     });

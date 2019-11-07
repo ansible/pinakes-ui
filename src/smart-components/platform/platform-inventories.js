@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useParams } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { Section } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -48,19 +48,18 @@ const PlatformInventories = (props) => {
   const { data, meta } = useSelector(({ platformReducer: { platformInventories }}) => platformInventories);
   const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
   const dispatch = useDispatch();
-  const match = useRouteMatch({ path: '/platforms/detail/:id' });
-
+  const { id } = useParams();
   const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPlatformInventories(props.match.params.id, value, meta)).then(() => filteringCallback(false));
+    dispatch(fetchPlatformInventories(id, value, meta)).then(() => filteringCallback(false));
   }, 1000);
 
-  const tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${match.params.id}/platform-templates` },
-    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${match.params.id}/platform-inventories` }];
+  const tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${id}/platform-templates` },
+    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${id}/platform-inventories` }];
 
   useEffect(() => {
-    dispatch(fetchSelectedPlatform(match.params.id));
-    dispatch(fetchPlatformInventories(match.params.id, filterValue, defaultSettings))
+    dispatch(fetchSelectedPlatform(id));
+    dispatch(fetchPlatformInventories(id, filterValue, defaultSettings))
     .then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
@@ -73,7 +72,7 @@ const PlatformInventories = (props) => {
     });
   };
 
-  const handleOnPerPageSelect = limit => fetchPlatformInventories(match.params.id, {
+  const handleOnPerPageSelect = limit => fetchPlatformInventories(id, {
     offset: meta.offset,
     limit
   });
@@ -84,7 +83,7 @@ const PlatformInventories = (props) => {
       limit: props.paginationCurrent.limit
     };
 
-    const request = () => dispatch(fetchPlatformInventories(match.params.id, filterValue, options));
+    const request = () => dispatch(fetchPlatformInventories(id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
     }
@@ -133,7 +132,7 @@ const PlatformInventories = (props) => {
 
   return (
     <Switch>
-      <Route path={ `/platforms/detail/${match.params.id}/platform-inventories` }
+      <Route path={ '/platforms/detail/:id/platform-inventories' }
         render={ renderItems } />
     </Switch>
   );
@@ -141,7 +140,6 @@ const PlatformInventories = (props) => {
 
 PlatformInventories.propTypes = {
   isPlatformDataLoading: PropTypes.bool,
-  match: PropTypes.object,
   platform: PropTypes.shape({
     name: PropTypes.string
   }),

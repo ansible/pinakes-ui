@@ -2,13 +2,6 @@
 
 exports[`<PlatformInventories /> should render correctly 1`] = `
 <PlatformInventories
-  match={
-    Object {
-      "params": Object {
-        "id": 123,
-      },
-    }
-  }
   paginationCurrent={
     Object {
       "limit": 50,
