@@ -1,5 +1,7 @@
+import React from 'react';
 import moment from 'moment';
 import get from 'lodash/get';
+import { DateFormat } from '@redhat-cloud-services/frontend-components';
 
 import { PORTFOLIO_ITEM_NULLABLE, PORTFOLIO_NULLABLE } from '../../constants/nullable-attributes';
 
@@ -64,4 +66,7 @@ export const sanitizeValues = (values, entityType, store) => {
   return udefinedToNull(permittedValues, nullableMapper[entityType]);
 };
 
-export const timeAgo = (date) => moment(date).fromNow();
+export const timeAgo = (date) => DateFormat ?
+  <span><DateFormat date={ date } type="relative"/> </span>
+  :  moment(date).fromNow();
+

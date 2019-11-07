@@ -8,7 +8,7 @@ export const createRows = (data) => (
     ...acc, { id,
       isOpen: false,
       cells: [ <Fragment key={ id }><Link to={ `/platforms/detail/${id}` }>
-        <Button variant="link"> { name } </Button></Link></Fragment>, description, `${timeAgo(created_at)}`, workflow ]
+        <Button variant="link"> { name } </Button></Link></Fragment>, description, timeAgo(created_at), workflow ]
     }
   ]), [])
 );
