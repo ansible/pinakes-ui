@@ -18,24 +18,29 @@ const ContentList = ({ data, columns, isCompact, isLoading, actionResolver, areA
     setRows(data);
   }, [ data ]);
 
-  return isLoading ? <ListLoader/> : (!rows || rows.length === 0)
-    ? (renderEmptyState ? renderEmptyState()
-      : <NoItems/>)
-    : (<Fragment>
-      { routes() }
-      <Table
-        aria-label={ `${titlePlural} table` }
-        variant={ isCompact ? TableVariant.compact : null }
-        borders={ borders }
-        rows={ rows }
-        cells={ columns }
-        actionResolver={ actionResolver }
-        areActionsDisabled={ areActionsDisabled }
-      >
-        <TableHeader/>
-        <TableBody/>
-      </Table>
-    </Fragment>);
+  const renderEmptyContent = () => renderEmptyState ? renderEmptyState()
+    : <NoItems/>;
+
+  const renderContent = () =>
+    (!rows || rows.length === 0) ?
+      renderEmptyContent() :
+      <Fragment>
+        { routes() }
+        <Table
+          aria-label={ `${titlePlural} table` }
+          variant={ isCompact ? TableVariant.compact : null }
+          borders={ borders }
+          rows={ rows }
+          cells={ columns }
+          actionResolver={ actionResolver }
+          areActionsDisabled={ areActionsDisabled }
+        >
+          <TableHeader/>
+          <TableBody/>
+        </Table>
+      </Fragment>;
+
+  return isLoading ? <ListLoader/> : renderContent();
 };
 
 ContentList.propTypes = {
