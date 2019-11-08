@@ -11,9 +11,7 @@ const editPortfolioItemSchema = (loadWorkflows) => ({
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'description',
-    label: 'Description',
-    isRequired: true,
-    validate: [{ type: validatorTypes.REQUIRED }]
+    label: 'Description'
   }, {
     component: componentTypes.TEXT_FIELD,
     name: 'long_description',
