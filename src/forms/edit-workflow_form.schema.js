@@ -4,7 +4,7 @@ import asyncFormValidator from '../utilities/async-form-validator';
 const editWorkflowSchema = (loadWorkflows) => ({
   fields: [{
     component: componentTypes.SELECT,
-    name: 'approval_workflow',
+    name: 'workflow',
     label: 'Approval workflow',
     loadOptions: asyncFormValidator(loadWorkflows),
     isSearchable: true,

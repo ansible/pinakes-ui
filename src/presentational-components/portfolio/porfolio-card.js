@@ -36,6 +36,12 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
       <DropdownItem key="share-portfolio-action" component={ Link } to={ `/portfolios/share/${portfolioId}` }>
           Share
       </DropdownItem>,
+      <DropdownSeparator key="workflow-portfolio-separator"/>,
+      <DropdownItem key="workflow-portfolio-action">
+        <Link to={ `/portfolios/edit-workflow/${portfolioId}` } className="pf-c-dropdown__menu-item" >
+          Edit approval workflow
+        </Link>
+      </DropdownItem>,
       <DropdownSeparator key="share-portfolio-separator"/>,
       <DropdownItem key="edit-portfolio-action" component={ Link } to={ `/portfolios/edit/${portfolioId}` }>
           Edit

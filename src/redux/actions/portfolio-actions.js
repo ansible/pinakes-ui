@@ -133,6 +133,11 @@ export const removePortfolio = portfolioId => dispatch => {
     }
   });};
 
+export const selectPortfolioItem = (portfolioItem) => ({
+  type: ActionTypes.SELECT_PORTFOLIO_ITEM,
+  payload: portfolioItem
+});
+
 export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => dispatch => {
   dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_PENDING` });
   return PortfolioHelper.restorePortfolioItems(restoreData)

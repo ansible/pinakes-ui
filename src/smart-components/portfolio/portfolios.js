@@ -7,6 +7,7 @@ import Portfolio from './portfolio';
 import AddPortfolio from './add-portfolio-modal';
 import SharePortfolio from './share-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
+import EditApprovalWorkflow from '../../smart-components/common/edit-approval-workflow';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
@@ -85,6 +86,8 @@ const Portfolios = () => {
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
         <Route exact path="/portfolios/share/:id" render={ (...args) => <SharePortfolio closeUrl={ match.url } { ...args } /> } />
+        <Route exact path="/portfolios/edit-workflow/:id" render={ () =>
+          <EditApprovalWorkflow closeUrl={ match.url } objectType={ 'Portfolio' } /> } />
         <ContentGallery items={ galleryItems } isLoading={ isFetching || isFiltering } renderEmptyState={ () => (
           <ContentGalleryEmptyState
             title="No portfolios"
