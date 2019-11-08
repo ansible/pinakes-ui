@@ -21,4 +21,3 @@ AppTabs.propTypes = {
 };
 
 export default AppTabs;
-

@@ -33,7 +33,6 @@ const setMultiplePlatformItems = (state, { payload }) =>
 const setPortfolioItems = (state, { payload }) => ({ ...state, portfolioItem: payload, isPlatformDataLoading: false });
 const selectPlatform = (state, { payload }) => ({ ...state, selectedPlatform: payload, isLoading: false });
 const filterPlatformItems = (state, { payload }) => ({ ...state, filterValue: payload });
-
 const setInventoriesDataLoadingState = (state, { payload = true }) => ({ ...state, isInventoriesDataLoading: payload });
 const setPlatformInventories = (state, { payload }) =>
   ({ ...state, platformInventories: { ...state.platformInventories, ...payload }, isInventoriesDataLoading: false });
@@ -53,5 +52,4 @@ export default {
   [`${FETCH_PLATFORM_INVENTORIES}_PENDING`]: setInventoriesDataLoadingState,
   [`${FETCH_PLATFORM_INVENTORIES}_FULFILLED`]: setPlatformInventories,
   [SET_INVENTORIES_LOADING_STATE]: setInventoriesDataLoadingState
-
 };

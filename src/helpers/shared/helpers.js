@@ -67,6 +67,5 @@ export const sanitizeValues = (values, entityType, store) => {
 };
 
 export const timeAgo = (date) => DateFormat ?
-  <span><DateFormat date={ date } type="relative"/> </span>
+  <span><DateFormat date={ date } type="relative"/></span>
   :  moment(date).fromNow();
-

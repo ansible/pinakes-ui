@@ -36,9 +36,9 @@ const platformInventoriesState = (state, action) => {
       return { ...state, filterValue: action.payload };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
+    default:
+      return state;
   }
-
-  return state;
 };
 
 const columns = [ 'Name', 'Description', 'Created', 'Workflow' ];
@@ -54,8 +54,10 @@ const PlatformInventories = (props) => {
     dispatch(fetchPlatformInventories(id, value, meta)).then(() => filteringCallback(false));
   }, 1000);
 
-  const tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${id}/platform-templates` },
-    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${id}/platform-inventories` }];
+  const tabItems = [
+    { eventKey: 0, title: 'Templates', name: `/platforms/detail/${id}/platform-templates` },
+    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${id}/platform-inventories` }
+  ];
 
   useEffect(() => {
     dispatch(fetchSelectedPlatform(id));
