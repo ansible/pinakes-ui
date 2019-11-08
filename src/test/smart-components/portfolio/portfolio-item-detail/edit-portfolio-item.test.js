@@ -55,11 +55,9 @@ describe('<EditPortfolioItem />', () => {
   it('should submit form data', async done => {
     expect.assertions(3);
     const store = mockStore({ openApiReducer: openApiReducerMock });
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
         name: 'foo',
-        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
         long_description: 'https://www.google.com/',
@@ -84,10 +82,8 @@ describe('<EditPortfolioItem />', () => {
     }, {
       type: UPDATE_PORTFOLIO_ITEM,
       payload: {
-
         name: 'foo',
         id: '123',
-        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
         long_description: 'https://www.google.com/',
