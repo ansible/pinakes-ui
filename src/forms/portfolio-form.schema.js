@@ -21,7 +21,7 @@ const debouncedValidator = asyncFormValidator(validateName);
  * @param {bool} newRecord sets the variant of portfolio form
  * @param {Function} loadWorkflows async callback that loads workflows
  */
-export const createPortfolioSchema = (newRecord, loadWorkflows, portfolioId) => ({
+export const createPortfolioSchema = (newRecord, portfolioId) => ({
   fields: [{
     label: newRecord ? 'New Portfolio Name' : 'Portfolio Name',
     name: 'name',
@@ -32,12 +32,5 @@ export const createPortfolioSchema = (newRecord, loadWorkflows, portfolioId) => 
     label: 'Description',
     component: componentTypes.TEXTAREA,
     name: 'description'
-  }, {
-    label: 'Approval workflow',
-    name: 'workflow_ref',
-    component: componentTypes.SELECT,
-    loadOptions: asyncFormValidator(loadWorkflows),
-    isSearchable: true,
-    isClearable: true
   }]
 });

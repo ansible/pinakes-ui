@@ -17,14 +17,6 @@ Object {
       "label": "Description",
       "name": "description",
     },
-    Object {
-      "component": "select-field",
-      "isClearable": true,
-      "isSearchable": true,
-      "label": "Approval workflow",
-      "loadOptions": [Function],
-      "name": "workflow_ref",
-    },
   ],
 }
 `;
@@ -45,14 +37,6 @@ Object {
       "component": "textarea-field",
       "label": "Description",
       "name": "description",
-    },
-    Object {
-      "component": "select-field",
-      "isClearable": true,
-      "isSearchable": true,
-      "label": "Approval workflow",
-      "loadOptions": [Function],
-      "name": "workflow_ref",
     },
   ],
 }

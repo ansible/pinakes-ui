@@ -83,13 +83,6 @@ describe('<AddPortfolioModal />', () => {
         component: componentTypes.TEXTAREA,
         label: 'Description',
         name: 'description'
-      }, {
-        component: componentTypes.SELECT,
-        label: 'Approval workflow',
-        name: 'workflow_ref',
-        loadOptions: expect.any(Function),
-        isSearchable: true,
-        isClearable: true
       }]
     };
 
