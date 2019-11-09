@@ -9,15 +9,14 @@ import { linkWorkflow } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 
-const EditApprovalWorkflow = ({ closeUrl, objectType }) => {
+const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
 
   const onSubmit = values => {
-    console.log('Debug: values:', values);
     history.push(closeUrl);
-    return dispatch(linkWorkflow(values.workflow, { object_type: objectType, app_name: APP_NAME, object_id: id }));
+    return dispatch(linkWorkflow(values.workflow, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
   };
 
   return (
@@ -40,7 +39,8 @@ const EditApprovalWorkflow = ({ closeUrl, objectType }) => {
 
 EditApprovalWorkflow.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  objectType: PropTypes.object.isRequired
+  objectType: PropTypes.object.isRequired,
+  objectId: PropTypes.object
 };
 
 export default EditApprovalWorkflow;

@@ -42,6 +42,7 @@ const PortfolioItemDetailToolbar = ({
                 orderUrl={ `${url}/order` }
                 editUrl={ `${url}/edit` }
                 copyUrl={ `${url}/copy` }
+                workflowUrl={ `${url}/edit-workflow` }
                 isFetching={ isFetching }
                 { ...args }
               />) }/>
