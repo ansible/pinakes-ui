@@ -143,6 +143,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             >
               Copy
             </DropdownItem>,
+            <DropdownSeparator />,
             <DropdownItem
               aria-label="Edit Approval Workflow"
             >
@@ -211,6 +212,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               >
                 Copy
               </DropdownItem>,
+              <DropdownSeparator />,
               <DropdownItem
                 aria-label="Edit Approval Workflow"
               >
@@ -280,6 +282,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   >
                     Copy
                   </DropdownItem>,
+                  <DropdownSeparator />,
                   <DropdownItem
                     aria-label="Edit Approval Workflow"
                   >
@@ -350,6 +353,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   >
                     Copy
                   </DropdownItem>,
+                  <DropdownSeparator />,
                   <DropdownItem
                     aria-label="Edit Approval Workflow"
                   >

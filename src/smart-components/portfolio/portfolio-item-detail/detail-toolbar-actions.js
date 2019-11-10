@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownPosition, KebabToggle, LevelItem } from '@patternfly/react-core';
+import { Dropdown, DropdownItem, DropdownPosition, DropdownSeparator, KebabToggle, LevelItem } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
 const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen, setOpen, isFetching }) => ( // eslint-disable-line no-unused-vars
@@ -28,6 +28,7 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen,
                 Copy
               </Link>
             </DropdownItem>,
+            <DropdownSeparator key="workflow-portfolio-separator"/>,
             <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow">
               <Link to={ workflowUrl } role="link" className="pf-c-dropdown__menu-item">
                 Edit Approval Workflow

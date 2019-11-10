@@ -39,8 +39,8 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
 
 EditApprovalWorkflow.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  objectType: PropTypes.object.isRequired,
-  objectId: PropTypes.object
+  objectType: PropTypes.string.isRequired,
+  objectId: PropTypes.string
 };
 
 export default EditApprovalWorkflow;
