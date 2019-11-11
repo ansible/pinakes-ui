@@ -30,13 +30,13 @@ export const getPlatform = (platformId) => {
   return sourcesApi.showSource(platformId);
 };
 
-export const getPlatformItems = (apiProps, options) => {
+export const getPlatformItems = (apiProps, filter = '', options) => {
   let apiPromise = null;
 
   if (apiProps) {
-    apiPromise = axiosInstance.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?filter[archived_at][nil]${options
-      ? `&limit=${options.limit}&offset=${options.offset}`
-      : ''}`);
+    apiPromise = axiosInstance.
+    get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${apiProps}/service_offerings?filter[archived_at][nil]
+    &filter[name][contains_i]${filter}${options ? `&limit=${options.limit}&offset=${options.offset}` : ''}`);
   } else {
     apiPromise = topologicalApi.listServiceOfferings();
   }
