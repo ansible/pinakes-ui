@@ -15,7 +15,7 @@ import {
   createPlatformsFilterToolbarSchema,
   createPlatformsTopToolbarSchema
 } from '../../toolbar/schemas/platforms-toolbar.schema';
-import ContentListEmptyState from '../../presentational-components/shared/content-list-empty-state';
+import ContentGaleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentList from '../../presentational-components/shared/content-list';
@@ -122,7 +122,7 @@ const PlatformInventories = (props) => {
             columns={ columns }
             isLoading={ isFetching || isFiltering }
             renderEmptyState={ () => (
-              <ContentListEmptyState
+              <ContentGaleryEmptyState
                 title="No inventories"
                 Icon={ SearchIcon }
                 description={ filterValue === '' ? 'No inventories found.' : 'No inventories match your filter criteria.' }
