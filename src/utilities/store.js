@@ -11,6 +11,7 @@ import portfolioReducer, { portfoliosInitialState } from '../redux/reducers/port
 import approvalReducer, { approvalInitialState } from '../redux/reducers/approval-reducer';
 import rbacReducer, { rbacInitialState } from '../redux/reducers/rbac-reducer';
 import shareReducer, { shareInfoInitialState } from '../redux/reducers/share-reducer';
+import openApiReducer, { openApiInitialState } from '../redux/reducers/open-api-reducer';
 import loadingStateMiddleware from './loading-state-middleware';
 
 const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
@@ -33,6 +34,7 @@ registry.register({
   approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
   rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
   shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
+  openApiReducer: applyReducerHash(openApiReducer, openApiInitialState),
   notifications
 });
 

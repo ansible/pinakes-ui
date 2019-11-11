@@ -11,6 +11,7 @@ import { MemoryRouter } from 'react-router-dom';
 import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-item-detail/edit-portfolio-item';
 import { CATALOG_API_BASE, APPROVAL_API_BASE } from '../../../../utilities/constants';
 import { UPDATE_TEMPORARY_PORTFOLIO_ITEM, UPDATE_PORTFOLIO_ITEM } from '../../../../redux/action-types';
+import { openApiReducerMock } from '../../../__mocks__/open-api-mock';
 
 describe('<EditPortfolioItem />', () => {
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
@@ -54,12 +55,12 @@ describe('<EditPortfolioItem />', () => {
 
   it('should submit form data', async done => {
     expect.assertions(3);
-    const store = mockStore({});
+    const store = mockStore({ openApiReducer: openApiReducerMock });
+    console.log(store.getState());
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
         name: 'foo',
-        id: '123',
         workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
