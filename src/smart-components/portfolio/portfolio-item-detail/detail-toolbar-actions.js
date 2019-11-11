@@ -21,15 +21,11 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, isOpen, setOpen, isF
           toggle={ <KebabToggle onToggle={ setOpen }/> }
           isOpen={ isOpen }
           dropdownItems={ [
-            <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
-              <Link to={ editUrl } role="link" className="pf-c-dropdown__menu-item">
+            <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editUrl } role="link">
                 Edit
-              </Link>
             </DropdownItem>,
-            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio">
-              <Link to={ copyUrl } role="link" className="pf-c-dropdown__menu-item">
+            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio" component={ Link } to={ copyUrl } role="link">
                 Copy
-              </Link>
             </DropdownItem>
           ] }
         />

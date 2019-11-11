@@ -15,30 +15,64 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
               <Dropdown
                 dropdownItems={
                   Array [
-                    <DropdownItem>
-                      <ForwardRef
-                        className="pf-c-dropdown__menu-item"
-                        to="/portfolios/share/123"
-                      >
-                        Share
-                      </ForwardRef>
+                    <DropdownItem
+                      component={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "Link",
+                          "propTypes": Object {
+                            "innerRef": [Function],
+                            "onClick": [Function],
+                            "replace": [Function],
+                            "target": [Function],
+                            "to": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
+                      to="/portfolios/share/123"
+                    >
+                      Share
                     </DropdownItem>,
                     <DropdownSeparator />,
-                    <DropdownItem>
-                      <ForwardRef
-                        className="pf-c-dropdown__menu-item"
-                        to="/portfolios/edit/123"
-                      >
-                        Edit
-                      </ForwardRef>
+                    <DropdownItem
+                      component={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "Link",
+                          "propTypes": Object {
+                            "innerRef": [Function],
+                            "onClick": [Function],
+                            "replace": [Function],
+                            "target": [Function],
+                            "to": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
+                      to="/portfolios/edit/123"
+                    >
+                      Edit
                     </DropdownItem>,
-                    <DropdownItem>
-                      <ForwardRef
-                        className="pf-c-dropdown__menu-item destructive-color"
-                        to="/portfolios/remove/123"
-                      >
-                        Delete
-                      </ForwardRef>
+                    <DropdownItem
+                      className="pf-c-dropdown__menu-item destructive-color"
+                      component={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "Link",
+                          "propTypes": Object {
+                            "innerRef": [Function],
+                            "onClick": [Function],
+                            "replace": [Function],
+                            "target": [Function],
+                            "to": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
+                      to="/portfolios/remove/123"
+                    >
+                      Delete
                     </DropdownItem>,
                   ]
                 }
