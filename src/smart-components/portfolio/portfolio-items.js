@@ -10,6 +10,8 @@ import SharePortfolioModal from './share-portfolio-modal';
 import OrderModal from '../common/order-modal';
 import PortfolioEmptyState from './portfolio-empty-state';
 import ContentGallery from '../content-gallery/content-gallery';
+import EditApprovalWorkflow from '../common/edit-approval-workflow';
+import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 
 const PortfolioItems = ({
   title,
@@ -17,6 +19,7 @@ const PortfolioItems = ({
   addProductsRoute,
   editPortfolioRoute,
   sharePortfolioRoute,
+  workflowPortfolioRoute,
   removePortfolioRoute,
   selectedItems,
   filterValue,
@@ -41,6 +44,7 @@ const PortfolioItems = ({
       addProductsRoute,
       editPortfolioRoute,
       sharePortfolioRoute,
+      workflowPortfolioRoute,
       removePortfolioRoute,
       copyPortfolio,
       isLoading,
@@ -58,6 +62,11 @@ const PortfolioItems = ({
       path="/portfolios/detail/:id/share-portfolio"
       render={ (...args) => <SharePortfolioModal closeUrl={ portfolioRoute } { ...args } /> }
     />
+    <Route
+      exact
+      path="/portfolios/detail/:id/edit-workflow"
+      render={ (...args) => <EditApprovalWorkflow closeUrl={ portfolioRoute } objectType={ PORTFOLIO_RESOURCE_TYPE } { ...args } /> }
+    />
     <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
     <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />
   </Fragment>
@@ -70,6 +79,7 @@ PortfolioItems.propTypes = {
   addProductsRoute: PropTypes.string.isRequired,
   editPortfolioRoute: PropTypes.string.isRequired,
   sharePortfolioRoute: PropTypes.string.isRequired,
+  workflowPortfolioRoute: PropTypes.string.isRequired,
   removePortfolioRoute: PropTypes.string.isRequired,
   selectedItems: PropTypes.arrayOf(PropTypes.string),
   filterValue: PropTypes.string.isRequired,
