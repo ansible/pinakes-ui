@@ -23,15 +23,18 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, removePortfolioRoute, cop
         <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
         Copy
         </DropdownItem>,
-        <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
-          <Link to={ editPortfolioRoute } role="link">
+        <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editPortfolioRoute } role="link">
             Edit
-          </Link>
         </DropdownItem>,
-        <DropdownItem aria-label="Remove Portfolio" key="delete-portfolio">
-          <Link to={ removePortfolioRoute } role="link" className="pf-c-dropdown__menu-item destructive-color">
+        <DropdownItem
+          aria-label="Remove Portfolio"
+          key="delete-portfolio"
+          component={ Link }
+          to={ removePortfolioRoute }
+          role="link"
+          className="pf-c-dropdown__menu-item destructive-color"
+        >
           Delete
-          </Link>
         </DropdownItem>
       ] }
     />

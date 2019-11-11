@@ -103,25 +103,45 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           Array [
             <DropdownItem
               aria-label="Edit Portfolio"
+              component={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "displayName": "Link",
+                  "propTypes": Object {
+                    "innerRef": [Function],
+                    "onClick": [Function],
+                    "replace": [Function],
+                    "target": [Function],
+                    "to": [Function],
+                  },
+                  "render": [Function],
+                }
+              }
+              role="link"
+              to="foo/baz"
             >
-              <ForwardRef
-                className="pf-c-dropdown__menu-item"
-                role="link"
-                to="foo/baz"
-              >
-                Edit
-              </ForwardRef>
+              Edit
             </DropdownItem>,
             <DropdownItem
               aria-label="Copy Portfolio"
+              component={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "displayName": "Link",
+                  "propTypes": Object {
+                    "innerRef": [Function],
+                    "onClick": [Function],
+                    "replace": [Function],
+                    "target": [Function],
+                    "to": [Function],
+                  },
+                  "render": [Function],
+                }
+              }
+              role="link"
+              to="foo/copy"
             >
-              <ForwardRef
-                className="pf-c-dropdown__menu-item"
-                role="link"
-                to="foo/copy"
-              >
-                Copy
-              </ForwardRef>
+              Copy
             </DropdownItem>,
           ]
         }
@@ -141,25 +161,45 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             Array [
               <DropdownItem
                 aria-label="Edit Portfolio"
+                component={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "displayName": "Link",
+                    "propTypes": Object {
+                      "innerRef": [Function],
+                      "onClick": [Function],
+                      "replace": [Function],
+                      "target": [Function],
+                      "to": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
+                role="link"
+                to="foo/baz"
               >
-                <ForwardRef
-                  className="pf-c-dropdown__menu-item"
-                  role="link"
-                  to="foo/baz"
-                >
-                  Edit
-                </ForwardRef>
+                Edit
               </DropdownItem>,
               <DropdownItem
                 aria-label="Copy Portfolio"
+                component={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "displayName": "Link",
+                    "propTypes": Object {
+                      "innerRef": [Function],
+                      "onClick": [Function],
+                      "replace": [Function],
+                      "target": [Function],
+                      "to": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
+                role="link"
+                to="foo/copy"
               >
-                <ForwardRef
-                  className="pf-c-dropdown__menu-item"
-                  role="link"
-                  to="foo/copy"
-                >
-                  Copy
-                </ForwardRef>
+                Copy
               </DropdownItem>,
             ]
           }
@@ -180,25 +220,45 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 "dropdownItems": Array [
                   <DropdownItem
                     aria-label="Edit Portfolio"
+                    component={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    role="link"
+                    to="foo/baz"
                   >
-                    <ForwardRef
-                      className="pf-c-dropdown__menu-item"
-                      role="link"
-                      to="foo/baz"
-                    >
-                      Edit
-                    </ForwardRef>
+                    Edit
                   </DropdownItem>,
                   <DropdownItem
                     aria-label="Copy Portfolio"
+                    component={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    role="link"
+                    to="foo/copy"
                   >
-                    <ForwardRef
-                      className="pf-c-dropdown__menu-item"
-                      role="link"
-                      to="foo/copy"
-                    >
-                      Copy
-                    </ForwardRef>
+                    Copy
                   </DropdownItem>,
                 ],
                 "isOpen": false,
@@ -220,25 +280,45 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 Array [
                   <DropdownItem
                     aria-label="Edit Portfolio"
+                    component={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    role="link"
+                    to="foo/baz"
                   >
-                    <ForwardRef
-                      className="pf-c-dropdown__menu-item"
-                      role="link"
-                      to="foo/baz"
-                    >
-                      Edit
-                    </ForwardRef>
+                    Edit
                   </DropdownItem>,
                   <DropdownItem
                     aria-label="Copy Portfolio"
+                    component={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    role="link"
+                    to="foo/copy"
                   >
-                    <ForwardRef
-                      className="pf-c-dropdown__menu-item"
-                      role="link"
-                      to="foo/copy"
-                    >
-                      Copy
-                    </ForwardRef>
+                    Copy
                   </DropdownItem>,
                 ]
               }

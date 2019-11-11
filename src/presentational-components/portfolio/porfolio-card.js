@@ -33,21 +33,20 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
     position={ DropdownPosition.right }
     toggle={ <KebabToggle onToggle={ setOpen }/> }
     dropdownItems={ [
-      <DropdownItem key="share-portfolio-action">
-        <Link to={ `/portfolios/share/${portfolioId}` } className="pf-c-dropdown__menu-item" >
+      <DropdownItem key="share-portfolio-action" component={ Link } to={ `/portfolios/share/${portfolioId}` }>
           Share
-        </Link>
       </DropdownItem>,
       <DropdownSeparator key="share-portfolio-separator"/>,
-      <DropdownItem key="edit-portfolio-action">
-        <Link to={ `/portfolios/edit/${portfolioId}` } className="pf-c-dropdown__menu-item" >
+      <DropdownItem key="edit-portfolio-action" component={ Link } to={ `/portfolios/edit/${portfolioId}` }>
           Edit
-        </Link>
       </DropdownItem>,
-      <DropdownItem key="remove-portfolio-action">
-        <Link to={ `/portfolios/remove/${portfolioId}` } className="pf-c-dropdown__menu-item destructive-color">
+      <DropdownItem
+        key="remove-portfolio-action"
+        component={ Link }
+        to={ `/portfolios/remove/${portfolioId}` }
+        className="pf-c-dropdown__menu-item destructive-color"
+      >
           Delete
-        </Link>
       </DropdownItem>
     ] }/>
 ];
