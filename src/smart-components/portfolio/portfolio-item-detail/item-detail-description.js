@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 import EditPortfolioItem from './edit-portfolio-item';
+import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
+import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
 const ItemDetailDescription = ({ product, url }) => (
   <Switch>
@@ -32,6 +34,8 @@ const ItemDetailDescription = ({ product, url }) => (
       </TextContent>
     ) }/>
     <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
+    <Route exact path={ `${url}/edit-workflow` }
+      render={ () => <EditApprovalWorkflow closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } /> } />
   </Switch>
 );
 
@@ -46,4 +50,3 @@ ItemDetailDescription.propTypes = {
 };
 
 export default ItemDetailDescription;
-

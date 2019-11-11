@@ -16,6 +16,8 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
+import EditApprovalWorkflow from '../../common/edit-approval-workflow';
+import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
@@ -54,6 +56,8 @@ const PortfolioItemDetail = ({
           <CopyPortfolioItemModal { ...props }  portfolioItemId={ product.id } portfolioId={ portfolio.id } closeUrl={ url }/>
         ) }
       />
+      <Route path={ `${url}/edit-workflow` }
+        render={ props => <EditApprovalWorkflow { ...props } closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } /> }/>
       <PortfolioItemDetailToolbar
         uploadIcon={ uploadIcon }
         url={ url }

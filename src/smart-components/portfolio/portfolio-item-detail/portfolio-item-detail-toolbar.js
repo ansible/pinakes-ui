@@ -42,6 +42,7 @@ const PortfolioItemDetailToolbar = ({
                 orderUrl={ `${url}/order` }
                 editUrl={ `${url}/edit` }
                 copyUrl={ `${url}/copy` }
+                workflowUrl={ `${url}/edit-workflow` }
                 isFetching={ isFetching }
                 { ...args }
               />) }/>
@@ -66,8 +67,7 @@ PortfolioItemDetailToolbar.propTypes = {
   isOpen: PropTypes.bool,
   product: PropTypes.shape({
     distributor: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    workflow_ref: PropTypes.string
+    name: PropTypes.string.isRequired
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,

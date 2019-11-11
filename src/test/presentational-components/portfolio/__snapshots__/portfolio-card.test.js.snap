@@ -50,6 +50,26 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                           "render": [Function],
                         }
                       }
+                      to="/portfolios/edit-workflow/123"
+                    >
+                      Edit approval workflow
+                    </DropdownItem>,
+                    <DropdownSeparator />,
+                    <DropdownItem
+                      component={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "Link",
+                          "propTypes": Object {
+                            "innerRef": [Function],
+                            "onClick": [Function],
+                            "replace": [Function],
+                            "target": [Function],
+                            "to": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
                       to="/portfolios/edit/123"
                     >
                       Edit

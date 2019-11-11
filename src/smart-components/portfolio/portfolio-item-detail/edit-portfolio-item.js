@@ -25,10 +25,6 @@ const EditPortfolioItem = ({ history: { push }, cancelUrl, product: { owner, cre
 };
 
 EditPortfolioItem.propTypes = {
-  workflows: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string,
-    label: PropTypes.node.isRequired
-  })).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
