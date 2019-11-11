@@ -314,3 +314,11 @@
     padding-top: 24px;
   }
 }
+
+.app-tabs {
+  border-bottom: 1px solid lightgrey;
+}
+
+.empty-state {
+  height: calc(100% - 197px)
+}

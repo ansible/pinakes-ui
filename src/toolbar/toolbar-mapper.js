@@ -5,6 +5,7 @@ import { Button, Level, LevelItem, Toolbar, ToolbarItem, ToolbarGroup } from '@p
 
 import FilterToolbarItem from '../presentational-components/shared/filter-toolbar-item';
 import TopToolbar, { TopToolbarTitle } from '../presentational-components/shared/top-toolbar';
+import AppTabs from '../presentational-components/shared/app-tabs';
 
 const ToolbarButton = ({ title, ...props }) => <Button { ...props }>{ title }</Button>;
 
@@ -12,17 +13,20 @@ ToolbarButton.propTypes = {
   title: PropTypes.string.isRequired
 };
 
+const AppToolbar = ({ ...props }) => <Toolbar className= "pf-u-pb-md pf-u-pt-md pf-u-pr-lg pf-u-pl-xl toolbar" { ...props }/>;
+
 const toolbarMapper = {
   TopToolbar,
   TopToolbarTitle,
-  Toolbar,
+  Toolbar: AppToolbar,
   ToolbarGroup,
   ToolbarItem,
   FilterToolbarItem,
   Link,
   Level,
   LevelItem,
-  Button: ToolbarButton
+  Button: ToolbarButton,
+  AppTabs
 };
 
 export const toolbarComponentTypes = {
@@ -35,7 +39,8 @@ export const toolbarComponentTypes = {
   LINK: 'Link',
   BUTTON: 'Button',
   LEVEL: 'Level',
-  LEVEL_ITEM: 'LevelItem'
+  LEVEL_ITEM: 'LevelItem',
+  TABS: 'AppTabs'
 };
 
 export default toolbarMapper;
