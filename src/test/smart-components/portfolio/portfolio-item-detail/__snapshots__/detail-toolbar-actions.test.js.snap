@@ -146,13 +146,23 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             <DropdownSeparator />,
             <DropdownItem
               aria-label="Edit Approval Workflow"
+              component={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "displayName": "Link",
+                  "propTypes": Object {
+                    "innerRef": [Function],
+                    "onClick": [Function],
+                    "replace": [Function],
+                    "target": [Function],
+                    "to": [Function],
+                  },
+                  "render": [Function],
+                }
+              }
+              role="link"
             >
-              <ForwardRef
-                className="pf-c-dropdown__menu-item"
-                role="link"
-              >
-                Edit approval workflow
-              </ForwardRef>
+              Edit approval workflow
             </DropdownItem>,
           ]
         }
@@ -215,13 +225,23 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               <DropdownSeparator />,
               <DropdownItem
                 aria-label="Edit Approval Workflow"
+                component={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "displayName": "Link",
+                    "propTypes": Object {
+                      "innerRef": [Function],
+                      "onClick": [Function],
+                      "replace": [Function],
+                      "target": [Function],
+                      "to": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
+                role="link"
               >
-                <ForwardRef
-                  className="pf-c-dropdown__menu-item"
-                  role="link"
-                >
-                  Edit approval workflow
-                </ForwardRef>
+                Edit approval workflow
               </DropdownItem>,
             ]
           }
@@ -285,13 +305,23 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownSeparator />,
                   <DropdownItem
                     aria-label="Edit Approval Workflow"
+                    component={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    role="link"
                   >
-                    <ForwardRef
-                      className="pf-c-dropdown__menu-item"
-                      role="link"
-                    >
-                      Edit approval workflow
-                    </ForwardRef>
+                    Edit approval workflow
                   </DropdownItem>,
                 ],
                 "isOpen": false,
@@ -356,13 +386,23 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownSeparator />,
                   <DropdownItem
                     aria-label="Edit Approval Workflow"
+                    component={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    role="link"
                   >
-                    <ForwardRef
-                      className="pf-c-dropdown__menu-item"
-                      role="link"
-                    >
-                      Edit approval workflow
-                    </ForwardRef>
+                    Edit approval workflow
                   </DropdownItem>,
                 ]
               }

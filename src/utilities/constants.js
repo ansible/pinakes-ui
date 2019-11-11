@@ -13,3 +13,6 @@ export const permissionOptions = [{
 }, {
   value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
 }];
+
+export const PORTFOLIO_RESOURCE_TYPE = 'Portfolio';
+export const PORTFOLIO_ITEM_RESOURCE_TYPE = 'PortfolioItem';

@@ -26,13 +26,11 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen,
             </DropdownItem>,
             <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio" component={ Link } to={ copyUrl } role="link">
                 Copy
-              </Link>
             </DropdownItem>,
             <DropdownSeparator key="workflow-portfolio-separator"/>,
-            <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow">
-              <Link to={ workflowUrl } role="link" className="pf-c-dropdown__menu-item">
+            <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
+              to={ workflowUrl } role="link" >
                 Edit approval workflow
-              </Link>
             </DropdownItem>
           ] }
         />
