@@ -31,7 +31,7 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen,
             <DropdownSeparator key="workflow-portfolio-separator"/>,
             <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow">
               <Link to={ workflowUrl } role="link" className="pf-c-dropdown__menu-item">
-                Edit Approval Workflow
+                Edit approval workflow
               </Link>
             </DropdownItem>
           ] }

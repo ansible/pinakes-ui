@@ -151,7 +151,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 className="pf-c-dropdown__menu-item"
                 role="link"
               >
-                Edit Approval Workflow
+                Edit approval workflow
               </ForwardRef>
             </DropdownItem>,
           ]
@@ -220,7 +220,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   className="pf-c-dropdown__menu-item"
                   role="link"
                 >
-                  Edit Approval Workflow
+                  Edit approval workflow
                 </ForwardRef>
               </DropdownItem>,
             ]
@@ -290,7 +290,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       className="pf-c-dropdown__menu-item"
                       role="link"
                     >
-                      Edit Approval Workflow
+                      Edit approval workflow
                     </ForwardRef>
                   </DropdownItem>,
                 ],
@@ -361,7 +361,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       className="pf-c-dropdown__menu-item"
                       role="link"
                     >
-                      Edit Approval Workflow
+                      Edit approval workflow
                     </ForwardRef>
                   </DropdownItem>,
                 ]
