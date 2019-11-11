@@ -22,7 +22,7 @@ const ContentList = ({ data, columns, isCompact, isLoading, actionResolver, areA
     : <NoItems/>;
 
   const renderContent = () =>
-    (!rows || rows.length === 0) ?
+    rows.length === 0 ?
       renderEmptyContent() :
       <Fragment>
         { routes() }
