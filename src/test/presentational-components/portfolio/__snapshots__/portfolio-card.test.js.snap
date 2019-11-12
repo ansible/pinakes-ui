@@ -52,7 +52,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                       }
                       to="/portfolios/edit-workflow/123"
                     >
-                      Edit approval workflow
+                      Edit approval
                     </DropdownItem>,
                     <DropdownSeparator />,
                     <DropdownItem
