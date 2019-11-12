@@ -85,6 +85,7 @@ const Portfolio = props => {
     editPortfolioRoute: `${props.match.url}/edit-portfolio`,
     removePortfolioRoute: `${props.match.url}/remove-portfolio`,
     sharePortfolioRoute: `${props.match.url}/share-portfolio`,
+    workflowPortfolioRoute: `${props.match.url}/edit-workflow`,
     orderUrl: `${props.match.url}/product`
   };
 

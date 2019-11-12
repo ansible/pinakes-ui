@@ -10,7 +10,7 @@ import AsyncPagination from '../../smart-components/common/async-pagination';
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
  */
-const PortfolioActionsToolbar = ({ editPortfolioRoute, removePortfolioRoute, copyInProgress, copyPortfolio }) => {
+const PortfolioActionsToolbar = ({ editPortfolioRoute, workflowPortfolioRoute, removePortfolioRoute, copyInProgress, copyPortfolio }) => {
   const [ isOpen, setOpen ] =  useState(false);
   return (
     <Dropdown
@@ -22,6 +22,10 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, removePortfolioRoute, cop
       dropdownItems={ [
         <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
         Copy
+        </DropdownItem>,
+        <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
+          to={ workflowPortfolioRoute } role="link" >
+          Edit approval
         </DropdownItem>,
         <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editPortfolioRoute } role="link">
             Edit
@@ -43,6 +47,7 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, removePortfolioRoute, cop
 PortfolioActionsToolbar.propTypes = {
   removePortfolioRoute: PropTypes.string.isRequired,
   editPortfolioRoute: PropTypes.string.isRequired,
+  workflowPortfolioRoute: PropTypes.string.isRequired,
   copyPortfolio: PropTypes.func.isRequired,
   copyInProgress: PropTypes.bool
 };
@@ -86,6 +91,7 @@ const createPortfolioToolbarSchema = ({
   copyPortfolio,
   sharePortfolioRoute,
   editPortfolioRoute,
+  workflowPortfolioRoute,
   removePortfolioRoute,
   copyInProgress,
   isLoading,
@@ -122,6 +128,7 @@ const createPortfolioToolbarSchema = ({
           {
             component: PortfolioActionsToolbar,
             editPortfolioRoute,
+            workflowPortfolioRoute,
             removePortfolioRoute,
             copyPortfolio,
             copyInProgress,
@@ -130,7 +137,7 @@ const createPortfolioToolbarSchema = ({
       }]
     }, {
       component: toolbarComponentTypes.LEVEL,
-      key: 'porftolio-items-actions',
+      key: 'portfolio-items-actions',
       fields: [{
         component: toolbarComponentTypes.TOOLBAR,
         key: 'portfolio-items-actions',
@@ -166,7 +173,7 @@ const createPortfolioToolbarSchema = ({
         key: 'pagination-item',
         fields: [{
           component: AsyncPagination,
-          key: 'porftolio-items-pagination',
+          key: 'portfolio-items-pagination',
           meta,
           apiRequest: fetchPortfolioItemsWithPortfolio,
           apiProps: portfolioId
