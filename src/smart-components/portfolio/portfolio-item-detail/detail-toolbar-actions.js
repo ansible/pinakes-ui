@@ -30,7 +30,7 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen,
             <DropdownSeparator key="workflow-portfolio-separator"/>,
             <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
               to={ workflowUrl } role="link" >
-                Edit approval workflow
+                Edit approval
             </DropdownItem>
           ] }
         />

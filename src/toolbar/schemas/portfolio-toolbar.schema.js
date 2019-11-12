@@ -25,7 +25,7 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, workflowPortfolioRoute, r
         </DropdownItem>,
         <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
           to={ workflowPortfolioRoute } role="link" >
-          Edit approval workflow
+          Edit approval
         </DropdownItem>,
         <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editPortfolioRoute } role="link">
             Edit
