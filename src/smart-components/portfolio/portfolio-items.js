@@ -73,7 +73,7 @@ const PortfolioItems = ({
 );
 
 PortfolioItems.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   filteredItems: PropTypes.shape({ items: PropTypes.arrayOf(PropTypes.node), isLoading: PropTypes.bool }),
   portfolioRoute: PropTypes.string.isRequired,
   addProductsRoute: PropTypes.string.isRequired,
