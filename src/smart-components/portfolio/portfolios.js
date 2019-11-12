@@ -7,6 +7,7 @@ import Portfolio from './portfolio';
 import AddPortfolio from './add-portfolio-modal';
 import SharePortfolio from './share-portfolio-modal';
 import RemovePortfolio from './remove-portfolio-modal';
+import EditApprovalWorkflow from '../../smart-components/common/edit-approval-workflow';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
@@ -16,6 +17,7 @@ import PortfolioCard from '../../presentational-components/portfolio/porfolio-ca
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
+import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 
 const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
   filteringCallback(true);
@@ -85,6 +87,8 @@ const Portfolios = () => {
         <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
         <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
         <Route exact path="/portfolios/share/:id" render={ (...args) => <SharePortfolio closeUrl={ match.url } { ...args } /> } />
+        <Route exact path="/portfolios/edit-workflow/:id" render={ () =>
+          <EditApprovalWorkflow closeUrl={ match.url } objectType={ PORTFOLIO_RESOURCE_TYPE } /> } />
         <ContentGallery items={ galleryItems } isLoading={ isFetching || isFiltering } renderEmptyState={ () => (
           <ContentGalleryEmptyState
             title="No portfolios"

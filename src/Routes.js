@@ -1,5 +1,4 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
@@ -17,8 +16,8 @@ const paths = {
   orders: '/orders'
 };
 
-export const Routes = props => {
-  const path = props.childProps.location.pathname;
+export const Routes = () => {
+  const { pathname } = useLocation();
   return (
     <Suspense fallback={ <AppPlaceholder /> }>
       <Switch>
@@ -26,13 +25,8 @@ export const Routes = props => {
         <Route path={ paths.portfolios } component={ Portfolios }/>
         <Route path={ paths.platforms } component={ Platforms }/>
         <Route path={ paths.orders } component={ Orders }/>
-        { /* Finally, catch all unmatched routes */ }
-        <Route render={ () => (some(paths, p => p === path) ? null : <Redirect to={ paths.portfolios } />) } />
+        <Route render={ () => (some(paths, p => p === pathname) ? null : <Redirect to={ paths.portfolios } />) } />
       </Switch>
     </Suspense>
   );
-};
-
-Routes.propTypes = {
-  childProps: PropTypes.object
 };

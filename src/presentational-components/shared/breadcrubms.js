@@ -30,6 +30,12 @@ const fragmentMapper = {
   },
   product: {
     reducer: 'portfolioReducer.portfolioItem.name'
+  },
+  'platform-templates': {
+    reducer: 'platformReducer.platform.name'
+  },
+  'platform-inventories': {
+    reducer: 'platformReducer.platform.name'
   }
 };
 

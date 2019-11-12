@@ -16,7 +16,7 @@ import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import PlatformCard from '../../presentational-components/platform/platform-card';
-import createPlatformsToolbarSchema from '../../toolbar/schemas/platforms-toolbar.schema';
+import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 
 const platformsRoutes = {

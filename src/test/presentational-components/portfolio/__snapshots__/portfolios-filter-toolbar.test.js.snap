@@ -5,6 +5,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
   value={
     Object {
       "componentMapper": Object {
+        "AppTabs": [Function],
         "Button": [Function],
         "FilterToolbarItem": [Function],
         "Level": [Function],
@@ -42,7 +43,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
     />
     <Component
       component="Level"
-      key="porftolios-actions"
+      key="portfolios-actions"
     >
       <Component
         className="pf-u-mt-md"
@@ -98,7 +99,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
         <Component
           apiRequest={[Function]}
           component={[Function]}
-          key="porftolios-pagination"
+          key="portfolios-pagination"
         />
       </Component>
     </Component>

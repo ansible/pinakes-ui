@@ -1,5 +1,6 @@
 import { getAxiosInstance, getSourcesApi, getTopologocalInventoryApi, getGraphqlInstance } from '../shared/user-login';
 import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
+import { defaultSettings } from '../shared/pagination';
 
 const sourcesApi = getSourcesApi();
 const topologicalApi = getTopologocalInventoryApi();
@@ -19,17 +20,17 @@ query {
   }
 }`;
 
-export function getPlatforms() {
+export const getPlatforms = () => {
   return graphqlInstance.post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
   .then(({ data: { application_types }}) => application_types)
   .then(([{ sources }]) => sources);
-}
+};
 
-export function getPlatform(platformId) {
+export const getPlatform = (platformId) => {
   return sourcesApi.showSource(platformId);
-}
+};
 
-export function getPlatformItems(apiProps, options) {
+export const getPlatformItems = (apiProps, options) => {
   let apiPromise = null;
 
   if (apiProps) {
@@ -41,4 +42,15 @@ export function getPlatformItems(apiProps, options) {
   }
 
   return apiPromise;
-}
+};
+
+export const getPlatformInventories = (platformId, filter = '', options = defaultSettings) => {
+  if (platformId) {
+    return axiosInstance.
+    get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${options
+      ? `&limit=${options.limit}&offset=${options.offset}`
+      : ''}`);
+  } else {
+    return topologicalApi.listServiceInventories(options);
+  }
+};

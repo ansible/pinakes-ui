@@ -6,7 +6,7 @@ import { Route, withRouter } from 'react-router-dom';
 
 import { fetchOpenOrders, fetchCloseOrders } from '../../redux/actions/order-actions';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
-import { OrderLoader } from '../../presentational-components/shared/loader-placeholders';
+import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
 import OrderItem from './order-item';
 import FilterToolbarItem from '../../presentational-components/shared/filter-toolbar-item';
 import AsyncPagination from '../common/async-pagination';
@@ -52,7 +52,7 @@ const OrdersList = ({ type, match: { url }}) => {
       </div>
       <DataList aria-label={ type }>
         { isFetching
-          ? <OrderLoader />
+          ? <ListLoader />
           : data
           .filter(item => getOrderPortfolioName(item, portfolioItems).toLowerCase().includes(searchValue.toLowerCase()))
           .map((item, index) => (
