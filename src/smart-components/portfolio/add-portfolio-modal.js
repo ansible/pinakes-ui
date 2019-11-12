@@ -9,7 +9,6 @@ import { Spinner } from '@redhat-cloud-services/frontend-components';
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
 import { addPortfolio, updatePortfolio } from '../../redux/actions/portfolio-actions';
-import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 
 const AddPortfolioModal = ({
   history: { goBack },
@@ -37,7 +36,7 @@ const AddPortfolioModal = ({
       { !id || (id && initialValues) ? (
         <div style={ { padding: 8 } }>
           <FormRenderer
-            schema={ createPortfolioSchema(!initialValues, loadWorkflowOptions, id) }
+            schema={ createPortfolioSchema(!initialValues, id) }
             schemaType="default"
             onSubmit={ onSubmit }
             onCancel={ onCancel }

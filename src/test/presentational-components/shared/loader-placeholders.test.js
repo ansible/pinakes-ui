@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store' ;
-import { AppPlaceholder, PortfolioLoader, CardLoader } from '../../../presentational-components/shared/loader-placeholders';
+import { AppPlaceholder, PortfolioLoader, CardLoader, ListLoader } from '../../../presentational-components/shared/loader-placeholders';
 
 describe('Loader placeholders', () => {
   it('should render <AppPlaceholder /> correctly', () => {
@@ -16,5 +16,9 @@ describe('Loader placeholders', () => {
 
   it('should render <CardLoader /> correctly', () => {
     expect(toJson(shallow(<CardLoader />))).toMatchSnapshot();
+  });
+
+  it('should render <ListLoader /> correctly', () => {
+    expect(toJson(shallow(<ListLoader />))).toMatchSnapshot();
   });
 });

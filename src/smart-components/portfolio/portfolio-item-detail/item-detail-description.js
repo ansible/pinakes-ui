@@ -4,13 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 import EditPortfolioItem from './edit-portfolio-item';
+import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
+import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
-const getWorkflowTitle = (workflows, workflowRef) => {
-  let workflow = workflows.find(({ value }) => value === workflowRef);
-  return workflow ? workflow.label : 'None';
-};
-
-const ItemDetailDescription = ({ product, url, workflows }) => (
+const ItemDetailDescription = ({ product, url }) => (
   <Switch>
     <Route exact path={ `${url}` } render={ () => (
       <TextContent>
@@ -34,16 +31,11 @@ const ItemDetailDescription = ({ product, url, workflows }) => (
             </Text>
           </Fragment>
         ) }
-        <Route exact path={ `${url}` } render={ () => (
-          <Fragment>
-            <Text component={ TextVariants.h6 }>Approval workflow</Text>
-            <Text component={ TextVariants.p }>{ getWorkflowTitle(workflows, product.workflow_ref) }</Text>
-          </Fragment>
-        ) } />
-
       </TextContent>
     ) }/>
     <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
+    <Route exact path={ `${url}/edit-workflow` }
+      render={ () => <EditApprovalWorkflow closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } /> } />
   </Switch>
 );
 
@@ -54,12 +46,7 @@ ItemDetailDescription.propTypes = {
     support_url: PropTypes.string,
     documentation_url: PropTypes.string
   }).isRequired,
-  url: PropTypes.string.isRequired,
-  workflows: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  })).isRequired
+  url: PropTypes.string.isRequired
 };
 
 export default ItemDetailDescription;
-
