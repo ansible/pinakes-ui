@@ -21,7 +21,7 @@ const createPortfolioToolbarSchema = ({
       title: 'Portfolios'
     }, {
       component: toolbarComponentTypes.LEVEL,
-      key: 'porftolios-actions',
+      key: 'portfolios-actions',
       fields: [{
         component: toolbarComponentTypes.TOOLBAR,
         key: 'main-portfolio-toolbar',
@@ -52,7 +52,7 @@ const createPortfolioToolbarSchema = ({
         key: 'pagination-item',
         fields: [{
           component: AsyncPagination,
-          key: 'porftolios-pagination',
+          key: 'portfolios-pagination',
           meta,
           apiRequest: fetchPortfolios
         }]

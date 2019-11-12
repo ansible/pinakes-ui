@@ -50,8 +50,7 @@ export const addPortfolio = (portfolioData, items) => dispatch => {
   return dispatch({
     type: ActionTypes.ADD_PORTFOLIO,
     payload: PortfolioHelper.addPortfolio({
-      ...portfolioData,
-      workflow_ref: portfolioData.workflow_ref || null
+      ...portfolioData
     }, items)
     .then(()=> dispatch(doFetchPortfolios()))
     .catch(error => {

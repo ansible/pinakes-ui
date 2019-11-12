@@ -860,6 +860,178 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
 </Grid>
 `;
 
+exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
+<DataList
+  aria-labelledby="datalist-placeholder"
+>
+  <DataListItem
+    aria-labelledby="datalist-item-placeholder"
+    key="0"
+  >
+    <DataListItemRow
+      aria-label="datalist-item-placeholder-row"
+    >
+      <DataListItemCells
+        dataListCells={
+          Array [
+            <DataListCell>
+              <Holder
+                height={12}
+                primaryColor="#FFFFFF"
+                secondaryColor="#ecebeb"
+                speed={2}
+                width={300}
+              >
+                <rect
+                  height="12"
+                  rx="0"
+                  ry="0"
+                  width="300"
+                  x="0"
+                  y="0"
+                />
+              </Holder>
+            </DataListCell>,
+          ]
+        }
+      />
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
+    aria-labelledby="datalist-item-placeholder"
+    key="1"
+  >
+    <DataListItemRow
+      aria-label="datalist-item-placeholder-row"
+    >
+      <DataListItemCells
+        dataListCells={
+          Array [
+            <DataListCell>
+              <Holder
+                height={12}
+                primaryColor="#FFFFFF"
+                secondaryColor="#ecebeb"
+                speed={2}
+                width={300}
+              >
+                <rect
+                  height="12"
+                  rx="0"
+                  ry="0"
+                  width="300"
+                  x="0"
+                  y="0"
+                />
+              </Holder>
+            </DataListCell>,
+          ]
+        }
+      />
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
+    aria-labelledby="datalist-item-placeholder"
+    key="2"
+  >
+    <DataListItemRow
+      aria-label="datalist-item-placeholder-row"
+    >
+      <DataListItemCells
+        dataListCells={
+          Array [
+            <DataListCell>
+              <Holder
+                height={12}
+                primaryColor="#FFFFFF"
+                secondaryColor="#ecebeb"
+                speed={2}
+                width={300}
+              >
+                <rect
+                  height="12"
+                  rx="0"
+                  ry="0"
+                  width="300"
+                  x="0"
+                  y="0"
+                />
+              </Holder>
+            </DataListCell>,
+          ]
+        }
+      />
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
+    aria-labelledby="datalist-item-placeholder"
+    key="3"
+  >
+    <DataListItemRow
+      aria-label="datalist-item-placeholder-row"
+    >
+      <DataListItemCells
+        dataListCells={
+          Array [
+            <DataListCell>
+              <Holder
+                height={12}
+                primaryColor="#FFFFFF"
+                secondaryColor="#ecebeb"
+                speed={2}
+                width={300}
+              >
+                <rect
+                  height="12"
+                  rx="0"
+                  ry="0"
+                  width="300"
+                  x="0"
+                  y="0"
+                />
+              </Holder>
+            </DataListCell>,
+          ]
+        }
+      />
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
+    aria-labelledby="datalist-item-placeholder"
+    key="4"
+  >
+    <DataListItemRow
+      aria-label="datalist-item-placeholder-row"
+    >
+      <DataListItemCells
+        dataListCells={
+          Array [
+            <DataListCell>
+              <Holder
+                height={12}
+                primaryColor="#FFFFFF"
+                secondaryColor="#ecebeb"
+                speed={2}
+                width={300}
+              >
+                <rect
+                  height="12"
+                  rx="0"
+                  ry="0"
+                  width="300"
+                  x="0"
+                  y="0"
+                />
+              </Holder>
+            </DataListCell>,
+          ]
+        }
+      />
+    </DataListItemRow>
+  </DataListItem>
+</DataList>
+`;
+
 exports[`Loader placeholders should render <PortfolioLoader /> correctly 1`] = `
 <Grid
   gutter="md"

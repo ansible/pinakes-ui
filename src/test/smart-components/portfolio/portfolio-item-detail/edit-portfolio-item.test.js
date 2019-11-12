@@ -7,9 +7,8 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-
 import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-item-detail/edit-portfolio-item';
-import { CATALOG_API_BASE, APPROVAL_API_BASE } from '../../../../utilities/constants';
+import { CATALOG_API_BASE } from '../../../../utilities/constants';
 import { UPDATE_TEMPORARY_PORTFOLIO_ITEM, UPDATE_PORTFOLIO_ITEM } from '../../../../redux/action-types';
 import { openApiReducerMock } from '../../../__mocks__/open-api-mock';
 
@@ -32,8 +31,7 @@ describe('<EditPortfolioItem />', () => {
       cancelUrl: '/cancel',
       product: {
         name: 'foo',
-        id: '123',
-        workflow_ref: '123'
+        id: '123'
       }
     };
   });
@@ -56,12 +54,9 @@ describe('<EditPortfolioItem />', () => {
   it('should submit form data', async done => {
     expect.assertions(3);
     const store = mockStore({ openApiReducer: openApiReducerMock });
-    console.log(store.getState());
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({
         name: 'foo',
-        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
         long_description: 'https://www.google.com/',
@@ -77,7 +72,6 @@ describe('<EditPortfolioItem />', () => {
 
         name: 'foo',
         id: '123',
-        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
         long_description: 'https://www.google.com/',
@@ -87,10 +81,8 @@ describe('<EditPortfolioItem />', () => {
     }, {
       type: UPDATE_PORTFOLIO_ITEM,
       payload: {
-
         name: 'foo',
         id: '123',
-        workflow_ref: '123',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
         long_description: 'https://www.google.com/',

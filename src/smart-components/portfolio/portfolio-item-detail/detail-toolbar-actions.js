@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownPosition, KebabToggle, LevelItem } from '@patternfly/react-core';
+import { Dropdown, DropdownItem, DropdownPosition, DropdownSeparator, KebabToggle, LevelItem } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
-const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, isOpen, setOpen, isFetching }) => ( // eslint-disable-line no-unused-vars
+const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen, setOpen, isFetching }) => ( // eslint-disable-line no-unused-vars
   <Fragment>
     <LevelItem>
       <Link disabled={ isFetching } to={ orderUrl }>
@@ -21,15 +21,16 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, isOpen, setOpen, isF
           toggle={ <KebabToggle onToggle={ setOpen }/> }
           isOpen={ isOpen }
           dropdownItems={ [
-            <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio">
-              <Link to={ editUrl } role="link" className="pf-c-dropdown__menu-item">
+            <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editUrl } role="link">
                 Edit
-              </Link>
             </DropdownItem>,
-            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio">
-              <Link to={ copyUrl } role="link" className="pf-c-dropdown__menu-item">
+            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio" component={ Link } to={ copyUrl } role="link">
                 Copy
-              </Link>
+            </DropdownItem>,
+            <DropdownSeparator key="workflow-portfolio-separator"/>,
+            <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
+              to={ workflowUrl } role="link" >
+                Edit approval
             </DropdownItem>
           ] }
         />
@@ -42,6 +43,7 @@ DetailToolbarActions.propTypes = {
   orderUrl: PropTypes.string.isRequired,
   editUrl: PropTypes.string.isRequired,
   copyUrl: PropTypes.string.isRequired,
+  workflowUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool

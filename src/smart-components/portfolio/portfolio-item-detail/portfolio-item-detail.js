@@ -8,16 +8,16 @@ import { Section } from '@redhat-cloud-services/frontend-components';
 
 import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
-import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
 import CopyPortfolioItemModal from './copy-portfolio-item-modal';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
-import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
+import EditApprovalWorkflow from '../../common/edit-approval-workflow';
+import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
 const PortfolioItemDetail = ({
   match: { path, url, params: { portfolioItemId }},
@@ -25,16 +25,11 @@ const PortfolioItemDetail = ({
   product,
   portfolio,
   isLoading,
-  workflows,
   orderFetching,
-  fetchWorkflows,
   fetchPlatforms,
   fetchPortfolioItem
 }) => {
   const [ isOpen, setOpen ] = useState(false);
-  useEffect(() => {
-    fetchWorkflows();
-  }, []);
   useEffect(() => {
     fetchPlatforms();
     fetchPortfolioItem(portfolioItemId);
@@ -61,6 +56,8 @@ const PortfolioItemDetail = ({
           <CopyPortfolioItemModal { ...props }  portfolioItemId={ product.id } portfolioId={ portfolio.id } closeUrl={ url }/>
         ) }
       />
+      <Route path={ `${url}/edit-workflow` }
+        render={ props => <EditApprovalWorkflow { ...props } closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } /> }/>
       <PortfolioItemDetailToolbar
         uploadIcon={ uploadIcon }
         url={ url }
@@ -75,7 +72,7 @@ const PortfolioItemDetail = ({
             <ItemDetailInfoBar product={ product } portfolio={ portfolio } source={ source } />
           </GridItem>
           <GridItem md={ 10 }>
-            <ItemDetailDescription product={ product } url={ url } workflows={ workflows } />
+            <ItemDetailDescription product={ product } url={ url } />
           </GridItem>
         </Grid>
       </div>
@@ -97,14 +94,9 @@ PortfolioItemDetail.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  workflows: PropTypes.arrayOf(PropTypes.shape({
-    value: allowNull(PropTypes.string),
-    label: PropTypes.string.isRequired
-  })).isRequired,
   isLoading: PropTypes.bool,
   fetchPlatforms: PropTypes.func.isRequired,
   fetchPortfolioItem: PropTypes.func.isRequired,
-  fetchWorkflows: PropTypes.func.isRequired,
   selectPortfolioItem: PropTypes.func.isRequired,
   orderFetching: PropTypes.bool
 };
@@ -112,7 +104,6 @@ PortfolioItemDetail.propTypes = {
 const mapStateToProps = ({
   portfolioReducer: { portfolioItem, isLoading, selectedPortfolio },
   platformReducer: { platforms },
-  approvalReducer: { workflows, isFetching },
   orderReducer: { isLoading: orderFetching }
 }) => {
   const portfolio = selectedPortfolio;
@@ -124,8 +115,7 @@ const mapStateToProps = ({
   }
 
   return ({
-    isLoading: isLoading || !product || !portfolio || !source || isFetching,
-    workflows,
+    isLoading: isLoading || !product || !portfolio || !source,
     portfolio,
     product,
     source,
@@ -136,7 +126,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchPlatforms,
   fetchPortfolioItem,
-  fetchWorkflows,
   selectPortfolioItem
 }, dispatch);
 

@@ -9,12 +9,11 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
-
-import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
-import AddPortfolioModal from '../../../smart-components/portfolio/add-portfolio-modal';
+import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 
-describe('<AddPortfolioModal />', () => {
+describe('<EditApprovalWorkflow />', () => {
   let initialProps;
   let initialState;
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
@@ -29,14 +28,16 @@ describe('<AddPortfolioModal />', () => {
 
   beforeEach(() => {
     initialProps = {
-      fetchPortfolios: jest.fn()
+      fetchWorkflows: jest.fn(),
+      closeUrl: 'foo',
+      workflows: []
     };
     initialState = {
-      portfolioReducer: {
-        portfolios: { data: [{
-          id: '123',
-          name: 'Portfolio'
-        }]}
+      approvalReducer: {
+        workflows: [{
+          label: 'foo',
+          value: 'bar'
+        }]
       }
     };
     mockStore = configureStore(middlewares);
@@ -44,63 +45,49 @@ describe('<AddPortfolioModal />', () => {
 
   it('should render correctly', () => {
     const store = mockStore({});
-    const wrapper = shallow(<ComponentWrapper store={ store }><AddPortfolioModal { ...initialProps } /></ComponentWrapper>).dive();
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
+    const wrapper = shallow(<ComponentWrapper store={ store }><EditApprovalWorkflow { ...initialProps } /></ComponentWrapper>).dive();
 
     setImmediate(() => {
       expect(shallowToJson(wrapper)).toMatchSnapshot();
     });
   });
 
-  it('should create edit variant of portfolio modal', done => {
+  it('should create the edit workflow modal', done => {
     const store = mockStore(initialState);
+
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
+      body: {
+        data: [{
+          name: 'workflow',
+          id: '123'
+        }]
+      }
+    }));
 
     const expectedSchema = {
       fields: [{
-        component: componentTypes.TEXT_FIELD,
-        isRequired: true,
-        label: 'Portfolio Name',
-        name: 'name',
-        validate: [ expect.any(Function) ]
-      }, {
-        component: componentTypes.TEXTAREA,
-        label: 'Description',
-        name: 'description'
+        component: componentTypes.SELECT,
+        name: 'workflow',
+        label: 'Approval workflow',
+        loadOptions: expect.any(Function),
+        isSearchable: true,
+        isClearable: true
       }]
     };
 
     const wrapper = mount(
       <ComponentWrapper store={ store } portfolioId="123">
-        <Route path="portfolios/:id?" render={ () => <AddPortfolioModal { ...initialProps } match={ { params: { id: '123' }} } /> }/>
+        <Route path="portfolios/:id?" render={ () => <EditApprovalWorkflow { ...initialProps } match={ { params: { id: '123' }} } /> }/>
       </ComponentWrapper>
     );
 
     setImmediate(() => {
       const modal = wrapper.find(Modal);
       const form = wrapper.find(FormRenderer);
-      expect(modal.props().title).toEqual('Edit portfolio');
+      expect(modal.props().title).toEqual('Set approval workflow');
       expect(form.props().schema).toEqual(expectedSchema);
       done();
     });
-  });
-
-  it('should create edit variant of portfolio modal and call updatePortfolio on submit', () => {
-    const store = mockStore(initialState);
-
-    apiClientMock.patch(`${CATALOG_API_BASE}/portfolios/123`, ((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({ id: '123', name: 'Portfolio' });
-      return res.body(200);
-    }));
-
-    const wrapper = mount(
-      <ComponentWrapper store={ store } portfolioId="123">
-        <Route
-          path="portfolios/:id?"
-          render={ () => <AddPortfolioModal { ...initialProps } match={ { params: { id: '123' }} }/> }
-        />
-      </ComponentWrapper>
-    );
-
-    const button = wrapper.find('button').last();
-    button.simulate('click');
   });
 });

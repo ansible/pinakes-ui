@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Platform /> should render correctly 1`] = `
+exports[`<PlatformTemplates /> should render correctly 1`] = `
 <ContextProvider
   value={null}
 >
-  <Platform
+  <PlatformTemplates
+    fetchPlatformItems={[Function]}
     fetchSelectedPlatform={[Function]}
     isPlatformDataLoading={false}
     match={
@@ -14,12 +15,20 @@ exports[`<Platform /> should render correctly 1`] = `
         },
       }
     }
+    paginationCurrent={
+      Object {
+        "count": 0,
+        "limit": 50,
+        "offset": 0,
+      }
+    }
     platform={
       Object {
         "id": "1",
         "name": "Foo",
       }
     }
+    platformItems={Array []}
     store={
       Object {
         "clearActions": [Function],
