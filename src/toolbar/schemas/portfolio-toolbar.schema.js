@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Dropdown, DropdownPosition, DropdownSeparator, KebabToggle, DropdownItem } from '@patternfly/react-core';
+import { Dropdown, DropdownPosition, KebabToggle, DropdownItem } from '@patternfly/react-core';
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
@@ -23,6 +23,10 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, workflowPortfolioRoute, r
         <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
         Copy
         </DropdownItem>,
+        <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
+          to={ workflowPortfolioRoute } role="link" >
+          Edit approval workflow
+        </DropdownItem>,
         <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editPortfolioRoute } role="link">
             Edit
         </DropdownItem>,
@@ -35,11 +39,6 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, workflowPortfolioRoute, r
           className="pf-c-dropdown__menu-item destructive-color"
         >
           Delete
-        </DropdownItem>,
-        <DropdownSeparator key="workflow-portfolio-separator"/>,
-        <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
-          to={ workflowPortfolioRoute } role="link" >
-          Edit approval workflow
         </DropdownItem>
       ] }
     />
