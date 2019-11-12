@@ -6,10 +6,9 @@ import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
 import { linkWorkflow } from '../../redux/actions/approval-actions';
-import { resolveWorkflows } from '../../helpers/approval/approval-helper';
 import { APP_NAME } from '../../utilities/constants';
-import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
-import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
+import { loadWorkflowOptions, resolveWorkflows } from '../../helpers/approval/approval-helper';
+import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
 
 const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
   const dispatch = useDispatch();
@@ -23,7 +22,9 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
   const [ workflow, setWorkflow ] = useState(undefined);
 
   useEffect(() => {
-    resolveWorkflows({ object_type: objectType, app_name: APP_NAME, object_id: id || objectId }).then((data)=>setWorkflow(data));
+    resolveWorkflows({ object_type: objectType, app_name: APP_NAME, object_id: id || objectId })
+    .then((data) => { setWorkflow(data); })
+    .catch(() => setWorkflow({}));
   }, []);
 
   const onSubmit = values => {
@@ -40,13 +41,13 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
     >
       { workflow ?
         <FormRenderer
-          initialValues={ { ...workflow } }
+          initialValues={ { workflow: workflow.id } }
           onSubmit={ onSubmit }
           onCancel={ () => history.push(pushParam) }
           schema={ editApprovalWorkflowSchema(loadWorkflowOptions) }
           formContainer="modal"
           buttonsLabels={ { submitLabel: 'Save' } }
-        /> : <CardLoader/> }
+        /> : <WorkflowLoader/> }
     </Modal>
   );
 };

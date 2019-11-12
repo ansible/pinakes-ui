@@ -30,7 +30,8 @@ describe('<EditApprovalWorkflow />', () => {
     initialProps = {
       fetchWorkflows: jest.fn(),
       closeUrl: 'foo',
-      workflows: []
+      objectType: 'Portfolio',
+      workflows: [{ name: 'workflow', id: '123' }]
     };
     initialState = {
       approvalReducer: {
@@ -64,6 +65,7 @@ describe('<EditApprovalWorkflow />', () => {
         }]
       }
     }));
+    apiClientMock.post(`${APPROVAL_API_BASE}/workflows/resolve`, mockOnce({ body: { name: 'workflow', id: '123' }}));
 
     const expectedSchema = {
       fields: [{
