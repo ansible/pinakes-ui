@@ -139,13 +139,21 @@ export const ProductLoaderPlaceholder = props => (
   </Fragment>
 );
 
-export const IconPlaceholder = props => (
+export const IconPlaceholder = ({ height, ...props }) => (
   <div { ...props }>
-    <svg height="40" width="40">
-      <circle cx="20" cy="20" r="20" fill="#ecebeb" />
+    <svg height={ `${height}` } width={ `${height}` } >
+      <circle cx={ height / 2.2 } cy={ height / 2.2 } r={ height / 2.2 } fill="#ecebeb" />
     </svg>
   </div>
 );
+
+IconPlaceholder.propTypes = {
+  height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
+};
+
+IconPlaceholder.defaultProps = {
+  height: '40'
+};
 
 const FormItemLoader = () => (
   <ContentLoader

@@ -39,8 +39,10 @@ const CardIcon = ({ src, height, platformId  }) => {
   const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
   return (
     <div style={ { display: 'inline-block' } }>
-      { !isLoaded && <IconPlaceholder style={ { height } } /> }
+      { !isLoaded && <IconPlaceholder height={ height } /> }
       <LazyLoadImage
+        threshold={ 2000 }
+        delayTime={ 50 }
         height={ isLoaded ? height : 0 }
         style={ { height: isLoaded ? height : 0 } }
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }

@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Bullseye,
   DataListCell,
-  DataListContent,
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  DataListToggle,
   Grid,
   GridItem,
   Level,
@@ -21,9 +18,8 @@ import {
   Tooltip,
   TooltipPosition
 } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components';
+import { Link } from 'react-router-dom';
 
-import OrderDetailTable from './order-detail-table';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
 import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
@@ -31,9 +27,10 @@ import createOrderRow from './create-order-row';
 import { cancelOrder } from '../../redux/actions/order-actions';
 import CancelOrderModal from './cancel-order-modal';
 import { getOrderApprovalRequests } from '../../helpers/order/order-helper';
+import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 const CANCELABLE_STATES = [ 'Approval Pending' ];
-
+/** Do not delete it will be used */
 const canCancel = state => CANCELABLE_STATES.includes(state);
 
 const OrderItem = ({
@@ -61,30 +58,33 @@ const OrderItem = ({
     <React.Fragment>
       <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
         <DataListItemRow>
-          <DataListToggle
-            id={ item.id }
-            aria-label={ `${item.id}-expand` }
-            aria-labelledby={ `${item.id}-expand` }
-            onClick={ () => setIsExpanded(isExpanded => !isExpanded) }
-            isExpanded={ isExpanded }
-          />
           <DataListItemCells
             dataListCells={ [
               <DataListCell key="1" className="cell-grow">
                 <Split gutter="sm">
                   <SplitItem>
-                    <CardIcon src={ getOrderIcon(item) } platformId={ getOrderPlatformId(item, portfolioItems) }/>
+                    <CardIcon height={ 60 } src={ getOrderIcon(item) } platformId={ getOrderPlatformId(item, portfolioItems) }/>
                   </SplitItem>
                   <SplitItem>
                     <TextContent>
-                      <Grid gutter="sm" style={ { gridGap: 8 } }>
+                      <Grid gutter="sm" style={ { gridGap: 16 } }>
                         <GridItem>
-                          <Text
-                            style={ { marginBottom: 0 } }
-                            component={ TextVariants.h5 }
-                          >
-                            { `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }
-                          </Text>
+                          <Level>
+                            <LevelItem>
+                              <Text
+                                style={ { marginBottom: 0 } }
+                                component={ TextVariants.h5 }
+                              >
+                                <Link to={ `/orders/${item.id}` }>{ `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }</Link>
+                              </Text>
+                            </LevelItem>
+                            <LevelItem>
+                              <Link to={ `/orders/${item.id}` }>
+                                { item.state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm" fill="#C9190B" /> }
+                                { item.state }
+                              </Link>
+                            </LevelItem>
+                          </Level>
                         </GridItem>
                         <GridItem>
                           <Level>
@@ -126,50 +126,11 @@ const OrderItem = ({
                     </TextContent>
                   </SplitItem>
                 </Split>
-              </DataListCell>,
-              <DataListCell key="2" style={ { alignSelf: item.state === 'Completed' ? 'flex-end' : 'center' } }>
-                <div style={ { minWidth: 200, textAlign: 'end' } }>
-                  { item.state === 'Completed' && (
-                    <a href={ item.orderItems && item.orderItems[0].external_url } target="_blank" rel="noopener noreferrer">
-                      Manage product
-                    </a>
-                  ) }
-                </div>
               </DataListCell>
             ] }
           />
         </DataListItemRow>
-        <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-          { requestDataFetching && (
-            <Bullseye>
-              <Spinner />
-            </Bullseye>
-          ) }
-          { isExpanded && !requestDataFetching && requestData && (
-            <div>
-              <OrderDetailTable
-                canCancel={ canCancel(item.state) }
-                requests={ requestData || [] }
-                orderId={ item.id }
-                orderState={ item.state }
-                orderItem={ item.orderItems && item.orderItems[0] }
-                onCancel={ () => setIsOpen(true) }
-              />
-            </div>
-          ) }
-        </DataListContent>
       </DataListItem>
-      { canCancel(item.state) &&
-          <CancelOrderModal
-            onClose={ () => setIsOpen(false) }
-            cancelOrder={ () => {
-              setIsOpen(false);
-              dispatch(cancelOrder(item.id));
-            } }
-            isOpen={ isOpen }
-            name={ `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }
-          />
-      }
     </React.Fragment>
   );
 };
