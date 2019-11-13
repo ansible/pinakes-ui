@@ -1,22 +1,25 @@
-import React, { useEffect, Fragment, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useParams } from 'react-router-dom';
+import { SearchIcon } from '@patternfly/react-icons';
 import { Section } from '@redhat-cloud-services/frontend-components';
-import debouncePromise from 'awesome-debounce-promise';
-import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import ContentGallery from '../content-gallery/content-gallery';
 import { scrollToTop } from '../../helpers/shared/helpers';
-import PlatformItem from '../../presentational-components/platform/platform-item';
-import { createPlatformsTopToolbarSchema, createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
-import ContentGaleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import {
-  fetchSelectedPlatform,
-  fetchPlatformItems
+  fetchPlatformItems,
+  fetchSelectedPlatform
 } from '../../redux/actions/platform-actions';
+import PlatformItem from '../../presentational-components/platform/platform-item';
+import {
+  createPlatformsFilterToolbarSchema,
+  createPlatformsTopToolbarSchema
+} from '../../toolbar/schemas/platforms-toolbar.schema';
+import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
-import { SearchIcon } from '@patternfly/react-icons/dist/js/index';
+import debouncePromise from 'awesome-debounce-promise/dist/index';
+import ContentGallery from '../content-gallery/content-gallery';
 
 const initialState = {
   filterValue: '',
@@ -39,11 +42,12 @@ const platformItemsState = (state, action) => {
 };
 
 const PlatformTemplates = (props) => {
+  const { id } = useParams();
   const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(platformItemsState, initialState);
-  const { platformItems, meta } = useSelector(({ platformReducer: { platformItems }}) => platformItems);
+  const { data, meta } = useSelector(({ platformReducer: { platformItems }}) => platformItems[id] ? platformItems[id]
+    : { data: [], meta: defaultSettings });
   const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
   const dispatch = useDispatch();
-  const { id } = useParams();
   const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(fetchPlatformItems(id, value, meta)).then(() => filteringCallback(false));
@@ -91,7 +95,7 @@ const PlatformTemplates = (props) => {
   const renderItems = () => {
     const paginationCurrent = meta || defaultSettings;
     let filteredItems = {
-      items: platformItems ? platformItems.map(data => <PlatformItem key={ data.id } { ...data } />) : [],
+      items: data ? data.map(item => <PlatformItem key={ item.id } { ...item } />) : [],
       isLoading: isFetching || isFiltering
     };
 
@@ -108,7 +112,7 @@ const PlatformTemplates = (props) => {
           searchValue: filterValue,
           pagination: {
             itemsPerPage: paginationCurrent.limit,
-            numberOfItems: paginationCurrent.count || 50,
+            numberOfItems: paginationCurrent.count,
             onPerPageSelect: handleOnPerPageSelect,
             page: getCurrentPage(paginationCurrent.limit, paginationCurrent.offset),
             onSetPage: handleSetPage,
@@ -116,19 +120,18 @@ const PlatformTemplates = (props) => {
           }
         }) }/>
         <Section type="content">
-          <ContentGallery
+          <ContentGallery title={ title }
             isLoading={ isFetching || isFiltering }
             renderEmptyState={ () => (
-              <ContentGaleryEmptyState
-                title="No platform templates"
+              <ContentGalleryEmptyState
+                title="No items"
                 Icon={ SearchIcon }
-                description={ filterValue === '' ? 'No templates found.' : 'No templates match your filter criteria.' }
+                description={ filterValue === '' ? 'No items found.' : 'No items match your filter criteria.' }
               />) }
             { ...filteredItems }/>
         </Section>
       </Fragment>
-    );
-  };
+    );};
 
   return (
     <Switch>
@@ -141,7 +144,6 @@ const PlatformTemplates = (props) => {
 PlatformTemplates.propTypes = {
   filteredItems: PropTypes.object,
   isPlatformDataLoading: PropTypes.bool,
-  match: PropTypes.object,
   platform: PropTypes.shape({
     name: PropTypes.string
   }),
@@ -149,14 +151,15 @@ PlatformTemplates.propTypes = {
   paginationCurrent: PropTypes.shape({
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired
+    count: PropTypes.number
   })
 };
 
 PlatformTemplates.defaultProps = {
   platformItems: [],
   paginationCurrent: {
-    limit: 50
+    limit: 50,
+    offset: 0
   }
 };
 
