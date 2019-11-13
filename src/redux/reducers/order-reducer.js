@@ -9,7 +9,8 @@ import {
   FETCH_ORDER_ITEMS,
   SET_LOADING_STATE,
   SET_ORDERS,
-  FETCH_ORDERS
+  FETCH_ORDERS,
+  SET_ORDER_DETAIL
 } from '../action-types';
 import { defaultSettings } from '../../helpers/shared/pagination';
 // Initial State
@@ -35,6 +36,7 @@ const selectPlan = (state, { payload }) => ({ ...state, selectedPlan: payload, i
 const setRequests = (state, { payload }) => ({ ...state, requests: payload, isLoading: false });
 const setOrderItems = (state, { payload }) => ({ ...state, orderItems: payload, isLoading: false });
 const setOrders = (state, { payload }) => ({ ...state, orders: payload });
+const setOrderDetail = (state, { payload }) => ({ ...state, orderDetail: payload });
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -54,5 +56,7 @@ export default {
   [SET_LOADING_STATE]: setLoadingState,
   [`${FETCH_ORDERS}_FULFILLED`]: setOrders,
   [`${FETCH_ORDERS}_PENDING`]: setLoadingState,
-  [SET_ORDERS]: setOrders
+  [SET_ORDERS]: setOrders,
+  [`${SET_ORDER_DETAIL}_PENDING`]: state => setOrderDetail(state, {}),
+  [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail
 };

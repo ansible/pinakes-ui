@@ -58,3 +58,9 @@ export const SET_LOADING_STATE = 'SET_LOADING_STATE';
  * OpenApi action
  */
 export const SET_OPENAPI_SCHEMA = '@@open-api/set-schema';
+
+/**
+ * Orders actions
+ * TODO Prefix existing action types
+ */
+export const SET_ORDER_DETAIL = '@@orders/set-order-detail';

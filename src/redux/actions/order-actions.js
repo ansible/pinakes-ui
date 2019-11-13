@@ -94,3 +94,14 @@ export const fetchOrders = (...args) => dispatch => {
   })
   .catch(error => dispatch({ type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`, payload: error }));
 };
+
+export const fetchOrderDetails = params => dispatch => {
+  dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
+  return OrderHelper.getOrderDetail(params)
+  .then(([ order, orderItem, portfolioItem, platform ]) => dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`, payload: {
+    order,
+    orderItem,
+    portfolioItem,
+    platform
+  }}));
+};

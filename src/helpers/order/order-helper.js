@@ -1,6 +1,6 @@
 /* eslint camelcase: 0 */
 import { getAxiosInstance, getPortfolioItemApi, getOrderApi, getRequestsApi, getOrderItemApi } from '../shared/user-login';
-import { CATALOG_API_BASE } from '../../utilities/constants';
+import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
 
 const orderApi = getOrderApi();
@@ -71,3 +71,18 @@ export const getOrders = (pagination = defaultSettings) =>
 export function getOrderApprovalRequests(orderItemId) {
   return orderItemApi.listApprovalRequests(orderItemId);
 }
+
+export const getOrderDetail = params => {
+  return Promise.all([
+    axiosInstance.get(`${CATALOG_API_BASE}/orders?filter[id]=${params.order}`).then(({ data: [ order ] }) => {
+      if (!order) {
+        throw new Error(`Order with id ${params.order} does not exist`);
+      }
+
+      return order;
+    }),
+    axiosInstance.get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`),
+    axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`),
+    axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+  ]);
+};
