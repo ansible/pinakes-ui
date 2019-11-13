@@ -33,10 +33,12 @@ const defaultPlatformIcon = (platformId, platformList) => {
   return CardIconDefault;
 };
 
-const CardIcon = ({ src, height, platformId  }) => {
+const CardIcon = ({ src, height, platformId, sourceTypeId  }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
   const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
+
+  console.log('isUnknown: ', isUnknown)
   return (
     <div style={ { display: 'inline-block' } }>
       { !isLoaded && <IconPlaceholder height={ height } /> }
@@ -48,7 +50,7 @@ const CardIcon = ({ src, height, platformId  }) => {
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }
         onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        src={ isUnknown && platformId ? defaultPlatformIcon(platformId, platformList) : src }
+        src={ isUnknown && sourceTypeId ? platformTypeIcon[sourceTypeId] : platformId ? defaultPlatformIcon(platformId, platformList) : src }
       />
     </div>
   );
@@ -58,7 +60,8 @@ CardIcon.propTypes = {
   src: PropTypes.string.isRequired,
   platformId: PropTypes.string,
   style: PropTypes.object,
-  height: PropTypes.number
+  height: PropTypes.number,
+  sourceTypeId: PropTypes.string
 };
 
 CardIcon.defaultProps = {

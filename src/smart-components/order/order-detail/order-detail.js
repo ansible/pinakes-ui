@@ -6,12 +6,13 @@ import {
   useLocation,
   useRouteMatch
 } from 'react-router-dom';
-import { Stack, StackItem, Level, LevelItem, ActionGroup, Button, Form } from '@patternfly/react-core';
+import { Stack, StackItem, Level, LevelItem } from '@patternfly/react-core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';
 import OrderDetailTitle from './order-detail-title';
 import OrderToolbarActions from './order-toolbar-actions';
+import OrderDetailInformation from './order-detail-information';
 
 const requiredParams = [ 'order-item', 'portfolio-item', 'platform' ];
 
@@ -45,12 +46,13 @@ const OrderDetail = () => {
 
   const {
     order,
-    portfolioItem
+    portfolioItem,
+    platform
   } = orderDetailData;
 
   return (
-    <Stack className="orders bg-fill pf-u-p-xl pf-u-pt-md pf-u-pb-md">
-      <StackItem>
+    <Stack className="orders bg-fill">
+      <StackItem className="orders separator pf-u-p-xl pf-u-pt-md pf-u-pb-0">
         <Level>
           <LevelItem>
             <OrderDetailTitle portfolioItemName={ portfolioItem.name } orderId={ order.id } />
@@ -59,6 +61,19 @@ const OrderDetail = () => {
             <OrderToolbarActions state={ order.state } />
           </LevelItem>
         </Level>
+        <Level>
+          <OrderDetailInformation
+            portfolioItemId={ portfolioItem.id }
+            sourceType={ platform.source_type_id }
+            state={ order.state }
+            platformName={ platform.name }
+            orderRequestDate={ order.order_request_sent_at }
+            orderUpdateDate={ portfolioItem.updated_at }
+            owner={ order.owner }
+          />
+        </Level>
+      </StackItem>
+      <StackItem>
         <Link to={ {
           pathname: `${match.url}/foo`,
           search

@@ -327,4 +327,7 @@
   &.bg-fill {
     background-color: var(--pf-global--Color--light-100);
   }
+  &.separator {
+    border-bottom: 2px solid var(--pf-global--Color--light-200);
+  }
 }
