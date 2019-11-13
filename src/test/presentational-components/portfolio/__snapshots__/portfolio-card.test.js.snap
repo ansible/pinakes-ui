@@ -17,83 +17,43 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                   Array [
                     <DropdownItem
                       component={
-                        Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "displayName": "Link",
-                          "propTypes": Object {
-                            "innerRef": [Function],
-                            "onClick": [Function],
-                            "replace": [Function],
-                            "target": [Function],
-                            "to": [Function],
-                          },
-                          "render": [Function],
-                        }
+                        <ForwardRef
+                          to="/portfolios/share/123"
+                        >
+                          Share
+                        </ForwardRef>
                       }
-                      to="/portfolios/share/123"
-                    >
-                      Share
-                    </DropdownItem>,
+                    />,
                     <DropdownSeparator />,
                     <DropdownItem
                       component={
-                        Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "displayName": "Link",
-                          "propTypes": Object {
-                            "innerRef": [Function],
-                            "onClick": [Function],
-                            "replace": [Function],
-                            "target": [Function],
-                            "to": [Function],
-                          },
-                          "render": [Function],
-                        }
+                        <ForwardRef
+                          to="/portfolios/edit-workflow/123"
+                        >
+                          Edit approval
+                        </ForwardRef>
                       }
-                      to="/portfolios/edit-workflow/123"
-                    >
-                      Edit approval
-                    </DropdownItem>,
+                    />,
                     <DropdownSeparator />,
                     <DropdownItem
                       component={
-                        Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "displayName": "Link",
-                          "propTypes": Object {
-                            "innerRef": [Function],
-                            "onClick": [Function],
-                            "replace": [Function],
-                            "target": [Function],
-                            "to": [Function],
-                          },
-                          "render": [Function],
-                        }
+                        <ForwardRef
+                          to="/portfolios/edit/123"
+                        >
+                          Edit
+                        </ForwardRef>
                       }
-                      to="/portfolios/edit/123"
-                    >
-                      Edit
-                    </DropdownItem>,
+                    />,
                     <DropdownItem
                       className="pf-c-dropdown__menu-item destructive-color"
                       component={
-                        Object {
-                          "$$typeof": Symbol(react.forward_ref),
-                          "displayName": "Link",
-                          "propTypes": Object {
-                            "innerRef": [Function],
-                            "onClick": [Function],
-                            "replace": [Function],
-                            "target": [Function],
-                            "to": [Function],
-                          },
-                          "render": [Function],
-                        }
+                        <ForwardRef
+                          to="/portfolios/remove/123"
+                        >
+                          Delete
+                        </ForwardRef>
                       }
-                      to="/portfolios/remove/123"
-                    >
-                      Delete
-                    </DropdownItem>,
+                    />,
                   ]
                 }
                 isOpen={false}

@@ -23,23 +23,25 @@ const PortfolioActionsToolbar = ({ editPortfolioRoute, workflowPortfolioRoute, r
         <DropdownItem component="button" aria-label="Copy Portfolio" key="copy-portfolio" onClick={ copyPortfolio }>
         Copy
         </DropdownItem>,
-        <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
-          to={ workflowPortfolioRoute } role="link" >
-          Edit approval
-        </DropdownItem>,
-        <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editPortfolioRoute } role="link">
-            Edit
-        </DropdownItem>,
+        <DropdownItem
+          aria-label="Edit Approval Workflow"
+          key="edit-approval_workflow"
+          component={ <Link to={ workflowPortfolioRoute }>Edit approval</Link> }
+          role="link"
+        />,
+        <DropdownItem
+          aria-label="Edit Portfolio"
+          key="edit-portfolio"
+          component={ <Link to={ editPortfolioRoute }>Edit</Link> }
+          role="link"
+        />,
         <DropdownItem
           aria-label="Remove Portfolio"
           key="delete-portfolio"
-          component={ Link }
-          to={ removePortfolioRoute }
+          component={ <Link to={ removePortfolioRoute }>Delete</Link> }
           role="link"
           className="pf-c-dropdown__menu-item destructive-color"
-        >
-          Delete
-        </DropdownItem>
+        />
       ] }
     />
   );};

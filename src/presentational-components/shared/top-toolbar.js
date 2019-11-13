@@ -37,7 +37,7 @@ export const TopToolbarTitle = ({ title, children, ...rest }) => (
     <Level className="pf-u-mb-md" { ...rest }>
       <LevelItem>
         <TextContent className="top-toolbar-title">
-          { <Text component={ TextVariants.h2 }>{ title || <ToolbarTitlePlaceholder /> }</Text> }
+          { <Text component={ TextVariants.h2 }>{ title }</Text> }
         </TextContent>
       </LevelItem>
       { children }
@@ -46,9 +46,13 @@ export const TopToolbarTitle = ({ title, children, ...rest }) => (
 );
 
 TopToolbarTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
   ])
+};
+
+TopToolbarTitle.defaultProps = {
+  title: <ToolbarTitlePlaceholder />
 };

@@ -18,20 +18,18 @@ const DetailToolbarActions = ({ copyUrl, orderUrl, editUrl, workflowUrl, isOpen,
           onToggle={ setOpen }
           onSelect={ () => setOpen(false) }
           position={ DropdownPosition.right }
-          toggle={ <KebabToggle onToggle={ setOpen }/> }
+          toggle={ <KebabToggle onToggle={ isOpen => setOpen(isOpen) }/> }
           isOpen={ isOpen }
           dropdownItems={ [
-            <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ Link } to={ editUrl } role="link">
-                Edit
-            </DropdownItem>,
-            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio" component={ Link } to={ copyUrl } role="link">
-                Copy
-            </DropdownItem>,
+            <DropdownItem aria-label="Edit Portfolio" key="edit-portfolio" component={ <Link to={ editUrl }>Edit</Link> } role="link"/>,
+            <DropdownItem aria-label="Copy Portfolio" key="copy-portfolio" component={ <Link to={ copyUrl }>Copy</Link> } role="link"/>,
             <DropdownSeparator key="workflow-portfolio-separator"/>,
-            <DropdownItem aria-label="Edit Approval Workflow" key="edit-approval_workflow" component = { Link }
-              to={ workflowUrl } role="link" >
-                Edit approval
-            </DropdownItem>
+            <DropdownItem
+              aria-label="Edit Approval Workflow"
+              key="edit-approval_workflow"
+              component={ <Link to={ workflowUrl }>Edit approval</Link> }
+              role="link"
+            />
           ] }
         />
       </LevelItem>
