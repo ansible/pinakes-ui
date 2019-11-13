@@ -29,10 +29,6 @@ import CancelOrderModal from './cancel-order-modal';
 import { getOrderApprovalRequests } from '../../helpers/order/order-helper';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
-const CANCELABLE_STATES = [ 'Approval Pending' ];
-/** Do not delete it will be used */
-const canCancel = state => CANCELABLE_STATES.includes(state);
-
 const OrderItem = ({
   item
 }) => {
