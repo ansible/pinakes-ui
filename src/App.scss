@@ -322,3 +322,9 @@
 .empty-state {
   height: calc(100% - 197px)
 }
+
+.orders {
+  &.bg-fill {
+    background-color: var(--pf-global--Color--light-100);
+  }
+}

@@ -54,6 +54,10 @@ const OrderItem = ({
   }, [ isExpanded ]);
   const orderedAt = createOrderedLabel(new Date(item.created_at));
   const updatedAt = createUpdatedLabel(item.orderItems);
+  const orderPlatform = getOrderPlatformId(item, portfolioItems);
+
+  const orderItem = item.orderItems[0] && item.orderItems[0] || {};
+  const searchParam = `?order-item=${orderItem.id}&portfolio-item=${orderItem.portfolio_item_id}&platform=${orderPlatform}`;
   return (
     <React.Fragment>
       <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
@@ -63,7 +67,7 @@ const OrderItem = ({
               <DataListCell key="1" className="cell-grow">
                 <Split gutter="sm">
                   <SplitItem>
-                    <CardIcon height={ 60 } src={ getOrderIcon(item) } platformId={ getOrderPlatformId(item, portfolioItems) }/>
+                    <CardIcon height={ 60 } src={ getOrderIcon(item) } platformId={ orderPlatform }/>
                   </SplitItem>
                   <SplitItem>
                     <TextContent>
@@ -79,7 +83,10 @@ const OrderItem = ({
                               </Text>
                             </LevelItem>
                             <LevelItem>
-                              <Link to={ `/orders/${item.id}` }>
+                              <Link to={ {
+                                pathname: `orders/${item.id}`,
+                                search: searchParam
+                              } }>
                                 { item.state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm" fill="#C9190B" /> }
                                 { item.state }
                               </Link>

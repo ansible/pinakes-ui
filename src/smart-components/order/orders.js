@@ -1,7 +1,6 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, GridItem } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components';
+import { Stack } from '@patternfly/react-core';
 import { Switch, Route } from 'react-router-dom';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
@@ -16,19 +15,13 @@ const Orders = () => {
   }, []);
 
   return (
-    <Fragment>
+    <Stack>
       <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
-      <Section type="content">
-        <Grid gutter="md">
-          <GridItem>
-            <Switch>
-              <Route exact path="/orders/:id" component={ OrderDetail } />
-              <Route exact path="/orders" component={ OrdersList } />
-            </Switch>
-          </GridItem>
-        </Grid>
-      </Section>
-    </Fragment>
+      <Switch>
+        <Route path="/orders/:id" component={ OrderDetail } />
+        <Route path="/orders" component={ OrdersList } />
+      </Switch>
+    </Stack>
   );
 };
 
