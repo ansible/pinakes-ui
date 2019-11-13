@@ -49,8 +49,8 @@ const getOrderItems = orderIds =>
 const getOrderPortfolioItems = itemIds =>
   axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items?${itemIds.map(itemId => `filter[id][]=${itemId}`).join('&')}`);
 
-const getOrders = (states, pagination = defaultSettings) =>
-  axiosInstance.get(`${CATALOG_API_BASE}/orders?limit=${pagination.limit}&offset=${pagination.offset}&${states.map(state => `filter[state][]=${state}`).join('&')}`) // eslint-disable-line max-len
+export const getOrders = (pagination = defaultSettings) =>
+  axiosInstance.get(`${CATALOG_API_BASE}/orders?limit=${pagination.limit}&offset=${pagination.offset}`) // eslint-disable-line max-len
   .then(orders =>
     getOrderItems(orders.data.map(({ id }) => id))
     .then(orderItems =>
@@ -67,14 +67,6 @@ const getOrders = (states, pagination = defaultSettings) =>
       })
     )
   );
-
-export function getOpenOrders(_apiProps, pagination) {
-  return getOrders(OPEN_ORDER_STATES, pagination);
-}
-
-export function getClosedOrders(_apiProps, pagination) {
-  return getOrders(CLOSED_ORDER_STATES, pagination);
-}
 
 export function getOrderApprovalRequests(orderItemId) {
   return orderItemApi.listApprovalRequests(orderItemId);

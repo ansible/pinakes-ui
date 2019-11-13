@@ -4,7 +4,7 @@ import { DataList, Level, LevelItem } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import { Route, withRouter } from 'react-router-dom';
 
-import { fetchOpenOrders, fetchCloseOrders } from '../../redux/actions/order-actions';
+import { fetchOrders } from '../../redux/actions/order-actions';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
 import OrderItem from './order-item';
@@ -13,26 +13,21 @@ import AsyncPagination from '../common/async-pagination';
 import { getOrderPortfolioName } from '../../helpers/shared/orders';
 import OrderMessagesModal from './order-messages-modal';
 
-const apiRequest = {
-  openOrders: fetchOpenOrders,
-  closedOrders: fetchCloseOrders
-};
-
-const OrdersList = ({ type, match: { url }}) => {
+const OrdersList = ({ match: { url }}) => {
   const [ isFetching, setFetching ] = useState(true);
   const [ searchValue, setSearchValue ] = useState('');
-  const { data, meta } = useSelector(({ orderReducer }) => orderReducer[type]);
+  const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
   const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems }}) => portfolioItems.data);
   const dispatch = useDispatch();
   useEffect(() => {
     setFetching(true);
-    Promise.all([ dispatch(apiRequest[type]()), dispatch(fetchPlatforms()) ])
+    Promise.all([ dispatch(fetchOrders()), dispatch(fetchPlatforms()) ])
     .then(() => setFetching(false));
-  }, [ type ]);
+  }, []);
 
-  const handlePagination = (...args) => {
+  const handlePagination = (_apiProps, pagination) => {
     setFetching(true);
-    dispatch(apiRequest[type](...args))
+    dispatch(fetchOrders(pagination))
     .then(() => setFetching(false))
     .catch(() => setFetching(false));
   };
@@ -50,7 +45,7 @@ const OrdersList = ({ type, match: { url }}) => {
           </LevelItem>
         </Level>
       </div>
-      <DataList aria-label={ type }>
+      <DataList aria-label="order-list">
         { isFetching
           ? <ListLoader />
           : data
@@ -59,7 +54,6 @@ const OrdersList = ({ type, match: { url }}) => {
             <OrderItem
               key={ item.id }
               index={ index }
-              type={ type }
               item={ item }
             />
           )) }

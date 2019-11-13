@@ -1,6 +1,6 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
 
-const createOrdersToolbarSchema = ({ Tabs }) => ({
+const createOrdersToolbarSchema = () => ({
   fields: [{
     component: toolbarComponentTypes.TOP_TOOLBAR,
     paddingBottom: false,
@@ -9,15 +9,7 @@ const createOrdersToolbarSchema = ({ Tabs }) => ({
     fields: [{
       component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
       key: 'orders-toolbar-title',
-      title: 'Orders',
-      className: 'pf-u-mb-0'
-    }, {
-      component: toolbarComponentTypes.LEVEL,
-      key: 'add-products-actions',
-      fields: [{
-        component: Tabs,
-        key: 'order-tab-nav'
-      }]
+      title: 'Orders'
     }]
   }]
 });

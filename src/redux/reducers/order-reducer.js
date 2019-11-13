@@ -8,9 +8,8 @@ import {
   FETCH_REQUESTS,
   FETCH_ORDER_ITEMS,
   SET_LOADING_STATE,
-  FETCH_OPEN_ORDERS,
-  FETCH_CLOSED_ORDERS,
-  SET_ORDERS
+  SET_ORDERS,
+  FETCH_ORDERS
 } from '../action-types';
 import { defaultSettings } from '../../helpers/shared/pagination';
 // Initial State
@@ -20,11 +19,7 @@ export const orderInitialState = {
   serviceData: {},
   isLoading: false,
   requests: [],
-  openOrders: {
-    data: [],
-    meta: { ...defaultSettings }
-  },
-  closedOrders: {
+  orders: {
     data: [],
     meta: { ...defaultSettings }
   }
@@ -39,9 +34,7 @@ const updateServiceData = (state, { payload }) => ({ ...state, serviceData: payl
 const selectPlan = (state, { payload }) => ({ ...state, selectedPlan: payload, isLoading: false });
 const setRequests = (state, { payload }) => ({ ...state, requests: payload, isLoading: false });
 const setOrderItems = (state, { payload }) => ({ ...state, orderItems: payload, isLoading: false });
-const setOpenOrders = (state, { payload }) => ({ ...state, openOrders: payload, isLoading: false });
-const setClosedOrders = (state, { payload }) => ({ ...state, closedOrders: payload, isLoading: false });
-const setOrders = (state, { payload: { openOrders, closedOrders }}) => ({ ...state, openOrders, closedOrders });
+const setOrders = (state, { payload }) => ({ ...state, orders: payload });
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -59,9 +52,7 @@ export default {
   [`${FETCH_ORDER_ITEMS}_PENDING`]: setLoadingState,
   [`${FETCH_ORDER_ITEMS}_FULFILLED`]: setOrderItems,
   [SET_LOADING_STATE]: setLoadingState,
-  [`${FETCH_OPEN_ORDERS}_FULFILLED`]: setOpenOrders,
-  [`${FETCH_CLOSED_ORDERS}_FULFILLED`]: setClosedOrders,
-  [`${FETCH_OPEN_ORDERS}_PENDING`]: setLoadingState,
-  [`${FETCH_CLOSED_ORDERS}_PENDING`]: setLoadingState,
+  [`${FETCH_ORDERS}_FULFILLED`]: setOrders,
+  [`${FETCH_ORDERS}_PENDING`]: setLoadingState,
   [SET_ORDERS]: setOrders
 };

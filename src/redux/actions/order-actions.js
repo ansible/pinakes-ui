@@ -40,6 +40,11 @@ const setOrders = orders => ({
   payload: orders
 });
 
+/**
+ * TO DO
+ * Update cancel order  optimistic pattern
+ */
+
 export const cancelOrder = orderId => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
   return OrderHelper.cancelOrder(orderId)
@@ -80,22 +85,12 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   .catch((error) => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error }));
 };
 
-export const fetchOpenOrders = (...args) => dispatch => {
-  dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_PENDING` });
-  return OrderHelper.getOpenOrders(...args)
+export const fetchOrders = (...args) => dispatch => {
+  dispatch({ type: `${ActionTypes.FETCH_ORDERS}_PENDING` });
+  return OrderHelper.getOrders(...args)
   .then(({ portfolioItems, ...orders }) => {
     dispatch({ type: ActionTypes.SET_PORTFOLIO_ITEMS, payload: portfolioItems });
-    return dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_FULFILLED`, payload: orders });
+    return dispatch({ type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`, payload: orders });
   })
-  .catch(error => dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_FULFILLED`, payload: error }));
-};
-
-export const fetchCloseOrders = (...args) => dispatch => {
-  dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_PENDING` });
-  return OrderHelper.getClosedOrders(...args)
-  .then(({ portfolioItems, ...orders }) => {
-    dispatch({ type: ActionTypes.SET_PORTFOLIO_ITEMS, payload: portfolioItems });
-    return dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_FULFILLED`, payload: orders });
-  })
-  .catch(error => dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_FULFILLED`, payload: error }));
+  .catch(error => dispatch({ type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`, payload: error }));
 };
