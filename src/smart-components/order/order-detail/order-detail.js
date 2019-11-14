@@ -80,8 +80,8 @@ const OrderDetail = () => {
           ) }
       </StackItem>
       <StackItem className="pf-u-pt-xl">
-        <Split gutter="md">
-          <SplitItem style={ { flexShrink: 0 } }>
+        <Split gutter="md" className="orders-nav-layout">
+          <SplitItem style={ { flexShrink: 0 } } className="order-detail-nav-cotainer">
             <OrderDetailMenu isFetching={ isFetching } baseUrl={ match.url } search={ search } />
           </SplitItem>
           <SplitItem style={ { flexGrow: 1 } }>
