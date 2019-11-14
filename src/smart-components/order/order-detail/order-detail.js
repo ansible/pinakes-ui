@@ -15,6 +15,7 @@ import OrderToolbarActions from './order-toolbar-actions';
 import OrderDetailInformation from './order-detail-information';
 import OrderDetailMenu from './order-detail-menu';
 import OrderDetails from './order-details';
+import ApprovalRequests from './approval-request';
 
 const requiredParams = [ 'order-item', 'portfolio-item', 'platform', 'portfolio' ];
 
@@ -82,7 +83,7 @@ const OrderDetail = () => {
           </SplitItem>
           <SplitItem>
             <Switch>
-              <Route path={ `${match.url}/approval` } />
+              <Route path={ `${match.url}/approval` } component={ ApprovalRequests } />
               <Route path={ `${match.url}/provision` } render={ () => {
                 return (
                   <div>

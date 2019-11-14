@@ -104,13 +104,15 @@ export const fetchOrderDetails = params => dispatch => {
     portfolioItem,
     platform,
     progressMessages,
-    portfolio
+    portfolio,
+    approvalRequest
   ]) => dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`, payload: {
     order,
     orderItem,
     portfolioItem,
     platform,
     progressMessages,
-    portfolio
+    portfolio,
+    approvalRequest
   }}));
 };
