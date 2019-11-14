@@ -40,49 +40,26 @@ const setOrders = orders => ({
   payload: orders
 });
 
-/**
- * TO DO
- * Update cancel order  optimistic pattern
- */
-
 export const cancelOrder = orderId => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
+  const { orderReducer: { orderDetail }} = getState();
   return OrderHelper.cancelOrder(orderId)
   .then(() => {
-    const { openOrders, closedOrders } = getState().orderReducer;
-    let orderIndex;
-    const order = openOrders.data.find(({ id }, index) => {
-      if (id === orderId) {
-        orderIndex = index;
-        return true;
-      }
-
-      return false;
-    });
-    const open = [ ...openOrders.data.slice(0, orderIndex), ...openOrders.data.slice(orderIndex + 1) ];
-    const closed = [
-      { ...order, state: 'Canceled' },
-      ...closedOrders.data
-    ];
-    dispatch(setOrders({
-      openOrders: {
-        ...openOrders,
-        data: open
-      },
-      closedOrders: {
-        ...closedOrders,
-        data: closed
-      }}));
-    return order;
+    orderDetail.order.state = 'Canceled',
+    orderDetail.approvalRequest[0].status = 'canceled';
+    dispatch({ type: ActionTypes.SET_ORDER_DETAIL, payload: { ...orderDetail }});
+    return orderDetail;
   })
-  .then((order) => dispatch(addNotification({
+  .then((orderDetail) => dispatch(addNotification({
     variant: 'success',
     title: 'Your order has been canceled successfully',
-    description: `Order ${order && order.name || `Order #${orderId}`} was canceled and has been moved to closed orders.`,
+    description: `Order ${`Order #${orderDetail.order.id}`} was canceled.`,
     dismissable: true
   })))
   .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
-  .catch((error) => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error }));
+  .catch((error) => {
+    dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error })
+  });
 };
 
 export const fetchOrders = (...args) => dispatch => {

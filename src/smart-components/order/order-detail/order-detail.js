@@ -61,7 +61,7 @@ const OrderDetail = () => {
             <OrderDetailTitle portfolioItemName={ portfolioItem.name } orderId={ order.id } />
           </LevelItem>
           <LevelItem>
-            <OrderToolbarActions state={ order.state } />
+            <OrderToolbarActions orderId={ order.id } state={ order.state } />
           </LevelItem>
         </Level>
         <Level>

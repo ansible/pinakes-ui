@@ -58,5 +58,6 @@ export default {
   [`${FETCH_ORDERS}_PENDING`]: setLoadingState,
   [SET_ORDERS]: setOrders,
   [`${SET_ORDER_DETAIL}_PENDING`]: state => setOrderDetail(state, {}),
-  [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail
+  [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail,
+  [SET_ORDER_DETAIL]: setOrderDetail
 };
