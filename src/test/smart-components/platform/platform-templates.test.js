@@ -63,7 +63,7 @@ describe('<PlatformTemplates />', () => {
 
   it('should mount and fetch data', async done => {
     apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo' }}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`,
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D%20=&limit=50&offset=0`,
       mockOnce({ body: { data: [{
         id: '1',
         name: 'Offering 1'
