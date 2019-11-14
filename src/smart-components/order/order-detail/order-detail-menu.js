@@ -19,7 +19,7 @@ const navItems = [{
   isDisabled: true
 }];
 
-const OrderDetailMenu = ({ baseUrl, search }) => {
+const OrderDetailMenu = ({ baseUrl, search, isFetching }) => {
   return (
     <Nav>
       <NavList className="orders-side-nav-list">
@@ -32,7 +32,7 @@ const OrderDetailMenu = ({ baseUrl, search }) => {
         </li>
         { navItems.map(({ link, title, isDisabled }) => (
           <li key={ link || title }
-            className={ `pf-c-nav__item orders-side-nav-item orders-side-nav-category${isDisabled ? ' disabled' : ''}` }
+            className={ `pf-c-nav__item orders-side-nav-item orders-side-nav-category${(isDisabled || isFetching) ? ' disabled' : ''}` }
           >
             <NavLink
               exact
@@ -54,7 +54,8 @@ const OrderDetailMenu = ({ baseUrl, search }) => {
 
 OrderDetailMenu.propTypes = {
   baseUrl: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired
+  search: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool
 };
 
 export default OrderDetailMenu;
