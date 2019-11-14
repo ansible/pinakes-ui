@@ -11,10 +11,12 @@ const navItems = [{
   title: 'Approval'
 }, {
   link: '/provision',
-  title: 'Provision'
+  title: 'Provision',
+  isDisabled: true
 }, {
   link: '/lifecycle',
-  title: 'Lifecycle'
+  title: 'Lifecycle',
+  isDisabled: true
 }];
 
 const OrderDetailMenu = ({ baseUrl, search }) => {
@@ -28,9 +30,9 @@ const OrderDetailMenu = ({ baseUrl, search }) => {
             </Text>
           </TextContent>
         </li>
-        { navItems.map(({ link, title }) => (
+        { navItems.map(({ link, title, isDisabled }) => (
           <li key={ link || title }
-            className="pf-c-nav__item orders-side-nav-item orders-side-nav-category"
+            className={ `pf-c-nav__item orders-side-nav-item orders-side-nav-category${isDisabled ? ' disabled' : ''}` }
           >
             <NavLink
               exact
