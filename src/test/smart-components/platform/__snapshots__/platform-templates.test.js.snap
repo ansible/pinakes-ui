@@ -1,44 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PlatformTemplates /> should render correctly 1`] = `
-<ContextProvider
-  value={null}
->
-  <PlatformTemplates
-    fetchPlatformItems={[Function]}
-    fetchSelectedPlatform={[Function]}
-    isPlatformDataLoading={false}
-    match={
-      Object {
-        "params": Object {
-          "id": 1,
-        },
-      }
+<PlatformTemplates
+  paginationCurrent={
+    Object {
+      "limit": 50,
+      "offset": 0,
     }
-    paginationCurrent={
-      Object {
-        "count": 0,
-        "limit": 50,
-        "offset": 0,
-      }
+  }
+  platformItems={Array []}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
     }
-    platform={
-      Object {
-        "id": "1",
-        "name": "Foo",
-      }
-    }
-    platformItems={Array []}
-    store={
-      Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      }
-    }
-  />
-</ContextProvider>
+  }
+/>
 `;
