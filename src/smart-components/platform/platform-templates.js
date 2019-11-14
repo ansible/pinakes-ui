@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useParams } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
-import { Section } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
@@ -119,17 +118,15 @@ const PlatformTemplates = (props) => {
             direction: 'down'
           }
         }) }/>
-        <Section type="content">
-          <ContentGallery title={ title }
-            isLoading={ isFetching || isFiltering }
-            renderEmptyState={ () => (
-              <ContentGalleryEmptyState
-                title="No items"
-                Icon={ SearchIcon }
-                description={ filterValue === '' ? 'No items found.' : 'No items match your filter criteria.' }
-              />) }
-            { ...filteredItems }/>
-        </Section>
+        <ContentGallery title={ title }
+          isLoading={ isFetching || isFiltering }
+          renderEmptyState={ () => (
+            <ContentGalleryEmptyState
+              title="No items"
+              Icon={ SearchIcon }
+              description={ filterValue === '' ? 'No items found.' : 'No items match your filter criteria.' }
+            />) }
+          { ...filteredItems }/>
       </Fragment>
     );};
 
