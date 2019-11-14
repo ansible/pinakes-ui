@@ -66,7 +66,7 @@ const AddProductsToPortfolio = ({
 
   const onPlatformSelect = platform => {
     setSelectedPlatform(platform);
-    fetchPlatformItems(platform.id, defaultSettings);
+    fetchPlatformItems(platform.id, null, defaultSettings);
   };
 
   return (
