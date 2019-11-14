@@ -75,12 +75,15 @@ const OrderItem = ({
                                 style={ { marginBottom: 0 } }
                                 component={ TextVariants.h5 }
                               >
-                                <Link to={ `/orders/${item.id}` }>{ `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }</Link>
+                                <Link to={ {
+                                  pathname: `orders/${item.id}`,
+                                  search: searchParam
+                                } }>{ `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }</Link>
                               </Text>
                             </LevelItem>
                             <LevelItem>
                               <Link to={ {
-                                pathname: `orders/${item.id}`,
+                                pathname: `orders/${item.id}/approval`,
                                 search: searchParam
                               } }>
                                 { item.state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm" fill="#C9190B" /> }
