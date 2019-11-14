@@ -83,6 +83,8 @@ export const getOrderDetail = params => {
     }),
     axiosInstance.get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`),
     axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`),
-    axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+    axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.platform}`),
+    axiosInstance.get(`${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`),
+    axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
   ]);
 };

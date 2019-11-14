@@ -8,7 +8,7 @@ import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 
 const OrderDetailInformation = ({
-  platformName,
+  jobName,
   state,
   orderRequestDate,
   orderUpdateDate,
@@ -29,7 +29,7 @@ const OrderDetailInformation = ({
         <Level>
           <LevelItem className="pf-u-mr-lg">
             <Title headingLevel="h5" size="md">
-              { platformName }
+              { jobName }
             </Title>
           </LevelItem>
           <LevelItem>
@@ -68,7 +68,7 @@ OrderDetailInformation.propTypes = {
   portfolioItemId: PropTypes.string.isRequired,
   sourceType: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired,
-  platformName: PropTypes.string.isRequired,
+  jobName: PropTypes.string.isRequired,
   orderRequestDate: PropTypes.string.isRequired,
   orderUpdateDate: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired

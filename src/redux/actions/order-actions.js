@@ -98,10 +98,19 @@ export const fetchOrders = (...args) => dispatch => {
 export const fetchOrderDetails = params => dispatch => {
   dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
   return OrderHelper.getOrderDetail(params)
-  .then(([ order, orderItem, portfolioItem, platform ]) => dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`, payload: {
+  .then(([
     order,
     orderItem,
     portfolioItem,
-    platform
+    platform,
+    progressMessages,
+    portfolio
+  ]) => dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`, payload: {
+    order,
+    orderItem,
+    portfolioItem,
+    platform,
+    progressMessages,
+    portfolio
   }}));
 };

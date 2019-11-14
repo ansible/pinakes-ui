@@ -50,10 +50,10 @@ const OrderItem = ({
   }, [ isExpanded ]);
   const orderedAt = createOrderedLabel(new Date(item.created_at));
   const updatedAt = createUpdatedLabel(item.orderItems);
-  const orderPlatform = getOrderPlatformId(item, portfolioItems);
+  const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, portfolioItems);
 
   const orderItem = item.orderItems[0] && item.orderItems[0] || {};
-  const searchParam = `?order-item=${orderItem.id}&portfolio-item=${orderItem.portfolio_item_id}&platform=${orderPlatform}`;
+  const searchParam = `?order-item=${orderItem.id}&portfolio-item=${orderItem.portfolio_item_id}&platform=${orderPlatform}&portfolio=${orderPortfolio}`; // eslint-disable-line max-len
   return (
     <React.Fragment>
       <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">

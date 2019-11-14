@@ -14,8 +14,9 @@ import OrderDetailTitle from './order-detail-title';
 import OrderToolbarActions from './order-toolbar-actions';
 import OrderDetailInformation from './order-detail-information';
 import OrderDetailMenu from './order-detail-menu';
+import OrderDetails from './order-details';
 
-const requiredParams = [ 'order-item', 'portfolio-item', 'platform' ];
+const requiredParams = [ 'order-item', 'portfolio-item', 'platform', 'portfolio' ];
 
 const useQuery = () => {
   const { search } = useLocation();
@@ -67,7 +68,7 @@ const OrderDetail = () => {
             portfolioItemId={ portfolioItem.id }
             sourceType={ platform.source_type_id }
             state={ order.state }
-            platformName={ platform.name }
+            jobName={ portfolioItem.name }
             orderRequestDate={ order.order_request_sent_at }
             orderUpdateDate={ portfolioItem.updated_at }
             owner={ order.owner }
@@ -76,18 +77,12 @@ const OrderDetail = () => {
       </StackItem>
       <StackItem className="pf-u-pt-xl">
         <Split gutter="md">
-          <SplitItem>
+          <SplitItem style={ { flexShrink: 0 } }>
             <OrderDetailMenu baseUrl={ match.url } search={ search } />
           </SplitItem>
           <SplitItem>
             <Switch>
-              <Route path={ `${match.url}/approval` } render={ () => {
-                return (
-                  <div>
-                    Approval
-                  </div>
-                );
-              } } />
+              <Route path={ `${match.url}/approval` } />
               <Route path={ `${match.url}/provision` } render={ () => {
                 return (
                   <div>
@@ -102,13 +97,7 @@ const OrderDetail = () => {
                   </div>
                 );
               } } />
-              <Route path={ `${match.url}` } render={ () => {
-                return (
-                  <div>
-                    Order details
-                  </div>
-                );
-              } } />
+              <Route path={ `${match.url}` } component={ OrderDetails }/>
             </Switch>
           </SplitItem>
         </Split>
