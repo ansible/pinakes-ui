@@ -25,11 +25,14 @@ const OrdersBreadcrumbs = () => {
   return (
     <Breadcrumb className="orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl">
       { fragments.map(({ path, title }, index) => (
-        <BreadcrumbItem key={ path } isActive={ path === location.pathname || index === fragments.length - 1 }>
+        <BreadcrumbItem key={ path } isActive={ index === fragments.length - 1 }>
           <NavLink exact to={ {
             search: path !== '/orders' && location.search,
             pathname: path
-          } } isActive={ () => path === location.pathname || index === fragments.length - 1 }>
+          } }
+          isActive={ () => index === fragments.length - 1 }
+          activeClassName="breadcrumb-active"
+          >
             { title }
           </NavLink>
         </BreadcrumbItem>

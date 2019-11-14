@@ -38,7 +38,6 @@ const CardIcon = ({ src, height, platformId, sourceTypeId  }) => {
   const [ isUnknown, setUnknown ] = useState(false);
   const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
 
-  console.log('isUnknown: ', isUnknown)
   return (
     <div style={ { display: 'inline-block' } }>
       { !isLoaded && <IconPlaceholder height={ height } /> }

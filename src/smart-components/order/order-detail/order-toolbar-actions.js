@@ -26,7 +26,7 @@ const OrderToolbarActions = ({ state, orderId }) => {
           isDisabled={ !canCancel(state) }
           type="button"
           className="pf-u-mr-md">
-          Cancel order
+            Cancel order
         </Button>
         <Button isDisabled type="button">
           Reorder

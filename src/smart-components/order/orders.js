@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
-
 import OrdersList from './orders-list';
 import OrderDetail from './order-detail/order-detail';
 

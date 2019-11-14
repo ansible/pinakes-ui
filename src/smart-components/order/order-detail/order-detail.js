@@ -1,11 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import {
-  Route,
-  Link,
-  Switch,
-  useLocation,
-  useRouteMatch
-} from 'react-router-dom';
+import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { Stack, StackItem, Level, LevelItem, Split, SplitItem, Bullseye } from '@patternfly/react-core';
 import { Spinner } from '@redhat-cloud-services/frontend-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,7 +65,7 @@ const OrderDetail = () => {
                   sourceType={ platform.source_type_id }
                   state={ order.state }
                   jobName={ portfolioItem.name }
-                  orderRequestDate={ order.order_request_sent_at }
+                  orderRequestDate={ order.created_at }
                   orderUpdateDate={ portfolioItem.updated_at }
                   owner={ order.owner }
                 />

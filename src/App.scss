@@ -443,3 +443,9 @@
     }
   }
 }
+
+a.breadcrumb-active {
+  pointer-events: none;
+  color: var(--pf-c-breadcrumb__link--m-current--Color);
+  text-decoration: none;
+}

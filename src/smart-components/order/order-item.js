@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   DataListCell,
   DataListItem,
@@ -23,31 +23,11 @@ import { Link } from 'react-router-dom';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
 import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
-import createOrderRow from './create-order-row';
-import { cancelOrder } from '../../redux/actions/order-actions';
-import CancelOrderModal from './cancel-order-modal';
-import { getOrderApprovalRequests } from '../../helpers/order/order-helper';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
-const OrderItem = ({
-  item
-}) => {
-  const [ isOpen, setIsOpen ] = useState(false);
-  const [ isExpanded, setIsExpanded ] = useState(false);
-  const [ requestData, setRequestData ] = useState();
-  const [ requestDataFetching, setRequestDataFetching ] = useState(false);
+const OrderItem = ({ item }) => {
   const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems: { data }}}) => data);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isExpanded && !requestDataFetching && !requestData) {
-      setRequestDataFetching(true);
-      getOrderApprovalRequests(item.orderItems[0].id).then(({ data }) => {
-        setRequestData(createOrderRow({ ...item, requests: data }).steps);
-        setRequestDataFetching(false);
-      });
-    }
-  }, [ isExpanded ]);
   const orderedAt = createOrderedLabel(new Date(item.created_at));
   const updatedAt = createUpdatedLabel(item.orderItems);
   const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, portfolioItems);
@@ -56,7 +36,7 @@ const OrderItem = ({
   const searchParam = `?order-item=${orderItem.id}&portfolio-item=${orderItem.portfolio_item_id}&platform=${orderPlatform}&portfolio=${orderPortfolio}`; // eslint-disable-line max-len
   return (
     <React.Fragment>
-      <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
+      <DataListItem aria-labelledby={ `${item.id}-expand` } className="data-list-expand-fix">
         <DataListItemRow>
           <DataListItemCells
             dataListCells={ [

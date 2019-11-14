@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DataList, Level, LevelItem, Grid, GridItem } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
-import { Route, withRouter } from 'react-router-dom';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
@@ -12,9 +11,8 @@ import OrderItem from './order-item';
 import FilterToolbarItem from '../../presentational-components/shared/filter-toolbar-item';
 import AsyncPagination from '../common/async-pagination';
 import { getOrderPortfolioName } from '../../helpers/shared/orders';
-import OrderMessagesModal from './order-messages-modal';
 
-const OrdersList = ({ match: { url }}) => {
+const OrdersList = () => {
   const [ isFetching, setFetching ] = useState(true);
   const [ searchValue, setSearchValue ] = useState('');
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
@@ -37,7 +35,6 @@ const OrdersList = ({ match: { url }}) => {
     <Grid gutter="md">
       <GridItem>
         <Section type="content">
-          <Route path={ `${url}/:orderItemId/messages` } render={ (props) => <OrderMessagesModal closeUrl={ url } { ...props } /> } />
           <div className="pf-u-pb-md pf-u-pl-xl pf-u-pr-xl orders-list">
             <Level>
               <LevelItem className="pf-u-mt-md">
@@ -74,4 +71,4 @@ OrdersList.propTypes = {
   }).isRequired
 };
 
-export default withRouter(OrdersList);
+export default OrdersList;

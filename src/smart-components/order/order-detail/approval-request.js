@@ -18,7 +18,8 @@ const ApprovalRequests = () => {
           <TextListItem component={ TextListItemVariants.dt }>Request ID</TextListItem>
           <TextListItem component={ TextListItemVariants.dd }>{ request.id }</TextListItem>
           <TextListItem component={ TextListItemVariants.dt }>Request created</TextListItem>
-          <TextListItem component={ TextListItemVariants.dd }><DateFormat date={ order.created_at } variant="relative"/></TextListItem>          <TextListItem component={ TextListItemVariants.dt }>State</TextListItem>
+          <TextListItem component={ TextListItemVariants.dd }><DateFormat date={ order.created_at } variant="relative"/></TextListItem>
+          <TextListItem component={ TextListItemVariants.dt }>State</TextListItem>
           <TextListItem component={ TextListItemVariants.dd }>{ request.state }</TextListItem>
           { request.reason && (
             <Fragment>
