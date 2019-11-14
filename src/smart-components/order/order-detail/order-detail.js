@@ -6,13 +6,14 @@ import {
   useLocation,
   useRouteMatch
 } from 'react-router-dom';
-import { Stack, StackItem, Level, LevelItem } from '@patternfly/react-core';
+import { Stack, StackItem, Level, LevelItem, Split, SplitItem } from '@patternfly/react-core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';
 import OrderDetailTitle from './order-detail-title';
 import OrderToolbarActions from './order-toolbar-actions';
 import OrderDetailInformation from './order-detail-information';
+import OrderDetailMenu from './order-detail-menu';
 
 const requiredParams = [ 'order-item', 'portfolio-item', 'platform' ];
 
@@ -73,19 +74,44 @@ const OrderDetail = () => {
           />
         </Level>
       </StackItem>
-      <StackItem>
-        <Link to={ {
-          pathname: `${match.url}/foo`,
-          search
-        } }
-        >
-            There will be dragons
-        </Link>
-        <Switch>
-          <Route path={ `${match.url}/foo` } render={ () => {
-            return <div>Nested</div>;
-          } } />
-        </Switch>
+      <StackItem className="pf-u-pt-xl">
+        <Split gutter="md">
+          <SplitItem>
+            <OrderDetailMenu baseUrl={ match.url } search={ search } />
+          </SplitItem>
+          <SplitItem>
+            <Switch>
+              <Route path={ `${match.url}/approval` } render={ () => {
+                return (
+                  <div>
+                    Approval
+                  </div>
+                );
+              } } />
+              <Route path={ `${match.url}/provision` } render={ () => {
+                return (
+                  <div>
+                    provision
+                  </div>
+                );
+              } } />
+              <Route path={ `${match.url}/lifecycle` } render={ () => {
+                return (
+                  <div>
+                    lifecycle
+                  </div>
+                );
+              } } />
+              <Route path={ `${match.url}` } render={ () => {
+                return (
+                  <div>
+                    Order details
+                  </div>
+                );
+              } } />
+            </Switch>
+          </SplitItem>
+        </Split>
       </StackItem>
     </Stack>
   );
