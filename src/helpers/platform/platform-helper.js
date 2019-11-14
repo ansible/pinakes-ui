@@ -33,9 +33,8 @@ export const getPlatform = (platformId) => {
 export const getPlatformItems = (platformId, filter, options) => {
   const filterQuery = filter ? `&filter[name][contains_i]=${filter}` : '';
   if (platformId) {
-    return axiosInstance.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_offerings?filter[archived_at][nil]${filterQuery}${options
-      ? `&limit=${options.limit}&offset=${options.offset}`
-      : ''}`);
+    return axiosInstance.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_offerings?filter[archived_at][nil]
+    ${filterQuery}${options ? `&limit=${options.limit}&offset=${options.offset}` : ''}`);
   } else {
     return topologicalApi.listServiceOfferings();
   }
