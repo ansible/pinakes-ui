@@ -12,6 +12,53 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
 </ContextConsumer>
 `;
 
+exports[`<Orders /> should render orders correctly 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Subscription {
+        "handleChangeWrapper": [Function],
+        "listeners": Object {
+          "clear": [Function],
+          "get": [Function],
+          "notify": [Function],
+          "subscribe": [Function],
+        },
+        "onStateChange": [Function],
+        "parentSub": undefined,
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+        "unsubscribe": [Function],
+      },
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/orders/closed",
+      ]
+    }
+  >
+    <Orders />
+  </MemoryRouter>
+</ContextProvider>
+`;
+
 exports[`<Orders /> should render past orders correctly 1`] = `
 <ContextProvider
   value={

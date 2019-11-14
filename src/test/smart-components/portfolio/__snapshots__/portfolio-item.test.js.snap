@@ -38,28 +38,18 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                     }
                   >
                     <IconPlaceholder
-                      style={
-                        Object {
-                          "height": 40,
-                        }
-                      }
+                      height={40}
                     >
-                      <div
-                        style={
-                          Object {
-                            "height": 40,
-                          }
-                        }
-                      >
+                      <div>
                         <svg
                           height="40"
                           width="40"
                         >
                           <circle
-                            cx="20"
-                            cy="20"
+                            cx={18.18181818181818}
+                            cy={18.18181818181818}
                             fill="#ecebeb"
-                            r="20"
+                            r={18.18181818181818}
                           />
                         </svg>
                       </div>
@@ -69,7 +59,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       beforeLoad={[Function]}
                       className="card-image hide"
                       delayMethod="throttle"
-                      delayTime={300}
+                      delayTime={50}
                       effect=""
                       height={0}
                       onError={[Function]}
@@ -81,7 +71,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           "height": 0,
                         }
                       }
-                      threshold={100}
+                      threshold={2000}
                       visibleByDefault={false}
                       wrapperClassName=""
                     >
@@ -90,14 +80,14 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         beforeLoad={[Function]}
                         className="card-image hide"
                         delayMethod="throttle"
-                        delayTime={300}
+                        delayTime={50}
                         height={0}
                         style={
                           Object {
                             "height": 0,
                           }
                         }
-                        threshold={100}
+                        threshold={2000}
                         visibleByDefault={false}
                       >
                         <img

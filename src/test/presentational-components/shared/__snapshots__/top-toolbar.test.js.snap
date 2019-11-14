@@ -4,11 +4,7 @@ exports[`<TopToolbar /> should render correctly 1`] = `
 <div
   className="pf-u-pt-lg pf-u-pr-lg pf-u-pl-xl pf-u-pb-md top-toolbar"
 >
-  <Level
-    className="pf-u-mb-lg"
-  >
-    <withRouter(Connect(CatalogBreadrubms)) />
-  </Level>
+  <withRouter(Connect(CatalogBreadrubms)) />
   <div>
     Children
   </div>
