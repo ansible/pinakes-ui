@@ -11,6 +11,7 @@ import PlatformInventories from '../../../smart-components/platform/platform-inv
 import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORM, FETCH_PLATFORM_INVENTORIES } from '../../../redux/action-types';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
+import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { act } from 'react-dom/test-utils';
 
 describe('<PlatformInventories />', () => {
@@ -41,12 +42,16 @@ describe('<PlatformInventories />', () => {
           name: 'Foo'
         },
         platformInventories: {
-          1: {
-            meta: {
-              limit: 50,
-              offset: 0,
-              count: 0
-            }
+          data: [{
+            id: '222',
+            name: 'Test inventory',
+            created_at: 'date',
+            workflow: 'wf'
+          }],
+          meta: {
+            limit: 50,
+            offset: 0,
+            count: 0
           }
         }
       }
@@ -89,4 +94,43 @@ describe('<PlatformInventories />', () => {
       done();
     });
   });
+
+  it('should redirect to Edit info page', async done => {
+    const store = mockStore(initialState);
+    let wrapper;
+
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/123`, mockOnce({ body: { name: 'Foo' }}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({
+        body: {
+          data: [{
+            id: '222',
+            name: 'Test inventory',
+            created_at: 'date',
+            workflow: 'wf'
+          }]}
+      }));
+
+    await act(async () => {
+      wrapper = mount(<ComponentWrapper store={ store } initialEntries={ [ '/platforms/detail/123/platform-inventories' ] }>
+        <PlatformInventories { ...initialProps } store={ mockStore(initialState) }/>
+      </ComponentWrapper>);
+    });
+
+    wrapper.update();
+    /**
+     * Open action drop down and click on edit approval action
+     */
+    wrapper.find('button.pf-c-dropdown__toggle.pf-m-plain').last().simulate('click');
+    await act(async() => {
+      wrapper.find('a.pf-c-dropdown__menu-item').first().simulate('click');
+    });
+
+    wrapper.update();
+    expect(wrapper.find(MemoryRouter).instance().history.location.pathname)
+    .toEqual('/platforms/detail/123/platform-inventories/edit-workflow/222');
+    expect(wrapper.find(EditApprovalWorkflow)).toHaveLength(1);
+    done();
+  });
+
 });
