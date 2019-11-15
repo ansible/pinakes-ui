@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useParams } from 'react-router-dom';
+import { Route, useParams } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
@@ -40,7 +39,7 @@ const platformItemsState = (state, action) => {
   }
 };
 
-const PlatformTemplates = (props) => {
+const PlatformTemplates = () => {
   const { id } = useParams();
   const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(platformItemsState, initialState);
   const { data, meta } = useSelector(({ platformReducer: { platformItems }}) => platformItems[id] ? platformItems[id]
@@ -72,17 +71,24 @@ const PlatformTemplates = (props) => {
     });
   };
 
-  const handleOnPerPageSelect = limit => fetchPlatformItems(id, {
-    offset: meta.offset,
-    limit
-  });
+  const handleOnPerPageSelect = (limit, debounce) => {
+    const options = {
+      offset: meta.offset,
+      limit
+    };
+    const request = () => dispatch(fetchPlatformItems(id, filterValue, options));
+    if (debounce) {
+      return debouncePromise(request, 250)();
+    }
+
+    return request();
+  };
 
   const handleSetPage = (number, debounce) => {
     const options = {
       offset: getNewPage(number, meta.limit),
-      limit: props.paginationCurrent.limit
+      limit: meta.limit
     };
-
     const request = () => dispatch(fetchPlatformItems(id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
@@ -93,12 +99,10 @@ const PlatformTemplates = (props) => {
 
   const renderItems = () => {
     const paginationCurrent = meta || defaultSettings;
-    let filteredItems = {
-      items: data ? data.map(item => <PlatformItem key={ item.id } { ...item } />) : [],
-      isLoading: isFetching || isFiltering
-    };
+    const filteredItems = {
+      items: data ? data.map(item => <PlatformItem key={ item.id } { ...item } />) : []};
 
-    let title = platform ? platform.name : '';
+    const title = platform ? platform.name : '';
     return (
       <Fragment>
         <ToolbarRenderer schema={ createPlatformsTopToolbarSchema({
@@ -131,33 +135,8 @@ const PlatformTemplates = (props) => {
     );};
 
   return (
-    <Switch>
-      <Route path={ '/platforms/detail/:id/platform-templates' }
-        render={ renderItems } />
-    </Switch>
-  );
-};
-
-PlatformTemplates.propTypes = {
-  filteredItems: PropTypes.object,
-  isPlatformDataLoading: PropTypes.bool,
-  platform: PropTypes.shape({
-    name: PropTypes.string
-  }),
-  platformItems: PropTypes.array,
-  paginationCurrent: PropTypes.shape({
-    limit: PropTypes.number.isRequired,
-    offset: PropTypes.number.isRequired,
-    count: PropTypes.number
-  })
-};
-
-PlatformTemplates.defaultProps = {
-  platformItems: [],
-  paginationCurrent: {
-    limit: 50,
-    offset: 0
-  }
+    <Route path={ '/platforms/detail/:id/platform-templates' }
+      render={ renderItems } />);
 };
 
 export default PlatformTemplates;

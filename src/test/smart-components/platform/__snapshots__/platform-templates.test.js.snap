@@ -2,13 +2,6 @@
 
 exports[`<PlatformTemplates /> should render correctly 1`] = `
 <PlatformTemplates
-  paginationCurrent={
-    Object {
-      "limit": 50,
-      "offset": 0,
-    }
-  }
-  platformItems={Array []}
   store={
     Object {
       "clearActions": [Function],
