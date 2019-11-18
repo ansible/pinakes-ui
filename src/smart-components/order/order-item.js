@@ -42,7 +42,7 @@ const OrderItem = ({ item }) => {
                   </SplitItem>
                   <SplitItem>
                     <TextContent>
-                      <Grid gutter="sm" style={ { gridGap: 16 } }>
+                      <Grid gutter="sm" className="pf-u-gg-md">
                         <GridItem>
                           <Level>
                             <LevelItem>
