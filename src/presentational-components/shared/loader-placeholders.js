@@ -139,13 +139,21 @@ export const ProductLoaderPlaceholder = props => (
   </Fragment>
 );
 
-export const IconPlaceholder = props => (
+export const IconPlaceholder = ({ height, ...props }) => (
   <div { ...props }>
-    <svg height="40" width="40">
-      <circle cx="20" cy="20" r="20" fill="#ecebeb" />
+    <svg height={ `${height}` } width={ `${height}` } >
+      <circle cx={ height / 2.2 } cy={ height / 2.2 } r={ height / 2.2 } fill="#ecebeb" />
     </svg>
   </div>
 );
+
+IconPlaceholder.propTypes = {
+  height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
+};
+
+IconPlaceholder.defaultProps = {
+  height: '40'
+};
 
 const FormItemLoader = () => (
   <ContentLoader
@@ -184,7 +192,7 @@ export const ShareLoader = () => (
 );
 
 export const ListLoader = ({ items, ...props }) => (
-  <DataList aria-labelledby="datalist-placeholder">
+  <DataList aria-label="list-loader" aria-labelledby="datalist-placeholder">
     { [ ...Array(items) ].map((_item, index) => (
       <DataListItem key={ index } aria-labelledby="datalist-item-placeholder">
         <DataListItemRow aria-label="datalist-item-placeholder-row">
@@ -216,3 +224,14 @@ ListLoader.propTypes = {
 ListLoader.defaultProps = {
   items: 5
 };
+
+export const OrderDetailToolbarPlaceholder = () => (
+  <div>
+    <ContentLoader
+      height={ 20 }
+      width={ 300 }
+    >
+      <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
+    </ContentLoader>
+  </div>
+);

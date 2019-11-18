@@ -92,7 +92,7 @@ const findRoutes = (url) => {
   }));
 };
 
-const CatalogBreadrubms = ({ match: { url }, reducers }) => {
+const CatalogBreadcrumbs = ({ match: { url }, reducers }) => {
   const routes = findRoutes(url);
   const items = routes.map((route, index) => (
     <BreadcrumbItem key={ route.path } isActive={ route.path === url || index === routes.length - 1 }>
@@ -112,11 +112,11 @@ const mapStateToProps = state => ({
   reducers: { ...state }
 });
 
-CatalogBreadrubms.propTypes = {
+CatalogBreadcrumbs.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   }).isRequired,
   reducers: PropTypes.object
 };
 
-export default withRouter(connect(mapStateToProps)(CatalogBreadrubms));
+export default withRouter(connect(mapStateToProps)(CatalogBreadcrumbs));

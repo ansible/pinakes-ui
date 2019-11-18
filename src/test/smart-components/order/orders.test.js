@@ -7,16 +7,16 @@ import configureStore from 'redux-mock-store' ;
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { DataList, DataListContent, Modal, DataListItem } from '@patternfly/react-core';
 
 import Orders from '../../../smart-components/order/orders';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
-import OrderDetailTable from '../../../smart-components/order/order-detail-table';
 import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
-import { CANCEL_ORDER, FETCH_OPEN_ORDERS, FETCH_PLATFORMS, SET_PORTFOLIO_ITEMS } from '../../../redux/action-types';
-import OrderItem from '../../../smart-components/order/order-item';
+import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
+import OrdersList from '../../../smart-components/order/orders-list';
+import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
+import CancelOrderModal from '../../../smart-components/order/cancel-order-modal';
 
 describe('<Orders />', () => {
 
@@ -27,44 +27,41 @@ describe('<Orders />', () => {
 
   const createDate = new Date(Date.UTC(2019, 5, 1, 0));
 
-  const linkedOrders = {
-    openOrders: {
-      data: [{
-        id: 'order-1',
-        created_at: createDate,
-        ordered_at: 'order_date',
-        state: 'Ordered',
-        requests: [],
-        orderItems: [{
-          portfolio_item_id: 'foo',
-          id: 'order-item-1'
+  const orderReducer = {
+    orderDetail: {
+      approvalRequest: {
+        data: [{
+          id: 'request-id',
+          state: 'Foo',
+          reason: 'Why not'
         }]
-      }, {
-        id: 'order-cancelable',
-        created_at: createDate,
-        ordered_at: 'order_date',
-        state: 'Approval Pending',
-        requests: [],
-        orderItems: [{
-          portfolio_item_id: 'foo',
-          id: 'order-item-2'
-        }]
-      }]},
-    closedOrders: {
-      data: [{
-        id: 'order-2',
-        created_at: createDate,
-        ordered_at: 'order_date',
+      },
+      portfolioItem: {
+        name: 'Portfolio item name',
+        id: 'portfolio-item-id',
+        updated_at: createDate.toString()
+      },
+      order: {
+        id: '123',
         state: 'Completed',
-        requests: [],
-        orderItems: [{
-          portfolio_item_id: '123',
-          order_id: 'order-2',
-          state: 'Completed',
-          external_url: 'https://example.com/fake-done'
-        }]
+        created_at: createDate.toString(),
+        owner: 'hula hup'
+      },
+      platform: {
+        source_type_id: '3',
+        name: 'Super platform'
+      },
+      portfolio: {
+        name: 'Portfolio name'
+      },
+      orderItem: {
+        service_parameters: {}
+      },
+      progressMessages: {
+        data: []
       }
-      ]}};
+    }
+  };
 
   const ComponentWrapper = ({ store, children, ...props }) => (
     <Provider store={ store }>
@@ -93,175 +90,182 @@ describe('<Orders />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should fetch orders data on component mount', async (done) => {
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, ...linkedOrders }});
+  it('should mount and render orders list component', async done => {
+    const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
+
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0&filter%5Bstate%5D%5B%5D=Ordered&filter%5Bstate%5D%5B%5D=Approval%20Pending`, mockOnce({ body: { // eslint-disable-line max-len
-      data: [{ id: '1' }, { id: '2' }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items?filter%5Border_id%5D%5B%5D=1&filter%5Border_id%5D%5B%5D=2`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: {
-      application_types: [{ sources: []}]}}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-1/approval_requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: []}}));
     let wrapper;
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={ store } initialEntries={ [ '/orders' ] }>
-          <Route path="/orders" render={ () => <Orders { ...initialProps } linkedOrders /> } />
-        </ComponentWrapper>
-      );
+          <Route path="/orders">
+            <Orders />
+          </Route>
+        </ComponentWrapper>);
     });
 
-    setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.find(DataList)).toHaveLength(1);
-      expect(wrapper.find(OrderItem)).toHaveLength(2);
-      done();
-    });
+    wrapper.update();
+    expect(wrapper.find(OrdersList)).toHaveLength(1);
+    done();
   });
 
-  it('should expand data list', async (done) => {
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, ...linkedOrders }});
+  it('should mount and render orders list component and paginate correctly', async done => {
+    const orderItemsPagination = { ...orderReducer };
+    orderItemsPagination.orders = {
+      meta: {
+        limit: 50,
+        offset: 0,
+        count: 120
+      },
+      data: [ ...Array(10) ].map((item, index) => ({
+        id: `order-${index}`,
+        orderItems: [{
+          id: `order-item-${index}`
+        }]
+      }))
+    };
+    const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderItemsPagination }});
+
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0&filter%5Bstate%5D%5B%5D=Ordered&filter%5Bstate%5D%5B%5D=Approval%20Pending`, mockOnce({ body: { // eslint-disable-line max-len
-      data: [{ id: '1' }, { id: '2' }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items?filter%5Border_id%5D%5B%5D=1&filter%5Border_id%5D%5B%5D=2`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: {
-      application_types: [{
-        sources: []
-      }]
-    }}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({
+      body: { data: {
+        application_types: [{
+          sources: [{
+            id: '1',
+            name: 'Source 1'
+          }]
+        }]
+      }}}));
+    /**
+     * Pagination requests
+     */
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=100`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
     let wrapper;
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={ store } initialEntries={ [ '/orders' ] }>
-          <Route path="/orders" render={ () => <Orders { ...initialProps } linkedOrders /> } />
-        </ComponentWrapper>
-      );
+          <Route path="/orders">
+            <Orders />
+          </Route>
+        </ComponentWrapper>);
     });
-    setImmediate(async () => {
-      wrapper.update();
-      expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);
-      await act(async () => {
-        wrapper.find('.pf-c-data-list__toggle').first().simulate('click');
-      });
-      setImmediate(() => {
-        wrapper.update();
-        expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(false);
-        expect(wrapper.find(OrderDetailTable)).toHaveLength(1);
-        done();
-      });
+    wrapper.update();
+
+    store.clearActions();
+    await act(async () => {
+      wrapper.find('button[data-action="last"]').simulate('click');
     });
+    wrapper.update();
+    expect(store.getActions()).toEqual([
+      { type: `${FETCH_ORDERS}_PENDING` },
+      { type: SET_PORTFOLIO_ITEMS, payload: { data: []}},
+      { type: `${FETCH_ORDERS}_FULFILLED`, payload: { data: []}}
+
+    ]);
+    done();
   });
 
-  it('should render past orders correctly', () => {
-    initialState = { orderReducer: { ...orderInitialState, linkedOrders, isLoading: false },
-      portfolioReducer: { ...portfoliosInitialState, isLoading: false }};
-    const store = mockStore(initialState);
-    const wrapper = shallow(
-      <ComponentWrapper store={ store } initialEntries={ [ '/orders/closed' ] }>
-        <Route path="/orders/closed" render={ () => <Orders { ...initialProps } /> } />
-      </ComponentWrapper>
-    ).dive();
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-  });
+  it('should mount and render order detail component', async done => {
+    const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-  it('should set the Manage Product link to open in a new tab', async (done) => {
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, ...linkedOrders }});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0&filter%5Bstate%5D%5B%5D=Completed&filter%5Bstate%5D%5B%5D=Failed&filter%5Bstate%5D%5B%5D=Denied&filter%5Bstate%5D%5B%5D=Canceled`, mockOnce({ body: { // eslint-disable-line max-len
-      data: [{ id: '1' }, { id: '2' }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items?filter%5Border_id%5D%5B%5D=1&filter%5Border_id%5D%5B%5D=2`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: {
-      application_types: [{ sources: []}]}}}));
-
+    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
+      id: 123
+    }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/portfolio-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/platform-id`, mockOnce({ body: { data: []}}));
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store } initialEntries={ [ '/orders/closed' ] }>
-          <Route path="/orders/closed" render={ () => <Orders { ...initialProps } linkedOrders /> } />
-        </ComponentWrapper>
-      );
+        <ComponentWrapper
+          store={ store }
+          initialEntries={ [ '/orders/123?order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id' ] }
+        >
+          <Route path="/orders/:id">
+            <Orders />
+          </Route>
+        </ComponentWrapper>);
     });
-    setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.find(DataListContent).first().props().isHidden).toEqual(true);
-      expect(wrapper.find('a').props()).toMatchObject(
-        { children: 'Manage product',
-          href: 'https://example.com/fake-done',
-          rel: 'noopener noreferrer',
-          target: '_blank' });
-      done();
-    });
+    wrapper.update();
+
+    expect(wrapper.find(OrderDetail)).toHaveLength(1);
+    done();
   });
 
-  it('should cancel order', async (done) => {
-    const store = mockStore({ ...initialState, orderReducer: { ...initialState.orderReducer, ...linkedOrders }});
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0&filter%5Bstate%5D%5B%5D=Ordered&filter%5Bstate%5D%5B%5D=Approval%20Pending`, mockOnce({ body: { // eslint-disable-line max-len
-      data: [{ id: '1' }, { id: '2' }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items?filter%5Border_id%5D%5B%5D=1&filter%5Border_id%5D%5B%5D=2`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.patch(`${CATALOG_API_BASE}/orders/order-cancelable/cancel`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: {
-      application_types: [{ sources: []}]}}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-2/approval_requests`, mockOnce({ body: { data: []}}));
+  it('should mount and render order approval detail component', async done => {
+    const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    const expectedActions = [
-      { type: `${FETCH_OPEN_ORDERS}_PENDING` },
-      { type: `${FETCH_PLATFORMS}_PENDING` },
-      { type: `${FETCH_PLATFORMS}_FULFILLED`, payload: []},
-      { type: `${SET_PORTFOLIO_ITEMS}`, payload: { data: []}},
-      { type: `${FETCH_OPEN_ORDERS}_FULFILLED`, payload: {
-        data: [{
-          id: '1',
-          orderItems: []
-        }, {
-          id: '2',
-          orderItems: []
-        }]}},
-      { type: `${CANCEL_ORDER}_PENDING` },
-      { type: 'SET_ORDERS',
-        payload: { openOrders: {
-          data: [
-            expect.objectContaining({ id: 'order-1' })
-          ]}, closedOrders: {
-          data: [
-            expect.objectContaining({ id: 'order-cancelable' }),
-            expect.objectContaining({ id: 'order-2' })
-          ]}}},
-      { type: '@@INSIGHTS-CORE/NOTIFICATIONS/ADD_NOTIFICATION',
-        payload: { variant: 'success', title: 'Your order has been canceled successfully', description:
-          'Order Order #order-cancelable was canceled and has been moved to closed orders.',
-        dismissable: true }},
-      { type: `${CANCEL_ORDER}_FULFILLED` }];
-
+    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
+      id: 123
+    }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/portfolio-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/platform-id`, mockOnce({ body: { data: []}}));
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store } initialEntries={ [ '/orders' ] }>
-          <Route path="/orders" render={ () => <Orders { ...initialProps } /> } />
-        </ComponentWrapper>
-      );
+        <ComponentWrapper
+          store={ store }
+          initialEntries={ [ '/orders/123/approval?order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id' ] } // eslint-disable-line max-len
+        >
+          <Route path="/orders/:id/approval">
+            <Orders />
+          </Route>
+        </ComponentWrapper>);
     });
-    setImmediate(async () => {
-      wrapper.update();
-      expect(wrapper.find(DataListItem)).toHaveLength(2);
-      await act(async () => {
-        wrapper.find('.pf-c-data-list__toggle').at(1).simulate('click');
-      });
-      setImmediate(async () => {
-        wrapper.update();
-        wrapper.find('button#cancel-order-order-cancelable').simulate('click');
-        wrapper.update();
-        expect(wrapper.find(Modal)).toHaveLength(1);
-        await act(async () => {
-          wrapper.find('button#cancel-order').simulate('click');
-        });
-        setImmediate(() => {
-          wrapper.update();
-          expect(store.getActions()).toEqual(expectedActions);
-          done();
-        });
-      });
+    wrapper.update();
+
+    expect(wrapper.find(OrderDetail)).toHaveLength(1);
+    done();
+  });
+
+  it('should mount and render order detail component and open/close cancel order modal', async done => {
+    const enabledCancel = { ...orderReducer };
+    enabledCancel.orderDetail.order.state = 'Approval Pending';
+    const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...enabledCancel }});
+
+    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
+      id: 123
+    }]}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/portfolio-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/platform-id`, mockOnce({ body: { data: []}}));
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={ store }
+          initialEntries={ [ '/orders/123?order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id' ] }
+        >
+          <Route path="/orders/:id">
+            <Orders />
+          </Route>
+        </ComponentWrapper>);
     });
+    wrapper.update();
+    expect(wrapper.find(CancelOrderModal).props().isOpen).toEqual(false);
+    wrapper.find('button#cancel-order-action').simulate('click');
+    wrapper.update();
+    expect(wrapper.find(CancelOrderModal).props().isOpen).toEqual(true);
+    wrapper.find('button#keep-order').simulate('click');
+    wrapper.update();
+    expect(wrapper.find(CancelOrderModal).props().isOpen).toEqual(false);
+    done();
   });
 });

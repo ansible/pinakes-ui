@@ -6,8 +6,7 @@ export const SET_SELECTED_PLAN = 'SET_SELECTED_PLAN';
 export const LIST_ORDERS = 'LIST_ORDERS';
 export const CANCEL_ORDER = 'CANCEL_ORDER';
 export const SET_ORDERS = 'SET_ORDERS';
-export const FETCH_OPEN_ORDERS = 'FETCH_OPEN_ORDERS';
-export const FETCH_CLOSED_ORDERS = 'FETCH_CLOSED_ORDERS';
+export const FETCH_ORDERS = 'FETCH_ORDERS';
 
 export const FETCH_PLATFORM = 'FETCH_PLATFORM';
 export const FETCH_PLATFORMS = 'FETCH_PLATFORMS';
@@ -59,3 +58,9 @@ export const SET_LOADING_STATE = 'SET_LOADING_STATE';
  * OpenApi action
  */
 export const SET_OPENAPI_SCHEMA = '@@open-api/set-schema';
+
+/**
+ * Orders actions
+ * TODO Prefix existing action types
+ */
+export const SET_ORDER_DETAIL = '@@orders/set-order-detail';
