@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useLocation, useRouteMatch, Redirect } from 'react-router-dom';
 import { Stack, StackItem, Level, LevelItem, Split, SplitItem, Bullseye } from '@patternfly/react-core';
 import { Spinner } from '@redhat-cloud-services/frontend-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,6 +37,10 @@ const OrderDetail = () => {
       ...queryValues
     })).then(() => setIsFetching(false));
   }, []);
+
+  if (!isFetching && Object.keys(orderDetailData).length === 0) {
+    return <Redirect to="/orders" />;
+  }
 
   const {
     order,

@@ -35,11 +35,6 @@ export const fetchRequests = () => ({
   payload: OrderHelper.listRequests()
 });
 
-const setOrders = orders => ({
-  type: ActionTypes.SET_ORDERS,
-  payload: orders
-});
-
 export const cancelOrder = orderId => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
   const { orderReducer: { orderDetail }} = getState();
@@ -58,7 +53,7 @@ export const cancelOrder = orderId => (dispatch, getState) => {
   })))
   .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
   .catch((error) => {
-    dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error })
+    dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error });
   });
 };
 
@@ -91,5 +86,6 @@ export const fetchOrderDetails = params => dispatch => {
     progressMessages,
     portfolio,
     approvalRequest
-  }}));
+  }}))
+  .catch(error => dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_REJECTED`, payload: error }));
 };

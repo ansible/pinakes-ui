@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DataList, Level, LevelItem, Grid, GridItem } from '@patternfly/react-core';
-import PropTypes from 'prop-types';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
