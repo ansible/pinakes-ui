@@ -175,7 +175,7 @@ describe('<Orders />', () => {
   it('should mount and render order detail component', async done => {
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bid%5D=123`, mockOnce({ body: { data: [{
+    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
       id: 123
     }]}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
@@ -205,7 +205,7 @@ describe('<Orders />', () => {
   it('should mount and render order approval detail component', async done => {
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bid%5D=123`, mockOnce({ body: { data: [{
+    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
       id: 123
     }]}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
@@ -237,7 +237,7 @@ describe('<Orders />', () => {
     enabledCancel.orderDetail.order.state = 'Approval Pending';
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...enabledCancel }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bid%5D=123`, mockOnce({ body: { data: [{
+    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
       id: 123
     }]}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
