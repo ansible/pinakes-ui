@@ -192,7 +192,7 @@ export const ShareLoader = () => (
 );
 
 export const ListLoader = ({ items, ...props }) => (
-  <DataList aria-labelledby="datalist-placeholder">
+  <DataList aria-label="list-loader" aria-labelledby="datalist-placeholder">
     { [ ...Array(items) ].map((_item, index) => (
       <DataListItem key={ index } aria-labelledby="datalist-item-placeholder">
         <DataListItemRow aria-label="datalist-item-placeholder-row">
