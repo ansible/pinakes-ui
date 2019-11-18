@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import get from 'lodash/get';
 import { DateFormat } from '@redhat-cloud-services/frontend-components';
 
