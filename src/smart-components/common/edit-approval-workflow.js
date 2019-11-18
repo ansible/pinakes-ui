@@ -9,13 +9,17 @@ import { linkWorkflow } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 
-const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
+const EditApprovalWorkflow = ({ search, closeUrl, objectType, objectId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
+  const pushParam = {
+    pathname: closeUrl,
+    search
+  };
 
   const onSubmit = values => {
-    history.push(closeUrl);
+    history.push(pushParam);
     return dispatch(linkWorkflow(values.workflow, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
   };
 
@@ -23,12 +27,12 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
     <Modal
       title={ 'Set approval workflow' }
       isOpen
-      onClose={ () => history.push(closeUrl) }
+      onClose={ () => history.push(pushParam) }
       isSmall
     >
       <FormRenderer
         onSubmit={ onSubmit }
-        onCancel={ () => history.push(closeUrl) }
+        onCancel={ () => history.push(pushParam) }
         schema={ editApprovalWorkflowSchema(loadWorkflowOptions) }
         formContainer="modal"
         buttonsLabels={ { submitLabel: 'Save' } }
@@ -40,7 +44,8 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
 EditApprovalWorkflow.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   objectType: PropTypes.string.isRequired,
-  objectId: PropTypes.string
+  objectId: PropTypes.string,
+  search: PropTypes.string.isRequired
 };
 
 export default EditApprovalWorkflow;

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
@@ -32,45 +32,47 @@ const PortfolioItems = ({
   pagination,
   fetchPortfolioItemsWithPortfolio,
   portfolio: { id }
-}) => (
-  <Fragment>
-    <ToolbarRenderer schema={ createPortfolioToolbarSchema({
-      filterProps: {
-        searchValue: filterValue,
-        onFilterChange: handleFilterChange,
-        placeholder: 'Filter by name...'
-      },
-      title,
-      addProductsRoute,
-      editPortfolioRoute,
-      sharePortfolioRoute,
-      workflowPortfolioRoute,
-      removePortfolioRoute,
-      copyPortfolio,
-      isLoading,
-      copyInProgress,
-      removeProducts: () => removeProducts(selectedItems),
-      itemsSelected: selectedItems.length > 0,
-      meta: pagination,
-      fetchPortfolioItemsWithPortfolio,
-      portfolioId: id
-    }) } />
-    <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
-    <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
-    <Route
-      exact
-      path="/portfolios/detail/:id/share-portfolio"
-      render={ (...args) => <SharePortfolioModal closeUrl={ portfolioRoute } { ...args } /> }
-    />
-    <Route
-      exact
-      path="/portfolios/detail/:id/edit-workflow"
-      render={ (...args) => <EditApprovalWorkflow closeUrl={ portfolioRoute } objectType={ PORTFOLIO_RESOURCE_TYPE } { ...args } /> }
-    />
-    <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
-    <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />
-  </Fragment>
-);
+}) => {
+  const { search } = useLocation();
+  return (
+    <Fragment>
+      <ToolbarRenderer schema={ createPortfolioToolbarSchema({
+        filterProps: {
+          searchValue: filterValue,
+          onFilterChange: handleFilterChange,
+          placeholder: 'Filter by name...'
+        },
+        title,
+        addProductsRoute,
+        editPortfolioRoute,
+        sharePortfolioRoute,
+        workflowPortfolioRoute,
+        removePortfolioRoute,
+        copyPortfolio,
+        isLoading,
+        copyInProgress,
+        removeProducts: () => removeProducts(selectedItems),
+        itemsSelected: selectedItems.length > 0,
+        meta: pagination,
+        fetchPortfolioItemsWithPortfolio,
+        portfolioId: id
+      }) } />
+      <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
+      <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
+      <Route
+        exact
+        path="/portfolios/detail/:id/share-portfolio"
+        render={ (...args) => <SharePortfolioModal closeUrl={ portfolioRoute } { ...args } /> }
+      />
+      <Route
+        exact
+        path="/portfolios/detail/:id/edit-workflow"
+        render={ (...args) => <EditApprovalWorkflow search={ search } closeUrl={ portfolioRoute } objectType={ PORTFOLIO_RESOURCE_TYPE } { ...args } /> }
+      />
+      <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
+      <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />
+    </Fragment>
+  );};
 
 PortfolioItems.propTypes = {
   title: PropTypes.string,

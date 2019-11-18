@@ -247,3 +247,16 @@ export const updatePortfolioItem = values => (dispatch, getState) => {
     throw error;
   }).catch(error => dispatch({ type: `${ActionTypes.UPDATE_TEMPORARY_PORTFOLIO_ITEM}_REJECTED`, payload: error }));
 };
+
+export const getPortfolioItemDetail = params => dispatch => {
+  dispatch({ type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_PENDING`  });
+  return PortfolioHelper.getPortfolioItemDetail(params)
+  .then(([ portfolioItem, portfolio, source ]) => dispatch({
+    type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_FULFILLED`,
+    payload: {
+      portfolioItem,
+      portfolio,
+      source
+    }
+  }));
+};

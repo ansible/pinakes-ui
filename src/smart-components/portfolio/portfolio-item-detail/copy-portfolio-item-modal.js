@@ -52,7 +52,8 @@ const CopyPortfolioItemModal = ({
   portfolioItemId,
   closeUrl,
   history: { push },
-  fetchPortfolioItemsWithPortfolio
+  fetchPortfolioItemsWithPortfolio,
+  search
 }) => {
   const [ submitting, setSubmitting ] = useState(false);
   const [ name, setName ] = useState();
@@ -64,7 +65,10 @@ const CopyPortfolioItemModal = ({
   const onSubmit = values => {
     setSubmitting(true);
     copyPortfolioItem(portfolioItemId, values, portfolios.find(({ id }) => id === values.portfolio_id))
-    .then(({ id }) => push(`/portfolios/detail/${values.portfolio_id}/product/${id}`))
+    .then(({ id }) => push({
+      pathname: `/portfolios/detail/${values.portfolio_id}/product/${id}`,
+      search
+    }))
     .then(() => values.portfolio_id === portfolioId && fetchPortfolioItemsWithPortfolio(portfolioId))
     .catch(() => setSubmitting(false));
   };
@@ -81,14 +85,20 @@ const CopyPortfolioItemModal = ({
     <Modal
       isOpen
       title="Copy product"
-      onClose={ () => push(closeUrl) }
+      onClose={ () => push({
+        pathname: closeUrl,
+        search
+      }) }
       isSmall
     >
       <FormRenderer
         initialValues={ { portfolio_id: portfolioId, portfolio_item_name: name } }
         schema={ copySchema(portfolios, name, portfolioChange, nameFetching) }
         onSubmit={ onSubmit }
-        onCancel={ () => push(closeUrl) }
+        onCancel={ () => push({
+          pathname: closeUrl,
+          search
+        }) }
         componentMapper={ { 'value-only': ValueOnly } }
         buttonsLabels={ { submitLabel: 'Save' } }
         disableSubmit={ submitting ? [ 'pristine', 'diry' ] : [] }

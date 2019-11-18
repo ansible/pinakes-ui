@@ -8,12 +8,15 @@ import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import OrderServiceFormStepConfiguration from '../order/order-service-form-step-configuration';
 
-const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (
+const OrderModal = ({ serviceData, closeUrl, search, history: { push }}) => serviceData ? (
   <Modal
     isOpen
     title=""
     hideTitle
-    onClose={ () => push(closeUrl) }
+    onClose={ () => push({
+      pathname: closeUrl,
+      search
+    }) }
     isLarge
   >
     <div className="pf-u-mb-md">
@@ -36,7 +39,7 @@ const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData 
         </LevelItem>
       </Level>
     </div>
-    <OrderServiceFormStepConfiguration closeUrl={ closeUrl } { ...serviceData } />
+    <OrderServiceFormStepConfiguration search={ search } closeUrl={ closeUrl } { ...serviceData } />
   </Modal>
 ) : null;
 
@@ -46,7 +49,8 @@ OrderModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  search: PropTypes.string
 };
 
 const mapStateToProps = ({

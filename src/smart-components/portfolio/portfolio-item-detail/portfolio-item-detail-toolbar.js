@@ -15,7 +15,8 @@ const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon
+  uploadIcon,
+  search
 }) => (
   <Fragment>
     <TopToolbar>
@@ -44,6 +45,7 @@ const PortfolioItemDetailToolbar = ({
                 copyUrl={ `${url}/copy` }
                 workflowUrl={ `${url}/edit-workflow` }
                 isFetching={ isFetching }
+                search={ search }
                 { ...args }
               />) }/>
           </Level>
@@ -71,7 +73,8 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  search: PropTypes.string
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
