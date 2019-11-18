@@ -16,3 +16,4 @@ export const permissionOptions = [{
 
 export const PORTFOLIO_RESOURCE_TYPE = 'Portfolio';
 export const PORTFOLIO_ITEM_RESOURCE_TYPE = 'PortfolioItem';
+export const INVENTORY_RESOURCE_TYPE = 'Inventory';

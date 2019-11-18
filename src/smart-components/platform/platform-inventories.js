@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useParams } from 'react-router-dom';
+import { Route, Switch, useParams, useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { Section } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -20,6 +20,8 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentList from '../../presentational-components/shared/content-list';
 import { createRows } from './platform-table-helpers.js';
+import EditApprovalWorkflow from '../common/edit-approval-workflow';
+import { INVENTORY_RESOURCE_TYPE } from '../../utilities/constants';
 
 const initialState = {
   filterValue: '',
@@ -49,6 +51,8 @@ const PlatformInventories = (props) => {
   const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const history = useHistory();
+
   const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(fetchPlatformInventories(id, value, meta)).then(() => filteringCallback(false));
@@ -93,6 +97,11 @@ const PlatformInventories = (props) => {
     return request();
   };
 
+  const actionResolver = (inventoryData) => {
+    return [{ title: 'Edit approval',
+      onClick: () => history.push(`/platforms/detail/${id}/platform-inventories/edit-workflow/${inventoryData.id}`) }];
+  };
+
   const renderItems = () => {
     const inventoryRows = data ? createRows(data, filterValue) : [];
     const paginationCurrent = meta || defaultSettings;
@@ -116,11 +125,16 @@ const PlatformInventories = (props) => {
             direction: 'down'
           }
         }) }/>
+        <Route path="/platforms/detail/:id/platform-inventories/edit-workflow/:resourceId">
+          <EditApprovalWorkflow closeUrl={ `/platforms/detail/${id}/platform-inventories` }
+            objectType={ INVENTORY_RESOURCE_TYPE }/>
+        </Route>
         <Section type="content">
           <ContentList title={ title }
             data={ inventoryRows }
             columns={ columns }
             isLoading={ isFetching || isFiltering }
+            actionResolver = { actionResolver }
             renderEmptyState={ () => (
               <ContentGaleryEmptyState
                 title="No inventories"
