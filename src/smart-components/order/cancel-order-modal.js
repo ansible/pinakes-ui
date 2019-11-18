@@ -18,6 +18,7 @@ const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => (
       <Button onClick={ cancelOrder } key="cancel-order" id="cancel-order" variant="danger">Cancel order</Button>,
       <Button onClick={ onClose } key="keep-order" id="keep-order" variant="link">Keep order</Button>
     ] }
+    isFooterLeftAligned
   >
     Are you sure you want to cancel { name }?
   </Modal>

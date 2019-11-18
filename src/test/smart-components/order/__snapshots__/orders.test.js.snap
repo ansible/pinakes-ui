@@ -56,13 +56,15 @@ exports[`<Orders /> should render correctly 1`] = `
   />
   <Switch>
     <Route
-      component={[Function]}
       path="/orders/:id"
-    />
+    >
+      <OrderDetail />
+    </Route>
     <Route
-      component={[Function]}
       path="/orders"
-    />
+    >
+      <OrdersList />
+    </Route>
   </Switch>
 </Stack>
 `;
@@ -123,13 +125,15 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
   />
   <Switch>
     <Route
-      component={[Function]}
       path="/orders/:id"
-    />
+    >
+      <OrderDetail />
+    </Route>
     <Route
-      component={[Function]}
       path="/orders"
-    />
+    >
+      <OrdersList />
+    </Route>
   </Switch>
 </Stack>
 `;

@@ -8,6 +8,7 @@ const ApprovalRequests = () => {
     order,
     approvalRequest
   } = useSelector(({ orderReducer: { orderDetail }}) => orderDetail);
+
   return (
     <TextContent>
       <Text component={ TextVariants.h2 }>

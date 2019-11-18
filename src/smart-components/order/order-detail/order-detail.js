@@ -79,10 +79,10 @@ const OrderDetail = () => {
       </StackItem>
       <StackItem className="pf-u-pt-xl">
         <Split gutter="md" className="orders-nav-layout">
-          <SplitItem style={ { flexShrink: 0 } } className="order-detail-nav-cotainer">
+          <SplitItem className="order-detail-nav-cotainer">
             <OrderDetailMenu isFetching={ isFetching } baseUrl={ match.url } search={ search } />
           </SplitItem>
-          <SplitItem style={ { flexGrow: 1 } }>
+          <SplitItem className="order-detail-content-cotainer">
             { isFetching ? (
               <Bullseye>
                 <Spinner />
@@ -90,21 +90,17 @@ const OrderDetail = () => {
             ) : (
               <Switch>
                 <Route path={ `${match.url}/approval` } component={ ApprovalRequests } />
-                <Route path={ `${match.url}/provision` } render={ () => {
-                  return (
-                    <div>
+                <Route path={ `${match.url}/provision` } render={ () => (
+                  <div>
                     provision
-                    </div>
-                  );
-                } } />
-                <Route path={ `${match.url}/lifecycle` } render={ () => {
-                  return (
-                    <div>
+                  </div>
+                ) } />
+                <Route path={ `${match.url}/lifecycle` } render={ () => (
+                  <div>
                     lifecycle
-                    </div>
-                  );
-                } } />
-                <Route path={ `${match.url}` } component={ OrderDetails }/>
+                  </div>
+                ) }  />
+                <Route path={ match.url } component={ OrderDetails }/>
               </Switch>
             ) }
           </SplitItem>

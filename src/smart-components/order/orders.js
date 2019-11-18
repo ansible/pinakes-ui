@@ -16,8 +16,12 @@ const Orders = () => {
     <Stack>
       <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
       <Switch>
-        <Route path="/orders/:id" component={ OrderDetail } />
-        <Route path="/orders" component={ OrdersList } />
+        <Route path="/orders/:id">
+          <OrderDetail />
+        </Route>
+        <Route path="/orders">
+          <OrdersList />
+        </Route>
       </Switch>
     </Stack>
   );

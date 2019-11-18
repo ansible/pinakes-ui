@@ -14,22 +14,17 @@ import {
   SplitItem,
   Text,
   TextContent,
-  TextVariants,
-  Tooltip,
-  TooltipPosition
+  TextVariants
 } from '@patternfly/react-core';
 import { Link } from 'react-router-dom';
+import { DateFormat } from '@redhat-cloud-services/frontend-components';
+import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
-import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
-import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 const OrderItem = ({ item }) => {
   const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems: { data }}}) => data);
-
-  const orderedAt = createOrderedLabel(new Date(item.created_at));
-  const updatedAt = createUpdatedLabel(item.orderItems);
   const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, portfolioItems);
 
   const orderItem = item.orderItems[0] && item.orderItems[0] || {};
@@ -52,7 +47,7 @@ const OrderItem = ({ item }) => {
                           <Level>
                             <LevelItem>
                               <Text
-                                style={ { marginBottom: 0 } }
+                                className="pf-u-mb-0"
                                 component={ TextVariants.h5 }
                               >
                                 <Link to={ {
@@ -66,7 +61,7 @@ const OrderItem = ({ item }) => {
                                 pathname: `orders/${item.id}/approval`,
                                 search: searchParam
                               } }>
-                                { item.state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm" fill="#C9190B" /> }
+                                { item.state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill"/> }
                                 { item.state }
                               </Link>
                             </LevelItem>
@@ -75,14 +70,9 @@ const OrderItem = ({ item }) => {
                         <GridItem>
                           <Level>
                             <LevelItem>
-                              <Tooltip enableFlip position={ TooltipPosition.top } content={ <span>{ createDateString(item.created_at) }</span> }>
-                                <Text
-                                  style={ { marginBottom: 0 } }
-                                  component={ TextVariants.small }
-                                >
-                                  { orderedAt }
-                                </Text>
-                              </Tooltip>
+                              <Text className="pf-u-mb-0" component={ TextVariants.small }>
+                                <DateFormat date={ item.created_at } variant="relative"/>
+                              </Text>
                             </LevelItem>
                             <LevelItem>
                               <Text
@@ -93,18 +83,9 @@ const OrderItem = ({ item }) => {
                               </Text>
                             </LevelItem>
                             <LevelItem>
-                              <Tooltip
-                                enableFlip
-                                position={ TooltipPosition.top }
-                                content={ <span>{ createDateString(item.orderItems[0] && item.orderItems[0].updated_at) }</span> }
-                              >
-                                <Text
-                                  style={ { marginBottom: 0 } }
-                                  component={ TextVariants.small }
-                                >
-                                  { updatedAt }
-                                </Text>
-                              </Tooltip>
+                              <Text className="pf-u-mb-0" component={ TextVariants.small }>
+                                <DateFormat date={ item.orderItems[0] && item.orderItems[0].updated_at } variant="relative"/>
+                              </Text>
                             </LevelItem>
                           </Level>
                         </GridItem>

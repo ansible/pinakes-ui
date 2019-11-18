@@ -35,9 +35,9 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
           Reorder
         </Button>
       </ActionGroup>
-
     </Fragment>
-  );};
+  );
+};
 
 OrderToolbarActions.propTypes = {
   state: PropTypes.string,

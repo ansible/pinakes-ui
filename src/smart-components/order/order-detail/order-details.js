@@ -14,6 +14,7 @@ const OrderDetails = () => {
     portfolio,
     orderItem
   } = useSelector(({ orderReducer: { orderDetail }}) => orderDetail);
+
   return (
     <TextContent>
       <Text component={ TextVariants.h2 }>

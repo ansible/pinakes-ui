@@ -19,38 +19,36 @@ const navItems = [{
   isDisabled: true
 }];
 
-const OrderDetailMenu = ({ baseUrl, search, isFetching }) => {
-  return (
-    <Nav>
-      <NavList className="orders-side-nav-list">
-        <li className="pf-c-nav__item orders-nav-section-group">
-          <TextContent>
-            <Text component={ TextVariants.small }>
+const OrderDetailMenu = ({ baseUrl, search, isFetching }) => (
+  <Nav>
+    <NavList className="orders-side-nav-list">
+      <li className="pf-c-nav__item orders-nav-section-group">
+        <TextContent>
+          <Text component={ TextVariants.small }>
               Order steps
-            </Text>
-          </TextContent>
-        </li>
-        { navItems.map(({ link, title, isDisabled }) => (
-          <li key={ link || title }
-            className={ `pf-c-nav__item orders-side-nav-item orders-side-nav-category${(isDisabled || isFetching) ? ' disabled' : ''}` }
+          </Text>
+        </TextContent>
+      </li>
+      { navItems.map(({ link, title, isDisabled }) => (
+        <li key={ link || title }
+          className={ `pf-c-nav__item orders-side-nav-item orders-side-nav-category${(isDisabled || isFetching) ? ' disabled' : ''}` }
+        >
+          <NavLink
+            exact
+            to={ {
+              pathname: `${baseUrl}${link}`,
+              search
+            } }
+            className="pf-c-nav__link orders-side-nav-link"
+            activeClassName="pf-m-active"
           >
-            <NavLink
-              exact
-              to={ {
-                pathname: `${baseUrl}${link}`,
-                search
-              } }
-              className="pf-c-nav__link orders-side-nav-link"
-              activeClassName="pf-m-active"
-            >
-              { title }
-            </NavLink>
-          </li>
-        )) }
-      </NavList>
-    </Nav>
-  );
-};
+            { title }
+          </NavLink>
+        </li>
+      )) }
+    </NavList>
+  </Nav>
+);
 
 OrderDetailMenu.propTypes = {
   baseUrl: PropTypes.string.isRequired,

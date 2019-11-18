@@ -15,54 +15,52 @@ const OrderDetailInformation = ({
   owner,
   portfolioItemId,
   sourceType
-}) => {
-  return (
-    <Split className="pf-u-mt-sm">
-      <SplitItem className="pf-u-mr-md">
-        <CardIcon
-          sourceTypeId={ sourceType }
-          height={ 60 }
-          src={ `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon` }
-        />
-      </SplitItem>
-      <SplitItem>
-        <Level>
-          <LevelItem className="pf-u-mr-lg">
-            <Title headingLevel="h5" size="md">
-              { jobName }
-            </Title>
-          </LevelItem>
-          <LevelItem>
-            <Title headingLevel="h5" size="md">
-              Status: { state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm" fill="#C9190B" /> } { state }
-            </Title>
-          </LevelItem>
-        </Level>
-        <Level>
-          <LevelItem className="pf-u-mr-lg">
-            <TextContent>
-              <Text component={ TextVariants.small }>
-                <DateFormat date={ orderRequestDate } type="relative" />
-              </Text>
-            </TextContent>
-          </LevelItem>
-          <LevelItem className="pf-u-mr-lg">
-            <TextContent>
-              <Text component={ TextVariants.small }>Ordered by { owner }</Text>
-            </TextContent>
-          </LevelItem>
-          <LevelItem>
-            <TextContent>
-              <Text component={ TextVariants.small }>
-                <DateFormat date={ orderUpdateDate } type="relative" />
-              </Text>
-            </TextContent>
-          </LevelItem>
-        </Level>
-      </SplitItem>
-    </Split>
-  );
-};
+}) => (
+  <Split className="pf-u-mt-sm">
+    <SplitItem className="pf-u-mr-md">
+      <CardIcon
+        sourceTypeId={ sourceType }
+        height={ 60 }
+        src={ `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon` }
+      />
+    </SplitItem>
+    <SplitItem>
+      <Level>
+        <LevelItem className="pf-u-mr-lg">
+          <Title headingLevel="h5" size="md">
+            { jobName }
+          </Title>
+        </LevelItem>
+        <LevelItem>
+          <Title headingLevel="h5" size="md">
+              Status: { state === 'Failed' && <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill"/> } { state }
+          </Title>
+        </LevelItem>
+      </Level>
+      <Level>
+        <LevelItem className="pf-u-mr-lg">
+          <TextContent>
+            <Text component={ TextVariants.small }>
+              <DateFormat date={ orderRequestDate } type="relative" />
+            </Text>
+          </TextContent>
+        </LevelItem>
+        <LevelItem className="pf-u-mr-lg">
+          <TextContent>
+            <Text component={ TextVariants.small }>Ordered by { owner }</Text>
+          </TextContent>
+        </LevelItem>
+        <LevelItem>
+          <TextContent>
+            <Text component={ TextVariants.small }>
+              <DateFormat date={ orderUpdateDate } type="relative" />
+            </Text>
+          </TextContent>
+        </LevelItem>
+      </Level>
+    </SplitItem>
+  </Split>
+);
 
 OrderDetailInformation.propTypes = {
   portfolioItemId: PropTypes.string.isRequired,

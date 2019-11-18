@@ -400,6 +400,14 @@
     color: var(--pf-global--Color--light-300) !important;
   }
 }
+.orders-nav-layout {
+  .order-detail-content-cotainer {
+    flex-grow: 1;
+  }
+  .order-detail-nav-cotainer {
+    flex-shrink: 0;
+  }
+} 
 
 @media screen and (max-width: 768px) {
   .orders-nav-layout {
@@ -448,4 +456,8 @@ a.breadcrumb-active {
   pointer-events: none;
   color: var(--pf-c-breadcrumb__link--m-current--Color);
   text-decoration: none;
+}
+
+.icon-danger-fill {
+  fill: var(--pf-global--danger-color--100)
 }
