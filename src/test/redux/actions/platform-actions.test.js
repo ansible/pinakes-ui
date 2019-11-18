@@ -84,10 +84,11 @@ describe('Platform actions', () => {
       }
     });
 
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`, mockOnce({ body: { data: [{
-      id: '1',
-      name: 'Offering 1'
-    }]}}));
+    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`,
+      mockOnce({ body: { data: [{
+        id: '1',
+        name: 'Offering 1'
+      }]}}));
 
     const expectedActions = [{
       type: `${FETCH_PLATFORM_ITEMS}_PENDING`,

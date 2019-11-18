@@ -51,8 +51,9 @@ describe('<AddProductsToPortfolio />', () => {
     });
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
-      body: { data: [], meta: { count: 123, limit: 50, offset: 123 }}}));
+    apiClientMock
+    .get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D%20=&limit=50&offset=0`,
+      mockOnce({ body: { data: [], meta: { count: 123, limit: 50, offset: 123 }}}));
 
     let wrapper;
     await act(async () => {
@@ -88,10 +89,10 @@ describe('<AddProductsToPortfolio />', () => {
     });
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=&limit=50&offset=0`, mockOnce({
-      body: {
-        data: [], meta: {}}
-    }));
+    apiClientMock
+    .get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D%20=&limit=50&offset=0`,
+      mockOnce({ body: { data: [], meta: {}}
+      }));
     apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { id: '999' }}));
     apiClientMock.post(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce((req, res) => {
       expect(JSON.parse(req.body())).toEqual({ portfolio_item_id: '999' });
