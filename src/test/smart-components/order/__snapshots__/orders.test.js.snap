@@ -1,110 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Orders /> should render correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Stack>
+  <ToolbarRenderer
+    componentMapper={
+      Object {
+        "AppTabs": [Function],
+        "Button": [Function],
+        "FilterToolbarItem": [Function],
+        "Level": [Function],
+        "LevelItem": [Function],
+        "Link": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        },
+        "Toolbar": [Function],
+        "ToolbarGroup": [Function],
+        "ToolbarItem": [Function],
+        "TopToolbar": [Function],
+        "TopToolbarTitle": [Function],
+      }
+    }
+    schema={
+      Object {
+        "fields": Array [
+          Object {
+            "component": [Function],
+            "key": "foo-breadcrumbs",
+          },
+          Object {
+            "breadcrumbs": false,
+            "className": "orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl",
+            "component": "TopToolbar",
+            "fields": Array [
+              Object {
+                "className": "",
+                "component": "TopToolbarTitle",
+                "key": "orders-toolbar-title",
+                "title": "Orders",
+              },
+            ],
+            "key": "orders-toolbar",
+          },
+        ],
+      }
+    }
+  />
+  <Switch>
+    <Route
+      component={[Function]}
+      path="/orders/:id"
+    />
+    <Route
+      component={[Function]}
+      path="/orders"
+    />
+  </Switch>
+</Stack>
 `;
 
 exports[`<Orders /> should render correctly in loading state 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
-`;
-
-exports[`<Orders /> should render orders correctly 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "subscription": Subscription {
-        "handleChangeWrapper": [Function],
-        "listeners": Object {
-          "clear": [Function],
-          "get": [Function],
-          "notify": [Function],
-          "subscribe": [Function],
+<Stack>
+  <ToolbarRenderer
+    componentMapper={
+      Object {
+        "AppTabs": [Function],
+        "Button": [Function],
+        "FilterToolbarItem": [Function],
+        "Level": [Function],
+        "LevelItem": [Function],
+        "Link": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
         },
-        "onStateChange": [Function],
-        "parentSub": undefined,
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-        "unsubscribe": [Function],
-      },
+        "Toolbar": [Function],
+        "ToolbarGroup": [Function],
+        "ToolbarItem": [Function],
+        "TopToolbar": [Function],
+        "TopToolbarTitle": [Function],
+      }
     }
-  }
->
-  <MemoryRouter
-    initialEntries={
-      Array [
-        "/orders/closed",
-      ]
+    schema={
+      Object {
+        "fields": Array [
+          Object {
+            "component": [Function],
+            "key": "foo-breadcrumbs",
+          },
+          Object {
+            "breadcrumbs": false,
+            "className": "orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl",
+            "component": "TopToolbar",
+            "fields": Array [
+              Object {
+                "className": "",
+                "component": "TopToolbarTitle",
+                "key": "orders-toolbar-title",
+                "title": "Orders",
+              },
+            ],
+            "key": "orders-toolbar",
+          },
+        ],
+      }
     }
-  >
-    <Orders />
-  </MemoryRouter>
-</ContextProvider>
-`;
-
-exports[`<Orders /> should render past orders correctly 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "subscription": Subscription {
-        "handleChangeWrapper": [Function],
-        "listeners": Object {
-          "clear": [Function],
-          "get": [Function],
-          "notify": [Function],
-          "subscribe": [Function],
-        },
-        "onStateChange": [Function],
-        "parentSub": undefined,
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-        "unsubscribe": [Function],
-      },
-    }
-  }
->
-  <MemoryRouter
-    initialEntries={
-      Array [
-        "/orders/closed",
-      ]
-    }
-  >
+  />
+  <Switch>
     <Route
-      path="/orders/closed"
-      render={[Function]}
+      component={[Function]}
+      path="/orders/:id"
     />
-  </MemoryRouter>
-</ContextProvider>
+    <Route
+      component={[Function]}
+      path="/orders"
+    />
+  </Switch>
+</Stack>
 `;

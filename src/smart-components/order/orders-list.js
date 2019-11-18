@@ -64,11 +64,4 @@ const OrdersList = () => {
   );
 };
 
-OrdersList.propTypes = {
-  type: PropTypes.oneOf([ 'openOrders', 'closedOrders' ]).isRequired,
-  match: PropTypes.shape({
-    url: PropTypes.string.isRequired
-  }).isRequired
-};
-
 export default OrdersList;

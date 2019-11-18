@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Stack } from '@patternfly/react-core';
 import { Switch, Route } from 'react-router-dom';
 
@@ -22,11 +21,6 @@ const Orders = () => {
       </Switch>
     </Stack>
   );
-};
-
-Orders.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired
 };
 
 export default Orders;

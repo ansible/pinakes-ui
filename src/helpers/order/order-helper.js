@@ -40,9 +40,6 @@ export function cancelOrder(orderId) {
   return orderApi.cancelOrder(orderId);
 }
 
-const OPEN_ORDER_STATES = [ 'Ordered', 'Approval Pending' ];
-const CLOSED_ORDER_STATES = [ 'Completed', 'Failed', 'Denied', 'Canceled' ];
-
 const getOrderItems = orderIds =>
   axiosInstance.get(`${CATALOG_API_BASE}/order_items?${orderIds.map(orderId => `filter[order_id][]=${orderId}`).join('&')}`);
 
@@ -74,13 +71,7 @@ export function getOrderApprovalRequests(orderItemId) {
 
 export const getOrderDetail = params => {
   return Promise.all([
-    axiosInstance.get(`${CATALOG_API_BASE}/orders?filter[id]=${params.order}`).then(({ data: [ order ] }) => {
-      if (!order) {
-        throw new Error(`Order with id ${params.order} does not exist`);
-      }
-
-      return order;
-    }),
+    axiosInstance.get(`${CATALOG_API_BASE}/orders/${params.order}`),
     axiosInstance.get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`),
     axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`),
     axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.platform}`),

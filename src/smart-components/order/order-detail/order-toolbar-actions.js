@@ -10,7 +10,7 @@ const CANCELABLE_STATES = [ 'Approval Pending' ];
 
 const canCancel = state => CANCELABLE_STATES.includes(state);
 
-const OrderToolbarActions = ({ state, orderId }) => {
+const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
   const dispatch = useDispatch();
   const [ cancelModalOpen, setCancelModalOpen ] = useState(false);
   return (
@@ -19,13 +19,16 @@ const OrderToolbarActions = ({ state, orderId }) => {
         onClose={ () => setCancelModalOpen(false) }
         isOpen={ cancelModalOpen }
         cancelOrder={ () => dispatch(cancelOrder(orderId)) }
+        name={ portfolioItemName }
       />
       <ActionGroup>
         <Button
           onClick={ () => setCancelModalOpen(true) }
           isDisabled={ !canCancel(state) }
           type="button"
-          className="pf-u-mr-md">
+          className="pf-u-mr-md"
+          id="cancel-order-action"
+        >
             Cancel order
         </Button>
         <Button isDisabled type="button">
@@ -38,7 +41,8 @@ const OrderToolbarActions = ({ state, orderId }) => {
 
 OrderToolbarActions.propTypes = {
   state: PropTypes.string,
-  orderId: PropTypes.string.isRequired
+  orderId: PropTypes.string.isRequired,
+  portfolioItemName: PropTypes.string.isRequired
 };
 
 export default OrderToolbarActions;
