@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
@@ -9,9 +9,10 @@ import { linkWorkflow } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 
-const EditApprovalWorkflow = ({ search, closeUrl, objectType, objectId }) => {
+const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { search } = useLocation();
   const { id } = useParams();
   const pushParam = {
     pathname: closeUrl,
@@ -44,8 +45,7 @@ const EditApprovalWorkflow = ({ search, closeUrl, objectType, objectId }) => {
 EditApprovalWorkflow.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   objectType: PropTypes.string.isRequired,
-  objectId: PropTypes.string,
-  search: PropTypes.string.isRequired
+  objectId: PropTypes.string
 };
 
 export default EditApprovalWorkflow;

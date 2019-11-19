@@ -115,7 +115,8 @@ CopyPortfolioItemModal.propTypes = {
   portfolios: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   copyPortfolioItem: PropTypes.func.isRequired,
   portfolioItemId: PropTypes.string.isRequired,
-  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired
+  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired
 };
 
 const mapStateToProps = ({ portfolioReducer: { portfolios }}) => ({

@@ -72,7 +72,7 @@ const OrderDetail = () => {
       <StackItem className="pf-u-pt-xl">
         <Split gutter="md" className="orders-nav-layout">
           <SplitItem className="order-detail-nav-cotainer">
-            <OrderDetailMenu isFetching={ isFetching } baseUrl={ match.url } search={ search } />
+            <OrderDetailMenu isFetching={ isFetching } baseUrl={ match.url } />
           </SplitItem>
           <SplitItem className="order-detail-content-cotainer">
             { isFetching ? (

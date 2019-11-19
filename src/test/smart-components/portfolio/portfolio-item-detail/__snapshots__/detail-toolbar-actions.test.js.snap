@@ -16,7 +16,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         to={
           Object {
             "pathname": "foo/bar",
-            "search": undefined,
+            "search": "",
           }
         }
       >
@@ -113,7 +113,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   to={
                     Object {
                       "pathname": "foo/baz",
-                      "search": undefined,
+                      "search": "",
                     }
                   }
                 >
@@ -129,7 +129,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   to={
                     Object {
                       "pathname": "foo/copy",
-                      "search": undefined,
+                      "search": "",
                     }
                   }
                 >
@@ -146,7 +146,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   to={
                     Object {
                       "pathname": undefined,
-                      "search": undefined,
+                      "search": "",
                     }
                   }
                 >
@@ -178,7 +178,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     to={
                       Object {
                         "pathname": "foo/baz",
-                        "search": undefined,
+                        "search": "",
                       }
                     }
                   >
@@ -194,7 +194,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     to={
                       Object {
                         "pathname": "foo/copy",
-                        "search": undefined,
+                        "search": "",
                       }
                     }
                   >
@@ -211,7 +211,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     to={
                       Object {
                         "pathname": undefined,
-                        "search": undefined,
+                        "search": "",
                       }
                     }
                   >
@@ -244,7 +244,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         to={
                           Object {
                             "pathname": "foo/baz",
-                            "search": undefined,
+                            "search": "",
                           }
                         }
                       >
@@ -260,7 +260,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         to={
                           Object {
                             "pathname": "foo/copy",
-                            "search": undefined,
+                            "search": "",
                           }
                         }
                       >
@@ -277,7 +277,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         to={
                           Object {
                             "pathname": undefined,
-                            "search": undefined,
+                            "search": "",
                           }
                         }
                       >
@@ -311,7 +311,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         to={
                           Object {
                             "pathname": "foo/baz",
-                            "search": undefined,
+                            "search": "",
                           }
                         }
                       >
@@ -327,7 +327,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         to={
                           Object {
                             "pathname": "foo/copy",
-                            "search": undefined,
+                            "search": "",
                           }
                         }
                       >
@@ -344,7 +344,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         to={
                           Object {
                             "pathname": undefined,
-                            "search": undefined,
+                            "search": "",
                           }
                         }
                       >

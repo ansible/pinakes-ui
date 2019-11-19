@@ -67,7 +67,7 @@ const PortfolioItems = ({
       <Route
         exact
         path="/portfolios/detail/:id/edit-workflow"
-        render={ (...args) => <EditApprovalWorkflow search={ search } closeUrl={ portfolioRoute } objectType={ PORTFOLIO_RESOURCE_TYPE } { ...args } /> }
+        render={ (...args) => <EditApprovalWorkflow closeUrl={ portfolioRoute } objectType={ PORTFOLIO_RESOURCE_TYPE } { ...args } /> }
       />
       <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
       <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />

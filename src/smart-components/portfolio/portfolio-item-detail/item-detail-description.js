@@ -7,7 +7,7 @@ import EditPortfolioItem from './edit-portfolio-item';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
-const ItemDetailDescription = ({ search, product, url }) => (
+const ItemDetailDescription = ({ product, url }) => (
   <Switch>
     <Route exact path={ `${url}` } render={ () => (
       <TextContent>
@@ -33,9 +33,9 @@ const ItemDetailDescription = ({ search, product, url }) => (
         ) }
       </TextContent>
     ) }/>
-    <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem search={ search } cancelUrl={ url } product={ product } /> } />
+    <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
     <Route exact path={ `${url}/edit-workflow` }>
-      <EditApprovalWorkflow search={ search } closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } />
+      <EditApprovalWorkflow closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } />
     </Route>
   </Switch>
 );
@@ -47,8 +47,7 @@ ItemDetailDescription.propTypes = {
     support_url: PropTypes.string,
     documentation_url: PropTypes.string
   }).isRequired,
-  url: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired
 };
 
 export default ItemDetailDescription;

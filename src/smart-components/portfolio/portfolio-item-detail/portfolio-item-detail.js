@@ -52,7 +52,7 @@ const PortfolioItemDetail = () => {
 
   return (
     <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
-      <Route path={ `${url}/order` } render={ props => <OrderModal search={ search } { ...props } closeUrl={ url } serviceData={ portfolioItem }/> }/>
+      <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ portfolioItem }/> }/>
       <Route
         path={ `${url}/copy` }
         render={ props => (
@@ -62,7 +62,6 @@ const PortfolioItemDetail = () => {
       <PortfolioItemDetailToolbar
         uploadIcon={ uploadIcon }
         url={ url }
-        search={ search }
         isOpen={ isOpen }
         product={ portfolioItem }
         setOpen={ setOpen }
@@ -74,7 +73,7 @@ const PortfolioItemDetail = () => {
             <ItemDetailInfoBar product={ portfolioItem } portfolio={ portfolio } source={ portfolioItem } />
           </GridItem>
           <GridItem md={ 10 }>
-            <ItemDetailDescription search={ search } product={ portfolioItem } url={ url } />
+            <ItemDetailDescription product={ portfolioItem } url={ url } />
           </GridItem>
         </Grid>
       </div>
