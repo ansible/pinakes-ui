@@ -44,6 +44,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         >
           <SearchIcon
             color="currentColor"
+            noVerticalAlign={false}
             size="sm"
             title={null}
           >
