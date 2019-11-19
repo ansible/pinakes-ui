@@ -13,7 +13,7 @@ import OrderModal from '../../../../smart-components/common/order-modal';
 import { ProductLoaderPlaceholder } from '../../../../presentational-components/shared/loader-placeholders';
 import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 import PortfolioItemDetail from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail';
-import { APPROVAL_API_BASE, CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
+import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import dummySchema from '../../order/order-mock-form-schema';

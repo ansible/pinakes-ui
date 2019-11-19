@@ -18,7 +18,7 @@ const requiredParams = [ 'order-item', 'portfolio-item', 'platform', 'portfolio'
 
 const OrderDetail = () => {
   const [ isFetching, setIsFetching ] = useState(true);
-  const [ queryValues, search ] = useQuery(requiredParams);
+  const [ queryValues ] = useQuery(requiredParams);
   const orderDetailData = useSelector(({ orderReducer: { orderDetail }}) => orderDetail || {});
   const match = useRouteMatch('/orders/:id');
   const dispatch = useDispatch();
