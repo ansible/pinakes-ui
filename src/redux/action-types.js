@@ -27,7 +27,6 @@ export const ADD_PORTFOLIO = 'ADD_PORTFOLIO';
 export const ADD_TO_PORTFOLIO = 'ADD_TO_PORTFOLIO';
 export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
 export const REMOVE_PORTFOLIO = 'REMOVE_PORTFOLIO';
-export const SELECT_PORTFOLIO_ITEM = 'SELECT_PORTFOLIO_ITEM';
 export const REMOVE_PORTFOLIO_ITEMS = 'REMOVE_PORTFOLIO_ITEMS';
 export const RESTORE_PORTFOLIO_ITEMS = 'RESTORE_PORTFOLIO_ITEMS';
 export const RESET_SELECTED_PORTFOLIO = 'RESET_SELECTED_PORTFOLIO';
@@ -64,3 +63,8 @@ export const SET_OPENAPI_SCHEMA = '@@open-api/set-schema';
  * TODO Prefix existing action types
  */
 export const SET_ORDER_DETAIL = '@@orders/set-order-detail';
+
+/*
+ * Portfolio actions
+ */
+export const SELECT_PORTFOLIO_ITEM = '@@portfolio/SELECT_PORTFOLIO_ITEM';

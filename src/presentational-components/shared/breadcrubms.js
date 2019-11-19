@@ -29,7 +29,7 @@ const fragmentMapper = {
     title: 'Orders'
   },
   product: {
-    reducer: 'portfolioReducer.portfolioItem.name'
+    reducer: 'portfolioReducer.portfolioItem.portfolioItem.name'
   },
   'platform-templates': {
     reducer: 'platformReducer.platform.name'

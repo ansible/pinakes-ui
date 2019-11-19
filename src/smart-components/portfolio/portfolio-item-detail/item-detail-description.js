@@ -34,8 +34,9 @@ const ItemDetailDescription = ({ product, url }) => (
       </TextContent>
     ) }/>
     <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
-    <Route exact path={ `${url}/edit-workflow` }
-      render={ () => <EditApprovalWorkflow closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } /> } />
+    <Route exact path={ `${url}/edit-workflow` }>
+      <EditApprovalWorkflow closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } />
+    </Route>
   </Switch>
 );
 
