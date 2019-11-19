@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useRouteMatch, useLocation } from 'react-router-dom';
+import { Route, useRouteMatch } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
@@ -14,23 +13,15 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
+import useQuery from '../../../utilities/use-query';
 
 const requiredParams = [ 'portfolio', 'source' ];
-
-const useQuery = () => {
-  const { search } = useLocation();
-  const query = new URLSearchParams(search);
-  return [ requiredParams.reduce((acc, curr) => ({
-    ...acc,
-    [curr]: query.get(curr)
-  }), {}), search, query ];
-};
 
 const PortfolioItemDetail = () => {
   const [ isOpen, setOpen ] = useState(false);
   const [ isFetching, setIsFetching ] = useState(true);
   const dispatch = useDispatch();
-  const [ queryValues, search ] = useQuery();
+  const [ queryValues, search ] = useQuery(requiredParams);
   const { path, url, params: { portfolioItemId }} = useRouteMatch('/portfolios/detail/:id/product/:portfolioItemId');
   const {
     portfolioItem,

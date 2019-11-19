@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Route, Switch, useLocation, useRouteMatch, Redirect } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 import { Stack, StackItem, Level, LevelItem, Split, SplitItem, Bullseye } from '@patternfly/react-core';
 import { Spinner } from '@redhat-cloud-services/frontend-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,21 +12,13 @@ import OrderDetailMenu from './order-detail-menu';
 import OrderDetails from './order-details';
 import ApprovalRequests from './approval-request';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
+import useQuery from '../../../utilities/use-query';
 
 const requiredParams = [ 'order-item', 'portfolio-item', 'platform', 'portfolio' ];
 
-const useQuery = () => {
-  const { search } = useLocation();
-  const query = new URLSearchParams(search);
-  return [ requiredParams.reduce((acc, curr) => ({
-    ...acc,
-    [curr]: query.get(curr)
-  }), {}), search, query ];
-};
-
 const OrderDetail = () => {
   const [ isFetching, setIsFetching ] = useState(true);
-  const [ queryValues, search ] = useQuery();
+  const [ queryValues, search ] = useQuery(requiredParams);
   const orderDetailData = useSelector(({ orderReducer: { orderDetail }}) => orderDetail || {});
   const match = useRouteMatch('/orders/:id');
   const dispatch = useDispatch();
