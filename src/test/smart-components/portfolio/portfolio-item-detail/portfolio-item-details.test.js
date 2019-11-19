@@ -1,5 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
+import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store' ;
@@ -39,26 +40,22 @@ describe('<PortfolioItemDetail />', () => {
   beforeEach(() => {
     initialProps = {};
     initialState = {
-      approvalReducer: {
-        workflows: [{
-          label: 'foo',
-          value: 'bar'
-        }],
-        isFetching: false
+      platformReducer: {
+        platforms: []
       },
       portfolioReducer: {
         portfolioItem: {
-          id: '123',
-          service_offering_source_ref: '123',
-          created_at: '123',
-          name: 'bar'
+          portfolioItem: {
+            id: '123',
+            service_offering_source_ref: '123',
+            created_at: '123',
+            name: 'bar'
+          },
+          source: {},
+          portfolio: {
+            name: 'Portfolio name'
+          }
         }
-      },
-      platformReducer: {
-        platforms: [{
-          id: '123',
-          name: 'source'
-        }]
       },
       orderReducer: {}
     };
@@ -66,94 +63,43 @@ describe('<PortfolioItemDetail />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<PortfolioItemDetail { ...initialProps } />);
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: { data: []}}));
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-  });
-
-  it('should mount show loader', done => {
-    const store = mockStore(initialState);
-
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
-      body: {
-        data: [{
-          name: 'workflow',
-          id: '123'
-        }]
-      }
-    }));
-    apiClientMock.get(new RegExp(`${CATALOG_API_BASE}/portfolio_items/*`), mockOnce({ body: { name: 'foo', id: 'bar' }}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{ sources:
-          []
-        }]
-      }
-    }}));
-    const wrapper = mount(
-      <ComponentWrapper store={ store }>
+    const wrapper = shallow(
+      <ComponentWrapper store={ mockStore({}) }>
         <PortfolioItemDetail { ...initialProps } />
       </ComponentWrapper>
     );
-    setImmediate(() => {
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+  });
+
+  it('should mount correct component before and after load', async done => {
+    const store = mockStore(initialState);
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce({ body: {}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/source-id`, mockOnce({ body: {}}));
+    let wrapper;
+    await act(async() => {
+      wrapper = mount(
+        <ComponentWrapper
+          initialEntries={ [
+            '/portfolios/detail/123/product/321?source=source-id&portfolio=123'
+          ] }
+          store={ store }
+        >
+          <PortfolioItemDetail { ...initialProps } />
+        </ComponentWrapper>
+      );
       expect(wrapper.find(ProductLoaderPlaceholder)).toHaveLength(1);
-      done();
     });
+    wrapper.update();
+    expect(wrapper.find(ItemDetailInfoBar)).toHaveLength(1);
+    expect(wrapper.find(ItemDetailDescription)).toHaveLength(1);
+    expect(wrapper.find(PortfolioItemDetailToolbar)).toHaveLength(1);
+    done();
   });
 
-  it('should mount load data and render correct components', done => {
+  it('should mount and open order modal', async done => {
     let loadedState = {
       ...initialState,
-      portfolioReducer: {
-        ...initialState.portfolioReducer,
-        selectedPortfolio: {
-          name: 'foo',
-          id: '321'
-        }
-      }
-    };
-    const store = mockStore(loadedState);
-
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
-      body: {
-        data: [{
-          name: 'workflow',
-          id: '123'
-        }]
-      }
-    }));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{ sources:
-          []
-        }]
-      }
-    }}));
-
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/foo/123' ] }>
-        <Route path="/foo/:portfolioItemId" render={ (args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
-      </ComponentWrapper>
-    );
-    setImmediate(() => {
-      expect(wrapper.find(ItemDetailInfoBar)).toHaveLength(1);
-      expect(wrapper.find(ItemDetailDescription)).toHaveLength(1);
-      expect(wrapper.find(PortfolioItemDetailToolbar)).toHaveLength(1);
-      done();
-    });
-  });
-
-  it('should mount and open order modal', done => {
-    let loadedState = {
-      ...initialState,
-      portfolioReducer: {
-        ...initialState.portfolioReducer,
-        selectedPortfolio: {
-          name: 'foo',
-          id: '321'
-        }
-      },
       orderReducer: {
         selectedItem: {},
         isLoading: true,
@@ -162,32 +108,34 @@ describe('<PortfolioItemDetail />', () => {
     };
     const store = mockStore(loadedState);
 
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: [{ name: 'workflow', id: '123' }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce({ body: { name: 'foo', id: 'bar' }}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/provider_control_parameters`, mockOnce({
-      body: { properties: { namespace: { enum: []}}}
-    }));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{ sources:
-          []
-        }]
-      }
-    }}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce({ body: {}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: {}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321/provider_control_parameters`,
+      mockOnce({ body: { properties: { namespace: { enum: []}}}}));
+    apiClientMock.get(`${SOURCES_API_BASE}/sources/source-id`, mockOnce({ body: {}}));
 
-    const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/foo/123', '/foo/123/order' ] } initialIndex={ 0 }>
-        <Route path="/foo/:portfolioItemId" render={ (args) => <PortfolioItemDetail { ...initialProps } { ...args } /> } />
-      </ComponentWrapper>
-    );
-    setImmediate(() => {
-      // navigate to order route
-      wrapper.find(MemoryRouter).instance().history.push('/foo/123/order');
-      wrapper.update();
-      setImmediate(() => {
-        expect(wrapper.find(OrderModal)).toHaveLength(1);
-        done();
-      });
+    let wrapper;
+
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store } initialEntries={ [
+          '/portfolios/detail/123/product/321?source=source-id&portfolio=123',
+          '/portfolios/detail/123/product/321/order?source=source-id&portfolio=123'
+        ] } initialIndex={ 0 }>
+          <Route path="/portfolios/detail/:id/product/:portfolioItemId">
+            <PortfolioItemDetail { ...initialProps } />
+          </Route>
+        </ComponentWrapper>
+      );
+
     });
+    wrapper.update();
+    wrapper.find(MemoryRouter).instance().history.push('/portfolios/detail/123/product/321/order?source=source-id&portfolio=123');
+    await act(async () => {
+      wrapper.update();
+    });
+    expect(wrapper.find(OrderModal)).toHaveLength(1);
+    done();
   });
 });

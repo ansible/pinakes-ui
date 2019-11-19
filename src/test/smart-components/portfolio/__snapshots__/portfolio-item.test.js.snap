@@ -114,7 +114,12 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
               id="1"
               name="Foo"
               orderUrl="/order"
-              url="/order"
+              to={
+                Object {
+                  "pathname": "/order",
+                  "search": "portfolio=undefined&source=undefined",
+                }
+              }
             >
               <CardBody
                 style={
@@ -136,17 +141,27 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       className="pf-c-content"
                     >
                       <ConditionalLink
-                        to="/order"
+                        to={
+                          Object {
+                            "pathname": "/order",
+                            "search": "portfolio=undefined&source=undefined",
+                          }
+                        }
                       >
                         <Link
-                          to="/order"
+                          to={
+                            Object {
+                              "pathname": "/order",
+                              "search": "portfolio=undefined&source=undefined",
+                            }
+                          }
                         >
                           <LinkAnchor
-                            href="/order"
+                            href="/order?portfolio=undefined&source=undefined"
                             navigate={[Function]}
                           >
                             <a
-                              href="/order"
+                              href="/order?portfolio=undefined&source=undefined"
                               onClick={[Function]}
                             >
                               <Text

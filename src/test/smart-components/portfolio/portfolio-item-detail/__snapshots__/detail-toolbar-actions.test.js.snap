@@ -13,16 +13,21 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
     <div>
       <Link
         disabled={false}
-        to="foo/bar"
+        to={
+          Object {
+            "pathname": "foo/bar",
+            "search": undefined,
+          }
+        }
       >
         <LinkAnchor
           disabled={false}
-          href="/foo/bar"
+          href="foo/bar"
           navigate={[Function]}
         >
           <a
             disabled={false}
-            href="/foo/bar"
+            href="foo/bar"
             onClick={[Function]}
           >
             <ButtonWithSpinner
@@ -105,7 +110,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Edit Portfolio"
               component={
                 <ForwardRef
-                  to="foo/baz"
+                  to={
+                    Object {
+                      "pathname": "foo/baz",
+                      "search": undefined,
+                    }
+                  }
                 >
                   Edit
                 </ForwardRef>
@@ -116,7 +126,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Copy Portfolio"
               component={
                 <ForwardRef
-                  to="foo/copy"
+                  to={
+                    Object {
+                      "pathname": "foo/copy",
+                      "search": undefined,
+                    }
+                  }
                 >
                   Copy
                 </ForwardRef>
@@ -127,7 +142,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             <DropdownItem
               aria-label="Edit Approval Workflow"
               component={
-                <ForwardRef>
+                <ForwardRef
+                  to={
+                    Object {
+                      "pathname": undefined,
+                      "search": undefined,
+                    }
+                  }
+                >
                   Edit approval
                 </ForwardRef>
               }
@@ -153,7 +175,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Edit Portfolio"
                 component={
                   <ForwardRef
-                    to="foo/baz"
+                    to={
+                      Object {
+                        "pathname": "foo/baz",
+                        "search": undefined,
+                      }
+                    }
                   >
                     Edit
                   </ForwardRef>
@@ -164,7 +191,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Copy Portfolio"
                 component={
                   <ForwardRef
-                    to="foo/copy"
+                    to={
+                      Object {
+                        "pathname": "foo/copy",
+                        "search": undefined,
+                      }
+                    }
                   >
                     Copy
                   </ForwardRef>
@@ -175,7 +207,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               <DropdownItem
                 aria-label="Edit Approval Workflow"
                 component={
-                  <ForwardRef>
+                  <ForwardRef
+                    to={
+                      Object {
+                        "pathname": undefined,
+                        "search": undefined,
+                      }
+                    }
+                  >
                     Edit approval
                   </ForwardRef>
                 }
@@ -202,7 +241,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     aria-label="Edit Portfolio"
                     component={
                       <ForwardRef
-                        to="foo/baz"
+                        to={
+                          Object {
+                            "pathname": "foo/baz",
+                            "search": undefined,
+                          }
+                        }
                       >
                         Edit
                       </ForwardRef>
@@ -213,7 +257,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     aria-label="Copy Portfolio"
                     component={
                       <ForwardRef
-                        to="foo/copy"
+                        to={
+                          Object {
+                            "pathname": "foo/copy",
+                            "search": undefined,
+                          }
+                        }
                       >
                         Copy
                       </ForwardRef>
@@ -224,7 +273,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownItem
                     aria-label="Edit Approval Workflow"
                     component={
-                      <ForwardRef>
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": undefined,
+                            "search": undefined,
+                          }
+                        }
+                      >
                         Edit approval
                       </ForwardRef>
                     }
@@ -252,7 +308,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     aria-label="Edit Portfolio"
                     component={
                       <ForwardRef
-                        to="foo/baz"
+                        to={
+                          Object {
+                            "pathname": "foo/baz",
+                            "search": undefined,
+                          }
+                        }
                       >
                         Edit
                       </ForwardRef>
@@ -263,7 +324,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     aria-label="Copy Portfolio"
                     component={
                       <ForwardRef
-                        to="foo/copy"
+                        to={
+                          Object {
+                            "pathname": "foo/copy",
+                            "search": undefined,
+                          }
+                        }
                       >
                         Copy
                       </ForwardRef>
@@ -274,7 +340,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownItem
                     aria-label="Edit Approval Workflow"
                     component={
-                      <ForwardRef>
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": undefined,
+                            "search": undefined,
+                          }
+                        }
+                      >
                         Edit approval
                       </ForwardRef>
                     }
