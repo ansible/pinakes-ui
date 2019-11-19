@@ -45,7 +45,8 @@ const OrderDetail = () => {
   const {
     order,
     portfolioItem,
-    platform
+    platform,
+    orderItem
   } = orderDetailData;
 
   return (
@@ -70,7 +71,7 @@ const OrderDetail = () => {
                   state={ order.state }
                   jobName={ portfolioItem.name }
                   orderRequestDate={ order.created_at }
-                  orderUpdateDate={ portfolioItem.updated_at }
+                  orderUpdateDate={ orderItem.updated_at }
                   owner={ order.owner }
                 />
               </Level>

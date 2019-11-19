@@ -10,7 +10,6 @@ const OrderDetails = () => {
     order,
     platform,
     progressMessages,
-    portfolioItem,
     portfolio,
     orderItem
   } = useSelector(({ orderReducer: { orderDetail }}) => orderDetail);
@@ -23,10 +22,8 @@ const OrderDetails = () => {
       <TextList component={ TextListVariants.dl }>
         <TextListItem component={ TextListItemVariants.dt }>Request ID</TextListItem>
         <TextListItem component={ TextListItemVariants.dd }>{ order.id }</TextListItem>
-        <TextListItem component={ TextListItemVariants.dt }>Job name</TextListItem>
-        <TextListItem component={ TextListItemVariants.dd }>{ portfolioItem.name }</TextListItem>
         <TextListItem component={ TextListItemVariants.dt }>Ordered</TextListItem>
-        <TextListItem component={ TextListItemVariants.dd }><DateFormat date={ order.order_request_sent_at } variant="relative"/></TextListItem>
+        <TextListItem component={ TextListItemVariants.dd }><DateFormat date={ order.created_at } variant="relative"/></TextListItem>
         <TextListItem component={ TextListItemVariants.dt }>Portfolio</TextListItem>
         <TextListItem component={ TextListItemVariants.dd }>{ portfolio.name }</TextListItem>
         <TextListItem component={ TextListItemVariants.dt }>Platform</TextListItem>
