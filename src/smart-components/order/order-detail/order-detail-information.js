@@ -41,6 +41,7 @@ const OrderDetailInformation = ({
         <LevelItem className="pf-u-mr-lg">
           <TextContent>
             <Text component={ TextVariants.small }>
+              Ordered&nbsp;
               <DateFormat date={ orderRequestDate } type="relative" />
             </Text>
           </TextContent>
@@ -53,6 +54,7 @@ const OrderDetailInformation = ({
         <LevelItem>
           <TextContent>
             <Text component={ TextVariants.small }>
+              Last updated&nbsp;
               <DateFormat date={ orderUpdateDate } type="relative" />
             </Text>
           </TextContent>
