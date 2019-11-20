@@ -66,8 +66,7 @@ CardIcon.propTypes = {
 
 CardIcon.defaultProps = {
   style: {},
-  height: 40,
-  iconDidLoad: Function
+  height: 40
 };
 
 export default CardIcon;
