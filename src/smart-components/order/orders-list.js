@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DataList, Level, LevelItem, Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
@@ -9,26 +9,57 @@ import { ListLoader } from '../../presentational-components/shared/loader-placeh
 import OrderItem from './order-item';
 import FilterToolbarItem from '../../presentational-components/shared/filter-toolbar-item';
 import AsyncPagination from '../common/async-pagination';
-import { getOrderPortfolioName } from '../../helpers/shared/orders';
+import asyncFormValidator from '../../utilities/async-form-validator';
+import { defaultSettings } from '../../helpers/shared/pagination';
+
+const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback) => {
+  filteringCallback(true);
+  dispatch(fetchOrders(value, defaultSettings)).then(() => filteringCallback(false));
+}, 1000);
+
+const initialState = {
+  filterValue: '',
+  isOpen: false,
+  isFetching: true,
+  isFiltering: false
+};
+
+const ordersListState = (state, action) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+    case 'setFilterValue':
+      return { ...state, filterValue: action.payload };
+    case 'setFilteringFlag':
+      return { ...state, isFiltering: action.payload };
+  }
+
+  return state;
+};
 
 const OrdersList = () => {
-  const [ isFetching, setFetching ] = useState(true);
-  const [ searchValue, setSearchValue ] = useState('');
+  const [{ isFetching, filterValue, isFiltering }, stateDispatch ] = useReducer(ordersListState, initialState);
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
-  const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems }}) => portfolioItems.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    setFetching(true);
-    Promise.all([ dispatch(fetchOrders()), dispatch(fetchPlatforms()) ])
-    .then(() => setFetching(false));
+    stateDispatch({ type: 'setFetching', payload: true });
+    Promise.all([ dispatch(fetchOrders(filterValue, meta)), dispatch(fetchPlatforms()) ])
+    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
   const handlePagination = (_apiProps, pagination) => {
-    setFetching(true);
-    dispatch(fetchOrders(pagination))
-    .then(() => setFetching(false))
-    .catch(() => setFetching(false));
+    stateDispatch({ type: 'setFetching', payload: true });
+    dispatch(fetchOrders(filterValue, pagination))
+    .then(() => stateDispatch({ type: 'setFetching', payload: false }))
+    .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
+
+  const handleFilterItems = value => {
+    stateDispatch({ type: 'setFilterValue', payload: value });
+    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }));
+  };
+
+  console.log('data: ', data)
 
   return (
     <Grid gutter="md">
@@ -37,19 +68,21 @@ const OrdersList = () => {
           <div className="pf-u-pb-md pf-u-pl-xl pf-u-pr-xl orders-list">
             <Level>
               <LevelItem className="pf-u-mt-md">
-                <FilterToolbarItem searchValue={ searchValue } onFilterChange={ value => setSearchValue(value) } placeholder="Filter by name..." />
+                <FilterToolbarItem
+                  searchValue={ filterValue }
+                  onFilterChange={ value => handleFilterItems(value) }
+                  placeholder="Filter by name..."
+                />
               </LevelItem>
               <LevelItem>
-                <AsyncPagination isDisabled={ isFetching } apiRequest={ handlePagination } meta={ meta } />
+                <AsyncPagination isDisabled={ isFetching || isFiltering } apiRequest={ handlePagination } meta={ meta } />
               </LevelItem>
             </Level>
           </div>
           <DataList aria-label="order-list">
-            { isFetching
+            { isFiltering || isFetching
               ? <ListLoader />
-              : data
-              .filter(item => getOrderPortfolioName(item, portfolioItems).toLowerCase().includes(searchValue.toLowerCase()))
-              .map((item, index) => (
+              : data.map((item, index) => (
                 <OrderItem
                   key={ item.id }
                   index={ index }
