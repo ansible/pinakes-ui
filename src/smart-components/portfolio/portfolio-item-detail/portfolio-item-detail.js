@@ -52,7 +52,9 @@ const PortfolioItemDetail = () => {
 
   return (
     <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
-      <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ portfolioItem }/> }/>
+      <Route path={ `${url}/order` } >
+        <OrderModal closeUrl={ url }/>
+      </Route>
       <Route
         path={ `${url}/copy` }
         render={ props => (

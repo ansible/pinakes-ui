@@ -228,24 +228,24 @@ describe('<Portfolio />', () => {
       ...initialState,
       platformReducer: { platforms: []},
       orderReducer: {
-        isLoading: false
+        isLoading: false,
+        servicePlans: [{ create_json_schema: { schema: { fields: []}}}]
       },
       portfolioReducer: {
         ...initialState.portfolioReducer,
-        portfolioItems: { data: [{
-          id: '123',
-          name: 'Foo',
-          description: 'desc',
-          modified: 'sometimes'
-        }],
-        meta: {
-          limit: 50,
-          offset: 0
-        }}
+        portfolioItem: {
+          portfolioItem: {
+            id: '123',
+            name: 'Foo',
+            description: 'desc',
+            modified: 'sometimes'
+          }
+        }
       }
     });
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: { data: []}}));
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
       data: {
         application_types: [{ sources: []}]
