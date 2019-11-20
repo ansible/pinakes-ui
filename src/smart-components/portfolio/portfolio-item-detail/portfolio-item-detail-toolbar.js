@@ -21,8 +21,11 @@ const PortfolioItemDetailToolbar = ({
     <TopToolbar>
       <div style={ { float: 'left' } } className="pf-u-mr-sm">
         <IconUpload uploadIcon={ uploadIcon }>
-          <CardIcon src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
-            platformId={ product.service_offering_source_ref } height={ 64 }/>
+          <CardIcon
+            src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
+            platformId={ product.service_offering_source_ref }
+            height={ 64 }
+          />
         </IconUpload>
       </div>
       <Level>
