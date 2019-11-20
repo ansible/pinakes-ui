@@ -27,10 +27,12 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
     >
       <Text
         component="h6"
+        id="source-name"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="source-name"
         >
           <span>
             Platform
@@ -47,10 +49,12 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       </Text>
       <Text
         component="h6"
+        id="portfolio-name"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="portfolio-name"
         >
           <span>
             Portfolio
@@ -67,10 +71,12 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       </Text>
       <Text
         component="h6"
+        id="distributor"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="distributor"
         >
           <span>
             Vendor
@@ -87,10 +93,12 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       </Text>
       <Text
         component="h6"
+        id="created_at"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="created_at"
         >
           <span>
             Created at
@@ -134,10 +142,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
     >
       <Text
         component="h6"
+        id="source-name"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="source-name"
         >
           <span>
             Platform
@@ -154,10 +164,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       </Text>
       <Text
         component="h6"
+        id="portfolio-name"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="portfolio-name"
         >
           <span>
             Portfolio
@@ -174,10 +186,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       </Text>
       <Text
         component="h6"
+        id="created_at"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="created_at"
         >
           <span>
             Created at
@@ -225,10 +239,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
     >
       <Text
         component="h6"
+        id="source-name"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="source-name"
         >
           <span>
             Platform
@@ -245,10 +261,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       </Text>
       <Text
         component="h6"
+        id="portfolio-name"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="portfolio-name"
         >
           <span>
             Portfolio
@@ -265,10 +283,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       </Text>
       <Text
         component="h6"
+        id="distributor"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="distributor"
         >
           <span>
             Vendor
@@ -285,10 +305,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       </Text>
       <Text
         component="h6"
+        id="created_at"
       >
         <h6
           className=""
           data-pf-content={true}
+          id="created_at"
         >
           <span>
             Created at
