@@ -15,18 +15,20 @@ const ItemDetailDescription = ({ product, url }) => (
           <Text component={ TextVariants.h6 }>Overview</Text>
         ) }
         { product.description && (
-          <Text component={ TextVariants.p }>{ product.description }</Text>
+          <Text id="description" component={ TextVariants.p }>{ product.description }</Text>
         ) }
         { product.long_description && (
-          <Text component={ TextVariants.p }>{ product.long_description }</Text>
+          <Text id="long_description" component={ TextVariants.p }>{ product.long_description }</Text>
         ) }
         { product.support_url && (
-          <Text component={ TextVariants.p }><a href={ product.support_url } target="_blank" rel="noopener noreferrer">Learn more</a></Text>
+          <Text id="support_url" component={ TextVariants.p }>
+            <a href={ product.support_url } target="_blank" rel="noopener noreferrer">Learn more</a>
+          </Text>
         ) }
         { product.documentation_url && (
           <Fragment>
             <Text component={ TextVariants.h6 }>Documentation</Text>
-            <Text component={ TextVariants.p }>
+            <Text id="documentation_url" component={ TextVariants.p }>
               <a href={ product.documentation_url } target="_blank" rel="noopener noreferrer">Doc link</a>
             </Text>
           </Fragment>

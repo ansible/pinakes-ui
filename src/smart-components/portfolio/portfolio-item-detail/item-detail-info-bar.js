@@ -4,7 +4,7 @@ import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
-    <Text component={ TextVariants.h6 }>
+    <Text id="source-name" component={ TextVariants.h6 }>
       <span>
         Platform
       </span>
@@ -15,7 +15,7 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
         </span>
       </div>
     </Text>
-    <Text component={ TextVariants.h6 }>
+    <Text id="portfolio-name" component={ TextVariants.h6 }>
       <span>
         Portfolio
       </span>
@@ -27,7 +27,7 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
       </div>
     </Text>
     { product.distributor && (
-      <Text component={ TextVariants.h6 }>
+      <Text id="distributor" component={ TextVariants.h6 }>
         <span>
           Vendor
         </span>
@@ -39,14 +39,14 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
         </div>
       </Text>
     ) }
-    <Text component={ TextVariants.h6 }>
+    <Text id="created_at" component={ TextVariants.h6 }>
       <span>
         Created at
       </span>
       <br />
       <div className="elipsis-text-overflow">
         <span>
-          { new Date(product.updated_at || product.created_at).toLocaleDateString() }
+          { new Date(product.created_at).toLocaleDateString() }
         </span>
       </div>
     </Text>
