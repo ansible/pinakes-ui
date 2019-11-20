@@ -36,7 +36,8 @@ const defaultPlatformIcon = (platformId, platformList) => {
 const CardIcon = ({ src, height, platformId, sourceTypeId  }) => {
   const [ isLoaded, setLoaded ] = useState(false);
   const [ isUnknown, setUnknown ] = useState(false);
-  const  platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
+  const platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
+  const defaultIcon = sourceTypeId ? platformTypeIcon[sourceTypeId] : defaultPlatformIcon(platformId, platformList);
 
   return (
     <div style={ { display: 'inline-block' } }>
@@ -49,7 +50,7 @@ const CardIcon = ({ src, height, platformId, sourceTypeId  }) => {
         className={ `card-image ${!isLoaded ? 'hide' : ''}` }
         onError={ () => setUnknown(true) }
         onLoad={ () => setLoaded(true) }
-        src={ isUnknown && sourceTypeId ? platformTypeIcon[sourceTypeId] : platformId ? defaultPlatformIcon(platformId, platformList) : src }
+        src={ isUnknown ? defaultIcon : src }
       />
     </div>
   );
