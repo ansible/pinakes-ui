@@ -16,12 +16,6 @@ import PortfolioItemDetail from '../../../../smart-components/portfolio/portfoli
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
-import dummySchema from '../../order/order-mock-form-schema';
-
-const servicePlansResponse = {
-  ...dummySchema,
-  type: 'object'
-};
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -57,7 +51,9 @@ describe('<PortfolioItemDetail />', () => {
           }
         }
       },
-      orderReducer: {}
+      orderReducer: {
+        servicePlans: [{ create_json_schema: { schema: { fields: []}}}]
+      }
     };
     mockStore = configureStore(middlewares);
   });
@@ -98,15 +94,7 @@ describe('<PortfolioItemDetail />', () => {
   });
 
   it('should mount and open order modal', async done => {
-    let loadedState = {
-      ...initialState,
-      orderReducer: {
-        selectedItem: {},
-        isLoading: true,
-        sevicePlans: [ servicePlansResponse ]
-      }
-    };
-    const store = mockStore(loadedState);
+    const store = mockStore(initialState);
 
     apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce({ body: {}}));
