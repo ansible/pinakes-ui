@@ -30,7 +30,6 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
 
   const onSubmit = values => {
     history.push(pushParam);
-    console.log('DEBUG - new workflow, existing workflow ', values.workflow, workflow);
     if (workflow) {
       dispatch(unlinkWorkflow(workflow.id, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
     }
