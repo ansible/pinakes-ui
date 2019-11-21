@@ -1,8 +1,8 @@
 # Insights Service Catalog UI
 
-[![Build Status](https://travis-ci.org/ManageIQ/catalog-ui.svg)](https://travis-ci.org/ManageIQ/catalog-ui)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ab94ae3edb309ff535ef/maintainability)](https://codeclimate.com/github/ManageIQ/catalog-ui/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ab94ae3edb309ff535ef/test_coverage)](https://codeclimate.com/github/ManageIQ/catalog-ui/test_coverage)
+[![Build Status](https://travis-ci.org/RedHatInsights/catalog-ui.svg)](https://travis-ci.org/RedHatInsights/catalog-ui)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ab94ae3edb309ff535ef/maintainability)](https://codeclimate.com/github/RedHatInsights/catalog-ui/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ab94ae3edb309ff535ef/test_coverage)](https://codeclimate.com/github/RedHatInsights/catalog-ui/test_coverage)
 
 ## Getting Started
 There is a [Dev Setup Wiki](https://gitlab.cloudforms.lab.eng.rdu2.redhat.com/insights/insights-ui-service_catalog/wikis/Dev-Setup) for setting up this Frontend.
