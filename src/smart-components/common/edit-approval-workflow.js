@@ -5,9 +5,9 @@ import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
-import { linkWorkflow } from '../../redux/actions/approval-actions';
+import { linkWorkflow, unlinkWorkflow } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
-import { loadWorkflowOptions, resolveWorkflows } from '../../helpers/approval/approval-helper';
+import { loadWorkflowOptions, listWorkflowsForObject } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
 
 const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
@@ -20,15 +20,21 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
     search
   };
   const [ workflow, setWorkflow ] = useState(undefined);
+  const [ isFetching, setFetching ] = useState(true);
 
   useEffect(() => {
-    resolveWorkflows({ object_type: objectType, app_name: APP_NAME, object_id: id || objectId })
-    .then((data) => { setWorkflow(data); })
-    .catch(() => setWorkflow({}));
+    listWorkflowsForObject({ objectType, appName: APP_NAME, objectId: id || objectId })
+    .then((data) => { setWorkflow(data && data.data ? data.data[0] : undefined); setFetching(false); })
+    .catch(() => setWorkflow(undefined));
   }, []);
 
   const onSubmit = values => {
     history.push(pushParam);
+    console.log('DEBUG - new workflow, existing workflow ', values.workflow, workflow);
+    if (workflow) {
+      dispatch(unlinkWorkflow(workflow.id, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
+    }
+
     return dispatch(linkWorkflow(values.workflow, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
   };
 
@@ -39,9 +45,9 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
       onClose={ () => history.push(pushParam) }
       isSmall
     >
-      { workflow ?
+      { !isFetching ?
         <FormRenderer
-          initialValues={ { workflow: workflow.id } }
+          initialValues={ { workflow: workflow ? workflow.id : undefined } }
           onSubmit={ onSubmit }
           onCancel={ () => history.push(pushParam) }
           schema={ editApprovalWorkflowSchema(loadWorkflowOptions) }

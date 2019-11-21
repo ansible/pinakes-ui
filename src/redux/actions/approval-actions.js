@@ -33,7 +33,7 @@ export const unlinkWorkflow = (id, resourceObject) => ({
       }
     }
   }});
-export const resolveWorkflows = (resourceObject) => ({
+export const listWorkflowsForObject = (resourceObject) => ({
   type: ASYNC_ACTIONS.RESOLVE_WORKFLOWS,
-  payload: resolveWorkflows(resourceObject)
+  payload: listWorkflowsForObject(resourceObject)
 });
