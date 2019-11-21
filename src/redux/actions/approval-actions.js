@@ -28,8 +28,8 @@ export const unlinkWorkflow = (id, resourceObject) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: 'Success linking workflow',
-        description: 'The workflow was linked successfully.'
+        title: 'Success unlinking workflow',
+        description: 'The workflow was unlinked successfully.'
       }
     }
   }});
