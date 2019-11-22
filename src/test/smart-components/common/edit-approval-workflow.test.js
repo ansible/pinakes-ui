@@ -1,5 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
+import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store' ;
@@ -12,15 +13,17 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
+import { rawComponents } from '@data-driven-forms/pf4-component-mapper/dist/index';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
   let initialState;
   const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
   let mockStore;
-  const ComponentWrapper = ({ store, children, portfolioId }) => (
+
+  const ComponentWrapper = ({ store, children, initialEntries }) => (
     <Provider store={ store }>
-      <MemoryRouter initialEntries={ [ `portfolios/${portfolioId}` ] }>
+      <MemoryRouter initialEntries={ initialEntries }>
         { children }
       </MemoryRouter>
     </Provider>
@@ -28,10 +31,8 @@ describe('<EditApprovalWorkflow />', () => {
 
   beforeEach(() => {
     initialProps = {
-      fetchWorkflows: jest.fn(),
       closeUrl: 'foo',
-      objectType: 'Portfolio',
-      workflows: [{ name: 'workflow', id: '123' }]
+      objectType: 'Portfolio'
     };
     initialState = {
       approvalReducer: {
@@ -54,7 +55,7 @@ describe('<EditApprovalWorkflow />', () => {
     });
   });
 
-  it('should create the edit workflow modal', done => {
+  it('should create the edit workflow modal', async (done) => {
     const store = mockStore(initialState);
 
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
@@ -65,7 +66,14 @@ describe('<EditApprovalWorkflow />', () => {
         }]
       }
     }));
-    apiClientMock.post(`${APPROVAL_API_BASE}/workflows/resolve`, mockOnce({ body: { name: 'workflow', id: '123' }}));
+    apiClientMock.get(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&limit=50&offset=0`,
+      mockOnce({ body: {
+        data: [{
+          name: 'workflow',
+          id: '123'
+        }]
+      }
+      }));
 
     const expectedSchema = {
       fields: [{
@@ -78,18 +86,25 @@ describe('<EditApprovalWorkflow />', () => {
       }]
     };
 
-    const wrapper = mount(
-      <ComponentWrapper store={ store } portfolioId="123">
-        <Route path="portfolios/:id?" render={ () => <EditApprovalWorkflow { ...initialProps } match={ { params: { id: '123' }} } /> }/>
-      </ComponentWrapper>
-    );
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolios', '/portfolios/123' ]}>
+          <Route path="portfolios/:id" render={ () => <EditApprovalWorkflow { ...initialProps }/> }/>
+        </ComponentWrapper>
+      );
+    });
 
-    setImmediate(() => {
+    setImmediate(async () => {
+      wrapper.update();
+      const select = wrapper.find(rawComponents.Select);
       const modal = wrapper.find(Modal);
       const form = wrapper.find(FormRenderer);
       expect(modal.props().title).toEqual('Set approval workflow');
       expect(form.props().schema).toEqual(expectedSchema);
-      done();
+      setImmediate(() => {
+        done();
+      });
     });
   });
 });
