@@ -41,13 +41,6 @@ const SourceMapsPlugin = new webpack.SourceMapDevToolPlugin({
 plugins.push(SourceMapsPlugin);
 
 /**
- * Cleans distribution folder.
- * @type {[type]}
- */
-const CleanWebpackPlugin = new (require('clean-webpack-plugin'))([ 'dist' ]);
-plugins.push(CleanWebpackPlugin);
-
-/**
  * Selects the specific lodash functions.
  *
  * @type {var}
@@ -74,14 +67,6 @@ const ExtractCssWebpackPlugin = new (require('mini-css-extract-plugin'))({
     filename: 'css/[name].css'
 });
 plugins.push(ExtractCssWebpackPlugin);
-
-/**
- * Copies files from the specified locations to the corresponding destinations.
- */
-const CopyFilesWebpackPlugin = new (require('copy-webpack-plugin'))([
-    { from: path.resolve(__dirname, '../static/images'), to: 'images' }
-]);
-plugins.push(CopyFilesWebpackPlugin);
 
 /**
  * Makes build-time env vars available to the client-side as constants
