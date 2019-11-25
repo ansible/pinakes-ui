@@ -93,7 +93,7 @@ describe('<Orders />', () => {
   it('should mount and render orders list component', async done => {
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: []}}));
@@ -129,7 +129,7 @@ describe('<Orders />', () => {
     };
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderItemsPagination }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
     apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({
@@ -144,7 +144,7 @@ describe('<Orders />', () => {
     /**
      * Pagination requests
      */
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?limit=50&offset=100`, mockOnce({ body: { data: []}}));
+    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5Bcontains_i%5D=&limit=50&offset=100`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
     apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
     let wrapper;
@@ -160,7 +160,7 @@ describe('<Orders />', () => {
 
     store.clearActions();
     await act(async () => {
-      wrapper.find('button[data-action="last"]').simulate('click');
+      wrapper.find('button[data-action="last"]').first().simulate('click');
     });
     wrapper.update();
     expect(store.getActions()).toEqual([
