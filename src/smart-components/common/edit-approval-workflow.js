@@ -30,6 +30,10 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
 
   const onSubmit = values => {
     history.push(pushParam);
+    if (workflow && workflow.id === values.workflow) {
+      return;
+    }
+
     if (workflow) {
       dispatch(unlinkWorkflow(workflow.id, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
     }
