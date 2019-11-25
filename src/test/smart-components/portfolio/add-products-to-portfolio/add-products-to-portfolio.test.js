@@ -13,6 +13,7 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { TOPOLOGICAL_INVENTORY_API_BASE, CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import PlatformItem from '../../../../presentational-components/platform/platform-item';
 import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-products-to-portfolio';
+import { mockApi, mockGraphql } from '../../../__mocks__/user-login';
 
 describe('<AddProductsToPortfolio />', () => {
   let initialProps;
@@ -36,10 +37,9 @@ describe('<AddProductsToPortfolio />', () => {
     };
   });
 
-  it('should render correctly', () => {
-    const store = mockStore({});
-    const wrapper = shallow(<MemoryRouter><AddProductsToPortfolio store={ store } { ...initialProps } /></MemoryRouter>).dive();
-    expect(shallowToJson(wrapper.find(AddProductsToPortfolio))).toMatchSnapshot();
+  afterEach(() => {
+    mockGraphql.reset();
+    mockApi.reset();
   });
 
   it('should correctly filter service offerings', async done => {
@@ -49,11 +49,9 @@ describe('<AddProductsToPortfolio />', () => {
         platformItems: { 1: { data: [{ id: '123', name: 'platformItem', description: 'description' }]}}
       }
     });
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}}}));
-    apiClientMock
-    .get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D%20=&limit=50&offset=0`,
-      mockOnce({ body: { data: [], meta: { count: 123, limit: 50, offset: 123 }}}));
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}});
+    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`)
+    .replyOnce(200, { data: [], meta: { count: 123, limit: 50, offset: 123 }});
 
     let wrapper;
     await act(async () => {
@@ -64,41 +62,48 @@ describe('<AddProductsToPortfolio />', () => {
       );
     });
 
-    setImmediate(() => {
-      const select = wrapper.find(rawComponents.Select);
-      act(() => {
-        select.props().onChange({ id: '1' });
-      });
-      wrapper.update();
-      expect(wrapper.find(PlatformItem)).toHaveLength(1);
-      const searchInput = wrapper.find('input').at(1);
-      searchInput.getDOMNode().value = 'foo';
-      searchInput.simulate('change');
-      wrapper.update();
-      expect(wrapper.find(PlatformItem)).toHaveLength(0);
-      done();
+    const select = wrapper.find(rawComponents.Select);
+    await act(async() => {
+      select.props().onChange({ id: '1' });
     });
+    wrapper.update();
+    expect(wrapper.find(PlatformItem)).toHaveLength(1);
+    const searchInput = wrapper.find('input').at(1);
+    searchInput.getDOMNode().value = 'foo';
+    searchInput.simulate('change');
+    wrapper.update();
+    expect(wrapper.find(PlatformItem)).toHaveLength(0);
+    done();
   });
 
   it('should check item and send correct data on submit', async done => {
+    expect.assertions(1);
     const store = mockStore({
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: { 1: { data: [{ id: '123', name: 'platformItem', description: 'description' }]}}
       }
     });
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}}}));
-    apiClientMock
-    .get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D%20=&limit=50&offset=0`,
-      mockOnce({ body: { data: [], meta: {}}
-      }));
-    apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { id: '999' }}));
-    apiClientMock.post(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({ portfolio_item_id: '999' });
-      return res.status(200);
-    }));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
+
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`).replyOnce(200, { data: [], meta: {}});
+
+    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`)
+    .replyOnce(200, { data: [], meta: { count: 123, limit: 50, offset: 123 }});
+    mockApi.onPost(`${CATALOG_API_BASE}/portfolio_items`).replyOnce(200, {
+      created_at: '2019-11-25T16:08:44Z',
+      id: '999',
+      name: 'My first workflow',
+      owner: 'lgalis@redhat.com',
+      service_offering_source_ref: '352',
+      service_offering_type: 'workflow_job_template',
+      updated_at: '2019-11-25T16:08:44Z'
+    });
+    mockApi.onPost(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`).replyOnce((req) => {
+      expect(JSON.parse(req.data)).toEqual({ portfolio_item_id: '999' });
+      done();
+      return [ 200, {}];
+    });
 
     let wrapper;
     await act(async () => {
@@ -109,23 +114,20 @@ describe('<AddProductsToPortfolio />', () => {
       );
     });
 
-    setImmediate(async () => {
-      const select = wrapper.find(rawComponents.Select);
-      act(() => {
-        select.props().onChange({
-          id: '1'
-        });
+    const select = wrapper.find(rawComponents.Select);
+    act(() => {
+      select.props().onChange({
+        id: '1'
       });
+    });
+    setImmediate(async() => {
       wrapper.update();
       wrapper.find('input').last().simulate('change');
       await act(async () => {
         wrapper.find('button').last().simulate('click');
       });
-      setImmediate(() => {
-        // wait for redirect and portfolio items refresh
-        expect(wrapper.find(MemoryRouter).childAt(0).props().history.location.pathname).toEqual('/portfolio/foo');
-        done();
-      });
+
+      wrapper.update();
     });
   });
 });

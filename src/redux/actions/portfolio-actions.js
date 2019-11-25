@@ -71,7 +71,7 @@ export const addPortfolio = (portfolioData, items) => dispatch => {
 
 export const addToPortfolio = (portfolioId, items) => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
-  payload: PortfolioHelper.addToPortfolio(portfolioId, items),
+  payload: PortfolioHelper.addToPortfolio(portfolioId, items).catch(error => console.log('error: ', error)),
   meta: {
     notifications: {
       fulfilled: {

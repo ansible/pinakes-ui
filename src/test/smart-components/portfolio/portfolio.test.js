@@ -19,6 +19,7 @@ import FilterToolbarItem from '../../../presentational-components/shared/filter-
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import AddProductsToPortfolio from '../../../smart-components/portfolio/add-products-to-portfolio';
 import { FETCH_PLATFORMS, FETCH_PORTFOLIO, FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO } from '../../../redux/action-types';
+import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 
 describe('<Portfolio />', () => {
 
@@ -84,17 +85,11 @@ describe('<Portfolio />', () => {
       type: `${FETCH_PLATFORMS}_FULFILLED`
     }) ];
 
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{
-          sources: []
-        }]
-      }
-    }}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: []});
 
     await act(async() => {
       mount(
@@ -111,12 +106,10 @@ describe('<Portfolio />', () => {
 
   it('should mount and render add products page', async (done) => {
     const store = mockStore({ ...initialState, platformReducer: { platforms: [], platformItems: {}}});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: []}]}}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: []}]}}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, { data: [], meta: {}});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -155,16 +148,15 @@ describe('<Portfolio />', () => {
       }
     });
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onDelete(`${CATALOG_API_BASE}/portfolio_items/123`).replyOnce(req => {
       expect(req).toBeTruthy();
       done();
-      return res.status(200);
-    }));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: []}]}}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
+      return [ 200 ];
+    });
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -206,10 +198,9 @@ describe('<Portfolio />', () => {
         }}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: []}]}}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, { data: [], meta: {}});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
 
     const wrapper = mount(
       <ComponentWrapper store={ store } initialEntries={ [ '/portfolios/detail/123/remove-portfolio' ] }>
@@ -243,14 +234,10 @@ describe('<Portfolio />', () => {
         }
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{ sources: []}]
-      }
-    }}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`).replyOnce(200, { data: []});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -284,10 +271,9 @@ describe('<Portfolio />', () => {
         }}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: []}]}}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, { data: [], meta: {}});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
 
     let wrapper;
     await act(async () => {
@@ -336,27 +322,26 @@ describe('<Portfolio />', () => {
     });
     const restoreKey = 'restore-321';
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: []}]}}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/321`).replyOnce(200, { data: [], meta: {}});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: [{ sources: []}]}});
 
     /**
      * remove portfolio items calls
      */
-    apiClientMock.delete(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce((_req, res) => res.status(200).body({ restore_key: restoreKey })));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`, mockOnce({ body: { data: []}}));
+    mockApi.onDelete(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, { restore_key: restoreKey });
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/321`).replyOnce(200, { data: [], meta: {}});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`).replyOnce(200, { data: [], meta: {}});
 
     /**
      * undo endpoint
      */
-    apiClientMock.post(`${CATALOG_API_BASE}/portfolio_items/321/undelete`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({ restore_key: 'restore-321' });
+    mockApi.onPost(`${CATALOG_API_BASE}/portfolio_items/321/undelete`).replyOnce(req => {
+      expect(JSON.parse(req.data)).toEqual({ restore_key: restoreKey });
       done();
-      return res.status(200).body({ id: '321' });
-    }));
+      return [ 200, { id: '321' }];
+    });
 
     let wrapper;
     await act(async () => {
@@ -367,35 +352,33 @@ describe('<Portfolio />', () => {
       );
     });
 
-    setImmediate(async () => {
-      wrapper.update();
-      const checkbox = wrapper.find(PortfolioItem).find('input');
-      checkbox.simulate('change');
-      /**
-       * Trigger remove portfolio items action
-       */
-      const removeTrigger = wrapper.find('button#remove-products-dropdown-toggle');
+    wrapper.update();
+    const checkbox = wrapper.find(PortfolioItem).find('input');
+    checkbox.simulate('change');
+    /**
+     * Trigger remove portfolio items action
+     */
+    const removeTrigger = wrapper.find('button#remove-products-dropdown-toggle');
 
-      /**
-       * open dropdown
-       */
-      removeTrigger.simulate('click');
-      wrapper.update();
+    /**
+     * open dropdown
+     */
+    removeTrigger.simulate('click');
+    wrapper.update();
 
-      /**
-       * trigger remove actions
-       */
-      await act(async() => {
-        wrapper.find('li').last().find('span').simulate('click');
-      });
-      setImmediate(() => {
-        /**
-         * trigger notification undo click
-         */
-        const notification = store.getActions()[9].payload.description;
-        const notificationWrapper = mount(<IntlProvider locale="en"><React.Fragment>{ notification }</React.Fragment></IntlProvider>);
-        notificationWrapper.find('a span').simulate('click');
-      });
+    /**
+     * trigger remove actions
+     */
+    await act(async() => {
+      wrapper.find('li').last().find('span').simulate('click');
+    });
+    /**
+     * trigger notification undo click
+     */
+    const notification = store.getActions()[9].payload.description;
+    const notificationWrapper = mount(<IntlProvider locale="en">{ notification }</IntlProvider>);
+    await act(async() => {
+      notificationWrapper.find('a span').simulate('click');
     });
   });
 });

@@ -7,6 +7,7 @@ import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import createPortfolioToolbarSchema from '../../../toolbar/schemas/portfolios-toolbar.schema';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<PortfoliosFilterToolbar />', () => {
   let initialProps;
@@ -30,8 +31,7 @@ describe('<PortfoliosFilterToolbar />', () => {
 
   it('should call filter action', () => {
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: [{ data: [], meta: {}}]}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
     const onFilterChange = jest.fn();
     const Provider = mockBreacrumbsStore();
     const wrapper = mount(

@@ -24,7 +24,7 @@ const ShareGroupEdit = ({ FieldProvider, label, ...props }) => {
 };
 
 ShareGroupEdit.propTypes = {
-  FieldProvider: PropTypes.node.isRequired,
+  FieldProvider: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
   label: PropTypes.string.isRequired
 };
 

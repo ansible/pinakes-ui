@@ -12,6 +12,7 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import { CATALOG_API_BASE, RBAC_API_BASE } from '../../../utilities/constants';
 import SharePortfolioModal from '../../../smart-components/portfolio/share-portfolio-modal';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<SharePortfolioModal', () => {
   let initialProps;
@@ -63,8 +64,8 @@ describe('<SharePortfolioModal', () => {
   it('should mount and load data', async (done) => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/share_info`, mockOnce({ body: { data: {}}}));
-    apiClientMock.get(`${RBAC_API_BASE}/groups/`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`).replyOnce(200, { data: {}});
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: []});
 
     let wrapper;
     await act(async () => {
@@ -75,12 +76,10 @@ describe('<SharePortfolioModal', () => {
       );
     });
 
-    setImmediate(() => {
-      wrapper.update();
-      expect(wrapper.find(SharePortfolioModal)).toHaveLength(1);
-      expect(wrapper.find(FormRenderer)).toHaveLength(1);
-      done();
-    });
+    wrapper.update();
+    expect(wrapper.find(SharePortfolioModal)).toHaveLength(1);
+    expect(wrapper.find(FormRenderer)).toHaveLength(1);
+    done();
   });
 
   it('should submit share data', async (done) => {
@@ -90,32 +89,32 @@ describe('<SharePortfolioModal', () => {
     /**
      * download data endpoints
      */
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123/share_info`, mockOnce({ body: { data: {}}}));
-    apiClientMock.get(`${RBAC_API_BASE}/groups/`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`).replyOnce(200, { data: {}});
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: []});
 
     /**
      * submit data endpoints
      */
-    apiClientMock.post(`${CATALOG_API_BASE}/portfolios/123/share`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({
+    mockApi.onPost(`${CATALOG_API_BASE}/portfolios/123/share`).replyOnce(req => {
+      expect(JSON.parse(req.data)).toEqual({
         permissions: [ 'all' ],
         group_uuids: [ '123' ]
       });
-      return res.status(200);
-    }));
-    apiClientMock.post(`${CATALOG_API_BASE}/portfolios/123/unshare`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({
+      return [ 200, {}];
+    });
+    mockApi.onPost(`${CATALOG_API_BASE}/portfolios/123/unshare`).replyOnce(req => {
+      expect(JSON.parse(req.data)).toEqual({
         permissions: [ 'catalog:portfolios:update' ],
         group_uuids: [ null ]
       });
-      return res.status(200);
-    }));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce((req, res) => {
+      return [ 200, {}];
+
+    });
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`).replyOnce(req => {
       expect(req).toBeTruthy();
-      return res.status(200).body({
-        data: []
-      });
-    }));
+      return [ 200, { data: []}];
+
+    });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -125,23 +124,19 @@ describe('<SharePortfolioModal', () => {
       );
     });
 
-    setImmediate(async () => {
-      wrapper.update();
-      const form = wrapper.find(ReactFormRender).children().instance().form;
-      /*
-      * simulate form changes
-      * group_uuid
-      * permissions
-      */
+    wrapper.update();
+    const form = wrapper.find(ReactFormRender).children().instance().form;
+    /*
+    * simulate form changes
+    * group_uuid
+    * permissions
+    */
 
-      form.change('group_uuid', '123');
-      form.change('permissions', 'all');
-      await act(async () => {
-        wrapper.find(ReactFormRender).find('button').last().simulate('click');
-      });
-      setImmediate(() => {
-        done();
-      });
+    form.change('group_uuid', '123');
+    form.change('permissions', 'all');
+    await act(async () => {
+      wrapper.find(ReactFormRender).find('button').last().simulate('click');
     });
+    done();
   });
 });

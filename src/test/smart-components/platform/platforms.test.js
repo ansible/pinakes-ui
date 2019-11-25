@@ -11,6 +11,7 @@ import Platforms from '../../../smart-components/platform/platforms';
 import { SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { mockBreacrumbsStore } from '../../redux/redux-helpers';
+import { mockGraphql } from '../../__mocks__/user-login';
 
 describe('<Platforms />', () => {
   let initialProps;
@@ -27,20 +28,10 @@ describe('<Platforms />', () => {
     };
   });
 
-  it('should render correctly', () => {
-    const wrapper = shallow(<Platforms store={ mockStore(initialState) } />);
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-  });
-
   it('should mount and fetch platforms data', (done) => {
     const store = mockStore(initialState);
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: {
-        application_types: [{
-          sources: [{ id: '1', name: 'foo' }]
-        }]
-      }}
-    }));
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`)
+    .replyOnce(200, { data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}});
     mount(<MemoryRouter><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
     setImmediate(() => {
       const expectedActions = [{
@@ -77,9 +68,8 @@ describe('<Platforms />', () => {
       }
     };
     const Provider = mockBreacrumbsStore(initialState, middlewares);
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: {
-      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}
-    }}));
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`)
+    .replyOnce(200, { data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}});
     const wrapper = mount(
       <Provider>
         <MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } /></MemoryRouter>

@@ -5,6 +5,7 @@ import { RBAC_API_BASE } from '../../../utilities/constants';
 import { fetchRbacGroups } from '../../../redux/actions/rbac-actions';
 import { FETCH_RBAC_GROUPS } from '../../../redux/action-types';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('rbac actions', () => {
 
@@ -13,6 +14,10 @@ describe('rbac actions', () => {
 
   beforeEach(() => {
     mockStore = configureStore(middlewares);
+  });
+
+  afterEach(() => {
+    mockApi.reset();
   });
 
   it('should dispatch correct actions after fetching groups', () => {
@@ -26,13 +31,11 @@ describe('rbac actions', () => {
       type: `${FETCH_RBAC_GROUPS}_FULFILLED`
     }];
 
-    apiClientMock.get(`${RBAC_API_BASE}/groups/`, mockOnce({
-      body: {
-        data: [{
-          name: 'groupName'
-        }]
-      }
-    }));
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, {
+      data: [{
+        name: 'groupName'
+      }]
+    });
 
     return store.dispatch(fetchRbacGroups()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);

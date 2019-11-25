@@ -78,7 +78,7 @@ const SharePortfolioModal = ({
     });
     push(closeUrl);
 
-    return Promise.all(sharePromises).then(() => fetchPortfolios());
+    return Promise.all(sharePromises).then(() => fetchPortfolios()).catch(err => console.log('err: ', err));
   };
 
   const onCancel = () => push(closeUrl);

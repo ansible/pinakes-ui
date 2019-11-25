@@ -1,4 +1,5 @@
 import configureStore from 'redux-mock-store' ;
+import axios from 'axios';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/';
@@ -15,6 +16,7 @@ import {
   SET_SELECTED_PLAN,
   SUBMIT_SERVICE_ORDER
 } from '../../../redux/action-types';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('Order actions', () => {
   const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
@@ -26,9 +28,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after fetching service plans', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
-      body: [ 'Foo' ]
-    }));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`).replyOnce(200, [ 'Foo' ]);
     const expectedActions = [{
       type: `${FETCH_SERVICE_PLANS}_PENDING`
     }, expect.objectContaining({
@@ -42,9 +42,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after fetching service plans fails', () => {
     const store = mockStore({});
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, mockOnce({
-      status: 500
-    }));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/1/service_plans`, { status: 500 });
     const expectedActions = [{
       type: `${FETCH_SERVICE_PLANS}_PENDING`
     }, expect.objectContaining({
@@ -85,22 +83,9 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
-      body: { id: '123' }
-    }));
-    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/order_items`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({
-        count: 1,
-        provider_control_parameters: { namespace: 'default' },
-        portfolio_item_id: 'Foo',
-        service_plan_ref: 'Bar',
-        service_parameters: { bax: 'quxx' }
-      });
-      return res.status(200);
-    }));
-    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/submit_order`, mockOnce({
-      body: { id: '123' }
-    }));
+    mockApi.onPost(`${CATALOG_API_BASE}/orders`).reply(200, { id: '123' });
+    mockApi.onPost(`${CATALOG_API_BASE}/orders/123/order_items`).reply(200, {});
+    mockApi.onPost(`${CATALOG_API_BASE}/orders/123/submit_order`).reply(200, {});
     const expectedActions = [{
       type: `${SUBMIT_SERVICE_ORDER}_PENDING`
     }, expect.objectContaining({
@@ -126,9 +111,7 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order fails to get new order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
-      status: 500
-    }));
+    mockApi.onPost(`${CATALOG_API_BASE}/orders`, { status: 500 });
     const expectedActions = [{
       type: `${SUBMIT_SERVICE_ORDER}_PENDING`
     }, expect.objectContaining({
@@ -151,13 +134,9 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order fails to add to new order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
-      body: { id: 123 }
-    }));
+    mockApi.onPost(`${CATALOG_API_BASE}/orders`, { id: 123 });
 
-    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/items`, mockOnce({
-      status: 500
-    }));
+    mockApi.onPost(`${CATALOG_API_BASE}/orders/123/items`, { status: 500 });
 
     const expectedActions = [{
       type: `${SUBMIT_SERVICE_ORDER}_PENDING`
@@ -177,16 +156,10 @@ describe('Order actions', () => {
 
   it('should dispatch correct actions after submitting order fails to submit order', () => {
     const store = mockStore({});
-    apiClientMock.post(`${CATALOG_API_BASE}/orders`, mockOnce({
-      body: { id: 123 }
-    }));
+    mockApi.onPost(`${CATALOG_API_BASE}/orders`, { id: 123 });
 
-    apiClientMock.post(`${CATALOG_API_BASE}/orders/123/items`, mockOnce({
-      status: 200
-    }));
-    apiClientMock.post(`${CATALOG_API_BASE}/orders/123`, mockOnce({
-      status: 500
-    }));
+    mockApi.onPost(`${CATALOG_API_BASE}/orders/123/items`, { status: 200 });
+    mockApi.onPost(`${CATALOG_API_BASE}/orders/123`, { status: 500 });
 
     const expectedActions = [{
       type: `${SUBMIT_SERVICE_ORDER}_PENDING`
