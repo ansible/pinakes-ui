@@ -13,7 +13,6 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper/dist/index';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
@@ -32,9 +31,16 @@ describe('<EditApprovalWorkflow />', () => {
   beforeEach(() => {
     initialProps = {
       closeUrl: 'foo',
+      portfolioId: '123',
       objectType: 'Portfolio'
     };
     initialState = {
+      portfolioReducer: {
+        portfolios: { data: [{
+          id: '123',
+          name: 'Portfolio 1'
+        }]}
+      },
       approvalReducer: {
         workflows: [{
           label: 'foo',
@@ -46,7 +52,7 @@ describe('<EditApprovalWorkflow />', () => {
   });
 
   it('should render correctly', () => {
-    const store = mockStore({});
+    const store = mockStore({ initialState });
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
     const wrapper = shallow(<ComponentWrapper store={ store }><EditApprovalWorkflow { ...initialProps } /></ComponentWrapper>).dive();
 
@@ -89,22 +95,19 @@ describe('<EditApprovalWorkflow />', () => {
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store } initialEntries={ [ '/portfolios', '/portfolios/123' ]}>
-          <Route path="portfolios/:id" render={ () => <EditApprovalWorkflow { ...initialProps }/> }/>
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
+          <Route path="/portfolio/:id" render={ args => <EditApprovalWorkflow { ...args } { ...initialProps } /> }/>
         </ComponentWrapper>
       );
     });
 
-    setImmediate(async () => {
+    setImmediate(() => {
       wrapper.update();
-      const select = wrapper.find(rawComponents.Select);
       const modal = wrapper.find(Modal);
       const form = wrapper.find(FormRenderer);
       expect(modal.props().title).toEqual('Set approval workflow');
       expect(form.props().schema).toEqual(expectedSchema);
-      setImmediate(() => {
-        done();
-      });
+      done();
     });
   });
 });
