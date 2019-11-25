@@ -35,7 +35,7 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
     }
 
     if (workflow) {
-      dispatch(unlinkWorkflow(workflow.id, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
+      dispatch(unlinkWorkflow(workflow.id, workflow.name, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
     }
 
     return dispatch(linkWorkflow(values.workflow, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));

@@ -21,7 +21,7 @@ export const linkWorkflow = (id, resourceObject) => ({
     }
   }});
 
-export const unlinkWorkflow = (id, resourceObject) => ({
+export const unlinkWorkflow = (id, name, resourceObject) => ({
   type: ASYNC_ACTIONS.UNLINK_WORKFLOW,
   payload: ApprovalHelper.unlinkWorkflow(id, resourceObject),
   meta: {
@@ -29,7 +29,7 @@ export const unlinkWorkflow = (id, resourceObject) => ({
       fulfilled: {
         variant: 'success',
         title: 'Success unlinking workflow',
-        description: 'The workflow was unlinked successfully.'
+        description: `The workflow ${name} was unlinked successfully.`
       }
     }
   }});
