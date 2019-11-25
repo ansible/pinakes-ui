@@ -41,7 +41,7 @@ const ordersListState = (state, action) => {
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
     case 'setFilterType':
-      return { ...state, filterType: action.payload };
+      return { ...state, filterType: action.payload, filterValue: '' };
   }
 
   return state;
@@ -89,7 +89,7 @@ const OrdersList = () => {
               onChange: (_e, value) => {
                 stateDispatch({ type: 'setFilterType', payload: value });
                 if (filterValue.length > 0) {
-                  handlePagination(undefined, { ...defaultSettings, limit: meta.limit });
+                  handleFilterItems('');
                 }
               },
               value: filterType,
