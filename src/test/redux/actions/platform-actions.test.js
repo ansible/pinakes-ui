@@ -17,7 +17,7 @@ import {
 import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 
 describe('Platform actions', () => {
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   beforeEach(() => {

@@ -16,7 +16,7 @@ import ContentGalleryEmptyState from '../../../presentational-components/shared/
 describe('<Products />', () => {
   let initialState;
 
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, initialEntries = [ '/foo' ], children }) => (

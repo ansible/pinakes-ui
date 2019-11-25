@@ -16,7 +16,7 @@ import SharePortfolioModal from '../../../smart-components/portfolio/share-portf
 describe('<SharePortfolioModal', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, children, initialEntries }) => (

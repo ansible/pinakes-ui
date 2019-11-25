@@ -34,7 +34,7 @@ import {
 import { openApiReducerMock } from '../../__mocks__/open-api-mock';
 
 describe('Portfolio actions', () => {
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   beforeEach(() => {

@@ -21,7 +21,7 @@ import CancelOrderModal from '../../../smart-components/order/cancel-order-modal
 describe('<Orders />', () => {
 
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 

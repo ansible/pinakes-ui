@@ -24,7 +24,7 @@ describe('<Portfolio />', () => {
 
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, initialEntries = [ '/foo' ], children }) => (

@@ -16,7 +16,7 @@ import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-p
 
 describe('<AddProductsToPortfolio />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   mockStore = configureStore(middlewares);
   let ComponentWrapper = ({ store, children }) => (

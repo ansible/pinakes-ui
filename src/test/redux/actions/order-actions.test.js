@@ -17,7 +17,7 @@ import {
 } from '../../../redux/action-types';
 
 describe('Order actions', () => {
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   beforeEach(() => {

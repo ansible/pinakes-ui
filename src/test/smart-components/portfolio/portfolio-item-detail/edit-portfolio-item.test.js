@@ -13,7 +13,7 @@ import { UPDATE_TEMPORARY_PORTFOLIO_ITEM, UPDATE_PORTFOLIO_ITEM } from '../../..
 import { openApiReducerMock } from '../../../__mocks__/open-api-mock';
 
 describe('<EditPortfolioItem />', () => {
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialProps;
 

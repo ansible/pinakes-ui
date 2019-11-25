@@ -17,7 +17,7 @@ import { act } from 'react-dom/test-utils';
 
 describe('<PlatformInventories />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 

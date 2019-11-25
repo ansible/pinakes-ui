@@ -16,7 +16,7 @@ import { orderInitialState } from '../../../redux/reducers/order-reducer';
 
 describe('<OrderModal />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 

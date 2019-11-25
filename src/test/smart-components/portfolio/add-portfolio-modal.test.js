@@ -17,7 +17,7 @@ import AddPortfolioModal from '../../../smart-components/portfolio/add-portfolio
 describe('<AddPortfolioModal />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   const ComponentWrapper = ({ store, children, portfolioId }) => (
     <Provider store={ store }>

@@ -15,7 +15,7 @@ import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS, DELETE_TEMPORARY_PORTFOLIO } from '
 describe('<RemovePortfolioModal />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, children }) => (

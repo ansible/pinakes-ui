@@ -15,7 +15,7 @@ import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 describe('<Platforms />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   beforeEach(() => {
     mockStore = configureStore(middlewares);

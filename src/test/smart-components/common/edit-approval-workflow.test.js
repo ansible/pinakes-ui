@@ -17,7 +17,7 @@ import EditApprovalWorkflow from '../../../smart-components/common/edit-approval
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, children, initialEntries }) => (
