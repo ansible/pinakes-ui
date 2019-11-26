@@ -13,9 +13,11 @@ export const loadWorkflowOptions = (filterValue = '') =>
 export const linkWorkflow = (id, resourceObject) => getWorkflowApi().linkWorkflow(id, resourceObject);
 export const unlinkWorkflow = (id, resourceObject) => getWorkflowApi().unlinkWorkflow(id, resourceObject);
 
-export const listWorkflowsForObject = (resourceObject, limit = defaultSettings.limit, offset = defaultSettings.offset, filter = '') => {
+export const listWorkflowsForObject = (resourceObject,
+  pagination = { limit: defaultSettings.limit, offset: defaultSettings.offset },
+  filter = '') => {
   const objectQuery = `app_name=${resourceObject.appName}&object_type=${resourceObject.objectType}&object_id=${resourceObject.objectId}`;
-  const paginationQuery = `&limit=${limit}&offset=${offset}`;
-  const filterQuery = `${filter.length > 0 ? `/?filter[name][contains]=${filter}` : ''}`;
+  const paginationQuery = `&limit=${pagination.limit}&offset=${pagination.offset}`;
+  const filterQuery = `&filter[name][contains]=${filter}`;
   return getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/?${objectQuery}${filterQuery}${paginationQuery}`);
 };

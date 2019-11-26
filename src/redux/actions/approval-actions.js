@@ -1,5 +1,6 @@
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 import * as ApprovalHelper from '../../helpers/approval/approval-helper';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 export const fetchWorkflows = () => ({
   type: ASYNC_ACTIONS.FETCH_WORKFLOWS,
@@ -33,7 +34,8 @@ export const unlinkWorkflow = (id, name, resourceObject) => ({
       }
     }
   }});
-export const listWorkflowsForObject = (resourceObject) => ({
+
+export const listWorkflowsForObject = (resourceObject, meta = { limit: defaultSettings.limit, offset: defaultSettings.offset }, filter = '') => ({
   type: ASYNC_ACTIONS.RESOLVE_WORKFLOWS,
-  payload: listWorkflowsForObject(resourceObject)
+  payload: ApprovalHelper.listWorkflowsForObject(resourceObject, meta, filter)
 });

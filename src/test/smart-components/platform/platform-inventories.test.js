@@ -11,6 +11,7 @@ import PlatformInventories from '../../../smart-components/platform/platform-inv
 import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE, APPROVAL_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORM, FETCH_PLATFORM_INVENTORIES } from '../../../redux/action-types';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
+import { approvalInitialState } from '../../../redux/reducers/approval-reducer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { act } from 'react-dom/test-utils';
 
@@ -35,6 +36,10 @@ describe('<PlatformInventories />', () => {
     };
     mockStore = configureStore(middlewares);
     initialState = {
+      approvalReducer: {
+        ...approvalInitialState,
+        resolvedWorkflows: []
+      },
       platformReducer: {
         ...platformInitialState,
         selectedPlatform: {
@@ -101,6 +106,9 @@ describe('<PlatformInventories />', () => {
 
     apiClientMock.get(`${SOURCES_API_BASE}/sources/123`, mockOnce({ body: { name: 'Foo' }}));
     apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
+    apiClientMock
+    .get(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Inventory&object_id=123&filter%5Bname%5D%5Bcontains%5D=&limit=50&offset=0`,
+      mockOnce({ body: { data: []}}));
     apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         body: {

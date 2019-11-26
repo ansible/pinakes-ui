@@ -42,10 +42,11 @@ describe('<EditApprovalWorkflow />', () => {
         }]}
       },
       approvalReducer: {
-        workflows: [{
-          label: 'foo',
-          value: 'bar'
-        }]
+        workflows: { data: [{
+          id: '111',
+          name: 'Workflow'
+        }]},
+        resolvedWorkflows: []
       }
     };
     mockStore = configureStore(middlewares);
@@ -72,7 +73,8 @@ describe('<EditApprovalWorkflow />', () => {
         }]
       }
     }));
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&limit=50&offset=0`,
+    apiClientMock
+    .get(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter%5Bname%5D%5Bcontains%5D=&limit=50&offset=0`,
       mockOnce({ body: {
         data: [{
           name: 'workflow',
@@ -101,13 +103,11 @@ describe('<EditApprovalWorkflow />', () => {
       );
     });
 
-    setImmediate(() => {
-      wrapper.update();
-      const modal = wrapper.find(Modal);
-      const form = wrapper.find(FormRenderer);
-      expect(modal.props().title).toEqual('Set approval workflow');
-      expect(form.props().schema).toEqual(expectedSchema);
-      done();
-    });
+    wrapper.update();
+    const modal = wrapper.find(Modal);
+    const form = wrapper.find(FormRenderer);
+    expect(modal.props().title).toEqual('Set approval workflow');
+    expect(form.props().schema).toEqual(expectedSchema);
+    done();
   });
 });
