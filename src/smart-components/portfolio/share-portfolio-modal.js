@@ -78,7 +78,7 @@ const SharePortfolioModal = ({
     });
     push(closeUrl);
 
-    return Promise.all(sharePromises).then(() => fetchPortfolios()).catch(err => console.log('err: ', err));
+    return Promise.all(sharePromises).then(() => fetchPortfolios());
   };
 
   const onCancel = () => push(closeUrl);
@@ -120,7 +120,7 @@ const SharePortfolioModal = ({
 
 SharePortfolioModal.propTypes = {
   history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired,
   isLoading: PropTypes.bool,
   addNotification: PropTypes.func.isRequired,

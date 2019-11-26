@@ -86,7 +86,7 @@ describe('<Products />', () => {
     /**
      * Second call after input change
      */
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=foo&limit=50&offset=0`).replyOnce((req, res) => {
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=foo&limit=50&offset=0`).replyOnce(req => {
       expect(req).toBeTruthy();
       done();
       return [ 200, { data: []}];

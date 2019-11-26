@@ -47,7 +47,9 @@ ItemDetailDescription.propTypes = {
     dscription: PropTypes.string,
     long_description: PropTypes.string,
     support_url: PropTypes.string,
-    documentation_url: PropTypes.string
+    documentation_url: PropTypes.string,
+    description: PropTypes.string,
+    id: PropTypes.string.isRequired
   }).isRequired,
   url: PropTypes.string.isRequired
 };
