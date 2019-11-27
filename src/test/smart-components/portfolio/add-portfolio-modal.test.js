@@ -13,11 +13,12 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import AddPortfolioModal from '../../../smart-components/portfolio/add-portfolio-modal';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<AddPortfolioModal />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   const ComponentWrapper = ({ store, children, portfolioId }) => (
     <Provider store={ store }>
@@ -86,10 +87,10 @@ describe('<AddPortfolioModal />', () => {
   it('should create edit variant of portfolio modal and call updatePortfolio on submit', () => {
     const store = mockStore(initialState);
 
-    apiClientMock.patch(`${CATALOG_API_BASE}/portfolios/123`, ((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({ id: '123', name: 'Portfolio' });
-      return res.body(200);
-    }));
+    mockApi.onPatch(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(req => {
+      expect(JSON.parse(req.data)).toEqual({ id: '123', name: 'Portfolio' });
+      return [ 200, {}];
+    });
 
     const wrapper = mount(
       <ComponentWrapper store={ store } portfolioId="123">

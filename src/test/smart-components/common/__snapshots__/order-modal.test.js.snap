@@ -2,7 +2,16 @@
 
 exports[`<OrderModal /> should render correctly 1`] = `
 <Provider
-  store={[Function]}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
 >
   <MemoryRouter
     initialEntries={Array []}

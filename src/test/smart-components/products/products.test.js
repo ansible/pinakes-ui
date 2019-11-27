@@ -12,11 +12,12 @@ import Products from '../../../smart-components/products/products';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../utilities/constants';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
 import ContentGalleryEmptyState from '../../../presentational-components/shared/content-gallery-empty-state';
+import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 
 describe('<Products />', () => {
   let initialState;
 
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, initialEntries = [ '/foo' ], children }) => (
@@ -26,6 +27,10 @@ describe('<Products />', () => {
       </MemoryRouter>
     </Provider>
   );
+
+  afterEach(() => {
+    mockGraphql.reset();
+  });
 
   beforeEach(() => {
     initialState = {
@@ -48,12 +53,13 @@ describe('<Products />', () => {
 
   it('should render in loading state', async done => {
     const store = mockStore(initialState);
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: [], meta: {
-      limit: 0,
-      offset: 0,
-      count: 0
-    }}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`).replyOnce(200,
+      { data: [], meta: {
+        limit: 0,
+        offset: 0,
+        count: 0
+      }});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: []});
 
     let wrapper;
 
@@ -71,20 +77,21 @@ describe('<Products />', () => {
   it('should call debounced async filter after 1 second', async done => {
     expect.assertions(1);
     const store = mockStore(initialState);
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: [], meta: {
-      limit: 0,
-      offset: 0,
-      count: 0
-    }}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`).replyOnce(200, {
+      data: [], meta: {
+        limit: 0,
+        offset: 0,
+        count: 0
+      }});
     /**
      * Second call after input change
      */
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=foo&limit=50&offset=0`, mockOnce((req, res) => {
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=foo&limit=50&offset=0`).replyOnce(req => {
       expect(req).toBeTruthy();
       done();
-      return res.status(200);
-    }));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: []}}));
+      return [ 200, { data: []}];
+    });
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: []});
 
     let wrapper;
 
@@ -98,7 +105,9 @@ describe('<Products />', () => {
     await act(async () => {
       input.getDOMNode().value = 'foo';
     });
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
   });
 
   it('should render gallery in empty state', async done => {
@@ -114,12 +123,15 @@ describe('<Products />', () => {
         }
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: [], meta: {
-      limit: 0,
-      offset: 0,
-      count: 0
-    }}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`)
+    .replyOnce(200, {
+      data: [], meta: {
+        limit: 0,
+        offset: 0,
+        count: 0
+      }
+    });
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: []});
 
     let wrapper;
 

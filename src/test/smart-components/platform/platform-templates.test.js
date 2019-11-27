@@ -12,10 +12,11 @@ import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../../utili
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import { FETCH_PLATFORM, FETCH_PLATFORM_ITEMS } from '../../../redux/action-types';
 import { act } from 'react-dom/test-utils';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<PlatformTemplates />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 
@@ -62,12 +63,14 @@ describe('<PlatformTemplates />', () => {
   });
 
   it('should mount and fetch data', async done => {
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/1`, mockOnce({ body: { name: 'Foo' }}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D%20=&limit=50&offset=0`,
-      mockOnce({ body: { data: [{
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/1`).replyOnce(200, { name: 'Foo' });
+    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`)
+    .replyOnce(200, {
+      data: [{
         id: '1',
         name: 'Offering 1'
-      }]}}));
+      }]
+    });
 
     const expectedActions = [
       { type: `${FETCH_PLATFORM}_PENDING` },

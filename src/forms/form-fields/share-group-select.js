@@ -30,7 +30,7 @@ export const ShareGroupSelect = ({
 };
 
 ShareGroupSelect.propTypes = {
-  FieldProvider: PropTypes.node.isRequired,
+  FieldProvider: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
   groups: PropTypes.any,

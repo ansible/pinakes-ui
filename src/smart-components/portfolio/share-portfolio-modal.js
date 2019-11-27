@@ -120,7 +120,7 @@ const SharePortfolioModal = ({
 
 SharePortfolioModal.propTypes = {
   history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired,
   isLoading: PropTypes.bool,
   addNotification: PropTypes.func.isRequired,

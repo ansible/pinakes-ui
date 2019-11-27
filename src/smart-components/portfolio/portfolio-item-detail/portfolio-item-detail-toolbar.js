@@ -70,7 +70,9 @@ PortfolioItemDetailToolbar.propTypes = {
   isOpen: PropTypes.bool,
   product: PropTypes.shape({
     distributor: PropTypes.string,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    service_offering_source_ref: PropTypes.string.isRequired
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,

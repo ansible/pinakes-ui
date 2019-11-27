@@ -16,11 +16,12 @@ import PortfolioItemDetail from '../../../../smart-components/portfolio/portfoli
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import { mockApi } from '../../../__mocks__/user-login';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, children, initialEntries, initialIndex }) => (
@@ -69,9 +70,9 @@ describe('<PortfolioItemDetail />', () => {
 
   it('should mount correct component before and after load', async done => {
     const store = mockStore(initialState);
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce({ body: {}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/source-id`, mockOnce({ body: {}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
     let wrapper;
     await act(async() => {
       wrapper = mount(
@@ -96,12 +97,13 @@ describe('<PortfolioItemDetail />', () => {
   it('should mount and open order modal', async done => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/123`, mockOnce({ body: {}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321`, mockOnce({ body: {}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`, mockOnce({ body: {}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/321/provider_control_parameters`,
-      mockOnce({ body: { properties: { namespace: { enum: []}}}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/source-id`, mockOnce({ body: {}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321/provider_control_parameters`).replyOnce(200, {
+      properties: { namespace: { enum: []}}
+    }),
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
 
     let wrapper;
 

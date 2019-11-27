@@ -14,10 +14,11 @@ import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import { approvalInitialState } from '../../../redux/reducers/approval-reducer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { act } from 'react-dom/test-utils';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<PlatformInventories />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 
@@ -74,12 +75,9 @@ describe('<PlatformInventories />', () => {
 
   it('should mount and fetch data', async done=> {
     const store = mockStore(initialState);
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/123`, mockOnce({ body: { name: 'Foo' }}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({
-        body: {
-          data: [{ id: 111 }]}
-      }));
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/123`).replyOnce(200, { name: 'Foo' });
+    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`)
+    .replyOnce(200, { data: [{ id: 111 }]});
 
     const expectedActions = [
       { type: `${FETCH_PLATFORM}_PENDING` },
@@ -104,21 +102,19 @@ describe('<PlatformInventories />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/123`, mockOnce({ body: { name: 'Foo' }}));
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
-    apiClientMock
-    .get(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Inventory&object_id=123&filter%5Bname%5D%5Bcontains%5D=&limit=50&offset=0`,
-      mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({
-        body: {
-          data: [{
-            id: '222',
-            name: 'Test inventory',
-            created_at: 'date',
-            workflow: 'wf'
-          }]}
-      }));
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/123`).replyOnce(200, { name: 'Foo' });
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, { data: []});
+    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`)
+    .replyOnce(200, {
+      data: [{
+        id: '222',
+        name: 'Test inventory',
+        created_at: 'date',
+        workflow: 'wf'
+      }]
+    });
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Inventory&object_id=123&filter[name][contains]=&limit=50&offset=0`)
+    .replyOnce(200, { data: []});
 
     await act(async () => {
       wrapper = mount(<ComponentWrapper store={ store } initialEntries={ [ '/platforms/detail/123/platform-inventories' ] }>

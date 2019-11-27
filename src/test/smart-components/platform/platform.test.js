@@ -12,7 +12,7 @@ import { Route, MemoryRouter } from 'react-router-dom';
 
 describe('<Platform />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 

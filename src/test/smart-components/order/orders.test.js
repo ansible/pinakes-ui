@@ -17,11 +17,12 @@ import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
 import OrdersList from '../../../smart-components/order/orders-list';
 import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
 import CancelOrderModal from '../../../smart-components/order/cancel-order-modal';
+import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 
 describe('<Orders />', () => {
 
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialState;
 
@@ -55,6 +56,7 @@ describe('<Orders />', () => {
         name: 'Portfolio name'
       },
       orderItem: {
+        updated_at: createDate.toString(),
         service_parameters: {}
       },
       progressMessages: {
@@ -93,10 +95,10 @@ describe('<Orders />', () => {
   it('should mount and render orders list component', async done => {
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/orders?limit=50&offset=0`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items`).replyOnce(200, { data: []});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: { application_types: []}});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -129,24 +131,23 @@ describe('<Orders />', () => {
     };
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderItemsPagination }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.post(`${SOURCES_API_BASE}/graphql`, mockOnce({
-      body: { data: {
-        application_types: [{
-          sources: [{
-            id: '1',
-            name: 'Source 1'
-          }]
+    mockApi.onGet(`${CATALOG_API_BASE}/orders?filter[state][contains_i]=&limit=50&offset=0`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items?`).replyOnce(200, { data: []});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, { data: {
+      application_types: [{
+        sources: [{
+          id: '1',
+          name: 'Source 1'
         }]
-      }}}));
+      }]
+    }});
     /**
      * Pagination requests
      */
-    apiClientMock.get(`${CATALOG_API_BASE}/orders?filter%5Bstate%5D%5Bcontains_i%5D=&limit=50&offset=100`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/orders?filter[state][contains_i]=&limit=50&offset=100`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items?`).replyOnce(200, { data: []});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items?`).replyOnce(200, { data: []});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -175,15 +176,13 @@ describe('<Orders />', () => {
   it('should mount and render order detail component', async done => {
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
-      id: 123
-    }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/portfolio-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/platform-id`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/orders/123`).replyOnce(200, { data: [{ id: 123 }]});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`).replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -205,15 +204,13 @@ describe('<Orders />', () => {
   it('should mount and render order approval detail component', async done => {
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...orderReducer }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
-      id: 123
-    }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/portfolio-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/platform-id`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/orders/123`).replyOnce(200, { data: [{ id: 123 }]});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`).replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -237,15 +234,13 @@ describe('<Orders />', () => {
     enabledCancel.orderDetail.order.state = 'Approval Pending';
     const store = mockStore({ ...initialState, orderReducer: { ...orderInitialState, ...enabledCancel }});
 
-    apiClientMock.get(`${CATALOG_API_BASE}/orders/123`, mockOnce({ body: { data: [{
-      id: 123
-    }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios/portfolio-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`, mockOnce({ body: { data: []}}));
-    apiClientMock.get(`${SOURCES_API_BASE}/sources/platform-id`, mockOnce({ body: { data: []}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/orders/123`).replyOnce(200, { data: [{ id: 123 }]});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`).replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
     let wrapper;
     await act(async () => {
       wrapper = mount(
