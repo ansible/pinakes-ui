@@ -73,7 +73,7 @@ describe('<EditApprovalWorkflow />', () => {
       }]
     });
     mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`)
-    .replyOnce(200, { data: [{ name: 'workflow',id: '123' }] });
+    .replyOnce(200, { data: [{ name: 'workflow', id: '123' }]});
 
     const expectedSchema = {
       fields: [{
