@@ -35,17 +35,11 @@ exports[`<EditApprovalWorkflow /> should create the edit workflow modal 1`] = `
     }
   }
 >
-  <MemoryRouter
-    initialEntries={
-      Array [
-        "portfolios/undefined",
-      ]
-    }
-  >
+  <MemoryRouter>
     <EditApprovalWorkflow
       closeUrl="foo"
-      fetchWorkflows={[MockFunction]}
-      workflows={Array []}
+      objectType="Portfolio"
+      portfolioId="123"
     />
   </MemoryRouter>
 </ContextProvider>

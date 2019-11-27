@@ -191,6 +191,21 @@ export const ShareLoader = () => (
   </Form>
 );
 
+export const WorkflowLoader = () => (
+  <Form>
+    <FormGroup fieldId="1">
+      <TextContent>
+        <Text component={ TextVariants.medium }>
+          Approval workflow
+        </Text>
+      </TextContent>
+    </FormGroup>
+    <FormGroup fieldId="2">
+      <FormItemLoader />
+    </FormGroup>
+  </Form>
+);
+
 export const ListLoader = ({ items, ...props }) => (
   <DataList aria-label="list-loader" aria-labelledby="datalist-placeholder">
     { [ ...Array(items) ].map((_item, index) => (
