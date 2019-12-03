@@ -6,7 +6,7 @@ import CatalogBreadcrumbs from './breadcrubms';
 import './top-toolbar.scss';
 
 const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
-  <div className={ `pf-u-pt-lg pf-u-pr-lg pf-u-pl-xl ${paddingBottom ? 'pf-u-pb-md' : ''} top-toolbar` } { ...rest }>
+  <div className={ `pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${paddingBottom ? 'pf-u-pb-md' : ''} top-toolbar` } { ...rest }>
     { breadcrumbs && (
       <CatalogBreadcrumbs />
     ) }
