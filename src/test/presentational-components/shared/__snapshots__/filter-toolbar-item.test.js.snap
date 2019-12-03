@@ -24,6 +24,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
           onChange={[MockFunction]}
           placeholder="Foo"
           type="text"
+          validated="default"
           value=""
         >
           <input
