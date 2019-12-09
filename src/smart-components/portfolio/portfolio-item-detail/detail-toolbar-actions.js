@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownPosition, DropdownSeparator, KebabToggle, LevelItem } from '@patternfly/react-core';
+import { Dropdown, DropdownItem, DropdownPosition, KebabToggle, LevelItem } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
 const DetailToolbarActions = ({

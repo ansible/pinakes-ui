@@ -10,7 +10,6 @@ import {
   Dropdown,
   DropdownItem,
   DropdownPosition,
-  DropdownSeparator,
   GalleryItem,
   KebabToggle,
   Text,
