@@ -11,6 +11,7 @@ import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/ac
 import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 import { permissionOptions, permissionValues } from '../../utilities/constants';
+import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
 
 const SharePortfolioModal = ({
   history: { push },
@@ -44,6 +45,8 @@ const SharePortfolioModal = ({
     let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
     return initialShareList;
   };
+
+  const loadGroupOptions = (inputValue) => fetchFilterGroups(inputValue);
 
   const onSubmit = data => {
     let sharePromises = [];
@@ -105,7 +108,7 @@ const SharePortfolioModal = ({
         </Title>) }
       { !isFetching && rbacGroups.length > 0 && (
         <FormRenderer
-          schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
+          schema={ createPortfolioShareSchema(shareItems(), loadGroupOptions, permissionOptions) }
           schemaType="default"
           onSubmit={ onSubmit }
           onCancel={ onCancel }
