@@ -42,14 +42,13 @@ const DetailToolbarActions = ({
                 pathname: copyUrl,
                 search
               } }>Copy</Link> } role="link"/>,
-              <DropdownSeparator key="workflow-portfolio-separator"/>,
               <DropdownItem
-                aria-label="Edit Approval Workflow"
+                aria-label="Set approval"
                 key="edit-approval_workflow"
                 component={ <Link to={ {
                   pathname: workflowUrl,
                   search
-                } }>Edit approval</Link> }
+                } }>Set approval</Link> }
                 role="link"
               />
             ] }

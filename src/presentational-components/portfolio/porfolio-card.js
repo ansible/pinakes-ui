@@ -34,12 +34,10 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
     toggle={ <KebabToggle onToggle={ isOpen => setOpen(isOpen) }/> }
     dropdownItems={ [
       <DropdownItem key="share-portfolio-action" component={ <Link to={ `/portfolios/share/${portfolioId}` } >Share</Link> } />,
-      <DropdownSeparator key="workflow-portfolio-separator"/>,
       <DropdownItem
         key="workflow-portfolio-action"
-        component={ <Link to={ `/portfolios/edit-workflow/${portfolioId}` }>Edit approval</Link> }
+        component={ <Link to={ `/portfolios/edit-workflow/${portfolioId}` }>Set approval</Link> }
       />,
-      <DropdownSeparator key="share-portfolio-separator"/>,
       <DropdownItem key="edit-portfolio-action" component={ <Link to={ `/portfolios/edit/${portfolioId}` }>Edit</Link> }/>,
       <DropdownItem
         key="remove-portfolio-action"

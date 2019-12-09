@@ -98,7 +98,7 @@ const PlatformInventories = (props) => {
   };
 
   const actionResolver = (inventoryData) => {
-    return [{ title: 'Edit approval',
+    return [{ title: 'Set approval',
       onClick: () => history.push(`/platforms/detail/${id}/platform-inventories/edit-workflow/${inventoryData.id}`) }];
   };
 
