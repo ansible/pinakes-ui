@@ -86,14 +86,6 @@ const SharePortfolioModal = ({
 
   const onCancel = () => push(closeUrl);
 
-  const shareItems = () => {
-    let groupsWithNoSharing = rbacGroups.filter((item) => {
-      return !shareInfo.find(shareGroup => shareGroup.group_uuid === item.value);});
-    return { groups: groupsWithNoSharing,
-      items: shareInfo
-    };
-  };
-
   return (
     <Modal
       title={ 'Share portfolio' }
@@ -108,7 +100,7 @@ const SharePortfolioModal = ({
         </Title>) }
       { !isFetching && rbacGroups.length > 0 && (
         <FormRenderer
-          schema={ createPortfolioShareSchema(shareItems(), loadGroupOptions, permissionOptions) }
+          schema={ createPortfolioShareSchema(shareInfo, loadGroupOptions, permissionOptions) }
           schemaType="default"
           onSubmit={ onSubmit }
           onCancel={ onCancel }

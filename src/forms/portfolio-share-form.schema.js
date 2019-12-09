@@ -1,7 +1,7 @@
 /**
  * Creates a data-driven-form schema for sharing/un-sharing portfolio
  */
-const newShareSchema = (rbacGroups, loadGroupOptions, permissionVerbs) => (
+const newShareSchema = (loadGroupOptions, permissionVerbs) => (
   { fields: [
     {
       component: 'sub-form',
@@ -13,7 +13,6 @@ const newShareSchema = (rbacGroups, loadGroupOptions, permissionVerbs) => (
         component: 'share-group-select',
         inputName: 'group_uuid',
         selectName: 'permissions',
-        groups: rbacGroups,
         loadOptions: loadGroupOptions,
         isSearchable: true,
         permissions: permissionVerbs
@@ -52,10 +51,8 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => (
   }
 );
 
-export const createPortfolioShareSchema = (shareItems, loadGroupOptions, permissionVerbs) => {
-  const shareInfo = shareItems.items;
-  const rbacGroups = shareItems.groups;
-  const formSchema = newShareSchema(rbacGroups, loadGroupOptions, permissionVerbs);
+export const createPortfolioShareSchema = (shareInfo, loadGroupOptions, permissionVerbs) => {
+  const formSchema = newShareSchema(loadGroupOptions, permissionVerbs);
   const groupInfoFields = shareInfo.map((group) => (groupShareSchema(group, permissionVerbs)));
   const shareListSchema =  { ...groupListSchema([ ...groupInfoFields ]) };
   const portfolioSchema =  { fields: [ ...formSchema.fields, ...shareListSchema.fields ]};
