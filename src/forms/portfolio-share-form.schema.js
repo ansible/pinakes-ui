@@ -55,7 +55,6 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => (
 export const createPortfolioShareSchema = (shareItems, loadGroupOptions, permissionVerbs) => {
   const shareInfo = shareItems.items;
   const rbacGroups = shareItems.groups;
-  console.log('Debug createPortfolioShareSchema - loadGroupOptions', loadGroupOptions);
   const formSchema = newShareSchema(rbacGroups, loadGroupOptions, permissionVerbs);
   const groupInfoFields = shareInfo.map((group) => (groupShareSchema(group, permissionVerbs)));
   const shareListSchema =  { ...groupListSchema([ ...groupInfoFields ]) };

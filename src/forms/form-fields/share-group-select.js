@@ -8,7 +8,6 @@ export const ShareGroupSelect = ({
   FieldProvider,
   inputName,
   selectName,
-  groups,
   loadOptions,
   permissions
 }) => {
@@ -39,7 +38,7 @@ ShareGroupSelect.propTypes = {
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
   groups: PropTypes.any,
-  loadGroups: PropTypes.func,
+  loadOptions: PropTypes.func,
   permissions: PropTypes.any
 };
 
