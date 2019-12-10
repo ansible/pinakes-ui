@@ -24,17 +24,15 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                         </ForwardRef>
                       }
                     />,
-                    <DropdownSeparator />,
                     <DropdownItem
                       component={
                         <ForwardRef
                           to="/portfolios/edit-workflow/123"
                         >
-                          Edit approval
+                          Set approval
                         </ForwardRef>
                       }
                     />,
-                    <DropdownSeparator />,
                     <DropdownItem
                       component={
                         <ForwardRef

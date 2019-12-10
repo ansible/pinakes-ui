@@ -124,7 +124,7 @@ describe('<PlatformInventories />', () => {
 
     wrapper.update();
     /**
-     * Open action drop down and click on edit approval action
+     * Open action drop down and click on set approval action
      */
     wrapper.find('button.pf-c-dropdown__toggle.pf-m-plain').last().simulate('click');
     await act(async() => {

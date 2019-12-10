@@ -138,9 +138,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
               role="link"
             />,
-            <DropdownSeparator />,
             <DropdownItem
-              aria-label="Edit Approval Workflow"
+              aria-label="Set approval"
               component={
                 <ForwardRef
                   to={
@@ -150,7 +149,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     }
                   }
                 >
-                  Edit approval
+                  Set approval
                 </ForwardRef>
               }
               role="link"
@@ -203,9 +202,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 }
                 role="link"
               />,
-              <DropdownSeparator />,
               <DropdownItem
-                aria-label="Edit Approval Workflow"
+                aria-label="Set approval"
                 component={
                   <ForwardRef
                     to={
@@ -215,7 +213,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       }
                     }
                   >
-                    Edit approval
+                    Set approval
                   </ForwardRef>
                 }
                 role="link"
@@ -269,9 +267,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     }
                     role="link"
                   />,
-                  <DropdownSeparator />,
                   <DropdownItem
-                    aria-label="Edit Approval Workflow"
+                    aria-label="Set approval"
                     component={
                       <ForwardRef
                         to={
@@ -281,7 +278,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           }
                         }
                       >
-                        Edit approval
+                        Set approval
                       </ForwardRef>
                     }
                     role="link"
@@ -336,9 +333,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     }
                     role="link"
                   />,
-                  <DropdownSeparator />,
                   <DropdownItem
-                    aria-label="Edit Approval Workflow"
+                    aria-label="Set approval"
                     component={
                       <ForwardRef
                         to={
@@ -348,7 +344,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           }
                         }
                       >
-                        Edit approval
+                        Set approval
                       </ForwardRef>
                     }
                     role="link"

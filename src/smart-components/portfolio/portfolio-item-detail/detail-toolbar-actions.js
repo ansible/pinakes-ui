@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownPosition, DropdownSeparator, KebabToggle, LevelItem } from '@patternfly/react-core';
+import { Dropdown, DropdownItem, DropdownPosition, KebabToggle, LevelItem } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
 const DetailToolbarActions = ({
@@ -42,14 +42,13 @@ const DetailToolbarActions = ({
                 pathname: copyUrl,
                 search
               } }>Copy</Link> } role="link"/>,
-              <DropdownSeparator key="workflow-portfolio-separator"/>,
               <DropdownItem
-                aria-label="Edit Approval Workflow"
+                aria-label="Set approval"
                 key="edit-approval_workflow"
                 component={ <Link to={ {
                   pathname: workflowUrl,
                   search
-                } }>Edit approval</Link> }
+                } }>Set approval</Link> }
                 role="link"
               />
             ] }
