@@ -37,8 +37,7 @@ ShareGroupSelect.propTypes = {
   FieldProvider: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
-  groups: PropTypes.any,
-  loadOptions: PropTypes.func,
+  loadOptions: PropTypes.func.isRequired,
   permissions: PropTypes.any
 };
 
