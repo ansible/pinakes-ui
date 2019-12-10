@@ -27,6 +27,7 @@ const Select = ({
 }) => (
   <rawComponents.Select
     hideSelectedOptions={ false }
+    menuIsPortal
     { ...input }
     { ...rest }
     onChange={ (value, ...args) => {
