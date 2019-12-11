@@ -11,11 +11,12 @@ const IconUpload = ({ uploadIcon, children }) => {
 
   return (
     <div style={ { position: 'relative' } }>
-
       <input accept="image/*" onChange={ event => {
         setImage(event.target.files[0]);
         setIsUploading(true);
-        uploadIcon(event.target.files[0]).then(() => setIsUploading(false));
+        uploadIcon(event.target.files[0])
+        .then(() => setIsUploading(false))
+        .catch(() => setIsUploading(false));
       } } ref={ inputRef } type="file" id="icon-upload" hidden />
       <button disabled={ isUploading } onClick={ handleClick } className="image-upload-button">
         { isUploading ? <Spinner className="image-upload-spinner" /> : <EditIcon size="sm" /> }

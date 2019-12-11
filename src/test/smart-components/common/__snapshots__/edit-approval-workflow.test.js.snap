@@ -15,10 +15,7 @@ exports[`<EditApprovalWorkflow /> should create the edit workflow modal 1`] = `
       "subscription": Subscription {
         "handleChangeWrapper": [Function],
         "listeners": Object {
-          "clear": [Function],
-          "get": [Function],
           "notify": [Function],
-          "subscribe": [Function],
         },
         "onStateChange": [Function],
         "parentSub": undefined,
@@ -30,22 +27,16 @@ exports[`<EditApprovalWorkflow /> should create the edit workflow modal 1`] = `
           "replaceReducer": [Function],
           "subscribe": [Function],
         },
-        "unsubscribe": [Function],
+        "unsubscribe": null,
       },
     }
   }
 >
-  <MemoryRouter
-    initialEntries={
-      Array [
-        "portfolios/undefined",
-      ]
-    }
-  >
+  <MemoryRouter>
     <EditApprovalWorkflow
       closeUrl="foo"
-      fetchWorkflows={[MockFunction]}
-      workflows={Array []}
+      objectType="Portfolio"
+      portfolioId="123"
     />
   </MemoryRouter>
 </ContextProvider>

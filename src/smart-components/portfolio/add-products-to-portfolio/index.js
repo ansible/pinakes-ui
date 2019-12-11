@@ -66,7 +66,7 @@ const AddProductsToPortfolio = ({
 
   const onPlatformSelect = platform => {
     setSelectedPlatform(platform);
-    fetchPlatformItems(platform.id, defaultSettings);
+    fetchPlatformItems(platform.id, null, defaultSettings);
   };
 
   return (
@@ -97,7 +97,8 @@ const AddProductsToPortfolio = ({
 
 AddProductsToPortfolio.propTypes = {
   portfolio: PropTypes.shape({
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired
   }),
   portfolioRoute: PropTypes.string.isRequired,
   platforms: PropTypes.arrayOf(

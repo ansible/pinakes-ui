@@ -24,6 +24,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
           onChange={[MockFunction]}
           placeholder="Foo"
           type="text"
+          validated="default"
           value=""
         >
           <input
@@ -44,6 +45,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         >
           <SearchIcon
             color="currentColor"
+            noVerticalAlign={false}
             size="sm"
             title={null}
           >

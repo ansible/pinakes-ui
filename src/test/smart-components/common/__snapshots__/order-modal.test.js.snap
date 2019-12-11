@@ -1,7 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<OrderModal /> should render correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={Array []}
+  >
+    <OrderModal
+      closeUrl="/close"
+      serviceData={
+        Object {
+          "id": "1",
+          "name": "Foo",
+        }
+      }
+    />
+  </MemoryRouter>
+</Provider>
 `;

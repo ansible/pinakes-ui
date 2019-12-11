@@ -9,7 +9,7 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
     }
   }
 >
-  <Holder
+  <ContentLoader
     height={16}
     primaryColor="#FFFFFF"
     secondaryColor="#FFFFFF"
@@ -25,7 +25,7 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
       x="0"
       y="0"
     />
-  </Holder>
+  </ContentLoader>
   <div>
     <Bullseye>
       <Spinner />
@@ -60,7 +60,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -107,7 +107,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -122,7 +122,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -169,7 +169,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -184,7 +184,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -231,7 +231,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -246,7 +246,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -293,7 +293,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -308,7 +308,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -355,7 +355,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -370,7 +370,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -417,7 +417,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -432,7 +432,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -479,7 +479,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -494,7 +494,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -541,7 +541,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -556,7 +556,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -603,7 +603,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -618,7 +618,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -665,7 +665,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -680,7 +680,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -727,7 +727,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -742,7 +742,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -789,7 +789,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -804,7 +804,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <Holder
+            <ContentLoader
               height={160}
               primaryColor="#f3f3f3"
               secondaryColor="#ecebeb"
@@ -851,7 +851,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 x="136.84"
                 y="37.67"
               />
-            </Holder>
+            </ContentLoader>
           </CardBody>
         </Card>
       </GalleryItem>
@@ -862,6 +862,7 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
 
 exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
 <DataList
+  aria-label="list-loader"
   aria-labelledby="datalist-placeholder"
 >
   <DataListItem
@@ -875,7 +876,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <Holder
+              <ContentLoader
                 height={12}
                 primaryColor="#FFFFFF"
                 secondaryColor="#ecebeb"
@@ -890,7 +891,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
                   x="0"
                   y="0"
                 />
-              </Holder>
+              </ContentLoader>
             </DataListCell>,
           ]
         }
@@ -908,7 +909,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <Holder
+              <ContentLoader
                 height={12}
                 primaryColor="#FFFFFF"
                 secondaryColor="#ecebeb"
@@ -923,7 +924,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
                   x="0"
                   y="0"
                 />
-              </Holder>
+              </ContentLoader>
             </DataListCell>,
           ]
         }
@@ -941,7 +942,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <Holder
+              <ContentLoader
                 height={12}
                 primaryColor="#FFFFFF"
                 secondaryColor="#ecebeb"
@@ -956,7 +957,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
                   x="0"
                   y="0"
                 />
-              </Holder>
+              </ContentLoader>
             </DataListCell>,
           ]
         }
@@ -974,7 +975,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <Holder
+              <ContentLoader
                 height={12}
                 primaryColor="#FFFFFF"
                 secondaryColor="#ecebeb"
@@ -989,7 +990,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
                   x="0"
                   y="0"
                 />
-              </Holder>
+              </ContentLoader>
             </DataListCell>,
           ]
         }
@@ -1007,7 +1008,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <Holder
+              <ContentLoader
                 height={12}
                 primaryColor="#FFFFFF"
                 secondaryColor="#ecebeb"
@@ -1022,7 +1023,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
                   x="0"
                   y="0"
                 />
-              </Holder>
+              </ContentLoader>
             </DataListCell>,
           ]
         }
@@ -1039,7 +1040,7 @@ exports[`Loader placeholders should render <PortfolioLoader /> correctly 1`] = `
   <GridItem
     sm={12}
   >
-    <Holder
+    <ContentLoader
       height={16}
       primaryColor="#FFFFFF"
       secondaryColor="#FFFFFF"
@@ -1054,7 +1055,7 @@ exports[`Loader placeholders should render <PortfolioLoader /> correctly 1`] = `
         x="0"
         y="0"
       />
-    </Holder>
+    </ContentLoader>
   </GridItem>
   <GridItem
     sm={12}

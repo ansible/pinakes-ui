@@ -1,33 +1,18 @@
-/* global require, module, __dirname */
-
+const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const config = require('./webpack.common.js');
+const path = require('path');
+const plugins = require('./webpack.plugins.js');
 
-const webpackConfig = {
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  devtool: false,
-  optimization: {
-    minimize: process.env.NODE_ENV === 'production',
-    usedExports: true,
-    splitChunks: {
-      cacheGroups: {
-        vendors: false,
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'initial'
-        }
-      }
-    }
-  },
+const common = require('./webpack.common.js');
+
+const commonConfig = {
   entry: {
-    App: config.paths.entry
+    App: common.paths.entry
   },
   output: {
     filename: 'js/[name].js',
-    path: config.paths.public,
-    publicPath: config.paths.publicPath,
-    chunkFilename: 'js/[name].js'
+    path: common.paths.public,
+    publicPath: common.paths.publicPath
   },
   module: {
     rules: [{
@@ -59,7 +44,26 @@ const webpackConfig = {
         amd: false
       }
     }]
+  },
+  plugins
+};
+
+const devConfig = {
+  devServer: {
+    contentBase: path.join(__dirname, '../dist'),
+    port: 8002,
+    https: true,
+    historyApiFallback: true,
+    hot: false,
+    inline: false,
+    disableHostCheck: true
   }
 };
 
-module.exports = webpackConfig;
+module.exports = function(env) {
+  if (env.prod === 'true') {
+    return commonConfig;
+  }
+
+  return merge(commonConfig, devConfig);
+};

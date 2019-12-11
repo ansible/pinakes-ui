@@ -14,7 +14,7 @@ import shareReducer, { shareInfoInitialState } from '../redux/reducers/share-red
 import openApiReducer, { openApiInitialState } from '../redux/reducers/open-api-reducer';
 import loadingStateMiddleware from './loading-state-middleware';
 
-const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware(), notificationsMiddleware({
+const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware, notificationsMiddleware({
   errorTitleKey: [ 'errors', 'message', 'statusText' ],
   errorDescriptionKey: [
     'data.errors[0].detail',

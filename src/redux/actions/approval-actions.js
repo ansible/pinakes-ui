@@ -1,5 +1,6 @@
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 import * as ApprovalHelper from '../../helpers/approval/approval-helper';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 export const fetchWorkflows = () => ({
   type: ASYNC_ACTIONS.FETCH_WORKFLOWS,
@@ -21,19 +22,20 @@ export const linkWorkflow = (id, resourceObject) => ({
     }
   }});
 
-export const unlinkWorkflow = (id, resourceObject) => ({
+export const unlinkWorkflow = (id, name, resourceObject) => ({
   type: ASYNC_ACTIONS.UNLINK_WORKFLOW,
   payload: ApprovalHelper.unlinkWorkflow(id, resourceObject),
   meta: {
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: 'Success linking workflow',
-        description: 'The workflow was linked successfully.'
+        title: 'Success unlinking workflow',
+        description: `The workflow ${name} was unlinked successfully.`
       }
     }
   }});
-export const resolveWorkflows = (resourceObject) => ({
+
+export const listWorkflowsForObject = (resourceObject, meta = { limit: defaultSettings.limit, offset: defaultSettings.offset }, filter = '') => ({
   type: ASYNC_ACTIONS.RESOLVE_WORKFLOWS,
-  payload: resolveWorkflows(resourceObject)
+  payload: ApprovalHelper.listWorkflowsForObject(resourceObject, meta, filter)
 });

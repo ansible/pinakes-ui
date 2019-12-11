@@ -1,5 +1,5 @@
 import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
-import { CATALOG_API_BASE } from '../../utilities/constants';
+import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
 import { sanitizeValues } from '../shared/helpers';
 import { defaultSettings } from '../shared/pagination';
 
@@ -103,15 +103,19 @@ export function fetchPortfolioByName(name = '') {
 
 export const restorePortfolioItems = restoreData =>
   Promise.all(restoreData.map(({ portfolioItemId, restoreKey }) =>
-    portfolioItemApi.portfolioItemsPortfolioItemIdUndeletePost(portfolioItemId, { restore_key: restoreKey })));
+    portfolioItemApi.unDeletePortfolioItem(portfolioItemId, { restore_key: restoreKey })));
 
 export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portfolioId);
 
 export const copyPortfolioItem = (portfolioItemId, copyObject = {}) => portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
 
-export const uploadPortfolioItemIcon = (portfolioItemId, file) => {
+export const uploadPortfolioItemIcon = (portfolioItemId, file, iconId) => {
   let data = new FormData();
   data.append('content', file, file.name);
+  if (iconId) {
+    return axiosInstance.patch(`${CATALOG_API_BASE}/icons/${iconId}`, data);
+  }
+
   data.append('portfolio_item_id', portfolioItemId);
   return axiosInstance.post(`${CATALOG_API_BASE}/icons`, data, {
     headers: {
@@ -120,3 +124,9 @@ export const uploadPortfolioItemIcon = (portfolioItemId, file) => {
     }
   });
 };
+
+export const getPortfolioItemDetail = params => Promise.all([
+  axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`),
+  axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
+  axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.source}`)
+]);

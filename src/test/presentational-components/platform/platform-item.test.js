@@ -13,7 +13,7 @@ import PlatformItem from '../../../presentational-components/platform/platform-i
 describe('<PlatformItem />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, children }) => (

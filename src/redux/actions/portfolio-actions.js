@@ -203,7 +203,7 @@ export const copyPortfolio = id => dispatch => {
     dispatch({ type: 'COPY_PORTFOLIO_FULFILLED' });
     dispatch({ type: ADD_NOTIFICATION, payload: { variant: 'success',
       title: 'You have successfully copied a portfolio',
-      description: `${portfolio.name} has been copied.}`,
+      description: `${portfolio.name} has been copied.`,
       dismissable: true }});
     return portfolio;
   })
@@ -246,4 +246,17 @@ export const updatePortfolioItem = values => (dispatch, getState) => {
     dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_ITEM_PREV_STATE });
     throw error;
   }).catch(error => dispatch({ type: `${ActionTypes.UPDATE_TEMPORARY_PORTFOLIO_ITEM}_REJECTED`, payload: error }));
+};
+
+export const getPortfolioItemDetail = params => dispatch => {
+  dispatch({ type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_PENDING`  });
+  return PortfolioHelper.getPortfolioItemDetail(params)
+  .then(([ portfolioItem, portfolio, source ]) => dispatch({
+    type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_FULFILLED`,
+    payload: {
+      portfolioItem,
+      portfolio,
+      source
+    }
+  }));
 };
