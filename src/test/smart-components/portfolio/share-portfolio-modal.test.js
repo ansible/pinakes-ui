@@ -61,7 +61,7 @@ describe('<SharePortfolioModal', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should mount and load data', async (done) => {
+  it.skip('should mount and load data', async (done) => {
     const store = mockStore(initialState);
 
     mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`).replyOnce(200, { data: {}});
