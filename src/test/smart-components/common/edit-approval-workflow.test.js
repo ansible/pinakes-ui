@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
@@ -12,15 +13,17 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
-  const ComponentWrapper = ({ store, children, portfolioId }) => (
+
+  const ComponentWrapper = ({ store, children, initialEntries }) => (
     <Provider store={ store }>
-      <MemoryRouter initialEntries={ [ `portfolios/${portfolioId}` ] }>
+      <MemoryRouter initialEntries={ initialEntries }>
         { children }
       </MemoryRouter>
     </Provider>
@@ -28,24 +31,31 @@ describe('<EditApprovalWorkflow />', () => {
 
   beforeEach(() => {
     initialProps = {
-      fetchWorkflows: jest.fn(),
       closeUrl: 'foo',
-      workflows: []
+      portfolioId: '123',
+      objectType: 'Portfolio'
     };
     initialState = {
+      portfolioReducer: {
+        portfolios: { data: [{
+          id: '123',
+          name: 'Portfolio 1'
+        }]}
+      },
       approvalReducer: {
-        workflows: [{
-          label: 'foo',
-          value: 'bar'
-        }]
+        workflows: { data: [{
+          id: '111',
+          name: 'Workflow'
+        }]},
+        resolvedWorkflows: []
       }
     };
     mockStore = configureStore(middlewares);
   });
 
   it('should render correctly', () => {
-    const store = mockStore({});
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({ body: { data: []}}));
+    const store = mockStore(initialState);
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, { data: []});
     const wrapper = shallow(<ComponentWrapper store={ store }><EditApprovalWorkflow { ...initialProps } /></ComponentWrapper>).dive();
 
     setImmediate(() => {
@@ -53,17 +63,17 @@ describe('<EditApprovalWorkflow />', () => {
     });
   });
 
-  it('should create the edit workflow modal', done => {
+  it('should create the edit workflow modal', async done => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows`, mockOnce({
-      body: {
-        data: [{
-          name: 'workflow',
-          id: '123'
-        }]
-      }
-    }));
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, {
+      data: [{
+        name: 'workflow',
+        id: '123'
+      }]
+    });
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`)
+    .replyOnce(200, { data: [{ name: 'workflow', id: '123' }]});
 
     const expectedSchema = {
       fields: [{
@@ -76,18 +86,20 @@ describe('<EditApprovalWorkflow />', () => {
       }]
     };
 
-    const wrapper = mount(
-      <ComponentWrapper store={ store } portfolioId="123">
-        <Route path="portfolios/:id?" render={ () => <EditApprovalWorkflow { ...initialProps } match={ { params: { id: '123' }} } /> }/>
-      </ComponentWrapper>
-    );
-
-    setImmediate(() => {
-      const modal = wrapper.find(Modal);
-      const form = wrapper.find(FormRenderer);
-      expect(modal.props().title).toEqual('Set approval workflow');
-      expect(form.props().schema).toEqual(expectedSchema);
-      done();
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolio/123' ] }>
+          <Route path="/portfolio/:id" render={ args => <EditApprovalWorkflow { ...args } { ...initialProps } /> }/>
+        </ComponentWrapper>
+      );
     });
+
+    wrapper.update();
+    const modal = wrapper.find(Modal);
+    const form = wrapper.find(FormRenderer);
+    expect(modal.props().title).toEqual('Set approval workflow');
+    expect(form.props().schema).toEqual(expectedSchema);
+    done();
   });
 });

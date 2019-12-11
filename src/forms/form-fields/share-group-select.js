@@ -2,20 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
 import { Level, LevelItem } from '@patternfly/react-core';
+import asyncFormValidator from '../../utilities/async-form-validator';
 
 export const ShareGroupSelect = ({
   FieldProvider,
   inputName,
   selectName,
-  groups,
+  loadOptions,
   permissions
 }) => {
   return (
     <div className="share-group-modal">
       <Level>
         <LevelItem className="share-column">
-          <FieldProvider name={ inputName } options={ groups }>
-            { ({ input, ...props }) => <rawComponents.Select isSearcheable isClearable placeholder="Select group" { ...input } { ...props } /> }
+          <FieldProvider name={ inputName } loadOptions ={ asyncFormValidator(loadOptions) }>
+            { ({ input, ...props }) =>
+              <rawComponents.Select isSearchable
+                isClearable loadOptions={ asyncFormValidator(loadOptions) }
+                placeholder="Select group" { ...input } { ...props } /> }
           </FieldProvider>
 
         </LevelItem>
@@ -30,10 +34,10 @@ export const ShareGroupSelect = ({
 };
 
 ShareGroupSelect.propTypes = {
-  FieldProvider: PropTypes.node.isRequired,
+  FieldProvider: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
-  groups: PropTypes.any,
+  loadOptions: PropTypes.func.isRequired,
   permissions: PropTypes.any
 };
 

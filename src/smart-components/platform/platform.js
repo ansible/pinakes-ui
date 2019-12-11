@@ -1,48 +1,31 @@
 import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useParams } from 'react-router-dom';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import { fetchSelectedPlatform } from '../../redux/actions/platform-actions';
 import PlatformTemplates from './platform-templates';
 import PlatformInventories from './platform-inventories';
 
-const Platform = (props) => {
+const Platform = () => {
+  let { id } = useParams();
 
   useEffect(() => {
-    fetchSelectedPlatform(props.match.params.id);
+    fetchSelectedPlatform(id);
     scrollToTop();
-  }, [ props.match.params.id ]);
+  }, [ id ]);
 
   return (
     <Fragment>
       <Switch>
-        <Route path={ `/platforms/detail/:id/platform-templates` } component={ PlatformTemplates }/>
-        <Route path={ `/platforms/detail/:id/platform-inventories` } component={ PlatformInventories }/>
-        <Route render={ () => <Redirect to={ `/platforms/detail/${props.match.params.id}/platform-templates` } /> } />
+        <Route path={ `/platforms/detail/:id/platform-templates` }>
+          <PlatformTemplates/>
+        </Route>
+        <Route path={ `/platforms/detail/:id/platform-inventories` }>
+          <PlatformInventories/>
+        </Route>
+        <Route render={ () => <Redirect to={ `/platforms/detail/${id}/platform-templates` } /> } />
       </Switch>
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ platformReducer: { selectedPlatform, isPlatformDataLoading }}) => {
-  return {
-    platform: selectedPlatform,
-    isPlatformDataLoading
-  };
-};
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchSelectedPlatform
-}, dispatch);
-
-Platform.propTypes = {
-  match: PropTypes.object,
-  fetchSelectedPlatform: PropTypes.func,
-  platform: PropTypes.shape({
-    name: PropTypes.string
-  })
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Platform);
+export default Platform;

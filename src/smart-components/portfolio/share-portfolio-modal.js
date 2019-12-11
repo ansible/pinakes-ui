@@ -11,6 +11,7 @@ import { fetchShareInfo, sharePortfolio, unsharePortfolio } from '../../redux/ac
 import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 import { permissionOptions, permissionValues } from '../../utilities/constants';
+import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
 
 const SharePortfolioModal = ({
   history: { push },
@@ -44,6 +45,8 @@ const SharePortfolioModal = ({
     let initialShareList = initialGroupShareList.reduce((acc, curr) => ({ ...acc, ...curr }), {});
     return initialShareList;
   };
+
+  const loadGroupOptions = (inputValue) => fetchFilterGroups(inputValue);
 
   const onSubmit = data => {
     let sharePromises = [];
@@ -83,14 +86,6 @@ const SharePortfolioModal = ({
 
   const onCancel = () => push(closeUrl);
 
-  const shareItems = () => {
-    let groupsWithNoSharing = rbacGroups.filter((item) => {
-      return !shareInfo.find(shareGroup => shareGroup.group_uuid === item.value);});
-    return { groups: groupsWithNoSharing,
-      items: shareInfo
-    };
-  };
-
   return (
     <Modal
       title={ 'Share portfolio' }
@@ -105,7 +100,7 @@ const SharePortfolioModal = ({
         </Title>) }
       { !isFetching && rbacGroups.length > 0 && (
         <FormRenderer
-          schema={ createPortfolioShareSchema(shareItems(), permissionOptions) }
+          schema={ createPortfolioShareSchema(shareInfo, loadGroupOptions, permissionOptions) }
           schemaType="default"
           onSubmit={ onSubmit }
           onCancel={ onCancel }
@@ -120,7 +115,7 @@ const SharePortfolioModal = ({
 
 SharePortfolioModal.propTypes = {
   history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired,
   isLoading: PropTypes.bool,
   addNotification: PropTypes.func.isRequired,

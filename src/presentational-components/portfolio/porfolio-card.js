@@ -10,7 +10,6 @@ import {
   Dropdown,
   DropdownItem,
   DropdownPosition,
-  DropdownSeparator,
   GalleryItem,
   KebabToggle,
   Text,
@@ -31,27 +30,19 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
     isPlain
     onSelect={ () => setOpen(false) }
     position={ DropdownPosition.right }
-    toggle={ <KebabToggle onToggle={ setOpen }/> }
+    toggle={ <KebabToggle onToggle={ isOpen => setOpen(isOpen) }/> }
     dropdownItems={ [
-      <DropdownItem key="share-portfolio-action" component={ Link } to={ `/portfolios/share/${portfolioId}` }>
-          Share
-      </DropdownItem>,
-      <DropdownSeparator key="workflow-portfolio-separator"/>,
-      <DropdownItem key="workflow-portfolio-action" component={ Link } to={ `/portfolios/edit-workflow/${portfolioId}` }>
-          Edit approval
-      </DropdownItem>,
-      <DropdownSeparator key="share-portfolio-separator"/>,
-      <DropdownItem key="edit-portfolio-action" component={ Link } to={ `/portfolios/edit/${portfolioId}` }>
-          Edit
-      </DropdownItem>,
+      <DropdownItem key="share-portfolio-action" component={ <Link to={ `/portfolios/share/${portfolioId}` } >Share</Link> } />,
+      <DropdownItem
+        key="workflow-portfolio-action"
+        component={ <Link to={ `/portfolios/edit-workflow/${portfolioId}` }>Set approval</Link> }
+      />,
+      <DropdownItem key="edit-portfolio-action" component={ <Link to={ `/portfolios/edit/${portfolioId}` }>Edit</Link> }/>,
       <DropdownItem
         key="remove-portfolio-action"
-        component={ Link }
-        to={ `/portfolios/remove/${portfolioId}` }
         className="pf-c-dropdown__menu-item destructive-color"
-      >
-          Delete
-      </DropdownItem>
+        component={ <Link to={ `/portfolios/remove/${portfolioId}` }>Delete</Link> }
+      />
     ] }/>
 ];
 

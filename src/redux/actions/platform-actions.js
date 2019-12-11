@@ -10,9 +10,9 @@ const doFetchPlatforms = () => dispatch => {
 
 export const fetchPlatforms = () => (dispatch) => dispatch(doFetchPlatforms());
 
-export const fetchPlatformItems = (platformId, options) => ({
+export const fetchPlatformItems = (platformId, filter, options) => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,
-  payload: PlatformHelper.getPlatformItems(platformId, options),
+  payload: PlatformHelper.getPlatformItems(platformId, filter, options),
   meta: {
     platformId
   }

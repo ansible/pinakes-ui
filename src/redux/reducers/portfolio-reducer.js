@@ -78,7 +78,10 @@ const deleteTemporaryPortfolio = (state, { payload }) => ({
 const updateTemporaryPortfolioItem = (state, { payload }) => ({
   ...state,
   prevState: { ...state },
-  portfolioItem: payload,
+  portfolioItem: {
+    ...state.portfolioItem,
+    portfolioItem: payload
+  },
   portfolioItems: {
     ...state.portfolioItems,
     data: state.portfolioItems.data.map(item => item.id === payload.id ? ({ ...payload }) : item)
@@ -87,7 +90,10 @@ const updateTemporaryPortfolioItem = (state, { payload }) => ({
 
 const updatePortfolioItem = (state, { payload }) => ({
   ...state,
-  portfolioItem: payload,
+  portfolioItem: {
+    ...state.portfolioItem,
+    portfolioItem: payload
+  },
   portfolioItems: {
     ...state.portfolioItems,
     data: state.portfolioItems.data.map(item => item.id === payload.id ? ({ ...payload }) : item)

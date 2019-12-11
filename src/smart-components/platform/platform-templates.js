@@ -1,133 +1,142 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import debouncePromise from 'awesome-debounce-promise';
+import React, { Fragment, useEffect, useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, useParams } from 'react-router-dom';
+import { SearchIcon } from '@patternfly/react-icons';
+import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import ContentGallery from '../content-gallery/content-gallery';
-import { scrollToTop, filterServiceOffering } from '../../helpers/shared/helpers';
-import PlatformItem from '../../presentational-components/platform/platform-item';
-import { createPlatformsTopToolbarSchema, createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
-import { fetchSelectedPlatform, fetchPlatformItems } from '../../redux/actions/platform-actions';
+import {
+  fetchPlatformItems,
+  fetchSelectedPlatform
+} from '../../redux/actions/platform-actions';
+import PlatformItem from '../../presentational-components/platform/platform-item';
+import {
+  createPlatformsFilterToolbarSchema,
+  createPlatformsTopToolbarSchema
+} from '../../toolbar/schemas/platforms-toolbar.schema';
+import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
+import asyncFormValidator from '../../utilities/async-form-validator';
+import debouncePromise from 'awesome-debounce-promise/dist/index';
+import ContentGallery from '../content-gallery/content-gallery';
 
-class PlatformTemplates extends Component {
-  state = {
-    filterValue: ''
+const initialState = {
+  filterValue: '',
+  isOpen: false,
+  isFetching: true,
+  isFiltering: false
+};
+
+const platformItemsState = (state, action) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+    case 'setFilterValue':
+      return { ...state, filterValue: action.payload };
+    case 'setFilteringFlag':
+      return { ...state, isFiltering: action.payload };
+    default:
+      return state;
+  }
+};
+
+const PlatformTemplates = () => {
+  const { id } = useParams();
+  const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(platformItemsState, initialState);
+  const { data, meta } = useSelector(({ platformReducer: { platformItems }}) => platformItems[id] ? platformItems[id]
+    : { data: [], meta: defaultSettings });
+  const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
+  const dispatch = useDispatch();
+  const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPlatformItems(id, value, meta)).then(() => filteringCallback(false));
+  }, 1000);
+
+  const tabItems = [
+    { eventKey: 0, title: 'Templates', name: `/platforms/detail/${id}/platform-templates` },
+    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${id}/platform-inventories` }
+  ];
+
+  useEffect(() => {
+    dispatch(fetchSelectedPlatform(id));
+    dispatch(fetchPlatformItems(id, filterValue, defaultSettings))
+    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    scrollToTop();
+  }, [ id ]);
+
+  const handleFilterChange = value => {
+    stateDispatch({ type: 'setFilterValue', payload: value });
+    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }), {
+      ...meta,
+      offset: 0
+    });
   };
 
-  tabItems = [{ eventKey: 0, title: 'Templates', name: `/platforms/detail/${this.props.match.params.id}/platform-templates` },
-    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${this.props.match.params.id}/platform-inventories` }];
-
-  fetchData(apiProps, pagination) {
-    this.props.fetchSelectedPlatform(apiProps);
-    this.props.fetchPlatformItems(apiProps, pagination);
-  }
-
-  componentDidMount() {
-    this.fetchData(this.props.match.params.id, defaultSettings);
-    scrollToTop();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.fetchData(this.props.match.params.id, defaultSettings);
-      scrollToTop();
-    }
-  }
-
-  handleOnPerPageSelect = limit => this.props.fetchPlatformItems(this.props.match.params.id, {
-    offset: this.props.paginationCurrent.offset,
-    limit
-  });
-
-  handleSetPage = (number, debounce) => {
+  const handleOnPerPageSelect = (limit, debounce) => {
     const options = {
-      offset: getNewPage(number, this.props.paginationCurrent.limit),
-      limit: this.props.paginationCurrent.limit
+      offset: meta.offset,
+      limit
     };
-    const request = () => this.props.fetchPlatformItems(this.props.match.params.id, options);
+    const request = () => dispatch(fetchPlatformItems(id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
     }
 
     return request();
-  }
+  };
 
-  handleFilterChange = filterValue => this.setState({ filterValue });
-
-  render() {
-    let filteredItems = {
-      items: this.props.platformItems
-      .filter(item => filterServiceOffering(item, this.state.filterValue))
-      .map(data => <PlatformItem key={ data.id } { ...data } />),
-      isLoading: this.props.isPlatformDataLoading
+  const handleSetPage = (number, debounce) => {
+    const options = {
+      offset: getNewPage(number, meta.limit),
+      limit: meta.limit
     };
+    const request = () => dispatch(fetchPlatformItems(id, filterValue, options));
+    if (debounce) {
+      return debouncePromise(request, 250)();
+    }
 
-    let title = this.props.platform ? this.props.platform.name : '';
+    return request();
+  };
+
+  const renderItems = () => {
+    const paginationCurrent = meta || defaultSettings;
+    const filteredItems = {
+      items: data ? data.map(item => <PlatformItem key={ item.id } { ...item } />) : []};
+
+    const title = platform ? platform.name : '';
     return (
       <Fragment>
         <ToolbarRenderer schema={ createPlatformsTopToolbarSchema({
           title,
           paddingBottom: false,
-          tabItems: this.tabItems
+          tabItems
         }) }/>
         <ToolbarRenderer schema={ createPlatformsFilterToolbarSchema({
-          onFilterChange: this.handleFilterChange,
-          searchValue: this.state.filterValue,
+          onFilterChange: handleFilterChange,
+          searchValue: filterValue,
           pagination: {
-            itemsPerPage: this.props.paginationCurrent.limit,
-            numberOfItems: this.props.paginationCurrent.count || 50,
-            onPerPageSelect: this.handleOnPerPageSelect,
-            page: getCurrentPage(this.props.paginationCurrent.limit, this.props.paginationCurrent.offset),
-            onSetPage: this.handleSetPage,
+            itemsPerPage: paginationCurrent.limit,
+            numberOfItems: paginationCurrent.count,
+            onPerPageSelect: handleOnPerPageSelect,
+            page: getCurrentPage(paginationCurrent.limit, paginationCurrent.offset),
+            onSetPage: handleSetPage,
             direction: 'down'
           }
         }) }/>
-        <ContentGallery { ...filteredItems }/>
+        <ContentGallery title={ title }
+          isLoading={ isFetching || isFiltering }
+          renderEmptyState={ () => (
+            <ContentGalleryEmptyState
+              title="No items"
+              Icon={ SearchIcon }
+              description={ filterValue === '' ? 'No items found.' : 'No items match your filter criteria.' }
+            />) }
+          { ...filteredItems }/>
       </Fragment>
-    );
-  }
-}
+    );};
 
-const mapStateToProps = ({ platformReducer: { selectedPlatform, platformItems, isPlatformDataLoading }}) => {
-  const platformItemsData = selectedPlatform && platformItems[selectedPlatform.id];
-  return {
-    paginationLinks: platformItemsData && platformItemsData.links,
-    paginationCurrent: platformItemsData && platformItemsData.meta,
-    platform: selectedPlatform,
-    platformItems: platformItemsData && platformItemsData.data,
-    isPlatformDataLoading
-  };
+  return (
+    <Route path={ '/platforms/detail/:id/platform-templates' }
+      render={ renderItems } />);
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchSelectedPlatform,
-  fetchPlatformItems
-}, dispatch);
-
-PlatformTemplates.propTypes = {
-  filteredItems: PropTypes.object,
-  isPlatformDataLoading: PropTypes.bool,
-  match: PropTypes.object,
-  fetchPlatformItems: PropTypes.func.isRequired,
-  fetchSelectedPlatform: PropTypes.func,
-  platform: PropTypes.shape({
-    name: PropTypes.string
-  }),
-  platformItems: PropTypes.array,
-  paginationCurrent: PropTypes.shape({
-    limit: PropTypes.number.isRequired,
-    offset: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired
-  })
-};
-
-PlatformTemplates.defaultProps = {
-  platformItems: [],
-  paginationCurrent: {
-    limit: 50
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformTemplates);
+export default PlatformTemplates;
