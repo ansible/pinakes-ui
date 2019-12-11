@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store' ;
 import { MemoryRouter, Route } from 'react-router-dom';
 import { BreadcrumbItem } from '@patternfly/react-core';
 
-import CatalogBreadrubms from '../../../presentational-components/shared/breadcrubms';
+import CatalogBreadcrumbs from '../../../presentational-components/shared/breadcrubms';
 
 describe('<BreadCrumbs />', () => {
   let BreadcrumbWrapper;
@@ -22,7 +22,7 @@ describe('<BreadCrumbs />', () => {
     const store = mockStore({});
     const wrapper = mount(
       <BreadcrumbWrapper>
-        <CatalogBreadrubms store={ store } />
+        <CatalogBreadcrumbs store={ store } />
       </BreadcrumbWrapper>
     );
     expect(wrapper.find(BreadcrumbItem)).toHaveLength(0);
@@ -38,7 +38,7 @@ describe('<BreadCrumbs />', () => {
     });
     const wrapper = mount(
       <MemoryRouter initialEntries={ [ '/portfolios/detail/55' ] } >
-        <Route path='/portfolios/detail/55' render={ props => <CatalogBreadrubms store={ store } { ...props } /> }/>
+        <Route path='/portfolios/detail/55' render={ props => <CatalogBreadcrumbs store={ store } { ...props } /> }/>
       </MemoryRouter>
     );
 

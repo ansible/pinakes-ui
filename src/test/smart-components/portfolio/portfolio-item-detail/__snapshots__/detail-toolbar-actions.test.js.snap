@@ -13,16 +13,21 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
     <div>
       <Link
         disabled={false}
-        to="foo/bar"
+        to={
+          Object {
+            "pathname": "foo/bar",
+            "search": "",
+          }
+        }
       >
         <LinkAnchor
           disabled={false}
-          href="/foo/bar"
+          href="foo/bar"
           navigate={[Function]}
         >
           <a
             disabled={false}
-            href="/foo/bar"
+            href="foo/bar"
             onClick={[Function]}
           >
             <ButtonWithSpinner
@@ -104,66 +109,51 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             <DropdownItem
               aria-label="Edit Portfolio"
               component={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "displayName": "Link",
-                  "propTypes": Object {
-                    "innerRef": [Function],
-                    "onClick": [Function],
-                    "replace": [Function],
-                    "target": [Function],
-                    "to": [Function],
-                  },
-                  "render": [Function],
-                }
+                <ForwardRef
+                  to={
+                    Object {
+                      "pathname": "foo/baz",
+                      "search": "",
+                    }
+                  }
+                >
+                  Edit
+                </ForwardRef>
               }
               role="link"
-              to="foo/baz"
-            >
-              Edit
-            </DropdownItem>,
+            />,
             <DropdownItem
               aria-label="Copy Portfolio"
               component={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "displayName": "Link",
-                  "propTypes": Object {
-                    "innerRef": [Function],
-                    "onClick": [Function],
-                    "replace": [Function],
-                    "target": [Function],
-                    "to": [Function],
-                  },
-                  "render": [Function],
-                }
+                <ForwardRef
+                  to={
+                    Object {
+                      "pathname": "foo/copy",
+                      "search": "",
+                    }
+                  }
+                >
+                  Copy
+                </ForwardRef>
               }
               role="link"
-              to="foo/copy"
-            >
-              Copy
-            </DropdownItem>,
-            <DropdownSeparator />,
+            />,
             <DropdownItem
-              aria-label="Edit Approval Workflow"
+              aria-label="Set approval"
               component={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "displayName": "Link",
-                  "propTypes": Object {
-                    "innerRef": [Function],
-                    "onClick": [Function],
-                    "replace": [Function],
-                    "target": [Function],
-                    "to": [Function],
-                  },
-                  "render": [Function],
-                }
+                <ForwardRef
+                  to={
+                    Object {
+                      "pathname": undefined,
+                      "search": "",
+                    }
+                  }
+                >
+                  Set approval
+                </ForwardRef>
               }
               role="link"
-            >
-              Edit approval
-            </DropdownItem>,
+            />,
           ]
         }
         isOpen={false}
@@ -173,7 +163,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         position="right"
         toggle={
           <KebabToggle
-            onToggle={[MockFunction]}
+            onToggle={[Function]}
           />
         }
       >
@@ -183,66 +173,51 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               <DropdownItem
                 aria-label="Edit Portfolio"
                 component={
-                  Object {
-                    "$$typeof": Symbol(react.forward_ref),
-                    "displayName": "Link",
-                    "propTypes": Object {
-                      "innerRef": [Function],
-                      "onClick": [Function],
-                      "replace": [Function],
-                      "target": [Function],
-                      "to": [Function],
-                    },
-                    "render": [Function],
-                  }
+                  <ForwardRef
+                    to={
+                      Object {
+                        "pathname": "foo/baz",
+                        "search": "",
+                      }
+                    }
+                  >
+                    Edit
+                  </ForwardRef>
                 }
                 role="link"
-                to="foo/baz"
-              >
-                Edit
-              </DropdownItem>,
+              />,
               <DropdownItem
                 aria-label="Copy Portfolio"
                 component={
-                  Object {
-                    "$$typeof": Symbol(react.forward_ref),
-                    "displayName": "Link",
-                    "propTypes": Object {
-                      "innerRef": [Function],
-                      "onClick": [Function],
-                      "replace": [Function],
-                      "target": [Function],
-                      "to": [Function],
-                    },
-                    "render": [Function],
-                  }
+                  <ForwardRef
+                    to={
+                      Object {
+                        "pathname": "foo/copy",
+                        "search": "",
+                      }
+                    }
+                  >
+                    Copy
+                  </ForwardRef>
                 }
                 role="link"
-                to="foo/copy"
-              >
-                Copy
-              </DropdownItem>,
-              <DropdownSeparator />,
+              />,
               <DropdownItem
-                aria-label="Edit Approval Workflow"
+                aria-label="Set approval"
                 component={
-                  Object {
-                    "$$typeof": Symbol(react.forward_ref),
-                    "displayName": "Link",
-                    "propTypes": Object {
-                      "innerRef": [Function],
-                      "onClick": [Function],
-                      "replace": [Function],
-                      "target": [Function],
-                      "to": [Function],
-                    },
-                    "render": [Function],
-                  }
+                  <ForwardRef
+                    to={
+                      Object {
+                        "pathname": undefined,
+                        "search": "",
+                      }
+                    }
+                  >
+                    Set approval
+                  </ForwardRef>
                 }
                 role="link"
-              >
-                Edit approval
-              </DropdownItem>,
+              />,
             ]
           }
           isOpen={false}
@@ -251,7 +226,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           position="right"
           toggle={
             <KebabToggle
-              onToggle={[MockFunction]}
+              onToggle={[Function]}
             />
           }
         >
@@ -263,73 +238,58 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownItem
                     aria-label="Edit Portfolio"
                     component={
-                      Object {
-                        "$$typeof": Symbol(react.forward_ref),
-                        "displayName": "Link",
-                        "propTypes": Object {
-                          "innerRef": [Function],
-                          "onClick": [Function],
-                          "replace": [Function],
-                          "target": [Function],
-                          "to": [Function],
-                        },
-                        "render": [Function],
-                      }
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": "foo/baz",
+                            "search": "",
+                          }
+                        }
+                      >
+                        Edit
+                      </ForwardRef>
                     }
                     role="link"
-                    to="foo/baz"
-                  >
-                    Edit
-                  </DropdownItem>,
+                  />,
                   <DropdownItem
                     aria-label="Copy Portfolio"
                     component={
-                      Object {
-                        "$$typeof": Symbol(react.forward_ref),
-                        "displayName": "Link",
-                        "propTypes": Object {
-                          "innerRef": [Function],
-                          "onClick": [Function],
-                          "replace": [Function],
-                          "target": [Function],
-                          "to": [Function],
-                        },
-                        "render": [Function],
-                      }
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": "foo/copy",
+                            "search": "",
+                          }
+                        }
+                      >
+                        Copy
+                      </ForwardRef>
                     }
                     role="link"
-                    to="foo/copy"
-                  >
-                    Copy
-                  </DropdownItem>,
-                  <DropdownSeparator />,
+                  />,
                   <DropdownItem
-                    aria-label="Edit Approval Workflow"
+                    aria-label="Set approval"
                     component={
-                      Object {
-                        "$$typeof": Symbol(react.forward_ref),
-                        "displayName": "Link",
-                        "propTypes": Object {
-                          "innerRef": [Function],
-                          "onClick": [Function],
-                          "replace": [Function],
-                          "target": [Function],
-                          "to": [Function],
-                        },
-                        "render": [Function],
-                      }
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": undefined,
+                            "search": "",
+                          }
+                        }
+                      >
+                        Set approval
+                      </ForwardRef>
                     }
                     role="link"
-                  >
-                    Edit approval
-                  </DropdownItem>,
+                  />,
                 ],
                 "isOpen": false,
                 "isPlain": true,
                 "onToggle": [MockFunction],
                 "position": "right",
                 "toggle": <KebabToggle
-                  onToggle={[MockFunction]}
+                  onToggle={[Function]}
                 />,
               }
             }
@@ -344,66 +304,51 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownItem
                     aria-label="Edit Portfolio"
                     component={
-                      Object {
-                        "$$typeof": Symbol(react.forward_ref),
-                        "displayName": "Link",
-                        "propTypes": Object {
-                          "innerRef": [Function],
-                          "onClick": [Function],
-                          "replace": [Function],
-                          "target": [Function],
-                          "to": [Function],
-                        },
-                        "render": [Function],
-                      }
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": "foo/baz",
+                            "search": "",
+                          }
+                        }
+                      >
+                        Edit
+                      </ForwardRef>
                     }
                     role="link"
-                    to="foo/baz"
-                  >
-                    Edit
-                  </DropdownItem>,
+                  />,
                   <DropdownItem
                     aria-label="Copy Portfolio"
                     component={
-                      Object {
-                        "$$typeof": Symbol(react.forward_ref),
-                        "displayName": "Link",
-                        "propTypes": Object {
-                          "innerRef": [Function],
-                          "onClick": [Function],
-                          "replace": [Function],
-                          "target": [Function],
-                          "to": [Function],
-                        },
-                        "render": [Function],
-                      }
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": "foo/copy",
+                            "search": "",
+                          }
+                        }
+                      >
+                        Copy
+                      </ForwardRef>
                     }
                     role="link"
-                    to="foo/copy"
-                  >
-                    Copy
-                  </DropdownItem>,
-                  <DropdownSeparator />,
+                  />,
                   <DropdownItem
-                    aria-label="Edit Approval Workflow"
+                    aria-label="Set approval"
                     component={
-                      Object {
-                        "$$typeof": Symbol(react.forward_ref),
-                        "displayName": "Link",
-                        "propTypes": Object {
-                          "innerRef": [Function],
-                          "onClick": [Function],
-                          "replace": [Function],
-                          "target": [Function],
-                          "to": [Function],
-                        },
-                        "render": [Function],
-                      }
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": undefined,
+                            "search": "",
+                          }
+                        }
+                      >
+                        Set approval
+                      </ForwardRef>
                     }
                     role="link"
-                  >
-                    Edit approval
-                  </DropdownItem>,
+                  />,
                 ]
               }
               isGrouped={false}
@@ -421,7 +366,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               position="right"
               toggle={
                 <KebabToggle
-                  onToggle={[MockFunction]}
+                  onToggle={[Function]}
                 />
               }
             >
@@ -436,7 +381,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   isPlain={true}
                   key=".0"
                   onEnter={[Function]}
-                  onToggle={[MockFunction]}
+                  onToggle={[Function]}
                   parentRef={
                     Object {
                       "current": <div
@@ -483,7 +428,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     isPrimary={false}
                     isSplitButton={false}
                     onEnter={[Function]}
-                    onToggle={[MockFunction]}
+                    onToggle={[Function]}
                     parentRef={
                       Object {
                         "current": <div

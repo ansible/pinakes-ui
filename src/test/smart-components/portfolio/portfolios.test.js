@@ -14,11 +14,12 @@ import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
 import Portfolios from '../../../smart-components/portfolio/portfolios';
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<Portfolios />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
 
   const ComponentWrapper = ({ store, initialEntries = [ '/foo' ], children }) => (
@@ -61,40 +62,43 @@ describe('<Portfolios />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should mount and fetch data', (done) => {
+  it('should mount and fetch data', async done => {
     const store = mockStore(initialState);
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`)
+    .replyOnce(200, { data: [{ name: 'Foo', id: '11' }]});
     const expectedActions = [{
       type: `${FETCH_PORTFOLIOS}_PENDING`
     }, expect.objectContaining({
       type: `${FETCH_PORTFOLIOS}_FULFILLED`
     }) ];
-    mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
-        <Route path="/portfolios" render={ args => <Portfolios { ...initialProps } { ...args } /> } />
-      </ComponentWrapper>
-    );
 
-    setImmediate(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
+    await act(async() => {
+      mount(
+        <ComponentWrapper store={ store } initialEntries={ [ '/portfolios' ] }>
+          <Route path="/portfolios" render={ args => <Portfolios { ...initialProps } { ...args } /> } />
+        </ComponentWrapper>
+      );
+
     });
+
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
   });
 
   it('should mount and filter portfolios', async done => {
     expect.assertions(2);
     const store = mockStore(initialState);
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=nothing&limit=50&offset=0`,
-      (req, res) => {
-        expect(req).toBeTruthy();
-        done();
-        return res.status(200);
-      });
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`)
+    .replyOnce(200, { data: [{ name: 'Foo', id: '11' }]});
+
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=nothing&limit=50&offset=0`)
+    .replyOnce(req => {
+      expect(req).toBeTruthy();
+      done();
+      return [ 200, { data: []}];
+    });
 
     let wrapper;
     await act(async () => {
@@ -114,10 +118,12 @@ describe('<Portfolios />', () => {
       filterInput.getDOMNode().value = 'nothing';
     });
 
-    filterInput.simulate('change', { target: { value: 'nothing' }});
+    await act(async() => {
+      filterInput.simulate('change', { target: { value: 'nothing' }});
+    });
   });
 
-  it.skip('should render in loading state', async (done) => {
+  it('should render in loading state', async (done) => {
     const store = mockStore({
       ...initialState,
       portfolioReducer: {
@@ -126,10 +132,8 @@ describe('<Portfolios />', () => {
         portfolios: { data: [], meta: { limit: 50, offset: 0 }}
       }
     });
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { data: [{ name: 'Foo', id: '11' }]}}));
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`)
+    .replyOnce(200, { data: [{ name: 'Foo', id: '11' }]});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -139,9 +143,7 @@ describe('<Portfolios />', () => {
       );
     });
 
-    setImmediate(() => {
-      expect(wrapper.find(CardLoader)).toHaveLength(1);
-      done();
-    });
+    expect(wrapper.find(CardLoader)).toHaveLength(1);
+    done();
   });
 });

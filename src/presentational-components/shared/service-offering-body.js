@@ -4,10 +4,10 @@ import { CardBody, Text, TextContent, TextVariants } from '@patternfly/react-cor
 import ItemDetails from './card-common';
 import ConditionalLink from './conditional-link';
 
-const ServiceOfferingCardBody = ({ name, display_name, distributor, url, ...props }) =>(
+const ServiceOfferingCardBody = ({ name, display_name, distributor, url, to, ...props }) =>(
   <CardBody style={ { height: 240 } }>
     <TextContent>
-      <ConditionalLink to={ url }>
+      <ConditionalLink to={ url || to }>
         <Text
           className="elipsis-text-overflow"
           component={ TextVariants.h3 }
@@ -28,7 +28,11 @@ ServiceOfferingCardBody.propTypes = {
   distributor: PropTypes.string,
   long_description: PropTypes.string,
   description: PropTypes.string,
-  url: PropTypes.string
+  url: PropTypes.string,
+  to: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string
+  })
 };
 
 export default ServiceOfferingCardBody;

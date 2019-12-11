@@ -1,35 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Platform /> should render correctly 1`] = `
-<ContextProvider
-  value={null}
->
-  <Platform
-    fetchSelectedPlatform={[Function]}
-    isPlatformDataLoading={false}
-    match={
-      Object {
-        "params": Object {
-          "id": 1,
-        },
-      }
+<Platform
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
     }
-    platform={
-      Object {
-        "id": "1",
-        "name": "Foo",
-      }
-    }
-    store={
-      Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      }
-    }
-  />
-</ContextProvider>
+  }
+/>
 `;

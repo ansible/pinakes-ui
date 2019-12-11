@@ -11,9 +11,10 @@ import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-
 import { CATALOG_API_BASE } from '../../../../utilities/constants';
 import { UPDATE_TEMPORARY_PORTFOLIO_ITEM, UPDATE_PORTFOLIO_ITEM } from '../../../../redux/action-types';
 import { openApiReducerMock } from '../../../__mocks__/open-api-mock';
+import { mockApi } from '../../../__mocks__/user-login';
 
 describe('<EditPortfolioItem />', () => {
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
   let mockStore;
   let initialProps;
 
@@ -54,8 +55,8 @@ describe('<EditPortfolioItem />', () => {
   it('should submit form data', async done => {
     expect.assertions(3);
     const store = mockStore({ openApiReducer: openApiReducerMock });
-    apiClientMock.patch(`${CATALOG_API_BASE}/portfolio_items/123`, mockOnce((req, res) => {
-      expect(JSON.parse(req.body())).toEqual({
+    mockApi.onPatch(`${CATALOG_API_BASE}/portfolio_items/123`).replyOnce(req => {
+      expect(JSON.parse(req.data)).toEqual({
         name: 'foo',
         documentation_url: 'https://www.google.com/',
         support_url: 'https://www.google.com/',
@@ -63,8 +64,8 @@ describe('<EditPortfolioItem />', () => {
         description: 'https://www.google.com/',
         distributor: 'https://www.google.com/'
       });
-      return res.status(200).body({});
-    }));
+      return [ 200, {}];
+    });
 
     const expectedActions = [{
       type: UPDATE_TEMPORARY_PORTFOLIO_ITEM,
