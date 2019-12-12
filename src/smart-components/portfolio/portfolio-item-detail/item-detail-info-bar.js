@@ -4,50 +4,34 @@ import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
-    <Text id="source-name" component={ TextVariants.h6 }>
-      <span>
-        Platform
-      </span>
+    <Text id="source-name" component={TextVariants.h6}>
+      <span>Platform</span>
       <br />
       <div className="elipsis-text-overflow">
-        <span>
-          { source.name }
-        </span>
+        <span>{source.name}</span>
       </div>
     </Text>
-    <Text id="portfolio-name" component={ TextVariants.h6 }>
-      <span>
-        Portfolio
-      </span>
+    <Text id="portfolio-name" component={TextVariants.h6}>
+      <span>Portfolio</span>
       <br />
       <div className="elipsis-text-overflow">
-        <span>
-          { portfolio.name }
-        </span>
+        <span>{portfolio.name}</span>
       </div>
     </Text>
-    { product.distributor && (
-      <Text id="distributor" component={ TextVariants.h6 }>
-        <span>
-          Vendor
-        </span>
+    {product.distributor && (
+      <Text id="distributor" component={TextVariants.h6}>
+        <span>Vendor</span>
         <br />
         <div className="elipsis-text-overflow">
-          <span>
-            { product.distributor }
-          </span>
+          <span>{product.distributor}</span>
         </div>
       </Text>
-    ) }
-    <Text id="created_at" component={ TextVariants.h6 }>
-      <span>
-        Created at
-      </span>
+    )}
+    <Text id="created_at" component={TextVariants.h6}>
+      <span>Created at</span>
       <br />
       <div className="elipsis-text-overflow">
-        <span>
-          { new Date(product.created_at).toLocaleDateString() }
-        </span>
+        <span>{new Date(product.created_at).toLocaleDateString()}</span>
       </div>
     </Text>
   </TextContent>
@@ -68,4 +52,3 @@ ItemDetailInfoBar.propTypes = {
 };
 
 export default ItemDetailInfoBar;
-

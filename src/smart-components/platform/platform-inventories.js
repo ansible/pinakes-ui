@@ -6,7 +6,11 @@ import { SearchIcon } from '@patternfly/react-icons';
 import { Section } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
+import {
+  defaultSettings,
+  getCurrentPage,
+  getNewPage
+} from '../../helpers/shared/pagination';
 import {
   fetchPlatformInventories,
   fetchSelectedPlatform
@@ -43,45 +47,73 @@ const platformInventoriesState = (state, action) => {
   }
 };
 
-const columns = [ 'Name', 'Description', 'Created', 'Workflow' ];
+const columns = ['Name', 'Description', 'Created', 'Workflow'];
 
 const PlatformInventories = (props) => {
-  const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(platformInventoriesState, initialState);
-  const { data, meta } = useSelector(({ platformReducer: { platformInventories }}) => platformInventories);
-  const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
+  const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
+    platformInventoriesState,
+    initialState
+  );
+  const { data, meta } = useSelector(
+    ({ platformReducer: { platformInventories } }) => platformInventories
+  );
+  const platform = useSelector(
+    ({ platformReducer: { selectedPlatform } }) => selectedPlatform
+  );
   const dispatch = useDispatch();
   const { id } = useParams();
   const history = useHistory();
 
-  const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
-    filteringCallback(true);
-    dispatch(fetchPlatformInventories(id, value, meta)).then(() => filteringCallback(false));
-  }, 1000);
+  const debouncedFilter = asyncFormValidator(
+    (value, dispatch, filteringCallback, meta = defaultSettings) => {
+      filteringCallback(true);
+      dispatch(fetchPlatformInventories(id, value, meta)).then(() =>
+        filteringCallback(false)
+      );
+    },
+    1000
+  );
 
   const tabItems = [
-    { eventKey: 0, title: 'Templates', name: `/platforms/detail/${id}/platform-templates` },
-    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${id}/platform-inventories` }
+    {
+      eventKey: 0,
+      title: 'Templates',
+      name: `/platforms/detail/${id}/platform-templates`
+    },
+    {
+      eventKey: 1,
+      title: 'Inventories',
+      name: `/platforms/detail/${id}/platform-inventories`
+    }
   ];
 
   useEffect(() => {
     dispatch(fetchSelectedPlatform(id));
-    dispatch(fetchPlatformInventories(id, filterValue, defaultSettings))
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    dispatch(
+      fetchPlatformInventories(id, filterValue, defaultSettings)
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
 
-  const handleFilterChange = value => {
+  const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }), {
-      ...meta,
-      offset: 0
-    });
+    debouncedFilter(
+      value,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
+      {
+        ...meta,
+        offset: 0
+      }
+    );
   };
 
-  const handleOnPerPageSelect = limit => fetchPlatformInventories(id, {
-    offset: meta.offset,
-    limit
-  });
+  const handleOnPerPageSelect = (limit) =>
+    fetchPlatformInventories(id, {
+      offset: meta.offset,
+      limit
+    });
 
   const handleSetPage = (number, debounce) => {
     const options = {
@@ -89,7 +121,8 @@ const PlatformInventories = (props) => {
       limit: props.paginationCurrent.limit
     };
 
-    const request = () => dispatch(fetchPlatformInventories(id, filterValue, options));
+    const request = () =>
+      dispatch(fetchPlatformInventories(id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
     }
@@ -98,58 +131,83 @@ const PlatformInventories = (props) => {
   };
 
   const actionResolver = (inventoryData) => {
-    return [{ title: 'Set approval',
-      onClick: () => history.push(`/platforms/detail/${id}/platform-inventories/edit-workflow/${inventoryData.id}`) }];
+    return [
+      {
+        title: 'Set approval',
+        onClick: () =>
+          history.push(
+            `/platforms/detail/${id}/platform-inventories/edit-workflow/${inventoryData.id}`
+          )
+      }
+    ];
   };
 
   const renderItems = () => {
     const inventoryRows = data ? createRows(data, filterValue) : [];
     const paginationCurrent = meta || defaultSettings;
-    const title =  platform ? platform.name : '';
+    const title = platform ? platform.name : '';
     return (
       <Fragment>
-        <ToolbarRenderer schema={ createPlatformsTopToolbarSchema({
-          title,
-          paddingBottom: false,
-          tabItems
-        }) }/>
-        <ToolbarRenderer schema={ createPlatformsFilterToolbarSchema({
-          onFilterChange: handleFilterChange,
-          searchValue: filterValue,
-          pagination: {
-            itemsPerPage: paginationCurrent.limit,
-            numberOfItems: paginationCurrent.count,
-            onPerPageSelect: handleOnPerPageSelect,
-            page: getCurrentPage(paginationCurrent.limit, paginationCurrent.offset),
-            onSetPage: handleSetPage,
-            direction: 'down'
-          }
-        }) }/>
+        <ToolbarRenderer
+          schema={createPlatformsTopToolbarSchema({
+            title,
+            paddingBottom: false,
+            tabItems
+          })}
+        />
+        <ToolbarRenderer
+          schema={createPlatformsFilterToolbarSchema({
+            onFilterChange: handleFilterChange,
+            searchValue: filterValue,
+            pagination: {
+              itemsPerPage: paginationCurrent.limit,
+              numberOfItems: paginationCurrent.count,
+              onPerPageSelect: handleOnPerPageSelect,
+              page: getCurrentPage(
+                paginationCurrent.limit,
+                paginationCurrent.offset
+              ),
+              onSetPage: handleSetPage,
+              direction: 'down'
+            }
+          })}
+        />
         <Route path="/platforms/detail/:id/platform-inventories/edit-workflow/:resourceId">
-          <EditApprovalWorkflow closeUrl={ `/platforms/detail/${id}/platform-inventories` }
-            objectType={ INVENTORY_RESOURCE_TYPE }/>
+          <EditApprovalWorkflow
+            closeUrl={`/platforms/detail/${id}/platform-inventories`}
+            objectType={INVENTORY_RESOURCE_TYPE}
+          />
         </Route>
         <Section type="content">
-          <ContentList title={ title }
-            data={ inventoryRows }
-            columns={ columns }
-            isLoading={ isFetching || isFiltering }
-            actionResolver = { actionResolver }
-            renderEmptyState={ () => (
+          <ContentList
+            title={title}
+            data={inventoryRows}
+            columns={columns}
+            isLoading={isFetching || isFiltering}
+            actionResolver={actionResolver}
+            renderEmptyState={() => (
               <ContentGaleryEmptyState
                 title="No inventories"
-                Icon={ SearchIcon }
-                description={ filterValue === '' ? 'No inventories found.' : 'No inventories match your filter criteria.' }
+                Icon={SearchIcon}
+                description={
+                  filterValue === ''
+                    ? 'No inventories found.'
+                    : 'No inventories match your filter criteria.'
+                }
               />
-            ) } />
+            )}
+          />
         </Section>
       </Fragment>
-    );};
+    );
+  };
 
   return (
     <Switch>
-      <Route path={ '/platforms/detail/:id/platform-inventories' }
-        render={ renderItems } />
+      <Route
+        path={'/platforms/detail/:id/platform-inventories'}
+        render={renderItems}
+      />
     </Switch>
   );
 };

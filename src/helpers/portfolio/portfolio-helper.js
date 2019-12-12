@@ -1,4 +1,8 @@
-import { getAxiosInstance, getPortfolioApi, getPortfolioItemApi } from '../shared/user-login';
+import {
+  getAxiosInstance,
+  getPortfolioApi,
+  getPortfolioItemApi
+} from '../shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
 import { sanitizeValues } from '../shared/helpers';
 import { defaultSettings } from '../shared/pagination';
@@ -7,31 +11,48 @@ const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
 
-export function listPortfolios(filter = '', { limit, offset } = defaultSettings) {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`);
+export function listPortfolios(
+  filter = '',
+  { limit, offset } = defaultSettings
+) {
+  return axiosInstance.get(
+    `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
+  );
 }
 
 export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`);
+  return axiosInstance.get(
+    `${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
+  );
 }
 
 export function getPortfolioItem(portfolioItemId) {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}`);
+  return axiosInstance.get(
+    `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}`
+  );
 }
 
 export function getPortfolio(portfolioId) {
   return portfolioApi.showPortfolio(portfolioId);
 }
 
-export function getPortfolioItemsWithPortfolio(portfolioId, { limit, offset } = {}) {
-  return portfolioApi.fetchPortfolioItemsWithPortfolio(portfolioId, limit, offset);
+export function getPortfolioItemsWithPortfolio(
+  portfolioId,
+  { limit, offset } = {}
+) {
+  return portfolioApi.fetchPortfolioItemsWithPortfolio(
+    portfolioId,
+    limit,
+    offset
+  );
 }
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export async function addPortfolio(portfolioData, items) {
   let portfolio = await portfolioApi.createPortfolio(portfolioData);
-  if (!portfolio)
-  {return portfolio;}
+  if (!portfolio) {
+    return portfolio;
+  }
 
   if (items && items.length > 0) {
     return addToPortfolio(portfolio, items);
@@ -39,20 +60,27 @@ export async function addPortfolio(portfolioData, items) {
 }
 
 export async function addToPortfolio(portfolioId, items) {
-  const request = async item => {
-    const newItem = await portfolioItemApi.createPortfolioItem({ service_offering_ref: item });
+  const request = async (item) => {
+    const newItem = await portfolioItemApi.createPortfolioItem({
+      service_offering_ref: item
+    });
     if (newItem) {
-      await portfolioApi.addPortfolioItemToPortfolio(portfolioId, { portfolio_item_id: newItem.id });
+      await portfolioApi.addPortfolioItemToPortfolio(portfolioId, {
+        portfolio_item_id: newItem.id
+      });
     }
 
     return newItem;
   };
 
-  return Promise.all(items.map(item => request(item)));
+  return Promise.all(items.map((item) => request(item)));
 }
 
 export async function updatePortfolio({ id, ...portfolioData }, store) {
-  return await portfolioApi.updatePortfolio(id,  sanitizeValues(portfolioData, 'Portfolio', store));
+  return await portfolioApi.updatePortfolio(
+    id,
+    sanitizeValues(portfolioData, 'Portfolio', store)
+  );
 }
 
 export async function removePortfolio(portfolioId) {
@@ -64,31 +92,40 @@ export async function removePortfolioItem(portfolioItemId) {
 }
 
 export async function removePortfolioItems(portfolioItemIds) {
-  return Promise.all(portfolioItemIds.map(async itemId => {
-    const { restore_key } = await removePortfolioItem(itemId);
-    return {
-      portfolioItemId: itemId,
-      restoreKey: restore_key
-    };
-  }));
+  return Promise.all(
+    portfolioItemIds.map(async (itemId) => {
+      const { restore_key } = await removePortfolioItem(itemId);
+      return {
+        portfolioItemId: itemId,
+        restoreKey: restore_key
+      };
+    })
+  );
 }
 
 export function fetchProviderControlParameters(portfolioItemId) {
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`)
-  .then(data => ({
-    required: [],
-    ...data,
-    properties: {
-      ...data.properties,
-      namespace: {
-        ...data.properties.namespace,
-        enum: Array.from(new Set([ ...data.properties.namespace.enum ]))
+  return axiosInstance
+    .get(
+      `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/provider_control_parameters`
+    )
+    .then((data) => ({
+      required: [],
+      ...data,
+      properties: {
+        ...data.properties,
+        namespace: {
+          ...data.properties.namespace,
+          enum: Array.from(new Set([...data.properties.namespace.enum]))
+        }
       }
-    }}));
+    }));
 }
 
 export async function updatePortfolioItem({ id, ...portfolioItem }, store) {
-  return await portfolioItemApi.updatePortfolioItem(id, sanitizeValues(portfolioItem, 'PortfolioItem', store));
+  return await portfolioItemApi.updatePortfolioItem(
+    id,
+    sanitizeValues(portfolioItem, 'PortfolioItem', store)
+  );
 }
 
 export function fetchPortfolioByName(name = '') {
@@ -101,13 +138,20 @@ export function fetchPortfolioByName(name = '') {
   });
 }
 
-export const restorePortfolioItems = restoreData =>
-  Promise.all(restoreData.map(({ portfolioItemId, restoreKey }) =>
-    portfolioItemApi.unDeletePortfolioItem(portfolioItemId, { restore_key: restoreKey })));
+export const restorePortfolioItems = (restoreData) =>
+  Promise.all(
+    restoreData.map(({ portfolioItemId, restoreKey }) =>
+      portfolioItemApi.unDeletePortfolioItem(portfolioItemId, {
+        restore_key: restoreKey
+      })
+    )
+  );
 
-export const copyPortfolio = portfolioId => portfolioApi.postCopyPortfolio(portfolioId);
+export const copyPortfolio = (portfolioId) =>
+  portfolioApi.postCopyPortfolio(portfolioId);
 
-export const copyPortfolioItem = (portfolioItemId, copyObject = {}) => portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
+export const copyPortfolioItem = (portfolioItemId, copyObject = {}) =>
+  portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
 
 export const uploadPortfolioItemIcon = (portfolioItemId, file, iconId) => {
   let data = new FormData();
@@ -125,8 +169,11 @@ export const uploadPortfolioItemIcon = (portfolioItemId, file, iconId) => {
   });
 };
 
-export const getPortfolioItemDetail = params => Promise.all([
-  axiosInstance.get(`${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`),
-  axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
-  axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.source}`)
-]);
+export const getPortfolioItemDetail = (params) =>
+  Promise.all([
+    axiosInstance.get(
+      `${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`
+    ),
+    axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
+    axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.source}`)
+  ]);

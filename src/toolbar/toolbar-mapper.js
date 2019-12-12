@@ -1,19 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, Level, LevelItem, Toolbar, ToolbarItem, ToolbarGroup } from '@patternfly/react-core';
+import {
+  Button,
+  Level,
+  LevelItem,
+  Toolbar,
+  ToolbarItem,
+  ToolbarGroup
+} from '@patternfly/react-core';
 
 import FilterToolbarItem from '../presentational-components/shared/filter-toolbar-item';
-import TopToolbar, { TopToolbarTitle } from '../presentational-components/shared/top-toolbar';
+import TopToolbar, {
+  TopToolbarTitle
+} from '../presentational-components/shared/top-toolbar';
 import AppTabs from '../presentational-components/shared/app-tabs';
 
-const ToolbarButton = ({ title, ...props }) => <Button { ...props }>{ title }</Button>;
+const ToolbarButton = ({ title, ...props }) => (
+  <Button {...props}>{title}</Button>
+);
 
 ToolbarButton.propTypes = {
   title: PropTypes.string.isRequired
 };
 
-const AppToolbar = ({ ...props }) => <Toolbar className= "pf-u-pb-md pf-u-pt-md pf-u-pr-lg toolbar" { ...props }/>;
+const AppToolbar = ({ ...props }) => (
+  <Toolbar className="pf-u-pb-md pf-u-pt-md pf-u-pr-lg toolbar" {...props} />
+);
 
 const toolbarMapper = {
   TopToolbar,

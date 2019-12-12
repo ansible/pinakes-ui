@@ -6,11 +6,18 @@ import { Pagination } from '@patternfly/react-core';
 
 import { getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 
-const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest, className, ...props }) => {
-  const handleOnPerPageSelect = (_event, limit) => apiRequest(apiProps, {
-    offset,
-    limit
-  });
+const AsyncPagination = ({
+  meta: { limit, count, offset },
+  apiProps,
+  apiRequest,
+  className,
+  ...props
+}) => {
+  const handleOnPerPageSelect = (_event, limit) =>
+    apiRequest(apiProps, {
+      offset,
+      limit
+    });
 
   const handleSetPage = (_event, number, debounce) => {
     const options = {
@@ -27,15 +34,15 @@ const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest,
   };
 
   return (
-    <div className={ className }>
+    <div className={className}>
       <Pagination
-        perPage={ limit || 50 }
-        itemCount={ count || 0 }
-        onPerPageSelect={ handleOnPerPageSelect }
-        page={ getCurrentPage(limit, offset) }
-        onSetPage={ handleSetPage }
+        perPage={limit || 50}
+        itemCount={count || 0}
+        onPerPageSelect={handleOnPerPageSelect}
+        page={getCurrentPage(limit, offset)}
+        onSetPage={handleSetPage}
         direction="down"
-        { ...props }
+        {...props}
       />
     </div>
   );
@@ -62,4 +69,3 @@ AsyncPagination.defaultProps = {
 };
 
 export default AsyncPagination;
-

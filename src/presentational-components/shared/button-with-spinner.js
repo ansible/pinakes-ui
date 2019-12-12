@@ -4,9 +4,13 @@ import { Button } from '@patternfly/react-core';
 import { Spinner } from '@redhat-cloud-services/frontend-components';
 
 const ButtonWithSpinner = ({ children, showSpinner, isDisabled, ...props }) => (
-  <Button className={ isDisabled && showSpinner ? 'button-with-spinner' : '' } { ...props } isDisabled={ isDisabled }>
-    <span>{ children }</span>
-    { showSpinner && <Spinner /> }
+  <Button
+    className={isDisabled && showSpinner ? 'button-with-spinner' : ''}
+    {...props}
+    isDisabled={isDisabled}
+  >
+    <span>{children}</span>
+    {showSpinner && <Spinner />}
   </Button>
 );
 
