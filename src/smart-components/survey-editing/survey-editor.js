@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import FormBuilder from '@data-driven-forms/form-builder';
@@ -20,7 +20,13 @@ const componentProperties = {
   },
   [componentTypes.CHECKBOX]: { attributes: [ fieldProperties.LABEL, fieldProperties.IS_DISABLED, fieldProperties.OPTIONS ]},
   [componentTypes.SELECT]: {
-    attributes: [ fieldProperties.OPTIONS, fieldProperties.LABEL, fieldProperties.IS_DISABLED, fieldProperties.PLACEHOLDER, fieldProperties.HELPER_TEXT ]
+    attributes: [
+      fieldProperties.OPTIONS,
+      fieldProperties.LABEL,
+      fieldProperties.IS_DISABLED,
+      fieldProperties.PLACEHOLDER,
+      fieldProperties.HELPER_TEXT
+    ]
   },
   [componentTypes.DATE_PICKER]: {
     attributes: [
@@ -51,19 +57,18 @@ const pf4Skin = {
 };
 
 const SurveyEditor = ({ portfolioItemId }) => {
-  const params = useRouteMatch('/portfolios/detail/:id/product/:portfolioItemId');
   const [ schema, setSchema ] = useState();
   const [ editedTemplate, setEditedTemplate ] = useState({ fields: []});
   useEffect(() => {
-    getAxiosInstance().get(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/service_plans`).then(([{ create_json_schema: { schema }}]) => setSchema(schema));
+    getAxiosInstance()
+    .get(`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/service_plans`)
+    .then(([{ create_json_schema: { schema }}]) => setSchema(schema));
   }, []);
   const handleSaveSurvey = () => {
-    console.log('handle save survey');
     return getServicePlainsApi().createServicePlan({ portfolio_item_id: portfolioItemId }).then(([{ id }]) => id)
     .then(id => getServicePlainsApi().patchServicePlanModified(`${id}`, { modified: { schema: editedTemplate }}));
   };
 
-  console.log('editedTemplate', editedTemplate);
   return (
     <div style={ {
       zIndex: 300,
@@ -83,6 +88,10 @@ const SurveyEditor = ({ portfolioItemId }) => {
       <button onClick={ handleSaveSurvey }>Save changes</button>
     </div>
   );
+};
+
+SurveyEditor.propTypes = {
+  portfolioItemId: PropTypes.string.isRequired
 };
 
 const SurveyEditorPortal = props => createPortal(<SurveyEditor { ...props } />, document.body);
