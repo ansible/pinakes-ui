@@ -14,6 +14,7 @@ import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
+import SurveyEditor from '../../survey-editing/survey-editor';
 
 const requiredParams = ['portfolio', 'source'];
 
@@ -57,6 +58,9 @@ const PortfolioItemDetail = () => {
 
   return (
     <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
+      <Route path={`${url}/edit-survey`}>
+        <SurveyEditor portfolioItemId={portfolioItem.id} />
+      </Route>
       <Route path={`${url}/order`}>
         <OrderModal closeUrl={url} />
       </Route>
