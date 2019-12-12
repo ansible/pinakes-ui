@@ -154,6 +154,22 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
               role="link"
             />,
+            <DropdownItem
+              aria-label="Edit survey"
+              component={
+                <ForwardRef
+                  to={
+                    Object {
+                      "pathname": undefined,
+                      "search": "",
+                    }
+                  }
+                >
+                  Edit survey
+                </ForwardRef>
+              }
+              role="link"
+            />,
           ]
         }
         isOpen={false}
@@ -214,6 +230,22 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     }
                   >
                     Set approval
+                  </ForwardRef>
+                }
+                role="link"
+              />,
+              <DropdownItem
+                aria-label="Edit survey"
+                component={
+                  <ForwardRef
+                    to={
+                      Object {
+                        "pathname": undefined,
+                        "search": "",
+                      }
+                    }
+                  >
+                    Edit survey
                   </ForwardRef>
                 }
                 role="link"
@@ -283,6 +315,22 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     }
                     role="link"
                   />,
+                  <DropdownItem
+                    aria-label="Edit survey"
+                    component={
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": undefined,
+                            "search": "",
+                          }
+                        }
+                      >
+                        Edit survey
+                      </ForwardRef>
+                    }
+                    role="link"
+                  />,
                 ],
                 "isOpen": false,
                 "isPlain": true,
@@ -345,6 +393,22 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         }
                       >
                         Set approval
+                      </ForwardRef>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Edit survey"
+                    component={
+                      <ForwardRef
+                        to={
+                          Object {
+                            "pathname": undefined,
+                            "search": "",
+                          }
+                        }
+                      >
+                        Edit survey
                       </ForwardRef>
                     }
                     role="link"

@@ -15,6 +15,7 @@ const DetailToolbarActions = ({
   orderUrl,
   editUrl,
   workflowUrl,
+  editSurveyUrl,
   isOpen,
   setOpen,
   isFetching
@@ -93,6 +94,21 @@ const DetailToolbarActions = ({
                   </Link>
                 }
                 role="link"
+              />,
+              <DropdownItem
+                aria-label="Edit survey"
+                key="edit-survey"
+                component={
+                  <Link
+                    to={{
+                      pathname: editSurveyUrl,
+                      search
+                    }}
+                  >
+                    Edit survey
+                  </Link>
+                }
+                role="link"
               />
             ]}
           />
@@ -106,6 +122,7 @@ DetailToolbarActions.propTypes = {
   orderUrl: PropTypes.string.isRequired,
   editUrl: PropTypes.string.isRequired,
   copyUrl: PropTypes.string.isRequired,
+  editSurveyUrl: PropTypes.string.isRequired,
   workflowUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
