@@ -15,17 +15,31 @@ export const ShareGroupSelect = ({
     <div className="share-group-modal">
       <Level>
         <LevelItem className="share-column">
-          <FieldProvider name={ inputName } loadOptions ={ asyncFormValidator(loadOptions) }>
-            { ({ input, ...props }) =>
-              <rawComponents.Select isSearchable
-                isClearable loadOptions={ asyncFormValidator(loadOptions) }
-                placeholder="Select group" { ...input } { ...props } /> }
+          <FieldProvider
+            name={inputName}
+            loadOptions={asyncFormValidator(loadOptions)}
+          >
+            {({ input, ...props }) => (
+              <rawComponents.Select
+                isSearchable
+                isClearable
+                loadOptions={asyncFormValidator(loadOptions)}
+                placeholder="Select group"
+                {...input}
+                {...props}
+              />
+            )}
           </FieldProvider>
-
         </LevelItem>
         <LevelItem className="share-column">
-          <FieldProvider name={ selectName } options={ permissions }>
-            { ({ input, ...props }) => <rawComponents.Select placeholder="Select permission" { ...input } { ...props } /> }
+          <FieldProvider name={selectName} options={permissions}>
+            {({ input, ...props }) => (
+              <rawComponents.Select
+                placeholder="Select permission"
+                {...input}
+                {...props}
+              />
+            )}
           </FieldProvider>
         </LevelItem>
       </Level>
@@ -34,7 +48,8 @@ export const ShareGroupSelect = ({
 };
 
 ShareGroupSelect.propTypes = {
-  FieldProvider: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
+  FieldProvider: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
+    .isRequired,
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
   loadOptions: PropTypes.func.isRequired,
@@ -42,4 +57,3 @@ ShareGroupSelect.propTypes = {
 };
 
 export default ShareGroupSelect;
-

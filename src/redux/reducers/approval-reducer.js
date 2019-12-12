@@ -8,10 +8,24 @@ export const approvalInitialState = {
   resolvedWorkflows: []
 };
 
-const setLoadingState = (state, { payload = true }) => ({ ...state, isFetching: payload });
-const setWorkflows = (state, { payload }) => ({ ...state, isFetching: false, workflows: payload });
-const setResolvingState = (state, { payload = true }) => ({ ...state, isResolving: payload });
-const setResolvedWorkflows = (state, { payload }) => ({ ...state, isResolving: false, resolvedWorkflows: payload });
+const setLoadingState = (state, { payload = true }) => ({
+  ...state,
+  isFetching: payload
+});
+const setWorkflows = (state, { payload }) => ({
+  ...state,
+  isFetching: false,
+  workflows: payload
+});
+const setResolvingState = (state, { payload = true }) => ({
+  ...state,
+  isResolving: payload
+});
+const setResolvedWorkflows = (state, { payload }) => ({
+  ...state,
+  isResolving: false,
+  resolvedWorkflows: payload
+});
 
 export default {
   [ASYNC_ACTIONS.FETCH_WORKFLOWS_PENDING]: setLoadingState,

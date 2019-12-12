@@ -1,5 +1,5 @@
 import thunk from 'redux-thunk';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import { RBAC_API_BASE } from '../../../utilities/constants';
 import { fetchRbacGroups } from '../../../redux/actions/rbac-actions';
@@ -8,8 +8,7 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { mockApi } from '../../__mocks__/user-login';
 
 describe('rbac actions', () => {
-
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
   beforeEach(() => {
@@ -22,19 +21,26 @@ describe('rbac actions', () => {
 
   it('should dispatch correct actions after fetching groups', () => {
     const store = mockStore({});
-    const expectedActions = [{
-      type: `${FETCH_RBAC_GROUPS}_PENDING`
-    }, {
-      payload: [{
-        label: 'groupName'
-      }],
-      type: `${FETCH_RBAC_GROUPS}_FULFILLED`
-    }];
+    const expectedActions = [
+      {
+        type: `${FETCH_RBAC_GROUPS}_PENDING`
+      },
+      {
+        payload: [
+          {
+            label: 'groupName'
+          }
+        ],
+        type: `${FETCH_RBAC_GROUPS}_FULFILLED`
+      }
+    ];
 
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, {
-      data: [{
-        name: 'groupName'
-      }]
+      data: [
+        {
+          name: 'groupName'
+        }
+      ]
     });
 
     return store.dispatch(fetchRbacGroups()).then(() => {
@@ -42,4 +48,3 @@ describe('rbac actions', () => {
     });
   });
 });
-

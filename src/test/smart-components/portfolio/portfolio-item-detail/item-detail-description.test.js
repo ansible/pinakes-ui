@@ -17,13 +17,16 @@ describe('<ItemDetailDescription />', () => {
         documentation_url: 'some/documention/url'
       },
       url: '/base/url',
-      workflows: [{
-        label: 'Foo',
-        value: 'foo'
-      }, {
-        label: 'Bar',
-        value: 'bar'
-      }],
+      workflows: [
+        {
+          label: 'Foo',
+          value: 'foo'
+        },
+        {
+          label: 'Bar',
+          value: 'bar'
+        }
+      ],
       workflow: 'foo',
       setWorkflow: jest.fn()
     };
@@ -31,8 +34,11 @@ describe('<ItemDetailDescription />', () => {
 
   it('should render correctly in edit variant', () => {
     const wrapper = shallow(
-      <MemoryRouter initialEntries={ [ '/base/url/edit' ] }>
-        <Route path="/base/url/edit" render={ () => <ItemDetailDescription { ...initialProps } /> } />
+      <MemoryRouter initialEntries={['/base/url/edit']}>
+        <Route
+          path="/base/url/edit"
+          render={() => <ItemDetailDescription {...initialProps} />}
+        />
       </MemoryRouter>
     );
     expect(toJson(wrapper.find(ItemDetailDescription))).toMatchSnapshot();

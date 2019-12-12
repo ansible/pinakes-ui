@@ -21,35 +21,68 @@ import {
 
 // Initial State
 export const portfoliosInitialState = {
-  portfolioItems: { data: [], meta: {
-    limit: 50,
-    offset: 0
-  }},
+  portfolioItems: {
+    data: [],
+    meta: {
+      limit: 50,
+      offset: 0
+    }
+  },
   portfolioItem: {},
-  portfolios: { data: [], meta: {
-    limit: 50,
-    offset: 0
-  }},
+  portfolios: {
+    data: [],
+    meta: {
+      limit: 50,
+      offset: 0
+    }
+  },
   portfolio: {},
   filterValue: '',
   isLoading: false
 };
 
-const setLoadingState = (state, { payload = true }) => ({ ...state, isLoading: payload });
-const setPortfolios = (state, { payload }) => ({ ...state, portfolios: payload, isLoading: false });
-const setPortfolioItems = (state, { payload }) => ({ ...state, portfolioItems: payload, isLoading: false });
-const setPortfolioItem = (state, { payload }) => ({ ...state, portfolioItem: payload, isLoading: false });
-const selectPortfolio = (state, { payload }) => ({ ...state, selectedPortfolio: payload, isLoading: false });
-const filterPortfolios = (state, { payload }) => ({ ...state, filterValue: payload });
-const resetSelectedPortfolio = state => ({ ...state, selectedPortfolio: undefined, portfolioItems: portfoliosInitialState.portfolioItems });
+const setLoadingState = (state, { payload = true }) => ({
+  ...state,
+  isLoading: payload
+});
+const setPortfolios = (state, { payload }) => ({
+  ...state,
+  portfolios: payload,
+  isLoading: false
+});
+const setPortfolioItems = (state, { payload }) => ({
+  ...state,
+  portfolioItems: payload,
+  isLoading: false
+});
+const setPortfolioItem = (state, { payload }) => ({
+  ...state,
+  portfolioItem: payload,
+  isLoading: false
+});
+const selectPortfolio = (state, { payload }) => ({
+  ...state,
+  selectedPortfolio: payload,
+  isLoading: false
+});
+const filterPortfolios = (state, { payload }) => ({
+  ...state,
+  filterValue: payload
+});
+const resetSelectedPortfolio = (state) => ({
+  ...state,
+  selectedPortfolio: undefined,
+  portfolioItems: portfoliosInitialState.portfolioItems
+});
 
 // these are optimistic UI updates that mutate the portfolio state immediately after user action.
 // State is synchronized with API after actions are sucesfull
 const addTemporaryPortfolio = (state, { payload }) => ({
   prevState: { ...state },
-  ...state, portfolios: {
+  ...state,
+  portfolios: {
     ...state.portfolios,
-    data: [ ...state.portfolios.data, payload ]
+    data: [...state.portfolios.data, payload]
   }
 });
 const updateTemporaryPortfolio = (state, { payload }) => ({
@@ -58,10 +91,14 @@ const updateTemporaryPortfolio = (state, { payload }) => ({
   selectedPortfolio: payload,
   portfolios: {
     ...state.portfolios,
-    data: state.portfolios.data.map(item => item.id === payload.id ? ({
-      ...item,
-      ...payload
-    }) : item)
+    data: state.portfolios.data.map((item) =>
+      item.id === payload.id
+        ? {
+            ...item,
+            ...payload
+          }
+        : item
+    )
   }
 });
 
@@ -84,7 +121,9 @@ const updateTemporaryPortfolioItem = (state, { payload }) => ({
   },
   portfolioItems: {
     ...state.portfolioItems,
-    data: state.portfolioItems.data.map(item => item.id === payload.id ? ({ ...payload }) : item)
+    data: state.portfolioItems.data.map((item) =>
+      item.id === payload.id ? { ...payload } : item
+    )
   }
 });
 
@@ -96,11 +135,14 @@ const updatePortfolioItem = (state, { payload }) => ({
   },
   portfolioItems: {
     ...state.portfolioItems,
-    data: state.portfolioItems.data.map(item => item.id === payload.id ? ({ ...payload }) : item)
+    data: state.portfolioItems.data.map((item) =>
+      item.id === payload.id ? { ...payload } : item
+    )
   }
 });
 
-const restorePrevState = state => state.prevState ? ({ ...state.prevState }) : ({ ...state });
+const restorePrevState = (state) =>
+  state.prevState ? { ...state.prevState } : { ...state };
 
 export default {
   [`${FETCH_PORTFOLIOS}_PENDING`]: setLoadingState,

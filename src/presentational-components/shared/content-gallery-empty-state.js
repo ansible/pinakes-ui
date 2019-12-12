@@ -20,20 +20,18 @@ const ContentGalleryEmptyState = ({
   PrimaryAction,
   renderDescription
 }) => (
-  <Bullseye style={ { height: 'calc(100% - 197px)' } }>
+  <Bullseye style={{ height: 'calc(100% - 197px)' }}>
     <EmptyState>
-      <EmptyStateIcon icon={ Icon } />
+      <EmptyStateIcon icon={Icon} />
       <TextContent>
-        <Text component={ TextVariants.h1 }>
-          { title }
-        </Text>
+        <Text component={TextVariants.h1}>{title}</Text>
       </TextContent>
       <EmptyStateBody>
-        { description }
-        { renderDescription() }
+        {description}
+        {renderDescription()}
       </EmptyStateBody>
       <EmptyStateSecondaryActions>
-        { PrimaryAction && <PrimaryAction /> }
+        {PrimaryAction && <PrimaryAction />}
       </EmptyStateSecondaryActions>
     </EmptyState>
   </Bullseye>
@@ -54,8 +52,8 @@ ContentGalleryEmptyState.propTypes = {
 export default ContentGalleryEmptyState;
 
 export const EmptyStatePrimaryAction = ({ url, label }) => (
-  <Link to={ url }>
-    <Button variant="secondary">{ label }</Button>
+  <Link to={url}>
+    <Button variant="secondary">{label}</Button>
   </Link>
 );
 

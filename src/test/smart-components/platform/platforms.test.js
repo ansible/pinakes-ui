@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter } from 'react-router-dom';
@@ -15,7 +15,7 @@ import { mockGraphql } from '../../__mocks__/user-login';
 describe('<Platforms />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   beforeEach(() => {
     mockStore = configureStore(middlewares);
@@ -29,16 +29,24 @@ describe('<Platforms />', () => {
 
   it('should mount and fetch platforms data', (done) => {
     const store = mockStore(initialState);
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`)
-    .replyOnce(200, { data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}});
-    mount(<MemoryRouter><Platforms { ...initialProps } store={ store } /></MemoryRouter>);
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
+    });
+    mount(
+      <MemoryRouter>
+        <Platforms {...initialProps} store={store} />
+      </MemoryRouter>
+    );
     setImmediate(() => {
-      const expectedActions = [{
-        type: `${FETCH_PLATFORMS}_PENDING`
-      }, {
-        type: `${FETCH_PLATFORMS}_FULFILLED`,
-        payload: [{ id: '1', name: 'foo' }]
-      }];
+      const expectedActions = [
+        {
+          type: `${FETCH_PLATFORMS}_PENDING`
+        },
+        {
+          type: `${FETCH_PLATFORMS}_FULFILLED`,
+          payload: [{ id: '1', name: 'foo' }]
+        }
+      ];
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -48,30 +56,37 @@ describe('<Platforms />', () => {
     initialState = {
       platformReducer: {
         ...platformInitialState,
-        platforms: [{
-          id: '1',
-          name: 'Foo',
-          description: 'desc',
-          modified: 'mod'
-        }, {
-          id: '2',
-          name: 'Bar',
-          description: 'desc',
-          modified: 'mod'
-        }, {
-          id: '3',
-          name: 'baz',
-          description: 'desc',
-          modified: 'mod'
-        }]
+        platforms: [
+          {
+            id: '1',
+            name: 'Foo',
+            description: 'desc',
+            modified: 'mod'
+          },
+          {
+            id: '2',
+            name: 'Bar',
+            description: 'desc',
+            modified: 'mod'
+          },
+          {
+            id: '3',
+            name: 'baz',
+            description: 'desc',
+            modified: 'mod'
+          }
+        ]
       }
     };
     const Provider = mockBreacrumbsStore(initialState, middlewares);
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`)
-    .replyOnce(200, { data: { application_types: [{ sources: [{ id: '1', name: 'foo' }]}]}});
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
+    });
     const wrapper = mount(
       <Provider>
-        <MemoryRouter initialEntries={ [ '/platforms' ] }><Platforms { ...initialProps } /></MemoryRouter>
+        <MemoryRouter initialEntries={['/platforms']}>
+          <Platforms {...initialProps} />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -81,7 +96,12 @@ describe('<Platforms />', () => {
       search.getDOMNode().value = 'foo';
       search.simulate('change');
       wrapper.update();
-      expect(wrapper.find(Platforms).children().instance().state.filterValue).toEqual('foo');
+      expect(
+        wrapper
+          .find(Platforms)
+          .children()
+          .instance().state.filterValue
+      ).toEqual('foo');
       done();
     });
   });

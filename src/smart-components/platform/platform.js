@@ -11,18 +11,22 @@ const Platform = () => {
   useEffect(() => {
     fetchSelectedPlatform(id);
     scrollToTop();
-  }, [ id ]);
+  }, [id]);
 
   return (
     <Fragment>
       <Switch>
-        <Route path={ `/platforms/detail/:id/platform-templates` }>
-          <PlatformTemplates/>
+        <Route path={`/platforms/detail/:id/platform-templates`}>
+          <PlatformTemplates />
         </Route>
-        <Route path={ `/platforms/detail/:id/platform-inventories` }>
-          <PlatformInventories/>
+        <Route path={`/platforms/detail/:id/platform-inventories`}>
+          <PlatformInventories />
         </Route>
-        <Route render={ () => <Redirect to={ `/platforms/detail/${id}/platform-templates` } /> } />
+        <Route
+          render={() => (
+            <Redirect to={`/platforms/detail/${id}/platform-templates`} />
+          )}
+        />
       </Switch>
     </Fragment>
   );

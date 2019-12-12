@@ -14,7 +14,7 @@ const Orders = () => {
 
   return (
     <Stack>
-      <ToolbarRenderer schema={ createOrdersToolbarSchema() } />
+      <ToolbarRenderer schema={createOrdersToolbarSchema()} />
       <Switch>
         <Route path="/orders/:id">
           <OrderDetail />

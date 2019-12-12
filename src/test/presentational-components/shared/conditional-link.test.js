@@ -9,9 +9,7 @@ describe('<ConditionalLink', () => {
     const wrapper = mount(
       <MemoryRouter>
         <ConditionalLink to="/some/url">
-          <div>
-            Link children
-          </div>
+          <div>Link children</div>
         </ConditionalLink>
       </MemoryRouter>
     );
@@ -23,9 +21,7 @@ describe('<ConditionalLink', () => {
     const wrapper = mount(
       <MemoryRouter>
         <ConditionalLink>
-          <div>
-            Link children
-          </div>
+          <div>Link children</div>
         </ConditionalLink>
       </MemoryRouter>
     );

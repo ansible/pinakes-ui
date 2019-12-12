@@ -25,7 +25,7 @@ const defaultPlatformIcon = (platformId, platformList) => {
     return CardIconDefault;
   }
 
-  const source = platformList.find(item => item.id === platformId);
+  const source = platformList.find((item) => item.id === platformId);
   if (source) {
     return platformTypeIcon[source.source_type_id];
   }
@@ -33,24 +33,28 @@ const defaultPlatformIcon = (platformId, platformList) => {
   return CardIconDefault;
 };
 
-const CardIcon = ({ src, height, platformId, sourceTypeId  }) => {
-  const [ isLoaded, setLoaded ] = useState(false);
-  const [ isUnknown, setUnknown ] = useState(false);
-  const platformList = useSelector(state => (state.platformReducer ? state.platformReducer.platforms : {}));
-  const defaultIcon = sourceTypeId ? platformTypeIcon[sourceTypeId] : defaultPlatformIcon(platformId, platformList);
+const CardIcon = ({ src, height, platformId, sourceTypeId }) => {
+  const [isLoaded, setLoaded] = useState(false);
+  const [isUnknown, setUnknown] = useState(false);
+  const platformList = useSelector((state) =>
+    state.platformReducer ? state.platformReducer.platforms : {}
+  );
+  const defaultIcon = sourceTypeId
+    ? platformTypeIcon[sourceTypeId]
+    : defaultPlatformIcon(platformId, platformList);
 
   return (
-    <div style={ { display: 'inline-block' } }>
-      { !isLoaded && <IconPlaceholder height={ height } /> }
+    <div style={{ display: 'inline-block' }}>
+      {!isLoaded && <IconPlaceholder height={height} />}
       <LazyLoadImage
-        threshold={ 2000 }
-        delayTime={ 50 }
-        height={ isLoaded ? height : 0 }
-        style={ { height: isLoaded ? height : 0 } }
-        className={ `card-image ${!isLoaded ? 'hide' : ''}` }
-        onError={ () => setUnknown(true) }
-        onLoad={ () => setLoaded(true) }
-        src={ isUnknown ? defaultIcon : src }
+        threshold={2000}
+        delayTime={50}
+        height={isLoaded ? height : 0}
+        style={{ height: isLoaded ? height : 0 }}
+        className={`card-image ${!isLoaded ? 'hide' : ''}`}
+        onError={() => setUnknown(true)}
+        onLoad={() => setLoaded(true)}
+        src={isUnknown ? defaultIcon : src}
       />
     </div>
   );

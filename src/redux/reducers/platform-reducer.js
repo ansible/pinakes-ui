@@ -24,18 +24,48 @@ export const platformInitialState = {
 
 // rename isPlatformLoading.. to isLoading so we can use common action for loading states
 
-const setLoadingState = (state, { payload = true }) => ({ ...state, isPlatformDataLoading: payload });
-const setPlatforms = (state, { payload }) => ({ ...state, platforms: payload, isPlatformDataLoading: false });
-const setPlatformItems = (state, { payload, meta: { platformId }}) =>
-  ({ ...state, platformItems: { ...state.platformItems, [platformId]: payload }, isPlatformDataLoading: false });
-const setMultiplePlatformItems = (state, { payload }) =>
-  ({ ...state, platformItems: { ...state.platformItems, ...payload }, isPlatformDataLoading: false });
-const setPortfolioItems = (state, { payload }) => ({ ...state, portfolioItem: payload, isPlatformDataLoading: false });
-const selectPlatform = (state, { payload }) => ({ ...state, selectedPlatform: payload, isLoading: false });
-const filterPlatformItems = (state, { payload }) => ({ ...state, filterValue: payload });
-const setInventoriesDataLoadingState = (state, { payload = true }) => ({ ...state, isInventoriesDataLoading: payload });
-const setPlatformInventories = (state, { payload }) =>
-  ({ ...state, platformInventories: { ...state.platformInventories, ...payload }, isInventoriesDataLoading: false });
+const setLoadingState = (state, { payload = true }) => ({
+  ...state,
+  isPlatformDataLoading: payload
+});
+const setPlatforms = (state, { payload }) => ({
+  ...state,
+  platforms: payload,
+  isPlatformDataLoading: false
+});
+const setPlatformItems = (state, { payload, meta: { platformId } }) => ({
+  ...state,
+  platformItems: { ...state.platformItems, [platformId]: payload },
+  isPlatformDataLoading: false
+});
+const setMultiplePlatformItems = (state, { payload }) => ({
+  ...state,
+  platformItems: { ...state.platformItems, ...payload },
+  isPlatformDataLoading: false
+});
+const setPortfolioItems = (state, { payload }) => ({
+  ...state,
+  portfolioItem: payload,
+  isPlatformDataLoading: false
+});
+const selectPlatform = (state, { payload }) => ({
+  ...state,
+  selectedPlatform: payload,
+  isLoading: false
+});
+const filterPlatformItems = (state, { payload }) => ({
+  ...state,
+  filterValue: payload
+});
+const setInventoriesDataLoadingState = (state, { payload = true }) => ({
+  ...state,
+  isInventoriesDataLoading: payload
+});
+const setPlatformInventories = (state, { payload }) => ({
+  ...state,
+  platformInventories: { ...state.platformInventories, ...payload },
+  isInventoriesDataLoading: false
+});
 
 export default {
   [`${FETCH_PLATFORMS}_PENDING`]: setLoadingState,

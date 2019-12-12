@@ -16,7 +16,7 @@ describe('<PlatformCard />', () => {
   it('should render correctly', () => {
     const wrapper = mount(
       <MemoryRouter>
-        <PlatformCard { ...initialProps } />
+        <PlatformCard {...initialProps} />
       </MemoryRouter>
     );
     expect(toJson(wrapper.find(PlatformCard))).toMatchSnapshot();
@@ -25,7 +25,7 @@ describe('<PlatformCard />', () => {
   it('should choose card image', () => {
     let wrapper = mount(
       <MemoryRouter>
-        <PlatformCard { ...initialProps } />
+        <PlatformCard {...initialProps} />
       </MemoryRouter>
     );
     expect(toJson(wrapper.find(PlatformCard))).toMatchSnapshot();

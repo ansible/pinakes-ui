@@ -1,5 +1,5 @@
 const style = {
-  container: provided => ({
+  container: (provided) => ({
     ...provided,
     '&:focus': {
       outline: 'none'
@@ -20,13 +20,13 @@ const style = {
     }
   }),
   indicatorSeparator: () => ({}),
-  dropdownIndicator: provided => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     color: '#282d33',
     paddingBottom: 6,
     paddingTop: 6
   }),
-  menu: provided => ({
+  menu: (provided) => ({
     ...provided,
     borderRadius: 'none',
     boxShadow:
@@ -55,11 +55,11 @@ const style = {
       backgroundColor: '#ededed'
     }
   }),
-  placeholder: provided => ({
+  placeholder: (provided) => ({
     ...provided,
     left: 20
   }),
-  singleValue: provided => ({
+  singleValue: (provided) => ({
     ...provided,
     left: 20,
     maxWidth: 'calc(100% - 28px)'
