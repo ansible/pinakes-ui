@@ -96,12 +96,18 @@ const DetailToolbarActions = ({
                 role="link"
               />,
               <DropdownItem
-                aria-label="Rdit survey"
+                aria-label="Edit survey"
                 key="edit-survey"
-                component={ <Link to={ {
-                  pathname: editSurveyUrl,
-                  search
-                } }>Edit survey</Link> }
+                component={
+                  <Link
+                    to={{
+                      pathname: editSurveyUrl,
+                      search
+                    }}
+                  >
+                    Edit survey
+                  </Link>
+                }
                 role="link"
               />
             ]}

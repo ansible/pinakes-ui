@@ -144,7 +144,7 @@ export function getIconApi() {
   return iconApi;
 }
 
-export function getServicePlainsApi() {
+export function getServicePlansApi() {
   return servicePlansApi;
 }
 

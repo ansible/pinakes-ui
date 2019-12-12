@@ -11,7 +11,7 @@ import {
 } from '@data-driven-forms/form-builder/dist/pf4-builder-mappers';
 import {
   getAxiosInstance,
-  getServicePlainsApi
+  getServicePlansApi
 } from '../../helpers/shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 
@@ -100,11 +100,11 @@ const SurveyEditor = ({ portfolioItemId }) => {
       .then(([{ create_json_schema: { schema } }]) => setSchema(schema));
   }, []);
   const handleSaveSurvey = () => {
-    return getServicePlainsApi()
+    return getServicePlansApi()
       .createServicePlan({ portfolio_item_id: portfolioItemId })
       .then(([{ id }]) => id)
       .then((id) =>
-        getServicePlainsApi().patchServicePlanModified(`${id}`, {
+        getServicePlansApi().patchServicePlanModified(`${id}`, {
           modified: { schema: editedTemplate }
         })
       );
