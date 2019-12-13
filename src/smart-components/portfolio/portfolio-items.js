@@ -92,9 +92,7 @@ const PortfolioItems = ({
     />
     <ContentGallery
       {...filteredItems}
-      renderEmptyState={() => (
-        <PortfolioEmptyState name={title} url={addProductsRoute} />
-      )}
+      renderEmptyState={() => <PortfolioEmptyState url={addProductsRoute} />}
     />
   </Fragment>
 );

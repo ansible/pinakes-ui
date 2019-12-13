@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Bullseye,
   Button,
   EmptyState,
   EmptyStateIcon,
@@ -20,8 +19,8 @@ const ContentGalleryEmptyState = ({
   PrimaryAction,
   renderDescription
 }) => (
-  <Bullseye className="pf-u-mt-xl">
-    <EmptyState>
+  <div className="pf-u-mt-xl">
+    <EmptyState className="pf-u-ml-auto pf-u-mr-auto">
       <EmptyStateIcon icon={Icon} />
       <TextContent>
         <Text component={TextVariants.h1}>{title}</Text>
@@ -34,7 +33,7 @@ const ContentGalleryEmptyState = ({
         {PrimaryAction && <PrimaryAction />}
       </EmptyStateSecondaryActions>
     </EmptyState>
-  </Bullseye>
+  </div>
 );
 
 ContentGalleryEmptyState.defaultProps = {
@@ -53,7 +52,7 @@ export default ContentGalleryEmptyState;
 
 export const EmptyStatePrimaryAction = ({ url, label }) => (
   <Link to={url}>
-    <Button variant="secondary">{label}</Button>
+    <Button variant="primary">{label}</Button>
   </Link>
 );
 

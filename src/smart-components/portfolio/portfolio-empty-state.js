@@ -6,10 +6,10 @@ import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
 
-const PortfolioEmptyState = ({ name, url }) => (
+const PortfolioEmptyState = ({ url }) => (
   <ContentGalleryEmptyState
     Icon={SearchIcon}
-    title={`No products in ${name} portfolio`}
+    title="No products yet"
     description="You haven’t added any products to the portfolio"
     PrimaryAction={() => (
       <EmptyStatePrimaryAction
@@ -21,7 +21,6 @@ const PortfolioEmptyState = ({ name, url }) => (
 );
 
 PortfolioEmptyState.propTypes = {
-  name: PropTypes.string,
   url: PropTypes.string.isRequired
 };
 
