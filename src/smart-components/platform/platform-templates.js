@@ -22,6 +22,7 @@ import ContentGalleryEmptyState from '../../presentational-components/shared/con
 import asyncFormValidator from '../../utilities/async-form-validator';
 import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentGallery from '../content-gallery/content-gallery';
+import { Button } from '@patternfly/react-core';
 
 const initialState = {
   filterValue: '',
@@ -169,12 +170,19 @@ const PlatformTemplates = () => {
           isLoading={isFetching || isFiltering}
           renderEmptyState={() => (
             <ContentGalleryEmptyState
-              title="No items"
+              title={filterValue === '' ? 'No templates' : 'No results found'}
               Icon={SearchIcon}
+              PrimaryAction={() =>
+                filterValue !== '' ? (
+                  <Button onClick={() => handleFilterChange('')} variant="link">
+                    Clear all filters
+                  </Button>
+                ) : null
+              }
               description={
                 filterValue === ''
-                  ? 'No items found.'
-                  : 'No items match your filter criteria.'
+                  ? 'This platform has no templates.'
+                  : 'No results match the filter critera. Remove all filters or clear all filters to show results.'
               }
             />
           )}
