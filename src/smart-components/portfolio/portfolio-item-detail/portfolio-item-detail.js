@@ -44,7 +44,7 @@ const PortfolioItemDetail = () => {
       .catch(() => setIsFetching(false));
   }, [path]);
 
-  if (isFetching) {
+  if (isFetching || !portfolioItem) {
     return (
       <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
         <TopToolbar>
@@ -59,7 +59,12 @@ const PortfolioItemDetail = () => {
   return (
     <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
       <Route path={`${url}/edit-survey`}>
-        <SurveyEditor portfolioItemId={portfolioItem.id} />
+        <SurveyEditor
+          name={portfolioItem.name}
+          closeUrl={url}
+          search={search}
+          portfolioItemId={portfolioItem.id}
+        />
       </Route>
       <Route path={`${url}/order`}>
         <OrderModal closeUrl={url} />
