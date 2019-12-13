@@ -25,7 +25,7 @@ const OrdersBreadcrumbs = () => {
   }
 
   return (
-    <Breadcrumb className="orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl">
+    <Breadcrumb className="orders bg-fill pf-u-pt-md pf-u-pl-lg pf-u-pr-lg">
       {fragments.map(({ path, title }, index) => (
         <BreadcrumbItem key={path} isActive={index === fragments.length - 1}>
           <NavLink
@@ -53,7 +53,7 @@ const createOrdersToolbarSchema = () => ({
     },
     {
       component: toolbarComponentTypes.TOP_TOOLBAR,
-      className: 'orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl',
+      className: 'orders bg-fill pf-u-p-lg',
       key: 'orders-toolbar',
       breadcrumbs: false,
       fields: [

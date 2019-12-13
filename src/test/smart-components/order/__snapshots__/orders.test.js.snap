@@ -38,7 +38,7 @@ exports[`<Orders /> should render correctly 1`] = `
           },
           Object {
             "breadcrumbs": false,
-            "className": "orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl",
+            "className": "orders bg-fill pf-u-p-lg",
             "component": "TopToolbar",
             "fields": Array [
               Object {
@@ -107,7 +107,7 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
           },
           Object {
             "breadcrumbs": false,
-            "className": "orders bg-fill pf-u-pt-md pf-u-pl-xl pf-u-pr-xl",
+            "className": "orders bg-fill pf-u-p-lg",
             "component": "TopToolbar",
             "fields": Array [
               Object {

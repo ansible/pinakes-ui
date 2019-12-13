@@ -102,6 +102,10 @@ const findRoutes = (url) => {
 
 const CatalogBreadcrumbs = ({ match: { url }, reducers }) => {
   const routes = findRoutes(url);
+  if (routes.length <= 1) {
+    return null;
+  }
+
   const items = routes.map((route, index) => (
     <BreadcrumbItem
       key={route.path}
@@ -117,9 +121,7 @@ const CatalogBreadcrumbs = ({ match: { url }, reducers }) => {
     </BreadcrumbItem>
   ));
   return (
-    <Breadcrumb style={{ minHeight: 18 }}>
-      {items.length > 1 && items}
-    </Breadcrumb>
+    <Breadcrumb className="pf-u-mb-lg">{items.length > 1 && items}</Breadcrumb>
   );
 };
 
