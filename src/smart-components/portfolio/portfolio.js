@@ -115,10 +115,13 @@ const Portfolio = (props) => {
         <PortfolioItem
           key={item.id}
           {...item}
+          to={{
+            pathname: `${routes.orderUrl}/${item.id}`,
+            search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
+          }}
           isSelectable
           onSelect={handleItemSelect}
           isSelected={selectedItems.includes(item.id)}
-          orderUrl={`${routes.orderUrl}/${item.id}`}
           removeInProgress={removeInProgress}
         />
       )),

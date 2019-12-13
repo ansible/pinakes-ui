@@ -25,8 +25,13 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const buildItemUrl = ({ portfolio_id, id }) =>
-  portfolio_id && `/portfolios/detail/${portfolio_id}/product/${id}`;
+const buildItemUrl = ({ portfolio_id, id, service_offering_source_ref }) =>
+  portfolio_id && id
+    ? {
+        pathname: `/portfolios/detail/${portfolio_id}/product/${id}`,
+        search: `portfolio=${portfolio_id}&source=${service_offering_source_ref}`
+      }
+    : undefined;
 
 const initialState = {
   filterValue: '',
@@ -76,7 +81,7 @@ const Products = () => {
   };
 
   const galleryItems = data.map((item) => (
-    <PortfolioItem key={item.id} url={buildItemUrl(item)} {...item} />
+    <PortfolioItem key={item.id} to={buildItemUrl(item)} {...item} />
   ));
 
   return (

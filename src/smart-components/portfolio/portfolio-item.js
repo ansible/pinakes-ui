@@ -38,13 +38,7 @@ const PortfolioItem = (props) => (
             platformId={props.service_offering_source_ref}
           />
         </CardHeader>
-        <ServiceOfferingCardBody
-          to={{
-            pathname: props.orderUrl,
-            search: `portfolio=${props.portfolio_id}&source=${props.service_offering_source_ref}`
-          }}
-          {...props}
-        />
+        <ServiceOfferingCardBody {...props} />
         <CardFooter></CardFooter>
       </Card>
     </div>
