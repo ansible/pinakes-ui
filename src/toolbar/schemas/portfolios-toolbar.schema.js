@@ -25,7 +25,6 @@ const createPortfolioToolbarSchema = ({
             {
               component: toolbarComponentTypes.TOOLBAR,
               key: 'main-portfolio-toolbar',
-              className: 'pf-u-mt-md',
               fields: [
                 createSingleItemGroup({
                   groupName: 'filter-group',

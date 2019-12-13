@@ -25,7 +25,7 @@ ToolbarButton.propTypes = {
 };
 
 const AppToolbar = ({ ...props }) => (
-  <Toolbar className="pf-u-pb-md pf-u-pt-md pf-u-pr-lg toolbar" {...props} />
+  <Toolbar className="pf-u-pr-lg toolbar" {...props} />
 );
 
 const toolbarMapper = {

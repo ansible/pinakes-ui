@@ -46,7 +46,6 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
       key="portfolios-actions"
     >
       <Component
-        className="pf-u-mt-md"
         component="Toolbar"
         key="main-portfolio-toolbar"
       >

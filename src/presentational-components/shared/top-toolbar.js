@@ -14,7 +14,7 @@ import './top-toolbar.scss';
 const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
   <div
     className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
-      paddingBottom ? 'pf-u-pb-md' : ''
+      paddingBottom ? 'pf-u-pb-lg' : ''
     } top-toolbar`}
     {...rest}
   >
@@ -41,10 +41,14 @@ export default TopToolbar;
 
 export const TopToolbarTitle = ({ title, children, ...rest }) => (
   <Fragment>
-    <Level className="pf-u-mb-md" {...rest}>
+    <Level className="pf-u-mb-lg" {...rest}>
       <LevelItem>
         <TextContent className="top-toolbar-title">
-          {<Text component={TextVariants.h2}>{title}</Text>}
+          {
+            <Text component={TextVariants.h2} className="pf-u-m-0">
+              {title}
+            </Text>
+          }
         </TextContent>
       </LevelItem>
       {children}
