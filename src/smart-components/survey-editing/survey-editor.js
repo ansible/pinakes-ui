@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
+import { useHistory } from 'react-router-dom';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import FormBuilder from '@data-driven-forms/form-builder';
 import {
@@ -9,11 +10,14 @@ import {
   pickerMapper,
   propertiesMapper
 } from '@data-driven-forms/form-builder/dist/pf4-builder-mappers';
+import { Spinner } from '@redhat-cloud-services/frontend-components';
+
 import {
   getAxiosInstance,
   getServicePlansApi
 } from '../../helpers/shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
+import { Bullseye, Button, Title } from '@patternfly/react-core';
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -89,9 +93,10 @@ const pf4Skin = {
   componentProperties
 };
 
-const SurveyEditor = ({ portfolioItemId }) => {
+const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
   const [schema, setSchema] = useState();
   const [editedTemplate, setEditedTemplate] = useState({ fields: [] });
+  const { push } = useHistory();
   useEffect(() => {
     getAxiosInstance()
       .get(
@@ -104,9 +109,11 @@ const SurveyEditor = ({ portfolioItemId }) => {
       .createServicePlan({ portfolio_item_id: portfolioItemId })
       .then(([{ id }]) => id)
       .then((id) =>
-        getServicePlansApi().patchServicePlanModified(`${id}`, {
-          modified: { schema: editedTemplate }
-        })
+        getServicePlansApi()
+          .patchServicePlanModified(`${id}`, {
+            modified: { schema: editedTemplate }
+          })
+          .then(() => push({ pathname: closeUrl, search }))
       );
   };
 
@@ -120,10 +127,23 @@ const SurveyEditor = ({ portfolioItemId }) => {
         margin: 8,
         height: 'calc(100vh - 16px)',
         width: 'calc(100vw - 16px)',
-        background: 'papayawhip',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'white'
       }}
     >
+      <div
+        style={{
+          paddingTop: 24,
+          paddingLeft: 24,
+          paddingRight: 24
+        }}
+      >
+        <Title headingLevel="h1" size="4xl">
+          Editing {name} job template
+        </Title>
+      </div>
       {schema ? (
         <FormBuilder
           {...pf4Skin}
@@ -132,15 +152,42 @@ const SurveyEditor = ({ portfolioItemId }) => {
           disableDrag
         />
       ) : (
-        <div>Loading</div>
+        <Bullseye>
+          <Spinner />
+        </Bullseye>
       )}
-      <button onClick={handleSaveSurvey}>Save changes</button>
+      <div
+        style={{
+          paddingLeft: 24,
+          paddingRight: 24,
+          marginTop: 'auto',
+          marginBottom: 24
+        }}
+      >
+        <Button variant="primary" onClick={handleSaveSurvey}>
+          Save changes
+        </Button>
+        <Button
+          variant="link"
+          onClick={() =>
+            push({
+              pathname: closeUrl,
+              search
+            })
+          }
+        >
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 };
 
 SurveyEditor.propTypes = {
-  portfolioItemId: PropTypes.string.isRequired
+  portfolioItemId: PropTypes.string.isRequired,
+  closeUrl: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired
 };
 
 const SurveyEditorPortal = (props) =>
