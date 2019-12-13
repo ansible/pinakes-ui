@@ -20,7 +20,7 @@ const ContentGalleryEmptyState = ({
   PrimaryAction,
   renderDescription
 }) => (
-  <Bullseye style={{ height: 'calc(100% - 197px)' }}>
+  <Bullseye className="pf-u-mt-xl">
     <EmptyState>
       <EmptyStateIcon icon={Icon} />
       <TextContent>
