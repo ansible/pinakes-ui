@@ -9,7 +9,9 @@ import {
   EmptyState,
   EmptyStateIcon,
   EmptyStateBody,
-  Flex
+  Flex,
+  EmptyStateSecondaryActions,
+  Button
 } from '@patternfly/react-core';
 import {
   Section,
@@ -156,11 +158,31 @@ const OrdersList = () => {
                     <Bullseye>
                       <EmptyStateIcon icon={SearchIcon} />
                     </Bullseye>
-                    <Title size="lg">No results found</Title>
+                    <Title size="lg">
+                      {filterValue === '' ? 'No orders' : 'No results found'}
+                    </Title>
                     <EmptyStateBody>
-                      No results match the filter criteria. Remove all filters
-                      or clear all filters to show results.
+                      {filterValue === ''
+                        ? 'No orders have been created'
+                        : 'No results match the filter criteria. Remove all filtersor clear all filters to show results.'}
                     </EmptyStateBody>
+
+                    <EmptyStateSecondaryActions>
+                      {filterValue && (
+                        <Button
+                          variant="link"
+                          onClick={() => {
+                            stateDispatch({
+                              type: 'setFilteringFlag',
+                              payload: true
+                            });
+                            handleFilterItems('');
+                          }}
+                        >
+                          Clear all filters
+                        </Button>
+                      )}
+                    </EmptyStateSecondaryActions>
                   </EmptyState>
                 </Bullseye>
               </EmptyTable>
