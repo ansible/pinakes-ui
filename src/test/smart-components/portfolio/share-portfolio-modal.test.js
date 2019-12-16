@@ -124,7 +124,7 @@ describe('<SharePortfolioModal', () => {
       .onPost(`${CATALOG_API_BASE}/portfolios/123/unshare`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
-          permissions: ['catalog:portfolios:update'],
+          permissions: ['update'],
           group_uuids: [null]
         });
         return [200, {}];
