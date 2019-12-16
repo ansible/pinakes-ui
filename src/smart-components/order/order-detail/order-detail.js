@@ -55,7 +55,7 @@ const OrderDetail = () => {
 
   return (
     <Stack className="orders bg-fill">
-      <StackItem className="orders separator pf-u-p-xl pf-u-pt-md pf-u-pb-0">
+      <StackItem className="orders separator pf-u-p-lg pf-u-pt-0 pf-u-pb-0">
         {isFetching ? (
           <OrderDetailToolbarPlaceholder />
         ) : (
