@@ -21,6 +21,7 @@ import OrderDetails from './order-details';
 import ApprovalRequests from './approval-request';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
+import OrderLifecycle from './order-lifecycle';
 
 const requiredParams = [
   'order-item',
@@ -109,10 +110,9 @@ const OrderDetail = () => {
                   path={`${match.url}/provision`}
                   render={() => <div>provision</div>}
                 />
-                <Route
-                  path={`${match.url}/lifecycle`}
-                  render={() => <div>lifecycle</div>}
-                />
+                <Route path={`${match.url}/lifecycle`}>
+                  <OrderLifecycle />
+                </Route>
                 <Route path={match.url} component={OrderDetails} />
               </Switch>
             )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   TextContent,
@@ -9,7 +10,7 @@ import {
   Nav
 } from '@patternfly/react-core';
 
-const navItems = [
+const useNavItems = ({ state } = {}) => [
   {
     link: '',
     title: 'Order details'
@@ -26,12 +27,17 @@ const navItems = [
   {
     link: '/lifecycle',
     title: 'Lifecycle',
-    isDisabled: true
+    isDisabled: state !== 'Completed'
   }
 ];
 
 const OrderDetailMenu = ({ baseUrl, isFetching }) => {
   const { search } = useLocation();
+  const orderDetailData = useSelector(
+    ({ orderReducer: { orderDetail } }) => orderDetail || {}
+  );
+  const { order } = orderDetailData;
+  const navItems = useNavItems(order);
   return (
     <Nav>
       <NavList className="orders-side-nav-list">
