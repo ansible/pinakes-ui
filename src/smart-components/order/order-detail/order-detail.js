@@ -21,6 +21,7 @@ import OrderDetails from './order-details';
 import ApprovalRequests from './approval-request';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
+import OrderLifecycle from './order-lifecycle';
 
 const requiredParams = [
   'order-item',
@@ -55,7 +56,7 @@ const OrderDetail = () => {
 
   return (
     <Stack className="orders bg-fill">
-      <StackItem className="orders separator pf-u-p-xl pf-u-pt-md pf-u-pb-0">
+      <StackItem className="orders separator pf-u-p-lg pf-u-pt-0 pf-u-pb-0">
         {isFetching ? (
           <OrderDetailToolbarPlaceholder />
         ) : (
@@ -109,10 +110,9 @@ const OrderDetail = () => {
                   path={`${match.url}/provision`}
                   render={() => <div>provision</div>}
                 />
-                <Route
-                  path={`${match.url}/lifecycle`}
-                  render={() => <div>lifecycle</div>}
-                />
+                <Route path={`${match.url}/lifecycle`}>
+                  <OrderLifecycle />
+                </Route>
                 <Route path={match.url} component={OrderDetails} />
               </Switch>
             )}
