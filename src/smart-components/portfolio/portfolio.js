@@ -2,11 +2,9 @@ import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
 
-import PortfolioItem from './portfolio-item';
 import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import AddProductsToPortfolio from './add-products-to-portfolio';
-import { defaultSettings } from '../../helpers/shared/pagination';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
@@ -30,7 +28,7 @@ const initialState = {
 };
 
 const debouncedFilter = asyncFormValidator(
-  (value, dispatch, filteringCallback, meta = defaultSettings) => {
+  (value, dispatch, filteringCallback, meta) => {
     filteringCallback(true);
     dispatch(fetchPortfolioItemsWithPortfolio(value, meta)).then(() =>
       filteringCallback(false)
@@ -54,21 +52,11 @@ const porftolioUiReducer = (state, { type, payload }) =>
   }[type]);
 
 const Portfolio = () => {
-  const [
-    {
-      copyInProgress,
-      isFetching,
-      filterValue,
-      removeInProgress,
-      selectedItems,
-      isFiltering
-    },
-    stateDispatch
-  ] = useReducer(porftolioUiReducer, initialState);
+  const [state, stateDispatch] = useReducer(porftolioUiReducer, initialState);
   const match = useRouteMatch('/portfolios/detail/:id');
   const history = useHistory();
   const dispatch = useDispatch();
-  const { portfolio, data, meta } = useSelector(
+  const { portfolio, meta } = useSelector(
     ({
       portfolioReducer: {
         selectedPortfolio,
@@ -86,7 +74,7 @@ const Portfolio = () => {
     Promise.all([
       dispatch(fetchPlatforms()),
       dispatch(fetchSelectedPortfolio(apiProps)),
-      dispatch(fetchPortfolioItemsWithPortfolio(apiProps, defaultSettings))
+      dispatch(fetchPortfolioItemsWithPortfolio(apiProps))
     ])
       .then(() => stateDispatch({ type: 'setIsFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setIsFetching', payload: false }));
@@ -118,9 +106,6 @@ const Portfolio = () => {
       );
   };
 
-  const handleItemSelect = (selectedItem) =>
-    stateDispatch({ type: 'selectItem', payload: selectedItem });
-
   const handleFilterChange = (filter) => {
     stateDispatch({ type: 'setFilterValue', payload: filter });
     debouncedFilter(
@@ -146,61 +131,28 @@ const Portfolio = () => {
     orderUrl: `${match.url}/product`
   };
 
-  const title = portfolio ? portfolio.name : '';
-
-  const items = data.map((item) => (
-    <PortfolioItem
-      key={item.id}
-      {...item}
-      to={{
-        pathname: `${routes.orderUrl}/${item.id}`,
-        search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
-      }}
-      isSelectable
-      onSelect={handleItemSelect}
-      isSelected={selectedItems.includes(item.id)}
-      removeInProgress={removeInProgress}
-    />
-  ));
-
   return (
     <Switch>
-      <Route
-        path={routes.addProductsRoute}
-        render={() => (
-          <AddProductsToPortfolio
-            portfolio={portfolio}
-            portfolioRoute={routes.portfolioRoute}
-          />
-        )}
-      />
+      <Route path={routes.addProductsRoute}>
+        <AddProductsToPortfolio
+          portfolio={portfolio}
+          portfolioRoute={routes.portfolioRoute}
+        />
+      </Route>
       <Route
         path={`${routes.orderUrl}/:portfolioItemId`}
         component={PortfolioItemDetail}
       />
-      <Route
-        path={routes.portfolioRoute}
-        render={(args) => (
-          <PortfolioItems
-            {...routes}
-            {...args}
-            selectedItems={selectedItems}
-            filteredItems={items}
-            title={title}
-            filterValue={filterValue}
-            handleFilterChange={handleFilterChange}
-            isLoading={isFetching || isFiltering}
-            copyInProgress={copyInProgress}
-            removeProducts={removeProducts}
-            copyPortfolio={handleCopyPortfolio}
-            fetchPortfolioItemsWithPortfolio={(...args) =>
-              dispatch(fetchPortfolioItemsWithPortfolio(args))
-            }
-            portfolio={portfolio}
-            pagination={meta}
-          />
-        )}
-      />
+      <Route path={routes.portfolioRoute}>
+        <PortfolioItems
+          routes={routes}
+          handleFilterChange={handleFilterChange}
+          removeProducts={removeProducts}
+          copyPortfolio={handleCopyPortfolio}
+          state={state}
+          stateDispatch={stateDispatch}
+        />
+      </Route>
     </Switch>
   );
 };

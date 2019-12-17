@@ -38,7 +38,7 @@ export function getPortfolio(portfolioId) {
 
 export function getPortfolioItemsWithPortfolio(
   portfolioId,
-  { limit, offset, filter = '' } = {}
+  { limit, offset, filter = '' } = defaultSettings
 ) {
   return axiosInstance.get(
     `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
