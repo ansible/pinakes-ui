@@ -91,7 +91,8 @@ const PortfolioItems = ({
       render={(props) => <OrderModal {...props} closeUrl={portfolioRoute} />}
     />
     <ContentGallery
-      {...filteredItems}
+      items={filteredItems}
+      isLoading={isLoading}
       renderEmptyState={() => <PortfolioEmptyState url={addProductsRoute} />}
     />
   </Fragment>

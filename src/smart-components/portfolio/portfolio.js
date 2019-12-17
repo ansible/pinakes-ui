@@ -1,15 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
 
 import PortfolioItem from './portfolio-item';
 import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import AddProductsToPortfolio from './add-products-to-portfolio';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { filterServiceOffering } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
@@ -21,14 +18,26 @@ import {
   fetchPortfolioItemsWithPortfolio,
   resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
+import asyncFormValidator from '../../utilities/async-form-validator';
 
 const initialState = {
   selectedItems: [],
   removeInProgress: false,
   filterValue: '',
   copyInProgress: false,
-  isFetching: true
+  isFetching: true,
+  isFiltering: false
 };
+
+const debouncedFilter = asyncFormValidator(
+  (value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPortfolioItemsWithPortfolio(value, meta)).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
 
 const porftolioUiReducer = (state, { type, payload }) =>
   ({
@@ -38,102 +47,129 @@ const porftolioUiReducer = (state, { type, payload }) =>
     },
     setRemoveInProgress: { ...state, removeInProgress: payload },
     removeSucessfull: { ...state, selectedItems: [], removeInProgress: false },
-    setFilterValue: { ...state, filterValue: payload },
+    setFilterValue: { ...state, filterValue: payload, isFiltering: true },
     setCopyInProgress: { ...state, copyInProgress: payload },
-    setIsFetching: { ...state, isFetching: payload }
+    setIsFetching: { ...state, isFetching: payload },
+    setFilteringFlag: { ...state, isFiltering: payload }
   }[type]);
 
-const Portfolio = (props) => {
+const Portfolio = () => {
   const [
     {
       copyInProgress,
       isFetching,
       filterValue,
       removeInProgress,
-      selectedItems
+      selectedItems,
+      isFiltering
     },
-    dispatch
+    stateDispatch
   ] = useReducer(porftolioUiReducer, initialState);
+  const match = useRouteMatch('/portfolios/detail/:id');
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { portfolio, data, meta } = useSelector(
+    ({
+      portfolioReducer: {
+        selectedPortfolio,
+        portfolioItems: { data, meta }
+      }
+    }) => ({
+      portfolio: selectedPortfolio,
+      data,
+      meta
+    })
+  );
 
   const fetchData = (apiProps) => {
-    dispatch({ type: 'setIsFetching', payload: true });
+    stateDispatch({ type: 'setIsFetching', payload: true });
     Promise.all([
-      props.fetchPlatforms(),
-      props.fetchSelectedPortfolio(apiProps),
-      props.fetchPortfolioItemsWithPortfolio(apiProps, defaultSettings)
+      dispatch(fetchPlatforms()),
+      dispatch(fetchSelectedPortfolio(apiProps)),
+      dispatch(fetchPortfolioItemsWithPortfolio(apiProps, defaultSettings))
     ])
-      .then(() => dispatch({ type: 'setIsFetching', payload: false }))
-      .catch(() => dispatch({ type: 'setIsFetching', payload: false }));
+      .then(() => stateDispatch({ type: 'setIsFetching', payload: false }))
+      .catch(() => stateDispatch({ type: 'setIsFetching', payload: false }));
   };
 
   useEffect(() => {
-    fetchData(props.match.params.id);
+    fetchData(match.params.id);
     scrollToTop();
-    return () => props.resetSelectedPortfolio();
-  }, [props.match.params.id]);
+    return () => dispatch(resetSelectedPortfolio());
+  }, [match.params.id]);
 
-  const copyPortfolio = () => {
-    dispatch({ type: 'setCopyInProgress', payload: true });
-    return props
-      .copyPortfolio(props.match.params.id)
-      .then(({ id }) => props.history.push(`/portfolios/detail/${id}`))
-      .then(() => dispatch({ type: 'setCopyInProgress', payload: false }))
-      .then(() => props.fetchPortfolios())
-      .catch(() => dispatch({ type: 'setCopyInProgress', payload: false }));
+  const handleCopyPortfolio = () => {
+    stateDispatch({ type: 'setCopyInProgress', payload: true });
+    return dispatch(copyPortfolio(match.params.id))
+      .then(({ id }) => history.push(`/portfolios/detail/${id}`))
+      .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
+      .then(() => dispatch(fetchPortfolios()))
+      .catch(() =>
+        stateDispatch({ type: 'setCopyInProgress', payload: false })
+      );
   };
 
   const removeProducts = (products) => {
-    dispatch({ type: 'setRemoveInProgress', payload: true });
-    props
-      .removeProductsFromPortfolio(products, props.portfolio.name)
-      .then(() => dispatch({ type: 'removeSucessfull' }))
-      .catch(() => dispatch({ type: 'setRemoveInProgress', payload: false }));
+    stateDispatch({ type: 'setRemoveInProgress', payload: true });
+    dispatch(removeProductsFromPortfolio(products, portfolio.name))
+      .then(() => stateDispatch({ type: 'removeSucessfull' }))
+      .catch(() =>
+        stateDispatch({ type: 'setRemoveInProgress', payload: false })
+      );
   };
 
   const handleItemSelect = (selectedItem) =>
-    dispatch({ type: 'selectItem', payload: selectedItem });
+    stateDispatch({ type: 'selectItem', payload: selectedItem });
 
-  const handleFilterChange = (filterValue) =>
-    dispatch({ type: 'setFilterValue', payload: filterValue });
+  const handleFilterChange = (filter) => {
+    stateDispatch({ type: 'setFilterValue', payload: filter });
+    debouncedFilter(
+      portfolio.id,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
+      {
+        ...meta,
+        offset: 0,
+        filter
+      }
+    );
+  };
 
   const routes = {
-    portfolioRoute: props.match.url,
-    addProductsRoute: `${props.match.url}/add-products`,
-    editPortfolioRoute: `${props.match.url}/edit-portfolio`,
-    removePortfolioRoute: `${props.match.url}/remove-portfolio`,
-    sharePortfolioRoute: `${props.match.url}/share-portfolio`,
-    workflowPortfolioRoute: `${props.match.url}/edit-workflow`,
-    orderUrl: `${props.match.url}/product`
+    portfolioRoute: match.url,
+    addProductsRoute: `${match.url}/add-products`,
+    editPortfolioRoute: `${match.url}/edit-portfolio`,
+    removePortfolioRoute: `${match.url}/remove-portfolio`,
+    sharePortfolioRoute: `${match.url}/share-portfolio`,
+    workflowPortfolioRoute: `${match.url}/edit-workflow`,
+    orderUrl: `${match.url}/product`
   };
 
-  const title = props.portfolio ? props.portfolio.name : '';
+  const title = portfolio ? portfolio.name : '';
 
-  const galleryItems = {
-    items: props.portfolioItems
-      .filter((item) => filterServiceOffering(item, filterValue))
-      .map((item) => (
-        <PortfolioItem
-          key={item.id}
-          {...item}
-          to={{
-            pathname: `${routes.orderUrl}/${item.id}`,
-            search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
-          }}
-          isSelectable
-          onSelect={handleItemSelect}
-          isSelected={selectedItems.includes(item.id)}
-          removeInProgress={removeInProgress}
-        />
-      )),
-    isLoading: isFetching
-  };
+  const items = data.map((item) => (
+    <PortfolioItem
+      key={item.id}
+      {...item}
+      to={{
+        pathname: `${routes.orderUrl}/${item.id}`,
+        search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
+      }}
+      isSelectable
+      onSelect={handleItemSelect}
+      isSelected={selectedItems.includes(item.id)}
+      removeInProgress={removeInProgress}
+    />
+  ));
+
   return (
     <Switch>
       <Route
         path={routes.addProductsRoute}
         render={() => (
           <AddProductsToPortfolio
-            portfolio={props.portfolio}
+            portfolio={portfolio}
             portfolioRoute={routes.portfolioRoute}
           />
         )}
@@ -149,19 +185,19 @@ const Portfolio = (props) => {
             {...routes}
             {...args}
             selectedItems={selectedItems}
-            filteredItems={galleryItems}
+            filteredItems={items}
             title={title}
             filterValue={filterValue}
             handleFilterChange={handleFilterChange}
-            isLoading={isFetching}
+            isLoading={isFetching || isFiltering}
             copyInProgress={copyInProgress}
             removeProducts={removeProducts}
-            copyPortfolio={copyPortfolio}
-            fetchPortfolioItemsWithPortfolio={
-              props.fetchPortfolioItemsWithPortfolio
+            copyPortfolio={handleCopyPortfolio}
+            fetchPortfolioItemsWithPortfolio={(...args) =>
+              dispatch(fetchPortfolioItemsWithPortfolio(args))
             }
-            portfolio={props.portfolio}
-            pagination={props.pagination}
+            portfolio={portfolio}
+            pagination={meta}
           />
         )}
       />
@@ -169,54 +205,4 @@ const Portfolio = (props) => {
   );
 };
 
-const mapStateToProps = ({
-  portfolioReducer: { selectedPortfolio, portfolioItems, isLoading }
-}) => ({
-  portfolio: selectedPortfolio,
-  portfolioItems: portfolioItems.data,
-  pagination: portfolioItems.meta,
-  isLoading
-});
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      fetchPortfolioItemsWithPortfolio,
-      fetchSelectedPortfolio,
-      removeProductsFromPortfolio,
-      fetchPortfolios,
-      fetchPlatforms,
-      copyPortfolio,
-      resetSelectedPortfolio
-    },
-    dispatch
-  );
-
-Portfolio.propTypes = {
-  fetchPortfolioItemsWithPortfolio: PropTypes.func,
-  fetchSelectedPortfolio: PropTypes.func,
-  match: PropTypes.object,
-  fetchPortfolios: PropTypes.func.isRequired,
-  fetchPlatforms: PropTypes.func,
-  portfolio: PropTypes.shape({
-    name: PropTypes.string,
-    id: PropTypes.string
-  }),
-  location: PropTypes.object,
-  history: PropTypes.object,
-  portfolioItems: PropTypes.array,
-  removeProductsFromPortfolio: PropTypes.func.isRequired,
-  copyPortfolio: PropTypes.func.isRequired,
-  pagination: PropTypes.object,
-  isLoading: PropTypes.bool,
-  resetSelectedPortfolio: PropTypes.func.isRequired
-};
-
-Portfolio.defaultProps = {
-  portfolioItems: [],
-  portfolio: {}
-};
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Portfolio)
-);
+export default Portfolio;
