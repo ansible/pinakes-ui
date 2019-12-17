@@ -34,7 +34,11 @@ describe('<Portfolio />', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
-  const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
+  const ComponentWrapper = ({
+    store,
+    initialEntries = ['/portfolios/detail/123'],
+    children
+  }) => (
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
     </Provider>
@@ -76,7 +80,12 @@ describe('<Portfolio />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<Portfolio {...initialProps} />);
+    const store = mockStore(initialState);
+    const wrapper = shallow(
+      <ComponentWrapper store={store}>
+        <Portfolio {...initialProps} />
+      </ComponentWrapper>
+    ).find(Portfolio);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -110,12 +119,7 @@ describe('<Portfolio />', () => {
 
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`
-      )
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`
+        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [] });
 
@@ -463,7 +467,7 @@ describe('<Portfolio />', () => {
 
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`
+        `${CATALOG_API_BASE}/portfolios/321/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [], meta: {} });
     mockApi
@@ -481,7 +485,7 @@ describe('<Portfolio />', () => {
       .replyOnce(200, { restore_key: restoreKey });
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/portfolios/321/portfolio_items?limit=50&offset=0`
+        `${CATALOG_API_BASE}/portfolios/321/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [], meta: {} });
     mockApi

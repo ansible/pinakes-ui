@@ -137,7 +137,9 @@ describe('Portfolio actions', () => {
     const store = mockStore({});
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/123/portfolio_items`)
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios/888/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
+      )
       .replyOnce(200, { data: ['foo'] });
 
     const expectedActions = [
@@ -150,7 +152,7 @@ describe('Portfolio actions', () => {
       }
     ];
 
-    return store.dispatch(fetchPortfolioItemsWithPortfolio(123)).then(() => {
+    return store.dispatch(fetchPortfolioItemsWithPortfolio('888')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -346,17 +348,17 @@ describe('Portfolio actions', () => {
     ];
 
     mockApi
-      .onDelete(CATALOG_API_BASE + '/portfolio_items/1')
+      .onDelete(`${CATALOG_API_BASE}/portfolio_items/1`)
       .replyOnce(200, { restore_key: 'restore-1' });
     mockApi
-      .onDelete(CATALOG_API_BASE + '/portfolio_items/2')
+      .onDelete(`${CATALOG_API_BASE}/portfolio_items/2`)
       .replyOnce(200, { restore_key: 'restore-2' });
     mockApi
-      .onDelete(CATALOG_API_BASE + '/portfolio_items/3')
+      .onDelete(`${CATALOG_API_BASE}/portfolio_items/3`)
       .replyOnce(200, { restore_key: 'restore-3' });
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=0&offset=0`
+        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?filter[name][contains_i]=&limit=0&offset=0`
       )
       .replyOnce(200, []);
 
@@ -387,7 +389,7 @@ describe('Portfolio actions', () => {
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
-  it('should create correct actions after restore portfolio items action succes', () => {
+  it('should create correct actions after restore portfolio items action success', () => {
     const store = mockStore({});
     const restoreData = [
       { portfolioItemId: '1', restoreKey: 'restore-1' },
@@ -418,11 +420,13 @@ describe('Portfolio actions', () => {
       .onPost(CATALOG_API_BASE + '/portfolio_items/2/undelete')
       .replyOnce(200, { id: '2' });
     mockApi
-      .onGet(CATALOG_API_BASE + '/portfolios/123/portfolio_items')
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios/999/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
+      )
       .replyOnce(200, { data: [] });
 
     return store
-      .dispatch(undoRemoveProductsFromPortfolio(restoreData, '123'))
+      .dispatch(undoRemoveProductsFromPortfolio(restoreData, '999'))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
