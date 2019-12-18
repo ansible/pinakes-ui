@@ -86,7 +86,7 @@ const SharePortfolioModal = ({
             sharePromises.push(
               unsharePortfolio({
                 id: portfolioId,
-                permissions: ['catalog:portfolios:update'],
+                permissions: ['update'],
                 group_uuid: share.group_uuid
               })
             );
