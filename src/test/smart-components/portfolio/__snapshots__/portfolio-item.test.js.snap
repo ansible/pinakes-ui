@@ -114,12 +114,6 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
               id="1"
               name="Foo"
               orderUrl="/order"
-              to={
-                Object {
-                  "pathname": "/order",
-                  "search": "portfolio=undefined&source=undefined",
-                }
-              }
             >
               <CardBody
                 style={
@@ -140,46 +134,20 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                     <div
                       className="pf-c-content"
                     >
-                      <ConditionalLink
-                        to={
-                          Object {
-                            "pathname": "/order",
-                            "search": "portfolio=undefined&source=undefined",
-                          }
-                        }
-                      >
-                        <Link
-                          to={
-                            Object {
-                              "pathname": "/order",
-                              "search": "portfolio=undefined&source=undefined",
-                            }
-                          }
+                      <ConditionalLink>
+                        <Text
+                          className="elipsis-text-overflow"
+                          component="h3"
+                          title="quux"
                         >
-                          <LinkAnchor
-                            href="/order?portfolio=undefined&source=undefined"
-                            navigate={[Function]}
+                          <h3
+                            className="elipsis-text-overflow"
+                            data-pf-content={true}
+                            title="quux"
                           >
-                            <a
-                              href="/order?portfolio=undefined&source=undefined"
-                              onClick={[Function]}
-                            >
-                              <Text
-                                className="elipsis-text-overflow"
-                                component="h3"
-                                title="quux"
-                              >
-                                <h3
-                                  className="elipsis-text-overflow"
-                                  data-pf-content={true}
-                                  title="quux"
-                                >
-                                  quux
-                                </h3>
-                              </Text>
-                            </a>
-                          </LinkAnchor>
-                        </Link>
+                            quux
+                          </h3>
+                        </Text>
                       </ConditionalLink>
                       <Text
                         component="small"

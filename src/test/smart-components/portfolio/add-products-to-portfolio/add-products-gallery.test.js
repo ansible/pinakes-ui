@@ -11,7 +11,7 @@ describe('<AddProductsGallery />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<AddProductsGallery { ...initialProps } />);
+    const wrapper = shallow(<AddProductsGallery {...initialProps} />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 });

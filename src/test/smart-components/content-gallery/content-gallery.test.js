@@ -14,17 +14,17 @@ describe('<ContentGallery />', () => {
       items: []
     };
 
-    const wrapper = mount(<ContentGallery { ...props } />);
+    const wrapper = mount(<ContentGallery {...props} />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it('should render all items', () => {
     const props = {
       isLoading: false,
-      items: [ 1, 2, 3 ].map(item => <div key={ item }>{ item }</div>)
+      items: [1, 2, 3].map((item) => <div key={item}>{item}</div>)
     };
 
-    const wrapper = mount(<ContentGallery { ...props } />);
+    const wrapper = mount(<ContentGallery {...props} />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

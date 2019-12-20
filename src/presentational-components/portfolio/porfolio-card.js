@@ -21,63 +21,84 @@ import PortfolioCardHeader from './portfolio-card-header';
 import './portfolio-card.scss';
 import { createModifiedLabel } from '../../helpers/shared/helpers';
 
-const TO_DISPLAY = [ 'description' ];
+const TO_DISPLAY = ['description'];
 
 const createToolbarActions = (portfolioId, isOpen, setOpen) => [
   <Dropdown
     key="portfolio-dropdown"
-    isOpen={ isOpen }
+    isOpen={isOpen}
     isPlain
-    onSelect={ () => setOpen(false) }
-    position={ DropdownPosition.right }
-    toggle={ <KebabToggle onToggle={ isOpen => setOpen(isOpen) }/> }
-    dropdownItems={ [
-      <DropdownItem key="share-portfolio-action" component={ <Link to={ `/portfolios/share/${portfolioId}` } >Share</Link> } />,
+    onSelect={() => setOpen(false)}
+    position={DropdownPosition.right}
+    toggle={<KebabToggle onToggle={(isOpen) => setOpen(isOpen)} />}
+    dropdownItems={[
+      <DropdownItem
+        key="share-portfolio-action"
+        component={<Link to={`/portfolios/share/${portfolioId}`}>Share</Link>}
+      />,
       <DropdownItem
         key="workflow-portfolio-action"
-        component={ <Link to={ `/portfolios/edit-workflow/${portfolioId}` }>Set approval</Link> }
+        component={
+          <Link to={`/portfolios/edit-workflow/${portfolioId}`}>
+            Set approval
+          </Link>
+        }
       />,
-      <DropdownItem key="edit-portfolio-action" component={ <Link to={ `/portfolios/edit/${portfolioId}` }>Edit</Link> }/>,
+      <DropdownItem
+        key="edit-portfolio-action"
+        component={<Link to={`/portfolios/edit/${portfolioId}`}>Edit</Link>}
+      />,
       <DropdownItem
         key="remove-portfolio-action"
         className="pf-c-dropdown__menu-item destructive-color"
-        component={ <Link to={ `/portfolios/remove/${portfolioId}` }>Delete</Link> }
+        component={<Link to={`/portfolios/remove/${portfolioId}`}>Delete</Link>}
       />
-    ] }/>
+    ]}
+  />
 ];
 
 const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
-  const [ isOpen, setOpen ] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const route = `/portfolios/detail/${id}`;
   return (
     <GalleryItem>
-      <div className={ isDisabled ? 'portfolio-item-progress' : '' }>
-        { isDisabled && (
+      <div className={isDisabled ? 'portfolio-item-progress' : ''}>
+        {isDisabled && (
           <Card className="content-gallery-card progress-overlay" />
-        ) }
+        )}
         <Card className="content-gallery-card">
           <CardHeader>
             <PortfolioCardHeader
-              route={ route }
-              portfolioName={ name }
-              headerActions={ createToolbarActions(id, isOpen, setOpen) }
+              route={route}
+              portfolioName={name}
+              headerActions={createToolbarActions(id, isOpen, setOpen)}
             />
           </CardHeader>
           <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
-            <Link className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg" to={ route }>
+            <Link
+              className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
+              to={route}
+            >
               <TextContent>
-                <Text component={ TextVariants.small }>
-                  { createModifiedLabel(new Date(props.updated_at || props.created_at), props.owner) }
+                <Text component={TextVariants.small}>
+                  {createModifiedLabel(
+                    new Date(props.updated_at || props.created_at),
+                    props.owner
+                  )}
                 </Text>
               </TextContent>
-              <ItemDetails { ...{ name, imageUrl, ...props } } toDisplay={ TO_DISPLAY } />
+              <ItemDetails
+                {...{ name, imageUrl, ...props }}
+                toDisplay={TO_DISPLAY}
+              />
             </Link>
           </CardBody>
-          <CardFooter/>
+          <CardFooter />
         </Card>
       </div>
     </GalleryItem>
-  );};
+  );
+};
 
 PortfolioCard.propTypes = {
   history: PropTypes.object,

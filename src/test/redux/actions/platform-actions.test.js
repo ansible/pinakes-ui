@@ -1,7 +1,10 @@
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/';
+import {
+  notificationsMiddleware,
+  ADD_NOTIFICATION
+} from '@redhat-cloud-services/frontend-components-notifications/';
 import {
   FETCH_PLATFORM,
   FETCH_PLATFORMS,
@@ -14,11 +17,14 @@ import {
   fetchMultiplePlatformItems,
   fetchSelectedPlatform
 } from '../../../redux/actions/platform-actions';
-import { SOURCES_API_BASE, TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
+import {
+  SOURCES_API_BASE,
+  TOPOLOGICAL_INVENTORY_API_BASE
+} from '../../../utilities/constants';
 import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 
 describe('Platform actions', () => {
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
   beforeEach(() => {
@@ -33,20 +39,28 @@ describe('Platform actions', () => {
     });
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {
-        application_types: [{
-          sources: [{
-            id: '1',
-            name: 'Source 1'
-          }]
-        }]
-      }});
+        application_types: [
+          {
+            sources: [
+              {
+                id: '1',
+                name: 'Source 1'
+              }
+            ]
+          }
+        ]
+      }
+    });
 
-    const expectedActions = [{
-      type: `${FETCH_PLATFORMS}_PENDING`
-    }, {
-      type: `${FETCH_PLATFORMS}_FULFILLED`,
-      payload: [ expect.objectContaining({ id: '1', name: 'Source 1' }) ]
-    }];
+    const expectedActions = [
+      {
+        type: `${FETCH_PLATFORMS}_PENDING`
+      },
+      {
+        type: `${FETCH_PLATFORMS}_FULFILLED`,
+        payload: [expect.objectContaining({ id: '1', name: 'Source 1' })]
+      }
+    ];
 
     return store.dispatch(fetchPlatforms()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
@@ -64,9 +78,14 @@ describe('Platform actions', () => {
     });
 
     const expectedActions = [
-      { type: `${FETCH_PLATFORMS}_PENDING` }, {
+      { type: `${FETCH_PLATFORMS}_PENDING` },
+      {
         type: `${ADD_NOTIFICATION}`,
-        payload: expect.objectContaining({ variant: 'danger', message: 'Some error title', data: 'error' })
+        payload: expect.objectContaining({
+          variant: 'danger',
+          message: 'Some error title',
+          data: 'error'
+        })
       },
       expect.objectContaining({ type: `${FETCH_PLATFORMS}_REJECTED` })
     ];
@@ -83,17 +102,23 @@ describe('Platform actions', () => {
       }
     });
 
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`)
-    .replyOnce(200, { data: [{ id: '1', name: 'Offering 1' }]});
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(200, { data: [{ id: '1', name: 'Offering 1' }] });
 
-    const expectedActions = [{
-      type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
-      meta: { platformId: '1' }
-    }, {
-      meta: { platformId: '1' },
-      type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
-      payload: { data: [{ id: '1', name: 'Offering 1' }]}
-    }];
+    const expectedActions = [
+      {
+        type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
+        meta: { platformId: '1' }
+      },
+      {
+        meta: { platformId: '1' },
+        type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
+        payload: { data: [{ id: '1', name: 'Offering 1' }] }
+      }
+    ];
 
     return store.dispatch(fetchPlatformItems('1')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
@@ -107,13 +132,18 @@ describe('Platform actions', () => {
       }
     });
 
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`).replyOnce(500);
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`
+      )
+      .replyOnce(500);
 
     const expectedActions = [
       {
         type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
         meta: { platformId: '1' }
-      }, {
+      },
+      {
         type: `${ADD_NOTIFICATION}`,
         payload: expect.objectContaining({ variant: 'danger' })
       },
@@ -131,33 +161,62 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`).replyOnce(200, { data: [{
-      id: '1',
-      name: 'Offering 1'
-    }]});
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`).replyOnce(200, { data: [{
-      id: '2',
-      name: 'Offering 2'
-    }]});
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`).replyOnce(200, { data: [{
-      id: '3',
-      name: 'Offering 3'
-    }]});
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: '1',
+            name: 'Offering 1'
+          }
+        ]
+      });
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: '2',
+            name: 'Offering 2'
+          }
+        ]
+      });
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: '3',
+            name: 'Offering 3'
+          }
+        ]
+      });
 
-    const expectedActions = [{
-      type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_PENDING`
-    }, {
-      type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`,
-      payload: {
-        1: { data: [{ id: '1', name: 'Offering 1' }]},
-        2: { data: [{ id: '2', name: 'Offering 2' }]},
-        3: { data: [{ id: '3', name: 'Offering 3' }]}
+    const expectedActions = [
+      {
+        type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_PENDING`
+      },
+      {
+        type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_FULFILLED`,
+        payload: {
+          1: { data: [{ id: '1', name: 'Offering 1' }] },
+          2: { data: [{ id: '2', name: 'Offering 2' }] },
+          3: { data: [{ id: '3', name: 'Offering 3' }] }
+        }
       }
-    }];
+    ];
 
-    return store.dispatch(fetchMultiplePlatformItems([ '1', '2', '3' ])).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(fetchMultiplePlatformItems(['1', '2', '3']))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('should dispatch correct actions after fetching multiple platforms items fails', () => {
@@ -166,27 +225,53 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`).replyOnce(200, { data: [{
-      id: '1',
-      name: 'Offering 1'
-    }]});
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`).replyOnce(200, { data: [{
-      id: '2',
-      name: 'Offering 2'
-    }]});
-    mockApi.onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`).replyOnce(500);
-    const expectedActions = [{
-      type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_PENDING`
-    }, {
-      type: `${ADD_NOTIFICATION}`,
-      payload: expect.objectContaining({ variant: 'danger' })
-    },
-    expect.objectContaining({ type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_REJECTED` })
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: '1',
+            name: 'Offering 1'
+          }
+        ]
+      });
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: '2',
+            name: 'Offering 2'
+          }
+        ]
+      });
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
+      )
+      .replyOnce(500);
+    const expectedActions = [
+      {
+        type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_PENDING`
+      },
+      {
+        type: `${ADD_NOTIFICATION}`,
+        payload: expect.objectContaining({ variant: 'danger' })
+      },
+      expect.objectContaining({
+        type: `${FETCH_MULTIPLE_PLATFORM_ITEMS}_REJECTED`
+      })
     ];
 
-    return store.dispatch(fetchMultiplePlatformItems([ '1', '2', '3' ])).catch(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(fetchMultiplePlatformItems(['1', '2', '3']))
+      .catch(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('should dispatch correct actions after fetching selected platform', () => {
@@ -200,12 +285,15 @@ describe('Platform actions', () => {
       name: 'Source 1'
     });
 
-    const expectedActions = [{
-      type: `${FETCH_PLATFORM}_PENDING`
-    }, {
-      type: `${FETCH_PLATFORM}_FULFILLED`,
-      payload: expect.objectContaining({ id: '1', name: 'Source 1' })
-    }];
+    const expectedActions = [
+      {
+        type: `${FETCH_PLATFORM}_PENDING`
+      },
+      {
+        type: `${FETCH_PLATFORM}_FULFILLED`,
+        payload: expect.objectContaining({ id: '1', name: 'Source 1' })
+      }
+    ];
 
     return store.dispatch(fetchSelectedPlatform('1')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
@@ -220,13 +308,15 @@ describe('Platform actions', () => {
     });
     mockApi.onGet(`${SOURCES_API_BASE}/sources/1`).replyOnce(500);
 
-    const expectedActions = [{
-      type: `${FETCH_PLATFORM}_PENDING`
-    }, {
-      type: `${ADD_NOTIFICATION}`,
-      payload: expect.objectContaining({ variant: 'danger' })
-    },
-    expect.objectContaining({ type: `${FETCH_PLATFORM}_REJECTED` })
+    const expectedActions = [
+      {
+        type: `${FETCH_PLATFORM}_PENDING`
+      },
+      {
+        type: `${ADD_NOTIFICATION}`,
+        payload: expect.objectContaining({ variant: 'danger' })
+      },
+      expect.objectContaining({ type: `${FETCH_PLATFORM}_REJECTED` })
     ];
 
     return store.dispatch(fetchSelectedPlatform('1')).catch(() => {

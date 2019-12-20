@@ -5,14 +5,18 @@ export const TOPOLOGICAL_INVENTORY_API_BASE = `${process.env.BASE_PATH}/topologi
 export const RBAC_API_BASE = `${process.env.BASE_PATH}/rbac/v1`;
 export const APP_NAME = 'catalog';
 
-export const permissionValues = [ 'catalog:portfolios:order', 'catalog:portfolios:read', 'catalog:portfolios:update' ];
+export const permissionValues = ['order', 'read', 'update'];
 
-export const permissionOptions = [{
-  value: 'catalog:portfolios:order,catalog:portfolios:read,catalog:portfolios:update',
-  label: 'Can order/edit'
-}, {
-  value: 'catalog:portfolios:order,catalog:portfolios:read', label: 'Can order/view'
-}];
+export const permissionOptions = [
+  {
+    value: 'order,read,update',
+    label: 'Can order/edit'
+  },
+  {
+    value: 'order,read',
+    label: 'Can order/view'
+  }
+];
 
 export const PORTFOLIO_RESOURCE_TYPE = 'Portfolio';
 export const PORTFOLIO_ITEM_RESOURCE_TYPE = 'PortfolioItem';

@@ -4,7 +4,11 @@ import { Route, useParams } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import { defaultSettings, getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
+import {
+  defaultSettings,
+  getCurrentPage,
+  getNewPage
+} from '../../helpers/shared/pagination';
 import {
   fetchPlatformItems,
   fetchSelectedPlatform
@@ -18,6 +22,7 @@ import ContentGalleryEmptyState from '../../presentational-components/shared/con
 import asyncFormValidator from '../../utilities/async-form-validator';
 import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentGallery from '../content-gallery/content-gallery';
+import { Button } from '@patternfly/react-core';
 
 const initialState = {
   filterValue: '',
@@ -41,34 +46,60 @@ const platformItemsState = (state, action) => {
 
 const PlatformTemplates = () => {
   const { id } = useParams();
-  const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(platformItemsState, initialState);
-  const { data, meta } = useSelector(({ platformReducer: { platformItems }}) => platformItems[id] ? platformItems[id]
-    : { data: [], meta: defaultSettings });
-  const platform = useSelector(({ platformReducer: { selectedPlatform }}) => selectedPlatform);
+  const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
+    platformItemsState,
+    initialState
+  );
+  const { data, meta } = useSelector(({ platformReducer: { platformItems } }) =>
+    platformItems[id] ? platformItems[id] : { data: [], meta: defaultSettings }
+  );
+  const platform = useSelector(
+    ({ platformReducer: { selectedPlatform } }) => selectedPlatform
+  );
   const dispatch = useDispatch();
-  const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
-    filteringCallback(true);
-    dispatch(fetchPlatformItems(id, value, meta)).then(() => filteringCallback(false));
-  }, 1000);
+  const debouncedFilter = asyncFormValidator(
+    (value, dispatch, filteringCallback, meta = defaultSettings) => {
+      filteringCallback(true);
+      dispatch(fetchPlatformItems(id, value, meta)).then(() =>
+        filteringCallback(false)
+      );
+    },
+    1000
+  );
 
   const tabItems = [
-    { eventKey: 0, title: 'Templates', name: `/platforms/detail/${id}/platform-templates` },
-    { eventKey: 1, title: 'Inventories', name: `/platforms/detail/${id}/platform-inventories` }
+    {
+      eventKey: 0,
+      title: 'Templates',
+      name: `/platforms/detail/${id}/platform-templates`
+    },
+    {
+      eventKey: 1,
+      title: 'Inventories',
+      name: `/platforms/detail/${id}/platform-inventories`
+    }
   ];
 
   useEffect(() => {
     dispatch(fetchSelectedPlatform(id));
-    dispatch(fetchPlatformItems(id, filterValue, defaultSettings))
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    dispatch(fetchPlatformItems(id, filterValue, defaultSettings)).then(() =>
+      stateDispatch({ type: 'setFetching', payload: false })
+    );
     scrollToTop();
-  }, [ id ]);
+  }, [id]);
 
-  const handleFilterChange = value => {
+  const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }), {
-      ...meta,
-      offset: 0
-    });
+    debouncedFilter(
+      value,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
+      {
+        ...meta,
+        offset: 0
+      }
+    );
   };
 
   const handleOnPerPageSelect = (limit, debounce) => {
@@ -76,7 +107,8 @@ const PlatformTemplates = () => {
       offset: meta.offset,
       limit
     };
-    const request = () => dispatch(fetchPlatformItems(id, filterValue, options));
+    const request = () =>
+      dispatch(fetchPlatformItems(id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
     }
@@ -89,7 +121,8 @@ const PlatformTemplates = () => {
       offset: getNewPage(number, meta.limit),
       limit: meta.limit
     };
-    const request = () => dispatch(fetchPlatformItems(id, filterValue, options));
+    const request = () =>
+      dispatch(fetchPlatformItems(id, filterValue, options));
     if (debounce) {
       return debouncePromise(request, 250)();
     }
@@ -100,43 +133,71 @@ const PlatformTemplates = () => {
   const renderItems = () => {
     const paginationCurrent = meta || defaultSettings;
     const filteredItems = {
-      items: data ? data.map(item => <PlatformItem key={ item.id } { ...item } />) : []};
+      items: data
+        ? data.map((item) => <PlatformItem key={item.id} {...item} />)
+        : []
+    };
 
     const title = platform ? platform.name : '';
     return (
       <Fragment>
-        <ToolbarRenderer schema={ createPlatformsTopToolbarSchema({
-          title,
-          paddingBottom: false,
-          tabItems
-        }) }/>
-        <ToolbarRenderer schema={ createPlatformsFilterToolbarSchema({
-          onFilterChange: handleFilterChange,
-          searchValue: filterValue,
-          pagination: {
-            itemsPerPage: paginationCurrent.limit,
-            numberOfItems: paginationCurrent.count,
-            onPerPageSelect: handleOnPerPageSelect,
-            page: getCurrentPage(paginationCurrent.limit, paginationCurrent.offset),
-            onSetPage: handleSetPage,
-            direction: 'down'
-          }
-        }) }/>
-        <ContentGallery title={ title }
-          isLoading={ isFetching || isFiltering }
-          renderEmptyState={ () => (
+        <ToolbarRenderer
+          schema={createPlatformsTopToolbarSchema({
+            title,
+            paddingBottom: false,
+            tabItems
+          })}
+        />
+        <ToolbarRenderer
+          schema={createPlatformsFilterToolbarSchema({
+            onFilterChange: handleFilterChange,
+            searchValue: filterValue,
+            pagination: {
+              itemsPerPage: paginationCurrent.limit,
+              numberOfItems: paginationCurrent.count,
+              onPerPageSelect: handleOnPerPageSelect,
+              page: getCurrentPage(
+                paginationCurrent.limit,
+                paginationCurrent.offset
+              ),
+              onSetPage: handleSetPage,
+              direction: 'down'
+            }
+          })}
+        />
+        <ContentGallery
+          title={title}
+          isLoading={isFetching || isFiltering}
+          renderEmptyState={() => (
             <ContentGalleryEmptyState
-              title="No items"
-              Icon={ SearchIcon }
-              description={ filterValue === '' ? 'No items found.' : 'No items match your filter criteria.' }
-            />) }
-          { ...filteredItems }/>
+              title={filterValue === '' ? 'No templates' : 'No results found'}
+              Icon={SearchIcon}
+              PrimaryAction={() =>
+                filterValue !== '' ? (
+                  <Button onClick={() => handleFilterChange('')} variant="link">
+                    Clear all filters
+                  </Button>
+                ) : null
+              }
+              description={
+                filterValue === ''
+                  ? 'This platform has no templates.'
+                  : 'No results match the filter critera. Remove all filters or clear all filters to show results.'
+              }
+            />
+          )}
+          {...filteredItems}
+        />
       </Fragment>
-    );};
+    );
+  };
 
   return (
-    <Route path={ '/platforms/detail/:id/platform-templates' }
-      render={ renderItems } />);
+    <Route
+      path={'/platforms/detail/:id/platform-templates'}
+      render={renderItems}
+    />
+  );
 };
 
 export default PlatformTemplates;

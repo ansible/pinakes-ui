@@ -6,30 +6,30 @@ import { useDispatch } from 'react-redux';
 import { cancelOrder } from '../../../redux/actions/order-actions';
 import CancelOrderModal from '../cancel-order-modal';
 
-const CANCELABLE_STATES = [ 'Approval Pending' ];
+const CANCELABLE_STATES = ['Approval Pending'];
 
-const canCancel = state => CANCELABLE_STATES.includes(state);
+const canCancel = (state) => CANCELABLE_STATES.includes(state);
 
 const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
   const dispatch = useDispatch();
-  const [ cancelModalOpen, setCancelModalOpen ] = useState(false);
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
   return (
     <Fragment>
       <CancelOrderModal
-        onClose={ () => setCancelModalOpen(false) }
-        isOpen={ cancelModalOpen }
-        cancelOrder={ () => dispatch(cancelOrder(orderId)) }
-        name={ portfolioItemName }
+        onClose={() => setCancelModalOpen(false)}
+        isOpen={cancelModalOpen}
+        cancelOrder={() => dispatch(cancelOrder(orderId))}
+        name={portfolioItemName}
       />
       <ActionGroup>
         <Button
-          onClick={ () => setCancelModalOpen(true) }
-          isDisabled={ !canCancel(state) }
+          onClick={() => setCancelModalOpen(true)}
+          isDisabled={!canCancel(state)}
           type="button"
           className="pf-u-mr-md"
           id="cancel-order-action"
         >
-            Cancel order
+          Cancel order
         </Button>
         <Button isDisabled type="button">
           Reorder

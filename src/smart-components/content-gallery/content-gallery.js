@@ -7,24 +7,26 @@ import { CardLoader } from '../../presentational-components/shared/loader-placeh
 
 const NoItems = () => (
   <div>
-    <Text component={ TextVariants.h1 }>No items found</Text>
+    <Text component={TextVariants.h1}>No items found</Text>
   </div>
 );
 
 const ContentGallery = ({ isLoading, items, renderEmptyState }) =>
-  isLoading ?
-    <CardLoader /> :
-    items.length === 0
-      ? renderEmptyState
-        ? renderEmptyState()
-        : <NoItems />
-      : (
-        <Section type="content">
-          <Gallery gutter="md" className="content-gallery">
-            { items }
-          </Gallery>
-        </Section>
-      );
+  isLoading ? (
+    <CardLoader />
+  ) : items.length === 0 ? (
+    renderEmptyState ? (
+      renderEmptyState()
+    ) : (
+      <NoItems />
+    )
+  ) : (
+    <Section type="content">
+      <Gallery gutter="md" className="content-gallery">
+        {items}
+      </Gallery>
+    </Section>
+  );
 
 ContentGallery.propTypes = {
   isLoading: PropTypes.bool,

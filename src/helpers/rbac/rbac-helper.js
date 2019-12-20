@@ -8,7 +8,12 @@ export async function getRbacGroups() {
 }
 
 export const fetchFilterGroups = (filterValue = '') =>
-  getAxiosInstance().get(`${RBAC_API_BASE}/groups/${filterValue.length > 0
-    ? `?name=${filterValue}`
-    : ''}`)
-  .then(({ data }) => data.map(({ uuid, name }) => ({ label: name, value: uuid })));
+  getAxiosInstance()
+    .get(
+      `${RBAC_API_BASE}/groups/${
+        filterValue.length > 0 ? `?name=${filterValue}` : ''
+      }`
+    )
+    .then(({ data }) =>
+      data.map(({ uuid, name }) => ({ label: name, value: uuid }))
+    );

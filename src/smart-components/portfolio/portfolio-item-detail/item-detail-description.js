@@ -9,35 +9,63 @@ import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
 const ItemDetailDescription = ({ product, url }) => (
   <Switch>
-    <Route exact path={ `${url}` } render={ () => (
-      <TextContent>
-        { (product.description || product.long_description) && (
-          <Text component={ TextVariants.h6 }>Overview</Text>
-        ) }
-        { product.description && (
-          <Text id="description" component={ TextVariants.p }>{ product.description }</Text>
-        ) }
-        { product.long_description && (
-          <Text id="long_description" component={ TextVariants.p }>{ product.long_description }</Text>
-        ) }
-        { product.support_url && (
-          <Text id="support_url" component={ TextVariants.p }>
-            <a href={ product.support_url } target="_blank" rel="noopener noreferrer">Learn more</a>
-          </Text>
-        ) }
-        { product.documentation_url && (
-          <Fragment>
-            <Text component={ TextVariants.h6 }>Documentation</Text>
-            <Text id="documentation_url" component={ TextVariants.p }>
-              <a href={ product.documentation_url } target="_blank" rel="noopener noreferrer">Doc link</a>
+    <Route
+      exact
+      path={`${url}`}
+      render={() => (
+        <TextContent>
+          {(product.description || product.long_description) && (
+            <Text component={TextVariants.h6}>Overview</Text>
+          )}
+          {product.description && (
+            <Text id="description" component={TextVariants.p}>
+              {product.description}
             </Text>
-          </Fragment>
-        ) }
-      </TextContent>
-    ) }/>
-    <Route exact path={ `${url}/edit` } render={ () => <EditPortfolioItem cancelUrl={ url } product={ product } /> } />
-    <Route exact path={ `${url}/edit-workflow` }>
-      <EditApprovalWorkflow closeUrl={ url } objectType={ PORTFOLIO_ITEM_RESOURCE_TYPE } objectId = { product.id } />
+          )}
+          {product.long_description && (
+            <Text id="long_description" component={TextVariants.p}>
+              {product.long_description}
+            </Text>
+          )}
+          {product.support_url && (
+            <Text id="support_url" component={TextVariants.p}>
+              <a
+                href={product.support_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn more
+              </a>
+            </Text>
+          )}
+          {product.documentation_url && (
+            <Fragment>
+              <Text component={TextVariants.h6}>Documentation</Text>
+              <Text id="documentation_url" component={TextVariants.p}>
+                <a
+                  href={product.documentation_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Doc link
+                </a>
+              </Text>
+            </Fragment>
+          )}
+        </TextContent>
+      )}
+    />
+    <Route
+      exact
+      path={`${url}/edit`}
+      render={() => <EditPortfolioItem cancelUrl={url} product={product} />}
+    />
+    <Route exact path={`${url}/edit-workflow`}>
+      <EditApprovalWorkflow
+        closeUrl={url}
+        objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
+        objectId={product.id}
+      />
     </Route>
   </Switch>
 );

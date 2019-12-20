@@ -20,7 +20,8 @@ export const linkWorkflow = (id, resourceObject) => ({
         description: 'The workflow was linked successfully.'
       }
     }
-  }});
+  }
+});
 
 export const unlinkWorkflow = (id, name, resourceObject) => ({
   type: ASYNC_ACTIONS.UNLINK_WORKFLOW,
@@ -33,9 +34,14 @@ export const unlinkWorkflow = (id, name, resourceObject) => ({
         description: `The workflow ${name} was unlinked successfully.`
       }
     }
-  }});
+  }
+});
 
-export const listWorkflowsForObject = (resourceObject, meta = { limit: defaultSettings.limit, offset: defaultSettings.offset }, filter = '') => ({
+export const listWorkflowsForObject = (
+  resourceObject,
+  meta = { limit: defaultSettings.limit, offset: defaultSettings.offset },
+  filter = ''
+) => ({
   type: ASYNC_ACTIONS.RESOLVE_WORKFLOWS,
   payload: ApprovalHelper.listWorkflowsForObject(resourceObject, meta, filter)
 });

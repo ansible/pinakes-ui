@@ -1,7 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { Level, LevelItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import {
+  Level,
+  LevelItem,
+  Text,
+  TextContent,
+  TextVariants
+} from '@patternfly/react-core';
 
 import DetailToolbarActions from './detail-toolbar-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
@@ -19,44 +25,48 @@ const PortfolioItemDetailToolbar = ({
 }) => (
   <Fragment>
     <TopToolbar>
-      <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <IconUpload uploadIcon={ uploadIcon }>
+      <div style={{ float: 'left' }} className="pf-u-mr-sm">
+        <IconUpload uploadIcon={uploadIcon}>
           <CardIcon
-            src={ `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon` }
-            platformId={ product.service_offering_source_ref }
-            height={ 64 }
+            src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
+            platformId={product.service_offering_source_ref}
+            height={64}
           />
         </IconUpload>
       </div>
       <Level>
         <LevelItem>
           <TextContent>
-            <Text component={ TextVariants.h1 }>
-              { product.name }
-            </Text>
+            <Text component={TextVariants.h1}>{product.name}</Text>
           </TextContent>
         </LevelItem>
-        <LevelItem style={ { minHeight: 36 } }>
+        <LevelItem style={{ minHeight: 36 }}>
           <Level>
-            <Route exact path={ url } render={ (...args) => (
-              <DetailToolbarActions
-                isOpen={ isOpen }
-                setOpen={ open => setOpen(open) }
-                orderUrl={ `${url}/order` }
-                editUrl={ `${url}/edit` }
-                copyUrl={ `${url}/copy` }
-                workflowUrl={ `${url}/edit-workflow` }
-                isFetching={ isFetching }
-                { ...args }
-              />) }/>
+            <Route
+              exact
+              path={url}
+              render={(...args) => (
+                <DetailToolbarActions
+                  isOpen={isOpen}
+                  setOpen={(open) => setOpen(open)}
+                  orderUrl={`${url}/order`}
+                  editUrl={`${url}/edit`}
+                  copyUrl={`${url}/copy`}
+                  editSurveyUrl={`${url}/edit-survey`}
+                  workflowUrl={`${url}/edit-workflow`}
+                  isFetching={isFetching}
+                  {...args}
+                />
+              )}
+            />
           </Level>
         </LevelItem>
       </Level>
       <Level>
         <LevelItem>
           <TextContent>
-            <Text component={ TextVariants.small }>
-              { product.distributor }&nbsp;
+            <Text component={TextVariants.small}>
+              {product.distributor}&nbsp;
             </Text>
           </TextContent>
         </LevelItem>
@@ -84,4 +94,3 @@ PortfolioItemDetailToolbar.defaultProps = {
 };
 
 export default PortfolioItemDetailToolbar;
-

@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import {
+  FormGroup,
+  TextContent,
+  Text,
+  TextVariants
+} from '@patternfly/react-core';
 import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
 
 const createOptions = (options, inputValue, isRequired) => {
@@ -8,10 +13,10 @@ const createOptions = (options, inputValue, isRequired) => {
     return options;
   }
 
-  let selectOptions = [ ...options ];
+  let selectOptions = [...options];
   return selectOptions.find(({ value }) => value === undefined)
-    ? [ ...selectOptions ]
-    : [{ label: isRequired ? 'Please choose' : 'None' }, ...selectOptions ];
+    ? [...selectOptions]
+    : [{ label: isRequired ? 'Please choose' : 'None' }, ...selectOptions];
 };
 
 const Select = ({
@@ -26,31 +31,33 @@ const Select = ({
   ...rest
 }) => (
   <rawComponents.Select
-    hideSelectedOptions={ false }
+    hideSelectedOptions={false}
     menuIsPortal
-    { ...input }
-    { ...rest }
-    onChange={ (value, ...args) => {
+    {...input}
+    {...rest}
+    onChange={(value, ...args) => {
       if (rest.onChange) {
         rest.onChange(value);
         change(input.name, value);
       } else {
         input.onChange(value, ...args);
       }
-    } }
-    isMulti={ multi }
-    options={ createOptions(options, input.value, isRequired) }
-    isDisabled={ isDisabled || isReadOnly }
-    closeMenuOnSelect={ !multi }
+    }}
+    isMulti={multi}
+    options={createOptions(options, input.value, isRequired)}
+    isDisabled={isDisabled || isReadOnly}
+    closeMenuOnSelect={!multi}
   />
 );
 
 Select.propTypes = {
   input: PropTypes.object.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
-    label: PropTypes.string.isRequired
-  })),
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.any,
+      label: PropTypes.string.isRequired
+    })
+  ),
   isReadOnly: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
@@ -90,15 +97,26 @@ const Pf4SelectWrapper = ({
 
   return (
     <FormGroup
-      isRequired={ isRequired }
-      label={ !hideLabel && label }
-      fieldId={ id || name }
-      isValid={ !showError }
-      helperText={ helperText }
-      helperTextInvalid={ meta.error }
+      isRequired={isRequired}
+      label={!hideLabel && label}
+      fieldId={id || name}
+      isValid={!showError}
+      helperText={helperText}
+      helperTextInvalid={meta.error}
     >
-      { description && <TextContent><Text component={ TextVariants.small }>{ description }</Text></TextContent> }
-      <Select formOptions={ formOptions } id={ id || name } label={ label } isValid={ !showError } isRequired={ isRequired } { ...rest }/>
+      {description && (
+        <TextContent>
+          <Text component={TextVariants.small}>{description}</Text>
+        </TextContent>
+      )}
+      <Select
+        formOptions={formOptions}
+        id={id || name}
+        label={label}
+        isValid={!showError}
+        isRequired={isRequired}
+        {...rest}
+      />
     </FormGroup>
   );
 };

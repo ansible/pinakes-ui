@@ -1,46 +1,60 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextVariants } from '@patternfly/react-core';
-import { Table, TableHeader, TableBody, TableVariant } from '@patternfly/react-table';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableVariant
+} from '@patternfly/react-table';
 
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
 
-const NoItems = () => (
-  <Text component={ TextVariants.h1 }>No items found</Text>
-);
+const NoItems = () => <Text component={TextVariants.h1}>No items found</Text>;
 
-const ContentList = ({ data, columns, isCompact, isLoading, actionResolver, areActionsDisabled,
-  borders, routes,  titlePlural, renderEmptyState }) => {
-
-  const [ rows, setRows ] = useState([]);
+const ContentList = ({
+  data,
+  columns,
+  isCompact,
+  isLoading,
+  actionResolver,
+  areActionsDisabled,
+  borders,
+  routes,
+  titlePlural,
+  renderEmptyState
+}) => {
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     setRows(data);
-  }, [ data ]);
+  }, [data]);
 
-  const renderEmptyContent = () => renderEmptyState ? renderEmptyState()
-    : <NoItems/>;
+  const renderEmptyContent = () =>
+    renderEmptyState ? renderEmptyState() : <NoItems />;
 
   const renderContent = () =>
-    rows.length === 0 ?
-      renderEmptyContent() :
+    rows.length === 0 ? (
+      renderEmptyContent()
+    ) : (
       <Fragment>
-        { routes() }
+        {routes()}
         <Table
-          aria-label={ `${titlePlural} table` }
-          variant={ isCompact ? TableVariant.compact : null }
-          borders={ borders }
-          rows={ rows }
-          cells={ columns }
-          actionResolver={ actionResolver }
-          areActionsDisabled={ areActionsDisabled }
+          aria-label={`${titlePlural} table`}
+          variant={isCompact ? TableVariant.compact : null}
+          borders={borders}
+          rows={rows}
+          cells={columns}
+          actionResolver={actionResolver}
+          areActionsDisabled={areActionsDisabled}
         >
-          <TableHeader/>
-          <TableBody/>
+          <TableHeader />
+          <TableBody />
         </Table>
-      </Fragment>;
+      </Fragment>
+    );
 
-  return isLoading ? <ListLoader/> : renderContent();
+  return isLoading ? <ListLoader /> : renderContent();
 };
 
 ContentList.propTypes = {

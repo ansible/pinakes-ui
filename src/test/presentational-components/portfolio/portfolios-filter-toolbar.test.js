@@ -19,27 +19,32 @@ describe('<PortfoliosFilterToolbar />', () => {
           searchValue: '',
           onFilterChange: jest.fn()
         },
-        fetchPortfolios: () => new Promise(resolve => resolve([]))
+        fetchPortfolios: () => new Promise((resolve) => resolve([]))
       })
     };
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<ToolbarRenderer { ...initialProps } />);
+    const wrapper = shallow(<ToolbarRenderer {...initialProps} />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
   it('should call filter action', () => {
-
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`).replyOnce(200, { data: [], meta: {}});
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .replyOnce(200, { data: [], meta: {} });
     const onFilterChange = jest.fn();
     const Provider = mockBreacrumbsStore();
     const wrapper = mount(
       <MemoryRouter>
         <Provider>
-          <ToolbarRenderer schema={ createPortfolioToolbarSchema({
-            fetchPortfolios: () => new Promise(resolve => resolve([])),
-            filterProps: { onFilterChange, searchValue: '' }}) }
+          <ToolbarRenderer
+            schema={createPortfolioToolbarSchema({
+              fetchPortfolios: () => new Promise((resolve) => resolve([])),
+              filterProps: { onFilterChange, searchValue: '' }
+            })}
           />
         </Provider>
       </MemoryRouter>

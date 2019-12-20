@@ -2,20 +2,27 @@ import React from 'react';
 import get from 'lodash/get';
 import { DateFormat } from '@redhat-cloud-services/frontend-components';
 
-import { PORTFOLIO_ITEM_NULLABLE, PORTFOLIO_NULLABLE } from '../../constants/nullable-attributes';
+import {
+  PORTFOLIO_ITEM_NULLABLE,
+  PORTFOLIO_NULLABLE
+} from '../../constants/nullable-attributes';
 
-export const scrollToTop = () => document.getElementById('root').scrollTo({
-  behavior: 'smooth',
-  top: 0,
-  left: 0
-});
+export const scrollToTop = () =>
+  document.getElementById('root').scrollTo({
+    behavior: 'smooth',
+    top: 0,
+    left: 0
+  });
 
 export const filterServiceOffering = ({ display_name, name }, filter) => {
   const filterAtrribute = display_name || name;
-  return filterAtrribute.trim().toLowerCase().includes(filter.toLowerCase());
+  return filterAtrribute
+    .trim()
+    .toLowerCase()
+    .includes(filter.toLowerCase());
 };
 
-export const allowNull = wrappedPropTypes => (props, propName, ...rest) => {
+export const allowNull = (wrappedPropTypes) => (props, propName, ...rest) => {
   if (props[propName] === null) {
     return null;
   }
@@ -24,14 +31,22 @@ export const allowNull = wrappedPropTypes => (props, propName, ...rest) => {
 };
 
 const oneDay = 24 * 60 * 60 * 1000;
-export const calcuateDiffDays = (firstDate, secondDate) => Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+export const calcuateDiffDays = (firstDate, secondDate) =>
+  Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
 
-export const createModifiedLabel = (date, user) => `Last modified ${calcuateDiffDays(new Date(), date)} days ago${ user ? ` by ${user}.` : '.'  }`;
+export const createModifiedLabel = (date, user) =>
+  `Last modified ${calcuateDiffDays(new Date(), date)} days ago${
+    user ? ` by ${user}.` : '.'
+  }`;
 
-export const udefinedToNull = (entity, keys) => [ ...Object.keys(entity), ...keys ].reduce((acc, curr) => ({
-  ...acc,
-  [curr]: entity[curr] === undefined ? null : entity[curr]
-}), {});
+export const udefinedToNull = (entity, keys) =>
+  [...Object.keys(entity), ...keys].reduce(
+    (acc, curr) => ({
+      ...acc,
+      [curr]: entity[curr] === undefined ? null : entity[curr]
+    }),
+    {}
+  );
 
 const nullableMapper = {
   PortfolioItem: PORTFOLIO_ITEM_NULLABLE,
@@ -41,12 +56,16 @@ const nullableMapper = {
 export const sanitizeValues = (values, entityType, store) => {
   const schemas = store.getState().openApiReducer.schema.components.schemas;
   const permittedValues = Object.keys(values)
-  .filter(key => !get(schemas, `${entityType}.properties.${key}.readOnly`))
-  .reduce((acc, curr) => values[curr]
-    ? ({ ...acc, [curr]: values[curr] })
-    : acc,
-  {});
+    .filter((key) => !get(schemas, `${entityType}.properties.${key}.readOnly`))
+    .reduce(
+      (acc, curr) => (values[curr] ? { ...acc, [curr]: values[curr] } : acc),
+      {}
+    );
   return udefinedToNull(permittedValues, nullableMapper[entityType]);
 };
 
-export const timeAgo = (date) => <span><DateFormat date={ date } type="relative"/></span>;
+export const timeAgo = (date) => (
+  <span>
+    <DateFormat date={date} type="relative" />
+  </span>
+);
