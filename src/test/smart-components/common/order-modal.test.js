@@ -141,7 +141,6 @@ describe('<OrderModal />', () => {
             airspeed: 'foo'
           },
           provider_control_parameters: {},
-          service_plan_ref: 'service-plan-id',
           portfolio_item_id: '321'
         });
         return [200];

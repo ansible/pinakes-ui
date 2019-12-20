@@ -46,7 +46,6 @@ const OrderModal = ({ closeUrl }) => {
     dispatch(
       sendSubmitOrder({
         portfolio_item_id: portfolioItem.id,
-        service_plan_ref: servicePlans[0].id,
         service_parameters: data
       })
     );
