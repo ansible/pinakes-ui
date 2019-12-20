@@ -7,11 +7,17 @@ import ContentGalleryEmptyState from '../../../presentational-components/shared/
 
 const EmptyState = ({ platform }) => (
   <ContentGalleryEmptyState
-    Icon={ SearchIcon }
-    title={ platform ? 'No products match filter parameters' : 'Please choose platform' }
-    description={ platform
-      ? 'Please try to extend your search parameters '
-      : 'In order to select products for your portfolio you must choose platform first' }
+    Icon={SearchIcon}
+    title={
+      platform
+        ? 'No products match filter parameters'
+        : 'Please choose platform'
+    }
+    description={
+      platform
+        ? 'Please try to extend your search parameters '
+        : 'In order to select products for your portfolio you must choose platform first'
+    }
   />
 );
 
@@ -21,9 +27,10 @@ EmptyState.propTypes = {
 
 const AddProductsGallery = ({ platform, ...props }) => (
   <ContentGallery
-    editMode = { true }
-    { ...props }
-    renderEmptyState={ () => <EmptyState platform={ platform } /> } />
+    editMode={true}
+    {...props}
+    renderEmptyState={() => <EmptyState platform={platform} />}
+  />
 );
 
 AddProductsGallery.propTypes = {
@@ -36,4 +43,3 @@ AddProductsGallery.defaultProps = {
 };
 
 export default AddProductsGallery;
-

@@ -1,14 +1,24 @@
 import React, { useEffect, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DataList, Grid, GridItem,
+import {
+  DataList,
+  Grid,
+  GridItem,
   Title,
   Bullseye,
   EmptyState,
   EmptyStateIcon,
   EmptyStateBody,
-  Flex
+  Flex,
+  EmptyStateSecondaryActions,
+  Button
 } from '@patternfly/react-core';
-import { Section, PrimaryToolbar, EmptyTable, TableToolbar  } from '@redhat-cloud-services/frontend-components';
+import {
+  Section,
+  PrimaryToolbar,
+  EmptyTable,
+  TableToolbar
+} from '@redhat-cloud-services/frontend-components';
 import { SearchIcon } from '@patternfly/react-icons';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
@@ -19,10 +29,15 @@ import AsyncPagination from '../common/async-pagination';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
-const debouncedFilter = asyncFormValidator((filterType, value, meta = defaultSettings, dispatch, filteringCallback) => {
-  filteringCallback(true);
-  dispatch(fetchOrders(filterType, value, meta)).then(() => filteringCallback(false));
-}, 1000);
+const debouncedFilter = asyncFormValidator(
+  (filterType, value, meta = defaultSettings, dispatch, filteringCallback) => {
+    filteringCallback(true);
+    dispatch(fetchOrders(filterType, value, meta)).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
 
 const initialState = {
   filterValue: '',
@@ -48,25 +63,32 @@ const ordersListState = (state, action) => {
 };
 
 const OrdersList = () => {
-  const [{ isFetching, filterValue, isFiltering, filterType }, stateDispatch ] = useReducer(ordersListState, initialState);
+  const [
+    { isFetching, filterValue, isFiltering, filterType },
+    stateDispatch
+  ] = useReducer(ordersListState, initialState);
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
   const dispatch = useDispatch();
   useEffect(() => {
     stateDispatch({ type: 'setFetching', payload: true });
-    Promise.all([ dispatch(fetchOrders(filterType, filterValue, meta)), dispatch(fetchPlatforms()) ])
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    Promise.all([
+      dispatch(fetchOrders(filterType, filterValue, meta)),
+      dispatch(fetchPlatforms())
+    ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
   const handlePagination = (_apiProps, pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
     dispatch(fetchOrders(filterType, filterValue, pagination))
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }))
-    .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
+      .then(() => stateDispatch({ type: 'setFetching', payload: false }))
+      .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
 
-  const handleFilterItems = value => {
+  const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(filterType, value, meta, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }));
+    debouncedFilter(filterType, value, meta, dispatch, (isFiltering) =>
+      stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
+    );
   };
 
   return (
@@ -74,18 +96,20 @@ const OrdersList = () => {
       <GridItem>
         <Section type="content">
           <PrimaryToolbar
-            { ...filterValue && {
+            {...(filterValue && {
               activeFiltersConfig: {
-                filters: [{
-                  name: filterValue
-                }],
+                filters: [
+                  {
+                    name: filterValue
+                  }
+                ],
                 onDelete: () => {
                   stateDispatch({ type: 'setFilterValue', payload: '' });
                   handleFilterItems('');
                 }
               }
-            } }
-            filterConfig={ {
+            })}
+            filterConfig={{
               onChange: (_e, value) => {
                 stateDispatch({ type: 'setFilterType', payload: value });
                 if (filterValue.length > 0) {
@@ -93,54 +117,89 @@ const OrdersList = () => {
                 }
               },
               value: filterType,
-              items: [{
-                filterValues: {
-                  value: filterValue,
-                  onChange: (_e, value) => handleFilterItems(value)
+              items: [
+                {
+                  filterValues: {
+                    value: filterValue,
+                    onChange: (_e, value) => handleFilterItems(value)
+                  },
+                  label: 'State',
+                  value: 'state'
                 },
-                label: 'State',
-                value: 'state'
-              }, {
-                filterValues: {
-                  value: filterValue,
-                  onChange: (_e, value) => handleFilterItems(value)
-                },
-                label: 'Owner',
-                value: 'owner'
-              }]
-            } }
-            pagination={ <AsyncPagination isDisabled={ isFetching || isFiltering } apiRequest={ handlePagination } meta={ meta } /> } />
+                {
+                  filterValues: {
+                    value: filterValue,
+                    onChange: (_e, value) => handleFilterItems(value)
+                  },
+                  label: 'Owner',
+                  value: 'owner'
+                }
+              ]
+            }}
+            pagination={
+              <AsyncPagination
+                isDisabled={isFetching || isFiltering}
+                apiRequest={handlePagination}
+                meta={meta}
+              />
+            }
+          />
           <DataList aria-label="order-list">
-            { isFiltering || isFetching
-              ? <ListLoader />
-              : data.length > 0 ? data.map((item, index) => (
-                <OrderItem
-                  key={ item.id }
-                  index={ index }
-                  item={ item }
-                />
-              )) : (
-                <EmptyTable>
-                  <Bullseye>
-                    <EmptyState>
-                      <Bullseye>
-                        <EmptyStateIcon icon={ SearchIcon } />
-                      </Bullseye>
-                      <Title size="lg">
-                        No results found
-                      </Title>
-                      <EmptyStateBody>
-                        No results match the filter criteria. Remove all filters or clear all filters to show results.
-                      </EmptyStateBody>
-                    </EmptyState>
-                  </Bullseye>
-                </EmptyTable>
-              ) }
+            {isFiltering || isFetching ? (
+              <ListLoader />
+            ) : data.length > 0 ? (
+              data.map((item, index) => (
+                <OrderItem key={item.id} index={index} item={item} />
+              ))
+            ) : (
+              <EmptyTable>
+                <Bullseye>
+                  <EmptyState>
+                    <Bullseye>
+                      <EmptyStateIcon icon={SearchIcon} />
+                    </Bullseye>
+                    <Title size="lg">
+                      {filterValue === '' ? 'No orders' : 'No results found'}
+                    </Title>
+                    <EmptyStateBody>
+                      {filterValue === ''
+                        ? 'No orders have been created'
+                        : 'No results match the filter criteria. Remove all filtersor clear all filters to show results.'}
+                    </EmptyStateBody>
+
+                    <EmptyStateSecondaryActions>
+                      {filterValue && (
+                        <Button
+                          variant="link"
+                          onClick={() => {
+                            stateDispatch({
+                              type: 'setFilteringFlag',
+                              payload: true
+                            });
+                            handleFilterItems('');
+                          }}
+                        >
+                          Clear all filters
+                        </Button>
+                      )}
+                    </EmptyStateSecondaryActions>
+                  </EmptyState>
+                </Bullseye>
+              </EmptyTable>
+            )}
           </DataList>
           <TableToolbar>
             <div className="bottom-pagination-container">
-              <Flex className="example-border" breakpointMods={ [{ modifier: 'justify-content-flex-end' }] }>
-                <AsyncPagination className="pf-u-mt-0" isDisabled={ isFetching || isFiltering } apiRequest={ handlePagination } meta={ meta } />
+              <Flex
+                className="example-border"
+                breakpointMods={[{ modifier: 'justify-content-flex-end' }]}
+              >
+                <AsyncPagination
+                  className="pf-u-mt-0"
+                  isDisabled={isFetching || isFiltering}
+                  apiRequest={handlePagination}
+                  meta={meta}
+                />
               </Flex>
             </div>
           </TableToolbar>

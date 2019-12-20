@@ -25,18 +25,23 @@ const RemovePortfolioModal = ({
 
   return (
     <Modal
-      title={ `Removing Portfolio:  ${ portfolio.name }` }
+      title={`Removing Portfolio:  ${portfolio.name}`}
       isOpen
       isSmall
-      onClose={ onCancel }
-      actions={ [
-        <Button key="cancel" variant="secondary" type="button" onClick={ onCancel }>
+      onClose={onCancel}
+      actions={[
+        <Button
+          key="cancel"
+          variant="secondary"
+          type="button"
+          onClick={onCancel}
+        >
           Cancel
         </Button>,
-        <Button key="submit" variant="primary" type="button" onClick={ onSubmit }>
+        <Button key="submit" variant="primary" type="button" onClick={onSubmit}>
           Confirm
         </Button>
-      ] }
+      ]}
     >
       <React.Fragment />
     </Modal>
@@ -57,13 +62,28 @@ RemovePortfolioModal.propTypes = {
 };
 
 const portfolioDetailsFromState = (state, id) =>
-  state.portfolioReducer.portfolios.data.find(portfolio => portfolio.id  === id);
+  state.portfolioReducer.portfolios.data.find(
+    (portfolio) => portfolio.id === id
+  );
 
-const mapStateToProps = (state, { match: { params: { id }}}) => ({ portfolio: portfolioDetailsFromState(state, id) });
+const mapStateToProps = (
+  state,
+  {
+    match: {
+      params: { id }
+    }
+  }
+) => ({ portfolio: portfolioDetailsFromState(state, id) });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addNotification,
-  removePortfolio
-}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      addNotification,
+      removePortfolio
+    },
+    dispatch
+  );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RemovePortfolioModal));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(RemovePortfolioModal)
+);

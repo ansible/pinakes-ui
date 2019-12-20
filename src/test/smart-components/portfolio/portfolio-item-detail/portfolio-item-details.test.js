@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
@@ -13,7 +13,10 @@ import OrderModal from '../../../../smart-components/common/order-modal';
 import { ProductLoaderPlaceholder } from '../../../../presentational-components/shared/loader-placeholders';
 import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-info-bar';
 import PortfolioItemDetail from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail';
-import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../../../utilities/constants';
+import {
+  CATALOG_API_BASE,
+  SOURCES_API_BASE
+} from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { mockApi } from '../../../__mocks__/user-login';
@@ -21,13 +24,18 @@ import { mockApi } from '../../../__mocks__/user-login';
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
-  const ComponentWrapper = ({ store, children, initialEntries, initialIndex }) => (
-    <Provider store={ store }>
-      <MemoryRouter initialEntries={ initialEntries } initialIndex={ initialIndex }>
-        { children }
+  const ComponentWrapper = ({
+    store,
+    children,
+    initialEntries,
+    initialIndex
+  }) => (
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
+        {children}
       </MemoryRouter>
     </Provider>
   );
@@ -53,7 +61,7 @@ describe('<PortfolioItemDetail />', () => {
         }
       },
       orderReducer: {
-        servicePlans: [{ create_json_schema: { schema: { fields: []}}}]
+        servicePlans: [{ create_json_schema: { schema: { fields: [] } } }]
       }
     };
     mockStore = configureStore(middlewares);
@@ -61,28 +69,28 @@ describe('<PortfolioItemDetail />', () => {
 
   it('should render correctly', () => {
     const wrapper = shallow(
-      <ComponentWrapper store={ mockStore({}) }>
-        <PortfolioItemDetail { ...initialProps } />
+      <ComponentWrapper store={mockStore({})}>
+        <PortfolioItemDetail {...initialProps} />
       </ComponentWrapper>
     );
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should mount correct component before and after load', async done => {
+  it('should mount correct component before and after load', async (done) => {
     const store = mockStore(initialState);
     mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
     mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, {});
     mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
     let wrapper;
-    await act(async() => {
+    await act(async () => {
       wrapper = mount(
         <ComponentWrapper
-          initialEntries={ [
+          initialEntries={[
             '/portfolios/detail/123/product/321?source=source-id&portfolio=123'
-          ] }
-          store={ store }
+          ]}
+          store={store}
         >
-          <PortfolioItemDetail { ...initialProps } />
+          <PortfolioItemDetail {...initialProps} />
         </ComponentWrapper>
       );
       expect(wrapper.find(ProductLoaderPlaceholder)).toHaveLength(1);
@@ -94,34 +102,48 @@ describe('<PortfolioItemDetail />', () => {
     done();
   });
 
-  it('should mount and open order modal', async done => {
+  it('should mount and open order modal', async (done) => {
     const store = mockStore(initialState);
 
     mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
     mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, {});
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`).replyOnce(200, {});
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321/provider_control_parameters`).replyOnce(200, {
-      properties: { namespace: { enum: []}}
-    }),
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolio_items/321/provider_control_parameters`
+      )
+      .replyOnce(200, {
+        properties: { namespace: { enum: [] } }
+      }),
+      mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
 
     let wrapper;
 
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store } initialEntries={ [
-          '/portfolios/detail/123/product/321?source=source-id&portfolio=123',
-          '/portfolios/detail/123/product/321/order?source=source-id&portfolio=123'
-        ] } initialIndex={ 0 }>
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/portfolios/detail/123/product/321?source=source-id&portfolio=123',
+            '/portfolios/detail/123/product/321/order?source=source-id&portfolio=123'
+          ]}
+          initialIndex={0}
+        >
           <Route path="/portfolios/detail/:id/product/:portfolioItemId">
-            <PortfolioItemDetail { ...initialProps } />
+            <PortfolioItemDetail {...initialProps} />
           </Route>
         </ComponentWrapper>
       );
-
     });
     wrapper.update();
-    wrapper.find(MemoryRouter).instance().history.push('/portfolios/detail/123/product/321/order?source=source-id&portfolio=123');
+    wrapper
+      .find(MemoryRouter)
+      .instance()
+      .history.push(
+        '/portfolios/detail/123/product/321/order?source=source-id&portfolio=123'
+      );
     await act(async () => {
       wrapper.update();
     });

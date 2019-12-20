@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import { MemoryRouter, Route } from 'react-router-dom';
 import { BreadcrumbItem } from '@patternfly/react-core';
 
@@ -11,9 +11,7 @@ describe('<BreadCrumbs />', () => {
   let mockStore;
   beforeEach(() => {
     BreadcrumbWrapper = ({ children, providerProps, ...props }) => (
-      <MemoryRouter { ...props }>
-        { children }
-      </MemoryRouter>
+      <MemoryRouter {...props}>{children}</MemoryRouter>
     );
     mockStore = configureStore([]);
   });
@@ -22,7 +20,7 @@ describe('<BreadCrumbs />', () => {
     const store = mockStore({});
     const wrapper = mount(
       <BreadcrumbWrapper>
-        <CatalogBreadcrumbs store={ store } />
+        <CatalogBreadcrumbs store={store} />
       </BreadcrumbWrapper>
     );
     expect(wrapper.find(BreadcrumbItem)).toHaveLength(0);
@@ -37,8 +35,11 @@ describe('<BreadCrumbs />', () => {
       }
     });
     const wrapper = mount(
-      <MemoryRouter initialEntries={ [ '/portfolios/detail/55' ] } >
-        <Route path='/portfolios/detail/55' render={ props => <CatalogBreadcrumbs store={ store } { ...props } /> }/>
+      <MemoryRouter initialEntries={['/portfolios/detail/55']}>
+        <Route
+          path="/portfolios/detail/55"
+          render={(props) => <CatalogBreadcrumbs store={store} {...props} />}
+        />
       </MemoryRouter>
     );
 

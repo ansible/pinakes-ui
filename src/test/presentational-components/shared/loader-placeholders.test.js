@@ -1,13 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import configureStore from 'redux-mock-store' ;
-import { AppPlaceholder, PortfolioLoader, CardLoader, ListLoader } from '../../../presentational-components/shared/loader-placeholders';
+import configureStore from 'redux-mock-store';
+import {
+  AppPlaceholder,
+  PortfolioLoader,
+  CardLoader,
+  ListLoader
+} from '../../../presentational-components/shared/loader-placeholders';
 
 describe('Loader placeholders', () => {
   it('should render <AppPlaceholder /> correctly', () => {
     const mockStore = configureStore([]);
-    expect(toJson(shallow(<AppPlaceholder store={ mockStore } />))).toMatchSnapshot();
+    expect(
+      toJson(shallow(<AppPlaceholder store={mockStore} />))
+    ).toMatchSnapshot();
   });
 
   it('should render <PortfolioLoader /> correctly', () => {

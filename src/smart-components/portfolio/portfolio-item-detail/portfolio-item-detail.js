@@ -14,33 +14,39 @@ import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
+import SurveyEditor from '../../survey-editing/survey-editor';
 
-const requiredParams = [ 'portfolio', 'source' ];
+const requiredParams = ['portfolio', 'source'];
 
 const PortfolioItemDetail = () => {
-  const [ isOpen, setOpen ] = useState(false);
-  const [ isFetching, setIsFetching ] = useState(true);
+  const [isOpen, setOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
-  const [ queryValues, search ] = useQuery(requiredParams);
-  const { path, url, params: { portfolioItemId }} = useRouteMatch('/portfolios/detail/:id/product/:portfolioItemId');
+  const [queryValues, search] = useQuery(requiredParams);
   const {
-    portfolioItem,
-    portfolio
-  } = useSelector(({ portfolioReducer: { portfolioItem }}) => portfolioItem);
+    path,
+    url,
+    params: { portfolioItemId }
+  } = useRouteMatch('/portfolios/detail/:id/product/:portfolioItemId');
+  const { portfolioItem, portfolio } = useSelector(
+    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
+  );
 
   useEffect(() => {
     setIsFetching(true);
-    dispatch(getPortfolioItemDetail({
-      portfolioItem: portfolioItemId,
-      ...queryValues
-    }))
-    .then(() => setIsFetching(false))
-    .catch(() => setIsFetching(false));
-  }, [ path ]);
+    dispatch(
+      getPortfolioItemDetail({
+        portfolioItem: portfolioItemId,
+        ...queryValues
+      })
+    )
+      .then(() => setIsFetching(false))
+      .catch(() => setIsFetching(false));
+  }, [path]);
 
-  if (isFetching) {
+  if (isFetching || !portfolioItem) {
     return (
-      <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
+      <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
         <TopToolbar>
           <ProductLoaderPlaceholder />
         </TopToolbar>
@@ -48,34 +54,52 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const uploadIcon = file => uploadPortfolioItemIcon(portfolioItem.id, file);
+  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
 
   return (
-    <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
-      <Route path={ `${url}/order` } >
-        <OrderModal closeUrl={ url }/>
+    <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
+      <Route path={`${url}/edit-survey`}>
+        <SurveyEditor
+          name={portfolioItem.name}
+          closeUrl={url}
+          search={search}
+          portfolioItemId={portfolioItem.id}
+        />
+      </Route>
+      <Route path={`${url}/order`}>
+        <OrderModal closeUrl={url} />
       </Route>
       <Route
-        path={ `${url}/copy` }
-        render={ props => (
-          <CopyPortfolioItemModal { ...props } search={ search }  portfolioItemId={ portfolioItem.id } portfolioId={ portfolio.id } closeUrl={ url }/>
-        ) }
+        path={`${url}/copy`}
+        render={(props) => (
+          <CopyPortfolioItemModal
+            {...props}
+            search={search}
+            portfolioItemId={portfolioItem.id}
+            portfolioId={portfolio.id}
+            closeUrl={url}
+          />
+        )}
       />
       <PortfolioItemDetailToolbar
-        uploadIcon={ uploadIcon }
-        url={ url }
-        isOpen={ isOpen }
-        product={ portfolioItem }
-        setOpen={ setOpen }
-        isFetching={ isFetching }
+        uploadIcon={uploadIcon}
+        url={url}
+        isOpen={isOpen}
+        product={portfolioItem}
+        setOpen={setOpen}
+        isFetching={isFetching}
       />
-      <div style={ { padding: 32 } }>
+      <div style={{ padding: 32 }}>
         <Grid>
-          <GridItem md={ 2 }>
-            <ItemDetailInfoBar product={ portfolioItem } portfolio={ portfolio } source={ portfolioItem } />
+          <GridItem md={2}>
+            <ItemDetailInfoBar
+              product={portfolioItem}
+              portfolio={portfolio}
+              source={portfolioItem}
+            />
           </GridItem>
-          <GridItem md={ 10 }>
-            <ItemDetailDescription product={ portfolioItem } url={ url } />
+          <GridItem md={10}>
+            <ItemDetailDescription product={portfolioItem} url={url} />
           </GridItem>
         </Grid>
       </div>

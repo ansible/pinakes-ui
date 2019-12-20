@@ -15,12 +15,14 @@ describe('<ServiceOfferingCardBody />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = mount(<ServiceOfferingCardBody { ...initialProps } />);
+    const wrapper = mount(<ServiceOfferingCardBody {...initialProps} />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it('should render correctly with alternative values', () => {
-    const wrapper = mount(<ServiceOfferingCardBody name="Foo" description="Bar" />);
+    const wrapper = mount(
+      <ServiceOfferingCardBody name="Foo" description="Bar" />
+    );
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

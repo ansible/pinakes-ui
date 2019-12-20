@@ -5,7 +5,9 @@ import { AppPlaceholder } from './presentational-components/shared/loader-placeh
 
 const Products = lazy(() => import('./smart-components/products/products'));
 const Platforms = lazy(() => import('./smart-components/platform/platforms'));
-const Portfolios = lazy(() => import('./smart-components/portfolio/portfolios'));
+const Portfolios = lazy(() =>
+  import('./smart-components/portfolio/portfolios')
+);
 const Orders = lazy(() => import('./smart-components/order/orders'));
 
 const paths = {
@@ -19,13 +21,19 @@ const paths = {
 export const Routes = () => {
   const { pathname } = useLocation();
   return (
-    <Suspense fallback={ <AppPlaceholder /> }>
+    <Suspense fallback={<AppPlaceholder />}>
       <Switch>
-        <Route path={ paths.products } component={ Products }/>
-        <Route path={ paths.portfolios } component={ Portfolios }/>
-        <Route path={ paths.platforms } component={ Platforms }/>
-        <Route path={ paths.orders } component={ Orders }/>
-        <Route render={ () => (some(paths, p => p === pathname) ? null : <Redirect to={ paths.portfolios } />) } />
+        <Route path={paths.products} component={Products} />
+        <Route path={paths.portfolios} component={Portfolios} />
+        <Route path={paths.platforms} component={Platforms} />
+        <Route path={paths.orders} component={Orders} />
+        <Route
+          render={() =>
+            some(paths, (p) => p === pathname) ? null : (
+              <Redirect to={paths.portfolios} />
+            )
+          }
+        />
       </Switch>
     </Suspense>
   );

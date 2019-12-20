@@ -2,7 +2,7 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
@@ -14,14 +14,12 @@ import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/p
 describe('<PortfolioItemDetailToolbar />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
-  const ComponentWrapper = ({ store, children, initialEntries = []}) => (
-    <Provider store={ store }>
-      <MemoryRouter initialEntries={ initialEntries }>
-        { children }
-      </MemoryRouter>
+  const ComponentWrapper = ({ store, children, initialEntries = [] }) => (
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
     </Provider>
   );
 
@@ -37,24 +35,29 @@ describe('<PortfolioItemDetailToolbar />', () => {
       handleUpdate: jest.fn()
     };
 
-    initialState = { platforms: {}};
+    initialState = { platforms: {} };
     mockStore = configureStore(middlewares);
   });
 
   it('should render correctly', () => {
     const wrapper = shallow(
       <MemoryRouter>
-        <PortfolioItemDetailToolbar { ...initialProps } />
+        <PortfolioItemDetailToolbar {...initialProps} />
       </MemoryRouter>
     ).find(PortfolioItemDetailToolbar);
-    expect(shallowToJson(wrapper.find(PortfolioItemDetailToolbar))).toMatchSnapshot();
+    expect(
+      shallowToJson(wrapper.find(PortfolioItemDetailToolbar))
+    ).toMatchSnapshot();
   });
 
   it('should render view variant', () => {
     const store = mockStore(initialState);
     const wrapper = mount(
-      <ComponentWrapper store={ store } initialEntries={ [ '/foo' ] }>
-        <Route path="/foo" render={ () => <PortfolioItemDetailToolbar { ...initialProps } /> } />
+      <ComponentWrapper store={store} initialEntries={['/foo']}>
+        <Route
+          path="/foo"
+          render={() => <PortfolioItemDetailToolbar {...initialProps} />}
+        />
       </ComponentWrapper>
     );
     expect(wrapper.find(DetailToolbarActions)).toHaveLength(1);

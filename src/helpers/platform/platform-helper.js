@@ -1,5 +1,13 @@
-import { getAxiosInstance, getSourcesApi, getTopologocalInventoryApi, getGraphqlInstance } from '../shared/user-login';
-import { TOPOLOGICAL_INVENTORY_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
+import {
+  getAxiosInstance,
+  getSourcesApi,
+  getTopologocalInventoryApi,
+  getGraphqlInstance
+} from '../shared/user-login';
+import {
+  TOPOLOGICAL_INVENTORY_API_BASE,
+  SOURCES_API_BASE
+} from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
 
 const sourcesApi = getSourcesApi();
@@ -21,9 +29,10 @@ query {
 }`;
 
 export const getPlatforms = () => {
-  return graphqlInstance.post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
-  .then(({ data: { application_types }}) => application_types)
-  .then(([{ sources }]) => sources);
+  return graphqlInstance
+    .post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
+    .then(({ data: { application_types } }) => application_types)
+    .then(([{ sources }]) => sources);
 };
 
 export const getPlatform = (platformId) => {
@@ -33,20 +42,27 @@ export const getPlatform = (platformId) => {
 export const getPlatformItems = (platformId, filter, options) => {
   const filterQuery = filter ? `&filter[name][contains_i]=${filter}` : '';
   if (platformId) {
-    return axiosInstance
-    .get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_offerings?filter[archived_at][nil]${filterQuery}${options
-      ? `&limit=${options.limit}&offset=${options.offset}` : ''}`);
+    return axiosInstance.get(
+      `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_offerings?filter[archived_at][nil]${filterQuery}${
+        options ? `&limit=${options.limit}&offset=${options.offset}` : ''
+      }`
+    );
   } else {
     return topologicalApi.listServiceOfferings();
   }
 };
 
-export const getPlatformInventories = (platformId, filter = '', options = defaultSettings) => {
+export const getPlatformInventories = (
+  platformId,
+  filter = '',
+  options = defaultSettings
+) => {
   if (platformId) {
-    return axiosInstance.
-    get(`${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${options
-      ? `&limit=${options.limit}&offset=${options.offset}`
-      : ''}`);
+    return axiosInstance.get(
+      `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${
+        options ? `&limit=${options.limit}&offset=${options.offset}` : ''
+      }`
+    );
   } else {
     return topologicalApi.listServiceInventories(options);
   }

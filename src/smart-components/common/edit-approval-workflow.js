@@ -5,7 +5,11 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
-import { listWorkflowsForObject, linkWorkflow, unlinkWorkflow } from '../../redux/actions/approval-actions';
+import {
+  listWorkflowsForObject,
+  linkWorkflow,
+  unlinkWorkflow
+} from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
@@ -24,8 +28,13 @@ const approvalState = (state, action) => {
 };
 
 const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
-  const [{ isFetching }, stateDispatch ] = useReducer(approvalState, initialState);
-  const { data, meta } = useSelector(({ approvalReducer: { resolvedWorkflows }}) => resolvedWorkflows);
+  const [{ isFetching }, stateDispatch] = useReducer(
+    approvalState,
+    initialState
+  );
+  const { data, meta } = useSelector(
+    ({ approvalReducer: { resolvedWorkflows } }) => resolvedWorkflows
+  );
   const dispatch = useDispatch();
   const { id } = useParams();
   const history = useHistory();
@@ -34,11 +43,15 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
   };
 
   useEffect(() => {
-    dispatch(listWorkflowsForObject({ objectType, appName: APP_NAME, objectId: id || objectId }, meta))
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    dispatch(
+      listWorkflowsForObject(
+        { objectType, appName: APP_NAME, objectId: id || objectId },
+        meta
+      )
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     history.push(pushParam);
     const approvalWorkflow = data ? data[0] : undefined;
 
@@ -47,29 +60,43 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
     }
 
     if (approvalWorkflow) {
-      dispatch(unlinkWorkflow(approvalWorkflow.id, approvalWorkflow.name,
-        { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
+      dispatch(
+        unlinkWorkflow(approvalWorkflow.id, approvalWorkflow.name, {
+          object_type: objectType,
+          app_name: APP_NAME,
+          object_id: id || objectId
+        })
+      );
     }
 
-    return dispatch(linkWorkflow(values.workflow, { object_type: objectType, app_name: APP_NAME, object_id: id || objectId }));
+    return dispatch(
+      linkWorkflow(values.workflow, {
+        object_type: objectType,
+        app_name: APP_NAME,
+        object_id: id || objectId
+      })
+    );
   };
 
   return (
     <Modal
-      title={ 'Set approval workflow' }
+      title={'Set approval workflow'}
       isOpen
-      onClose={ () => history.push(pushParam) }
+      onClose={() => history.push(pushParam)}
       isSmall
     >
-      { !isFetching ?
+      {!isFetching ? (
         <FormRenderer
-          initialValues={ { workflow: data && data[0] ? data[0].id : undefined } }
-          onSubmit={ onSubmit }
-          onCancel={ () => history.push(pushParam) }
-          schema={ editApprovalWorkflowSchema(loadWorkflowOptions) }
+          initialValues={{ workflow: data && data[0] ? data[0].id : undefined }}
+          onSubmit={onSubmit}
+          onCancel={() => history.push(pushParam)}
+          schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
           formContainer="modal"
-          buttonsLabels={ { submitLabel: 'Save' } }
-        /> : <WorkflowLoader/> }
+          buttonsLabels={{ submitLabel: 'Save' }}
+        />
+      ) : (
+        <WorkflowLoader />
+      )}
     </Modal>
   );
 };

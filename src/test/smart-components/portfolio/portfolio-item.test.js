@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import thunk from 'redux-thunk';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
@@ -13,14 +13,12 @@ import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 describe('<PortfolioItem />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
   const ComponentWrapper = ({ store, children }) => (
-    <Provider store={ store }>
-      <MemoryRouter>
-        { children }
-      </MemoryRouter>
+    <Provider store={store}>
+      <MemoryRouter>{children}</MemoryRouter>
     </Provider>
   );
 
@@ -34,13 +32,17 @@ describe('<PortfolioItem />', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolioItems: { data: [{
-          orderUrl: '/order',
-          id: '1',
-          name: 'Foo',
-          description: 'Bar',
-          display_name: 'quux'
-        }]}
+        portfolioItems: {
+          data: [
+            {
+              orderUrl: '/order',
+              id: '1',
+              name: 'Foo',
+              description: 'Bar',
+              display_name: 'quux'
+            }
+          ]
+        }
       }
     };
     mockStore = configureStore(middlewares);
@@ -49,8 +51,8 @@ describe('<PortfolioItem />', () => {
   it('should render correctly', (done) => {
     const store = mockStore(initialState);
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <PortfolioItem { ...initialProps } />
+      <ComponentWrapper store={store}>
+        <PortfolioItem {...initialProps} />
       </ComponentWrapper>
     );
     setImmediate(() => {
@@ -63,12 +65,15 @@ describe('<PortfolioItem />', () => {
     const onSelect = jest.fn();
     const store = mockStore(initialState);
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <PortfolioItem { ...initialProps } onSelect={ onSelect } isSelectable />
+      <ComponentWrapper store={store}>
+        <PortfolioItem {...initialProps} onSelect={onSelect} isSelectable />
       </ComponentWrapper>
     );
     setImmediate(() => {
-      wrapper.find(PortfolioItem).find('input').simulate('change');
+      wrapper
+        .find(PortfolioItem)
+        .find('input')
+        .simulate('change');
       expect(onSelect).toHaveBeenCalledWith('1');
       done();
     });

@@ -34,47 +34,75 @@ const PortfolioItems = ({
   portfolio: { id }
 }) => (
   <Fragment>
-    <ToolbarRenderer schema={ createPortfolioToolbarSchema({
-      filterProps: {
-        searchValue: filterValue,
-        onFilterChange: handleFilterChange,
-        placeholder: 'Filter by name...'
-      },
-      title,
-      addProductsRoute,
-      editPortfolioRoute,
-      sharePortfolioRoute,
-      workflowPortfolioRoute,
-      removePortfolioRoute,
-      copyPortfolio,
-      isLoading,
-      copyInProgress,
-      removeProducts: () => removeProducts(selectedItems),
-      itemsSelected: selectedItems.length > 0,
-      meta: pagination,
-      fetchPortfolioItemsWithPortfolio,
-      portfolioId: id
-    }) } />
-    <Route exact path="/portfolios/detail/:id/edit-portfolio" component={ AddPortfolioModal } />
-    <Route exact path="/portfolios/detail/:id/remove-portfolio" component={ RemovePortfolioModal } />
+    <ToolbarRenderer
+      schema={createPortfolioToolbarSchema({
+        filterProps: {
+          searchValue: filterValue,
+          onFilterChange: handleFilterChange,
+          placeholder: 'Filter by name...'
+        },
+        title,
+        addProductsRoute,
+        editPortfolioRoute,
+        sharePortfolioRoute,
+        workflowPortfolioRoute,
+        removePortfolioRoute,
+        copyPortfolio,
+        isLoading,
+        copyInProgress,
+        removeProducts: () => removeProducts(selectedItems),
+        itemsSelected: selectedItems.length > 0,
+        meta: pagination,
+        fetchPortfolioItemsWithPortfolio,
+        portfolioId: id
+      })}
+    />
+    <Route
+      exact
+      path="/portfolios/detail/:id/edit-portfolio"
+      component={AddPortfolioModal}
+    />
+    <Route
+      exact
+      path="/portfolios/detail/:id/remove-portfolio"
+      component={RemovePortfolioModal}
+    />
     <Route
       exact
       path="/portfolios/detail/:id/share-portfolio"
-      render={ (...args) => <SharePortfolioModal closeUrl={ portfolioRoute } { ...args } /> }
+      render={(...args) => (
+        <SharePortfolioModal closeUrl={portfolioRoute} {...args} />
+      )}
     />
     <Route
       exact
       path="/portfolios/detail/:id/edit-workflow"
-      render={ (...args) => <EditApprovalWorkflow closeUrl={ portfolioRoute } objectType={ PORTFOLIO_RESOURCE_TYPE } { ...args } /> }
+      render={(...args) => (
+        <EditApprovalWorkflow
+          closeUrl={portfolioRoute}
+          objectType={PORTFOLIO_RESOURCE_TYPE}
+          {...args}
+        />
+      )}
     />
-    <Route exact path="/portfolios/detail/:id/order/:itemId" render={ props => <OrderModal { ...props } closeUrl={ portfolioRoute } /> } />
-    <ContentGallery { ...filteredItems } renderEmptyState={ () => <PortfolioEmptyState name={ title } url={ addProductsRoute }/> } />
+    <Route
+      exact
+      path="/portfolios/detail/:id/order/:itemId"
+      render={(props) => <OrderModal {...props} closeUrl={portfolioRoute} />}
+    />
+    <ContentGallery
+      {...filteredItems}
+      renderEmptyState={() => <PortfolioEmptyState url={addProductsRoute} />}
+    />
   </Fragment>
 );
 
 PortfolioItems.propTypes = {
   title: PropTypes.string,
-  filteredItems: PropTypes.shape({ items: PropTypes.arrayOf(PropTypes.node), isLoading: PropTypes.bool }),
+  filteredItems: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.node),
+    isLoading: PropTypes.bool
+  }),
   portfolioRoute: PropTypes.string.isRequired,
   addProductsRoute: PropTypes.string.isRequired,
   editPortfolioRoute: PropTypes.string.isRequired,

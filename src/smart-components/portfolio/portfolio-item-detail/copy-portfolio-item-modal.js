@@ -14,28 +14,41 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '../../common/form-renderer';
 import { getPortfolioItemApi } from '../../../helpers/shared/user-login';
-import { copyPortfolioItem, fetchPortfolioItemsWithPortfolio } from '../../../redux/actions/portfolio-actions';
+import {
+  copyPortfolioItem,
+  fetchPortfolioItemsWithPortfolio
+} from '../../../redux/actions/portfolio-actions';
 
-const copySchema = (portfolios, portfolioName, portfolioChange, nameFetching) => ({
-  fields: [{
-    component: 'value-only',
-    name: 'portfolio_item_name',
-    label: 'Name',
-    value: portfolioName
-  }, {
-    component: componentTypes.SELECT,
-    name: 'portfolio_id',
-    label: 'Portfolio',
-    isRequired: true,
-    options: portfolios.map(({ id, name }) => ({ label: name, value: id })),
-    onChange: portfolioChange,
-    isDisabled: nameFetching
-  }]
+const copySchema = (
+  portfolios,
+  portfolioName,
+  portfolioChange,
+  nameFetching
+) => ({
+  fields: [
+    {
+      component: 'value-only',
+      name: 'portfolio_item_name',
+      label: 'Name',
+      value: portfolioName
+    },
+    {
+      component: componentTypes.SELECT,
+      name: 'portfolio_id',
+      label: 'Portfolio',
+      isRequired: true,
+      options: portfolios.map(({ id, name }) => ({ label: name, value: id })),
+      onChange: portfolioChange,
+      isDisabled: nameFetching
+    }
+  ]
 });
 
 const ValueOnly = ({ name, label, value }) => (
-  <FormGroup label={ label } fieldId={ name }>
-    <TextContent><Text component={ TextVariants.h6 }>{ value }</Text></TextContent>
+  <FormGroup label={label} fieldId={name}>
+    <TextContent>
+      <Text component={TextVariants.h6}>{value}</Text>
+    </TextContent>
   </FormGroup>
 );
 
@@ -55,56 +68,75 @@ const CopyPortfolioItemModal = ({
   fetchPortfolioItemsWithPortfolio,
   search
 }) => {
-  const [ submitting, setSubmitting ] = useState(false);
-  const [ name, setName ] = useState();
-  const [ nameFetching, setNameFetching ] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [name, setName] = useState();
+  const [nameFetching, setNameFetching] = useState(false);
 
   useEffect(() => {
-    getPortfolioItemApi().getPortfolioItemNextName(portfolioItemId, portfolioId).then(({ next_name }) => setName(next_name));
+    getPortfolioItemApi()
+      .getPortfolioItemNextName(portfolioItemId, portfolioId)
+      .then(({ next_name }) => setName(next_name));
   }, []);
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     setSubmitting(true);
-    copyPortfolioItem(portfolioItemId, values, portfolios.find(({ id }) => id === values.portfolio_id))
-    .then(({ id }) => push({
-      pathname: `/portfolios/detail/${values.portfolio_id}/product/${id}`,
-      search
-    }))
-    .then(() => values.portfolio_id === portfolioId && fetchPortfolioItemsWithPortfolio(portfolioId))
-    .catch(() => setSubmitting(false));
+    copyPortfolioItem(
+      portfolioItemId,
+      values,
+      portfolios.find(({ id }) => id === values.portfolio_id)
+    )
+      .then(({ id }) =>
+        push({
+          pathname: `/portfolios/detail/${values.portfolio_id}/product/${id}`,
+          search
+        })
+      )
+      .then(
+        () =>
+          values.portfolio_id === portfolioId &&
+          fetchPortfolioItemsWithPortfolio(portfolioId)
+      )
+      .catch(() => setSubmitting(false));
   };
 
-  const portfolioChange = portfolioId => {
+  const portfolioChange = (portfolioId) => {
     setNameFetching(true);
-    return getPortfolioItemApi().getPortfolioItemNextName(portfolioItemId, portfolioId)
-    .then(({ next_name }) => {
-      setName(next_name);
-    }).then(() => setNameFetching(false));
+    return getPortfolioItemApi()
+      .getPortfolioItemNextName(portfolioItemId, portfolioId)
+      .then(({ next_name }) => {
+        setName(next_name);
+      })
+      .then(() => setNameFetching(false));
   };
 
   return (
     <Modal
       isOpen
       title="Copy product"
-      onClose={ () => push({
-        pathname: closeUrl,
-        search
-      }) }
+      onClose={() =>
+        push({
+          pathname: closeUrl,
+          search
+        })
+      }
       isSmall
     >
       <FormRenderer
-        initialValues={ { portfolio_id: portfolioId, portfolio_item_name: name } }
-        schema={ copySchema(portfolios, name, portfolioChange, nameFetching) }
-        onSubmit={ onSubmit }
-        onCancel={ () => push({
-          pathname: closeUrl,
-          search
-        }) }
-        componentMapper={ { 'value-only': ValueOnly } }
-        buttonsLabels={ { submitLabel: 'Save' } }
-        disableSubmit={ submitting ? [ 'pristine', 'diry' ] : [] }
+        initialValues={{ portfolio_id: portfolioId, portfolio_item_name: name }}
+        schema={copySchema(portfolios, name, portfolioChange, nameFetching)}
+        onSubmit={onSubmit}
+        onCancel={() =>
+          push({
+            pathname: closeUrl,
+            search
+          })
+        }
+        componentMapper={{ 'value-only': ValueOnly }}
+        buttonsLabels={{ submitLabel: 'Save' }}
+        disableSubmit={submitting ? ['pristine', 'diry'] : []}
       />
     </Modal>
-  );};
+  );
+};
 
 CopyPortfolioItemModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
@@ -119,13 +151,19 @@ CopyPortfolioItemModal.propTypes = {
   search: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ portfolioReducer: { portfolios }}) => ({
+const mapStateToProps = ({ portfolioReducer: { portfolios } }) => ({
   portfolios: portfolios.data
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  copyPortfolioItem,
-  fetchPortfolioItemsWithPortfolio
-}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      copyPortfolioItem,
+      fetchPortfolioItemsWithPortfolio
+    },
+    dispatch
+  );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CopyPortfolioItemModal));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CopyPortfolioItemModal)
+);

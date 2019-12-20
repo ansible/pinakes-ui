@@ -11,19 +11,27 @@ import { defaultSettings } from '../../../helpers/shared/pagination';
 import { filterServiceOffering } from '../../../helpers/shared/helpers';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
 import createAddProductsSchema from '../../../toolbar/schemas/add-products-toolbar.schema';
-import { fetchPlatformItems, fetchPlatforms } from '../../../redux/actions/platform-actions';
-import { addToPortfolio, fetchPortfolioItemsWithPortfolio } from '../../../redux/actions/portfolio-actions';
+import {
+  fetchPlatformItems,
+  fetchPlatforms
+} from '../../../redux/actions/platform-actions';
+import {
+  addToPortfolio,
+  fetchPortfolioItemsWithPortfolio
+} from '../../../redux/actions/portfolio-actions';
 
-const renderGalleryItems = (items = [], checkItem, checkedItems, filter) => items.filter(item => filterServiceOffering(item, filter))
-.map(item => (
-  <PlatformItem
-    key={ item.id }
-    { ...item }
-    editMode
-    onToggleItemSelect={ () => checkItem(item.id) }
-    checked={ checkedItems.includes(item.id) }
-  />
-));
+const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
+  items
+    .filter((item) => filterServiceOffering(item, filter))
+    .map((item) => (
+      <PlatformItem
+        key={item.id}
+        {...item}
+        editMode
+        onToggleItemSelect={() => checkItem(item.id)}
+        checked={checkedItems.includes(item.id)}
+      />
+    ));
 
 const AddProductsToPortfolio = ({
   portfolio,
@@ -37,59 +45,77 @@ const AddProductsToPortfolio = ({
   fetchPortfolioItemsWithPortfolio,
   history: { push }
 }) => {
-  const [ searchValue, handleFilterChange ] = useState('');
-  const [ selectedPlatform, setSelectedPlatform ] = useState(undefined);
-  const [ checkedItems, setCheckedItems ] = useState([]);
-  const [ isFetching, setFetching ] = useState(false);
+  const [searchValue, handleFilterChange] = useState('');
+  const [selectedPlatform, setSelectedPlatform] = useState(undefined);
+  const [checkedItems, setCheckedItems] = useState([]);
+  const [isFetching, setFetching] = useState(false);
 
-  useEffect(() => { fetchPlatforms(); }, []);
+  useEffect(() => {
+    fetchPlatforms();
+  }, []);
 
-  const checkItem = itemId => {
+  const checkItem = (itemId) => {
     const index = checkedItems.indexOf(itemId);
-    return index > -1 ? [
-      ...checkedItems.slice(0, index),
-      ...checkedItems.slice(index + 1)
-    ] : [ ...checkedItems, itemId ];
+    return index > -1
+      ? [...checkedItems.slice(0, index), ...checkedItems.slice(index + 1)]
+      : [...checkedItems, itemId];
   };
 
-  const items = selectedPlatform && platformItems[selectedPlatform.id] ? platformItems[selectedPlatform.id].data : [];
-  const meta = selectedPlatform && platformItems[selectedPlatform.id] && platformItems[selectedPlatform.id].meta;
+  const items =
+    selectedPlatform && platformItems[selectedPlatform.id]
+      ? platformItems[selectedPlatform.id].data
+      : [];
+  const meta =
+    selectedPlatform &&
+    platformItems[selectedPlatform.id] &&
+    platformItems[selectedPlatform.id].meta;
 
   const handleAddToPortfolio = () => {
     setFetching(true);
     return addToPortfolio(portfolio.id, checkedItems)
-    .then(() => setFetching(false))
-    .then(() => push(portfolioRoute))
-    .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id))
-    .catch(() => setFetching(false));
+      .then(() => setFetching(false))
+      .then(() => push(portfolioRoute))
+      .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id))
+      .catch(() => setFetching(false));
   };
 
-  const onPlatformSelect = platform => {
+  const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
     fetchPlatformItems(platform.id, null, defaultSettings);
   };
 
   return (
     <Section>
-      <ToolbarRenderer schema={ createAddProductsSchema({
-        options: platforms.map(platform => ({ value: platform.id, label: platform.name, id: platform.id })),
-        isFetching,
-        portfolioName: portfolio && portfolio.name || '',
-        itemsSelected: checkedItems.length > 0,
-        onOptionSelect: onPlatformSelect,
-        onFilterChange: value => handleFilterChange(value),
-        portfolioRoute,
-        onClickAddToPortfolio: handleAddToPortfolio,
-        meta,
-        platformId: selectedPlatform && selectedPlatform.id,
-        searchValue,
-        fetchPlatformItems
-      }) } />
+      <ToolbarRenderer
+        schema={createAddProductsSchema({
+          options: platforms.map((platform) => ({
+            value: platform.id,
+            label: platform.name,
+            id: platform.id
+          })),
+          isFetching,
+          portfolioName: (portfolio && portfolio.name) || '',
+          itemsSelected: checkedItems.length > 0,
+          onOptionSelect: onPlatformSelect,
+          onFilterChange: (value) => handleFilterChange(value),
+          portfolioRoute,
+          onClickAddToPortfolio: handleAddToPortfolio,
+          meta,
+          platformId: selectedPlatform && selectedPlatform.id,
+          searchValue,
+          fetchPlatformItems
+        })}
+      />
       <AddProductsGallery
-        platform={ !!selectedPlatform }
-        checkedItems={ checkedItems }
-        isLoading={ isLoading }
-        items={ renderGalleryItems(items, itemId => setCheckedItems(checkItem(itemId)), checkedItems, searchValue) }
+        platform={!!selectedPlatform}
+        checkedItems={checkedItems}
+        isLoading={isLoading}
+        items={renderGalleryItems(
+          items,
+          (itemId) => setCheckedItems(checkItem(itemId)),
+          checkedItems,
+          searchValue
+        )}
       />
     </Section>
   );
@@ -102,7 +128,10 @@ AddProductsToPortfolio.propTypes = {
   }),
   portfolioRoute: PropTypes.string.isRequired,
   platforms: PropTypes.arrayOf(
-    PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired })
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    })
   ).isRequired,
   isLoading: PropTypes.bool,
   platformItems: PropTypes.object.isRequired,
@@ -115,18 +144,25 @@ AddProductsToPortfolio.propTypes = {
   fetchPlatforms: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ platformReducer: { platforms, platformItems, isPlatformDataLoading }}) => ({
+const mapStateToProps = ({
+  platformReducer: { platforms, platformItems, isPlatformDataLoading }
+}) => ({
   platforms,
   isLoading: isPlatformDataLoading,
   platformItems
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  addToPortfolio,
-  fetchPlatforms,
-  fetchPlatformItems,
-  fetchPortfolioItemsWithPortfolio
-}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      addToPortfolio,
+      fetchPlatforms,
+      fetchPlatformItems,
+      fetchPortfolioItemsWithPortfolio
+    },
+    dispatch
+  );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio));
-
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio)
+);
