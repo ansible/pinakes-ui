@@ -39,7 +39,7 @@ const fragmentMapper = {
   }
 };
 
-const createPaths = fragments => {
+const createPaths = (fragments) => {
   let rootReducer = fragments.find(({ reducer }) => reducer !== undefined);
   let finalFragments = [];
   if (!rootReducer) {
@@ -62,7 +62,10 @@ const createPaths = fragments => {
     } else {
       finalFragments[fragmentIndex] = {
         reducer: fragmentMapper[urlFragment].reducer || rootReducer,
-        path: fragmentIndex === 0 ? `/${urlFragment}` : `${finalFragments[fragmentIndex - 1].path}/${urlFragment}`,
+        path:
+          fragmentIndex === 0
+            ? `/${urlFragment}`
+            : `${finalFragments[fragmentIndex - 1].path}/${urlFragment}`,
         urlFragment
       };
       fragmentIndex++;
@@ -72,7 +75,7 @@ const createPaths = fragments => {
 };
 
 const findRoutes = (url) => {
-  const fragments = (url.split('/')).filter(item => item !== '');
+  const fragments = url.split('/').filter((item) => item !== '');
   const cleanFragments = fragments.map((key, index) => {
     return {
       reducer: patternsReducers[key],
@@ -86,29 +89,43 @@ const findRoutes = (url) => {
     return [];
   }
 
-  return createPaths(cleanFragments).map(fragment => ({
+  return createPaths(cleanFragments).map((fragment) => ({
     ...fragment,
-    meta: fragmentMapper[Object.keys(fragmentMapper).find(key => fragment.urlFragment.includes(key))]
+    meta:
+      fragmentMapper[
+        Object.keys(fragmentMapper).find((key) =>
+          fragment.urlFragment.includes(key)
+        )
+      ]
   }));
 };
 
 const CatalogBreadcrumbs = ({ match: { url }, reducers }) => {
   const routes = findRoutes(url);
+  if (routes.length <= 1) {
+    return null;
+  }
+
   const items = routes.map((route, index) => (
-    <BreadcrumbItem key={ route.path } isActive={ route.path === url || index === routes.length - 1 }>
-      <NavLink exact to={ route.path } isActive={ () => route.path === url || index === routes.length - 1 }>
-        { route.meta.title || get(reducers, route.reducer) }
+    <BreadcrumbItem
+      key={route.path}
+      isActive={route.path === url || index === routes.length - 1}
+    >
+      <NavLink
+        exact
+        to={route.path}
+        isActive={() => route.path === url || index === routes.length - 1}
+      >
+        {route.meta.title || get(reducers, route.reducer)}
       </NavLink>
     </BreadcrumbItem>
   ));
   return (
-    <Breadcrumb style={ { minHeight: 18 } }>
-      { items.length > 1 && items }
-    </Breadcrumb>
+    <Breadcrumb className="pf-u-mb-lg">{items.length > 1 && items}</Breadcrumb>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   reducers: { ...state }
 });
 

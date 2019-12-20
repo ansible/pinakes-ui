@@ -1,5 +1,11 @@
-import { getSourcesApi, getPortfolioApi } from '../../../helpers/shared/user-login';
-import { SOURCES_API_BASE, CATALOG_API_BASE } from '../../../utilities/constants';
+import {
+  getSourcesApi,
+  getPortfolioApi
+} from '../../../helpers/shared/user-login';
+import {
+  SOURCES_API_BASE,
+  CATALOG_API_BASE
+} from '../../../utilities/constants';
 
 describe('user login', () => {
   it('should set correct basePath for sources api instance', () => {

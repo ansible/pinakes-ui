@@ -15,18 +15,18 @@ describe('<PortfolioCardHeader />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<PortfolioCardHeader { ...initialProps } />);
+    const wrapper = shallow(<PortfolioCardHeader {...initialProps} />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
   it('should render actions and react on user events', () => {
     const actionClick = jest.fn();
     const actions = [
-      <button key="foo" onClick={ () => actionClick('foo') }></button>
+      <button key="foo" onClick={() => actionClick('foo')}></button>
     ];
     const wrapper = mount(
       <MemoryRouter>
-        <PortfolioCardHeader { ...initialProps } headerActions={ actions } />
+        <PortfolioCardHeader {...initialProps} headerActions={actions} />
       </MemoryRouter>
     );
 

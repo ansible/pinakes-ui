@@ -8,41 +8,44 @@ import { Spinner } from '@redhat-cloud-services/frontend-components';
 
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
-import { addPortfolio, updatePortfolio } from '../../redux/actions/portfolio-actions';
+import {
+  addPortfolio,
+  updatePortfolio
+} from '../../redux/actions/portfolio-actions';
 
 const AddPortfolioModal = ({
   history: { goBack },
-  match: { params: { id }},
+  match: {
+    params: { id }
+  },
   addPortfolio,
   initialValues,
   updatePortfolio
 }) => {
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     goBack();
-    return initialValues
-      ? updatePortfolio(data)
-      : addPortfolio(data);
+    return initialValues ? updatePortfolio(data) : addPortfolio(data);
   };
 
   const onCancel = () => goBack();
 
   return (
     <Modal
-      title={ initialValues ? 'Edit portfolio' : 'Create portfolio' }
+      title={initialValues ? 'Edit portfolio' : 'Create portfolio'}
       isOpen
-      onClose={ onCancel }
+      onClose={onCancel}
       isSmall
     >
-      { !id || (id && initialValues) ? (
-        <div style={ { padding: 8 } }>
+      {!id || (id && initialValues) ? (
+        <div style={{ padding: 8 }}>
           <FormRenderer
-            schema={ createPortfolioSchema(!initialValues, id) }
+            schema={createPortfolioSchema(!initialValues, id)}
             schemaType="default"
-            onSubmit={ onSubmit }
-            onCancel={ onCancel }
-            initialValues={ { ...initialValues } }
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+            initialValues={{ ...initialValues }}
             formContainer="modal"
-            buttonsLabels={ { submitLabel: 'Save' } }
+            buttonsLabels={{ submitLabel: 'Save' }}
           />
         </div>
       ) : (
@@ -51,7 +54,7 @@ const AddPortfolioModal = ({
             <Spinner />
           </div>
         </Bullseye>
-      ) }
+      )}
     </Modal>
   );
 };
@@ -70,25 +73,43 @@ AddPortfolioModal.propTypes = {
   initialValues: PropTypes.object,
   updatePortfolio: PropTypes.func.isRequired,
   fetchWorkflows: PropTypes.func.isRequired,
-  workflows: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
-    label: PropTypes.string.isRequired
-  })).isRequired
+  workflows: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 const stripValues = ({ owner, created_at, updated_at, ...rest }) => rest;
 
-const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
-  initialValues: id && (() => {
-    const portfolio = portfolios.data.find(item => item.id === id);
-    return portfolio && stripValues(portfolio);
-  })(),
+const mapStateToProps = (
+  { portfolioReducer: { portfolios } },
+  {
+    match: {
+      params: { id }
+    }
+  }
+) => ({
+  initialValues:
+    id &&
+    (() => {
+      const portfolio = portfolios.data.find((item) => item.id === id);
+      return portfolio && stripValues(portfolio);
+    })(),
   portfolioId: id
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addPortfolio,
-  updatePortfolio
-}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      addPortfolio,
+      updatePortfolio
+    },
+    dispatch
+  );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal)
+);

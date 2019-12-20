@@ -15,14 +15,19 @@ import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
-import ContentGalleryEmptyState, { EmptyStatePrimaryAction } from '../../presentational-components/shared/content-gallery-empty-state';
+import ContentGalleryEmptyState, {
+  EmptyStatePrimaryAction
+} from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 
-const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback, meta = defaultSettings) => {
-  filteringCallback(true);
-  dispatch(fetchPortfolios(value, meta)).then(() => filteringCallback(false));
-}, 1000);
+const debouncedFilter = asyncFormValidator(
+  (value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPortfolios(value, meta)).then(() => filteringCallback(false));
+  },
+  1000
+);
 
 const portfoliosRoutes = {
   portfolios: '',
@@ -50,60 +55,118 @@ const portfoliosState = (state, action) => {
 };
 
 const Portfolios = () => {
-  const [{ filterValue, isFetching, isFiltering }, stateDispatch ] = useReducer(portfoliosState, initialState);
-  const { data, meta } = useSelector(({ portfolioReducer: { portfolios }}) => portfolios);
+  const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
+    portfoliosState,
+    initialState
+  );
+  const { data, meta } = useSelector(
+    ({ portfolioReducer: { portfolios } }) => portfolios
+  );
   const match = useRouteMatch('/portfolios');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPortfolios(filterValue, defaultSettings)).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    dispatch(fetchPortfolios(filterValue, defaultSettings)).then(() =>
+      stateDispatch({ type: 'setFetching', payload: false })
+    );
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
 
-  const handleFilterItems = value => {
+  const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }), {
-      ...meta,
-      offset: 0
-    });
+    debouncedFilter(
+      value,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
+      {
+        ...meta,
+        offset: 0
+      }
+    );
   };
 
   const renderItems = () => {
-    const galleryItems = data.map(item => <PortfolioCard key={ item.id } { ...item } />);
+    const galleryItems = data.map((item) => (
+      <PortfolioCard key={item.id} {...item} />
+    ));
     return (
       <Fragment>
         <ToolbarRenderer
-          schema={ createPortfolioToolbarSchema({
+          schema={createPortfolioToolbarSchema({
             meta,
             fetchPortfolios: (...args) => dispatch(fetchPortfolios(...args)),
             filterProps: {
               searchValue: filterValue,
               onFilterChange: handleFilterItems,
               placeholder: 'Filter by name...'
-            }}) }
+            }
+          })}
         />
-        <Route exact path="/portfolios/add-portfolio" component={ AddPortfolio } />
-        <Route exact path="/portfolios/edit/:id" component={ AddPortfolio } />
-        <Route exact path="/portfolios/remove/:id" component={ RemovePortfolio } />
-        <Route exact path="/portfolios/share/:id" render={ (...args) => <SharePortfolio closeUrl={ match.url } { ...args } /> } />
-        <Route exact path="/portfolios/edit-workflow/:id" render={ () =>
-          <EditApprovalWorkflow closeUrl={ match.url } objectType={ PORTFOLIO_RESOURCE_TYPE } /> } />
-        <ContentGallery items={ galleryItems } isLoading={ isFetching || isFiltering } renderEmptyState={ () => (
-          <ContentGalleryEmptyState
-            title="No portfolios"
-            Icon={ SearchIcon }
-            description={ filterValue === '' ? 'You haven’t created a portfolio yet.' : 'No portfolios match your filter criteria.' }
-            PrimaryAction={ () => <EmptyStatePrimaryAction url="/portfolios/add-portfolio" label="Create portfolio" /> }
-          />
-        ) } />
+        <Route
+          exact
+          path="/portfolios/add-portfolio"
+          component={AddPortfolio}
+        />
+        <Route exact path="/portfolios/edit/:id" component={AddPortfolio} />
+        <Route
+          exact
+          path="/portfolios/remove/:id"
+          component={RemovePortfolio}
+        />
+        <Route
+          exact
+          path="/portfolios/share/:id"
+          render={(...args) => (
+            <SharePortfolio closeUrl={match.url} {...args} />
+          )}
+        />
+        <Route
+          exact
+          path="/portfolios/edit-workflow/:id"
+          render={() => (
+            <EditApprovalWorkflow
+              closeUrl={match.url}
+              objectType={PORTFOLIO_RESOURCE_TYPE}
+            />
+          )}
+        />
+        <ContentGallery
+          items={galleryItems}
+          isLoading={isFetching || isFiltering}
+          renderEmptyState={() => (
+            <ContentGalleryEmptyState
+              title="No portfolios"
+              Icon={SearchIcon}
+              description={
+                filterValue === ''
+                  ? 'You haven’t created a portfolio yet.'
+                  : 'No portfolios match your filter criteria.'
+              }
+              PrimaryAction={() => (
+                <EmptyStatePrimaryAction
+                  url="/portfolios/add-portfolio"
+                  label="Create portfolio"
+                />
+              )}
+            />
+          )}
+        />
       </Fragment>
-    );};
+    );
+  };
 
   return (
     <Switch>
-      <Route path={ `/portfolios/${portfoliosRoutes.detail}` } component={ Portfolio } />
-      <Route path={ `/portfolios/${portfoliosRoutes.portfolios}` } render={ renderItems } />
+      <Route
+        path={`/portfolios/${portfoliosRoutes.detail}`}
+        component={Portfolio}
+      />
+      <Route
+        path={`/portfolios/${portfoliosRoutes.portfolios}`}
+        render={renderItems}
+      />
     </Switch>
   );
 };

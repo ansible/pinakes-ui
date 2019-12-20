@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchIcon } from '@patternfly/react-icons';
+import { WrenchIcon } from '@patternfly/react-icons';
 
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -12,13 +12,26 @@ import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
+import { Button } from '@patternfly/react-core';
+import AppContext from '../../app-context';
 
-const debouncedFilter = asyncFormValidator((value, dispatch, filteringCallback) => {
-  filteringCallback(true);
-  dispatch(fetchPortfolioItems(value, defaultSettings)).then(() => filteringCallback(false));
-}, 1000);
+const debouncedFilter = asyncFormValidator(
+  (value, dispatch, filteringCallback) => {
+    filteringCallback(true);
+    dispatch(fetchPortfolioItems(value, defaultSettings)).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
 
-const buildItemUrl = ({ portfolio_id, id }) => portfolio_id && `/portfolios/detail/${portfolio_id}/product/${id}`;
+const buildItemUrl = ({ portfolio_id, id, service_offering_source_ref }) =>
+  portfolio_id && id
+    ? {
+        pathname: `/portfolios/detail/${portfolio_id}/product/${id}`,
+        search: `portfolio=${portfolio_id}&source=${service_offering_source_ref}`
+      }
+    : undefined;
 
 const initialState = {
   filterValue: '',
@@ -41,9 +54,15 @@ const productsState = (state, action) => {
 };
 
 const Products = () => {
-  const [{ isFetching, filterValue, isFiltering }, stateDispatch ] = useReducer(productsState, initialState);
+  const { release } = useContext(AppContext);
+  const [{ isFetching, filterValue, isFiltering }, stateDispatch] = useReducer(
+    productsState,
+    initialState
+  );
   const dispatch = useDispatch();
-  const { data, meta } = useSelector(({ portfolioReducer: { portfolioItems }}) => portfolioItems);
+  const { data, meta } = useSelector(
+    ({ portfolioReducer: { portfolioItems } }) => portfolioItems
+  );
 
   useEffect(() => {
     Promise.all([
@@ -54,30 +73,47 @@ const Products = () => {
     insights.chrome.appNavClick({ id: 'products', secondaryNav: true });
   }, []);
 
-  const handleFilterItems = value => {
+  const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(value, dispatch, isFiltering => stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }));
+    debouncedFilter(value, dispatch, (isFiltering) =>
+      stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
+    );
   };
 
-  const galleryItems = data.map(item => <PortfolioItem key={ item.id } url={ buildItemUrl(item) } { ...item } />);
+  const galleryItems = data.map((item) => (
+    <PortfolioItem key={item.id} to={buildItemUrl(item)} {...item} />
+  ));
 
   return (
     <div>
-      <ToolbarRenderer schema={ createProductsToolbarSchema({
-        filterProps: {
-          searchValue: filterValue,
-          onFilterChange: handleFilterItems,
-          placeholder: 'Filter by name...'
-        },
-        title: 'Products',
-        isLoading: isFiltering || isFetching,
-        meta,
-        fetchProducts: (...args) => dispatch(fetchPortfolioItems(...args))
-      }) } />
+      <ToolbarRenderer
+        schema={createProductsToolbarSchema({
+          filterProps: {
+            searchValue: filterValue,
+            onFilterChange: handleFilterItems,
+            placeholder: 'Filter by name...'
+          },
+          title: 'Products',
+          isLoading: isFiltering || isFetching,
+          meta,
+          fetchProducts: (...args) => dispatch(fetchPortfolioItems(...args))
+        })}
+      />
       <ContentGallery
-        isLoading={ isFiltering || isFetching }
-        items={ galleryItems }
-        renderEmptyState={ () => <ContentGalleryEmptyState title="Foo" description="Bar" Icon={ SearchIcon } /> }
+        isLoading={isFiltering || isFetching}
+        items={galleryItems}
+        renderEmptyState={() => (
+          <ContentGalleryEmptyState
+            PrimaryAction={() => (
+              <a href={`${release}settings/sources/new`}>
+                <Button variant="secondary">Add source</Button>
+              </a>
+            )}
+            title="No products yet"
+            description="Configure a source to add products into portfolios."
+            Icon={WrenchIcon}
+          />
+        )}
       />
     </div>
   );

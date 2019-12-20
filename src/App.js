@@ -29,38 +29,45 @@ smoothscroll.polyfill();
 let ignoreRedirect = true;
 
 const App = () => {
-  const [ auth, setAuth ] = useState(false);
+  const [auth, setAuth] = useState(false);
   const schema = useSelector(({ openApiReducer }) => openApiReducer);
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
 
   useEffect(() => {
-    getAxiosInstance().get(`${CATALOG_API_BASE}/openapi.json`).then(payload => dispatch({ type: SET_OPENAPI_SCHEMA, payload }));
+    getAxiosInstance()
+      .get(`${CATALOG_API_BASE}/openapi.json`)
+      .then((payload) => dispatch({ type: SET_OPENAPI_SCHEMA, payload }));
 
     insights.chrome.init();
     insights.chrome.auth.getUser().then(() => setAuth(true));
     insights.chrome.identifyApp('catalog');
-    insights.chrome.navigation([{
-      id: 'products',
-      title: 'Products'
-    }, {
-      id: 'portfolios',
-      title: 'Portfolios'
-    }, {
-      id: 'platforms',
-      title: 'Platforms'
-    }, {
-      id: 'orders',
-      title: 'Orders'
-    }]);
+    insights.chrome.navigation([
+      {
+        id: 'products',
+        title: 'Products'
+      },
+      {
+        id: 'portfolios',
+        title: 'Portfolios'
+      },
+      {
+        id: 'platforms',
+        title: 'Platforms'
+      },
+      {
+        id: 'orders',
+        title: 'Orders'
+      }
+    ]);
 
-    unregister = insights.chrome.on('APP_NAVIGATION', event => {
+    unregister = insights.chrome.on('APP_NAVIGATION', (event) => {
       /**
-         * Handle navigation from insights main nav
-         * Uses React history directly instead of browser history to avoid template realod.
-         * only redirect after first application mount
-         */
+       * Handle navigation from insights main nav
+       * Uses React history directly instead of browser history to avoid template realod.
+       * only redirect after first application mount
+       */
       if (!ignoreRedirect && event.domEvent) {
         history.push(`/${event.navId}`);
       }
@@ -79,10 +86,10 @@ const App = () => {
     <IntlProvider locale="en">
       <Fragment>
         <NotificationsPortal />
-        <Main style={ { marginLeft: 0, padding: 0 } }>
-          <Grid style={ { minHeight: MIN_SCREEN_HEIGHT } }>
-            <GridItem sm={ 12 }>
-              <Routes/>
+        <Main style={{ marginLeft: 0, padding: 0 }}>
+          <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+            <GridItem sm={12}>
+              <Routes />
             </GridItem>
           </Grid>
         </Main>

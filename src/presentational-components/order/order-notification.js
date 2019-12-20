@@ -6,7 +6,11 @@ import { clearNotifications } from '@redhat-cloud-services/frontend-components-n
 
 const OrderNotification = ({ id, dispatch }) => (
   <p>
-    You can track the progress of Order # { id } in your <Link onClick={ () => dispatch(clearNotifications()) } to="/orders">Orders</Link> page.
+    You can track the progress of Order # {id} in your{' '}
+    <Link onClick={() => dispatch(clearNotifications())} to="/orders">
+      Orders
+    </Link>{' '}
+    page.
   </p>
 );
 

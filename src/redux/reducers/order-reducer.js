@@ -26,17 +26,55 @@ export const orderInitialState = {
   }
 };
 
-const setLoadingState = (state, { payload = true }) => ({ ...state, isLoading: payload });
-const setServicePlans = (state, { payload }) => ({ ...state, servicePlans: payload, isLoading: false });
-const setListOrder = (state, { payload }) => ({ ...state, orders: payload, isLoading: false });
-const setPlanParameters = (state, { payload }) => ({ ...state, planParameters: payload, isLoading: false });
-const submitServiceOrder = (state, { payload }) => ({ ...state, ...payload, isLoading: false });
-const updateServiceData = (state, { payload }) => ({ ...state, serviceData: payload, isLoading: false });
-const selectPlan = (state, { payload }) => ({ ...state, selectedPlan: payload, isLoading: false });
-const setRequests = (state, { payload }) => ({ ...state, requests: payload, isLoading: false });
-const setOrderItems = (state, { payload }) => ({ ...state, orderItems: payload, isLoading: false });
+const setLoadingState = (state, { payload = true }) => ({
+  ...state,
+  isLoading: payload
+});
+const setServicePlans = (state, { payload }) => ({
+  ...state,
+  servicePlans: payload,
+  isLoading: false
+});
+const setListOrder = (state, { payload }) => ({
+  ...state,
+  orders: payload,
+  isLoading: false
+});
+const setPlanParameters = (state, { payload }) => ({
+  ...state,
+  planParameters: payload,
+  isLoading: false
+});
+const submitServiceOrder = (state, { payload }) => ({
+  ...state,
+  ...payload,
+  isLoading: false
+});
+const updateServiceData = (state, { payload }) => ({
+  ...state,
+  serviceData: payload,
+  isLoading: false
+});
+const selectPlan = (state, { payload }) => ({
+  ...state,
+  selectedPlan: payload,
+  isLoading: false
+});
+const setRequests = (state, { payload }) => ({
+  ...state,
+  requests: payload,
+  isLoading: false
+});
+const setOrderItems = (state, { payload }) => ({
+  ...state,
+  orderItems: payload,
+  isLoading: false
+});
 const setOrders = (state, { payload }) => ({ ...state, orders: payload });
-const setOrderDetail = (state, { payload }) => ({ ...state, orderDetail: payload });
+const setOrderDetail = (state, { payload }) => ({
+  ...state,
+  orderDetail: payload
+});
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -57,7 +95,7 @@ export default {
   [`${FETCH_ORDERS}_FULFILLED`]: setOrders,
   [`${FETCH_ORDERS}_PENDING`]: setLoadingState,
   [SET_ORDERS]: setOrders,
-  [`${SET_ORDER_DETAIL}_PENDING`]: state => setOrderDetail(state, {}),
+  [`${SET_ORDER_DETAIL}_PENDING`]: (state) => setOrderDetail(state, {}),
   [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail,
   [SET_ORDER_DETAIL]: setOrderDetail
 };
