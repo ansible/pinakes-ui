@@ -9,7 +9,7 @@
     "@manageiq/topological_inventory": "~1.2.0",
     "@patternfly/react-core": "3.124.1",
     "@patternfly/react-icons": "3.14.28",
-    "@patternfly/react-table": "^2.24.41",
+    "@patternfly/react-table": "^2.24.64",
     "@redhat-cloud-services/approval-client": "^1.0.40",
     "@redhat-cloud-services/catalog-client": "^1.0.40",
     "@redhat-cloud-services/frontend-components": "0.0.43",
