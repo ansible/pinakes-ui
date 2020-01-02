@@ -94,13 +94,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
       <Component
         component="LevelItem"
         key="pagination-item"
-      >
-        <Component
-          apiRequest={[Function]}
-          component={[Function]}
-          key="portfolios-pagination"
-        />
-      </Component>
+      />
     </Component>
   </Component>
 </ContextProvider>
