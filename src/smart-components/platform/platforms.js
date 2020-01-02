@@ -44,9 +44,7 @@ class Platforms extends Component {
         </Text>
         <Text component={TextVariants.p}>
           To connect to a source, go to{' '}
-          <a href={`${document.baseURI}ansible/settings/sources`}>
-            Catalog sources
-          </a>
+          <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
           &nbsp; under Settings
         </Text>
         <Text component={TextVariants.p}>
