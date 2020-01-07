@@ -19,6 +19,7 @@ describe('<PortfoliosFilterToolbar />', () => {
           searchValue: '',
           onFilterChange: jest.fn()
         },
+        meta: {},
         fetchPortfolios: () => new Promise((resolve) => resolve([]))
       })
     };
@@ -43,6 +44,7 @@ describe('<PortfoliosFilterToolbar />', () => {
           <ToolbarRenderer
             schema={createPortfolioToolbarSchema({
               fetchPortfolios: () => new Promise((resolve) => resolve([])),
+              meta: {},
               filterProps: { onFilterChange, searchValue: '' }
             })}
           />

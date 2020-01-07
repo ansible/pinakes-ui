@@ -36,6 +36,7 @@ const createPortfolioToolbarSchema = ({
                   isClearable: true
                 }),
                 createSingleItemGroup({
+                  hidden: meta.count === 0,
                   groupName: 'portfolio-button-group',
                   key: 'create-portfolio',
                   ...createLinkButton({
@@ -51,14 +52,17 @@ const createPortfolioToolbarSchema = ({
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'pagination-item',
-              fields: [
-                {
-                  component: AsyncPagination,
-                  key: 'portfolios-pagination',
-                  meta,
-                  apiRequest: fetchPortfolios
-                }
-              ]
+              fields:
+                meta.count > 0
+                  ? [
+                      {
+                        component: AsyncPagination,
+                        key: 'portfolios-pagination',
+                        meta,
+                        apiRequest: fetchPortfolios
+                      }
+                    ]
+                  : []
             }
           ]
         }

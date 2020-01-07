@@ -222,16 +222,16 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
                 count: portfolioItems.length,
                 portfolioName,
                 undo: (
-                  <a href="#" onClick={(event) => event.preventDefault()}>
-                    <span
-                      onClick={() =>
-                        dispatch(
-                          undoRemoveProductsFromPortfolio(data, portfolioId)
-                        )
-                      }
-                    >
-                      Undo
-                    </span>
+                  <a
+                    href="#"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      dispatch(
+                        undoRemoveProductsFromPortfolio(data, portfolioId)
+                      );
+                    }}
+                  >
+                    Undo
                   </a>
                 )
               }}
