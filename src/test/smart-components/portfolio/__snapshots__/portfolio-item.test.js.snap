@@ -171,23 +171,12 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       ]
                     }
                   >
-                    <Dotdotdot
-                      clamp={6}
-                      tagName="div"
-                      truncationChar="…"
-                      useNativeClamp={false}
+                    <div
+                      className="card-prop-text"
+                      key="card-prop-description"
                     >
-                      <div>
-                        <PropLine
-                          key="card-prop-description"
-                          value="Bar"
-                        >
-                          <div>
-                            Bar
-                          </div>
-                        </PropLine>
-                      </div>
-                    </Dotdotdot>
+                      Bar
+                    </div>
                   </ItemDetails>
                 </div>
               </CardBody>

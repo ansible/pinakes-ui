@@ -41,8 +41,19 @@
 
 .content-gallery {
   .content-gallery-card {
-    word-break: break-all;
     height: 330px;
+    .card-prop-text {
+      overflow: hidden;
+    }
+    .pf-c-card__body {
+      max-height: calc(100% - 89px);
+      overflow: hidden;
+      position: relative;
+      &::after {
+        content: "Foo";
+        position: absolute;
+      }
+    }
     .card-link {
       height: 100%;
     }
