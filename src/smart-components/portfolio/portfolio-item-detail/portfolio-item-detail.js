@@ -42,7 +42,7 @@ const PortfolioItemDetail = () => {
     )
       .then(() => setIsFetching(false))
       .catch(() => setIsFetching(false));
-  }, [path]);
+  }, [path, portfolioItemId]);
 
   if (isFetching || !portfolioItem) {
     return (

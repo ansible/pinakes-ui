@@ -36,6 +36,7 @@ export const portfoliosInitialState = {
       offset: 0
     }
   },
+  selectedPortfolio: {},
   portfolio: {},
   filterValue: '',
   isLoading: false
@@ -71,7 +72,7 @@ const filterPortfolios = (state, { payload }) => ({
 });
 const resetSelectedPortfolio = (state) => ({
   ...state,
-  selectedPortfolio: undefined,
+  selectedPortfolio: {},
   portfolioItems: portfoliosInitialState.portfolioItems
 });
 

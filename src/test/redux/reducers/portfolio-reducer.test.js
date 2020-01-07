@@ -109,7 +109,7 @@ describe('Portfolio reducer', () => {
     ).toEqual(expectedState);
     // reset selected portfolio and portfolio items
     const resetState = {
-      selectedPortfolio: undefined,
+      selectedPortfolio: {},
       portfolioItems: { data: [], meta: { offset: 0, limit: 50 } }
     };
     expect(

@@ -74,9 +74,14 @@ PortfolioActionsToolbar.propTypes = {
 const PortfolioItemsActionsDropdown = ({
   removeProducts,
   isDisabled,
-  itemsSelected
+  itemsSelected,
+  hidden
 }) => {
   const [isOpen, setOpen] = useState(false);
+
+  if (hidden) {
+    return null;
+  }
 
   return (
     <Dropdown
@@ -116,7 +121,8 @@ const PortfolioItemsActionsDropdown = ({
 PortfolioItemsActionsDropdown.propTypes = {
   removeProducts: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool,
-  itemsSelected: PropTypes.bool
+  itemsSelected: PropTypes.bool,
+  hidden: PropTypes.bool
 };
 
 const createPortfolioToolbarSchema = ({
@@ -182,12 +188,14 @@ const createPortfolioToolbarSchema = ({
                 createSingleItemGroup({
                   groupName: 'filter-portfolio-items',
                   component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
+                  isClearable: true,
                   key: 'portfolio-items-filter',
                   searchValue,
                   onFilterChange,
                   placeholder
                 }),
                 createSingleItemGroup({
+                  hidden: meta.count === 0,
                   groupName: 'add-portfolio-items',
                   key: 'portfolio-items-add-group',
                   ...createLinkButton({
@@ -199,6 +207,7 @@ const createPortfolioToolbarSchema = ({
                   })
                 }),
                 {
+                  hidden: meta.count === 0,
                   component: PortfolioItemsActionsDropdown,
                   isDisabled: copyInProgress,
                   key: 'remove-products-actions-dropdown',
@@ -210,15 +219,18 @@ const createPortfolioToolbarSchema = ({
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'pagination-item',
-              fields: [
-                {
-                  component: AsyncPagination,
-                  key: 'portfolio-items-pagination',
-                  meta,
-                  apiRequest: fetchPortfolioItemsWithPortfolio,
-                  apiProps: portfolioId
-                }
-              ]
+              fields:
+                meta.count > 0
+                  ? [
+                      {
+                        component: AsyncPagination,
+                        key: 'portfolio-items-pagination',
+                        meta,
+                        apiRequest: fetchPortfolioItemsWithPortfolio,
+                        apiProps: portfolioId
+                      }
+                    ]
+                  : []
             }
           ]
         }

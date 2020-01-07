@@ -59,31 +59,18 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                         ]
                       }
                     >
-                      <Dotdotdot
-                        clamp={6}
-                        tagName="div"
-                        truncationChar="…"
-                        useNativeClamp={false}
+                      <div
+                        className="card-prop-text"
+                        key="card-prop-description"
                       >
-                        <div>
-                          <PropLine
-                            key="card-prop-description"
-                            value="desc"
-                          >
-                            <div>
-                              desc
-                            </div>
-                          </PropLine>
-                          <PropLine
-                            key="card-prop-modified"
-                            value="Foo"
-                          >
-                            <div>
-                              Foo
-                            </div>
-                          </PropLine>
-                        </div>
-                      </Dotdotdot>
+                        desc
+                      </div>
+                      <div
+                        className="card-prop-text"
+                        key="card-prop-modified"
+                      >
+                        Foo
+                      </div>
                     </ItemDetails>
                   </div>
                 </CardBody>
@@ -161,31 +148,18 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                         ]
                       }
                     >
-                      <Dotdotdot
-                        clamp={6}
-                        tagName="div"
-                        truncationChar="…"
-                        useNativeClamp={false}
+                      <div
+                        className="card-prop-text"
+                        key="card-prop-description"
                       >
-                        <div>
-                          <PropLine
-                            key="card-prop-description"
-                            value="desc"
-                          >
-                            <div>
-                              desc
-                            </div>
-                          </PropLine>
-                          <PropLine
-                            key="card-prop-modified"
-                            value="Foo"
-                          >
-                            <div>
-                              Foo
-                            </div>
-                          </PropLine>
-                        </div>
-                      </Dotdotdot>
+                        desc
+                      </div>
+                      <div
+                        className="card-prop-text"
+                        key="card-prop-modified"
+                      >
+                        Foo
+                      </div>
                     </ItemDetails>
                   </div>
                 </CardBody>

@@ -41,16 +41,19 @@ const createPortfolioToolbarSchema = ({
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'pagination-item',
-              fields: [
-                {
-                  component: AsyncPagination,
-                  key: 'products-pagination',
-                  meta,
-                  apiProps: searchValue,
-                  apiRequest: fetchProducts,
-                  isDisabled: isLoading
-                }
-              ]
+              fields:
+                meta.count > 0
+                  ? [
+                      {
+                        component: AsyncPagination,
+                        key: 'products-pagination',
+                        meta,
+                        apiProps: searchValue,
+                        apiRequest: fetchProducts,
+                        isDisabled: isLoading
+                      }
+                    ]
+                  : []
             }
           ]
         }
