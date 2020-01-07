@@ -59,6 +59,16 @@ const PortfolioItems = ({
       removeInProgress={removeInProgress}
     />
   ));
+
+  const itemName = (id) => {
+    if (data) {
+      console.log('DEBUG: id, data', id, data);
+      return data.find((item) => item.id === id).name;
+    }
+
+    return `Inventory ${id}`;
+  };
+
   return (
     <Fragment>
       <ToolbarRenderer
@@ -105,6 +115,7 @@ const PortfolioItems = ({
           <EditApprovalWorkflow
             closeUrl={routes.portfolioRoute}
             objectType={PORTFOLIO_RESOURCE_TYPE}
+            objectName={itemName}
             {...args}
           />
         )}

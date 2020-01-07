@@ -27,7 +27,12 @@ const approvalState = (state, action) => {
   }
 };
 
-const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
+const EditApprovalWorkflow = ({
+  closeUrl,
+  objectType,
+  objectId,
+  objectName = () => objectType
+}) => {
   const [{ isFetching }, stateDispatch] = useReducer(
     approvalState,
     initialState
@@ -80,7 +85,7 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
 
   return (
     <Modal
-      title={'Set approval workflow'}
+      title={`Set approval workflow for ${objectName(id)}`}
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
@@ -104,6 +109,7 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
 EditApprovalWorkflow.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   objectType: PropTypes.string.isRequired,
+  objectName: PropTypes.func,
   objectId: PropTypes.string
 };
 

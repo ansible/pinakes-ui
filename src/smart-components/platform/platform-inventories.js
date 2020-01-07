@@ -117,6 +117,15 @@ const PlatformInventories = () => {
     ];
   };
 
+  const objectName = (id) => {
+    if (data) {
+      console.log('DEBUG: id, data', id, data);
+      return data.find((obj) => obj.id === id).name;
+    }
+
+    return `Inventory ${id}`;
+  };
+
   const renderItems = () => {
     const inventoryRows = data ? createRows(data, filterValue) : [];
     const title = platform ? platform.name : '';
@@ -142,6 +151,7 @@ const PlatformInventories = () => {
           <EditApprovalWorkflow
             closeUrl={`/platforms/detail/${id}/platform-inventories`}
             objectType={INVENTORY_RESOURCE_TYPE}
+            objectName={objectName}
           />
         </Route>
         <Section type="content">
