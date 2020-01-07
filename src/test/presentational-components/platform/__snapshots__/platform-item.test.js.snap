@@ -155,20 +155,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                 ]
               }
             >
-              <Dotdotdot
-                clamp={6}
-                tagName="div"
-                truncationChar="…"
-                useNativeClamp={false}
-              >
-                <div>
-                  <PropLine
-                    key="card-prop-long_description"
-                  >
-                    <div />
-                  </PropLine>
-                </div>
-              </Dotdotdot>
+              <div
+                className="card-prop-text"
+                key="card-prop-long_description"
+              />
             </ItemDetails>
           </div>
         </CardBody>
