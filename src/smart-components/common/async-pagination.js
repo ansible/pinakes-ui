@@ -65,7 +65,7 @@ AsyncPagination.defaultProps = {
     limit: 50,
     offset: 0
   },
-  className: 'pf-u-mt-sm'
+  className: ''
 };
 
 export default AsyncPagination;

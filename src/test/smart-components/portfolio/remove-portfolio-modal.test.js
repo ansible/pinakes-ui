@@ -1,10 +1,9 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import {
@@ -55,11 +54,6 @@ describe('<RemovePortfolioModal />', () => {
       }
     };
     mockStore = configureStore(middlewares);
-  });
-
-  it('should render correctly', () => {
-    const wrapper = shallow(<RemovePortfolioModal {...initialProps} />);
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
   it('should call cancel action', () => {

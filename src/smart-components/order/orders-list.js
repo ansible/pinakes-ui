@@ -164,7 +164,7 @@ const OrdersList = () => {
                     <EmptyStateBody>
                       {filterValue === ''
                         ? 'No orders have been created'
-                        : 'No results match the filter criteria. Remove all filtersor clear all filters to show results.'}
+                        : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
                     </EmptyStateBody>
 
                     <EmptyStateSecondaryActions>
@@ -194,12 +194,14 @@ const OrdersList = () => {
                 className="example-border"
                 breakpointMods={[{ modifier: 'justify-content-flex-end' }]}
               >
-                <AsyncPagination
-                  className="pf-u-mt-0"
-                  isDisabled={isFetching || isFiltering}
-                  apiRequest={handlePagination}
-                  meta={meta}
-                />
+                {meta.count > 0 && (
+                  <AsyncPagination
+                    className="pf-u-mt-0"
+                    isDisabled={isFetching || isFiltering}
+                    apiRequest={handlePagination}
+                    meta={meta}
+                  />
+                )}
               </Flex>
             </div>
           </TableToolbar>

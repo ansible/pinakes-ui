@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, useRouteMatch } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
@@ -12,117 +13,136 @@ import PortfolioEmptyState from './portfolio-empty-state';
 import ContentGallery from '../content-gallery/content-gallery';
 import EditApprovalWorkflow from '../common/edit-approval-workflow';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
+import PortfolioItem from './portfolio-item';
+import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 
 const PortfolioItems = ({
-  title,
-  filteredItems,
-  addProductsRoute,
-  editPortfolioRoute,
-  sharePortfolioRoute,
-  workflowPortfolioRoute,
-  removePortfolioRoute,
-  selectedItems,
-  filterValue,
+  routes,
   handleFilterChange,
-  isLoading,
-  copyInProgress,
   removeProducts,
   copyPortfolio,
-  portfolioRoute,
-  pagination,
-  fetchPortfolioItemsWithPortfolio,
-  portfolio: { id }
-}) => (
-  <Fragment>
-    <ToolbarRenderer
-      schema={createPortfolioToolbarSchema({
-        filterProps: {
-          searchValue: filterValue,
-          onFilterChange: handleFilterChange,
-          placeholder: 'Filter by name...'
-        },
-        title,
-        addProductsRoute,
-        editPortfolioRoute,
-        sharePortfolioRoute,
-        workflowPortfolioRoute,
-        removePortfolioRoute,
-        copyPortfolio,
-        isLoading,
-        copyInProgress,
-        removeProducts: () => removeProducts(selectedItems),
-        itemsSelected: selectedItems.length > 0,
-        meta: pagination,
-        fetchPortfolioItemsWithPortfolio,
-        portfolioId: id
-      })}
-    />
-    <Route
-      exact
-      path="/portfolios/detail/:id/edit-portfolio"
-      component={AddPortfolioModal}
-    />
-    <Route
-      exact
-      path="/portfolios/detail/:id/remove-portfolio"
-      component={RemovePortfolioModal}
-    />
-    <Route
-      exact
-      path="/portfolios/detail/:id/share-portfolio"
-      render={(...args) => (
-        <SharePortfolioModal closeUrl={portfolioRoute} {...args} />
-      )}
-    />
-    <Route
-      exact
-      path="/portfolios/detail/:id/edit-workflow"
-      render={(...args) => (
-        <EditApprovalWorkflow
-          closeUrl={portfolioRoute}
-          objectType={PORTFOLIO_RESOURCE_TYPE}
-          {...args}
-        />
-      )}
-    />
-    <Route
-      exact
-      path="/portfolios/detail/:id/order/:itemId"
-      render={(props) => <OrderModal {...props} closeUrl={portfolioRoute} />}
-    />
-    <ContentGallery
-      {...filteredItems}
-      renderEmptyState={() => <PortfolioEmptyState url={addProductsRoute} />}
-    />
-  </Fragment>
-);
+  stateDispatch,
+  state: {
+    removeInProgress,
+    isFetching,
+    isFiltering,
+    copyInProgress,
+    selectedItems,
+    filterValue
+  }
+}) => {
+  const { data, meta, name } = useSelector(
+    ({
+      portfolioReducer: {
+        portfolioItems: { data, meta },
+        selectedPortfolio: { name }
+      }
+    }) => ({ data, meta, name })
+  );
+  const match = useRouteMatch('/portfolios/detail/:id');
+  const dispatch = useDispatch();
 
-PortfolioItems.propTypes = {
-  title: PropTypes.string,
-  filteredItems: PropTypes.shape({
-    items: PropTypes.arrayOf(PropTypes.node),
-    isLoading: PropTypes.bool
-  }),
-  portfolioRoute: PropTypes.string.isRequired,
-  addProductsRoute: PropTypes.string.isRequired,
-  editPortfolioRoute: PropTypes.string.isRequired,
-  sharePortfolioRoute: PropTypes.string.isRequired,
-  workflowPortfolioRoute: PropTypes.string.isRequired,
-  removePortfolioRoute: PropTypes.string.isRequired,
-  selectedItems: PropTypes.arrayOf(PropTypes.string),
-  filterValue: PropTypes.string.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  copyInProgress: PropTypes.bool,
-  removeProducts: PropTypes.func.isRequired,
-  copyPortfolio: PropTypes.func.isRequired,
-  pagination: PropTypes.object.isRequired,
-  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
-  portfolio: PropTypes.shape({ id: PropTypes.string })
+  const items = data.map((item) => (
+    <PortfolioItem
+      key={item.id}
+      {...item}
+      to={{
+        pathname: `${match.url}/product/${item.id}`,
+        search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
+      }}
+      isSelectable
+      onSelect={(selectedItem) =>
+        stateDispatch({ type: 'selectItem', payload: selectedItem })
+      }
+      isSelected={selectedItems.includes(item.id)}
+      removeInProgress={removeInProgress}
+    />
+  ));
+  return (
+    <Fragment>
+      <ToolbarRenderer
+        schema={createPortfolioToolbarSchema({
+          filterProps: {
+            searchValue: filterValue,
+            onFilterChange: handleFilterChange,
+            placeholder: 'Filter by name...'
+          },
+          title: name,
+          ...routes,
+          copyPortfolio,
+          isLoading: isFetching || isFiltering,
+          copyInProgress,
+          removeProducts: () => removeProducts(selectedItems),
+          itemsSelected: selectedItems.length > 0,
+          meta,
+          fetchPortfolioItemsWithPortfolio: (...args) =>
+            dispatch(fetchPortfolioItemsWithPortfolio(...args)),
+          portfolioId: match.params.id
+        })}
+      />
+      <Route
+        exact
+        path="/portfolios/detail/:id/edit-portfolio"
+        component={AddPortfolioModal}
+      />
+      <Route
+        exact
+        path="/portfolios/detail/:id/remove-portfolio"
+        component={RemovePortfolioModal}
+      />
+      <Route
+        exact
+        path="/portfolios/detail/:id/share-portfolio"
+        render={(...args) => (
+          <SharePortfolioModal closeUrl={routes.portfolioRoute} {...args} />
+        )}
+      />
+      <Route
+        exact
+        path="/portfolios/detail/:id/edit-workflow"
+        render={(...args) => (
+          <EditApprovalWorkflow
+            closeUrl={routes.portfolioRoute}
+            objectType={PORTFOLIO_RESOURCE_TYPE}
+            {...args}
+          />
+        )}
+      />
+      <Route
+        exact
+        path="/portfolios/detail/:id/order/:itemId"
+        render={(props) => (
+          <OrderModal {...props} closeUrl={routes.portfolioRoute} />
+        )}
+      />
+      <ContentGallery
+        items={items}
+        isLoading={isFetching || isFiltering}
+        renderEmptyState={() => (
+          <PortfolioEmptyState url={routes.addProductsRoute} />
+        )}
+      />
+    </Fragment>
+  );
 };
 
-PortfolioItems.defaultProps = {
-  portfolio: {}
+PortfolioItems.propTypes = {
+  routes: PropTypes.shape({
+    addProductsRoute: PropTypes.string.isRequired,
+    portfolioRoute: PropTypes.string.isRequired
+  }).isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
+  removeProducts: PropTypes.func.isRequired,
+  copyPortfolio: PropTypes.func.isRequired,
+  stateDispatch: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    removeInProgress: PropTypes.bool,
+    isFetching: PropTypes.bool,
+    isFiltering: PropTypes.bool,
+    copyInProgress: PropTypes.bool,
+    selectedItems: PropTypes.arrayOf(PropTypes.string),
+    filterValue: PropTypes.string
+  }).isRequired
 };
 
 export default PortfolioItems;
