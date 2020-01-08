@@ -4,11 +4,7 @@ import { Route, useParams } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import {
-  defaultSettings,
-  getCurrentPage,
-  getNewPage
-} from '../../helpers/shared/pagination';
+import { defaultSettings } from '../../helpers/shared/pagination';
 import {
   fetchPlatformItems,
   fetchSelectedPlatform
@@ -20,9 +16,9 @@ import {
 } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
-import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentGallery from '../content-gallery/content-gallery';
 import { Button } from '@patternfly/react-core';
+import AsyncPagination from '../common/async-pagination';
 
 const initialState = {
   filterValue: '',
@@ -102,36 +98,7 @@ const PlatformTemplates = () => {
     );
   };
 
-  const handleOnPerPageSelect = (limit, debounce) => {
-    const options = {
-      offset: meta.offset,
-      limit
-    };
-    const request = () =>
-      dispatch(fetchPlatformItems(id, filterValue, options));
-    if (debounce) {
-      return debouncePromise(request, 250)();
-    }
-
-    return request();
-  };
-
-  const handleSetPage = (number, debounce) => {
-    const options = {
-      offset: getNewPage(number, meta.limit),
-      limit: meta.limit
-    };
-    const request = () =>
-      dispatch(fetchPlatformItems(id, filterValue, options));
-    if (debounce) {
-      return debouncePromise(request, 250)();
-    }
-
-    return request();
-  };
-
   const renderItems = () => {
-    const paginationCurrent = meta || defaultSettings;
     const filteredItems = {
       items: data
         ? data.map((item) => <PlatformItem key={item.id} {...item} />)
@@ -152,17 +119,9 @@ const PlatformTemplates = () => {
           schema={createPlatformsFilterToolbarSchema({
             onFilterChange: handleFilterChange,
             searchValue: filterValue,
-            pagination: {
-              itemsPerPage: paginationCurrent.limit,
-              numberOfItems: paginationCurrent.count,
-              onPerPageSelect: handleOnPerPageSelect,
-              page: getCurrentPage(
-                paginationCurrent.limit,
-                paginationCurrent.offset
-              ),
-              onSetPage: handleSetPage,
-              direction: 'down'
-            }
+            meta,
+            apiRequest: (_, options) =>
+              fetchPlatformItems(id, filterValue, options)
           })}
         />
         <ContentGallery
@@ -188,6 +147,17 @@ const PlatformTemplates = () => {
           )}
           {...filteredItems}
         />
+        {meta.count > 0 && (
+          <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+            <AsyncPagination
+              dropDirection="up"
+              meta={meta}
+              apiRequest={(_, options) =>
+                fetchPlatformItems(id, filterValue, options)
+              }
+            />
+          </div>
+        )}
       </Fragment>
     );
   };
