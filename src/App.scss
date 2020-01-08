@@ -274,6 +274,11 @@
 .pf-u-display-block {
   display: block
 }
+
+.pf-m-grow {
+  flex-grow: 1;
+}
+
 // Image uploader
 .image-upload-button {
   border: none;
@@ -480,4 +485,13 @@ a.breadcrumb-active {
 
 .bottom-pagination-container {
   width: 100%
+}
+
+.global-primary-background {
+  background-color: #fff
+}
+
+.content-layout {
+  display: flex;
+  flex-direction: column;
 }

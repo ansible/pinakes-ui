@@ -20,6 +20,7 @@ import ContentGalleryEmptyState, {
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
+import AsyncPagination from '../common/async-pagination';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -153,6 +154,15 @@ const Portfolios = () => {
             />
           )}
         />
+        {meta.count > 0 && (
+          <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+            <AsyncPagination
+              meta={meta}
+              apiRequest={(...args) => dispatch(fetchPortfolios(...args))}
+              dropDirection="up"
+            />
+          </div>
+        )}
       </Fragment>
     );
   };

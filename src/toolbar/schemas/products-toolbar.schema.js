@@ -50,7 +50,8 @@ const createPortfolioToolbarSchema = ({
                         meta,
                         apiProps: searchValue,
                         apiRequest: fetchProducts,
-                        isDisabled: isLoading
+                        isDisabled: isLoading,
+                        isCompact: true
                       }
                     ]
                   : []

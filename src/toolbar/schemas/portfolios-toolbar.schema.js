@@ -57,6 +57,7 @@ const createPortfolioToolbarSchema = ({
                   ? [
                       {
                         component: AsyncPagination,
+                        isCompact: true,
                         key: 'portfolios-pagination',
                         meta,
                         apiRequest: fetchPortfolios

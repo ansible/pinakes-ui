@@ -15,6 +15,7 @@ import EditApprovalWorkflow from '../common/edit-approval-workflow';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
+import AsyncPagination from '../common/async-pagination';
 
 const PortfolioItems = ({
   routes,
@@ -122,6 +123,18 @@ const PortfolioItems = ({
           <PortfolioEmptyState url={routes.addProductsRoute} />
         )}
       />
+      {meta.count > 0 && (
+        <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+          <AsyncPagination
+            dropDirection="up"
+            meta={meta}
+            apiProps={match.params.id}
+            apiRequest={(...args) =>
+              dispatch(fetchPortfolioItemsWithPortfolio(...args))
+            }
+          />
+        </div>
+      )}
     </Fragment>
   );
 };
