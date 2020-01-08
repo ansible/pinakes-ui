@@ -138,7 +138,7 @@ const PlatformInventories = () => {
               dispatch(fetchPlatformInventories(id, filterValue, options))
           })}
         />
-        <Route path="/platforms/detail/:id/platform-inventories/edit-workflow/:resourceId">
+        <Route path="/platforms/detail/:sourceId/platform-inventories/edit-workflow/:id">
           <EditApprovalWorkflow
             closeUrl={`/platforms/detail/${id}/platform-inventories`}
             objectType={INVENTORY_RESOURCE_TYPE}

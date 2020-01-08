@@ -45,7 +45,7 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
   useEffect(() => {
     dispatch(
       listWorkflowsForObject(
-        { objectType, appName: APP_NAME, objectId: id || objectId },
+        { objectType, appName: APP_NAME[objectType], objectId: id || objectId },
         meta
       )
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -63,7 +63,7 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
       dispatch(
         unlinkWorkflow(approvalWorkflow.id, approvalWorkflow.name, {
           object_type: objectType,
-          app_name: APP_NAME,
+          app_name: APP_NAME[objectType],
           object_id: id || objectId
         })
       );
@@ -72,7 +72,7 @@ const EditApprovalWorkflow = ({ closeUrl, objectType, objectId }) => {
     return dispatch(
       linkWorkflow(values.workflow, {
         object_type: objectType,
-        app_name: APP_NAME,
+        app_name: APP_NAME[objectType],
         object_id: id || objectId
       })
     );
