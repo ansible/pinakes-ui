@@ -274,6 +274,11 @@
 .pf-u-display-block {
   display: block
 }
+
+.pf-m-grow {
+  flex-grow: 1;
+}
+
 // Image uploader
 .image-upload-button {
   border: none;
