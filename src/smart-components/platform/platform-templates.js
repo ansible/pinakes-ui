@@ -121,7 +121,7 @@ const PlatformTemplates = () => {
             searchValue: filterValue,
             meta,
             apiRequest: (_, options) =>
-              fetchPlatformItems(id, filterValue, options)
+              dispatch(fetchPlatformItems(id, filterValue, options))
           })}
         />
         <ContentGallery
@@ -153,7 +153,7 @@ const PlatformTemplates = () => {
               dropDirection="up"
               meta={meta}
               apiRequest={(_, options) =>
-                fetchPlatformItems(id, filterValue, options)
+                dispatch(fetchPlatformItems(id, filterValue, options))
               }
             />
           </div>
