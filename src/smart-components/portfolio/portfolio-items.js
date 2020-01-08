@@ -128,6 +128,7 @@ const PortfolioItems = ({
           <AsyncPagination
             dropDirection="up"
             meta={meta}
+            apiProps={match.params.id}
             apiRequest={(...args) =>
               dispatch(fetchPortfolioItemsWithPortfolio(...args))
             }

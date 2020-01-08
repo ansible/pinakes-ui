@@ -104,7 +104,8 @@ const AddProductsToPortfolio = ({
           meta,
           platformId: selectedPlatform && selectedPlatform.id,
           searchValue,
-          fetchPlatformItems
+          fetchPlatformItems: (id, options) =>
+            fetchPlatformItems(id, searchValue, options)
         })}
       />
       <AddProductsGallery
@@ -122,7 +123,10 @@ const AddProductsToPortfolio = ({
         <div className="pf-u-p-lg global-primary-background content-layout">
           <AsyncPagination
             meta={meta}
-            apiRequest={fetchPlatformItems}
+            apiProps={selectedPlatform && selectedPlatform.id}
+            apiRequest={(id, options) =>
+              fetchPlatformItems(id, searchValue, options)
+            }
             dropDirection="up"
           />
         </div>
