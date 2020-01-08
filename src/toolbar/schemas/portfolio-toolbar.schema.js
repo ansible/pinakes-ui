@@ -227,7 +227,8 @@ const createPortfolioToolbarSchema = ({
                         key: 'portfolio-items-pagination',
                         meta,
                         apiRequest: fetchPortfolioItemsWithPortfolio,
-                        apiProps: portfolioId
+                        apiProps: portfolioId,
+                        isCompact: true
                       }
                     ]
                   : []
