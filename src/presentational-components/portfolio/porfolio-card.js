@@ -16,10 +16,10 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
+import { DateFormat } from '@redhat-cloud-services/frontend-components';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
-import { createModifiedLabel } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = ['description'];
 
@@ -79,13 +79,15 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
               className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
               to={route}
             >
-              <TextContent>
+              <TextContent className="pf-u-mb-sm">
                 <Text component={TextVariants.small}>
-                  {createModifiedLabel(
-                    new Date(props.updated_at || props.created_at),
-                    props.owner
-                  )}
+                  Last updated&nbsp;
+                  <DateFormat
+                    date={props.updated_at || props.created_at}
+                    type="relative"
+                  />
                 </Text>
+                <Text component={TextVariants.small}>{props.owner}</Text>
               </TextContent>
               <ItemDetails
                 {...{ name, imageUrl, ...props }}
