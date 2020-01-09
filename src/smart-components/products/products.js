@@ -92,7 +92,7 @@ const Products = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by name...'
+            placeholder: 'Filter by product...'
           },
           title: 'Products',
           isLoading: isFiltering || isFetching,

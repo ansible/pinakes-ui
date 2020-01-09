@@ -50,7 +50,6 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
       />,
       <DropdownItem
         key="remove-portfolio-action"
-        className="pf-c-dropdown__menu-item destructive-color"
         component={<Link to={`/portfolios/remove/${portfolioId}`}>Delete</Link>}
       />
     ]}
@@ -79,8 +78,8 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
               className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
               to={route}
             >
-              <TextContent className="pf-u-mb-sm">
-                <Text component={TextVariants.small}>
+              <TextContent className="pf-u-mb-md">
+                <Text component={TextVariants.small} className="pf-i-mb-sm">
                   Last updated&nbsp;
                   <DateFormat
                     date={props.updated_at || props.created_at}

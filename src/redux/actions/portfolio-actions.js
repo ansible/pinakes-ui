@@ -72,7 +72,7 @@ export const addPortfolio = (portfolioData, items) => (dispatch) => {
         fulfilled: {
           variant: 'success',
           title: 'Success adding portfolio',
-          description: 'The portfolio was added successfully.'
+          description: `Portfolio ${portfolioData.name} was added successfully.`
         }
       }
     }

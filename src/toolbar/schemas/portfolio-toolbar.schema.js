@@ -7,6 +7,7 @@ import {
   KebabToggle,
   DropdownItem
 } from '@patternfly/react-core';
+import clsx from 'clsx';
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
@@ -106,9 +107,9 @@ const PortfolioItemsActionsDropdown = ({
         >
           <span
             style={{ cursor: 'pointer' }}
-            className={`pf-c-dropdown__menu-item ${
-              !itemsSelected ? 'disabled-color' : 'destructive-color'
-            }`}
+            className={clsx('pf-c-dropdown__menu-item', {
+              'disabled-color': !itemsSelected
+            })}
           >
             Remove products
           </span>

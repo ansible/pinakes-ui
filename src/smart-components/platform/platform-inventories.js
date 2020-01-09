@@ -133,6 +133,7 @@ const PlatformInventories = () => {
           schema={createPlatformsFilterToolbarSchema({
             onFilterChange: handleFilterChange,
             searchValue: filterValue,
+            filterPlaceholder: 'Filter by inventory...',
             meta,
             apiRequest: (_, options) =>
               dispatch(fetchPlatformInventories(id, filterValue, options))
