@@ -56,7 +56,7 @@ export const sanitizeValues = (values, entityType, store) => {
 };
 
 export const timeAgo = (date) => (
-  <span>
+  <span key={date}>
     <DateFormat date={date} type="relative" />
   </span>
 );
