@@ -60,14 +60,7 @@ const PortfolioItems = ({
     />
   ));
 
-  const itemName = (id) => {
-    if (data) {
-      console.log('DEBUG: id, data', id, data);
-      return data.find((item) => item.id === id).name;
-    }
-
-    return `Inventory ${id}`;
-  };
+  const itemName = () => name || 'portfolio';
 
   return (
     <Fragment>

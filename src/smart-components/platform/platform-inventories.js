@@ -119,11 +119,9 @@ const PlatformInventories = () => {
 
   const objectName = (id) => {
     if (data) {
-      console.log('DEBUG: id, data', id, data);
       return data.find((obj) => obj.id === id).name;
     }
-
-    return `Inventory ${id}`;
+    return 'inventory';
   };
 
   const renderItems = () => {
