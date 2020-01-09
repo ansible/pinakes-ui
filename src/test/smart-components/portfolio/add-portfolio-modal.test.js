@@ -68,7 +68,7 @@ describe('<AddPortfolioModal />', () => {
         {
           component: componentTypes.TEXT_FIELD,
           isRequired: true,
-          label: 'Portfolio Name',
+          label: 'Name',
           name: 'name',
           validate: [expect.any(Function)]
         },

@@ -84,7 +84,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
                 aria-label="Create portfolio"
                 component="Button"
                 key="create-portfolio-button"
-                title="Create portfolio"
+                title="Create"
                 variant="primary"
               />
             </Component>
