@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Modal, Button } from '@patternfly/react-core';
+import { WarningTriangleIcon } from '@patternfly/react-icons';
+import {
+  Modal,
+  Button,
+  Text,
+  TextVariants,
+  TextContent,
+  Split,
+  SplitItem
+} from '@patternfly/react-core';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
 import { removePortfolio } from '../../redux/actions/portfolio-actions';
 
@@ -25,25 +34,33 @@ const RemovePortfolioModal = ({
 
   return (
     <Modal
-      title={`Removing Portfolio:  ${portfolio.name}`}
+      title="Delete Portfolio?"
       isOpen
       isSmall
       onClose={onCancel}
+      isFooterLeftAligned
       actions={[
-        <Button
-          key="cancel"
-          variant="secondary"
-          type="button"
-          onClick={onCancel}
-        >
-          Cancel
-        </Button>,
-        <Button key="submit" variant="primary" type="button" onClick={onSubmit}>
+        <Button key="submit" variant="danger" type="button" onClick={onSubmit}>
           Confirm
+        </Button>,
+        <Button key="cancel" variant="link" type="button" onClick={onCancel}>
+          Cancel
         </Button>
       ]}
     >
-      <React.Fragment />
+      <Split gutter="md">
+        <SplitItem>
+          <WarningTriangleIcon size="xl" fill="#f0ab00" />
+        </SplitItem>
+        <SplitItem>
+          <TextContent>
+            <Text component={TextVariants.p}>
+              This action will permanently delete portfolio {portfolio.name} and
+              its data.
+            </Text>
+          </TextContent>
+        </SplitItem>
+      </Split>
     </Modal>
   );
 };
