@@ -30,15 +30,6 @@ export const allowNull = (wrappedPropTypes) => (props, propName, ...rest) => {
   return wrappedPropTypes(props, propName, ...rest);
 };
 
-const oneDay = 24 * 60 * 60 * 1000;
-export const calcuateDiffDays = (firstDate, secondDate) =>
-  Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
-
-export const createModifiedLabel = (date, user) =>
-  `Last modified ${calcuateDiffDays(new Date(), date)} days ago${
-    user ? ` by ${user}.` : '.'
-  }`;
-
 export const udefinedToNull = (entity, keys) =>
   [...Object.keys(entity), ...keys].reduce(
     (acc, curr) => ({
@@ -65,7 +56,7 @@ export const sanitizeValues = (values, entityType, store) => {
 };
 
 export const timeAgo = (date) => (
-  <span>
+  <span key={date}>
     <DateFormat date={date} type="relative" />
   </span>
 );

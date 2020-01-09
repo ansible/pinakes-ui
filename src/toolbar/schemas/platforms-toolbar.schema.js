@@ -30,7 +30,7 @@ export const createPlatformsToolbarSchema = ({
                   key: 'platforms-toolbar-filter-input',
                   searchValue,
                   onFilterChange,
-                  placeholder: 'Filter by name...'
+                  placeholder: 'Filter by platform...'
                 }
               ]
             },
@@ -84,7 +84,8 @@ export const createPlatformsFilterToolbarSchema = ({
   searchValue,
   onFilterChange,
   meta,
-  apiRequest
+  apiRequest,
+  filterPlaceholder
 }) => ({
   fields: [
     {
@@ -106,7 +107,7 @@ export const createPlatformsFilterToolbarSchema = ({
                   key: 'platforms-toolbar-filter-input',
                   searchValue,
                   onFilterChange,
-                  placeholder: 'Filter by name...'
+                  placeholder: filterPlaceholder
                 }
               ]
             },

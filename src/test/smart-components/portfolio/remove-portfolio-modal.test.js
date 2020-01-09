@@ -136,7 +136,7 @@ describe('<RemovePortfolioModal />', () => {
     await act(async () => {
       wrapper
         .find('button')
-        .last()
+        .at(1)
         .simulate('click');
     });
     expect(store.getActions()).toEqual(expectedActions);

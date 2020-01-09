@@ -44,7 +44,7 @@ const createPortfolioToolbarSchema = ({
                     variant: 'primary',
                     key: 'create-portfolio-button',
                     'aria-label': 'Create portfolio',
-                    title: 'Create portfolio'
+                    title: 'Create'
                   })
                 })
               ]
