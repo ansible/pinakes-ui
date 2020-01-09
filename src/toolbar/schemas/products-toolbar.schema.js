@@ -17,7 +17,8 @@ const createPortfolioToolbarSchema = ({
         {
           component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
           key: 'products-toolbar-title',
-          title: 'Products'
+          title: 'Products',
+          description: 'All products collected from your portfolios'
         },
         {
           component: toolbarComponentTypes.LEVEL,
