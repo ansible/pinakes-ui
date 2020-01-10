@@ -59,6 +59,9 @@ const PortfolioItems = ({
       removeInProgress={removeInProgress}
     />
   ));
+
+  const itemName = () => name || 'portfolio';
+
   return (
     <Fragment>
       <ToolbarRenderer
@@ -105,6 +108,7 @@ const PortfolioItems = ({
           <EditApprovalWorkflow
             closeUrl={routes.portfolioRoute}
             objectType={PORTFOLIO_RESOURCE_TYPE}
+            objectName={itemName}
             {...args}
           />
         )}

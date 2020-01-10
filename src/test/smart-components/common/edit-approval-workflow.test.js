@@ -31,7 +31,8 @@ describe('<EditApprovalWorkflow />', () => {
     initialProps = {
       closeUrl: 'foo',
       portfolioId: '123',
-      objectType: 'Portfolio'
+      objectType: 'Portfolio',
+      objectName: () => 'Test Resource Name'
     };
     initialState = {
       portfolioReducer: {
@@ -122,7 +123,9 @@ describe('<EditApprovalWorkflow />', () => {
     wrapper.update();
     const modal = wrapper.find(Modal);
     const form = wrapper.find(FormRenderer);
-    expect(modal.props().title).toEqual('Set approval workflow');
+    expect(modal.props().title).toEqual(
+      'Set approval workflow for Test Resource Name'
+    );
     expect(form.props().schema).toEqual(expectedSchema);
     done();
   });

@@ -74,6 +74,13 @@ const Portfolios = () => {
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
 
+  const itemName = (id) => {
+    if (data) {
+      return data.find((item) => item.id === id).name;
+    }
+    return `portfolio`;
+  };
+
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
@@ -130,6 +137,7 @@ const Portfolios = () => {
             <EditApprovalWorkflow
               closeUrl={match.url}
               objectType={PORTFOLIO_RESOURCE_TYPE}
+              objectName={itemName}
             />
           )}
         />
