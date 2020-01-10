@@ -45,7 +45,7 @@ const AddPortfolioModal = ({
             onCancel={onCancel}
             initialValues={{ ...initialValues }}
             formContainer="modal"
-            buttonsLabels={{ submitLabel: 'Save' }}
+            buttonsLabels={{ submitLabel: id ? 'Save' : 'Create' }}
           />
         </div>
       ) : (
@@ -69,17 +69,8 @@ AddPortfolioModal.propTypes = {
     }).isRequired
   }).isRequired,
   addPortfolio: PropTypes.func.isRequired,
-  fetchPortfolios: PropTypes.func.isRequired,
   initialValues: PropTypes.object,
-  updatePortfolio: PropTypes.func.isRequired,
-  fetchWorkflows: PropTypes.func.isRequired,
-  workflows: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-        .isRequired,
-      label: PropTypes.string.isRequired
-    })
-  ).isRequired
+  updatePortfolio: PropTypes.func.isRequired
 };
 
 const stripValues = ({ owner, created_at, updated_at, ...rest }) => rest;

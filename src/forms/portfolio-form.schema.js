@@ -28,7 +28,7 @@ const debouncedValidator = asyncFormValidator(validateName);
 export const createPortfolioSchema = (newRecord, portfolioId) => ({
   fields: [
     {
-      label: newRecord ? 'New Portfolio Name' : 'Portfolio Name',
+      label: 'Name',
       name: 'name',
       component: componentTypes.TEXT_FIELD,
       isRequired: true,

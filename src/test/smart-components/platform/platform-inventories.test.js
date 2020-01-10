@@ -130,7 +130,7 @@ describe('<PlatformInventories />', () => {
     });
   });
 
-  it('should redirect to Edit info page', async (done) => {
+  it('should redirect to the Edit workflow modal', async (done) => {
     const store = mockStore(initialState);
     let wrapper;
 
@@ -156,7 +156,7 @@ describe('<PlatformInventories />', () => {
       });
     mockApi
       .onGet(
-        `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Inventory&object_id=123&filter[name][contains]=&limit=50&offset=0`
+        `${APPROVAL_API_BASE}/workflows/?app_name=topology&object_type=ServiceInventory&object_id=222&filter[name][contains]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [] });
 

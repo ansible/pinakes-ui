@@ -14,6 +14,7 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import { Button } from '@patternfly/react-core';
 import AppContext from '../../app-context';
+import AsyncPagination from '../common/async-pagination';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -91,7 +92,7 @@ const Products = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by name...'
+            placeholder: 'Filter by product...'
           },
           title: 'Products',
           isLoading: isFiltering || isFetching,
@@ -115,6 +116,15 @@ const Products = () => {
           />
         )}
       />
+      {meta.count > 0 && (
+        <div className="pf-u-p-lg global-primary-background content-layout">
+          <AsyncPagination
+            dropDirection="up"
+            meta={meta}
+            apiRequest={(...args) => dispatch(fetchPortfolioItems(...args))}
+          />
+        </div>
+      )}
     </div>
   );
 };

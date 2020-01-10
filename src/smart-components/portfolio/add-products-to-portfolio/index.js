@@ -19,6 +19,7 @@ import {
   addToPortfolio,
   fetchPortfolioItemsWithPortfolio
 } from '../../../redux/actions/portfolio-actions';
+import AsyncPagination from '../../common/async-pagination';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
   items
@@ -103,7 +104,8 @@ const AddProductsToPortfolio = ({
           meta,
           platformId: selectedPlatform && selectedPlatform.id,
           searchValue,
-          fetchPlatformItems
+          fetchPlatformItems: (id, options) =>
+            fetchPlatformItems(id, searchValue, options)
         })}
       />
       <AddProductsGallery
@@ -117,6 +119,18 @@ const AddProductsToPortfolio = ({
           searchValue
         )}
       />
+      {meta && meta.count > 0 && (
+        <div className="pf-u-p-lg global-primary-background content-layout">
+          <AsyncPagination
+            meta={meta}
+            apiProps={selectedPlatform && selectedPlatform.id}
+            apiRequest={(id, options) =>
+              fetchPlatformItems(id, searchValue, options)
+            }
+            dropDirection="up"
+          />
+        </div>
+      )}
     </Section>
   );
 };

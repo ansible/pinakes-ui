@@ -166,9 +166,8 @@ describe('<SharePortfolioModal', () => {
     form.change('permissions', 'all');
     await act(async () => {
       wrapper
-        .find(ReactFormRender)
         .find('button')
-        .last()
+        .at(1)
         .simulate('click');
     });
     done();

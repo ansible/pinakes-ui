@@ -6,7 +6,7 @@ Object {
     Object {
       "component": "text-field",
       "isRequired": true,
-      "label": "Portfolio Name",
+      "label": "Name",
       "name": "name",
       "validate": Array [
         [Function],
@@ -27,7 +27,7 @@ Object {
     Object {
       "component": "text-field",
       "isRequired": true,
-      "label": "New Portfolio Name",
+      "label": "Name",
       "name": "name",
       "validate": Array [
         [Function],

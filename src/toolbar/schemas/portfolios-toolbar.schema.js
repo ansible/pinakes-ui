@@ -44,7 +44,7 @@ const createPortfolioToolbarSchema = ({
                     variant: 'primary',
                     key: 'create-portfolio-button',
                     'aria-label': 'Create portfolio',
-                    title: 'Create portfolio'
+                    title: 'Create'
                   })
                 })
               ]
@@ -57,6 +57,7 @@ const createPortfolioToolbarSchema = ({
                   ? [
                       {
                         component: AsyncPagination,
+                        isCompact: true,
                         key: 'portfolios-pagination',
                         meta,
                         apiRequest: fetchPortfolios
