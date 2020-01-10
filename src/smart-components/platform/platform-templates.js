@@ -19,6 +19,7 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGallery from '../content-gallery/content-gallery';
 import { Button } from '@patternfly/react-core';
 import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const initialState = {
   filterValue: '',
@@ -149,7 +150,7 @@ const PlatformTemplates = () => {
           {...filteredItems}
         />
         {meta.count > 0 && (
-          <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+          <BottomPaginationContainer>
             <AsyncPagination
               dropDirection="up"
               meta={meta}
@@ -157,7 +158,7 @@ const PlatformTemplates = () => {
                 dispatch(fetchPlatformItems(id, filterValue, options))
               }
             />
-          </div>
+          </BottomPaginationContainer>
         )}
       </Fragment>
     );

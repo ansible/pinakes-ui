@@ -22,6 +22,7 @@ import { createRows } from './platform-table-helpers.js';
 import EditApprovalWorkflow from '../common/edit-approval-workflow';
 import { INVENTORY_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const initialState = {
   filterValue: '',
@@ -121,6 +122,7 @@ const PlatformInventories = () => {
     if (data) {
       return data.find((obj) => obj.id === id).name;
     }
+
     return 'inventory';
   };
 
@@ -175,7 +177,7 @@ const PlatformInventories = () => {
         </Section>
 
         {meta.count > 0 && (
-          <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+          <BottomPaginationContainer>
             <AsyncPagination
               dropDirection="up"
               meta={meta}
@@ -183,7 +185,7 @@ const PlatformInventories = () => {
                 dispatch(fetchPlatformInventories(id, filterValue, options))
               }
             />
-          </div>
+          </BottomPaginationContainer>
         )}
       </Fragment>
     );

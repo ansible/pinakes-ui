@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import { Section } from '@redhat-cloud-services/frontend-components';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
 
@@ -88,19 +87,17 @@ class Platforms extends Component {
 
   render() {
     return (
-      <Section>
-        <Switch>
-          <Route
-            path={`/platforms${platformsRoutes.detail}`}
-            component={Platform}
-          />
-          <Route
-            exact
-            path={`/platforms${platformsRoutes.platforms}`}
-            render={() => this.renderPlatforms()}
-          />
-        </Switch>
-      </Section>
+      <Switch>
+        <Route
+          path={`/platforms${platformsRoutes.detail}`}
+          component={Platform}
+        />
+        <Route
+          exact
+          path={`/platforms${platformsRoutes.platforms}`}
+          render={() => this.renderPlatforms()}
+        />
+      </Switch>
     );
   }
 }
