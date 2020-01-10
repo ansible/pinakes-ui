@@ -61,8 +61,6 @@ ContentList.propTypes = {
   borders: PropTypes.bool,
   isCompact: PropTypes.bool,
   columns: PropTypes.array.isRequired,
-  rows: PropTypes.array.isRequired,
-  cells: PropTypes.array.isRequired,
   renderEmptyState: PropTypes.func.isRequired,
   data: PropTypes.array,
   pagination: PropTypes.shape({

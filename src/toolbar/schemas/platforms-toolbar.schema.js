@@ -1,13 +1,11 @@
-import { Pagination } from '@redhat-cloud-services/frontend-components';
 import AppTabs from '../../presentational-components/shared/app-tabs';
-
 import { toolbarComponentTypes } from '../toolbar-mapper';
+import AsyncPagination from '../../smart-components/common/async-pagination';
 
 export const createPlatformsToolbarSchema = ({
   searchValue,
   onFilterChange,
-  title,
-  pagination
+  title
 }) => ({
   fields: [
     {
@@ -32,22 +30,14 @@ export const createPlatformsToolbarSchema = ({
                   key: 'platforms-toolbar-filter-input',
                   searchValue,
                   onFilterChange,
-                  placeholder: 'Filter by name...'
+                  placeholder: 'Filter by platform...'
                 }
               ]
             },
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'pagination-level-item',
-              fields: pagination
-                ? [
-                    {
-                      component: Pagination,
-                      key: 'platform-pagination',
-                      ...pagination
-                    }
-                  ]
-                : []
+              fields: []
             }
           ]
         }
@@ -93,16 +83,20 @@ export const createPlatformsTopToolbarSchema = ({
 export const createPlatformsFilterToolbarSchema = ({
   searchValue,
   onFilterChange,
-  pagination
+  meta,
+  apiRequest,
+  filterPlaceholder
 }) => ({
   fields: [
     {
       component: toolbarComponentTypes.TOOLBAR,
       key: 'platforms-filter-toolbar',
+      className: 'pf-u-pt-md pf-u-pb-md pf-u-pr-lg pf-u-pl-lg toolbar',
       fields: [
         {
           component: toolbarComponentTypes.LEVEL,
           key: 'platforms-toolbar-actions',
+          className: 'pf-m-grow',
           fields: [
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
@@ -113,22 +107,25 @@ export const createPlatformsFilterToolbarSchema = ({
                   key: 'platforms-toolbar-filter-input',
                   searchValue,
                   onFilterChange,
-                  placeholder: 'Filter by name...'
+                  placeholder: filterPlaceholder
                 }
               ]
             },
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'pagination-level-item',
-              fields: pagination
-                ? [
-                    {
-                      component: Pagination,
-                      key: 'platform-pagination',
-                      ...pagination
-                    }
-                  ]
-                : []
+              fields:
+                meta.count > 0
+                  ? [
+                      {
+                        component: AsyncPagination,
+                        key: 'platform-pagination',
+                        apiRequest,
+                        meta,
+                        isCompact: true
+                      }
+                    ]
+                  : []
             }
           ]
         }

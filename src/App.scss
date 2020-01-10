@@ -23,14 +23,6 @@
   text-align: right;
 }
 
-.modal-form-right-align {
-  .pf-m-action:last-child {
-    .data-driven-forms__pf4-button-group:first-child {
-      margin-left: auto
-    }
-  }
-}
-
 .line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 6;
@@ -50,7 +42,7 @@
       overflow: hidden;
       position: relative;
       &::after {
-        content: "Foo";
+        content: none;
         position: absolute;
       }
     }
@@ -274,6 +266,11 @@
 .pf-u-display-block {
   display: block
 }
+
+.pf-m-grow {
+  flex-grow: 1;
+}
+
 // Image uploader
 .image-upload-button {
   border: none;
@@ -480,4 +477,13 @@ a.breadcrumb-active {
 
 .bottom-pagination-container {
   width: 100%
+}
+
+.global-primary-background {
+  background-color: #fff
+}
+
+.content-layout {
+  display: flex;
+  flex-direction: column;
 }

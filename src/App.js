@@ -88,7 +88,7 @@ const App = () => {
         <NotificationsPortal />
         <Main style={{ marginLeft: 0, padding: 0 }}>
           <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-            <GridItem sm={12}>
+            <GridItem sm={12} className="content-layout">
               <Routes />
             </GridItem>
           </Grid>

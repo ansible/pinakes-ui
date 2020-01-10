@@ -43,7 +43,6 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                       }
                     />,
                     <DropdownItem
-                      className="pf-c-dropdown__menu-item destructive-color"
                       component={
                         <ForwardRef
                           to="/portfolios/remove/123"
@@ -77,11 +76,23 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
           to="/portfolios/detail/123"
         >
-          <TextContent>
+          <TextContent
+            className="pf-u-mb-md"
+          >
+            <Text
+              className="pf-i-mb-sm"
+              component="small"
+            >
+              Last updated 
+              <DateFormat
+                date="created at"
+                type="relative"
+              />
+            </Text>
             <Text
               component="small"
             >
-              Last modified NaN days ago by Owner.
+              Owner
             </Text>
           </TextContent>
           <ItemDetails

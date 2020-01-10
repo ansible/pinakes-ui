@@ -6,11 +6,7 @@ import { SearchIcon } from '@patternfly/react-icons';
 import { Section } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
-import {
-  defaultSettings,
-  getCurrentPage,
-  getNewPage
-} from '../../helpers/shared/pagination';
+import { defaultSettings } from '../../helpers/shared/pagination';
 import {
   fetchPlatformInventories,
   fetchSelectedPlatform
@@ -21,11 +17,12 @@ import {
 } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGaleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
-import debouncePromise from 'awesome-debounce-promise/dist/index';
 import ContentList from '../../presentational-components/shared/content-list';
 import { createRows } from './platform-table-helpers.js';
 import EditApprovalWorkflow from '../common/edit-approval-workflow';
 import { INVENTORY_RESOURCE_TYPE } from '../../utilities/constants';
+import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const initialState = {
   filterValue: '',
@@ -49,7 +46,7 @@ const platformInventoriesState = (state, action) => {
 
 const columns = ['Name', 'Description', 'Created', 'Workflow'];
 
-const PlatformInventories = (props) => {
+const PlatformInventories = () => {
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformInventoriesState,
     initialState
@@ -109,27 +106,6 @@ const PlatformInventories = (props) => {
     );
   };
 
-  const handleOnPerPageSelect = (limit) =>
-    fetchPlatformInventories(id, {
-      offset: meta.offset,
-      limit
-    });
-
-  const handleSetPage = (number, debounce) => {
-    const options = {
-      offset: getNewPage(number, meta.limit),
-      limit: props.paginationCurrent.limit
-    };
-
-    const request = () =>
-      dispatch(fetchPlatformInventories(id, filterValue, options));
-    if (debounce) {
-      return debouncePromise(request, 250)();
-    }
-
-    return request();
-  };
-
   const actionResolver = (inventoryData) => {
     return [
       {
@@ -142,9 +118,16 @@ const PlatformInventories = (props) => {
     ];
   };
 
+  const objectName = (id) => {
+    if (data) {
+      return data.find((obj) => obj.id === id).name;
+    }
+
+    return 'inventory';
+  };
+
   const renderItems = () => {
     const inventoryRows = data ? createRows(data, filterValue) : [];
-    const paginationCurrent = meta || defaultSettings;
     const title = platform ? platform.name : '';
     return (
       <Fragment>
@@ -159,23 +142,17 @@ const PlatformInventories = (props) => {
           schema={createPlatformsFilterToolbarSchema({
             onFilterChange: handleFilterChange,
             searchValue: filterValue,
-            pagination: {
-              itemsPerPage: paginationCurrent.limit,
-              numberOfItems: paginationCurrent.count,
-              onPerPageSelect: handleOnPerPageSelect,
-              page: getCurrentPage(
-                paginationCurrent.limit,
-                paginationCurrent.offset
-              ),
-              onSetPage: handleSetPage,
-              direction: 'down'
-            }
+            filterPlaceholder: 'Filter by inventory...',
+            meta,
+            apiRequest: (_, options) =>
+              dispatch(fetchPlatformInventories(id, filterValue, options))
           })}
         />
-        <Route path="/platforms/detail/:id/platform-inventories/edit-workflow/:resourceId">
+        <Route path="/platforms/detail/:sourceId/platform-inventories/edit-workflow/:id">
           <EditApprovalWorkflow
             closeUrl={`/platforms/detail/${id}/platform-inventories`}
             objectType={INVENTORY_RESOURCE_TYPE}
+            objectName={objectName}
           />
         </Route>
         <Section type="content">
@@ -198,6 +175,18 @@ const PlatformInventories = (props) => {
             )}
           />
         </Section>
+
+        {meta.count > 0 && (
+          <BottomPaginationContainer>
+            <AsyncPagination
+              dropDirection="up"
+              meta={meta}
+              apiRequest={(_, options) =>
+                dispatch(fetchPlatformInventories(id, filterValue, options))
+              }
+            />
+          </BottomPaginationContainer>
+        )}
       </Fragment>
     );
   };

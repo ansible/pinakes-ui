@@ -15,6 +15,8 @@ import EditApprovalWorkflow from '../common/edit-approval-workflow';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
+import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const PortfolioItems = ({
   routes,
@@ -58,6 +60,9 @@ const PortfolioItems = ({
       removeInProgress={removeInProgress}
     />
   ));
+
+  const itemName = () => name || 'portfolio';
+
   return (
     <Fragment>
       <ToolbarRenderer
@@ -104,6 +109,7 @@ const PortfolioItems = ({
           <EditApprovalWorkflow
             closeUrl={routes.portfolioRoute}
             objectType={PORTFOLIO_RESOURCE_TYPE}
+            objectName={itemName}
             {...args}
           />
         )}
@@ -122,6 +128,18 @@ const PortfolioItems = ({
           <PortfolioEmptyState url={routes.addProductsRoute} />
         )}
       />
+      {meta.count > 0 && (
+        <BottomPaginationContainer>
+          <AsyncPagination
+            dropDirection="up"
+            meta={meta}
+            apiProps={match.params.id}
+            apiRequest={(...args) =>
+              dispatch(fetchPortfolioItemsWithPortfolio(...args))
+            }
+          />
+        </BottomPaginationContainer>
+      )}
     </Fragment>
   );
 };

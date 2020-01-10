@@ -65,6 +65,7 @@ const ItemDetailDescription = ({ product, url }) => (
         closeUrl={url}
         objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
         objectId={product.id}
+        objectName={() => product.name}
       />
     </Route>
   </Switch>
@@ -72,7 +73,7 @@ const ItemDetailDescription = ({ product, url }) => (
 
 ItemDetailDescription.propTypes = {
   product: PropTypes.shape({
-    dscription: PropTypes.string,
+    name: PropTypes.string,
     long_description: PropTypes.string,
     support_url: PropTypes.string,
     documentation_url: PropTypes.string,

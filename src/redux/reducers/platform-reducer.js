@@ -9,6 +9,7 @@ import {
   FETCH_PLATFORM_INVENTORIES,
   SET_INVENTORIES_LOADING_STATE
 } from '../action-types';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 // Initial State
 export const platformInitialState = {
@@ -16,7 +17,9 @@ export const platformInitialState = {
   selectedPlatform: {},
   platforms: [],
   platformItems: {},
-  platformInventories: [],
+  platformInventories: {
+    meta: defaultSettings
+  },
   platformItem: {},
   platform: {},
   filterValue: ''
