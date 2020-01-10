@@ -20,6 +20,8 @@ import ContentGalleryEmptyState, {
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
+import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -72,6 +74,14 @@ const Portfolios = () => {
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
+
+  const itemName = (id) => {
+    if (data) {
+      return data.find((item) => item.id === id).name;
+    }
+
+    return `portfolio`;
+  };
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -129,6 +139,7 @@ const Portfolios = () => {
             <EditApprovalWorkflow
               closeUrl={match.url}
               objectType={PORTFOLIO_RESOURCE_TYPE}
+              objectName={itemName}
             />
           )}
         />
@@ -153,6 +164,15 @@ const Portfolios = () => {
             />
           )}
         />
+        {meta.count > 0 && (
+          <BottomPaginationContainer>
+            <AsyncPagination
+              meta={meta}
+              apiRequest={(...args) => dispatch(fetchPortfolios(...args))}
+              dropDirection="up"
+            />
+          </BottomPaginationContainer>
+        )}
       </Fragment>
     );
   };

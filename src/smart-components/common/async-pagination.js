@@ -11,6 +11,7 @@ const AsyncPagination = ({
   apiProps,
   apiRequest,
   className,
+  isCompact,
   ...props
 }) => {
   const handleOnPerPageSelect = (_event, limit) =>
@@ -42,6 +43,7 @@ const AsyncPagination = ({
         page={getCurrentPage(limit, offset)}
         onSetPage={handleSetPage}
         direction="down"
+        isCompact={isCompact}
         {...props}
       />
     </div>
@@ -56,7 +58,8 @@ AsyncPagination.propTypes = {
   }),
   apiRequest: PropTypes.func.isRequired,
   apiProps: PropTypes.any,
-  className: PropTypes.string
+  className: PropTypes.string,
+  isCompact: PropTypes.bool
 };
 
 AsyncPagination.defaultProps = {
@@ -65,7 +68,8 @@ AsyncPagination.defaultProps = {
     limit: 50,
     offset: 0
   },
-  className: ''
+  className: '',
+  isCompact: false
 };
 
 export default AsyncPagination;

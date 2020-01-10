@@ -141,6 +141,7 @@ const OrdersList = () => {
                 isDisabled={isFetching || isFiltering}
                 apiRequest={handlePagination}
                 meta={meta}
+                isCompact
               />
             }
           />

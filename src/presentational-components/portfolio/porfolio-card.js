@@ -16,10 +16,10 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
+import { DateFormat } from '@redhat-cloud-services/frontend-components';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
-import { createModifiedLabel } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = ['description'];
 
@@ -50,7 +50,6 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
       />,
       <DropdownItem
         key="remove-portfolio-action"
-        className="pf-c-dropdown__menu-item destructive-color"
         component={<Link to={`/portfolios/remove/${portfolioId}`}>Delete</Link>}
       />
     ]}
@@ -79,13 +78,15 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
               className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
               to={route}
             >
-              <TextContent>
-                <Text component={TextVariants.small}>
-                  {createModifiedLabel(
-                    new Date(props.updated_at || props.created_at),
-                    props.owner
-                  )}
+              <TextContent className="pf-u-mb-md">
+                <Text component={TextVariants.small} className="pf-i-mb-sm">
+                  Last updated&nbsp;
+                  <DateFormat
+                    date={props.updated_at || props.created_at}
+                    type="relative"
+                  />
                 </Text>
+                <Text component={TextVariants.small}>{props.owner}</Text>
               </TextContent>
               <ItemDetails
                 {...{ name, imageUrl, ...props }}

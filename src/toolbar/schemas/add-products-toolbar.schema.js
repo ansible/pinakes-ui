@@ -93,7 +93,8 @@ const createAddProductsSchema = ({
                       key: 'add-products-pagination',
                       meta,
                       apiProps: platformId,
-                      apiRequest: fetchPlatformItems
+                      apiRequest: fetchPlatformItems,
+                      isCompact: true
                     }
                   ]
                 : []
