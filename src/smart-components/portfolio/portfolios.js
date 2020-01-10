@@ -21,6 +21,7 @@ import ContentGalleryEmptyState, {
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -78,6 +79,7 @@ const Portfolios = () => {
     if (data) {
       return data.find((item) => item.id === id).name;
     }
+
     return `portfolio`;
   };
 
@@ -163,13 +165,13 @@ const Portfolios = () => {
           )}
         />
         {meta.count > 0 && (
-          <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+          <BottomPaginationContainer>
             <AsyncPagination
               meta={meta}
               apiRequest={(...args) => dispatch(fetchPortfolios(...args))}
               dropDirection="up"
             />
-          </div>
+          </BottomPaginationContainer>
         )}
       </Fragment>
     );

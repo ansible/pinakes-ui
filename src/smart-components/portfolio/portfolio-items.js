@@ -16,6 +16,7 @@ import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AsyncPagination from '../common/async-pagination';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 
 const PortfolioItems = ({
   routes,
@@ -128,7 +129,7 @@ const PortfolioItems = ({
         )}
       />
       {meta.count > 0 && (
-        <div className="pf-u-p-lg global-primary-background pf-u-mt-auto">
+        <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
             meta={meta}
@@ -137,7 +138,7 @@ const PortfolioItems = ({
               dispatch(fetchPortfolioItemsWithPortfolio(...args))
             }
           />
-        </div>
+        </BottomPaginationContainer>
       )}
     </Fragment>
   );
