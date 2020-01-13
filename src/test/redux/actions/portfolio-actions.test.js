@@ -63,10 +63,12 @@ describe('Portfolio actions', () => {
 
     const expectedActions = [
       {
-        type: `${FETCH_PORTFOLIOS}_PENDING`
+        type: `${FETCH_PORTFOLIOS}_PENDING`,
+        meta: { filter: '' }
       },
       {
         type: `${FETCH_PORTFOLIOS}_FULFILLED`,
+        meta: { filter: '' },
         payload: { data: [expectedPortfolio], meta: {} }
       }
     ];
@@ -85,7 +87,8 @@ describe('Portfolio actions', () => {
 
     const expectedActions = expect.arrayContaining([
       {
-        type: `${FETCH_PORTFOLIOS}_PENDING`
+        type: `${FETCH_PORTFOLIOS}_PENDING`,
+        meta: { filter: '' }
       },
       expect.objectContaining({
         type: ADD_NOTIFICATION,
@@ -120,15 +123,17 @@ describe('Portfolio actions', () => {
 
     const expectedActions = [
       {
-        type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`
+        type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`,
+        meta: { filter: '123' }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
+        meta: { filter: '123' },
         payload: { data: [], meta: {} }
       }
     ];
 
-    return store.dispatch(fetchPortfolioItems(123)).then(() => {
+    return store.dispatch(fetchPortfolioItems('123')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -144,10 +149,12 @@ describe('Portfolio actions', () => {
 
     const expectedActions = [
       {
-        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
+        meta: { filter: '' }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+        meta: { filter: '' },
         payload: { data: ['foo'] }
       }
     ];
@@ -335,10 +342,12 @@ describe('Portfolio actions', () => {
         type: `${REMOVE_PORTFOLIO_ITEMS}_PENDING`
       },
       {
-        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
+        meta: {}
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+        meta: {},
         payload: []
       },
       expect.objectContaining({ type: ADD_NOTIFICATION }),
@@ -404,10 +413,12 @@ describe('Portfolio actions', () => {
       },
       expect.objectContaining({ type: CLEAR_NOTIFICATIONS }),
       {
-        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
+        meta: { filter: '' }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
+        meta: { filter: '' },
         payload: { data: [] }
       },
       expect.objectContaining({ type: ADD_NOTIFICATION })

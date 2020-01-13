@@ -216,7 +216,11 @@ describe('<Orders />', () => {
     expect(store.getActions()).toEqual([
       { type: `${FETCH_ORDERS}_PENDING` },
       { type: SET_PORTFOLIO_ITEMS, payload: { data: [] } },
-      { type: `${FETCH_ORDERS}_FULFILLED`, payload: { data: [] } }
+      {
+        type: `${FETCH_ORDERS}_FULFILLED`,
+        meta: { filter: '' },
+        payload: { data: [] }
+      }
     ]);
     done();
   });
