@@ -7,7 +7,8 @@ import {
   FETCH_PLATFORM_ITEMS,
   FETCH_PLATFORM_ITEM,
   FILTER_PLATFORM_ITEMS,
-  FETCH_MULTIPLE_PLATFORM_ITEMS
+  FETCH_MULTIPLE_PLATFORM_ITEMS,
+  FETCH_SERVICE_OFFERING
 } from '../../../redux/action-types';
 
 describe('Platform reducer', () => {
@@ -126,5 +127,16 @@ describe('Platform reducer', () => {
         }
       )
     ).toEqual(expectedState);
+  });
+
+  it('should set serviceOffering', () => {
+    expect(
+      reducer(
+        {},
+        { type: `${FETCH_SERVICE_OFFERING}_FULFILLED`, payload: 'foo' }
+      )
+    ).toEqual({
+      serviceOffering: 'foo'
+    });
   });
 });
