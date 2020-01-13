@@ -160,16 +160,16 @@ const OrdersList = () => {
                       <EmptyStateIcon icon={SearchIcon} />
                     </Bullseye>
                     <Title size="lg">
-                      {filterValue === '' ? 'No orders' : 'No results found'}
+                      {meta.noData ? 'No orders' : 'No results found'}
                     </Title>
                     <EmptyStateBody>
-                      {filterValue === ''
+                      {meta.noData
                         ? 'No orders have been created'
                         : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
                     </EmptyStateBody>
 
                     <EmptyStateSecondaryActions>
-                      {filterValue && (
+                      {!meta.noData && (
                         <Button
                           variant="link"
                           onClick={() => {
