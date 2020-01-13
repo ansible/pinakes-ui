@@ -67,3 +67,23 @@ export const getPlatformInventories = (
     return topologicalApi.listServiceInventories(options);
   }
 };
+
+export const getServiceOffering = (serviceOfferingId, sourceId) =>
+  Promise.all([
+    axiosInstance.get(
+      `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/${serviceOfferingId}`
+    ),
+    axiosInstance
+      .get(`${SOURCES_API_BASE}/sources/${sourceId}`)
+      .then((source) => {
+        return axiosInstance
+          .get(`${SOURCES_API_BASE}/source_types/${source.source_type_id}`)
+          .then(({ icon_url }) => ({
+            ...source,
+            icon_url
+          }));
+      })
+  ]).then(([service, source]) => ({
+    service,
+    source
+  }));

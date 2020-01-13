@@ -64,3 +64,8 @@ export const fetchPlatformInventories = (platformId, filter, options) => ({
   type: ActionTypes.FETCH_PLATFORM_INVENTORIES,
   payload: PlatformHelper.getPlatformInventories(platformId, filter, options)
 });
+
+export const fetchServiceOffering = (...args) => ({
+  type: ActionTypes.FETCH_SERVICE_OFFERING,
+  payload: PlatformHelper.getServiceOffering(...args)
+});

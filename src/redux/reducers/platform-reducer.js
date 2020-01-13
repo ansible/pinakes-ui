@@ -7,7 +7,8 @@ import {
   FETCH_MULTIPLE_PLATFORM_ITEMS,
   SET_LOADING_STATE,
   FETCH_PLATFORM_INVENTORIES,
-  SET_INVENTORIES_LOADING_STATE
+  SET_INVENTORIES_LOADING_STATE,
+  FETCH_SERVICE_OFFERING
 } from '../action-types';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
@@ -22,7 +23,11 @@ export const platformInitialState = {
   },
   platformItem: {},
   platform: {},
-  filterValue: ''
+  filterValue: '',
+  serviceOffering: {
+    service: {},
+    source: {}
+  }
 };
 
 // rename isPlatformLoading.. to isLoading so we can use common action for loading states
@@ -69,6 +74,10 @@ const setPlatformInventories = (state, { payload }) => ({
   platformInventories: { ...state.platformInventories, ...payload },
   isInventoriesDataLoading: false
 });
+const setServiceOffering = (state, { payload }) => ({
+  ...state,
+  serviceOffering: payload
+});
 
 export default {
   [`${FETCH_PLATFORMS}_PENDING`]: setLoadingState,
@@ -84,5 +93,6 @@ export default {
   [SET_LOADING_STATE]: setLoadingState,
   [`${FETCH_PLATFORM_INVENTORIES}_PENDING`]: setInventoriesDataLoadingState,
   [`${FETCH_PLATFORM_INVENTORIES}_FULFILLED`]: setPlatformInventories,
-  [SET_INVENTORIES_LOADING_STATE]: setInventoriesDataLoadingState
+  [SET_INVENTORIES_LOADING_STATE]: setInventoriesDataLoadingState,
+  [`${FETCH_SERVICE_OFFERING}_FULFILLED`]: setServiceOffering
 };
