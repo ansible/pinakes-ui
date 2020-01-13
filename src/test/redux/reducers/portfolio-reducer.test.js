@@ -110,7 +110,7 @@ describe('Portfolio reducer', () => {
     // reset selected portfolio and portfolio items
     const resetState = {
       selectedPortfolio: {},
-      portfolioItems: { data: [], meta: { offset: 0, limit: 50 } }
+      portfolioItems: { data: [], meta: { offset: 0, limit: 50, filter: '' } }
     };
     expect(
       reducer(initialState, { type: RESET_SELECTED_PORTFOLIO, payload })

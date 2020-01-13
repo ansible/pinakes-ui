@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { WrenchIcon } from '@patternfly/react-icons';
+import { WrenchIcon, SearchIcon } from '@patternfly/react-icons';
 
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -85,6 +85,27 @@ const Products = () => {
     <PortfolioItem key={item.id} to={buildItemUrl(item)} {...item} />
   ));
 
+  const SourcesAction = () => (
+    <a href={`${release}settings/sources/new`}>
+      <Button variant="secondary">Add source</Button>
+    </a>
+  );
+
+  const FilterAction = () => (
+    <Button variant="link" onClick={() => handleFilterItems('')}>
+      Clear all filters
+    </Button>
+  );
+
+  const emptyStateProps = {
+    PrimaryAction: meta.noData ? SourcesAction : FilterAction,
+    title: meta.noData ? 'No products yet' : 'No results found',
+    description: meta.noData
+      ? 'Configure a source to add products into portfolios.'
+      : 'No results match the filter criteria. Remove all filters or clear all filters to show results.',
+    Icon: meta.noData ? WrenchIcon : SearchIcon
+  };
+
   return (
     <div>
       <ToolbarRenderer
@@ -104,16 +125,7 @@ const Products = () => {
         isLoading={isFiltering || isFetching}
         items={galleryItems}
         renderEmptyState={() => (
-          <ContentGalleryEmptyState
-            PrimaryAction={() => (
-              <a href={`${release}settings/sources/new`}>
-                <Button variant="secondary">Add source</Button>
-              </a>
-            )}
-            title="No products yet"
-            description="Configure a source to add products into portfolios."
-            Icon={WrenchIcon}
-          />
+          <ContentGalleryEmptyState {...emptyStateProps} />
         )}
       />
       {meta.count > 0 && (

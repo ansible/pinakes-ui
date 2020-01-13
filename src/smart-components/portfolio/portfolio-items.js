@@ -125,7 +125,11 @@ const PortfolioItems = ({
         items={items}
         isLoading={isFetching || isFiltering}
         renderEmptyState={() => (
-          <PortfolioEmptyState url={routes.addProductsRoute} />
+          <PortfolioEmptyState
+            handleFilterChange={handleFilterChange}
+            meta={meta}
+            url={routes.addProductsRoute}
+          />
         )}
       />
       {meta.count > 0 && (

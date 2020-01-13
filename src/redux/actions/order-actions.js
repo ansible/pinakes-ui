@@ -74,9 +74,9 @@ export const cancelOrder = (orderId) => (dispatch, getState) => {
     });
 };
 
-export const fetchOrders = (...args) => (dispatch) => {
+export const fetchOrders = (filterType, filter, pagination) => (dispatch) => {
   dispatch({ type: `${ActionTypes.FETCH_ORDERS}_PENDING` });
-  return OrderHelper.getOrders(...args)
+  return OrderHelper.getOrders(filterType, filter, pagination)
     .then(({ portfolioItems, ...orders }) => {
       dispatch({
         type: ActionTypes.SET_PORTFOLIO_ITEMS,
@@ -84,6 +84,7 @@ export const fetchOrders = (...args) => (dispatch) => {
       });
       return dispatch({
         type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`,
+        meta: { filter },
         payload: orders
       });
     })

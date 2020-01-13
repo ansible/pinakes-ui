@@ -99,7 +99,8 @@ describe('<Portfolio />', () => {
         type: `${FETCH_PORTFOLIO}_PENDING`
       },
       {
-        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`
+        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
+        meta: { filter: '' }
       },
       expect.objectContaining({
         type: `${FETCH_PORTFOLIO}_FULFILLED`

@@ -95,56 +95,58 @@ const OrdersList = () => {
     <Grid gutter="md">
       <GridItem>
         <Section type="content">
-          <PrimaryToolbar
-            {...(filterValue && {
-              activeFiltersConfig: {
-                filters: [
-                  {
-                    name: filterValue
+          {!meta.noData && (
+            <PrimaryToolbar
+              {...(filterValue && {
+                activeFiltersConfig: {
+                  filters: [
+                    {
+                      name: filterValue
+                    }
+                  ],
+                  onDelete: () => {
+                    stateDispatch({ type: 'setFilterValue', payload: '' });
+                    handleFilterItems('');
                   }
-                ],
-                onDelete: () => {
-                  stateDispatch({ type: 'setFilterValue', payload: '' });
-                  handleFilterItems('');
                 }
-              }
-            })}
-            filterConfig={{
-              onChange: (_e, value) => {
-                stateDispatch({ type: 'setFilterType', payload: value });
-                if (filterValue.length > 0) {
-                  handleFilterItems('');
-                }
-              },
-              value: filterType,
-              items: [
-                {
-                  filterValues: {
-                    value: filterValue,
-                    onChange: (_e, value) => handleFilterItems(value)
-                  },
-                  label: 'State',
-                  value: 'state'
+              })}
+              filterConfig={{
+                onChange: (_e, value) => {
+                  stateDispatch({ type: 'setFilterType', payload: value });
+                  if (filterValue.length > 0) {
+                    handleFilterItems('');
+                  }
                 },
-                {
-                  filterValues: {
-                    value: filterValue,
-                    onChange: (_e, value) => handleFilterItems(value)
+                value: filterType,
+                items: [
+                  {
+                    filterValues: {
+                      value: filterValue,
+                      onChange: (_e, value) => handleFilterItems(value)
+                    },
+                    label: 'State',
+                    value: 'state'
                   },
-                  label: 'Owner',
-                  value: 'owner'
-                }
-              ]
-            }}
-            pagination={
-              <AsyncPagination
-                isDisabled={isFetching || isFiltering}
-                apiRequest={handlePagination}
-                meta={meta}
-                isCompact
-              />
-            }
-          />
+                  {
+                    filterValues: {
+                      value: filterValue,
+                      onChange: (_e, value) => handleFilterItems(value)
+                    },
+                    label: 'Owner',
+                    value: 'owner'
+                  }
+                ]
+              }}
+              pagination={
+                <AsyncPagination
+                  isDisabled={isFetching || isFiltering}
+                  apiRequest={handlePagination}
+                  meta={meta}
+                  isCompact
+                />
+              }
+            />
+          )}
           <DataList aria-label="order-list">
             {isFiltering || isFetching ? (
               <ListLoader />
@@ -160,16 +162,16 @@ const OrdersList = () => {
                       <EmptyStateIcon icon={SearchIcon} />
                     </Bullseye>
                     <Title size="lg">
-                      {filterValue === '' ? 'No orders' : 'No results found'}
+                      {meta.noData ? 'No orders' : 'No results found'}
                     </Title>
                     <EmptyStateBody>
-                      {filterValue === ''
+                      {meta.noData
                         ? 'No orders have been created'
                         : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
                     </EmptyStateBody>
 
                     <EmptyStateSecondaryActions>
-                      {filterValue && (
+                      {!meta.noData && (
                         <Button
                           variant="link"
                           onClick={() => {
