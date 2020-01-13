@@ -70,7 +70,7 @@ const PortfolioItems = ({
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterChange,
-            placeholder: 'Filter by name...'
+            placeholder: 'Filter by product...'
           },
           title: name,
           ...routes,

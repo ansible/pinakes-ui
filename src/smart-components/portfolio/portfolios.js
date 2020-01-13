@@ -110,7 +110,7 @@ const Portfolios = () => {
             filterProps: {
               searchValue: filterValue,
               onFilterChange: handleFilterItems,
-              placeholder: 'Filter by name...'
+              placeholder: 'Filter by portfolio...'
             }
           })}
         />
