@@ -9,7 +9,7 @@ import { Button } from '@patternfly/react-core';
 
 const PortfolioEmptyState = ({ url, handleFilterChange, meta }) => {
   const NoDataAction = () => (
-    <EmptyStatePrimaryAction url={`${url}/add-products`} label="Add products" />
+    <EmptyStatePrimaryAction url={url} label="Add products" />
   );
 
   const FilterAction = () => (
