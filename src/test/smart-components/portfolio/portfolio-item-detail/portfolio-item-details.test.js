@@ -44,7 +44,8 @@ describe('<PortfolioItemDetail />', () => {
     initialProps = {};
     initialState = {
       platformReducer: {
-        platforms: []
+        platforms: [],
+        platformIconMapping: {}
       },
       portfolioReducer: {
         portfolioItem: {
