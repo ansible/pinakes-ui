@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
+import clsx from 'clsx';
 
 const patternsReducers = {
   portfolios: 'portfolioReducer.selectedPortfolio.name',
@@ -100,7 +101,11 @@ const findRoutes = (url) => {
   }));
 };
 
-const CatalogBreadcrumbs = ({ match: { url }, reducers }) => {
+const CatalogBreadcrumbs = ({
+  match: { url },
+  reducers,
+  breadcrumbsSpacing
+}) => {
   const routes = findRoutes(url);
   if (routes.length <= 1) {
     return null;
@@ -121,7 +126,13 @@ const CatalogBreadcrumbs = ({ match: { url }, reducers }) => {
     </BreadcrumbItem>
   ));
   return (
-    <Breadcrumb className="pf-u-mb-lg">{items.length > 1 && items}</Breadcrumb>
+    <Breadcrumb
+      className={clsx({
+        'pf-u-mb-lg': breadcrumbsSpacing
+      })}
+    >
+      {items.length > 1 && items}
+    </Breadcrumb>
   );
 };
 
@@ -133,7 +144,12 @@ CatalogBreadcrumbs.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   }).isRequired,
-  reducers: PropTypes.object
+  reducers: PropTypes.object,
+  breadcrumbsSpacing: PropTypes.bool
+};
+
+CatalogBreadcrumbs.defaultProps = {
+  breadcrumbsSpacing: true
 };
 
 export default withRouter(connect(mapStateToProps)(CatalogBreadcrumbs));
