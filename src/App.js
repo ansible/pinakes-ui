@@ -17,7 +17,6 @@ import smoothscroll from 'smoothscroll-polyfill';
 import { IntlProvider } from 'react-intl';
 
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
-import './App.scss';
 import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE } from './utilities/constants';
 

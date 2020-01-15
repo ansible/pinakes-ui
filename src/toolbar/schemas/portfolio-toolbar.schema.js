@@ -141,6 +141,7 @@ const createPortfolioToolbarSchema = ({
   meta,
   fetchPortfolioItemsWithPortfolio,
   portfolioId,
+  description,
   filterProps: { searchValue, onFilterChange, placeholder }
 }) => ({
   fields: [
@@ -153,6 +154,7 @@ const createPortfolioToolbarSchema = ({
           key: 'portfolio-toolbar-title',
           noData: meta.noData,
           title,
+          description,
           fields: [
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
