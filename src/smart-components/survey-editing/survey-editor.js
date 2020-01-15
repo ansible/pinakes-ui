@@ -95,6 +95,7 @@ const pf4Skin = {
 
 const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
   const [schema, setSchema] = useState();
+  const [servicePlan, setServicePlan] = useState();
   const [editedTemplate, setEditedTemplate] = useState({ fields: [] });
   const { push } = useHistory();
   useEffect(() => {
@@ -102,9 +103,25 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
       .get(
         `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/service_plans`
       )
-      .then(([{ create_json_schema: { schema } }]) => setSchema(schema));
+      .then((servicePlan) => {
+        const [
+          {
+            create_json_schema: { schema }
+          }
+        ] = servicePlan;
+        setServicePlan(servicePlan[0]);
+        return setSchema(schema);
+      });
   }, []);
   const handleSaveSurvey = () => {
+    if (servicePlan.modified) {
+      return getServicePlansApi()
+        .patchServicePlanModified(`${servicePlan.id}`, {
+          modified: { schema: editedTemplate }
+        })
+        .then(() => push({ pathname: closeUrl, search }));
+    }
+
     return getServicePlansApi()
       .createServicePlan({ portfolio_item_id: portfolioItemId })
       .then(([{ id }]) => id)
