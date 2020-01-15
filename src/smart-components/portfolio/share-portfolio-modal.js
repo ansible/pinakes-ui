@@ -23,6 +23,7 @@ const SharePortfolioModal = ({
   initialValues,
   fetchShareInfo,
   sharePortfolio,
+  unsharePortfolio,
   fetchRbacGroups,
   shareInfo,
   portfolioId,
