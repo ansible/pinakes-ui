@@ -343,11 +343,15 @@ describe('Portfolio actions', () => {
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: {}
+        meta: {
+          filter: ''
+        }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-        meta: {},
+        meta: {
+          filter: ''
+        },
         payload: []
       },
       expect.objectContaining({ type: ADD_NOTIFICATION }),
