@@ -212,7 +212,8 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
       dispatch(
         fetchPortfolioItemsWithPortfolio(portfolioId, {
           offset: 0,
-          limit: meta.limit
+          limit: meta.limit,
+          filter: ''
         })
       ).then(() => data)
     )
