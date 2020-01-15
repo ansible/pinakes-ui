@@ -10,7 +10,6 @@ import {
 import clsx from 'clsx';
 import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import CatalogBreadcrumbs from './breadcrubms';
-import './top-toolbar.scss';
 
 const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
   <div
@@ -48,14 +47,24 @@ export const TopToolbarTitle = ({
   ...rest
 }) => (
   <Fragment>
-    <Level className={clsx({ 'pf-u-mb-lg': !noData })} {...rest}>
+    <Level
+      className={clsx('top-toolbar-title-container', {
+        'pf-u-mb-lg': !noData
+      })}
+      {...rest}
+    >
       <LevelItem>
         <TextContent className="top-toolbar-title">
           <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
             {title}
           </Text>
           {description && (
-            <Text component={TextVariants.small}>{description}</Text>
+            <Text
+              className="top-toolbar-title-description"
+              component={TextVariants.small}
+            >
+              {description}
+            </Text>
           )}
         </TextContent>
       </LevelItem>
