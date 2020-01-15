@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Main } from '@redhat-cloud-services/frontend-components';
@@ -8,7 +8,7 @@ import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-
 import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
-import { SET_OPENAPI_SCHEMA } from './redux/action-types';
+import { SET_OPENAPI_SCHEMA, SET_SOURCETYPE_ICONS } from './redux/action-types';
 
 import 'whatwg-fetch';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -19,7 +19,7 @@ import { IntlProvider } from 'react-intl';
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import './App.scss';
 import { getAxiosInstance } from './helpers/shared/user-login';
-import { CATALOG_API_BASE } from './utilities/constants';
+import { CATALOG_API_BASE, SOURCES_API_BASE } from './utilities/constants';
 
 smoothscroll.polyfill();
 
@@ -30,18 +30,33 @@ let ignoreRedirect = true;
 
 const App = () => {
   const [auth, setAuth] = useState(false);
-  const schema = useSelector(({ openApiReducer }) => openApiReducer);
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
 
   useEffect(() => {
-    getAxiosInstance()
-      .get(`${CATALOG_API_BASE}/openapi.json`)
-      .then((payload) => dispatch({ type: SET_OPENAPI_SCHEMA, payload }));
-
     insights.chrome.init();
-    insights.chrome.auth.getUser().then(() => setAuth(true));
+    Promise.all([
+      getAxiosInstance()
+        .get(`${CATALOG_API_BASE}/openapi.json`)
+        .then((payload) => dispatch({ type: SET_OPENAPI_SCHEMA, payload })),
+      getAxiosInstance()
+        .get(`${SOURCES_API_BASE}/source_types`)
+        .then(({ data }) =>
+          dispatch({
+            type: SET_SOURCETYPE_ICONS,
+            payload: data.reduce(
+              (acc, curr) => ({
+                ...acc,
+                [curr.id]: curr.icon_url
+              }),
+              {}
+            )
+          })
+        ),
+      insights.chrome.auth.getUser()
+    ]).then(() => setAuth(true));
+
     insights.chrome.identifyApp('catalog');
     insights.chrome.navigation([
       {
@@ -78,7 +93,7 @@ const App = () => {
     return () => unregister();
   }, []);
 
-  if (!auth || !schema) {
+  if (!auth) {
     return <AppPlaceholder />;
   }
 

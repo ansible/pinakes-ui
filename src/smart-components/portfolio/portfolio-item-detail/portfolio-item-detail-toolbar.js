@@ -29,7 +29,7 @@ const PortfolioItemDetailToolbar = ({
         <IconUpload uploadIcon={uploadIcon}>
           <CardIcon
             src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
-            platformId={product.service_offering_source_ref}
+            sourceId={product.service_offering_source_ref}
             height={64}
           />
         </IconUpload>

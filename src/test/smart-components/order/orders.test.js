@@ -80,7 +80,8 @@ describe('<Orders />', () => {
     mockStore = configureStore(middlewares);
     initialState = {
       orderReducer: { ...orderInitialState, isLoading: false },
-      portfolioReducer: { ...portfoliosInitialState, isLoading: false }
+      portfolioReducer: { ...portfoliosInitialState, isLoading: false },
+      platformReducer: { platformIconMapping: {} }
     };
   });
 
