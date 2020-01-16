@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   FormGroup,
   Modal,
@@ -18,13 +17,18 @@ import {
   copyPortfolioItem,
   fetchPortfolioItemsWithPortfolio
 } from '../../../redux/actions/portfolio-actions';
+import asyncFormValidator from '../../../utilities/async-form-validator';
+import {
+  listPortfolios,
+  getPortfolio
+} from '../../../helpers/portfolio/portfolio-helper';
 
-const copySchema = (
-  portfolios,
-  portfolioName,
-  portfolioChange,
-  nameFetching
-) => ({
+const loadPortfolios = (filter) =>
+  listPortfolios(filter, { limit: 100, offset: 0 }).then(({ data }) =>
+    data.map(({ name, id }) => ({ value: id, label: name }))
+  );
+
+const copySchema = (portfolioName, portfolioChange, nameFetching) => ({
   fields: [
     {
       component: 'value-only',
@@ -37,9 +41,10 @@ const copySchema = (
       name: 'portfolio_id',
       label: 'Portfolio',
       isRequired: true,
-      options: portfolios.map(({ id, name }) => ({ label: name, value: id })),
+      loadOptions: asyncFormValidator(loadPortfolios),
       onChange: portfolioChange,
-      isDisabled: nameFetching
+      isDisabled: nameFetching,
+      isSearchable: true
     }
   ]
 });
@@ -59,15 +64,13 @@ ValueOnly.propTypes = {
 };
 
 const CopyPortfolioItemModal = ({
-  copyPortfolioItem,
-  portfolios,
   portfolioId,
   portfolioItemId,
   closeUrl,
-  history: { push },
-  fetchPortfolioItemsWithPortfolio,
   search
 }) => {
+  const dispatch = useDispatch();
+  const { push } = useHistory();
   const [submitting, setSubmitting] = useState(false);
   const [name, setName] = useState();
   const [nameFetching, setNameFetching] = useState(false);
@@ -77,13 +80,10 @@ const CopyPortfolioItemModal = ({
       .getPortfolioItemNextName(portfolioItemId, portfolioId)
       .then(({ next_name }) => setName(next_name));
   }, []);
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     setSubmitting(true);
-    copyPortfolioItem(
-      portfolioItemId,
-      values,
-      portfolios.find(({ id }) => id === values.portfolio_id)
-    )
+    const portfolio = await getPortfolio(values.portfolio_id);
+    dispatch(copyPortfolioItem(portfolioItemId, values, portfolio))
       .then(({ id }) =>
         push({
           pathname: `/portfolios/detail/${values.portfolio_id}/product/${id}`,
@@ -93,7 +93,7 @@ const CopyPortfolioItemModal = ({
       .then(
         () =>
           values.portfolio_id === portfolioId &&
-          fetchPortfolioItemsWithPortfolio(portfolioId)
+          dispatch(fetchPortfolioItemsWithPortfolio(portfolioId))
       )
       .catch(() => setSubmitting(false));
   };
@@ -122,7 +122,7 @@ const CopyPortfolioItemModal = ({
     >
       <FormRenderer
         initialValues={{ portfolio_id: portfolioId, portfolio_item_name: name }}
-        schema={copySchema(portfolios, name, portfolioChange, nameFetching)}
+        schema={copySchema(name, portfolioChange, nameFetching)}
         onSubmit={onSubmit}
         onCancel={() =>
           push({
@@ -130,6 +130,7 @@ const CopyPortfolioItemModal = ({
             search
           })
         }
+        formContainer="modal"
         componentMapper={{ 'value-only': ValueOnly }}
         buttonsLabels={{ submitLabel: 'Save' }}
         disableSubmit={submitting ? ['pristine', 'diry'] : []}
@@ -140,30 +141,9 @@ const CopyPortfolioItemModal = ({
 
 CopyPortfolioItemModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
   portfolioId: PropTypes.string.isRequired,
   portfolios: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  copyPortfolioItem: PropTypes.func.isRequired,
   portfolioItemId: PropTypes.string.isRequired,
-  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
   search: PropTypes.string.isRequired
 };
-
-const mapStateToProps = ({ portfolioReducer: { portfolios } }) => ({
-  portfolios: portfolios.data
-});
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      copyPortfolioItem,
-      fetchPortfolioItemsWithPortfolio
-    },
-    dispatch
-  );
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CopyPortfolioItemModal)
-);
+export default CopyPortfolioItemModal;
