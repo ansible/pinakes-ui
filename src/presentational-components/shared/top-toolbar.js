@@ -61,7 +61,7 @@ export const TopToolbarTitle = ({
           {description && (
             <Text
               className="top-toolbar-title-description"
-              component={TextVariants.small}
+              component={TextVariants.p}
             >
               {description}
             </Text>
