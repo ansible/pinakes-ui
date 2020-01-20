@@ -95,6 +95,7 @@ const pf4Skin = {
 
 const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
   const [schema, setSchema] = useState();
+  const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
   const [editedTemplate, setEditedTemplate] = useState({ fields: [] });
   const { push } = useHistory();
@@ -110,8 +111,18 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
           }
         ] = servicePlan;
         setServicePlan(servicePlan[0]);
-        return setSchema(schema);
-      });
+        if (servicePlan[0].modified) {
+          return getAxiosInstance()
+            .get(`${CATALOG_API_BASE}/service_plans/${servicePlan[0].id}/base`)
+            .then((baseSchema) => {
+              setBaseSchema(baseSchema.create_json_schema.schema);
+              return schema;
+            });
+        }
+
+        return schema;
+      })
+      .then((schema) => setSchema(schema));
   }, []);
   const handleSaveSurvey = () => {
     if (servicePlan.modified) {
@@ -167,6 +178,8 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
           schema={schema}
           onChange={setEditedTemplate}
           disableDrag
+          schemaTemplate={baseSchema}
+          mode="subset"
         />
       ) : (
         <Bullseye>
