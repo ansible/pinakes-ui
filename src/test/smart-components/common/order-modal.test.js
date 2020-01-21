@@ -63,6 +63,9 @@ describe('<OrderModal />', () => {
             }
           }
         ]
+      },
+      platformReducer: {
+        platformIconMapping: {}
       }
     };
   });

@@ -33,13 +33,13 @@ const PortfolioItems = ({
     filterValue
   }
 }) => {
-  const { data, meta, name } = useSelector(
+  const { data, meta, name, description } = useSelector(
     ({
       portfolioReducer: {
         portfolioItems: { data, meta },
-        selectedPortfolio: { name }
+        selectedPortfolio: { name, description }
       }
-    }) => ({ data, meta, name })
+    }) => ({ data, meta, name, description })
   );
   const match = useRouteMatch('/portfolios/detail/:id');
   const dispatch = useDispatch();
@@ -70,9 +70,10 @@ const PortfolioItems = ({
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterChange,
-            placeholder: 'Filter by name...'
+            placeholder: 'Filter by product...'
           },
           title: name,
+          description,
           ...routes,
           copyPortfolio,
           isLoading: isFetching || isFiltering,
@@ -125,7 +126,11 @@ const PortfolioItems = ({
         items={items}
         isLoading={isFetching || isFiltering}
         renderEmptyState={() => (
-          <PortfolioEmptyState url={routes.addProductsRoute} />
+          <PortfolioEmptyState
+            handleFilterChange={handleFilterChange}
+            meta={meta}
+            url={routes.addProductsRoute}
+          />
         )}
       />
       {meta.count > 0 && (

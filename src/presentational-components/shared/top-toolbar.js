@@ -7,9 +7,9 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
+import clsx from 'clsx';
 import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import CatalogBreadcrumbs from './breadcrubms';
-import './top-toolbar.scss';
 
 const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
   <div
@@ -39,16 +39,32 @@ TopToolbar.defaultProps = {
 
 export default TopToolbar;
 
-export const TopToolbarTitle = ({ title, description, children, ...rest }) => (
+export const TopToolbarTitle = ({
+  title,
+  description,
+  children,
+  noData,
+  ...rest
+}) => (
   <Fragment>
-    <Level className="pf-u-mb-lg" {...rest}>
+    <Level
+      className={clsx('top-toolbar-title-container', {
+        'pf-u-mb-lg': !noData
+      })}
+      {...rest}
+    >
       <LevelItem>
         <TextContent className="top-toolbar-title">
           <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
             {title}
           </Text>
           {description && (
-            <Text component={TextVariants.small}>{description}</Text>
+            <Text
+              className="top-toolbar-title-description"
+              component={TextVariants.p}
+            >
+              {description}
+            </Text>
           )}
         </TextContent>
       </LevelItem>
@@ -63,7 +79,8 @@ TopToolbarTitle.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
-  ])
+  ]),
+  noData: PropTypes.bool
 };
 
 TopToolbarTitle.defaultProps = {

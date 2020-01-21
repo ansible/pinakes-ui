@@ -141,6 +141,7 @@ const createPortfolioToolbarSchema = ({
   meta,
   fetchPortfolioItemsWithPortfolio,
   portfolioId,
+  description,
   filterProps: { searchValue, onFilterChange, placeholder }
 }) => ({
   fields: [
@@ -151,7 +152,9 @@ const createPortfolioToolbarSchema = ({
         {
           component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
           key: 'portfolio-toolbar-title',
+          noData: meta.noData,
           title,
+          description,
           fields: [
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
@@ -181,60 +184,62 @@ const createPortfolioToolbarSchema = ({
         {
           component: toolbarComponentTypes.LEVEL,
           key: 'portfolio-items-actions',
-          fields: [
-            {
-              component: toolbarComponentTypes.TOOLBAR,
-              key: 'portfolio-items-actions',
-              fields: [
-                createSingleItemGroup({
-                  groupName: 'filter-portfolio-items',
-                  component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
-                  isClearable: true,
-                  key: 'portfolio-items-filter',
-                  searchValue,
-                  onFilterChange,
-                  placeholder
-                }),
-                createSingleItemGroup({
-                  hidden: meta.count === 0,
-                  groupName: 'add-portfolio-items',
-                  key: 'portfolio-items-add-group',
-                  ...createLinkButton({
-                    to: addProductsRoute,
-                    isDisabled: isLoading || copyInProgress,
-                    variant: 'primary',
-                    title: 'Add products',
-                    key: 'add-products-button'
-                  })
-                }),
+          fields: meta.noData
+            ? []
+            : [
                 {
-                  hidden: meta.count === 0,
-                  component: PortfolioItemsActionsDropdown,
-                  isDisabled: copyInProgress,
-                  key: 'remove-products-actions-dropdown',
-                  removeProducts,
-                  itemsSelected
+                  component: toolbarComponentTypes.TOOLBAR,
+                  key: 'portfolio-items-actions',
+                  fields: [
+                    createSingleItemGroup({
+                      groupName: 'filter-portfolio-items',
+                      component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
+                      isClearable: true,
+                      key: 'portfolio-items-filter',
+                      searchValue,
+                      onFilterChange,
+                      placeholder
+                    }),
+                    createSingleItemGroup({
+                      hidden: meta.count === 0,
+                      groupName: 'add-portfolio-items',
+                      key: 'portfolio-items-add-group',
+                      ...createLinkButton({
+                        to: addProductsRoute,
+                        isDisabled: isLoading || copyInProgress,
+                        variant: 'primary',
+                        title: 'Add products',
+                        key: 'add-products-button'
+                      })
+                    }),
+                    {
+                      hidden: meta.count === 0,
+                      component: PortfolioItemsActionsDropdown,
+                      isDisabled: copyInProgress,
+                      key: 'remove-products-actions-dropdown',
+                      removeProducts,
+                      itemsSelected
+                    }
+                  ]
+                },
+                {
+                  component: toolbarComponentTypes.LEVEL_ITEM,
+                  key: 'pagination-item',
+                  fields:
+                    meta.count > 0
+                      ? [
+                          {
+                            component: AsyncPagination,
+                            key: 'portfolio-items-pagination',
+                            meta,
+                            apiRequest: fetchPortfolioItemsWithPortfolio,
+                            apiProps: portfolioId,
+                            isCompact: true
+                          }
+                        ]
+                      : []
                 }
               ]
-            },
-            {
-              component: toolbarComponentTypes.LEVEL_ITEM,
-              key: 'pagination-item',
-              fields:
-                meta.count > 0
-                  ? [
-                      {
-                        component: AsyncPagination,
-                        key: 'portfolio-items-pagination',
-                        meta,
-                        apiRequest: fetchPortfolioItemsWithPortfolio,
-                        apiProps: portfolioId,
-                        isCompact: true
-                      }
-                    ]
-                  : []
-            }
-          ]
         }
       ]
     }

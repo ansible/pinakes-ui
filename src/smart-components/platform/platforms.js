@@ -13,6 +13,7 @@ import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
+import ServiceOfferingDetail from './service-offering/service-offering-detail';
 
 const platformsRoutes = {
   platforms: '',
@@ -97,6 +98,9 @@ class Platforms extends Component {
           path={`/platforms${platformsRoutes.platforms}`}
           render={() => this.renderPlatforms()}
         />
+        <Route path="/platforms/service-offerings" exact>
+          <ServiceOfferingDetail />
+        </Route>
       </Switch>
     );
   }

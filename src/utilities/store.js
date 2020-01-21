@@ -29,6 +29,7 @@ import openApiReducer, {
   openApiInitialState
 } from '../redux/reducers/open-api-reducer';
 import loadingStateMiddleware from './loading-state-middleware';
+import emptyDataMiddleware from './empty-data-middleware';
 
 const registry = new ReducerRegistry({}, [
   thunk,
@@ -47,6 +48,7 @@ const registry = new ReducerRegistry({}, [
     ]
   }),
   loadingStateMiddleware,
+  emptyDataMiddleware,
   reduxLogger
 ]);
 registry.register({

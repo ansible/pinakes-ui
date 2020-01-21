@@ -102,7 +102,16 @@ const PlatformTemplates = () => {
   const renderItems = () => {
     const filteredItems = {
       items: data
-        ? data.map((item) => <PlatformItem key={item.id} {...item} />)
+        ? data.map((item) => (
+            <PlatformItem
+              key={item.id}
+              url={{
+                pathname: '/platforms/service-offerings',
+                search: `?service=${item.id}&source=${item.source_id}`
+              }}
+              {...item}
+            />
+          ))
         : []
     };
 
