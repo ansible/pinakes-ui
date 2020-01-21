@@ -52,7 +52,7 @@ export default ContentGalleryEmptyState;
 
 export const EmptyStatePrimaryAction = ({ url, label }) => (
   <Link to={url}>
-    <Button variant="primary">{label}</Button>
+    <Button variant="secondary">{label}</Button>
   </Link>
 );
 

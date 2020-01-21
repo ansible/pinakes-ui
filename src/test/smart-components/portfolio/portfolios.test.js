@@ -75,7 +75,8 @@ describe('<Portfolios />', () => {
       .replyOnce(200, { data: [{ name: 'Foo', id: '11' }] });
     const expectedActions = [
       {
-        type: `${FETCH_PORTFOLIOS}_PENDING`
+        type: `${FETCH_PORTFOLIOS}_PENDING`,
+        meta: { filter: '' }
       },
       expect.objectContaining({
         type: `${FETCH_PORTFOLIOS}_FULFILLED`

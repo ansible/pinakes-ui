@@ -35,7 +35,7 @@ const PortfolioItem = (props) => (
           )}
           <CardIcon
             src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
-            platformId={props.service_offering_source_ref}
+            sourceId={props.service_offering_source_ref}
           />
         </CardHeader>
         <ServiceOfferingCardBody {...props} />

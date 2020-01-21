@@ -28,18 +28,20 @@ import {
 } from '../../helpers/shared/orders';
 
 const OrderItem = ({ item }) => {
-  const portfolioItems = useSelector(
+  const { orderPlatform, orderPortfolio, orderName } = useSelector(
     ({
       portfolioReducer: {
         portfolioItems: { data }
       }
-    }) => data
+    }) => {
+      const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, data);
+      return {
+        orderPlatform,
+        orderPortfolio,
+        orderName: getOrderPortfolioName(item, data)
+      };
+    }
   );
-  const { orderPlatform, orderPortfolio } = getOrderPlatformId(
-    item,
-    portfolioItems
-  );
-
   const orderItem = (item.orderItems[0] && item.orderItems[0]) || {};
   const searchParam = `?order-item=${orderItem.id}&portfolio-item=${orderItem.portfolio_item_id}&platform=${orderPlatform}&portfolio=${orderPortfolio}`; // eslint-disable-line max-len
   return (
@@ -57,7 +59,7 @@ const OrderItem = ({ item }) => {
                     <CardIcon
                       height={60}
                       src={getOrderIcon(item)}
-                      platformId={orderPlatform}
+                      sourceId={orderPlatform}
                     />
                   </SplitItem>
                   <SplitItem>
@@ -75,10 +77,9 @@ const OrderItem = ({ item }) => {
                                     pathname: `orders/${item.id}`,
                                     search: searchParam
                                   }}
-                                >{`${getOrderPortfolioName(
-                                  item,
-                                  portfolioItems
-                                )} # ${item.id}`}</Link>
+                                >
+                                  {orderName} # ${item.id}
+                                </Link>
                               </Text>
                             </LevelItem>
                             <LevelItem>

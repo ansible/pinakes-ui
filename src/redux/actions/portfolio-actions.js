@@ -9,17 +9,25 @@ import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
-export const doFetchPortfolios = (...args) => ({
+export const doFetchPortfolios = ({
+  filter,
+  ...options
+} = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  payload: PortfolioHelper.listPortfolios(...args)
+  meta: { filter },
+  payload: PortfolioHelper.listPortfolios(filter, options)
 });
 
 export const fetchPortfolios = (...args) => (dispatch) => {
   return dispatch(doFetchPortfolios(...args));
 };
 
-export const fetchPortfolioItems = (filter, options = defaultSettings) => ({
+export const fetchPortfolioItems = (
+  filter = '',
+  options = defaultSettings
+) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
+  meta: { filter },
   payload: PortfolioHelper.listPortfolioItems(
     options.limit,
     options.offset,
@@ -32,9 +40,13 @@ export const fetchPortfolioItem = (portfolioItemId) => ({
   payload: PortfolioHelper.getPortfolioItem(portfolioItemId)
 });
 
-export const fetchPortfolioItemsWithPortfolio = (...args) => ({
+export const fetchPortfolioItemsWithPortfolio = (
+  portfolioId,
+  options = defaultSettings
+) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
-  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(...args)
+  meta: { filter: options.filter },
+  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(portfolioId, options)
 });
 
 export const fetchSelectedPortfolio = (id) => ({
@@ -200,7 +212,8 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
       dispatch(
         fetchPortfolioItemsWithPortfolio(portfolioId, {
           offset: 0,
-          limit: meta.limit
+          limit: meta.limit,
+          filter: ''
         })
       ).then(() => data)
     )

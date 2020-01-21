@@ -7,12 +7,16 @@ import {
   FETCH_MULTIPLE_PLATFORM_ITEMS,
   SET_LOADING_STATE,
   FETCH_PLATFORM_INVENTORIES,
-  SET_INVENTORIES_LOADING_STATE
+  SET_INVENTORIES_LOADING_STATE,
+  FETCH_SERVICE_OFFERING,
+  SET_SOURCETYPE_ICONS
 } from '../action-types';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
 // Initial State
 export const platformInitialState = {
+  platformIconMapping: {},
+  sourceTypeIcons: {},
   isPlatformDataLoading: false,
   selectedPlatform: {},
   platforms: [],
@@ -22,10 +26,21 @@ export const platformInitialState = {
   },
   platformItem: {},
   platform: {},
-  filterValue: ''
+  filterValue: '',
+  serviceOffering: {
+    service: {},
+    source: {}
+  }
 };
 
-// rename isPlatformLoading.. to isLoading so we can use common action for loading states
+const mapPlatformIcons = (platformIconMapping, platforms, sourceTypeIcons) =>
+  platforms.reduce(
+    (acc, curr) =>
+      !acc[curr.id]
+        ? { ...acc, [curr.id]: sourceTypeIcons[curr.source_type_id] }
+        : acc,
+    { ...platformIconMapping }
+  );
 
 const setLoadingState = (state, { payload = true }) => ({
   ...state,
@@ -34,6 +49,11 @@ const setLoadingState = (state, { payload = true }) => ({
 const setPlatforms = (state, { payload }) => ({
   ...state,
   platforms: payload,
+  platformIconMapping: mapPlatformIcons(
+    state.platformIconMapping,
+    payload,
+    state.sourceTypeIcons
+  ),
   isPlatformDataLoading: false
 });
 const setPlatformItems = (state, { payload, meta: { platformId } }) => ({
@@ -69,6 +89,14 @@ const setPlatformInventories = (state, { payload }) => ({
   platformInventories: { ...state.platformInventories, ...payload },
   isInventoriesDataLoading: false
 });
+const setServiceOffering = (state, { payload }) => ({
+  ...state,
+  serviceOffering: payload
+});
+const setSourceTypeIcons = (state, { payload }) => ({
+  ...state,
+  sourceTypeIcons: payload
+});
 
 export default {
   [`${FETCH_PLATFORMS}_PENDING`]: setLoadingState,
@@ -84,5 +112,7 @@ export default {
   [SET_LOADING_STATE]: setLoadingState,
   [`${FETCH_PLATFORM_INVENTORIES}_PENDING`]: setInventoriesDataLoadingState,
   [`${FETCH_PLATFORM_INVENTORIES}_FULFILLED`]: setPlatformInventories,
-  [SET_INVENTORIES_LOADING_STATE]: setInventoriesDataLoadingState
+  [SET_INVENTORIES_LOADING_STATE]: setInventoriesDataLoadingState,
+  [`${FETCH_SERVICE_OFFERING}_FULFILLED`]: setServiceOffering,
+  [SET_SOURCETYPE_ICONS]: setSourceTypeIcons
 };

@@ -7,7 +7,8 @@ import {
   FETCH_PLATFORM_ITEMS,
   FETCH_PLATFORM_ITEM,
   FILTER_PLATFORM_ITEMS,
-  FETCH_MULTIPLE_PLATFORM_ITEMS
+  FETCH_MULTIPLE_PLATFORM_ITEMS,
+  FETCH_SERVICE_OFFERING
 } from '../../../redux/action-types';
 
 describe('Platform reducer', () => {
@@ -15,7 +16,9 @@ describe('Platform reducer', () => {
   const reducer = callReducer(platformReducer);
 
   beforeEach(() => {
-    initialState = {};
+    initialState = {
+      sourceTypeIcons: { 3: '/foo/bar' }
+    };
   });
 
   it('should set loading state to true', () => {
@@ -40,10 +43,12 @@ describe('Platform reducer', () => {
   });
 
   it('should store platforms data and set loading state to false', () => {
-    const payload = { data: 'Foo' };
+    const payload = [{ id: '123', source_type_id: '3' }];
     const expectedState = expect.objectContaining({
       isPlatformDataLoading: false,
-      platforms: payload
+      platforms: payload,
+      sourceTypeIcons: { 3: '/foo/bar' },
+      platformIconMapping: { 123: '/foo/bar' }
     });
     expect(
       reducer(initialState, { type: `${FETCH_PLATFORMS}_FULFILLED`, payload })
@@ -51,7 +56,7 @@ describe('Platform reducer', () => {
   });
 
   it('should store platform items data and set loading state to false', () => {
-    const payload = { data: 'Foo' };
+    const payload = { data: [] };
     const expectedState = expect.objectContaining({
       isPlatformDataLoading: false,
       platformItems: { 1: payload, 2: 'Bar' }
@@ -126,5 +131,16 @@ describe('Platform reducer', () => {
         }
       )
     ).toEqual(expectedState);
+  });
+
+  it('should set serviceOffering', () => {
+    expect(
+      reducer(
+        {},
+        { type: `${FETCH_SERVICE_OFFERING}_FULFILLED`, payload: 'foo' }
+      )
+    ).toEqual({
+      serviceOffering: 'foo'
+    });
   });
 });
