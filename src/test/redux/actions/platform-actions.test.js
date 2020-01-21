@@ -9,13 +9,15 @@ import {
   FETCH_PLATFORM,
   FETCH_PLATFORMS,
   FETCH_PLATFORM_ITEMS,
-  FETCH_MULTIPLE_PLATFORM_ITEMS
+  FETCH_MULTIPLE_PLATFORM_ITEMS,
+  FETCH_SERVICE_OFFERING
 } from '../../../redux/action-types';
 import {
   fetchPlatforms,
   fetchPlatformItems,
   fetchMultiplePlatformItems,
-  fetchSelectedPlatform
+  fetchSelectedPlatform,
+  fetchServiceOffering
 } from '../../../redux/actions/platform-actions';
 import {
   SOURCES_API_BASE,
@@ -322,5 +324,42 @@ describe('Platform actions', () => {
     return store.dispatch(fetchSelectedPlatform('1')).catch(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
+  });
+
+  it('should dispatch correct actions after fetching service offering data', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      {
+        type: `${FETCH_SERVICE_OFFERING}_PENDING`
+      },
+      {
+        type: `${FETCH_SERVICE_OFFERING}_FULFILLED`,
+        payload: {
+          service: {
+            id: 'offering-id'
+          },
+          source: {
+            id: 'source-id',
+            source_type_id: 'source-type-id',
+            icon_url: '/icon/url'
+          }
+        }
+      }
+    ];
+    mockApi
+      .onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/offering-id`)
+      .replyOnce(200, { id: 'offering-id' });
+    mockApi
+      .onGet(`${SOURCES_API_BASE}/sources/source-id`)
+      .replyOnce(200, { id: 'source-id', source_type_id: 'source-type-id' });
+    mockApi
+      .onGet(`${SOURCES_API_BASE}/source_types/source-type-id`)
+      .replyOnce(200, { id: 'source-type-id', icon_url: '/icon/url' });
+
+    store
+      .dispatch(fetchServiceOffering('offering-id', 'source-id'))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 });

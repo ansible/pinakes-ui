@@ -59,7 +59,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       beforeLoad={[Function]}
                       className="card-image hide"
                       delayMethod="throttle"
-                      delayTime={50}
+                      delayTime={0}
                       effect=""
                       height={0}
                       onError={[Function]}
@@ -80,7 +80,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         beforeLoad={[Function]}
                         className="card-image hide"
                         delayMethod="throttle"
-                        delayTime={50}
+                        delayTime={0}
                         height={0}
                         style={
                           Object {

@@ -80,7 +80,8 @@ describe('<Orders />', () => {
     mockStore = configureStore(middlewares);
     initialState = {
       orderReducer: { ...orderInitialState, isLoading: false },
-      portfolioReducer: { ...portfoliosInitialState, isLoading: false }
+      portfolioReducer: { ...portfoliosInitialState, isLoading: false },
+      platformReducer: { platformIconMapping: {} }
     };
   });
 
@@ -216,7 +217,11 @@ describe('<Orders />', () => {
     expect(store.getActions()).toEqual([
       { type: `${FETCH_ORDERS}_PENDING` },
       { type: SET_PORTFOLIO_ITEMS, payload: { data: [] } },
-      { type: `${FETCH_ORDERS}_FULFILLED`, payload: { data: [] } }
+      {
+        type: `${FETCH_ORDERS}_FULFILLED`,
+        meta: { filter: '' },
+        payload: { data: [] }
+      }
     ]);
     done();
   });

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { SearchIcon } from '@patternfly/react-icons';
+import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
 
 import Portfolio from './portfolio';
 import AddPortfolio from './add-portfolio-modal';
@@ -22,11 +22,14 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import { Button } from '@patternfly/react-core';
 
 const debouncedFilter = asyncFormValidator(
-  (value, dispatch, filteringCallback, meta = defaultSettings) => {
+  (filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPortfolios(value, meta)).then(() => filteringCallback(false));
+    dispatch(fetchPortfolios({ ...meta, filter })).then(() =>
+      filteringCallback(false)
+    );
   },
   1000
 );
@@ -68,9 +71,9 @@ const Portfolios = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPortfolios(filterValue, defaultSettings)).then(() =>
-      stateDispatch({ type: 'setFetching', payload: false })
-    );
+    dispatch(
+      fetchPortfolios({ ...defaultSettings, filter: filterValue })
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
@@ -98,6 +101,28 @@ const Portfolios = () => {
   };
 
   const renderItems = () => {
+    const NoDataAction = () => (
+      <EmptyStatePrimaryAction
+        url="/portfolios/add-portfolio"
+        label="Create portfolio"
+      />
+    );
+
+    const FilterAction = () => (
+      <Button variant="link" onClick={() => handleFilterItems('')}>
+        Clear all filters
+      </Button>
+    );
+
+    const emptyStateProps = {
+      PrimaryAction: meta.noData ? NoDataAction : FilterAction,
+      title: meta.noData ? 'No portfolios' : 'No results found',
+      description: meta.noData
+        ? 'No portfolios match your filter criteria.'
+        : 'No results match the filter criteria. Remove all filters or clear all filters to show results.',
+      Icon: meta.noData ? WrenchIcon : SearchIcon
+    };
+
     const galleryItems = data.map((item) => (
       <PortfolioCard key={item.id} {...item} />
     ));
@@ -110,7 +135,7 @@ const Portfolios = () => {
             filterProps: {
               searchValue: filterValue,
               onFilterChange: handleFilterItems,
-              placeholder: 'Filter by name...'
+              placeholder: 'Filter by portfolio...'
             }
           })}
         />
@@ -147,21 +172,7 @@ const Portfolios = () => {
           items={galleryItems}
           isLoading={isFetching || isFiltering}
           renderEmptyState={() => (
-            <ContentGalleryEmptyState
-              title="No portfolios"
-              Icon={SearchIcon}
-              description={
-                filterValue === ''
-                  ? 'You haven’t created a portfolio yet.'
-                  : 'No portfolios match your filter criteria.'
-              }
-              PrimaryAction={() => (
-                <EmptyStatePrimaryAction
-                  url="/portfolios/add-portfolio"
-                  label="Create portfolio"
-                />
-              )}
-            />
+            <ContentGalleryEmptyState {...emptyStateProps} />
           )}
         />
         {meta.count > 0 && (

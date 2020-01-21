@@ -31,6 +31,9 @@ describe('<PortfolioItem />', () => {
       display_name: 'quux'
     };
     initialState = {
+      platformReducer: {
+        platformIconMapping: {}
+      },
       portfolioReducer: {
         portfolioItems: {
           data: [

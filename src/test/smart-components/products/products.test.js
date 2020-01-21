@@ -35,6 +35,9 @@ describe('<Products />', () => {
 
   beforeEach(() => {
     initialState = {
+      platformReducer: {
+        platformIconMapping: {}
+      },
       portfolioReducer: {
         portfolioItems: {
           data: [

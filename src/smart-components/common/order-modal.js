@@ -74,7 +74,7 @@ const OrderModal = ({ closeUrl }) => {
             <CardIcon
               height={64}
               src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/icon`}
-              platformId={portfolioItem.service_offering_source_ref}
+              sourceId={portfolioItem.service_offering_source_ref}
             />
           </SplitItem>
           <SplitItem isFilled>
