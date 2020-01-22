@@ -78,7 +78,7 @@ const OrderItem = ({ item }) => {
                                     search: searchParam
                                   }}
                                 >
-                                  {orderName} # ${item.id}
+                                  {orderName} # {item.id}
                                 </Link>
                               </Text>
                             </LevelItem>
