@@ -11,14 +11,22 @@ import clsx from 'clsx';
 import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import CatalogBreadcrumbs from './breadcrubms';
 
-const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
+const TopToolbar = ({
+  children,
+  paddingBottom,
+  breadcrumbs,
+  breadcrumbsSpacing,
+  ...rest
+}) => (
   <div
     className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
       paddingBottom ? 'pf-u-pb-lg' : ''
     } top-toolbar`}
     {...rest}
   >
-    {breadcrumbs && <CatalogBreadcrumbs />}
+    {breadcrumbs && (
+      <CatalogBreadcrumbs breadcrumbsSpacing={breadcrumbsSpacing} />
+    )}
     {children}
   </div>
 );
@@ -29,7 +37,8 @@ TopToolbar.propTypes = {
     PropTypes.node
   ]).isRequired,
   paddingBottom: PropTypes.bool,
-  breadcrumbs: PropTypes.bool
+  breadcrumbs: PropTypes.bool,
+  breadcrumbsSpacing: PropTypes.bool
 };
 
 TopToolbar.defaultProps = {

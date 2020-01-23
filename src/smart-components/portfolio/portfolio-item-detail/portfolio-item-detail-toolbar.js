@@ -24,7 +24,7 @@ const PortfolioItemDetailToolbar = ({
   uploadIcon
 }) => (
   <Fragment>
-    <TopToolbar>
+    <TopToolbar breadcrumbsSpacing={false}>
       <div style={{ float: 'left' }} className="pf-u-mr-sm">
         <IconUpload uploadIcon={uploadIcon}>
           <CardIcon
