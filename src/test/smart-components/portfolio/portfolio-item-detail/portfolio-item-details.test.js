@@ -18,7 +18,7 @@ import {
   SOURCES_API_BASE
 } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
-import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import { PortfolioItemDetailToolbar } from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { mockApi } from '../../../__mocks__/user-login';
 
 describe('<PortfolioItemDetail />', () => {

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import FormBuilder from '@data-driven-forms/form-builder';
@@ -17,7 +16,9 @@ import {
   getServicePlansApi
 } from '../../helpers/shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { Bullseye, Button, Title } from '@patternfly/react-core';
+import { Bullseye } from '@patternfly/react-core';
+import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import PortfolioItemBreadcrumbs from '../portfolio/portfolio-item-detail/portfolio-item-breadcrumbs';
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -93,7 +94,13 @@ const pf4Skin = {
   componentProperties
 };
 
-const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
+const SurveyEditor = ({
+  closeUrl,
+  search,
+  portfolioItem,
+  uploadIcon,
+  portfolio
+}) => {
   const [schema, setSchema] = useState();
   const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
@@ -102,7 +109,7 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
   useEffect(() => {
     getAxiosInstance()
       .get(
-        `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/service_plans`
+        `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans`
       )
       .then((servicePlan) => {
         const [
@@ -134,7 +141,7 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
     }
 
     return getServicePlansApi()
-      .createServicePlan({ portfolio_item_id: portfolioItemId })
+      .createServicePlan({ portfolio_item_id: portfolioItem.id })
       .then(([{ id }]) => id)
       .then((id) =>
         getServicePlansApi()
@@ -146,32 +153,20 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
   };
 
   return (
-    <div
-      style={{
-        zIndex: 300,
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        margin: 8,
-        height: 'calc(100vh - 16px)',
-        width: 'calc(100vw - 16px)',
-        overflowY: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'white'
-      }}
-    >
-      <div
-        style={{
-          paddingTop: 24,
-          paddingLeft: 24,
-          paddingRight: 24
-        }}
+    <Fragment>
+      <SurveyEditingToolbar
+        uploadIcon={uploadIcon}
+        product={portfolioItem}
+        handleSaveSurvey={handleSaveSurvey}
+        closeUrl={closeUrl}
+        search={search}
       >
-        <Title headingLevel="h1" size="4xl">
-          Editing {name} job template
-        </Title>
-      </div>
+        <PortfolioItemBreadcrumbs
+          portfolio={portfolio}
+          portfolioItem={portfolioItem}
+          search={search}
+        />
+      </SurveyEditingToolbar>
       {schema ? (
         <FormBuilder
           {...pf4Skin}
@@ -186,41 +181,17 @@ const SurveyEditor = ({ portfolioItemId, closeUrl, name, search }) => {
           <Spinner />
         </Bullseye>
       )}
-      <div
-        style={{
-          paddingLeft: 24,
-          paddingRight: 24,
-          marginTop: 'auto',
-          marginBottom: 24
-        }}
-      >
-        <Button variant="primary" onClick={handleSaveSurvey}>
-          Save changes
-        </Button>
-        <Button
-          variant="link"
-          onClick={() =>
-            push({
-              pathname: closeUrl,
-              search
-            })
-          }
-        >
-          Cancel
-        </Button>
-      </div>
-    </div>
+    </Fragment>
   );
 };
 
 SurveyEditor.propTypes = {
-  portfolioItemId: PropTypes.string.isRequired,
   closeUrl: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired
+  search: PropTypes.string.isRequired,
+  portfolioItem: PropTypes.shape({ id: PropTypes.string.isRequired })
+    .isRequired,
+  uploadIcon: PropTypes.func.isRequired,
+  portfolio: PropTypes.object.isRequired
 };
 
-const SurveyEditorPortal = (props) =>
-  createPortal(<SurveyEditor {...props} />, document.body);
-
-export default SurveyEditorPortal;
+export default SurveyEditor;
