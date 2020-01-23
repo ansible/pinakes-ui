@@ -43,7 +43,13 @@ ServiceOfferingCardBody.propTypes = {
   distributor: PropTypes.string,
   long_description: PropTypes.string,
   description: PropTypes.string,
-  url: PropTypes.string,
+  url: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string,
+      search: PropTypes.string
+    })
+  ]),
   to: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string
