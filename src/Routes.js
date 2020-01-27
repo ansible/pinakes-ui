@@ -2,6 +2,7 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
+import Portfolio from './smart-components/portfolio/portfolio';
 
 const Products = lazy(() => import('./smart-components/products/products'));
 const Platforms = lazy(() => import('./smart-components/platform/platforms'));
@@ -14,7 +15,7 @@ const paths = {
   products: '/products',
   platforms: '/platforms',
   portfolios: '/portfolios',
-  portfolioItem: '/portfolios/:id',
+  portfolio: '/portfolio',
   orders: '/orders'
 };
 
@@ -25,6 +26,7 @@ export const Routes = () => {
       <Switch>
         <Route path={paths.products} component={Products} />
         <Route path={paths.portfolios} component={Portfolios} />
+        <Route path={paths.portfolio} component={Portfolio} />
         <Route path={paths.platforms} component={Platforms} />
         <Route path={paths.orders} component={Orders} />
         <Route
