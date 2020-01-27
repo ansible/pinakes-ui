@@ -16,10 +16,10 @@ import ImageWithDefault from '../shared/image-with-default';
 import ItemDetails from '../shared/card-common';
 
 import './platform-card.scss';
+import CatalogLink from '../../smart-components/common/catalog-link';
 
 const TO_DISPLAY = ['description', 'modified'];
 
-// TO DO - use webpack to load all images
 const platformTypeImg = {
   1: OpenshiftPlatformImg,
   2: AmazonPlatformImg,
@@ -28,7 +28,11 @@ const platformTypeImg = {
 
 const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
-    <Link to={`/platforms/detail/${id}`} className="card-link">
+    <CatalogLink
+      pathname="/platform/platform-templates"
+      searchParams={{ platform: id }}
+      className="card-link"
+    >
       <Card key={id} className="content-gallery-card">
         <CardHeader>
           <ImageWithDefault
@@ -43,7 +47,7 @@ const PlatformCard = ({ name, id, ...props }) => (
         </CardBody>
         <CardFooter />
       </Card>
-    </Link>
+    </CatalogLink>
   </GalleryItem>
 );
 

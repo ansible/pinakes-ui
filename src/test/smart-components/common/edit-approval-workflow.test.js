@@ -80,7 +80,7 @@ describe('<EditApprovalWorkflow />', () => {
       .replyOnce(200, { data: [] });
     const wrapper = shallow(
       <ComponentWrapper store={store}>
-        <EditApprovalWorkflow {...initialProps} />
+        <EditApprovalWorkflow querySelector="portfolio" {...initialProps} />
       </ComponentWrapper>
     ).dive();
 
@@ -130,7 +130,11 @@ describe('<EditApprovalWorkflow />', () => {
           <Route
             path="/portfolio"
             render={(args) => (
-              <EditApprovalWorkflow {...args} {...initialProps} />
+              <EditApprovalWorkflow
+                querySelector="portfolio"
+                {...args}
+                {...initialProps}
+              />
             )}
           />
         </ComponentWrapper>

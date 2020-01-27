@@ -75,10 +75,10 @@ describe('<ServiceOfferingDetail />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/platforms/service-offerings?service=2266193&source=352'
+            '/platform/service-offerings?service=2266193&source=352'
           ]}
         >
-          <Route path="/platforms/service-offerings">
+          <Route path="/platform/service-offerings">
             <ServiceOfferingDetail />
           </Route>
         </ComponentWrapper>

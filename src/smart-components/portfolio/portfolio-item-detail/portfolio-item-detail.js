@@ -24,7 +24,7 @@ const PortfolioItemDetail = () => {
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
-  const { url, ...match } = useRouteMatch('/portfolio/portfolio-item');
+  const { url } = useRouteMatch('/portfolio/portfolio-item');
   const { portfolioItem, portfolio } = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
@@ -105,7 +105,11 @@ const PortfolioItemDetail = () => {
                     />
                   )}
                 />
-                <ItemDetailDescription product={portfolioItem} url={url} />
+                <ItemDetailDescription
+                  product={portfolioItem}
+                  url={url}
+                  search={search}
+                />
               </GridItem>
             </Grid>
           </Section>

@@ -1,16 +1,12 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useParams, useHistory } from 'react-router-dom';
+import { Route, useParams, useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
-import { Section } from '@redhat-cloud-services/frontend-components';
+import { Section, search } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import {
-  fetchPlatformInventories,
-  fetchSelectedPlatform
-} from '../../redux/actions/platform-actions';
+import { fetchPlatformInventories } from '../../redux/actions/platform-actions';
 import {
   createPlatformsFilterToolbarSchema,
   createPlatformsTopToolbarSchema
@@ -23,6 +19,7 @@ import EditApprovalWorkflow from '../common/edit-approval-workflow';
 import { INVENTORY_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import useQuery from '../../utilities/use-query';
 
 const initialState = {
   filterValue: '',
@@ -58,7 +55,7 @@ const PlatformInventories = () => {
     ({ platformReducer: { selectedPlatform } }) => selectedPlatform
   );
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const [{ platform: id }] = useQuery(['platform']);
   const history = useHistory();
 
   const debouncedFilter = asyncFormValidator(
@@ -75,17 +72,16 @@ const PlatformInventories = () => {
     {
       eventKey: 0,
       title: 'Templates',
-      name: `/platforms/detail/${id}/platform-templates`
+      name: `/platform/platform-templates`
     },
     {
       eventKey: 1,
       title: 'Inventories',
-      name: `/platforms/detail/${id}/platform-inventories`
+      name: `/platform/platform-inventories`
     }
   ];
 
   useEffect(() => {
-    dispatch(fetchSelectedPlatform(id));
     dispatch(
       fetchPlatformInventories(id, filterValue, defaultSettings)
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -111,9 +107,10 @@ const PlatformInventories = () => {
       {
         title: 'Set approval',
         onClick: () =>
-          history.push(
-            `/platforms/detail/${id}/platform-inventories/edit-workflow/${inventoryData.id}`
-          )
+          history.push({
+            pathname: '/platform/platform-inventories/edit-workflow',
+            search: `?platform=${id}&inventory=${inventoryData.id}`
+          })
       }
     ];
   };
@@ -126,101 +123,72 @@ const PlatformInventories = () => {
     return 'inventory';
   };
 
-  const renderItems = () => {
-    const inventoryRows = data ? createRows(data, filterValue) : [];
-    const title = platform ? platform.name : '';
-    return (
-      <Fragment>
-        <ToolbarRenderer
-          schema={createPlatformsTopToolbarSchema({
-            title,
-            paddingBottom: false,
-            tabItems
-          })}
+  const inventoryRows = data ? createRows(data, filterValue) : [];
+  const title = platform ? platform.name : '';
+  return (
+    <Fragment>
+      <ToolbarRenderer
+        schema={createPlatformsTopToolbarSchema({
+          title,
+          paddingBottom: false,
+          tabItems
+        })}
+      />
+      <ToolbarRenderer
+        schema={createPlatformsFilterToolbarSchema({
+          onFilterChange: handleFilterChange,
+          searchValue: filterValue,
+          filterPlaceholder: 'Filter by inventory...',
+          meta,
+          apiRequest: (_, options) =>
+            dispatch(fetchPlatformInventories(id, filterValue, options))
+        })}
+      />
+      <Route path="/platform/platform-inventories/edit-workflow">
+        <EditApprovalWorkflow
+          pushParam={{
+            pathname: '/platform/platform-inventories',
+            search: `?platform=${id}`
+          }}
+          objectType={INVENTORY_RESOURCE_TYPE}
+          objectName={objectName}
+          querySelector="inventory"
         />
-        <ToolbarRenderer
-          schema={createPlatformsFilterToolbarSchema({
-            onFilterChange: handleFilterChange,
-            searchValue: filterValue,
-            filterPlaceholder: 'Filter by inventory...',
-            meta,
-            apiRequest: (_, options) =>
-              dispatch(fetchPlatformInventories(id, filterValue, options))
-          })}
-        />
-        <Route path="/platforms/detail/:sourceId/platform-inventories/edit-workflow/:id">
-          <EditApprovalWorkflow
-            closeUrl={`/platforms/detail/${id}/platform-inventories`}
-            objectType={INVENTORY_RESOURCE_TYPE}
-            objectName={objectName}
-          />
-        </Route>
-        <Section type="content">
-          <ContentList
-            title={title}
-            data={inventoryRows}
-            columns={columns}
-            isLoading={isFetching || isFiltering}
-            actionResolver={actionResolver}
-            renderEmptyState={() => (
-              <ContentGaleryEmptyState
-                title="No inventories"
-                Icon={SearchIcon}
-                description={
-                  filterValue === ''
-                    ? 'No inventories found.'
-                    : 'No inventories match your filter criteria.'
-                }
-              />
-            )}
-          />
-        </Section>
-
-        {meta.count > 0 && (
-          <BottomPaginationContainer>
-            <AsyncPagination
-              dropDirection="up"
-              meta={meta}
-              apiRequest={(_, options) =>
-                dispatch(fetchPlatformInventories(id, filterValue, options))
+      </Route>
+      <Section type="content">
+        <ContentList
+          title={title}
+          data={inventoryRows}
+          columns={columns}
+          isLoading={isFetching || isFiltering}
+          actionResolver={actionResolver}
+          renderEmptyState={() => (
+            <ContentGaleryEmptyState
+              title="No inventories"
+              Icon={SearchIcon}
+              description={
+                filterValue === ''
+                  ? 'No inventories found.'
+                  : 'No inventories match your filter criteria.'
               }
             />
-          </BottomPaginationContainer>
-        )}
-      </Fragment>
-    );
-  };
+          )}
+        />
+      </Section>
 
-  return (
-    <Switch>
-      <Route
-        path={'/platforms/detail/:id/platform-inventories'}
-        render={renderItems}
-      />
-    </Switch>
+      {meta.count > 0 && (
+        <BottomPaginationContainer>
+          <AsyncPagination
+            dropDirection="up"
+            meta={meta}
+            apiRequest={(_, options) =>
+              dispatch(fetchPlatformInventories(id, filterValue, options))
+            }
+          />
+        </BottomPaginationContainer>
+      )}
+    </Fragment>
   );
-};
-
-PlatformInventories.propTypes = {
-  isPlatformDataLoading: PropTypes.bool,
-  platform: PropTypes.shape({
-    name: PropTypes.string
-  }),
-  title: PropTypes.string,
-  platformInventories: PropTypes.arrayOf(PropTypes.shape({})),
-  paginationCurrent: PropTypes.shape({
-    limit: PropTypes.number.isRequired,
-    offset: PropTypes.number.isRequired,
-    count: PropTypes.number
-  })
-};
-
-PlatformInventories.defaultProps = {
-  platformItems: [],
-  paginationCurrent: {
-    limit: 50,
-    offset: 0
-  }
 };
 
 export default PlatformInventories;

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useParams } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
@@ -20,6 +20,7 @@ import ContentGallery from '../content-gallery/content-gallery';
 import { Button } from '@patternfly/react-core';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import useQuery from '../../utilities/use-query';
 
 const initialState = {
   filterValue: '',
@@ -42,7 +43,7 @@ const platformItemsState = (state, action) => {
 };
 
 const PlatformTemplates = () => {
-  const { id } = useParams();
+  const [{ platform: id }] = useQuery(['platform']);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformItemsState,
     initialState
@@ -50,8 +51,11 @@ const PlatformTemplates = () => {
   const { data, meta } = useSelector(({ platformReducer: { platformItems } }) =>
     platformItems[id] ? platformItems[id] : { data: [], meta: defaultSettings }
   );
-  const platform = useSelector(
-    ({ platformReducer: { selectedPlatform } }) => selectedPlatform
+  const { platform, platformIconMapping } = useSelector(
+    ({ platformReducer: { selectedPlatform, platformIconMapping } }) => ({
+      selectedPlatform,
+      platformIconMapping
+    })
   );
   const dispatch = useDispatch();
   const debouncedFilter = asyncFormValidator(
@@ -68,17 +72,16 @@ const PlatformTemplates = () => {
     {
       eventKey: 0,
       title: 'Templates',
-      name: `/platforms/detail/${id}/platform-templates`
+      name: '/platform/platform-templates'
     },
     {
       eventKey: 1,
       title: 'Inventories',
-      name: `/platforms/detail/${id}/platform-inventories`
+      name: '/platform/platform-inventories'
     }
   ];
 
   useEffect(() => {
-    dispatch(fetchSelectedPlatform(id));
     dispatch(fetchPlatformItems(id, filterValue, defaultSettings)).then(() =>
       stateDispatch({ type: 'setFetching', payload: false })
     );
@@ -99,85 +102,78 @@ const PlatformTemplates = () => {
     );
   };
 
-  const renderItems = () => {
-    const filteredItems = {
-      items: data
-        ? data.map((item) => (
-            <PlatformItem
-              key={item.id}
-              url={{
-                pathname: '/platforms/service-offerings',
-                search: `?service=${item.id}&source=${item.source_id}`
-              }}
-              {...item}
-            />
-          ))
-        : []
-    };
-
-    const title = platform ? platform.name : '';
-    return (
-      <Fragment>
-        <ToolbarRenderer
-          schema={createPlatformsTopToolbarSchema({
-            title,
-            paddingBottom: false,
-            tabItems
-          })}
-        />
-        <ToolbarRenderer
-          schema={createPlatformsFilterToolbarSchema({
-            onFilterChange: handleFilterChange,
-            searchValue: filterValue,
-            filterPlaceholder: 'Filter by template...',
-            meta,
-            apiRequest: (_, options) =>
-              dispatch(fetchPlatformItems(id, filterValue, options))
-          })}
-        />
-        <ContentGallery
-          title={title}
-          isLoading={isFetching || isFiltering}
-          renderEmptyState={() => (
-            <ContentGalleryEmptyState
-              title={filterValue === '' ? 'No templates' : 'No results found'}
-              Icon={SearchIcon}
-              PrimaryAction={() =>
-                filterValue !== '' ? (
-                  <Button onClick={() => handleFilterChange('')} variant="link">
-                    Clear all filters
-                  </Button>
-                ) : null
-              }
-              description={
-                filterValue === ''
-                  ? 'This platform has no templates.'
-                  : 'No results match the filter critera. Remove all filters or clear all filters to show results.'
-              }
-            />
-          )}
-          {...filteredItems}
-        />
-        {meta.count > 0 && (
-          <BottomPaginationContainer>
-            <AsyncPagination
-              dropDirection="up"
-              meta={meta}
-              apiRequest={(_, options) =>
-                dispatch(fetchPlatformItems(id, filterValue, options))
-              }
-            />
-          </BottomPaginationContainer>
-        )}
-      </Fragment>
-    );
+  const filteredItems = {
+    items: data
+      ? data.map((item) => (
+          <PlatformItem
+            key={item.id}
+            pathname="/platform/service-offerings"
+            searchParams={{
+              service: item.id
+            }}
+            preserveSearch
+            src={platformIconMapping[id]}
+            {...item}
+          />
+        ))
+      : []
   };
 
+  const title = platform ? platform.name : '';
   return (
-    <Route
-      path={'/platforms/detail/:id/platform-templates'}
-      render={renderItems}
-    />
+    <Fragment>
+      <ToolbarRenderer
+        schema={createPlatformsTopToolbarSchema({
+          title,
+          paddingBottom: false,
+          tabItems
+        })}
+      />
+      <ToolbarRenderer
+        schema={createPlatformsFilterToolbarSchema({
+          onFilterChange: handleFilterChange,
+          searchValue: filterValue,
+          filterPlaceholder: 'Filter by template...',
+          meta,
+          apiRequest: (_, options) =>
+            dispatch(fetchPlatformItems(id, filterValue, options))
+        })}
+      />
+      <ContentGallery
+        title={title}
+        isLoading={isFetching || isFiltering}
+        renderEmptyState={() => (
+          <ContentGalleryEmptyState
+            title={filterValue === '' ? 'No templates' : 'No results found'}
+            Icon={SearchIcon}
+            PrimaryAction={() =>
+              filterValue !== '' ? (
+                <Button onClick={() => handleFilterChange('')} variant="link">
+                  Clear all filters
+                </Button>
+              ) : null
+            }
+            description={
+              filterValue === ''
+                ? 'This platform has no templates.'
+                : 'No results match the filter critera. Remove all filters or clear all filters to show results.'
+            }
+          />
+        )}
+        {...filteredItems}
+      />
+      {meta.count > 0 && (
+        <BottomPaginationContainer>
+          <AsyncPagination
+            dropDirection="up"
+            meta={meta}
+            apiRequest={(_, options) =>
+              dispatch(fetchPlatformItems(id, filterValue, options))
+            }
+          />
+        </BottomPaginationContainer>
+      )}
+    </Fragment>
   );
 };
 

@@ -21,7 +21,7 @@ import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 
-const requiredParams = ['service', 'source'];
+const requiredParams = ['service', 'platform'];
 
 const ServiceOfferingBreadcrumbs = ({ service, source }) => {
   const fragments = [
@@ -77,10 +77,10 @@ const ServiceOfferingDetail = () => {
 
   useEffect(() => {
     setIsFetching(true);
-    dispatch(fetchServiceOffering(queryValues.service, queryValues.source))
+    dispatch(fetchServiceOffering(queryValues.service, queryValues.platform))
       .then(() => setIsFetching(false))
       .catch(() => setIsFetching(false));
-  }, [queryValues.service, queryValues.source]);
+  }, [queryValues.service, queryValues.platform]);
   if (isFetching) {
     return (
       <Section

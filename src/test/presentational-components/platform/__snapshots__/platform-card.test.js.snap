@@ -7,83 +7,100 @@ exports[`<PlatformCard /> should choose card image 1`] = `
 >
   <GalleryItem>
     <div>
-      <Link
+      <CatalogLink
         className="card-link"
-        to="/platforms/detail/undefined"
+        nav={false}
+        pathname="/platform/platform-templates"
+        preserveSearch={false}
+        searchParams={
+          Object {
+            "platform": undefined,
+          }
+        }
       >
-        <LinkAnchor
+        <Link
           className="card-link"
-          href="/platforms/detail/undefined"
-          navigate={[Function]}
+          to={
+            Object {
+              "pathname": "/platform/platform-templates",
+              "search": "?platform=undefined",
+            }
+          }
         >
-          <a
+          <LinkAnchor
             className="card-link"
-            href="/platforms/detail/undefined"
-            onClick={[Function]}
+            href="/platform/platform-templates?platform=undefined"
+            navigate={[Function]}
           >
-            <Card
-              className="content-gallery-card"
+            <a
+              className="card-link"
+              href="/platform/platform-templates?platform=undefined"
+              onClick={[Function]}
             >
-              <article
-                className="pf-c-card content-gallery-card"
+              <Card
+                className="content-gallery-card"
               >
-                <CardHeader>
-                  <div
-                    className="pf-c-card__header pf-c-title pf-m-md"
-                  >
-                    <ImageWithDefault
-                      height="40"
-                      src="test-file-stub"
-                      width="80"
+                <article
+                  className="pf-c-card content-gallery-card"
+                >
+                  <CardHeader>
+                    <div
+                      className="pf-c-card__header pf-c-title pf-m-md"
                     >
-                      <img
+                      <ImageWithDefault
                         height="40"
                         src="test-file-stub"
                         width="80"
-                      />
-                    </ImageWithDefault>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div
-                    className="pf-c-card__body"
-                  >
-                    <h4 />
-                    <ItemDetails
-                      description="desc"
-                      modified="Foo"
-                      toDisplay={
-                        Array [
-                          "description",
-                          "modified",
-                        ]
-                      }
+                      >
+                        <img
+                          height="40"
+                          src="test-file-stub"
+                          width="80"
+                        />
+                      </ImageWithDefault>
+                    </div>
+                  </CardHeader>
+                  <CardBody>
+                    <div
+                      className="pf-c-card__body"
                     >
-                      <div
-                        className="card-prop-text"
-                        key="card-prop-description"
+                      <h4 />
+                      <ItemDetails
+                        description="desc"
+                        modified="Foo"
+                        toDisplay={
+                          Array [
+                            "description",
+                            "modified",
+                          ]
+                        }
                       >
-                        desc
-                      </div>
-                      <div
-                        className="card-prop-text"
-                        key="card-prop-modified"
-                      >
-                        Foo
-                      </div>
-                    </ItemDetails>
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div
-                    className="pf-c-card__footer"
-                  />
-                </CardFooter>
-              </article>
-            </Card>
-          </a>
-        </LinkAnchor>
-      </Link>
+                        <div
+                          className="card-prop-text"
+                          key="card-prop-description"
+                        >
+                          desc
+                        </div>
+                        <div
+                          className="card-prop-text"
+                          key="card-prop-modified"
+                        >
+                          Foo
+                        </div>
+                      </ItemDetails>
+                    </div>
+                  </CardBody>
+                  <CardFooter>
+                    <div
+                      className="pf-c-card__footer"
+                    />
+                  </CardFooter>
+                </article>
+              </Card>
+            </a>
+          </LinkAnchor>
+        </Link>
+      </CatalogLink>
     </div>
   </GalleryItem>
 </PlatformCard>
@@ -96,83 +113,100 @@ exports[`<PlatformCard /> should render correctly 1`] = `
 >
   <GalleryItem>
     <div>
-      <Link
+      <CatalogLink
         className="card-link"
-        to="/platforms/detail/undefined"
+        nav={false}
+        pathname="/platform/platform-templates"
+        preserveSearch={false}
+        searchParams={
+          Object {
+            "platform": undefined,
+          }
+        }
       >
-        <LinkAnchor
+        <Link
           className="card-link"
-          href="/platforms/detail/undefined"
-          navigate={[Function]}
+          to={
+            Object {
+              "pathname": "/platform/platform-templates",
+              "search": "?platform=undefined",
+            }
+          }
         >
-          <a
+          <LinkAnchor
             className="card-link"
-            href="/platforms/detail/undefined"
-            onClick={[Function]}
+            href="/platform/platform-templates?platform=undefined"
+            navigate={[Function]}
           >
-            <Card
-              className="content-gallery-card"
+            <a
+              className="card-link"
+              href="/platform/platform-templates?platform=undefined"
+              onClick={[Function]}
             >
-              <article
-                className="pf-c-card content-gallery-card"
+              <Card
+                className="content-gallery-card"
               >
-                <CardHeader>
-                  <div
-                    className="pf-c-card__header pf-c-title pf-m-md"
-                  >
-                    <ImageWithDefault
-                      height="40"
-                      src="test-file-stub"
-                      width="80"
+                <article
+                  className="pf-c-card content-gallery-card"
+                >
+                  <CardHeader>
+                    <div
+                      className="pf-c-card__header pf-c-title pf-m-md"
                     >
-                      <img
+                      <ImageWithDefault
                         height="40"
                         src="test-file-stub"
                         width="80"
-                      />
-                    </ImageWithDefault>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div
-                    className="pf-c-card__body"
-                  >
-                    <h4 />
-                    <ItemDetails
-                      description="desc"
-                      modified="Foo"
-                      toDisplay={
-                        Array [
-                          "description",
-                          "modified",
-                        ]
-                      }
+                      >
+                        <img
+                          height="40"
+                          src="test-file-stub"
+                          width="80"
+                        />
+                      </ImageWithDefault>
+                    </div>
+                  </CardHeader>
+                  <CardBody>
+                    <div
+                      className="pf-c-card__body"
                     >
-                      <div
-                        className="card-prop-text"
-                        key="card-prop-description"
+                      <h4 />
+                      <ItemDetails
+                        description="desc"
+                        modified="Foo"
+                        toDisplay={
+                          Array [
+                            "description",
+                            "modified",
+                          ]
+                        }
                       >
-                        desc
-                      </div>
-                      <div
-                        className="card-prop-text"
-                        key="card-prop-modified"
-                      >
-                        Foo
-                      </div>
-                    </ItemDetails>
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div
-                    className="pf-c-card__footer"
-                  />
-                </CardFooter>
-              </article>
-            </Card>
-          </a>
-        </LinkAnchor>
-      </Link>
+                        <div
+                          className="card-prop-text"
+                          key="card-prop-description"
+                        >
+                          desc
+                        </div>
+                        <div
+                          className="card-prop-text"
+                          key="card-prop-modified"
+                        >
+                          Foo
+                        </div>
+                      </ItemDetails>
+                    </div>
+                  </CardBody>
+                  <CardFooter>
+                    <div
+                      className="pf-c-card__footer"
+                    />
+                  </CardFooter>
+                </article>
+              </Card>
+            </a>
+          </LinkAnchor>
+        </Link>
+      </CatalogLink>
     </div>
   </GalleryItem>
 </PlatformCard>

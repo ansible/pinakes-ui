@@ -4,20 +4,14 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import { Route, MemoryRouter } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import PlatformTemplates from '../../../smart-components/platform/platform-templates';
-import {
-  TOPOLOGICAL_INVENTORY_API_BASE,
-  SOURCES_API_BASE
-} from '../../../utilities/constants';
+import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
-import {
-  FETCH_PLATFORM,
-  FETCH_PLATFORM_ITEMS
-} from '../../../redux/action-types';
-import { act } from 'react-dom/test-utils';
+import { FETCH_PLATFORM_ITEMS } from '../../../redux/action-types';
 import { mockApi } from '../../__mocks__/user-login';
 
 describe('<PlatformTemplates />', () => {
@@ -29,9 +23,7 @@ describe('<PlatformTemplates />', () => {
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>
-        <Route path="/platforms/detail/:id/platform-templates">
-          {children}
-        </Route>
+        <Route path="/platform/platform-templates">{children}</Route>
       </MemoryRouter>
     </Provider>
   );
@@ -64,7 +56,7 @@ describe('<PlatformTemplates />', () => {
     const wrapper = shallow(
       <ComponentWrapper
         store={store}
-        initialEntries={['/platforms/detail/1/platform-templates']}
+        initialEntries={['/platform/platform-templates?platform=1']}
       >
         <PlatformTemplates store={mockStore(initialState)} {...initialProps} />
         );
@@ -74,9 +66,6 @@ describe('<PlatformTemplates />', () => {
   });
 
   it('should mount and fetch data', async (done) => {
-    mockApi
-      .onGet(`${SOURCES_API_BASE}/sources/1`)
-      .replyOnce(200, { name: 'Foo' });
     mockApi
       .onGet(
         `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
@@ -91,9 +80,7 @@ describe('<PlatformTemplates />', () => {
       });
 
     const expectedActions = [
-      { type: `${FETCH_PLATFORM}_PENDING` },
       { type: `${FETCH_PLATFORM_ITEMS}_PENDING`, meta: { platformId: '1' } },
-      { type: `${FETCH_PLATFORM}_FULFILLED`, payload: { name: 'Foo' } },
       {
         meta: { platformId: '1' },
         type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
@@ -106,7 +93,7 @@ describe('<PlatformTemplates />', () => {
       mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/platforms/detail/1/platform-templates']}
+          initialEntries={['/platform/platform-templates?platform=1']}
         >
           <PlatformTemplates
             {...initialProps}
@@ -115,9 +102,7 @@ describe('<PlatformTemplates />', () => {
         </ComponentWrapper>
       );
     });
-    setImmediate(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
   });
 });

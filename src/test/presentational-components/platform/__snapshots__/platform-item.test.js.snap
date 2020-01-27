@@ -17,7 +17,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         >
           <CardIcon
             height={40}
-            src="/api/topological-inventory/v1.0/service_offering_icons/undefined/icon_data"
             style={
               Object {
                 "height": 40,
@@ -59,7 +58,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                 onError={[Function]}
                 onLoad={[Function]}
                 placeholderSrc=""
-                src="/api/topological-inventory/v1.0/service_offering_icons/undefined/icon_data"
                 style={
                   Object {
                     "height": 0,
@@ -89,7 +87,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     height={0}
                     onError={[Function]}
                     onLoad={[Function]}
-                    src="/api/topological-inventory/v1.0/service_offering_icons/undefined/icon_data"
                     style={
                       Object {
                         "height": 0,

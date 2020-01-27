@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
@@ -29,9 +28,10 @@ const approvalState = (state, action) => {
 };
 
 const EditApprovalWorkflow = ({
-  closeUrl,
   objectType,
   removeQuery,
+  querySelector,
+  pushParam,
   objectName = () => objectType
 }) => {
   const [{ isFetching }, stateDispatch] = useReducer(
@@ -43,17 +43,16 @@ const EditApprovalWorkflow = ({
   );
   const dispatch = useDispatch();
   const history = useEnhancedHistory(removeQuery);
-  const { search } = useLocation();
-  const [{ portfolio }] = useQuery(['portfolio']);
-  const pushParam = {
-    pathname: closeUrl,
-    search
-  };
+  const [query] = useQuery([querySelector]);
 
   useEffect(() => {
     dispatch(
       listWorkflowsForObject(
-        { objectType, appName: APP_NAME[objectType], objectId: portfolio },
+        {
+          objectType,
+          appName: APP_NAME[objectType],
+          objectId: query[querySelector]
+        },
         meta
       )
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -74,7 +73,7 @@ const EditApprovalWorkflow = ({
         updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
           object_type: objectType,
           app_name: APP_NAME[objectType],
-          object_id: portfolio
+          object_id: query[querySelector]
         })
       );
     }
@@ -82,7 +81,7 @@ const EditApprovalWorkflow = ({
 
   return (
     <Modal
-      title={`Set approval process for ${objectName(portfolio)}`}
+      title={`Set approval process for ${objectName(query[querySelector])}`}
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
@@ -106,10 +105,18 @@ const EditApprovalWorkflow = ({
 };
 
 EditApprovalWorkflow.propTypes = {
-  closeUrl: PropTypes.string.isRequired,
+  pushParam: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string
+    })
+  ]).isRequired,
   objectType: PropTypes.string.isRequired,
   objectName: PropTypes.func,
-  removeQuery: PropTypes.bool
+  removeQuery: PropTypes.bool,
+  querySelector: PropTypes.oneOf(['portfolio', 'platform', 'inventory'])
+    .isRequired
 };
 
 export default EditApprovalWorkflow;

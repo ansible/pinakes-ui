@@ -146,10 +146,10 @@ const Portfolios = () => {
         path="/portfolios/edit-workflow"
         render={() => (
           <EditApprovalWorkflow
-            closeUrl={match.url}
+            pushParam={{ pathname: match.url }}
             objectType={PORTFOLIO_RESOURCE_TYPE}
             objectName={itemName}
-            removeQuery
+            querySelector="portfolio"
           />
         )}
       />
