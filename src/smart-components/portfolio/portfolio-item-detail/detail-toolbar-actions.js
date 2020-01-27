@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import {
   Dropdown,
   DropdownItem,
@@ -9,6 +8,7 @@ import {
   LevelItem
 } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
+import CatalogLink from '../../common/catalog-link';
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -20,17 +20,10 @@ const DetailToolbarActions = ({
   setOpen,
   isFetching
 }) => {
-  const { search } = useLocation();
   return (
     <Fragment>
       <LevelItem>
-        <Link
-          disabled={isFetching}
-          to={{
-            pathname: orderUrl,
-            search
-          }}
-        >
+        <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
           <ButtonWithSpinner
             isDisabled={isFetching}
             showSpinner={isFetching}
@@ -38,7 +31,7 @@ const DetailToolbarActions = ({
           >
             Order
           </ButtonWithSpinner>
-        </Link>
+        </CatalogLink>
       </LevelItem>
       {
         <LevelItem style={{ marginLeft: 16 }}>
@@ -54,14 +47,9 @@ const DetailToolbarActions = ({
                 aria-label="Edit Portfolio"
                 key="edit-portfolio"
                 component={
-                  <Link
-                    to={{
-                      pathname: editUrl,
-                      search
-                    }}
-                  >
+                  <CatalogLink pathname={editUrl} preserveSearch>
                     Edit
-                  </Link>
+                  </CatalogLink>
                 }
                 role="link"
               />,
@@ -69,14 +57,9 @@ const DetailToolbarActions = ({
                 aria-label="Copy Portfolio"
                 key="copy-portfolio"
                 component={
-                  <Link
-                    to={{
-                      pathname: copyUrl,
-                      search
-                    }}
-                  >
+                  <CatalogLink pathname={copyUrl} preserveSearch>
                     Copy
-                  </Link>
+                  </CatalogLink>
                 }
                 role="link"
               />,
@@ -84,14 +67,9 @@ const DetailToolbarActions = ({
                 aria-label="Set approval"
                 key="edit-approval_workflow"
                 component={
-                  <Link
-                    to={{
-                      pathname: workflowUrl,
-                      search
-                    }}
-                  >
+                  <CatalogLink pathname={workflowUrl} preserveSearch>
                     Set approval
-                  </Link>
+                  </CatalogLink>
                 }
                 role="link"
               />,
@@ -99,14 +77,9 @@ const DetailToolbarActions = ({
                 aria-label="Edit survey"
                 key="edit-survey"
                 component={
-                  <Link
-                    to={{
-                      pathname: editSurveyUrl,
-                      search
-                    }}
-                  >
+                  <CatalogLink pathname={editSurveyUrl} preserveSearch>
                     Edit survey
-                  </Link>
+                  </CatalogLink>
                 }
                 role="link"
               />
@@ -126,8 +99,7 @@ DetailToolbarActions.propTypes = {
   workflowUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool,
-  search: PropTypes.string
+  isFetching: PropTypes.bool
 };
 
 DetailToolbarActions.defaultProps = {

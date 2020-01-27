@@ -1,5 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
+import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -20,11 +21,9 @@ describe('<AddPortfolioModal />', () => {
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
-  const ComponentWrapper = ({ store, children, portfolioId }) => (
+  const ComponentWrapper = ({ store, children, initialEntries }) => (
     <Provider store={store}>
-      <MemoryRouter initialEntries={[`portfolios/${portfolioId}`]}>
-        {children}
-      </MemoryRouter>
+      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
     </Provider>
   );
 
@@ -34,14 +33,11 @@ describe('<AddPortfolioModal />', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: {
-          data: [
-            {
-              id: '123',
-              name: 'Portfolio'
-            }
-          ]
-        }
+        selectedPortfolio: {
+          name: 'Selected portfolio',
+          id: '123'
+        },
+        portfolios: { data: [] }
       }
     };
     mockStore = configureStore(middlewares);
@@ -50,7 +46,7 @@ describe('<AddPortfolioModal />', () => {
   it('should render correctly', () => {
     const store = mockStore({});
     const wrapper = shallow(
-      <ComponentWrapper store={store}>
+      <ComponentWrapper store={store} initialEntries={['/portfolios']}>
         <AddPortfolioModal {...initialProps} />
       </ComponentWrapper>
     ).dive();
@@ -81,15 +77,13 @@ describe('<AddPortfolioModal />', () => {
     };
 
     const wrapper = mount(
-      <ComponentWrapper store={store} portfolioId="123">
+      <ComponentWrapper
+        store={store}
+        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+      >
         <Route
-          path="portfolios/:id?"
-          render={() => (
-            <AddPortfolioModal
-              {...initialProps}
-              match={{ params: { id: '123' } }}
-            />
-          )}
+          path="/portfolio"
+          render={() => <AddPortfolioModal {...initialProps} />}
         />
       </ComponentWrapper>
     );
@@ -112,15 +106,13 @@ describe('<AddPortfolioModal />', () => {
     });
 
     const wrapper = mount(
-      <ComponentWrapper store={store} portfolioId="123">
+      <ComponentWrapper
+        store={store}
+        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+      >
         <Route
-          path="portfolios/:id?"
-          render={() => (
-            <AddPortfolioModal
-              {...initialProps}
-              match={{ params: { id: '123' } }}
-            />
-          )}
+          path="/portfolio"
+          render={() => <AddPortfolioModal {...initialProps} />}
         />
       </ComponentWrapper>
     );

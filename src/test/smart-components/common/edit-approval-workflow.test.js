@@ -123,9 +123,12 @@ describe('<EditApprovalWorkflow />', () => {
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
           <Route
-            path="/portfolio/:id"
+            path="/portfolio"
             render={(args) => (
               <EditApprovalWorkflow {...args} {...initialProps} />
             )}

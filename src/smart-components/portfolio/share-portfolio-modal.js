@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FormRenderer from '../common/form-renderer';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Modal, Title } from '@patternfly/react-core';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal } from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import {
@@ -12,28 +10,26 @@ import {
   sharePortfolio,
   unsharePortfolio
 } from '../../redux/actions/share-actions';
-import { fetchRbacGroups } from '../../redux/actions/rbac-actions';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 import { permissionOptions, permissionValues } from '../../utilities/constants';
 import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
+import useQuery from '../../utilities/use-query';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
-const SharePortfolioModal = ({
-  history: { push },
-  fetchPortfolios,
-  initialValues,
-  fetchShareInfo,
-  sharePortfolio,
-  unsharePortfolio,
-  fetchRbacGroups,
-  shareInfo,
-  portfolioId,
-  rbacGroups,
-  closeUrl
-}) => {
+const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
+  const dispatch = useDispatch();
+  const { push } = useEnhancedHistory(removeQuery);
+  const [{ portfolio }, search] = useQuery(['portfolio']);
   const [isFetching, setFetching] = useState(true);
+  const initialValues = useSelector(({ portfolioReducer: { portfolios } }) =>
+    portfolios.data.find(({ id }) => id === portfolio)
+  );
+  const { shareInfo } = useSelector(({ shareReducer: { shareInfo } }) => ({
+    shareInfo
+  }));
   useEffect(() => {
     setFetching(true);
-    Promise.all([fetchShareInfo(portfolioId), fetchRbacGroups()])
+    dispatch(fetchShareInfo(portfolio))
       .then(() => setFetching(false))
       .catch(() => setFetching(false));
   }, []);
@@ -75,7 +71,7 @@ const SharePortfolioModal = ({
           );
           sharePromises.push(
             unsharePortfolio({
-              id: portfolioId,
+              id: portfolio,
               permissions: sharePermissions,
               group_uuid: share.group_uuid
             })
@@ -86,7 +82,7 @@ const SharePortfolioModal = ({
           ) {
             sharePromises.push(
               unsharePortfolio({
-                id: portfolioId,
+                id: portfolio,
                 permissions: ['update'],
                 group_uuid: share.group_uuid
               })
@@ -94,7 +90,7 @@ const SharePortfolioModal = ({
           } else {
             sharePromises.push(
               sharePortfolio({
-                id: portfolioId,
+                id: portfolio,
                 permissions: data[share.group_name],
                 group_uuid: share.group_uuid
               })
@@ -103,22 +99,17 @@ const SharePortfolioModal = ({
         }
       }
     });
-    push(closeUrl);
+    push({ pathname: closeUrl, search });
 
-    return Promise.all(sharePromises).then(() => fetchPortfolios());
+    return Promise.all(sharePromises).then(() => dispatch(fetchPortfolios()));
   };
 
-  const onCancel = () => push(closeUrl);
+  const onCancel = () => push({ pathname: closeUrl, search });
 
   return (
     <Modal title={'Share portfolio'} isOpen isSmall onClose={onCancel}>
       {isFetching && <ShareLoader />}
-      {!isFetching && rbacGroups.length === 0 && (
-        <Title headingLevel="h2" size="1xl">
-          No groups available for sharing.
-        </Title>
-      )}
-      {!isFetching && rbacGroups.length > 0 && (
+      {!isFetching && (
         <FormRenderer
           schema={createPortfolioShareSchema(
             shareInfo,
@@ -138,59 +129,8 @@ const SharePortfolioModal = ({
 };
 
 SharePortfolioModal.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
-  isLoading: PropTypes.bool,
-  addNotification: PropTypes.func.isRequired,
-  fetchPortfolios: PropTypes.func.isRequired,
-  fetchRbacGroups: PropTypes.func.isRequired,
-  sharePortfolio: PropTypes.func.isRequired,
-  unsharePortfolio: PropTypes.func.isRequired,
-  fetchShareInfo: PropTypes.func.isRequired,
-  portfolioId: PropTypes.string.isRequired,
-  shareInfo: PropTypes.array.isRequired,
-  rbacGroups: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-        .isRequired,
-      label: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  initialValues: PropTypes.object,
-  closeUrl: PropTypes.string.isRequired
+  closeUrl: PropTypes.string.isRequired,
+  removeQuery: PropTypes.bool
 };
 
-const mapStateToProps = (
-  {
-    rbacReducer: { rbacGroups },
-    portfolioReducer: { portfolios },
-    shareReducer: { shareInfo }
-  },
-  {
-    match: {
-      params: { id }
-    }
-  }
-) => ({
-  initialValues: id && portfolios.data.find((item) => item.id === id),
-  portfolioId: id,
-  shareInfo,
-  rbacGroups
-});
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      fetchRbacGroups,
-      fetchPortfolios,
-      sharePortfolio,
-      unsharePortfolio,
-      fetchShareInfo
-    },
-    dispatch
-  );
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SharePortfolioModal)
-);
+export default SharePortfolioModal;

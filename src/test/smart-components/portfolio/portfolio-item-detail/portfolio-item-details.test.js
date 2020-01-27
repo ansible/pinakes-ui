@@ -87,7 +87,7 @@ describe('<PortfolioItemDetail />', () => {
       wrapper = mount(
         <ComponentWrapper
           initialEntries={[
-            '/portfolios/detail/123/product/321?source=source-id&portfolio=123'
+            '/portfolio/portfolio-item?source=source-id&portfolio=123&portfolio-item=321'
           ]}
           store={store}
         >
@@ -127,12 +127,12 @@ describe('<PortfolioItemDetail />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/portfolios/detail/123/product/321?source=source-id&portfolio=123',
-            '/portfolios/detail/123/product/321/order?source=source-id&portfolio=123'
+            '/portfolio/portfolio-item?source=source-id&portfolio=123&portfolio-item=321',
+            '/portfolio/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
           ]}
           initialIndex={0}
         >
-          <Route path="/portfolios/detail/:id/product/:portfolioItemId">
+          <Route path="/portfolio/portfolio-item">
             <PortfolioItemDetail {...initialProps} />
           </Route>
         </ComponentWrapper>
@@ -143,7 +143,7 @@ describe('<PortfolioItemDetail />', () => {
       .find(MemoryRouter)
       .instance()
       .history.push(
-        '/portfolios/detail/123/product/321/order?source=source-id&portfolio=123'
+        '/portfolio/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
       );
     await act(async () => {
       wrapper.update();

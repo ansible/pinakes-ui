@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
@@ -12,6 +12,8 @@ import {
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
+import useQuery from '../../utilities/use-query';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
 const initialState = {
   isFetching: true
@@ -29,7 +31,7 @@ const approvalState = (state, action) => {
 const EditApprovalWorkflow = ({
   closeUrl,
   objectType,
-  objectId,
+  removeQuery,
   objectName = () => objectType
 }) => {
   const [{ isFetching }, stateDispatch] = useReducer(
@@ -40,16 +42,18 @@ const EditApprovalWorkflow = ({
     ({ approvalReducer: { resolvedWorkflows } }) => resolvedWorkflows
   );
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const history = useHistory();
+  const history = useEnhancedHistory(removeQuery);
+  const { search } = useLocation();
+  const [{ portfolio }] = useQuery(['portfolio']);
   const pushParam = {
-    pathname: closeUrl
+    pathname: closeUrl,
+    search
   };
 
   useEffect(() => {
     dispatch(
       listWorkflowsForObject(
-        { objectType, appName: APP_NAME[objectType], objectId: id || objectId },
+        { objectType, appName: APP_NAME[objectType], objectId: portfolio },
         meta
       )
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -70,7 +74,7 @@ const EditApprovalWorkflow = ({
         updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
           object_type: objectType,
           app_name: APP_NAME[objectType],
-          object_id: id || objectId
+          object_id: portfolio
         })
       );
     }
@@ -78,7 +82,7 @@ const EditApprovalWorkflow = ({
 
   return (
     <Modal
-      title={`Set approval process for ${objectName(id)}`}
+      title={`Set approval process for ${objectName(portfolio)}`}
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
@@ -105,7 +109,7 @@ EditApprovalWorkflow.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   objectType: PropTypes.string.isRequired,
   objectName: PropTypes.func,
-  objectId: PropTypes.string
+  removeQuery: PropTypes.bool
 };
 
 export default EditApprovalWorkflow;

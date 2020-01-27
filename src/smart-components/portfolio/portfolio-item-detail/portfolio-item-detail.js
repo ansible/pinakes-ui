@@ -17,18 +17,14 @@ import useQuery from '../../../utilities/use-query';
 import SurveyEditor from '../../survey-editing/survey-editor';
 import PortfolioItemBreadcrumbs from './portfolio-item-breadcrumbs';
 
-const requiredParams = ['portfolio', 'source'];
+const requiredParams = ['portfolio', 'source', 'portfolio-item'];
 
 const PortfolioItemDetail = () => {
   const [isOpen, setOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
-  const {
-    path,
-    url,
-    params: { portfolioItemId }
-  } = useRouteMatch('/portfolios/detail/:id/product/:portfolioItemId');
+  const { url, ...match } = useRouteMatch('/portfolio/portfolio-item');
   const { portfolioItem, portfolio } = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
@@ -37,13 +33,13 @@ const PortfolioItemDetail = () => {
     setIsFetching(true);
     dispatch(
       getPortfolioItemDetail({
-        portfolioItem: portfolioItemId,
+        portfolioItem: queryValues['portfolio-item'],
         ...queryValues
       })
     )
       .then(() => setIsFetching(false))
       .catch(() => setIsFetching(false));
-  }, [path, portfolioItemId]);
+  }, [queryValues['portfolio-item']]);
 
   if (isFetching || !portfolioItem || !portfolio) {
     return (

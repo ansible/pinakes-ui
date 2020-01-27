@@ -17,6 +17,7 @@ import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import useQuery from '../../utilities/use-query';
 
 const PortfolioItems = ({
   routes,
@@ -41,17 +42,20 @@ const PortfolioItems = ({
       }
     }) => ({ data, meta, name, description })
   );
-  const match = useRouteMatch('/portfolios/detail/:id');
+  const { url } = useRouteMatch('/portfolio');
+  const [{ portfolio: id }, search] = useQuery(['portfolio']);
   const dispatch = useDispatch();
 
   const items = data.map((item) => (
     <PortfolioItem
       key={item.id}
       {...item}
-      to={{
-        pathname: `${match.url}/product/${item.id}`,
-        search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
+      pathname={`${url}/portfolio-item`}
+      searchParams={{
+        source: item.service_offering_source_ref,
+        'portfolio-item': item.id
       }}
+      preserveSearch
       isSelectable
       onSelect={(selectedItem) =>
         stateDispatch({ type: 'selectItem', payload: selectedItem })
@@ -83,29 +87,27 @@ const PortfolioItems = ({
           meta,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(fetchPortfolioItemsWithPortfolio(...args)),
-          portfolioId: match.params.id
+          portfolioId: id
         })}
       />
+      <Route exact path="/portfolio/edit-portfolio">
+        <AddPortfolioModal closeTarget={{ pathname: '/portfolio', search }} />
+      </Route>
       <Route
         exact
-        path="/portfolios/detail/:id/edit-portfolio"
-        component={AddPortfolioModal}
-      />
-      <Route
-        exact
-        path="/portfolios/detail/:id/remove-portfolio"
+        path="/portfolio/remove-portfolio"
         component={RemovePortfolioModal}
       />
       <Route
         exact
-        path="/portfolios/detail/:id/share-portfolio"
+        path="/portfolio/share-portfolio"
         render={(...args) => (
           <SharePortfolioModal closeUrl={routes.portfolioRoute} {...args} />
         )}
       />
       <Route
         exact
-        path="/portfolios/detail/:id/edit-workflow"
+        path="/portfolio/edit-workflow"
         render={(...args) => (
           <EditApprovalWorkflow
             closeUrl={routes.portfolioRoute}
@@ -117,7 +119,7 @@ const PortfolioItems = ({
       />
       <Route
         exact
-        path="/portfolios/detail/:id/order/:itemId"
+        path="/portfolio/order"
         render={(props) => (
           <OrderModal {...props} closeUrl={routes.portfolioRoute} />
         )}
@@ -138,7 +140,7 @@ const PortfolioItems = ({
           <AsyncPagination
             dropDirection="up"
             meta={meta}
-            apiProps={match.params.id}
+            apiProps={id}
             apiRequest={(...args) =>
               dispatch(fetchPortfolioItemsWithPortfolio(...args))
             }

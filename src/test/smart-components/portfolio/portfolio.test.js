@@ -128,10 +128,10 @@ describe('<Portfolio />', () => {
       mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123']}
+          initialEntries={['/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -167,10 +167,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123/add-products']}
+          initialEntries={['/portfolio/add-products?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -237,10 +237,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123/remove-products']}
+          initialEntries={['/portfolio/remove-products?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -305,10 +305,10 @@ describe('<Portfolio />', () => {
     const wrapper = mount(
       <ComponentWrapper
         store={store}
-        initialEntries={['/portfolios/detail/123/remove-portfolio']}
+        initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
       >
         <Route
-          path="/portfolios/detail/:id"
+          path="/portfolio"
           render={(...args) => <Portfolio {...initialProps} {...args} />}
         />
       </ComponentWrapper>
@@ -359,10 +359,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123/order/321']}
+          initialEntries={['/portfolio/order?source=321&portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -414,10 +414,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123']}
+          initialEntries={['/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -512,13 +512,11 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/321']}
+          initialEntries={['/portfolio?portfolio=321']}
         >
           <Route
-            path="/portfolios/detail/:id"
-            render={(...args) => (
-              <Portfolio {...initialProps} id="321" {...args} />
-            )}
+            path="/portfolio"
+            render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
       );

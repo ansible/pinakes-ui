@@ -11,10 +11,10 @@ import {
 
 import './portfolio-card.scss';
 
-const PortfolioCardHeader = ({ route, portfolioName, headerActions }) => (
+const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
   <Level>
     <LevelItem className="portfolio-card-header-title" style={{ flexGrow: 1 }}>
-      <Link to={route}>
+      <Link to={to}>
         <TextContent>
           <Text
             title={portfolioName}
@@ -35,7 +35,10 @@ const PortfolioCardHeader = ({ route, portfolioName, headerActions }) => (
 PortfolioCardHeader.propTypes = {
   portfolioName: PropTypes.string.isRequired,
   headerActions: PropTypes.arrayOf(PropTypes.node),
-  route: PropTypes.string.isRequired
+  to: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string.isRequired
+  }).isRequired
 };
 
 PortfolioCardHeader.defaultProps = {

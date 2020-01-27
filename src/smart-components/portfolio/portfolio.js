@@ -17,6 +17,7 @@ import {
   resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
+import useQuery from '../../utilities/use-query';
 
 const initialState = {
   selectedItems: [],
@@ -53,18 +54,18 @@ const porftolioUiReducer = (state, { type, payload }) =>
 
 const Portfolio = () => {
   const [state, stateDispatch] = useReducer(porftolioUiReducer, initialState);
-  const match = useRouteMatch('/portfolios/detail/:id');
+  const [{ portfolio: id }] = useQuery(['portfolio']);
+  const { url } = useRouteMatch('/portfolio');
   const history = useHistory();
   const dispatch = useDispatch();
   const { portfolio, meta } = useSelector(
     ({
       portfolioReducer: {
         selectedPortfolio,
-        portfolioItems: { data, meta }
+        portfolioItems: { meta }
       }
     }) => ({
       portfolio: selectedPortfolio,
-      data,
       meta
     })
   );
@@ -81,14 +82,18 @@ const Portfolio = () => {
   };
 
   useEffect(() => {
-    fetchData(match.params.id);
+    insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
+  }, []);
+
+  useEffect(() => {
+    fetchData(id);
     scrollToTop();
     return () => dispatch(resetSelectedPortfolio());
-  }, [match.params.id]);
+  }, [id]);
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
-    return dispatch(copyPortfolio(match.params.id))
+    return dispatch(copyPortfolio(id))
       .then(({ id }) => history.push(`/portfolios/detail/${id}`))
       .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
       .then(() => dispatch(fetchPortfolios()))
@@ -109,7 +114,7 @@ const Portfolio = () => {
   const handleFilterChange = (filter) => {
     stateDispatch({ type: 'setFilterValue', payload: filter });
     debouncedFilter(
-      portfolio.id,
+      id,
       dispatch,
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
@@ -122,13 +127,13 @@ const Portfolio = () => {
   };
 
   const routes = {
-    portfolioRoute: match.url,
-    addProductsRoute: `${match.url}/add-products`,
-    editPortfolioRoute: `${match.url}/edit-portfolio`,
-    removePortfolioRoute: `${match.url}/remove-portfolio`,
-    sharePortfolioRoute: `${match.url}/share-portfolio`,
-    workflowPortfolioRoute: `${match.url}/edit-workflow`,
-    orderUrl: `${match.url}/product`
+    portfolioRoute: url,
+    addProductsRoute: `${url}/add-products`,
+    editPortfolioRoute: `${url}/edit-portfolio`,
+    removePortfolioRoute: `${url}/remove-portfolio`,
+    sharePortfolioRoute: `${url}/share-portfolio`,
+    workflowPortfolioRoute: `${url}/edit-workflow`,
+    portfolioItemRoute: `${url}/portfolio-item`
   };
 
   return (
@@ -139,10 +144,7 @@ const Portfolio = () => {
           portfolioRoute={routes.portfolioRoute}
         />
       </Route>
-      <Route
-        path={`${routes.orderUrl}/:portfolioItemId`}
-        component={PortfolioItemDetail}
-      />
+      <Route path={routes.portfolioItemRoute} component={PortfolioItemDetail} />
       <Route path={routes.portfolioRoute}>
         <PortfolioItems
           routes={routes}

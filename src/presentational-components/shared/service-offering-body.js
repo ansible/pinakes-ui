@@ -13,13 +13,18 @@ const ServiceOfferingCardBody = ({
   name,
   display_name,
   distributor,
-  url,
-  to,
+  pathname,
+  searchParams,
+  preserveSearch,
   ...props
 }) => (
   <CardBody style={{ height: 240 }}>
     <TextContent>
-      <ConditionalLink to={url || to}>
+      <ConditionalLink
+        pathname={pathname}
+        searchParams={searchParams}
+        preserveSearch={preserveSearch}
+      >
         <Text
           className="elipsis-text-overflow"
           component={TextVariants.h3}
@@ -43,17 +48,9 @@ ServiceOfferingCardBody.propTypes = {
   distributor: PropTypes.string,
   long_description: PropTypes.string,
   description: PropTypes.string,
-  url: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      pathname: PropTypes.string,
-      search: PropTypes.string
-    })
-  ]),
-  to: PropTypes.shape({
-    pathname: PropTypes.string,
-    search: PropTypes.string
-  })
+  pathname: PropTypes.string,
+  preserveSearch: PropTypes.bool,
+  searchParams: PropTypes.shape({ [PropTypes.string]: PropTypes.string })
 };
 
 export default ServiceOfferingCardBody;
