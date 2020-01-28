@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createBreadcrumbsFromLocations } from '../redux/actions/breadcrumbs-actions';
 
-const useBreadCrumbs = (updateTriggers = []) => {
+const useBreadcrumbs = (updateTriggers = []) => {
   const dispatch = useDispatch();
   const { pathname, search } = useLocation();
   if (updateTriggers.length === 0) {
@@ -23,4 +23,4 @@ const useBreadCrumbs = (updateTriggers = []) => {
   return () => dispatch(createBreadcrumbsFromLocations('', {}));
 };
 
-export default useBreadCrumbs;
+export default useBreadcrumbs;

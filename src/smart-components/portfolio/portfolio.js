@@ -1,12 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useHistory,
-  useRouteMatch,
-  Route,
-  Switch,
-  useLocation
-} from 'react-router-dom';
+import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
 
 import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -24,7 +18,7 @@ import {
 } from '../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
-import useBreadCrumbs from '../../utilities/use-breadcrumbs';
+import useBreadcrumbs from '../../utilities/use-breadcrumbs';
 
 const initialState = {
   selectedItems: [],
@@ -66,7 +60,6 @@ const Portfolio = () => {
   const { url } = useRouteMatch('/portfolio');
   const history = useHistory();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
   const { portfolio, portfolioItem, meta } = useSelector(
     ({
       portfolioReducer: {
@@ -81,7 +74,7 @@ const Portfolio = () => {
     })
   );
 
-  const resetBreadcrumbs = useBreadCrumbs([pathname, portfolio, portfolioItem]);
+  const resetBreadcrumbs = useBreadcrumbs([portfolio, portfolioItem]);
 
   const fetchData = (apiProps) => {
     stateDispatch({ type: 'setIsFetching', payload: true });

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import {
   fetchSelectedPlatform,
@@ -10,12 +10,11 @@ import PlatformInventories from './platform-inventories';
 import useQuery from '../../utilities/use-query';
 import { useDispatch, useSelector } from 'react-redux';
 import ServiceOfferingDetail from './service-offering/service-offering-detail';
-import useBreadCrumbs from '../../utilities/use-breadcrumbs';
+import useBreadcrumbs from '../../utilities/use-breadcrumbs';
 
 const Platform = () => {
   const dispatch = useDispatch();
   const [{ platform }] = useQuery(['platform']);
-  const { pathname } = useLocation();
   const { selectedPlatform, serviceOffering } = useSelector(
     ({ platformReducer: { selectedPlatform, serviceOffering } }) => ({
       selectedPlatform,
@@ -23,11 +22,7 @@ const Platform = () => {
     })
   );
 
-  const resetBreadcrumbs = useBreadCrumbs([
-    pathname,
-    selectedPlatform,
-    serviceOffering
-  ]);
+  const resetBreadcrumbs = useBreadcrumbs([selectedPlatform, serviceOffering]);
 
   useEffect(() => {
     insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });

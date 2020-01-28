@@ -23,7 +23,7 @@ import { OrderDetailToolbarPlaceholder } from '../../../presentational-component
 import useQuery from '../../../utilities/use-query';
 import OrderLifecycle from './order-lifecycle';
 import CatalogBreadcrumbs from '../../common/catalog-bread-crumbs';
-import useBreadCrumbs from '../../../utilities/use-breadcrumbs';
+import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 
 const requiredParams = [
@@ -43,7 +43,7 @@ const OrderDetail = () => {
   const match = useRouteMatch('/order');
   const dispatch = useDispatch();
 
-  const resetBreadcrumbs = useBreadCrumbs([orderDetailData]);
+  const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
     insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
     setIsFetching(true);
