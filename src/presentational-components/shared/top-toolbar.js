@@ -9,6 +9,7 @@ import {
 } from '@patternfly/react-core';
 import clsx from 'clsx';
 import { ToolbarTitlePlaceholder } from './loader-placeholders';
+import CatalogBreadcrumbs from '../../smart-components/common/catalog-bread-crumbs';
 
 const TopToolbar = ({
   children,
@@ -23,6 +24,7 @@ const TopToolbar = ({
     } top-toolbar`}
     {...rest}
   >
+    {breadcrumbs && <CatalogBreadcrumbs />}
     {children}
   </div>
 );

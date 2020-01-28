@@ -271,6 +271,10 @@
   flex-grow: 1;
 }
 
+.pf-c-breadcrumb__item {
+  cursor: pointer;
+}
+
 // Image uploader
 .image-upload-button {
   border: none;

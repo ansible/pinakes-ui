@@ -12,6 +12,7 @@ describe('redux store', () => {
       </Provider>
     );
     const expectedState = {
+      breadcrumbsReducer: expect.any(Object),
       orderReducer: expect.any(Object),
       platformReducer: expect.any(Object),
       portfolioReducer: expect.any(Object),

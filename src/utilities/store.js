@@ -30,6 +30,9 @@ import openApiReducer, {
 } from '../redux/reducers/open-api-reducer';
 import loadingStateMiddleware from './loading-state-middleware';
 import emptyDataMiddleware from './empty-data-middleware';
+import breadcrumbsReducer, {
+  initialBreadcrumbsState
+} from '../redux/reducers/breadcrumbs-reducer';
 
 const registry = new ReducerRegistry({}, [
   thunk,
@@ -59,6 +62,10 @@ registry.register({
   rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
   shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
   openApiReducer: applyReducerHash(openApiReducer, openApiInitialState),
+  breadcrumbsReducer: applyReducerHash(
+    breadcrumbsReducer,
+    initialBreadcrumbsState
+  ),
   notifications
 });
 
