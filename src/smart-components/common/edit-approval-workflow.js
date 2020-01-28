@@ -56,31 +56,41 @@ const EditApprovalWorkflow = ({
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
-  const onSubmit = (values) => {
+  const onSubmit = (formData) => {
+    console.log( 'Debug - data, formData', data, formData);
+    console.log( 'Debug - id, objectId', id, objectId);
+
     history.push(pushParam);
-    const approvalWorkflow = data ? data[0] : undefined;
+    const toUnlinkWorkflows = data.filter(
+      (wf) => formData.selectedWorkflows.findIndex((w) => w.id === wf.id) < 0
+    );
+    const toLinkWorkflows = formData.selectedWorkflows.filter(
+      (wf) => data.findIndex((w) => w.id === wf.id) < 0
+    );
 
-    if (approvalWorkflow && approvalWorkflow.id === values.workflow) {
-      return;
-    }
-
-    if (approvalWorkflow) {
-      dispatch(
-        unlinkWorkflow(approvalWorkflow.id, approvalWorkflow.name, {
-          object_type: objectType,
-          app_name: APP_NAME[objectType],
-          object_id: id || objectId
-        })
+    if (toUnlinkWorkflows) {
+      toUnlinkWorkflows.map((wf) =>
+        dispatch(
+          unlinkWorkflow(wf.id, wf.name, {
+            object_type: objectType,
+            app_name: APP_NAME[objectType],
+            object_id: (id || objectId)
+          })
+        )
       );
     }
 
-    return dispatch(
-      linkWorkflow(values.workflow, {
-        object_type: objectType,
-        app_name: APP_NAME[objectType],
-        object_id: id || objectId
-      })
-    );
+    if (toLinkWorkflows) {
+      toLinkWorkflows.map((wf) =>
+        dispatch(
+          linkWorkflow(wf, {
+            object_type: objectType,
+            app_name: APP_NAME[objectType],
+            object_id: (id || objectId)
+          })
+        )
+      );
+    }
   };
 
   return (
@@ -92,7 +102,7 @@ const EditApprovalWorkflow = ({
     >
       {!isFetching ? (
         <FormRenderer
-          initialValues={{ workflow: data && data[0] ? data[0].id : undefined }}
+          initialValues={{ selectedWorkflows: data ? data.map( wf => wf.id) : undefined }}
           onSubmit={onSubmit}
           onCancel={() => history.push(pushParam)}
           schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
