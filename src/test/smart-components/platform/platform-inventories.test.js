@@ -41,6 +41,7 @@ describe('<PlatformInventories />', () => {
     initialProps = {};
     mockStore = configureStore(middlewares);
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       approvalReducer: {
         ...approvalInitialState,
         resolvedWorkflows: []

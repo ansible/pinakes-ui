@@ -35,6 +35,7 @@ describe('<Products />', () => {
 
   beforeEach(() => {
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platformIconMapping: {}
       },
@@ -146,6 +147,7 @@ describe('<Products />', () => {
 
   it('should render gallery in empty state', async (done) => {
     const store = mockStore({
+      breadcrumbsReducer: { fragments: [] },
       portfolioReducer: {
         portfolioItems: {
           data: [],

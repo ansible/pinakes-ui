@@ -32,6 +32,7 @@ describe('<PlatformTemplates />', () => {
     initialProps = {};
     mockStore = configureStore(middlewares);
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         ...platformInitialState,
         selectedPlatform: {

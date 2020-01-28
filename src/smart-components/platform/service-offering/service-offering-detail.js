@@ -20,52 +20,9 @@ import useQuery from '../../../utilities/use-query';
 import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
+import CatalogBreadcrumbs from '../../common/catalog-bread-crumbs';
 
 const requiredParams = ['service', 'platform'];
-
-const ServiceOfferingBreadcrumbs = ({ service, source }) => {
-  const fragments = [
-    {
-      path: '/platforms',
-      title: 'Platforms'
-    },
-    {
-      path: `/platforms/detail/${source.id}`,
-      title: source.name
-    },
-    {
-      title: service.name,
-      path: `/platforms/service-offerings?service=${service.id}&source=${source.id}`
-    }
-  ];
-  return (
-    <Breadcrumb className="pf-u-mb-lg">
-      {fragments.map(({ path, title }, index) => (
-        <BreadcrumbItem key={path} isActive={index === fragments.length - 1}>
-          <NavLink
-            exact
-            to={path}
-            isActive={() => index === fragments.length - 1}
-            activeClassName="breadcrumb-active"
-          >
-            {title}
-          </NavLink>
-        </BreadcrumbItem>
-      ))}
-    </Breadcrumb>
-  );
-};
-
-ServiceOfferingBreadcrumbs.propTypes = {
-  service: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired,
-  source: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired
-};
 
 const ServiceOfferingDetail = () => {
   const [queryValues] = useQuery(requiredParams);
@@ -94,9 +51,9 @@ const ServiceOfferingDetail = () => {
   return (
     <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
       <Grid className="pf-u-p-lg">
-        <GridItem sm={12}>
-          <ServiceOfferingBreadcrumbs source={source} service={service} />
-        </GridItem>
+        <div className="pf-u-mb-sm">
+          <CatalogBreadcrumbs />
+        </div>
         <GridItem sm={12} className="pf-u-mb-md">
           <div style={{ float: 'left' }} className="pf-u-mr-sm">
             <CardIcon src={source.icon_url} height={64} />

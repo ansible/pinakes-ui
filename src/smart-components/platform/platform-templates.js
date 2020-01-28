@@ -53,7 +53,7 @@ const PlatformTemplates = () => {
   );
   const { platform, platformIconMapping } = useSelector(
     ({ platformReducer: { selectedPlatform, platformIconMapping } }) => ({
-      selectedPlatform,
+      platform: selectedPlatform,
       platformIconMapping
     })
   );
