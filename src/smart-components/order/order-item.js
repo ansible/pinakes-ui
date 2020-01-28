@@ -26,6 +26,7 @@ import {
   getOrderPortfolioName,
   getOrderPlatformId
 } from '../../helpers/shared/orders';
+import CatalogLink from '../common/catalog-link';
 
 const OrderItem = ({ item }) => {
   const { orderPlatform, orderPortfolio, orderName } = useSelector(
@@ -43,7 +44,13 @@ const OrderItem = ({ item }) => {
     }
   );
   const orderItem = (item.orderItems[0] && item.orderItems[0]) || {};
-  const searchParam = `?order-item=${orderItem.id}&portfolio-item=${orderItem.portfolio_item_id}&platform=${orderPlatform}&portfolio=${orderPortfolio}`; // eslint-disable-line max-len
+  const searchParams = {
+    order: item.id,
+    'order-item': orderItem.id,
+    'portfolio-item': orderItem.portfolio_item_id,
+    platform: orderPlatform,
+    portfolio: orderPortfolio
+  };
   return (
     <React.Fragment>
       <DataListItem
@@ -72,28 +79,24 @@ const OrderItem = ({ item }) => {
                                 className="pf-u-mb-0"
                                 component={TextVariants.h5}
                               >
-                                <Link
-                                  to={{
-                                    pathname: `orders/${item.id}`,
-                                    search: searchParam
-                                  }}
+                                <CatalogLink
+                                  pathname="/order"
+                                  searchParams={searchParams}
                                 >
                                   {orderName} # {item.id}
-                                </Link>
+                                </CatalogLink>
                               </Text>
                             </LevelItem>
                             <LevelItem>
-                              <Link
-                                to={{
-                                  pathname: `orders/${item.id}/approval`,
-                                  search: searchParam
-                                }}
+                              <CatalogLink
+                                pathname="/order/approval"
+                                searchParams={searchParams}
                               >
                                 {item.state === 'Failed' && (
                                   <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
                                 )}
                                 {item.state}
-                              </Link>
+                              </CatalogLink>
                             </LevelItem>
                           </Level>
                         </GridItem>

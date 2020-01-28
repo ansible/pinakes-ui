@@ -6,7 +6,7 @@ import useQuery from '../../../utilities/use-query';
 
 const OrderLifecycle = () => {
   const [, search] = useQuery([]);
-  const { url } = useRouteMatch('/orders/:id');
+  const { url } = useRouteMatch('/order');
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );

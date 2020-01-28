@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { Stack } from '@patternfly/react-core';
-import { Switch, Route } from 'react-router-dom';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 import OrdersList from './orders-list';
-import OrderDetail from './order-detail/order-detail';
 
 const Orders = () => {
   useEffect(() => {
@@ -15,14 +13,7 @@ const Orders = () => {
   return (
     <Stack>
       <ToolbarRenderer schema={createOrdersToolbarSchema()} />
-      <Switch>
-        <Route path="/orders/:id">
-          <OrderDetail />
-        </Route>
-        <Route path="/orders">
-          <OrdersList />
-        </Route>
-      </Switch>
+      <OrdersList />
     </Stack>
   );
 };

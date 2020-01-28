@@ -4,6 +4,7 @@ import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
 import Portfolio from './smart-components/portfolio/portfolio';
 import Platform from './smart-components/platform/platform';
+import OrderDetail from './smart-components/order/order-detail/order-detail';
 
 const Products = lazy(() => import('./smart-components/products/products'));
 const Platforms = lazy(() => import('./smart-components/platform/platforms'));
@@ -18,7 +19,8 @@ const paths = {
   platform: '/platform',
   portfolios: '/portfolios',
   portfolio: '/portfolio',
-  orders: '/orders'
+  orders: '/orders',
+  order: '/order'
 };
 
 export const Routes = () => {
@@ -32,6 +34,7 @@ export const Routes = () => {
         <Route path={paths.platforms} component={Platforms} />
         <Route path={paths.platform} component={Platform} />
         <Route path={paths.orders} component={Orders} />
+        <Route path={paths.order} component={OrderDetail} />
         <Route
           render={() =>
             some(paths, (p) => p === pathname) ? null : (

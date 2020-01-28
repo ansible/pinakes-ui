@@ -22,11 +22,6 @@ exports[`<Orders /> should render correctly 1`] = `
       Object {
         "fields": Array [
           Object {
-            "component": [Function],
-            "key": "foo-breadcrumbs",
-          },
-          Object {
-            "breadcrumbs": false,
             "className": "orders bg-fill pf-u-p-lg",
             "component": "TopToolbar",
             "fields": Array [
@@ -43,18 +38,7 @@ exports[`<Orders /> should render correctly 1`] = `
       }
     }
   />
-  <Switch>
-    <Route
-      path="/orders/:id"
-    >
-      <OrderDetail />
-    </Route>
-    <Route
-      path="/orders"
-    >
-      <OrdersList />
-    </Route>
-  </Switch>
+  <OrdersList />
 </Stack>
 `;
 
@@ -80,11 +64,6 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
       Object {
         "fields": Array [
           Object {
-            "component": [Function],
-            "key": "foo-breadcrumbs",
-          },
-          Object {
-            "breadcrumbs": false,
             "className": "orders bg-fill pf-u-p-lg",
             "component": "TopToolbar",
             "fields": Array [
@@ -101,17 +80,6 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
       }
     }
   />
-  <Switch>
-    <Route
-      path="/orders/:id"
-    >
-      <OrderDetail />
-    </Route>
-    <Route
-      path="/orders"
-    >
-      <OrdersList />
-    </Route>
-  </Switch>
+  <OrdersList />
 </Stack>
 `;
