@@ -24,7 +24,6 @@ import {
 } from '../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
-import { createBreadcrumbsFromLocations } from '../../redux/actions/breadcrumbs-actions';
 import useBreadCrumbs from '../../utilities/use-breadcrumbs';
 
 const initialState = {

@@ -10,13 +10,9 @@ import { shallowToJson } from 'enzyme-to-json';
 import PlatformInventories from '../../../smart-components/platform/platform-inventories';
 import {
   TOPOLOGICAL_INVENTORY_API_BASE,
-  SOURCES_API_BASE,
   APPROVAL_API_BASE
 } from '../../../utilities/constants';
-import {
-  FETCH_PLATFORM,
-  FETCH_PLATFORM_INVENTORIES
-} from '../../../redux/action-types';
+import { FETCH_PLATFORM_INVENTORIES } from '../../../redux/action-types';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import { approvalInitialState } from '../../../redux/reducers/approval-reducer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';

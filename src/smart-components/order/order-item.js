@@ -16,7 +16,6 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
-import { Link } from 'react-router-dom';
 import { DateFormat } from '@redhat-cloud-services/frontend-components';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 

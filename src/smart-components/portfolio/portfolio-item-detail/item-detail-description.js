@@ -81,7 +81,8 @@ ItemDetailDescription.propTypes = {
     description: PropTypes.string,
     id: PropTypes.string.isRequired
   }).isRequired,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired
 };
 
 export default ItemDetailDescription;

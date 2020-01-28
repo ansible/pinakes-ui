@@ -1,14 +1,10 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import {
-  fetchPlatformItems,
-  fetchSelectedPlatform
-} from '../../redux/actions/platform-actions';
+import { fetchPlatformItems } from '../../redux/actions/platform-actions';
 import PlatformItem from '../../presentational-components/platform/platform-item';
 import {
   createPlatformsFilterToolbarSchema,

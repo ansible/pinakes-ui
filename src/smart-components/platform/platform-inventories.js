@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useParams, useHistory } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
-import { Section, search } from '@redhat-cloud-services/frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';

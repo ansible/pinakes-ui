@@ -93,13 +93,7 @@ const pf4Skin = {
   componentProperties
 };
 
-const SurveyEditor = ({
-  closeUrl,
-  search,
-  portfolioItem,
-  uploadIcon,
-  portfolio
-}) => {
+const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [schema, setSchema] = useState();
   const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
@@ -183,8 +177,7 @@ SurveyEditor.propTypes = {
   search: PropTypes.string.isRequired,
   portfolioItem: PropTypes.shape({ id: PropTypes.string.isRequired })
     .isRequired,
-  uploadIcon: PropTypes.func.isRequired,
-  portfolio: PropTypes.object.isRequired
+  uploadIcon: PropTypes.func.isRequired
 };
 
 export default SurveyEditor;

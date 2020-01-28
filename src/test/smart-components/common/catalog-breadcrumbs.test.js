@@ -9,7 +9,6 @@ import CatalogBreadcrumbs from '../../../smart-components/common/catalog-bread-c
 import { MemoryRouter } from 'react-router-dom';
 
 describe('<CatalogBreadcrumbs />', () => {
-  let initialState;
   const mockStore = configureStore([thunk]);
 
   it('should not render anything', () => {

@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Grid,
   GridItem,
   TextContent,
   Text,
   Level,
-  LevelItem,
-  Breadcrumb,
-  BreadcrumbItem
+  LevelItem
 } from '@patternfly/react-core';
 import ReactJsonView from 'react-json-view';
 import { Section } from '@redhat-cloud-services/frontend-components';
 import { DateFormat } from '@redhat-cloud-services/frontend-components';
-import { NavLink } from 'react-router-dom';
 
 import useQuery from '../../../utilities/use-query';
 import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
