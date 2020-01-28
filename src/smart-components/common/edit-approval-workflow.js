@@ -57,9 +57,6 @@ const EditApprovalWorkflow = ({
   }, []);
 
   const onSubmit = (formData) => {
-    console.log( 'Debug - data, formData', data, formData);
-    console.log( 'Debug - id, objectId', id, objectId);
-
     history.push(pushParam);
     const toUnlinkWorkflows = data.filter(
       (wf) => formData.selectedWorkflows.findIndex((w) => w.id === wf.id) < 0
@@ -74,7 +71,7 @@ const EditApprovalWorkflow = ({
           unlinkWorkflow(wf.id, wf.name, {
             object_type: objectType,
             app_name: APP_NAME[objectType],
-            object_id: (id || objectId)
+            object_id: id || objectId
           })
         )
       );
@@ -86,7 +83,7 @@ const EditApprovalWorkflow = ({
           linkWorkflow(wf, {
             object_type: objectType,
             app_name: APP_NAME[objectType],
-            object_id: (id || objectId)
+            object_id: id || objectId
           })
         )
       );
@@ -95,14 +92,16 @@ const EditApprovalWorkflow = ({
 
   return (
     <Modal
-      title={`Set approval workflow for ${objectName(id)}`}
+      title={`Set approval process for ${objectName(id)}`}
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
     >
       {!isFetching ? (
         <FormRenderer
-          initialValues={{ selectedWorkflows: data ? data.map( wf => wf.id) : undefined }}
+          initialValues={{
+            selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
+          }}
           onSubmit={onSubmit}
           onCancel={() => history.push(pushParam)}
           schema={editApprovalWorkflowSchema(loadWorkflowOptions)}

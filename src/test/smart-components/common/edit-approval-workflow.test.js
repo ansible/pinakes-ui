@@ -14,6 +14,8 @@ import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { mockApi } from '../../__mocks__/user-login';
+import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/index';
+import { Button } from '@patternfly/react-core/dist/js/index';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
@@ -50,11 +52,22 @@ describe('<EditApprovalWorkflow />', () => {
           data: [
             {
               id: '111',
-              name: 'Workflow'
+              name: 'Workflow111'
+            },
+            {
+              id: '222',
+              name: 'workflow'
             }
           ]
         },
-        resolvedWorkflows: []
+        resolvedWorkflows: {
+          data: [
+            {
+              id: '111',
+              name: 'workflow'
+            }
+          ]
+        }
       }
     };
     mockStore = configureStore(middlewares);
@@ -97,9 +110,10 @@ describe('<EditApprovalWorkflow />', () => {
       fields: [
         {
           component: componentTypes.SELECT,
-          name: 'workflow',
-          label: 'Approval workflow',
+          name: 'selectedWorkflows',
+          label: 'Select approval process',
           loadOptions: expect.any(Function),
+          multi: true,
           isSearchable: true,
           isClearable: true
         }
@@ -124,9 +138,92 @@ describe('<EditApprovalWorkflow />', () => {
     const modal = wrapper.find(Modal);
     const form = wrapper.find(FormRenderer);
     expect(modal.props().title).toEqual(
-      'Set approval workflow for Test Resource Name'
+      'Set approval process for Test Resource Name'
     );
     expect(form.props().schema).toEqual(expectedSchema);
+    done();
+  });
+
+  it('should unlink/link unselected/selected workflows', async (done) => {
+    const store = mockStore(initialState);
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, {
+      data: [
+        {
+          name: 'workflow1',
+          id: '111'
+        },
+        {
+          name: 'workflow2',
+          id: '222'
+        }
+      ]
+    });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
+      )
+      .replyOnce(200, { data: [{ name: 'workflow1', id: '111' }] });
+
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/workflows/222/link`)
+      .replyOnce((req) => {
+        expect(JSON.parse(req.data)).toEqual({
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '123'
+        });
+        return [204];
+      });
+
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/workflows/111/unlink`)
+      .replyOnce((req) => {
+        expect(JSON.parse(req.data)).toEqual({
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '123'
+        });
+        return [204];
+      });
+
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+          <Route
+            path="/portfolio/:id"
+            render={(args) => (
+              <EditApprovalWorkflow {...args} {...initialProps} />
+            )}
+          />
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+    const form = wrapper
+      .find(ReactFormRender)
+      .children()
+      .instance().form;
+
+    form.change('selectedWorkflows', ['222']);
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
+    });
+    done();
+
+    wrapper.update();
+    await act(async () => {
+      wrapper
+        .find(Button)
+        .last()
+        .simulate('click');
+    });
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/portfolio/foo');
     done();
   });
 });
