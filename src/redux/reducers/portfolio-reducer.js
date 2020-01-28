@@ -29,7 +29,9 @@ export const portfoliosInitialState = {
       filter: ''
     }
   },
-  portfolioItem: {},
+  portfolioItem: {
+    portfolioItem: {}
+  },
   portfolios: {
     data: [],
     meta: {

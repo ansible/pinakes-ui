@@ -43,6 +43,7 @@ describe('<PortfolioItemDetail />', () => {
   beforeEach(() => {
     initialProps = {};
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platforms: [],
         platformIconMapping: {}

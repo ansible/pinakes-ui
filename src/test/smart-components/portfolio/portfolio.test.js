@@ -24,7 +24,8 @@ import AddProductsToPortfolio from '../../../smart-components/portfolio/add-prod
 import {
   FETCH_PLATFORMS,
   FETCH_PORTFOLIO,
-  FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO
+  FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
+  INITIALIZE_BREADCRUMBS
 } from '../../../redux/action-types';
 import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 
@@ -49,6 +50,7 @@ describe('<Portfolio />', () => {
       id: '123'
     };
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platformItems: []
       },
@@ -92,6 +94,7 @@ describe('<Portfolio />', () => {
   it('should mount and fetch correct data', async (done) => {
     const store = mockStore(initialState);
     const expectedActions = [
+      expect.objectContaining({ type: INITIALIZE_BREADCRUMBS }),
       {
         type: `${FETCH_PLATFORMS}_PENDING`
       },
@@ -551,7 +554,7 @@ describe('<Portfolio />', () => {
     /**
      * trigger notification undo click
      */
-    const notification = store.getActions()[9].payload.description;
+    const notification = store.getActions()[10].payload.description;
     const notificationWrapper = mount(
       <IntlProvider locale="en">{notification}</IntlProvider>
     );

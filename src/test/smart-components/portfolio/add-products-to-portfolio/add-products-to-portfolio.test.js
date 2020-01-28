@@ -45,6 +45,7 @@ describe('<AddProductsToPortfolio />', () => {
 
   it('should correctly filter service offerings', async (done) => {
     const store = mockStore({
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: {
@@ -94,6 +95,7 @@ describe('<AddProductsToPortfolio />', () => {
   it('should check item and send correct data on submit', async (done) => {
     expect.assertions(1);
     const store = mockStore({
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: {

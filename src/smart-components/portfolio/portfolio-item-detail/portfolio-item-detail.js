@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
@@ -15,7 +15,6 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
 import SurveyEditor from '../../survey-editing/survey-editor';
-import PortfolioItemBreadcrumbs from './portfolio-item-breadcrumbs';
 
 const requiredParams = ['portfolio', 'source', 'portfolio-item'];
 
@@ -41,7 +40,7 @@ const PortfolioItemDetail = () => {
       .catch(() => setIsFetching(false));
   }, [queryValues['portfolio-item']]);
 
-  if (isFetching || !portfolioItem || !portfolio) {
+  if (isFetching || Object.keys(portfolioItem).length === 0) {
     return (
       <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
         <TopToolbar>
@@ -74,13 +73,7 @@ const PortfolioItemDetail = () => {
               product={portfolioItem}
               setOpen={setOpen}
               isFetching={isFetching}
-            >
-              <PortfolioItemBreadcrumbs
-                portfolio={portfolio}
-                portfolioItem={portfolioItem}
-                search={search}
-              />
-            </PortfolioItemDetailToolbar>
+            />
             <Grid className="pf-u-p-lg">
               <GridItem md={2}>
                 <ItemDetailInfoBar

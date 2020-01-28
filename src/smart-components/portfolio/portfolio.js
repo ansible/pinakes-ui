@@ -1,6 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
+import {
+  useHistory,
+  useRouteMatch,
+  Route,
+  Switch,
+  useLocation
+} from 'react-router-dom';
 
 import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -18,6 +24,8 @@ import {
 } from '../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
+import { createBreadcrumbsFromLocations } from '../../redux/actions/breadcrumbs-actions';
+import useBreadCrumbs from '../../utilities/use-breadcrumbs';
 
 const initialState = {
   selectedItems: [],
@@ -54,30 +62,39 @@ const porftolioUiReducer = (state, { type, payload }) =>
 
 const Portfolio = () => {
   const [state, stateDispatch] = useReducer(porftolioUiReducer, initialState);
-  const [{ portfolio: id }] = useQuery(['portfolio']);
+  const [searchParams] = useQuery(['portfolio']);
+  const { portfolio: id } = searchParams;
   const { url } = useRouteMatch('/portfolio');
   const history = useHistory();
   const dispatch = useDispatch();
-  const { portfolio, meta } = useSelector(
+  const { pathname } = useLocation();
+  const { portfolio, portfolioItem, meta } = useSelector(
     ({
       portfolioReducer: {
         selectedPortfolio,
+        portfolioItem,
         portfolioItems: { meta }
       }
     }) => ({
       portfolio: selectedPortfolio,
+      portfolioItem,
       meta
     })
   );
 
+  const resetBreadcrumbs = useBreadCrumbs([pathname, portfolio, portfolioItem]);
+
   const fetchData = (apiProps) => {
     stateDispatch({ type: 'setIsFetching', payload: true });
-    Promise.all([
+    return Promise.all([
       dispatch(fetchPlatforms()),
       dispatch(fetchSelectedPortfolio(apiProps)),
       dispatch(fetchPortfolioItemsWithPortfolio(apiProps))
     ])
-      .then(() => stateDispatch({ type: 'setIsFetching', payload: false }))
+      .then((data) => {
+        stateDispatch({ type: 'setIsFetching', payload: false });
+        return data;
+      })
       .catch(() => stateDispatch({ type: 'setIsFetching', payload: false }));
   };
 
@@ -88,7 +105,10 @@ const Portfolio = () => {
   useEffect(() => {
     fetchData(id);
     scrollToTop();
-    return () => dispatch(resetSelectedPortfolio());
+    return () => {
+      resetBreadcrumbs();
+      dispatch(resetSelectedPortfolio());
+    };
   }, [id]);
 
   const handleCopyPortfolio = () => {
@@ -144,7 +164,9 @@ const Portfolio = () => {
           portfolioRoute={routes.portfolioRoute}
         />
       </Route>
-      <Route path={routes.portfolioItemRoute} component={PortfolioItemDetail} />
+      <Route path={routes.portfolioItemRoute}>
+        <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
+      </Route>
       <Route path={routes.portfolioRoute}>
         <PortfolioItems
           routes={routes}

@@ -40,11 +40,9 @@ export const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon,
-  children
+  uploadIcon
 }) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={false}>
-    {children}
+  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <PortfolioItemIconItem
       uploadIcon={uploadIcon}
       id={product.id}
@@ -99,8 +97,7 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  uploadIcon: PropTypes.func.isRequired
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
@@ -108,15 +105,13 @@ PortfolioItemDetailToolbar.defaultProps = {
 };
 
 export const SurveyEditingToolbar = ({
-  children,
   uploadIcon,
   product,
   handleSaveSurvey,
   closeUrl,
   search
 }) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={false}>
-    {children}
+  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <PortfolioItemIconItem
       uploadIcon={uploadIcon}
       id={product.id}
@@ -148,7 +143,6 @@ export const SurveyEditingToolbar = ({
 );
 
 SurveyEditingToolbar.propTypes = {
-  children: PropTypes.node,
   uploadIcon: PropTypes.func.isRequired,
   product: PropTypes.object,
   handleSaveSurvey: PropTypes.func.isRequired,
