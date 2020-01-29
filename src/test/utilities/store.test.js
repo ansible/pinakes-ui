@@ -7,7 +7,7 @@ import store from '../../utilities/store';
 describe('redux store', () => {
   it('should create redux store context', () => {
     const wrapper = mount(
-      <Provider store={store}>
+      <Provider store={store()}>
         <div>Foo</div>
       </Provider>
     );

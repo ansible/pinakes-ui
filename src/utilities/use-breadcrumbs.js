@@ -18,7 +18,7 @@ const useBreadcrumbs = (updateTriggers = []) => {
 
   useEffect(() => {
     dispatch(createBreadcrumbsFromLocations(pathname, searchObject));
-  }, updateTriggers);
+  }, [pathname, ...updateTriggers]);
 
   return () => dispatch(createBreadcrumbsFromLocations('', {}));
 };

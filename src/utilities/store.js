@@ -34,9 +34,7 @@ import breadcrumbsReducer, {
   initialBreadcrumbsState
 } from '../redux/reducers/breadcrumbs-reducer';
 
-const registry = new ReducerRegistry({}, [
-  thunk,
-  promiseMiddleware,
+const prodMiddlewares = [
   notificationsMiddleware({
     errorTitleKey: ['errors', 'message', 'statusText'],
     errorDescriptionKey: [
@@ -50,23 +48,46 @@ const registry = new ReducerRegistry({}, [
       'stack'
     ]
   }),
-  loadingStateMiddleware,
-  emptyDataMiddleware,
   reduxLogger
-]);
-registry.register({
-  orderReducer: applyReducerHash(orderReducer, orderInitialState),
-  platformReducer: applyReducerHash(platformReducer, platformInitialState),
-  portfolioReducer: applyReducerHash(portfolioReducer, portfoliosInitialState),
-  approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
-  rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
-  shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
-  openApiReducer: applyReducerHash(openApiReducer, openApiInitialState),
-  breadcrumbsReducer: applyReducerHash(
-    breadcrumbsReducer,
-    initialBreadcrumbsState
-  ),
-  notifications
-});
+];
 
-export default registry.getStore();
+const baseMiddlewares = [
+  thunk,
+  promiseMiddleware,
+  loadingStateMiddleware,
+  emptyDataMiddleware
+];
+const registerReducers = (registry) => {
+  registry.register({
+    orderReducer: applyReducerHash(orderReducer, orderInitialState),
+    platformReducer: applyReducerHash(platformReducer, platformInitialState),
+    portfolioReducer: applyReducerHash(
+      portfolioReducer,
+      portfoliosInitialState
+    ),
+    approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
+    rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
+    shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
+    openApiReducer: applyReducerHash(openApiReducer, openApiInitialState),
+    breadcrumbsReducer: applyReducerHash(
+      breadcrumbsReducer,
+      initialBreadcrumbsState
+    ),
+    notifications
+  });
+};
+
+export default () => {
+  const registry = new ReducerRegistry({}, [
+    ...baseMiddlewares,
+    ...prodMiddlewares
+  ]);
+  registerReducers(registry);
+  return registry.getStore();
+};
+
+export const testStore = () => {
+  const registry = new ReducerRegistry({}, [...baseMiddlewares]);
+  registerReducers(registry);
+  return registry.getStore();
+};
