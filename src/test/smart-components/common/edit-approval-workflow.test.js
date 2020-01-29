@@ -200,19 +200,21 @@ describe('<EditApprovalWorkflow />', () => {
       );
     });
     wrapper.update();
-    const form = wrapper
-      .find(ReactFormRender)
-      .children()
-      .instance().form;
+    let form;
+    await act(async () => {
+      form = wrapper
+        .find(ReactFormRender)
+        .children()
+        .instance().form;
+      form.change('selectedWorkflows', ['222']);
+    });
 
-    form.change('selectedWorkflows', ['222']);
     await act(async () => {
       wrapper
         .find('button')
         .at(1)
         .simulate('click');
     });
-    done();
 
     wrapper.update();
     await act(async () => {
@@ -221,9 +223,12 @@ describe('<EditApprovalWorkflow />', () => {
         .last()
         .simulate('click');
     });
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio/foo');
-    done();
+
+    setImmediate(() => {
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual('/portfolio/foo');
+      done();
+    });
   });
 });
