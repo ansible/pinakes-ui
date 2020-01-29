@@ -7,7 +7,8 @@ import {
   Text,
   TextContent,
   TextVariants,
-  Button
+  Button,
+  Flex
 } from '@patternfly/react-core';
 
 import DetailToolbarActions from './detail-toolbar-actions';
@@ -15,6 +16,7 @@ import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
+import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
   <IconUpload uploadIcon={uploadIcon}>
@@ -107,7 +109,8 @@ export const SurveyEditingToolbar = ({
   product,
   handleSaveSurvey,
   closeUrl,
-  search
+  search,
+  isFetching
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <PortfolioItemIconItem
@@ -123,10 +126,15 @@ export const SurveyEditingToolbar = ({
           </Text>
         </TextContent>
       </LevelItem>
-      <LevelItem>
-        <Button variant="primary" onClick={handleSaveSurvey}>
+      <Flex>
+        <ButtonWithSpinner
+          variant="primary"
+          showSpinner={isFetching}
+          isDisabled={isFetching}
+          onClick={handleSaveSurvey}
+        >
           Save
-        </Button>
+        </ButtonWithSpinner>
         <Link
           to={{
             pathname: closeUrl,
@@ -135,7 +143,7 @@ export const SurveyEditingToolbar = ({
         >
           <Button variant="link">Cancel</Button>
         </Link>
-      </LevelItem>
+      </Flex>
     </Level>
   </TopToolbar>
 );
@@ -145,5 +153,6 @@ SurveyEditingToolbar.propTypes = {
   product: PropTypes.object,
   handleSaveSurvey: PropTypes.func.isRequired,
   closeUrl: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired
+  search: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool
 };
