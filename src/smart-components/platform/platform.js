@@ -11,6 +11,12 @@ import useQuery from '../../utilities/use-query';
 import { useDispatch, useSelector } from 'react-redux';
 import ServiceOfferingDetail from './service-offering/service-offering-detail';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
+import {
+  PLATFORM_SERVICE_OFFERINGS_ROUTE,
+  PLATFORM_INVENTORIES_ROUTE,
+  PLATFORM_ROUTE,
+  PLATFORM_TEMPLATES_ROUTE
+} from '../../constants/routes';
 
 const Platform = () => {
   const dispatch = useDispatch();
@@ -39,13 +45,13 @@ const Platform = () => {
   return (
     <Fragment>
       <Switch>
-        <Route path="/platform/service-offerings">
+        <Route path={PLATFORM_SERVICE_OFFERINGS_ROUTE}>
           <ServiceOfferingDetail />
         </Route>
-        <Route path="/platform/platform-inventories">
+        <Route path={PLATFORM_INVENTORIES_ROUTE}>
           <PlatformInventories />
         </Route>
-        <Route path={['/platform/platform-templates', '/platform']}>
+        <Route path={[PLATFORM_TEMPLATES_ROUTE, PLATFORM_ROUTE]}>
           <PlatformTemplates />
         </Route>
       </Switch>

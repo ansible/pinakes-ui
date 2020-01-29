@@ -16,7 +16,7 @@ import useQuery from '../../../utilities/use-query';
 import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
-import CatalogBreadcrumbs from '../../common/catalog-bread-crumbs';
+import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 
 const requiredParams = ['service', 'platform'];
 
@@ -51,9 +51,7 @@ const ServiceOfferingDetail = () => {
           <CatalogBreadcrumbs />
         </div>
         <GridItem sm={12} className="pf-u-mb-md">
-          <div style={{ float: 'left' }} className="pf-u-mr-sm">
-            <CardIcon src={source.icon_url} height={64} />
-          </div>
+          <CardIcon src={source.icon_url} height={64} />
           <Level>
             <LevelItem>
               <TextContent>

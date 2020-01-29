@@ -271,8 +271,11 @@
   flex-grow: 1;
 }
 
-.pf-c-breadcrumb__item {
+a.pf-c-breadcrumb__item {
   cursor: pointer;
+  >* {
+    cursor: pointer;
+  }
 }
 
 // Image uploader
@@ -534,3 +537,6 @@ a.breadcrumb-active {
   top: 1px;
 }
 
+.flex-align-end {
+  align-items: end
+}

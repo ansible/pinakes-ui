@@ -17,6 +17,11 @@ import { Button } from '@patternfly/react-core';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
+import {
+  PLATFORM_SERVICE_OFFERINGS_ROUTE,
+  PLATFORM_TEMPLATES_ROUTE,
+  PLATFORM_INVENTORIES_ROUTE
+} from '../../constants/routes';
 
 const initialState = {
   filterValue: '',
@@ -68,12 +73,12 @@ const PlatformTemplates = () => {
     {
       eventKey: 0,
       title: 'Templates',
-      name: '/platform/platform-templates'
+      name: PLATFORM_TEMPLATES_ROUTE
     },
     {
       eventKey: 1,
       title: 'Inventories',
-      name: '/platform/platform-inventories'
+      name: PLATFORM_INVENTORIES_ROUTE
     }
   ];
 
@@ -103,7 +108,7 @@ const PlatformTemplates = () => {
       ? data.map((item) => (
           <PlatformItem
             key={item.id}
-            pathname="/platform/service-offerings"
+            pathname={PLATFORM_SERVICE_OFFERINGS_ROUTE}
             searchParams={{
               service: item.id
             }}

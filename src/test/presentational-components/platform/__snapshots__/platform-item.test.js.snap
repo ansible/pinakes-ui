@@ -58,6 +58,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                 onError={[Function]}
                 onLoad={[Function]}
                 placeholderSrc=""
+                src="test-file-stub"
                 style={
                   Object {
                     "height": 0,
@@ -87,6 +88,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     height={0}
                     onError={[Function]}
                     onLoad={[Function]}
+                    src="test-file-stub"
                     style={
                       Object {
                         "height": 0,

@@ -109,7 +109,7 @@ const updateTemporaryPortfolio = (state, { payload }) => ({
 const deleteTemporaryPortfolio = (state, { payload }) => ({
   prevState: { ...state },
   ...state,
-  selectedPortfolio: undefined,
+  selectedPortfolio: {},
   portfolios: {
     ...state.portfolios,
     data: state.portfolios.data.filter(({ id }) => id !== payload)

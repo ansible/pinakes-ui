@@ -17,15 +17,13 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
-  <div style={{ float: 'left' }} className="pf-u-mr-sm">
-    <IconUpload uploadIcon={uploadIcon}>
-      <CardIcon
-        src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
-        sourceId={sourceId}
-        height={64}
-      />
-    </IconUpload>
-  </div>
+  <IconUpload uploadIcon={uploadIcon}>
+    <CardIcon
+      src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
+      sourceId={sourceId}
+      height={64}
+    />
+  </IconUpload>
 );
 
 PortfolioItemIconItem.propTypes = {
@@ -42,15 +40,15 @@ export const PortfolioItemDetailToolbar = ({
   isFetching,
   uploadIcon
 }) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
-    <PortfolioItemIconItem
-      uploadIcon={uploadIcon}
-      id={product.id}
-      sourceId={product.service_offering_source_ref}
-    />
+  <TopToolbar breadcrumbsSpacing={false}>
     <Level>
-      <LevelItem>
-        <TextContent>
+      <LevelItem className="pf-l-flex flex-align-end">
+        <PortfolioItemIconItem
+          uploadIcon={uploadIcon}
+          id={product.id}
+          sourceId={product.service_offering_source_ref}
+        />
+        <TextContent className="pf-u-ml-md">
           <Text component={TextVariants.h1}>{product.name}</Text>
         </TextContent>
       </LevelItem>

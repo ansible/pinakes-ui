@@ -19,77 +19,75 @@ const DetailToolbarActions = ({
   isOpen,
   setOpen,
   isFetching
-}) => {
-  return (
-    <Fragment>
-      <LevelItem>
-        <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
-          <ButtonWithSpinner
-            isDisabled={isFetching}
-            showSpinner={isFetching}
-            variant="primary"
-          >
-            Order
-          </ButtonWithSpinner>
-        </CatalogLink>
+}) => (
+  <Fragment>
+    <LevelItem>
+      <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
+        <ButtonWithSpinner
+          isDisabled={isFetching}
+          showSpinner={isFetching}
+          variant="primary"
+        >
+          Order
+        </ButtonWithSpinner>
+      </CatalogLink>
+    </LevelItem>
+    {
+      <LevelItem style={{ marginLeft: 16 }}>
+        <Dropdown
+          isPlain
+          onToggle={setOpen}
+          onSelect={() => setOpen(false)}
+          position={DropdownPosition.right}
+          toggle={<KebabToggle onToggle={(isOpen) => setOpen(isOpen)} />}
+          isOpen={isOpen}
+          dropdownItems={[
+            <DropdownItem
+              aria-label="Edit Portfolio"
+              key="edit-portfolio"
+              component={
+                <CatalogLink pathname={editUrl} preserveSearch>
+                  Edit
+                </CatalogLink>
+              }
+              role="link"
+            />,
+            <DropdownItem
+              aria-label="Copy Portfolio"
+              key="copy-portfolio"
+              component={
+                <CatalogLink pathname={copyUrl} preserveSearch>
+                  Copy
+                </CatalogLink>
+              }
+              role="link"
+            />,
+            <DropdownItem
+              aria-label="Set approval"
+              key="edit-approval_workflow"
+              component={
+                <CatalogLink pathname={workflowUrl} preserveSearch>
+                  Set approval
+                </CatalogLink>
+              }
+              role="link"
+            />,
+            <DropdownItem
+              aria-label="Edit survey"
+              key="edit-survey"
+              component={
+                <CatalogLink pathname={editSurveyUrl} preserveSearch>
+                  Edit survey
+                </CatalogLink>
+              }
+              role="link"
+            />
+          ]}
+        />
       </LevelItem>
-      {
-        <LevelItem style={{ marginLeft: 16 }}>
-          <Dropdown
-            isPlain
-            onToggle={setOpen}
-            onSelect={() => setOpen(false)}
-            position={DropdownPosition.right}
-            toggle={<KebabToggle onToggle={(isOpen) => setOpen(isOpen)} />}
-            isOpen={isOpen}
-            dropdownItems={[
-              <DropdownItem
-                aria-label="Edit Portfolio"
-                key="edit-portfolio"
-                component={
-                  <CatalogLink pathname={editUrl} preserveSearch>
-                    Edit
-                  </CatalogLink>
-                }
-                role="link"
-              />,
-              <DropdownItem
-                aria-label="Copy Portfolio"
-                key="copy-portfolio"
-                component={
-                  <CatalogLink pathname={copyUrl} preserveSearch>
-                    Copy
-                  </CatalogLink>
-                }
-                role="link"
-              />,
-              <DropdownItem
-                aria-label="Set approval"
-                key="edit-approval_workflow"
-                component={
-                  <CatalogLink pathname={workflowUrl} preserveSearch>
-                    Set approval
-                  </CatalogLink>
-                }
-                role="link"
-              />,
-              <DropdownItem
-                aria-label="Edit survey"
-                key="edit-survey"
-                component={
-                  <CatalogLink pathname={editSurveyUrl} preserveSearch>
-                    Edit survey
-                  </CatalogLink>
-                }
-                role="link"
-              />
-            ]}
-          />
-        </LevelItem>
-      }
-    </Fragment>
-  );
-};
+    }
+  </Fragment>
+);
 
 DetailToolbarActions.propTypes = {
   orderUrl: PropTypes.string.isRequired,

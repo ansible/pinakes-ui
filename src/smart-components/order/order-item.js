@@ -26,6 +26,7 @@ import {
   getOrderPlatformId
 } from '../../helpers/shared/orders';
 import CatalogLink from '../common/catalog-link';
+import { ORDER_ROUTE, ORDER_APPROVAL_ROUTE } from '../../constants/routes';
 
 const OrderItem = ({ item }) => {
   const { orderPlatform, orderPortfolio, orderName } = useSelector(
@@ -79,7 +80,7 @@ const OrderItem = ({ item }) => {
                                 component={TextVariants.h5}
                               >
                                 <CatalogLink
-                                  pathname="/order"
+                                  pathname={ORDER_ROUTE}
                                   searchParams={searchParams}
                                 >
                                   {orderName} # {item.id}
@@ -88,7 +89,7 @@ const OrderItem = ({ item }) => {
                             </LevelItem>
                             <LevelItem>
                               <CatalogLink
-                                pathname="/order/approval"
+                                pathname={ORDER_APPROVAL_ROUTE}
                                 searchParams={searchParams}
                               >
                                 {item.state === 'Failed' && (

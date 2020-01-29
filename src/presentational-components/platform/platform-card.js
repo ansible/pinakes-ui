@@ -16,6 +16,7 @@ import ItemDetails from '../shared/card-common';
 
 import './platform-card.scss';
 import CatalogLink from '../../smart-components/common/catalog-link';
+import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -28,7 +29,7 @@ const platformTypeImg = {
 const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
     <CatalogLink
-      pathname="/platform/platform-templates"
+      pathname={PLATFORM_TEMPLATES_ROUTE}
       searchParams={{ platform: id }}
       className="card-link"
     >

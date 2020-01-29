@@ -29,7 +29,7 @@ import {
 } from '../../../redux/action-types';
 import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 import { testStore } from '../../../utilities/store';
-import CatalogBreadcrumbs from '../../../smart-components/common/catalog-bread-crumbs';
+import CatalogBreadcrumbs from '../../../smart-components/common/catalog-breadcrumbs';
 import { BreadcrumbItem } from '@patternfly/react-core';
 
 describe('<Portfolio />', () => {
@@ -566,8 +566,8 @@ describe('<Portfolio />', () => {
     });
   });
 
-  it.only('should navigate back from portfolio item to portfolio via breadcrumbs', async () => {
-    const store = testStore();
+  it('should navigate back from portfolio item to portfolio via breadcrumbs', async () => {
+    const { ...store } = testStore();
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
       .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
@@ -621,23 +621,21 @@ describe('<Portfolio />', () => {
       );
     });
     expect(store.getState().breadcrumbsReducer.fragments).toEqual([
-      { title: 'Portfolios', pathname: '/portfolios', searchParams: {} },
-      {
-        title: 'Portfolio',
+      expect.objectContaining({ pathname: '/portfolios', searchParams: {} }),
+      expect.objectContaining({
         pathname: '/portfolio',
         searchParams: {
           portfolio: 'portfolio-id'
         }
-      },
-      {
-        title: 'Portfolio item',
+      }),
+      expect.objectContaining({
         pathname: '/portfolio/portfolio-item',
         searchParams: {
           portfolio: 'portfolio-id',
           'portfolio-item': 'portfolio-item-id',
           source: 'source-id'
         }
-      }
+      })
     ]);
     wrapper.update();
     expect(wrapper.find(CatalogBreadcrumbs)).toHaveLength(1);
@@ -649,14 +647,13 @@ describe('<Portfolio />', () => {
     wrapper.update();
     expect(wrapper.find(BreadcrumbItem)).toHaveLength(2);
     expect(store.getState().breadcrumbsReducer.fragments).toEqual([
-      { title: 'Portfolios', pathname: '/portfolios', searchParams: {} },
-      {
-        title: 'Portfolio',
+      expect.objectContaining({ pathname: '/portfolios', searchParams: {} }),
+      expect.objectContaining({
         pathname: '/portfolio',
         searchParams: {
           portfolio: 'portfolio-id'
         }
-      }
+      })
     ]);
     const { pathname, search } = wrapper
       .find(MemoryRouter)

@@ -22,9 +22,10 @@ import ApprovalRequests from './approval-request';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
 import OrderLifecycle from './order-lifecycle';
-import CatalogBreadcrumbs from '../../common/catalog-bread-crumbs';
+import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
+import { ORDER_ROUTE, ORDERS_ROUTE } from '../../../constants/routes';
 
 const requiredParams = [
   'order-item',
@@ -40,7 +41,7 @@ const OrderDetail = () => {
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
-  const match = useRouteMatch('/order');
+  const match = useRouteMatch(ORDER_ROUTE);
   const dispatch = useDispatch();
 
   const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
@@ -55,7 +56,7 @@ const OrderDetail = () => {
   }, []);
 
   if (!isFetching && Object.keys(orderDetailData).length === 0) {
-    return <Redirect to="/orders" />;
+    return <Redirect to={ORDERS_ROUTE} />;
   }
 
   const { order, portfolioItem, platform, orderItem } = orderDetailData;

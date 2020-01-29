@@ -5,7 +5,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
 
-import CatalogBreadcrumbs from '../../../smart-components/common/catalog-bread-crumbs';
+import CatalogBreadcrumbs from '../../../smart-components/common/catalog-breadcrumbs';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('<CatalogBreadcrumbs />', () => {

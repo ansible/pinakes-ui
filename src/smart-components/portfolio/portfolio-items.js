@@ -18,6 +18,14 @@ import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
+import {
+  PORTFOLIO_ROUTE,
+  NESTED_EDIT_PORTFOLIO_ROUTE,
+  NESTED_REMOVE_PORTFOLIO_ROUTE,
+  NESTED_SHARE_PORTFOLIO_ROUTE,
+  NESTED_WORKFLOW_PORTFOLIO_ROUTE,
+  NESTED_ORDER_PORTFOLIO_ROUTE
+} from '../../constants/routes';
 
 const PortfolioItems = ({
   routes,
@@ -42,7 +50,7 @@ const PortfolioItems = ({
       }
     }) => ({ data, meta, name, description })
   );
-  const { url } = useRouteMatch('/portfolio');
+  const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const [{ portfolio: id }, search] = useQuery(['portfolio']);
   const dispatch = useDispatch();
 
@@ -90,24 +98,26 @@ const PortfolioItems = ({
           portfolioId: id
         })}
       />
-      <Route exact path="/portfolio/edit-portfolio">
-        <AddPortfolioModal closeTarget={{ pathname: '/portfolio', search }} />
+      <Route exact path={NESTED_EDIT_PORTFOLIO_ROUTE}>
+        <AddPortfolioModal
+          closeTarget={{ pathname: PORTFOLIO_ROUTE, search }}
+        />
       </Route>
       <Route
         exact
-        path="/portfolio/remove-portfolio"
+        path={NESTED_REMOVE_PORTFOLIO_ROUTE}
         component={RemovePortfolioModal}
       />
       <Route
         exact
-        path="/portfolio/share-portfolio"
+        path={NESTED_SHARE_PORTFOLIO_ROUTE}
         render={(...args) => (
           <SharePortfolioModal closeUrl={routes.portfolioRoute} {...args} />
         )}
       />
       <Route
         exact
-        path="/portfolio/edit-workflow"
+        path={NESTED_WORKFLOW_PORTFOLIO_ROUTE}
         render={(...args) => (
           <EditApprovalWorkflow
             querySelector="portfolio"
@@ -121,7 +131,7 @@ const PortfolioItems = ({
       />
       <Route
         exact
-        path="/portfolio/order"
+        path={NESTED_ORDER_PORTFOLIO_ROUTE}
         render={(props) => (
           <OrderModal {...props} closeUrl={routes.portfolioRoute} />
         )}

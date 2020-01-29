@@ -22,6 +22,14 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import {
+  PORTFOLIOS_ROUTE,
+  ADD_PORTFOLIO_ROUTE,
+  EDIT_PORTFOLIO_ROUTE,
+  REMOVE_PORTFOLIO_ROUTE,
+  SHARE_PORTFOLIO_ROUTE,
+  WORKFLOW_PORTFOLIO_ROUTE
+} from '../../constants/routes';
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -61,7 +69,7 @@ const Portfolios = () => {
   const { data, meta } = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
-  const match = useRouteMatch('/portfolios');
+  const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -96,7 +104,7 @@ const Portfolios = () => {
 
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
-      url="/portfolios/add-portfolio"
+      url={ADD_PORTFOLIO_ROUTE}
       label="Create portfolio"
     />
   );
@@ -134,16 +142,16 @@ const Portfolios = () => {
           }
         })}
       />
-      <Route exact path={['/portfolios/add-portfolio', '/portfolios/edit']}>
-        <AddPortfolio removeQuery closeTarget="/portfolios" />
+      <Route exact path={[ADD_PORTFOLIO_ROUTE, EDIT_PORTFOLIO_ROUTE]}>
+        <AddPortfolio removeQuery closeTarget={PORTFOLIOS_ROUTE} />
       </Route>
-      <Route exact path="/portfolios/remove" component={RemovePortfolio} />
-      <Route exact path="/portfolios/share">
+      <Route exact path={REMOVE_PORTFOLIO_ROUTE} component={RemovePortfolio} />
+      <Route exact path={SHARE_PORTFOLIO_ROUTE}>
         <SharePortfolio closeUrl={match.url} removeQuery />
       </Route>
       <Route
         exact
-        path="/portfolios/edit-workflow"
+        path={WORKFLOW_PORTFOLIO_ROUTE}
         render={() => (
           <EditApprovalWorkflow
             pushParam={{ pathname: match.url }}

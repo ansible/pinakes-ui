@@ -15,6 +15,7 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
 import SurveyEditor from '../../survey-editing/survey-editor';
+import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 
 const requiredParams = ['portfolio', 'source', 'portfolio-item'];
 
@@ -23,7 +24,7 @@ const PortfolioItemDetail = () => {
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
-  const { url } = useRouteMatch('/portfolio/portfolio-item');
+  const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
   const { portfolioItem, portfolio } = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );

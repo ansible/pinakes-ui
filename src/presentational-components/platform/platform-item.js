@@ -10,7 +10,7 @@ import './platform-card.scss';
 const PlatformItem = ({ src, ...props }) => (
   <Card key={props.id} className="content-gallery-card">
     <CardHeader>
-      <CardIcon src={src} style={{ height: 40 }} />
+      <CardIcon style={{ height: 40 }} sourceId={props.source_id} />
       {props.editMode && (
         <CardCheckbox
           id={props.id}

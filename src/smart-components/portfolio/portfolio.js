@@ -19,6 +19,7 @@ import {
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
+import { PORTFOLIO_ROUTE } from '../../constants/routes';
 
 const initialState = {
   selectedItems: [],
@@ -57,7 +58,7 @@ const Portfolio = () => {
   const [state, stateDispatch] = useReducer(porftolioUiReducer, initialState);
   const [searchParams] = useQuery(['portfolio']);
   const { portfolio: id } = searchParams;
-  const { url } = useRouteMatch('/portfolio');
+  const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const history = useHistory();
   const dispatch = useDispatch();
   const { portfolio, portfolioItem, meta } = useSelector(
@@ -106,7 +107,12 @@ const Portfolio = () => {
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
     return dispatch(copyPortfolio(id))
-      .then(({ id }) => history.push(`/portfolios/detail/${id}`))
+      .then(({ id }) =>
+        history.push({
+          pathname: PORTFOLIO_ROUTE,
+          search: `?portfolio=${id}`
+        })
+      )
       .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
       .then(() => dispatch(fetchPortfolios()))
       .catch(() =>

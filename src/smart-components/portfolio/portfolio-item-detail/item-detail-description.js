@@ -66,7 +66,7 @@ const ItemDetailDescription = ({ product, url, search }) => (
         objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
         objectId={product.id}
         objectName={() => product.name}
-        querySelector="portfolio"
+        querySelector="portfolio-item"
       />
     </Route>
   </Switch>

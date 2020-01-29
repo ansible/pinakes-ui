@@ -11,14 +11,12 @@ if (pathName[0] === 'beta') {
   release = `/${pathName.shift()}/`;
 }
 
-const Router = () => {
-  return (
-    <AppContext.Provider value={{ release }}>
-      <BrowserRouter basename={`${release}${pathName[0]}/${pathName[1]}`}>
-        <App />
-      </BrowserRouter>
-    </AppContext.Provider>
-  );
-};
+const Router = () => (
+  <AppContext.Provider value={{ release }}>
+    <BrowserRouter basename={`${release}${pathName[0]}/${pathName[1]}`}>
+      <App />
+    </BrowserRouter>
+  </AppContext.Provider>
+);
 
 export default Router;

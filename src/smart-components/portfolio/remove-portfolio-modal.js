@@ -14,6 +14,7 @@ import {
 import { removePortfolio } from '../../redux/actions/portfolio-actions';
 import useQuery from '../../utilities/use-query';
 import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
+import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 
 const RemovePortfolioModal = () => {
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
@@ -23,7 +24,7 @@ const RemovePortfolioModal = () => {
   );
   const { push, goBack } = useHistory();
   const onSubmit = () => {
-    push('/portfolios');
+    push(PORTFOLIOS_ROUTE);
     return dispatch(removePortfolio(portfolioId));
   };
 

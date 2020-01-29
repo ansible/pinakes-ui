@@ -20,6 +20,13 @@ import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
 import CatalogLink from '../../smart-components/common/catalog-link';
+import {
+  SHARE_PORTFOLIO_ROUTE,
+  EDIT_PORTFOLIO_WORKFLOW_ROUTE,
+  EDIT_PORTFOLIO_ROUTE,
+  REMOVE_PORTFOLIO_ROUTE,
+  PORTFOLIO_ROUTE
+} from '../../constants/routes';
 
 const TO_DISPLAY = ['description'];
 
@@ -37,7 +44,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
-            pathname="/portfolios/share"
+            pathname={SHARE_PORTFOLIO_ROUTE}
           >
             Share
           </CatalogLink>
@@ -48,7 +55,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
-            pathname="/portfolios/edit-workflow"
+            pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
           >
             Set approval
           </CatalogLink>
@@ -59,7 +66,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
-            pathname="/portfolios/edit"
+            pathname={EDIT_PORTFOLIO_ROUTE}
           >
             Edit
           </CatalogLink>
@@ -70,7 +77,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
-            pathname="/portfolios/remove"
+            pathname={REMOVE_PORTFOLIO_ROUTE}
           >
             Delete
           </CatalogLink>
@@ -83,7 +90,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
 const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
   const [isOpen, setOpen] = useState(false);
   const to = {
-    pathname: '/portfolio',
+    pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
   };
   return (
@@ -103,7 +110,7 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
           <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
             <CatalogLink
               className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
-              pathname="/portfolio"
+              pathname={PORTFOLIO_ROUTE}
               searchParams={{ portfolio: id }}
             >
               <TextContent className="pf-u-mb-md">

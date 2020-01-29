@@ -5,6 +5,11 @@ import { AppPlaceholder } from './presentational-components/shared/loader-placeh
 import Portfolio from './smart-components/portfolio/portfolio';
 import Platform from './smart-components/platform/platform';
 import OrderDetail from './smart-components/order/order-detail/order-detail';
+import {
+  PORTFOLIOS_ROUTE,
+  PORTFOLIO_ROUTE,
+  ORDER_ROUTE
+} from './constants/routes';
 
 const Products = lazy(() => import('./smart-components/products/products'));
 const Platforms = lazy(() => import('./smart-components/platform/platforms'));
@@ -17,10 +22,10 @@ const paths = {
   products: '/products',
   platforms: '/platforms',
   platform: '/platform',
-  portfolios: '/portfolios',
-  portfolio: '/portfolio',
+  portfolios: PORTFOLIOS_ROUTE,
+  portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
-  order: '/order'
+  order: ORDER_ROUTE
 };
 
 export const Routes = () => {
