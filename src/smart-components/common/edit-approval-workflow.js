@@ -7,8 +7,8 @@ import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
 import {
   listWorkflowsForObject,
-  linkWorkflow,
-  unlinkWorkflow
+  linkWorkflows,
+  unlinkWorkflows
 } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
@@ -56,36 +56,33 @@ const EditApprovalWorkflow = ({
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData, formApi) => {
+    const initialWorkflows = formApi.getState().initialValues.selectedWorkflows;
     history.push(pushParam);
-    const toUnlinkWorkflows = data.filter(
-      (wf) => formData.selectedWorkflows.findIndex((w) => w.id === wf.id) < 0
+    const toUnlinkWorkflows = initialWorkflows.filter(
+      (wf) => formData.selectedWorkflows.findIndex((w) => w === wf) < 0
     );
     const toLinkWorkflows = formData.selectedWorkflows.filter(
-      (wf) => data.findIndex((w) => w.id === wf.id) < 0
+      (wf) => initialWorkflows.findIndex((w) => w === wf) < 0
     );
 
     if (toUnlinkWorkflows) {
-      toUnlinkWorkflows.map((wf) =>
-        dispatch(
-          unlinkWorkflow(wf.id, wf.name, {
-            object_type: objectType,
-            app_name: APP_NAME[objectType],
-            object_id: id || objectId
-          })
-        )
+      dispatch(
+        unlinkWorkflows(toUnlinkWorkflows, {
+          object_type: objectType,
+          app_name: APP_NAME[objectType],
+          object_id: id || objectId
+        })
       );
     }
 
     if (toLinkWorkflows) {
-      toLinkWorkflows.map((wf) =>
-        dispatch(
-          linkWorkflow(wf, {
-            object_type: objectType,
-            app_name: APP_NAME[objectType],
-            object_id: id || objectId
-          })
-        )
+      dispatch(
+        linkWorkflows(toLinkWorkflows, {
+          object_type: objectType,
+          app_name: APP_NAME[objectType],
+          object_id: id || objectId
+        })
       );
     }
   };
