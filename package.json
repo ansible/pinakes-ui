@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
-    "@data-driven-forms/form-builder": "0.0.1-rc15",
+    "@data-driven-forms/form-builder": "0.0.1-rc16",
     "@data-driven-forms/pf4-component-mapper": "^1.23.5",
     "@data-driven-forms/react-form-renderer": "^1.23.5",
     "@manageiq/topological_inventory": "~1.2.0",
