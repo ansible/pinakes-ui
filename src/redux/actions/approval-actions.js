@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 import * as ApprovalHelper from '../../helpers/approval/approval-helper';
@@ -12,47 +12,47 @@ export const fetchWorkflows = () => ({
   ])
 });
 
-export const linkWorkflows = (workflowIds, resourceObject) => (dispatch) =>
+export const updateWorkflows = (toUnlinkIds, toLinkIds, resourceObject) => (
+  dispatch
+) =>
   dispatch({
-    type: ASYNC_ACTIONS.LINK_WORKFLOW,
-    payload: ApprovalHelper.linkWorkflows(workflowIds, resourceObject).then(
-      () =>
-        dispatch(
-          addNotification({
-            variant: 'success',
-            title: 'Success linking workflows',
-            description: (
-              <FormattedMessage
-                id="workflows.link_workflows"
-                defaultMessage={`{count, number} {count, plural, one {workflow was}
-                  other {workflows were}} linked succesfully.`}
-                values={{ count: workflowIds.length }}
-              />
-            )
-          })
-        )
-    )
-  });
-
-export const unlinkWorkflows = (workflowIds, resourceObject) => (dispatch) =>
-  dispatch({
-    type: ASYNC_ACTIONS.LINK_WORKFLOW,
-    payload: ApprovalHelper.unlinkWorkflows(workflowIds, resourceObject).then(
-      () =>
-        dispatch(
-          addNotification({
-            variant: 'success',
-            title: 'Success unlinking workflows',
-            description: (
-              <FormattedMessage
-                id="workflows.unlink_workflows"
-                defaultMessage={`{count, number} {count, plural, one {workflow was}
-                  other {workflows were}} unlinked succesfully.`}
-                values={{ count: workflowIds.length }}
-              />
-            )
-          })
-        )
+    type: ASYNC_ACTIONS.UPDATE_WORKFLOWS,
+    payload: ApprovalHelper.updateWorkflows(
+      toUnlinkIds,
+      toLinkIds,
+      resourceObject
+    ).then(() =>
+      dispatch(
+        addNotification({
+          variant: 'success',
+          title: 'Success updating workflows',
+          dismissable: true,
+          description: (
+            <Fragment>
+              {toUnlinkIds.length > 0 ? (
+                <FormattedMessage
+                  id="workflows.update_workflows"
+                  defaultMessage={`{count, number} {count, plural, one {workflow was}
+                    other {workflows were}} unlinked succesfully. `}
+                  values={{ count: toUnlinkIds.length }}
+                />
+              ) : (
+                ''
+              )}
+              {toLinkIds.length > 0 ? (
+                <FormattedMessage
+                  id="workflows.update_workflows"
+                  defaultMessage={`{count, number} {count, plural, one {workflow was}
+                    other {workflows were}} linked succesfully.`}
+                  values={{ count: toLinkIds.length }}
+                />
+              ) : (
+                ''
+              )}
+            </Fragment>
+          )
+        })
+      )
     )
   });
 

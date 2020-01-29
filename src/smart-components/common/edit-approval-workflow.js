@@ -7,8 +7,7 @@ import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
 import {
   listWorkflowsForObject,
-  linkWorkflows,
-  unlinkWorkflows
+  updateWorkflows
 } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
@@ -66,19 +65,9 @@ const EditApprovalWorkflow = ({
       (wf) => initialWorkflows.findIndex((w) => w === wf) < 0
     );
 
-    if (toUnlinkWorkflows) {
+    if (toUnlinkWorkflows || toLinkWorkflows) {
       dispatch(
-        unlinkWorkflows(toUnlinkWorkflows, {
-          object_type: objectType,
-          app_name: APP_NAME[objectType],
-          object_id: id || objectId
-        })
-      );
-    }
-
-    if (toLinkWorkflows) {
-      dispatch(
-        linkWorkflows(toLinkWorkflows, {
+        updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
           object_type: objectType,
           app_name: APP_NAME[objectType],
           object_id: id || objectId
