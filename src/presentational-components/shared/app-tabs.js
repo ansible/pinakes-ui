@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from '@patternfly/react-core';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
 const AppTabs = ({ tabItems }) => {
-  const history = useHistory();
-  const location = useLocation();
-  const activeTab = tabItems.find(({ name }) =>
-    location.pathname.includes(name)
-  );
+  const { push } = useEnhancedHistory();
+  const { pathname, search } = useLocation();
+  const activeTab = tabItems.find(({ name }) => pathname.includes(name));
   const handleTabClick = (_event, tabIndex) =>
-    history.push(tabItems[tabIndex].name);
+    push({ pathname: tabItems[tabIndex].name, search });
 
   return (
     <Tabs

@@ -33,6 +33,30 @@ describe('<ServiceOfferingDetail />', () => {
 
   it('should mount and request data', async () => {
     const store = mockStore({
+      breadcrumbsReducer: {
+        fragments: [
+          {
+            pathname: '/platforms',
+            title: 'Platforms',
+            searchParams: {}
+          },
+          {
+            pathname: '/platform',
+            title: 'Source name',
+            searchParams: {
+              source: '352'
+            }
+          },
+          {
+            pathname: '/platform/service-offering',
+            title: 'Name',
+            searchParams: {
+              source: '352',
+              service: '2266193'
+            }
+          }
+        ]
+      },
       platformReducer: {
         serviceOffering: {
           service: {
@@ -75,10 +99,10 @@ describe('<ServiceOfferingDetail />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/platforms/service-offerings?service=2266193&source=352'
+            '/platform/service-offerings?service=2266193&source=352'
           ]}
         >
-          <Route path="/platforms/service-offerings">
+          <Route path="/platform/service-offerings">
             <ServiceOfferingDetail />
           </Route>
         </ComponentWrapper>

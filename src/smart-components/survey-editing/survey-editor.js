@@ -18,7 +18,6 @@ import {
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import { Bullseye } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
-import PortfolioItemBreadcrumbs from '../portfolio/portfolio-item-detail/portfolio-item-breadcrumbs';
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -94,13 +93,7 @@ const pf4Skin = {
   componentProperties
 };
 
-const SurveyEditor = ({
-  closeUrl,
-  search,
-  portfolioItem,
-  uploadIcon,
-  portfolio
-}) => {
+const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [schema, setSchema] = useState();
   const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
@@ -160,13 +153,7 @@ const SurveyEditor = ({
         handleSaveSurvey={handleSaveSurvey}
         closeUrl={closeUrl}
         search={search}
-      >
-        <PortfolioItemBreadcrumbs
-          portfolio={portfolio}
-          portfolioItem={portfolioItem}
-          search={search}
-        />
-      </SurveyEditingToolbar>
+      />
       {schema ? (
         <FormBuilder
           {...pf4Skin}
@@ -190,8 +177,7 @@ SurveyEditor.propTypes = {
   search: PropTypes.string.isRequired,
   portfolioItem: PropTypes.shape({ id: PropTypes.string.isRequired })
     .isRequired,
-  uploadIcon: PropTypes.func.isRequired,
-  portfolio: PropTypes.object.isRequired
+  uploadIcon: PropTypes.func.isRequired
 };
 
 export default SurveyEditor;

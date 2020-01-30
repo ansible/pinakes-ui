@@ -15,6 +15,7 @@ import ContentGalleryEmptyState from '../../presentational-components/shared/con
 import { Button } from '@patternfly/react-core';
 import AppContext from '../../app-context';
 import AsyncPagination from '../common/async-pagination';
+import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -26,13 +27,20 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const buildItemUrl = ({ portfolio_id, id, service_offering_source_ref }) =>
-  portfolio_id && id
-    ? {
-        pathname: `/portfolios/detail/${portfolio_id}/product/${id}`,
-        search: `portfolio=${portfolio_id}&source=${service_offering_source_ref}`
+const buildItemLink = ({ portfolio_id, id, service_offering_source_ref }) => {
+  if (portfolio_id && id && service_offering_source_ref) {
+    return {
+      pathname: portfolio_id && PORTFOLIO_ITEM_ROUTE,
+      searchParams: {
+        portfolio: portfolio_id,
+        'portfolio-item': id,
+        source: service_offering_source_ref
       }
-    : undefined;
+    };
+  }
+
+  return {};
+};
 
 const initialState = {
   filterValue: '',
@@ -82,7 +90,12 @@ const Products = () => {
   };
 
   const galleryItems = data.map((item) => (
-    <PortfolioItem key={item.id} to={buildItemUrl(item)} {...item} />
+    <PortfolioItem
+      key={item.id}
+      pathname={item.portfolio_id && PORTFOLIO_ITEM_ROUTE}
+      {...buildItemLink(item)}
+      {...item}
+    />
   ));
 
   const SourcesAction = () => (

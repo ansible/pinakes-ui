@@ -80,7 +80,7 @@ describe('<EditApprovalWorkflow />', () => {
       .replyOnce(200, { data: [] });
     const wrapper = shallow(
       <ComponentWrapper store={store}>
-        <EditApprovalWorkflow {...initialProps} />
+        <EditApprovalWorkflow querySelector="portfolio" {...initialProps} />
       </ComponentWrapper>
     ).dive();
 
@@ -123,11 +123,18 @@ describe('<EditApprovalWorkflow />', () => {
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
           <Route
-            path="/portfolio/:id"
+            path="/portfolio"
             render={(args) => (
-              <EditApprovalWorkflow {...args} {...initialProps} />
+              <EditApprovalWorkflow
+                querySelector="portfolio"
+                {...args}
+                {...initialProps}
+              />
             )}
           />
         </ComponentWrapper>
@@ -189,11 +196,18 @@ describe('<EditApprovalWorkflow />', () => {
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
           <Route
-            path="/portfolio/:id"
+            path="/portfolio"
             render={(args) => (
-              <EditApprovalWorkflow {...args} {...initialProps} />
+              <EditApprovalWorkflow
+                {...args}
+                {...initialProps}
+                querySelector="portfolio"
+              />
             )}
           />
         </ComponentWrapper>
@@ -227,7 +241,7 @@ describe('<EditApprovalWorkflow />', () => {
     setImmediate(() => {
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual('/portfolio/foo');
+      ).toEqual('/portfolio');
       done();
     });
   });

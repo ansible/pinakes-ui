@@ -175,3 +175,9 @@ export const getPortfolioItemDetail = (params) =>
     axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
     axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.source}`)
   ]);
+
+export const getPortfolioFromState = (portfolioReducer, portfolioId) =>
+  portfolioReducer.selectedPortfolio &&
+  portfolioReducer.selectedPortfolio.id === portfolioId
+    ? portfolioReducer.selectedPortfolio
+    : portfolioReducer.portfolios.data.find(({ id }) => id === portfolioId);

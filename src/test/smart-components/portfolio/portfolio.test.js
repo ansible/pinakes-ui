@@ -24,9 +24,13 @@ import AddProductsToPortfolio from '../../../smart-components/portfolio/add-prod
 import {
   FETCH_PLATFORMS,
   FETCH_PORTFOLIO,
-  FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO
+  FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
+  INITIALIZE_BREADCRUMBS
 } from '../../../redux/action-types';
 import { mockApi, mockGraphql } from '../../__mocks__/user-login';
+import { testStore } from '../../../utilities/store';
+import CatalogBreadcrumbs from '../../../smart-components/common/catalog-breadcrumbs';
+import { BreadcrumbItem } from '@patternfly/react-core';
 
 describe('<Portfolio />', () => {
   let initialProps;
@@ -49,6 +53,7 @@ describe('<Portfolio />', () => {
       id: '123'
     };
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platformItems: []
       },
@@ -92,6 +97,7 @@ describe('<Portfolio />', () => {
   it('should mount and fetch correct data', async (done) => {
     const store = mockStore(initialState);
     const expectedActions = [
+      expect.objectContaining({ type: INITIALIZE_BREADCRUMBS }),
       {
         type: `${FETCH_PLATFORMS}_PENDING`
       },
@@ -128,10 +134,10 @@ describe('<Portfolio />', () => {
       mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123']}
+          initialEntries={['/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -167,10 +173,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123/add-products']}
+          initialEntries={['/portfolio/add-products?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -237,10 +243,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123/remove-products']}
+          initialEntries={['/portfolio/remove-products?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -305,10 +311,10 @@ describe('<Portfolio />', () => {
     const wrapper = mount(
       <ComponentWrapper
         store={store}
-        initialEntries={['/portfolios/detail/123/remove-portfolio']}
+        initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
       >
         <Route
-          path="/portfolios/detail/:id"
+          path="/portfolio"
           render={(...args) => <Portfolio {...initialProps} {...args} />}
         />
       </ComponentWrapper>
@@ -359,10 +365,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123/order/321']}
+          initialEntries={['/portfolio/order?source=321&portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -414,10 +420,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/123']}
+          initialEntries={['/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolios/detail/:id"
+            path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -472,6 +478,11 @@ describe('<Portfolio />', () => {
       )
       .replyOnce(200, { data: [], meta: {} });
     mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios/321/portfolio_items?filter[name][contains_i]=nothing&limit=50&offset=0`
+      )
+      .replyOnce(200, { data: [], meta: {} });
+    mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/321`)
       .replyOnce(200, { data: [], meta: {} });
     mockGraphql
@@ -512,13 +523,11 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/detail/321']}
+          initialEntries={['/portfolio?portfolio=321']}
         >
           <Route
-            path="/portfolios/detail/:id"
-            render={(...args) => (
-              <Portfolio {...initialProps} id="321" {...args} />
-            )}
+            path="/portfolio"
+            render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
       );
@@ -553,12 +562,108 @@ describe('<Portfolio />', () => {
     /**
      * trigger notification undo click
      */
-    const notification = store.getActions()[9].payload.description;
+    const notification = store.getActions()[10].payload.description;
     const notificationWrapper = mount(
       <IntlProvider locale="en">{notification}</IntlProvider>
     );
     await act(async () => {
       notificationWrapper.find('a').simulate('click');
     });
+  });
+
+  it('should navigate back from portfolio item to portfolio via breadcrumbs', async () => {
+    const { ...store } = testStore();
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
+      .replyOnce(200, {
+        id: 'portfolio-item-id',
+        name: 'Portfolio item',
+        portfolio_id: 'portfolio-id',
+        service_offering_source_ref: 'source-id',
+        created_at: '1999-07-26'
+      })
+      .onGet(`${SOURCES_API_BASE}/sources/source-id`)
+      .replyOnce(200, { id: 'source-id', name: 'Source', source_type_id: '3' })
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items??filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .replyOnce(200, { meta: {}, data: [] });
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: {
+        application_types: [
+          {
+            id: '1',
+            name: '/insights/platform/catalog',
+            sources: [
+              {
+                id: 'source-id',
+                name: 'Source',
+                source_type_id: '3'
+              }
+            ]
+          }
+        ]
+      }
+    });
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/portfolio/portfolio-item?portfolio=portfolio-id&source=source-id&portfolio-item=portfolio-item-id'
+          ]}
+        >
+          <Route
+            path="/portfolio"
+            render={(...args) => <Portfolio {...initialProps} {...args} />}
+          />
+        </ComponentWrapper>
+      );
+    });
+    expect(store.getState().breadcrumbsReducer.fragments).toEqual([
+      expect.objectContaining({ pathname: '/portfolios', searchParams: {} }),
+      expect.objectContaining({
+        pathname: '/portfolio',
+        searchParams: {
+          portfolio: 'portfolio-id'
+        }
+      }),
+      expect.objectContaining({
+        pathname: '/portfolio/portfolio-item',
+        searchParams: {
+          portfolio: 'portfolio-id',
+          'portfolio-item': 'portfolio-item-id',
+          source: 'source-id'
+        }
+      })
+    ]);
+    wrapper.update();
+    expect(wrapper.find(CatalogBreadcrumbs)).toHaveLength(1);
+    expect(wrapper.find(BreadcrumbItem)).toHaveLength(3);
+    wrapper
+      .find('a.pf-c-breadcrumb__item')
+      .at(1)
+      .simulate('click', { button: 0 });
+    wrapper.update();
+    expect(wrapper.find(BreadcrumbItem)).toHaveLength(2);
+    expect(store.getState().breadcrumbsReducer.fragments).toEqual([
+      expect.objectContaining({ pathname: '/portfolios', searchParams: {} }),
+      expect.objectContaining({
+        pathname: '/portfolio',
+        searchParams: {
+          portfolio: 'portfolio-id'
+        }
+      })
+    ]);
+    const { pathname, search } = wrapper
+      .find(MemoryRouter)
+      .instance().history.location;
+    expect(pathname).toEqual('/portfolio');
+    expect(search).toEqual('?portfolio=portfolio-id');
   });
 });

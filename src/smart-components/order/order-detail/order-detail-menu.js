@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
 import {
   TextContent,
   Text,
@@ -9,6 +8,7 @@ import {
   NavList,
   Nav
 } from '@patternfly/react-core';
+import CatalogLink from '../../common/catalog-link';
 
 const useNavItems = ({ state } = {}) => [
   {
@@ -32,7 +32,6 @@ const useNavItems = ({ state } = {}) => [
 ];
 
 const OrderDetailMenu = ({ baseUrl, isFetching }) => {
-  const { search } = useLocation();
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
@@ -53,17 +52,16 @@ const OrderDetailMenu = ({ baseUrl, isFetching }) => {
               isDisabled || isFetching ? ' disabled' : ''
             }`}
           >
-            <NavLink
+            <CatalogLink
               exact
-              to={{
-                pathname: `${baseUrl}${link}`,
-                search
-              }}
+              nav
+              pathname={`${baseUrl}${link}`}
+              preserveSearch
               className="pf-c-nav__link orders-side-nav-link"
               activeClassName="pf-m-active"
             >
               {title}
-            </NavLink>
+            </CatalogLink>
           </li>
         ))}
       </NavList>

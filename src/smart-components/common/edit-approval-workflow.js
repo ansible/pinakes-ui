@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
@@ -12,6 +11,8 @@ import {
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
+import useQuery from '../../utilities/use-query';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
 const initialState = {
   isFetching: true
@@ -27,9 +28,10 @@ const approvalState = (state, action) => {
 };
 
 const EditApprovalWorkflow = ({
-  closeUrl,
   objectType,
-  objectId,
+  removeQuery,
+  querySelector,
+  pushParam,
   objectName = () => objectType
 }) => {
   const [{ isFetching }, stateDispatch] = useReducer(
@@ -40,16 +42,17 @@ const EditApprovalWorkflow = ({
     ({ approvalReducer: { resolvedWorkflows } }) => resolvedWorkflows
   );
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const history = useHistory();
-  const pushParam = {
-    pathname: closeUrl
-  };
+  const history = useEnhancedHistory(removeQuery);
+  const [query] = useQuery([querySelector]);
 
   useEffect(() => {
     dispatch(
       listWorkflowsForObject(
-        { objectType, appName: APP_NAME[objectType], objectId: id || objectId },
+        {
+          objectType,
+          appName: APP_NAME[objectType],
+          objectId: query[querySelector]
+        },
         meta
       )
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -70,7 +73,7 @@ const EditApprovalWorkflow = ({
         updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
           object_type: objectType,
           app_name: APP_NAME[objectType],
-          object_id: id || objectId
+          object_id: query[querySelector]
         })
       );
     }
@@ -78,7 +81,7 @@ const EditApprovalWorkflow = ({
 
   return (
     <Modal
-      title={`Set approval process for ${objectName(id)}`}
+      title={`Set approval process for ${objectName(query[querySelector])}`}
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
@@ -102,10 +105,18 @@ const EditApprovalWorkflow = ({
 };
 
 EditApprovalWorkflow.propTypes = {
-  closeUrl: PropTypes.string.isRequired,
+  pushParam: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string
+    })
+  ]).isRequired,
   objectType: PropTypes.string.isRequired,
   objectName: PropTypes.func,
-  objectId: PropTypes.string
+  removeQuery: PropTypes.bool,
+  querySelector: PropTypes.oneOf(['portfolio', 'platform', 'inventory'])
+    .isRequired
 };
 
 export default EditApprovalWorkflow;

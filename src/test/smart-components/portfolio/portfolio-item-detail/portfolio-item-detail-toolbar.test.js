@@ -36,6 +36,7 @@ describe('<PortfolioItemDetailToolbar />', () => {
     };
 
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: { platforms: [], platformIconMapping: {} }
     };
     mockStore = configureStore(middlewares);

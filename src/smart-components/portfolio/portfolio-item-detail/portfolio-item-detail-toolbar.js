@@ -17,15 +17,13 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
-  <div style={{ float: 'left' }} className="pf-u-mr-sm">
-    <IconUpload uploadIcon={uploadIcon}>
-      <CardIcon
-        src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
-        sourceId={sourceId}
-        height={64}
-      />
-    </IconUpload>
-  </div>
+  <IconUpload uploadIcon={uploadIcon}>
+    <CardIcon
+      src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
+      sourceId={sourceId}
+      height={64}
+    />
+  </IconUpload>
 );
 
 PortfolioItemIconItem.propTypes = {
@@ -40,19 +38,17 @@ export const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon,
-  children
+  uploadIcon
 }) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={false}>
-    {children}
-    <PortfolioItemIconItem
-      uploadIcon={uploadIcon}
-      id={product.id}
-      sourceId={product.service_offering_source_ref}
-    />
+  <TopToolbar breadcrumbsSpacing={false}>
     <Level>
-      <LevelItem>
-        <TextContent>
+      <LevelItem className="pf-l-flex flex-align-end">
+        <PortfolioItemIconItem
+          uploadIcon={uploadIcon}
+          id={product.id}
+          sourceId={product.service_offering_source_ref}
+        />
+        <TextContent className="pf-u-ml-md">
           <Text component={TextVariants.h1}>{product.name}</Text>
         </TextContent>
       </LevelItem>
@@ -99,8 +95,7 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  uploadIcon: PropTypes.func.isRequired
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
@@ -108,15 +103,13 @@ PortfolioItemDetailToolbar.defaultProps = {
 };
 
 export const SurveyEditingToolbar = ({
-  children,
   uploadIcon,
   product,
   handleSaveSurvey,
   closeUrl,
   search
 }) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={false}>
-    {children}
+  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <PortfolioItemIconItem
       uploadIcon={uploadIcon}
       id={product.id}
@@ -148,7 +141,6 @@ export const SurveyEditingToolbar = ({
 );
 
 SurveyEditingToolbar.propTypes = {
-  children: PropTypes.node,
   uploadIcon: PropTypes.func.isRequired,
   product: PropTypes.object,
   handleSaveSurvey: PropTypes.func.isRequired,

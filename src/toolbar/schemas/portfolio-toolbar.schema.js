@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {
   Dropdown,
   DropdownPosition,
@@ -12,6 +11,7 @@ import clsx from 'clsx';
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
+import CatalogLink from '../../smart-components/common/catalog-link';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -43,19 +43,31 @@ const PortfolioActionsToolbar = ({
         <DropdownItem
           aria-label="Set approval workflow"
           key="edit-approval_workflow"
-          component={<Link to={workflowPortfolioRoute}>Set approval</Link>}
+          component={
+            <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
+              Set approval
+            </CatalogLink>
+          }
           role="link"
         />,
         <DropdownItem
           aria-label="Edit Portfolio"
           key="edit-portfolio"
-          component={<Link to={editPortfolioRoute}>Edit</Link>}
+          component={
+            <CatalogLink preserveSearch pathname={editPortfolioRoute}>
+              Edit
+            </CatalogLink>
+          }
           role="link"
         />,
         <DropdownItem
           aria-label="Remove Portfolio"
           key="delete-portfolio"
-          component={<Link to={removePortfolioRoute}>Delete</Link>}
+          component={
+            <CatalogLink preserveSearch pathname={removePortfolioRoute}>
+              Delete
+            </CatalogLink>
+          }
           role="link"
           className="pf-c-dropdown__menu-item destructive-color"
         />
@@ -162,7 +174,8 @@ const createPortfolioToolbarSchema = ({
               className: 'toolbar-override',
               fields: [
                 createLinkButton({
-                  to: sharePortfolioRoute,
+                  pathname: sharePortfolioRoute,
+                  preserveSearch: true,
                   variant: 'secondary',
                   title: 'Share',
                   isDisabled: copyInProgress,
@@ -205,7 +218,8 @@ const createPortfolioToolbarSchema = ({
                       groupName: 'add-portfolio-items',
                       key: 'portfolio-items-add-group',
                       ...createLinkButton({
-                        to: addProductsRoute,
+                        preserveSearch: true,
+                        pathname: addProductsRoute,
                         isDisabled: isLoading || copyInProgress,
                         variant: 'primary',
                         title: 'Add products',
