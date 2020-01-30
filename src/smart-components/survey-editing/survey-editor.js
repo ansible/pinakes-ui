@@ -18,6 +18,8 @@ import {
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import { Bullseye } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import { useDispatch } from 'react-redux';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -95,9 +97,11 @@ const pf4Skin = {
 
 const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [schema, setSchema] = useState();
+  const [isFetching, setIsFetching] = useState(false);
   const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
   const [editedTemplate, setEditedTemplate] = useState({ fields: [] });
+  const dispatch = useDispatch();
   const { push } = useHistory();
   useEffect(() => {
     getAxiosInstance()
@@ -124,25 +128,40 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
       })
       .then((schema) => setSchema(schema));
   }, []);
-  const handleSaveSurvey = () => {
-    if (servicePlan.modified) {
-      return getServicePlansApi()
-        .patchServicePlanModified(`${servicePlan.id}`, {
-          modified: { schema: editedTemplate }
-        })
-        .then(() => push({ pathname: closeUrl, search }));
-    }
 
-    return getServicePlansApi()
+  const modifySurvey = () =>
+    getServicePlansApi().patchServicePlanModified(`${servicePlan.id}`, {
+      modified: { schema: editedTemplate }
+    });
+  const createSurvey = () =>
+    getServicePlansApi()
       .createServicePlan({ portfolio_item_id: portfolioItem.id })
       .then(([{ id }]) => id)
       .then((id) =>
-        getServicePlansApi()
-          .patchServicePlanModified(`${id}`, {
-            modified: { schema: editedTemplate }
-          })
-          .then(() => push({ pathname: closeUrl, search }))
+        getServicePlansApi().patchServicePlanModified(`${id}`, {
+          modified: { schema: editedTemplate }
+        })
       );
+  const handleSaveSurvey = () => {
+    setIsFetching(true);
+    let submitCall = servicePlan.modified ? modifySurvey : createSurvey;
+
+    return submitCall()
+      .then(() => {
+        setIsFetching(false);
+        dispatch(
+          addNotification({
+            variant: 'success',
+            title: `Survey of ${portfolioItem.name} has been modified.`,
+            dismissable: true
+          })
+        );
+        return push({ pathname: closeUrl, search });
+      })
+      .catch((error) => {
+        setIsFetching(false);
+        dispatch({ type: 'EDIT_SURVEY_REJECTED', payload: error });
+      });
   };
 
   return (
@@ -153,6 +172,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
         handleSaveSurvey={handleSaveSurvey}
         closeUrl={closeUrl}
         search={search}
+        isFetching={!schema || isFetching}
       />
       {schema ? (
         <FormBuilder
@@ -175,9 +195,12 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
 SurveyEditor.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
-  portfolioItem: PropTypes.shape({ id: PropTypes.string.isRequired })
-    .isRequired,
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  portfolioItem: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  portfolio: PropTypes.object.isRequired
 };
 
 export default SurveyEditor;
