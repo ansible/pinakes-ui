@@ -175,10 +175,7 @@ describe('<OrderModal />', () => {
 
     wrapper.update();
     await act(async () => {
-      wrapper
-        .find(Button)
-        .last()
-        .simulate('click');
+      wrapper.find('form').simulate('submit');
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname

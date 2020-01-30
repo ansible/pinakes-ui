@@ -132,10 +132,7 @@ describe('<EditPortfolioItem />', () => {
     input.simulate('change');
     wrapper.update();
     await act(async () => {
-      wrapper
-        .find('button')
-        .first()
-        .simulate('click');
+      wrapper.find('form').simulate('submit');
     });
     expect(store.getActions()).toEqual(expectedActions);
     expect(
