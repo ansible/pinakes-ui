@@ -7,8 +7,7 @@ import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
 import {
   listWorkflowsForObject,
-  linkWorkflow,
-  unlinkWorkflow
+  updateWorkflows
 } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
 import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
@@ -56,43 +55,39 @@ const EditApprovalWorkflow = ({
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
-  const onSubmit = (values) => {
+  const onSubmit = (formData, formApi) => {
+    const initialWorkflows = formApi.getState().initialValues.selectedWorkflows;
     history.push(pushParam);
-    const approvalWorkflow = data ? data[0] : undefined;
+    const toUnlinkWorkflows = initialWorkflows.filter(
+      (wf) => formData.selectedWorkflows.findIndex((w) => w === wf) < 0
+    );
+    const toLinkWorkflows = formData.selectedWorkflows.filter(
+      (wf) => initialWorkflows.findIndex((w) => w === wf) < 0
+    );
 
-    if (approvalWorkflow && approvalWorkflow.id === values.workflow) {
-      return;
-    }
-
-    if (approvalWorkflow) {
+    if (toUnlinkWorkflows || toLinkWorkflows) {
       dispatch(
-        unlinkWorkflow(approvalWorkflow.id, approvalWorkflow.name, {
+        updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
           object_type: objectType,
           app_name: APP_NAME[objectType],
           object_id: id || objectId
         })
       );
     }
-
-    return dispatch(
-      linkWorkflow(values.workflow, {
-        object_type: objectType,
-        app_name: APP_NAME[objectType],
-        object_id: id || objectId
-      })
-    );
   };
 
   return (
     <Modal
-      title={`Set approval workflow for ${objectName(id)}`}
+      title={`Set approval process for ${objectName(id)}`}
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
     >
       {!isFetching ? (
         <FormRenderer
-          initialValues={{ workflow: data && data[0] ? data[0].id : undefined }}
+          initialValues={{
+            selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
+          }}
           onSubmit={onSubmit}
           onCancel={() => history.push(pushParam)}
           schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
