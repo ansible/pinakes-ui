@@ -59,16 +59,19 @@ const EditApprovalWorkflow = ({
   }, []);
 
   const onSubmit = (formData, formApi) => {
-    const initialWorkflows = formApi.getState().initialValues.selectedWorkflows;
+    const initialWorkflows =
+      formApi.getState().initialValues.selectedWorkflows || [];
+    const newWorkflows = formData.selectedWorkflows || [];
+
     history.push(pushParam);
     const toUnlinkWorkflows = initialWorkflows.filter(
-      (wf) => formData.selectedWorkflows.findIndex((w) => w === wf) < 0
+      (wf) => newWorkflows.findIndex((w) => w === wf) < 0
     );
-    const toLinkWorkflows = formData.selectedWorkflows.filter(
+    const toLinkWorkflows = newWorkflows.filter(
       (wf) => initialWorkflows.findIndex((w) => w === wf) < 0
     );
 
-    if (toUnlinkWorkflows || toLinkWorkflows) {
+    if (toUnlinkWorkflows.length > 0 || toLinkWorkflows.length > 0) {
       dispatch(
         updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
           object_type: objectType,
