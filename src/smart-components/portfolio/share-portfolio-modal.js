@@ -70,30 +70,36 @@ const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
             (permission) => permissionValues.indexOf(permission) > -1
           );
           sharePromises.push(
-            unsharePortfolio({
-              id: portfolio,
-              permissions: sharePermissions,
-              group_uuid: share.group_uuid
-            })
+            dispatch(
+              unsharePortfolio({
+                id: portfolio,
+                permissions: sharePermissions,
+                group_uuid: share.group_uuid
+              })
+            )
           );
         } else {
           if (
             share.permissions.length > data[share.group_name].split(',').length
           ) {
             sharePromises.push(
-              unsharePortfolio({
-                id: portfolio,
-                permissions: ['update'],
-                group_uuid: share.group_uuid
-              })
+              dispatch(
+                unsharePortfolio({
+                  id: portfolio,
+                  permissions: ['update'],
+                  group_uuid: share.group_uuid
+                })
+              )
             );
           } else {
             sharePromises.push(
-              sharePortfolio({
-                id: portfolio,
-                permissions: data[share.group_name],
-                group_uuid: share.group_uuid
-              })
+              dispatch(
+                sharePortfolio({
+                  id: portfolio,
+                  permissions: data[share.group_name],
+                  group_uuid: share.group_uuid
+                })
+              )
             );
           }
         }

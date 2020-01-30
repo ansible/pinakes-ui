@@ -478,6 +478,11 @@ describe('<Portfolio />', () => {
       )
       .replyOnce(200, { data: [], meta: {} });
     mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios/321/portfolio_items?filter[name][contains_i]=nothing&limit=50&offset=0`
+      )
+      .replyOnce(200, { data: [], meta: {} });
+    mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/321`)
       .replyOnce(200, { data: [], meta: {} });
     mockGraphql
