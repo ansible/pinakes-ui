@@ -58,20 +58,14 @@ export async function addPortfolio(portfolioData, items) {
 }
 
 export async function addToPortfolio(portfolioId, items) {
-  const request = async (item) => {
-    const newItem = await portfolioItemApi.createPortfolioItem({
-      service_offering_ref: item
-    });
-    if (newItem) {
-      await portfolioApi.addPortfolioItemToPortfolio(portfolioId, {
-        portfolio_item_id: newItem.id
-      });
-    }
-
-    return newItem;
-  };
-
-  return Promise.all(items.map((item) => request(item)));
+  return Promise.all(
+    items.map((item) =>
+      portfolioItemApi.createPortfolioItem({
+        portfolio_id: portfolioId,
+        service_offering_ref: item
+      })
+    )
+  );
 }
 
 export async function updatePortfolio({ id, ...portfolioData }, store) {
