@@ -403,7 +403,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
             >
               <div
-                className="pf-c-dropdown"
+                className="pf-c-dropdown pf-m-align-right"
                 onToggle={[MockFunction]}
               >
                 <KebabToggle
@@ -417,7 +417,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   parentRef={
                     Object {
                       "current": <div
-                        class="pf-c-dropdown"
+                        class="pf-c-dropdown pf-m-align-right"
                       >
                         <button
                           aria-expanded="false"
@@ -464,7 +464,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     parentRef={
                       Object {
                         "current": <div
-                          class="pf-c-dropdown"
+                          class="pf-c-dropdown pf-m-align-right"
                         >
                           <button
                             aria-expanded="false"

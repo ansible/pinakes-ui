@@ -90,7 +90,7 @@ export const fetchOrders = (filterType, filter, pagination) => (dispatch) => {
     })
     .catch((error) =>
       dispatch({
-        type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`,
+        type: `${ActionTypes.FETCH_ORDERS}_REJECTED`,
         payload: error
       })
     );
