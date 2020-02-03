@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Section } from '@redhat-cloud-services/frontend-components';
+import Section from '@redhat-cloud-services/frontend-components/components/Section';
 import { Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';

@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Main } from '@redhat-cloud-services/frontend-components';
+import Main from '@redhat-cloud-services/frontend-components/components/Main';
 import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import { Routes } from './Routes';

@@ -11,7 +11,7 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
-import { DateFormat } from '@redhat-cloud-services/frontend-components';
+import DateFormat from '@redhat-cloud-services/frontend-components/components/DateFormat';
 
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';

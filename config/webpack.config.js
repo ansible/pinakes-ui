@@ -1,8 +1,9 @@
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const plugins = require('./webpack.plugins.js');
-
 const common = require('./webpack.common.js');
 
 const commonConfig = {
@@ -20,35 +21,42 @@ const commonConfig = {
     publicPath: common.paths.publicPath
   },
   module: {
-    rules: [{
-      test: /src\/.*\.js$/,
-      exclude: /node_modules/,
-      use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }]
-    }, {
-      test: /\.s?[ac]ss$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        {
-          loader: 'css-loader'
-        },
-        {
-          loader: 'sass-loader'
+    rules: [
+      {
+        test: /src\/.*\.js$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }]
+      },
+      {
+        test: /\.s?[ac]ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|jpg|png|eot|gif|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
+      },
+      {
+        parser: {
+          amd: false
         }
-      ]
-    }, {
-      test: /\.(woff(2)?|ttf|jpg|png|eot|gif|svg)(\?v=\d+\.\d+\.\d+)?$/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'fonts/'
-        }
-      }]
-    }, {
-      parser: {
-        amd: false
       }
-    }]
+    ]
   },
   plugins
 };
@@ -66,9 +74,14 @@ const devConfig = {
 };
 
 module.exports = function(env) {
-  if (env.prod === 'true') {
-    return commonConfig;
+  const common = commonConfig;
+  if (env.analyze === 'true') {
+    common.plugins.push(new BundleAnalyzerPlugin());
   }
 
-  return merge(commonConfig, devConfig);
+  if (env.prod === 'true') {
+    return common;
+  }
+
+  return merge(common, devConfig);
 };

@@ -14,7 +14,7 @@ import {
   SplitItem,
   Bullseye
 } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components';
+import Spinner from '@redhat-cloud-services/frontend-components/components/Spinner';
 
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
