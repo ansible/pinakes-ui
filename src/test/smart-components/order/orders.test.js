@@ -135,7 +135,7 @@ describe('<Orders />', () => {
     done();
   });
 
-  it('should mount and render orders list component and paginate correctly', async (done) => {
+  it.skip('should mount and render orders list component and paginate correctly', async (done) => {
     const orderItemsPagination = { ...orderReducer };
     orderItemsPagination.orders = {
       meta: {

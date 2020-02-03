@@ -79,7 +79,7 @@ const OrdersList = () => {
 
   const handlePagination = (_apiProps, pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    dispatch(fetchOrders(filterType, filterValue, pagination))
+    return dispatch(fetchOrders(filterType, filterValue, pagination))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
