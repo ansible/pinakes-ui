@@ -277,6 +277,15 @@ a.pf-c-breadcrumb__item {
     cursor: pointer;
   }
 }
+.pf4-hidefield-overlay{
+  .hide-indicator {
+    z-index: 1;
+  }
+  &::before {
+    z-index: 1;
+  }
+
+}
 
 // Image uploader
 .image-upload-button {
@@ -539,4 +548,9 @@ a.breadcrumb-active {
 
 .flex-align-end {
   align-items: end
+}
+
+.upload-icon-wrapper {
+  position: relative;
+  display: inline-block;
 }
