@@ -62,9 +62,10 @@ const createAddProductsSchema = ({
                   groupName: 'cancel-group-item',
                   ...createLinkButton({
                     key: 'add-products-cancel-button',
-                    to: portfolioRoute,
+                    pathname: portfolioRoute,
                     variant: 'link',
                     'aria-label': 'Cancel Add products to Portfolio',
+                    preserveSearch: true,
                     title: 'Cancel'
                   })
                 }),

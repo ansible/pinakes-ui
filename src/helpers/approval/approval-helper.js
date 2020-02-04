@@ -15,10 +15,15 @@ export const loadWorkflowOptions = (filterValue = '') =>
       data.map(({ id, name }) => ({ label: name, value: id }))
     );
 
-export const linkWorkflow = (id, resourceObject) =>
-  getWorkflowApi().linkWorkflow(id, resourceObject);
-export const unlinkWorkflow = (id, resourceObject) =>
-  getWorkflowApi().unlinkWorkflow(id, resourceObject);
+export const updateWorkflows = (unlinkIds, linkIds, resourceObject) => {
+  const unlinkPromises = unlinkIds
+    ? unlinkIds.map((wf) => getWorkflowApi().unlinkWorkflow(wf, resourceObject))
+    : [];
+  const linkPromises = linkIds
+    ? linkIds.map((wf) => getWorkflowApi().linkWorkflow(wf, resourceObject))
+    : [];
+  return Promise.all([...unlinkPromises, ...linkPromises]);
+};
 
 export const listWorkflowsForObject = (
   resourceObject,

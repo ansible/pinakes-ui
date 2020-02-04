@@ -17,6 +17,15 @@ import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import useQuery from '../../utilities/use-query';
+import {
+  PORTFOLIO_ROUTE,
+  NESTED_EDIT_PORTFOLIO_ROUTE,
+  NESTED_REMOVE_PORTFOLIO_ROUTE,
+  NESTED_SHARE_PORTFOLIO_ROUTE,
+  NESTED_WORKFLOW_PORTFOLIO_ROUTE,
+  NESTED_ORDER_PORTFOLIO_ROUTE
+} from '../../constants/routes';
 
 const PortfolioItems = ({
   routes,
@@ -41,17 +50,20 @@ const PortfolioItems = ({
       }
     }) => ({ data, meta, name, description })
   );
-  const match = useRouteMatch('/portfolios/detail/:id');
+  const { url } = useRouteMatch(PORTFOLIO_ROUTE);
+  const [{ portfolio: id }, search] = useQuery(['portfolio']);
   const dispatch = useDispatch();
 
   const items = data.map((item) => (
     <PortfolioItem
       key={item.id}
       {...item}
-      to={{
-        pathname: `${match.url}/product/${item.id}`,
-        search: `portfolio=${item.portfolio_id}&source=${item.service_offering_source_ref}`
+      pathname={`${url}/portfolio-item`}
+      searchParams={{
+        source: item.service_offering_source_ref,
+        'portfolio-item': item.id
       }}
+      preserveSearch
       isSelectable
       onSelect={(selectedItem) =>
         stateDispatch({ type: 'selectItem', payload: selectedItem })
@@ -83,31 +95,33 @@ const PortfolioItems = ({
           meta,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(fetchPortfolioItemsWithPortfolio(...args)),
-          portfolioId: match.params.id
+          portfolioId: id
         })}
       />
+      <Route exact path={NESTED_EDIT_PORTFOLIO_ROUTE}>
+        <AddPortfolioModal
+          closeTarget={{ pathname: PORTFOLIO_ROUTE, search }}
+        />
+      </Route>
       <Route
         exact
-        path="/portfolios/detail/:id/edit-portfolio"
-        component={AddPortfolioModal}
-      />
-      <Route
-        exact
-        path="/portfolios/detail/:id/remove-portfolio"
+        path={NESTED_REMOVE_PORTFOLIO_ROUTE}
         component={RemovePortfolioModal}
       />
       <Route
         exact
-        path="/portfolios/detail/:id/share-portfolio"
+        path={NESTED_SHARE_PORTFOLIO_ROUTE}
         render={(...args) => (
           <SharePortfolioModal closeUrl={routes.portfolioRoute} {...args} />
         )}
       />
       <Route
         exact
-        path="/portfolios/detail/:id/edit-workflow"
+        path={NESTED_WORKFLOW_PORTFOLIO_ROUTE}
         render={(...args) => (
           <EditApprovalWorkflow
+            querySelector="portfolio"
+            pushParam={{ pathname: routes.portfolioRoute, search }}
             closeUrl={routes.portfolioRoute}
             objectType={PORTFOLIO_RESOURCE_TYPE}
             objectName={itemName}
@@ -117,7 +131,7 @@ const PortfolioItems = ({
       />
       <Route
         exact
-        path="/portfolios/detail/:id/order/:itemId"
+        path={NESTED_ORDER_PORTFOLIO_ROUTE}
         render={(props) => (
           <OrderModal {...props} closeUrl={routes.portfolioRoute} />
         )}
@@ -138,7 +152,7 @@ const PortfolioItems = ({
           <AsyncPagination
             dropDirection="up"
             meta={meta}
-            apiProps={match.params.id}
+            apiProps={id}
             apiRequest={(...args) =>
               dispatch(fetchPortfolioItemsWithPortfolio(...args))
             }

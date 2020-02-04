@@ -11,82 +11,90 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
 >
   <LevelItem>
     <div>
-      <Link
+      <CatalogLink
         disabled={false}
-        to={
-          Object {
-            "pathname": "foo/bar",
-            "search": "",
-          }
-        }
+        nav={false}
+        pathname="foo/bar"
+        preserveSearch={true}
+        searchParams={Object {}}
       >
-        <LinkAnchor
+        <Link
           disabled={false}
-          href="foo/bar"
-          navigate={[Function]}
+          to={
+            Object {
+              "pathname": "foo/bar",
+              "search": "",
+            }
+          }
         >
-          <a
+          <LinkAnchor
             disabled={false}
             href="foo/bar"
-            onClick={[Function]}
+            navigate={[Function]}
           >
-            <ButtonWithSpinner
-              isDisabled={false}
-              showSpinner={false}
-              variant="primary"
+            <a
+              disabled={false}
+              href="foo/bar"
+              onClick={[Function]}
             >
-              <Component
-                className=""
+              <ButtonWithSpinner
                 isDisabled={false}
+                showSpinner={false}
                 variant="primary"
               >
-                <ComponentWithOuia
-                  component={[Function]}
-                  componentProps={
-                    Object {
-                      "children": Array [
-                        <span>
-                          Order
-                        </span>,
-                        false,
-                      ],
-                      "className": "",
-                      "isDisabled": false,
-                      "variant": "primary",
-                    }
-                  }
-                  consumerContext={null}
+                <Component
+                  className=""
+                  isDisabled={false}
+                  variant="primary"
                 >
-                  <Button
-                    className=""
-                    isDisabled={false}
-                    ouiaContext={
+                  <ComponentWithOuia
+                    component={[Function]}
+                    componentProps={
                       Object {
-                        "isOuia": false,
-                        "ouiaId": null,
+                        "children": Array [
+                          <span>
+                            Order
+                          </span>,
+                          false,
+                        ],
+                        "className": "",
+                        "isDisabled": false,
+                        "variant": "primary",
                       }
                     }
-                    variant="primary"
+                    consumerContext={null}
                   >
-                    <button
-                      aria-disabled={null}
-                      aria-label={null}
-                      className="pf-c-button pf-m-primary"
-                      disabled={false}
-                      tabIndex={null}
-                      type="button"
+                    <Button
+                      className=""
+                      isDisabled={false}
+                      ouiaContext={
+                        Object {
+                          "isOuia": false,
+                          "ouiaId": null,
+                        }
+                      }
+                      variant="primary"
                     >
-                      <span>
-                        Order
-                      </span>
-                    </button>
-                  </Button>
-                </ComponentWithOuia>
-              </Component>
-            </ButtonWithSpinner>
-          </a>
-        </LinkAnchor>
-      </Link>
+                      <button
+                        aria-disabled={null}
+                        aria-label={null}
+                        className="pf-c-button pf-m-primary"
+                        disabled={false}
+                        tabIndex={null}
+                        type="button"
+                      >
+                        <span>
+                          Order
+                        </span>
+                      </button>
+                    </Button>
+                  </ComponentWithOuia>
+                </Component>
+              </ButtonWithSpinner>
+            </a>
+          </LinkAnchor>
+        </Link>
+      </CatalogLink>
     </div>
   </LevelItem>
   <LevelItem
@@ -109,64 +117,54 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             <DropdownItem
               aria-label="Edit Portfolio"
               component={
-                <ForwardRef
-                  to={
-                    Object {
-                      "pathname": "foo/baz",
-                      "search": "",
-                    }
-                  }
+                <CatalogLink
+                  nav={false}
+                  pathname="foo/baz"
+                  preserveSearch={true}
+                  searchParams={Object {}}
                 >
                   Edit
-                </ForwardRef>
+                </CatalogLink>
               }
               role="link"
             />,
             <DropdownItem
               aria-label="Copy Portfolio"
               component={
-                <ForwardRef
-                  to={
-                    Object {
-                      "pathname": "foo/copy",
-                      "search": "",
-                    }
-                  }
+                <CatalogLink
+                  nav={false}
+                  pathname="foo/copy"
+                  preserveSearch={true}
+                  searchParams={Object {}}
                 >
                   Copy
-                </ForwardRef>
+                </CatalogLink>
               }
               role="link"
             />,
             <DropdownItem
               aria-label="Set approval"
               component={
-                <ForwardRef
-                  to={
-                    Object {
-                      "pathname": undefined,
-                      "search": "",
-                    }
-                  }
+                <CatalogLink
+                  nav={false}
+                  preserveSearch={true}
+                  searchParams={Object {}}
                 >
                   Set approval
-                </ForwardRef>
+                </CatalogLink>
               }
               role="link"
             />,
             <DropdownItem
               aria-label="Edit survey"
               component={
-                <ForwardRef
-                  to={
-                    Object {
-                      "pathname": undefined,
-                      "search": "",
-                    }
-                  }
+                <CatalogLink
+                  nav={false}
+                  preserveSearch={true}
+                  searchParams={Object {}}
                 >
                   Edit survey
-                </ForwardRef>
+                </CatalogLink>
               }
               role="link"
             />,
@@ -189,64 +187,54 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               <DropdownItem
                 aria-label="Edit Portfolio"
                 component={
-                  <ForwardRef
-                    to={
-                      Object {
-                        "pathname": "foo/baz",
-                        "search": "",
-                      }
-                    }
+                  <CatalogLink
+                    nav={false}
+                    pathname="foo/baz"
+                    preserveSearch={true}
+                    searchParams={Object {}}
                   >
                     Edit
-                  </ForwardRef>
+                  </CatalogLink>
                 }
                 role="link"
               />,
               <DropdownItem
                 aria-label="Copy Portfolio"
                 component={
-                  <ForwardRef
-                    to={
-                      Object {
-                        "pathname": "foo/copy",
-                        "search": "",
-                      }
-                    }
+                  <CatalogLink
+                    nav={false}
+                    pathname="foo/copy"
+                    preserveSearch={true}
+                    searchParams={Object {}}
                   >
                     Copy
-                  </ForwardRef>
+                  </CatalogLink>
                 }
                 role="link"
               />,
               <DropdownItem
                 aria-label="Set approval"
                 component={
-                  <ForwardRef
-                    to={
-                      Object {
-                        "pathname": undefined,
-                        "search": "",
-                      }
-                    }
+                  <CatalogLink
+                    nav={false}
+                    preserveSearch={true}
+                    searchParams={Object {}}
                   >
                     Set approval
-                  </ForwardRef>
+                  </CatalogLink>
                 }
                 role="link"
               />,
               <DropdownItem
                 aria-label="Edit survey"
                 component={
-                  <ForwardRef
-                    to={
-                      Object {
-                        "pathname": undefined,
-                        "search": "",
-                      }
-                    }
+                  <CatalogLink
+                    nav={false}
+                    preserveSearch={true}
+                    searchParams={Object {}}
                   >
                     Edit survey
-                  </ForwardRef>
+                  </CatalogLink>
                 }
                 role="link"
               />,
@@ -270,64 +258,54 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownItem
                     aria-label="Edit Portfolio"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": "foo/baz",
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/baz"
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Edit
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
                   <DropdownItem
                     aria-label="Copy Portfolio"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": "foo/copy",
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/copy"
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Copy
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
                   <DropdownItem
                     aria-label="Set approval"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": undefined,
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Set approval
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
                   <DropdownItem
                     aria-label="Edit survey"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": undefined,
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Edit survey
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
@@ -352,64 +330,54 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <DropdownItem
                     aria-label="Edit Portfolio"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": "foo/baz",
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/baz"
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Edit
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
                   <DropdownItem
                     aria-label="Copy Portfolio"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": "foo/copy",
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/copy"
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Copy
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
                   <DropdownItem
                     aria-label="Set approval"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": undefined,
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Set approval
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
                   <DropdownItem
                     aria-label="Edit survey"
                     component={
-                      <ForwardRef
-                        to={
-                          Object {
-                            "pathname": undefined,
-                            "search": "",
-                          }
-                        }
+                      <CatalogLink
+                        nav={false}
+                        preserveSearch={true}
+                        searchParams={Object {}}
                       >
                         Edit survey
-                      </ForwardRef>
+                      </CatalogLink>
                     }
                     role="link"
                   />,
@@ -435,7 +403,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
             >
               <div
-                className="pf-c-dropdown"
+                className="pf-c-dropdown pf-m-align-right"
                 onToggle={[MockFunction]}
               >
                 <KebabToggle
@@ -449,7 +417,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   parentRef={
                     Object {
                       "current": <div
-                        class="pf-c-dropdown"
+                        class="pf-c-dropdown pf-m-align-right"
                       >
                         <button
                           aria-expanded="false"
@@ -496,7 +464,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     parentRef={
                       Object {
                         "current": <div
-                          class="pf-c-dropdown"
+                          class="pf-c-dropdown pf-m-align-right"
                         >
                           <button
                             aria-expanded="false"

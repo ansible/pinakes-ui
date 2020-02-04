@@ -10,18 +10,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
         "FilterToolbarItem": [Function],
         "Level": [Function],
         "LevelItem": [Function],
-        "Link": Object {
-          "$$typeof": Symbol(react.forward_ref),
-          "displayName": "Link",
-          "propTypes": Object {
-            "innerRef": [Function],
-            "onClick": [Function],
-            "replace": [Function],
-            "target": [Function],
-            "to": [Function],
-          },
-          "render": [Function],
-        },
+        "Link": [Function],
         "Toolbar": [Function],
         "ToolbarGroup": [Function],
         "ToolbarItem": [Function],
@@ -78,7 +67,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
               className=""
               component="Link"
               key="create-portfolio-button/button-link"
-              to="/portfolios/add-portfolio"
+              pathname="/portfolios/add-portfolio"
             >
               <Component
                 aria-label="Create portfolio"

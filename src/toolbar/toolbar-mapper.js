@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {
   Button,
   Level,
@@ -15,6 +14,7 @@ import TopToolbar, {
   TopToolbarTitle
 } from '../presentational-components/shared/top-toolbar';
 import AppTabs from '../presentational-components/shared/app-tabs';
+import CatalogLink from '../smart-components/common/catalog-link';
 
 const ToolbarButton = ({ title, ...props }) => (
   <Button {...props}>{title}</Button>
@@ -35,7 +35,7 @@ const toolbarMapper = {
   ToolbarGroup,
   ToolbarItem,
   FilterToolbarItem,
-  Link,
+  Link: CatalogLink,
   Level,
   LevelItem,
   Button: ToolbarButton,

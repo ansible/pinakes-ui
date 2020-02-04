@@ -7,7 +7,7 @@ import EditPortfolioItem from './edit-portfolio-item';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 
-const ItemDetailDescription = ({ product, url }) => (
+const ItemDetailDescription = ({ product, url, search }) => (
   <Switch>
     <Route
       exact
@@ -62,10 +62,11 @@ const ItemDetailDescription = ({ product, url }) => (
     />
     <Route exact path={`${url}/edit-workflow`}>
       <EditApprovalWorkflow
-        closeUrl={url}
+        pushParam={{ pathname: url, search }}
         objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
         objectId={product.id}
         objectName={() => product.name}
+        querySelector="portfolio-item"
       />
     </Route>
   </Switch>
@@ -80,7 +81,8 @@ ItemDetailDescription.propTypes = {
     description: PropTypes.string,
     id: PropTypes.string.isRequired
   }).isRequired,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired
 };
 
 export default ItemDetailDescription;

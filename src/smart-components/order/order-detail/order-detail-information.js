@@ -23,12 +23,12 @@ const OrderDetailInformation = ({
   orderUpdateDate,
   owner,
   portfolioItemId,
-  sourceType
+  sourceId
 }) => (
   <Split className="pf-u-mt-sm">
     <SplitItem className="pf-u-mr-md">
       <CardIcon
-        sourceTypeId={sourceType}
+        sourceId={sourceId}
         height={60}
         src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon`}
       />
@@ -79,7 +79,7 @@ const OrderDetailInformation = ({
 
 OrderDetailInformation.propTypes = {
   portfolioItemId: PropTypes.string.isRequired,
-  sourceType: PropTypes.string.isRequired,
+  sourceId: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired,
   jobName: PropTypes.string.isRequired,
   orderRequestDate: PropTypes.string.isRequired,

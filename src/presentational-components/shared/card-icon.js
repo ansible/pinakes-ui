@@ -27,14 +27,14 @@ const CardIcon = ({ src, height, sourceId }) => {
         className={`card-image ${!isLoaded ? 'hide' : ''}`}
         onError={() => setUnknown(true)}
         onLoad={() => setLoaded(true)}
-        src={isUnknown ? defaultIcon : src}
+        src={!src || isUnknown ? defaultIcon : src}
       />
     </div>
   );
 };
 
 CardIcon.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   platformId: PropTypes.string,
   style: PropTypes.object,
   height: PropTypes.number,

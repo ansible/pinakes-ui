@@ -26,12 +26,14 @@ describe('<RemovePortfolioModal />', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
-  const ComponentWrapper = ({ store, children }) => (
+  const ComponentWrapper = ({
+    store,
+    children,
+    initialEntries,
+    initialIndex
+  }) => (
     <Provider store={store}>
-      <MemoryRouter
-        initialEntries={['/foo', '/foo/123', '/foo']}
-        initialIndex={1}
-      >
+      <MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
         {children}
       </MemoryRouter>
     </Provider>
@@ -59,9 +61,16 @@ describe('<RemovePortfolioModal />', () => {
   it('should call cancel action', () => {
     const store = mockStore(initialState);
     const wrapper = mount(
-      <ComponentWrapper store={store}>
+      <ComponentWrapper
+        store={store}
+        initialEntries={[
+          '/portfolio?portfolio=123',
+          '/portfolio/remove-portfolio?portfolio=123'
+        ]}
+        initialIndex={1}
+      >
         <Route
-          path="/foo/:id"
+          path="/portfolio"
           render={(args) => (
             <RemovePortfolioModal {...args} {...initialProps} />
           )}
@@ -77,7 +86,7 @@ describe('<RemovePortfolioModal />', () => {
         .find(MemoryRouter)
         .children()
         .props().history.location.pathname
-    ).toEqual('/foo');
+    ).toEqual('/portfolio');
   });
 
   it('should call remove action', async (done) => {
@@ -99,9 +108,12 @@ describe('<RemovePortfolioModal />', () => {
       });
 
     const wrapper = mount(
-      <ComponentWrapper store={store}>
+      <ComponentWrapper
+        store={store}
+        initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
+      >
         <Route
-          path="/foo/:id"
+          path="/portfolio/remove-portfolio"
           render={(args) => (
             <RemovePortfolioModal {...args} {...initialProps} />
           )}

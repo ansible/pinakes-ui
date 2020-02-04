@@ -18,9 +18,10 @@ export const createSingleItemGroup = ({
       ]
 });
 
-export const createLinkButton = ({ to, ...item }) => ({
+export const createLinkButton = ({ pathname, preserveSearch, ...item }) => ({
   component: toolbarComponentTypes.LINK,
-  to,
+  pathname,
+  preserveSearch,
   key: `${item.key}/button-link`,
   className: item.isDisabled ? 'disabled-link' : '',
   fields: [

@@ -22,12 +22,17 @@ import ApprovalRequests from './approval-request';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
 import OrderLifecycle from './order-lifecycle';
+import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
+import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
+import { fetchPlatforms } from '../../../redux/actions/platform-actions';
+import { ORDER_ROUTE, ORDERS_ROUTE } from '../../../constants/routes';
 
 const requiredParams = [
   'order-item',
   'portfolio-item',
   'platform',
-  'portfolio'
+  'portfolio',
+  'order'
 ];
 
 const OrderDetail = () => {
@@ -36,31 +41,36 @@ const OrderDetail = () => {
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
-  const match = useRouteMatch('/orders/:id');
+  const match = useRouteMatch(ORDER_ROUTE);
   const dispatch = useDispatch();
+
+  const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
+    insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
     setIsFetching(true);
-    dispatch(
-      fetchOrderDetails({
-        order: match.params.id,
-        ...queryValues
-      })
-    ).then(() => setIsFetching(false));
+    Promise.all([
+      dispatch(fetchPlatforms()),
+      dispatch(fetchOrderDetails(queryValues))
+    ]).then(() => setIsFetching(false));
+    return () => resetBreadcrumbs();
   }, []);
 
   if (!isFetching && Object.keys(orderDetailData).length === 0) {
-    return <Redirect to="/orders" />;
+    return <Redirect to={ORDERS_ROUTE} />;
   }
 
   const { order, portfolioItem, platform, orderItem } = orderDetailData;
 
   return (
     <Stack className="orders bg-fill">
-      <StackItem className="orders separator pf-u-p-lg pf-u-pt-0 pf-u-pb-0">
+      <StackItem className="orders separator pf-u-p-lg">
         {isFetching ? (
           <OrderDetailToolbarPlaceholder />
         ) : (
           <Fragment>
+            <Level className="pf-u-mb-md">
+              <CatalogBreadcrumbs />
+            </Level>
             <Level>
               <LevelItem>
                 <OrderDetailTitle
@@ -79,7 +89,7 @@ const OrderDetail = () => {
             <Level>
               <OrderDetailInformation
                 portfolioItemId={portfolioItem.id}
-                sourceType={platform.source_type_id}
+                sourceId={platform.id}
                 state={order.state}
                 jobName={portfolioItem.name}
                 orderRequestDate={order.created_at}

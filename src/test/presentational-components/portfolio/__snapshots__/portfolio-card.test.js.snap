@@ -17,38 +17,66 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                   Array [
                     <DropdownItem
                       component={
-                        <ForwardRef
-                          to="/portfolios/share/123"
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/share"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
                         >
                           Share
-                        </ForwardRef>
+                        </CatalogLink>
                       }
                     />,
                     <DropdownItem
                       component={
-                        <ForwardRef
-                          to="/portfolios/edit-workflow/123"
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/edit-workflow"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
                         >
                           Set approval
-                        </ForwardRef>
+                        </CatalogLink>
                       }
                     />,
                     <DropdownItem
                       component={
-                        <ForwardRef
-                          to="/portfolios/edit/123"
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/edit"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
                         >
                           Edit
-                        </ForwardRef>
+                        </CatalogLink>
                       }
                     />,
                     <DropdownItem
                       component={
-                        <ForwardRef
-                          to="/portfolios/remove/123"
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/remove"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
                         >
                           Delete
-                        </ForwardRef>
+                        </CatalogLink>
                       }
                     />,
                   ]
@@ -66,15 +94,27 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             ]
           }
           portfolioName="name"
-          route="/portfolios/detail/123"
+          to={
+            Object {
+              "pathname": "/portfolio",
+              "search": "?portfolio=123",
+            }
+          }
         />
       </CardHeader>
       <CardBody
         className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0"
       >
-        <Link
+        <CatalogLink
           className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
-          to="/portfolios/detail/123"
+          nav={false}
+          pathname="/portfolio"
+          preserveSearch={false}
+          searchParams={
+            Object {
+              "portfolio": "123",
+            }
+          }
         >
           <TextContent
             className="pf-u-mb-md"
@@ -108,7 +148,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
               ]
             }
           />
-        </Link>
+        </CatalogLink>
       </CardBody>
       <CardFooter />
     </Card>
