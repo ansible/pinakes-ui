@@ -13,7 +13,7 @@ const IconUpload = ({ uploadIcon, children }) => {
   const dispatch = useDispatch();
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="upload-icon-wrapper">
       <input
         accept=".png,.svg,.jpeg"
         onChange={(event) => {

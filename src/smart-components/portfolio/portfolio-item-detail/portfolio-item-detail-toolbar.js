@@ -113,37 +113,39 @@ export const SurveyEditingToolbar = ({
   isFetching
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
-    <PortfolioItemIconItem
-      uploadIcon={uploadIcon}
-      id={product.id}
-      sourceId={product.service_offering_source_ref}
-    />
     <Level>
-      <LevelItem>
-        <TextContent>
+      <LevelItem className="pf-l-flex flex-align-end">
+        <PortfolioItemIconItem
+          uploadIcon={uploadIcon}
+          id={product.id}
+          sourceId={product.service_offering_source_ref}
+        />
+        <TextContent className="pf-u-ml-md">
           <Text component={TextVariants.h1}>
             Editing survey: {product.name}
           </Text>
         </TextContent>
       </LevelItem>
-      <Flex>
-        <ButtonWithSpinner
-          variant="primary"
-          showSpinner={isFetching}
-          isDisabled={isFetching}
-          onClick={handleSaveSurvey}
-        >
-          Save
-        </ButtonWithSpinner>
-        <Link
-          to={{
-            pathname: closeUrl,
-            search
-          }}
-        >
-          <Button variant="link">Cancel</Button>
-        </Link>
-      </Flex>
+      <LevelItem>
+        <Flex>
+          <ButtonWithSpinner
+            variant="primary"
+            showSpinner={isFetching}
+            isDisabled={isFetching}
+            onClick={handleSaveSurvey}
+          >
+            Save
+          </ButtonWithSpinner>
+          <Link
+            to={{
+              pathname: closeUrl,
+              search
+            }}
+          >
+            <Button variant="link">Cancel</Button>
+          </Link>
+        </Flex>
+      </LevelItem>
     </Level>
   </TopToolbar>
 );
