@@ -29,14 +29,16 @@ const componentProperties = {
       fieldProperties.PLACEHOLDER,
       fieldProperties.INPUT_TYPE,
       fieldProperties.IS_DISABLED,
-      fieldProperties.IS_READ_ONLY
+      fieldProperties.IS_READ_ONLY,
+      fieldProperties.HIDE_FIELD
     ]
   },
   [componentTypes.CHECKBOX]: {
     attributes: [
       fieldProperties.LABEL,
       fieldProperties.IS_DISABLED,
-      fieldProperties.OPTIONS
+      fieldProperties.OPTIONS,
+      fieldProperties.HIDE_FIELD
     ]
   },
   [componentTypes.SELECT]: {
@@ -45,7 +47,8 @@ const componentProperties = {
       fieldProperties.LABEL,
       fieldProperties.IS_DISABLED,
       fieldProperties.PLACEHOLDER,
-      fieldProperties.HELPER_TEXT
+      fieldProperties.HELPER_TEXT,
+      fieldProperties.HIDE_FIELD
     ]
   },
   [componentTypes.DATE_PICKER]: {
@@ -54,7 +57,8 @@ const componentProperties = {
       fieldProperties.TODAY_BUTTON_LABEL,
       fieldProperties.IS_CLEARABLE,
       fieldProperties.CLOSE_ON_DAY_SELECT,
-      fieldProperties.SHOW_TODAY_BUTTON
+      fieldProperties.SHOW_TODAY_BUTTON,
+      fieldProperties.HIDE_FIELD
     ]
   },
   [componentTypes.PLAIN_TEXT]: {
@@ -64,14 +68,16 @@ const componentProperties = {
     attributes: [
       fieldProperties.LABEL,
       fieldProperties.IS_DISABLED,
-      fieldProperties.OPTIONS
+      fieldProperties.OPTIONS,
+      fieldProperties.HIDE_FIELD
     ]
   },
   [componentTypes.SWITCH]: {
     attributes: [
       fieldProperties.LABEL,
       fieldProperties.IS_READ_ONLY,
-      fieldProperties.IS_DISABLED
+      fieldProperties.IS_DISABLED,
+      fieldProperties.HIDE_FIELD
     ]
   },
   [componentTypes.TEXTAREA]: {
@@ -79,12 +85,9 @@ const componentProperties = {
       fieldProperties.LABEL,
       fieldProperties.HELPER_TEXT,
       fieldProperties.IS_READ_ONLY,
-      fieldProperties.IS_DISABLED
+      fieldProperties.IS_DISABLED,
+      fieldProperties.HIDE_FIELD
     ]
-  },
-  [componentTypes.SUB_FORM]: {
-    isContainer: true,
-    attributes: [fieldProperties.TITLE, fieldProperties.DESCRIPTION]
   }
 };
 
