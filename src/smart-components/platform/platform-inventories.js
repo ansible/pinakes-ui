@@ -28,6 +28,16 @@ const initialState = {
   isFiltering: false
 };
 
+const debouncedFilter = asyncFormValidator(
+  (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPlatformInventories(id, value, meta)).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
+
 const platformInventoriesState = (state, action) => {
   switch (action.type) {
     case 'setFetching':
@@ -58,16 +68,6 @@ const PlatformInventories = () => {
   const [{ platform: id }] = useQuery(['platform']);
   const history = useHistory();
 
-  const debouncedFilter = asyncFormValidator(
-    (value, dispatch, filteringCallback, meta = defaultSettings) => {
-      filteringCallback(true);
-      dispatch(fetchPlatformInventories(id, value, meta)).then(() =>
-        filteringCallback(false)
-      );
-    },
-    1000
-  );
-
   const tabItems = [
     {
       eventKey: 0,
@@ -91,6 +91,7 @@ const PlatformInventories = () => {
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
+      id,
       value,
       dispatch,
       (isFiltering) =>
