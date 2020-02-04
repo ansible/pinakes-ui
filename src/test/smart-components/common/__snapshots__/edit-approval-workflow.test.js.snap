@@ -38,6 +38,7 @@ exports[`<EditApprovalWorkflow /> should create the edit workflow modal 1`] = `
       objectName={[Function]}
       objectType="Portfolio"
       portfolioId="123"
+      querySelector="portfolio"
     />
   </MemoryRouter>
 </ContextProvider>

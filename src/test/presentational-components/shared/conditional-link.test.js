@@ -4,11 +4,11 @@ import toJson from 'enzyme-to-json';
 import { MemoryRouter, Link } from 'react-router-dom';
 import ConditionalLink from '../../../presentational-components/shared/conditional-link';
 
-describe('<ConditionalLink', () => {
+describe('<ConditionalLink />', () => {
   it('should render children wrapped in router Link component', () => {
     const wrapper = mount(
       <MemoryRouter>
-        <ConditionalLink to="/some/url">
+        <ConditionalLink pathname="/some/url">
           <div>Link children</div>
         </ConditionalLink>
       </MemoryRouter>

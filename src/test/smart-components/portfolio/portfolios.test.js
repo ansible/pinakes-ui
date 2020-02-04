@@ -33,6 +33,7 @@ describe('<Portfolios />', () => {
       id: '123'
     };
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       portfolioReducer: {
         portfolios: {
           data: [

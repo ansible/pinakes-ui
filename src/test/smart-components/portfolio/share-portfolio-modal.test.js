@@ -107,6 +107,7 @@ describe('<SharePortfolioModal', () => {
       .onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`)
       .replyOnce(200, { data: {} });
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
 
     /**
      * submit data endpoints
@@ -137,12 +138,16 @@ describe('<SharePortfolioModal', () => {
         expect(req).toBeTruthy();
         return [200, { data: [] }];
       });
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
           <Route
-            path="/portfolio/:id"
+            path="/portfolio"
             render={(args) => (
               <SharePortfolioModal {...args} {...initialProps} />
             )}
@@ -165,10 +170,7 @@ describe('<SharePortfolioModal', () => {
     form.change('group_uuid', '123');
     form.change('permissions', 'all');
     await act(async () => {
-      wrapper
-        .find('button')
-        .at(1)
-        .simulate('click');
+      wrapper.find('form').simulate('submit');
     });
     done();
   });

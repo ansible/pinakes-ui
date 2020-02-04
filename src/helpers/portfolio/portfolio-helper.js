@@ -58,20 +58,14 @@ export async function addPortfolio(portfolioData, items) {
 }
 
 export async function addToPortfolio(portfolioId, items) {
-  const request = async (item) => {
-    const newItem = await portfolioItemApi.createPortfolioItem({
-      service_offering_ref: item
-    });
-    if (newItem) {
-      await portfolioApi.addPortfolioItemToPortfolio(portfolioId, {
-        portfolio_item_id: newItem.id
-      });
-    }
-
-    return newItem;
-  };
-
-  return Promise.all(items.map((item) => request(item)));
+  return Promise.all(
+    items.map((item) =>
+      portfolioItemApi.createPortfolioItem({
+        portfolio_id: portfolioId,
+        service_offering_ref: item
+      })
+    )
+  );
 }
 
 export async function updatePortfolio({ id, ...portfolioData }, store) {
@@ -175,3 +169,9 @@ export const getPortfolioItemDetail = (params) =>
     axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
     axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.source}`)
   ]);
+
+export const getPortfolioFromState = (portfolioReducer, portfolioId) =>
+  portfolioReducer.selectedPortfolio &&
+  portfolioReducer.selectedPortfolio.id === portfolioId
+    ? portfolioReducer.selectedPortfolio
+    : portfolioReducer.portfolios.data.find(({ id }) => id === portfolioId);

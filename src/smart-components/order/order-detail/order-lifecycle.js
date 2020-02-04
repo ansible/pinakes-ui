@@ -3,10 +3,11 @@ import { Redirect, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import useQuery from '../../../utilities/use-query';
+import { ORDER_ROUTE } from '../../../constants/routes';
 
 const OrderLifecycle = () => {
   const [, search] = useQuery([]);
-  const { url } = useRouteMatch('/orders/:id');
+  const { url } = useRouteMatch(ORDER_ROUTE);
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );

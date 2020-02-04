@@ -35,11 +35,11 @@ exports[`<AddPortfolioModal /> should create edit variant of portfolio modal 1`]
   <MemoryRouter
     initialEntries={
       Array [
-        "portfolios/undefined",
+        "/portfolios",
       ]
     }
   >
-    <withRouter(Connect(AddPortfolioModal))
+    <AddPortfolioModal
       fetchPortfolios={[MockFunction]}
     />
   </MemoryRouter>

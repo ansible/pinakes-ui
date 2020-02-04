@@ -271,6 +271,22 @@
   flex-grow: 1;
 }
 
+a.pf-c-breadcrumb__item {
+  cursor: pointer;
+  >* {
+    cursor: pointer;
+  }
+}
+.pf4-hidefield-overlay{
+  .hide-indicator {
+    z-index: 1;
+  }
+  &::before {
+    z-index: 1;
+  }
+
+}
+
 // Image uploader
 .image-upload-button {
   border: none;
@@ -483,6 +499,10 @@ a.breadcrumb-active {
   background-color: #fff
 }
 
+.full-height {
+  min-height: 100%;
+}
+
 .content-layout {
   display: flex;
   flex-direction: column;
@@ -526,3 +546,11 @@ a.breadcrumb-active {
   top: 1px;
 }
 
+.flex-align-end {
+  align-items: end
+}
+
+.upload-icon-wrapper {
+  position: relative;
+  display: inline-block;
+}

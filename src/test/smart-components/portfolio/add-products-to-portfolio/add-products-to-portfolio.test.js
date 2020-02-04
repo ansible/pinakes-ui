@@ -33,6 +33,7 @@ describe('<AddProductsToPortfolio />', () => {
     initialProps = {
       portfolioRoute: '/portfolio/foo',
       portfolio: {
+        id: '321',
         name: 'Foo'
       }
     };
@@ -45,6 +46,7 @@ describe('<AddProductsToPortfolio />', () => {
 
   it('should correctly filter service offerings', async (done) => {
     const store = mockStore({
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: {
@@ -94,6 +96,7 @@ describe('<AddProductsToPortfolio />', () => {
   it('should check item and send correct data on submit', async (done) => {
     expect.assertions(1);
     const store = mockStore({
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: {
@@ -126,22 +129,25 @@ describe('<AddProductsToPortfolio />', () => {
       id: '999',
       name: 'My first workflow',
       owner: 'lgalis@redhat.com',
+      portfolio_id: '321',
       service_offering_source_ref: '352',
       service_offering_type: 'workflow_job_template',
       updated_at: '2019-11-25T16:08:44Z'
     });
-    mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`)
-      .replyOnce((req) => {
-        expect(JSON.parse(req.data)).toEqual({ portfolio_item_id: '999' });
-        done();
-        return [200, {}];
-      });
+    mockApi.onPost(`${CATALOG_API_BASE}/portfolio_items`).replyOnce((req) => {
+      expect(JSON.parse(req.data)).toEqual({ portfolio_item_id: '999' });
+      done();
+      return [200, {}];
+    });
 
     let wrapper;
+
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
           <AddProductsToPortfolio
             {...initialProps}
             portfolio={{ id: '321', name: 'Foo' }}
@@ -150,26 +156,34 @@ describe('<AddProductsToPortfolio />', () => {
       );
     });
 
-    const select = wrapper.find(rawComponents.Select);
-    act(() => {
-      select.props().onChange({
+    await act(async () => {
+      let select = wrapper.find(rawComponents.Select).props();
+      select.onChange({
         id: '1'
       });
     });
-    setImmediate(async () => {
-      wrapper.update();
+
+    wrapper.update();
+    await act(async () => {
       wrapper
         .find('input')
         .last()
         .simulate('change');
-      await act(async () => {
-        wrapper
-          .find('button')
-          .last()
-          .simulate('click');
-      });
+    });
 
-      wrapper.update();
+    wrapper.update();
+    await act(async () => {
+      wrapper
+        .find('button')
+        .last()
+        .simulate('click');
+    });
+    wrapper.update();
+    setImmediate(() => {
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual('/portfolio/foo');
+      done();
     });
   });
 });

@@ -43,7 +43,7 @@ const createPortfolioToolbarSchema = ({
                       groupName: 'portfolio-button-group',
                       key: 'create-portfolio',
                       ...createLinkButton({
-                        to: '/portfolios/add-portfolio',
+                        pathname: '/portfolios/add-portfolio',
                         variant: 'primary',
                         key: 'create-portfolio-button',
                         'aria-label': 'Create portfolio',

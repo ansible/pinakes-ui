@@ -9,8 +9,8 @@ import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../smart-components/platform/platforms';
 import { SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
-import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 import { mockGraphql } from '../../__mocks__/user-login';
+import { Provider } from 'react-redux';
 
 describe('<Platforms />', () => {
   let initialProps;
@@ -21,6 +21,7 @@ describe('<Platforms />', () => {
     mockStore = configureStore(middlewares);
     initialProps = {};
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         ...platformInitialState
       }
@@ -34,7 +35,9 @@ describe('<Platforms />', () => {
     });
     mount(
       <MemoryRouter>
-        <Platforms {...initialProps} store={store} />
+        <Provider store={store}>
+          <Platforms {...initialProps} />
+        </Provider>
       </MemoryRouter>
     );
     setImmediate(() => {
@@ -53,7 +56,8 @@ describe('<Platforms />', () => {
   });
 
   it('should call filter handler and filter data', (done) => {
-    initialState = {
+    const initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         ...platformInitialState,
         platforms: [
@@ -78,12 +82,12 @@ describe('<Platforms />', () => {
         ]
       }
     };
-    const Provider = mockBreacrumbsStore(initialState, middlewares);
+    const store = mockStore(initialState);
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
     const wrapper = mount(
-      <Provider>
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/platforms']}>
           <Platforms {...initialProps} />
         </MemoryRouter>
@@ -96,12 +100,7 @@ describe('<Platforms />', () => {
       search.getDOMNode().value = 'foo';
       search.simulate('change');
       wrapper.update();
-      expect(
-        wrapper
-          .find(Platforms)
-          .children()
-          .instance().state.filterValue
-      ).toEqual('foo');
+      expect(wrapper.find('input').instance().value).toEqual('foo');
       done();
     });
   });

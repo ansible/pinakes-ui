@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ItemDetails from '../shared/card-common';
-import { Link } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -20,6 +19,14 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
+import CatalogLink from '../../smart-components/common/catalog-link';
+import {
+  SHARE_PORTFOLIO_ROUTE,
+  EDIT_PORTFOLIO_WORKFLOW_ROUTE,
+  EDIT_PORTFOLIO_ROUTE,
+  REMOVE_PORTFOLIO_ROUTE,
+  PORTFOLIO_ROUTE
+} from '../../constants/routes';
 
 const TO_DISPLAY = ['description'];
 
@@ -34,23 +41,47 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
     dropdownItems={[
       <DropdownItem
         key="share-portfolio-action"
-        component={<Link to={`/portfolios/share/${portfolioId}`}>Share</Link>}
+        component={
+          <CatalogLink
+            searchParams={{ portfolio: portfolioId }}
+            pathname={SHARE_PORTFOLIO_ROUTE}
+          >
+            Share
+          </CatalogLink>
+        }
       />,
       <DropdownItem
         key="workflow-portfolio-action"
         component={
-          <Link to={`/portfolios/edit-workflow/${portfolioId}`}>
+          <CatalogLink
+            searchParams={{ portfolio: portfolioId }}
+            pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
+          >
             Set approval
-          </Link>
+          </CatalogLink>
         }
       />,
       <DropdownItem
         key="edit-portfolio-action"
-        component={<Link to={`/portfolios/edit/${portfolioId}`}>Edit</Link>}
+        component={
+          <CatalogLink
+            searchParams={{ portfolio: portfolioId }}
+            pathname={EDIT_PORTFOLIO_ROUTE}
+          >
+            Edit
+          </CatalogLink>
+        }
       />,
       <DropdownItem
         key="remove-portfolio-action"
-        component={<Link to={`/portfolios/remove/${portfolioId}`}>Delete</Link>}
+        component={
+          <CatalogLink
+            searchParams={{ portfolio: portfolioId }}
+            pathname={REMOVE_PORTFOLIO_ROUTE}
+          >
+            Delete
+          </CatalogLink>
+        }
       />
     ]}
   />
@@ -58,7 +89,10 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
 
 const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
   const [isOpen, setOpen] = useState(false);
-  const route = `/portfolios/detail/${id}`;
+  const to = {
+    pathname: PORTFOLIO_ROUTE,
+    search: `?portfolio=${id}`
+  };
   return (
     <GalleryItem>
       <div className={isDisabled ? 'portfolio-item-progress' : ''}>
@@ -68,15 +102,16 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
         <Card className="content-gallery-card">
           <CardHeader>
             <PortfolioCardHeader
-              route={route}
+              to={to}
               portfolioName={name}
               headerActions={createToolbarActions(id, isOpen, setOpen)}
             />
           </CardHeader>
           <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
-            <Link
+            <CatalogLink
               className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
-              to={route}
+              pathname={PORTFOLIO_ROUTE}
+              searchParams={{ portfolio: id }}
             >
               <TextContent className="pf-u-mb-md">
                 <Text component={TextVariants.small} className="pf-i-mb-sm">
@@ -92,7 +127,7 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
                 {...{ name, imageUrl, ...props }}
                 toDisplay={TO_DISPLAY}
               />
-            </Link>
+            </CatalogLink>
           </CardBody>
           <CardFooter />
         </Card>

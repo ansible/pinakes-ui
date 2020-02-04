@@ -3,8 +3,6 @@ import {
   RequestApi,
   WorkflowApi
 } from '@redhat-cloud-services/approval-client';
-import { DefaultApi as SourcesDefaultApi } from '@redhat-cloud-services/sources-client';
-import { DefaultApi as TopologicalDefaultApi } from '@redhat-cloud-services/topological-inventory-client';
 import {
   PortfolioApi,
   PortfolioItemApi,
@@ -15,17 +13,11 @@ import {
 } from '@redhat-cloud-services/catalog-client';
 
 import {
-  SOURCES_API_BASE,
-  TOPOLOGICAL_INVENTORY_API_BASE,
   CATALOG_API_BASE,
   APPROVAL_API_BASE,
   RBAC_API_BASE
 } from '../../utilities/constants';
-import {
-  AccessApi,
-  PrincipalApi,
-  GroupApi
-} from '@redhat-cloud-services/rbac-client';
+import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
 
 const axiosInstance = axios.create({
@@ -67,30 +59,12 @@ const workflowApi = new WorkflowApi(
   APPROVAL_API_BASE,
   axiosInstance
 );
-const sourcesApi = new SourcesDefaultApi(
-  undefined,
-  SOURCES_API_BASE,
-  axiosInstance
-);
-const topologicalInventoryApi = new TopologicalDefaultApi(
-  undefined,
-  TOPOLOGICAL_INVENTORY_API_BASE,
-  axiosInstance
-);
 const iconApi = new IconApi(undefined, CATALOG_API_BASE, axiosInstance);
 const servicePlansApi = new ServicePlansApi(
   undefined,
   CATALOG_API_BASE,
   axiosInstance
 );
-
-export function getSourcesApi() {
-  return sourcesApi;
-}
-
-export function getTopologocalInventoryApi() {
-  return topologicalInventoryApi;
-}
 
 export function getPortfolioApi() {
   return portfolioApi;
@@ -112,21 +86,7 @@ export function getRequestsApi() {
   return requestsApi;
 }
 
-let rbacAccessApi = new AccessApi(undefined, RBAC_API_BASE, axiosInstance);
-let rbacPrincipalApi = new PrincipalApi(
-  undefined,
-  RBAC_API_BASE,
-  axiosInstance
-);
-let rbacGroupApi = new GroupApi(undefined, RBAC_API_BASE, axiosInstance);
-
-export function getRbacAccessApi() {
-  return rbacAccessApi;
-}
-
-export function getRbacPrincipalApi() {
-  return rbacPrincipalApi;
-}
+const rbacGroupApi = new GroupApi(undefined, RBAC_API_BASE, axiosInstance);
 
 export function getRbacGroupApi() {
   return rbacGroupApi;

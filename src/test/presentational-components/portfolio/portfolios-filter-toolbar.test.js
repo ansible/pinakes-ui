@@ -2,8 +2,10 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-import { mockBreacrumbsStore } from '../../redux/redux-helpers';
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import createPortfolioToolbarSchema from '../../../toolbar/schemas/portfolios-toolbar.schema';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
@@ -11,6 +13,7 @@ import { mockApi } from '../../__mocks__/user-login';
 
 describe('<PortfoliosFilterToolbar />', () => {
   let initialProps;
+  const mockStore = configureStore([thunk]);
 
   beforeEach(() => {
     initialProps = {
@@ -37,10 +40,9 @@ describe('<PortfoliosFilterToolbar />', () => {
       )
       .replyOnce(200, { data: [], meta: {} });
     const onFilterChange = jest.fn();
-    const Provider = mockBreacrumbsStore();
     const wrapper = mount(
       <MemoryRouter>
-        <Provider>
+        <Provider store={mockStore({ breadcrumbsReducer: { fragments: [] } })}>
           <ToolbarRenderer
             schema={createPortfolioToolbarSchema({
               fetchPortfolios: () => new Promise((resolve) => resolve([])),
