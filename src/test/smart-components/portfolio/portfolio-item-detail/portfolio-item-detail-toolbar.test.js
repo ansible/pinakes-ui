@@ -9,7 +9,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import DetailToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/detail-toolbar-actions';
-import PortfolioItemDetailToolbar from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
+import { PortfolioItemDetailToolbar } from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 
 describe('<PortfolioItemDetailToolbar />', () => {
   let initialProps;
@@ -36,6 +36,7 @@ describe('<PortfolioItemDetailToolbar />', () => {
     };
 
     initialState = {
+      breadcrumbsReducer: { fragments: [] },
       platformReducer: { platforms: [], platformIconMapping: {} }
     };
     mockStore = configureStore(middlewares);

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 import { Section } from '@redhat-cloud-services/frontend-components';
 
 import AddProductsGallery from './add-products-gallery';
@@ -20,6 +19,7 @@ import {
   fetchPortfolioItemsWithPortfolio
 } from '../../../redux/actions/portfolio-actions';
 import AsyncPagination from '../../common/async-pagination';
+import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
   items
@@ -43,13 +43,13 @@ const AddProductsToPortfolio = ({
   fetchPlatformItems,
   addToPortfolio,
   fetchPlatforms,
-  fetchPortfolioItemsWithPortfolio,
-  history: { push }
+  fetchPortfolioItemsWithPortfolio
 }) => {
   const [searchValue, handleFilterChange] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState(undefined);
   const [checkedItems, setCheckedItems] = useState([]);
   const [isFetching, setFetching] = useState(false);
+  const { push } = useEnhancedHistory();
 
   useEffect(() => {
     fetchPlatforms();
@@ -75,7 +75,9 @@ const AddProductsToPortfolio = ({
     setFetching(true);
     return addToPortfolio(portfolio.id, checkedItems)
       .then(() => setFetching(false))
-      .then(() => push(portfolioRoute))
+      .then(() =>
+        push({ pathname: portfolioRoute, search: `?portfolio=${portfolio.id}` })
+      )
       .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id))
       .catch(() => setFetching(false));
   };
@@ -151,9 +153,6 @@ AddProductsToPortfolio.propTypes = {
   platformItems: PropTypes.object.isRequired,
   fetchPlatformItems: PropTypes.func.isRequired,
   addToPortfolio: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
   fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
   fetchPlatforms: PropTypes.func.isRequired
 };
@@ -177,6 +176,7 @@ const mapDispatchToProps = (dispatch) =>
     dispatch
   );
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(AddProductsToPortfolio)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddProductsToPortfolio);

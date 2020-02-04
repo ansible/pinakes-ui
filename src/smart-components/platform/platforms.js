@@ -1,11 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
 
-import Platform from './platform';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
@@ -13,30 +10,24 @@ import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
-import ServiceOfferingDetail from './service-offering/service-offering-detail';
 
-const platformsRoutes = {
-  platforms: '',
-  detail: '/detail/:id'
-};
+const Platforms = () => {
+  const [filterValue, setFilterValue] = useState('');
+  const { platforms, isLoading } = useSelector(
+    ({ platformReducer: { platforms, isPlatformDataLoading } }) => ({
+      platforms,
+      isLoading: isPlatformDataLoading
+    })
+  );
+  const dispatch = useDispatch();
 
-class Platforms extends Component {
-  state = {
-    filterValue: '',
-    isOpen: false
-  };
-
-  fetchData = () => this.props.fetchPlatforms();
-
-  componentDidMount() {
-    this.fetchData();
+  useEffect(() => {
+    dispatch(fetchPlatforms());
     scrollToTop();
     insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
-  }
+  }, []);
 
-  handleFilterChange = (filterValue) => this.setState({ filterValue });
-
-  renderEmptyStateDescription = () => (
+  const renderEmptyStateDescription = () => (
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
@@ -45,7 +36,7 @@ class Platforms extends Component {
         <Text component={TextVariants.p}>
           To connect to a source, go to{' '}
           <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
-          &nbsp; under Settings
+          &nbsp;under Settings.
         </Text>
         <Text component={TextVariants.p}>
           <a href="javascript:void(0)">Learn more in the documentation</a>
@@ -53,82 +44,35 @@ class Platforms extends Component {
       </TextContent>
     </Fragment>
   );
-
-  renderPlatforms = () => {
-    const filteredItems = {
-      items: this.props.platforms
-        .filter(({ name }) =>
-          name.toLowerCase().includes(this.state.filterValue.toLowerCase())
-        )
-        .map((item) => <PlatformCard key={item.id} {...item} />),
-      isLoading: this.props.isLoading && this.props.platforms.length === 0
-    };
-    return (
-      <Fragment>
-        <ToolbarRenderer
-          schema={createPlatformsToolbarSchema({
-            onFilterChange: this.handleFilterChange,
-            searchValue: this.state.filterValue,
-            title: 'Platforms'
-          })}
-        />
-        <ContentGallery
-          {...filteredItems}
-          renderEmptyState={() => (
-            <ContentGalleryEmptyState
-              title="No platforms yet"
-              renderDescription={this.renderEmptyStateDescription}
-              Icon={SearchIcon}
-            />
-          )}
-        />
-      </Fragment>
-    );
+  const filteredItems = {
+    items: platforms
+      .filter(({ name }) =>
+        name.toLowerCase().includes(filterValue.toLowerCase())
+      )
+      .map((item) => <PlatformCard key={item.id} {...item} />),
+    isLoading: isLoading && platforms.length === 0
   };
-
-  render() {
-    return (
-      <Switch>
-        <Route
-          path={`/platforms${platformsRoutes.detail}`}
-          component={Platform}
-        />
-        <Route
-          exact
-          path={`/platforms${platformsRoutes.platforms}`}
-          render={() => this.renderPlatforms()}
-        />
-        <Route path="/platforms/service-offerings" exact>
-          <ServiceOfferingDetail />
-        </Route>
-      </Switch>
-    );
-  }
-}
-
-const mapStateToProps = ({
-  platformReducer: { platforms, isPlatformDataLoading, filterValue }
-}) => ({
-  platforms,
-  isLoading: isPlatformDataLoading,
-  searchFilter: filterValue
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchPlatforms: (apiProps) => dispatch(fetchPlatforms(apiProps))
-  };
+  return (
+    <Fragment>
+      <ToolbarRenderer
+        schema={createPlatformsToolbarSchema({
+          onFilterChange: (value) => setFilterValue(value),
+          searchValue: filterValue,
+          title: 'Platforms'
+        })}
+      />
+      <ContentGallery
+        {...filteredItems}
+        renderEmptyState={() => (
+          <ContentGalleryEmptyState
+            title="No platforms yet"
+            renderDescription={renderEmptyStateDescription}
+            Icon={SearchIcon}
+          />
+        )}
+      />
+    </Fragment>
+  );
 };
 
-Platforms.propTypes = {
-  filteredItems: PropTypes.array,
-  platforms: PropTypes.array,
-  isLoading: PropTypes.bool,
-  searchFilter: PropTypes.string,
-  showModal: PropTypes.func,
-  hideModal: PropTypes.func,
-  history: PropTypes.object,
-  fetchPlatforms: PropTypes.func
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Platforms);
+export default Platforms;

@@ -77,3 +77,8 @@ export const SELECT_PORTFOLIO_ITEM = '@@portfolio/SELECT_PORTFOLIO_ITEM';
  */
 export const FETCH_SERVICE_OFFERING = '@@sources/FETCH_SERVICE_OFFERING';
 export const SET_SOURCETYPE_ICONS = '@@sources/SET_SOURCETYPE_ICONS';
+
+/**
+ * Breadcrumbs actions
+ */
+export const INITIALIZE_BREADCRUMBS = '@@breadcrumbs/INITIALIZE_BREADCRUMBS';

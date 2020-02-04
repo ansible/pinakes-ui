@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {
   Button,
   EmptyState,
@@ -11,6 +10,7 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
+import CatalogLink from '../../smart-components/common/catalog-link';
 
 const ContentGalleryEmptyState = ({
   title,
@@ -51,9 +51,9 @@ ContentGalleryEmptyState.propTypes = {
 export default ContentGalleryEmptyState;
 
 export const EmptyStatePrimaryAction = ({ url, label }) => (
-  <Link to={url}>
+  <CatalogLink pathname={url} preserveSearch>
     <Button variant="secondary">{label}</Button>
-  </Link>
+  </CatalogLink>
 );
 
 EmptyStatePrimaryAction.propTypes = {

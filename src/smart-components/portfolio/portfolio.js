@@ -17,6 +17,9 @@ import {
   resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
+import useQuery from '../../utilities/use-query';
+import useBreadcrumbs from '../../utilities/use-breadcrumbs';
+import { PORTFOLIO_ROUTE } from '../../constants/routes';
 
 const initialState = {
   selectedItems: [],
@@ -53,43 +56,63 @@ const porftolioUiReducer = (state, { type, payload }) =>
 
 const Portfolio = () => {
   const [state, stateDispatch] = useReducer(porftolioUiReducer, initialState);
-  const match = useRouteMatch('/portfolios/detail/:id');
+  const [searchParams] = useQuery(['portfolio']);
+  const { portfolio: id } = searchParams;
+  const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const history = useHistory();
   const dispatch = useDispatch();
-  const { portfolio, meta } = useSelector(
+  const { portfolio, portfolioItem, meta } = useSelector(
     ({
       portfolioReducer: {
         selectedPortfolio,
-        portfolioItems: { data, meta }
+        portfolioItem,
+        portfolioItems: { meta }
       }
     }) => ({
       portfolio: selectedPortfolio,
-      data,
+      portfolioItem,
       meta
     })
   );
 
+  const resetBreadcrumbs = useBreadcrumbs([portfolio, portfolioItem]);
+
   const fetchData = (apiProps) => {
     stateDispatch({ type: 'setIsFetching', payload: true });
-    Promise.all([
+    return Promise.all([
       dispatch(fetchPlatforms()),
       dispatch(fetchSelectedPortfolio(apiProps)),
       dispatch(fetchPortfolioItemsWithPortfolio(apiProps))
     ])
-      .then(() => stateDispatch({ type: 'setIsFetching', payload: false }))
+      .then((data) => {
+        stateDispatch({ type: 'setIsFetching', payload: false });
+        return data;
+      })
       .catch(() => stateDispatch({ type: 'setIsFetching', payload: false }));
   };
 
   useEffect(() => {
-    fetchData(match.params.id);
+    insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
+  }, []);
+
+  useEffect(() => {
+    fetchData(id);
     scrollToTop();
-    return () => dispatch(resetSelectedPortfolio());
-  }, [match.params.id]);
+    return () => {
+      resetBreadcrumbs();
+      dispatch(resetSelectedPortfolio());
+    };
+  }, [id]);
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
-    return dispatch(copyPortfolio(match.params.id))
-      .then(({ id }) => history.push(`/portfolios/detail/${id}`))
+    return dispatch(copyPortfolio(id))
+      .then(({ id }) =>
+        history.push({
+          pathname: PORTFOLIO_ROUTE,
+          search: `?portfolio=${id}`
+        })
+      )
       .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
       .then(() => dispatch(fetchPortfolios()))
       .catch(() =>
@@ -109,7 +132,7 @@ const Portfolio = () => {
   const handleFilterChange = (filter) => {
     stateDispatch({ type: 'setFilterValue', payload: filter });
     debouncedFilter(
-      portfolio.id,
+      id,
       dispatch,
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
@@ -122,13 +145,13 @@ const Portfolio = () => {
   };
 
   const routes = {
-    portfolioRoute: match.url,
-    addProductsRoute: `${match.url}/add-products`,
-    editPortfolioRoute: `${match.url}/edit-portfolio`,
-    removePortfolioRoute: `${match.url}/remove-portfolio`,
-    sharePortfolioRoute: `${match.url}/share-portfolio`,
-    workflowPortfolioRoute: `${match.url}/edit-workflow`,
-    orderUrl: `${match.url}/product`
+    portfolioRoute: url,
+    addProductsRoute: `${url}/add-products`,
+    editPortfolioRoute: `${url}/edit-portfolio`,
+    removePortfolioRoute: `${url}/remove-portfolio`,
+    sharePortfolioRoute: `${url}/share-portfolio`,
+    workflowPortfolioRoute: `${url}/edit-workflow`,
+    portfolioItemRoute: `${url}/portfolio-item`
   };
 
   return (
@@ -139,10 +162,9 @@ const Portfolio = () => {
           portfolioRoute={routes.portfolioRoute}
         />
       </Route>
-      <Route
-        path={`${routes.orderUrl}/:portfolioItemId`}
-        component={PortfolioItemDetail}
-      />
+      <Route path={routes.portfolioItemRoute}>
+        <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
+      </Route>
       <Route path={routes.portfolioRoute}>
         <PortfolioItems
           routes={routes}

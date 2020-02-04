@@ -1,17 +1,9 @@
-import {
-  getAxiosInstance,
-  getSourcesApi,
-  getTopologocalInventoryApi,
-  getGraphqlInstance
-} from '../shared/user-login';
+import { getAxiosInstance, getGraphqlInstance } from '../shared/user-login';
 import {
   TOPOLOGICAL_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
-
-const sourcesApi = getSourcesApi();
-const topologicalApi = getTopologocalInventoryApi();
 const axiosInstance = getAxiosInstance();
 const graphqlInstance = getGraphqlInstance();
 
@@ -36,7 +28,7 @@ export const getPlatforms = () => {
 };
 
 export const getPlatform = (platformId) => {
-  return sourcesApi.showSource(platformId);
+  return axiosInstance.get(`${SOURCES_API_BASE}/sources/${platformId}`);
 };
 
 export const getPlatformItems = (platformId, filter, options) => {
@@ -48,7 +40,9 @@ export const getPlatformItems = (platformId, filter, options) => {
       }`
     );
   } else {
-    return topologicalApi.listServiceOfferings();
+    return axiosInstance.get(
+      `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings`
+    );
   }
 };
 
@@ -64,7 +58,9 @@ export const getPlatformInventories = (
       }`
     );
   } else {
-    return topologicalApi.listServiceInventories(options);
+    return axiosInstance.get(
+      `${TOPOLOGICAL_INVENTORY_API_BASE}/service_inventories?limit=${options.limit}&offset=${options.offset}`
+    );
   }
 };
 

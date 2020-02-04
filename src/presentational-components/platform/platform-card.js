@@ -1,6 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -16,10 +15,11 @@ import ImageWithDefault from '../shared/image-with-default';
 import ItemDetails from '../shared/card-common';
 
 import './platform-card.scss';
+import CatalogLink from '../../smart-components/common/catalog-link';
+import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 
 const TO_DISPLAY = ['description', 'modified'];
 
-// TO DO - use webpack to load all images
 const platformTypeImg = {
   1: OpenshiftPlatformImg,
   2: AmazonPlatformImg,
@@ -28,7 +28,11 @@ const platformTypeImg = {
 
 const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
-    <Link to={`/platforms/detail/${id}`} className="card-link">
+    <CatalogLink
+      pathname={PLATFORM_TEMPLATES_ROUTE}
+      searchParams={{ platform: id }}
+      className="card-link"
+    >
       <Card key={id} className="content-gallery-card">
         <CardHeader>
           <ImageWithDefault
@@ -43,7 +47,7 @@ const PlatformCard = ({ name, id, ...props }) => (
         </CardBody>
         <CardFooter />
       </Card>
-    </Link>
+    </CatalogLink>
   </GalleryItem>
 );
 

@@ -22,6 +22,7 @@ import {
   listPortfolios,
   getPortfolio
 } from '../../../helpers/portfolio/portfolio-helper';
+import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 
 const loadPortfolios = (filter) =>
   listPortfolios(filter, { limit: 100, offset: 0 }).then(({ data }) =>
@@ -84,10 +85,10 @@ const CopyPortfolioItemModal = ({
     setSubmitting(true);
     const portfolio = await getPortfolio(values.portfolio_id);
     dispatch(copyPortfolioItem(portfolioItemId, values, portfolio))
-      .then(({ id }) =>
+      .then(({ id, service_offering_source_ref }) =>
         push({
-          pathname: `/portfolios/detail/${values.portfolio_id}/product/${id}`,
-          search
+          pathname: PORTFOLIO_ITEM_ROUTE,
+          search: `?portfolio=${values.portfolio_id}&portfolio-item=${id}&source=${service_offering_source_ref}`
         })
       )
       .then(

@@ -2,13 +2,6 @@
 
 exports[`<PlatformInventories /> should render correctly 1`] = `
 <PlatformInventories
-  paginationCurrent={
-    Object {
-      "limit": 50,
-      "offset": 0,
-    }
-  }
-  platformItems={Array []}
   store={
     Object {
       "clearActions": [Function],
