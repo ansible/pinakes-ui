@@ -36,7 +36,7 @@ const Platforms = () => {
         <Text component={TextVariants.p}>
           To connect to a source, go to{' '}
           <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
-          &nbsp; under Settings
+          &nbsp;under Settings.
         </Text>
         <Text component={TextVariants.p}>
           <a href="javascript:void(0)">Learn more in the documentation</a>
