@@ -166,7 +166,7 @@ const OrdersList = () => {
                     </Title>
                     <EmptyStateBody>
                       {meta.noData
-                        ? 'No orders have been created'
+                        ? 'No orders have been created.'
                         : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
                     </EmptyStateBody>
 
