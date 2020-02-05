@@ -1,6 +1,6 @@
 import React from 'react';
 import get from 'lodash/get';
-import DateFormat from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 
 import {
   PORTFOLIO_ITEM_NULLABLE,

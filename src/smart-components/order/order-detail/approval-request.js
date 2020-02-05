@@ -9,7 +9,7 @@ import {
   TextListItem,
   TextListItemVariants
 } from '@patternfly/react-core';
-import DateFormat from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 
 const ApprovalRequests = () => {
   const { order, approvalRequest } = useSelector(

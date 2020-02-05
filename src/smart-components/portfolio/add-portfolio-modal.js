@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Bullseye, Modal } from '@patternfly/react-core';
-import Spinner from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';

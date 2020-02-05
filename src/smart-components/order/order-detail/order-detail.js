@@ -9,7 +9,7 @@ import {
   SplitItem,
   Bullseye
 } from '@patternfly/react-core';
-import Spinner from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';

@@ -15,7 +15,7 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
-import DateFormat from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import './portfolio-card.scss';
