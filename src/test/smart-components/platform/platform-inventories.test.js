@@ -171,7 +171,7 @@ describe('<PlatformInventories />', () => {
       .simulate('click');
     await act(async () => {
       wrapper
-        .find('a.pf-c-dropdown__menu-item')
+        .find('div.pf-c-dropdown__menu-item')
         .first()
         .simulate('click');
     });
