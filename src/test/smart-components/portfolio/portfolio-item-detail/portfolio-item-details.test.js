@@ -52,11 +52,11 @@ describe('<PortfolioItemDetail />', () => {
         portfolioItem: {
           portfolioItem: {
             id: '123',
-            service_offering_source_ref: '123',
+            service_offering_source_ref: '111',
             created_at: '123',
             name: 'bar'
           },
-          source: {},
+          source: { id: '111', name: 'Source name' },
           portfolio: {
             name: 'Portfolio name'
           }

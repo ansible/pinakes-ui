@@ -25,7 +25,7 @@ const PortfolioItemDetail = () => {
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
   const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
-  const { portfolioItem, portfolio } = useSelector(
+  const { portfolioItem, portfolio, source } = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
 
@@ -80,7 +80,7 @@ const PortfolioItemDetail = () => {
                 <ItemDetailInfoBar
                   product={portfolioItem}
                   portfolio={portfolio}
-                  source={portfolioItem}
+                  source={source}
                 />
               </GridItem>
               <GridItem md={10}>
