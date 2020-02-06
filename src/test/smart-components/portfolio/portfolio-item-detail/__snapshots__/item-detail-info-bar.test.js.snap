@@ -12,11 +12,13 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
     Object {
       "created_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
       "distributor": "foo",
+      "service_offering_source_ref": "111",
       "updated_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
     }
   }
   source={
     Object {
+      "id": "111",
       "name": "bar",
     }
   }
@@ -118,7 +120,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
 </ItemDetailInfoBar>
 `;
 
-exports[`<ItemDetailInfoBar /> should render correctly with fallback values withouth vendor 1`] = `
+exports[`<ItemDetailInfoBar /> should render correctly with fallback values without vendor 1`] = `
 <ItemDetailInfoBar
   portfolio={
     Object {
@@ -128,10 +130,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
   product={
     Object {
       "created_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
+      "service_offering_source_ref": "111",
     }
   }
   source={
     Object {
+      "id": "111",
       "name": "bar",
     }
   }
@@ -224,11 +228,13 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
     Object {
       "created_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
       "distributor": "foo",
+      "service_offering_source_ref": "111",
       "updated_at": "Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)",
     }
   }
   source={
     Object {
+      "id": "111",
       "name": "bar",
     }
   }
