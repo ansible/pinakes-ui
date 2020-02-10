@@ -115,7 +115,7 @@ const OrderItem = ({ item }) => {
                             </LevelItem>
                             <LevelItem>
                               <Text
-                                style={{ marginBottom: 0 }}
+                                className="pf-u-mb-0"
                                 component={TextVariants.small}
                               >
                                 Ordered by {item.owner}

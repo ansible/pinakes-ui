@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { DateFormat } from '@redhat-cloud-services/frontend-components';
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
@@ -31,7 +32,9 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
       <span>Created at</span>
       <br />
       <div className="elipsis-text-overflow">
-        <span>{new Date(product.created_at).toLocaleDateString()}</span>
+        <span>
+          <DateFormat variant="relative" date={product.created_at} />
+        </span>
       </div>
     </Text>
   </TextContent>

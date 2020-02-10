@@ -100,7 +100,7 @@ const App = () => {
     <IntlProvider locale="en">
       <Fragment>
         <NotificationsPortal />
-        <Main style={{ marginLeft: 0, padding: 0 }}>
+        <Main className="pf-u-p-0 pf-u-ml-0">
           <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <GridItem sm={12} className="content-layout">
               <Routes />

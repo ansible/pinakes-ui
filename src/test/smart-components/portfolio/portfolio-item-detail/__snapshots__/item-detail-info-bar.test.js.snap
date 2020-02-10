@@ -110,7 +110,148 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             className="elipsis-text-overflow"
           >
             <span>
-              3/22/2019
+              <DateFormat
+                date="Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)"
+                variant="relative"
+              >
+                <Tooltip
+                  appendTo={[Function]}
+                  aria="describedby"
+                  boundary="window"
+                  className=""
+                  content={
+                    <div>
+                      22 Mar 2019 07:36:57 UTC
+                    </div>
+                  }
+                  distance={15}
+                  enableFlip={true}
+                  entryDelay={500}
+                  exitDelay={500}
+                  flipBehavior={
+                    Array [
+                      "top",
+                      "right",
+                      "bottom",
+                      "left",
+                      "top",
+                      "right",
+                      "bottom",
+                    ]
+                  }
+                  id=""
+                  isAppLauncher={false}
+                  isContentLeftAligned={false}
+                  isVisible={false}
+                  maxWidth="18.75rem"
+                  position="top"
+                  tippyProps={Object {}}
+                  trigger="mouseenter focus"
+                  zIndex={9999}
+                >
+                  <PopoverBase
+                    appendTo={[Function]}
+                    aria="describedby"
+                    arrow={true}
+                    boundary="window"
+                    content={
+                      <div
+                        className=""
+                        id=""
+                        role="tooltip"
+                      >
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div>
+                            22 Mar 2019 07:36:57 UTC
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    }
+                    delay={
+                      Array [
+                        500,
+                        500,
+                      ]
+                    }
+                    distance={15}
+                    flip={true}
+                    flipBehavior={
+                      Array [
+                        "top",
+                        "right",
+                        "bottom",
+                        "left",
+                        "top",
+                        "right",
+                        "bottom",
+                      ]
+                    }
+                    isVisible={false}
+                    lazy={true}
+                    maxWidth="18.75rem"
+                    onCreate={[Function]}
+                    placement="top"
+                    popperOptions={
+                      Object {
+                        "modifiers": Object {
+                          "hide": Object {
+                            "enabled": true,
+                          },
+                          "preventOverflow": Object {
+                            "enabled": true,
+                          },
+                        },
+                      }
+                    }
+                    theme="pf-tooltip"
+                    trigger="mouseenter focus"
+                    zIndex={9999}
+                  >
+                    <span>
+                      11 months ago
+                    </span>
+                    <Portal
+                      containerInfo={
+                        <div>
+                          <div
+                            class=""
+                            id=""
+                            role="tooltip"
+                          >
+                            <div
+                              class="pf-c-tooltip__content"
+                            >
+                              <div>
+                                22 Mar 2019 07:36:57 UTC
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    >
+                      <div
+                        className=""
+                        id=""
+                        role="tooltip"
+                      >
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div
+                            className="pf-c-tooltip__content"
+                          >
+                            <div>
+                              22 Mar 2019 07:36:57 UTC
+                            </div>
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    </Portal>
+                  </PopoverBase>
+                </Tooltip>
+              </DateFormat>
             </span>
           </div>
         </h6>
@@ -205,7 +346,148 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
             className="elipsis-text-overflow"
           >
             <span>
-              3/22/2019
+              <DateFormat
+                date="Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)"
+                variant="relative"
+              >
+                <Tooltip
+                  appendTo={[Function]}
+                  aria="describedby"
+                  boundary="window"
+                  className=""
+                  content={
+                    <div>
+                      22 Mar 2019 07:36:57 UTC
+                    </div>
+                  }
+                  distance={15}
+                  enableFlip={true}
+                  entryDelay={500}
+                  exitDelay={500}
+                  flipBehavior={
+                    Array [
+                      "top",
+                      "right",
+                      "bottom",
+                      "left",
+                      "top",
+                      "right",
+                      "bottom",
+                    ]
+                  }
+                  id=""
+                  isAppLauncher={false}
+                  isContentLeftAligned={false}
+                  isVisible={false}
+                  maxWidth="18.75rem"
+                  position="top"
+                  tippyProps={Object {}}
+                  trigger="mouseenter focus"
+                  zIndex={9999}
+                >
+                  <PopoverBase
+                    appendTo={[Function]}
+                    aria="describedby"
+                    arrow={true}
+                    boundary="window"
+                    content={
+                      <div
+                        className=""
+                        id=""
+                        role="tooltip"
+                      >
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div>
+                            22 Mar 2019 07:36:57 UTC
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    }
+                    delay={
+                      Array [
+                        500,
+                        500,
+                      ]
+                    }
+                    distance={15}
+                    flip={true}
+                    flipBehavior={
+                      Array [
+                        "top",
+                        "right",
+                        "bottom",
+                        "left",
+                        "top",
+                        "right",
+                        "bottom",
+                      ]
+                    }
+                    isVisible={false}
+                    lazy={true}
+                    maxWidth="18.75rem"
+                    onCreate={[Function]}
+                    placement="top"
+                    popperOptions={
+                      Object {
+                        "modifiers": Object {
+                          "hide": Object {
+                            "enabled": true,
+                          },
+                          "preventOverflow": Object {
+                            "enabled": true,
+                          },
+                        },
+                      }
+                    }
+                    theme="pf-tooltip"
+                    trigger="mouseenter focus"
+                    zIndex={9999}
+                  >
+                    <span>
+                      11 months ago
+                    </span>
+                    <Portal
+                      containerInfo={
+                        <div>
+                          <div
+                            class=""
+                            id=""
+                            role="tooltip"
+                          >
+                            <div
+                              class="pf-c-tooltip__content"
+                            >
+                              <div>
+                                22 Mar 2019 07:36:57 UTC
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    >
+                      <div
+                        className=""
+                        id=""
+                        role="tooltip"
+                      >
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div
+                            className="pf-c-tooltip__content"
+                          >
+                            <div>
+                              22 Mar 2019 07:36:57 UTC
+                            </div>
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    </Portal>
+                  </PopoverBase>
+                </Tooltip>
+              </DateFormat>
             </span>
           </div>
         </h6>
@@ -326,7 +608,148 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             className="elipsis-text-overflow"
           >
             <span>
-              3/22/2019
+              <DateFormat
+                date="Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)"
+                variant="relative"
+              >
+                <Tooltip
+                  appendTo={[Function]}
+                  aria="describedby"
+                  boundary="window"
+                  className=""
+                  content={
+                    <div>
+                      22 Mar 2019 07:36:57 UTC
+                    </div>
+                  }
+                  distance={15}
+                  enableFlip={true}
+                  entryDelay={500}
+                  exitDelay={500}
+                  flipBehavior={
+                    Array [
+                      "top",
+                      "right",
+                      "bottom",
+                      "left",
+                      "top",
+                      "right",
+                      "bottom",
+                    ]
+                  }
+                  id=""
+                  isAppLauncher={false}
+                  isContentLeftAligned={false}
+                  isVisible={false}
+                  maxWidth="18.75rem"
+                  position="top"
+                  tippyProps={Object {}}
+                  trigger="mouseenter focus"
+                  zIndex={9999}
+                >
+                  <PopoverBase
+                    appendTo={[Function]}
+                    aria="describedby"
+                    arrow={true}
+                    boundary="window"
+                    content={
+                      <div
+                        className=""
+                        id=""
+                        role="tooltip"
+                      >
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div>
+                            22 Mar 2019 07:36:57 UTC
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    }
+                    delay={
+                      Array [
+                        500,
+                        500,
+                      ]
+                    }
+                    distance={15}
+                    flip={true}
+                    flipBehavior={
+                      Array [
+                        "top",
+                        "right",
+                        "bottom",
+                        "left",
+                        "top",
+                        "right",
+                        "bottom",
+                      ]
+                    }
+                    isVisible={false}
+                    lazy={true}
+                    maxWidth="18.75rem"
+                    onCreate={[Function]}
+                    placement="top"
+                    popperOptions={
+                      Object {
+                        "modifiers": Object {
+                          "hide": Object {
+                            "enabled": true,
+                          },
+                          "preventOverflow": Object {
+                            "enabled": true,
+                          },
+                        },
+                      }
+                    }
+                    theme="pf-tooltip"
+                    trigger="mouseenter focus"
+                    zIndex={9999}
+                  >
+                    <span>
+                      11 months ago
+                    </span>
+                    <Portal
+                      containerInfo={
+                        <div>
+                          <div
+                            class=""
+                            id=""
+                            role="tooltip"
+                          >
+                            <div
+                              class="pf-c-tooltip__content"
+                            >
+                              <div>
+                                22 Mar 2019 07:36:57 UTC
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    >
+                      <div
+                        className=""
+                        id=""
+                        role="tooltip"
+                      >
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div
+                            className="pf-c-tooltip__content"
+                          >
+                            <div>
+                              22 Mar 2019 07:36:57 UTC
+                            </div>
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    </Portal>
+                  </PopoverBase>
+                </Tooltip>
+              </DateFormat>
             </span>
           </div>
         </h6>

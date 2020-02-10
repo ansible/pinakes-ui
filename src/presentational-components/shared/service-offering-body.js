@@ -18,7 +18,7 @@ const ServiceOfferingCardBody = ({
   preserveSearch,
   ...props
 }) => (
-  <CardBody style={{ height: 240 }}>
+  <CardBody className="card-height">
     <TextContent>
       <ConditionalLink
         pathname={pathname}
