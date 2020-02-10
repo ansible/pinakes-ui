@@ -6,6 +6,11 @@ const plugins = require('./webpack.plugins.js');
 const common = require('./webpack.common.js');
 
 const commonConfig = {
+  resolve: {
+    alias: {
+      react: path.resolve(__dirname, '../node_modules/react')
+    }
+  },
   entry: {
     App: common.paths.entry
   },
