@@ -27,7 +27,7 @@ const OrderDetails = () => {
       <Text component={TextVariants.h2}>Order details</Text>
       <TextList component={TextListVariants.dl}>
         <TextListItem component={TextListItemVariants.dt}>
-          Request ID
+          Order ID
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {order.id}
