@@ -8,19 +8,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
   name="Foo"
 >
   <CardBody
-    style={
-      Object {
-        "height": 240,
-      }
-    }
+    className="card-height"
   >
     <div
-      className="pf-c-card__body"
-      style={
-        Object {
-          "height": 240,
-        }
-      }
+      className="pf-c-card__body card-height"
     >
       <TextContent>
         <div
@@ -80,19 +71,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
   name="Foo"
 >
   <CardBody
-    style={
-      Object {
-        "height": 240,
-      }
-    }
+    className="card-height"
   >
     <div
-      className="pf-c-card__body"
-      style={
-        Object {
-          "height": 240,
-        }
-      }
+      className="pf-c-card__body card-height"
     >
       <TextContent>
         <div

@@ -24,7 +24,7 @@ import {
 
 export const CardLoader = ({ items, ...props }) => (
   <Grid gutter="md">
-    <GridItem sm={12} style={{ padding: 24 }}>
+    <GridItem sm={12} className="pf-u-p-md">
       <Gallery gutter="md">
         {[...Array(items)].map((_item, index) => (
           <GalleryItem key={index}>
@@ -111,7 +111,7 @@ PortfolioLoader.defaultProps = {
 };
 
 export const AppPlaceholder = (props) => (
-  <Main style={{ marginLeft: 0, padding: 0 }}>
+  <Main className="pf-u-m-0 pf-u-p-0">
     <ContentLoader
       height={16}
       width={300}

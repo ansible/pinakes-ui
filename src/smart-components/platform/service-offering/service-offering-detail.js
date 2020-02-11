@@ -36,24 +36,22 @@ const ServiceOfferingDetail = () => {
   }, [queryValues.service, queryValues.platform]);
   if (isFetching) {
     return (
-      <Section
-        style={{ backgroundColor: 'white', minHeight: '100%', padding: 32 }}
-      >
+      <Section className="global-primary-background full-height pf-u-p-lg">
         <ProductLoaderPlaceholder />
       </Section>
     );
   }
 
   return (
-    <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
+    <Section className="global-primary-background full-height">
       <Grid className="pf-u-p-lg">
         <div className="pf-u-mb-sm">
           <CatalogBreadcrumbs />
         </div>
         <GridItem sm={12} className="pf-u-mb-md">
-          <CardIcon src={source.icon_url} height={64} />
           <Level>
-            <LevelItem>
+            <LevelItem className="pf-l-flex flex-align-end">
+              <CardIcon src={source.icon_url} height={64} />
               <TextContent>
                 <Text component="h1">{service.name}</Text>
                 <Text component="small">Service offering</Text>

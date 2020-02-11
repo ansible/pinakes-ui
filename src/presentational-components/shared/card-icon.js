@@ -17,7 +17,7 @@ const CardIcon = ({ src, height, sourceId }) => {
     : CardIconDefault;
 
   return (
-    <div style={{ display: 'inline-block' }}>
+    <div className="display-inline-block">
       {!isLoaded && <IconPlaceholder height={height} />}
       <LazyLoadImage
         threshold={2000}

@@ -43,7 +43,7 @@ const PortfolioItemDetail = () => {
 
   if (isFetching || Object.keys(portfolioItem).length === 0) {
     return (
-      <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
+      <Section className="global-primary-background full-height">
         <TopToolbar>
           <ProductLoaderPlaceholder />
         </TopToolbar>
