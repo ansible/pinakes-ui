@@ -110,7 +110,8 @@ export const SurveyEditingToolbar = ({
   handleSaveSurvey,
   closeUrl,
   search,
-  isFetching
+  isFetching,
+  isValid
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <Level>
@@ -131,7 +132,7 @@ export const SurveyEditingToolbar = ({
           <ButtonWithSpinner
             variant="primary"
             showSpinner={isFetching}
-            isDisabled={isFetching}
+            isDisabled={isFetching || !isValid}
             onClick={handleSaveSurvey}
           >
             Save
@@ -156,5 +157,6 @@ SurveyEditingToolbar.propTypes = {
   handleSaveSurvey: PropTypes.func.isRequired,
   closeUrl: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  isValid: PropTypes.bool
 };

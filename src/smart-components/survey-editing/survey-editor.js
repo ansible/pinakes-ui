@@ -103,7 +103,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [isFetching, setIsFetching] = useState(false);
   const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
-  const [editedTemplate, setEditedTemplate] = useState({ fields: [] });
   const dispatch = useDispatch();
   const { push } = useHistory();
   useEffect(() => {
@@ -132,11 +131,11 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
       .then((schema) => setSchema(schema));
   }, []);
 
-  const modifySurvey = () =>
+  const modifySurvey = (editedTemplate) =>
     getServicePlansApi().patchServicePlanModified(`${servicePlan.id}`, {
       modified: { schema: editedTemplate }
     });
-  const createSurvey = () =>
+  const createSurvey = (editedTemplate) =>
     getServicePlansApi()
       .createServicePlan({ portfolio_item_id: portfolioItem.id })
       .then(([{ id }]) => id)
@@ -145,11 +144,11 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
           modified: { schema: editedTemplate }
         })
       );
-  const handleSaveSurvey = () => {
+  const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
     let submitCall = servicePlan.modified ? modifySurvey : createSurvey;
 
-    return submitCall()
+    return submitCall(editedTemplate)
       .then(() => {
         setIsFetching(false);
         dispatch(
@@ -169,27 +168,39 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
 
   return (
     <Fragment>
-      <SurveyEditingToolbar
-        uploadIcon={uploadIcon}
-        product={portfolioItem}
-        handleSaveSurvey={handleSaveSurvey}
-        closeUrl={closeUrl}
-        search={search}
-        isFetching={!schema || isFetching}
-      />
       {schema ? (
         <FormBuilder
           {...pf4Skin}
           schema={schema}
-          onChange={setEditedTemplate}
           disableDrag
           schemaTemplate={baseSchema}
           mode="subset"
+          controlPanel={({ getSchema, isValid }) => (
+            <SurveyEditingToolbar
+              uploadIcon={uploadIcon}
+              product={portfolioItem}
+              handleSaveSurvey={() => handleSaveSurvey(getSchema())}
+              isValid={isValid}
+              closeUrl={closeUrl}
+              search={search}
+              isFetching={!schema || isFetching}
+            />
+          )}
         />
       ) : (
-        <Bullseye>
-          <Spinner />
-        </Bullseye>
+        <Fragment>
+          <SurveyEditingToolbar
+            uploadIcon={uploadIcon}
+            product={portfolioItem}
+            handleSaveSurvey={handleSaveSurvey}
+            closeUrl={closeUrl}
+            search={search}
+            isFetching={!schema || isFetching}
+          />
+          <Bullseye>
+            <Spinner />
+          </Bullseye>
+        </Fragment>
       )}
     </Fragment>
   );
