@@ -2,21 +2,45 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
-import Portfolio from './smart-components/portfolio/portfolio';
-import Platform from './smart-components/platform/platform';
-import OrderDetail from './smart-components/order/order-detail/order-detail';
 import {
   PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
   ORDER_ROUTE
 } from './constants/routes';
 
-const Products = lazy(() => import('./smart-components/products/products'));
-const Platforms = lazy(() => import('./smart-components/platform/platforms'));
-const Portfolios = lazy(() =>
-  import('./smart-components/portfolio/portfolios')
+const Products = lazy(() =>
+  import(
+    /* webpackChunkName: "products" */ './smart-components/products/products'
+  )
 );
-const Orders = lazy(() => import('./smart-components/order/orders'));
+const Platforms = lazy(() =>
+  import(
+    /* webpackChunkName: "platforms" */ './smart-components/platform/platforms'
+  )
+);
+const Platform = lazy(() =>
+  import(
+    /* webpackChunkName: "platform" */ './smart-components/platform/platform'
+  )
+);
+const Portfolios = lazy(() =>
+  import(
+    /* webpackChunkName: "portfolios" */ './smart-components/portfolio/portfolios'
+  )
+);
+const Portfolio = lazy(() =>
+  import(
+    /* webpackChunkName: "portfolio" */ './smart-components/portfolio/portfolio'
+  )
+);
+const Orders = lazy(() =>
+  import(/* webpackChunkName: "orders" */ './smart-components/order/orders')
+);
+const OrderDetail = lazy(() =>
+  import(
+    /* webpackChunkName: "order-detail" */ './smart-components/order/order-detail/order-detail'
+  )
+);
 
 const paths = {
   products: '/products',
