@@ -13,12 +13,10 @@ import {
   EmptyStateSecondaryActions,
   Button
 } from '@patternfly/react-core';
-import {
-  Section,
-  PrimaryToolbar,
-  EmptyTable,
-  TableToolbar
-} from '@redhat-cloud-services/frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
+import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/PrimaryToolbar';
+import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/EmptyTable';
+import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/TableToolbar';
 import { SearchIcon } from '@patternfly/react-icons';
 
 import { fetchOrders } from '../../redux/actions/order-actions';

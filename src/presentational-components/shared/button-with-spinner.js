@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 
 const ButtonWithSpinner = ({ children, showSpinner, isDisabled, ...props }) => (
   <Button

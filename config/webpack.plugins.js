@@ -19,7 +19,12 @@ const plugins = [
     exclude: /(node_modules|bower_components)/i,
     filename: `sourcemaps/[name].js.map`
   }),
-  new LodashWebpackPlugin({ currying: true, flattening: true, placeholders: true, paths: true }),
+  new LodashWebpackPlugin({
+    currying: true,
+    flattening: true,
+    placeholders: true,
+    paths: true
+  }),
   new ExtractCssWebpackPlugin({
     chunkFilename: 'css/[name].css',
     filename: 'css/[name].css'
@@ -27,10 +32,12 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.BASE_PATH': JSON.stringify(process.env.BASE_PATH || '/api')
   }),
-  new HtmlReplaceWebpackPlugin([{
-    pattern: '@@env',
-    replacement: config.appDeploy
-  }])
+  new HtmlReplaceWebpackPlugin([
+    {
+      pattern: '@@env',
+      replacement: config.appDeploy
+    }
+  ])
 ];
 
 module.exports = plugins;
