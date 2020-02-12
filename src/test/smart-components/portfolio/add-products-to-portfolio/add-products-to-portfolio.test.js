@@ -47,6 +47,12 @@ describe('<AddProductsToPortfolio />', () => {
   it('should correctly filter service offerings', async (done) => {
     const store = mockStore({
       breadcrumbsReducer: { fragments: [] },
+      portfolioReducer: {
+        selectedPortfolio: {
+          id: '321',
+          name: 'Foo'
+        }
+      },
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: {
@@ -97,6 +103,12 @@ describe('<AddProductsToPortfolio />', () => {
     expect.assertions(1);
     const store = mockStore({
       breadcrumbsReducer: { fragments: [] },
+      portfolioReducer: {
+        selectedPortfolio: {
+          id: '321',
+          name: 'Foo'
+        }
+      },
       platformReducer: {
         platforms: [{ id: '1', name: 'foo' }],
         platformItems: {
@@ -148,10 +160,7 @@ describe('<AddProductsToPortfolio />', () => {
           store={store}
           initialEntries={['/portfolio?portfolio=123']}
         >
-          <AddProductsToPortfolio
-            {...initialProps}
-            portfolio={{ id: '321', name: 'Foo' }}
-          />
+          <AddProductsToPortfolio {...initialProps} />
         </ComponentWrapper>
       );
     });

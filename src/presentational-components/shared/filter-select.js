@@ -30,6 +30,7 @@ const FilterSelect = (props) => {
           simpleValue={false}
           options={[]}
           isDisabled
+          onChange={() => {}}
         />
       </div>
     );
