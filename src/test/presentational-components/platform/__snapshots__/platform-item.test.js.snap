@@ -11,88 +11,92 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     <article
       className="pf-c-card content-gallery-card"
     >
-      <CardHeader
-        className="pf-l-flex"
-      >
+      <CardHeader>
         <div
-          className="pf-c-card__header pf-c-title pf-m-md pf-l-flex"
+          className="pf-c-card__header pf-c-title pf-m-md"
         >
-          <CardIcon
-            height={40}
-            style={Object {}}
-          >
+          <Level>
             <div
-              className="display-inline-block"
+              className="pf-l-level"
             >
-              <IconPlaceholder
+              <CardIcon
                 height={40}
+                style={Object {}}
               >
-                <div>
-                  <svg
-                    height="40"
-                    width="40"
-                  >
-                    <circle
-                      cx={18.18181818181818}
-                      cy={18.18181818181818}
-                      fill="#ecebeb"
-                      r={18.18181818181818}
-                    />
-                  </svg>
-                </div>
-              </IconPlaceholder>
-              <t
-                afterLoad={[Function]}
-                beforeLoad={[Function]}
-                className="card-image hide"
-                delayMethod="throttle"
-                delayTime={0}
-                effect=""
-                height={0}
-                onError={[Function]}
-                onLoad={[Function]}
-                placeholderSrc=""
-                src="test-file-stub"
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
-                threshold={2000}
-                visibleByDefault={false}
-                wrapperClassName=""
-              >
-                <t
-                  afterLoad={[Function]}
-                  beforeLoad={[Function]}
-                  className="card-image hide"
-                  delayMethod="throttle"
-                  delayTime={0}
-                  height={0}
-                  style={
-                    Object {
-                      "height": 0,
-                    }
-                  }
-                  threshold={2000}
-                  visibleByDefault={false}
+                <div
+                  className="display-inline-block"
                 >
-                  <img
+                  <IconPlaceholder
+                    height={40}
+                  >
+                    <div>
+                      <svg
+                        height="40"
+                        width="40"
+                      >
+                        <circle
+                          cx={18.18181818181818}
+                          cy={18.18181818181818}
+                          fill="#ecebeb"
+                          r={18.18181818181818}
+                        />
+                      </svg>
+                    </div>
+                  </IconPlaceholder>
+                  <t
+                    afterLoad={[Function]}
+                    beforeLoad={[Function]}
                     className="card-image hide"
+                    delayMethod="throttle"
+                    delayTime={0}
+                    effect=""
                     height={0}
                     onError={[Function]}
                     onLoad={[Function]}
+                    placeholderSrc=""
                     src="test-file-stub"
                     style={
                       Object {
                         "height": 0,
                       }
                     }
-                  />
-                </t>
-              </t>
+                    threshold={2000}
+                    visibleByDefault={false}
+                    wrapperClassName=""
+                  >
+                    <t
+                      afterLoad={[Function]}
+                      beforeLoad={[Function]}
+                      className="card-image hide"
+                      delayMethod="throttle"
+                      delayTime={0}
+                      height={0}
+                      style={
+                        Object {
+                          "height": 0,
+                        }
+                      }
+                      threshold={2000}
+                      visibleByDefault={false}
+                    >
+                      <img
+                        className="card-image hide"
+                        height={0}
+                        onError={[Function]}
+                        onLoad={[Function]}
+                        src="test-file-stub"
+                        style={
+                          Object {
+                            "height": 0,
+                          }
+                        }
+                      />
+                    </t>
+                  </t>
+                </div>
+              </CardIcon>
             </div>
-          </CardIcon>
+          </Level>
         </div>
       </CardHeader>
       <ServiceOfferingCardBody
