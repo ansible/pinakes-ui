@@ -13,7 +13,7 @@ const ShareGroupEdit = ({ FieldProvider, label, ...props }) => {
   return (
     <div className="share-group-modal group">
       <Level>
-        <LevelItem className="share-column">
+        <LevelItem>
           <TextContent>
             <Text component={TextVariants.h4}>{label}</Text>
           </TextContent>

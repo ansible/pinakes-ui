@@ -230,6 +230,12 @@
   background-color: var(--pf-global--BackgroundColor--100)
 }
 
+.share-column {
+  .ddorg__pf4-component-mapper__select__single-value {
+    max-width: calc(100% - 70px);
+  }
+}
+
 /**
 * Update DDF select styles for select component
 */
