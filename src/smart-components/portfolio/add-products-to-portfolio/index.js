@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
 
 import AddProductsGallery from './add-products-gallery';
@@ -20,6 +18,7 @@ import {
 } from '../../../redux/actions/portfolio-actions';
 import AsyncPagination from '../../common/async-pagination';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
+import { useDispatch, useSelector } from 'react-redux';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
   items
@@ -34,25 +33,27 @@ const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
       />
     ));
 
-const AddProductsToPortfolio = ({
-  portfolio,
-  portfolioRoute,
-  platforms,
-  isLoading,
-  platformItems,
-  fetchPlatformItems,
-  addToPortfolio,
-  fetchPlatforms,
-  fetchPortfolioItemsWithPortfolio
-}) => {
+const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const [searchValue, handleFilterChange] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState(undefined);
   const [checkedItems, setCheckedItems] = useState([]);
   const [isFetching, setFetching] = useState(false);
   const { push } = useEnhancedHistory();
+  const dispatch = useDispatch();
+  const { portfolio, platforms, platformItems, isLoading } = useSelector(
+    ({
+      portfolioReducer: { selectedPortfolio },
+      platformReducer: { platforms, platformItems, isPlatformDataLoading }
+    }) => ({
+      platforms,
+      platformItems,
+      isLoading: isPlatformDataLoading,
+      portfolio: selectedPortfolio
+    })
+  );
 
   useEffect(() => {
-    fetchPlatforms();
+    dispatch(fetchPlatforms());
   }, []);
 
   const checkItem = (itemId) => {
@@ -73,18 +74,18 @@ const AddProductsToPortfolio = ({
 
   const handleAddToPortfolio = () => {
     setFetching(true);
-    return addToPortfolio(portfolio.id, checkedItems)
+    return dispatch(addToPortfolio(portfolio.id, checkedItems))
       .then(() => setFetching(false))
       .then(() =>
         push({ pathname: portfolioRoute, search: `?portfolio=${portfolio.id}` })
       )
-      .then(() => fetchPortfolioItemsWithPortfolio(portfolio.id))
+      .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolio.id)))
       .catch(() => setFetching(false));
   };
 
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
-    fetchPlatformItems(platform.id, null, defaultSettings);
+    dispatch(fetchPlatformItems(platform.id, null, defaultSettings));
   };
 
   return (
@@ -138,45 +139,7 @@ const AddProductsToPortfolio = ({
 };
 
 AddProductsToPortfolio.propTypes = {
-  portfolio: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
-  }),
-  portfolioRoute: PropTypes.string.isRequired,
-  platforms: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  isLoading: PropTypes.bool,
-  platformItems: PropTypes.object.isRequired,
-  fetchPlatformItems: PropTypes.func.isRequired,
-  addToPortfolio: PropTypes.func.isRequired,
-  fetchPortfolioItemsWithPortfolio: PropTypes.func.isRequired,
-  fetchPlatforms: PropTypes.func.isRequired
+  portfolioRoute: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({
-  platformReducer: { platforms, platformItems, isPlatformDataLoading }
-}) => ({
-  platforms,
-  isLoading: isPlatformDataLoading,
-  platformItems
-});
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      addToPortfolio,
-      fetchPlatforms,
-      fetchPlatformItems,
-      fetchPortfolioItemsWithPortfolio
-    },
-    dispatch
-  );
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddProductsToPortfolio);
+export default AddProductsToPortfolio;
