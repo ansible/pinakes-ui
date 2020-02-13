@@ -5,7 +5,6 @@ import { Card, CardHeader, CardFooter, Level } from '@patternfly/react-core';
 import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
-import './platform-card.scss';
 
 const PlatformItem = ({ src, ...props }) => (
   <Card key={props.id} className="content-gallery-card">
