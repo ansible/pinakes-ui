@@ -566,3 +566,19 @@ a.breadcrumb-active {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.card-image-header {
+  padding: 0 !important;
+}
+
+.portfolio-card-header {
+  min-height: 100px;
+  max-height: 200px;
+  background-size: stretch;
+  color: white;
+  padding: 8px 24px;
+}
+
+.portfolio-card-header-title {
+  max-width: calc(100% - 44px)
+}
