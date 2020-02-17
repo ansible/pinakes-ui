@@ -25,7 +25,10 @@ import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { ORDER_ROUTE, ORDERS_ROUTE } from '../../../constants/routes';
-import { OrderDetailStack, OrderDetailStackItem } from '../../../presentational-components/styled-components/orders';
+import {
+  OrderDetailStack,
+  OrderDetailStackItem
+} from '../../../presentational-components/styled-components/orders';
 
 const requiredParams = [
   'order-item',

@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {
-  Card,
   CardHeader,
   CardBody,
   CardFooter,
@@ -68,6 +67,6 @@ PlatformCard.propTypes = {
   name: propTypes.string,
   source_type_id: propTypes.string,
   id: propTypes.string
-};StyledCard
+};
 
 export default PlatformCard;

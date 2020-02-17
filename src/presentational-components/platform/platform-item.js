@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardFooter, Level } from '@patternfly/react-core';
+import { CardHeader, CardFooter, Level } from '@patternfly/react-core';
 
 import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';

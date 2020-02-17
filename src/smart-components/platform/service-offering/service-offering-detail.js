@@ -5,8 +5,7 @@ import {
   GridItem,
   TextContent,
   Text,
-  Level,
-  LevelItem
+  Level
 } from '@patternfly/react-core';
 import ReactJsonView from 'react-json-view';
 import { Section } from '@redhat-cloud-services/frontend-components/components/Section';

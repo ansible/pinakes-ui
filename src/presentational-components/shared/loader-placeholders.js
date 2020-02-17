@@ -164,7 +164,7 @@ export const ProductLoaderPlaceholder = (props) => (
   </Fragment>
 );
 
-export const IconPlaceholder = ({ height, ...props }) => (
+export const IconPlaceholder = ({ height }) => (
   <svg height={height} width={height}>
     <circle cx={height / 2} cy={height / 2} r={height / 2} fill="#ecebeb" />
   </svg>
