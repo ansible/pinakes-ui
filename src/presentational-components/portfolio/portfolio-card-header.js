@@ -9,10 +9,15 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
+import styled from 'styled-components';
+
+const HeaderTitle = styled(LevelItem)`
+  max-width: calc(100% - 44px);
+`;
 
 const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
   <Level>
-    <LevelItem className="portfolio-card-header-title pf-m-grow">
+    <HeaderTitle className="pf-m-grow">
       <Link to={to}>
         <TextContent>
           <Text
@@ -24,7 +29,7 @@ const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
           </Text>
         </TextContent>
       </Link>
-    </LevelItem>
+    </HeaderTitle>
     <LevelItem onClick={(event) => event.preventDefault()}>
       {headerActions}
     </LevelItem>

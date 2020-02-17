@@ -8,10 +8,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     key="Foo"
   >
     <Card
-      className="sc-AxheI ueGSf"
+      className="sc-Axmtr bVdtCA"
     >
       <article
-        className="pf-c-card sc-AxheI ueGSf"
+        className="pf-c-card sc-Axmtr bVdtCA"
       >
         <CardHeader>
           <div
@@ -104,62 +104,64 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         <ServiceOfferingCardBody
           id="Foo"
         >
-          <CardBody
-            className="card-height"
-          >
-            <div
-              className="pf-c-card__body card-height"
+          <Styled(CardBody)>
+            <CardBody
+              className="sc-AxheI gBimzb"
             >
-              <TextContent>
-                <div
-                  className="pf-c-content"
-                >
-                  <ConditionalLink>
+              <div
+                className="pf-c-card__body sc-AxheI gBimzb"
+              >
+                <TextContent>
+                  <div
+                    className="pf-c-content"
+                  >
+                    <ConditionalLink>
+                      <Text
+                        component="h3"
+                      >
+                        <h3
+                          className=""
+                          data-pf-content={true}
+                        >
+                          <styled.div>
+                            <div
+                              className="sc-AxgMl ytwOc"
+                            />
+                          </styled.div>
+                        </h3>
+                      </Text>
+                    </ConditionalLink>
                     <Text
-                      component="h3"
+                      component="small"
                     >
-                      <h3
+                      <small
                         className=""
                         data-pf-content={true}
                       >
-                        <styled.div>
-                          <div
-                            className="sc-AxgMl ytwOc"
-                          />
-                        </styled.div>
-                      </h3>
+                         
+                      </small>
                     </Text>
-                  </ConditionalLink>
-                  <Text
-                    component="small"
-                  >
-                    <small
-                      className=""
-                      data-pf-content={true}
-                    >
-                       
-                    </small>
-                  </Text>
-                </div>
-              </TextContent>
-              <ItemDetails
-                id="Foo"
-                toDisplay={
-                  Array [
-                    "long_description",
-                  ]
-                }
-              >
-                <styled.div
-                  key="card-prop-long_description"
+                  </div>
+                </TextContent>
+                <ItemDetails
+                  id="Foo"
+                  toDisplay={
+                    Array [
+                      "long_description",
+                    ]
+                  }
                 >
-                  <div
-                    className="sc-AxiKw iUXPLF"
-                  />
-                </styled.div>
-              </ItemDetails>
-            </div>
-          </CardBody>
+                  <styled.div
+                    key="card-prop-long_description"
+                  >
+                    <div
+                      className="sc-AxiKw iUXPLF"
+                    />
+                  </styled.div>
+                </ItemDetails>
+              </div>
+            </CardBody>
+          </Styled(CardBody)>
         </ServiceOfferingCardBody>
         <CardFooter>
           <div

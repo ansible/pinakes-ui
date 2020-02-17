@@ -9,6 +9,11 @@ import {
 import ItemDetails from './card-common';
 import ConditionalLink from './conditional-link';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
+import styled from 'styled-components';
+
+const StyledCardBody = styled(CardBody)`
+  height: 240px;
+`;
 
 const ServiceOfferingCardBody = ({
   name,
@@ -19,7 +24,7 @@ const ServiceOfferingCardBody = ({
   preserveSearch,
   ...props
 }) => (
-  <CardBody className="card-height">
+  <StyledCardBody>
     <TextContent>
       <ConditionalLink
         pathname={pathname}
@@ -36,7 +41,7 @@ const ServiceOfferingCardBody = ({
       {...props}
       toDisplay={[props.description ? 'description' : 'long_description']}
     />
-  </CardBody>
+  </StyledCardBody>
 );
 
 ServiceOfferingCardBody.propTypes = {

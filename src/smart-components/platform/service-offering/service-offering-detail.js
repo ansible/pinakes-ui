@@ -18,6 +18,7 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import EllipsisTextContainer from '../../../presentational-components/styled-components/ellipsis-text-container';
+import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 
 const requiredParams = ['service', 'platform'];
 
@@ -51,13 +52,13 @@ const ServiceOfferingDetail = () => {
         </div>
         <GridItem sm={12} className="pf-u-mb-md">
           <Level>
-            <LevelItem className="pf-l-flex flex-align-end">
+            <StyledLevelItem alignEnd className="pf-l-flex">
               <CardIcon src={source.icon_url} height={64} />
               <TextContent>
                 <Text component="h1">{service.name}</Text>
                 <Text component="small">Service offering</Text>
               </TextContent>
-            </LevelItem>
+            </StyledLevelItem>
           </Level>
         </GridItem>
         <GridItem md={2}>

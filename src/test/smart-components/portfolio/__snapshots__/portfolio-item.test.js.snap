@@ -10,17 +10,17 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
 >
   <Styled(GalleryItem)>
     <GalleryItem
-      className="sc-Axmtr ixEyNb"
+      className="sc-AxmLO bSqRm"
     >
       <div
-        className="sc-Axmtr ixEyNb"
+        className="sc-AxmLO bSqRm"
       >
         <Styled(Card)>
           <Card
-            className="sc-AxheI ueGSf"
+            className="sc-Axmtr bVdtCA"
           >
             <article
-              className="pf-c-card sc-AxheI ueGSf"
+              className="pf-c-card sc-Axmtr bVdtCA"
             >
               <CardHeader
                 className="card_header"
@@ -120,70 +120,72 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                 name="Foo"
                 orderUrl="/order"
               >
-                <CardBody
-                  className="card-height"
-                >
-                  <div
-                    className="pf-c-card__body card-height"
+                <Styled(CardBody)>
+                  <CardBody
+                    className="sc-AxheI gBimzb"
                   >
-                    <TextContent>
-                      <div
-                        className="pf-c-content"
-                      >
-                        <ConditionalLink>
-                          <Text
-                            component="h3"
-                            title="Foo"
-                          >
-                            <h3
-                              className=""
-                              data-pf-content={true}
+                    <div
+                      className="pf-c-card__body sc-AxheI gBimzb"
+                    >
+                      <TextContent>
+                        <div
+                          className="pf-c-content"
+                        >
+                          <ConditionalLink>
+                            <Text
+                              component="h3"
                               title="Foo"
                             >
-                              <styled.div>
-                                <div
-                                  className="sc-AxgMl ytwOc"
-                                >
-                                  Foo
-                                </div>
-                              </styled.div>
-                            </h3>
-                          </Text>
-                        </ConditionalLink>
-                        <Text
-                          component="small"
-                        >
-                          <small
-                            className=""
-                            data-pf-content={true}
+                              <h3
+                                className=""
+                                data-pf-content={true}
+                                title="Foo"
+                              >
+                                <styled.div>
+                                  <div
+                                    className="sc-AxgMl ytwOc"
+                                  >
+                                    Foo
+                                  </div>
+                                </styled.div>
+                              </h3>
+                            </Text>
+                          </ConditionalLink>
+                          <Text
+                            component="small"
                           >
-                             
-                          </small>
-                        </Text>
-                      </div>
-                    </TextContent>
-                    <ItemDetails
-                      description="Bar"
-                      id="1"
-                      orderUrl="/order"
-                      toDisplay={
-                        Array [
-                          "description",
-                        ]
-                      }
-                    >
-                      <styled.div
-                        key="card-prop-description"
-                      >
-                        <div
-                          className="sc-AxiKw iUXPLF"
-                        >
-                          Bar
+                            <small
+                              className=""
+                              data-pf-content={true}
+                            >
+                               
+                            </small>
+                          </Text>
                         </div>
-                      </styled.div>
-                    </ItemDetails>
-                  </div>
-                </CardBody>
+                      </TextContent>
+                      <ItemDetails
+                        description="Bar"
+                        id="1"
+                        orderUrl="/order"
+                        toDisplay={
+                          Array [
+                            "description",
+                          ]
+                        }
+                      >
+                        <styled.div
+                          key="card-prop-description"
+                        >
+                          <div
+                            className="sc-AxiKw iUXPLF"
+                          >
+                            Bar
+                          </div>
+                        </styled.div>
+                      </ItemDetails>
+                    </div>
+                  </CardBody>
+                </Styled(CardBody)>
               </ServiceOfferingCardBody>
               <CardFooter>
                 <div
