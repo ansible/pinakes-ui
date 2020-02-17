@@ -70,23 +70,6 @@ a.pf-c-breadcrumb__item {
 * End of PF4 fixes
 */
 
-.app-tabs {
-  border-bottom: 1px solid lightgrey;
-}
-
-.empty-state {
-  height: calc(100% - 197px)
-}
-
-.orders {
-  &.bg-fill {
-    background-color: var(--pf-global--Color--light-100);
-  }
-  &.separator {
-    border-bottom: 2px solid var(--pf-global--Color--light-200);
-  }
-}
-
 /**
 * Side nav styles
 */
