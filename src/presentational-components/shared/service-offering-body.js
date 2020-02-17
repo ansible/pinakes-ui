@@ -8,6 +8,7 @@ import {
 } from '@patternfly/react-core';
 import ItemDetails from './card-common';
 import ConditionalLink from './conditional-link';
+import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
 
 const ServiceOfferingCardBody = ({
   name,
@@ -25,12 +26,8 @@ const ServiceOfferingCardBody = ({
         searchParams={searchParams}
         preserveSearch={preserveSearch}
       >
-        <Text
-          className="elipsis-text-overflow"
-          component={TextVariants.h3}
-          title={display_name || name}
-        >
-          {display_name || name}
+        <Text component={TextVariants.h3} title={name}>
+          <EllipsisTextContainer>{name}</EllipsisTextContainer>
         </Text>
       </ConditionalLink>
       <Text component={TextVariants.small}>{distributor}&nbsp;</Text>

@@ -2,40 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import EllipsisTextContainer from '../../../presentational-components/styled-components/ellipsis-text-container';
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
     <Text id="source-name" component={TextVariants.h6}>
       <span>Platform</span>
       <br />
-      <div className="elipsis-text-overflow">
+      <EllipsisTextContainer>
         <span>{source.name}</span>
-      </div>
+      </EllipsisTextContainer>
     </Text>
     <Text id="portfolio-name" component={TextVariants.h6}>
       <span>Portfolio</span>
       <br />
-      <div className="elipsis-text-overflow">
+      <EllipsisTextContainer>
         <span>{portfolio.name}</span>
-      </div>
+      </EllipsisTextContainer>
     </Text>
     {product.distributor && (
       <Text id="distributor" component={TextVariants.h6}>
         <span>Vendor</span>
         <br />
-        <div className="elipsis-text-overflow">
+        <EllipsisTextContainer>
           <span>{product.distributor}</span>
-        </div>
+        </EllipsisTextContainer>
       </Text>
     )}
     <Text id="created_at" component={TextVariants.h6}>
       <span>Created at</span>
       <br />
-      <div className="elipsis-text-overflow">
-        <span>
-          <DateFormat variant="relative" date={product.created_at} />
-        </span>
-      </div>
+      <EllipsisTextContainer>
+        <DateFormat variant="relative" date={product.created_at} />
+      </EllipsisTextContainer>
     </Text>
   </TextContent>
 );

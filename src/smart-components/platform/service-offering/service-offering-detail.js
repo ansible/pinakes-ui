@@ -17,6 +17,7 @@ import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
+import EllipsisTextContainer from '../../../presentational-components/styled-components/ellipsis-text-container';
 
 const requiredParams = ['service', 'platform'];
 
@@ -64,16 +65,16 @@ const ServiceOfferingDetail = () => {
             <Text id="source" component="h6">
               <span>Platform</span>
               <br />
-              <div className="elipsis-text-overflow">
+              <EllipsisTextContainer>
                 <span>{source.name}</span>
-              </div>
+              </EllipsisTextContainer>
             </Text>
             <Text id="created_at" component="h6">
               <span>Created at</span>
               <br />
-              <div className="elipsis-text-overflow">
+              <EllipsisTextContainer>
                 <DateFormat type="relative" date={service.created_at} />
-              </div>
+              </EllipsisTextContainer>
             </Text>
           </TextContent>
         </GridItem>

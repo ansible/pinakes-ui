@@ -8,6 +8,7 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
+import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
 
 const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
   <Level>
@@ -16,10 +17,10 @@ const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
         <TextContent>
           <Text
             title={portfolioName}
-            className="elipsis-text-overflow pf-u-mb-0"
+            className="pf-u-mb-0"
             component={TextVariants.h3}
           >
-            {portfolioName}
+            <EllipsisTextContainer>{portfolioName}</EllipsisTextContainer>
           </Text>
         </TextContent>
       </Link>

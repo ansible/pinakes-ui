@@ -1,11 +1,5 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.elipsis-text-overflow {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
 .card-link, .card-link:hover, .card-link:active {
   text-decoration: none !important;
   cursor: pointer !important;

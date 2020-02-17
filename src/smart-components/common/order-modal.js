@@ -79,7 +79,7 @@ const OrderModal = ({ closeUrl }) => {
           </SplitItem>
           <SplitItem isFilled>
             <Level>
-              <LevelItem className="elipsis-text-overflow">
+              <LevelItem>
                 <Title headingLevel="h2" size="3xl">
                   {portfolioItem.name}
                 </Title>
