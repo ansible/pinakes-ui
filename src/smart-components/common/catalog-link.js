@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledLink = styled(Link)`
+  pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'initial')};
+`;
+
+const StyledNavLink = styled(NavLink)`
+  pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'initial')};
+`;
 
 const createSearchQuery = (search, searchParams, preserveSearch) => {
   const paramsQuery = Object.entries(searchParams)
@@ -21,7 +30,7 @@ const CatalogLink = ({
   ...props
 }) => {
   const { search } = useLocation();
-  const Component = nav ? NavLink : Link;
+  const Component = nav ? StyledNavLink : StyledLink;
   const to = {
     pathname,
     search: createSearchQuery(search, searchParams, preserveSearch)

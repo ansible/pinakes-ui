@@ -18,7 +18,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         preserveSearch={true}
         searchParams={Object {}}
       >
-        <Link
+        <Styled(Link)
           disabled={false}
           to={
             Object {
@@ -27,78 +27,91 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             }
           }
         >
-          <LinkAnchor
+          <Link
+            className="sc-AxiKw drCTeX"
             disabled={false}
-            href="foo/bar"
-            navigate={[Function]}
+            to={
+              Object {
+                "pathname": "foo/bar",
+                "search": "",
+              }
+            }
           >
-            <a
+            <LinkAnchor
+              className="sc-AxiKw drCTeX"
               disabled={false}
               href="foo/bar"
-              onClick={[Function]}
+              navigate={[Function]}
             >
-              <ButtonWithSpinner
-                isDisabled={false}
-                showSpinner={false}
-                variant="primary"
+              <a
+                className="sc-AxiKw drCTeX"
+                disabled={false}
+                href="foo/bar"
+                onClick={[Function]}
               >
-                <Styled(Component)
+                <ButtonWithSpinner
                   isDisabled={false}
+                  showSpinner={false}
                   variant="primary"
                 >
-                  <Component
-                    className="sc-AxjAm iMxqKn"
+                  <Styled(Component)
                     isDisabled={false}
                     variant="primary"
                   >
-                    <ComponentWithOuia
-                      component={[Function]}
-                      componentProps={
-                        Object {
-                          "children": Array [
-                            <span>
-                              Order
-                            </span>,
-                            false,
-                          ],
-                          "className": "sc-AxjAm iMxqKn",
-                          "isDisabled": false,
-                          "variant": "primary",
-                        }
-                      }
-                      consumerContext={null}
+                    <Component
+                      className="sc-AxjAm iMxqKn"
+                      isDisabled={false}
+                      variant="primary"
                     >
-                      <Button
-                        className="sc-AxjAm iMxqKn"
-                        isDisabled={false}
-                        ouiaContext={
+                      <ComponentWithOuia
+                        component={[Function]}
+                        componentProps={
                           Object {
-                            "isOuia": false,
-                            "ouiaId": null,
+                            "children": Array [
+                              <span>
+                                Order
+                              </span>,
+                              false,
+                            ],
+                            "className": "sc-AxjAm iMxqKn",
+                            "isDisabled": false,
+                            "variant": "primary",
                           }
                         }
-                        variant="primary"
+                        consumerContext={null}
                       >
-                        <button
-                          aria-disabled={null}
-                          aria-label={null}
-                          className="pf-c-button pf-m-primary sc-AxjAm iMxqKn"
-                          disabled={false}
-                          tabIndex={null}
-                          type="button"
+                        <Button
+                          className="sc-AxjAm iMxqKn"
+                          isDisabled={false}
+                          ouiaContext={
+                            Object {
+                              "isOuia": false,
+                              "ouiaId": null,
+                            }
+                          }
+                          variant="primary"
                         >
-                          <span>
-                            Order
-                          </span>
-                        </button>
-                      </Button>
-                    </ComponentWithOuia>
-                  </Component>
-                </Styled(Component)>
-              </ButtonWithSpinner>
-            </a>
-          </LinkAnchor>
-        </Link>
+                          <button
+                            aria-disabled={null}
+                            aria-label={null}
+                            className="pf-c-button pf-m-primary sc-AxjAm iMxqKn"
+                            disabled={false}
+                            tabIndex={null}
+                            type="button"
+                          >
+                            <span>
+                              Order
+                            </span>
+                          </button>
+                        </Button>
+                      </ComponentWithOuia>
+                    </Component>
+                  </Styled(Component)>
+                </ButtonWithSpinner>
+              </a>
+            </LinkAnchor>
+          </Link>
+        </Styled(Link)>
       </CatalogLink>
     </div>
   </LevelItem>

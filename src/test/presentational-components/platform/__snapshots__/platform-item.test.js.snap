@@ -8,10 +8,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     key="Foo"
   >
     <Card
-      className="sc-AxhUy kEBXQD"
+      className="sc-AxheI ueGSf"
     >
       <article
-        className="pf-c-card sc-AxhUy kEBXQD"
+        className="pf-c-card sc-AxheI ueGSf"
       >
         <CardHeader>
           <div
@@ -124,7 +124,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                       >
                         <styled.div>
                           <div
-                            className="sc-AxhCb hYKqDj"
+                            className="sc-AxgMl ytwOc"
                           />
                         </styled.div>
                       </h3>

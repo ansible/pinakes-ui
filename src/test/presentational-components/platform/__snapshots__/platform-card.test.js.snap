@@ -9,10 +9,10 @@ exports[`<PlatformCard /> should choose card image 1`] = `
     <div>
       <Styled(Card)>
         <Card
-          className="sc-AxiKw hrQYTG"
+          className="sc-AxhUy kEBXQD"
         >
           <article
-            className="pf-c-card sc-AxiKw hrQYTG"
+            className="pf-c-card sc-AxhUy kEBXQD"
           >
             <CardHeader>
               <div
@@ -49,7 +49,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                         }
                       }
                     >
-                      <Link
+                      <Styled(Link)
                         to={
                           Object {
                             "pathname": "/platform/platform-templates",
@@ -57,32 +57,44 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                           }
                         }
                       >
-                        <LinkAnchor
-                          href="/platform/platform-templates?platform=undefined"
-                          navigate={[Function]}
+                        <Link
+                          className="sc-AxiKw drCTeX"
+                          to={
+                            Object {
+                              "pathname": "/platform/platform-templates",
+                              "search": "?platform=undefined",
+                            }
+                          }
                         >
-                          <a
+                          <LinkAnchor
+                            className="sc-AxiKw drCTeX"
                             href="/platform/platform-templates?platform=undefined"
-                            onClick={[Function]}
+                            navigate={[Function]}
                           >
-                            <Text
-                              className="pf-u-mb-0"
-                              component="h3"
+                            <a
+                              className="sc-AxiKw drCTeX"
+                              href="/platform/platform-templates?platform=undefined"
+                              onClick={[Function]}
                             >
-                              <h3
+                              <Text
                                 className="pf-u-mb-0"
-                                data-pf-content={true}
+                                component="h3"
                               >
-                                <styled.div>
-                                  <div
-                                    className="sc-AxirZ ZcaGf"
-                                  />
-                                </styled.div>
-                              </h3>
-                            </Text>
-                          </a>
-                        </LinkAnchor>
-                      </Link>
+                                <h3
+                                  className="pf-u-mb-0"
+                                  data-pf-content={true}
+                                >
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxirZ ZcaGf"
+                                    />
+                                  </styled.div>
+                                </h3>
+                              </Text>
+                            </a>
+                          </LinkAnchor>
+                        </Link>
+                      </Styled(Link)>
                     </CatalogLink>
                   </div>
                 </TextContent>
@@ -139,10 +151,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
     <div>
       <Styled(Card)>
         <Card
-          className="sc-AxiKw hrQYTG"
+          className="sc-AxhUy kEBXQD"
         >
           <article
-            className="pf-c-card sc-AxiKw hrQYTG"
+            className="pf-c-card sc-AxhUy kEBXQD"
           >
             <CardHeader>
               <div
@@ -179,7 +191,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                         }
                       }
                     >
-                      <Link
+                      <Styled(Link)
                         to={
                           Object {
                             "pathname": "/platform/platform-templates",
@@ -187,32 +199,44 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           }
                         }
                       >
-                        <LinkAnchor
-                          href="/platform/platform-templates?platform=undefined"
-                          navigate={[Function]}
+                        <Link
+                          className="sc-AxiKw drCTeX"
+                          to={
+                            Object {
+                              "pathname": "/platform/platform-templates",
+                              "search": "?platform=undefined",
+                            }
+                          }
                         >
-                          <a
+                          <LinkAnchor
+                            className="sc-AxiKw drCTeX"
                             href="/platform/platform-templates?platform=undefined"
-                            onClick={[Function]}
+                            navigate={[Function]}
                           >
-                            <Text
-                              className="pf-u-mb-0"
-                              component="h3"
+                            <a
+                              className="sc-AxiKw drCTeX"
+                              href="/platform/platform-templates?platform=undefined"
+                              onClick={[Function]}
                             >
-                              <h3
+                              <Text
                                 className="pf-u-mb-0"
-                                data-pf-content={true}
+                                component="h3"
                               >
-                                <styled.div>
-                                  <div
-                                    className="sc-AxirZ ZcaGf"
-                                  />
-                                </styled.div>
-                              </h3>
-                            </Text>
-                          </a>
-                        </LinkAnchor>
-                      </Link>
+                                <h3
+                                  className="pf-u-mb-0"
+                                  data-pf-content={true}
+                                >
+                                  <styled.div>
+                                    <div
+                                      className="sc-AxirZ ZcaGf"
+                                    />
+                                  </styled.div>
+                                </h3>
+                              </Text>
+                            </a>
+                          </LinkAnchor>
+                        </Link>
+                      </Styled(Link)>
                     </CatalogLink>
                   </div>
                 </TextContent>

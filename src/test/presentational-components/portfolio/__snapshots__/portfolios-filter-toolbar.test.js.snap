@@ -64,7 +64,6 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
             key="portfolio-button-group/single-toolbar-item"
           >
             <Component
-              className=""
               component="Link"
               key="create-portfolio-button/button-link"
               pathname="/portfolios/add-portfolio"
