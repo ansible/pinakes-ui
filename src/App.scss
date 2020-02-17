@@ -1,25 +1,5 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.pf-c-card__body {
-  max-height: calc(100% - 89px);
-  overflow: hidden;
-  position: relative;
-  &::after {
-    content: none;
-    position: absolute;
-  }
-}
-.disabled-color {
-  color: #d2d2d2;
-}
-
-.destructive-color {
-  &:not(:disabled) {
-    color: #FF0000 !important;
-  }
-}
-
-
 .card-image {
   height: 40px;
   &.hide {
