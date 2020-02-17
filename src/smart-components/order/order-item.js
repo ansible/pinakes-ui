@@ -60,7 +60,7 @@ const OrderItem = ({ item }) => {
         <DataListItemRow>
           <DataListItemCells
             dataListCells={[
-              <DataListCell key="1" className="cell-grow">
+              <DataListCell key="1">
                 <Split gutter="sm">
                   <SplitItem>
                     <CardIcon
@@ -69,7 +69,7 @@ const OrderItem = ({ item }) => {
                       sourceId={orderPlatform}
                     />
                   </SplitItem>
-                  <SplitItem>
+                  <SplitItem isFilled>
                     <TextContent>
                       <Grid gutter="sm" className="pf-u-gg-md">
                         <GridItem>

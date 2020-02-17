@@ -50,6 +50,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                       <Styled(t)
                         delayTime={0}
                         height={0}
+                        hidden={true}
                         onError={[Function]}
                         onLoad={[Function]}
                         src="test-file-stub"
@@ -58,11 +59,12 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         <t
                           afterLoad={[Function]}
                           beforeLoad={[Function]}
-                          className="sc-AxjAm kNrCzh"
+                          className="sc-AxjAm fBVHdt"
                           delayMethod="throttle"
                           delayTime={0}
                           effect=""
                           height={0}
+                          hidden={true}
                           onError={[Function]}
                           onLoad={[Function]}
                           placeholderSrc=""
@@ -74,7 +76,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                           <t
                             afterLoad={[Function]}
                             beforeLoad={[Function]}
-                            className="sc-AxjAm kNrCzh"
+                            className="sc-AxjAm fBVHdt"
                             delayMethod="throttle"
                             delayTime={0}
                             height={0}
@@ -82,8 +84,9 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             visibleByDefault={false}
                           >
                             <img
-                              className="sc-AxjAm kNrCzh"
+                              className="sc-AxjAm fBVHdt"
                               height={0}
+                              hidden={true}
                               onError={[Function]}
                               onLoad={[Function]}
                               src="test-file-stub"
