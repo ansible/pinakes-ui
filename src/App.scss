@@ -1,23 +1,5 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.pf-c-dropdown__menu {
-  a {
-    text-decoration: none !important;
-  }
-}
-
-.text-align-right {
-  text-align: right;
-}
-
-.line-clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
-  word-wrap: break-word;
-}
-
 .content-gallery {
   .content-gallery-card {
     height: 330px;
