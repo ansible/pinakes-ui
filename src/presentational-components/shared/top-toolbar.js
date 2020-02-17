@@ -10,6 +10,10 @@ import {
 import clsx from 'clsx';
 import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import CatalogBreadcrumbs from '../../smart-components/common/catalog-breadcrumbs';
+import {
+  TopToolbarWrapper,
+  TopToolbarTitleContainer
+} from '../styled-components/toolbars';
 
 const TopToolbar = ({
   children,
@@ -18,10 +22,10 @@ const TopToolbar = ({
   breadcrumbsSpacing,
   ...rest
 }) => (
-  <div
+  <TopToolbarWrapper
     className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
       paddingBottom ? 'pf-u-pb-lg' : ''
-    } top-toolbar`}
+    }`}
     {...rest}
   >
     {breadcrumbs && (
@@ -31,7 +35,7 @@ const TopToolbar = ({
       </div>
     )}
     {children}
-  </div>
+  </TopToolbarWrapper>
 );
 
 TopToolbar.propTypes = {
@@ -59,8 +63,8 @@ export const TopToolbarTitle = ({
   ...rest
 }) => (
   <Fragment>
-    <Level
-      className={clsx('top-toolbar-title-container', {
+    <TopToolbarTitleContainer
+      className={clsx({
         'pf-u-mb-lg': !noData
       })}
       {...rest}
@@ -81,7 +85,7 @@ export const TopToolbarTitle = ({
         </TextContent>
       </LevelItem>
       {children}
-    </Level>
+    </TopToolbarTitleContainer>
   </Fragment>
 );
 
