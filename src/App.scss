@@ -1,12 +1,5 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.card-link, .card-link:hover, .card-link:active {
-  text-decoration: none !important;
-  cursor: pointer !important;
-  color: #282d33 !important;
-  font-weight: 400 !important;
-}
-
 .pf-c-dropdown__menu {
   a {
     text-decoration: none !important;
@@ -39,9 +32,6 @@
         content: none;
         position: absolute;
       }
-    }
-    .card-link {
-      height: 100%;
     }
   }
 }

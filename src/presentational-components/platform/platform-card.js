@@ -5,7 +5,10 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  GalleryItem
+  GalleryItem,
+  Text,
+  TextVariants,
+  TextContent
 } from '@patternfly/react-core';
 import DefaultPlatformImg from '../../assets/images/platform-default.svg';
 import OpenshiftPlatformImg from '../../assets/images/platform-openshift.svg';
@@ -14,8 +17,9 @@ import TowerPlatformImg from '../../assets/images/platform-tower.png';
 import ImageWithDefault from '../shared/image-with-default';
 import ItemDetails from '../shared/card-common';
 
-import CatalogLink from '../../smart-components/common/catalog-link';
 import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
+import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
+import CatalogLink from '../../smart-components/common/catalog-link';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -27,26 +31,33 @@ const platformTypeImg = {
 
 const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
-    <CatalogLink
-      pathname={PLATFORM_TEMPLATES_ROUTE}
-      searchParams={{ platform: id }}
-      className="card-link"
-    >
-      <Card key={id} className="content-gallery-card">
-        <CardHeader>
-          <ImageWithDefault
-            src={platformTypeImg[props.source_type_id] || DefaultPlatformImg}
-            width="80"
-            height="40"
-          />
-        </CardHeader>
-        <CardBody>
-          <h4>{name}</h4>
-          <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
-        </CardBody>
-        <CardFooter />
-      </Card>
-    </CatalogLink>
+    <Card key={id} className="content-gallery-card">
+      <CardHeader>
+        <ImageWithDefault
+          src={platformTypeImg[props.source_type_id] || DefaultPlatformImg}
+          width="80"
+          height="40"
+        />
+      </CardHeader>
+      <CardBody>
+        <TextContent>
+          <CatalogLink
+            pathname={PLATFORM_TEMPLATES_ROUTE}
+            searchParams={{ platform: id }}
+          >
+            <Text
+              title={name}
+              className="pf-u-mb-0"
+              component={TextVariants.h3}
+            >
+              <EllipsisTextContainer>{name}</EllipsisTextContainer>
+            </Text>
+          </CatalogLink>
+        </TextContent>
+        <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
+      </CardBody>
+      <CardFooter />
+    </Card>
   </GalleryItem>
 );
 
