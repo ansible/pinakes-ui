@@ -8,10 +8,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     key="Foo"
   >
     <Card
-      className="sc-AxirZ iYBrMi"
+      className="sc-AxiKw hrQYTG"
     >
       <article
-        className="pf-c-card sc-AxirZ iYBrMi"
+        className="pf-c-card sc-AxiKw hrQYTG"
       >
         <CardHeader>
           <div
@@ -124,7 +124,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                       >
                         <styled.div>
                           <div
-                            className="sc-AxjAm fkKIGI"
+                            className="sc-AxirZ ZcaGf"
                           />
                         </styled.div>
                       </h3>
@@ -150,10 +150,13 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   ]
                 }
               >
-                <div
-                  className="card-prop-text"
+                <styled.div
                   key="card-prop-long_description"
-                />
+                >
+                  <div
+                    className="sc-AxjAm hDziHm"
+                  />
+                </styled.div>
               </ItemDetails>
             </div>
           </CardBody>

@@ -10,17 +10,17 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
 >
   <Styled(GalleryItem)>
     <GalleryItem
-      className="sc-AxiKw eXmrKt"
+      className="sc-AxhCb kDPbVt"
     >
       <div
-        className="sc-AxiKw eXmrKt"
+        className="sc-AxhCb kDPbVt"
       >
         <Styled(Card)>
           <Card
-            className="sc-AxirZ iYBrMi"
+            className="sc-AxiKw hrQYTG"
           >
             <article
-              className="pf-c-card sc-AxirZ iYBrMi"
+              className="pf-c-card sc-AxiKw hrQYTG"
             >
               <CardHeader
                 className="card_header"
@@ -142,7 +142,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                             >
                               <styled.div>
                                 <div
-                                  className="sc-AxjAm fkKIGI"
+                                  className="sc-AxirZ ZcaGf"
                                 >
                                   Foo
                                 </div>
@@ -172,12 +172,15 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         ]
                       }
                     >
-                      <div
-                        className="card-prop-text"
+                      <styled.div
                         key="card-prop-description"
                       >
-                        Bar
-                      </div>
+                        <div
+                          className="sc-AxjAm hDziHm"
+                        >
+                          Bar
+                        </div>
+                      </styled.div>
                     </ItemDetails>
                   </div>
                 </CardBody>

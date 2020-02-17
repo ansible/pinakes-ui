@@ -29,7 +29,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
               >
                 <styled.div>
                   <div
-                    className="sc-AxjAm fkKIGI"
+                    className="sc-AxirZ ZcaGf"
                   >
                     Foo
                   </div>
@@ -58,12 +58,15 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           ]
         }
       >
-        <div
-          className="card-prop-text"
+        <styled.div
           key="card-prop-long_description"
         >
-          long description
-        </div>
+          <div
+            className="sc-AxjAm hDziHm"
+          >
+            long description
+          </div>
+        </styled.div>
       </ItemDetails>
     </div>
   </CardBody>
@@ -97,7 +100,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
               >
                 <styled.div>
                   <div
-                    className="sc-AxjAm fkKIGI"
+                    className="sc-AxirZ ZcaGf"
                   >
                     Foo
                   </div>
@@ -125,12 +128,15 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
           ]
         }
       >
-        <div
-          className="card-prop-text"
+        <styled.div
           key="card-prop-description"
         >
-          Bar
-        </div>
+          <div
+            className="sc-AxjAm hDziHm"
+          >
+            Bar
+          </div>
+        </styled.div>
       </ItemDetails>
     </div>
   </CardBody>

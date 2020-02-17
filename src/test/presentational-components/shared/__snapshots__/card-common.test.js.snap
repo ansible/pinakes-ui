@@ -21,19 +21,25 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
     ]
   }
 >
-  <div
-    className="card-prop-text"
+  <styled.div
     key="card-prop-foo"
   >
-    Foo content
-  </div>
-  <div
-    className="card-prop-text"
+    <div
+      className="sc-AxjAm hDziHm"
+    >
+      Foo content
+    </div>
+  </styled.div>
+  <styled.div
     key="card-prop-bar"
   >
-    <h1>
-      Bar content
-    </h1>
-  </div>
+    <div
+      className="sc-AxjAm hDziHm"
+    >
+      <h1>
+        Bar content
+      </h1>
+    </div>
+  </styled.div>
 </ItemDetails>
 `;

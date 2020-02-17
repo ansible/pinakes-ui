@@ -9,10 +9,10 @@ exports[`<PlatformCard /> should choose card image 1`] = `
     <div>
       <Styled(Card)>
         <Card
-          className="sc-AxirZ iYBrMi"
+          className="sc-AxiKw hrQYTG"
         >
           <article
-            className="pf-c-card sc-AxirZ iYBrMi"
+            className="pf-c-card sc-AxiKw hrQYTG"
           >
             <CardHeader>
               <div
@@ -75,7 +75,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                               >
                                 <styled.div>
                                   <div
-                                    className="sc-AxjAm fkKIGI"
+                                    className="sc-AxirZ ZcaGf"
                                   />
                                 </styled.div>
                               </h3>
@@ -96,18 +96,24 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                     ]
                   }
                 >
-                  <div
-                    className="card-prop-text"
+                  <styled.div
                     key="card-prop-description"
                   >
-                    desc
-                  </div>
-                  <div
-                    className="card-prop-text"
+                    <div
+                      className="sc-AxjAm hDziHm"
+                    >
+                      desc
+                    </div>
+                  </styled.div>
+                  <styled.div
                     key="card-prop-modified"
                   >
-                    Foo
-                  </div>
+                    <div
+                      className="sc-AxjAm hDziHm"
+                    >
+                      Foo
+                    </div>
+                  </styled.div>
                 </ItemDetails>
               </div>
             </CardBody>
@@ -133,10 +139,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
     <div>
       <Styled(Card)>
         <Card
-          className="sc-AxirZ iYBrMi"
+          className="sc-AxiKw hrQYTG"
         >
           <article
-            className="pf-c-card sc-AxirZ iYBrMi"
+            className="pf-c-card sc-AxiKw hrQYTG"
           >
             <CardHeader>
               <div
@@ -199,7 +205,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               >
                                 <styled.div>
                                   <div
-                                    className="sc-AxjAm fkKIGI"
+                                    className="sc-AxirZ ZcaGf"
                                   />
                                 </styled.div>
                               </h3>
@@ -220,18 +226,24 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     ]
                   }
                 >
-                  <div
-                    className="card-prop-text"
+                  <styled.div
                     key="card-prop-description"
                   >
-                    desc
-                  </div>
-                  <div
-                    className="card-prop-text"
+                    <div
+                      className="sc-AxjAm hDziHm"
+                    >
+                      desc
+                    </div>
+                  </styled.div>
+                  <styled.div
                     key="card-prop-modified"
                   >
-                    Foo
-                  </div>
+                    <div
+                      className="sc-AxjAm hDziHm"
+                    >
+                      Foo
+                    </div>
+                  </styled.div>
                 </ItemDetails>
               </div>
             </CardBody>
