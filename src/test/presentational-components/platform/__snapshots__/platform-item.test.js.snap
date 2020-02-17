@@ -8,10 +8,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     key="Foo"
   >
     <Card
-      className="sc-AxiKw hrQYTG"
+      className="sc-AxhUy kEBXQD"
     >
       <article
-        className="pf-c-card sc-AxiKw hrQYTG"
+        className="pf-c-card sc-AxhUy kEBXQD"
       >
         <CardHeader>
           <div
@@ -25,77 +25,74 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   height={40}
                   style={Object {}}
                 >
-                  <div
-                    className="display-inline-block"
+                  <styled.div
+                    height={40}
                   >
-                    <IconPlaceholder
+                    <div
+                      className="sc-AxirZ kGKGpr"
                       height={40}
                     >
-                      <div>
+                      <IconPlaceholder
+                        height={40}
+                      >
                         <svg
-                          height="40"
-                          width="40"
+                          height={40}
+                          width={40}
                         >
                           <circle
-                            cx={18.18181818181818}
-                            cy={18.18181818181818}
+                            cx={20}
+                            cy={20}
                             fill="#ecebeb"
-                            r={18.18181818181818}
+                            r={20}
                           />
                         </svg>
-                      </div>
-                    </IconPlaceholder>
-                    <t
-                      afterLoad={[Function]}
-                      beforeLoad={[Function]}
-                      className="card-image hide"
-                      delayMethod="throttle"
-                      delayTime={0}
-                      effect=""
-                      height={0}
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      placeholderSrc=""
-                      src="test-file-stub"
-                      style={
-                        Object {
-                          "height": 0,
-                        }
-                      }
-                      threshold={2000}
-                      visibleByDefault={false}
-                      wrapperClassName=""
-                    >
-                      <t
-                        afterLoad={[Function]}
-                        beforeLoad={[Function]}
-                        className="card-image hide"
-                        delayMethod="throttle"
+                      </IconPlaceholder>
+                      <Styled(t)
                         delayTime={0}
                         height={0}
-                        style={
-                          Object {
-                            "height": 0,
-                          }
-                        }
+                        onError={[Function]}
+                        onLoad={[Function]}
+                        src="test-file-stub"
                         threshold={2000}
-                        visibleByDefault={false}
                       >
-                        <img
-                          className="card-image hide"
+                        <t
+                          afterLoad={[Function]}
+                          beforeLoad={[Function]}
+                          className="sc-AxjAm kNrCzh"
+                          delayMethod="throttle"
+                          delayTime={0}
+                          effect=""
                           height={0}
                           onError={[Function]}
                           onLoad={[Function]}
+                          placeholderSrc=""
                           src="test-file-stub"
-                          style={
-                            Object {
-                              "height": 0,
-                            }
-                          }
-                        />
-                      </t>
-                    </t>
-                  </div>
+                          threshold={2000}
+                          visibleByDefault={false}
+                          wrapperClassName=""
+                        >
+                          <t
+                            afterLoad={[Function]}
+                            beforeLoad={[Function]}
+                            className="sc-AxjAm kNrCzh"
+                            delayMethod="throttle"
+                            delayTime={0}
+                            height={0}
+                            threshold={2000}
+                            visibleByDefault={false}
+                          >
+                            <img
+                              className="sc-AxjAm kNrCzh"
+                              height={0}
+                              onError={[Function]}
+                              onLoad={[Function]}
+                              src="test-file-stub"
+                            />
+                          </t>
+                        </t>
+                      </Styled(t)>
+                    </div>
+                  </styled.div>
                 </CardIcon>
               </div>
             </Level>
@@ -124,7 +121,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                       >
                         <styled.div>
                           <div
-                            className="sc-AxirZ ZcaGf"
+                            className="sc-AxhCb hYKqDj"
                           />
                         </styled.div>
                       </h3>
@@ -154,7 +151,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   key="card-prop-long_description"
                 >
                   <div
-                    className="sc-AxjAm hDziHm"
+                    className="sc-AxiKw iUXPLF"
                   />
                 </styled.div>
               </ItemDetails>

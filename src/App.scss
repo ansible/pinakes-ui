@@ -1,15 +1,5 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.card-image {
-  height: 40px;
-  &.hide {
-    display: none;
-    float: left;
-    height: 0px;
-    width: 0px;
-  }
-}
-
 .data-list-expand-fix {
   .pf-c-data-list__toggle {
     align-self: flex-start;
@@ -465,20 +455,12 @@ a.breadcrumb-active {
   display: inline-block;
 }
 
-.display-inline-block {
-  display: inline-block;
-}
-
 .card-height {
   height: 240px;
 }
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.card-image-header {
-  padding: 0 !important;
 }
 
 .portfolio-card-header {
