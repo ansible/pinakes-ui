@@ -42,54 +42,59 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 showSpinner={false}
                 variant="primary"
               >
-                <Component
-                  className=""
+                <Styled(Component)
                   isDisabled={false}
                   variant="primary"
                 >
-                  <ComponentWithOuia
-                    component={[Function]}
-                    componentProps={
-                      Object {
-                        "children": Array [
-                          <span>
-                            Order
-                          </span>,
-                          false,
-                        ],
-                        "className": "",
-                        "isDisabled": false,
-                        "variant": "primary",
-                      }
-                    }
-                    consumerContext={null}
+                  <Component
+                    className="sc-AxjAm iMxqKn"
+                    isDisabled={false}
+                    variant="primary"
                   >
-                    <Button
-                      className=""
-                      isDisabled={false}
-                      ouiaContext={
+                    <ComponentWithOuia
+                      component={[Function]}
+                      componentProps={
                         Object {
-                          "isOuia": false,
-                          "ouiaId": null,
+                          "children": Array [
+                            <span>
+                              Order
+                            </span>,
+                            false,
+                          ],
+                          "className": "sc-AxjAm iMxqKn",
+                          "isDisabled": false,
+                          "variant": "primary",
                         }
                       }
-                      variant="primary"
+                      consumerContext={null}
                     >
-                      <button
-                        aria-disabled={null}
-                        aria-label={null}
-                        className="pf-c-button pf-m-primary"
-                        disabled={false}
-                        tabIndex={null}
-                        type="button"
+                      <Button
+                        className="sc-AxjAm iMxqKn"
+                        isDisabled={false}
+                        ouiaContext={
+                          Object {
+                            "isOuia": false,
+                            "ouiaId": null,
+                          }
+                        }
+                        variant="primary"
                       >
-                        <span>
-                          Order
-                        </span>
-                      </button>
-                    </Button>
-                  </ComponentWithOuia>
-                </Component>
+                        <button
+                          aria-disabled={null}
+                          aria-label={null}
+                          className="pf-c-button pf-m-primary sc-AxjAm iMxqKn"
+                          disabled={false}
+                          tabIndex={null}
+                          type="button"
+                        >
+                          <span>
+                            Order
+                          </span>
+                        </button>
+                      </Button>
+                    </ComponentWithOuia>
+                  </Component>
+                </Styled(Component)>
               </ButtonWithSpinner>
             </a>
           </LinkAnchor>

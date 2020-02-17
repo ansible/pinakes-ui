@@ -1,27 +1,5 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.toolbar-override {
-  display: flex;
-  align-items: center;
-  > div, > a {
-    &:not(:last-child) {
-      margin-right: 16px;
-    }
-  }
-}
-
-.button-with-spinner {
-  display: flex;
-  align-items: center;
-  .ins-c-spinner::before {
-    height: 16px;
-    width: 16px;
-    margin-left: 8px;
-    border-color: #ededed;
-    border-top-color: var(--pf-c-button--disabled--BackgroundColor);
-  }
-}
-
 .disabled-link {
   pointer-events: none
 }

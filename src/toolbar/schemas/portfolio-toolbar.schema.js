@@ -25,6 +25,7 @@ const PortfolioActionsToolbar = ({
   const [isOpen, setOpen] = useState(false);
   return (
     <Dropdown
+      className="pf-u-ml-md"
       onSelect={() => setOpen(false)}
       position={DropdownPosition.right}
       toggle={<KebabToggle onToggle={setOpen} isDisabled={copyInProgress} />}
@@ -163,7 +164,6 @@ const createPortfolioToolbarSchema = ({
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'portfolio-actions',
-              className: 'toolbar-override',
               fields: [
                 createLinkButton({
                   pathname: sharePortfolioRoute,
