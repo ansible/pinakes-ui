@@ -1,20 +1,15 @@
 @import '~@redhat-cloud-services/frontend-components/index.css';
 
-.content-gallery {
-  .content-gallery-card {
-    height: 330px;
-    .card-prop-text {
-      overflow: hidden;
-    }
-    .pf-c-card__body {
-      max-height: calc(100% - 89px);
-      overflow: hidden;
-      position: relative;
-      &::after {
-        content: none;
-        position: absolute;
-      }
-    }
+.card-prop-text {
+  overflow: hidden;
+}
+.pf-c-card__body {
+  max-height: calc(100% - 89px);
+  overflow: hidden;
+  position: relative;
+  &::after {
+    content: none;
+    position: absolute;
   }
 }
 .disabled-color {
@@ -171,20 +166,6 @@
     margin-left: 8px;
     border-color: #ededed;
     border-top-color: var(--pf-c-button--disabled--BackgroundColor);
-  }
-}
-
-.portfolio-item-progress {
-  position: relative;
-  height: 330px;
-  .content-gallery-card {
-    position: absolute;
-    width: 100%;
-    &.progress-overlay {
-      background-color: rgba(210, 210, 210, .5);
-      z-index: 1;
-      cursor: progress;
-    }
   }
 }
 

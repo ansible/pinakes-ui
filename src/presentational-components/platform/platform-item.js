@@ -5,9 +5,10 @@ import { Card, CardHeader, CardFooter, Level } from '@patternfly/react-core';
 import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
+import { StyledCard } from '../styled-components/styled-gallery';
 
 const PlatformItem = ({ src, ...props }) => (
-  <Card key={props.id} className="content-gallery-card">
+  <StyledCard key={props.id}>
     <CardHeader>
       <Level>
         <CardIcon height={40} sourceId={props.source_id} />
@@ -22,7 +23,7 @@ const PlatformItem = ({ src, ...props }) => (
     </CardHeader>
     <ServiceOfferingCardBody {...props} />
     <CardFooter />
-  </Card>
+  </StyledCard>
 );
 
 PlatformItem.propTypes = {

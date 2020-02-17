@@ -20,6 +20,7 @@ import ItemDetails from '../shared/card-common';
 import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
 import CatalogLink from '../../smart-components/common/catalog-link';
+import { StyledCard } from '../styled-components/styled-gallery';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -31,7 +32,7 @@ const platformTypeImg = {
 
 const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
-    <Card key={id} className="content-gallery-card">
+    <StyledCard key={id}>
       <CardHeader>
         <ImageWithDefault
           src={platformTypeImg[props.source_type_id] || DefaultPlatformImg}
@@ -57,7 +58,7 @@ const PlatformCard = ({ name, id, ...props }) => (
         <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
       </CardBody>
       <CardFooter />
-    </Card>
+    </StyledCard>
   </GalleryItem>
 );
 
@@ -67,6 +68,6 @@ PlatformCard.propTypes = {
   name: propTypes.string,
   source_type_id: propTypes.string,
   id: propTypes.string
-};
+};StyledCard
 
 export default PlatformCard;

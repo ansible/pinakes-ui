@@ -1,157 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfolioCard /> should render correctly 1`] = `
-<GalleryItem>
-  <div
-    className=""
-  >
-    <Card
-      className="content-gallery-card"
-    >
-      <CardHeader>
-        <PortfolioCardHeader
-          headerActions={
-            Array [
-              <Dropdown
-                dropdownItems={
-                  Array [
-                    <DropdownItem
-                      component={
-                        <CatalogLink
-                          nav={false}
-                          pathname="/portfolios/share"
-                          preserveSearch={false}
-                          searchParams={
-                            Object {
-                              "portfolio": "123",
-                            }
+<Styled(GalleryItem)>
+  <Styled(Card)>
+    <CardHeader>
+      <PortfolioCardHeader
+        headerActions={
+          Array [
+            <Dropdown
+              dropdownItems={
+                Array [
+                  <DropdownItem
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="/portfolios/share"
+                        preserveSearch={false}
+                        searchParams={
+                          Object {
+                            "portfolio": "123",
                           }
-                        >
-                          Share
-                        </CatalogLink>
-                      }
-                    />,
-                    <DropdownItem
-                      component={
-                        <CatalogLink
-                          nav={false}
-                          pathname="/portfolios/edit-workflow"
-                          preserveSearch={false}
-                          searchParams={
-                            Object {
-                              "portfolio": "123",
-                            }
+                        }
+                      >
+                        Share
+                      </CatalogLink>
+                    }
+                  />,
+                  <DropdownItem
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="/portfolios/edit-workflow"
+                        preserveSearch={false}
+                        searchParams={
+                          Object {
+                            "portfolio": "123",
                           }
-                        >
-                          Set approval
-                        </CatalogLink>
-                      }
-                    />,
-                    <DropdownItem
-                      component={
-                        <CatalogLink
-                          nav={false}
-                          pathname="/portfolios/edit"
-                          preserveSearch={false}
-                          searchParams={
-                            Object {
-                              "portfolio": "123",
-                            }
+                        }
+                      >
+                        Set approval
+                      </CatalogLink>
+                    }
+                  />,
+                  <DropdownItem
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="/portfolios/edit"
+                        preserveSearch={false}
+                        searchParams={
+                          Object {
+                            "portfolio": "123",
                           }
-                        >
-                          Edit
-                        </CatalogLink>
-                      }
-                    />,
-                    <DropdownItem
-                      component={
-                        <CatalogLink
-                          nav={false}
-                          pathname="/portfolios/remove"
-                          preserveSearch={false}
-                          searchParams={
-                            Object {
-                              "portfolio": "123",
-                            }
+                        }
+                      >
+                        Edit
+                      </CatalogLink>
+                    }
+                  />,
+                  <DropdownItem
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="/portfolios/remove"
+                        preserveSearch={false}
+                        searchParams={
+                          Object {
+                            "portfolio": "123",
                           }
-                        >
-                          Delete
-                        </CatalogLink>
-                      }
-                    />,
-                  ]
-                }
-                isOpen={false}
-                isPlain={true}
-                onSelect={[Function]}
-                position="right"
-                toggle={
-                  <KebabToggle
-                    onToggle={[Function]}
-                  />
-                }
-              />,
-            ]
+                        }
+                      >
+                        Delete
+                      </CatalogLink>
+                    }
+                  />,
+                ]
+              }
+              isOpen={false}
+              isPlain={true}
+              onSelect={[Function]}
+              position="right"
+              toggle={
+                <KebabToggle
+                  onToggle={[Function]}
+                />
+              }
+            />,
+          ]
+        }
+        portfolioName="name"
+        to={
+          Object {
+            "pathname": "/portfolio",
+            "search": "?portfolio=123",
           }
-          portfolioName="name"
-          to={
-            Object {
-              "pathname": "/portfolio",
-              "search": "?portfolio=123",
-            }
-          }
-        />
-      </CardHeader>
-      <CardBody
-        className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0"
+        }
+      />
+    </CardHeader>
+    <CardBody>
+      <TextContent
+        className="pf-u-mb-md"
       >
-        <CatalogLink
-          className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
-          nav={false}
-          pathname="/portfolio"
-          preserveSearch={false}
-          searchParams={
-            Object {
-              "portfolio": "123",
-            }
-          }
+        <Text
+          className="pf-i-mb-sm"
+          component="small"
         >
-          <TextContent
-            className="pf-u-mb-md"
-          >
-            <Text
-              className="pf-i-mb-sm"
-              component="small"
-            >
-              Last updated 
-              <DateFormat
-                date="created at"
-                type="relative"
-              />
-            </Text>
-            <Text
-              component="small"
-            >
-              Owner
-            </Text>
-          </TextContent>
-          <ItemDetails
-            created_at="created at"
-            description="description"
-            modified="modified"
-            name="name"
-            owner="Owner"
-            portfolioName="foo"
-            toDisplay={
-              Array [
-                "description",
-              ]
-            }
+          Last updated 
+          <DateFormat
+            date="created at"
+            type="relative"
           />
-        </CatalogLink>
-      </CardBody>
-      <CardFooter />
-    </Card>
-  </div>
-</GalleryItem>
+        </Text>
+        <Text
+          component="small"
+        >
+          Owner
+        </Text>
+      </TextContent>
+      <ItemDetails
+        created_at="created at"
+        description="description"
+        modified="modified"
+        name="name"
+        owner="Owner"
+        portfolioName="foo"
+        toDisplay={
+          Array [
+            "description",
+          ]
+        }
+      />
+    </CardBody>
+    <CardFooter />
+  </Styled(Card)>
+</Styled(GalleryItem)>
 `;

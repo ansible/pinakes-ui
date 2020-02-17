@@ -19,16 +19,21 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
         >
           <ConditionalLink>
             <Text
-              className="elipsis-text-overflow"
               component="h3"
-              title="display name"
+              title="Foo"
             >
               <h3
-                className="elipsis-text-overflow"
+                className=""
                 data-pf-content={true}
-                title="display name"
+                title="Foo"
               >
-                display name
+                <styled.div>
+                  <div
+                    className="sc-AxjAm fkKIGI"
+                  >
+                    Foo
+                  </div>
+                </styled.div>
               </h3>
             </Text>
           </ConditionalLink>
@@ -82,16 +87,21 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
         >
           <ConditionalLink>
             <Text
-              className="elipsis-text-overflow"
               component="h3"
               title="Foo"
             >
               <h3
-                className="elipsis-text-overflow"
+                className=""
                 data-pf-content={true}
                 title="Foo"
               >
-                Foo
+                <styled.div>
+                  <div
+                    className="sc-AxjAm fkKIGI"
+                  >
+                    Foo
+                  </div>
+                </styled.div>
               </h3>
             </Text>
           </ConditionalLink>
