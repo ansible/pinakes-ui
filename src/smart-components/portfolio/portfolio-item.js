@@ -4,7 +4,8 @@ import {
   Card,
   CardHeader,
   CardFooter,
-  GalleryItem
+  GalleryItem,
+  Level
 } from '@patternfly/react-core';
 
 import { CATALOG_API_BASE } from '../../utilities/constants';
@@ -26,17 +27,19 @@ const PortfolioItem = (props) => (
       )}
       <Card className="content-gallery-card">
         <CardHeader className="card_header">
-          {props.isSelectable && (
-            <CardCheckbox
-              handleCheck={() => props.onSelect(props.id)}
-              isChecked={props.isSelected}
-              id={props.id}
+          <Level>
+            <CardIcon
+              src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
+              sourceId={props.service_offering_source_ref}
             />
-          )}
-          <CardIcon
-            src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
-            sourceId={props.service_offering_source_ref}
-          />
+            {props.isSelectable && (
+              <CardCheckbox
+                handleCheck={() => props.onSelect(props.id)}
+                isChecked={props.isSelected}
+                id={props.id}
+              />
+            )}
+          </Level>
         </CardHeader>
         <ServiceOfferingCardBody {...props} />
         <CardFooter></CardFooter>

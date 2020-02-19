@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Main } from '@redhat-cloud-services/frontend-components';
+import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
 import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import { Routes } from './Routes';
@@ -19,6 +19,7 @@ import { IntlProvider } from 'react-intl';
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from './utilities/constants';
+import './App.scss';
 
 smoothscroll.polyfill();
 
@@ -100,7 +101,7 @@ const App = () => {
     <IntlProvider locale="en">
       <Fragment>
         <NotificationsPortal />
-        <Main style={{ marginLeft: 0, padding: 0 }}>
+        <Main className="pf-u-p-0 pf-u-ml-0">
           <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <GridItem sm={12} className="content-layout">
               <Routes />

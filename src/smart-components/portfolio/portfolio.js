@@ -157,10 +157,7 @@ const Portfolio = () => {
   return (
     <Switch>
       <Route path={routes.addProductsRoute}>
-        <AddProductsToPortfolio
-          portfolio={portfolio}
-          portfolioRoute={routes.portfolioRoute}
-        />
+        <AddProductsToPortfolio portfolioRoute={routes.portfolioRoute} />
       </Route>
       <Route path={routes.portfolioItemRoute}>
         <PortfolioItemDetail portfolioLoaded={!state.isFetching} />

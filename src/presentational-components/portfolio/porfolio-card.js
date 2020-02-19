@@ -15,10 +15,9 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
 
-import './portfolio-card.scss';
 import CatalogLink from '../../smart-components/common/catalog-link';
 import {
   SHARE_PORTFOLIO_ROUTE,

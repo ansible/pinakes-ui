@@ -16,7 +16,7 @@ import {
   TextContent,
   TextVariants
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 import CardIcon from '../../presentational-components/shared/card-icon';
@@ -115,7 +115,7 @@ const OrderItem = ({ item }) => {
                             </LevelItem>
                             <LevelItem>
                               <Text
-                                style={{ marginBottom: 0 }}
+                                className="pf-u-mb-0"
                                 component={TextVariants.small}
                               >
                                 Ordered by {item.owner}

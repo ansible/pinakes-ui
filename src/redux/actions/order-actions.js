@@ -47,8 +47,14 @@ export const cancelOrder = (orderId) => (dispatch, getState) => {
   } = getState();
   return OrderHelper.cancelOrder(orderId)
     .then(() => {
-      (orderDetail.order.state = 'Canceled'),
-        (orderDetail.approvalRequest[0].status = 'canceled');
+      orderDetail.order.state = 'Canceled';
+      if (
+        orderDetail.approvalRequest &&
+        orderDetail.approvalRequest.length > 0
+      ) {
+        orderDetail.approvalRequest[0].state = 'canceled';
+      }
+
       dispatch({
         type: ActionTypes.SET_ORDER_DETAIL,
         payload: { ...orderDetail }

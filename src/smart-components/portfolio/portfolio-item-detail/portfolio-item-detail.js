@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
 
 import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
@@ -25,7 +25,7 @@ const PortfolioItemDetail = () => {
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
   const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
-  const { portfolioItem, portfolio } = useSelector(
+  const { portfolioItem, portfolio, source } = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
 
@@ -43,7 +43,7 @@ const PortfolioItemDetail = () => {
 
   if (isFetching || Object.keys(portfolioItem).length === 0) {
     return (
-      <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
+      <Section className="global-primary-background full-height">
         <TopToolbar>
           <ProductLoaderPlaceholder />
         </TopToolbar>
@@ -80,7 +80,7 @@ const PortfolioItemDetail = () => {
                 <ItemDetailInfoBar
                   product={portfolioItem}
                   portfolio={portfolio}
-                  source={portfolioItem}
+                  source={source}
                 />
               </GridItem>
               <GridItem md={10}>

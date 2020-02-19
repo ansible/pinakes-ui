@@ -52,7 +52,7 @@ export default ContentGalleryEmptyState;
 
 export const EmptyStatePrimaryAction = ({ url, label }) => (
   <CatalogLink pathname={url} preserveSearch>
-    <Button variant="secondary">{label}</Button>
+    <Button variant="primary">{label}</Button>
   </CatalogLink>
 );
 

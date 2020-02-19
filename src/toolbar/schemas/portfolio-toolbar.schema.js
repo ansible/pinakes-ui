@@ -118,8 +118,7 @@ const PortfolioItemsActionsDropdown = ({
           key="remove-products"
         >
           <span
-            style={{ cursor: 'pointer' }}
-            className={clsx('pf-c-dropdown__menu-item', {
+            className={clsx('pf-c-dropdown__menu-item', 'cursor: pointer', {
               'disabled-color': !itemsSelected
             })}
           >
