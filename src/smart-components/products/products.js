@@ -100,7 +100,7 @@ const Products = () => {
 
   const SourcesAction = () => (
     <a href={`${release}settings/sources/new`}>
-      <Button variant="secondary">Add source</Button>
+      <Button variant="primary">Add source</Button>
     </a>
   );
 

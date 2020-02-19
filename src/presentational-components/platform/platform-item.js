@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
+import { Card, CardHeader, CardFooter, Level } from '@patternfly/react-core';
 
 import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
-import './platform-card.scss';
 
 const PlatformItem = ({ src, ...props }) => (
   <Card key={props.id} className="content-gallery-card">
     <CardHeader>
-      <CardIcon style={{ height: 40 }} sourceId={props.source_id} />
-      {props.editMode && (
-        <CardCheckbox
-          id={props.id}
-          isChecked={props.checked}
-          handleCheck={props.onToggleItemSelect}
-        />
-      )}
+      <Level>
+        <CardIcon height={40} sourceId={props.source_id} />
+        {props.editMode && (
+          <CardCheckbox
+            id={props.id}
+            isChecked={props.checked}
+            handleCheck={props.onToggleItemSelect}
+          />
+        )}
+      </Level>
     </CardHeader>
     <ServiceOfferingCardBody {...props} />
     <CardFooter />

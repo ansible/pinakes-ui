@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { EditIcon } from '@patternfly/react-icons';
-import { Spinner } from '@redhat-cloud-services/frontend-components';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';

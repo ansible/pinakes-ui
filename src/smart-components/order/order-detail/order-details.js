@@ -9,7 +9,7 @@ import {
   TextListItem,
   TextListItemVariants
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 
 import ReactJsonView from 'react-json-view';
 
@@ -27,7 +27,7 @@ const OrderDetails = () => {
       <Text component={TextVariants.h2}>Order details</Text>
       <TextList component={TextListVariants.dl}>
         <TextListItem component={TextListItemVariants.dt}>
-          Request ID
+          Order ID
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {order.id}

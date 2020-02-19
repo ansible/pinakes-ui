@@ -3,12 +3,7 @@
 exports[`<PortfolioCardHeader /> should render correctly 1`] = `
 <Level>
   <LevelItem
-    className="portfolio-card-header-title"
-    style={
-      Object {
-        "flexGrow": 1,
-      }
-    }
+    className="portfolio-card-header-title pf-m-grow"
   >
     <Link>
       <TextContent>

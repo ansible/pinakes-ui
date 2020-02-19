@@ -230,6 +230,12 @@
   background-color: var(--pf-global--BackgroundColor--100)
 }
 
+.share-column {
+  .ddorg__pf4-component-mapper__select__single-value {
+    max-width: calc(100% - 70px);
+  }
+}
+
 /**
 * Update DDF select styles for select component
 */
@@ -317,26 +323,6 @@ a.pf-c-breadcrumb__item {
   left: 0;
   width: 16px;
   height: 16px;
-}
-
-.share-group-modal{
-  .height-normalize {
-    height: 38px;
-  }
-  .share-column {
-    flex-grow: 1;
-    &:not(:first-child) {
-      max-width: 200px;
-      margin-left: 8px;
-    }
-    h4 {
-      margin: 0
-    }
-  }
-  &.group {
-    border-top: 1px solid #d2d2d2;
-    padding-top: 24px;
-  }
 }
 
 .app-tabs {
@@ -547,10 +533,38 @@ a.breadcrumb-active {
 }
 
 .flex-align-end {
-  align-items: end
+  align-items: end !important;
 }
 
 .upload-icon-wrapper {
   position: relative;
   display: inline-block;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.card-height {
+  height: 240px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.card-image-header {
+  padding: 0 !important;
+}
+
+.portfolio-card-header {
+  min-height: 100px;
+  max-height: 200px;
+  background-size: stretch;
+  color: white;
+  padding: 8px 24px;
+}
+
+.portfolio-card-header-title {
+  max-width: calc(100% - 44px)
 }
