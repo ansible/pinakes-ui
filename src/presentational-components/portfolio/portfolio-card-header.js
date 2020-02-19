@@ -9,11 +9,9 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 
-import './portfolio-card.scss';
-
 const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
   <Level>
-    <LevelItem className="portfolio-card-header-title" style={{ flexGrow: 1 }}>
+    <LevelItem className="portfolio-card-header-title pf-m-grow">
       <Link to={to}>
         <TextContent>
           <Text

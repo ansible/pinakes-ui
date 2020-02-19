@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
-import { Level, LevelItem } from '@patternfly/react-core';
+import { Grid, GridItem } from '@patternfly/react-core';
 import asyncFormValidator from '../../utilities/async-form-validator';
 
 export const ShareGroupSelect = ({
@@ -12,38 +12,39 @@ export const ShareGroupSelect = ({
   permissions
 }) => {
   return (
-    <div className="share-group-modal">
-      <Level>
-        <LevelItem className="share-column">
-          <FieldProvider
-            name={inputName}
-            loadOptions={asyncFormValidator(loadOptions)}
-          >
-            {({ input, ...props }) => (
-              <rawComponents.Select
-                isSearchable
-                isClearable
-                loadOptions={asyncFormValidator(loadOptions)}
-                placeholder="Select group"
-                {...input}
-                {...props}
-              />
-            )}
-          </FieldProvider>
-        </LevelItem>
-        <LevelItem className="share-column">
-          <FieldProvider name={selectName} options={permissions}>
-            {({ input, ...props }) => (
-              <rawComponents.Select
-                placeholder="Select permission"
-                {...input}
-                {...props}
-              />
-            )}
-          </FieldProvider>
-        </LevelItem>
-      </Level>
-    </div>
+    <Grid gutter="md" className="share-column">
+      <GridItem span={7}>
+        <FieldProvider
+          name={inputName}
+          loadOptions={asyncFormValidator(loadOptions)}
+          render={({ input, ...props }) => (
+            <rawComponents.Select
+              isSearchable
+              isClearable
+              menuIsPortal
+              loadOptions={asyncFormValidator(loadOptions)}
+              placeholder="Select group"
+              {...input}
+              {...props}
+            />
+          )}
+        />
+      </GridItem>
+      <GridItem span={5}>
+        <FieldProvider
+          name={selectName}
+          options={permissions}
+          menuIsPortal
+          render={({ input, ...props }) => (
+            <rawComponents.Select
+              placeholder="Select permission"
+              {...input}
+              {...props}
+            />
+          )}
+        />
+      </GridItem>
+    </Grid>
   );
 };
 

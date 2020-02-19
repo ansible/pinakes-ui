@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
-import { Section } from '@redhat-cloud-services/frontend-components';
+import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
@@ -27,6 +27,16 @@ const initialState = {
   isFetching: true,
   isFiltering: false
 };
+
+const debouncedFilter = asyncFormValidator(
+  (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPlatformInventories(id, value, meta)).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
 
 const platformInventoriesState = (state, action) => {
   switch (action.type) {
@@ -58,16 +68,6 @@ const PlatformInventories = () => {
   const [{ platform: id }] = useQuery(['platform']);
   const history = useHistory();
 
-  const debouncedFilter = asyncFormValidator(
-    (value, dispatch, filteringCallback, meta = defaultSettings) => {
-      filteringCallback(true);
-      dispatch(fetchPlatformInventories(id, value, meta)).then(() =>
-        filteringCallback(false)
-      );
-    },
-    1000
-  );
-
   const tabItems = [
     {
       eventKey: 0,
@@ -91,6 +91,7 @@ const PlatformInventories = () => {
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
+      id,
       value,
       dispatch,
       (isFiltering) =>

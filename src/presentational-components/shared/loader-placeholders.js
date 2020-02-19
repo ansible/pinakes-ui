@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import ContentLoader, { List } from 'react-content-loader';
 import PropTypes from 'prop-types';
-import { Main, Spinner } from '@redhat-cloud-services/frontend-components';
+import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 import {
   Bullseye,
   Card,
@@ -24,7 +25,7 @@ import {
 
 export const CardLoader = ({ items, ...props }) => (
   <Grid gutter="md">
-    <GridItem sm={12} style={{ padding: 24 }}>
+    <GridItem sm={12} className="pf-u-p-md">
       <Gallery gutter="md">
         {[...Array(items)].map((_item, index) => (
           <GalleryItem key={index}>
@@ -111,7 +112,7 @@ PortfolioLoader.defaultProps = {
 };
 
 export const AppPlaceholder = (props) => (
-  <Main style={{ marginLeft: 0, padding: 0 }}>
+  <Main className="pf-u-m-0 pf-u-p-0">
     <ContentLoader
       height={16}
       width={300}

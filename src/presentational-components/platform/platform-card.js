@@ -14,7 +14,6 @@ import TowerPlatformImg from '../../assets/images/platform-tower.png';
 import ImageWithDefault from '../shared/image-with-default';
 import ItemDetails from '../shared/card-common';
 
-import './platform-card.scss';
 import CatalogLink from '../../smart-components/common/catalog-link';
 import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 

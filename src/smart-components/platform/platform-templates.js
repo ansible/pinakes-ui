@@ -43,6 +43,16 @@ const platformItemsState = (state, action) => {
   }
 };
 
+const debouncedFilter = asyncFormValidator(
+  (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPlatformItems(id, value, meta)).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
+
 const PlatformTemplates = () => {
   const [{ platform: id }] = useQuery(['platform']);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
@@ -59,15 +69,6 @@ const PlatformTemplates = () => {
     })
   );
   const dispatch = useDispatch();
-  const debouncedFilter = asyncFormValidator(
-    (value, dispatch, filteringCallback, meta = defaultSettings) => {
-      filteringCallback(true);
-      dispatch(fetchPlatformItems(id, value, meta)).then(() =>
-        filteringCallback(false)
-      );
-    },
-    1000
-  );
 
   const tabItems = [
     {
@@ -92,6 +93,7 @@ const PlatformTemplates = () => {
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
+      id,
       value,
       dispatch,
       (isFiltering) =>

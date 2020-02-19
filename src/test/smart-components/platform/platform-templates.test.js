@@ -81,9 +81,12 @@ describe('<PlatformTemplates />', () => {
       });
 
     const expectedActions = [
-      { type: `${FETCH_PLATFORM_ITEMS}_PENDING`, meta: { platformId: '1' } },
       {
-        meta: { platformId: '1' },
+        type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
+        meta: { count: 0, filter: '', limit: 50, offset: 0, platformId: '1' }
+      },
+      {
+        meta: { count: 0, filter: '', limit: 50, offset: 0, platformId: '1' },
         type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
         payload: { data: [{ id: '1', name: 'Offering 1' }] }
       }

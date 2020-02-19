@@ -1,22 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CardCheckbox /> should render correctly 1`] = `
-<div
-  style={
-    Object {
-      "float": "right",
-    }
-  }
->
-  <Checkbox
-    aria-label="card checkbox"
-    className=""
-    id="foo-id"
-    isChecked={false}
-    isDisabled={false}
-    isValid={true}
-    onChange={[MockFunction]}
-    onClick={[Function]}
-  />
-</div>
+<Checkbox
+  aria-label="card checkbox"
+  className=""
+  id="foo-id"
+  isChecked={false}
+  isDisabled={false}
+  isValid={true}
+  onChange={[MockFunction]}
+  onClick={[Function]}
+/>
 `;

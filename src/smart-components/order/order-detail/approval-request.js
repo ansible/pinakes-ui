@@ -9,7 +9,7 @@ import {
   TextListItem,
   TextListItemVariants
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 
 const ApprovalRequests = () => {
   const { order, approvalRequest } = useSelector(
@@ -25,7 +25,13 @@ const ApprovalRequests = () => {
             Request ID
           </TextListItem>
           <TextListItem component={TextListItemVariants.dd}>
-            {request.id}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`${document.baseURI}ansible/catalog/approval/requests/detail/${request.approval_request_ref}`}
+            >
+              {request.approval_request_ref}
+            </a>
           </TextListItem>
           <TextListItem component={TextListItemVariants.dt}>
             Request created

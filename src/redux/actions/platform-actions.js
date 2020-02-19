@@ -24,7 +24,9 @@ export const fetchPlatformItems = (platformId, filter, options) => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,
   payload: PlatformHelper.getPlatformItems(platformId, filter, options),
   meta: {
-    platformId
+    platformId,
+    filter,
+    ...options
   }
 });
 
