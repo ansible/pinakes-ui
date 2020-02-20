@@ -1,5 +1,6 @@
-@import '~@redhat-cloud-services/frontend-components/index.css';
+import { createGlobalStyle } from 'styled-components';
 
+const GlobalStyle = createGlobalStyle`
 .disabled-link {
   pointer-events: none
 }
@@ -221,3 +222,6 @@ a.breadcrumb-active {
   display: flex;
   flex-direction: column;
 }
+`;
+
+export default GlobalStyle;
