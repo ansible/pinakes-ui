@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 import {
-  Stack,
   StackItem,
   Level,
   LevelItem,
@@ -26,6 +25,10 @@ import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { ORDER_ROUTE, ORDERS_ROUTE } from '../../../constants/routes';
+import {
+  OrderDetailStack,
+  OrderDetailStackItem
+} from '../../../presentational-components/styled-components/orders';
 
 const requiredParams = [
   'order-item',
@@ -62,8 +65,8 @@ const OrderDetail = () => {
   const { order, portfolioItem, platform, orderItem } = orderDetailData;
 
   return (
-    <Stack className="orders bg-fill">
-      <StackItem className="orders separator pf-u-p-lg">
+    <OrderDetailStack className="bg-fill">
+      <OrderDetailStackItem className="pf-u-p-lg">
         {isFetching ? (
           <OrderDetailToolbarPlaceholder />
         ) : (
@@ -99,7 +102,7 @@ const OrderDetail = () => {
             </Level>
           </Fragment>
         )}
-      </StackItem>
+      </OrderDetailStackItem>
       <StackItem className="pf-u-pt-xl">
         <Split gutter="md" className="orders-nav-layout">
           <SplitItem className="order-detail-nav-cotainer">
@@ -129,7 +132,7 @@ const OrderDetail = () => {
           </SplitItem>
         </Split>
       </StackItem>
-    </Stack>
+    </OrderDetailStack>
   );
 };
 

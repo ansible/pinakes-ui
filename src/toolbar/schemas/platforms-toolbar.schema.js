@@ -91,7 +91,7 @@ export const createPlatformsFilterToolbarSchema = ({
     {
       component: toolbarComponentTypes.TOOLBAR,
       key: 'platforms-filter-toolbar',
-      className: 'pf-u-pt-md pf-u-pb-md pf-u-pr-lg pf-u-pl-lg toolbar',
+      className: 'pf-u-pt-md pf-u-pb-md pf-u-pr-lg pf-u-pl-lg',
       fields: [
         {
           component: toolbarComponentTypes.LEVEL,

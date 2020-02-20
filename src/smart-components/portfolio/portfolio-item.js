@@ -1,51 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  GalleryItem,
-  Level
-} from '@patternfly/react-core';
+import { CardHeader, CardFooter, Level } from '@patternfly/react-core';
 
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
 import CardCheckbox from '../../presentational-components/shared/card-checkbox';
 import ServiceOfferingCardBody from '../../presentational-components/shared/service-offering-body';
+import {
+  StyledCard,
+  StyledGalleryItem
+} from '../../presentational-components/styled-components/styled-gallery';
 
 const PortfolioItem = (props) => (
-  <GalleryItem>
-    <div
-      className={`${
-        props.removeInProgress && props.isSelected
-          ? 'portfolio-item-progress'
-          : ''
-      } `}
-    >
-      {props.removeInProgress && props.isSelected && (
-        <Card className="content-gallery-card progress-overlay" />
-      )}
-      <Card className="content-gallery-card">
-        <CardHeader className="card_header">
-          <Level>
-            <CardIcon
-              src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
-              sourceId={props.service_offering_source_ref}
+  <StyledGalleryItem isDisabled={props.removeInProgress && props.isSelected}>
+    <StyledCard>
+      <CardHeader className="card_header">
+        <Level>
+          <CardIcon
+            src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
+            sourceId={props.service_offering_source_ref}
+          />
+          {props.isSelectable && (
+            <CardCheckbox
+              handleCheck={() => props.onSelect(props.id)}
+              isChecked={props.isSelected}
+              id={props.id}
             />
-            {props.isSelectable && (
-              <CardCheckbox
-                handleCheck={() => props.onSelect(props.id)}
-                isChecked={props.isSelected}
-                id={props.id}
-              />
-            )}
-          </Level>
-        </CardHeader>
-        <ServiceOfferingCardBody {...props} />
-        <CardFooter></CardFooter>
-      </Card>
-    </div>
-  </GalleryItem>
+          )}
+        </Level>
+      </CardHeader>
+      <ServiceOfferingCardBody {...props} />
+      <CardFooter></CardFooter>
+    </StyledCard>
+  </StyledGalleryItem>
 );
 
 PortfolioItem.propTypes = {

@@ -8,6 +8,12 @@ import {
 } from '@patternfly/react-core';
 import ItemDetails from './card-common';
 import ConditionalLink from './conditional-link';
+import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
+import styled from 'styled-components';
+
+const StyledCardBody = styled(CardBody)`
+  height: 240px;
+`;
 
 const ServiceOfferingCardBody = ({
   name,
@@ -18,19 +24,15 @@ const ServiceOfferingCardBody = ({
   preserveSearch,
   ...props
 }) => (
-  <CardBody className="card-height">
+  <StyledCardBody>
     <TextContent>
       <ConditionalLink
         pathname={pathname}
         searchParams={searchParams}
         preserveSearch={preserveSearch}
       >
-        <Text
-          className="elipsis-text-overflow"
-          component={TextVariants.h3}
-          title={display_name || name}
-        >
-          {display_name || name}
+        <Text component={TextVariants.h3} title={name}>
+          <EllipsisTextContainer>{name}</EllipsisTextContainer>
         </Text>
       </ConditionalLink>
       <Text component={TextVariants.small}>{distributor}&nbsp;</Text>
@@ -39,7 +41,7 @@ const ServiceOfferingCardBody = ({
       {...props}
       toDisplay={[props.description ? 'description' : 'long_description']}
     />
-  </CardBody>
+  </StyledCardBody>
 );
 
 ServiceOfferingCardBody.propTypes = {

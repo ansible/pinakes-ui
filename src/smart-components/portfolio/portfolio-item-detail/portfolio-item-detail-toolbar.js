@@ -17,6 +17,7 @@ import CardIcon from '../../../presentational-components/shared/card-icon';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
+import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
   <IconUpload uploadIcon={uploadIcon}>
@@ -44,7 +45,7 @@ export const PortfolioItemDetailToolbar = ({
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level>
-      <LevelItem className="pf-l-flex flex-align-end">
+      <StyledLevelItem alignEnd className="pf-l-flex">
         <PortfolioItemIconItem
           uploadIcon={uploadIcon}
           id={product.id}
@@ -53,7 +54,7 @@ export const PortfolioItemDetailToolbar = ({
         <TextContent className="pf-u-ml-md">
           <Text component={TextVariants.h1}>{product.name}</Text>
         </TextContent>
-      </LevelItem>
+      </StyledLevelItem>
       <LevelItem style={{ minHeight: 36 }}>
         <Level>
           <Route
@@ -115,7 +116,7 @@ export const SurveyEditingToolbar = ({
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <Level>
-      <LevelItem className="pf-l-flex flex-align-end">
+      <StyledLevelItem alignEnd className="pf-l-flex">
         <PortfolioItemIconItem
           uploadIcon={uploadIcon}
           id={product.id}
@@ -126,7 +127,7 @@ export const SurveyEditingToolbar = ({
             Editing survey: {product.name}
           </Text>
         </TextContent>
-      </LevelItem>
+      </StyledLevelItem>
       <LevelItem>
         <Flex>
           <ButtonWithSpinner

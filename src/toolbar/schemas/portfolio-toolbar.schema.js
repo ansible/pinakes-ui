@@ -6,7 +6,6 @@ import {
   KebabToggle,
   DropdownItem
 } from '@patternfly/react-core';
-import clsx from 'clsx';
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
@@ -26,6 +25,7 @@ const PortfolioActionsToolbar = ({
   const [isOpen, setOpen] = useState(false);
   return (
     <Dropdown
+      className="pf-u-ml-md"
       onSelect={() => setOpen(false)}
       position={DropdownPosition.right}
       toggle={<KebabToggle onToggle={setOpen} isDisabled={copyInProgress} />}
@@ -69,7 +69,7 @@ const PortfolioActionsToolbar = ({
             </CatalogLink>
           }
           role="link"
-          className="pf-c-dropdown__menu-item destructive-color"
+          className="pf-c-dropdown__menu-item"
         />
       ]}
     />
@@ -117,13 +117,7 @@ const PortfolioItemsActionsDropdown = ({
           aria-label="Remove products from portfolio"
           key="remove-products"
         >
-          <span
-            className={clsx('pf-c-dropdown__menu-item', 'cursor: pointer', {
-              'disabled-color': !itemsSelected
-            })}
-          >
-            Remove products
-          </span>
+          Remove products
         </DropdownItem>
       ]}
     />
@@ -170,7 +164,6 @@ const createPortfolioToolbarSchema = ({
             {
               component: toolbarComponentTypes.LEVEL_ITEM,
               key: 'portfolio-actions',
-              className: 'toolbar-override',
               fields: [
                 createLinkButton({
                   pathname: sharePortfolioRoute,
