@@ -121,7 +121,7 @@ const OrderDetail = () => {
                 />
                 <Route
                   path={`${match.url}/provision`}
-                  render={() => <div>provision</div>}
+                  render={() => <Redirect to={match.url} />}
                 />
                 <Route path={`${match.url}/lifecycle`}>
                   <OrderLifecycle />
