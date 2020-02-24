@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ExternalLinkAlt from '@patternfly/react-icons/dist/js/icons/external-link-alt-icon';
 
 import useQuery from '../../../utilities/use-query';
 import { ORDER_ROUTE } from '../../../constants/routes';
@@ -30,7 +31,8 @@ const OrderLifecycle = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Manage product
+        Manage product&nbsp;
+        <ExternalLinkAlt />
       </a>
     </div>
   );
