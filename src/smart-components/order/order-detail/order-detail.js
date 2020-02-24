@@ -119,10 +119,6 @@ const OrderDetail = () => {
                   path={`${match.url}/approval`}
                   component={ApprovalRequests}
                 />
-                <Route
-                  path={`${match.url}/provision`}
-                  render={() => <Redirect to={match.url} />}
-                />
                 <Route path={`${match.url}/lifecycle`}>
                   <OrderLifecycle />
                 </Route>
