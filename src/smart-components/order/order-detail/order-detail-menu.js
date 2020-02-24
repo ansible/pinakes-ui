@@ -20,11 +20,6 @@ const useNavItems = ({ state } = {}) => [
     title: 'Approval'
   },
   {
-    link: '/provision',
-    title: 'Provision',
-    isDisabled: true
-  },
-  {
     link: '/lifecycle',
     title: 'Lifecycle',
     isDisabled: state !== 'Completed'
