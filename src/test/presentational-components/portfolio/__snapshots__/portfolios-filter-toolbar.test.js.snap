@@ -5,22 +5,12 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
   value={
     Object {
       "componentMapper": Object {
+        "AppTabs": [Function],
         "Button": [Function],
         "FilterToolbarItem": [Function],
         "Level": [Function],
         "LevelItem": [Function],
-        "Link": Object {
-          "$$typeof": Symbol(react.forward_ref),
-          "displayName": "Link",
-          "propTypes": Object {
-            "innerRef": [Function],
-            "onClick": [Function],
-            "replace": [Function],
-            "target": [Function],
-            "to": [Function],
-          },
-          "render": [Function],
-        },
+        "Link": [Function],
         "Toolbar": [Function],
         "ToolbarGroup": [Function],
         "ToolbarItem": [Function],
@@ -42,10 +32,9 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
     />
     <Component
       component="Level"
-      key="porftolios-actions"
+      key="portfolios-actions"
     >
       <Component
-        className="pf-u-mt-md"
         component="Toolbar"
         key="main-portfolio-toolbar"
       >
@@ -78,13 +67,13 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
               className=""
               component="Link"
               key="create-portfolio-button/button-link"
-              to="/portfolios/add-portfolio"
+              pathname="/portfolios/add-portfolio"
             >
               <Component
                 aria-label="Create portfolio"
                 component="Button"
                 key="create-portfolio-button"
-                title="Create portfolio"
+                title="Create"
                 variant="primary"
               />
             </Component>
@@ -94,13 +83,7 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
       <Component
         component="LevelItem"
         key="pagination-item"
-      >
-        <Component
-          apiRequest={[Function]}
-          component={[Function]}
-          key="porftolios-pagination"
-        />
-      </Component>
+      />
     </Component>
   </Component>
 </ContextProvider>

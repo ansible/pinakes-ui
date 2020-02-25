@@ -16,13 +16,21 @@ describe('<OrderNotification />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<MemoryRouter><OrderNotification { ...initialProps } /></MemoryRouter>);
+    const wrapper = shallow(
+      <MemoryRouter>
+        <OrderNotification {...initialProps} />
+      </MemoryRouter>
+    );
     expect(shallowToJson(wrapper.find(OrderNotification))).toMatchSnapshot();
   });
 
   it('should call dispatch on link click with correct arguments', () => {
     const dispatch = jest.fn();
-    const wrapper = mount(<MemoryRouter><OrderNotification { ...initialProps } dispatch={ dispatch } /></MemoryRouter>);
+    const wrapper = mount(
+      <MemoryRouter>
+        <OrderNotification {...initialProps} dispatch={dispatch} />
+      </MemoryRouter>
+    );
     wrapper.find('a').simulate('click');
     expect(dispatch).toHaveBeenCalledWith({ type: CLEAR_NOTIFICATIONS });
   });

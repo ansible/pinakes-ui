@@ -1,59 +1,120 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Modal, Level, LevelItem, Title, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
+import {
+  Modal,
+  Level,
+  LevelItem,
+  Title,
+  TextContent,
+  Text,
+  TextVariants,
+  Split,
+  SplitItem,
+  Bullseye
+} from '@patternfly/react-core';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
-import OrderServiceFormStepConfiguration from '../order/order-service-form-step-configuration';
+import FormRenderer from './form-renderer';
+import {
+  fetchServicePlans,
+  sendSubmitOrder
+} from '../../redux/actions/order-actions';
 
-const OrderModal = ({ serviceData, closeUrl, history: { push }}) => serviceData ? (
-  <Modal
-    isOpen
-    title=""
-    hideTitle
-    onClose={ () => push(closeUrl) }
-    isLarge
-  >
-    <div className="pf-u-mb-md">
-      <div style={ { float: 'left' } } className="pf-u-mr-sm">
-        <CardIcon height={ 64 } src={ `${CATALOG_API_BASE}/portfolio_items/${serviceData.id}/icon` }
-          platformId={ serviceData.service_offering_source_ref }/>
+const OrderModal = ({ closeUrl }) => {
+  const [isFetching, setFetching] = useState(true);
+  const { search } = useLocation();
+  const { push } = useHistory();
+  const dispatch = useDispatch();
+  const { portfolioItem } = useSelector(
+    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
+  );
+  const servicePlans = useSelector(
+    ({ orderReducer: { servicePlans } }) => servicePlans
+  );
+
+  useEffect(() => {
+    dispatch(fetchServicePlans(portfolioItem.id)).then(() =>
+      setFetching(false)
+    );
+  }, []);
+
+  const onSubmit = (data) => {
+    dispatch(
+      sendSubmitOrder({
+        portfolio_item_id: portfolioItem.id,
+        service_parameters: data
+      })
+    );
+    push({
+      pathname: closeUrl,
+      search
+    });
+  };
+
+  return (
+    <Modal
+      isOpen
+      title=""
+      hideTitle
+      onClose={() =>
+        push({
+          pathname: closeUrl,
+          search
+        })
+      }
+      isSmall
+    >
+      <div className="pf-u-mb-md">
+        <Split>
+          <SplitItem className="pf-u-mr-sm">
+            <CardIcon
+              height={64}
+              src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/icon`}
+              sourceId={portfolioItem.service_offering_source_ref}
+            />
+          </SplitItem>
+          <SplitItem isFilled>
+            <Level>
+              <LevelItem className="elipsis-text-overflow">
+                <Title headingLevel="h2" size="3xl">
+                  {portfolioItem.name}
+                </Title>
+              </LevelItem>
+            </Level>
+            <Level>
+              <LevelItem>
+                <TextContent>
+                  <Text component={TextVariants.small}>
+                    {portfolioItem.name}
+                  </Text>
+                </TextContent>
+              </LevelItem>
+            </Level>
+          </SplitItem>
+        </Split>
       </div>
-      <Level>
-        <LevelItem className="elipsis-text-overflow">
-          <Title headingLevel="h2" size="3xl">
-            { serviceData.name }
-          </Title>
-        </LevelItem>
-      </Level>
-      <Level>
-        <LevelItem>
-          <TextContent>
-            <Text component={ TextVariants.small }>{ serviceData.name }</Text>
-          </TextContent>
-        </LevelItem>
-      </Level>
-    </div>
-    <OrderServiceFormStepConfiguration closeUrl={ closeUrl } { ...serviceData } />
-  </Modal>
-) : null;
+      {isFetching ? (
+        <Bullseye className="pf-u-m-sm">
+          <Spinner />
+        </Bullseye>
+      ) : (
+        <FormRenderer
+          schema={servicePlans[0].create_json_schema.schema}
+          onSubmit={onSubmit}
+          formContainer="modal"
+        />
+      )}
+    </Modal>
+  );
+};
 
 OrderModal.propTypes = {
   orderData: PropTypes.func,
-  serviceData: PropTypes.object,
-  closeUrl: PropTypes.string.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+  closeUrl: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({
-  orderReducer: { selectedItem, servicePlans }
-}) => ({
-  selectedItem,
-  servicePlans
-});
-
-export default withRouter(connect(mapStateToProps)(OrderModal));
+export default OrderModal;

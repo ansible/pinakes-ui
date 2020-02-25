@@ -3,6 +3,7 @@ import { getRbacGroups } from '../../helpers/rbac/rbac-helper';
 
 export const fetchRbacGroups = () => ({
   type: FETCH_RBAC_GROUPS,
-  payload: getRbacGroups().then(({ data }) => data.map(({ uuid, name }) => ({ value: uuid, label: name })))
+  payload: getRbacGroups().then(({ data }) =>
+    data.map(({ uuid, name }) => ({ value: uuid, label: name }))
+  )
 });
-

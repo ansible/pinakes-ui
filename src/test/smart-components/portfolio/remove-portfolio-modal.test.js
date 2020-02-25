@@ -1,27 +1,40 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store' ;
-import { shallowToJson } from 'enzyme-to-json';
+import configureStore from 'redux-mock-store';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware, ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/';
+import {
+  notificationsMiddleware,
+  ADD_NOTIFICATION
+} from '@redhat-cloud-services/frontend-components-notifications/';
 
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
-import { REMOVE_PORTFOLIO, FETCH_PORTFOLIOS, DELETE_TEMPORARY_PORTFOLIO } from '../../../redux/action-types';
+import {
+  REMOVE_PORTFOLIO,
+  FETCH_PORTFOLIOS,
+  DELETE_TEMPORARY_PORTFOLIO
+} from '../../../redux/action-types';
+import { mockApi } from '../../__mocks__/user-login';
 
 describe('<RemovePortfolioModal />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware(), notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
-  const ComponentWrapper = ({ store, children }) => (
-    <Provider store={ store }>
-      <MemoryRouter initialEntries={ [ '/foo', '/foo/123', '/foo' ] } initialIndex={ 1 }>
-        { children }
+  const ComponentWrapper = ({
+    store,
+    children,
+    initialEntries,
+    initialIndex
+  }) => (
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
+        {children}
       </MemoryRouter>
     </Provider>
   );
@@ -32,72 +45,113 @@ describe('<RemovePortfolioModal />', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: { data: [{
-          id: '123',
-          name: 'Foo'
-        }]}
+        portfolios: {
+          data: [
+            {
+              id: '123',
+              name: 'Foo'
+            }
+          ]
+        }
       }
     };
     mockStore = configureStore(middlewares);
   });
 
-  it('should render correctly', () => {
-    const wrapper = shallow(<RemovePortfolioModal { ...initialProps } />);
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-  });
-
   it('should call cancel action', () => {
     const store = mockStore(initialState);
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <Route path="/foo/:id" render={ (args) => <RemovePortfolioModal { ...args } { ...initialProps } /> } />
+      <ComponentWrapper
+        store={store}
+        initialEntries={[
+          '/portfolio?portfolio=123',
+          '/portfolio/remove-portfolio?portfolio=123'
+        ]}
+        initialIndex={1}
+      >
+        <Route
+          path="/portfolio"
+          render={(args) => (
+            <RemovePortfolioModal {...args} {...initialProps} />
+          )}
+        />
       </ComponentWrapper>
     );
-    wrapper.find('button').first().simulate('click');
-    expect(wrapper.find(MemoryRouter).children().props().history.location.pathname).toEqual('/foo');
+    wrapper
+      .find('button')
+      .first()
+      .simulate('click');
+    expect(
+      wrapper
+        .find(MemoryRouter)
+        .children()
+        .props().history.location.pathname
+    ).toEqual('/portfolio');
   });
 
-  it('should call remove action', (done) => {
+  it('should call remove action', async (done) => {
     expect.assertions(3);
     const store = mockStore(initialState);
 
-    apiClientMock.delete(`${CATALOG_API_BASE}/portfolios/123`, mockOnce((req, res) => {
+    mockApi.onDelete(`${CATALOG_API_BASE}/portfolios/123`).replyOnce((req) => {
       expect(req).toBeTruthy();
-      return res.status(200);
-    }));
+      return [200];
+    });
 
-    apiClientMock.get(`${CATALOG_API_BASE}/portfolios?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`, mockOnce((req, res) => {
-      expect(req).toBeTruthy();
-      return res.status(200).body({ data: []});
-    }));
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .replyOnce((req) => {
+        expect(req).toBeTruthy();
+        return [200, { data: [] }];
+      });
 
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <Route path="/foo/:id" render={ (args) => <RemovePortfolioModal { ...args } { ...initialProps } /> } />
+      <ComponentWrapper
+        store={store}
+        initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
+      >
+        <Route
+          path="/portfolio/remove-portfolio"
+          render={(args) => (
+            <RemovePortfolioModal {...args} {...initialProps} />
+          )}
+        />
       </ComponentWrapper>
     );
-    const expectedActions = [{
-      type: DELETE_TEMPORARY_PORTFOLIO,
-      payload: '123'
-    }, {
-      type: `${REMOVE_PORTFOLIO}_PENDING`,
-      meta: expect.any(Object)
-    }, expect.objectContaining({
-      type: `${FETCH_PORTFOLIOS}_PENDING`
-    }), expect.objectContaining({
-      type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-      payload: { data: []}
-    }), expect.objectContaining({
-      type: ADD_NOTIFICATION,
-      payload: expect.objectContaining({ variant: 'success' })
-    }), expect.objectContaining({
-      type: `${REMOVE_PORTFOLIO}_FULFILLED`
-    }) ];
+    const expectedActions = [
+      {
+        type: DELETE_TEMPORARY_PORTFOLIO,
+        payload: '123'
+      },
+      {
+        type: `${REMOVE_PORTFOLIO}_PENDING`,
+        meta: expect.any(Object)
+      },
+      expect.objectContaining({
+        type: `${FETCH_PORTFOLIOS}_PENDING`
+      }),
+      expect.objectContaining({
+        type: `${FETCH_PORTFOLIOS}_FULFILLED`,
+        payload: { data: [] }
+      }),
+      expect.objectContaining({
+        type: ADD_NOTIFICATION,
+        payload: expect.objectContaining({ variant: 'success' })
+      }),
+      expect.objectContaining({
+        type: `${REMOVE_PORTFOLIO}_FULFILLED`
+      })
+    ];
 
-    wrapper.find('button').last().simulate('click');
-    setImmediate(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
     });
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
   });
 });

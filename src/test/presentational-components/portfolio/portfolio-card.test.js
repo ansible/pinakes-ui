@@ -21,17 +21,16 @@ describe('<PortfolioCard />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<PortfolioCard { ...initialProps } />);
+    const wrapper = shallow(<PortfolioCard {...initialProps} />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
   it('should render and create correct card actions', () => {
     const wrapper = mount(
       <MemoryRouter>
-        <PortfolioCard { ...initialProps } />
+        <PortfolioCard {...initialProps} />
       </MemoryRouter>
     );
     expect(wrapper.find('button')).toHaveLength(1);
-
   });
 });

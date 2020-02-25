@@ -3,15 +3,13 @@ import propTypes from 'prop-types';
 import { Checkbox } from '@patternfly/react-core';
 
 const CardCheckbox = ({ handleCheck, isChecked, id }) => (
-  <div style={ { float: 'right' } }>
-    <Checkbox
-      onClick={ event => event.stopPropagation() }
-      isChecked={ isChecked }
-      onChange={ handleCheck }
-      aria-label="card checkbox"
-      id={ id }
-    />
-  </div>
+  <Checkbox
+    onClick={(event) => event.stopPropagation()}
+    isChecked={isChecked}
+    onChange={handleCheck}
+    aria-label="card checkbox"
+    id={id}
+  />
 );
 
 CardCheckbox.propTypes = {

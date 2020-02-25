@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import CatalogLink from '../../smart-components/common/catalog-link';
 
-const ConditionalLink = ({ children, to, ...props }) => to ? (
-  <Link to={ to } { ...props }>
-    { children }
-  </Link>
-) : children;
+const ConditionalLink = ({ children, pathname, ...props }) =>
+  pathname ? (
+    <CatalogLink pathname={pathname} {...props}>
+      {children}
+    </CatalogLink>
+  ) : (
+    children
+  );
 
 ConditionalLink.propTypes = {
-  to: PropTypes.string,
-  children: PropTypes.oneOfType([ PropTypes.node, PropTypes.arrayOf(PropTypes.node) ]).isRequired
+  pathname: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ]).isRequired
 };
 
 export default ConditionalLink;

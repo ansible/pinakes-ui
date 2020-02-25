@@ -6,8 +6,13 @@ import store from '../../utilities/store';
 
 describe('redux store', () => {
   it('should create redux store context', () => {
-    const wrapper = mount(<Provider store={ store }><div>Foo</div></Provider>);
+    const wrapper = mount(
+      <Provider store={store()}>
+        <div>Foo</div>
+      </Provider>
+    );
     const expectedState = {
+      breadcrumbsReducer: expect.any(Object),
       orderReducer: expect.any(Object),
       platformReducer: expect.any(Object),
       portfolioReducer: expect.any(Object),

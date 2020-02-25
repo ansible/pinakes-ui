@@ -8,19 +8,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
   name="Foo"
 >
   <CardBody
-    style={
-      Object {
-        "height": 240,
-      }
-    }
+    className="card-height"
   >
     <div
-      className="pf-c-card__body"
-      style={
-        Object {
-          "height": 240,
-        }
-      }
+      className="pf-c-card__body card-height"
     >
       <TextContent>
         <div
@@ -62,23 +53,12 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           ]
         }
       >
-        <Dotdotdot
-          clamp={6}
-          tagName="div"
-          truncationChar="…"
-          useNativeClamp={true}
+        <div
+          className="card-prop-text"
+          key="card-prop-long_description"
         >
-          <div>
-            <PropLine
-              key="card-prop-long_description"
-              value="long description"
-            >
-              <div>
-                long description
-              </div>
-            </PropLine>
-          </div>
-        </Dotdotdot>
+          long description
+        </div>
       </ItemDetails>
     </div>
   </CardBody>
@@ -91,19 +71,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
   name="Foo"
 >
   <CardBody
-    style={
-      Object {
-        "height": 240,
-      }
-    }
+    className="card-height"
   >
     <div
-      className="pf-c-card__body"
-      style={
-        Object {
-          "height": 240,
-        }
-      }
+      className="pf-c-card__body card-height"
     >
       <TextContent>
         <div
@@ -144,23 +115,12 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
           ]
         }
       >
-        <Dotdotdot
-          clamp={6}
-          tagName="div"
-          truncationChar="…"
-          useNativeClamp={true}
+        <div
+          className="card-prop-text"
+          key="card-prop-description"
         >
-          <div>
-            <PropLine
-              key="card-prop-description"
-              value="Bar"
-            >
-              <div>
-                Bar
-              </div>
-            </PropLine>
-          </div>
-        </Dotdotdot>
+          Bar
+        </div>
       </ItemDetails>
     </div>
   </CardBody>

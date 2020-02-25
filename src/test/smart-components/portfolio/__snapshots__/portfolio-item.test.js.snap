@@ -25,97 +25,89 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
               <div
                 className="pf-c-card__header pf-c-title pf-m-md card_header"
               >
-                <CardIcon
-                  height={40}
-                  src="/api/catalog/v1.0/portfolio_items/1/icon"
-                  style={Object {}}
-                >
+                <Level>
                   <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                      }
-                    }
+                    className="pf-l-level"
                   >
-                    <IconPlaceholder
-                      style={
-                        Object {
-                          "height": 40,
-                        }
-                      }
+                    <CardIcon
+                      height={40}
+                      src="/api/catalog/v1.0/portfolio_items/1/icon"
+                      style={Object {}}
                     >
                       <div
-                        style={
-                          Object {
-                            "height": 40,
-                          }
-                        }
+                        className="display-inline-block"
                       >
-                        <svg
-                          height="40"
-                          width="40"
+                        <IconPlaceholder
+                          height={40}
                         >
-                          <circle
-                            cx="20"
-                            cy="20"
-                            fill="#ecebeb"
-                            r="20"
-                          />
-                        </svg>
-                      </div>
-                    </IconPlaceholder>
-                    <t
-                      afterLoad={[Function]}
-                      beforeLoad={[Function]}
-                      className="card-image hide"
-                      delayMethod="throttle"
-                      delayTime={300}
-                      effect=""
-                      height={0}
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      placeholderSrc=""
-                      src="/api/catalog/v1.0/portfolio_items/1/icon"
-                      style={
-                        Object {
-                          "height": 0,
-                        }
-                      }
-                      threshold={100}
-                      visibleByDefault={false}
-                      wrapperClassName=""
-                    >
-                      <t
-                        afterLoad={[Function]}
-                        beforeLoad={[Function]}
-                        className="card-image hide"
-                        delayMethod="throttle"
-                        delayTime={300}
-                        height={0}
-                        style={
-                          Object {
-                            "height": 0,
-                          }
-                        }
-                        threshold={100}
-                        visibleByDefault={false}
-                      >
-                        <img
+                          <div>
+                            <svg
+                              height="40"
+                              width="40"
+                            >
+                              <circle
+                                cx={18.18181818181818}
+                                cy={18.18181818181818}
+                                fill="#ecebeb"
+                                r={18.18181818181818}
+                              />
+                            </svg>
+                          </div>
+                        </IconPlaceholder>
+                        <t
+                          afterLoad={[Function]}
+                          beforeLoad={[Function]}
                           className="card-image hide"
+                          delayMethod="throttle"
+                          delayTime={0}
+                          effect=""
                           height={0}
                           onError={[Function]}
                           onLoad={[Function]}
+                          placeholderSrc=""
                           src="/api/catalog/v1.0/portfolio_items/1/icon"
                           style={
                             Object {
                               "height": 0,
                             }
                           }
-                        />
-                      </t>
-                    </t>
+                          threshold={2000}
+                          visibleByDefault={false}
+                          wrapperClassName=""
+                        >
+                          <t
+                            afterLoad={[Function]}
+                            beforeLoad={[Function]}
+                            className="card-image hide"
+                            delayMethod="throttle"
+                            delayTime={0}
+                            height={0}
+                            style={
+                              Object {
+                                "height": 0,
+                              }
+                            }
+                            threshold={2000}
+                            visibleByDefault={false}
+                          >
+                            <img
+                              className="card-image hide"
+                              height={0}
+                              onError={[Function]}
+                              onLoad={[Function]}
+                              src="/api/catalog/v1.0/portfolio_items/1/icon"
+                              style={
+                                Object {
+                                  "height": 0,
+                                }
+                              }
+                            />
+                          </t>
+                        </t>
+                      </div>
+                    </CardIcon>
                   </div>
-                </CardIcon>
+                </Level>
               </div>
             </CardHeader>
             <ServiceOfferingCardBody
@@ -124,57 +116,31 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
               id="1"
               name="Foo"
               orderUrl="/order"
-              url="/order"
             >
               <CardBody
-                style={
-                  Object {
-                    "height": 240,
-                  }
-                }
+                className="card-height"
               >
                 <div
-                  className="pf-c-card__body"
-                  style={
-                    Object {
-                      "height": 240,
-                    }
-                  }
+                  className="pf-c-card__body card-height"
                 >
                   <TextContent>
                     <div
                       className="pf-c-content"
                     >
-                      <ConditionalLink
-                        to="/order"
-                      >
-                        <Link
-                          to="/order"
+                      <ConditionalLink>
+                        <Text
+                          className="elipsis-text-overflow"
+                          component="h3"
+                          title="quux"
                         >
-                          <LinkAnchor
-                            href="/order"
-                            navigate={[Function]}
+                          <h3
+                            className="elipsis-text-overflow"
+                            data-pf-content={true}
+                            title="quux"
                           >
-                            <a
-                              href="/order"
-                              onClick={[Function]}
-                            >
-                              <Text
-                                className="elipsis-text-overflow"
-                                component="h3"
-                                title="quux"
-                              >
-                                <h3
-                                  className="elipsis-text-overflow"
-                                  data-pf-content={true}
-                                  title="quux"
-                                >
-                                  quux
-                                </h3>
-                              </Text>
-                            </a>
-                          </LinkAnchor>
-                        </Link>
+                            quux
+                          </h3>
+                        </Text>
                       </ConditionalLink>
                       <Text
                         component="small"
@@ -198,23 +164,12 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       ]
                     }
                   >
-                    <Dotdotdot
-                      clamp={6}
-                      tagName="div"
-                      truncationChar="…"
-                      useNativeClamp={true}
+                    <div
+                      className="card-prop-text"
+                      key="card-prop-description"
                     >
-                      <div>
-                        <PropLine
-                          key="card-prop-description"
-                          value="Bar"
-                        >
-                          <div>
-                            Bar
-                          </div>
-                        </PropLine>
-                      </div>
-                    </Dotdotdot>
+                      Bar
+                    </div>
                   </ItemDetails>
                 </div>
               </CardBody>

@@ -15,31 +15,70 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
               <Dropdown
                 dropdownItems={
                   Array [
-                    <DropdownItem>
-                      <ForwardRef
-                        className="pf-c-dropdown__menu-item"
-                        to="/portfolios/share/123"
-                      >
-                        Share
-                      </ForwardRef>
-                    </DropdownItem>,
-                    <DropdownSeparator />,
-                    <DropdownItem>
-                      <ForwardRef
-                        className="pf-c-dropdown__menu-item"
-                        to="/portfolios/edit/123"
-                      >
-                        Edit
-                      </ForwardRef>
-                    </DropdownItem>,
-                    <DropdownItem>
-                      <ForwardRef
-                        className="pf-c-dropdown__menu-item destructive-color"
-                        to="/portfolios/remove/123"
-                      >
-                        Delete
-                      </ForwardRef>
-                    </DropdownItem>,
+                    <DropdownItem
+                      component={
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/share"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
+                        >
+                          Share
+                        </CatalogLink>
+                      }
+                    />,
+                    <DropdownItem
+                      component={
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/edit-workflow"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
+                        >
+                          Set approval
+                        </CatalogLink>
+                      }
+                    />,
+                    <DropdownItem
+                      component={
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/edit"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
+                        >
+                          Edit
+                        </CatalogLink>
+                      }
+                    />,
+                    <DropdownItem
+                      component={
+                        <CatalogLink
+                          nav={false}
+                          pathname="/portfolios/remove"
+                          preserveSearch={false}
+                          searchParams={
+                            Object {
+                              "portfolio": "123",
+                            }
+                          }
+                        >
+                          Delete
+                        </CatalogLink>
+                      }
+                    />,
                   ]
                 }
                 isOpen={false}
@@ -55,21 +94,45 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             ]
           }
           portfolioName="name"
-          route="/portfolios/detail/123"
+          to={
+            Object {
+              "pathname": "/portfolio",
+              "search": "?portfolio=123",
+            }
+          }
         />
       </CardHeader>
       <CardBody
         className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0"
       >
-        <Link
+        <CatalogLink
           className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
-          to="/portfolios/detail/123"
+          nav={false}
+          pathname="/portfolio"
+          preserveSearch={false}
+          searchParams={
+            Object {
+              "portfolio": "123",
+            }
+          }
         >
-          <TextContent>
+          <TextContent
+            className="pf-u-mb-md"
+          >
+            <Text
+              className="pf-i-mb-sm"
+              component="small"
+            >
+              Last updated 
+              <DateFormat
+                date="created at"
+                type="relative"
+              />
+            </Text>
             <Text
               component="small"
             >
-              Last modified NaN days ago by Owner.
+              Owner
             </Text>
           </TextContent>
           <ItemDetails
@@ -85,7 +148,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
               ]
             }
           />
-        </Link>
+        </CatalogLink>
       </CardBody>
       <CardFooter />
     </Card>

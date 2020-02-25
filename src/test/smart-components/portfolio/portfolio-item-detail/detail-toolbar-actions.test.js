@@ -21,7 +21,7 @@ describe('<DetailToolbarActions />', () => {
   it('should render correctly', () => {
     const wrapper = mount(
       <MemoryRouter>
-        <DetailToolbarActions { ...initialProps } />
+        <DetailToolbarActions {...initialProps} />
       </MemoryRouter>
     );
     expect(toJson(wrapper.find(DetailToolbarActions))).toMatchSnapshot();

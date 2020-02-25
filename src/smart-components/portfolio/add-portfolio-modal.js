@@ -1,95 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Bullseye, Modal } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components';
+import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
-import { addPortfolio, updatePortfolio } from '../../redux/actions/portfolio-actions';
-import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
-
-const AddPortfolioModal = ({
-  history: { goBack },
-  match: { params: { id }},
+import {
   addPortfolio,
-  initialValues,
   updatePortfolio
-}) => {
-  const onSubmit = data => {
-    goBack();
+} from '../../redux/actions/portfolio-actions';
+import useQuery from '../../utilities/use-query';
+import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
+
+const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
+  const dispatch = useDispatch();
+  const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
+  const { push } = useEnhancedHistory(removeQuery);
+  const initialValues = useSelector(({ portfolioReducer }) =>
+    getPortfolioFromState(portfolioReducer, portfolioId)
+  );
+  const onSubmit = (data) => {
+    push(closeTarget);
     return initialValues
-      ? updatePortfolio(data)
-      : addPortfolio(data);
+      ? dispatch(updatePortfolio(data))
+      : dispatch(addPortfolio(data));
   };
 
-  const onCancel = () => goBack();
+  const editVariant =
+    portfolioId && initialValues && Object.keys(initialValues).length > 0;
 
   return (
     <Modal
-      title={ initialValues ? 'Edit portfolio' : 'Create portfolio' }
+      title={portfolioId ? 'Edit portfolio' : 'Create portfolio'}
       isOpen
-      onClose={ onCancel }
+      onClose={() => push(closeTarget)}
       isSmall
     >
-      { !id || (id && initialValues) ? (
-        <div style={ { padding: 8 } }>
-          <FormRenderer
-            schema={ createPortfolioSchema(!initialValues, loadWorkflowOptions, id) }
-            schemaType="default"
-            onSubmit={ onSubmit }
-            onCancel={ onCancel }
-            initialValues={ { ...initialValues } }
-            formContainer="modal"
-            buttonsLabels={ { submitLabel: 'Save' } }
-          />
-        </div>
+      {!portfolioId || editVariant ? (
+        <FormRenderer
+          schema={createPortfolioSchema(!initialValues, portfolioId)}
+          schemaType="default"
+          onSubmit={onSubmit}
+          onCancel={() => push(closeTarget)}
+          initialValues={{ ...initialValues }}
+          formContainer="modal"
+          buttonsLabels={{ submitLabel: portfolioId ? 'Save' : 'Create' }}
+        />
       ) : (
         <Bullseye>
           <div className="pf-u-m-md">
             <Spinner />
           </div>
         </Bullseye>
-      ) }
+      )}
     </Modal>
   );
 };
 
 AddPortfolioModal.propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func.isRequired
-  }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string
-    }).isRequired
-  }).isRequired,
-  addPortfolio: PropTypes.func.isRequired,
-  fetchPortfolios: PropTypes.func.isRequired,
-  initialValues: PropTypes.object,
-  updatePortfolio: PropTypes.func.isRequired,
-  fetchWorkflows: PropTypes.func.isRequired,
-  workflows: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
-    label: PropTypes.string.isRequired
-  })).isRequired
+  removeQuery: PropTypes.bool,
+  closeTarget: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string
+    })
+  ]).isRequired
 };
 
-const stripValues = ({ owner, created_at, updated_at, ...rest }) => rest;
-
-const mapStateToProps = ({ portfolioReducer: { portfolios }}, { match: { params: { id }}}) => ({
-  initialValues: id && (() => {
-    const portfolio = portfolios.data.find(item => item.id === id);
-    return portfolio && stripValues(portfolio);
-  })(),
-  portfolioId: id
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addPortfolio,
-  updatePortfolio
-}, dispatch);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPortfolioModal));
+export default AddPortfolioModal;

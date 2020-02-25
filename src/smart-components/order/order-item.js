@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  Bullseye,
   DataListCell,
-  DataListContent,
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  DataListToggle,
   Grid,
   GridItem,
   Level,
@@ -17,108 +14,126 @@ import {
   SplitItem,
   Text,
   TextContent,
-  TextVariants,
-  Tooltip,
-  TooltipPosition
+  TextVariants
 } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
-import OrderDetailTable from './order-detail-table';
 import CardIcon from '../../presentational-components/shared/card-icon';
-import { getOrderIcon, getOrderPortfolioName, getOrderPlatformId } from '../../helpers/shared/orders';
-import { createOrderedLabel, createUpdatedLabel, createDateString } from '../../helpers/shared/helpers';
-import createOrderRow from './create-order-row';
-import { cancelOrder } from '../../redux/actions/order-actions';
-import CancelOrderModal from './cancel-order-modal';
-import { getOrderApprovalRequests } from '../../helpers/order/order-helper';
+import {
+  getOrderIcon,
+  getOrderPortfolioName,
+  getOrderPlatformId
+} from '../../helpers/shared/orders';
+import CatalogLink from '../common/catalog-link';
+import { ORDER_ROUTE, ORDER_APPROVAL_ROUTE } from '../../constants/routes';
 
-const CANCELABLE_STATES = [ 'Approval Pending' ];
-
-const canCancel = state => CANCELABLE_STATES.includes(state);
-
-const OrderItem = ({
-  item
-}) => {
-  const [ isOpen, setIsOpen ] = useState(false);
-  const [ isExpanded, setIsExpanded ] = useState(false);
-  const [ requestData, setRequestData ] = useState();
-  const [ requestDataFetching, setRequestDataFetching ] = useState(false);
-  const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems: { data }}}) => data);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isExpanded && !requestDataFetching && !requestData) {
-      setRequestDataFetching(true);
-      getOrderApprovalRequests(item.orderItems[0].id).then(({ data }) => {
-        setRequestData(createOrderRow({ ...item, requests: data }).steps);
-        setRequestDataFetching(false);
-      });
+const OrderItem = ({ item }) => {
+  const { orderPlatform, orderPortfolio, orderName } = useSelector(
+    ({
+      portfolioReducer: {
+        portfolioItems: { data }
+      }
+    }) => {
+      const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, data);
+      return {
+        orderPlatform,
+        orderPortfolio,
+        orderName: getOrderPortfolioName(item, data)
+      };
     }
-  }, [ isExpanded ]);
-  const orderedAt = createOrderedLabel(new Date(item.created_at));
-  const updatedAt = createUpdatedLabel(item.orderItems);
+  );
+  const orderItem = (item.orderItems[0] && item.orderItems[0]) || {};
+  const searchParams = {
+    order: item.id,
+    'order-item': orderItem.id,
+    'portfolio-item': orderItem.portfolio_item_id,
+    platform: orderPlatform,
+    portfolio: orderPortfolio
+  };
   return (
     <React.Fragment>
-      <DataListItem aria-labelledby={ `${item.id}-expand` } isExpanded={ isExpanded } className="data-list-expand-fix">
+      <DataListItem
+        aria-labelledby={`${item.id}-expand`}
+        className="data-list-expand-fix"
+      >
         <DataListItemRow>
-          <DataListToggle
-            id={ item.id }
-            aria-label={ `${item.id}-expand` }
-            aria-labelledby={ `${item.id}-expand` }
-            onClick={ () => setIsExpanded(isExpanded => !isExpanded) }
-            isExpanded={ isExpanded }
-          />
           <DataListItemCells
-            dataListCells={ [
+            dataListCells={[
               <DataListCell key="1" className="cell-grow">
                 <Split gutter="sm">
                   <SplitItem>
-                    <CardIcon src={ getOrderIcon(item) } platformId={ getOrderPlatformId(item, portfolioItems) }/>
+                    <CardIcon
+                      height={60}
+                      src={getOrderIcon(item)}
+                      sourceId={orderPlatform}
+                    />
                   </SplitItem>
                   <SplitItem>
                     <TextContent>
-                      <Grid gutter="sm" style={ { gridGap: 8 } }>
+                      <Grid gutter="sm" className="pf-u-gg-md">
                         <GridItem>
-                          <Text
-                            style={ { marginBottom: 0 } }
-                            component={ TextVariants.h5 }
-                          >
-                            { `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }
-                          </Text>
+                          <Level>
+                            <LevelItem>
+                              <Text
+                                className="pf-u-mb-0"
+                                component={TextVariants.h5}
+                              >
+                                <CatalogLink
+                                  pathname={ORDER_ROUTE}
+                                  searchParams={searchParams}
+                                >
+                                  {orderName} # {item.id}
+                                </CatalogLink>
+                              </Text>
+                            </LevelItem>
+                            <LevelItem>
+                              <CatalogLink
+                                pathname={ORDER_APPROVAL_ROUTE}
+                                searchParams={searchParams}
+                              >
+                                {item.state === 'Failed' && (
+                                  <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
+                                )}
+                                {item.state}
+                              </CatalogLink>
+                            </LevelItem>
+                          </Level>
                         </GridItem>
                         <GridItem>
                           <Level>
                             <LevelItem>
-                              <Tooltip enableFlip position={ TooltipPosition.top } content={ <span>{ createDateString(item.created_at) }</span> }>
-                                <Text
-                                  style={ { marginBottom: 0 } }
-                                  component={ TextVariants.small }
-                                >
-                                  { orderedAt }
-                                </Text>
-                              </Tooltip>
-                            </LevelItem>
-                            <LevelItem>
                               <Text
-                                style={ { marginBottom: 0 } }
-                                component={ TextVariants.small }
+                                className="pf-u-mb-0"
+                                component={TextVariants.small}
                               >
-                                Ordered by { item.owner }
+                                <DateFormat
+                                  date={item.created_at}
+                                  variant="relative"
+                                />
                               </Text>
                             </LevelItem>
                             <LevelItem>
-                              <Tooltip
-                                enableFlip
-                                position={ TooltipPosition.top }
-                                content={ <span>{ createDateString(item.orderItems[0].updated_at) }</span> }
+                              <Text
+                                className="pf-u-mb-0"
+                                component={TextVariants.small}
                               >
-                                <Text
-                                  style={ { marginBottom: 0 } }
-                                  component={ TextVariants.small }
-                                >
-                                  { updatedAt }
-                                </Text>
-                              </Tooltip>
+                                Ordered by {item.owner}
+                              </Text>
+                            </LevelItem>
+                            <LevelItem>
+                              <Text
+                                className="pf-u-mb-0"
+                                component={TextVariants.small}
+                              >
+                                <DateFormat
+                                  date={
+                                    item.orderItems[0] &&
+                                    item.orderItems[0].updated_at
+                                  }
+                                  variant="relative"
+                                />
+                              </Text>
                             </LevelItem>
                           </Level>
                         </GridItem>
@@ -126,55 +141,14 @@ const OrderItem = ({
                     </TextContent>
                   </SplitItem>
                 </Split>
-              </DataListCell>,
-              <DataListCell key="2" style={ { alignSelf: item.state === 'Completed' ? 'flex-end' : 'center' } }>
-                <div style={ { minWidth: 200, textAlign: 'end' } }>
-                  { item.state === 'Completed' && (
-                    <a href={ item.orderItems && item.orderItems[0].external_url } target="_blank" rel="noopener noreferrer">
-                      Manage product
-                    </a>
-                  ) }
-                </div>
               </DataListCell>
-            ] }
+            ]}
           />
         </DataListItemRow>
-        <DataListContent aria-label={ `${item.id}-content` } isHidden={ !isExpanded }>
-          { requestDataFetching && (
-            <Bullseye>
-              <Spinner />
-            </Bullseye>
-          ) }
-          { isExpanded && !requestDataFetching && requestData && (
-            <div>
-              <OrderDetailTable
-                canCancel={ canCancel(item.state) }
-                requests={ requestData || [] }
-                orderId={ item.id }
-                orderState={ item.state }
-                orderItem={ item.orderItems && item.orderItems[0] }
-                onCancel={ () => setIsOpen(true) }
-              />
-            </div>
-          ) }
-        </DataListContent>
       </DataListItem>
-      { canCancel(item.state) &&
-          <CancelOrderModal
-            onClose={ () => setIsOpen(false) }
-            cancelOrder={ () => {
-              setIsOpen(false);
-              dispatch(cancelOrder(item.id));
-            } }
-            isOpen={ isOpen }
-            name={ `${getOrderPortfolioName(item, portfolioItems)} # ${item.id}` }
-          />
-      }
     </React.Fragment>
   );
 };
-
-OrderItem.displayName = 'OrderItem';
 
 OrderItem.propTypes = {
   item: PropTypes.object.isRequired

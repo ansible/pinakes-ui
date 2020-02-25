@@ -6,7 +6,7 @@ Object {
     Object {
       "component": "text-field",
       "isRequired": true,
-      "label": "Portfolio Name",
+      "label": "Name",
       "name": "name",
       "validate": Array [
         [Function],
@@ -16,14 +16,6 @@ Object {
       "component": "textarea-field",
       "label": "Description",
       "name": "description",
-    },
-    Object {
-      "component": "select-field",
-      "isClearable": true,
-      "isSearchable": true,
-      "label": "Approval workflow",
-      "loadOptions": [Function],
-      "name": "workflow_ref",
     },
   ],
 }
@@ -35,7 +27,7 @@ Object {
     Object {
       "component": "text-field",
       "isRequired": true,
-      "label": "New Portfolio Name",
+      "label": "Name",
       "name": "name",
       "validate": Array [
         [Function],
@@ -45,14 +37,6 @@ Object {
       "component": "textarea-field",
       "label": "Description",
       "name": "description",
-    },
-    Object {
-      "component": "select-field",
-      "isClearable": true,
-      "isSearchable": true,
-      "label": "Approval workflow",
-      "loadOptions": [Function],
-      "name": "workflow_ref",
     },
   ],
 }

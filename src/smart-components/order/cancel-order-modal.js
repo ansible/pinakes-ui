@@ -5,21 +5,31 @@ import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 
 const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => (
   <Modal
-    isOpen={ isOpen }
-    onClose={ onClose }
+    isOpen={isOpen}
+    onClose={onClose}
     title=" "
-    header={ (
+    header={
       <Title size="2xl" headingLevel="h2">
         <ExclamationTriangleIcon fill="#F0AB00" /> Cancel order
       </Title>
-    ) }
+    }
     isSmall
-    actions={ [
-      <Button onClick={ cancelOrder } key="cancel-order" id="cancel-order" variant="danger">Cancel order</Button>,
-      <Button onClick={ onClose } key="keep-order" id="keep-order" variant="link">Keep order</Button>
-    ] }
+    actions={[
+      <Button
+        onClick={cancelOrder}
+        key="cancel-order"
+        id="cancel-order"
+        variant="danger"
+      >
+        Cancel order
+      </Button>,
+      <Button onClick={onClose} key="keep-order" id="keep-order" variant="link">
+        Keep order
+      </Button>
+    ]}
+    isFooterLeftAligned
   >
-    Are you sure you want to cancel { name }?
+    Are you sure you want to cancel {name}?
   </Modal>
 );
 
