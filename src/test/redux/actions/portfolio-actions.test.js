@@ -119,8 +119,17 @@ describe('Portfolio actions', () => {
         CATALOG_API_BASE +
           '/portfolio_items?filter[name][contains_i]=123&limit=50&offset=0'
       )
-      .replyOnce(200, { data: [], meta: {} });
-
+      .replyOnce(200, {
+        data: [
+          {
+            portfolio_id: '1'
+          }
+        ],
+        meta: {}
+      });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios?filter[id][]=1`)
+      .replyOnce(200, { data: [{ id: '1', name: 'portfolio name' }] });
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`,
@@ -129,7 +138,15 @@ describe('Portfolio actions', () => {
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
         meta: { filter: '123' },
-        payload: { data: [], meta: {} }
+        payload: {
+          data: [
+            {
+              portfolio_id: '1',
+              portfolioName: 'portfolio name'
+            }
+          ],
+          meta: {}
+        }
       }
     ];
 

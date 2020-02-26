@@ -21,9 +21,43 @@ export function listPortfolios(
 }
 
 export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
-  return axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
-  );
+  return axiosInstance
+    .get(
+      `${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
+    )
+    .then((portfolioItems) => {
+      const portfolioReference = portfolioItems.data.reduce(
+        (acc, curr, index) =>
+          curr.portfolio_id
+            ? {
+                ...acc,
+                [curr.portfolio_id]: acc[curr.portfolio_id]
+                  ? [...acc[curr.portfolio_id], index]
+                  : [index]
+              }
+            : acc,
+        {}
+      );
+      return axiosInstance
+        .get(
+          `${CATALOG_API_BASE}/portfolios?${Object.keys(portfolioReference)
+            .map((id) => `filter[id][]=${id}`)
+            .join('&')}`
+        )
+        .then(({ data }) => ({
+          portfolioItems,
+          portfolioReference,
+          portfolios: data
+        }));
+    })
+    .then(({ portfolioItems, portfolioReference, portfolios }) => {
+      portfolios.forEach(({ id, name }) =>
+        portfolioReference[id].forEach((portfolioItemIndex) => {
+          portfolioItems.data[portfolioItemIndex].portfolioName = name;
+        })
+      );
+      return portfolioItems;
+    });
 }
 
 export function getPortfolioItem(portfolioItemId) {
