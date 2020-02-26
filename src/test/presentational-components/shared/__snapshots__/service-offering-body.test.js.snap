@@ -46,7 +46,6 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                 data-pf-content={true}
               >
                 Red Hat
-                 
               </small>
             </Text>
           </div>
@@ -111,16 +110,6 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                 </h3>
               </Text>
             </ConditionalLink>
-            <Text
-              component="small"
-            >
-              <small
-                className=""
-                data-pf-content={true}
-              >
-                 
-              </small>
-            </Text>
           </div>
         </TextContent>
         <ItemDetails

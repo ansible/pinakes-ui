@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
   CardBody,
@@ -22,6 +22,7 @@ const ServiceOfferingCardBody = ({
   pathname,
   searchParams,
   preserveSearch,
+  portfolioName,
   ...props
 }) => (
   <StyledCardBody>
@@ -35,11 +36,19 @@ const ServiceOfferingCardBody = ({
           <EllipsisTextContainer>{name}</EllipsisTextContainer>
         </Text>
       </ConditionalLink>
-      <Text component={TextVariants.small}>{distributor}&nbsp;</Text>
+      {distributor && <Text component={TextVariants.small}>{distributor}</Text>}
+      {portfolioName && (
+        <Fragment>
+          <Text className="pf-u-mb-0" component="small">
+            Portfolio
+          </Text>
+          <Text>{portfolioName}</Text>
+        </Fragment>
+      )}
     </TextContent>
     <ItemDetails
-      {...props}
       toDisplay={[props.description ? 'description' : 'long_description']}
+      {...props}
     />
   </StyledCardBody>
 );
@@ -52,7 +61,8 @@ ServiceOfferingCardBody.propTypes = {
   description: PropTypes.string,
   pathname: PropTypes.string,
   preserveSearch: PropTypes.bool,
-  searchParams: PropTypes.shape({ [PropTypes.string]: PropTypes.string })
+  searchParams: PropTypes.shape({ [PropTypes.string]: PropTypes.string }),
+  portfolioName: PropTypes.string
 };
 
 export default ServiceOfferingCardBody;

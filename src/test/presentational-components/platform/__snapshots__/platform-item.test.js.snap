@@ -131,16 +131,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         </h3>
                       </Text>
                     </ConditionalLink>
-                    <Text
-                      component="small"
-                    >
-                      <small
-                        className=""
-                        data-pf-content={true}
-                      >
-                         
-                      </small>
-                    </Text>
                   </div>
                 </TextContent>
                 <ItemDetails
