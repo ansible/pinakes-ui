@@ -97,6 +97,8 @@ const pf4Skin = {
   componentProperties
 };
 
+const BuilderWrapper = (props) => <FormBuilder {...props} />;
+
 const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [schema, setSchema] = useState();
   const [isFetching, setIsFetching] = useState(false);
@@ -104,7 +106,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [servicePlan, setServicePlan] = useState();
   const dispatch = useDispatch();
   const { push } = useHistory();
-  useEffect(() => {
+  const getServicePlan = () =>
     getAxiosInstance()
       .get(
         `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans`
@@ -127,7 +129,12 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
 
         return schema;
       })
-      .then((schema) => setSchema(schema));
+      .then((schema) => {
+        setSchema(schema);
+        setIsFetching(false);
+      });
+  useEffect(() => {
+    getServicePlan();
   }, []);
 
   const modifySurvey = (editedTemplate) =>
@@ -165,10 +172,26 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
       });
   };
 
+  const handleResetSurvey = (id) => {
+    setSchema(undefined);
+    getServicePlansApi()
+      .resetServicePlanModified(id)
+      .then(getServicePlan)
+      .then(() =>
+        dispatch(
+          addNotification({
+            variant: 'success',
+            title: `Survey of ${portfolioItem.name} has been synchronized.`,
+            dismissable: true
+          })
+        )
+      );
+  };
+
   return (
     <Fragment>
       {schema ? (
-        <FormBuilder
+        <BuilderWrapper
           {...pf4Skin}
           schema={schema}
           disableDrag
@@ -176,13 +199,16 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
           mode="subset"
           controlPanel={({ getSchema, isValid }) => (
             <SurveyEditingToolbar
+              key="survey-editor-toolbar"
               uploadIcon={uploadIcon}
               product={portfolioItem}
               handleSaveSurvey={() => handleSaveSurvey(getSchema())}
               isValid={isValid}
               closeUrl={closeUrl}
               search={search}
-              isFetching={!schema || isFetching}
+              isFetching={isFetching || !schema}
+              modified={servicePlan.modified}
+              handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
             />
           )}
         />
