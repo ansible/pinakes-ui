@@ -27,7 +27,6 @@ const componentProperties = {
       fieldProperties.LABEL,
       fieldProperties.HELPER_TEXT,
       fieldProperties.PLACEHOLDER,
-      fieldProperties.INPUT_TYPE,
       fieldProperties.IS_DISABLED,
       fieldProperties.IS_READ_ONLY,
       fieldProperties.HIDE_FIELD
@@ -117,7 +116,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
           }
         ] = servicePlan;
         setServicePlan(servicePlan[0]);
-        if (servicePlan[0].modified) {
+        if (servicePlan[0].imported) {
           return getAxiosInstance()
             .get(`${CATALOG_API_BASE}/service_plans/${servicePlan[0].id}/base`)
             .then((baseSchema) => {
@@ -146,7 +145,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
       );
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
-    let submitCall = servicePlan.modified ? modifySurvey : createSurvey;
+    let submitCall = servicePlan.imported ? modifySurvey : createSurvey;
 
     return submitCall(editedTemplate)
       .then(() => {
