@@ -14,7 +14,11 @@ describe('<DetailToolbarActions />', () => {
       editUrl: 'foo/baz',
       isOpen: false,
       setOpen: jest.fn(),
-      copyUrl: 'foo/copy'
+      copyUrl: 'foo/copy',
+      availability: 'available',
+      editSurveyUrl: 'foo/edit-survey',
+      workflowUrl: 'foo/workflow',
+      pathname: 'foo/bar'
     };
   });
 
@@ -25,5 +29,29 @@ describe('<DetailToolbarActions />', () => {
       </MemoryRouter>
     );
     expect(toJson(wrapper.find(DetailToolbarActions))).toMatchSnapshot();
+  });
+
+  it('should render order button when source is available', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <DetailToolbarActions {...initialProps} />
+      </MemoryRouter>
+    );
+    expect(wrapper.find('button#order-portfolio-item')).toHaveLength(1);
+    expect(
+      wrapper.find('#unavailable-alert-info.pf-c-alert.pf-m-inline')
+    ).toHaveLength(0);
+  });
+
+  it('should render alert when source is unavailable', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <DetailToolbarActions {...initialProps} availability="unavailable" />
+      </MemoryRouter>
+    );
+    expect(
+      wrapper.find('#unavailable-alert-info.pf-c-alert.pf-m-inline')
+    ).toHaveLength(1);
+    expect(wrapper.find('button#order-portfolio-item')).toHaveLength(0);
   });
 });

@@ -2,12 +2,16 @@
 
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
+  availability="available"
   copyUrl="foo/copy"
+  editSurveyUrl="foo/edit-survey"
   editUrl="foo/baz"
   isFetching={false}
   isOpen={false}
   orderUrl="foo/bar"
+  pathname="foo/bar"
   setOpen={[MockFunction]}
+  workflowUrl="foo/workflow"
 >
   <LevelItem>
     <div>
@@ -50,16 +54,19 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 onClick={[Function]}
               >
                 <ButtonWithSpinner
+                  id="order-portfolio-item"
                   isDisabled={false}
                   showSpinner={false}
                   variant="primary"
                 >
                   <Styled(Component)
+                    id="order-portfolio-item"
                     isDisabled={false}
                     variant="primary"
                   >
                     <Component
                       className="sc-AxjAm iMxqKn"
+                      id="order-portfolio-item"
                       isDisabled={false}
                       variant="primary"
                     >
@@ -74,6 +81,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                               false,
                             ],
                             "className": "sc-AxjAm iMxqKn",
+                            "id": "order-portfolio-item",
                             "isDisabled": false,
                             "variant": "primary",
                           }
@@ -82,6 +90,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       >
                         <Button
                           className="sc-AxjAm iMxqKn"
+                          id="order-portfolio-item"
                           isDisabled={false}
                           ouiaContext={
                             Object {
@@ -96,6 +105,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                             aria-label={null}
                             className="pf-c-button pf-m-primary sc-AxjAm iMxqKn"
                             disabled={false}
+                            id="order-portfolio-item"
                             tabIndex={null}
                             type="button"
                           >
@@ -165,6 +175,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               component={
                 <CatalogLink
                   nav={false}
+                  pathname="foo/workflow"
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -178,6 +189,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               component={
                 <CatalogLink
                   nav={false}
+                  pathname="foo/edit-survey"
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -235,6 +247,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 component={
                   <CatalogLink
                     nav={false}
+                    pathname="foo/workflow"
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -248,6 +261,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 component={
                   <CatalogLink
                     nav={false}
+                    pathname="foo/edit-survey"
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -306,6 +320,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/workflow"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -319,6 +334,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/edit-survey"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -378,6 +394,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/workflow"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -391,6 +408,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/edit-survey"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >

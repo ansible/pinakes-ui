@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import {
+  Alert,
   Dropdown,
   DropdownItem,
   DropdownPosition,
@@ -18,19 +19,30 @@ const DetailToolbarActions = ({
   editSurveyUrl,
   isOpen,
   setOpen,
-  isFetching
+  isFetching,
+  availability
 }) => (
   <Fragment>
     <LevelItem>
-      <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
-        <ButtonWithSpinner
-          isDisabled={isFetching}
-          showSpinner={isFetching}
-          variant="primary"
-        >
-          Order
-        </ButtonWithSpinner>
-      </CatalogLink>
+      {availability === 'available' ? (
+        <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
+          <ButtonWithSpinner
+            isDisabled={isFetching}
+            showSpinner={isFetching}
+            variant="primary"
+            id="order-portfolio-item"
+          >
+            Order
+          </ButtonWithSpinner>
+        </CatalogLink>
+      ) : (
+        <Alert
+          id="unavailable-alert-info"
+          variant="info"
+          isInline
+          title="Source for this product is no longer available"
+        />
+      )}
     </LevelItem>
     {
       <LevelItem style={{ marginLeft: 16 }}>
@@ -97,7 +109,8 @@ DetailToolbarActions.propTypes = {
   workflowUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
 };
 
 DetailToolbarActions.defaultProps = {

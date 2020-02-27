@@ -74,6 +74,7 @@ const PortfolioItemDetail = () => {
               product={portfolioItem}
               setOpen={setOpen}
               isFetching={isFetching}
+              availability={source.availability_status}
             />
             <Grid className="pf-u-p-lg">
               <GridItem md={2}>

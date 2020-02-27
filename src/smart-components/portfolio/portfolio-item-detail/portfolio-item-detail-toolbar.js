@@ -41,7 +41,8 @@ export const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon
+  uploadIcon,
+  availability
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level>
@@ -70,6 +71,7 @@ export const PortfolioItemDetailToolbar = ({
                 editSurveyUrl={`${url}/edit-survey`}
                 workflowUrl={`${url}/edit-workflow`}
                 isFetching={isFetching}
+                availability={availability}
                 {...args}
               />
             )}
@@ -98,7 +100,8 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
