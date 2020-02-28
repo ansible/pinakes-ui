@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Grid, GridItem } from '@patternfly/react-core';
+import { Grid, GridItem, Alert } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
 
 import OrderModal from '../../common/order-modal';
@@ -76,6 +76,15 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={source.availability_status}
             />
+            {source.availability_status === 'unavailable' && (
+              <Alert
+                className="pf-u-ml-lg pf-u-mr-lg"
+                id="unavailable-alert-info"
+                variant="info"
+                isInline
+                title="Platform for this product is unavailable"
+              />
+            )}
             <Grid className="pf-u-p-lg">
               <GridItem md={2}>
                 <ItemDetailInfoBar

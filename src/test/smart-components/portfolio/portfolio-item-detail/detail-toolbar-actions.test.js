@@ -30,28 +30,4 @@ describe('<DetailToolbarActions />', () => {
     );
     expect(toJson(wrapper.find(DetailToolbarActions))).toMatchSnapshot();
   });
-
-  it('should render order button when source is available', () => {
-    const wrapper = mount(
-      <MemoryRouter>
-        <DetailToolbarActions {...initialProps} />
-      </MemoryRouter>
-    );
-    expect(wrapper.find('button#order-portfolio-item')).toHaveLength(1);
-    expect(
-      wrapper.find('#unavailable-alert-info.pf-c-alert.pf-m-inline')
-    ).toHaveLength(0);
-  });
-
-  it('should render alert when source is unavailable', () => {
-    const wrapper = mount(
-      <MemoryRouter>
-        <DetailToolbarActions {...initialProps} availability="unavailable" />
-      </MemoryRouter>
-    );
-    expect(
-      wrapper.find('#unavailable-alert-info.pf-c-alert.pf-m-inline')
-    ).toHaveLength(1);
-    expect(wrapper.find('button#order-portfolio-item')).toHaveLength(0);
-  });
 });

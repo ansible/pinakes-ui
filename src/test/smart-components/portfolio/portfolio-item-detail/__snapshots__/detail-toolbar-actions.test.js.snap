@@ -16,14 +16,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   <LevelItem>
     <div>
       <CatalogLink
-        disabled={false}
+        isDisabled={false}
         nav={false}
         pathname="foo/bar"
         preserveSearch={true}
         searchParams={Object {}}
       >
         <Styled(Link)
-          disabled={false}
+          isDisabled={false}
           to={
             Object {
               "pathname": "foo/bar",
@@ -33,7 +33,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         >
           <Link
             className="sc-AxiKw drCTeX"
-            disabled={false}
+            isDisabled={false}
             to={
               Object {
                 "pathname": "foo/bar",
@@ -43,14 +43,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           >
             <LinkAnchor
               className="sc-AxiKw drCTeX"
-              disabled={false}
               href="foo/bar"
+              isDisabled={false}
               navigate={[Function]}
             >
               <a
                 className="sc-AxiKw drCTeX"
-                disabled={false}
                 href="foo/bar"
+                isDisabled={false}
                 onClick={[Function]}
               >
                 <ButtonWithSpinner

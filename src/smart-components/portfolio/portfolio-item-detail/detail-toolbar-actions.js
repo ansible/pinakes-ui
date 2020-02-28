@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import {
-  Alert,
   Dropdown,
   DropdownItem,
   DropdownPosition,
@@ -24,25 +23,20 @@ const DetailToolbarActions = ({
 }) => (
   <Fragment>
     <LevelItem>
-      {availability === 'available' ? (
-        <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
-          <ButtonWithSpinner
-            isDisabled={isFetching}
-            showSpinner={isFetching}
-            variant="primary"
-            id="order-portfolio-item"
-          >
-            Order
-          </ButtonWithSpinner>
-        </CatalogLink>
-      ) : (
-        <Alert
-          id="unavailable-alert-info"
-          variant="info"
-          isInline
-          title="Source for this product is no longer available"
-        />
-      )}
+      <CatalogLink
+        isDisabled={isFetching || availability === 'unavailable'}
+        pathname={orderUrl}
+        preserveSearch
+      >
+        <ButtonWithSpinner
+          isDisabled={isFetching || availability === 'unavailable'}
+          showSpinner={isFetching}
+          variant="primary"
+          id="order-portfolio-item"
+        >
+          Order
+        </ButtonWithSpinner>
+      </CatalogLink>
     </LevelItem>
     {
       <LevelItem style={{ marginLeft: 16 }}>
