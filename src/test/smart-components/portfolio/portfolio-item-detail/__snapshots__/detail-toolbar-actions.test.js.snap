@@ -65,7 +65,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     variant="primary"
                   >
                     <Component
-                      className="sc-AxjAm iMxqKn"
+                      className="sc-AxjAm jhCAUI"
                       id="order-portfolio-item"
                       isDisabled={false}
                       variant="primary"
@@ -80,7 +80,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                               </span>,
                               false,
                             ],
-                            "className": "sc-AxjAm iMxqKn",
+                            "className": "sc-AxjAm jhCAUI",
                             "id": "order-portfolio-item",
                             "isDisabled": false,
                             "variant": "primary",
@@ -89,7 +89,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         consumerContext={null}
                       >
                         <Button
-                          className="sc-AxjAm iMxqKn"
+                          className="sc-AxjAm jhCAUI"
                           id="order-portfolio-item"
                           isDisabled={false}
                           ouiaContext={
@@ -103,7 +103,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           <button
                             aria-disabled={null}
                             aria-label={null}
-                            className="pf-c-button pf-m-primary sc-AxjAm iMxqKn"
+                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
                             disabled={false}
                             id="order-portfolio-item"
                             tabIndex={null}

@@ -126,7 +126,7 @@ const SurveyEditorDropdown = ({ handleResetSurvey }) => {
           component="button"
           key="synchronize"
         >
-          Synchronize with Ansible
+          Restore to Ansible Tower version
         </DropdownItem>
       ]}
     />
