@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { EditIcon } from '@patternfly/react-icons';
-import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
@@ -20,16 +20,6 @@ const UploadButton = styled.button`
     position: absolute;
     top: 0;
     left: 0;
-  }
-`;
-
-const UploadSpinner = styled(Spinner)`
-  ::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 16px;
-    height: 16px;
   }
 `;
 
@@ -79,7 +69,7 @@ const IconUpload = ({ uploadIcon, children }) => {
         hidden
       />
       <UploadButton disabled={isUploading} onClick={handleClick}>
-        {isUploading ? <UploadSpinner /> : <EditIcon size="sm" />}
+        {isUploading ? <Spinner size="md" /> : <EditIcon size="sm" />}
       </UploadButton>
       {!image && children}
       {image && (

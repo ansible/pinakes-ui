@@ -9,7 +9,7 @@ import {
   pickerMapper,
   propertiesMapper
 } from '@data-driven-forms/form-builder/dist/pf4-builder-mappers';
-import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 
 import {
   getAxiosInstance,
