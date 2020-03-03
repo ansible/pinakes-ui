@@ -75,9 +75,11 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         componentProps={
                           Object {
                             "children": Array [
-                              <span>
+                              <ForwardRef(styled.span)
+                                showSpinner={false}
+                              >
                                 Order
-                              </span>,
+                              </ForwardRef(styled.span)>,
                               false,
                             ],
                             "className": "sc-AxjAm jhCAUI",
@@ -109,9 +111,15 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                             tabIndex={null}
                             type="button"
                           >
-                            <span>
-                              Order
-                            </span>
+                            <styled.span
+                              showSpinner={false}
+                            >
+                              <span
+                                className="sc-AxirZ fnlrkz"
+                              >
+                                Order
+                              </span>
+                            </styled.span>
                           </button>
                         </Button>
                       </ComponentWithOuia>

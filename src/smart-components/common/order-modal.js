@@ -11,10 +11,9 @@ import {
   Text,
   TextVariants,
   Split,
-  SplitItem,
-  Bullseye
+  SplitItem
 } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
@@ -23,6 +22,7 @@ import {
   fetchServicePlans,
   sendSubmitOrder
 } from '../../redux/actions/order-actions';
+import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
 
 const OrderModal = ({ closeUrl }) => {
   const [isFetching, setFetching] = useState(true);
@@ -98,9 +98,9 @@ const OrderModal = ({ closeUrl }) => {
         </Split>
       </div>
       {isFetching ? (
-        <Bullseye className="pf-u-m-sm">
+        <SpinnerWrapper className="pf-u-m-sm">
           <Spinner />
-        </Bullseye>
+        </SpinnerWrapper>
       ) : (
         <FormRenderer
           schema={servicePlans[0].create_json_schema.schema}
