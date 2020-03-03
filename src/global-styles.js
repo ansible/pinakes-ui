@@ -226,6 +226,52 @@ a.breadcrumb-active {
 .pf-l-flex.align-items-center {
   align-items: center;
 }
+
+/**
+ * frontend components override
+ */
+:root {
+  --ins-color--orange: #ec7a08;
+}
+
+button:focus {
+  outline: none;
+}
+
+section.ins-l-content {
+  padding: var(--pf-global--spacer--lg); 
+}
+
+section.ins-l-button-group {
+  margin: 24px 0px;
+  margin: 1.5rem 0rem; 
+}
+
+section.ins-l-button-group > * {
+  display: inline; 
+}
+
+section.ins-l-button-group * + * {
+  margin-left: 5px;
+  margin-left: 0.3125rem; 
+}
+
+section.ins-l-icon-group * + * {
+  margin-left: 10px; 
+}
+
+section.ins-l-icon-group__with-major * + * {
+  margin-left: 7.5px; 
+}
+
+section.ins-l-icon-group__with-major .ins-battery:last-of-type {
+  padding-left: 15px;
+  border-left: 2px solid #eaeaea; 
+}
+section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
+  font-weight: 500;
+  margin: 0 10px; 
+}
 `;
 
 export default GlobalStyle;
