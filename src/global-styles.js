@@ -222,6 +222,10 @@ a.breadcrumb-active {
   display: flex;
   flex-direction: column;
 }
+
+.pf-l-flex.align-items-center {
+  align-items: center;
+}
 `;
 
 export default GlobalStyle;

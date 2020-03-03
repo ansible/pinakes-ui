@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
-    "@data-driven-forms/form-builder": "0.0.2",
+    "@data-driven-forms/form-builder": "0.0.4",
     "@data-driven-forms/pf4-component-mapper": "^1.27.4",
     "@data-driven-forms/react-form-renderer": "^1.27.4",
     "@patternfly/react-core": "3.140.11",

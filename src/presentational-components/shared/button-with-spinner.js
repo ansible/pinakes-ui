@@ -5,7 +5,7 @@ import { Button } from '@patternfly/react-core';
 import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
 
 const SpinnerButton = styled(Button)`
-  display: flex;
+  display: flex !important;
   align-items: center;
 `;
 

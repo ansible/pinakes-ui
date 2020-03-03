@@ -56,15 +56,18 @@ const PortfolioItemDetail = () => {
   return (
     <Fragment>
       <Switch>
-        <Route path={`${url}/edit-survey`}>
-          <SurveyEditor
-            closeUrl={url}
-            search={search}
-            uploadIcon={uploadIcon}
-            portfolioItem={portfolioItem}
-            portfolio={portfolio}
-          />
-        </Route>
+        <Route
+          path={`${url}/edit-survey`}
+          render={() => (
+            <SurveyEditor
+              closeUrl={url}
+              search={search}
+              uploadIcon={uploadIcon}
+              portfolioItem={portfolioItem}
+              portfolio={portfolio}
+            />
+          )}
+        />
         <Route>
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar
