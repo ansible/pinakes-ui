@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ContentLoader, { List } from 'react-content-loader';
 import PropTypes from 'prop-types';
 import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
-import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import {
   Bullseye,
   Card,
@@ -164,17 +164,10 @@ export const ProductLoaderPlaceholder = (props) => (
   </Fragment>
 );
 
-export const IconPlaceholder = ({ height, ...props }) => (
-  <div {...props}>
-    <svg height={`${height}`} width={`${height}`}>
-      <circle
-        cx={height / 2.2}
-        cy={height / 2.2}
-        r={height / 2.2}
-        fill="#ecebeb"
-      />
-    </svg>
-  </div>
+export const IconPlaceholder = ({ height }) => (
+  <svg height={height} width={height}>
+    <circle cx={height / 2} cy={height / 2} r={height / 2} fill="#ecebeb" />
+  </svg>
 );
 
 IconPlaceholder.propTypes = {

@@ -80,9 +80,17 @@ export const cancelOrder = (orderId) => (dispatch, getState) => {
     });
 };
 
-export const fetchOrders = (filterType, filter, pagination) => (dispatch) => {
+export const fetchOrders = (filters, pagination) => (dispatch) => {
+  const queryFilter = Object.entries(filters)
+    .filter(([, value]) => value && value.length > 0)
+    .map(([key, value]) =>
+      Array.isArray(value)
+        ? value.map((value) => `filter[${key}][]=${value}`).join('&')
+        : `filter[${key}][contains_i]=${value}`
+    )
+    .join('&');
   dispatch({ type: `${ActionTypes.FETCH_ORDERS}_PENDING` });
-  return OrderHelper.getOrders(filterType, filter, pagination)
+  return OrderHelper.getOrders(queryFilter, pagination)
     .then(({ portfolioItems, ...orders }) => {
       dispatch({
         type: ActionTypes.SET_PORTFOLIO_ITEMS,
@@ -90,7 +98,7 @@ export const fetchOrders = (filterType, filter, pagination) => (dispatch) => {
       });
       return dispatch({
         type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`,
-        meta: { filter },
+        meta: { filter: queryFilter },
         payload: orders
       });
     })

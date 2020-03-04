@@ -2,24 +2,28 @@
 
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
+  availability="available"
   copyUrl="foo/copy"
+  editSurveyUrl="foo/edit-survey"
   editUrl="foo/baz"
   isFetching={false}
   isOpen={false}
   orderUrl="foo/bar"
+  pathname="foo/bar"
   setOpen={[MockFunction]}
+  workflowUrl="foo/workflow"
 >
   <LevelItem>
     <div>
       <CatalogLink
-        disabled={false}
+        isDisabled={false}
         nav={false}
         pathname="foo/bar"
         preserveSearch={true}
         searchParams={Object {}}
       >
-        <Link
-          disabled={false}
+        <Styled(Link)
+          isDisabled={false}
           to={
             Object {
               "pathname": "foo/bar",
@@ -27,73 +31,105 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             }
           }
         >
-          <LinkAnchor
-            disabled={false}
-            href="foo/bar"
-            navigate={[Function]}
+          <Link
+            className="sc-AxiKw drCTeX"
+            isDisabled={false}
+            to={
+              Object {
+                "pathname": "foo/bar",
+                "search": "",
+              }
+            }
           >
-            <a
-              disabled={false}
+            <LinkAnchor
+              className="sc-AxiKw drCTeX"
               href="foo/bar"
-              onClick={[Function]}
+              isDisabled={false}
+              navigate={[Function]}
             >
-              <ButtonWithSpinner
+              <a
+                className="sc-AxiKw drCTeX"
+                href="foo/bar"
                 isDisabled={false}
-                showSpinner={false}
-                variant="primary"
+                onClick={[Function]}
               >
-                <Component
-                  className=""
+                <ButtonWithSpinner
+                  id="order-portfolio-item"
                   isDisabled={false}
+                  showSpinner={false}
                   variant="primary"
                 >
-                  <ComponentWithOuia
-                    component={[Function]}
-                    componentProps={
-                      Object {
-                        "children": Array [
-                          <span>
-                            Order
-                          </span>,
-                          false,
-                        ],
-                        "className": "",
-                        "isDisabled": false,
-                        "variant": "primary",
-                      }
-                    }
-                    consumerContext={null}
+                  <Styled(Component)
+                    id="order-portfolio-item"
+                    isDisabled={false}
+                    variant="primary"
                   >
-                    <Button
-                      className=""
+                    <Component
+                      className="sc-AxjAm jhCAUI"
+                      id="order-portfolio-item"
                       isDisabled={false}
-                      ouiaContext={
-                        Object {
-                          "isOuia": false,
-                          "ouiaId": null,
-                        }
-                      }
                       variant="primary"
                     >
-                      <button
-                        aria-disabled={null}
-                        aria-label={null}
-                        className="pf-c-button pf-m-primary"
-                        disabled={false}
-                        tabIndex={null}
-                        type="button"
+                      <ComponentWithOuia
+                        component={[Function]}
+                        componentProps={
+                          Object {
+                            "children": Array [
+                              <ForwardRef(styled.span)
+                                showSpinner={false}
+                              >
+                                Order
+                              </ForwardRef(styled.span)>,
+                              false,
+                            ],
+                            "className": "sc-AxjAm jhCAUI",
+                            "id": "order-portfolio-item",
+                            "isDisabled": false,
+                            "variant": "primary",
+                          }
+                        }
+                        consumerContext={null}
                       >
-                        <span>
-                          Order
-                        </span>
-                      </button>
-                    </Button>
-                  </ComponentWithOuia>
-                </Component>
-              </ButtonWithSpinner>
-            </a>
-          </LinkAnchor>
-        </Link>
+                        <Button
+                          className="sc-AxjAm jhCAUI"
+                          id="order-portfolio-item"
+                          isDisabled={false}
+                          ouiaContext={
+                            Object {
+                              "isOuia": false,
+                              "ouiaId": null,
+                            }
+                          }
+                          variant="primary"
+                        >
+                          <button
+                            aria-disabled={null}
+                            aria-label={null}
+                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
+                            disabled={false}
+                            id="order-portfolio-item"
+                            tabIndex={null}
+                            type="button"
+                          >
+                            <styled.span
+                              showSpinner={false}
+                            >
+                              <span
+                                className="sc-AxirZ fnlrkz"
+                              >
+                                Order
+                              </span>
+                            </styled.span>
+                          </button>
+                        </Button>
+                      </ComponentWithOuia>
+                    </Component>
+                  </Styled(Component)>
+                </ButtonWithSpinner>
+              </a>
+            </LinkAnchor>
+          </Link>
+        </Styled(Link)>
       </CatalogLink>
     </div>
   </LevelItem>
@@ -147,6 +183,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               component={
                 <CatalogLink
                   nav={false}
+                  pathname="foo/workflow"
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -160,6 +197,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               component={
                 <CatalogLink
                   nav={false}
+                  pathname="foo/edit-survey"
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -217,6 +255,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 component={
                   <CatalogLink
                     nav={false}
+                    pathname="foo/workflow"
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -230,6 +269,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 component={
                   <CatalogLink
                     nav={false}
+                    pathname="foo/edit-survey"
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -288,6 +328,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/workflow"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -301,6 +342,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/edit-survey"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -360,6 +402,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/workflow"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -373,6 +416,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     component={
                       <CatalogLink
                         nav={false}
+                        pathname="foo/edit-survey"
                         preserveSearch={true}
                         searchParams={Object {}}
                       >

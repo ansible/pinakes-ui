@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
 import {
@@ -8,7 +8,10 @@ import {
   TextContent,
   TextVariants,
   Button,
-  Flex
+  Flex,
+  Dropdown,
+  KebabToggle,
+  DropdownItem
 } from '@patternfly/react-core';
 
 import DetailToolbarActions from './detail-toolbar-actions';
@@ -17,6 +20,7 @@ import CardIcon from '../../../presentational-components/shared/card-icon';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
+import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
   <IconUpload uploadIcon={uploadIcon}>
@@ -40,11 +44,12 @@ export const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon
+  uploadIcon,
+  availability
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level>
-      <LevelItem className="pf-l-flex flex-align-end">
+      <StyledLevelItem alignEnd className="pf-l-flex">
         <PortfolioItemIconItem
           uploadIcon={uploadIcon}
           id={product.id}
@@ -53,7 +58,7 @@ export const PortfolioItemDetailToolbar = ({
         <TextContent className="pf-u-ml-md">
           <Text component={TextVariants.h1}>{product.name}</Text>
         </TextContent>
-      </LevelItem>
+      </StyledLevelItem>
       <LevelItem style={{ minHeight: 36 }}>
         <Level>
           <Route
@@ -69,6 +74,7 @@ export const PortfolioItemDetailToolbar = ({
                 editSurveyUrl={`${url}/edit-survey`}
                 workflowUrl={`${url}/edit-workflow`}
                 isFetching={isFetching}
+                availability={availability}
                 {...args}
               />
             )}
@@ -97,11 +103,38 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
   isFetching: false
+};
+
+const SurveyEditorDropdown = ({ handleResetSurvey }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Dropdown
+      isOpen={isOpen}
+      isPlain
+      onSelect={() => setIsOpen(false)}
+      position="right"
+      toggle={<KebabToggle onToggle={(isOpen) => setIsOpen(isOpen)} />}
+      dropdownItems={[
+        <DropdownItem
+          onClick={handleResetSurvey}
+          component="button"
+          key="synchronize"
+        >
+          Restore to Ansible Tower version
+        </DropdownItem>
+      ]}
+    />
+  );
+};
+
+SurveyEditorDropdown.propTypes = {
+  handleResetSurvey: PropTypes.func.isRequired
 };
 
 export const SurveyEditingToolbar = ({
@@ -111,11 +144,13 @@ export const SurveyEditingToolbar = ({
   closeUrl,
   search,
   isFetching,
-  isValid
+  isValid,
+  modified,
+  handleResetSurvey
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <Level>
-      <LevelItem className="pf-l-flex flex-align-end">
+      <StyledLevelItem alignEnd className="pf-l-flex">
         <PortfolioItemIconItem
           uploadIcon={uploadIcon}
           id={product.id}
@@ -126,9 +161,9 @@ export const SurveyEditingToolbar = ({
             Editing survey: {product.name}
           </Text>
         </TextContent>
-      </LevelItem>
+      </StyledLevelItem>
       <LevelItem>
-        <Flex>
+        <Flex className="align-items-center">
           <ButtonWithSpinner
             variant="primary"
             showSpinner={isFetching}
@@ -145,6 +180,9 @@ export const SurveyEditingToolbar = ({
           >
             <Button variant="link">Cancel</Button>
           </Link>
+          {modified && (
+            <SurveyEditorDropdown handleResetSurvey={handleResetSurvey} />
+          )}
         </Flex>
       </LevelItem>
     </Level>
@@ -158,5 +196,7 @@ SurveyEditingToolbar.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
   isFetching: PropTypes.bool,
-  isValid: PropTypes.bool
+  isValid: PropTypes.bool,
+  modified: PropTypes.bool,
+  handleResetSurvey: PropTypes.func
 };

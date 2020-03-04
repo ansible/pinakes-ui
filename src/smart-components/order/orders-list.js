@@ -28,33 +28,44 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
 const debouncedFilter = asyncFormValidator(
-  (filterType, value, meta = defaultSettings, dispatch, filteringCallback) => {
+  (filters, meta = defaultSettings, dispatch, filteringCallback) => {
     filteringCallback(true);
-    dispatch(fetchOrders(filterType, value, meta)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(fetchOrders(filters, meta)).then(() => filteringCallback(false));
   },
   1000
 );
 
 const initialState = {
-  filterValue: '',
   isOpen: false,
   isFetching: true,
   isFiltering: false,
-  filterType: 'state'
+  filterType: 'state',
+  filters: {
+    state: [],
+    owner: ''
+  }
 };
+
+const changeFilters = (value, type, filters) => ({
+  ...filters,
+  [type]: value
+});
 
 const ordersListState = (state, action) => {
   switch (action.type) {
     case 'setFetching':
       return { ...state, isFetching: action.payload };
     case 'setFilterValue':
-      return { ...state, filterValue: action.payload };
+      return {
+        ...state,
+        filters: changeFilters(action.payload, state.filterType, state.filters)
+      };
+    case 'replaceFilterChip':
+      return { ...state, filters: action.payload };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
     case 'setFilterType':
-      return { ...state, filterType: action.payload, filterValue: '' };
+      return { ...state, filterType: action.payload };
   }
 
   return state;
@@ -62,7 +73,7 @@ const ordersListState = (state, action) => {
 
 const OrdersList = () => {
   const [
-    { isFetching, filterValue, isFiltering, filterType },
+    { isFetching, isFiltering, filterType, filters },
     stateDispatch
   ] = useReducer(ordersListState, initialState);
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
@@ -70,22 +81,26 @@ const OrdersList = () => {
   useEffect(() => {
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.all([
-      dispatch(fetchOrders(filterType, filterValue, meta)),
+      dispatch(fetchOrders(filters, meta)),
       dispatch(fetchPlatforms())
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
   const handlePagination = (_apiProps, pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(fetchOrders(filterType, filterValue, pagination))
+    return dispatch(fetchOrders(filters, pagination))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
-    debouncedFilter(filterType, value, meta, dispatch, (isFiltering) =>
-      stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
+    debouncedFilter(
+      { ...filters, [filterType]: value },
+      meta,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
     );
   };
 
@@ -95,39 +110,86 @@ const OrdersList = () => {
         <Section type="content">
           {!meta.noData && (
             <PrimaryToolbar
-              {...(filterValue && {
-                activeFiltersConfig: {
-                  filters: [
-                    {
-                      name: filterValue
-                    }
-                  ],
-                  onDelete: () => {
-                    stateDispatch({ type: 'setFilterValue', payload: '' });
-                    handleFilterItems('');
+              activeFiltersConfig={{
+                filters: Object.entries(filters)
+                  .filter(([, value]) => value && value.length > 0)
+                  .map(([key, value]) => ({
+                    category: key,
+                    type: key,
+                    chips: Array.isArray(value)
+                      ? value.map((name) => ({ name }))
+                      : [{ name: value }]
+                  })),
+                onDelete: (_e, [chip], clearAll) => {
+                  if (clearAll) {
+                    stateDispatch({
+                      type: 'replaceFilterChip',
+                      payload: initialState.filters
+                    });
+                    return debouncedFilter(
+                      initialState.filters,
+                      meta,
+                      dispatch,
+                      (isFiltering) =>
+                        stateDispatch({
+                          type: 'setFilteringFlag',
+                          payload: isFiltering
+                        })
+                    );
                   }
+
+                  const newFilters = { ...filters };
+                  if (chip.type === 'state') {
+                    newFilters[chip.type] = newFilters[chip.type].filter(
+                      (value) => value !== chip.chips[0].name
+                    );
+                  } else {
+                    newFilters[chip.type] = '';
+                  }
+
+                  stateDispatch({
+                    type: 'replaceFilterChip',
+                    payload: newFilters
+                  });
+                  debouncedFilter(newFilters, meta, dispatch, (isFiltering) =>
+                    stateDispatch({
+                      type: 'setFilteringFlag',
+                      payload: isFiltering
+                    })
+                  );
                 }
-              })}
+              }}
               filterConfig={{
-                onChange: (_e, value) => {
-                  stateDispatch({ type: 'setFilterType', payload: value });
-                  if (filterValue.length > 0) {
-                    handleFilterItems('');
-                  }
-                },
+                onChange: (_e, value) =>
+                  stateDispatch({ type: 'setFilterType', payload: value }),
                 value: filterType,
                 items: [
                   {
                     filterValues: {
-                      value: filterValue,
+                      items: [
+                        {
+                          value: 'Failed',
+                          label: 'Failed'
+                        },
+                        {
+                          value: 'Completed',
+                          label: 'Completed'
+                        },
+                        {
+                          value: 'Approval Pending',
+                          label: 'Approval Pending'
+                        }
+                      ],
+                      value: filters.state,
                       onChange: (_e, value) => handleFilterItems(value)
                     },
                     label: 'State',
-                    value: 'state'
+                    value: 'state',
+                    type: 'checkbox'
                   },
                   {
                     filterValues: {
-                      value: filterValue,
+                      value: filters.owner,
                       onChange: (_e, value) => handleFilterItems(value)
                     },
                     label: 'Owner',

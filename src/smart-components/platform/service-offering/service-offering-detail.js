@@ -5,8 +5,7 @@ import {
   GridItem,
   TextContent,
   Text,
-  Level,
-  LevelItem
+  Level
 } from '@patternfly/react-core';
 import ReactJsonView from 'react-json-view';
 import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
@@ -17,6 +16,8 @@ import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
+import EllipsisTextContainer from '../../../presentational-components/styled-components/ellipsis-text-container';
+import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 
 const requiredParams = ['service', 'platform'];
 
@@ -50,13 +51,13 @@ const ServiceOfferingDetail = () => {
         </div>
         <GridItem sm={12} className="pf-u-mb-md">
           <Level>
-            <LevelItem className="pf-l-flex flex-align-end">
+            <StyledLevelItem alignEnd className="pf-l-flex">
               <CardIcon src={source.icon_url} height={64} />
               <TextContent>
                 <Text component="h1">{service.name}</Text>
                 <Text component="small">Service offering</Text>
               </TextContent>
-            </LevelItem>
+            </StyledLevelItem>
           </Level>
         </GridItem>
         <GridItem md={2}>
@@ -64,16 +65,16 @@ const ServiceOfferingDetail = () => {
             <Text id="source" component="h6">
               <span>Platform</span>
               <br />
-              <div className="elipsis-text-overflow">
+              <EllipsisTextContainer>
                 <span>{source.name}</span>
-              </div>
+              </EllipsisTextContainer>
             </Text>
             <Text id="created_at" component="h6">
               <span>Created at</span>
               <br />
-              <div className="elipsis-text-overflow">
+              <EllipsisTextContainer>
                 <DateFormat type="relative" date={service.created_at} />
-              </div>
+              </EllipsisTextContainer>
             </Text>
           </TextContent>
         </GridItem>
