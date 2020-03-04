@@ -40,13 +40,15 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             Platform
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              bar
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                bar
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -62,13 +64,15 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             Portfolio
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              quux
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                quux
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -84,13 +88,15 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             Vendor
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              foo
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                foo
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -106,10 +112,10 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             Created at
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
               <DateFormat
                 date="Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)"
                 variant="relative"
@@ -210,7 +216,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                     zIndex={9999}
                   >
                     <span>
-                      11 months ago
+                      12 months ago
                     </span>
                     <Portal
                       containerInfo={
@@ -252,8 +258,8 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                   </PopoverBase>
                 </Tooltip>
               </DateFormat>
-            </span>
-          </div>
+            </div>
+          </styled.div>
         </h6>
       </Text>
     </div>
@@ -298,13 +304,15 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
             Platform
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              bar
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                bar
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -320,13 +328,15 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
             Portfolio
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              quux
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                quux
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -342,10 +352,10 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
             Created at
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
               <DateFormat
                 date="Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)"
                 variant="relative"
@@ -446,7 +456,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                     zIndex={9999}
                   >
                     <span>
-                      11 months ago
+                      12 months ago
                     </span>
                     <Portal
                       containerInfo={
@@ -488,8 +498,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                   </PopoverBase>
                 </Tooltip>
               </DateFormat>
-            </span>
-          </div>
+            </div>
+          </styled.div>
         </h6>
       </Text>
     </div>
@@ -538,13 +548,15 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             Platform
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              bar
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                bar
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -560,13 +572,15 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             Portfolio
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              quux
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                quux
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -582,13 +596,15 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             Vendor
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
-              foo
-            </span>
-          </div>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
+              <span>
+                foo
+              </span>
+            </div>
+          </styled.div>
         </h6>
       </Text>
       <Text
@@ -604,10 +620,10 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             Created at
           </span>
           <br />
-          <div
-            className="elipsis-text-overflow"
-          >
-            <span>
+          <styled.div>
+            <div
+              className="sc-AxjAm fkKIGI"
+            >
               <DateFormat
                 date="Fri Mar 22 2019 08:36:57 GMT+0100 (Central European Standard Time)"
                 variant="relative"
@@ -708,7 +724,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                     zIndex={9999}
                   >
                     <span>
-                      11 months ago
+                      12 months ago
                     </span>
                     <Portal
                       containerInfo={
@@ -750,8 +766,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                   </PopoverBase>
                 </Tooltip>
               </DateFormat>
-            </span>
-          </div>
+            </div>
+          </styled.div>
         </h6>
       </Text>
     </div>

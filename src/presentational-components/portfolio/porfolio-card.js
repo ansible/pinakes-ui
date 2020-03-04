@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ItemDetails from '../shared/card-common';
 import {
-  Card,
   CardHeader,
   CardBody,
   CardFooter,
   Dropdown,
   DropdownItem,
   DropdownPosition,
-  GalleryItem,
   KebabToggle,
   Text,
   TextContent,
@@ -26,6 +24,10 @@ import {
   REMOVE_PORTFOLIO_ROUTE,
   PORTFOLIO_ROUTE
 } from '../../constants/routes';
+import {
+  StyledCard,
+  StyledGalleryItem
+} from '../styled-components/styled-gallery';
 
 const TO_DISPLAY = ['description'];
 
@@ -93,45 +95,34 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
     search: `?portfolio=${id}`
   };
   return (
-    <GalleryItem>
-      <div className={isDisabled ? 'portfolio-item-progress' : ''}>
-        {isDisabled && (
-          <Card className="content-gallery-card progress-overlay" />
-        )}
-        <Card className="content-gallery-card">
-          <CardHeader>
-            <PortfolioCardHeader
-              to={to}
-              portfolioName={name}
-              headerActions={createToolbarActions(id, isOpen, setOpen)}
-            />
-          </CardHeader>
-          <CardBody className="pf-u-pl-0 pf-u-pr-0 pf-u-pb-0">
-            <CatalogLink
-              className="card-link pf-u-display-block pf-u-pl-lg pf-u-pr-lg"
-              pathname={PORTFOLIO_ROUTE}
-              searchParams={{ portfolio: id }}
-            >
-              <TextContent className="pf-u-mb-md">
-                <Text component={TextVariants.small} className="pf-i-mb-sm">
-                  Last updated&nbsp;
-                  <DateFormat
-                    date={props.updated_at || props.created_at}
-                    type="relative"
-                  />
-                </Text>
-                <Text component={TextVariants.small}>{props.owner}</Text>
-              </TextContent>
-              <ItemDetails
-                {...{ name, imageUrl, ...props }}
-                toDisplay={TO_DISPLAY}
+    <StyledGalleryItem isDisabled={isDisabled}>
+      <StyledCard>
+        <CardHeader>
+          <PortfolioCardHeader
+            to={to}
+            portfolioName={name}
+            headerActions={createToolbarActions(id, isOpen, setOpen)}
+          />
+        </CardHeader>
+        <CardBody>
+          <TextContent className="pf-u-mb-md">
+            <Text component={TextVariants.small} className="pf-i-mb-sm">
+              Last updated&nbsp;
+              <DateFormat
+                date={props.updated_at || props.created_at}
+                type="relative"
               />
-            </CatalogLink>
-          </CardBody>
-          <CardFooter />
-        </Card>
-      </div>
-    </GalleryItem>
+            </Text>
+            <Text component={TextVariants.small}>{props.owner}</Text>
+          </TextContent>
+          <ItemDetails
+            {...{ name, imageUrl, ...props }}
+            toDisplay={TO_DISPLAY}
+          />
+        </CardBody>
+        <CardFooter />
+      </StyledCard>
+    </StyledGalleryItem>
   );
 };
 

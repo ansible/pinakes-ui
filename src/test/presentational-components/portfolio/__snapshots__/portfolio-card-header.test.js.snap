@@ -2,21 +2,23 @@
 
 exports[`<PortfolioCardHeader /> should render correctly 1`] = `
 <Level>
-  <LevelItem
-    className="portfolio-card-header-title pf-m-grow"
+  <Styled(LevelItem)
+    className="pf-m-grow"
   >
     <Link>
       <TextContent>
         <Text
-          className="elipsis-text-overflow pf-u-mb-0"
+          className="pf-u-mb-0"
           component="h3"
           title="foo"
         >
-          foo
+          <styled.div>
+            foo
+          </styled.div>
         </Text>
       </TextContent>
     </Link>
-  </LevelItem>
+  </Styled(LevelItem)>
   <LevelItem
     onClick={[Function]}
   />

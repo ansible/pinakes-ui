@@ -1,9 +1,38 @@
 import React, { useState, useRef } from 'react';
 import { EditIcon } from '@patternfly/react-icons';
-import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
+import styled from 'styled-components';
+
+const UploadButton = styled.button`
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  svg {
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+`;
+
+const UploadIconWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const ImagePreview = styled.img`
+  height: 64px;
+  max-width: 300px;
+  object-fit: cover;
+`;
 
 const IconUpload = ({ uploadIcon, children }) => {
   const inputRef = useRef();
@@ -13,7 +42,7 @@ const IconUpload = ({ uploadIcon, children }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="upload-icon-wrapper">
+    <UploadIconWrapper>
       <input
         accept=".png,.svg,.jpeg"
         onChange={(event) => {
@@ -39,27 +68,18 @@ const IconUpload = ({ uploadIcon, children }) => {
         id="icon-upload"
         hidden
       />
-      <button
-        disabled={isUploading}
-        onClick={handleClick}
-        className="image-upload-button"
-      >
-        {isUploading ? (
-          <Spinner className="image-upload-spinner" />
-        ) : (
-          <EditIcon size="sm" />
-        )}
-      </button>
+      <UploadButton disabled={isUploading} onClick={handleClick}>
+        {isUploading ? <Spinner size="md" /> : <EditIcon size="sm" />}
+      </UploadButton>
       {!image && children}
       {image && (
-        <img
-          className="image-preview"
+        <ImagePreview
           style={{ height: 64 }}
           src={URL.createObjectURL(image)}
           id={image.name}
         />
       )}
-    </div>
+    </UploadIconWrapper>
   );
 };
 

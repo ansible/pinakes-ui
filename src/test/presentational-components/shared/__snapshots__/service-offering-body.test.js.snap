@@ -7,61 +7,70 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
   long_description="long description"
   name="Foo"
 >
-  <CardBody
-    className="card-height"
-  >
-    <div
-      className="pf-c-card__body card-height"
+  <Styled(CardBody)>
+    <CardBody
+      className="sc-AxhUy dxVDnH"
     >
-      <TextContent>
-        <div
-          className="pf-c-content"
-        >
-          <ConditionalLink>
-            <Text
-              className="elipsis-text-overflow"
-              component="h3"
-              title="display name"
-            >
-              <h3
-                className="elipsis-text-overflow"
-                data-pf-content={true}
-                title="display name"
-              >
-                display name
-              </h3>
-            </Text>
-          </ConditionalLink>
-          <Text
-            component="small"
-          >
-            <small
-              className=""
-              data-pf-content={true}
-            >
-              Red Hat
-               
-            </small>
-          </Text>
-        </div>
-      </TextContent>
-      <ItemDetails
-        long_description="long description"
-        toDisplay={
-          Array [
-            "long_description",
-          ]
-        }
+      <div
+        className="pf-c-card__body sc-AxhUy dxVDnH"
       >
-        <div
-          className="card-prop-text"
-          key="card-prop-long_description"
+        <TextContent>
+          <div
+            className="pf-c-content"
+          >
+            <ConditionalLink>
+              <Text
+                component="h3"
+                title="Foo"
+              >
+                <h3
+                  className=""
+                  data-pf-content={true}
+                  title="Foo"
+                >
+                  <styled.div>
+                    <div
+                      className="sc-AxhCb hYKqDj"
+                    >
+                      Foo
+                    </div>
+                  </styled.div>
+                </h3>
+              </Text>
+            </ConditionalLink>
+            <Text
+              component="small"
+            >
+              <small
+                className=""
+                data-pf-content={true}
+              >
+                Red Hat
+              </small>
+            </Text>
+          </div>
+        </TextContent>
+        <ItemDetails
+          long_description="long description"
+          toDisplay={
+            Array [
+              "long_description",
+            ]
+          }
         >
-          long description
-        </div>
-      </ItemDetails>
-    </div>
-  </CardBody>
+          <styled.div
+            key="card-prop-long_description"
+          >
+            <div
+              className="sc-AxjAm hDziHm"
+            >
+              long description
+            </div>
+          </styled.div>
+        </ItemDetails>
+      </div>
+    </CardBody>
+  </Styled(CardBody)>
 </ServiceOfferingCardBody>
 `;
 
@@ -70,59 +79,59 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
   description="Bar"
   name="Foo"
 >
-  <CardBody
-    className="card-height"
-  >
-    <div
-      className="pf-c-card__body card-height"
+  <Styled(CardBody)>
+    <CardBody
+      className="sc-AxhUy dxVDnH"
     >
-      <TextContent>
-        <div
-          className="pf-c-content"
-        >
-          <ConditionalLink>
-            <Text
-              className="elipsis-text-overflow"
-              component="h3"
-              title="Foo"
-            >
-              <h3
-                className="elipsis-text-overflow"
-                data-pf-content={true}
+      <div
+        className="pf-c-card__body sc-AxhUy dxVDnH"
+      >
+        <TextContent>
+          <div
+            className="pf-c-content"
+          >
+            <ConditionalLink>
+              <Text
+                component="h3"
                 title="Foo"
               >
-                Foo
-              </h3>
-            </Text>
-          </ConditionalLink>
-          <Text
-            component="small"
-          >
-            <small
-              className=""
-              data-pf-content={true}
-            >
-               
-            </small>
-          </Text>
-        </div>
-      </TextContent>
-      <ItemDetails
-        description="Bar"
-        toDisplay={
-          Array [
-            "description",
-          ]
-        }
-      >
-        <div
-          className="card-prop-text"
-          key="card-prop-description"
+                <h3
+                  className=""
+                  data-pf-content={true}
+                  title="Foo"
+                >
+                  <styled.div>
+                    <div
+                      className="sc-AxhCb hYKqDj"
+                    >
+                      Foo
+                    </div>
+                  </styled.div>
+                </h3>
+              </Text>
+            </ConditionalLink>
+          </div>
+        </TextContent>
+        <ItemDetails
+          description="Bar"
+          toDisplay={
+            Array [
+              "description",
+            ]
+          }
         >
-          Bar
-        </div>
-      </ItemDetails>
-    </div>
-  </CardBody>
+          <styled.div
+            key="card-prop-description"
+          >
+            <div
+              className="sc-AxjAm hDziHm"
+            >
+              Bar
+            </div>
+          </styled.div>
+        </ItemDetails>
+      </div>
+    </CardBody>
+  </Styled(CardBody)>
 </ServiceOfferingCardBody>
 `;

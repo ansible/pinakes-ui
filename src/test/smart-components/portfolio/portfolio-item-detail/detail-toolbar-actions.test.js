@@ -14,7 +14,11 @@ describe('<DetailToolbarActions />', () => {
       editUrl: 'foo/baz',
       isOpen: false,
       setOpen: jest.fn(),
-      copyUrl: 'foo/copy'
+      copyUrl: 'foo/copy',
+      availability: 'available',
+      editSurveyUrl: 'foo/edit-survey',
+      workflowUrl: 'foo/workflow',
+      pathname: 'foo/bar'
     };
   });
 

@@ -23,7 +23,7 @@ export const createLinkButton = ({ pathname, preserveSearch, ...item }) => ({
   pathname,
   preserveSearch,
   key: `${item.key}/button-link`,
-  className: item.isDisabled ? 'disabled-link' : '',
+  isDisabled: item.isDisabled,
   fields: [
     {
       component: toolbarComponentTypes.BUTTON,
