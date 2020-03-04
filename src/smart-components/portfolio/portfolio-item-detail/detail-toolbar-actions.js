@@ -18,15 +18,21 @@ const DetailToolbarActions = ({
   editSurveyUrl,
   isOpen,
   setOpen,
-  isFetching
+  isFetching,
+  availability
 }) => (
   <Fragment>
     <LevelItem>
-      <CatalogLink disabled={isFetching} pathname={orderUrl} preserveSearch>
+      <CatalogLink
+        isDisabled={isFetching || availability === 'unavailable'}
+        pathname={orderUrl}
+        preserveSearch
+      >
         <ButtonWithSpinner
-          isDisabled={isFetching}
+          isDisabled={isFetching || availability === 'unavailable'}
           showSpinner={isFetching}
           variant="primary"
+          id="order-portfolio-item"
         >
           Order
         </ButtonWithSpinner>
@@ -97,7 +103,8 @@ DetailToolbarActions.propTypes = {
   workflowUrl: PropTypes.string.isRequired,
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
 };
 
 DetailToolbarActions.defaultProps = {

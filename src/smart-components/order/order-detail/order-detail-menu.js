@@ -20,11 +20,6 @@ const useNavItems = ({ state } = {}) => [
     title: 'Approval'
   },
   {
-    link: '/provision',
-    title: 'Provision',
-    isDisabled: true
-  },
-  {
     link: '/lifecycle',
     title: 'Lifecycle',
     isDisabled: state !== 'Completed'
@@ -51,14 +46,17 @@ const OrderDetailMenu = ({ baseUrl, isFetching }) => {
             className={`pf-c-nav__item orders-side-nav-item orders-side-nav-category${
               isDisabled || isFetching ? ' disabled' : ''
             }`}
+            {...(isDisabled ? { tabIndex: -1 } : {})}
           >
             <CatalogLink
               exact
               nav
+              isDisabled={isDisabled}
               pathname={`${baseUrl}${link}`}
               preserveSearch
               className="pf-c-nav__link orders-side-nav-link"
               activeClassName="pf-m-active"
+              {...(isDisabled ? { tabIndex: -1 } : {})}
             >
               {title}
             </CatalogLink>

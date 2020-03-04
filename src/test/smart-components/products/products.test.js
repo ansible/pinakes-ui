@@ -44,7 +44,8 @@ describe('<Products />', () => {
           data: [
             {
               name: 'Foo',
-              id: '123'
+              id: '123',
+              portfolioName: 'Foo portfolio'
             }
           ],
           meta: {
@@ -65,13 +66,21 @@ describe('<Products />', () => {
         `${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, {
-        data: [],
+        data: [
+          {
+            id: '123',
+            portfolio_id: '1'
+          }
+        ],
         meta: {
           limit: 0,
           offset: 0,
           count: 0
         }
       });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios?filter[id][]=1`)
+      .replyOnce(200, { data: [{ id: '1', name: 'portfolio name' }] });
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: [] });
@@ -101,13 +110,22 @@ describe('<Products />', () => {
         `${CATALOG_API_BASE}/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, {
-        data: [],
+        data: [
+          {
+            name: 'foo',
+            id: '123',
+            portfolio_id: '1'
+          }
+        ],
         meta: {
           limit: 0,
           offset: 0,
           count: 0
         }
       });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios?filter[id][]=1`)
+      .replyOnce(200, { data: [{ id: '1', name: 'portfolio name' }] });
     /**
      * Second call after input change
      */
@@ -118,8 +136,22 @@ describe('<Products />', () => {
       .replyOnce((req) => {
         expect(req).toBeTruthy();
         done();
-        return [200, { data: [] }];
+        return [
+          200,
+          {
+            data: [
+              {
+                name: 'foo',
+                id: '123',
+                portfolio_id: '1'
+              }
+            ]
+          }
+        ];
       });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios?filter[id][]=1`)
+      .replyOnce(200, { data: [{ id: '1', name: 'portfolio name' }] });
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: [] });
@@ -171,6 +203,9 @@ describe('<Products />', () => {
           count: 0
         }
       });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios?`)
+      .replyOnce(200, { data: [] });
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: [] });

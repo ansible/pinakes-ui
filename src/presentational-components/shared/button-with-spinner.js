@@ -1,17 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Button } from '@patternfly/react-core';
-import { Spinner } from '@redhat-cloud-services/frontend-components/components/Spinner';
+import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
+
+const SpinnerButton = styled(Button)`
+  display: flex !important;
+  align-items: center;
+`;
+
+const SpinnerLabel = styled.span`
+  margin-right: ${({ showSpinner }) => (showSpinner ? '8px' : '0')};
+`;
 
 const ButtonWithSpinner = ({ children, showSpinner, isDisabled, ...props }) => (
-  <Button
-    className={isDisabled && showSpinner ? 'button-with-spinner' : ''}
-    {...props}
-    isDisabled={isDisabled}
-  >
-    <span>{children}</span>
-    {showSpinner && <Spinner />}
-  </Button>
+  <SpinnerButton {...props} isDisabled={isDisabled}>
+    <SpinnerLabel showSpinner={showSpinner}>{children}</SpinnerLabel>
+    {showSpinner && <Spinner size="md" />}
+  </SpinnerButton>
 );
 
 ButtonWithSpinner.propTypes = {
