@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
@@ -11,11 +11,19 @@ import CopyPortfolioItemModal from './copy-portfolio-item-modal';
 import { PortfolioItemDetailToolbar } from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions';
-import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
+import {
+  ProductLoaderPlaceholder,
+  AppPlaceholder
+} from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
-import SurveyEditor from '../../survey-editing/survey-editor';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
+
+const SurveyEditor = lazy(() =>
+  import(
+    /* webpackChunkName: "survey-editor" */ '../../survey-editing/survey-editor'
+  )
+);
 
 const requiredParams = ['portfolio', 'source', 'portfolio-item'];
 
@@ -56,9 +64,8 @@ const PortfolioItemDetail = () => {
   return (
     <Fragment>
       <Switch>
-        <Route
-          path={`${url}/edit-survey`}
-          render={() => (
+        <Route path={`${url}/edit-survey`}>
+          <Suspense fallback={<AppPlaceholder />}>
             <SurveyEditor
               closeUrl={url}
               search={search}
@@ -66,8 +73,8 @@ const PortfolioItemDetail = () => {
               portfolioItem={portfolioItem}
               portfolio={portfolio}
             />
-          )}
-        />
+          </Suspense>
+        </Route>
         <Route>
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar
