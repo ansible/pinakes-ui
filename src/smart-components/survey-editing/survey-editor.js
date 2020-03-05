@@ -181,7 +181,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
         dispatch(
           addNotification({
             variant: 'success',
-            title: `Survey of ${portfolioItem.name} has been synchronized.`,
+            title: `Survey of ${portfolioItem.name} has been restored.`,
             dismissable: true
           })
         )
