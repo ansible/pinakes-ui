@@ -21,6 +21,7 @@ import '@redhat-cloud-services/frontend-components/index.css';
 import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from './utilities/constants';
 import GlobalStyle from './global-styles';
+import UserContext from './user-context';
 
 smoothscroll.polyfill();
 
@@ -31,6 +32,7 @@ let ignoreRedirect = true;
 
 const App = () => {
   const [auth, setAuth] = useState(false);
+  const [userPermissions, setUserPermissions] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
@@ -55,7 +57,10 @@ const App = () => {
             )
           })
         ),
-      insights.chrome.auth.getUser()
+      insights.chrome.auth.getUser(),
+      insights.chrome
+        .getUserPermissions()
+        .then((data) => setUserPermissions(data))
     ]).then(() => setAuth(true));
 
     insights.chrome.identifyApp('catalog');
@@ -100,17 +105,19 @@ const App = () => {
 
   return (
     <IntlProvider locale="en">
-      <Fragment>
-        <GlobalStyle />
-        <NotificationsPortal />
-        <Main className="pf-u-p-0 pf-u-ml-0">
-          <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-            <GridItem sm={12} className="content-layout">
-              <Routes />
-            </GridItem>
-          </Grid>
-        </Main>
-      </Fragment>
+      <UserContext.Provider value={{ permissions: userPermissions }}>
+        <Fragment>
+          <GlobalStyle />
+          <NotificationsPortal />
+          <Main className="pf-u-p-0 pf-u-ml-0">
+            <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+              <GridItem sm={12} className="content-layout">
+                <Routes />
+              </GridItem>
+            </Grid>
+          </Main>
+        </Fragment>
+      </UserContext.Provider>
     </IntlProvider>
   );
 };
