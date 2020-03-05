@@ -98,14 +98,45 @@ export const getOrderDetail = (params) => {
     axiosInstance.get(
       `${CATALOG_API_BASE}/order_items/${params['order-item']}`
     ),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`
-    ),
-    axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.platform}`),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`)
+      .catch((error) => {
+        if (error.status === 404) {
+          return {
+            object: 'Portfolio item',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
+    axiosInstance
+      .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Platform',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
     axiosInstance.get(
       `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
     ),
-    axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Portfolio',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
     axiosInstance.get(
       `${CATALOG_API_BASE}/order_items/${params['order-item']}/approval_requests`
     )
