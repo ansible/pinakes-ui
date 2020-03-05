@@ -51,8 +51,20 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
+  const availability = source.availability_status || 'unavailable';
 
+  const unavailable = [source]
+    .filter(({ notFound }) => notFound)
+    .map(({ object }) => (
+      <Alert
+        className="pf-u-mb-sm"
+        key={object}
+        variant="warning"
+        isInline
+        title={`The ${object} for this product is no longer available`}
+      />
+    ));
+  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
   return (
     <Fragment>
       <Switch>
@@ -77,15 +89,18 @@ const PortfolioItemDetail = () => {
               product={portfolioItem}
               setOpen={setOpen}
               isFetching={isFetching}
-              availability={source.availability_status}
+              availability={availability}
             />
+            {unavailable.length > 0 && (
+              <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>
+            )}
             {source.availability_status === 'unavailable' && (
               <Alert
                 className="pf-u-ml-lg pf-u-mr-lg"
                 id="unavailable-alert-info"
                 variant="info"
                 isInline
-                title="Platform for this product is unavailable"
+                title="The platform for this product is unavailable"
               />
             )}
             <Grid className="pf-u-p-lg">

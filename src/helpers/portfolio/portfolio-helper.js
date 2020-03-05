@@ -201,7 +201,18 @@ export const getPortfolioItemDetail = (params) =>
       `${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`
     ),
     axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
-    axiosInstance.get(`${SOURCES_API_BASE}/sources/${params.source}`)
+    axiosInstance
+      .get(`${SOURCES_API_BASE}/sources/${params.source}`)
+      .catch((error) => {
+        if (error.status === 404) {
+          return {
+            object: 'platform',
+            notFound: true
+          };
+        }
+
+        throw error;
+      })
   ]);
 
 export const getPortfolioFromState = (portfolioReducer, portfolioId) =>
