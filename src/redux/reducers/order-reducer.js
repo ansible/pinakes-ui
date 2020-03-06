@@ -23,7 +23,8 @@ export const orderInitialState = {
   orderDetail: {
     order: {},
     portfolioItem: {},
-    platform: {}
+    platform: {},
+    portfolio: {}
   },
   orders: {
     data: [],
