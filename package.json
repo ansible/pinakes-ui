@@ -122,8 +122,5 @@
   },
   "insights": {
     "appname": "catalog"
-  },
-  "sideEffects": [
-    "*.scss"
-  ]
+  }
 }
