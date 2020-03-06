@@ -20,6 +20,7 @@ import {
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import { PortfolioItemDetailToolbar } from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { mockApi } from '../../../__mocks__/user-login';
+import { Alert } from '@patternfly/react-core';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -150,6 +151,40 @@ describe('<PortfolioItemDetail />', () => {
       wrapper.update();
     });
     expect(wrapper.find(OrderModal)).toHaveLength(1);
+    done();
+  });
+
+  it('should mount with missing source', async (done) => {
+    const store = mockStore({
+      ...initialState,
+      portfolioReducer: {
+        ...initialState.portfolioReducer,
+        portfolioItem: {
+          ...initialState.portfolioReducer.portfolioItem,
+          source: {
+            notFound: true
+          }
+        }
+      }
+    });
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          initialEntries={[
+            '/portfolio/portfolio-item?source=source-id&portfolio=123&portfolio-item=321'
+          ]}
+          store={store}
+        >
+          <PortfolioItemDetail {...initialProps} />
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+    expect(wrapper.find(Alert)).toHaveLength(1);
     done();
   });
 });
