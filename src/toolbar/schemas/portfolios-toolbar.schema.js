@@ -4,6 +4,13 @@ import { hasPermission } from '../../helpers/shared/helpers';
 
 import AsyncPagination from '../../smart-components/common/async-pagination';
 
+const hasPermission = (userPermissions, permissions) =>
+  userPermissions
+    ? permissions.every((permission) =>
+        userPermissions.find((item) => item.permission === permission)
+      )
+    : false;
+
 const createPortfolioToolbarSchema = ({
   meta,
   fetchPortfolios,
