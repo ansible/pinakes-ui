@@ -3,9 +3,17 @@ import { createSingleItemGroup, createLinkButton } from '../helpers';
 
 import AsyncPagination from '../../smart-components/common/async-pagination';
 
+const hasPermission = (userPermissions, permissions) =>
+  userPermissions
+    ? permissions.every((permission) =>
+        userPermissions.find((item) => item.permission === permission)
+      )
+    : false;
+
 const createPortfolioToolbarSchema = ({
   meta,
   fetchPortfolios,
+  userPermissions,
   filterProps: { searchValue, onFilterChange, placeholder }
 }) => ({
   fields: [
@@ -39,7 +47,11 @@ const createPortfolioToolbarSchema = ({
                       isClearable: true
                     }),
                     createSingleItemGroup({
-                      hidden: meta.count === 0,
+                      hidden:
+                        meta.count === 0 ||
+                        !hasPermission(userPermissions, [
+                          'catalog:portfolios:create'
+                        ]),
                       groupName: 'portfolio-button-group',
                       key: 'create-portfolio',
                       ...createLinkButton({
