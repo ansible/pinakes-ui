@@ -95,6 +95,7 @@ const Products = () => {
       pathname={item.portfolio_id && PORTFOLIO_ITEM_ROUTE}
       {...buildItemLink(item)}
       {...item}
+      toDisplay={[]}
     />
   ));
 

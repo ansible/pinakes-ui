@@ -4,7 +4,6 @@ import {
   Button,
   Level,
   LevelItem,
-  Toolbar,
   ToolbarItem,
   ToolbarGroup
 } from '@patternfly/react-core';
@@ -15,6 +14,7 @@ import TopToolbar, {
 } from '../presentational-components/shared/top-toolbar';
 import AppTabs from '../presentational-components/shared/app-tabs';
 import CatalogLink from '../smart-components/common/catalog-link';
+import { StyledToolbar } from '../presentational-components/styled-components/toolbars';
 
 const ToolbarButton = ({ title, ...props }) => (
   <Button {...props}>{title}</Button>
@@ -25,7 +25,7 @@ ToolbarButton.propTypes = {
 };
 
 const AppToolbar = ({ ...props }) => (
-  <Toolbar className="pf-u-pr-lg toolbar" {...props} />
+  <StyledToolbar className="pf-u-pr-lg" {...props} />
 );
 
 const toolbarMapper = {

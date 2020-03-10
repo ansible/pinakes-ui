@@ -265,11 +265,7 @@ describe('<Portfolio />', () => {
       });
       wrapper.find('button#remove-products-dropdown-toggle').simulate('click');
       await act(async () => {
-        wrapper
-          .find('li')
-          .last()
-          .find('span')
-          .simulate('click');
+        wrapper.find('li#remove-products').simulate('click');
       });
     });
   });
@@ -553,11 +549,7 @@ describe('<Portfolio />', () => {
      * trigger remove actions
      */
     await act(async () => {
-      wrapper
-        .find('li')
-        .last()
-        .find('span')
-        .simulate('click');
+      wrapper.find('li#remove-products').simulate('click');
     });
     /**
      * trigger notification undo click
