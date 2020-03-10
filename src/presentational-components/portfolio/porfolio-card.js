@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ItemDetails from '../shared/card-common';
 import {
   CardHeader,
-  CardBody,
   CardFooter,
   Dropdown,
   DropdownItem,
@@ -28,6 +27,7 @@ import {
   StyledCard,
   StyledGalleryItem
 } from '../styled-components/styled-gallery';
+import { StyledCardBody } from '../styled-components/card';
 
 const TO_DISPLAY = ['description'];
 
@@ -104,7 +104,7 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
             headerActions={createToolbarActions(id, isOpen, setOpen)}
           />
         </CardHeader>
-        <CardBody>
+        <StyledCardBody>
           <TextContent className="pf-u-mb-md">
             <Text component={TextVariants.small} className="pf-i-mb-sm">
               Last updated&nbsp;
@@ -119,7 +119,7 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
             {...{ name, imageUrl, ...props }}
             toDisplay={TO_DISPLAY}
           />
-        </CardBody>
+        </StyledCardBody>
         <CardFooter />
       </StyledCard>
     </StyledGalleryItem>
