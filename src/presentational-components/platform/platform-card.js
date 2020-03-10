@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {
   CardHeader,
-  CardBody,
   CardFooter,
   GalleryItem,
   Text,
@@ -20,6 +19,7 @@ import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
 import CatalogLink from '../../smart-components/common/catalog-link';
 import { StyledCard } from '../styled-components/styled-gallery';
+import { StyledCardBody } from '../styled-components/card';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -39,7 +39,7 @@ const PlatformCard = ({ name, id, ...props }) => (
           height="40"
         />
       </CardHeader>
-      <CardBody>
+      <StyledCardBody>
         <TextContent>
           <CatalogLink
             pathname={PLATFORM_TEMPLATES_ROUTE}
@@ -55,7 +55,7 @@ const PlatformCard = ({ name, id, ...props }) => (
           </CatalogLink>
         </TextContent>
         <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
-      </CardBody>
+      </StyledCardBody>
       <CardFooter />
     </StyledCard>
   </GalleryItem>
