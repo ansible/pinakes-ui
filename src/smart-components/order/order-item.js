@@ -111,6 +111,7 @@ const OrderItem = memo(
                                   className="pf-u-mb-0"
                                   component={TextVariants.small}
                                 >
+                                  Ordered&nbsp;
                                   <DateFormat
                                     date={item.created_at}
                                     variant="relative"
@@ -130,6 +131,7 @@ const OrderItem = memo(
                                   className="pf-u-mb-0"
                                   component={TextVariants.small}
                                 >
+                                  Last updated&nbsp;
                                   <DateFormat
                                     date={
                                       item.orderItems[0] &&
