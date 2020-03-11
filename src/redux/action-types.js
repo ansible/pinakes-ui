@@ -66,6 +66,7 @@ export const SET_OPENAPI_SCHEMA = '@@open-api/set-schema';
  * TODO Prefix existing action types
  */
 export const SET_ORDER_DETAIL = '@@orders/set-order-detail';
+export const FETCH_APPROVAL_REQUESTS = '@@orders/fetch-order-requests';
 
 /*
  * Portfolio actions
