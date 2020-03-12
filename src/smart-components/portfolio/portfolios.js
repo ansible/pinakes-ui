@@ -139,6 +139,7 @@ const Portfolios = () => {
       <ToolbarRenderer
         schema={createPortfolioToolbarSchema({
           meta,
+          userPermissions,
           fetchPortfolios: (_, options) =>
             dispatch(fetchPortfolios({ filter: filterValue, ...options })),
           filterProps: {

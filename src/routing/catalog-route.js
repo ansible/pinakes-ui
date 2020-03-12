@@ -2,15 +2,13 @@ import React, { useContext } from 'react';
 import { Route, Redirect, useLocation } from 'react-router-dom';
 import UserContext from '../user-context';
 import PropTypes from 'prop-types';
+import { hasPermission } from '../helpers/shared/helpers';
 
 const CatalogRoute = ({ permissions, ...props }) => {
   const { permissions: userPermissions } = useContext(UserContext);
-  const hasPermission = permissions.every((permission) =>
-    userPermissions.find((item) => item.permission === permission)
-  );
   const location = useLocation();
 
-  return hasPermission ? (
+  return hasPermission(userPermissions, permissions) ? (
     <Route {...props} />
   ) : (
     <Redirect
