@@ -73,8 +73,8 @@ export const readableBytes = (bytes) => {
 };
 
 export const hasPermission = (userPermissions, permissions) =>
-    userPermissions
-        ? permissions.every((permission) =>
-            userPermissions.find((item) => item.permission === permission)
-        )
-        : false;
+  userPermissions
+    ? permissions.every((permission) =>
+        userPermissions.find((item) => item.permission === permission)
+      )
+    : false;
