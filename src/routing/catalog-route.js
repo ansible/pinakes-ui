@@ -6,9 +6,10 @@ import { hasPermission } from '../helpers/shared/helpers';
 
 const CatalogRoute = ({ permissions, ...props }) => {
   const { permissions: userPermissions } = useContext(UserContext);
+  const hasPermissions = hasPermission(userPermissions, permissions);
   const location = useLocation();
 
-  return hasPermission(userPermissions, permissions) ? (
+  return hasPermissions ? (
     <Route {...props} />
   ) : (
     <Redirect

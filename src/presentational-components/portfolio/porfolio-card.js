@@ -14,6 +14,7 @@ import {
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 import CatalogLink from '../../smart-components/common/catalog-link';
 import {
@@ -31,7 +32,12 @@ import { StyledCardBody } from '../styled-components/card';
 
 const TO_DISPLAY = ['description'];
 
-const createToolbarActions = (portfolioId, isOpen, setOpen, userPermissions) => [
+const createToolbarActions = (
+  portfolioId,
+  isOpen,
+  setOpen,
+  userPermissions
+) => [
   <Dropdown
     key="portfolio-dropdown"
     isOpen={isOpen}
@@ -75,11 +81,13 @@ const createToolbarActions = (portfolioId, isOpen, setOpen, userPermissions) => 
       />,
       <DropdownItem
         key="remove-portfolio-action"
+        isDisabled={
+          !hasPermission(userPermissions, ['catalog:portfolios:delete'])
+        }
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={REMOVE_PORTFOLIO_ROUTE}
-            isActive={hasPermission(userPermissions, ['catalog:portfolio:delete'])}
           >
             Delete
           </CatalogLink>
@@ -89,7 +97,14 @@ const createToolbarActions = (portfolioId, isOpen, setOpen, userPermissions) => 
   />
 ];
 
-const PortfolioCard = ({ imageUrl, isDisabled, name, id, userPermissions, ...props }) => {
+const PortfolioCard = ({
+  imageUrl,
+  isDisabled,
+  name,
+  id,
+  userPermissions,
+  ...props
+}) => {
   const [isOpen, setOpen] = useState(false);
   const to = {
     pathname: PORTFOLIO_ROUTE,
@@ -102,7 +117,12 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, userPermissions, ...pro
           <PortfolioCardHeader
             to={to}
             portfolioName={name}
-            headerActions={createToolbarActions(id, isOpen, setOpen, userPermissions)}
+            headerActions={createToolbarActions(
+              id,
+              isOpen,
+              setOpen,
+              userPermissions
+            )}
           />
         </CardHeader>
         <StyledCardBody>
@@ -135,7 +155,8 @@ PortfolioCard.propTypes = {
   updated_at: PropTypes.string,
   created_at: PropTypes.string.isRequired,
   owner: PropTypes.string,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  userPermissions: PropTypes.array
 };
 
 export default PortfolioCard;
