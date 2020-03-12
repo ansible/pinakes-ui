@@ -50,8 +50,8 @@ ContentGalleryEmptyState.propTypes = {
 
 export default ContentGalleryEmptyState;
 
-export const EmptyStatePrimaryAction = ({ url, label }) => (
-  <CatalogLink pathname={url} preserveSearch>
+export const EmptyStatePrimaryAction = ({ url, label, hasPermission = false }) => (
+    hasPermission && <CatalogLink pathname={url} preserveSearch>
     <Button variant="primary">{label}</Button>
   </CatalogLink>
 );

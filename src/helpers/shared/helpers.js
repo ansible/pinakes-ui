@@ -71,3 +71,10 @@ export const readableBytes = (bytes) => {
 
   return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
 };
+
+export const hasPermission = (userPermissions, permissions) =>
+    userPermissions
+        ? permissions.every((permission) =>
+            userPermissions.find((item) => item.permission === permission)
+        )
+        : false;

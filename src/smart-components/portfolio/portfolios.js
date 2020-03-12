@@ -31,6 +31,7 @@ import {
   WORKFLOW_PORTFOLIO_ROUTE
 } from '../../constants/routes';
 import UserContext from '../../user-context';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -108,7 +109,7 @@ const Portfolios = () => {
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
       label="Create portfolio"
-      permissions={['catalog:portfolios:create']}
+      hasPermission={hasPermission(userPermissions,  ['catalog:portfolios:create'])}
     />
   );
 
