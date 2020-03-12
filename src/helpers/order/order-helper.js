@@ -142,3 +142,8 @@ export const getOrderDetail = (params) => {
     )
   ]);
 };
+
+export const getApprovalRequests = (orderItemId) =>
+  axiosInstance.get(
+    `${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests`
+  );
