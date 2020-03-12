@@ -31,7 +31,7 @@ import { StyledCardBody } from '../styled-components/card';
 
 const TO_DISPLAY = ['description'];
 
-const createToolbarActions = (portfolioId, isOpen, setOpen) => [
+const createToolbarActions = (portfolioId, isOpen, setOpen, userPermissions) => [
   <Dropdown
     key="portfolio-dropdown"
     isOpen={isOpen}
@@ -79,6 +79,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={REMOVE_PORTFOLIO_ROUTE}
+            isActive={hasPermission(userPermissions, ['catalog:portfolio:delete'])}
           >
             Delete
           </CatalogLink>
@@ -88,7 +89,7 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
   />
 ];
 
-const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
+const PortfolioCard = ({ imageUrl, isDisabled, name, id, userPermissions, ...props }) => {
   const [isOpen, setOpen] = useState(false);
   const to = {
     pathname: PORTFOLIO_ROUTE,
@@ -101,7 +102,7 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
           <PortfolioCardHeader
             to={to}
             portfolioName={name}
-            headerActions={createToolbarActions(id, isOpen, setOpen)}
+            headerActions={createToolbarActions(id, isOpen, setOpen, userPermissions)}
           />
         </CardHeader>
         <StyledCardBody>
