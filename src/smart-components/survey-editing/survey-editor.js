@@ -7,7 +7,8 @@ import {
   builderMapper,
   fieldProperties,
   pickerMapper,
-  propertiesMapper
+  propertiesMapper,
+  BuilderTemplate
 } from '@data-driven-forms/form-builder/dist/pf4-builder-mappers';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 
@@ -195,23 +196,28 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
           {...pf4Skin}
           schema={schema}
           disableDrag
+          disableAdd
           schemaTemplate={baseSchema}
           mode="subset"
-          controlPanel={({ getSchema, isValid }) => (
-            <SurveyEditingToolbar
-              key="survey-editor-toolbar"
-              uploadIcon={uploadIcon}
-              product={portfolioItem}
-              handleSaveSurvey={() => handleSaveSurvey(getSchema())}
-              isValid={isValid}
-              closeUrl={closeUrl}
-              search={search}
-              isFetching={isFetching || !schema}
-              modified={servicePlan.modified}
-              handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
-            />
+        >
+          {({ getSchema, isValid, ...props }) => (
+            <Fragment>
+              <SurveyEditingToolbar
+                key="survey-editor-toolbar"
+                uploadIcon={uploadIcon}
+                product={portfolioItem}
+                handleSaveSurvey={() => handleSaveSurvey(getSchema())}
+                isValid={isValid}
+                closeUrl={closeUrl}
+                search={search}
+                isFetching={isFetching || !schema}
+                modified={servicePlan.modified}
+                handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
+              />
+              <BuilderTemplate {...props} />;
+            </Fragment>
           )}
-        />
+        </BuilderWrapper>
       ) : (
         <Fragment>
           <SurveyEditingToolbar
