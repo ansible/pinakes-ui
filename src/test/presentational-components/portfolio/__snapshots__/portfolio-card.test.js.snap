@@ -73,6 +73,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                         Delete
                       </CatalogLink>
                     }
+                    isDisabled={true}
                   />,
                 ]
               }
