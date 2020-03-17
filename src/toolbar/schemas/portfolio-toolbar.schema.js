@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dropdown,
@@ -11,6 +11,8 @@ import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
 import CatalogLink from '../../smart-components/common/catalog-link';
+import { hasPermission } from '../../helpers/shared/helpers';
+import UserContext from '../../user-context';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -23,6 +25,7 @@ const PortfolioActionsToolbar = ({
   copyPortfolio
 }) => {
   const [isOpen, setOpen] = useState(false);
+  const { permissions: userPermissions } = useContext(UserContext);
   return (
     <Dropdown
       className="pf-u-ml-md"
@@ -63,6 +66,9 @@ const PortfolioActionsToolbar = ({
         <DropdownItem
           aria-label="Remove Portfolio"
           key="delete-portfolio"
+          isDisabled={
+            !hasPermission(userPermissions, ['catalog:portfolios:delete'])
+          }
           component={
             <CatalogLink preserveSearch pathname={removePortfolioRoute}>
               Delete

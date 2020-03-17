@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
@@ -11,11 +11,19 @@ import CopyPortfolioItemModal from './copy-portfolio-item-modal';
 import { PortfolioItemDetailToolbar } from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions';
-import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
+import {
+  ProductLoaderPlaceholder,
+  AppPlaceholder
+} from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
-import SurveyEditor from '../../survey-editing/survey-editor';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
+
+const SurveyEditor = lazy(() =>
+  import(
+    /* webpackChunkName: "survey-editor" */ '../../survey-editing/survey-editor'
+  )
+);
 
 const requiredParams = ['portfolio', 'source', 'portfolio-item'];
 
@@ -51,14 +59,25 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
+  const availability = source.availability_status || 'unavailable';
 
+  const unavailable = [source]
+    .filter(({ notFound }) => notFound)
+    .map(({ object }) => (
+      <Alert
+        className="pf-u-mb-sm"
+        key={object}
+        variant="warning"
+        isInline
+        title={`The ${object} for this product is no longer available`}
+      />
+    ));
+  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
   return (
     <Fragment>
       <Switch>
-        <Route
-          path={`${url}/edit-survey`}
-          render={() => (
+        <Route path={`${url}/edit-survey`}>
+          <Suspense fallback={<AppPlaceholder />}>
             <SurveyEditor
               closeUrl={url}
               search={search}
@@ -66,8 +85,8 @@ const PortfolioItemDetail = () => {
               portfolioItem={portfolioItem}
               portfolio={portfolio}
             />
-          )}
-        />
+          </Suspense>
+        </Route>
         <Route>
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar
@@ -77,15 +96,18 @@ const PortfolioItemDetail = () => {
               product={portfolioItem}
               setOpen={setOpen}
               isFetching={isFetching}
-              availability={source.availability_status}
+              availability={availability}
             />
+            {unavailable.length > 0 && (
+              <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>
+            )}
             {source.availability_status === 'unavailable' && (
               <Alert
                 className="pf-u-ml-lg pf-u-mr-lg"
                 id="unavailable-alert-info"
                 variant="info"
                 isInline
-                title="Platform for this product is unavailable"
+                title="The platform for this product is unavailable"
               />
             )}
             <Grid className="pf-u-p-lg">

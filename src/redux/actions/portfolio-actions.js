@@ -327,7 +327,7 @@ export const updatePortfolioItem = (values) => (dispatch, getState) => {
         type: ADD_NOTIFICATION,
         payload: {
           variant: 'success',
-          title: `Portfolio item "${item.name}" was successfully updated`,
+          title: `Product "${item.name}" was successfully updated`,
           dismissable: true
         }
       })

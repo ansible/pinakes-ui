@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
+exports[`<PortfoliosFilterToolbar /> should render correctly with create button 1`] = `
 <ContextProvider
   value={
     Object {
@@ -58,26 +58,76 @@ exports[`<PortfoliosFilterToolbar /> should render correctly 1`] = `
         <Component
           component="ToolbarGroup"
           key="portfolio-button-group/single-toolbar-item-group"
+        />
+      </Component>
+      <Component
+        component="LevelItem"
+        key="pagination-item"
+      />
+    </Component>
+  </Component>
+</ContextProvider>
+`;
+
+exports[`<PortfoliosFilterToolbar /> should render correctly without the create button 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "componentMapper": Object {
+        "AppTabs": [Function],
+        "Button": [Function],
+        "FilterToolbarItem": [Function],
+        "Level": [Function],
+        "LevelItem": [Function],
+        "Link": [Function],
+        "Toolbar": [Function],
+        "ToolbarGroup": [Function],
+        "ToolbarItem": [Function],
+        "TopToolbar": [Function],
+        "TopToolbarTitle": [Function],
+      },
+      "render": [Function],
+    }
+  }
+>
+  <Component
+    component="TopToolbar"
+    key="portfolios-top-toolbar"
+  >
+    <Component
+      component="TopToolbarTitle"
+      key="portfolios-toolbar-title"
+      title="Portfolios"
+    />
+    <Component
+      component="Level"
+      key="portfolios-actions"
+    >
+      <Component
+        component="Toolbar"
+        key="main-portfolio-toolbar"
+      >
+        <Component
+          component="ToolbarGroup"
+          key="filter-group/single-toolbar-item-group"
         >
           <Component
             component="ToolbarItem"
-            key="portfolio-button-group/single-toolbar-item"
+            key="filter-group/single-toolbar-item"
           >
             <Component
-              component="Link"
-              key="create-portfolio-button/button-link"
-              pathname="/portfolios/add-portfolio"
-            >
-              <Component
-                aria-label="Create portfolio"
-                component="Button"
-                key="create-portfolio-button"
-                title="Create"
-                variant="primary"
-              />
-            </Component>
+              component="FilterToolbarItem"
+              isClearable={true}
+              key="filter-input"
+              onFilterChange={[MockFunction]}
+              searchValue=""
+            />
           </Component>
         </Component>
+        <Component
+          component="ToolbarGroup"
+          key="portfolio-button-group/single-toolbar-item-group"
+        />
       </Component>
       <Component
         component="LevelItem"

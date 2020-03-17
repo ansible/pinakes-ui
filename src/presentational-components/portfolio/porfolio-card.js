@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ItemDetails from '../shared/card-common';
 import {
   CardHeader,
-  CardBody,
   CardFooter,
   Dropdown,
   DropdownItem,
@@ -15,6 +14,7 @@ import {
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 import CatalogLink from '../../smart-components/common/catalog-link';
 import {
@@ -28,10 +28,16 @@ import {
   StyledCard,
   StyledGalleryItem
 } from '../styled-components/styled-gallery';
+import { StyledCardBody } from '../styled-components/card';
 
 const TO_DISPLAY = ['description'];
 
-const createToolbarActions = (portfolioId, isOpen, setOpen) => [
+const createToolbarActions = (
+  portfolioId,
+  isOpen,
+  setOpen,
+  userPermissions
+) => [
   <Dropdown
     key="portfolio-dropdown"
     isOpen={isOpen}
@@ -75,6 +81,9 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
       />,
       <DropdownItem
         key="remove-portfolio-action"
+        isDisabled={
+          !hasPermission(userPermissions, ['catalog:portfolios:delete'])
+        }
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
@@ -88,7 +97,14 @@ const createToolbarActions = (portfolioId, isOpen, setOpen) => [
   />
 ];
 
-const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
+const PortfolioCard = ({
+  imageUrl,
+  isDisabled,
+  name,
+  id,
+  userPermissions,
+  ...props
+}) => {
   const [isOpen, setOpen] = useState(false);
   const to = {
     pathname: PORTFOLIO_ROUTE,
@@ -101,10 +117,15 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
           <PortfolioCardHeader
             to={to}
             portfolioName={name}
-            headerActions={createToolbarActions(id, isOpen, setOpen)}
+            headerActions={createToolbarActions(
+              id,
+              isOpen,
+              setOpen,
+              userPermissions
+            )}
           />
         </CardHeader>
-        <CardBody>
+        <StyledCardBody>
           <TextContent className="pf-u-mb-md">
             <Text component={TextVariants.small} className="pf-i-mb-sm">
               Last updated&nbsp;
@@ -119,7 +140,7 @@ const PortfolioCard = ({ imageUrl, isDisabled, name, id, ...props }) => {
             {...{ name, imageUrl, ...props }}
             toDisplay={TO_DISPLAY}
           />
-        </CardBody>
+        </StyledCardBody>
         <CardFooter />
       </StyledCard>
     </StyledGalleryItem>
@@ -134,7 +155,8 @@ PortfolioCard.propTypes = {
   updated_at: PropTypes.string,
   created_at: PropTypes.string.isRequired,
   owner: PropTypes.string,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  userPermissions: PropTypes.array
 };
 
 export default PortfolioCard;
