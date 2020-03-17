@@ -57,10 +57,13 @@ const App = () => {
             )
           })
         ),
-      insights.chrome.auth.getUser(),
-      insights.chrome
-        .getUserPermissions()
-        .then((data) => setUserPermissions(data))
+      insights.chrome.auth
+        .getUser()
+        .then(() =>
+          insights.chrome
+            .getUserPermissions()
+            .then((data) => setUserPermissions(data))
+        )
     ]).then(() => setAuth(true));
 
     insights.chrome.identifyApp('catalog');
