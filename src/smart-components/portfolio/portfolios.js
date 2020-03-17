@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, useRouteMatch } from 'react-router-dom';
 import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
@@ -30,6 +30,8 @@ import {
   SHARE_PORTFOLIO_ROUTE,
   WORKFLOW_PORTFOLIO_ROUTE
 } from '../../constants/routes';
+import UserContext from '../../user-context';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -71,6 +73,7 @@ const Portfolios = () => {
   );
   const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
+  const { permissions: userPermissions } = useContext(UserContext);
 
   useEffect(() => {
     dispatch(
@@ -106,6 +109,9 @@ const Portfolios = () => {
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
       label="Create portfolio"
+      hasPermission={hasPermission(userPermissions, [
+        'catalog:portfolios:create'
+      ])}
     />
   );
 
@@ -125,7 +131,7 @@ const Portfolios = () => {
   };
 
   const galleryItems = data.map((item) => (
-    <PortfolioCard key={item.id} {...item} />
+    <PortfolioCard key={item.id} userPermissions={userPermissions} {...item} />
   ));
 
   return (
@@ -133,6 +139,7 @@ const Portfolios = () => {
       <ToolbarRenderer
         schema={createPortfolioToolbarSchema({
           meta,
+          userPermissions,
           fetchPortfolios: (_, options) =>
             dispatch(fetchPortfolios({ filter: filterValue, ...options })),
           filterProps: {

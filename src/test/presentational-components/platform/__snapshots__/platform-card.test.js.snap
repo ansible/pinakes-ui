@@ -31,34 +31,28 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                 </ImageWithDefault>
               </div>
             </CardHeader>
-            <CardBody>
-              <div
-                className="pf-c-card__body"
+            <Styled(CardBody)>
+              <CardBody
+                className="sc-AxheI fdbZUy"
               >
-                <TextContent>
-                  <div
-                    className="pf-c-content"
-                  >
-                    <CatalogLink
-                      nav={false}
-                      pathname="/platform/platform-templates"
-                      preserveSearch={false}
-                      searchParams={
-                        Object {
-                          "platform": undefined,
-                        }
-                      }
+                <div
+                  className="pf-c-card__body sc-AxheI fdbZUy"
+                >
+                  <TextContent>
+                    <div
+                      className="pf-c-content"
                     >
-                      <Styled(Link)
-                        to={
+                      <CatalogLink
+                        nav={false}
+                        pathname="/platform/platform-templates"
+                        preserveSearch={false}
+                        searchParams={
                           Object {
-                            "pathname": "/platform/platform-templates",
-                            "search": "?platform=undefined",
+                            "platform": undefined,
                           }
                         }
                       >
-                        <Link
-                          className="sc-AxiKw drCTeX"
+                        <Styled(Link)
                           to={
                             Object {
                               "pathname": "/platform/platform-templates",
@@ -66,69 +60,79 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                             }
                           }
                         >
-                          <LinkAnchor
+                          <Link
                             className="sc-AxiKw drCTeX"
-                            href="/platform/platform-templates?platform=undefined"
-                            navigate={[Function]}
+                            to={
+                              Object {
+                                "pathname": "/platform/platform-templates",
+                                "search": "?platform=undefined",
+                              }
+                            }
                           >
-                            <a
+                            <LinkAnchor
                               className="sc-AxiKw drCTeX"
                               href="/platform/platform-templates?platform=undefined"
-                              onClick={[Function]}
+                              navigate={[Function]}
                             >
-                              <Text
-                                className="pf-u-mb-0"
-                                component="h3"
+                              <a
+                                className="sc-AxiKw drCTeX"
+                                href="/platform/platform-templates?platform=undefined"
+                                onClick={[Function]}
                               >
-                                <h3
+                                <Text
                                   className="pf-u-mb-0"
-                                  data-pf-content={true}
+                                  component="h3"
                                 >
-                                  <styled.div>
-                                    <div
-                                      className="sc-AxirZ ZcaGf"
-                                    />
-                                  </styled.div>
-                                </h3>
-                              </Text>
-                            </a>
-                          </LinkAnchor>
-                        </Link>
-                      </Styled(Link)>
-                    </CatalogLink>
-                  </div>
-                </TextContent>
-                <ItemDetails
-                  description="desc"
-                  modified="Foo"
-                  toDisplay={
-                    Array [
-                      "description",
-                      "modified",
-                    ]
-                  }
-                >
-                  <styled.div
-                    key="card-prop-description"
-                  >
-                    <div
-                      className="sc-AxjAm hDziHm"
-                    >
-                      desc
+                                  <h3
+                                    className="pf-u-mb-0"
+                                    data-pf-content={true}
+                                  >
+                                    <styled.div>
+                                      <div
+                                        className="sc-AxirZ ZcaGf"
+                                      />
+                                    </styled.div>
+                                  </h3>
+                                </Text>
+                              </a>
+                            </LinkAnchor>
+                          </Link>
+                        </Styled(Link)>
+                      </CatalogLink>
                     </div>
-                  </styled.div>
-                  <styled.div
-                    key="card-prop-modified"
+                  </TextContent>
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
                   >
-                    <div
-                      className="sc-AxjAm hDziHm"
+                    <styled.div
+                      key="card-prop-description"
                     >
-                      Foo
-                    </div>
-                  </styled.div>
-                </ItemDetails>
-              </div>
-            </CardBody>
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        desc
+                      </div>
+                    </styled.div>
+                    <styled.div
+                      key="card-prop-modified"
+                    >
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        Foo
+                      </div>
+                    </styled.div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+            </Styled(CardBody)>
             <CardFooter>
               <div
                 className="pf-c-card__footer"
@@ -173,34 +177,28 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                 </ImageWithDefault>
               </div>
             </CardHeader>
-            <CardBody>
-              <div
-                className="pf-c-card__body"
+            <Styled(CardBody)>
+              <CardBody
+                className="sc-AxheI fdbZUy"
               >
-                <TextContent>
-                  <div
-                    className="pf-c-content"
-                  >
-                    <CatalogLink
-                      nav={false}
-                      pathname="/platform/platform-templates"
-                      preserveSearch={false}
-                      searchParams={
-                        Object {
-                          "platform": undefined,
-                        }
-                      }
+                <div
+                  className="pf-c-card__body sc-AxheI fdbZUy"
+                >
+                  <TextContent>
+                    <div
+                      className="pf-c-content"
                     >
-                      <Styled(Link)
-                        to={
+                      <CatalogLink
+                        nav={false}
+                        pathname="/platform/platform-templates"
+                        preserveSearch={false}
+                        searchParams={
                           Object {
-                            "pathname": "/platform/platform-templates",
-                            "search": "?platform=undefined",
+                            "platform": undefined,
                           }
                         }
                       >
-                        <Link
-                          className="sc-AxiKw drCTeX"
+                        <Styled(Link)
                           to={
                             Object {
                               "pathname": "/platform/platform-templates",
@@ -208,69 +206,79 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             }
                           }
                         >
-                          <LinkAnchor
+                          <Link
                             className="sc-AxiKw drCTeX"
-                            href="/platform/platform-templates?platform=undefined"
-                            navigate={[Function]}
+                            to={
+                              Object {
+                                "pathname": "/platform/platform-templates",
+                                "search": "?platform=undefined",
+                              }
+                            }
                           >
-                            <a
+                            <LinkAnchor
                               className="sc-AxiKw drCTeX"
                               href="/platform/platform-templates?platform=undefined"
-                              onClick={[Function]}
+                              navigate={[Function]}
                             >
-                              <Text
-                                className="pf-u-mb-0"
-                                component="h3"
+                              <a
+                                className="sc-AxiKw drCTeX"
+                                href="/platform/platform-templates?platform=undefined"
+                                onClick={[Function]}
                               >
-                                <h3
+                                <Text
                                   className="pf-u-mb-0"
-                                  data-pf-content={true}
+                                  component="h3"
                                 >
-                                  <styled.div>
-                                    <div
-                                      className="sc-AxirZ ZcaGf"
-                                    />
-                                  </styled.div>
-                                </h3>
-                              </Text>
-                            </a>
-                          </LinkAnchor>
-                        </Link>
-                      </Styled(Link)>
-                    </CatalogLink>
-                  </div>
-                </TextContent>
-                <ItemDetails
-                  description="desc"
-                  modified="Foo"
-                  toDisplay={
-                    Array [
-                      "description",
-                      "modified",
-                    ]
-                  }
-                >
-                  <styled.div
-                    key="card-prop-description"
-                  >
-                    <div
-                      className="sc-AxjAm hDziHm"
-                    >
-                      desc
+                                  <h3
+                                    className="pf-u-mb-0"
+                                    data-pf-content={true}
+                                  >
+                                    <styled.div>
+                                      <div
+                                        className="sc-AxirZ ZcaGf"
+                                      />
+                                    </styled.div>
+                                  </h3>
+                                </Text>
+                              </a>
+                            </LinkAnchor>
+                          </Link>
+                        </Styled(Link)>
+                      </CatalogLink>
                     </div>
-                  </styled.div>
-                  <styled.div
-                    key="card-prop-modified"
+                  </TextContent>
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
                   >
-                    <div
-                      className="sc-AxjAm hDziHm"
+                    <styled.div
+                      key="card-prop-description"
                     >
-                      Foo
-                    </div>
-                  </styled.div>
-                </ItemDetails>
-              </div>
-            </CardBody>
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        desc
+                      </div>
+                    </styled.div>
+                    <styled.div
+                      key="card-prop-modified"
+                    >
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        Foo
+                      </div>
+                    </styled.div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+            </Styled(CardBody)>
             <CardFooter>
               <div
                 className="pf-c-card__footer"

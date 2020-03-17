@@ -143,3 +143,21 @@ export const fetchOrderDetails = (params) => (dispatch) => {
       })
     );
 };
+
+export const fetchApprovalRequests = (orderItemId) => (dispatch) => {
+  dispatch({ type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_PENDING` });
+  return OrderHelper.getApprovalRequests(orderItemId)
+    .then((data) => {
+      dispatch({
+        type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_FULFILLED`,
+        payload: data
+      });
+      return data;
+    })
+    .catch((err) =>
+      dispatch({
+        type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_REJECTED`,
+        payload: err
+      })
+    );
+};

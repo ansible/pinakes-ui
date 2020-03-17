@@ -21,6 +21,7 @@ import OrdersList from '../../../smart-components/order/orders-list';
 import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
 import CancelOrderModal from '../../../smart-components/order/cancel-order-modal';
 import { mockApi, mockGraphql } from '../../__mocks__/user-login';
+import { Alert } from '@patternfly/react-core';
 
 describe('<Orders />', () => {
   let initialProps;
@@ -370,6 +371,64 @@ describe('<Orders />', () => {
     wrapper.find('button#keep-order').simulate('click');
     wrapper.update();
     expect(wrapper.find(CancelOrderModal).props().isOpen).toEqual(false);
+    done();
+  });
+
+  it('should mount and render order detail component with warnings about unavaiable resources', async (done) => {
+    const store = mockStore({
+      ...initialState,
+      orderReducer: {
+        ...orderReducer,
+        orderDetail: {
+          ...orderReducer.orderDetail,
+          platform: { notFound: true, object: 'Platform' },
+          portfolioItem: { notFound: true, object: 'Portfolio item' }
+        }
+      }
+    });
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders/order-fail`)
+      .replyOnce(200, { data: [{ id: 'order-fail' }] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id-failed`)
+      .replyOnce(404, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id-failed`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id-failed`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/order_items/order-item-id/progress_messages-failed`
+      )
+      .replyOnce(200, {});
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/order_items/order-item-id/approval_requests-failed`
+      )
+      .replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(404, {});
+
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+          ]}
+        >
+          <Route path="/order">
+            <OrderDetail />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+
+    expect(wrapper.find(Alert)).toHaveLength(2);
     done();
   });
 });

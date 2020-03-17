@@ -42,6 +42,7 @@ global.insights = {
     appNavClick: () => {},
     auth: {
       getUser: () => new Promise(resolve => resolve(true))
-    }
+    },
+    getUserPermissions: () => Promise.resolve([]),
   }
 };

@@ -6,7 +6,8 @@ import {
   LevelItem,
   Split,
   SplitItem,
-  Bullseye
+  Bullseye,
+  Alert
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +30,7 @@ import {
   OrderDetailStack,
   OrderDetailStackItem
 } from '../../../presentational-components/styled-components/orders';
+import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
 
 const requiredParams = [
   'order-item',
@@ -62,7 +64,24 @@ const OrderDetail = () => {
     return <Redirect to={ORDERS_ROUTE} />;
   }
 
-  const { order, portfolioItem, platform, orderItem } = orderDetailData;
+  const {
+    order,
+    portfolioItem,
+    platform,
+    orderItem,
+    portfolio
+  } = orderDetailData;
+
+  const unAvailable = [portfolioItem, platform, portfolio]
+    .filter(({ notFound }) => notFound)
+    .map(({ object }) => (
+      <Alert
+        key={object}
+        variant="warning"
+        isInline
+        title={`The ${object} for this order is not available`}
+      />
+    ));
 
   return (
     <OrderDetailStack className="bg-fill">
@@ -75,31 +94,41 @@ const OrderDetail = () => {
               <CatalogBreadcrumbs />
             </Level>
             <Level>
-              <LevelItem>
-                <OrderDetailTitle
-                  portfolioItemName={portfolioItem.name}
-                  orderId={order.id}
-                />
-              </LevelItem>
-              <LevelItem>
-                <OrderToolbarActions
-                  portfolioItemName={portfolioItem.name}
-                  orderId={order.id}
+              {unAvailable.length > 0 ? (
+                <UnAvailableAlertContainer>
+                  {unAvailable}
+                </UnAvailableAlertContainer>
+              ) : (
+                <Fragment>
+                  <LevelItem>
+                    <OrderDetailTitle
+                      portfolioItemName={portfolioItem.name}
+                      orderId={order.id}
+                    />
+                  </LevelItem>
+                  <LevelItem>
+                    <OrderToolbarActions
+                      portfolioItemName={portfolioItem.name}
+                      orderId={order.id}
+                      state={order.state}
+                    />
+                  </LevelItem>
+                </Fragment>
+              )}
+            </Level>
+            {unAvailable.length === 0 && (
+              <Level>
+                <OrderDetailInformation
+                  portfolioItemId={portfolioItem.id}
+                  sourceId={platform.id}
                   state={order.state}
+                  jobName={portfolioItem.name}
+                  orderRequestDate={order.created_at}
+                  orderUpdateDate={orderItem.updated_at}
+                  owner={order.owner}
                 />
-              </LevelItem>
-            </Level>
-            <Level>
-              <OrderDetailInformation
-                portfolioItemId={portfolioItem.id}
-                sourceId={platform.id}
-                state={order.state}
-                jobName={portfolioItem.name}
-                orderRequestDate={order.created_at}
-                orderUpdateDate={orderItem.updated_at}
-                owner={order.owner}
-              />
-            </Level>
+              </Level>
+            )}
           </Fragment>
         )}
       </OrderDetailStackItem>

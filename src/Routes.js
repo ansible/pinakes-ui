@@ -7,6 +7,8 @@ import {
   PORTFOLIO_ROUTE,
   ORDER_ROUTE
 } from './constants/routes';
+import CatalogRoute from './routing/catalog-route';
+import CommonApiError from './smart-components/error-pages/common-api-error';
 
 const Products = lazy(() =>
   import(
@@ -52,18 +54,29 @@ const paths = {
   order: ORDER_ROUTE
 };
 
+const errorPaths = ['/400', '/401', '/404'];
+
 export const Routes = () => {
   const { pathname } = useLocation();
   return (
     <Suspense fallback={<AppPlaceholder />}>
       <Switch>
-        <Route path={paths.products} component={Products} />
-        <Route path={paths.portfolios} component={Portfolios} />
-        <Route path={paths.portfolio} component={Portfolio} />
-        <Route path={paths.platforms} component={Platforms} />
-        <Route path={paths.platform} component={Platform} />
-        <Route path={paths.orders} component={Orders} />
-        <Route path={paths.order} component={OrderDetail} />
+        <CatalogRoute path={paths.products} component={Products} />
+        <CatalogRoute path={paths.portfolios} component={Portfolios} />
+        <CatalogRoute path={paths.portfolio} component={Portfolio} />
+        <CatalogRoute
+          permissions={['catalog:portfolios:create']}
+          path={paths.platforms}
+          component={Platforms}
+        />
+        <CatalogRoute
+          permissions={['catalog:portfolios:create']}
+          path={paths.platform}
+          component={Platform}
+        />
+        <CatalogRoute path={paths.orders} component={Orders} />
+        <CatalogRoute path={paths.order} component={OrderDetail} />
+        <Route path={errorPaths} component={CommonApiError} />
         <Route
           render={() =>
             some(paths, (p) => p === pathname) ? null : (
