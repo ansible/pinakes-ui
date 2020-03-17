@@ -18,6 +18,7 @@ describe('<PortfoliosFilterToolbar />', () => {
   beforeEach(() => {
     initialProps = {
       schema: createPortfolioToolbarSchema({
+        userPermissions: ['catalog:portfolios:create'],
         filterProps: {
           searchValue: '',
           onFilterChange: jest.fn()
@@ -28,8 +29,24 @@ describe('<PortfoliosFilterToolbar />', () => {
     };
   });
 
-  it('should render correctly', () => {
+  it('should render correctly with create button', () => {
     const wrapper = shallow(<ToolbarRenderer {...initialProps} />);
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+  });
+
+  it('should render correctly without the create button', () => {
+    const noCreateProps = {
+      schema: createPortfolioToolbarSchema({
+        userPermissions: ['catalog:portfolios:view'],
+        filterProps: {
+          searchValue: '',
+          onFilterChange: jest.fn()
+        },
+        meta: {},
+        fetchPortfolios: () => new Promise((resolve) => resolve([]))
+      })
+    };
+    const wrapper = shallow(<ToolbarRenderer {...noCreateProps} />);
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -45,6 +62,7 @@ describe('<PortfoliosFilterToolbar />', () => {
         <Provider store={mockStore({ breadcrumbsReducer: { fragments: [] } })}>
           <ToolbarRenderer
             schema={createPortfolioToolbarSchema({
+              userPermissions: ['catalog:portfolios:create'],
               fetchPortfolios: () => new Promise((resolve) => resolve([])),
               meta: {},
               filterProps: { onFilterChange, searchValue: '' }

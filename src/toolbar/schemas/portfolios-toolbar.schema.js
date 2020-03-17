@@ -1,11 +1,13 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 import AsyncPagination from '../../smart-components/common/async-pagination';
 
 const createPortfolioToolbarSchema = ({
   meta,
   fetchPortfolios,
+  userPermissions,
   filterProps: { searchValue, onFilterChange, placeholder }
 }) => ({
   fields: [
@@ -39,7 +41,11 @@ const createPortfolioToolbarSchema = ({
                       isClearable: true
                     }),
                     createSingleItemGroup({
-                      hidden: meta.count === 0,
+                      hidden:
+                        meta.count === 0 ||
+                        !hasPermission(userPermissions, [
+                          'catalog:portfolios:create'
+                        ]),
                       groupName: 'portfolio-button-group',
                       key: 'create-portfolio',
                       ...createLinkButton({

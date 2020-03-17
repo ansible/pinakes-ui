@@ -28,8 +28,9 @@ const commonConfig = {
         use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }]
       },
       {
-        test: /\.s?[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        sideEffects: true
       },
       {
         test: /\.(woff(2)?|ttf|jpg|png|eot|gif|svg)(\?v=\d+\.\d+\.\d+)?$/,

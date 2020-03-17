@@ -75,11 +75,11 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         componentProps={
                           Object {
                             "children": Array [
-                              <ForwardRef(styled.span)
+                              <styled.span
                                 showSpinner={false}
                               >
                                 Order
-                              </ForwardRef(styled.span)>,
+                              </styled.span>,
                               false,
                             ],
                             "className": "sc-AxjAm jhCAUI",

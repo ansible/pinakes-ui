@@ -73,6 +73,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
                         Delete
                       </CatalogLink>
                     }
+                    isDisabled={true}
                   />,
                 ]
               }
@@ -97,7 +98,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         }
       />
     </CardHeader>
-    <CardBody>
+    <Styled(CardBody)>
       <TextContent
         className="pf-u-mb-md"
       >
@@ -130,7 +131,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           ]
         }
       />
-    </CardBody>
+    </Styled(CardBody)>
     <CardFooter />
   </Styled(Card)>
 </Styled(GalleryItem)>
