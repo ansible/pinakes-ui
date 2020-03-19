@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
 
@@ -6,14 +6,27 @@ import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import { Button } from '@patternfly/react-core';
+import UserContext from '../../user-context';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 const PortfolioEmptyState = ({ url, handleFilterChange, meta }) => {
+  const { permissions } = useContext(UserContext);
   const NoDataAction = () => (
-    <EmptyStatePrimaryAction url={url} label="Add products" />
+    <EmptyStatePrimaryAction
+      url={url}
+      label="Add products"
+      hasPermission={hasPermission(permissions, [
+        'catalog:portfolio_items:create'
+      ])}
+    />
   );
 
   const FilterAction = () => (
-    <Button variant="link" onClick={() => handleFilterChange('')}>
+    <Button
+      id="clear-portfolio-filter"
+      variant="link"
+      onClick={() => handleFilterChange('')}
+    >
       Clear all filters
     </Button>
   );
