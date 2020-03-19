@@ -4,16 +4,20 @@ import { defaultSettings } from '../shared/pagination';
 
 export const getApprovalWorkflows = () => getWorkflowApi().listWorkflows();
 
-export const loadWorkflowOptions = (filterValue = '') =>
-  getAxiosInstance()
+export const loadWorkflowOptions = (filterValue = '', initialLookup = []) => {
+  const initialLookupQuery = initialLookup
+    .map((workflow) => `filter[id][]=${workflow}`)
+    .join('&');
+
+  return getAxiosInstance()
     .get(
-      `${APPROVAL_API_BASE}/workflows${
-        filterValue.length > 0 ? `/?filter[name][contains]=${filterValue}` : ''
-      }`
+      `${APPROVAL_API_BASE}/workflows?filter[name][contains]=${filterValue}&${initialLookupQuery ||
+        ''}`
     )
     .then(({ data }) =>
       data.map(({ id, name }) => ({ label: name, value: id }))
     );
+};
 
 export const updateWorkflows = (unlinkIds, linkIds, resourceObject) => {
   const unlinkPromises = unlinkIds
