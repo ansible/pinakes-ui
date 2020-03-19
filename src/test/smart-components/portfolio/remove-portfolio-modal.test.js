@@ -8,7 +8,8 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import {
   notificationsMiddleware,
-  ADD_NOTIFICATION
+  ADD_NOTIFICATION,
+  CLEAR_NOTIFICATIONS
 } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
@@ -46,6 +47,10 @@ describe('<RemovePortfolioModal />', () => {
     initialState = {
       portfolioReducer: {
         portfolios: {
+          meta: {
+            limit: 50,
+            offset: 0
+          },
           data: [
             {
               id: '123',
@@ -126,19 +131,18 @@ describe('<RemovePortfolioModal />', () => {
         payload: '123'
       },
       {
-        type: `${REMOVE_PORTFOLIO}_PENDING`,
-        meta: expect.any(Object)
+        type: `${REMOVE_PORTFOLIO}_PENDING`
       },
+      expect.objectContaining({
+        type: ADD_NOTIFICATION,
+        payload: expect.objectContaining({ variant: 'success' })
+      }),
       expect.objectContaining({
         type: `${FETCH_PORTFOLIOS}_PENDING`
       }),
       expect.objectContaining({
         type: `${FETCH_PORTFOLIOS}_FULFILLED`,
         payload: { data: [] }
-      }),
-      expect.objectContaining({
-        type: ADD_NOTIFICATION,
-        payload: expect.objectContaining({ variant: 'success' })
       }),
       expect.objectContaining({
         type: `${REMOVE_PORTFOLIO}_FULFILLED`
@@ -151,6 +155,75 @@ describe('<RemovePortfolioModal />', () => {
         .at(1)
         .simulate('click');
     });
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
+  });
+
+  it('should call remove portfolio actions and then undo it', async (done) => {
+    expect.assertions(4);
+    const store = mockStore(initialState);
+
+    mockApi.onDelete(`${CATALOG_API_BASE}/portfolios/123`).replyOnce((req) => {
+      expect(req).toBeTruthy();
+      return [200];
+    });
+
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .reply((req) => {
+        expect(req).toBeTruthy();
+        return [200, { data: [] }];
+      });
+
+    mockApi
+      .onPost(`${CATALOG_API_BASE}/portfolios/123/undelete`)
+      .replyOnce(200, { id: '123', name: 'Yay' });
+    const wrapper = mount(
+      <ComponentWrapper
+        store={store}
+        initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
+      >
+        <Route
+          path="/portfolio/remove-portfolio"
+          render={(args) => (
+            <RemovePortfolioModal {...args} {...initialProps} />
+          )}
+        />
+      </ComponentWrapper>
+    );
+
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
+    });
+    const notification = mount(store.getActions()[2].payload.description);
+    store.clearActions();
+    await act(async () => {
+      notification.find('a').simulate('click');
+    });
+    const expectedActions = [
+      {
+        type: CLEAR_NOTIFICATIONS
+      },
+      {
+        type: ADD_NOTIFICATION,
+        payload: {
+          dismissable: true,
+          variant: 'success',
+          title: 'Portfolio Yay has been restored'
+        }
+      },
+      expect.objectContaining({
+        type: `${FETCH_PORTFOLIOS}_PENDING`
+      }),
+      expect.objectContaining({
+        type: `${FETCH_PORTFOLIOS}_FULFILLED`
+      })
+    ];
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });

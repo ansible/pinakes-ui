@@ -110,7 +110,7 @@ export async function updatePortfolio({ id, ...portfolioData }, store) {
 }
 
 export async function removePortfolio(portfolioId) {
-  await portfolioApi.destroyPortfolio(portfolioId);
+  return portfolioApi.destroyPortfolio(portfolioId);
 }
 
 export async function removePortfolioItem(portfolioItemId) {
@@ -220,3 +220,8 @@ export const getPortfolioFromState = (portfolioReducer, portfolioId) =>
   portfolioReducer.selectedPortfolio.id === portfolioId
     ? portfolioReducer.selectedPortfolio
     : portfolioReducer.portfolios.data.find(({ id }) => id === portfolioId);
+
+export const undeletePortfolio = (portfolioId, restoreKey) =>
+  axiosInstance.post(`${CATALOG_API_BASE}/portfolios/${portfolioId}/undelete`, {
+    restore_key: restoreKey
+  });
