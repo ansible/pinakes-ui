@@ -51,10 +51,12 @@ export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
         }));
     })
     .then(({ portfolioItems, portfolioReference, portfolios }) => {
-      portfolios.forEach(({ id, name }) =>
-        portfolioReference[id].forEach((portfolioItemIndex) => {
-          portfolioItems.data[portfolioItemIndex].portfolioName = name;
-        })
+      portfolios.forEach(
+        ({ id, name }) =>
+          portfolioReference[id] &&
+          portfolioReference[id].forEach((portfolioItemIndex) => {
+            portfolioItems.data[portfolioItemIndex].portfolioName = name;
+          })
       );
       return portfolioItems;
     });
