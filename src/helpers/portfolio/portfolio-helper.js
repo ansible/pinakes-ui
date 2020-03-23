@@ -200,7 +200,6 @@ export const getPortfolioItemDetail = (params) =>
     axiosInstance.get(
       `${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`
     ),
-    axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
     axiosInstance
       .get(`${SOURCES_API_BASE}/sources/${params.source}`)
       .catch((error) => {
