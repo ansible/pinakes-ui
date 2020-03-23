@@ -6,6 +6,15 @@ import ItemDetailInfoBar from '../../../../smart-components/portfolio/portfolio-
 
 describe('<ItemDetailInfoBar />', () => {
   let initialProps;
+  beforeAll(() => {
+    Date.now = jest
+      .spyOn(Date, 'now')
+      .mockImplementation(() =>
+        new Date(
+          'Fri Mar 22 2018 08:36:57 GMT+0100 (Central European Standard Time)'
+        ).getTime()
+      );
+  });
   beforeEach(() => {
     initialProps = {
       product: {
