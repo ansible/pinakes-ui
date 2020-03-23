@@ -470,6 +470,11 @@ describe('<Portfolio />', () => {
 
     mockApi
       .onGet(
+        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?filter[name][contains_i]=nothing&limit=0&offset=0`
+      )
+      .replyOnce(200, { data: [], meta: {} });
+    mockApi
+      .onGet(
         `${CATALOG_API_BASE}/portfolios/321/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [], meta: {} });
