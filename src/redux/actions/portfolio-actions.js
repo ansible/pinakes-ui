@@ -344,15 +344,15 @@ export const updatePortfolioItem = (values) => (dispatch, getState) => {
     );
 };
 
-export const getPortfolioItemDetail = (params) => (dispatch) => {
+export const getPortfolioItemDetail = (params) => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_PENDING` });
   return PortfolioHelper.getPortfolioItemDetail(params).then(
-    ([portfolioItem, portfolio, source]) =>
+    ([portfolioItem, source]) =>
       dispatch({
         type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_FULFILLED`,
         payload: {
           portfolioItem,
-          portfolio,
+          portfolio: getState().portfolioReducer.selectedPortfolio,
           source
         }
       })
