@@ -216,7 +216,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                     zIndex={9999}
                   >
                     <span>
-                      12 months ago
+                      Just now
                     </span>
                     <Portal
                       containerInfo={
@@ -456,7 +456,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                     zIndex={9999}
                   >
                     <span>
-                      12 months ago
+                      Just now
                     </span>
                     <Portal
                       containerInfo={
@@ -724,7 +724,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                     zIndex={9999}
                   >
                     <span>
-                      12 months ago
+                      Just now
                     </span>
                     <Portal
                       containerInfo={
