@@ -1,12 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useHistory,
-  useRouteMatch,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
 
 import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -26,6 +20,7 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
+import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 
 const initialState = {
   selectedItems: [],
@@ -161,16 +156,7 @@ const Portfolio = () => {
   };
 
   if (portfolio.metadata.user_capabilities.show === false) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/401',
-          state: {
-            from: location
-          }
-        }}
-      />
-    );
+    return <UnauthorizedRedirect />;
   }
 
   return (

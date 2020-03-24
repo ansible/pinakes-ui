@@ -15,14 +15,15 @@ import { permissionOptions, permissionValues } from '../../utilities/constants';
 import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
+import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 
 const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
   const dispatch = useDispatch();
   const { push } = useEnhancedHistory(removeQuery);
   const [{ portfolio }, search] = useQuery(['portfolio']);
   const [isFetching, setFetching] = useState(true);
-  const initialValues = useSelector(({ portfolioReducer: { portfolios } }) =>
-    portfolios.data.find(({ id }) => id === portfolio)
+  const initialValues = useSelector(
+    ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
   );
   const { shareInfo } = useSelector(({ shareReducer: { shareInfo } }) => ({
     shareInfo
@@ -112,6 +113,13 @@ const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
 
   const onCancel = () => push({ pathname: closeUrl, search });
 
+  if (
+    initialValues?.metadata?.user_capabilities?.share === false &&
+    initialValues?.metadata?.user_capabilities?.unshare === false
+  ) {
+    return <UnauthorizedRedirect />;
+  }
+
   return (
     <Modal title={'Share portfolio'} isOpen isSmall onClose={onCancel}>
       {isFetching && <ShareLoader />}
@@ -120,7 +128,9 @@ const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
           schema={createPortfolioShareSchema(
             shareInfo,
             loadGroupOptions,
-            permissionOptions
+            permissionOptions,
+            initialValues?.metadata?.user_capabilities?.share !== false,
+            initialValues?.metadata?.user_capabilities?.unshare !== false
           )}
           schemaType="default"
           onSubmit={onSubmit}

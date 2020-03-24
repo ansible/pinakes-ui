@@ -1,39 +1,35 @@
 /**
  * Creates a data-driven-form schema for sharing/un-sharing portfolio
  */
-const newShareSchema = (loadGroupOptions, permissionVerbs) => ({
-  fields: [
-    {
-      component: 'sub-form',
-      description: 'Invite group',
-      name: 'new_share',
-      key: '1',
-      fields: [
-        {
-          name: 'group-selection',
-          component: 'share-group-select',
-          inputName: 'group_uuid',
-          selectName: 'permissions',
-          loadOptions: loadGroupOptions,
-          isSearchable: true,
-          permissions: permissionVerbs
-        }
-      ]
-    }
-  ]
-});
+const newShareSchema = (loadGroupOptions, permissionVerbs) => [
+  {
+    component: 'sub-form',
+    description: 'Invite group',
+    name: 'new_share',
+    key: '1',
+    fields: [
+      {
+        name: 'group-selection',
+        component: 'share-group-select',
+        inputName: 'group_uuid',
+        selectName: 'permissions',
+        loadOptions: loadGroupOptions,
+        isSearchable: true,
+        permissions: permissionVerbs
+      }
+    ]
+  }
+];
 
-const groupListSchema = (groupFieldList) => ({
-  fields: [
-    {
-      component: 'sub-form',
-      description: 'Groups with access',
-      name: 'share_list',
-      key: 'share_list',
-      fields: [...groupFieldList]
-    }
-  ]
-});
+const groupListSchema = (groupFieldList) => [
+  {
+    component: 'sub-form',
+    description: 'Groups with access',
+    name: 'share_list',
+    key: 'share_list',
+    fields: groupFieldList
+  }
+];
 
 const groupShareSchema = (groupShareInfo, permissionVerbs) => ({
   component: 'sub-form',
@@ -53,15 +49,19 @@ const groupShareSchema = (groupShareInfo, permissionVerbs) => ({
 export const createPortfolioShareSchema = (
   shareInfo,
   loadGroupOptions,
-  permissionVerbs
+  permissionVerbs,
+  canShare,
+  canUnshare
 ) => {
-  const formSchema = newShareSchema(loadGroupOptions, permissionVerbs);
+  const formSchema = canShare
+    ? newShareSchema(loadGroupOptions, permissionVerbs)
+    : [];
   const groupInfoFields = shareInfo.map((group) =>
     groupShareSchema(group, permissionVerbs)
   );
-  const shareListSchema = { ...groupListSchema([...groupInfoFields]) };
+  const shareListSchema = canUnshare ? groupListSchema(groupInfoFields) : [];
   const portfolioSchema = {
-    fields: [...formSchema.fields, ...shareListSchema.fields]
+    fields: [...formSchema, ...shareListSchema]
   };
   return portfolioSchema;
 };

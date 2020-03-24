@@ -54,7 +54,12 @@ describe('<RemovePortfolioModal />', () => {
           data: [
             {
               id: '123',
-              name: 'Foo'
+              name: 'Foo',
+              metadata: {
+                user_capabilities: {
+                  destroy: true
+                }
+              }
             }
           ]
         }
@@ -226,5 +231,54 @@ describe('<RemovePortfolioModal />', () => {
     ];
     expect(store.getActions()).toEqual(expectedActions);
     done();
+  });
+
+  it('should redirect away from remove modal if destroy capability is set to false', () => {
+    const store = mockStore({
+      ...initialState,
+      portfolioReducer: {
+        ...initialState.portfolioReducer,
+        portfolios: {
+          meta: {
+            limit: 50,
+            offset: 0
+          },
+          data: [
+            {
+              id: '123',
+              name: 'Foo',
+              metadata: {
+                user_capabilities: {
+                  destroy: false
+                }
+              }
+            }
+          ]
+        }
+      }
+    });
+    const wrapper = mount(
+      <ComponentWrapper
+        store={store}
+        initialEntries={[
+          '/portfolio?portfolio=123',
+          '/portfolio/remove-portfolio?portfolio=123'
+        ]}
+        initialIndex={1}
+      >
+        <Route
+          path="/portfolio"
+          render={(args) => (
+            <RemovePortfolioModal {...args} {...initialProps} />
+          )}
+        />
+      </ComponentWrapper>
+    );
+    expect(
+      wrapper
+        .find(MemoryRouter)
+        .children()
+        .props().history.location.pathname
+    ).toEqual('/401');
   });
 });
