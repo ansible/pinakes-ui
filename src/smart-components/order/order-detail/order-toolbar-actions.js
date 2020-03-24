@@ -18,7 +18,10 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
       <CancelOrderModal
         onClose={() => setCancelModalOpen(false)}
         isOpen={cancelModalOpen}
-        cancelOrder={() => dispatch(cancelOrder(orderId))}
+        cancelOrder={() => {
+          setCancelModalOpen(false);
+          dispatch(cancelOrder(orderId));
+        }}
         name={portfolioItemName}
       />
       <ActionGroup>

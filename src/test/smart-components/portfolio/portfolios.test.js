@@ -23,7 +23,7 @@ describe('<Portfolios />', () => {
   let mockStore;
 
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
-    <Provider store={store}>
+    <Provider store={store} value={{ userPermissions: [] }}>
       <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
     </Provider>
   );

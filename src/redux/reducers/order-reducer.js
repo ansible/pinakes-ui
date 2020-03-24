@@ -10,7 +10,8 @@ import {
   SET_LOADING_STATE,
   SET_ORDERS,
   FETCH_ORDERS,
-  SET_ORDER_DETAIL
+  SET_ORDER_DETAIL,
+  FETCH_APPROVAL_REQUESTS
 } from '../action-types';
 import { defaultSettings } from '../../helpers/shared/pagination';
 // Initial State
@@ -23,7 +24,8 @@ export const orderInitialState = {
   orderDetail: {
     order: {},
     portfolioItem: {},
-    platform: {}
+    platform: {},
+    portfolio: {}
   },
   orders: {
     data: [],
@@ -80,6 +82,10 @@ const setOrderDetail = (state, { payload }) => ({
   ...state,
   orderDetail: payload
 });
+const updateOrderApprovalRequests = (state, { payload }) => ({
+  ...state,
+  orderDetail: { ...state.orderDetail, approvalRequest: payload }
+});
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -101,5 +107,6 @@ export default {
   [`${FETCH_ORDERS}_PENDING`]: setLoadingState,
   [SET_ORDERS]: setOrders,
   [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail,
-  [SET_ORDER_DETAIL]: setOrderDetail
+  [SET_ORDER_DETAIL]: setOrderDetail,
+  [`${FETCH_APPROVAL_REQUESTS}_FULFILLED`]: updateOrderApprovalRequests
 };

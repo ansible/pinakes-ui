@@ -1,19 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {
-  CardBody,
-  Text,
-  TextContent,
-  TextVariants
-} from '@patternfly/react-core';
+import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import ItemDetails from './card-common';
 import ConditionalLink from './conditional-link';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
-import styled from 'styled-components';
-
-const StyledCardBody = styled(CardBody)`
-  height: 240px;
-`;
+import { StyledCardBody } from '../styled-components/card';
 
 const ServiceOfferingCardBody = ({
   name,
