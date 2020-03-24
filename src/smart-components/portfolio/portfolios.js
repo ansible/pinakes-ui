@@ -131,7 +131,7 @@ const Portfolios = () => {
   };
 
   const galleryItems = data.map((item) => (
-    <PortfolioCard key={item.id} userPermissions={userPermissions} {...item} />
+    <PortfolioCard key={item.id} {...item} />
   ));
 
   return (

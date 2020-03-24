@@ -32,22 +32,17 @@ import { StyledCardBody } from '../styled-components/card';
 
 const TO_DISPLAY = ['description'];
 
-const createToolbarActions = (
+const HeaderActions = ({
   portfolioId,
-  isOpen,
-  setOpen,
-  userPermissions
-) => [
-  <Dropdown
-    key="portfolio-dropdown"
-    isOpen={isOpen}
-    isPlain
-    onSelect={() => setOpen(false)}
-    position={DropdownPosition.right}
-    toggle={<KebabToggle onToggle={(isOpen) => setOpen(isOpen)} />}
-    dropdownItems={[
+  userCapabilities: { share, unshare, update, destroy }
+}) => {
+  const [isOpen, setOpen] = useState(false);
+  const dropdownItems = [];
+  if (share || unshare) {
+    dropdownItems.push(
       <DropdownItem
         key="share-portfolio-action"
+        id="share-portfolio-action"
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
@@ -56,20 +51,30 @@ const createToolbarActions = (
             Share
           </CatalogLink>
         }
-      />,
-      <DropdownItem
-        key="workflow-portfolio-action"
-        component={
-          <CatalogLink
-            searchParams={{ portfolio: portfolioId }}
-            pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
-          >
-            Set approval
-          </CatalogLink>
-        }
-      />,
+      />
+    );
+  }
+
+  dropdownItems.push(
+    <DropdownItem
+      key="workflow-portfolio-action"
+      if="workflow-portfolio-action"
+      component={
+        <CatalogLink
+          searchParams={{ portfolio: portfolioId }}
+          pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
+        >
+          Set approval
+        </CatalogLink>
+      }
+    />
+  );
+
+  if (update) {
+    dropdownItems.push(
       <DropdownItem
         key="edit-portfolio-action"
+        id="edit-portfolio-action"
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
@@ -78,12 +83,15 @@ const createToolbarActions = (
             Edit
           </CatalogLink>
         }
-      />,
+      />
+    );
+  }
+
+  if (destroy) {
+    dropdownItems.push(
       <DropdownItem
         key="remove-portfolio-action"
-        isDisabled={
-          !hasPermission(userPermissions, ['catalog:portfolios:delete'])
-        }
+        id="remove-portfolio-action"
         component={
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
@@ -93,19 +101,46 @@ const createToolbarActions = (
           </CatalogLink>
         }
       />
-    ]}
-  />
-];
+    );
+  }
+
+  return (
+    <Dropdown
+      key="portfolio-dropdown"
+      id={`portfolio-${portfolioId}-dropdown`}
+      isOpen={isOpen}
+      isPlain
+      onSelect={() => setOpen(false)}
+      position={DropdownPosition.right}
+      toggle={
+        <KebabToggle
+          id={`portfolio-${portfolioId}-toggle`}
+          onToggle={(isOpen) => setOpen(isOpen)}
+        />
+      }
+      dropdownItems={dropdownItems}
+    />
+  );
+};
+
+HeaderActions.propTypes = {
+  portfolioId: PropTypes.string.isRequired,
+  userCapabilities: PropTypes.shape({
+    destroy: PropTypes.bool,
+    update: PropTypes.bool,
+    share: PropTypes.bool,
+    unshare: PropTypes.bool
+  }).isRequired
+};
 
 const PortfolioCard = ({
   imageUrl,
   isDisabled,
   name,
   id,
-  userPermissions,
+  metadata: { user_capabilities },
   ...props
 }) => {
-  const [isOpen, setOpen] = useState(false);
   const to = {
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
@@ -117,12 +152,12 @@ const PortfolioCard = ({
           <PortfolioCardHeader
             to={to}
             portfolioName={name}
-            headerActions={createToolbarActions(
-              id,
-              isOpen,
-              setOpen,
-              userPermissions
-            )}
+            headerActions={
+              <HeaderActions
+                portfolioId={id}
+                userCapabilities={user_capabilities}
+              />
+            }
           />
         </CardHeader>
         <StyledCardBody>
@@ -156,7 +191,8 @@ PortfolioCard.propTypes = {
   created_at: PropTypes.string.isRequired,
   owner: PropTypes.string,
   isDisabled: PropTypes.bool,
-  userPermissions: PropTypes.array
+  metadata: PropTypes.shape({ user_capabilities: PropTypes.object.isRequired })
+    .isRequired
 };
 
 export default PortfolioCard;
