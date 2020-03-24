@@ -55,7 +55,14 @@ describe('<PortfolioItemDetail />', () => {
             id: '123',
             service_offering_source_ref: '111',
             created_at: '123',
-            name: 'bar'
+            name: 'bar',
+            metadata: {
+              user_capabilities: {
+                copy: true,
+                update: true,
+                destroy: true
+              }
+            }
           },
           source: { id: '111', name: 'Source name' },
           portfolio: {

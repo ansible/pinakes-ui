@@ -33,9 +33,14 @@ const PortfolioItemDetail = () => {
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
   const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
-  const { portfolioItem, portfolio, source } = useSelector(
-    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
-  );
+  const {
+    portfolioItem: {
+      metadata: { user_capabilities: userCapabilities },
+      ...portfolioItem
+    },
+    portfolio,
+    source
+  } = useSelector(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
 
   useEffect(() => {
     setIsFetching(true);
@@ -97,6 +102,7 @@ const PortfolioItemDetail = () => {
               setOpen={setOpen}
               isFetching={isFetching}
               availability={availability}
+              userCapabilities={userCapabilities}
             />
             {unavailable.length > 0 && (
               <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>

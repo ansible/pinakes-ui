@@ -11,6 +11,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   orderUrl="foo/bar"
   pathname="foo/bar"
   setOpen={[MockFunction]}
+  userCapabilities={
+    Object {
+      "copy": true,
+      "update": true,
+    }
+  }
   workflowUrl="foo/workflow"
 >
   <LevelItem>
@@ -162,6 +168,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Edit
                 </CatalogLink>
               }
+              id="edit-portfolio-item"
               role="link"
             />,
             <DropdownItem
@@ -176,6 +183,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Copy
                 </CatalogLink>
               }
+              id="copy-portfolio-item"
               role="link"
             />,
             <DropdownItem
@@ -215,6 +223,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         position="right"
         toggle={
           <KebabToggle
+            id="portfolio-item-actions-toggle"
             onToggle={[Function]}
           />
         }
@@ -234,6 +243,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     Edit
                   </CatalogLink>
                 }
+                id="edit-portfolio-item"
                 role="link"
               />,
               <DropdownItem
@@ -248,6 +258,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     Copy
                   </CatalogLink>
                 }
+                id="copy-portfolio-item"
                 role="link"
               />,
               <DropdownItem
@@ -286,6 +297,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           position="right"
           toggle={
             <KebabToggle
+              id="portfolio-item-actions-toggle"
               onToggle={[Function]}
             />
           }
@@ -307,6 +319,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Edit
                       </CatalogLink>
                     }
+                    id="edit-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -321,6 +334,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Copy
                       </CatalogLink>
                     }
+                    id="copy-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -357,6 +371,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 "onToggle": [MockFunction],
                 "position": "right",
                 "toggle": <KebabToggle
+                  id="portfolio-item-actions-toggle"
                   onToggle={[Function]}
                 />,
               }
@@ -381,6 +396,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Edit
                       </CatalogLink>
                     }
+                    id="edit-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -395,6 +411,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Copy
                       </CatalogLink>
                     }
+                    id="copy-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -442,6 +459,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               position="right"
               toggle={
                 <KebabToggle
+                  id="portfolio-item-actions-toggle"
                   onToggle={[Function]}
                 />
               }
@@ -452,7 +470,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               >
                 <KebabToggle
                   ariaHasPopup={true}
-                  id="pf-toggle-id-0"
+                  id="portfolio-item-actions-toggle"
                   isOpen={false}
                   isPlain={true}
                   key=".0"
@@ -468,7 +486,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           aria-haspopup="true"
                           aria-label="Actions"
                           class="pf-c-dropdown__toggle pf-m-plain"
-                          id="pf-toggle-id-0"
+                          id="portfolio-item-actions-toggle"
                           type="button"
                         >
                           <svg
@@ -495,7 +513,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     ariaHasPopup={true}
                     bubbleEvent={false}
                     className=""
-                    id="pf-toggle-id-0"
+                    id="portfolio-item-actions-toggle"
                     isActive={false}
                     isDisabled={false}
                     isFocused={false}
@@ -516,7 +534,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                             aria-haspopup="true"
                             aria-label="Actions"
                             class="pf-c-dropdown__toggle pf-m-plain"
-                            id="pf-toggle-id-0"
+                            id="portfolio-item-actions-toggle"
                             type="button"
                           >
                             <svg
@@ -544,7 +562,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       aria-label="Actions"
                       className="pf-c-dropdown__toggle pf-m-plain"
                       disabled={false}
-                      id="pf-toggle-id-0"
+                      id="portfolio-item-actions-toggle"
                       onClick={[Function]}
                       onKeyDown={[Function]}
                       type="button"

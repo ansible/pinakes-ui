@@ -45,7 +45,8 @@ export const PortfolioItemDetailToolbar = ({
   setOpen,
   isFetching,
   uploadIcon,
-  availability
+  availability,
+  userCapabilities
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level>
@@ -75,6 +76,7 @@ export const PortfolioItemDetailToolbar = ({
                 workflowUrl={`${url}/edit-workflow`}
                 isFetching={isFetching}
                 availability={availability}
+                userCapabilities={userCapabilities}
                 {...args}
               />
             )}
@@ -198,5 +200,6 @@ SurveyEditingToolbar.propTypes = {
   isFetching: PropTypes.bool,
   isValid: PropTypes.bool,
   modified: PropTypes.bool,
-  handleResetSurvey: PropTypes.func
+  handleResetSurvey: PropTypes.func,
+  userCapabilities: PropTypes.object.isRequired
 };
