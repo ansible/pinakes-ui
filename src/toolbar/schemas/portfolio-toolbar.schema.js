@@ -243,7 +243,7 @@ const createPortfolioToolbarSchema = ({
                       placeholder
                     }),
                     createSingleItemGroup({
-                      hidden: meta.count === 0,
+                      hidden: meta.count === 0 || !userCapabilities.update,
                       groupName: 'add-portfolio-items',
                       key: 'portfolio-items-add-group',
                       ...createLinkButton({
@@ -256,7 +256,7 @@ const createPortfolioToolbarSchema = ({
                       })
                     }),
                     {
-                      hidden: meta.count === 0,
+                      hidden: meta.count === 0 || !userCapabilities.update,
                       component: PortfolioItemsActionsDropdown,
                       isDisabled: copyInProgress,
                       key: 'remove-products-actions-dropdown',
