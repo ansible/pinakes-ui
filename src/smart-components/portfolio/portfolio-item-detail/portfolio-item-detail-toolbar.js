@@ -106,7 +106,8 @@ PortfolioItemDetailToolbar.propTypes = {
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   uploadIcon: PropTypes.func.isRequired,
-  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
+  userCapabilities: PropTypes.object
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
@@ -200,6 +201,5 @@ SurveyEditingToolbar.propTypes = {
   isFetching: PropTypes.bool,
   isValid: PropTypes.bool,
   modified: PropTypes.bool,
-  handleResetSurvey: PropTypes.func,
-  userCapabilities: PropTypes.object.isRequired
+  handleResetSurvey: PropTypes.func
 };

@@ -28,7 +28,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         preserveSearch={true}
         searchParams={Object {}}
       >
-        <Styled(Link)
+        <Styled(Component)
           isDisabled={false}
           to={
             Object {
@@ -37,7 +37,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             }
           }
         >
-          <Link
+          <Component
             className="sc-AxiKw drCTeX"
             isDisabled={false}
             to={
@@ -47,95 +47,103 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
             }
           >
-            <LinkAnchor
+            <Link
               className="sc-AxiKw drCTeX"
-              href="foo/bar"
-              isDisabled={false}
-              navigate={[Function]}
+              to={
+                Object {
+                  "pathname": "foo/bar",
+                  "search": "",
+                }
+              }
             >
-              <a
+              <LinkAnchor
                 className="sc-AxiKw drCTeX"
                 href="foo/bar"
-                isDisabled={false}
-                onClick={[Function]}
+                navigate={[Function]}
               >
-                <ButtonWithSpinner
-                  id="order-portfolio-item"
-                  isDisabled={false}
-                  showSpinner={false}
-                  variant="primary"
+                <a
+                  className="sc-AxiKw drCTeX"
+                  href="foo/bar"
+                  onClick={[Function]}
                 >
-                  <Styled(Component)
+                  <ButtonWithSpinner
                     id="order-portfolio-item"
                     isDisabled={false}
+                    showSpinner={false}
                     variant="primary"
                   >
-                    <Component
-                      className="sc-AxjAm jhCAUI"
+                    <Styled(Component)
                       id="order-portfolio-item"
                       isDisabled={false}
                       variant="primary"
                     >
-                      <ComponentWithOuia
-                        component={[Function]}
-                        componentProps={
-                          Object {
-                            "children": Array [
+                      <Component
+                        className="sc-AxjAm jhCAUI"
+                        id="order-portfolio-item"
+                        isDisabled={false}
+                        variant="primary"
+                      >
+                        <ComponentWithOuia
+                          component={[Function]}
+                          componentProps={
+                            Object {
+                              "children": Array [
+                                <styled.span
+                                  showSpinner={false}
+                                >
+                                  Order
+                                </styled.span>,
+                                false,
+                              ],
+                              "className": "sc-AxjAm jhCAUI",
+                              "id": "order-portfolio-item",
+                              "isDisabled": false,
+                              "variant": "primary",
+                            }
+                          }
+                          consumerContext={null}
+                        >
+                          <Button
+                            className="sc-AxjAm jhCAUI"
+                            id="order-portfolio-item"
+                            isDisabled={false}
+                            ouiaContext={
+                              Object {
+                                "isOuia": false,
+                                "ouiaId": null,
+                              }
+                            }
+                            variant="primary"
+                          >
+                            <button
+                              aria-disabled={null}
+                              aria-label={null}
+                              className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
+                              disabled={false}
+                              id="order-portfolio-item"
+                              tabIndex={null}
+                              type="button"
+                            >
                               <styled.span
                                 showSpinner={false}
                               >
-                                Order
-                              </styled.span>,
-                              false,
-                            ],
-                            "className": "sc-AxjAm jhCAUI",
-                            "id": "order-portfolio-item",
-                            "isDisabled": false,
-                            "variant": "primary",
-                          }
-                        }
-                        consumerContext={null}
-                      >
-                        <Button
-                          className="sc-AxjAm jhCAUI"
-                          id="order-portfolio-item"
-                          isDisabled={false}
-                          ouiaContext={
-                            Object {
-                              "isOuia": false,
-                              "ouiaId": null,
-                            }
-                          }
-                          variant="primary"
-                        >
-                          <button
-                            aria-disabled={null}
-                            aria-label={null}
-                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
-                            disabled={false}
-                            id="order-portfolio-item"
-                            tabIndex={null}
-                            type="button"
-                          >
-                            <styled.span
-                              showSpinner={false}
-                            >
-                              <span
-                                className="sc-AxirZ fnlrkz"
-                              >
-                                Order
-                              </span>
-                            </styled.span>
-                          </button>
-                        </Button>
-                      </ComponentWithOuia>
-                    </Component>
-                  </Styled(Component)>
-                </ButtonWithSpinner>
-              </a>
-            </LinkAnchor>
-          </Link>
-        </Styled(Link)>
+                                <span
+                                  className="sc-AxirZ fnlrkz"
+                                >
+                                  Order
+                                </span>
+                              </styled.span>
+                            </button>
+                          </Button>
+                        </ComponentWithOuia>
+                      </Component>
+                    </Styled(Component)>
+                  </ButtonWithSpinner>
+                </a>
+              </LinkAnchor>
+            </Link>
+          </Component>
+        </Styled(Component)>
       </CatalogLink>
     </div>
   </LevelItem>

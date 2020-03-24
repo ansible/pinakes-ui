@@ -18,6 +18,7 @@ import {
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
+import CatalogRoute from '../../../routing/catalog-route';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -65,7 +66,6 @@ const PortfolioItemDetail = () => {
   }
 
   const availability = source.availability_status || 'unavailable';
-
   const unavailable = [source]
     .filter(({ notFound }) => notFound)
     .map(({ object }) => (
@@ -128,20 +128,22 @@ const PortfolioItemDetail = () => {
                 <Route path={`${url}/order`}>
                   <OrderModal closeUrl={url} />
                 </Route>
-                <Route
+                <CatalogRoute
                   path={`${url}/copy`}
-                  render={(props) => (
-                    <CopyPortfolioItemModal
-                      {...props}
-                      search={search}
-                      portfolioItemId={portfolioItem.id}
-                      portfolioId={portfolio.id}
-                      closeUrl={url}
-                    />
-                  )}
-                />
+                  requiredCapabilities="copy"
+                  userCapabilities={userCapabilities}
+                >
+                  <CopyPortfolioItemModal
+                    search={search}
+                    portfolioItemId={portfolioItem.id}
+                    portfolioId={portfolio.id}
+                    closeUrl={url}
+                  />
+                </CatalogRoute>
+
                 <ItemDetailDescription
                   product={portfolioItem}
+                  userCapabilities={userCapabilities}
                   url={url}
                   search={search}
                 />
