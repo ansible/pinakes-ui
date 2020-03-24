@@ -28,7 +28,12 @@ describe('<PortfolioItem />', () => {
       id: '1',
       name: 'Foo',
       description: 'Bar',
-      display_name: 'quux'
+      display_name: 'quux',
+      metadata: {
+        user_capabilities: {
+          destroy: true
+        }
+      }
     };
     initialState = {
       platformReducer: {
@@ -42,7 +47,12 @@ describe('<PortfolioItem />', () => {
               id: '1',
               name: 'Foo',
               description: 'Bar',
-              display_name: 'quux'
+              display_name: 'quux',
+              metadata: {
+                user_capabilities: {
+                  destroy: true
+                }
+              }
             }
           ]
         }
@@ -80,5 +90,25 @@ describe('<PortfolioItem />', () => {
       expect(onSelect).toHaveBeenCalledWith('1');
       done();
     });
+  });
+
+  it('should not render checkbox if capability destroy is set to false', () => {
+    const onSelect = jest.fn();
+    const store = mockStore(initialState);
+    const wrapper = mount(
+      <ComponentWrapper store={store}>
+        <PortfolioItem
+          {...initialProps}
+          metadata={{
+            user_capabilities: {
+              destroy: false
+            }
+          }}
+          onSelect={onSelect}
+          isSelectable
+        />
+      </ComponentWrapper>
+    );
+    expect(wrapper.find(PortfolioItem).find('input')).toHaveLength(0);
   });
 });

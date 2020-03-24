@@ -5,6 +5,13 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
   description="Bar"
   display_name="quux"
   id="1"
+  metadata={
+    Object {
+      "user_capabilities": Object {
+        "destroy": true,
+      },
+    }
+  }
   name="Foo"
   orderUrl="/order"
 >
@@ -117,6 +124,13 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                 description="Bar"
                 display_name="quux"
                 id="1"
+                metadata={
+                  Object {
+                    "user_capabilities": Object {
+                      "destroy": true,
+                    },
+                  }
+                }
                 name="Foo"
                 orderUrl="/order"
               >
@@ -156,6 +170,13 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       <ItemDetails
                         description="Bar"
                         id="1"
+                        metadata={
+                          Object {
+                            "user_capabilities": Object {
+                              "destroy": true,
+                            },
+                          }
+                        }
                         orderUrl="/order"
                         toDisplay={
                           Array [

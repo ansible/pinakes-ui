@@ -20,7 +20,7 @@ const PortfolioItem = (props) => (
             src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
             sourceId={props.service_offering_source_ref}
           />
-          {props.isSelectable && (
+          {props.isSelectable && props.metadata?.user_capabilities?.destroy && (
             <CardCheckbox
               handleCheck={() => props.onSelect(props.id)}
               isChecked={props.isSelected}
@@ -44,7 +44,10 @@ PortfolioItem.propTypes = {
   onSelect: PropTypes.func,
   orderUrl: PropTypes.string,
   removeInProgress: PropTypes.bool,
-  portfolio_id: PropTypes.string
+  portfolio_id: PropTypes.string,
+  metadata: PropTypes.shape({
+    user_capabilities: PropTypes.shape({ destroy: PropTypes.bool }).isRequired
+  }).isRequired
 };
 
 export default PortfolioItem;
