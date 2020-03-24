@@ -14,6 +14,7 @@ import useQuery from '../../utilities/use-query';
 import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
+import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
 
   const editVariant =
     portfolioId && initialValues && Object.keys(initialValues).length > 0;
+
+  if (initialValues?.metadata?.user_capabilities?.update === false) {
+    return <UnauthorizedRedirect />;
+  }
 
   return (
     <Modal

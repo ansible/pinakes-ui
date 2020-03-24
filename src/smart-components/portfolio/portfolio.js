@@ -20,6 +20,7 @@ import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
+import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 
 const initialState = {
   selectedItems: [],
@@ -153,6 +154,10 @@ const Portfolio = () => {
     workflowPortfolioRoute: `${url}/edit-workflow`,
     portfolioItemRoute: `${url}/portfolio-item`
   };
+
+  if (portfolio.metadata.user_capabilities.show === false) {
+    return <UnauthorizedRedirect />;
+  }
 
   return (
     <Switch>

@@ -40,7 +40,11 @@ export const portfoliosInitialState = {
       offset: 0
     }
   },
-  selectedPortfolio: {},
+  selectedPortfolio: {
+    metadata: {
+      user_capabilities: {}
+    }
+  },
   portfolio: {},
   filterValue: '',
   isLoading: false
@@ -76,7 +80,7 @@ const filterPortfolios = (state, { payload }) => ({
 });
 const resetSelectedPortfolio = (state) => ({
   ...state,
-  selectedPortfolio: {},
+  selectedPortfolio: { metadata: { user_capabilities: {} } },
   portfolioItems: portfoliosInitialState.portfolioItems
 });
 
