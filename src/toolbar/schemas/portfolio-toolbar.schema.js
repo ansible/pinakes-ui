@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dropdown,
@@ -11,8 +11,6 @@ import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createSingleItemGroup, createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
 import CatalogLink from '../../smart-components/common/catalog-link';
-import { hasPermission } from '../../helpers/shared/helpers';
-import UserContext from '../../user-context';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -22,62 +20,86 @@ const PortfolioActionsToolbar = ({
   workflowPortfolioRoute,
   removePortfolioRoute,
   copyInProgress,
-  copyPortfolio
+  copyPortfolio,
+  userCapabilities: { copy, destroy, update }
 }) => {
   const [isOpen, setOpen] = useState(false);
-  const { permissions: userPermissions } = useContext(UserContext);
+  const dropdownItems = [];
+  if (copy) {
+    dropdownItems.push(
+      <DropdownItem
+        component="button"
+        aria-label="Copy Portfolio"
+        key="copy-portfolio"
+        id="copy-portfolio"
+        onClick={copyPortfolio}
+      >
+        Copy
+      </DropdownItem>
+    );
+  }
+
+  dropdownItems.push(
+    <DropdownItem
+      aria-label="Set approval workflow"
+      key="edit-approval_workflow"
+      component={
+        <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
+          Set approval
+        </CatalogLink>
+      }
+      role="link"
+    />
+  );
+
+  if (update) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Edit Portfolio"
+        key="edit-portfolio"
+        id="edit-portfolio"
+        component={
+          <CatalogLink preserveSearch pathname={editPortfolioRoute}>
+            Edit
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
+  if (destroy) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Remove Portfolio"
+        key="delete-portfolio"
+        id="delete-portfolio"
+        component={
+          <CatalogLink preserveSearch pathname={removePortfolioRoute}>
+            Delete
+          </CatalogLink>
+        }
+        role="link"
+        className="pf-c-dropdown__menu-item"
+      />
+    );
+  }
+
   return (
     <Dropdown
       className="pf-u-ml-md"
       onSelect={() => setOpen(false)}
       position={DropdownPosition.right}
-      toggle={<KebabToggle onToggle={setOpen} isDisabled={copyInProgress} />}
+      toggle={
+        <KebabToggle
+          id="toggle-portfolio-actions"
+          onToggle={setOpen}
+          isDisabled={copyInProgress}
+        />
+      }
       isOpen={isOpen}
       isPlain
-      dropdownItems={[
-        <DropdownItem
-          component="button"
-          aria-label="Copy Portfolio"
-          key="copy-portfolio"
-          onClick={copyPortfolio}
-        >
-          Copy
-        </DropdownItem>,
-        <DropdownItem
-          aria-label="Set approval workflow"
-          key="edit-approval_workflow"
-          component={
-            <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
-              Set approval
-            </CatalogLink>
-          }
-          role="link"
-        />,
-        <DropdownItem
-          aria-label="Edit Portfolio"
-          key="edit-portfolio"
-          component={
-            <CatalogLink preserveSearch pathname={editPortfolioRoute}>
-              Edit
-            </CatalogLink>
-          }
-          role="link"
-        />,
-        <DropdownItem
-          aria-label="Remove Portfolio"
-          key="delete-portfolio"
-          isDisabled={
-            !hasPermission(userPermissions, ['catalog:portfolios:delete'])
-          }
-          component={
-            <CatalogLink preserveSearch pathname={removePortfolioRoute}>
-              Delete
-            </CatalogLink>
-          }
-          role="link"
-          className="pf-c-dropdown__menu-item"
-        />
-      ]}
+      dropdownItems={dropdownItems}
     />
   );
 };
@@ -87,7 +109,12 @@ PortfolioActionsToolbar.propTypes = {
   editPortfolioRoute: PropTypes.string.isRequired,
   workflowPortfolioRoute: PropTypes.string.isRequired,
   copyPortfolio: PropTypes.func.isRequired,
-  copyInProgress: PropTypes.bool
+  copyInProgress: PropTypes.bool,
+  userCapabilities: PropTypes.shape({
+    copy: PropTypes.bool,
+    update: PropTypes.bool,
+    destroy: PropTypes.bool
+  }).isRequired
 };
 
 const PortfolioItemsActionsDropdown = ({
@@ -153,7 +180,8 @@ const createPortfolioToolbarSchema = ({
   fetchPortfolioItemsWithPortfolio,
   portfolioId,
   description,
-  filterProps: { searchValue, onFilterChange, placeholder }
+  filterProps: { searchValue, onFilterChange, placeholder },
+  userCapabilities: { share, unshare, ...userCapabilities }
 }) => ({
   fields: [
     {
@@ -177,7 +205,9 @@ const createPortfolioToolbarSchema = ({
                   variant: 'secondary',
                   title: 'Share',
                   isDisabled: copyInProgress,
-                  key: 'portfolio-share-button'
+                  key: 'portfolio-share-button',
+                  id: 'portfolio-share-button',
+                  hidden: !share && !unshare
                 }),
                 {
                   component: PortfolioActionsToolbar,
@@ -186,6 +216,7 @@ const createPortfolioToolbarSchema = ({
                   removePortfolioRoute,
                   copyPortfolio,
                   copyInProgress,
+                  userCapabilities,
                   key: 'portfolio-actions-dropdown'
                 }
               ]

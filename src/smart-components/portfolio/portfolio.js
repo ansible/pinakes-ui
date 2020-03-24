@@ -1,6 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
+import {
+  useHistory,
+  useRouteMatch,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
 import PortfolioItems from './portfolio-items';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -153,6 +159,19 @@ const Portfolio = () => {
     workflowPortfolioRoute: `${url}/edit-workflow`,
     portfolioItemRoute: `${url}/portfolio-item`
   };
+
+  if (portfolio.metadata.user_capabilities.show === false) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/401',
+          state: {
+            from: location
+          }
+        }}
+      />
+    );
+  }
 
   return (
     <Switch>

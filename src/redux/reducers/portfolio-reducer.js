@@ -40,7 +40,11 @@ export const portfoliosInitialState = {
       offset: 0
     }
   },
-  selectedPortfolio: {},
+  selectedPortfolio: {
+    metadata: {
+      user_capabilities: {}
+    }
+  },
   portfolio: {},
   filterValue: '',
   isLoading: false

@@ -14,7 +14,6 @@ import {
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
-import { hasPermission } from '../../helpers/shared/helpers';
 
 import CatalogLink from '../../smart-components/common/catalog-link';
 import {

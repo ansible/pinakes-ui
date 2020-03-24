@@ -42,13 +42,23 @@ const PortfolioItems = ({
     filterValue
   }
 }) => {
-  const { data, meta, name, description } = useSelector(
+  const { data, meta, name, description, userCapabilities } = useSelector(
     ({
       portfolioReducer: {
         portfolioItems: { data, meta },
-        selectedPortfolio: { name, description }
+        selectedPortfolio: {
+          name,
+          description,
+          metadata: { user_capabilities }
+        }
       }
-    }) => ({ data, meta, name, description })
+    }) => ({
+      data,
+      meta,
+      name,
+      description,
+      userCapabilities: user_capabilities
+    })
   );
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const [{ portfolio: id }, search] = useQuery(['portfolio']);
@@ -95,7 +105,8 @@ const PortfolioItems = ({
           meta,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(fetchPortfolioItemsWithPortfolio(...args)),
-          portfolioId: id
+          portfolioId: id,
+          userCapabilities
         })}
       />
       <Route exact path={NESTED_EDIT_PORTFOLIO_ROUTE}>
