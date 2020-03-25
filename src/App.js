@@ -33,6 +33,7 @@ let ignoreRedirect = true;
 const App = () => {
   const [auth, setAuth] = useState(false);
   const [userPermissions, setUserPermissions] = useState();
+  const [userIdentity, setUserIdentity] = useState({ identity: {} });
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
@@ -57,13 +58,12 @@ const App = () => {
             )
           })
         ),
-      insights.chrome.auth
-        .getUser()
-        .then(() =>
-          insights.chrome
-            .getUserPermissions()
-            .then((data) => setUserPermissions(data))
-        )
+      insights.chrome.auth.getUser().then((user) => {
+        setUserIdentity(user);
+        return insights.chrome
+          .getUserPermissions()
+          .then((data) => setUserPermissions(data));
+      })
     ]).then(() => setAuth(true));
 
     insights.chrome.identifyApp('catalog');
@@ -108,7 +108,9 @@ const App = () => {
 
   return (
     <IntlProvider locale="en">
-      <UserContext.Provider value={{ permissions: userPermissions }}>
+      <UserContext.Provider
+        value={{ permissions: userPermissions, userIdentity }}
+      >
         <Fragment>
           <GlobalStyle />
           <NotificationsPortal />
