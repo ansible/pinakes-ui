@@ -1,21 +1,24 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Dotdotdot from 'react-dotdotdot';
 
-const PropLine = ({ value }) => <div>{ value }</div>;
+const CardPropText = styled.div`
+  overflow: hidden;
+`;
 
-PropLine.propTypes = {
-  value: PropTypes.any
-};
-
-const ItemDetails = ({ toDisplay = [], ...item }) => (
-  <Dotdotdot clamp={ 6 }>
-    { toDisplay.map(prop => <PropLine key={ `card-prop-${prop}` } value={ item[prop] } />) }
-  </Dotdotdot>
-);
+const ItemDetails = ({ toDisplay = [], ...item }) =>
+  toDisplay.map((prop) => (
+    <CardPropText key={`card-prop-${prop}`}>{item[prop]}</CardPropText>
+  ));
 
 ItemDetails.propTypes = {
-  toDisplay: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.node, PropTypes.arrayOf(PropTypes.node) ]))
+  toDisplay: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+      PropTypes.arrayOf(PropTypes.node)
+    ])
+  )
 };
 
 ItemDetails.defaultProps = {

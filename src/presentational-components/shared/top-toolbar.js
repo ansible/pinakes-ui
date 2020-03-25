@@ -1,19 +1,40 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Level, LevelItem, Text, TextContent, TextVariants  } from '@patternfly/react-core';
+import {
+  LevelItem,
+  Text,
+  TextContent,
+  TextVariants
+} from '@patternfly/react-core';
+import clsx from 'clsx';
 import { ToolbarTitlePlaceholder } from './loader-placeholders';
-import CatalogBreadrubms from './breadcrubms';
-import './top-toolbar.scss';
+import CatalogBreadcrumbs from '../../smart-components/common/catalog-breadcrumbs';
+import {
+  TopToolbarWrapper,
+  TopToolbarTitleContainer
+} from '../styled-components/toolbars';
 
-const TopToolbar = ({ children, paddingBottom, breadcrumbs, ...rest }) => (
-  <div className={ `pf-u-pt-xl pf-u-pr-xl pf-u-pl-xl ${paddingBottom ? 'pf-u-pb-xl' : ''} top-toolbar` } { ...rest }>
-    { breadcrumbs && (
-      <Level className="pf-u-mb-md">
-        <CatalogBreadrubms />
-      </Level>
-    ) }
-    { children }
-  </div>
+const TopToolbar = ({
+  children,
+  paddingBottom,
+  breadcrumbs,
+  breadcrumbsSpacing,
+  ...rest
+}) => (
+  <TopToolbarWrapper
+    className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
+      paddingBottom ? 'pf-u-pb-lg' : ''
+    }`}
+    {...rest}
+  >
+    {breadcrumbs && (
+      <div className="pf-u-mb-md">
+        {' '}
+        <CatalogBreadcrumbs />
+      </div>
+    )}
+    {children}
+  </TopToolbarWrapper>
 );
 
 TopToolbar.propTypes = {
@@ -22,7 +43,8 @@ TopToolbar.propTypes = {
     PropTypes.node
   ]).isRequired,
   paddingBottom: PropTypes.bool,
-  breadcrumbs: PropTypes.bool
+  breadcrumbs: PropTypes.bool,
+  breadcrumbsSpacing: PropTypes.bool
 };
 
 TopToolbar.defaultProps = {
@@ -32,23 +54,50 @@ TopToolbar.defaultProps = {
 
 export default TopToolbar;
 
-export const TopToolbarTitle = ({ title, children, ...rest }) => (
+export const TopToolbarTitle = ({
+  title,
+  description,
+  children,
+  noData,
+  ...rest
+}) => (
   <Fragment>
-    <Level className="pf-u-mb-xl" { ...rest }>
+    <TopToolbarTitleContainer
+      className={clsx({
+        'pf-u-mb-lg': !noData
+      })}
+      {...rest}
+    >
       <LevelItem>
         <TextContent className="top-toolbar-title">
-          { <Text component={ TextVariants.h2 }>{ title || <ToolbarTitlePlaceholder /> }</Text> }
+          <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
+            {title}
+          </Text>
+          {description && (
+            <Text
+              className="top-toolbar-title-description"
+              component={TextVariants.p}
+            >
+              {description}
+            </Text>
+          )}
         </TextContent>
       </LevelItem>
-      { children }
-    </Level>
+      {children}
+    </TopToolbarTitleContainer>
   </Fragment>
 );
 
 TopToolbarTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node,
+  description: PropTypes.node,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
-  ])
+  ]),
+  noData: PropTypes.bool
+};
+
+TopToolbarTitle.defaultProps = {
+  title: <ToolbarTitlePlaceholder />
 };

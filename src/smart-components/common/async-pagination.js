@@ -6,11 +6,19 @@ import { Pagination } from '@patternfly/react-core';
 
 import { getCurrentPage, getNewPage } from '../../helpers/shared/pagination';
 
-const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest, ...props }) => {
-  const handleOnPerPageSelect = (_event, limit) => apiRequest(apiProps, {
-    offset,
-    limit
-  });
+const AsyncPagination = ({
+  meta: { limit, count, offset },
+  apiProps,
+  apiRequest,
+  className,
+  isCompact,
+  ...props
+}) => {
+  const handleOnPerPageSelect = (_event, limit) =>
+    apiRequest(apiProps, {
+      offset,
+      limit
+    });
 
   const handleSetPage = (_event, number, debounce) => {
     const options = {
@@ -27,15 +35,16 @@ const AsyncPagination = ({ meta: { limit, count, offset }, apiProps, apiRequest,
   };
 
   return (
-    <div className="pf-u-mt-md">
+    <div className={className}>
       <Pagination
-        perPage={ limit || 50 }
-        itemCount={ count || 0 }
-        onPerPageSelect={ handleOnPerPageSelect }
-        page={ getCurrentPage(limit, offset) }
-        onSetPage={ handleSetPage }
+        perPage={limit || 50}
+        itemCount={count || 0}
+        onPerPageSelect={handleOnPerPageSelect}
+        page={getCurrentPage(limit, offset)}
+        onSetPage={handleSetPage}
         direction="down"
-        { ...props }
+        isCompact={isCompact}
+        {...props}
       />
     </div>
   );
@@ -48,7 +57,9 @@ AsyncPagination.propTypes = {
     offset: PropTypes.number.isRequired
   }),
   apiRequest: PropTypes.func.isRequired,
-  apiProps: PropTypes.any
+  apiProps: PropTypes.any,
+  className: PropTypes.string,
+  isCompact: PropTypes.bool
 };
 
 AsyncPagination.defaultProps = {
@@ -56,8 +67,9 @@ AsyncPagination.defaultProps = {
     count: 0,
     limit: 50,
     offset: 0
-  }
+  },
+  className: '',
+  isCompact: false
 };
 
 export default AsyncPagination;
-

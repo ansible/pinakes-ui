@@ -7,96 +7,140 @@ exports[`<PlatformCard /> should choose card image 1`] = `
 >
   <GalleryItem>
     <div>
-      <Link
-        className="card-link"
-        to="/platforms/detail/undefined"
-      >
-        <LinkAnchor
-          className="card-link"
-          href="/platforms/detail/undefined"
-          navigate={[Function]}
+      <Styled(Card)>
+        <Card
+          className="sc-AxhUy kEBXQD"
         >
-          <a
-            className="card-link"
-            href="/platforms/detail/undefined"
-            onClick={[Function]}
+          <article
+            className="pf-c-card sc-AxhUy kEBXQD"
           >
-            <Card
-              className="content-gallery-card"
-            >
-              <article
-                className="pf-c-card content-gallery-card"
+            <CardHeader>
+              <div
+                className="pf-c-card__header pf-c-title pf-m-md"
               >
-                <CardHeader>
-                  <div
-                    className="pf-c-card__header pf-c-title pf-m-md"
-                  >
-                    <ImageWithDefault
-                      height="40"
-                      src="test-file-stub"
-                      width="80"
-                    >
-                      <img
-                        height="40"
-                        src="test-file-stub"
-                        width="80"
-                      />
-                    </ImageWithDefault>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div
-                    className="pf-c-card__body"
-                  >
-                    <h4 />
-                    <ItemDetails
-                      description="desc"
-                      modified="Foo"
-                      toDisplay={
-                        Array [
-                          "description",
-                          "modified",
-                        ]
-                      }
-                    >
-                      <Dotdotdot
-                        clamp={6}
-                        tagName="div"
-                        truncationChar="…"
-                        useNativeClamp={true}
-                      >
-                        <div>
-                          <PropLine
-                            key="card-prop-description"
-                            value="desc"
-                          >
-                            <div>
-                              desc
-                            </div>
-                          </PropLine>
-                          <PropLine
-                            key="card-prop-modified"
-                            value="Foo"
-                          >
-                            <div>
-                              Foo
-                            </div>
-                          </PropLine>
-                        </div>
-                      </Dotdotdot>
-                    </ItemDetails>
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div
-                    className="pf-c-card__footer"
+                <ImageWithDefault
+                  height="40"
+                  src="test-file-stub"
+                  width="80"
+                >
+                  <img
+                    height="40"
+                    src="test-file-stub"
+                    width="80"
                   />
-                </CardFooter>
-              </article>
-            </Card>
-          </a>
-        </LinkAnchor>
-      </Link>
+                </ImageWithDefault>
+              </div>
+            </CardHeader>
+            <Styled(CardBody)>
+              <CardBody
+                className="sc-AxheI fdbZUy"
+              >
+                <div
+                  className="pf-c-card__body sc-AxheI fdbZUy"
+                >
+                  <TextContent>
+                    <div
+                      className="pf-c-content"
+                    >
+                      <CatalogLink
+                        nav={false}
+                        pathname="/platform/platform-templates"
+                        preserveSearch={false}
+                        searchParams={
+                          Object {
+                            "platform": undefined,
+                          }
+                        }
+                      >
+                        <Styled(Link)
+                          to={
+                            Object {
+                              "pathname": "/platform/platform-templates",
+                              "search": "?platform=undefined",
+                            }
+                          }
+                        >
+                          <Link
+                            className="sc-AxiKw drCTeX"
+                            to={
+                              Object {
+                                "pathname": "/platform/platform-templates",
+                                "search": "?platform=undefined",
+                              }
+                            }
+                          >
+                            <LinkAnchor
+                              className="sc-AxiKw drCTeX"
+                              href="/platform/platform-templates?platform=undefined"
+                              navigate={[Function]}
+                            >
+                              <a
+                                className="sc-AxiKw drCTeX"
+                                href="/platform/platform-templates?platform=undefined"
+                                onClick={[Function]}
+                              >
+                                <Text
+                                  className="pf-u-mb-0"
+                                  component="h3"
+                                >
+                                  <h3
+                                    className="pf-u-mb-0"
+                                    data-pf-content={true}
+                                  >
+                                    <styled.div>
+                                      <div
+                                        className="sc-AxirZ ZcaGf"
+                                      />
+                                    </styled.div>
+                                  </h3>
+                                </Text>
+                              </a>
+                            </LinkAnchor>
+                          </Link>
+                        </Styled(Link)>
+                      </CatalogLink>
+                    </div>
+                  </TextContent>
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
+                  >
+                    <styled.div
+                      key="card-prop-description"
+                    >
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        desc
+                      </div>
+                    </styled.div>
+                    <styled.div
+                      key="card-prop-modified"
+                    >
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        Foo
+                      </div>
+                    </styled.div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+            </Styled(CardBody)>
+            <CardFooter>
+              <div
+                className="pf-c-card__footer"
+              />
+            </CardFooter>
+          </article>
+        </Card>
+      </Styled(Card)>
     </div>
   </GalleryItem>
 </PlatformCard>
@@ -109,96 +153,140 @@ exports[`<PlatformCard /> should render correctly 1`] = `
 >
   <GalleryItem>
     <div>
-      <Link
-        className="card-link"
-        to="/platforms/detail/undefined"
-      >
-        <LinkAnchor
-          className="card-link"
-          href="/platforms/detail/undefined"
-          navigate={[Function]}
+      <Styled(Card)>
+        <Card
+          className="sc-AxhUy kEBXQD"
         >
-          <a
-            className="card-link"
-            href="/platforms/detail/undefined"
-            onClick={[Function]}
+          <article
+            className="pf-c-card sc-AxhUy kEBXQD"
           >
-            <Card
-              className="content-gallery-card"
-            >
-              <article
-                className="pf-c-card content-gallery-card"
+            <CardHeader>
+              <div
+                className="pf-c-card__header pf-c-title pf-m-md"
               >
-                <CardHeader>
-                  <div
-                    className="pf-c-card__header pf-c-title pf-m-md"
-                  >
-                    <ImageWithDefault
-                      height="40"
-                      src="test-file-stub"
-                      width="80"
-                    >
-                      <img
-                        height="40"
-                        src="test-file-stub"
-                        width="80"
-                      />
-                    </ImageWithDefault>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <div
-                    className="pf-c-card__body"
-                  >
-                    <h4 />
-                    <ItemDetails
-                      description="desc"
-                      modified="Foo"
-                      toDisplay={
-                        Array [
-                          "description",
-                          "modified",
-                        ]
-                      }
-                    >
-                      <Dotdotdot
-                        clamp={6}
-                        tagName="div"
-                        truncationChar="…"
-                        useNativeClamp={true}
-                      >
-                        <div>
-                          <PropLine
-                            key="card-prop-description"
-                            value="desc"
-                          >
-                            <div>
-                              desc
-                            </div>
-                          </PropLine>
-                          <PropLine
-                            key="card-prop-modified"
-                            value="Foo"
-                          >
-                            <div>
-                              Foo
-                            </div>
-                          </PropLine>
-                        </div>
-                      </Dotdotdot>
-                    </ItemDetails>
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div
-                    className="pf-c-card__footer"
+                <ImageWithDefault
+                  height="40"
+                  src="test-file-stub"
+                  width="80"
+                >
+                  <img
+                    height="40"
+                    src="test-file-stub"
+                    width="80"
                   />
-                </CardFooter>
-              </article>
-            </Card>
-          </a>
-        </LinkAnchor>
-      </Link>
+                </ImageWithDefault>
+              </div>
+            </CardHeader>
+            <Styled(CardBody)>
+              <CardBody
+                className="sc-AxheI fdbZUy"
+              >
+                <div
+                  className="pf-c-card__body sc-AxheI fdbZUy"
+                >
+                  <TextContent>
+                    <div
+                      className="pf-c-content"
+                    >
+                      <CatalogLink
+                        nav={false}
+                        pathname="/platform/platform-templates"
+                        preserveSearch={false}
+                        searchParams={
+                          Object {
+                            "platform": undefined,
+                          }
+                        }
+                      >
+                        <Styled(Link)
+                          to={
+                            Object {
+                              "pathname": "/platform/platform-templates",
+                              "search": "?platform=undefined",
+                            }
+                          }
+                        >
+                          <Link
+                            className="sc-AxiKw drCTeX"
+                            to={
+                              Object {
+                                "pathname": "/platform/platform-templates",
+                                "search": "?platform=undefined",
+                              }
+                            }
+                          >
+                            <LinkAnchor
+                              className="sc-AxiKw drCTeX"
+                              href="/platform/platform-templates?platform=undefined"
+                              navigate={[Function]}
+                            >
+                              <a
+                                className="sc-AxiKw drCTeX"
+                                href="/platform/platform-templates?platform=undefined"
+                                onClick={[Function]}
+                              >
+                                <Text
+                                  className="pf-u-mb-0"
+                                  component="h3"
+                                >
+                                  <h3
+                                    className="pf-u-mb-0"
+                                    data-pf-content={true}
+                                  >
+                                    <styled.div>
+                                      <div
+                                        className="sc-AxirZ ZcaGf"
+                                      />
+                                    </styled.div>
+                                  </h3>
+                                </Text>
+                              </a>
+                            </LinkAnchor>
+                          </Link>
+                        </Styled(Link)>
+                      </CatalogLink>
+                    </div>
+                  </TextContent>
+                  <ItemDetails
+                    description="desc"
+                    modified="Foo"
+                    toDisplay={
+                      Array [
+                        "description",
+                        "modified",
+                      ]
+                    }
+                  >
+                    <styled.div
+                      key="card-prop-description"
+                    >
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        desc
+                      </div>
+                    </styled.div>
+                    <styled.div
+                      key="card-prop-modified"
+                    >
+                      <div
+                        className="sc-AxjAm hDziHm"
+                      >
+                        Foo
+                      </div>
+                    </styled.div>
+                  </ItemDetails>
+                </div>
+              </CardBody>
+            </Styled(CardBody)>
+            <CardFooter>
+              <div
+                className="pf-c-card__footer"
+              />
+            </CardFooter>
+          </article>
+        </Card>
+      </Styled(Card)>
     </div>
   </GalleryItem>
 </PlatformCard>

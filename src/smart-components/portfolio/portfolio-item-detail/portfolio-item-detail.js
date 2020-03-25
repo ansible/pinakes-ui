@@ -1,50 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter, Route } from 'react-router-dom';
-import { Grid, GridItem } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components';
+import React, { useEffect, useState, Fragment, lazy, Suspense } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Grid, GridItem, Alert } from '@patternfly/react-core';
+import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
 
 import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
-import { allowNull } from '../../../helpers/shared/helpers';
 import ItemDetailDescription from './item-detail-description';
 import CopyPortfolioItemModal from './copy-portfolio-item-modal';
-import { fetchPlatforms } from '../../../redux/actions/platform-actions';
-import { fetchWorkflows } from '../../../redux/actions/approval-actions';
-import PortfolioItemDetailToolbar from './portfolio-item-detail-toolbar';
+import { PortfolioItemDetailToolbar } from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
-import { fetchPortfolioItem, selectPortfolioItem } from '../../../redux/actions/portfolio-actions';
-import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
+import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions';
+import {
+  ProductLoaderPlaceholder,
+  AppPlaceholder
+} from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
+import useQuery from '../../../utilities/use-query';
+import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 
-const PortfolioItemDetail = ({
-  match: { path, url, params: { portfolioItemId }},
-  source,
-  product,
-  portfolio,
-  isLoading,
-  workflows,
-  orderFetching,
-  fetchWorkflows,
-  fetchPlatforms,
-  fetchPortfolioItem
-}) => {
-  const [ isOpen, setOpen ] = useState(false);
+const SurveyEditor = lazy(() =>
+  import(
+    /* webpackChunkName: "survey-editor" */ '../../survey-editing/survey-editor'
+  )
+);
+
+const requiredParams = ['portfolio', 'source', 'portfolio-item'];
+
+const PortfolioItemDetail = () => {
+  const [isOpen, setOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
+  const dispatch = useDispatch();
+  const [queryValues, search] = useQuery(requiredParams);
+  const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
+  const { portfolioItem, portfolio, source } = useSelector(
+    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
+  );
+
   useEffect(() => {
-    fetchWorkflows();
-  }, []);
-  useEffect(() => {
-    fetchPlatforms();
-    fetchPortfolioItem(portfolioItemId);
-  }, [ path ]);
+    setIsFetching(true);
+    dispatch(
+      getPortfolioItemDetail({
+        portfolioItem: queryValues['portfolio-item'],
+        ...queryValues
+      })
+    )
+      .then(() => setIsFetching(false))
+      .catch(() => setIsFetching(false));
+  }, [queryValues['portfolio-item']]);
 
-  const uploadIcon = file => uploadPortfolioItemIcon(product.id, file);
-
-  if (isLoading) {
+  if (isFetching || Object.keys(portfolioItem).length === 0) {
     return (
-      <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
+      <Section className="global-primary-background full-height">
         <TopToolbar>
           <ProductLoaderPlaceholder />
         </TopToolbar>
@@ -52,92 +59,93 @@ const PortfolioItemDetail = ({
     );
   }
 
+  const availability = source.availability_status || 'unavailable';
+
+  const unavailable = [source]
+    .filter(({ notFound }) => notFound)
+    .map(({ object }) => (
+      <Alert
+        className="pf-u-mb-sm"
+        key={object}
+        variant="warning"
+        isInline
+        title={`The ${object} for this product is no longer available`}
+      />
+    ));
+  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
   return (
-    <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
-      <Route path={ `${url}/order` } render={ props => <OrderModal { ...props } closeUrl={ url } serviceData={ product }/> }/>
-      <Route
-        path={ `${url}/copy` }
-        render={ props => (
-          <CopyPortfolioItemModal { ...props }  portfolioItemId={ product.id } portfolioId={ portfolio.id } closeUrl={ url }/>
-        ) }
-      />
-      <PortfolioItemDetailToolbar
-        uploadIcon={ uploadIcon }
-        url={ url }
-        isOpen={ isOpen }
-        product={ product }
-        setOpen={ setOpen }
-        isFetching={ orderFetching }
-      />
-      <div style={ { padding: 32 } }>
-        <Grid>
-          <GridItem md={ 2 }>
-            <ItemDetailInfoBar product={ product } portfolio={ portfolio } source={ source } />
-          </GridItem>
-          <GridItem md={ 10 }>
-            <ItemDetailDescription product={ product } url={ url } workflows={ workflows } />
-          </GridItem>
-        </Grid>
-      </div>
-    </Section>
+    <Fragment>
+      <Switch>
+        <Route path={`${url}/edit-survey`}>
+          <Suspense fallback={<AppPlaceholder />}>
+            <SurveyEditor
+              closeUrl={url}
+              search={search}
+              uploadIcon={uploadIcon}
+              portfolioItem={portfolioItem}
+              portfolio={portfolio}
+            />
+          </Suspense>
+        </Route>
+        <Route>
+          <Section className="full-height global-primary-background">
+            <PortfolioItemDetailToolbar
+              uploadIcon={uploadIcon}
+              url={url}
+              isOpen={isOpen}
+              product={portfolioItem}
+              setOpen={setOpen}
+              isFetching={isFetching}
+              availability={availability}
+            />
+            {unavailable.length > 0 && (
+              <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>
+            )}
+            {source.availability_status === 'unavailable' && (
+              <Alert
+                className="pf-u-ml-lg pf-u-mr-lg"
+                id="unavailable-alert-info"
+                variant="info"
+                isInline
+                title="The platform for this product is unavailable"
+              />
+            )}
+            <Grid className="pf-u-p-lg">
+              <GridItem md={2}>
+                <ItemDetailInfoBar
+                  product={portfolioItem}
+                  portfolio={portfolio}
+                  source={source}
+                />
+              </GridItem>
+              <GridItem md={10}>
+                <Route path={`${url}/order`}>
+                  <OrderModal closeUrl={url} />
+                </Route>
+                <Route
+                  path={`${url}/copy`}
+                  render={(props) => (
+                    <CopyPortfolioItemModal
+                      {...props}
+                      search={search}
+                      portfolioItemId={portfolioItem.id}
+                      portfolioId={portfolio.id}
+                      closeUrl={url}
+                    />
+                  )}
+                />
+                <ItemDetailDescription
+                  product={portfolioItem}
+                  url={url}
+                  search={search}
+                />
+              </GridItem>
+            </Grid>
+          </Section>
+        </Route>
+      </Switch>
+    </Fragment>
   );
 };
 
-PortfolioItemDetail.propTypes = {
-  match: PropTypes.shape({
-    path: PropTypes.string.isRequired
-  }).isRequired,
-  portfolio: PropTypes.shape({
-    id: PropTypes.string.isRequired
-  }),
-  product: PropTypes.shape({
-    id: PropTypes.string
-  }).isRequired,
-  source: PropTypes.object,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
-  workflows: PropTypes.arrayOf(PropTypes.shape({
-    value: allowNull(PropTypes.string),
-    label: PropTypes.string.isRequired
-  })).isRequired,
-  isLoading: PropTypes.bool,
-  fetchPlatforms: PropTypes.func.isRequired,
-  fetchPortfolioItem: PropTypes.func.isRequired,
-  fetchWorkflows: PropTypes.func.isRequired,
-  selectPortfolioItem: PropTypes.func.isRequired,
-  orderFetching: PropTypes.bool
-};
-
-const mapStateToProps = ({
-  portfolioReducer: { portfolioItem, isLoading, selectedPortfolio },
-  platformReducer: { platforms },
-  approvalReducer: { workflows, isFetching },
-  orderReducer: { isLoading: orderFetching }
-}) => {
-  const portfolio = selectedPortfolio;
-  const product = portfolioItem;
-  let source;
-
-  if (product && platforms) {
-    source = platforms.find(item => item.id == product.service_offering_source_ref); // eslint-disable-line eqeqeq
-  }
-
-  return ({
-    isLoading: isLoading || !product || !portfolio || !source || isFetching,
-    workflows,
-    portfolio,
-    product,
-    source,
-    orderFetching
-  });
-};
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchPlatforms,
-  fetchPortfolioItem,
-  fetchWorkflows,
-  selectPortfolioItem
-}, dispatch);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PortfolioItemDetail));
+export default PortfolioItemDetail;

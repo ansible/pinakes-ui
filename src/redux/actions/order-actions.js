@@ -20,82 +20,144 @@ export const setSelectedPlan = (data) => ({
   payload: data
 });
 
-export const sendSubmitOrder = apiProps => dispatch => dispatch({
-  type: ActionTypes.SUBMIT_SERVICE_ORDER,
-  payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id }) => dispatch(addNotification({
-    variant: 'success',
-    title: 'Your order has been accepted successfully',
-    description: <OrderNotification id={ id } dispatch={ dispatch } />,
-    dismissable: true
-  })))
-});
+export const sendSubmitOrder = (apiProps) => (dispatch) =>
+  dispatch({
+    type: ActionTypes.SUBMIT_SERVICE_ORDER,
+    payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id }) =>
+      dispatch(
+        addNotification({
+          variant: 'success',
+          title: 'Your order has been accepted successfully',
+          description: <OrderNotification id={id} dispatch={dispatch} />,
+          dismissable: true
+        })
+      )
+    )
+  });
 
 export const fetchRequests = () => ({
   type: ActionTypes.FETCH_REQUESTS,
   payload: OrderHelper.listRequests()
 });
 
-const setOrders = orders => ({
-  type: ActionTypes.SET_ORDERS,
-  payload: orders
-});
-
-export const cancelOrder = orderId => (dispatch, getState) => {
+export const cancelOrder = (orderId) => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
+  const {
+    orderReducer: { orderDetail }
+  } = getState();
   return OrderHelper.cancelOrder(orderId)
-  .then(() => {
-    const { openOrders, closedOrders } = getState().orderReducer;
-    let orderIndex;
-    const order = openOrders.data.find(({ id }, index) => {
-      if (id === orderId) {
-        orderIndex = index;
-        return true;
+    .then(() => {
+      orderDetail.order.state = 'Canceled';
+      if (
+        orderDetail.approvalRequest &&
+        orderDetail.approvalRequest.length > 0
+      ) {
+        orderDetail.approvalRequest[0].state = 'canceled';
       }
 
-      return false;
+      dispatch({
+        type: ActionTypes.SET_ORDER_DETAIL,
+        payload: { ...orderDetail }
+      });
+      return orderDetail;
+    })
+    .then((orderDetail) =>
+      dispatch(
+        addNotification({
+          variant: 'success',
+          title: 'Your order has been canceled successfully',
+          description: `Order ${`Order #${orderDetail.order.id}`} was canceled.`,
+          dismissable: true
+        })
+      )
+    )
+    .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
+    .catch((error) => {
+      dispatch({
+        type: `${ActionTypes.CANCEL_ORDER}_REJECTED`,
+        payload: error
+      });
     });
-    const open = [ ...openOrders.data.slice(0, orderIndex), ...openOrders.data.slice(orderIndex + 1) ];
-    const closed = [
-      { ...order, state: 'Canceled' },
-      ...closedOrders.data
-    ];
-    dispatch(setOrders({
-      openOrders: {
-        ...openOrders,
-        data: open
-      },
-      closedOrders: {
-        ...closedOrders,
-        data: closed
-      }}));
-    return order;
-  })
-  .then((order) => dispatch(addNotification({
-    variant: 'success',
-    title: 'Your order has been canceled successfully',
-    description: `Order ${order && order.name || `Order #${orderId}`} was canceled and has been moved to closed orders.`,
-    dismissable: true
-  })))
-  .then(() => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_FULFILLED` }))
-  .catch((error) => dispatch({ type: `${ActionTypes.CANCEL_ORDER}_REJECTED`, payload: error }));
 };
 
-export const fetchOpenOrders = (...args) => dispatch => {
-  dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_PENDING` });
-  return OrderHelper.getOpenOrders(...args)
-  .then(({ portfolioItems, ...orders }) => {
-    dispatch({ type: ActionTypes.SET_PORTFOLIO_ITEMS, payload: portfolioItems });
-    return dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_FULFILLED`, payload: orders });
-  })
-  .catch(error => dispatch({ type: `${ActionTypes.FETCH_OPEN_ORDERS}_FULFILLED`, payload: error }));
+export const fetchOrders = (filters, pagination) => (dispatch) => {
+  const queryFilter = Object.entries(filters)
+    .filter(([, value]) => value && value.length > 0)
+    .map(([key, value]) =>
+      Array.isArray(value)
+        ? value.map((value) => `filter[${key}][]=${value}`).join('&')
+        : `filter[${key}][contains_i]=${value}`
+    )
+    .join('&');
+  dispatch({ type: `${ActionTypes.FETCH_ORDERS}_PENDING` });
+  return OrderHelper.getOrders(queryFilter, pagination)
+    .then(({ portfolioItems, ...orders }) => {
+      dispatch({
+        type: ActionTypes.SET_PORTFOLIO_ITEMS,
+        payload: portfolioItems
+      });
+      return dispatch({
+        type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`,
+        meta: { filter: queryFilter },
+        payload: orders
+      });
+    })
+    .catch((error) =>
+      dispatch({
+        type: `${ActionTypes.FETCH_ORDERS}_REJECTED`,
+        payload: error
+      })
+    );
 };
 
-export const fetchCloseOrders = (...args) => dispatch => {
-  dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_PENDING` });
-  return OrderHelper.getClosedOrders(...args)
-  .then(({ portfolioItems, ...orders }) => {
-    dispatch({ type: ActionTypes.SET_PORTFOLIO_ITEMS, payload: portfolioItems });
-    return dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_FULFILLED`, payload: orders });
-  })
-  .catch(error => dispatch({ type: `${ActionTypes.FETCH_CLOSED_ORDERS}_FULFILLED`, payload: error }));
+export const fetchOrderDetails = (params) => (dispatch) => {
+  dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
+  return OrderHelper.getOrderDetail(params)
+    .then(
+      ([
+        order,
+        orderItem,
+        portfolioItem,
+        platform,
+        progressMessages,
+        portfolio,
+        approvalRequest
+      ]) =>
+        dispatch({
+          type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`,
+          payload: {
+            order,
+            orderItem,
+            portfolioItem,
+            platform,
+            progressMessages,
+            portfolio,
+            approvalRequest
+          }
+        })
+    )
+    .catch((error) =>
+      dispatch({
+        type: `${ActionTypes.SET_ORDER_DETAIL}_REJECTED`,
+        payload: error
+      })
+    );
+};
+
+export const fetchApprovalRequests = (orderItemId) => (dispatch) => {
+  dispatch({ type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_PENDING` });
+  return OrderHelper.getApprovalRequests(orderItemId)
+    .then((data) => {
+      dispatch({
+        type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_FULFILLED`,
+        payload: data
+      });
+      return data;
+    })
+    .catch((err) =>
+      dispatch({
+        type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_REJECTED`,
+        payload: err
+      })
+    );
 };

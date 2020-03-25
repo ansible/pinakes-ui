@@ -1,54 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import EllipsisTextContainer from '../../../presentational-components/styled-components/ellipsis-text-container';
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => (
   <TextContent>
-    <Text component={ TextVariants.h6 }>
-      <span>
-        Platform
-      </span>
+    <Text id="source-name" component={TextVariants.h6}>
+      <span>Platform</span>
       <br />
-      <div className="elipsis-text-overflow">
-        <span>
-          { source.name }
-        </span>
-      </div>
+      <EllipsisTextContainer>
+        <span>{source.name}</span>
+      </EllipsisTextContainer>
     </Text>
-    <Text component={ TextVariants.h6 }>
-      <span>
-        Portfolio
-      </span>
+    <Text id="portfolio-name" component={TextVariants.h6}>
+      <span>Portfolio</span>
       <br />
-      <div className="elipsis-text-overflow">
-        <span>
-          { portfolio.name }
-        </span>
-      </div>
+      <EllipsisTextContainer>
+        <span>{portfolio.name}</span>
+      </EllipsisTextContainer>
     </Text>
-    { product.distributor && (
-      <Text component={ TextVariants.h6 }>
-        <span>
-          Vendor
-        </span>
+    {product.distributor && (
+      <Text id="distributor" component={TextVariants.h6}>
+        <span>Vendor</span>
         <br />
-        <div className="elipsis-text-overflow">
-          <span>
-            { product.distributor }
-          </span>
-        </div>
+        <EllipsisTextContainer>
+          <span>{product.distributor}</span>
+        </EllipsisTextContainer>
       </Text>
-    ) }
-    <Text component={ TextVariants.h6 }>
-      <span>
-        Created at
-      </span>
+    )}
+    <Text id="created_at" component={TextVariants.h6}>
+      <span>Created at</span>
       <br />
-      <div className="elipsis-text-overflow">
-        <span>
-          { new Date(product.updated_at || product.created_at).toLocaleDateString() }
-        </span>
-      </div>
+      <EllipsisTextContainer>
+        <DateFormat variant="relative" date={product.created_at} />
+      </EllipsisTextContainer>
     </Text>
   </TextContent>
 );
@@ -68,4 +54,3 @@ ItemDetailInfoBar.propTypes = {
 };
 
 export default ItemDetailInfoBar;
-

@@ -3,16 +3,7 @@
 exports[`<CardCommon /> should render correctly empty 1`] = `
 <ItemDetails
   toDisplay={Array []}
->
-  <Dotdotdot
-    clamp={6}
-    tagName="div"
-    truncationChar="…"
-    useNativeClamp={true}
-  >
-    <div />
-  </Dotdotdot>
-</ItemDetails>
+/>
 `;
 
 exports[`<CardCommon /> should render correctly with content 1`] = `
@@ -30,36 +21,25 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
     ]
   }
 >
-  <Dotdotdot
-    clamp={6}
-    tagName="div"
-    truncationChar="…"
-    useNativeClamp={true}
+  <styled.div
+    key="card-prop-foo"
   >
-    <div>
-      <PropLine
-        key="card-prop-foo"
-        value="Foo content"
-      >
-        <div>
-          Foo content
-        </div>
-      </PropLine>
-      <PropLine
-        key="card-prop-bar"
-        value={
-          <h1>
-            Bar content
-          </h1>
-        }
-      >
-        <div>
-          <h1>
-            Bar content
-          </h1>
-        </div>
-      </PropLine>
+    <div
+      className="sc-AxjAm hDziHm"
+    >
+      Foo content
     </div>
-  </Dotdotdot>
+  </styled.div>
+  <styled.div
+    key="card-prop-bar"
+  >
+    <div
+      className="sc-AxjAm hDziHm"
+    >
+      <h1>
+        Bar content
+      </h1>
+    </div>
+  </styled.div>
 </ItemDetails>
 `;

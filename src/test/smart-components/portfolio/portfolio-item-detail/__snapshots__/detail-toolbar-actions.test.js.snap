@@ -2,56 +2,135 @@
 
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
+  availability="available"
   copyUrl="foo/copy"
+  editSurveyUrl="foo/edit-survey"
   editUrl="foo/baz"
   isFetching={false}
   isOpen={false}
   orderUrl="foo/bar"
+  pathname="foo/bar"
   setOpen={[MockFunction]}
+  workflowUrl="foo/workflow"
 >
   <LevelItem>
     <div>
-      <Link
-        disabled={false}
-        to="foo/bar"
+      <CatalogLink
+        isDisabled={false}
+        nav={false}
+        pathname="foo/bar"
+        preserveSearch={true}
+        searchParams={Object {}}
       >
-        <LinkAnchor
-          disabled={false}
-          href="/foo/bar"
-          navigate={[Function]}
+        <Styled(Link)
+          isDisabled={false}
+          to={
+            Object {
+              "pathname": "foo/bar",
+              "search": "",
+            }
+          }
         >
-          <a
-            disabled={false}
-            href="/foo/bar"
-            onClick={[Function]}
+          <Link
+            className="sc-AxiKw drCTeX"
+            isDisabled={false}
+            to={
+              Object {
+                "pathname": "foo/bar",
+                "search": "",
+              }
+            }
           >
-            <ButtonWithSpinner
+            <LinkAnchor
+              className="sc-AxiKw drCTeX"
+              href="foo/bar"
               isDisabled={false}
-              showSpinner={false}
-              variant="primary"
+              navigate={[Function]}
             >
-              <Button
-                className=""
+              <a
+                className="sc-AxiKw drCTeX"
+                href="foo/bar"
                 isDisabled={false}
-                variant="primary"
+                onClick={[Function]}
               >
-                <button
-                  aria-disabled={null}
-                  aria-label={null}
-                  className="pf-c-button pf-m-primary"
-                  disabled={false}
-                  tabIndex={null}
-                  type="button"
+                <ButtonWithSpinner
+                  id="order-portfolio-item"
+                  isDisabled={false}
+                  showSpinner={false}
+                  variant="primary"
                 >
-                  <span>
-                    Order
-                  </span>
-                </button>
-              </Button>
-            </ButtonWithSpinner>
-          </a>
-        </LinkAnchor>
-      </Link>
+                  <Styled(Component)
+                    id="order-portfolio-item"
+                    isDisabled={false}
+                    variant="primary"
+                  >
+                    <Component
+                      className="sc-AxjAm jhCAUI"
+                      id="order-portfolio-item"
+                      isDisabled={false}
+                      variant="primary"
+                    >
+                      <ComponentWithOuia
+                        component={[Function]}
+                        componentProps={
+                          Object {
+                            "children": Array [
+                              <styled.span
+                                showSpinner={false}
+                              >
+                                Order
+                              </styled.span>,
+                              false,
+                            ],
+                            "className": "sc-AxjAm jhCAUI",
+                            "id": "order-portfolio-item",
+                            "isDisabled": false,
+                            "variant": "primary",
+                          }
+                        }
+                        consumerContext={null}
+                      >
+                        <Button
+                          className="sc-AxjAm jhCAUI"
+                          id="order-portfolio-item"
+                          isDisabled={false}
+                          ouiaContext={
+                            Object {
+                              "isOuia": false,
+                              "ouiaId": null,
+                            }
+                          }
+                          variant="primary"
+                        >
+                          <button
+                            aria-disabled={null}
+                            aria-label={null}
+                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
+                            disabled={false}
+                            id="order-portfolio-item"
+                            tabIndex={null}
+                            type="button"
+                          >
+                            <styled.span
+                              showSpinner={false}
+                            >
+                              <span
+                                className="sc-AxirZ fnlrkz"
+                              >
+                                Order
+                              </span>
+                            </styled.span>
+                          </button>
+                        </Button>
+                      </ComponentWithOuia>
+                    </Component>
+                  </Styled(Component)>
+                </ButtonWithSpinner>
+              </a>
+            </LinkAnchor>
+          </Link>
+        </Styled(Link)>
+      </CatalogLink>
     </div>
   </LevelItem>
   <LevelItem
@@ -73,26 +152,60 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           Array [
             <DropdownItem
               aria-label="Edit Portfolio"
-            >
-              <ForwardRef
-                className="pf-c-dropdown__menu-item"
-                role="link"
-                to="foo/baz"
-              >
-                Edit
-              </ForwardRef>
-            </DropdownItem>,
+              component={
+                <CatalogLink
+                  nav={false}
+                  pathname="foo/baz"
+                  preserveSearch={true}
+                  searchParams={Object {}}
+                >
+                  Edit
+                </CatalogLink>
+              }
+              role="link"
+            />,
             <DropdownItem
               aria-label="Copy Portfolio"
-            >
-              <ForwardRef
-                className="pf-c-dropdown__menu-item"
-                role="link"
-                to="foo/copy"
-              >
-                Copy
-              </ForwardRef>
-            </DropdownItem>,
+              component={
+                <CatalogLink
+                  nav={false}
+                  pathname="foo/copy"
+                  preserveSearch={true}
+                  searchParams={Object {}}
+                >
+                  Copy
+                </CatalogLink>
+              }
+              role="link"
+            />,
+            <DropdownItem
+              aria-label="Set approval"
+              component={
+                <CatalogLink
+                  nav={false}
+                  pathname="foo/workflow"
+                  preserveSearch={true}
+                  searchParams={Object {}}
+                >
+                  Set approval
+                </CatalogLink>
+              }
+              role="link"
+            />,
+            <DropdownItem
+              aria-label="Edit survey"
+              component={
+                <CatalogLink
+                  nav={false}
+                  pathname="foo/edit-survey"
+                  preserveSearch={true}
+                  searchParams={Object {}}
+                >
+                  Edit survey
+                </CatalogLink>
+              }
+              role="link"
+            />,
           ]
         }
         isOpen={false}
@@ -102,128 +215,356 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         position="right"
         toggle={
           <KebabToggle
-            onToggle={[MockFunction]}
+            onToggle={[Function]}
           />
         }
       >
-        <DropdownWithContext
-          className=""
-          direction="down"
+        <Component
           dropdownItems={
             Array [
               <DropdownItem
                 aria-label="Edit Portfolio"
-              >
-                <ForwardRef
-                  className="pf-c-dropdown__menu-item"
-                  role="link"
-                  to="foo/baz"
-                >
-                  Edit
-                </ForwardRef>
-              </DropdownItem>,
+                component={
+                  <CatalogLink
+                    nav={false}
+                    pathname="foo/baz"
+                    preserveSearch={true}
+                    searchParams={Object {}}
+                  >
+                    Edit
+                  </CatalogLink>
+                }
+                role="link"
+              />,
               <DropdownItem
                 aria-label="Copy Portfolio"
-              >
-                <ForwardRef
-                  className="pf-c-dropdown__menu-item"
-                  role="link"
-                  to="foo/copy"
-                >
-                  Copy
-                </ForwardRef>
-              </DropdownItem>,
+                component={
+                  <CatalogLink
+                    nav={false}
+                    pathname="foo/copy"
+                    preserveSearch={true}
+                    searchParams={Object {}}
+                  >
+                    Copy
+                  </CatalogLink>
+                }
+                role="link"
+              />,
+              <DropdownItem
+                aria-label="Set approval"
+                component={
+                  <CatalogLink
+                    nav={false}
+                    pathname="foo/workflow"
+                    preserveSearch={true}
+                    searchParams={Object {}}
+                  >
+                    Set approval
+                  </CatalogLink>
+                }
+                role="link"
+              />,
+              <DropdownItem
+                aria-label="Edit survey"
+                component={
+                  <CatalogLink
+                    nav={false}
+                    pathname="foo/edit-survey"
+                    preserveSearch={true}
+                    searchParams={Object {}}
+                  >
+                    Edit survey
+                  </CatalogLink>
+                }
+                role="link"
+              />,
             ]
           }
-          isGrouped={false}
           isOpen={false}
           isPlain={true}
-          onSelect={[Function]}
           onToggle={[MockFunction]}
           position="right"
           toggle={
             <KebabToggle
-              onToggle={[MockFunction]}
+              onToggle={[Function]}
             />
           }
         >
-          <div
-            className="pf-c-dropdown"
-            onToggle={[MockFunction]}
+          <ComponentWithOuia
+            component={[Function]}
+            componentProps={
+              Object {
+                "dropdownItems": Array [
+                  <DropdownItem
+                    aria-label="Edit Portfolio"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/baz"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Edit
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Copy Portfolio"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/copy"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Copy
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Set approval"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/workflow"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Set approval
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Edit survey"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/edit-survey"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Edit survey
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                ],
+                "isOpen": false,
+                "isPlain": true,
+                "onToggle": [MockFunction],
+                "position": "right",
+                "toggle": <KebabToggle
+                  onToggle={[Function]}
+                />,
+              }
+            }
+            consumerContext={null}
           >
-            <KebabToggle
-              ariaHasPopup={true}
-              id="pf-toggle-id-0"
+            <DropdownWithContext
+              autoFocus={true}
+              className=""
+              direction="down"
+              dropdownItems={
+                Array [
+                  <DropdownItem
+                    aria-label="Edit Portfolio"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/baz"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Edit
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Copy Portfolio"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/copy"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Copy
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Set approval"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/workflow"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Set approval
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                  <DropdownItem
+                    aria-label="Edit survey"
+                    component={
+                      <CatalogLink
+                        nav={false}
+                        pathname="foo/edit-survey"
+                        preserveSearch={true}
+                        searchParams={Object {}}
+                      >
+                        Edit survey
+                      </CatalogLink>
+                    }
+                    role="link"
+                  />,
+                ]
+              }
+              isGrouped={false}
               isOpen={false}
               isPlain={true}
-              key=".0"
-              onEnter={[Function]}
+              onSelect={[Function]}
               onToggle={[MockFunction]}
-              parentRef={
+              ouiaComponentType="Dropdown"
+              ouiaContext={
                 Object {
-                  "current": <div
-                    class="pf-c-dropdown"
-                  >
-                    <button
-                      aria-expanded="false"
-                      aria-haspopup="true"
-                      aria-label="Actions"
-                      class="pf-c-dropdown__toggle pf-m-plain"
-                      id="pf-toggle-id-0"
-                      type="button"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        fill="currentColor"
-                        height="1em"
-                        role="img"
-                        style="vertical-align: -0.125em;"
-                        viewBox="0 0 192 512"
-                        width="1em"
-                      >
-                        <path
-                          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                          transform=""
-                        />
-                      </svg>
-                    </button>
-                  </div>,
+                  "isOuia": false,
+                  "ouiaId": null,
                 }
               }
+              position="right"
+              toggle={
+                <KebabToggle
+                  onToggle={[Function]}
+                />
+              }
             >
-              <Toggle
-                aria-label="Actions"
-                ariaHasPopup={true}
-                className=""
-                id="pf-toggle-id-0"
-                isActive={false}
-                isDisabled={false}
-                isFocused={false}
-                isHovered={false}
-                isOpen={false}
-                isPlain={true}
-                isSplitButton={false}
-                onEnter={[Function]}
+              <div
+                className="pf-c-dropdown pf-m-align-right"
                 onToggle={[MockFunction]}
-                parentRef={
-                  Object {
-                    "current": <div
-                      class="pf-c-dropdown"
+              >
+                <KebabToggle
+                  ariaHasPopup={true}
+                  id="pf-toggle-id-0"
+                  isOpen={false}
+                  isPlain={true}
+                  key=".0"
+                  onEnter={[Function]}
+                  onToggle={[Function]}
+                  parentRef={
+                    Object {
+                      "current": <div
+                        class="pf-c-dropdown pf-m-align-right"
+                      >
+                        <button
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          aria-label="Actions"
+                          class="pf-c-dropdown__toggle pf-m-plain"
+                          id="pf-toggle-id-0"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            fill="currentColor"
+                            height="1em"
+                            role="img"
+                            style="vertical-align: -0.125em;"
+                            viewBox="0 0 192 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                              transform=""
+                            />
+                          </svg>
+                        </button>
+                      </div>,
+                    }
+                  }
+                >
+                  <Toggle
+                    aria-label="Actions"
+                    ariaHasPopup={true}
+                    className=""
+                    id="pf-toggle-id-0"
+                    isActive={false}
+                    isDisabled={false}
+                    isFocused={false}
+                    isHovered={false}
+                    isOpen={false}
+                    isPlain={true}
+                    isPrimary={false}
+                    isSplitButton={false}
+                    onEnter={[Function]}
+                    onToggle={[Function]}
+                    parentRef={
+                      Object {
+                        "current": <div
+                          class="pf-c-dropdown pf-m-align-right"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            aria-label="Actions"
+                            class="pf-c-dropdown__toggle pf-m-plain"
+                            id="pf-toggle-id-0"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              fill="currentColor"
+                              height="1em"
+                              role="img"
+                              style="vertical-align: -0.125em;"
+                              viewBox="0 0 192 512"
+                              width="1em"
+                            >
+                              <path
+                                d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                                transform=""
+                              />
+                            </svg>
+                          </button>
+                        </div>,
+                      }
+                    }
+                  >
+                    <button
+                      aria-expanded={false}
+                      aria-haspopup={true}
+                      aria-label="Actions"
+                      className="pf-c-dropdown__toggle pf-m-plain"
+                      disabled={false}
+                      id="pf-toggle-id-0"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      type="button"
                     >
-                      <button
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-label="Actions"
-                        class="pf-c-dropdown__toggle pf-m-plain"
-                        id="pf-toggle-id-0"
-                        type="button"
+                      <EllipsisVIcon
+                        color="currentColor"
+                        noVerticalAlign={false}
+                        size="sm"
+                        title={null}
                       >
                         <svg
-                          aria-hidden="true"
+                          aria-hidden={true}
+                          aria-labelledby={null}
                           fill="currentColor"
                           height="1em"
                           role="img"
-                          style="vertical-align: -0.125em;"
+                          style={
+                            Object {
+                              "verticalAlign": "-0.125em",
+                            }
+                          }
                           viewBox="0 0 192 512"
                           width="1em"
                         >
@@ -232,53 +573,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                             transform=""
                           />
                         </svg>
-                      </button>
-                    </div>,
-                  }
-                }
-              >
-                <button
-                  aria-expanded={false}
-                  aria-haspopup={true}
-                  aria-label="Actions"
-                  className="pf-c-dropdown__toggle pf-m-plain"
-                  disabled={false}
-                  id="pf-toggle-id-0"
-                  onClick={[Function]}
-                  onKeyDown={[Function]}
-                  type="button"
-                >
-                  <EllipsisVIcon
-                    color="currentColor"
-                    noVerticalAlign={false}
-                    size="sm"
-                    title={null}
-                  >
-                    <svg
-                      aria-hidden={true}
-                      aria-labelledby={null}
-                      fill="currentColor"
-                      height="1em"
-                      role="img"
-                      style={
-                        Object {
-                          "verticalAlign": "-0.125em",
-                        }
-                      }
-                      viewBox="0 0 192 512"
-                      width="1em"
-                    >
-                      <path
-                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                        transform=""
-                      />
-                    </svg>
-                  </EllipsisVIcon>
-                </button>
-              </Toggle>
-            </KebabToggle>
-          </div>
-        </DropdownWithContext>
+                      </EllipsisVIcon>
+                    </button>
+                  </Toggle>
+                </KebabToggle>
+              </div>
+            </DropdownWithContext>
+          </ComponentWithOuia>
+        </Component>
       </Dropdown>
     </div>
   </LevelItem>

@@ -1,32 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardFooter } from '@patternfly/react-core';
+import { CardHeader, CardFooter, Level } from '@patternfly/react-core';
 
 import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../utilities/constants';
-import './platform-card.scss';
+import { StyledCard } from '../styled-components/styled-gallery';
 
-const PlatformItem = props =>(
-  <Card key={ props.id } className="content-gallery-card">
+const PlatformItem = ({ src, ...props }) => (
+  <StyledCard key={props.id}>
     <CardHeader>
-      <CardIcon
-        src={ `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offering_icons/${props.service_offering_icon_id}/icon_data` }
-        style={ { height: 40 } }
-        platformId={ props.source_id }
-      />
-      { props.editMode && (
-        <CardCheckbox
-          id={ props.id }
-          isChecked={ props.checked }
-          handleCheck={ props.onToggleItemSelect }
-        />
-      ) }
+      <Level>
+        <CardIcon height={40} sourceId={props.source_id} />
+        {props.editMode && (
+          <CardCheckbox
+            id={props.id}
+            isChecked={props.checked}
+            handleCheck={props.onToggleItemSelect}
+          />
+        )}
+      </Level>
     </CardHeader>
-    <ServiceOfferingCardBody { ...props }/>
-    <CardFooter/>
-  </Card>
+    <ServiceOfferingCardBody {...props} />
+    <CardFooter />
+  </StyledCard>
 );
 
 PlatformItem.propTypes = {
@@ -37,7 +34,8 @@ PlatformItem.propTypes = {
   name: PropTypes.string,
   editMode: PropTypes.bool,
   checked: PropTypes.bool,
-  onToggleItemSelect: PropTypes.func
+  onToggleItemSelect: PropTypes.func,
+  src: PropTypes.string
 };
 
 export default PlatformItem;

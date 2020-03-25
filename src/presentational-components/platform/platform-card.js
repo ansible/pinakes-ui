@@ -1,7 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardBody, CardFooter, GalleryItem } from '@patternfly/react-core';
+import {
+  CardHeader,
+  CardFooter,
+  GalleryItem,
+  Text,
+  TextVariants,
+  TextContent
+} from '@patternfly/react-core';
 import DefaultPlatformImg from '../../assets/images/platform-default.svg';
 import OpenshiftPlatformImg from '../../assets/images/platform-openshift.svg';
 import AmazonPlatformImg from '../../assets/images/platform-amazon.png';
@@ -9,11 +15,14 @@ import TowerPlatformImg from '../../assets/images/platform-tower.png';
 import ImageWithDefault from '../shared/image-with-default';
 import ItemDetails from '../shared/card-common';
 
-import './platform-card.scss';
+import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
+import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
+import CatalogLink from '../../smart-components/common/catalog-link';
+import { StyledCard } from '../styled-components/styled-gallery';
+import { StyledCardBody } from '../styled-components/card';
 
-const TO_DISPLAY = [ 'description', 'modified' ];
+const TO_DISPLAY = ['description', 'modified'];
 
-// TO DO - use webpack to load all images
 const platformTypeImg = {
   1: OpenshiftPlatformImg,
   2: AmazonPlatformImg,
@@ -22,18 +31,33 @@ const platformTypeImg = {
 
 const PlatformCard = ({ name, id, ...props }) => (
   <GalleryItem>
-    <Link to={ `/platforms/detail/${id}` } className="card-link">
-      <Card key={ id } className="content-gallery-card">
-        <CardHeader>
-          <ImageWithDefault src={ platformTypeImg[props.source_type_id] || DefaultPlatformImg } width="80" height="40"/>
-        </CardHeader>
-        <CardBody>
-          <h4>{ name }</h4>
-          <ItemDetails { ...{ name, ...props } } toDisplay={ TO_DISPLAY } />
-        </CardBody>
-        <CardFooter/>
-      </Card>
-    </Link>
+    <StyledCard key={id}>
+      <CardHeader>
+        <ImageWithDefault
+          src={platformTypeImg[props.source_type_id] || DefaultPlatformImg}
+          width="80"
+          height="40"
+        />
+      </CardHeader>
+      <StyledCardBody>
+        <TextContent>
+          <CatalogLink
+            pathname={PLATFORM_TEMPLATES_ROUTE}
+            searchParams={{ platform: id }}
+          >
+            <Text
+              title={name}
+              className="pf-u-mb-0"
+              component={TextVariants.h3}
+            >
+              <EllipsisTextContainer>{name}</EllipsisTextContainer>
+            </Text>
+          </CatalogLink>
+        </TextContent>
+        <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
+      </StyledCardBody>
+      <CardFooter />
+    </StyledCard>
   </GalleryItem>
 );
 

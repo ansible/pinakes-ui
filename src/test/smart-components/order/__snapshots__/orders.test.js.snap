@@ -1,63 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Orders /> should render correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Stack>
+  <ToolbarRenderer
+    componentMapper={
+      Object {
+        "AppTabs": [Function],
+        "Button": [Function],
+        "FilterToolbarItem": [Function],
+        "Level": [Function],
+        "LevelItem": [Function],
+        "Link": [Function],
+        "Toolbar": [Function],
+        "ToolbarGroup": [Function],
+        "ToolbarItem": [Function],
+        "TopToolbar": [Function],
+        "TopToolbarTitle": [Function],
+      }
+    }
+    schema={
+      Object {
+        "fields": Array [
+          Object {
+            "className": "orders bg-fill pf-u-p-lg",
+            "component": "TopToolbar",
+            "fields": Array [
+              Object {
+                "className": "",
+                "component": "TopToolbarTitle",
+                "key": "orders-toolbar-title",
+                "title": "Orders",
+              },
+            ],
+            "key": "orders-toolbar",
+          },
+        ],
+      }
+    }
+  />
+  <OrdersList />
+</Stack>
 `;
 
 exports[`<Orders /> should render correctly in loading state 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
-`;
-
-exports[`<Orders /> should render past orders correctly 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "subscription": Subscription {
-        "handleChangeWrapper": [Function],
-        "listeners": Object {
-          "clear": [Function],
-          "get": [Function],
-          "notify": [Function],
-          "subscribe": [Function],
-        },
-        "onStateChange": [Function],
-        "parentSub": undefined,
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-        "unsubscribe": [Function],
-      },
+<Stack>
+  <ToolbarRenderer
+    componentMapper={
+      Object {
+        "AppTabs": [Function],
+        "Button": [Function],
+        "FilterToolbarItem": [Function],
+        "Level": [Function],
+        "LevelItem": [Function],
+        "Link": [Function],
+        "Toolbar": [Function],
+        "ToolbarGroup": [Function],
+        "ToolbarItem": [Function],
+        "TopToolbar": [Function],
+        "TopToolbarTitle": [Function],
+      }
     }
-  }
->
-  <MemoryRouter
-    initialEntries={
-      Array [
-        "/orders/closed",
-      ]
+    schema={
+      Object {
+        "fields": Array [
+          Object {
+            "className": "orders bg-fill pf-u-p-lg",
+            "component": "TopToolbar",
+            "fields": Array [
+              Object {
+                "className": "",
+                "component": "TopToolbarTitle",
+                "key": "orders-toolbar-title",
+                "title": "Orders",
+              },
+            ],
+            "key": "orders-toolbar",
+          },
+        ],
+      }
     }
-  >
-    <Route
-      path="/orders/closed"
-      render={[Function]}
-    />
-  </MemoryRouter>
-</ContextProvider>
+  />
+  <OrdersList />
+</Stack>
 `;

@@ -1,78 +1,277 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DataList, Level, LevelItem } from '@patternfly/react-core';
-import PropTypes from 'prop-types';
-import { Route, withRouter } from 'react-router-dom';
+import {
+  DataList,
+  Grid,
+  GridItem,
+  Title,
+  Bullseye,
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStateBody,
+  Flex,
+  EmptyStateSecondaryActions,
+  Button
+} from '@patternfly/react-core';
+import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
+import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/PrimaryToolbar';
+import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/EmptyTable';
+import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/TableToolbar';
+import { SearchIcon } from '@patternfly/react-icons';
 
-import { fetchOpenOrders, fetchCloseOrders } from '../../redux/actions/order-actions';
+import { fetchOrders } from '../../redux/actions/order-actions';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
-import { OrderLoader } from '../../presentational-components/shared/loader-placeholders';
+import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
 import OrderItem from './order-item';
-import FilterToolbarItem from '../../presentational-components/shared/filter-toolbar-item';
 import AsyncPagination from '../common/async-pagination';
-import { getOrderPortfolioName } from '../../helpers/shared/orders';
-import OrderMessagesModal from './order-messages-modal';
+import asyncFormValidator from '../../utilities/async-form-validator';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
-const apiRequest = {
-  openOrders: fetchOpenOrders,
-  closedOrders: fetchCloseOrders
+const debouncedFilter = asyncFormValidator(
+  (filters, meta = defaultSettings, dispatch, filteringCallback) => {
+    filteringCallback(true);
+    dispatch(fetchOrders(filters, meta)).then(() => filteringCallback(false));
+  },
+  1000
+);
+
+const initialState = {
+  isOpen: false,
+  isFetching: true,
+  isFiltering: false,
+  filterType: 'state',
+  filters: {
+    state: [],
+    owner: ''
+  }
 };
 
-const OrdersList = ({ type, match: { url }}) => {
-  const [ isFetching, setFetching ] = useState(true);
-  const [ searchValue, setSearchValue ] = useState('');
-  const { data, meta } = useSelector(({ orderReducer }) => orderReducer[type]);
-  const portfolioItems = useSelector(({ portfolioReducer: { portfolioItems }}) => portfolioItems.data);
+const changeFilters = (value, type, filters) => ({
+  ...filters,
+  [type]: value
+});
+
+const ordersListState = (state, action) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+    case 'setFilterValue':
+      return {
+        ...state,
+        filters: changeFilters(action.payload, state.filterType, state.filters)
+      };
+    case 'replaceFilterChip':
+      return { ...state, filters: action.payload };
+    case 'setFilteringFlag':
+      return { ...state, isFiltering: action.payload };
+    case 'setFilterType':
+      return { ...state, filterType: action.payload };
+  }
+
+  return state;
+};
+
+const OrdersList = () => {
+  const [
+    { isFetching, isFiltering, filterType, filters },
+    stateDispatch
+  ] = useReducer(ordersListState, initialState);
+  const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
   const dispatch = useDispatch();
   useEffect(() => {
-    setFetching(true);
-    Promise.all([ dispatch(apiRequest[type]()), dispatch(fetchPlatforms()) ])
-    .then(() => setFetching(false));
-  }, [ type ]);
+    stateDispatch({ type: 'setFetching', payload: true });
+    Promise.all([
+      dispatch(fetchOrders(filters, meta)),
+      dispatch(fetchPlatforms())
+    ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+  }, []);
 
-  const handlePagination = (...args) => {
-    setFetching(true);
-    dispatch(apiRequest[type](...args))
-    .then(() => setFetching(false))
-    .catch(() => setFetching(false));
+  const handlePagination = (_apiProps, pagination) => {
+    stateDispatch({ type: 'setFetching', payload: true });
+    return dispatch(fetchOrders(filters, pagination))
+      .then(() => stateDispatch({ type: 'setFetching', payload: false }))
+      .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
+  };
+
+  const handleFilterItems = (value) => {
+    stateDispatch({ type: 'setFilterValue', payload: value });
+    debouncedFilter(
+      { ...filters, [filterType]: value },
+      meta,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
+    );
   };
 
   return (
-    <Fragment>
-      <Route path={ `${url}/:orderItemId/messages` } render={ (props) => <OrderMessagesModal closeUrl={ url } { ...props } /> } />
-      <div className="pf-u-pb-md pf-u-pl-xl pf-u-pr-xl orders-list">
-        <Level>
-          <LevelItem className="pf-u-mt-md">
-            <FilterToolbarItem searchValue={ searchValue } onFilterChange={ value => setSearchValue(value) } placeholder="Filter by name..." />
-          </LevelItem>
-          <LevelItem>
-            <AsyncPagination isDisabled={ isFetching } apiRequest={ handlePagination } meta={ meta } />
-          </LevelItem>
-        </Level>
-      </div>
-      <DataList aria-label={ type }>
-        { isFetching
-          ? <OrderLoader />
-          : data
-          .filter(item => getOrderPortfolioName(item, portfolioItems).toLowerCase().includes(searchValue.toLowerCase()))
-          .map((item, index) => (
-            <OrderItem
-              key={ item.id }
-              index={ index }
-              type={ type }
-              item={ item }
+    <Grid gutter="md">
+      <GridItem>
+        <Section type="content">
+          {!meta.noData && (
+            <PrimaryToolbar
+              activeFiltersConfig={{
+                filters: Object.entries(filters)
+                  .filter(([, value]) => value && value.length > 0)
+                  .map(([key, value]) => ({
+                    category: key,
+                    type: key,
+                    chips: Array.isArray(value)
+                      ? value.map((name) => ({ name }))
+                      : [{ name: value }]
+                  })),
+                onDelete: (_e, [chip], clearAll) => {
+                  if (clearAll) {
+                    stateDispatch({
+                      type: 'replaceFilterChip',
+                      payload: initialState.filters
+                    });
+                    return debouncedFilter(
+                      initialState.filters,
+                      meta,
+                      dispatch,
+                      (isFiltering) =>
+                        stateDispatch({
+                          type: 'setFilteringFlag',
+                          payload: isFiltering
+                        })
+                    );
+                  }
+
+                  const newFilters = { ...filters };
+                  if (chip.type === 'state') {
+                    newFilters[chip.type] = newFilters[chip.type].filter(
+                      (value) => value !== chip.chips[0].name
+                    );
+                  } else {
+                    newFilters[chip.type] = '';
+                  }
+
+                  stateDispatch({
+                    type: 'replaceFilterChip',
+                    payload: newFilters
+                  });
+                  debouncedFilter(newFilters, meta, dispatch, (isFiltering) =>
+                    stateDispatch({
+                      type: 'setFilteringFlag',
+                      payload: isFiltering
+                    })
+                  );
+                }
+              }}
+              filterConfig={{
+                onChange: (_e, value) =>
+                  stateDispatch({ type: 'setFilterType', payload: value }),
+                value: filterType,
+                items: [
+                  {
+                    filterValues: {
+                      items: [
+                        {
+                          value: 'Failed',
+                          label: 'Failed'
+                        },
+                        {
+                          value: 'Completed',
+                          label: 'Completed'
+                        },
+                        {
+                          value: 'Approval Pending',
+                          label: 'Approval Pending'
+                        }
+                      ],
+                      value: filters.state,
+                      onChange: (_e, value) => handleFilterItems(value)
+                    },
+                    label: 'State',
+                    value: 'state',
+                    type: 'checkbox'
+                  },
+                  {
+                    filterValues: {
+                      value: filters.owner,
+                      onChange: (_e, value) => handleFilterItems(value)
+                    },
+                    label: 'Owner',
+                    value: 'owner'
+                  }
+                ]
+              }}
+              pagination={
+                <AsyncPagination
+                  isDisabled={isFetching || isFiltering}
+                  apiRequest={handlePagination}
+                  meta={meta}
+                  isCompact
+                />
+              }
             />
-          )) }
-      </DataList>
-    </Fragment>
+          )}
+          <DataList aria-label="order-list">
+            {isFiltering || isFetching ? (
+              <ListLoader />
+            ) : data.length > 0 ? (
+              data.map((item, index) => (
+                <OrderItem key={item.id} index={index} item={item} />
+              ))
+            ) : (
+              <EmptyTable>
+                <Bullseye>
+                  <EmptyState>
+                    <Bullseye>
+                      <EmptyStateIcon icon={SearchIcon} />
+                    </Bullseye>
+                    <Title size="lg">
+                      {meta.noData ? 'No orders' : 'No results found'}
+                    </Title>
+                    <EmptyStateBody>
+                      {meta.noData
+                        ? 'No orders have been created.'
+                        : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+                    </EmptyStateBody>
+
+                    <EmptyStateSecondaryActions>
+                      {!meta.noData && (
+                        <Button
+                          variant="link"
+                          onClick={() => {
+                            stateDispatch({
+                              type: 'setFilteringFlag',
+                              payload: true
+                            });
+                            handleFilterItems('');
+                          }}
+                        >
+                          Clear all filters
+                        </Button>
+                      )}
+                    </EmptyStateSecondaryActions>
+                  </EmptyState>
+                </Bullseye>
+              </EmptyTable>
+            )}
+          </DataList>
+          <TableToolbar>
+            <div className="bottom-pagination-container">
+              <Flex
+                className="example-border"
+                breakpointMods={[{ modifier: 'justify-content-flex-end' }]}
+              >
+                {meta.count > 0 && (
+                  <AsyncPagination
+                    className="pf-u-mt-0"
+                    isDisabled={isFetching || isFiltering}
+                    apiRequest={handlePagination}
+                    meta={meta}
+                  />
+                )}
+              </Flex>
+            </div>
+          </TableToolbar>
+        </Section>
+      </GridItem>
+    </Grid>
   );
 };
 
-OrdersList.propTypes = {
-  type: PropTypes.oneOf([ 'openOrders', 'closedOrders' ]).isRequired,
-  match: PropTypes.shape({
-    url: PropTypes.string.isRequired
-  }).isRequired
-};
-
-export default withRouter(OrdersList);
+export default OrdersList;

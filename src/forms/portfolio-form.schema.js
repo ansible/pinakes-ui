@@ -3,16 +3,20 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
 
-const validateName = (name, portfolioId) => fetchPortfolioByName(name)
-.then(({ data }) => {
-  if (!name || name.trim().length === 0) {
-    return 'Required';
-  }
+const validateName = (name, portfolioId) =>
+  fetchPortfolioByName(name)
+    .then(({ data }) => {
+      if (!name || name.trim().length === 0) {
+        return 'Required';
+      }
 
-  return data.find(portfolio => portfolio.name === name && portfolio.id !== portfolioId)
-    ? 'Name has already been taken'
-    : undefined;
-}).catch(error => error.data);
+      return data.find(
+        (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+      )
+        ? 'Name has already been taken'
+        : undefined;
+    })
+    .catch((error) => error.data);
 
 const debouncedValidator = asyncFormValidator(validateName);
 
@@ -21,23 +25,19 @@ const debouncedValidator = asyncFormValidator(validateName);
  * @param {bool} newRecord sets the variant of portfolio form
  * @param {Function} loadWorkflows async callback that loads workflows
  */
-export const createPortfolioSchema = (newRecord, loadWorkflows, portfolioId) => ({
-  fields: [{
-    label: newRecord ? 'New Portfolio Name' : 'Portfolio Name',
-    name: 'name',
-    component: componentTypes.TEXT_FIELD,
-    isRequired: true,
-    validate: [ value => debouncedValidator(value, portfolioId) ]
-  }, {
-    label: 'Description',
-    component: componentTypes.TEXTAREA,
-    name: 'description'
-  }, {
-    label: 'Approval workflow',
-    name: 'workflow_ref',
-    component: componentTypes.SELECT,
-    loadOptions: asyncFormValidator(loadWorkflows),
-    isSearchable: true,
-    isClearable: true
-  }]
+export const createPortfolioSchema = (newRecord, portfolioId) => ({
+  fields: [
+    {
+      label: 'Name',
+      name: 'name',
+      component: componentTypes.TEXT_FIELD,
+      isRequired: true,
+      validate: [(value) => debouncedValidator(value, portfolioId)]
+    },
+    {
+      label: 'Description',
+      component: componentTypes.TEXTAREA,
+      name: 'description'
+    }
+  ]
 });

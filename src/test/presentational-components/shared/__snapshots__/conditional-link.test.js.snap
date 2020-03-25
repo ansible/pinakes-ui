@@ -1,30 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ConditionalLink should render children wrapped in router Link component 1`] = `
+exports[`<ConditionalLink /> should render children wrapped in router Link component 1`] = `
 <ConditionalLink
-  to="/some/url"
+  pathname="/some/url"
 >
-  <Link
-    to="/some/url"
+  <CatalogLink
+    nav={false}
+    pathname="/some/url"
+    preserveSearch={false}
+    searchParams={Object {}}
   >
-    <LinkAnchor
-      href="/some/url"
-      navigate={[Function]}
+    <Styled(Link)
+      to={
+        Object {
+          "pathname": "/some/url",
+          "search": "",
+        }
+      }
     >
-      <a
-        href="/some/url"
-        onClick={[Function]}
+      <Link
+        className="sc-AxjAm jfRa-DE"
+        to={
+          Object {
+            "pathname": "/some/url",
+            "search": "",
+          }
+        }
       >
-        <div>
-          Link children
-        </div>
-      </a>
-    </LinkAnchor>
-  </Link>
+        <LinkAnchor
+          className="sc-AxjAm jfRa-DE"
+          href="/some/url"
+          navigate={[Function]}
+        >
+          <a
+            className="sc-AxjAm jfRa-DE"
+            href="/some/url"
+            onClick={[Function]}
+          >
+            <div>
+              Link children
+            </div>
+          </a>
+        </LinkAnchor>
+      </Link>
+    </Styled(Link)>
+  </CatalogLink>
 </ConditionalLink>
 `;
 
-exports[`<ConditionalLink should render only children withouth link 1`] = `
+exports[`<ConditionalLink /> should render only children withouth link 1`] = `
 <ConditionalLink>
   <div>
     Link children

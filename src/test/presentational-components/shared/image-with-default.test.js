@@ -12,7 +12,7 @@ describe('<ImageWithDefault />', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = mount(<ImageWithDefault { ...initialProps } />);
+    const wrapper = mount(<ImageWithDefault {...initialProps} />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });
