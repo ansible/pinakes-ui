@@ -21,6 +21,7 @@ import useQuery from '../../utilities/use-query';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
+import CatalogRoute from '../../routing/catalog-route';
 
 const initialState = {
   selectedItems: [],
@@ -161,9 +162,13 @@ const Portfolio = () => {
 
   return (
     <Switch>
-      <Route path={routes.addProductsRoute}>
+      <CatalogRoute
+        path={routes.addProductsRoute}
+        userCapabilities={portfolio.metadata.user_capabilities}
+        requiredCapabilities="update"
+      >
         <AddProductsToPortfolio portfolioRoute={routes.portfolioRoute} />
-      </Route>
+      </CatalogRoute>
       <Route path={routes.portfolioItemRoute}>
         <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
       </Route>

@@ -5,10 +5,20 @@ import PropTypes from 'prop-types';
 import { hasPermission } from '../helpers/shared/helpers';
 import { UnauthorizedRedirect } from '../smart-components/error-pages/error-redirects';
 
-const resolveCapability = (userCapabilities, requiredCapabilities) =>
-  Array.isArray(requiredCapabilities)
-    ? requiredCapabilities.some((capability) => userCapabilities[capability])
-    : userCapabilities[requiredCapabilities];
+const ReidrectOnAccess = (props) => (
+  <Route {...props}>
+    <UnauthorizedRedirect />
+  </Route>
+);
+
+const hasCapability = (userCapabilities, requiredCapabilities) =>
+  requiredCapabilities
+    ? Array.isArray(requiredCapabilities)
+      ? requiredCapabilities.some(
+          (capability) => userCapabilities[capability] !== false
+        )
+      : userCapabilities[requiredCapabilities] !== false
+    : true;
 
 const CatalogRoute = ({
   permissions,
@@ -17,17 +27,15 @@ const CatalogRoute = ({
   ...props
 }) => {
   const { permissions: userPermissions } = useContext(UserContext);
+  const hasAccess =
+    hasCapability(userCapabilities, requiredCapabilities) &&
+    hasPermission(userPermissions, permissions);
 
-  if (
-    requiredCapabilities &&
-    !resolveCapability(userCapabilities, requiredCapabilities)
-  ) {
-    return <UnauthorizedRedirect />;
+  if (!hasAccess) {
+    return <ReidrectOnAccess {...props} />;
   }
 
-  const hasPermissions = hasPermission(userPermissions, permissions);
-
-  return hasPermissions ? <Route {...props} /> : <UnauthorizedRedirect />;
+  return <Route {...props} />;
 };
 
 CatalogRoute.propTypes = {

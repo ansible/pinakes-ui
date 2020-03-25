@@ -314,7 +314,12 @@ describe('<Portfolio />', () => {
               id: '123',
               name: 'Foo',
               description: 'desc',
-              modified: 'sometimes'
+              modified: 'sometimes',
+              metadata: {
+                user_capabilities: {
+                  destroy: true
+                }
+              }
             }
           ],
           meta: {
