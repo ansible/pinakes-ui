@@ -20,7 +20,7 @@ const PortfolioItem = (props) => (
             src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
             sourceId={props.service_offering_source_ref}
           />
-          {props.isSelectable && props.metadata?.user_capabilities?.destroy && (
+          {props.isSelectable && (
             <CardCheckbox
               handleCheck={() => props.onSelect(props.id)}
               isChecked={props.isSelected}

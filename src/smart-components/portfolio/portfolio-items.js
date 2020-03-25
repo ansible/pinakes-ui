@@ -74,7 +74,7 @@ const PortfolioItems = ({
         'portfolio-item': item.id
       }}
       preserveSearch
-      isSelectable
+      isSelectable={userCapabilities.update}
       onSelect={(selectedItem) =>
         stateDispatch({ type: 'selectItem', payload: selectedItem })
       }
