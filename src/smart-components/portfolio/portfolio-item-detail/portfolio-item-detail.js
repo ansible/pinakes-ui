@@ -81,7 +81,11 @@ const PortfolioItemDetail = () => {
   return (
     <Fragment>
       <Switch>
-        <Route path={`${url}/edit-survey`}>
+        <CatalogRoute
+          requiredCapabilities="update"
+          userCapabilities={userCapabilities}
+          path={`${url}/edit-survey`}
+        >
           <Suspense fallback={<AppPlaceholder />}>
             <SurveyEditor
               closeUrl={url}
@@ -91,7 +95,7 @@ const PortfolioItemDetail = () => {
               portfolio={portfolio}
             />
           </Suspense>
-        </Route>
+        </CatalogRoute>
         <Route>
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar

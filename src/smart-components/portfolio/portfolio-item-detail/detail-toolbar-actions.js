@@ -55,6 +55,35 @@ const DetailToolbarActions = ({
     );
   }
 
+  dropdownItems.push(
+    <DropdownItem
+      aria-label="Set approval"
+      key="edit-approval_workflow"
+      component={
+        <CatalogLink pathname={workflowUrl} preserveSearch>
+          Set approval
+        </CatalogLink>
+      }
+      role="link"
+    />
+  );
+
+  if (update) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Edit survey"
+        key="edit-survey"
+        id="edit-survey"
+        component={
+          <CatalogLink pathname={editSurveyUrl} preserveSearch>
+            Edit survey
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
   return (
     <Fragment>
       <LevelItem>
@@ -86,29 +115,7 @@ const DetailToolbarActions = ({
             />
           }
           isOpen={isOpen}
-          dropdownItems={[
-            ...dropdownItems,
-            <DropdownItem
-              aria-label="Set approval"
-              key="edit-approval_workflow"
-              component={
-                <CatalogLink pathname={workflowUrl} preserveSearch>
-                  Set approval
-                </CatalogLink>
-              }
-              role="link"
-            />,
-            <DropdownItem
-              aria-label="Edit survey"
-              key="edit-survey"
-              component={
-                <CatalogLink pathname={editSurveyUrl} preserveSearch>
-                  Edit survey
-                </CatalogLink>
-              }
-              role="link"
-            />
-          ]}
+          dropdownItems={dropdownItems}
         />
       </LevelItem>
     </Fragment>
