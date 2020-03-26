@@ -6,12 +6,13 @@ import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import EditPortfolioItem from './edit-portfolio-item';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
+import CatalogRoute from '../../../routing/catalog-route';
 
-const ItemDetailDescription = ({ product, url, search }) => (
+const ItemDetailDescription = ({ userCapabilities, product, url, search }) => (
   <Switch>
     <Route
       exact
-      path={`${url}`}
+      path={url}
       render={() => (
         <TextContent>
           {(product.description || product.long_description) && (
@@ -55,11 +56,14 @@ const ItemDetailDescription = ({ product, url, search }) => (
         </TextContent>
       )}
     />
-    <Route
+    <CatalogRoute
       exact
       path={`${url}/edit`}
-      render={() => <EditPortfolioItem cancelUrl={url} product={product} />}
-    />
+      requiredCapabilities="update"
+      userCapabilities={userCapabilities}
+    >
+      <EditPortfolioItem cancelUrl={url} product={product} />
+    </CatalogRoute>
     <Route exact path={`${url}/edit-workflow`}>
       <EditApprovalWorkflow
         pushParam={{ pathname: url, search }}
@@ -82,7 +86,8 @@ ItemDetailDescription.propTypes = {
     id: PropTypes.string.isRequired
   }).isRequired,
   url: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired
+  search: PropTypes.string.isRequired,
+  userCapabilities: PropTypes.object.isRequired
 };
 
 export default ItemDetailDescription;

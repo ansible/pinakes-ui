@@ -19,55 +19,75 @@ const DetailToolbarActions = ({
   isOpen,
   setOpen,
   isFetching,
-  availability
-}) => (
-  <Fragment>
-    <LevelItem>
-      <CatalogLink
-        isDisabled={isFetching || availability === 'unavailable'}
-        pathname={orderUrl}
-        preserveSearch
-      >
-        <ButtonWithSpinner
+  availability,
+  userCapabilities: { update, copy }
+}) => {
+  const dropdownItems = [];
+  if (update) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Edit Portfolio"
+        key="edit-portfolio-item"
+        id="edit-portfolio-item"
+        component={
+          <CatalogLink pathname={editUrl} preserveSearch>
+            Edit
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
+  if (copy) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Copy Portfolio"
+        key="copy-portfolio-item"
+        id="copy-portfolio-item"
+        component={
+          <CatalogLink pathname={copyUrl} preserveSearch>
+            Copy
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
+  return (
+    <Fragment>
+      <LevelItem>
+        <CatalogLink
           isDisabled={isFetching || availability === 'unavailable'}
-          showSpinner={isFetching}
-          variant="primary"
-          id="order-portfolio-item"
+          pathname={orderUrl}
+          preserveSearch
         >
-          Order
-        </ButtonWithSpinner>
-      </CatalogLink>
-    </LevelItem>
-    {
+          <ButtonWithSpinner
+            isDisabled={isFetching || availability === 'unavailable'}
+            showSpinner={isFetching}
+            variant="primary"
+            id="order-portfolio-item"
+          >
+            Order
+          </ButtonWithSpinner>
+        </CatalogLink>
+      </LevelItem>
       <LevelItem style={{ marginLeft: 16 }}>
         <Dropdown
           isPlain
           onToggle={setOpen}
           onSelect={() => setOpen(false)}
           position={DropdownPosition.right}
-          toggle={<KebabToggle onToggle={(isOpen) => setOpen(isOpen)} />}
+          toggle={
+            <KebabToggle
+              id="portfolio-item-actions-toggle"
+              onToggle={(isOpen) => setOpen(isOpen)}
+            />
+          }
           isOpen={isOpen}
           dropdownItems={[
-            <DropdownItem
-              aria-label="Edit Portfolio"
-              key="edit-portfolio"
-              component={
-                <CatalogLink pathname={editUrl} preserveSearch>
-                  Edit
-                </CatalogLink>
-              }
-              role="link"
-            />,
-            <DropdownItem
-              aria-label="Copy Portfolio"
-              key="copy-portfolio"
-              component={
-                <CatalogLink pathname={copyUrl} preserveSearch>
-                  Copy
-                </CatalogLink>
-              }
-              role="link"
-            />,
+            ...dropdownItems,
             <DropdownItem
               aria-label="Set approval"
               key="edit-approval_workflow"
@@ -91,9 +111,9 @@ const DetailToolbarActions = ({
           ]}
         />
       </LevelItem>
-    }
-  </Fragment>
-);
+    </Fragment>
+  );
+};
 
 DetailToolbarActions.propTypes = {
   orderUrl: PropTypes.string.isRequired,
@@ -104,7 +124,11 @@ DetailToolbarActions.propTypes = {
   isOpen: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
+  userCapabilities: PropTypes.shape({
+    update: PropTypes.bool,
+    copy: PropTypes.bool
+  }).isRequired
 };
 
 DetailToolbarActions.defaultProps = {

@@ -31,7 +31,11 @@ export const portfoliosInitialState = {
     }
   },
   portfolioItem: {
-    portfolioItem: {}
+    portfolioItem: {
+      metadata: {
+        user_capabilities: {}
+      }
+    }
   },
   portfolios: {
     data: [],

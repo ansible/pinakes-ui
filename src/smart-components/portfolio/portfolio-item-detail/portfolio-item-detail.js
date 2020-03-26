@@ -18,6 +18,7 @@ import {
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
+import CatalogRoute from '../../../routing/catalog-route';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -33,9 +34,14 @@ const PortfolioItemDetail = () => {
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
   const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
-  const { portfolioItem, portfolio, source } = useSelector(
-    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
-  );
+  const {
+    portfolioItem: {
+      metadata: { user_capabilities: userCapabilities },
+      ...portfolioItem
+    },
+    portfolio,
+    source
+  } = useSelector(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
 
   useEffect(() => {
     setIsFetching(true);
@@ -60,7 +66,6 @@ const PortfolioItemDetail = () => {
   }
 
   const availability = source.availability_status || 'unavailable';
-
   const unavailable = [source]
     .filter(({ notFound }) => notFound)
     .map(({ object }) => (
@@ -97,6 +102,7 @@ const PortfolioItemDetail = () => {
               setOpen={setOpen}
               isFetching={isFetching}
               availability={availability}
+              userCapabilities={userCapabilities}
             />
             {unavailable.length > 0 && (
               <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>
@@ -122,20 +128,22 @@ const PortfolioItemDetail = () => {
                 <Route path={`${url}/order`}>
                   <OrderModal closeUrl={url} />
                 </Route>
-                <Route
+                <CatalogRoute
                   path={`${url}/copy`}
-                  render={(props) => (
-                    <CopyPortfolioItemModal
-                      {...props}
-                      search={search}
-                      portfolioItemId={portfolioItem.id}
-                      portfolioId={portfolio.id}
-                      closeUrl={url}
-                    />
-                  )}
-                />
+                  requiredCapabilities="copy"
+                  userCapabilities={userCapabilities}
+                >
+                  <CopyPortfolioItemModal
+                    search={search}
+                    portfolioItemId={portfolioItem.id}
+                    portfolioId={portfolio.id}
+                    closeUrl={url}
+                  />
+                </CatalogRoute>
+
                 <ItemDetailDescription
                   product={portfolioItem}
+                  userCapabilities={userCapabilities}
                   url={url}
                   search={search}
                 />

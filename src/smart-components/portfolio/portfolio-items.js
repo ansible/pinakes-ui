@@ -26,6 +26,7 @@ import {
   NESTED_WORKFLOW_PORTFOLIO_ROUTE,
   NESTED_ORDER_PORTFOLIO_ROUTE
 } from '../../constants/routes';
+import CatalogRoute from '../../routing/catalog-route';
 
 const PortfolioItems = ({
   routes,
@@ -74,7 +75,7 @@ const PortfolioItems = ({
         'portfolio-item': item.id
       }}
       preserveSearch
-      isSelectable
+      isSelectable={userCapabilities.update}
       onSelect={(selectedItem) =>
         stateDispatch({ type: 'selectItem', payload: selectedItem })
       }
@@ -109,12 +110,19 @@ const PortfolioItems = ({
           userCapabilities
         })}
       />
-      <Route exact path={NESTED_EDIT_PORTFOLIO_ROUTE}>
+      <CatalogRoute
+        userCapabilities={userCapabilities}
+        requiredCapabilities="update"
+        exact
+        path={NESTED_EDIT_PORTFOLIO_ROUTE}
+      >
         <AddPortfolioModal
           closeTarget={{ pathname: PORTFOLIO_ROUTE, search }}
         />
-      </Route>
-      <Route
+      </CatalogRoute>
+      <CatalogRoute
+        userCapabilities={userCapabilities}
+        requiredCapabilities="destroy"
         exact
         path={NESTED_REMOVE_PORTFOLIO_ROUTE}
         component={RemovePortfolioModal}
