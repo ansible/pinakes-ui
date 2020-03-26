@@ -20,7 +20,6 @@ import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import '@redhat-cloud-services/frontend-components/index.css';
 import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from './utilities/constants';
-import GlobalStyle from './global-styles';
 import UserContext from './user-context';
 
 smoothscroll.polyfill();
@@ -112,7 +111,6 @@ const App = () => {
         value={{ permissions: userPermissions, userIdentity }}
       >
         <Fragment>
-          <GlobalStyle />
           <NotificationsPortal />
           <Main className="pf-u-p-0 pf-u-ml-0">
             <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
