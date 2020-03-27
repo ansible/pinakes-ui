@@ -178,6 +178,10 @@ const OrdersList = () => {
                         {
                           value: 'Approval Pending',
                           label: 'Approval Pending'
+                        },
+                        {
+                          value: 'Canceled',
+                          label: 'Canceled'
                         }
                       ],
                       value: filters.state,
