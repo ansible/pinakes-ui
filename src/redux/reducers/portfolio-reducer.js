@@ -95,7 +95,10 @@ const addTemporaryPortfolio = (state, { payload }) => ({
   ...state,
   portfolios: {
     ...state.portfolios,
-    data: [...state.portfolios.data, payload]
+    data: [
+      ...state.portfolios.data,
+      { ...payload, metadata: { user_capabilities: {} } }
+    ]
   }
 });
 const updateTemporaryPortfolio = (state, { payload }) => ({
@@ -118,7 +121,7 @@ const updateTemporaryPortfolio = (state, { payload }) => ({
 const deleteTemporaryPortfolio = (state, { payload }) => ({
   prevState: { ...state },
   ...state,
-  selectedPortfolio: {},
+  selectedPortfolio: { metadata: { user_capabilities: {} } },
   portfolios: {
     ...state.portfolios,
     data: state.portfolios.data.filter(({ id }) => id !== payload)
