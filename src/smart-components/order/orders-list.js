@@ -182,6 +182,10 @@ const OrdersList = () => {
                         {
                           value: 'Canceled',
                           label: 'Canceled'
+                        },
+                        {
+                          value: 'Created',
+                          label: 'Created'
                         }
                       ],
                       value: filters.state,
