@@ -60,7 +60,7 @@ const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
   const onSubmit = (data) => {
     let sharePromises = [];
     if (data.group_uuid && data.permissions) {
-      sharePromises.push(dispatch(sharePortfolio(data)));
+      sharePromises.push(dispatch(sharePortfolio({ id: portfolio, ...data })));
     }
 
     shareInfo.forEach((share) => {
