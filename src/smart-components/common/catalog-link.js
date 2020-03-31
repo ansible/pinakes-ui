@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(({ isDisabled, ...props }) => <Link {...props} />)`
   pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'initial')};
 `;
 
-const StyledNavLink = styled(NavLink)`
+const StyledNavLink = styled(({ isDisabled, ...props }) => (
+  <NavLink {...props} />
+))`
   pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'initial')};
 `;
 

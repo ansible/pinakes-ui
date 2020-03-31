@@ -46,10 +46,10 @@ ItemDetailInfoBar.propTypes = {
     created_at: PropTypes.string.isRequired
   }).isRequired,
   source: PropTypes.shape({
-    name: PropTypes.string.isRequired
+    name: PropTypes.string
   }).isRequired,
   portfolio: PropTypes.shape({
-    name: PropTypes.string.isRequired
+    name: PropTypes.string
   }).isRequired
 };
 

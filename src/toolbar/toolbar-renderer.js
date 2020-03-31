@@ -30,8 +30,8 @@ Component.propTypes = {
 const render = (fields) =>
   fields.hidden
     ? null
-    : fields.map(({ fields, key, ...field }) =>
-        fields ? (
+    : fields.map(({ hidden, fields, key, ...field }) =>
+        hidden ? null : fields ? (
           <Component key={key} {...field}>
             {render(fields)}
           </Component>

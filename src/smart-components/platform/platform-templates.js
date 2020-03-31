@@ -136,7 +136,7 @@ const PlatformTemplates = () => {
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
-          filterPlaceholder: 'Filter by template...',
+          filterPlaceholder: 'Filter by template',
           meta,
           apiRequest: (_, options) =>
             dispatch(fetchPlatformItems(id, filterValue, options))

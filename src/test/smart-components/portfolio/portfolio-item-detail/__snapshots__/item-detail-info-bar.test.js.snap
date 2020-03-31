@@ -127,6 +127,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                   className=""
                   content={
                     <div>
+                      
                       22 Mar 2019 07:36:57 UTC
                     </div>
                   }
@@ -170,6 +171,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                           isLeftAligned={false}
                         >
                           <div>
+                            
                             22 Mar 2019 07:36:57 UTC
                           </div>
                         </TooltipContent>
@@ -216,7 +218,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                     zIndex={9999}
                   >
                     <span>
-                      12 months ago
+                      Just now
                     </span>
                     <Portal
                       containerInfo={
@@ -230,6 +232,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                               class="pf-c-tooltip__content"
                             >
                               <div>
+                                
                                 22 Mar 2019 07:36:57 UTC
                               </div>
                             </div>
@@ -367,6 +370,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                   className=""
                   content={
                     <div>
+                      
                       22 Mar 2019 07:36:57 UTC
                     </div>
                   }
@@ -410,6 +414,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                           isLeftAligned={false}
                         >
                           <div>
+                            
                             22 Mar 2019 07:36:57 UTC
                           </div>
                         </TooltipContent>
@@ -456,7 +461,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                     zIndex={9999}
                   >
                     <span>
-                      12 months ago
+                      Just now
                     </span>
                     <Portal
                       containerInfo={
@@ -470,6 +475,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                               class="pf-c-tooltip__content"
                             >
                               <div>
+                                
                                 22 Mar 2019 07:36:57 UTC
                               </div>
                             </div>
@@ -635,6 +641,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                   className=""
                   content={
                     <div>
+                      
                       22 Mar 2019 07:36:57 UTC
                     </div>
                   }
@@ -678,6 +685,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                           isLeftAligned={false}
                         >
                           <div>
+                            
                             22 Mar 2019 07:36:57 UTC
                           </div>
                         </TooltipContent>
@@ -724,7 +732,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                     zIndex={9999}
                   >
                     <span>
-                      12 months ago
+                      Just now
                     </span>
                     <Portal
                       containerInfo={
@@ -738,6 +746,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                               class="pf-c-tooltip__content"
                             >
                               <div>
+                                
                                 22 Mar 2019 07:36:57 UTC
                               </div>
                             </div>

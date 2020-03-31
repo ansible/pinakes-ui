@@ -44,7 +44,10 @@ PortfolioItem.propTypes = {
   onSelect: PropTypes.func,
   orderUrl: PropTypes.string,
   removeInProgress: PropTypes.bool,
-  portfolio_id: PropTypes.string
+  portfolio_id: PropTypes.string,
+  metadata: PropTypes.shape({
+    user_capabilities: PropTypes.shape({ destroy: PropTypes.bool }).isRequired
+  }).isRequired
 };
 
 export default PortfolioItem;

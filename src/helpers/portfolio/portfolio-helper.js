@@ -51,10 +51,12 @@ export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
         }));
     })
     .then(({ portfolioItems, portfolioReference, portfolios }) => {
-      portfolios.forEach(({ id, name }) =>
-        portfolioReference[id].forEach((portfolioItemIndex) => {
-          portfolioItems.data[portfolioItemIndex].portfolioName = name;
-        })
+      portfolios.forEach(
+        ({ id, name }) =>
+          portfolioReference[id] &&
+          portfolioReference[id].forEach((portfolioItemIndex) => {
+            portfolioItems.data[portfolioItemIndex].portfolioName = name;
+          })
       );
       return portfolioItems;
     });
@@ -110,7 +112,7 @@ export async function updatePortfolio({ id, ...portfolioData }, store) {
 }
 
 export async function removePortfolio(portfolioId) {
-  await portfolioApi.destroyPortfolio(portfolioId);
+  return portfolioApi.destroyPortfolio(portfolioId);
 }
 
 export async function removePortfolioItem(portfolioItemId) {
@@ -200,7 +202,6 @@ export const getPortfolioItemDetail = (params) =>
     axiosInstance.get(
       `${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`
     ),
-    axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`),
     axiosInstance
       .get(`${SOURCES_API_BASE}/sources/${params.source}`)
       .catch((error) => {
@@ -220,3 +221,8 @@ export const getPortfolioFromState = (portfolioReducer, portfolioId) =>
   portfolioReducer.selectedPortfolio.id === portfolioId
     ? portfolioReducer.selectedPortfolio
     : portfolioReducer.portfolios.data.find(({ id }) => id === portfolioId);
+
+export const undeletePortfolio = (portfolioId, restoreKey) =>
+  axiosInstance.post(`${CATALOG_API_BASE}/portfolios/${portfolioId}/undelete`, {
+    restore_key: restoreKey
+  });
