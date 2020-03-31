@@ -22,7 +22,7 @@ process.env.BASE_PATH = '/api';
 /**
  * Setup JSDOM
  */
-global.SVGPathElement = function () {};
+global.SVGPathElement = function() {};
 
 global.MutationObserver = class {
   constructor(callback) {}
@@ -41,8 +41,15 @@ global.insights = {
   chrome: {
     appNavClick: () => {},
     auth: {
-      getUser: () => new Promise(resolve => resolve(true))
+      getUser: () =>
+        new Promise((resolve) =>
+          resolve({
+            identity: {
+              user: {}
+            }
+          })
+        )
     },
-    getUserPermissions: () => Promise.resolve([]),
+    getUserPermissions: () => Promise.resolve([])
   }
 };

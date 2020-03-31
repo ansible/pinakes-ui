@@ -11,6 +11,7 @@ import { SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { mockGraphql } from '../../__mocks__/user-login';
 import { Provider } from 'react-redux';
+import UserContext from '../../../user-context';
 
 describe('<Platforms />', () => {
   let initialProps;
@@ -34,11 +35,21 @@ describe('<Platforms />', () => {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
     mount(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Platforms {...initialProps} />
-        </Provider>
-      </MemoryRouter>
+      <UserContext.Provider
+        value={{
+          userIdentity: {
+            identity: {
+              user: { is_org_admin: true }
+            }
+          }
+        }}
+      >
+        <MemoryRouter>
+          <Provider store={store}>
+            <Platforms {...initialProps} />
+          </Provider>
+        </MemoryRouter>
+      </UserContext.Provider>
     );
     setImmediate(() => {
       const expectedActions = [
@@ -87,11 +98,21 @@ describe('<Platforms />', () => {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
     const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/platforms']}>
-          <Platforms {...initialProps} />
-        </MemoryRouter>
-      </Provider>
+      <UserContext.Provider
+        value={{
+          userIdentity: {
+            identity: {
+              user: { is_org_admin: true }
+            }
+          }
+        }}
+      >
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/platforms']}>
+            <Platforms {...initialProps} />
+          </MemoryRouter>
+        </Provider>
+      </UserContext.Provider>
     );
 
     setImmediate(() => {

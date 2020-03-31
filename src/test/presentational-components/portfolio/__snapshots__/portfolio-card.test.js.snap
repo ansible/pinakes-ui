@@ -6,88 +6,17 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
     <CardHeader>
       <PortfolioCardHeader
         headerActions={
-          Array [
-            <Dropdown
-              dropdownItems={
-                Array [
-                  <DropdownItem
-                    component={
-                      <CatalogLink
-                        nav={false}
-                        pathname="/portfolios/share"
-                        preserveSearch={false}
-                        searchParams={
-                          Object {
-                            "portfolio": "123",
-                          }
-                        }
-                      >
-                        Share
-                      </CatalogLink>
-                    }
-                  />,
-                  <DropdownItem
-                    component={
-                      <CatalogLink
-                        nav={false}
-                        pathname="/portfolios/edit-workflow"
-                        preserveSearch={false}
-                        searchParams={
-                          Object {
-                            "portfolio": "123",
-                          }
-                        }
-                      >
-                        Set approval
-                      </CatalogLink>
-                    }
-                  />,
-                  <DropdownItem
-                    component={
-                      <CatalogLink
-                        nav={false}
-                        pathname="/portfolios/edit"
-                        preserveSearch={false}
-                        searchParams={
-                          Object {
-                            "portfolio": "123",
-                          }
-                        }
-                      >
-                        Edit
-                      </CatalogLink>
-                    }
-                  />,
-                  <DropdownItem
-                    component={
-                      <CatalogLink
-                        nav={false}
-                        pathname="/portfolios/remove"
-                        preserveSearch={false}
-                        searchParams={
-                          Object {
-                            "portfolio": "123",
-                          }
-                        }
-                      >
-                        Delete
-                      </CatalogLink>
-                    }
-                    isDisabled={true}
-                  />,
-                ]
+          <HeaderActions
+            portfolioId="123"
+            userCapabilities={
+              Object {
+                "destroy": true,
+                "share": true,
+                "unshare": true,
+                "update": true,
               }
-              isOpen={false}
-              isPlain={true}
-              onSelect={[Function]}
-              position="right"
-              toggle={
-                <KebabToggle
-                  onToggle={[Function]}
-                />
-              }
-            />,
-          ]
+            }
+          />
         }
         portfolioName="name"
         to={

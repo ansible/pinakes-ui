@@ -5,22 +5,29 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
   description="Bar"
   display_name="quux"
   id="1"
+  metadata={
+    Object {
+      "user_capabilities": Object {
+        "destroy": true,
+      },
+    }
+  }
   name="Foo"
   orderUrl="/order"
 >
   <Styled(GalleryItem)>
     <GalleryItem
-      className="sc-AxmLO bSqRm"
+      className="sc-fzoLsD iHpspR"
     >
       <div
-        className="sc-AxmLO bSqRm"
+        className="sc-fzoLsD iHpspR"
       >
         <Styled(Card)>
           <Card
-            className="sc-Axmtr bVdtCA"
+            className="sc-fzozJi dCCegk"
           >
             <article
-              className="pf-c-card sc-Axmtr bVdtCA"
+              className="pf-c-card sc-fzozJi dCCegk"
             >
               <CardHeader
                 className="card_header"
@@ -34,14 +41,14 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                     >
                       <CardIcon
                         height={40}
-                        src="/api/catalog/v1.0/portfolio_items/1/icon"
+                        src="/api/catalog/v1.1/portfolio_items/1/icon"
                         style={Object {}}
                       >
                         <styled.div
                           height={40}
                         >
                           <div
-                            className="sc-AxirZ kGKGpr"
+                            className="sc-AxhCb kcBhCv"
                             height={40}
                           >
                             <IconPlaceholder
@@ -65,13 +72,13 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                               hidden={true}
                               onError={[Function]}
                               onLoad={[Function]}
-                              src="/api/catalog/v1.0/portfolio_items/1/icon"
+                              src="/api/catalog/v1.1/portfolio_items/1/icon"
                               threshold={2000}
                             >
                               <t
                                 afterLoad={[Function]}
                                 beforeLoad={[Function]}
-                                className="sc-AxjAm fBVHdt"
+                                className="sc-AxiKw kPfjgK"
                                 delayMethod="throttle"
                                 delayTime={0}
                                 effect=""
@@ -80,7 +87,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                 onError={[Function]}
                                 onLoad={[Function]}
                                 placeholderSrc=""
-                                src="/api/catalog/v1.0/portfolio_items/1/icon"
+                                src="/api/catalog/v1.1/portfolio_items/1/icon"
                                 threshold={2000}
                                 visibleByDefault={false}
                                 wrapperClassName=""
@@ -88,7 +95,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                 <t
                                   afterLoad={[Function]}
                                   beforeLoad={[Function]}
-                                  className="sc-AxjAm fBVHdt"
+                                  className="sc-AxiKw kPfjgK"
                                   delayMethod="throttle"
                                   delayTime={0}
                                   height={0}
@@ -96,12 +103,12 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   visibleByDefault={false}
                                 >
                                   <img
-                                    className="sc-AxjAm fBVHdt"
+                                    className="sc-AxiKw kPfjgK"
                                     height={0}
                                     hidden={true}
                                     onError={[Function]}
                                     onLoad={[Function]}
-                                    src="/api/catalog/v1.0/portfolio_items/1/icon"
+                                    src="/api/catalog/v1.1/portfolio_items/1/icon"
                                   />
                                 </t>
                               </t>
@@ -117,15 +124,22 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                 description="Bar"
                 display_name="quux"
                 id="1"
+                metadata={
+                  Object {
+                    "user_capabilities": Object {
+                      "destroy": true,
+                    },
+                  }
+                }
                 name="Foo"
                 orderUrl="/order"
               >
                 <Styled(CardBody)>
                   <CardBody
-                    className="sc-AxheI fdbZUy"
+                    className="sc-AxmLO yfVDw"
                   >
                     <div
-                      className="pf-c-card__body sc-AxheI fdbZUy"
+                      className="pf-c-card__body sc-AxmLO yfVDw"
                     >
                       <TextContent>
                         <div
@@ -143,7 +157,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                               >
                                 <styled.div>
                                   <div
-                                    className="sc-AxgMl ytwOc"
+                                    className="sc-Axmtr TurKp"
                                   >
                                     Foo
                                   </div>
@@ -156,6 +170,13 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                       <ItemDetails
                         description="Bar"
                         id="1"
+                        metadata={
+                          Object {
+                            "user_capabilities": Object {
+                              "destroy": true,
+                            },
+                          }
+                        }
                         orderUrl="/order"
                         toDisplay={
                           Array [
@@ -167,7 +188,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           key="card-prop-description"
                         >
                           <div
-                            className="sc-AxiKw iUXPLF"
+                            className="sc-AxhUy cLUHxg"
                           >
                             Bar
                           </div>

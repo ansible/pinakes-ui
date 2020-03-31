@@ -31,6 +31,7 @@ import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 import { testStore } from '../../../utilities/store';
 import CatalogBreadcrumbs from '../../../smart-components/common/catalog-breadcrumbs';
 import { BreadcrumbItem } from '@patternfly/react-core';
+import CommonApiError from '../../../smart-components/error-pages/common-api-error';
 
 describe('<Portfolio />', () => {
   let initialProps;
@@ -60,7 +61,17 @@ describe('<Portfolio />', () => {
       portfolioReducer: {
         selectedPortfolio: {
           id: '123',
-          name: 'Foo'
+          name: 'Foo',
+          metadata: {
+            user_capabilities: {
+              copy: true,
+              destroy: true,
+              update: true,
+              share: true,
+              unshare: true,
+              show: true
+            }
+          }
         },
         portfolioItems: {
           data: [],
@@ -75,7 +86,17 @@ describe('<Portfolio />', () => {
               id: '123',
               name: 'bar',
               description: 'description',
-              modified: 'sometimes'
+              modified: 'sometimes',
+              metadata: {
+                user_capabilities: {
+                  copy: true,
+                  destroy: true,
+                  update: true,
+                  share: true,
+                  unshare: true,
+                  show: true
+                }
+              }
             }
           ]
         }
@@ -197,6 +218,7 @@ describe('<Portfolio />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         selectedPortfolio: {
+          ...initialState.portfolioReducer.selectedPortfolio,
           id: '123',
           name: 'Foo'
         },
@@ -206,7 +228,17 @@ describe('<Portfolio />', () => {
               id: '123',
               name: 'Foo',
               description: 'desc',
-              modified: 'sometimes'
+              modified: 'sometimes',
+              metadata: {
+                user_capabilities: {
+                  copy: true,
+                  destroy: true,
+                  update: true,
+                  share: true,
+                  unshare: true,
+                  show: true
+                }
+              }
             }
           ],
           meta: {
@@ -282,7 +314,12 @@ describe('<Portfolio />', () => {
               id: '123',
               name: 'Foo',
               description: 'desc',
-              modified: 'sometimes'
+              modified: 'sometimes',
+              metadata: {
+                user_capabilities: {
+                  destroy: true
+                }
+              }
             }
           ],
           meta: {
@@ -447,6 +484,7 @@ describe('<Portfolio />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         selectedPortfolio: {
+          ...initialState.portfolioReducer.selectedPortfolio,
           id: '321',
           name: 'Foo'
         },
@@ -456,7 +494,17 @@ describe('<Portfolio />', () => {
               id: '321',
               name: 'Foo',
               description: 'desc',
-              modified: 'sometimes'
+              modified: 'sometimes',
+              metadata: {
+                user_capabilities: {
+                  copy: true,
+                  destroy: true,
+                  update: true,
+                  share: true,
+                  unshare: true,
+                  show: true
+                }
+              }
             }
           ],
           meta: {
@@ -662,5 +710,55 @@ describe('<Portfolio />', () => {
       .instance().history.location;
     expect(pathname).toEqual('/portfolio');
     expect(search).toEqual('?portfolio=portfolio-id');
+  });
+
+  it('should redirect the user to 401 page if the user capability show is set to false', async (done) => {
+    const store = mockStore({
+      ...initialState,
+      portfolioReducer: {
+        ...initialState.portfolioReducer,
+        selectedPortfolio: {
+          ...initialState.portfolioReducer.selectedPortfolio,
+          metadata: {
+            user_capabilities: {
+              show: false
+            }
+          }
+        }
+      }
+    });
+
+    mockGraphql
+      .onPost(`${SOURCES_API_BASE}/graphql`)
+      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
+
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .replyOnce(200, { data: [] });
+
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
+          <Route
+            path="/portfolio"
+            render={(...args) => <Portfolio {...initialProps} {...args} />}
+          />
+          <Route path="/401" component={CommonApiError} />
+        </ComponentWrapper>
+      );
+    });
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/401');
+    wrapper.update();
+    expect(wrapper.find(CommonApiError)).toHaveLength(1);
+    done();
   });
 });

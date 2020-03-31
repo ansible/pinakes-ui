@@ -21,6 +21,7 @@ import ItemDetailDescription from '../../../../smart-components/portfolio/portfo
 import { PortfolioItemDetailToolbar } from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { mockApi } from '../../../__mocks__/user-login';
 import { Alert } from '@patternfly/react-core';
+import UserContext from '../../../../user-context';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -34,11 +35,17 @@ describe('<PortfolioItemDetail />', () => {
     initialEntries,
     initialIndex
   }) => (
-    <Provider store={store}>
-      <MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
-        {children}
-      </MemoryRouter>
-    </Provider>
+    <UserContext.Provider value={{ permissions: [] }}>
+      <Provider store={store}>
+        <MemoryRouter
+          initialEntries={initialEntries}
+          initialIndex={initialIndex}
+        >
+          {children}
+        </MemoryRouter>
+      </Provider>
+      .
+    </UserContext.Provider>
   );
 
   beforeEach(() => {
@@ -55,10 +62,18 @@ describe('<PortfolioItemDetail />', () => {
             id: '123',
             service_offering_source_ref: '111',
             created_at: '123',
-            name: 'bar'
+            name: 'bar',
+            metadata: {
+              user_capabilities: {
+                copy: true,
+                update: true,
+                destroy: true
+              }
+            }
           },
           source: { id: '111', name: 'Source name' },
           portfolio: {
+            id: '333',
             name: 'Portfolio name'
           }
         }
@@ -162,7 +177,8 @@ describe('<PortfolioItemDetail />', () => {
         portfolioItem: {
           ...initialState.portfolioReducer.portfolioItem,
           source: {
-            notFound: true
+            notFound: true,
+            object: 'source'
           }
         }
       }

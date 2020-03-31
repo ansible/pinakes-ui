@@ -131,7 +131,7 @@ const Portfolios = () => {
   };
 
   const galleryItems = data.map((item) => (
-    <PortfolioCard key={item.id} userPermissions={userPermissions} {...item} />
+    <PortfolioCard key={item.id} {...item} />
   ));
 
   return (
@@ -145,7 +145,7 @@ const Portfolios = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by portfolio...'
+            placeholder: 'Filter by portfolio'
           }
         })}
       />

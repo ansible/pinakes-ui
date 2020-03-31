@@ -4,24 +4,13 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
 <Connect(Main)
   className="pf-u-m-0 pf-u-p-0"
 >
-  <ContentLoader
-    height={16}
-    primaryColor="#FFFFFF"
-    secondaryColor="#FFFFFF"
-    speed={2}
-    store={[Function]}
-    width={300}
+  <Skeleton
+    className="pf-u-p-lg global-primary-background"
+    height={32}
+  />
+  <div
+    className="pf-u-mt-lg"
   >
-    <rect
-      height="10"
-      rx="0"
-      ry="0"
-      width="420"
-      x="0"
-      y="0"
-    />
-  </ContentLoader>
-  <div>
     <Bullseye>
       <Spinner />
     </Bullseye>
@@ -51,54 +40,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -113,54 +74,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -175,54 +108,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -237,54 +142,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -299,54 +176,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -361,54 +210,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -423,54 +244,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -485,54 +278,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -547,54 +312,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -609,54 +346,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -671,54 +380,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -733,54 +414,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -795,54 +448,26 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
           }
         >
           <CardBody>
-            <ContentLoader
-              height={160}
-              primaryColor="#f3f3f3"
-              secondaryColor="#ecebeb"
-              speed={2}
-              width={300}
-            >
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="300"
-                x="2"
-                y="99"
-              />
-              <rect
-                height="5.76"
-                rx="3"
-                ry="3"
-                width="290"
-                x="2"
-                y="119.72"
-              />
-              <rect
-                height="6.4"
-                rx="3"
-                ry="3"
-                width="201"
-                x="2"
-                y="139"
-              />
-              <rect
-                height="82.74"
-                rx="0"
-                ry="0"
-                width="271.6"
-                x="-2.16"
-                y="0.67"
-              />
-              <rect
-                height="3"
-                rx="0"
-                ry="0"
-                width="6"
-                x="136.84"
-                y="37.67"
-              />
-            </ContentLoader>
+            <Skeleton
+              className="pf-u-mb-lg"
+              height={70}
+              width="85%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="90%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="100%"
+            />
+            <Skeleton
+              className="pf-u-mb-sm"
+              height={5}
+              width="76%"
+            />
           </CardBody>
         </Card>
       </GalleryItem>
@@ -867,22 +492,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <ContentLoader
-                height={12}
-                primaryColor="#FFFFFF"
-                secondaryColor="#ecebeb"
-                speed={2}
-                width={300}
-              >
-                <rect
-                  height="12"
-                  rx="0"
-                  ry="0"
-                  width="300"
-                  x="0"
-                  y="0"
-                />
-              </ContentLoader>
+              <Skeleton
+                height={67}
+              />
             </DataListCell>,
           ]
         }
@@ -900,22 +512,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <ContentLoader
-                height={12}
-                primaryColor="#FFFFFF"
-                secondaryColor="#ecebeb"
-                speed={2}
-                width={300}
-              >
-                <rect
-                  height="12"
-                  rx="0"
-                  ry="0"
-                  width="300"
-                  x="0"
-                  y="0"
-                />
-              </ContentLoader>
+              <Skeleton
+                height={67}
+              />
             </DataListCell>,
           ]
         }
@@ -933,22 +532,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <ContentLoader
-                height={12}
-                primaryColor="#FFFFFF"
-                secondaryColor="#ecebeb"
-                speed={2}
-                width={300}
-              >
-                <rect
-                  height="12"
-                  rx="0"
-                  ry="0"
-                  width="300"
-                  x="0"
-                  y="0"
-                />
-              </ContentLoader>
+              <Skeleton
+                height={67}
+              />
             </DataListCell>,
           ]
         }
@@ -966,22 +552,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <ContentLoader
-                height={12}
-                primaryColor="#FFFFFF"
-                secondaryColor="#ecebeb"
-                speed={2}
-                width={300}
-              >
-                <rect
-                  height="12"
-                  rx="0"
-                  ry="0"
-                  width="300"
-                  x="0"
-                  y="0"
-                />
-              </ContentLoader>
+              <Skeleton
+                height={67}
+              />
             </DataListCell>,
           ]
         }
@@ -999,22 +572,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
         dataListCells={
           Array [
             <DataListCell>
-              <ContentLoader
-                height={12}
-                primaryColor="#FFFFFF"
-                secondaryColor="#ecebeb"
-                speed={2}
-                width={300}
-              >
-                <rect
-                  height="12"
-                  rx="0"
-                  ry="0"
-                  width="300"
-                  x="0"
-                  y="0"
-                />
-              </ContentLoader>
+              <Skeleton
+                height={67}
+              />
             </DataListCell>,
           ]
         }
@@ -1022,44 +582,4 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
     </DataListItemRow>
   </DataListItem>
 </DataList>
-`;
-
-exports[`Loader placeholders should render <PortfolioLoader /> correctly 1`] = `
-<Grid
-  gutter="md"
->
-  <GridItem
-    sm={12}
-  >
-    <ContentLoader
-      height={16}
-      primaryColor="#FFFFFF"
-      secondaryColor="#FFFFFF"
-      speed={2}
-      width={300}
-    >
-      <rect
-        height="16"
-        rx="0"
-        ry="0"
-        width="420"
-        x="0"
-        y="0"
-      />
-    </ContentLoader>
-  </GridItem>
-  <GridItem
-    sm={12}
-    style={
-      Object {
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      }
-    }
-  >
-    <CardLoader
-      items={5}
-    />
-  </GridItem>
-</Grid>
 `;

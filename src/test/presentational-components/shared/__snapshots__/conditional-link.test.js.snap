@@ -10,7 +10,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
     preserveSearch={false}
     searchParams={Object {}}
   >
-    <Styled(Link)
+    <Styled(Component)
       to={
         Object {
           "pathname": "/some/url",
@@ -18,7 +18,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
         }
       }
     >
-      <Link
+      <Component
         className="sc-AxjAm jfRa-DE"
         to={
           Object {
@@ -27,23 +27,33 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
           }
         }
       >
-        <LinkAnchor
+        <Link
           className="sc-AxjAm jfRa-DE"
-          href="/some/url"
-          navigate={[Function]}
+          to={
+            Object {
+              "pathname": "/some/url",
+              "search": "",
+            }
+          }
         >
-          <a
+          <LinkAnchor
             className="sc-AxjAm jfRa-DE"
             href="/some/url"
-            onClick={[Function]}
+            navigate={[Function]}
           >
-            <div>
-              Link children
-            </div>
-          </a>
-        </LinkAnchor>
-      </Link>
-    </Styled(Link)>
+            <a
+              className="sc-AxjAm jfRa-DE"
+              href="/some/url"
+              onClick={[Function]}
+            >
+              <div>
+                Link children
+              </div>
+            </a>
+          </LinkAnchor>
+        </Link>
+      </Component>
+    </Styled(Component)>
   </CatalogLink>
 </ConditionalLink>
 `;

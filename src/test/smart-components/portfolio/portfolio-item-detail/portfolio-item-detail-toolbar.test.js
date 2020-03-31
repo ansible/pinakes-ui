@@ -32,7 +32,11 @@ describe('<PortfolioItemDetailToolbar />', () => {
       },
       setOpen: jest.fn(),
       setWorkflow: jest.fn(),
-      handleUpdate: jest.fn()
+      handleUpdate: jest.fn(),
+      userCapabilities: {
+        copy: true,
+        update: true
+      }
     };
 
     initialState = {

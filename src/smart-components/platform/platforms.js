@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
@@ -10,6 +10,7 @@ import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
+import UserContext from '../../user-context';
 
 const Platforms = () => {
   const [filterValue, setFilterValue] = useState('');
@@ -20,6 +21,13 @@ const Platforms = () => {
     })
   );
   const dispatch = useDispatch();
+  const {
+    userIdentity: {
+      identity: {
+        user: { is_org_admin }
+      }
+    }
+  } = useContext(UserContext);
 
   useEffect(() => {
     dispatch(fetchPlatforms());
@@ -33,11 +41,18 @@ const Platforms = () => {
         <Text component={TextVariants.p}>
           Configure a source in order to add products to portfolios.
         </Text>
-        <Text component={TextVariants.p}>
-          To connect to a source, go to{' '}
-          <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
-          &nbsp;under Settings.
-        </Text>
+        {is_org_admin ? (
+          <Text component={TextVariants.p}>
+            To connect to a source, go to{' '}
+            <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
+            &nbsp;under Settings.
+          </Text>
+        ) : (
+          <Text>
+            Contact your organization administrator to setup sources for
+            Catalog.
+          </Text>
+        )}
         <Text component={TextVariants.p}>
           <a href="javascript:void(0)">Learn more in the documentation</a>
         </Text>
