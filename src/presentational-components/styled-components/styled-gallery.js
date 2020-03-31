@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Card, GalleryItem } from '@patternfly/react-core';
 
@@ -6,7 +7,9 @@ export const StyledCard = styled(Card)`
   position: relative;
 `;
 
-export const StyledGalleryItem = styled(GalleryItem)`
+export const StyledGalleryItem = styled(({ isDisabled, ...props }) => (
+  <GalleryItem {...props} />
+))`
   position: relative;
   ::after {
     display: ${({ isDisabled }) => (isDisabled ? 'block' : 'none')};

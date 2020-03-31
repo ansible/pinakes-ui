@@ -620,16 +620,19 @@ describe('<Portfolio />', () => {
     const { ...store } = testStore();
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
+      .replyOnce(200, {
+        id: 'portfolio-id',
+        name: 'Portfolio',
+        metadata: { user_capabilities: { show: true } }
+      })
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {
         id: 'portfolio-item-id',
         name: 'Portfolio item',
         portfolio_id: 'portfolio-id',
         service_offering_source_ref: 'source-id',
-        created_at: '1999-07-26'
+        created_at: '1999-07-26',
+        metadata: { user_capabilities: { show: true } }
       })
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)
       .replyOnce(200, { id: 'source-id', name: 'Source', source_type_id: '3' })

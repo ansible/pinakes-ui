@@ -43,7 +43,7 @@ ContentGalleryEmptyState.defaultProps = {
 ContentGalleryEmptyState.propTypes = {
   title: PropTypes.string.isRequired,
   Icon: PropTypes.any.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   PrimaryAction: PropTypes.any,
   renderDescription: PropTypes.func
 };

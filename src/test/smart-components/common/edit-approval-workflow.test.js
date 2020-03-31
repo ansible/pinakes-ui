@@ -34,7 +34,8 @@ describe('<EditApprovalWorkflow />', () => {
       closeUrl: 'foo',
       portfolioId: '123',
       objectType: 'Portfolio',
-      objectName: () => 'Test Resource Name'
+      objectName: () => 'Test Resource Name',
+      pushParam: { pathname: '/foo', search: '?platform=1' }
     };
     initialState = {
       portfolioReducer: {
@@ -255,7 +256,7 @@ describe('<EditApprovalWorkflow />', () => {
     setImmediate(() => {
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual('/portfolio');
+      ).toEqual('/foo');
       done();
     });
   });

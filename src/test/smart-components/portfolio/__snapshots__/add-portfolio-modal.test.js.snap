@@ -40,6 +40,7 @@ exports[`<AddPortfolioModal /> should create edit variant of portfolio modal 1`]
     }
   >
     <AddPortfolioModal
+      closeTarget="/close-target"
       fetchPortfolios={[MockFunction]}
     />
   </MemoryRouter>
