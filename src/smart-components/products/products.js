@@ -127,7 +127,7 @@ const Products = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by product...'
+            placeholder: 'Filter by product'
           },
           title: 'Products',
           isLoading: isFiltering || isFetching,

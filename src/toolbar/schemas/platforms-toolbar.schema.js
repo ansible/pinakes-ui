@@ -30,7 +30,7 @@ export const createPlatformsToolbarSchema = ({
                   key: 'platforms-toolbar-filter-input',
                   searchValue,
                   onFilterChange,
-                  placeholder: 'Filter by platform...'
+                  placeholder: 'Filter by platform'
                 }
               ]
             },

@@ -145,7 +145,7 @@ const Portfolios = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by portfolio...'
+            placeholder: 'Filter by portfolio'
           }
         })}
       />
