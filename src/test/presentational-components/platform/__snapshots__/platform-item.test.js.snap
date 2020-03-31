@@ -8,10 +8,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     key="Foo"
   >
     <Card
-      className="sc-Axmtr bVdtCA"
+      className="sc-fzozJi dCCegk"
     >
       <article
-        className="pf-c-card sc-Axmtr bVdtCA"
+        className="pf-c-card sc-fzozJi dCCegk"
       >
         <CardHeader>
           <div
@@ -29,7 +29,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     height={40}
                   >
                     <div
-                      className="sc-AxirZ kGKGpr"
+                      className="sc-AxhCb kcBhCv"
                       height={40}
                     >
                       <IconPlaceholder
@@ -59,7 +59,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         <t
                           afterLoad={[Function]}
                           beforeLoad={[Function]}
-                          className="sc-AxjAm fBVHdt"
+                          className="sc-AxiKw kPfjgK"
                           delayMethod="throttle"
                           delayTime={0}
                           effect=""
@@ -76,7 +76,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                           <t
                             afterLoad={[Function]}
                             beforeLoad={[Function]}
-                            className="sc-AxjAm fBVHdt"
+                            className="sc-AxiKw kPfjgK"
                             delayMethod="throttle"
                             delayTime={0}
                             height={0}
@@ -84,7 +84,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             visibleByDefault={false}
                           >
                             <img
-                              className="sc-AxjAm fBVHdt"
+                              className="sc-AxiKw kPfjgK"
                               height={0}
                               hidden={true}
                               onError={[Function]}
@@ -106,10 +106,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         >
           <Styled(CardBody)>
             <CardBody
-              className="sc-AxheI fdbZUy"
+              className="sc-AxmLO yfVDw"
             >
               <div
-                className="pf-c-card__body sc-AxheI fdbZUy"
+                className="pf-c-card__body sc-AxmLO yfVDw"
               >
                 <TextContent>
                   <div
@@ -125,7 +125,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         >
                           <styled.div>
                             <div
-                              className="sc-AxgMl ytwOc"
+                              className="sc-Axmtr TurKp"
                             />
                           </styled.div>
                         </h3>
@@ -145,7 +145,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     key="card-prop-long_description"
                   >
                     <div
-                      className="sc-AxiKw iUXPLF"
+                      className="sc-AxhUy cLUHxg"
                     />
                   </styled.div>
                 </ItemDetails>

@@ -29,7 +29,8 @@ import {
   updatePortfolio,
   removePortfolio,
   removeProductsFromPortfolio,
-  undoRemoveProductsFromPortfolio
+  undoRemoveProductsFromPortfolio,
+  undoRemovePortfolio
 } from '../../../redux/actions/portfolio-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 
@@ -292,7 +293,14 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct action creators when removing portfolio', () => {
-    const store = mockStore({});
+    const store = mockStore({
+      portfolioReducer: {
+        portfolios: {
+          meta: { limit: 50, offset: 0 },
+          data: []
+        }
+      }
+    });
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
@@ -308,12 +316,12 @@ describe('Portfolio actions', () => {
         payload: '123'
       },
       expect.objectContaining({ type: `${REMOVE_PORTFOLIO}_PENDING` }),
-      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
-      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
       expect.objectContaining({
         type: ADD_NOTIFICATION,
         payload: expect.objectContaining({ variant: 'success' })
       }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
       expect.objectContaining({ type: `${REMOVE_PORTFOLIO}_FULFILLED` })
     ];
 
@@ -486,5 +494,41 @@ describe('Portfolio actions', () => {
     const store = mockStore({});
     store.dispatch({ type: RESET_SELECTED_PORTFOLIO });
     expect(store.getActions()).toEqual([{ type: RESET_SELECTED_PORTFOLIO }]);
+  });
+
+  it('should call correct actions after undoRemovePortfolio is successful', () => {
+    const store = mockStore({
+      portfolioReducer: {
+        portfolios: {
+          meta: {
+            limit: 50,
+            offset: 0
+          },
+          data: []
+        }
+      }
+    });
+
+    mockApi
+      .onPost(`${CATALOG_API_BASE}/portfolios/123/undelete`)
+      .replyOnce(200, { id: '123', name: 'Yay' });
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .replyOnce(200, { data: [] });
+    const expectedActions = [
+      {
+        type: CLEAR_NOTIFICATIONS
+      },
+      expect.objectContaining({
+        type: ADD_NOTIFICATION
+      }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
+      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` })
+    ];
+    return store.dispatch(undoRemovePortfolio(123, 'restore-key')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
 });

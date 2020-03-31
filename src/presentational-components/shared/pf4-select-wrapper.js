@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormGroup,
@@ -28,27 +28,58 @@ const Select = ({
   isRequired,
   formOptions: { change },
   multi,
+  loadOptions,
+  meta,
   ...rest
-}) => (
-  <rawComponents.Select
-    hideSelectedOptions={false}
-    menuIsPortal
-    {...input}
-    {...rest}
-    onChange={(value, ...args) => {
-      if (rest.onChange) {
-        rest.onChange(value);
-        change(input.name, value);
-      } else {
-        input.onChange(value, ...args);
-      }
-    }}
-    isMulti={multi}
-    options={createOptions(options, input.value, isRequired)}
-    isDisabled={isDisabled || isReadOnly}
-    closeMenuOnSelect={!multi}
-  />
-);
+}) => {
+  const [initialFetch, setInitialFetch] = useState(true);
+  let loadOptionsOverride = loadOptions;
+  if (loadOptions && meta.initial) {
+    const lookupArguments = Array.isArray(meta.initial)
+      ? meta.initial.map((option) =>
+          typeof option === 'object' ? option.value : option
+        )
+      : [meta.initial];
+    loadOptionsOverride = (filterValue) => {
+      return initialFetch
+        ? loadOptions(filterValue, lookupArguments).then((initialOptions) => {
+            return loadOptions(filterValue).then((options) => {
+              setInitialFetch(false);
+              return [
+                ...initialOptions,
+                ...options.filter(
+                  ({ value }) =>
+                    !initialOptions.find((option) => option.value === value)
+                )
+              ];
+            });
+          })
+        : loadOptions(filterValue);
+    };
+  }
+
+  return (
+    <rawComponents.Select
+      hideSelectedOptions={false}
+      menuIsPortal
+      {...input}
+      {...rest}
+      loadOptions={loadOptionsOverride}
+      onChange={(value, ...args) => {
+        if (rest.onChange) {
+          rest.onChange(value);
+          change(input.name, value);
+        } else {
+          input.onChange(value, ...args);
+        }
+      }}
+      isMulti={multi}
+      options={createOptions(options, input.value, isRequired)}
+      isDisabled={isDisabled || isReadOnly}
+      closeMenuOnSelect={!multi}
+    />
+  );
+};
 
 Select.propTypes = {
   input: PropTypes.object.isRequired,
@@ -66,7 +97,11 @@ Select.propTypes = {
   formOptions: PropTypes.shape({
     change: PropTypes.func
   }),
-  multi: PropTypes.bool
+  multi: PropTypes.bool,
+  loadOptions: PropTypes.func,
+  meta: PropTypes.shape({
+    initial: PropTypes.any
+  }).isRequired
 };
 
 Select.defaultProps = {
@@ -112,6 +147,7 @@ const Pf4SelectWrapper = ({
       <Select
         formOptions={formOptions}
         id={id || name}
+        meta={meta}
         label={label}
         isValid={!showError}
         isRequired={isRequired}

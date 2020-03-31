@@ -4,7 +4,6 @@ import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store';
 import {
   AppPlaceholder,
-  PortfolioLoader,
   CardLoader,
   ListLoader
 } from '../../../presentational-components/shared/loader-placeholders';
@@ -15,10 +14,6 @@ describe('Loader placeholders', () => {
     expect(
       toJson(shallow(<AppPlaceholder store={mockStore} />))
     ).toMatchSnapshot();
-  });
-
-  it('should render <PortfolioLoader /> correctly', () => {
-    expect(toJson(shallow(<PortfolioLoader />))).toMatchSnapshot();
   });
 
   it('should render <CardLoader /> correctly', () => {

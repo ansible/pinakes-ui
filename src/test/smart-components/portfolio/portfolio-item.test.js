@@ -28,7 +28,12 @@ describe('<PortfolioItem />', () => {
       id: '1',
       name: 'Foo',
       description: 'Bar',
-      display_name: 'quux'
+      display_name: 'quux',
+      metadata: {
+        user_capabilities: {
+          destroy: true
+        }
+      }
     };
     initialState = {
       platformReducer: {
@@ -42,7 +47,12 @@ describe('<PortfolioItem />', () => {
               id: '1',
               name: 'Foo',
               description: 'Bar',
-              display_name: 'quux'
+              display_name: 'quux',
+              metadata: {
+                user_capabilities: {
+                  destroy: true
+                }
+              }
             }
           ]
         }

@@ -5,7 +5,7 @@ import store from './utilities/store';
 import Router from './router';
 
 ReactDOM.render(
-  <Provider store={store()}>
+  <Provider store={store(true)}>
     <Router />
   </Provider>,
   document.getElementById('root')

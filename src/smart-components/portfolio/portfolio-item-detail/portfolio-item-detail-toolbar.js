@@ -45,16 +45,25 @@ export const PortfolioItemDetailToolbar = ({
   setOpen,
   isFetching,
   uploadIcon,
-  availability
+  availability,
+  userCapabilities
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level>
       <StyledLevelItem alignEnd className="pf-l-flex">
-        <PortfolioItemIconItem
-          uploadIcon={uploadIcon}
-          id={product.id}
-          sourceId={product.service_offering_source_ref}
-        />
+        {userCapabilities.update ? (
+          <PortfolioItemIconItem
+            uploadIcon={uploadIcon}
+            id={product.id}
+            sourceId={product.service_offering_source_ref}
+          />
+        ) : (
+          <CardIcon
+            src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
+            sourceId={product.service_offering_source_ref}
+            height={64}
+          />
+        )}
         <TextContent className="pf-u-ml-md">
           <Text component={TextVariants.h1}>{product.name}</Text>
         </TextContent>
@@ -75,6 +84,7 @@ export const PortfolioItemDetailToolbar = ({
                 workflowUrl={`${url}/edit-workflow`}
                 isFetching={isFetching}
                 availability={availability}
+                userCapabilities={userCapabilities}
                 {...args}
               />
             )}
@@ -104,7 +114,8 @@ PortfolioItemDetailToolbar.propTypes = {
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   uploadIcon: PropTypes.func.isRequired,
-  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired
+  availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
+  userCapabilities: PropTypes.object
 };
 
 PortfolioItemDetailToolbar.defaultProps = {

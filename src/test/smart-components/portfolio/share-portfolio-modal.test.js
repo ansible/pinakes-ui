@@ -34,13 +34,15 @@ describe('<SharePortfolioModal', () => {
     };
     initialState = {
       portfolioReducer: {
-        portfolios: {
-          data: [
-            {
-              id: '123',
-              name: 'Portfolio 1'
+        selectedPortfolio: {
+          id: '123',
+          name: 'Portfolio 1',
+          metadata: {
+            user_capabilities: {
+              share: true,
+              unshare: true
             }
-          ]
+          }
         }
       },
       shareReducer: {
@@ -68,7 +70,7 @@ describe('<SharePortfolioModal', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it.skip('should mount and load data', async (done) => {
+  it('should mount and load data', async (done) => {
     const store = mockStore(initialState);
 
     mockApi
@@ -172,6 +174,50 @@ describe('<SharePortfolioModal', () => {
     await act(async () => {
       wrapper.find('form').simulate('submit');
     });
+    done();
+  });
+
+  it('should redirect from share modal if both share and unshare capabilities are false', async (done) => {
+    const store = mockStore({
+      ...initialState,
+
+      portfolioReducer: {
+        selectedPortfolio: {
+          id: '123',
+          name: 'Portfolio 1',
+          metadata: {
+            user_capabilities: {
+              share: false,
+              unshare: false
+            }
+          }
+        }
+      }
+    });
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`)
+      .replyOnce(200, { data: {} });
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
+
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+          <Route
+            path="/portfolio/:id"
+            render={(args) => (
+              <SharePortfolioModal {...args} {...initialProps} />
+            )}
+          />
+        </ComponentWrapper>
+      );
+    });
+
+    wrapper.update();
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/401');
     done();
   });
 });
