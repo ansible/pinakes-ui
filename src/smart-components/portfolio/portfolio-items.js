@@ -93,7 +93,7 @@ const PortfolioItems = ({
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterChange,
-            placeholder: 'Filter by product...'
+            placeholder: 'Filter by product'
           },
           title: name,
           description,
