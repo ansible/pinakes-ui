@@ -18,6 +18,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             }
           />
         }
+        id="123"
         portfolioName="name"
         to={
           Object {

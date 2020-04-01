@@ -167,6 +167,18 @@ describe('<EditApprovalWorkflow />', () => {
         ]
       });
     mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?filter[name][contains]=&filter[id][]=111`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            name: 'workflow1',
+            id: '111'
+          }
+        ]
+      });
+    mockApi
       .onGet(`${APPROVAL_API_BASE}/workflows?filter[name][contains]=&`)
       .reply(200, {
         data: [

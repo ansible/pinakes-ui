@@ -196,7 +196,13 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: ADD_TEMPORARY_PORTFOLIO,
-        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+        payload: {
+          data: 'new portfolio',
+          isDisabled: true,
+          isTemporary: true,
+          created_at: expect.any(String),
+          id: expect.any(String)
+        }
       },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
@@ -225,7 +231,13 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: ADD_TEMPORARY_PORTFOLIO,
-        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+        payload: {
+          data: 'new portfolio',
+          isDisabled: true,
+          isTemporary: true,
+          created_at: expect.any(String),
+          id: expect.any(String)
+        }
       },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
       { type: RESTORE_PORTFOLIO_PREV_STATE },

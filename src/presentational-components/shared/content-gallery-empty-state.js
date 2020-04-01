@@ -53,15 +53,17 @@ export default ContentGalleryEmptyState;
 export const EmptyStatePrimaryAction = ({
   url,
   label,
-  hasPermission = false
+  hasPermission = false,
+  id
 }) =>
   hasPermission && (
-    <CatalogLink pathname={url} preserveSearch>
+    <CatalogLink id={id} pathname={url} preserveSearch>
       <Button variant="primary">{label}</Button>
     </CatalogLink>
   );
 
 EmptyStatePrimaryAction.propTypes = {
   url: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  od: PropTypes.string
 };

@@ -149,6 +149,7 @@ const PortfolioCard = ({
       <StyledCard>
         <CardHeader>
           <PortfolioCardHeader
+            id={id}
             to={to}
             portfolioName={name}
             headerActions={
