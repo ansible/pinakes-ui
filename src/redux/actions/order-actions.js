@@ -35,11 +35,6 @@ export const sendSubmitOrder = (apiProps) => (dispatch) =>
     )
   });
 
-export const fetchRequests = () => ({
-  type: ActionTypes.FETCH_REQUESTS,
-  payload: OrderHelper.listRequests()
-});
-
 export const cancelOrder = (orderId) => (dispatch, getState) => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
   const {
