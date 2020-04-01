@@ -109,7 +109,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config config/webpack.config.js --env.prod=true --mode production",
     "analyze": "NODE_ENV=production webpack --config config/webpack.config.js --env.prod=true --env.analyze=true --mode production",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --runInBand",
     "lint": "yarn eslint ./src",
     "lint:sass": "stylelint 'src/**/*.scss' --config .stylelintrc.json",
     "prod": " NODE_ENV=production webpack-dev-server --config config/webpack.config.js --env.prod=true --mode production",
