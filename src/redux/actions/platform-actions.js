@@ -1,7 +1,7 @@
 import * as ActionTypes from '../action-types';
 import * as PlatformHelper from '../../helpers/platform/platform-helper';
 
-const doFetchPlatforms = () => (dispatch) => {
+export const fetchPlatforms = () => (dispatch) => {
   dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_PENDING` });
   return PlatformHelper.getPlatforms()
     .then((data) =>
@@ -17,8 +17,6 @@ const doFetchPlatforms = () => (dispatch) => {
       })
     );
 };
-
-export const fetchPlatforms = () => (dispatch) => dispatch(doFetchPlatforms());
 
 export const fetchPlatformItems = (platformId, filter, options) => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,

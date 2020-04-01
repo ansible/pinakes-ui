@@ -28,7 +28,8 @@ describe('<AddPortfolioModal />', () => {
 
   beforeEach(() => {
     initialProps = {
-      fetchPortfolios: jest.fn()
+      fetchPortfolios: jest.fn(),
+      closeTarget: '/close-target'
     };
     initialState = {
       portfolioReducer: {

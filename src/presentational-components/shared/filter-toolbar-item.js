@@ -45,6 +45,7 @@ const FilterToolbarItem = ({
   <ToolbarItem>
     <FilterInputGroup>
       <FilterInput
+        id="toolbar-filter"
         placeholder={placeholder}
         value={searchValue}
         type="text"

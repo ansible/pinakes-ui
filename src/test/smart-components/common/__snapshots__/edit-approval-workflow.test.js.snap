@@ -38,6 +38,12 @@ exports[`<EditApprovalWorkflow /> should create the edit workflow modal 1`] = `
       objectName={[Function]}
       objectType="Portfolio"
       portfolioId="123"
+      pushParam={
+        Object {
+          "pathname": "/foo",
+          "search": "?platform=1",
+        }
+      }
       querySelector="portfolio"
     />
   </MemoryRouter>

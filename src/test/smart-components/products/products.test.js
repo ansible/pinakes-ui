@@ -45,11 +45,12 @@ describe('<Products />', () => {
             {
               name: 'Foo',
               id: '123',
-              portfolioName: 'Foo portfolio'
+              portfolioName: 'Foo portfolio',
+              metadata: { user_capabilities: {} }
             }
           ],
           meta: {
-            limit: 0,
+            limit: 25,
             offset: 0,
             count: 1
           }

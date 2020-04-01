@@ -53,9 +53,6 @@ const Platforms = () => {
             Catalog.
           </Text>
         )}
-        <Text component={TextVariants.p}>
-          <a href="javascript:void(0)">Learn more in the documentation</a>
-        </Text>
       </TextContent>
     </Fragment>
   );
