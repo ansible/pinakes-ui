@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import createPortfolioToolbarSchema from '../../../toolbar/schemas/portfolios-toolbar.schema';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<PortfoliosFilterToolbar />', () => {
   let initialProps;

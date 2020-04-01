@@ -13,9 +13,9 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
-import { mockApi } from '../../__mocks__/user-login';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/index';
 import { Button } from '@patternfly/react-core/dist/js/index';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;

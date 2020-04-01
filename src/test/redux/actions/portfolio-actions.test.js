@@ -35,7 +35,7 @@ import {
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 
 import { openApiReducerMock } from '../../__mocks__/open-api-mock';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('Portfolio actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];

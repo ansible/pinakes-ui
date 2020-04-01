@@ -17,7 +17,7 @@ import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import { approvalInitialState } from '../../../redux/reducers/approval-reducer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { act } from 'react-dom/test-utils';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<PlatformInventories />', () => {
   let initialProps;

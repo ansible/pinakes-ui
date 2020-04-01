@@ -16,7 +16,10 @@ import {
 } from '../../../../utilities/constants';
 import PlatformItem from '../../../../presentational-components/platform/platform-item';
 import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-products-to-portfolio';
-import { mockApi, mockGraphql } from '../../../__mocks__/user-login';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../../helpers/shared/__mocks__/user-login';
 
 describe('<AddProductsToPortfolio />', () => {
   let initialProps;

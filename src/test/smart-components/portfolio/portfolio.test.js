@@ -27,11 +27,14 @@ import {
   FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   INITIALIZE_BREADCRUMBS
 } from '../../../redux/action-types';
-import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 import { testStore } from '../../../utilities/store';
 import CatalogBreadcrumbs from '../../../smart-components/common/catalog-breadcrumbs';
 import { BreadcrumbItem } from '@patternfly/react-core';
 import CommonApiError from '../../../smart-components/error-pages/common-api-error';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Portfolio />', () => {
   let initialProps;
