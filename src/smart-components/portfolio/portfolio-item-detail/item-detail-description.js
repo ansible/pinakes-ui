@@ -62,7 +62,11 @@ const ItemDetailDescription = ({ userCapabilities, product, url, search }) => (
       requiredCapabilities="update"
       userCapabilities={userCapabilities}
     >
-      <EditPortfolioItem cancelUrl={url} product={product} />
+      <EditPortfolioItem
+        cancelUrl={url}
+        product={product}
+        userCapabilities={userCapabilities}
+      />
     </CatalogRoute>
     <Route exact path={`${url}/edit-workflow`}>
       <EditApprovalWorkflow
