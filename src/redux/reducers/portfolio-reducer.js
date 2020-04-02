@@ -138,9 +138,7 @@ const updateTemporaryPortfolioItem = (state, { payload }) => ({
   portfolioItems: {
     ...state.portfolioItems,
     data: state.portfolioItems.data.map((item) =>
-      item.id === payload.id
-        ? { ...payload, metadata: { user_capabilities: {} } }
-        : item
+      item.id === payload.id ? { ...payload } : item
     )
   }
 });
