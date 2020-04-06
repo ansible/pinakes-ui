@@ -26,7 +26,15 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 
 const loadPortfolios = (filter) =>
   listPortfolios(filter, { limit: 100, offset: 0 }).then(({ data }) =>
-    data.map(({ name, id }) => ({ value: id, label: name }))
+    data
+      .filter(
+        ({
+          metadata: {
+            user_capabilities: { update }
+          }
+        }) => update
+      )
+      .map(({ name, id }) => ({ value: id, label: name }))
   );
 
 const copySchema = (portfolioName, portfolioChange, nameFetching) => ({
