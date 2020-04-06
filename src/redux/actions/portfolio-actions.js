@@ -288,6 +288,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
                 undo: (
                   <a
                     href="#"
+                    id={`restore-portfolio-item-${portfolioId}`}
                     onClick={(event) => {
                       event.preventDefault();
                       dispatch(

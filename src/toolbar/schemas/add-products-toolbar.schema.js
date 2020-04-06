@@ -80,7 +80,8 @@ const createAddProductsSchema = ({
                   onClick: onClickAddToPortfolio,
                   isDisabled: !itemsSelected || isFetching,
                   showSpinner: isFetching,
-                  children: 'Add'
+                  children: 'Add',
+                  id: 'add-products-to-portfolio'
                 })
               ]
             },
