@@ -128,7 +128,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                   content={
                     <div>
                       
-                      22 Mar 2019 07:36:57 UTC
+                      22 Mar 2019 07:36 UTC
                     </div>
                   }
                   distance={15}
@@ -172,7 +172,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                         >
                           <div>
                             
-                            22 Mar 2019 07:36:57 UTC
+                            22 Mar 2019 07:36 UTC
                           </div>
                         </TooltipContent>
                       </div>
@@ -233,7 +233,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                             >
                               <div>
                                 
-                                22 Mar 2019 07:36:57 UTC
+                                22 Mar 2019 07:36 UTC
                               </div>
                             </div>
                           </div>
@@ -252,7 +252,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                             className="pf-c-tooltip__content"
                           >
                             <div>
-                              22 Mar 2019 07:36:57 UTC
+                              22 Mar 2019 07:36 UTC
                             </div>
                           </div>
                         </TooltipContent>
@@ -371,7 +371,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                   content={
                     <div>
                       
-                      22 Mar 2019 07:36:57 UTC
+                      22 Mar 2019 07:36 UTC
                     </div>
                   }
                   distance={15}
@@ -415,7 +415,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                         >
                           <div>
                             
-                            22 Mar 2019 07:36:57 UTC
+                            22 Mar 2019 07:36 UTC
                           </div>
                         </TooltipContent>
                       </div>
@@ -476,7 +476,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                             >
                               <div>
                                 
-                                22 Mar 2019 07:36:57 UTC
+                                22 Mar 2019 07:36 UTC
                               </div>
                             </div>
                           </div>
@@ -495,7 +495,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                             className="pf-c-tooltip__content"
                           >
                             <div>
-                              22 Mar 2019 07:36:57 UTC
+                              22 Mar 2019 07:36 UTC
                             </div>
                           </div>
                         </TooltipContent>
@@ -642,7 +642,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                   content={
                     <div>
                       
-                      22 Mar 2019 07:36:57 UTC
+                      22 Mar 2019 07:36 UTC
                     </div>
                   }
                   distance={15}
@@ -686,7 +686,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                         >
                           <div>
                             
-                            22 Mar 2019 07:36:57 UTC
+                            22 Mar 2019 07:36 UTC
                           </div>
                         </TooltipContent>
                       </div>
@@ -747,7 +747,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                             >
                               <div>
                                 
-                                22 Mar 2019 07:36:57 UTC
+                                22 Mar 2019 07:36 UTC
                               </div>
                             </div>
                           </div>
@@ -766,7 +766,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                             className="pf-c-tooltip__content"
                           >
                             <div>
-                              22 Mar 2019 07:36:57 UTC
+                              22 Mar 2019 07:36 UTC
                             </div>
                           </div>
                         </TooltipContent>
