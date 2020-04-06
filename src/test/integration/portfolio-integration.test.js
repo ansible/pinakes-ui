@@ -31,7 +31,9 @@ describe('Integration test for portfolio entity', () => {
           copy: true,
           show: true,
           update: true,
-          destroy: true
+          destroy: true,
+          share: true,
+          unshare: true
         }
       }
     };
@@ -339,6 +341,28 @@ describe('Integration test for portfolio entity', () => {
       wrapper.find('button#confirm-delete-portfolio').simulate('click');
     });
     wrapper.update();
+    expect(wrapper.find(StyledGalleryItem)).toHaveLength(1);
+    /**
+     * Undo delete of portfolio
+     */
+    expect(wrapper.find('a#undo-delete-portfolio-123')).toHaveLength(1);
+    /**
+     * Mock undo delete endpoints
+     */
+    mockApi
+      .onPost(`${CATALOG_API_BASE}/portfolios/${initialPortfolio.id}/undelete`)
+      .replyOnce(200, initialPortfolio);
+    mockApi
+      .onGet(
+        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
+      )
+      .replyOnce(200, {
+        data: [initialPortfolio, copiedPortfolio],
+        meta: { count: 2, limit: 50, offset: 0 }
+      });
+    await act(async () => {
+      wrapper.find('a#undo-delete-portfolio-123').simulate('click');
+    });
     expect(wrapper.find(StyledGalleryItem)).toHaveLength(1);
   });
 });

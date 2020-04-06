@@ -184,6 +184,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
                 The portfolio was removed successfully. You can&nbsp;
                 <a
                   href="#"
+                  id={`undo-delete-portfolio-${portfolioId}`}
                   onClick={(event) => {
                     event.preventDefault();
                     dispatch(undoRemovePortfolio(portfolioId, restore_key));
