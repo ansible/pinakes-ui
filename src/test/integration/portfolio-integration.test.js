@@ -196,7 +196,10 @@ describe('Integration test for portfolio entity', () => {
      * open the edit modal and change the portfolio description
      */
     wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    wrapper.find('a#edit-portfolio').simulate('click', { button: 0 });
+    wrapper
+      .find('li#edit-portfolio')
+      .find('a')
+      .simulate('click', { button: 0 });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual('/portfolio/edit-portfolio');
