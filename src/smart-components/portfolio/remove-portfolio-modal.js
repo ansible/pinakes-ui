@@ -49,7 +49,13 @@ const RemovePortfolioModal = () => {
       onClose={goBack}
       isFooterLeftAligned
       actions={[
-        <Button key="submit" variant="danger" type="button" onClick={onSubmit}>
+        <Button
+          key="submit"
+          variant="danger"
+          type="button"
+          id="confirm-delete-portfolio"
+          onClick={onSubmit}
+        >
           Confirm
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>

@@ -64,7 +64,13 @@ export const searchPortfolioItems = (value) => ({
 export const addPortfolio = (portfolioData, items) => (dispatch) => {
   dispatch({
     type: ActionTypes.ADD_TEMPORARY_PORTFOLIO,
-    payload: { ...portfolioData, isDisabled: true, isTemporary: true }
+    payload: {
+      ...portfolioData,
+      isDisabled: true,
+      isTemporary: true,
+      id: Date.now().toString(),
+      created_at: new Date().toString()
+    }
   });
   return dispatch({
     type: ActionTypes.ADD_PORTFOLIO,
@@ -178,6 +184,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
                 The portfolio was removed successfully. You can&nbsp;
                 <a
                   href="#"
+                  id={`undo-delete-portfolio-${portfolioId}`}
                   onClick={(event) => {
                     event.preventDefault();
                     dispatch(undoRemovePortfolio(portfolioId, restore_key));

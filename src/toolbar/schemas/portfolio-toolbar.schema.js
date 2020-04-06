@@ -59,7 +59,11 @@ const PortfolioActionsToolbar = ({
         key="edit-portfolio"
         id="edit-portfolio"
         component={
-          <CatalogLink preserveSearch pathname={editPortfolioRoute}>
+          <CatalogLink
+            id="edit-portfolio"
+            preserveSearch
+            pathname={editPortfolioRoute}
+          >
             Edit
           </CatalogLink>
         }

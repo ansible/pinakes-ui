@@ -40,6 +40,10 @@ Element.prototype.scrollTo = () => {};
 global.insights = {
   chrome: {
     appNavClick: () => {},
+    init: () => {},
+    identifyApp: () => {},
+    navigation: () => {},
+    on: () => {},
     auth: {
       getUser: () =>
         new Promise((resolve) =>

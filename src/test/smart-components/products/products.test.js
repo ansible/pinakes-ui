@@ -15,7 +15,10 @@ import {
 } from '../../../utilities/constants';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
 import ContentGalleryEmptyState from '../../../presentational-components/shared/content-gallery-empty-state';
-import { mockApi, mockGraphql } from '../../__mocks__/user-login';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Products />', () => {
   let initialState;

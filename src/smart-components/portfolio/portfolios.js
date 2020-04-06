@@ -74,7 +74,6 @@ const Portfolios = () => {
   const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
-
   useEffect(() => {
     dispatch(
       fetchPortfolios({ ...defaultSettings, filter: filterValue })
@@ -108,6 +107,7 @@ const Portfolios = () => {
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
+      id="create-portfolio"
       label="Create portfolio"
       hasPermission={hasPermission(userPermissions, [
         'catalog:portfolios:create'

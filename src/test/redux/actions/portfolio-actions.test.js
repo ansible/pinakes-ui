@@ -35,7 +35,7 @@ import {
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 
 import { openApiReducerMock } from '../../__mocks__/open-api-mock';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('Portfolio actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
@@ -196,7 +196,13 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: ADD_TEMPORARY_PORTFOLIO,
-        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+        payload: {
+          data: 'new portfolio',
+          isDisabled: true,
+          isTemporary: true,
+          created_at: expect.any(String),
+          id: expect.any(String)
+        }
       },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
@@ -225,7 +231,13 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: ADD_TEMPORARY_PORTFOLIO,
-        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+        payload: {
+          data: 'new portfolio',
+          isDisabled: true,
+          isTemporary: true,
+          created_at: expect.any(String),
+          id: expect.any(String)
+        }
       },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
       { type: RESTORE_PORTFOLIO_PREV_STATE },
