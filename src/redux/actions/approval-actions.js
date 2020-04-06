@@ -25,15 +25,15 @@ export const updateWorkflows = (toUnlinkIds, toLinkIds, resourceObject) => (
       dispatch(
         addNotification({
           variant: 'success',
-          title: 'Success updating workflows',
+          title: 'Success updating approval process',
           dismissable: true,
           description: (
             <Fragment>
               {toUnlinkIds.length > 0 ? (
                 <FormattedMessage
                   id="workflows.update_workflows"
-                  defaultMessage={`{count, number} {count, plural, one {workflow was}
-                    other {workflows were}} unlinked succesfully. `}
+                  defaultMessage={`{count, number} {count, plural, one {approval process was}
+                    other {approval processes were}} unlinked succesfully. `}
                   values={{ count: toUnlinkIds.length }}
                 />
               ) : (
@@ -42,8 +42,8 @@ export const updateWorkflows = (toUnlinkIds, toLinkIds, resourceObject) => (
               {toLinkIds.length > 0 ? (
                 <FormattedMessage
                   id="workflows.update_workflows"
-                  defaultMessage={`{count, number} {count, plural, one {workflow was}
-                    other {workflows were}} linked succesfully.`}
+                  defaultMessage={`{count, number} {count, plural, one {approval process was}
+                    other {approval processes were}} linked succesfully.`}
                   values={{ count: toLinkIds.length }}
                 />
               ) : (
