@@ -9,7 +9,8 @@ import { updatePortfolioItem } from '../../../redux/actions/portfolio-actions';
 
 const EditPortfolioItem = ({
   cancelUrl,
-  product: { owner, created_at, updated_at, ...product }
+  product: { owner, created_at, updated_at, ...product },
+  userCapabilities
 }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
@@ -22,7 +23,12 @@ const EditPortfolioItem = ({
           pathname: cancelUrl,
           search
         });
-        return dispatch(updatePortfolioItem(values));
+        return dispatch(
+          updatePortfolioItem({
+            ...values,
+            metadata: { user_capabilities: userCapabilities }
+          })
+        );
       }}
       canReset
       onCancel={() =>
@@ -39,7 +45,8 @@ const EditPortfolioItem = ({
 
 EditPortfolioItem.propTypes = {
   cancelUrl: PropTypes.string.isRequired,
-  product: PropTypes.object.isRequired
+  product: PropTypes.object.isRequired,
+  userCapabilities: PropTypes.object.isRequired
 };
 
 export default EditPortfolioItem;

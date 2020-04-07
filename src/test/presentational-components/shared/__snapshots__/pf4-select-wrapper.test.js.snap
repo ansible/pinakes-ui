@@ -22,6 +22,7 @@ exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
     }
     isSearchable={false}
     isValid={true}
+    meta={Object {}}
     multi={false}
     options={
       Array [
@@ -58,6 +59,12 @@ exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
     }
     isSearchable={false}
     isValid={false}
+    meta={
+      Object {
+        "error": "Error",
+        "touched": true,
+      }
+    }
     multi={false}
     options={
       Array [
@@ -100,6 +107,7 @@ exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
     }
     isSearchable={false}
     isValid={true}
+    meta={Object {}}
     multi={false}
     options={
       Array [

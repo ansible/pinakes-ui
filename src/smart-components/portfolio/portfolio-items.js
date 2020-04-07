@@ -26,6 +26,7 @@ import {
   NESTED_WORKFLOW_PORTFOLIO_ROUTE,
   NESTED_ORDER_PORTFOLIO_ROUTE
 } from '../../constants/routes';
+import CatalogRoute from '../../routing/catalog-route';
 
 const PortfolioItems = ({
   routes,
@@ -42,13 +43,23 @@ const PortfolioItems = ({
     filterValue
   }
 }) => {
-  const { data, meta, name, description } = useSelector(
+  const { data, meta, name, description, userCapabilities } = useSelector(
     ({
       portfolioReducer: {
         portfolioItems: { data, meta },
-        selectedPortfolio: { name, description }
+        selectedPortfolio: {
+          name,
+          description,
+          metadata: { user_capabilities }
+        }
       }
-    }) => ({ data, meta, name, description })
+    }) => ({
+      data,
+      meta,
+      name,
+      description,
+      userCapabilities: user_capabilities
+    })
   );
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const [{ portfolio: id }, search] = useQuery(['portfolio']);
@@ -64,7 +75,7 @@ const PortfolioItems = ({
         'portfolio-item': item.id
       }}
       preserveSearch
-      isSelectable
+      isSelectable={userCapabilities.update}
       onSelect={(selectedItem) =>
         stateDispatch({ type: 'selectItem', payload: selectedItem })
       }
@@ -82,7 +93,7 @@ const PortfolioItems = ({
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterChange,
-            placeholder: 'Filter by product...'
+            placeholder: 'Filter by product'
           },
           title: name,
           description,
@@ -95,15 +106,23 @@ const PortfolioItems = ({
           meta,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(fetchPortfolioItemsWithPortfolio(...args)),
-          portfolioId: id
+          portfolioId: id,
+          userCapabilities
         })}
       />
-      <Route exact path={NESTED_EDIT_PORTFOLIO_ROUTE}>
+      <CatalogRoute
+        userCapabilities={userCapabilities}
+        requiredCapabilities="update"
+        exact
+        path={NESTED_EDIT_PORTFOLIO_ROUTE}
+      >
         <AddPortfolioModal
           closeTarget={{ pathname: PORTFOLIO_ROUTE, search }}
         />
-      </Route>
-      <Route
+      </CatalogRoute>
+      <CatalogRoute
+        userCapabilities={userCapabilities}
+        requiredCapabilities="destroy"
         exact
         path={NESTED_REMOVE_PORTFOLIO_ROUTE}
         component={RemovePortfolioModal}

@@ -15,6 +15,7 @@ import { removePortfolio } from '../../redux/actions/portfolio-actions';
 import useQuery from '../../utilities/use-query';
 import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
+import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 
 const RemovePortfolioModal = () => {
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
@@ -32,7 +33,15 @@ const RemovePortfolioModal = () => {
     return null;
   }
 
-  return (
+  const {
+    metadata: {
+      user_capabilities: { destroy }
+    }
+  } = portfolio;
+
+  return destroy === false ? (
+    <UnauthorizedRedirect />
+  ) : (
     <Modal
       title="Delete Portfolio?"
       isOpen

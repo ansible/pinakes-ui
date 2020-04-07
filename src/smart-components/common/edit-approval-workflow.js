@@ -118,8 +118,12 @@ EditApprovalWorkflow.propTypes = {
   objectType: PropTypes.string.isRequired,
   objectName: PropTypes.func,
   removeQuery: PropTypes.bool,
-  querySelector: PropTypes.oneOf(['portfolio', 'platform', 'inventory'])
-    .isRequired
+  querySelector: PropTypes.oneOf([
+    'portfolio',
+    'platform',
+    'inventory',
+    'portfolio-item'
+  ]).isRequired
 };
 
 export default EditApprovalWorkflow;

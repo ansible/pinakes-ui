@@ -34,7 +34,12 @@ describe('<AddPortfolioModal />', () => {
       portfolioReducer: {
         selectedPortfolio: {
           name: 'Selected portfolio',
-          id: '123'
+          id: '123',
+          metadata: {
+            user_capabilities: {
+              update: true
+            }
+          }
         },
         portfolios: { data: [] }
       }
@@ -118,5 +123,38 @@ describe('<AddPortfolioModal />', () => {
 
     const button = wrapper.find('button').last();
     button.simulate('click');
+  });
+
+  it('should redirect away from edit variant if update capability is set to false', () => {
+    const store = mockStore({
+      ...initialState,
+      portfolioReducer: {
+        ...initialState.portfolioReducer,
+        selectedPortfolio: {
+          ...initialState.portfolioReducer.selectedPortfolio,
+          metadata: {
+            user_capabilities: {
+              update: false
+            }
+          }
+        }
+      }
+    });
+
+    const wrapper = mount(
+      <ComponentWrapper
+        store={store}
+        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+      >
+        <Route
+          path="/portfolio"
+          render={() => <AddPortfolioModal {...initialProps} />}
+        />
+      </ComponentWrapper>
+    );
+
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/401');
   });
 });

@@ -1,20 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfolioItemDetail /> should render correctly 1`] = `
-<Provider
-  store={
+<ContextProvider
+  value={
     Object {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
+      "permissions": Array [],
     }
   }
 >
-  <MemoryRouter>
-    <PortfolioItemDetail />
-  </MemoryRouter>
-</Provider>
+  <Provider
+    store={
+      Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+  >
+    <MemoryRouter>
+      <PortfolioItemDetail />
+    </MemoryRouter>
+  </Provider>
+  .
+</ContextProvider>
 `;
