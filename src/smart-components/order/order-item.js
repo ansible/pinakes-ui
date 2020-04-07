@@ -87,7 +87,7 @@ const OrderItem = memo(
                                     pathname={ORDER_ROUTE}
                                     searchParams={searchParams}
                                   >
-                                    {orderName} # {item.id}
+                                    {orderName} - Order # {item.id}
                                   </CatalogLink>
                                 </Text>
                               </LevelItem>
