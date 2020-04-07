@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
 
 import AddProductsGallery from './add-products-gallery';
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
@@ -19,6 +18,7 @@ import {
 import AsyncPagination from '../../common/async-pagination';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import { useDispatch, useSelector } from 'react-redux';
+import BottomPaginationContainer from '../../../presentational-components/shared/bottom-pagination-container';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
   items
@@ -89,7 +89,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   };
 
   return (
-    <Section>
+    <Fragment>
       <ToolbarRenderer
         schema={createAddProductsSchema({
           options: platforms.map((platform) => ({
@@ -123,7 +123,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
         )}
       />
       {meta && meta.count > 0 && (
-        <div className="pf-u-p-lg global-primary-background content-layout">
+        <BottomPaginationContainer>
           <AsyncPagination
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
@@ -132,9 +132,9 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             }
             dropDirection="up"
           />
-        </div>
+        </BottomPaginationContainer>
       )}
-    </Section>
+    </Fragment>
   );
 };
 
