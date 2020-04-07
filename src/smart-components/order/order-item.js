@@ -26,7 +26,16 @@ import {
   getOrderPlatformId
 } from '../../helpers/shared/orders';
 import CatalogLink from '../common/catalog-link';
-import { ORDER_ROUTE, ORDER_APPROVAL_ROUTE } from '../../constants/routes';
+import {
+  ORDER_ROUTE,
+  ORDER_APPROVAL_ROUTE,
+  ORDER_LIFECYCLE_ROUTE
+} from '../../constants/routes';
+
+const routeMapper = {
+  'Approval Pending': ORDER_APPROVAL_ROUTE,
+  Completed: ORDER_LIFECYCLE_ROUTE
+};
 
 const OrderItem = memo(
   ({ item }) => {
@@ -93,7 +102,9 @@ const OrderItem = memo(
                               </LevelItem>
                               <LevelItem>
                                 <CatalogLink
-                                  pathname={ORDER_APPROVAL_ROUTE}
+                                  pathname={
+                                    routeMapper[item.state] || ORDER_ROUTE
+                                  }
                                   searchParams={searchParams}
                                 >
                                   {item.state === 'Failed' && (
