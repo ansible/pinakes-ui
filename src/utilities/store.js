@@ -47,8 +47,7 @@ const prodMiddlewares = [
       'errorMessage',
       'stack'
     ]
-  }),
-  reduxLogger
+  })
 ];
 
 const baseMiddlewares = [
@@ -77,10 +76,11 @@ const registerReducers = (registry) => {
   });
 };
 
-export default () => {
+export default (isProd = false) => {
   const registry = new ReducerRegistry({}, [
     ...baseMiddlewares,
-    ...prodMiddlewares
+    ...prodMiddlewares,
+    ...(isProd ? [] : [reduxLogger])
   ]);
   registerReducers(registry);
   return registry.getStore();

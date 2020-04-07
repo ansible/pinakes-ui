@@ -142,8 +142,7 @@ const CopyPortfolioItemModal = ({
 
 CopyPortfolioItemModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  portfolioId: PropTypes.string.isRequired,
-  portfolios: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  portfolioId: PropTypes.string,
   portfolioItemId: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired
 };

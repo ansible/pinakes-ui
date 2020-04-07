@@ -43,7 +43,15 @@ describe('<Portfolios />', () => {
               description: 'description',
               modified: 'sometimes',
               created_at: 'foo',
-              owner: 'Owner'
+              owner: 'Owner',
+              metadata: {
+                user_capabilities: {
+                  share: true,
+                  unshare: true,
+                  update: true,
+                  destroy: true
+                }
+              }
             }
           ],
           meta: {

@@ -14,6 +14,7 @@ import {
   Title
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -37,10 +38,27 @@ const ApprovalRequests = () => {
   );
 
   useEffect(() => {
-    if (approvalRequest.data.length === 0) {
+    if (order.state !== 'Failed' && approvalRequest.data.length === 0) {
       checkRequest(() => dispatch(fetchApprovalRequests(orderItem.id)));
     }
   }, []);
+
+  if (order.state === 'Failed' && approvalRequest.data.length === 0) {
+    return (
+      <Bullseye>
+        <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
+          <Bullseye>
+            <InfoIcon size="xl" />
+          </Bullseye>
+          <Bullseye>
+            <Title>
+              We were unable to find any approval requests for this order.
+            </Title>
+          </Bullseye>
+        </Flex>
+      </Bullseye>
+    );
+  }
 
   return (
     <TextContent>

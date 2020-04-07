@@ -136,7 +136,29 @@ export const updatePortfolio = (portfolioData) => (dispatch, getState) => {
     );
 };
 
-export const removePortfolio = (portfolioId) => (dispatch) => {
+export const undoRemovePortfolio = (portfolioId, restoreKey) => (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: CLEAR_NOTIFICATIONS });
+  return PortfolioHelper.undeletePortfolio(portfolioId, restoreKey).then(
+    (portfolio) => {
+      dispatch({
+        type: ADD_NOTIFICATION,
+        payload: {
+          variant: 'success',
+          dismissable: true,
+          title: `Portfolio ${portfolio.name} has been restored`
+        }
+      });
+      return dispatch(
+        fetchPortfolios(getState().portfolioReducer.portfolios.meta)
+      );
+    }
+  );
+};
+
+export const removePortfolio = (portfolioId) => (dispatch, getState) => {
   dispatch({
     type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
     payload: portfolioId
@@ -144,20 +166,42 @@ export const removePortfolio = (portfolioId) => (dispatch) => {
   return dispatch({
     type: ActionTypes.REMOVE_PORTFOLIO,
     payload: PortfolioHelper.removePortfolio(portfolioId)
-      .then(() => dispatch(doFetchPortfolios()))
+      .then(({ restore_key }) => {
+        dispatch({
+          type: ADD_NOTIFICATION,
+          payload: {
+            variant: 'success',
+            title: 'Success removing portfolio',
+            dismissable: true,
+            description: (
+              <span>
+                The portfolio was removed successfully. You can&nbsp;
+                <a
+                  href="#"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    dispatch(undoRemovePortfolio(portfolioId, restore_key));
+                  }}
+                >
+                  Undo
+                </a>
+                &nbsp;this action if this was a mistake.
+              </span>
+            )
+          }
+        });
+        const { meta, data } = getState().portfolioReducer.portfolios;
+        return dispatch(
+          fetchPortfolios({
+            ...meta,
+            offset: data.length === 0 ? 0 : meta.offset
+          })
+        );
+      })
       .catch((error) => {
         dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_PREV_STATE });
         throw error;
-      }),
-    meta: {
-      notifications: {
-        fulfilled: {
-          variant: 'success',
-          title: 'Success removing portfolio',
-          description: 'The portfolio was removed successfully.'
-        }
-      }
-    }
+      })
   });
 };
 

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import ContentLoader, { List } from 'react-content-loader';
 import PropTypes from 'prop-types';
 import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
@@ -20,10 +19,64 @@ import {
   FormGroup,
   TextContent,
   Text,
-  TextVariants
+  TextVariants,
+  ActionGroup,
+  Button
 } from '@patternfly/react-core';
+import styled, { keyframes } from 'styled-components';
 
-export const CardLoader = ({ items, ...props }) => (
+const wave = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+`;
+
+const Skeleton = ({ component: Component = 'span', ...props }) => {
+  return (
+    <SkeletonContainer {...props}>
+      <Component />
+    </SkeletonContainer>
+  );
+};
+
+Skeleton.propTypes = {
+  component: PropTypes.string
+};
+
+const SkeletonContainer = styled.div`
+  & > * {
+    position: relative;
+    overflow: hidden;
+    width: ${({ width }) =>
+      width ? `${width}${typeof width === 'number' ? 'px' : ''}` : '100%'};
+    height: ${({ height }) =>
+      height ? `${height}${typeof height === 'number' ? 'px' : ''}` : '20px'};
+    display: block;
+    border-radius: 3px;
+    background-color: ${({ secondaryColor }) =>
+      secondaryColor ? secondaryColor : '#f3f3f3'};
+    &:after {
+      animation: 2s ${wave} linear 0.5s infinite;
+      background: linear-gradient(90deg, transparent, #ecebeb, transparent);
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      transform: translateX(-100%);
+      z-index: 1;
+    }
+  }
+`;
+
+export const CardLoader = ({ items }) => (
   <Grid gutter="md">
     <GridItem sm={12} className="pf-u-p-md">
       <Gallery gutter="md">
@@ -31,41 +84,10 @@ export const CardLoader = ({ items, ...props }) => (
           <GalleryItem key={index}>
             <Card style={{ height: 350 }}>
               <CardBody>
-                <ContentLoader
-                  height={160}
-                  width={300}
-                  speed={2}
-                  primaryColor="#f3f3f3"
-                  secondaryColor="#ecebeb"
-                  {...props}
-                >
-                  <rect x="2" y="99" rx="3" ry="3" width="300" height="6.4" />
-                  <rect
-                    x="2"
-                    y="119.72"
-                    rx="3"
-                    ry="3"
-                    width="290"
-                    height="5.76"
-                  />
-                  <rect x="2" y="139" rx="3" ry="3" width="201" height="6.4" />
-                  <rect
-                    x="-2.16"
-                    y="0.67"
-                    rx="0"
-                    ry="0"
-                    width="271.6"
-                    height="82.74"
-                  />
-                  <rect
-                    x="136.84"
-                    y="37.67"
-                    rx="0"
-                    ry="0"
-                    width="6"
-                    height="3"
-                  />
-                </ContentLoader>
+                <Skeleton height={70} width="85%" className="pf-u-mb-lg" />
+                <Skeleton height={5} width="90%" className="pf-u-mb-sm" />
+                <Skeleton height={5} width="100%" className="pf-u-mb-sm" />
+                <Skeleton height={5} width="76%" className="pf-u-mb-sm" />
               </CardBody>
             </Card>
           </GalleryItem>
@@ -83,47 +105,10 @@ CardLoader.defaultProps = {
   items: 13
 };
 
-export const PortfolioLoader = ({ items, ...props }) => (
-  <Grid gutter="md">
-    <GridItem sm={12}>
-      <ContentLoader
-        height={16}
-        width={300}
-        speed={2}
-        primaryColor="#FFFFFF"
-        secondaryColor="#FFFFFF"
-        {...props}
-      >
-        <rect x="0" y="0" rx="0" ry="0" width="420" height="16" />
-      </ContentLoader>
-    </GridItem>
-    <GridItem sm={12} style={{ paddingLeft: 16, paddingRight: 16 }}>
-      <CardLoader items={items} />
-    </GridItem>
-  </Grid>
-);
-
-PortfolioLoader.propTypes = {
-  items: PropTypes.number
-};
-
-PortfolioLoader.defaultProps = {
-  items: 5
-};
-
-export const AppPlaceholder = (props) => (
+export const AppPlaceholder = () => (
   <Main className="pf-u-m-0 pf-u-p-0">
-    <ContentLoader
-      height={16}
-      width={300}
-      speed={2}
-      primaryColor="#FFFFFF"
-      secondaryColor="#FFFFFF"
-      {...props}
-    >
-      <rect x="0" y="0" rx="0" ry="0" width="420" height="10" />
-    </ContentLoader>
-    <div>
+    <Skeleton height={32} className="pf-u-p-lg global-primary-background" />
+    <div className="pf-u-mt-lg">
       <Bullseye>
         <Spinner />
       </Bullseye>
@@ -131,36 +116,27 @@ export const AppPlaceholder = (props) => (
   </Main>
 );
 
-export const ToolbarTitlePlaceholder = (props) => (
-  <ContentLoader
-    height={21}
-    width={200}
-    speed={2}
-    primaryColor="#f3f3f3"
-    secondaryColor="#ecebeb"
-    {...props}
-  >
-    <rect x="0" y="0" rx="0" ry="0" width="200" height="21" />
-  </ContentLoader>
-);
+export const ToolbarTitlePlaceholder = () => <Skeleton height={30} />;
 
-export const ProductLoaderPlaceholder = (props) => (
+const ProducLoaderColumn = styled.div`
+  width: 100%;
+  max-width: 250px;
+`;
+
+export const ProductLoaderPlaceholder = () => (
   <Fragment>
-    <ContentLoader
-      height={15}
-      width={200}
-      speed={2}
-      primaryColor="#f3f3f3"
-      secondaryColor="#ecebeb"
-      {...props}
-    >
-      <rect x="0" y="0" rx="0" ry="0" width="200" height="10" />
-    </ContentLoader>
-    <div style={{ width: 300 }}>
-      <List />
-      <List speed={3} />
-      <List />
-    </div>
+    <Skeleton height={70} className="pf-u-mb-xl" />
+    <ProducLoaderColumn>
+      {[...Array(3)].map((_, index) => (
+        <Fragment key={index}>
+          <Skeleton height={8} className="pf-u-mb-sm" />
+          <Skeleton height={8} className="pf-u-ml-md pf-u-mb-sm" width="60%" />
+          <Skeleton height={8} className="pf-u-ml-md pf-u-mb-sm" width="50%" />
+          <Skeleton height={8} className="pf-u-mb-sm" width="80%" />
+          <Skeleton height={8} className="pf-u-ml-md pf-u-mb-lg" width="40%" />
+        </Fragment>
+      ))}
+    </ProducLoaderColumn>
   </Fragment>
 );
 
@@ -178,17 +154,7 @@ IconPlaceholder.defaultProps = {
   height: '40'
 };
 
-const FormItemLoader = () => (
-  <ContentLoader
-    height={36}
-    width={400}
-    speed={2}
-    primaryColor="#ffffff"
-    secondaryColor="#ecebeb"
-  >
-    <rect x="0" y="0" rx="0" ry="0" width="400" height="36" />
-  </ContentLoader>
-);
+const FormItemLoader = () => <Skeleton height={38} className="pf-u-mb-lg" />;
 
 export const ShareLoader = () => (
   <Form>
@@ -212,18 +178,18 @@ export const ShareLoader = () => (
 
 export const WorkflowLoader = () => (
   <Form>
-    <FormGroup fieldId="1">
-      <TextContent>
-        <Text component={TextVariants.medium}>Approval workflow</Text>
-      </TextContent>
-    </FormGroup>
-    <FormGroup fieldId="2">
+    <FormGroup fieldId="2" label="Select workflow">
       <FormItemLoader />
     </FormGroup>
+    <ActionGroup>
+      <Button variant="primary" isDisabled>
+        Save
+      </Button>
+    </ActionGroup>
   </Form>
 );
 
-export const ListLoader = ({ items, ...props }) => (
+export const ListLoader = ({ items }) => (
   <DataList aria-label="list-loader" aria-labelledby="datalist-placeholder">
     {[...Array(items)].map((_item, index) => (
       <DataListItem key={index} aria-labelledby="datalist-item-placeholder">
@@ -231,16 +197,7 @@ export const ListLoader = ({ items, ...props }) => (
           <DataListItemCells
             dataListCells={[
               <DataListCell key="1">
-                <ContentLoader
-                  height={12}
-                  width={300}
-                  speed={2}
-                  primaryColor="#FFFFFF"
-                  secondaryColor="#ecebeb"
-                  {...props}
-                >
-                  <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
-                </ContentLoader>
+                <Skeleton height={67} />
               </DataListCell>
             ]}
           />
@@ -258,10 +215,4 @@ ListLoader.defaultProps = {
   items: 5
 };
 
-export const OrderDetailToolbarPlaceholder = () => (
-  <div>
-    <ContentLoader height={20} width={300}>
-      <rect x="0" y="0" rx="0" ry="0" width="300" height="12" />
-    </ContentLoader>
-  </div>
-);
+export const OrderDetailToolbarPlaceholder = () => <Skeleton height={70} />;

@@ -11,6 +11,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   orderUrl="foo/bar"
   pathname="foo/bar"
   setOpen={[MockFunction]}
+  userCapabilities={
+    Object {
+      "copy": true,
+      "update": true,
+    }
+  }
   workflowUrl="foo/workflow"
 >
   <LevelItem>
@@ -22,7 +28,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         preserveSearch={true}
         searchParams={Object {}}
       >
-        <Styled(Link)
+        <Styled(Component)
           isDisabled={false}
           to={
             Object {
@@ -31,7 +37,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             }
           }
         >
-          <Link
+          <Component
             className="sc-AxiKw drCTeX"
             isDisabled={false}
             to={
@@ -41,95 +47,103 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
             }
           >
-            <LinkAnchor
+            <Link
               className="sc-AxiKw drCTeX"
-              href="foo/bar"
-              isDisabled={false}
-              navigate={[Function]}
+              to={
+                Object {
+                  "pathname": "foo/bar",
+                  "search": "",
+                }
+              }
             >
-              <a
+              <LinkAnchor
                 className="sc-AxiKw drCTeX"
                 href="foo/bar"
-                isDisabled={false}
-                onClick={[Function]}
+                navigate={[Function]}
               >
-                <ButtonWithSpinner
-                  id="order-portfolio-item"
-                  isDisabled={false}
-                  showSpinner={false}
-                  variant="primary"
+                <a
+                  className="sc-AxiKw drCTeX"
+                  href="foo/bar"
+                  onClick={[Function]}
                 >
-                  <Styled(Component)
+                  <ButtonWithSpinner
                     id="order-portfolio-item"
                     isDisabled={false}
+                    showSpinner={false}
                     variant="primary"
                   >
-                    <Component
-                      className="sc-AxjAm jhCAUI"
+                    <Styled(Component)
                       id="order-portfolio-item"
                       isDisabled={false}
                       variant="primary"
                     >
-                      <ComponentWithOuia
-                        component={[Function]}
-                        componentProps={
-                          Object {
-                            "children": Array [
+                      <Component
+                        className="sc-AxjAm jhCAUI"
+                        id="order-portfolio-item"
+                        isDisabled={false}
+                        variant="primary"
+                      >
+                        <ComponentWithOuia
+                          component={[Function]}
+                          componentProps={
+                            Object {
+                              "children": Array [
+                                <styled.span
+                                  showSpinner={false}
+                                >
+                                  Order
+                                </styled.span>,
+                                false,
+                              ],
+                              "className": "sc-AxjAm jhCAUI",
+                              "id": "order-portfolio-item",
+                              "isDisabled": false,
+                              "variant": "primary",
+                            }
+                          }
+                          consumerContext={null}
+                        >
+                          <Button
+                            className="sc-AxjAm jhCAUI"
+                            id="order-portfolio-item"
+                            isDisabled={false}
+                            ouiaContext={
+                              Object {
+                                "isOuia": false,
+                                "ouiaId": null,
+                              }
+                            }
+                            variant="primary"
+                          >
+                            <button
+                              aria-disabled={null}
+                              aria-label={null}
+                              className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
+                              disabled={false}
+                              id="order-portfolio-item"
+                              tabIndex={null}
+                              type="button"
+                            >
                               <styled.span
                                 showSpinner={false}
                               >
-                                Order
-                              </styled.span>,
-                              false,
-                            ],
-                            "className": "sc-AxjAm jhCAUI",
-                            "id": "order-portfolio-item",
-                            "isDisabled": false,
-                            "variant": "primary",
-                          }
-                        }
-                        consumerContext={null}
-                      >
-                        <Button
-                          className="sc-AxjAm jhCAUI"
-                          id="order-portfolio-item"
-                          isDisabled={false}
-                          ouiaContext={
-                            Object {
-                              "isOuia": false,
-                              "ouiaId": null,
-                            }
-                          }
-                          variant="primary"
-                        >
-                          <button
-                            aria-disabled={null}
-                            aria-label={null}
-                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
-                            disabled={false}
-                            id="order-portfolio-item"
-                            tabIndex={null}
-                            type="button"
-                          >
-                            <styled.span
-                              showSpinner={false}
-                            >
-                              <span
-                                className="sc-AxirZ fnlrkz"
-                              >
-                                Order
-                              </span>
-                            </styled.span>
-                          </button>
-                        </Button>
-                      </ComponentWithOuia>
-                    </Component>
-                  </Styled(Component)>
-                </ButtonWithSpinner>
-              </a>
-            </LinkAnchor>
-          </Link>
-        </Styled(Link)>
+                                <span
+                                  className="sc-AxirZ fnlrkz"
+                                >
+                                  Order
+                                </span>
+                              </styled.span>
+                            </button>
+                          </Button>
+                        </ComponentWithOuia>
+                      </Component>
+                    </Styled(Component)>
+                  </ButtonWithSpinner>
+                </a>
+              </LinkAnchor>
+            </Link>
+          </Component>
+        </Styled(Component)>
       </CatalogLink>
     </div>
   </LevelItem>
@@ -162,6 +176,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Edit
                 </CatalogLink>
               }
+              id="edit-portfolio-item"
               role="link"
             />,
             <DropdownItem
@@ -176,6 +191,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Copy
                 </CatalogLink>
               }
+              id="copy-portfolio-item"
               role="link"
             />,
             <DropdownItem
@@ -204,6 +220,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Edit survey
                 </CatalogLink>
               }
+              id="edit-survey"
               role="link"
             />,
           ]
@@ -215,6 +232,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         position="right"
         toggle={
           <KebabToggle
+            id="portfolio-item-actions-toggle"
             onToggle={[Function]}
           />
         }
@@ -234,6 +252,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     Edit
                   </CatalogLink>
                 }
+                id="edit-portfolio-item"
                 role="link"
               />,
               <DropdownItem
@@ -248,6 +267,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     Copy
                   </CatalogLink>
                 }
+                id="copy-portfolio-item"
                 role="link"
               />,
               <DropdownItem
@@ -276,6 +296,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     Edit survey
                   </CatalogLink>
                 }
+                id="edit-survey"
                 role="link"
               />,
             ]
@@ -286,6 +307,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           position="right"
           toggle={
             <KebabToggle
+              id="portfolio-item-actions-toggle"
               onToggle={[Function]}
             />
           }
@@ -307,6 +329,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Edit
                       </CatalogLink>
                     }
+                    id="edit-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -321,6 +344,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Copy
                       </CatalogLink>
                     }
+                    id="copy-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -349,6 +373,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Edit survey
                       </CatalogLink>
                     }
+                    id="edit-survey"
                     role="link"
                   />,
                 ],
@@ -357,6 +382,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 "onToggle": [MockFunction],
                 "position": "right",
                 "toggle": <KebabToggle
+                  id="portfolio-item-actions-toggle"
                   onToggle={[Function]}
                 />,
               }
@@ -381,6 +407,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Edit
                       </CatalogLink>
                     }
+                    id="edit-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -395,6 +422,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Copy
                       </CatalogLink>
                     }
+                    id="copy-portfolio-item"
                     role="link"
                   />,
                   <DropdownItem
@@ -423,6 +451,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Edit survey
                       </CatalogLink>
                     }
+                    id="edit-survey"
                     role="link"
                   />,
                 ]
@@ -442,6 +471,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               position="right"
               toggle={
                 <KebabToggle
+                  id="portfolio-item-actions-toggle"
                   onToggle={[Function]}
                 />
               }
@@ -452,7 +482,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               >
                 <KebabToggle
                   ariaHasPopup={true}
-                  id="pf-toggle-id-0"
+                  id="portfolio-item-actions-toggle"
                   isOpen={false}
                   isPlain={true}
                   key=".0"
@@ -468,7 +498,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           aria-haspopup="true"
                           aria-label="Actions"
                           class="pf-c-dropdown__toggle pf-m-plain"
-                          id="pf-toggle-id-0"
+                          id="portfolio-item-actions-toggle"
                           type="button"
                         >
                           <svg
@@ -493,8 +523,9 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <Toggle
                     aria-label="Actions"
                     ariaHasPopup={true}
+                    bubbleEvent={false}
                     className=""
-                    id="pf-toggle-id-0"
+                    id="portfolio-item-actions-toggle"
                     isActive={false}
                     isDisabled={false}
                     isFocused={false}
@@ -515,7 +546,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                             aria-haspopup="true"
                             aria-label="Actions"
                             class="pf-c-dropdown__toggle pf-m-plain"
-                            id="pf-toggle-id-0"
+                            id="portfolio-item-actions-toggle"
                             type="button"
                           >
                             <svg
@@ -543,7 +574,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       aria-label="Actions"
                       className="pf-c-dropdown__toggle pf-m-plain"
                       disabled={false}
-                      id="pf-toggle-id-0"
+                      id="portfolio-item-actions-toggle"
                       onClick={[Function]}
                       onKeyDown={[Function]}
                       type="button"

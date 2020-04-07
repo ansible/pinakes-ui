@@ -34,6 +34,7 @@ describe('<EditPortfolioItem />', () => {
     initialProps = {
       workflows: [],
       cancelUrl: '/cancel',
+      userCapabilities: {},
       product: {
         name: 'foo',
         id: '123'
@@ -67,6 +68,7 @@ describe('<EditPortfolioItem />', () => {
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
           name: 'foo',
+          metadata: { user_capabilities: {} },
           documentation_url: 'https://www.google.com/',
           support_url: 'https://www.google.com/',
           long_description: 'https://www.google.com/',
@@ -82,6 +84,7 @@ describe('<EditPortfolioItem />', () => {
         payload: {
           name: 'foo',
           id: '123',
+          metadata: { user_capabilities: {} },
           documentation_url: 'https://www.google.com/',
           support_url: 'https://www.google.com/',
           long_description: 'https://www.google.com/',
@@ -94,6 +97,7 @@ describe('<EditPortfolioItem />', () => {
         payload: {
           name: 'foo',
           id: '123',
+          metadata: { user_capabilities: {} },
           documentation_url: 'https://www.google.com/',
           support_url: 'https://www.google.com/',
           long_description: 'https://www.google.com/',

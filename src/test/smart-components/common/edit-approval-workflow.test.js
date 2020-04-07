@@ -153,18 +153,32 @@ describe('<EditApprovalWorkflow />', () => {
 
   it('should unlink/link unselected/selected workflows', async (done) => {
     const store = mockStore(initialState);
-    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, {
-      data: [
-        {
-          name: 'workflow1',
-          id: '111'
-        },
-        {
-          name: 'workflow2',
-          id: '222'
-        }
-      ]
-    });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?filter[name][contains]=&filter[id][]=111`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            name: 'workflow1',
+            id: '111'
+          }
+        ]
+      });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows?filter[name][contains]=&`)
+      .reply(200, {
+        data: [
+          {
+            name: 'workflow1',
+            id: '111'
+          },
+          {
+            name: 'workflow2',
+            id: '222'
+          }
+        ]
+      });
     mockApi
       .onGet(
         `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`

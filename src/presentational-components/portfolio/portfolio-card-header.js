@@ -38,7 +38,7 @@ const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
 
 PortfolioCardHeader.propTypes = {
   portfolioName: PropTypes.string.isRequired,
-  headerActions: PropTypes.arrayOf(PropTypes.node),
+  headerActions: PropTypes.node,
   to: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
     search: PropTypes.string.isRequired
