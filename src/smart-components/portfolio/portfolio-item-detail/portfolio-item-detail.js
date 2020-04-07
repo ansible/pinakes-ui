@@ -39,9 +39,11 @@ const PortfolioItemDetail = () => {
       metadata: { user_capabilities: userCapabilities },
       ...portfolioItem
     },
-    portfolio,
     source
   } = useSelector(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
+  const portfolio = useSelector(
+    ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
+  );
 
   useEffect(() => {
     setIsFetching(true);
