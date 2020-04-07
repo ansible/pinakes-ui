@@ -298,9 +298,8 @@ describe('<Portfolio />', () => {
           .onSelect('123');
         wrapper.update();
       });
-      wrapper.find('button#remove-products-dropdown-toggle').simulate('click');
       await act(async () => {
-        wrapper.find('li#remove-products').simulate('click');
+        wrapper.find('button#remove-products-button').simulate('click');
       });
     });
   });
@@ -588,24 +587,13 @@ describe('<Portfolio />', () => {
     wrapper.update();
     const checkbox = wrapper.find(PortfolioItem).find('input');
     checkbox.simulate('change');
-    /**
-     * Trigger remove portfolio items action
-     */
-    const removeTrigger = wrapper.find(
-      'button#remove-products-dropdown-toggle'
-    );
-
-    /**
-     * open dropdown
-     */
-    removeTrigger.simulate('click');
     wrapper.update();
 
     /**
      * trigger remove actions
      */
     await act(async () => {
-      wrapper.find('li#remove-products').simulate('click');
+      wrapper.find('button#remove-products-button').simulate('click');
     });
     /**
      * trigger notification undo click
