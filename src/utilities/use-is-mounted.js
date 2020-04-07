@@ -6,7 +6,7 @@ const useIsMounted = () => {
     isMounted.current = true;
     return () => (isMounted.current = false);
   }, []);
-  return isMounted;
+  return isMounted.current;
 };
 
 export default useIsMounted;

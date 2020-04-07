@@ -22,6 +22,7 @@ import useBreadcrumbs from '../../utilities/use-breadcrumbs';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import CatalogRoute from '../../routing/catalog-route';
+import useIsMounted from '../../utilities/use-is-mounted';
 
 const initialState = {
   selectedItems: [],
@@ -63,6 +64,7 @@ const Portfolio = () => {
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const history = useHistory();
   const dispatch = useDispatch();
+  const isMounted = useIsMounted();
   const { portfolio, portfolioItem, meta } = useSelector(
     ({
       portfolioReducer: {
@@ -105,6 +107,12 @@ const Portfolio = () => {
       dispatch(resetSelectedPortfolio());
     };
   }, [id]);
+
+  useEffect(() => {
+    if (isMounted && history.location.pathname === PORTFOLIO_ROUTE) {
+      fetchData(id);
+    }
+  }, [history.location.pathname]);
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
