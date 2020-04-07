@@ -57,6 +57,10 @@ describe('<PortfolioItemDetail />', () => {
         platformIconMapping: {}
       },
       portfolioReducer: {
+        selectedPortfolio: {
+          id: '333',
+          name: 'Portfolio name'
+        },
         portfolioItem: {
           portfolioItem: {
             id: '123',
@@ -71,11 +75,7 @@ describe('<PortfolioItemDetail />', () => {
               }
             }
           },
-          source: { id: '111', name: 'Source name' },
-          portfolio: {
-            id: '333',
-            name: 'Portfolio name'
-          }
+          source: { id: '111', name: 'Source name' }
         }
       },
       orderReducer: {
