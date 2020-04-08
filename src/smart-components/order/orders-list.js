@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  DataList,
   Grid,
   GridItem,
   Title,
@@ -26,6 +25,10 @@ import OrderItem from './order-item';
 import AsyncPagination from '../common/async-pagination';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import {
+  Table,
+  Tbody
+} from '../../presentational-components/styled-components/table';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -215,50 +218,56 @@ const OrdersList = () => {
               }
             />
           )}
-          <DataList aria-label="order-list">
-            {isFiltering || isFetching ? (
-              <ListLoader />
-            ) : data.length > 0 ? (
-              data.map((item, index) => (
-                <OrderItem key={item.id} index={index} item={item} />
-              ))
-            ) : (
-              <EmptyTable>
-                <Bullseye>
-                  <EmptyState>
-                    <Bullseye>
-                      <EmptyStateIcon icon={SearchIcon} />
-                    </Bullseye>
-                    <Title size="lg">
-                      {meta.noData ? 'No orders' : 'No results found'}
-                    </Title>
-                    <EmptyStateBody>
-                      {meta.noData
-                        ? 'No orders have been created.'
-                        : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
-                    </EmptyStateBody>
+          <Table aria-label="order-list">
+            <Tbody>
+              {isFetching || isFiltering ? (
+                <tr>
+                  <td className="pf-u-p-0">
+                    <ListLoader />
+                  </td>
+                </tr>
+              ) : data.length > 0 ? (
+                data.map((item, index) => (
+                  <OrderItem key={item.id} index={index} item={item} />
+                ))
+              ) : (
+                <EmptyTable>
+                  <Bullseye>
+                    <EmptyState>
+                      <Bullseye>
+                        <EmptyStateIcon icon={SearchIcon} />
+                      </Bullseye>
+                      <Title size="lg">
+                        {meta.noData ? 'No orders' : 'No results found'}
+                      </Title>
+                      <EmptyStateBody>
+                        {meta.noData
+                          ? 'No orders have been created.'
+                          : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+                      </EmptyStateBody>
 
-                    <EmptyStateSecondaryActions>
-                      {!meta.noData && (
-                        <Button
-                          variant="link"
-                          onClick={() => {
-                            stateDispatch({
-                              type: 'setFilteringFlag',
-                              payload: true
-                            });
-                            handleFilterItems('');
-                          }}
-                        >
-                          Clear all filters
-                        </Button>
-                      )}
-                    </EmptyStateSecondaryActions>
-                  </EmptyState>
-                </Bullseye>
-              </EmptyTable>
-            )}
-          </DataList>
+                      <EmptyStateSecondaryActions>
+                        {!meta.noData && (
+                          <Button
+                            variant="link"
+                            onClick={() => {
+                              stateDispatch({
+                                type: 'setFilteringFlag',
+                                payload: true
+                              });
+                              handleFilterItems('');
+                            }}
+                          >
+                            Clear all filters
+                          </Button>
+                        )}
+                      </EmptyStateSecondaryActions>
+                    </EmptyState>
+                  </Bullseye>
+                </EmptyTable>
+              )}
+            </Tbody>
+          </Table>
           <TableToolbar>
             <div className="bottom-pagination-container">
               <Flex
