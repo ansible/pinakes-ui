@@ -232,7 +232,6 @@ describe('Integration tests for portfolio items', () => {
     wrapper
       .find('input[type="checkbox"]')
       .simulate('change', { target: { checked: true } });
-    wrapper.find('button#remove-products-dropdown-toggle').simulate('click');
     /**
      * mock delete endpoint
      */
@@ -254,7 +253,7 @@ describe('Integration tests for portfolio items', () => {
         }
       });
     await act(async () => {
-      wrapper.find('li#remove-products').simulate('click');
+      wrapper.find('button#remove-products-button').simulate('click');
     });
     await act(async () => {
       wrapper.update();

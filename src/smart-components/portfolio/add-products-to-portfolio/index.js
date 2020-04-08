@@ -1,10 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useReducer, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import AddProductsGallery from './add-products-gallery';
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../../helpers/shared/pagination';
-import { filterServiceOffering } from '../../../helpers/shared/helpers';
 import PlatformItem from '../../../presentational-components/platform/platform-item';
 import createAddProductsSchema from '../../../toolbar/schemas/add-products-toolbar.schema';
 import {
@@ -19,25 +18,55 @@ import AsyncPagination from '../../common/async-pagination';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomPaginationContainer from '../../../presentational-components/shared/bottom-pagination-container';
+import asyncFormValidator from '../../../utilities/async-form-validator';
 
-const renderGalleryItems = (items = [], checkItem, checkedItems, filter) =>
-  items
-    .filter((item) => filterServiceOffering(item, filter))
-    .map((item) => (
-      <PlatformItem
-        key={item.id}
-        {...item}
-        editMode
-        onToggleItemSelect={() => checkItem(item.id)}
-        checked={checkedItems.includes(item.id)}
-      />
-    ));
+const renderGalleryItems = (items = [], checkItem, checkedItems) =>
+  items.map((item) => (
+    <PlatformItem
+      key={item.id}
+      {...item}
+      editMode
+      onToggleItemSelect={() => checkItem(item.id)}
+      checked={checkedItems.includes(item.id)}
+    />
+  ));
+
+const initialState = {
+  filterValue: '',
+  isFetching: false,
+  isFiltering: false
+};
+
+const addProductsState = (state, action) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+    case 'setFilterValue':
+      return { ...state, filterValue: action.payload };
+    case 'setFilteringFlag':
+      return { ...state, isFiltering: action.payload };
+  }
+
+  return state;
+};
+
+const debouncedFilter = asyncFormValidator(
+  (id, filter, dispatch, filteringCallback, meta = defaultSettings) => {
+    filteringCallback(true);
+    dispatch(fetchPlatformItems(id, filter, { ...meta, filter })).then(() =>
+      filteringCallback(false)
+    );
+  },
+  1000
+);
 
 const AddProductsToPortfolio = ({ portfolioRoute }) => {
-  const [searchValue, handleFilterChange] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState(undefined);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [isFetching, setFetching] = useState(false);
+  const [{ filterValue, isFetching }, stateDispatch] = useReducer(
+    addProductsState,
+    initialState
+  );
   const { push } = useEnhancedHistory();
   const dispatch = useDispatch();
   const { portfolio, platforms, platformItems, isLoading } = useSelector(
@@ -72,20 +101,35 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
     platformItems[selectedPlatform.id] &&
     platformItems[selectedPlatform.id].meta;
 
+  const handleFilterItems = (value) => {
+    stateDispatch({ type: 'setFilterValue', payload: value });
+    debouncedFilter(
+      selectedPlatform.id,
+      value,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
+      {
+        ...meta,
+        offset: 0
+      }
+    );
+  };
+
   const handleAddToPortfolio = () => {
-    setFetching(true);
+    dispatch({ type: 'setFetching', payload: true });
     return dispatch(addToPortfolio(portfolio.id, checkedItems))
-      .then(() => setFetching(false))
+      .then(() => dispatch({ type: 'setFetching', payload: false }))
       .then(() =>
         push({ pathname: portfolioRoute, search: `?portfolio=${portfolio.id}` })
       )
       .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolio.id)))
-      .catch(() => setFetching(false));
+      .catch(() => dispatch({ type: 'setFetching', payload: false }));
   };
 
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
-    dispatch(fetchPlatformItems(platform.id, null, defaultSettings));
+    dispatch(fetchPlatformItems(platform.id, filterValue, defaultSettings));
   };
 
   return (
@@ -101,14 +145,14 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           portfolioName: (portfolio && portfolio.name) || '',
           itemsSelected: checkedItems.length > 0,
           onOptionSelect: onPlatformSelect,
-          onFilterChange: (value) => handleFilterChange(value),
+          onFilterChange: (value) => handleFilterItems(value),
           portfolioRoute,
           onClickAddToPortfolio: handleAddToPortfolio,
           meta,
           platformId: selectedPlatform && selectedPlatform.id,
-          searchValue,
+          searchValue: filterValue,
           fetchPlatformItems: (id, options) =>
-            fetchPlatformItems(id, searchValue, options)
+            dispatch(fetchPlatformItems(id, filterValue, options))
         })}
       />
       <AddProductsGallery
@@ -118,8 +162,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
         items={renderGalleryItems(
           items,
           (itemId) => setCheckedItems(checkItem(itemId)),
-          checkedItems,
-          searchValue
+          checkedItems
         )}
       />
       {meta && meta.count > 0 && (
@@ -128,7 +171,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
             apiRequest={(id, options) =>
-              fetchPlatformItems(id, searchValue, options)
+              fetchPlatformItems(id, filterValue, options)
             }
             dropDirection="up"
           />

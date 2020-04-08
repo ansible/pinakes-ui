@@ -54,6 +54,7 @@ const createAddProductsSchema = ({
                       key: 'filter-products-input',
                       onFilterChange,
                       searchValue,
+                      isDisabled: !platformId,
                       placeholder: 'Filter products'
                     }
                   ]

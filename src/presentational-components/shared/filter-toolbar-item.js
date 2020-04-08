@@ -40,7 +40,8 @@ const FilterToolbarItem = ({
   searchValue,
   onFilterChange,
   placeholder,
-  isClearable
+  isClearable,
+  ...rest
 }) => (
   <ToolbarItem>
     <FilterInputGroup>
@@ -51,6 +52,7 @@ const FilterToolbarItem = ({
         type="text"
         onChange={onFilterChange}
         aria-label={placeholder}
+        {...rest}
       />
       <FilterIconsContainer>
         {(isClearable && searchValue && (
