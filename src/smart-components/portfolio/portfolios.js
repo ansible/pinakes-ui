@@ -12,7 +12,7 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
+import { fetchPortfoliosWithState } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, {
@@ -32,11 +32,12 @@ import {
 } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
+import useInitialUriHash from '../../routing/use-initial-uri-hash';
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPortfolios({ ...meta, filter })).then(() =>
+    dispatch(fetchPortfoliosWithState({ ...meta, filter })).then(() =>
       filteringCallback(false)
     );
   },
@@ -64,9 +65,13 @@ const portfoliosState = (state, action) => {
 };
 
 const Portfolios = () => {
+  const viewState = useInitialUriHash();
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     portfoliosState,
-    initialState
+    {
+      ...initialState,
+      filterValue: viewState?.portfolio?.filter || ''
+    }
   );
   const { data, meta } = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
@@ -75,9 +80,9 @@ const Portfolios = () => {
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
   useEffect(() => {
-    dispatch(
-      fetchPortfolios({ ...defaultSettings, filter: filterValue })
-    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    dispatch(fetchPortfoliosWithState(viewState?.portfolio)).then(() =>
+      stateDispatch({ type: 'setFetching', payload: false })
+    );
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
@@ -136,7 +141,9 @@ const Portfolios = () => {
           meta,
           userPermissions,
           fetchPortfolios: (_, options) =>
-            dispatch(fetchPortfolios({ filter: filterValue, ...options })),
+            dispatch(
+              fetchPortfoliosWithState({ filter: filterValue, ...options })
+            ),
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
@@ -175,7 +182,9 @@ const Portfolios = () => {
           <AsyncPagination
             meta={meta}
             apiRequest={(_, options) =>
-              dispatch(fetchPortfolios({ filter: filterValue, ...options }))
+              dispatch(
+                fetchPortfoliosWithState({ filter: filterValue, ...options })
+              )
             }
             dropDirection="up"
           />

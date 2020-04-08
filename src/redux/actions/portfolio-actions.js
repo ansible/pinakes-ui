@@ -14,20 +14,26 @@ export const doFetchPortfolios = ({
   ...options
 } = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  meta: { filter },
+  meta: { filter, ...options },
   payload: PortfolioHelper.listPortfolios(filter, options)
 });
 
-export const fetchPortfolios = (...args) => (dispatch) => {
-  return dispatch(doFetchPortfolios(...args));
-};
+export const fetchPortfolios = (options) => (dispatch) =>
+  dispatch(doFetchPortfolios(options));
+
+export const fetchPortfoliosWithState = (options = defaultSettings) => (
+  dispatch
+) =>
+  dispatch(
+    doFetchPortfolios({ ...options, storeState: true, stateKey: 'portfolio' })
+  );
 
 export const fetchPortfolioItems = (
   filter = '',
   options = defaultSettings
 ) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  meta: { filter },
+  meta: { filter, storeState: true, stateKey: 'products' },
   payload: PortfolioHelper.listPortfolioItems(
     options.limit,
     options.offset,
@@ -40,8 +46,12 @@ export const fetchPortfolioItemsWithPortfolio = (
   options = defaultSettings
 ) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
-  meta: { filter: options.filter },
-  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(portfolioId, options)
+  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(portfolioId, options),
+  meta: {
+    ...options,
+    storeState: true,
+    stateKey: 'portfolioItems'
+  }
 });
 
 export const fetchSelectedPortfolio = (id) => ({
