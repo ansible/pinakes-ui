@@ -29,6 +29,7 @@ import {
   Table,
   Tbody
 } from '../../presentational-components/styled-components/table';
+import useInitialUriHash from '../../routing/use-initial-uri-hash';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -75,16 +76,20 @@ const ordersListState = (state, action) => {
 };
 
 const OrdersList = () => {
+  const viewState = useInitialUriHash();
   const [
     { isFetching, isFiltering, filterType, filters },
     stateDispatch
-  ] = useReducer(ordersListState, initialState);
+  ] = useReducer(ordersListState, {
+    ...initialState,
+    filters: viewState?.orders?.filters || { state: [], owner: '' }
+  });
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
   const dispatch = useDispatch();
   useEffect(() => {
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.all([
-      dispatch(fetchOrders(filters, meta)),
+      dispatch(fetchOrders(filters, viewState?.orders)),
       dispatch(fetchPlatforms())
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
@@ -100,7 +105,7 @@ const OrdersList = () => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
       { ...filters, [filterType]: value },
-      meta,
+      { ...meta, offset: 0 },
       dispatch,
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
