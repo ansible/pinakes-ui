@@ -38,6 +38,6 @@ export const listWorkflowsForObject = (
   const paginationQuery = `&limit=${pagination.limit}&offset=${pagination.offset}`;
   const filterQuery = `&filter[name][contains]=${filter}`;
   return getAxiosInstance().get(
-    `${APPROVAL_API_BASE}/workflows/?${objectQuery}${filterQuery}${paginationQuery}`
+    `${APPROVAL_API_BASE}/workflows?${objectQuery}${filterQuery}${paginationQuery}`
   );
 };

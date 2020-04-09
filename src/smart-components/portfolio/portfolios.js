@@ -82,13 +82,8 @@ const Portfolios = () => {
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
 
-  const itemName = (id) => {
-    if (data) {
-      return data.find((item) => item.id === id).name;
-    }
-
-    return `portfolio`;
-  };
+  const itemName = (id) =>
+    data.find((item) => item.id === id)?.name || 'portfolio';
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
