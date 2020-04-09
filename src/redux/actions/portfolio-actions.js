@@ -35,11 +35,6 @@ export const fetchPortfolioItems = (
   )
 });
 
-export const fetchPortfolioItem = (portfolioItemId) => ({
-  type: ActionTypes.FETCH_PORTFOLIO_ITEM,
-  payload: PortfolioHelper.getPortfolioItem(portfolioItemId)
-});
-
 export const fetchPortfolioItemsWithPortfolio = (
   portfolioId,
   options = defaultSettings
