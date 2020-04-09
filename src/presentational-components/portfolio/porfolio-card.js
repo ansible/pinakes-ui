@@ -57,7 +57,7 @@ const HeaderActions = ({
   dropdownItems.push(
     <DropdownItem
       key="workflow-portfolio-action"
-      if="workflow-portfolio-action"
+      id="workflow-portfolio-action"
       component={
         <CatalogLink
           searchParams={{ portfolio: portfolioId }}
