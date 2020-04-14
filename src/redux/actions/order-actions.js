@@ -4,6 +4,7 @@ import { addNotification } from '@redhat-cloud-services/frontend-components-noti
 import * as ActionTypes from '../action-types';
 import * as OrderHelper from '../../helpers/order/order-helper';
 import OrderNotification from '../../presentational-components/order/order-notification';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 export const fetchServicePlans = (portfolioItemId) => ({
   type: ActionTypes.FETCH_SERVICE_PLANS,
@@ -75,7 +76,9 @@ export const cancelOrder = (orderId) => (dispatch, getState) => {
     });
 };
 
-export const fetchOrders = (filters, pagination) => (dispatch) => {
+export const fetchOrders = (filters, pagination = defaultSettings) => (
+  dispatch
+) => {
   const queryFilter = Object.entries(filters)
     .filter(([, value]) => value && value.length > 0)
     .map(([key, value]) =>
@@ -93,7 +96,13 @@ export const fetchOrders = (filters, pagination) => (dispatch) => {
       });
       return dispatch({
         type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`,
-        meta: { filter: queryFilter },
+        meta: {
+          ...pagination,
+          filter: queryFilter,
+          filters,
+          storeState: true,
+          stateKey: 'orders'
+        },
         payload: orders
       });
     })

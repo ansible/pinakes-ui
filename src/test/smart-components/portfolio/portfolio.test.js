@@ -130,7 +130,14 @@ describe('<Portfolio />', () => {
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          filter: '',
+          count: 0,
+          limit: 50,
+          offset: 0,
+          storeState: true,
+          stateKey: 'portfolioItems'
+        }
       },
       expect.objectContaining({
         type: `${FETCH_PORTFOLIO}_FULFILLED`

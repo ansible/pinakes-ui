@@ -65,12 +65,25 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0
+        }
       },
       {
         type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-        meta: { filter: '' },
-        payload: { data: [expectedPortfolio], meta: {} }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0
+        },
+        payload: {
+          data: [expectedPortfolio],
+          meta: {}
+        }
       }
     ];
 
@@ -89,7 +102,7 @@ describe('Portfolio actions', () => {
     const expectedActions = expect.arrayContaining([
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
-        meta: { filter: '' }
+        meta: { filter: '', count: 0, limit: 50, offset: 0 }
       },
       expect.objectContaining({
         type: ADD_NOTIFICATION,
@@ -134,11 +147,11 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`,
-        meta: { filter: '123' }
+        meta: { filter: '123', stateKey: 'products', storeState: true }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
-        meta: { filter: '123' },
+        meta: { filter: '123', stateKey: 'products', storeState: true },
         payload: {
           data: [
             {
@@ -168,11 +181,25 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-        meta: { filter: '' },
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        },
         payload: { data: ['foo'] }
       }
     ];
@@ -381,13 +408,21 @@ describe('Portfolio actions', () => {
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
         meta: {
-          filter: ''
+          filter: '',
+          limit: 0,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
         }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
         meta: {
-          filter: ''
+          filter: '',
+          limit: 0,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
         },
         payload: []
       },
@@ -455,11 +490,25 @@ describe('Portfolio actions', () => {
       expect.objectContaining({ type: CLEAR_NOTIFICATIONS }),
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-        meta: { filter: '' },
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        },
         payload: { data: [] }
       },
       expect.objectContaining({ type: ADD_NOTIFICATION })

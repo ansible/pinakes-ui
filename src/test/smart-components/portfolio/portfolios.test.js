@@ -85,7 +85,14 @@ describe('<Portfolios />', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          filter: '',
+          count: 0,
+          limit: 50,
+          offset: 0,
+          storeState: true,
+          stateKey: 'portfolio'
+        }
       },
       expect.objectContaining({
         type: `${FETCH_PORTFOLIOS}_FULFILLED`

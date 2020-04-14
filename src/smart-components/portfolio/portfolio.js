@@ -13,8 +13,8 @@ import {
   fetchPortfolios,
   fetchSelectedPortfolio,
   removeProductsFromPortfolio,
-  fetchPortfolioItemsWithPortfolio,
-  resetSelectedPortfolio
+  resetSelectedPortfolio,
+  fetchPortfolioItemsWithPortfolio
 } from '../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
@@ -23,6 +23,7 @@ import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import CatalogRoute from '../../routing/catalog-route';
 import useIsMounted from '../../utilities/use-is-mounted';
+import useInitialUriHash from '../../routing/use-initial-uri-hash';
 
 const initialState = {
   selectedItems: [],
@@ -58,7 +59,11 @@ const porftolioUiReducer = (state, { type, payload }) =>
   }[type]);
 
 const Portfolio = () => {
-  const [state, stateDispatch] = useReducer(porftolioUiReducer, initialState);
+  const viewState = useInitialUriHash();
+  const [state, stateDispatch] = useReducer(porftolioUiReducer, {
+    ...initialState,
+    filterValue: viewState?.portfolioItems?.filter || ''
+  });
   const [searchParams] = useQuery(['portfolio']);
   const { portfolio: id } = searchParams;
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
@@ -81,12 +86,14 @@ const Portfolio = () => {
 
   const resetBreadcrumbs = useBreadcrumbs([portfolio, portfolioItem]);
 
-  const fetchData = (apiProps) => {
+  const fetchData = (portfolioId) => {
     stateDispatch({ type: 'setIsFetching', payload: true });
     return Promise.all([
       dispatch(fetchPlatforms()),
-      dispatch(fetchSelectedPortfolio(apiProps)),
-      dispatch(fetchPortfolioItemsWithPortfolio(apiProps))
+      dispatch(fetchSelectedPortfolio(portfolioId)),
+      dispatch(
+        fetchPortfolioItemsWithPortfolio(portfolioId, viewState?.portfolioItems)
+      )
     ])
       .then((data) => {
         stateDispatch({ type: 'setIsFetching', payload: false });
