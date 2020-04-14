@@ -5,19 +5,18 @@ import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
 
 export const validateName = (name, portfolioId) =>
-  fetchPortfolioByName(name)
-    .then(({ data }) => {
-      if (!name || name.trim().length === 0) {
-        return 'Required';
-      }
+  fetchPortfolioByName(name).then(({ data }) => {
+    if (!name || name.trim().length === 0) {
+      throw 'Required';
+    }
 
-      return data.find(
-        (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
-      )
-        ? 'Name has already been taken'
-        : undefined;
-    })
-    .catch((error) => error.data);
+    const conflict = data.find(
+      (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+    );
+    if (conflict) {
+      throw 'Name has already been taken';
+    }
+  });
 
 const debouncedValidator = asyncFormValidator(validateName);
 

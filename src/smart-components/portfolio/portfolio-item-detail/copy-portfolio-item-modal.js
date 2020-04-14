@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  FormGroup,
-  Modal,
-  TextContent,
-  Text,
-  TextVariants
-} from '@patternfly/react-core';
+import { Modal } from '@patternfly/react-core';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '../../common/form-renderer';
@@ -55,24 +49,6 @@ const copySchema = (portfolioName, portfolioChange, nameFetching) => ({
     }
   ]
 });
-
-const ValueOnly = ({ name, label, value }) => (
-  <FormGroup label={label} fieldId={name}>
-    <TextContent>
-      <Text component={TextVariants.h6}>{value}</Text>
-    </TextContent>
-  </FormGroup>
-);
-
-ValueOnly.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string
-};
-
-ValueOnly.defaultProps = {
-  value: ''
-};
 
 const CopyPortfolioItemModal = ({
   portfolioId,
@@ -148,7 +124,6 @@ const CopyPortfolioItemModal = ({
           })
         }
         formContainer="modal"
-        componentMapper={{ 'value-only': ValueOnly }}
         buttonsLabels={{ submitLabel: 'Save' }}
         disableSubmit={submitting ? ['pristine', 'dirty'] : []}
       />
