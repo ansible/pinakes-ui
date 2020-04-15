@@ -9,9 +9,9 @@ import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../smart-components/platform/platforms';
 import { SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
-import { mockGraphql } from '../../__mocks__/user-login';
 import { Provider } from 'react-redux';
 import UserContext from '../../../user-context';
+import { mockGraphql } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Platforms />', () => {
   let initialProps;

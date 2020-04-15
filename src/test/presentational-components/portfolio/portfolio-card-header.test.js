@@ -10,7 +10,10 @@ describe('<PortfolioCardHeader />', () => {
   beforeEach(() => {
     initialProps = {
       portfolioName: 'foo',
-      route: 'foo/bar'
+      to: {
+        pathname: 'foo/bar',
+        search: '?something=1'
+      }
     };
   });
 

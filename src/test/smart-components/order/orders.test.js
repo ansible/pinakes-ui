@@ -20,8 +20,11 @@ import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
 import OrdersList from '../../../smart-components/order/orders-list';
 import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
 import CancelOrderModal from '../../../smart-components/order/cancel-order-modal';
-import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 import { Alert } from '@patternfly/react-core';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Orders />', () => {
   let initialProps;

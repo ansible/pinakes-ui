@@ -13,7 +13,7 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import AddPortfolioModal from '../../../smart-components/portfolio/add-portfolio-modal';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<AddPortfolioModal />', () => {
   let initialProps;
@@ -28,7 +28,8 @@ describe('<AddPortfolioModal />', () => {
 
   beforeEach(() => {
     initialProps = {
-      fetchPortfolios: jest.fn()
+      fetchPortfolios: jest.fn(),
+      closeTarget: '/close-target'
     };
     initialState = {
       portfolioReducer: {

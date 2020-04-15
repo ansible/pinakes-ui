@@ -16,7 +16,14 @@ import {
 } from '../../../../utilities/constants';
 import PlatformItem from '../../../../presentational-components/platform/platform-item';
 import AddProductsToPortfolio from '../../../../smart-components/portfolio/add-products-to-portfolio';
-import { mockApi, mockGraphql } from '../../../__mocks__/user-login';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../../helpers/shared/__mocks__/user-login';
+import {
+  FETCH_PLATFORMS,
+  FETCH_PLATFORM_ITEMS
+} from '../../../../redux/action-types';
 
 describe('<AddProductsToPortfolio />', () => {
   let initialProps;
@@ -45,6 +52,7 @@ describe('<AddProductsToPortfolio />', () => {
   });
 
   it('should correctly filter service offerings', async (done) => {
+    jest.useFakeTimers();
     const store = mockStore({
       breadcrumbsReducer: { fragments: [] },
       portfolioReducer: {
@@ -84,18 +92,67 @@ describe('<AddProductsToPortfolio />', () => {
         </ComponentWrapper>
       );
     });
+    const expectedActions = [
+      {
+        type: `${FETCH_PLATFORMS}_PENDING`
+      },
+      {
+        payload: [
+          {
+            id: '1',
+            name: 'foo'
+          }
+        ],
+        type: `${FETCH_PLATFORMS}_FULFILLED`
+      },
+      expect.objectContaining({
+        type: `${FETCH_PLATFORM_ITEMS}_PENDING`
+      }),
+      expect.objectContaining({
+        payload: {
+          data: [],
+          meta: expect.any(Object)
+        },
+        type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`
+      }),
+      expect.objectContaining({
+        type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
+        meta: {
+          filter: 'foo',
+          offset: 0,
+          platformId: '1'
+        }
+      }),
+      expect.objectContaining({
+        type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
+        meta: {
+          filter: 'foo',
+          offset: 0,
+          platformId: '1'
+        },
+        payload: { data: [] }
+      })
+    ];
 
     const select = wrapper.find(rawComponents.Select);
     await act(async () => {
       select.props().onChange({ id: '1' });
     });
     wrapper.update();
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
+      )
+      .replyOnce(200, { data: [] });
     expect(wrapper.find(PlatformItem)).toHaveLength(1);
     const searchInput = wrapper.find('input').at(1);
-    searchInput.getDOMNode().value = 'foo';
-    searchInput.simulate('change');
+    await act(async () => {
+      searchInput.getDOMNode().value = 'foo';
+      searchInput.simulate('change');
+      jest.runAllTimers();
+    });
     wrapper.update();
-    expect(wrapper.find(PlatformItem)).toHaveLength(0);
+    expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 

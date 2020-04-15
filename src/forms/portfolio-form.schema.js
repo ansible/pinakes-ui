@@ -3,7 +3,7 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
 
-const validateName = (name, portfolioId) =>
+export const validateName = (name, portfolioId) =>
   fetchPortfolioByName(name)
     .then(({ data }) => {
       if (!name || name.trim().length === 0) {

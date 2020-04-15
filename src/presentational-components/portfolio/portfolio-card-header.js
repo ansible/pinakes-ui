@@ -15,10 +15,10 @@ const HeaderTitle = styled(LevelItem)`
   max-width: calc(100% - 44px);
 `;
 
-const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
+const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
   <Level>
     <HeaderTitle className="pf-m-grow">
-      <Link to={to}>
+      <Link to={to} id={`portfolio-link-${id}`}>
         <TextContent>
           <Text
             title={portfolioName}
@@ -39,6 +39,7 @@ const PortfolioCardHeader = ({ to, portfolioName, headerActions }) => (
 PortfolioCardHeader.propTypes = {
   portfolioName: PropTypes.string.isRequired,
   headerActions: PropTypes.node,
+  id: PropTypes.string,
   to: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
     search: PropTypes.string.isRequired

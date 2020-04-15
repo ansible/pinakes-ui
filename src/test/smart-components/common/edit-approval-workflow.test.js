@@ -13,9 +13,9 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
-import { mockApi } from '../../__mocks__/user-login';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/index';
 import { Button } from '@patternfly/react-core/dist/js/index';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
@@ -34,7 +34,8 @@ describe('<EditApprovalWorkflow />', () => {
       closeUrl: 'foo',
       portfolioId: '123',
       objectType: 'Portfolio',
-      objectName: () => 'Test Resource Name'
+      objectName: () => 'Test Resource Name',
+      pushParam: { pathname: '/foo', search: '?platform=1' }
     };
     initialState = {
       portfolioReducer: {
@@ -102,7 +103,7 @@ describe('<EditApprovalWorkflow />', () => {
     });
     mockApi
       .onGet(
-        `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [{ name: 'workflow', id: '123' }] });
 
@@ -166,6 +167,18 @@ describe('<EditApprovalWorkflow />', () => {
         ]
       });
     mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?filter[name][contains]=&filter[id][]=111`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            name: 'workflow1',
+            id: '111'
+          }
+        ]
+      });
+    mockApi
       .onGet(`${APPROVAL_API_BASE}/workflows?filter[name][contains]=&`)
       .reply(200, {
         data: [
@@ -181,7 +194,7 @@ describe('<EditApprovalWorkflow />', () => {
       });
     mockApi
       .onGet(
-        `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [{ name: 'workflow1', id: '111' }] });
 
@@ -255,7 +268,7 @@ describe('<EditApprovalWorkflow />', () => {
     setImmediate(() => {
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual('/portfolio');
+      ).toEqual('/foo');
       done();
     });
   });
