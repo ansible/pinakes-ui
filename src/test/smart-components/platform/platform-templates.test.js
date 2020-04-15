@@ -12,7 +12,7 @@ import PlatformTemplates from '../../../smart-components/platform/platform-templ
 import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import { FETCH_PLATFORM_ITEMS } from '../../../redux/action-types';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<PlatformTemplates />', () => {
   let initialProps;

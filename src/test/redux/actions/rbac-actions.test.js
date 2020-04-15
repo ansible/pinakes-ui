@@ -5,7 +5,7 @@ import { RBAC_API_BASE } from '../../../utilities/constants';
 import { fetchRbacGroups } from '../../../redux/actions/rbac-actions';
 import { FETCH_RBAC_GROUPS } from '../../../redux/action-types';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('rbac actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];

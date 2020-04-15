@@ -14,7 +14,7 @@ import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
 import Portfolios from '../../../smart-components/portfolio/portfolios';
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Portfolios />', () => {
   let initialProps;
@@ -85,7 +85,14 @@ describe('<Portfolios />', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          filter: '',
+          count: 0,
+          limit: 50,
+          offset: 0,
+          storeState: true,
+          stateKey: 'portfolio'
+        }
       },
       expect.objectContaining({
         type: `${FETCH_PORTFOLIOS}_FULFILLED`

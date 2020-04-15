@@ -35,7 +35,7 @@ import {
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 
 import { openApiReducerMock } from '../../__mocks__/open-api-mock';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('Portfolio actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
@@ -65,12 +65,25 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0
+        }
       },
       {
         type: `${FETCH_PORTFOLIOS}_FULFILLED`,
-        meta: { filter: '' },
-        payload: { data: [expectedPortfolio], meta: {} }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0
+        },
+        payload: {
+          data: [expectedPortfolio],
+          meta: {}
+        }
       }
     ];
 
@@ -89,7 +102,7 @@ describe('Portfolio actions', () => {
     const expectedActions = expect.arrayContaining([
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
-        meta: { filter: '' }
+        meta: { filter: '', count: 0, limit: 50, offset: 0 }
       },
       expect.objectContaining({
         type: ADD_NOTIFICATION,
@@ -134,11 +147,11 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_PENDING`,
-        meta: { filter: '123' }
+        meta: { filter: '123', stateKey: 'products', storeState: true }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS}_FULFILLED`,
-        meta: { filter: '123' },
+        meta: { filter: '123', stateKey: 'products', storeState: true },
         payload: {
           data: [
             {
@@ -168,11 +181,25 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-        meta: { filter: '' },
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        },
         payload: { data: ['foo'] }
       }
     ];
@@ -196,7 +223,13 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: ADD_TEMPORARY_PORTFOLIO,
-        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+        payload: {
+          data: 'new portfolio',
+          isDisabled: true,
+          isTemporary: true,
+          created_at: expect.any(String),
+          id: expect.any(String)
+        }
       },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
@@ -225,7 +258,13 @@ describe('Portfolio actions', () => {
     const expectedActions = [
       {
         type: ADD_TEMPORARY_PORTFOLIO,
-        payload: { data: 'new portfolio', isDisabled: true, isTemporary: true }
+        payload: {
+          data: 'new portfolio',
+          isDisabled: true,
+          isTemporary: true,
+          created_at: expect.any(String),
+          id: expect.any(String)
+        }
       },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
       { type: RESTORE_PORTFOLIO_PREV_STATE },
@@ -369,13 +408,21 @@ describe('Portfolio actions', () => {
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
         meta: {
-          filter: ''
+          filter: '',
+          limit: 0,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
         }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
         meta: {
-          filter: ''
+          filter: '',
+          limit: 0,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
         },
         payload: []
       },
@@ -443,11 +490,25 @@ describe('Portfolio actions', () => {
       expect.objectContaining({ type: CLEAR_NOTIFICATIONS }),
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        }
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`,
-        meta: { filter: '' },
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'portfolioItems',
+          storeState: true
+        },
         payload: { data: [] }
       },
       expect.objectContaining({ type: ADD_NOTIFICATION })

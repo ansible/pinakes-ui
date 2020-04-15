@@ -13,7 +13,7 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import OrderModal from '../../../smart-components/common/order-modal';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<OrderModal />', () => {
   let initialProps;
