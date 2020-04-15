@@ -62,12 +62,6 @@ export function listPortfolioItems(limit = 50, offset = 0, filter = '') {
     });
 }
 
-export function getPortfolioItem(portfolioItemId) {
-  return axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}`
-  );
-}
-
 export function getPortfolio(portfolioId) {
   return portfolioApi.showPortfolio(portfolioId);
 }

@@ -92,13 +92,6 @@ export const PortfolioItemDetailToolbar = ({
         </Level>
       </LevelItem>
     </Level>
-    <Level>
-      <LevelItem>
-        <TextContent>
-          <Text component={TextVariants.small}>{product.distributor}</Text>
-        </TextContent>
-      </LevelItem>
-    </Level>
   </TopToolbar>
 );
 

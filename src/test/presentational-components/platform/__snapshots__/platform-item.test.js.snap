@@ -106,10 +106,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         >
           <Styled(CardBody)>
             <CardBody
-              className="sc-AxmLO yfVDw"
+              className="sc-AxmLO dGjJwL"
             >
               <div
-                className="pf-c-card__body sc-AxmLO yfVDw"
+                className="pf-c-card__body sc-AxmLO dGjJwL"
               >
                 <TextContent>
                   <div

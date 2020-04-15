@@ -59,7 +59,11 @@ const PortfolioActionsToolbar = ({
         key="edit-portfolio"
         id="edit-portfolio"
         component={
-          <CatalogLink preserveSearch pathname={editPortfolioRoute}>
+          <CatalogLink
+            id="edit-portfolio"
+            preserveSearch
+            pathname={editPortfolioRoute}
+          >
             Edit
           </CatalogLink>
         }
@@ -115,53 +119,6 @@ PortfolioActionsToolbar.propTypes = {
     update: PropTypes.bool,
     destroy: PropTypes.bool
   }).isRequired
-};
-
-const PortfolioItemsActionsDropdown = ({
-  removeProducts,
-  isDisabled,
-  itemsSelected,
-  hidden
-}) => {
-  const [isOpen, setOpen] = useState(false);
-
-  if (hidden) {
-    return null;
-  }
-
-  return (
-    <Dropdown
-      onSelect={() => setOpen(false)}
-      position={DropdownPosition.right}
-      toggle={
-        <KebabToggle
-          id="remove-products-dropdown-toggle"
-          onToggle={(open) => setOpen(open)}
-          isDisabled={isDisabled}
-        />
-      }
-      isOpen={isOpen}
-      isPlain
-      dropdownItems={[
-        <DropdownItem
-          id="remove-products"
-          isDisabled={!itemsSelected}
-          onClick={removeProducts}
-          aria-label="Remove products from portfolio"
-          key="remove-products"
-        >
-          Remove products
-        </DropdownItem>
-      ]}
-    />
-  );
-};
-
-PortfolioItemsActionsDropdown.propTypes = {
-  removeProducts: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool,
-  itemsSelected: PropTypes.bool,
-  hidden: PropTypes.bool
 };
 
 const createPortfolioToolbarSchema = ({
@@ -251,18 +208,21 @@ const createPortfolioToolbarSchema = ({
                         pathname: addProductsRoute,
                         isDisabled: isLoading || copyInProgress,
                         variant: 'primary',
-                        title: 'Add products',
+                        title: 'Add',
                         key: 'add-products-button'
                       })
                     }),
-                    {
+                    createSingleItemGroup({
+                      component: toolbarComponentTypes.BUTTON,
                       hidden: meta.count === 0 || !userCapabilities.update,
-                      component: PortfolioItemsActionsDropdown,
-                      isDisabled: copyInProgress,
-                      key: 'remove-products-actions-dropdown',
-                      removeProducts,
-                      itemsSelected
-                    }
+                      groupName: 'remove-portfolio-items',
+                      variant: 'link',
+                      title: 'Remove',
+                      key: 'remove-products-button',
+                      id: 'remove-products-button',
+                      isDisabled: !itemsSelected,
+                      onClick: removeProducts
+                    })
                   ]
                 },
                 {

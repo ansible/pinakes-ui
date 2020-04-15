@@ -3,7 +3,6 @@ import {
   getAxiosInstance,
   getPortfolioItemApi,
   getOrderApi,
-  getRequestsApi,
   getOrderItemApi
 } from '../shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
@@ -12,7 +11,6 @@ import { defaultSettings } from '../shared/pagination';
 const orderApi = getOrderApi();
 const orderItemApi = getOrderItemApi();
 const portfolioItemApi = getPortfolioItemApi();
-const requestsApi = getRequestsApi();
 const axiosInstance = getAxiosInstance();
 
 export function getServicePlans(portfolioItemId) {
@@ -36,16 +34,6 @@ export async function sendSubmitOrder({
   return orderApi.submitOrder(order.id);
 }
 
-export function listRequests() {
-  return requestsApi.listRequests().then((data) => ({
-    ...data,
-    data: data.data.map(({ decision, ...item }) => ({
-      ...item,
-      state: decision
-    }))
-  }));
-}
-
 export function cancelOrder(orderId) {
   return orderApi.cancelOrder(orderId);
 }
@@ -64,7 +52,7 @@ const getOrderPortfolioItems = (itemIds) =>
       .join('&')}`
   );
 
-export const getOrders = (filter, pagination = defaultSettings) =>
+export const getOrders = (filter = '', pagination = defaultSettings) =>
   axiosInstance
     .get(
       `${CATALOG_API_BASE}/orders?${filter}&limit=${pagination.limit}&offset=${pagination.offset}`

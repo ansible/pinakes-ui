@@ -33,6 +33,7 @@ import emptyDataMiddleware from './empty-data-middleware';
 import breadcrumbsReducer, {
   initialBreadcrumbsState
 } from '../redux/reducers/breadcrumbs-reducer';
+import viewStateMiddleware from './view-state-middleware';
 
 const prodMiddlewares = [
   notificationsMiddleware({
@@ -53,6 +54,7 @@ const prodMiddlewares = [
 const baseMiddlewares = [
   thunk,
   promiseMiddleware,
+  viewStateMiddleware,
   loadingStateMiddleware,
   emptyDataMiddleware
 ];

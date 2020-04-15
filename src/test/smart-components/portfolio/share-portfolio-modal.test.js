@@ -12,7 +12,7 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import { CATALOG_API_BASE, RBAC_API_BASE } from '../../../utilities/constants';
 import SharePortfolioModal from '../../../smart-components/portfolio/share-portfolio-modal';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<SharePortfolioModal', () => {
   let initialProps;

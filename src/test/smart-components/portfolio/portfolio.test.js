@@ -27,11 +27,14 @@ import {
   FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   INITIALIZE_BREADCRUMBS
 } from '../../../redux/action-types';
-import { mockApi, mockGraphql } from '../../__mocks__/user-login';
 import { testStore } from '../../../utilities/store';
 import CatalogBreadcrumbs from '../../../smart-components/common/catalog-breadcrumbs';
 import { BreadcrumbItem } from '@patternfly/react-core';
 import CommonApiError from '../../../smart-components/error-pages/common-api-error';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Portfolio />', () => {
   let initialProps;
@@ -127,7 +130,14 @@ describe('<Portfolio />', () => {
       },
       {
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_PENDING`,
-        meta: { filter: '' }
+        meta: {
+          filter: '',
+          count: 0,
+          limit: 50,
+          offset: 0,
+          storeState: true,
+          stateKey: 'portfolioItems'
+        }
       },
       expect.objectContaining({
         type: `${FETCH_PORTFOLIO}_FULFILLED`
@@ -295,9 +305,8 @@ describe('<Portfolio />', () => {
           .onSelect('123');
         wrapper.update();
       });
-      wrapper.find('button#remove-products-dropdown-toggle').simulate('click');
       await act(async () => {
-        wrapper.find('li#remove-products').simulate('click');
+        wrapper.find('button#remove-products-button').simulate('click');
       });
     });
   });
@@ -585,24 +594,13 @@ describe('<Portfolio />', () => {
     wrapper.update();
     const checkbox = wrapper.find(PortfolioItem).find('input');
     checkbox.simulate('change');
-    /**
-     * Trigger remove portfolio items action
-     */
-    const removeTrigger = wrapper.find(
-      'button#remove-products-dropdown-toggle'
-    );
-
-    /**
-     * open dropdown
-     */
-    removeTrigger.simulate('click');
     wrapper.update();
 
     /**
      * trigger remove actions
      */
     await act(async () => {
-      wrapper.find('li#remove-products').simulate('click');
+      wrapper.find('button#remove-products-button').simulate('click');
     });
     /**
      * trigger notification undo click
@@ -620,16 +618,19 @@ describe('<Portfolio />', () => {
     const { ...store } = testStore();
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, { id: 'portfolio-id', name: 'Portfolio' })
+      .replyOnce(200, {
+        id: 'portfolio-id',
+        name: 'Portfolio',
+        metadata: { user_capabilities: { show: true } }
+      })
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {
         id: 'portfolio-item-id',
         name: 'Portfolio item',
         portfolio_id: 'portfolio-id',
         service_offering_source_ref: 'source-id',
-        created_at: '1999-07-26'
+        created_at: '1999-07-26',
+        metadata: { user_capabilities: { show: true } }
       })
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)
       .replyOnce(200, { id: 'source-id', name: 'Source', source_type_id: '3' })
