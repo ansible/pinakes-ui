@@ -131,7 +131,11 @@ const PortfolioItems = ({
         exact
         path={NESTED_SHARE_PORTFOLIO_ROUTE}
         render={(...args) => (
-          <SharePortfolioModal closeUrl={routes.portfolioRoute} {...args} />
+          <SharePortfolioModal
+            closeUrl={routes.portfolioRoute}
+            {...args}
+            portfolioName={itemName}
+          />
         )}
       />
       <Route
