@@ -30,7 +30,7 @@ const ItemDetailInfoBar = ({ product, source, portfolio }) => (
       </Text>
     )}
     <Text id="created_at" component={TextVariants.h6}>
-      <span>Created at</span>
+      <span>Created</span>
       <br />
       <EllipsisTextContainer>
         <DateFormat variant="relative" date={product.created_at} />
