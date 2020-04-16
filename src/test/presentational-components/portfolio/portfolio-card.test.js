@@ -29,7 +29,7 @@ describe('<PortfolioCard />', () => {
       modified: 'modified',
       name: 'name',
       id: '123',
-      created_at: 'created at',
+      created_at: 'created',
       owner: 'Owner',
       metadata: {
         user_capabilities: {

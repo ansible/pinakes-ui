@@ -38,7 +38,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         >
           Last updated 
           <DateFormat
-            date="created at"
+            date="created"
             type="relative"
           />
         </Text>
@@ -49,7 +49,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         </Text>
       </TextContent>
       <ItemDetails
-        created_at="created at"
+        created_at="created"
         description="description"
         modified="modified"
         name="name"

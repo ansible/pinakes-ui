@@ -109,7 +109,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           id="created_at"
         >
           <span>
-            Created at
+            Created
           </span>
           <br />
           <styled.div>
@@ -352,7 +352,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
           id="created_at"
         >
           <span>
-            Created at
+            Created
           </span>
           <br />
           <styled.div>
@@ -623,7 +623,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           id="created_at"
         >
           <span>
-            Created at
+            Created
           </span>
           <br />
           <styled.div>

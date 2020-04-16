@@ -70,7 +70,7 @@ const ServiceOfferingDetail = () => {
               </EllipsisTextContainer>
             </Text>
             <Text id="created_at" component="h6">
-              <span>Created at</span>
+              <span>Created</span>
               <br />
               <EllipsisTextContainer>
                 <DateFormat type="relative" date={service.created_at} />
