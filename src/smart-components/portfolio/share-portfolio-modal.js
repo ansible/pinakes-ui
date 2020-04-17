@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FormRenderer from '../common/form-renderer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from '@patternfly/react-core';
+import {
+  Modal,
+  TextContent,
+  Text,
+  TextVariants,
+  Stack,
+  StackItem
+} from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
 import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
 import {
@@ -17,7 +24,11 @@ import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 
-const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
+const SharePortfolioModal = ({
+  closeUrl,
+  removeQuery,
+  portfolioName = () => ''
+}) => {
   const dispatch = useDispatch();
   const { push } = useEnhancedHistory(removeQuery);
   const [{ portfolio }, search] = useQuery(['portfolio']);
@@ -124,21 +135,32 @@ const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
     <Modal title={'Share portfolio'} isOpen isSmall onClose={onCancel}>
       {isFetching && <ShareLoader />}
       {!isFetching && (
-        <FormRenderer
-          schema={createPortfolioShareSchema(
-            shareInfo,
-            loadGroupOptions,
-            permissionOptions,
-            initialValues?.metadata?.user_capabilities?.share !== false,
-            initialValues?.metadata?.user_capabilities?.unshare !== false
-          )}
-          schemaType="default"
-          onSubmit={onSubmit}
-          onCancel={onCancel}
-          initialValues={{ ...initialValues, ...initialShares() }}
-          formContainer="modal"
-          buttonsLabels={{ submitLabel: 'Send' }}
-        />
+        <Stack gutter="md">
+          <StackItem>
+            <TextContent>
+              <Text component={TextVariants.h6}>
+                {`Share ${portfolioName(portfolio)} portfolio`}
+              </Text>
+            </TextContent>
+          </StackItem>
+          <StackItem>
+            <FormRenderer
+              schema={createPortfolioShareSchema(
+                shareInfo,
+                loadGroupOptions,
+                permissionOptions,
+                initialValues?.metadata?.user_capabilities?.share !== false,
+                initialValues?.metadata?.user_capabilities?.unshare !== false
+              )}
+              schemaType="default"
+              onSubmit={onSubmit}
+              onCancel={onCancel}
+              initialValues={{ ...initialValues, ...initialShares() }}
+              formContainer="modal"
+              buttonsLabels={{ submitLabel: 'Send' }}
+            />
+          </StackItem>
+        </Stack>
       )}
     </Modal>
   );
@@ -146,7 +168,8 @@ const SharePortfolioModal = ({ closeUrl, removeQuery }) => {
 
 SharePortfolioModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  removeQuery: PropTypes.bool
+  removeQuery: PropTypes.bool,
+  portfolioName: PropTypes.func
 };
 
 export default SharePortfolioModal;
