@@ -131,6 +131,19 @@ const SharePortfolioModal = ({
     return <UnauthorizedRedirect />;
   }
 
+  const validateShares = (values) => {
+    const errors = {};
+    if (values.group_uuid && !values.permissions) {
+      errors.permissions = 'Select the share permissions';
+    }
+
+    if (values.permissions && !values.group_uuid) {
+      errors.group_uuid = 'Select a group';
+    }
+
+    return errors;
+  };
+
   return (
     <Modal title={'Share portfolio'} isOpen isSmall onClose={onCancel}>
       {isFetching && <ShareLoader />}
@@ -155,6 +168,7 @@ const SharePortfolioModal = ({
               schemaType="default"
               onSubmit={onSubmit}
               onCancel={onCancel}
+              validate={validateShares}
               initialValues={{ ...initialValues, ...initialShares() }}
               formContainer="modal"
               buttonsLabels={{ submitLabel: 'Send' }}
