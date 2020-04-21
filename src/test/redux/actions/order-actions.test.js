@@ -18,7 +18,7 @@ import {
   SET_SELECTED_PLAN,
   SUBMIT_SERVICE_ORDER
 } from '../../../redux/action-types';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('Order actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
@@ -102,9 +102,9 @@ describe('Order actions', () => {
     const store = mockStore({});
     mockApi.onPost(`${CATALOG_API_BASE}/orders`).reply(200, { id: '123' });
     mockApi.onPost(`${CATALOG_API_BASE}/orders/123/order_items`).reply(200, {});
-    mockApi
-      .onPost(`${CATALOG_API_BASE}/orders/123/submit_order`)
-      .reply(200, {});
+    mockApi.onPost(`${CATALOG_API_BASE}/orders/123/submit_order`).reply(200, {
+      id: 'new-order-id'
+    });
     const expectedActions = [
       {
         type: `${SUBMIT_SERVICE_ORDER}_PENDING`

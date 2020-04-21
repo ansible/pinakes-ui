@@ -4,7 +4,7 @@ import {
   sharePortfolio,
   unsharePortfolio
 } from '../../../helpers/share/share-helper';
-import { mockApi } from '../../__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('share helper', () => {
   it('should call get share helper', (done) => {

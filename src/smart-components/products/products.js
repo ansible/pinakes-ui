@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { WrenchIcon, SearchIcon } from '@patternfly/react-icons';
 
@@ -16,6 +16,8 @@ import { Button } from '@patternfly/react-core';
 import AppContext from '../../app-context';
 import AsyncPagination from '../common/async-pagination';
 import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
+import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
+import useInitialUriHash from '../../routing/use-initial-uri-hash';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -63,10 +65,14 @@ const productsState = (state, action) => {
 };
 
 const Products = () => {
+  const viewState = useInitialUriHash();
   const { release } = useContext(AppContext);
   const [{ isFetching, filterValue, isFiltering }, stateDispatch] = useReducer(
     productsState,
-    initialState
+    {
+      ...initialState,
+      filterValue: viewState?.products?.filter || ''
+    }
   );
   const dispatch = useDispatch();
   const { data, meta } = useSelector(
@@ -75,7 +81,9 @@ const Products = () => {
 
   useEffect(() => {
     Promise.all([
-      dispatch(fetchPortfolioItems(undefined, defaultSettings)),
+      dispatch(
+        fetchPortfolioItems(viewState?.products?.filter, viewState?.products)
+      ),
       dispatch(fetchPlatforms())
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
@@ -121,7 +129,7 @@ const Products = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <ToolbarRenderer
         schema={createProductsToolbarSchema({
           filterProps: {
@@ -143,15 +151,19 @@ const Products = () => {
         )}
       />
       {meta.count > 0 && (
-        <div className="pf-u-p-lg global-primary-background content-layout">
+        <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
             meta={meta}
-            apiRequest={(...args) => dispatch(fetchPortfolioItems(...args))}
+            apiRequest={(_e, options) =>
+              dispatch(
+                fetchPortfolioItems(viewState?.products?.filter, options)
+              )
+            }
           />
-        </div>
+        </BottomPaginationContainer>
       )}
-    </div>
+    </Fragment>
   );
 };
 

@@ -14,20 +14,26 @@ export const doFetchPortfolios = ({
   ...options
 } = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  meta: { filter },
+  meta: { filter, ...options },
   payload: PortfolioHelper.listPortfolios(filter, options)
 });
 
-export const fetchPortfolios = (...args) => (dispatch) => {
-  return dispatch(doFetchPortfolios(...args));
-};
+export const fetchPortfolios = (options) => (dispatch) =>
+  dispatch(doFetchPortfolios(options));
+
+export const fetchPortfoliosWithState = (options = defaultSettings) => (
+  dispatch
+) =>
+  dispatch(
+    doFetchPortfolios({ ...options, storeState: true, stateKey: 'portfolio' })
+  );
 
 export const fetchPortfolioItems = (
   filter = '',
   options = defaultSettings
 ) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
-  meta: { filter },
+  meta: { filter, storeState: true, stateKey: 'products' },
   payload: PortfolioHelper.listPortfolioItems(
     options.limit,
     options.offset,
@@ -35,18 +41,17 @@ export const fetchPortfolioItems = (
   )
 });
 
-export const fetchPortfolioItem = (portfolioItemId) => ({
-  type: ActionTypes.FETCH_PORTFOLIO_ITEM,
-  payload: PortfolioHelper.getPortfolioItem(portfolioItemId)
-});
-
 export const fetchPortfolioItemsWithPortfolio = (
   portfolioId,
   options = defaultSettings
 ) => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
-  meta: { filter: options.filter },
-  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(portfolioId, options)
+  payload: PortfolioHelper.getPortfolioItemsWithPortfolio(portfolioId, options),
+  meta: {
+    ...options,
+    storeState: true,
+    stateKey: 'portfolioItems'
+  }
 });
 
 export const fetchSelectedPortfolio = (id) => ({
@@ -64,7 +69,13 @@ export const searchPortfolioItems = (value) => ({
 export const addPortfolio = (portfolioData, items) => (dispatch) => {
   dispatch({
     type: ActionTypes.ADD_TEMPORARY_PORTFOLIO,
-    payload: { ...portfolioData, isDisabled: true, isTemporary: true }
+    payload: {
+      ...portfolioData,
+      isDisabled: true,
+      isTemporary: true,
+      id: Date.now().toString(),
+      created_at: new Date().toString()
+    }
   });
   return dispatch({
     type: ActionTypes.ADD_PORTFOLIO,
@@ -178,6 +189,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
                 The portfolio was removed successfully. You can&nbsp;
                 <a
                   href="#"
+                  id={`undo-delete-portfolio-${portfolioId}`}
                   onClick={(event) => {
                     event.preventDefault();
                     dispatch(undoRemovePortfolio(portfolioId, restore_key));
@@ -281,6 +293,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
                 undo: (
                   <a
                     href="#"
+                    id={`restore-portfolio-item-${portfolioId}`}
                     onClick={(event) => {
                       event.preventDefault();
                       dispatch(
@@ -388,7 +401,7 @@ export const updatePortfolioItem = (values) => (dispatch, getState) => {
     );
 };
 
-export const getPortfolioItemDetail = (params) => (dispatch, getState) => {
+export const getPortfolioItemDetail = (params) => (dispatch) => {
   dispatch({ type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_PENDING` });
   return PortfolioHelper.getPortfolioItemDetail(params).then(
     ([portfolioItem, source]) =>
@@ -396,7 +409,6 @@ export const getPortfolioItemDetail = (params) => (dispatch, getState) => {
         type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_FULFILLED`,
         payload: {
           portfolioItem,
-          portfolio: getState().portfolioReducer.selectedPortfolio,
           source
         }
       })

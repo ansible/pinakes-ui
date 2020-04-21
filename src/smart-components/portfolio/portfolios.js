@@ -12,7 +12,7 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
+import { fetchPortfoliosWithState } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, {
@@ -32,11 +32,12 @@ import {
 } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
+import useInitialUriHash from '../../routing/use-initial-uri-hash';
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPortfolios({ ...meta, filter })).then(() =>
+    dispatch(fetchPortfoliosWithState({ ...meta, filter })).then(() =>
       filteringCallback(false)
     );
   },
@@ -64,9 +65,13 @@ const portfoliosState = (state, action) => {
 };
 
 const Portfolios = () => {
+  const viewState = useInitialUriHash();
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     portfoliosState,
-    initialState
+    {
+      ...initialState,
+      filterValue: viewState?.portfolio?.filter || ''
+    }
   );
   const { data, meta } = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
@@ -74,22 +79,16 @@ const Portfolios = () => {
   const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
-
   useEffect(() => {
-    dispatch(
-      fetchPortfolios({ ...defaultSettings, filter: filterValue })
-    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    dispatch(fetchPortfoliosWithState(viewState?.portfolio)).then(() =>
+      stateDispatch({ type: 'setFetching', payload: false })
+    );
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
 
-  const itemName = (id) => {
-    if (data) {
-      return data.find((item) => item.id === id).name;
-    }
-
-    return `portfolio`;
-  };
+  const itemName = (id) =>
+    data.find((item) => item.id === id)?.name || 'portfolio';
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -108,6 +107,7 @@ const Portfolios = () => {
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
+      id="create-portfolio"
       label="Create portfolio"
       hasPermission={hasPermission(userPermissions, [
         'catalog:portfolios:create'
@@ -141,7 +141,9 @@ const Portfolios = () => {
           meta,
           userPermissions,
           fetchPortfolios: (_, options) =>
-            dispatch(fetchPortfolios({ filter: filterValue, ...options })),
+            dispatch(
+              fetchPortfoliosWithState({ filter: filterValue, ...options })
+            ),
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
@@ -180,7 +182,9 @@ const Portfolios = () => {
           <AsyncPagination
             meta={meta}
             apiRequest={(_, options) =>
-              dispatch(fetchPortfolios({ filter: filterValue, ...options }))
+              dispatch(
+                fetchPortfoliosWithState({ filter: filterValue, ...options })
+              )
             }
             dropDirection="up"
           />

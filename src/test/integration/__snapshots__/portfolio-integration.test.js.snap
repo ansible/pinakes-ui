@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration test for portfolio entity should create, edit, copy, delete and undo delete of portfolio in app 1`] = `
+<p
+  className="top-toolbar-title-description"
+  data-pf-content={true}
+>
+  edited portfolio description
+</p>
+`;

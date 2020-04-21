@@ -9,6 +9,7 @@ export const NESTED_REMOVE_PORTFOLIO_ROUTE = '/portfolio/remove-portfolio';
 export const NESTED_SHARE_PORTFOLIO_ROUTE = '/portfolio/share-portfolio';
 export const NESTED_WORKFLOW_PORTFOLIO_ROUTE = '/portfolio/edit-workflow';
 export const ORDER_APPROVAL_ROUTE = '/order/approval';
+export const ORDER_LIFECYCLE_ROUTE = '/order/lifecycle';
 export const ORDER_ROUTE = '/order';
 export const ORDERS_ROUTE = '/orders';
 export const PLATFORM_INVENTORIES_ROUTE = '/platform/platform-inventories';

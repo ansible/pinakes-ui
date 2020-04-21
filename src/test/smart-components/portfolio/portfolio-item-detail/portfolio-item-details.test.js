@@ -19,9 +19,9 @@ import {
 } from '../../../../utilities/constants';
 import ItemDetailDescription from '../../../../smart-components/portfolio/portfolio-item-detail/item-detail-description';
 import { PortfolioItemDetailToolbar } from '../../../../smart-components/portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
-import { mockApi } from '../../../__mocks__/user-login';
 import { Alert } from '@patternfly/react-core';
 import UserContext from '../../../../user-context';
+import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -57,6 +57,10 @@ describe('<PortfolioItemDetail />', () => {
         platformIconMapping: {}
       },
       portfolioReducer: {
+        selectedPortfolio: {
+          id: '333',
+          name: 'Portfolio name'
+        },
         portfolioItem: {
           portfolioItem: {
             id: '123',
@@ -71,11 +75,7 @@ describe('<PortfolioItemDetail />', () => {
               }
             }
           },
-          source: { id: '111', name: 'Source name' },
-          portfolio: {
-            id: '333',
-            name: 'Portfolio name'
-          }
+          source: { id: '111', name: 'Source name' }
         }
       },
       orderReducer: {

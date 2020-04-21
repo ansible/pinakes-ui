@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfolioCard /> should render correctly 1`] = `
-<Styled(GalleryItem)>
+<Styled(Component)>
   <Styled(Card)>
     <CardHeader>
       <PortfolioCardHeader
@@ -18,6 +18,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             }
           />
         }
+        id="123"
         portfolioName="name"
         to={
           Object {
@@ -63,5 +64,5 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
     </Styled(CardBody)>
     <CardFooter />
   </Styled(Card)>
-</Styled(GalleryItem)>
+</Styled(Component)>
 `;

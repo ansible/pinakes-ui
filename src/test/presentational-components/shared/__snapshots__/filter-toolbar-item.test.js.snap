@@ -17,6 +17,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         >
           <Styled(Component)
             aria-label="Foo"
+            id="toolbar-filter"
             onChange={[MockFunction]}
             placeholder="Foo"
             type="text"
@@ -25,6 +26,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
             <ForwardRef
               aria-label="Foo"
               className="sc-AxirZ lpqCWk"
+              id="toolbar-filter"
               onChange={[MockFunction]}
               placeholder="Foo"
               type="text"
@@ -33,6 +35,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
               <TextInputBase
                 aria-label="Foo"
                 className="sc-AxirZ lpqCWk"
+                id="toolbar-filter"
                 innerRef={null}
                 isDisabled={false}
                 isReadOnly={false}
@@ -49,6 +52,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                   aria-label="Foo"
                   className="pf-c-form-control sc-AxirZ lpqCWk"
                   disabled={false}
+                  id="toolbar-filter"
                   onChange={[Function]}
                   placeholder="Foo"
                   readOnly={false}

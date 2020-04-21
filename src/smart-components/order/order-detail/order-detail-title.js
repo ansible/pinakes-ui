@@ -5,7 +5,7 @@ import { Title } from '@patternfly/react-core';
 
 const OrderDetailTitle = ({ portfolioItemName, orderId }) => (
   <Title size="3xl">
-    {portfolioItemName} # {orderId}
+    {portfolioItemName} - Order # {orderId}
   </Title>
 );
 

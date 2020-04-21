@@ -9,7 +9,7 @@ There is a [Dev Setup Wiki](https://gitlab.cloudforms.lab.eng.rdu2.redhat.com/in
 Have [insights-proxy](https://github.com/RedHatInsights/insights-proxy) installed under PROXY_PATH
 
 ```shell
-SPANDX_CONFIG="./config/spandx.config.js" bash $PROXY_PATH/scripts/run.sh
+SPANDX_CONFIG="profiles/local-frontends.js" bash ../insights-proxy/scripts/run.sh
 ```
 
 ## License
