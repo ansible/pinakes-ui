@@ -14,8 +14,8 @@ import {
   TOPOLOGICAL_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../../../utilities/constants';
-import { mockApi } from '../../../__mocks__/user-login';
 import { Text, Breadcrumb } from '@patternfly/react-core';
+import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
 describe('<ServiceOfferingDetail />', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];

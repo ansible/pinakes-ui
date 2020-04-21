@@ -15,6 +15,7 @@ const PortfolioEmptyState = ({ url, handleFilterChange, meta }) => {
     <EmptyStatePrimaryAction
       url={url}
       label="Add products"
+      id="add-products-to-portfolio"
       hasPermission={hasPermission(permissions, [
         'catalog:portfolio_items:create'
       ])}

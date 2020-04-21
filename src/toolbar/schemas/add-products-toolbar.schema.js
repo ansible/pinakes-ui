@@ -54,6 +54,7 @@ const createAddProductsSchema = ({
                       key: 'filter-products-input',
                       onFilterChange,
                       searchValue,
+                      isDisabled: !platformId,
                       placeholder: 'Filter products'
                     }
                   ]
@@ -80,7 +81,8 @@ const createAddProductsSchema = ({
                   onClick: onClickAddToPortfolio,
                   isDisabled: !itemsSelected || isFetching,
                   showSpinner: isFetching,
-                  children: 'Add'
+                  children: 'Add',
+                  id: 'add-products-to-portfolio'
                 })
               ]
             },

@@ -23,7 +23,10 @@ import {
   SOURCES_API_BASE,
   TOPOLOGICAL_INVENTORY_API_BASE
 } from '../../../utilities/constants';
-import { mockApi, mockGraphql } from '../../__mocks__/user-login';
+import {
+  mockApi,
+  mockGraphql
+} from '../../../helpers/shared/__mocks__/user-login';
 
 describe('Platform actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];

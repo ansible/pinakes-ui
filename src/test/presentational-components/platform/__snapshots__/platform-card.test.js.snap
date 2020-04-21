@@ -33,10 +33,10 @@ exports[`<PlatformCard /> should choose card image 1`] = `
             </CardHeader>
             <Styled(CardBody)>
               <CardBody
-                className="sc-AxheI fdbZUy"
+                className="sc-AxheI dqZNlB"
               >
                 <div
-                  className="pf-c-card__body sc-AxheI fdbZUy"
+                  className="pf-c-card__body sc-AxheI dqZNlB"
                 >
                   <TextContent>
                     <div
@@ -189,10 +189,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
             </CardHeader>
             <Styled(CardBody)>
               <CardBody
-                className="sc-AxheI fdbZUy"
+                className="sc-AxheI dqZNlB"
               >
                 <div
-                  className="pf-c-card__body sc-AxheI fdbZUy"
+                  className="pf-c-card__body sc-AxheI dqZNlB"
                 >
                   <TextContent>
                     <div

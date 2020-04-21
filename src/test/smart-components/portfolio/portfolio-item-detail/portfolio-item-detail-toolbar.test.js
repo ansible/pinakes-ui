@@ -28,7 +28,9 @@ describe('<PortfolioItemDetailToolbar />', () => {
       url: '/foo',
       isOpen: false,
       product: {
-        name: 'bar'
+        name: 'bar',
+        id: 'product-id',
+        service_offering_source_ref: 'source-id'
       },
       setOpen: jest.fn(),
       setWorkflow: jest.fn(),
@@ -36,7 +38,9 @@ describe('<PortfolioItemDetailToolbar />', () => {
       userCapabilities: {
         copy: true,
         update: true
-      }
+      },
+      availability: 'available',
+      uploadIcon: jest.fn()
     };
 
     initialState = {
