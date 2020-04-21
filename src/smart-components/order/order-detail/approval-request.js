@@ -75,19 +75,16 @@ const ApprovalRequests = () => {
         </Bullseye>
       ) : (
         <Fragment>
-          <Text component={TextVariants.h2}>Approval requests</Text>
+          <Text component={TextVariants.h2}>Approval request</Text>
           {approvalRequest.data.map((request) => (
             <TextList key={request.id} component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
-                Request ID
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dd}>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
                   href={`${document.baseURI}ansible/catalog/approval/requests/detail/${request.approval_request_ref}`}
                 >
-                  {request.approval_request_ref}
+                  {`View this order's approval request details`}
                 </a>
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
