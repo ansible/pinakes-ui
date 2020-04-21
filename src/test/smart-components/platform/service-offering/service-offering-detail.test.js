@@ -110,7 +110,7 @@ describe('<ServiceOfferingDetail />', () => {
     });
     wrapper.update();
     expect(wrapper.find(ReactJsonView)).toHaveLength(1);
-    expect(wrapper.find(Text)).toHaveLength(9);
+    expect(wrapper.find(Text)).toHaveLength(11);
     expect(wrapper.find(Breadcrumb)).toHaveLength(1);
   });
 });
