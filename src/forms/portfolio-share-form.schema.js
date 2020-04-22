@@ -51,10 +51,11 @@ export const createPortfolioShareSchema = (
   loadGroupOptions,
   permissionVerbs,
   canShare,
-  canUnshare
+  canUnshare,
+  validate
 ) => {
   const formSchema = canShare
-    ? newShareSchema(loadGroupOptions, permissionVerbs)
+    ? newShareSchema(loadGroupOptions, permissionVerbs, validate)
     : [];
   const groupInfoFields = shareInfo.map((group) =>
     groupShareSchema(group, permissionVerbs)
