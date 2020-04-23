@@ -22,7 +22,7 @@ const useNavItems = ({ state } = {}) => [
   {
     link: '/lifecycle',
     title: 'Lifecycle',
-    isDisabled: state !== 'Completed'
+    isDisabled: state !== 'Completed' && state !== 'Ordered'
   }
 ];
 
