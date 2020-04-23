@@ -5,6 +5,13 @@ const GlobalStyle = createGlobalStyle`
   pointer-events: none
 }
 
+.font-14{
+  font-size: 14px;
+  color: var(--pf-global--Color--100);
+  font-weight: bold;
+  margin-bottom: 2px !important;
+}
+
 .orders-list {
   background-color: var(--pf-global--BackgroundColor--100)
 }

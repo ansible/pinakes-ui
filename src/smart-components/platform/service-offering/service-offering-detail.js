@@ -5,6 +5,7 @@ import {
   GridItem,
   TextContent,
   Text,
+  TextVariants,
   Level
 } from '@patternfly/react-core';
 import ReactJsonView from 'react-json-view';
@@ -16,7 +17,6 @@ import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
-import EllipsisTextContainer from '../../../presentational-components/styled-components/ellipsis-text-container';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 
 const requiredParams = ['service', 'platform'];
@@ -60,32 +60,26 @@ const ServiceOfferingDetail = () => {
             </StyledLevelItem>
           </Level>
         </GridItem>
-        <GridItem md={2}>
-          <TextContent>
-            <Text id="source" component="h6">
-              <span>Platform</span>
-              <br />
-              <EllipsisTextContainer>
-                <span>{source.name}</span>
-              </EllipsisTextContainer>
+        <GridItem md={3} lg={2}>
+          <TextContent className="pf-u-mb-md">
+            <Text className="font-14">Platform</Text>
+            <Text id="source" component={TextVariants.p}>
+              {source.name}
             </Text>
-            <Text id="created_at" component="h6">
-              <span>Created</span>
-              <br />
-              <EllipsisTextContainer>
-                <DateFormat type="relative" date={service.created_at} />
-              </EllipsisTextContainer>
+            <Text className="font-14">Created</Text>
+            <Text id="created_at" component={TextVariants.p}>
+              <DateFormat type="relative" date={service.created_at} />
             </Text>
           </TextContent>
         </GridItem>
-        <GridItem md={10}>
+        <GridItem md={9} lg={10}>
           <TextContent>
-            <Text component="h6">Name</Text>
-            <Text id="description" component="p">
+            <Text className="font-14">Name</Text>
+            <Text id="description" component={TextVariants.p}>
               {service.name}
             </Text>
-            <Text component="h6">Description</Text>
-            <Text id="long_description" component="p">
+            <Text className="font-14">Description</Text>
+            <Text id="long_description" component={TextVariants.p}>
               {service.description}
             </Text>
             <hr className="pf-c-divider" />
