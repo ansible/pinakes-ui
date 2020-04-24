@@ -59,12 +59,16 @@ const GlobalStyle = createGlobalStyle`
   flex-grow: 1;
 }
 
-a.pf-c-breadcrumb__item {
-  cursor: pointer;
-  >* {
+.pf-c-breadcrumb__list {
+  overflow-wrap: anywhere;
+  a.pf-c-breadcrumb__item {
     cursor: pointer;
+    >* {
+      cursor: pointer;
+    }
   }
 }
+
 .pf4-hidefield-overlay{
   .hide-indicator {
     z-index: 1;
