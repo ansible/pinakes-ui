@@ -166,6 +166,7 @@ const PortfolioItems = ({
           <PortfolioEmptyState
             handleFilterChange={handleFilterChange}
             meta={meta}
+            userCapabilities={userCapabilities}
             url={routes.addProductsRoute}
           />
         )}
