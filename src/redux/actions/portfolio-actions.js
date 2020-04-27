@@ -66,41 +66,19 @@ export const searchPortfolioItems = (value) => ({
   })
 });
 
-export const addPortfolio = (portfolioData, items) => (dispatch) => {
-  dispatch({
-    type: ActionTypes.ADD_TEMPORARY_PORTFOLIO,
-    payload: {
-      ...portfolioData,
-      isDisabled: true,
-      isTemporary: true,
-      id: Date.now().toString(),
-      created_at: new Date().toString()
-    }
-  });
-  return dispatch({
-    type: ActionTypes.ADD_PORTFOLIO,
-    payload: PortfolioHelper.addPortfolio(
-      {
-        ...portfolioData
-      },
-      items
-    )
-      .then(() => dispatch(doFetchPortfolios()))
-      .catch((error) => {
-        dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_PREV_STATE });
-        throw error;
-      }),
-    meta: {
-      notifications: {
-        fulfilled: {
-          variant: 'success',
-          title: 'Success adding portfolio',
-          description: `Portfolio ${portfolioData.name} was added successfully.`
-        }
+export const addPortfolio = (portfolioData) => ({
+  type: ActionTypes.ADD_PORTFOLIO,
+  payload: PortfolioHelper.addPortfolio(portfolioData),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Success adding portfolio',
+        description: `Portfolio ${portfolioData.name} was added successfully.`
       }
     }
-  });
-};
+  }
+});
 
 export const addToPortfolio = (portfolioId, items) => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,

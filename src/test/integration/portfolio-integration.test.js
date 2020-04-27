@@ -527,7 +527,7 @@ describe('Integration test for portfolio entity', () => {
     /**
      * Content gallery should have one portfolio
      */
-    expect(wrapper.find(StyledGalleryItem)).toHaveLength(1);
+    expect(wrapper.find('No products yet')).toHaveLength(1);
     /**
      * Mock portfolio endpoint call
      */

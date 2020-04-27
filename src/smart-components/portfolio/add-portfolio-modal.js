@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
-
+import { useHistory } from 'react-router-dom';
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
 import {
@@ -15,19 +15,39 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
+import { PORTFOLIO_ROUTE } from '../../constants/routes';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
   const dispatch = useDispatch();
+  const [submitting, setSubmitting] = useState(false);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const { push } = useEnhancedHistory(removeQuery);
+  const history = useHistory();
   const initialValues = useSelector(({ portfolioReducer }) =>
     getPortfolioFromState(portfolioReducer, portfolioId)
   );
+
+  const onAddPortfolio = async (data) => {
+    setSubmitting(true);
+    const newPortfolio = await dispatch(addPortfolio(data));
+    setSubmitting(false);
+    return newPortfolio && newPortfolio.value && newPortfolio.id
+      ? history.push({
+          pathname: PORTFOLIO_ROUTE,
+          search: `?portfolio=${newPortfolio.value.id}`
+        })
+      : push(closeTarget);
+  };
+
   const onSubmit = (data) => {
-    push(closeTarget);
-    return initialValues
-      ? dispatch(updatePortfolio(data))
-      : dispatch(addPortfolio(data));
+    if (initialValues) {
+      push(closeTarget);
+      console.log('Debug submit1');
+      return dispatch(updatePortfolio(data));
+    } else {
+      console.log('Debug submit2');
+      return onAddPortfolio(data);
+    }
   };
 
   const editVariant =
@@ -53,6 +73,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
           initialValues={{ ...initialValues }}
           formContainer="modal"
           buttonsLabels={{ submitLabel: portfolioId ? 'Save' : 'Create' }}
+          disableSubmit={submitting ? ['pristine', 'diry'] : []}
         />
       ) : (
         <SpinnerWrapper className="pf-u-m-md">
