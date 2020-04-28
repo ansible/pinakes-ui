@@ -123,14 +123,14 @@ const PortfolioItemDetail = () => {
               />
             )}
             <Grid className="pf-u-p-lg">
-              <GridItem md={2}>
+              <GridItem md={3} lg={2}>
                 <ItemDetailInfoBar
                   product={portfolioItem}
                   portfolio={portfolio}
                   source={source}
                 />
               </GridItem>
-              <GridItem md={10}>
+              <GridItem md={9} lg={10}>
                 <Route path={`${url}/order`}>
                   <OrderModal closeUrl={url} />
                 </Route>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
 import PortfolioEmptyState from '../../../smart-components/portfolio/portfolio-empty-state';
-import UserContext from '../../../user-context';
 import CatalogLink from '../../../smart-components/common/catalog-link';
 import { MemoryRouter } from 'react-router-dom';
+import UserContext from '../../../user-context';
 
 describe('<PortfolioEmptyState />', () => {
   const initialProps = {
@@ -12,12 +12,12 @@ describe('<PortfolioEmptyState />', () => {
   };
 
   it('should render empty state for noData and no permissions', () => {
-    const wrapper = mount(
-      <UserContext.Provider
-        value={{ permissions: [{ permission: 'wrong:permission:rule' }] }}
-      >
-        <PortfolioEmptyState {...initialProps} meta={{ noData: true }} />
-      </UserContext.Provider>
+    const wrapper = render(
+      <PortfolioEmptyState
+        {...initialProps}
+        meta={{ noData: true }}
+        userCapabilities={{}}
+      />
     );
 
     expect(wrapper.find(CatalogLink)).toHaveLength(0);
@@ -31,7 +31,11 @@ describe('<PortfolioEmptyState />', () => {
             permissions: [{ permission: 'catalog:portfolio_items:create' }]
           }}
         >
-          <PortfolioEmptyState {...initialProps} meta={{ noData: true }} />
+          <PortfolioEmptyState
+            {...initialProps}
+            meta={{ noData: true }}
+            userCapabilities={{ update: true }}
+          />
         </UserContext.Provider>
       </MemoryRouter>
     );
@@ -42,15 +46,12 @@ describe('<PortfolioEmptyState />', () => {
   it('should render empty state for no filter result with clear filters action', () => {
     const handleFilterChange = jest.fn();
     const wrapper = mount(
-      <UserContext.Provider
-        value={{ permissions: [{ permission: 'wrong:permission:rule' }] }}
-      >
-        <PortfolioEmptyState
-          {...initialProps}
-          handleFilterChange={handleFilterChange}
-          meta={{ noData: false }}
-        />
-      </UserContext.Provider>
+      <PortfolioEmptyState
+        {...initialProps}
+        handleFilterChange={handleFilterChange}
+        userCapabilities={{ update: true }}
+        meta={{ noData: false }}
+      />
     );
 
     expect(wrapper.find('button#clear-portfolio-filter')).toHaveLength(1);

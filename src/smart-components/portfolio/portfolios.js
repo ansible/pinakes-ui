@@ -156,7 +156,12 @@ const Portfolios = () => {
       </Route>
       <Route exact path={REMOVE_PORTFOLIO_ROUTE} component={RemovePortfolio} />
       <Route exact path={SHARE_PORTFOLIO_ROUTE}>
-        <SharePortfolio closeUrl={match.url} removeQuery />
+        <SharePortfolio
+          closeUrl={match.url}
+          querySelector="portfolio"
+          removeQuery
+          portfolioName={itemName}
+        />
       </Route>
       <Route
         exact
