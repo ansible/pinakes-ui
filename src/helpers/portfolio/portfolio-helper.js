@@ -78,8 +78,6 @@ export function getPortfolioItemsWithPortfolio(
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export async function addPortfolio(portfolioData, items) {
   let portfolio = await portfolioApi.createPortfolio(portfolioData);
-  console.log('Debug1 - portfolio:', portfolio);
-
   if (portfolio && items && items.length > 0) {
     return addToPortfolio(portfolio, items);
   }

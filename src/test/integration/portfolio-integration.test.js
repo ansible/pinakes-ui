@@ -394,6 +394,7 @@ describe('Integration test for portfolio entity', () => {
       created_at: new Date().toString(),
       metadata: {
         user_capabilities: {
+          create: true,
           copy: true,
           show: true,
           update: true,
@@ -509,6 +510,13 @@ describe('Integration test for portfolio entity', () => {
           count: 1
         }
       });
+    /**
+     * Mock portfolio endpoint call
+     */
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/${initialPortfolio.id}`)
+      .replyOnce(200, initialPortfolio);
+
     addPortfolioNameInput.getDOMNode().value = initialPortfolio.name;
     await act(async () => {
       addPortfolioNameInput.simulate('change');
@@ -524,29 +532,23 @@ describe('Integration test for portfolio entity', () => {
       wrapper.find('form').simulate('submit');
     });
     wrapper.update();
-    /**
-     * Content gallery should have one portfolio
-     */
-    expect(wrapper.find('No products yet')).toHaveLength(1);
-    /**
-     * Mock portfolio endpoint call
-     */
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/${initialPortfolio.id}`)
-      .replyOnce(200, initialPortfolio);
+    await act(async () => {
+      wrapper.update();
+    });
+
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios/${initialPortfolio.id}/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [], meta: { limit: 50, offset: 0, count: 0 } });
+
     /**
-     * Link to portfolio detail
+     * async data loading update
      */
     await act(async () => {
-      wrapper
-        .find(`a#portfolio-link-${initialPortfolio.id}`)
-        .simulate('click', { button: 0 });
+      wrapper.update();
     });
+
     /**
      * The app should now be displaying the Portfolio component
      * It should have no portfolio items
@@ -721,7 +723,7 @@ describe('Integration test for portfolio entity', () => {
       wrapper.find('button#confirm-delete-portfolio').simulate('click');
     });
     wrapper.update();
-    expect(wrapper.find(StyledGalleryItem)).toHaveLength(1);
+    expect(wrapper.find(StyledGalleryItem)).toHaveLength(2);
     /**
      * Undo delete of portfolio
      */
@@ -743,6 +745,6 @@ describe('Integration test for portfolio entity', () => {
     await act(async () => {
       wrapper.find('a#undo-delete-portfolio-123').simulate('click');
     });
-    expect(wrapper.find(StyledGalleryItem)).toHaveLength(1);
+    expect(wrapper.find(StyledGalleryItem)).toHaveLength(2);
   });
 });

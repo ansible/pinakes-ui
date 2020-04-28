@@ -31,7 +31,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
     setSubmitting(true);
     const newPortfolio = await dispatch(addPortfolio(data));
     setSubmitting(false);
-    return newPortfolio && newPortfolio.value && newPortfolio.id
+    return newPortfolio && newPortfolio.value && newPortfolio.value.id
       ? history.push({
           pathname: PORTFOLIO_ROUTE,
           search: `?portfolio=${newPortfolio.value.id}`
@@ -42,10 +42,8 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
   const onSubmit = (data) => {
     if (initialValues) {
       push(closeTarget);
-      console.log('Debug submit1');
       return dispatch(updatePortfolio(data));
     } else {
-      console.log('Debug submit2');
       return onAddPortfolio(data);
     }
   };

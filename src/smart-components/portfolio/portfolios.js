@@ -80,7 +80,6 @@ const Portfolios = () => {
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
   useEffect(() => {
-    console.log('Debug - portfolios useEffect');
     dispatch(fetchPortfoliosWithState(viewState?.portfolio)).then(() =>
       stateDispatch({ type: 'setFetching', payload: false })
     );
