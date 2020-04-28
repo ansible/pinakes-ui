@@ -84,6 +84,13 @@ a.pf-c-breadcrumb__item {
   }
 
 }
+
+@media screen and (min-width: 768px) { /* missing from patternfly-react */
+  .pf-u-text-align-right-on-md {
+    text-align:right !important
+  }
+}
+
 /**
 * End of PF4 fixes
 */
