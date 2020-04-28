@@ -13,11 +13,13 @@ import CatalogLink from '../common/catalog-link';
 import styled from 'styled-components';
 
 const TITLES = {
-  '/401': 'Unauthorized'
+  '/401': 'Unauthorized',
+  '/403': 'Forbidden'
 };
 
 const MESSAGES = {
-  '/401': 'You are not auhtorized to access this section: '
+  '/401': 'You are not auhtorized to access this section: ',
+  '/403': 'You are not auhtorized to access this section: '
 };
 
 const SourceSpan = styled.span`
@@ -25,10 +27,7 @@ const SourceSpan = styled.span`
 `;
 
 const CommonApiError = () => {
-  const {
-    state: { from },
-    pathname
-  } = useLocation();
+  const { state, pathname } = useLocation();
 
   return (
     <Bullseye className="global-primary-background">
@@ -42,8 +41,8 @@ const CommonApiError = () => {
         <EmptyStateBody>
           {MESSAGES[pathname]}
           <SourceSpan>
-            {from.pathname}
-            {from.search}
+            {state?.from?.pathname}
+            {state?.from?.search}
           </SourceSpan>
           <br />
           If you believe this is a mistake, please contact support.

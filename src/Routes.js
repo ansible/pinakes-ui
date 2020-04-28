@@ -54,7 +54,7 @@ const paths = {
   order: ORDER_ROUTE
 };
 
-const errorPaths = ['/400', '/401', '/404'];
+const errorPaths = ['/400', '/401', '/403', '/404'];
 
 export const Routes = () => {
   const { pathname } = useLocation();

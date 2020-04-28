@@ -4,10 +4,12 @@ import toJson from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 
 import DetailToolbarActions from '../../../../smart-components/portfolio/portfolio-item-detail/detail-toolbar-actions';
+import { Dropdown } from '@patternfly/react-core';
 
 const prepareTruthyCapability = (truthyCapability) => ({
   copy: false,
   update: false,
+  set_approval: false,
   ...(truthyCapability
     ? {
         [truthyCapability]: true
@@ -31,7 +33,8 @@ describe('<DetailToolbarActions />', () => {
       pathname: 'foo/bar',
       userCapabilities: {
         copy: true,
-        update: true
+        update: true,
+        set_approval: true
       }
     };
   });
@@ -56,7 +59,7 @@ describe('<DetailToolbarActions />', () => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#copy-portfolio-item')).toHaveLength(1);
   });
 
@@ -71,8 +74,33 @@ describe('<DetailToolbarActions />', () => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find('li')).toHaveLength(3);
+    expect(wrapper.find('li')).toHaveLength(2);
     expect(wrapper.find('li#edit-portfolio-item')).toHaveLength(1);
     expect(wrapper.find('li#edit-survey')).toHaveLength(1);
+  });
+
+  it('should show set_approval action in dropdown', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <DetailToolbarActions
+          {...initialProps}
+          isOpen
+          userCapabilities={prepareTruthyCapability('set_approval')}
+        />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find('li')).toHaveLength(1);
+    expect(wrapper.find('li#set-approval_workflow')).toHaveLength(1);
+  });
+
+  it('should not render dropdown', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <DetailToolbarActions {...initialProps} isOpen userCapabilities={{}} />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find(Dropdown)).toHaveLength(0);
   });
 });

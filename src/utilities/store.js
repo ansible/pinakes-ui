@@ -34,6 +34,7 @@ import breadcrumbsReducer, {
   initialBreadcrumbsState
 } from '../redux/reducers/breadcrumbs-reducer';
 import viewStateMiddleware from './view-state-middleware';
+import unAuthorizedMiddleware from './unauthorized-middleware';
 
 const prodMiddlewares = [
   notificationsMiddleware({
@@ -54,6 +55,7 @@ const prodMiddlewares = [
 const baseMiddlewares = [
   thunk,
   promiseMiddleware,
+  unAuthorizedMiddleware,
   viewStateMiddleware,
   loadingStateMiddleware,
   emptyDataMiddleware

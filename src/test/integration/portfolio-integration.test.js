@@ -43,7 +43,8 @@ describe('Integration test for portfolio entity', () => {
           update: true,
           destroy: true,
           share: true,
-          unshare: true
+          unshare: true,
+          set_approval: true
         }
       }
     };

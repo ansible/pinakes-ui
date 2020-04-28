@@ -4,6 +4,7 @@ import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolba
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import { Dropdown } from '@patternfly/react-core';
 
 const prepareTruthyCapability = (truthyCapability) => ({
   destroy: false,
@@ -12,6 +13,7 @@ const prepareTruthyCapability = (truthyCapability) => ({
   unshare: false,
   show: false,
   copy: false,
+  set_approval: false,
   ...(truthyCapability
     ? {
         [truthyCapability]: true
@@ -46,7 +48,8 @@ describe('portfolio toolbar schema', () => {
       unshare: true,
       copy: true,
       update: true,
-      destroy: true
+      destroy: true,
+      set_approval: true
     }
   };
 
@@ -81,9 +84,8 @@ describe('portfolio toolbar schema', () => {
         />
       </ToolbarWrapper>
     );
-    wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('button#portfolio-share-button')).toHaveLength(1);
+    expect(wrapper.find(Dropdown)).toHaveLength(0);
   });
 
   it('should only render copy action', () => {
@@ -98,7 +100,7 @@ describe('portfolio toolbar schema', () => {
       </ToolbarWrapper>
     );
     wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#copy-portfolio')).toHaveLength(1);
     expect(wrapper.find('button#portfolio-share-button')).toHaveLength(0);
   });
@@ -115,7 +117,7 @@ describe('portfolio toolbar schema', () => {
       </ToolbarWrapper>
     );
     wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#edit-portfolio')).toHaveLength(1);
     expect(wrapper.find('button#portfolio-share-button')).toHaveLength(0);
   });
@@ -132,8 +134,38 @@ describe('portfolio toolbar schema', () => {
       </ToolbarWrapper>
     );
     wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#delete-portfolio')).toHaveLength(1);
     expect(wrapper.find('button#portfolio-share-button')).toHaveLength(0);
+  });
+
+  it('should only render set approval action', () => {
+    const wrapper = mount(
+      <ToolbarWrapper>
+        <ToolbarRenderer
+          schema={createPortfolioToolbarSchema({
+            ...initialProps,
+            userCapabilities: prepareTruthyCapability('set_approval')
+          })}
+        />
+      </ToolbarWrapper>
+    );
+    wrapper.find('button#toggle-portfolio-actions').simulate('click');
+    expect(wrapper.find('li')).toHaveLength(1);
+    expect(wrapper.find('li#set-approval-portfolio-action')).toHaveLength(1);
+  });
+
+  it('should not render dropdown', () => {
+    const wrapper = mount(
+      <ToolbarWrapper>
+        <ToolbarRenderer
+          schema={createPortfolioToolbarSchema({
+            ...initialProps,
+            userCapabilities: {}
+          })}
+        />
+      </ToolbarWrapper>
+    );
+    expect(wrapper.find(Dropdown)).toHaveLength(0);
   });
 });

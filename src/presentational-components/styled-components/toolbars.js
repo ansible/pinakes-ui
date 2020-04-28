@@ -21,6 +21,7 @@ export const TopToolbarWrapper = styled.div`
   }
   h2 {
     margin-bottom: 0 !important;
+    overflow-wrap: anywhere;
   }
   .top-toolbar-title {
     min-width: 200px;
