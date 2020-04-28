@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
+import { Dropdown } from '@patternfly/react-core';
 
 const prepareTruthyCapability = (truthyCapability) => ({
   user_capabilities: {
@@ -11,6 +12,7 @@ const prepareTruthyCapability = (truthyCapability) => ({
     update: false,
     share: false,
     unshare: false,
+    set_approval: false,
     ...(truthyCapability
       ? {
           [truthyCapability]: true
@@ -36,7 +38,8 @@ describe('<PortfolioCard />', () => {
           destroy: true,
           update: true,
           share: true,
-          unshare: true
+          unshare: true,
+          set_approval: true
         }
       }
     };
@@ -68,7 +71,7 @@ describe('<PortfolioCard />', () => {
       </MemoryRouter>
     );
     wrapper.find('button#portfolio-123-toggle').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#share-portfolio-action'));
   });
 
@@ -82,7 +85,7 @@ describe('<PortfolioCard />', () => {
       </MemoryRouter>
     );
     wrapper.find('button#portfolio-123-toggle').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#edit-portfolio-action'));
   });
 
@@ -96,7 +99,30 @@ describe('<PortfolioCard />', () => {
       </MemoryRouter>
     );
     wrapper.find('button#portfolio-123-toggle').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#remove-portfolio-action'));
+  });
+
+  it('should have set approval action in dropdown', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <PortfolioCard
+          {...initialProps}
+          metadata={prepareTruthyCapability('set_approval')}
+        />
+      </MemoryRouter>
+    );
+    wrapper.find('button#portfolio-123-toggle').simulate('click');
+    expect(wrapper.find('li')).toHaveLength(1);
+    expect(wrapper.find('li#set-approval-portfolio-action'));
+  });
+
+  it('should not render dropdown', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <PortfolioCard {...initialProps} metadata={{ user_capabilities: {} }} />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(Dropdown)).toHaveLength(0);
   });
 });

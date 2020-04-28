@@ -21,7 +21,7 @@ const PortfolioActionsToolbar = ({
   removePortfolioRoute,
   copyInProgress,
   copyPortfolio,
-  userCapabilities: { copy, destroy, update }
+  userCapabilities: { copy, destroy, update, set_approval }
 }) => {
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
@@ -39,18 +39,21 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  dropdownItems.push(
-    <DropdownItem
-      aria-label="Set approval workflow"
-      key="edit-approval_workflow"
-      component={
-        <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
-          Set approval
-        </CatalogLink>
-      }
-      role="link"
-    />
-  );
+  if (set_approval) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Set approval workflow"
+        key="set-approval-portfolio-action"
+        id="set-approval-portfolio-action"
+        component={
+          <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
+            Set approval
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
 
   if (update) {
     dropdownItems.push(
@@ -89,7 +92,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  return (
+  return dropdownItems.length === 0 ? null : (
     <Dropdown
       className="pf-u-ml-md"
       onSelect={() => setOpen(false)}
@@ -117,7 +120,8 @@ PortfolioActionsToolbar.propTypes = {
   userCapabilities: PropTypes.shape({
     copy: PropTypes.bool,
     update: PropTypes.bool,
-    destroy: PropTypes.bool
+    destroy: PropTypes.bool,
+    set_approval: PropTypes.bool
   }).isRequired
 };
 
