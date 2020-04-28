@@ -11,6 +11,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             userCapabilities={
               Object {
                 "destroy": true,
+                "set_approval": true,
                 "share": true,
                 "unshare": true,
                 "update": true,
