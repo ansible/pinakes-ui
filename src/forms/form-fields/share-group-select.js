@@ -18,15 +18,27 @@ export const ShareGroupSelect = ({
           name={inputName}
           loadOptions={asyncFormValidator(loadOptions)}
           render={({ input, ...props }) => (
-            <rawComponents.Select
-              isSearchable
-              isClearable
-              menuIsPortal
-              loadOptions={asyncFormValidator(loadOptions)}
-              placeholder="Select group"
-              {...input}
-              {...props}
-            />
+            <React.Fragment>
+              <rawComponents.Select
+                isSearchable
+                isClearable
+                menuIsPortal
+                loadOptions={asyncFormValidator(loadOptions)}
+                placeholder="Select group"
+                isValid={!(props?.meta?.error && props.meta.touched)}
+                {...input}
+                {...props}
+              />
+              {props?.meta?.error && props.meta.touched && (
+                <div
+                  className="pf-c-form__helper-text pf-m-error"
+                  id="permission-helper"
+                  aria-live="polite"
+                >
+                  {props.meta.error}
+                </div>
+              )}
+            </React.Fragment>
           )}
         />
       </GridItem>
@@ -36,11 +48,23 @@ export const ShareGroupSelect = ({
           options={permissions}
           menuIsPortal
           render={({ input, ...props }) => (
-            <rawComponents.Select
-              placeholder="Select permission"
-              {...input}
-              {...props}
-            />
+            <React.Fragment>
+              <rawComponents.Select
+                placeholder="Select permission"
+                isValid={!(props?.meta?.error && props.meta.touched)}
+                {...input}
+                {...props}
+              />
+              {props?.meta?.error && props.meta.touched && (
+                <div
+                  className="pf-c-form__helper-text pf-m-error"
+                  id="permission-helper"
+                  aria-live="polite"
+                >
+                  {props.meta.error}
+                </div>
+              )}
+            </React.Fragment>
           )}
         />
       </GridItem>
@@ -54,7 +78,11 @@ ShareGroupSelect.propTypes = {
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
   loadOptions: PropTypes.func.isRequired,
-  permissions: PropTypes.any
+  permissions: PropTypes.any,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.string
+  })
 };
 
 export default ShareGroupSelect;

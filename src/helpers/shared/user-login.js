@@ -32,6 +32,20 @@ const errorInterceptor = (error = {}) => {
     : { ...error.response };
 };
 
+const unauthorizedInterceptor = (error = {}) => {
+  if (error.status === 403) {
+    throw {
+      ...error,
+      redirect: {
+        pathname: '/403',
+        message: error.config?.url
+      }
+    };
+  }
+
+  throw error;
+};
+
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
   await window.insights.chrome.auth.getUser();
@@ -39,6 +53,7 @@ axiosInstance.interceptors.request.use(async (config) => {
 });
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(null, errorInterceptor);
+axiosInstance.interceptors.response.use(null, unauthorizedInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(
