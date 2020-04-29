@@ -132,7 +132,7 @@ const OrderDetail = () => {
           </Fragment>
         )}
       </OrderDetailStackItem>
-      <StackItem className="pf-u-pt-xl">
+      <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
         <Split gutter="md" className="orders-nav-layout">
           <SplitItem className="order-detail-nav-cotainer">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
