@@ -44,7 +44,7 @@ const OrderDetail = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [queryValues] = useQuery(requiredParams);
   const orderDetailData = useSelector(
-    ({ orderReducer: { orderDetail } }) => orderDetail || {}
+    ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const match = useRouteMatch(ORDER_ROUTE);
   const dispatch = useDispatch();
@@ -72,7 +72,7 @@ const OrderDetail = () => {
     portfolio
   } = orderDetailData;
 
-  const unAvailable = [portfolioItem, platform, portfolio]
+  const unAvailable = [portfolioItem, platform, portfolio || {}]
     .filter(({ notFound }) => notFound)
     .map(({ object }) => (
       <Alert
