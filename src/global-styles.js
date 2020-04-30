@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
   margin-bottom: 2px !important;
 }
 
+.overflow-wrap {
+  overflow-wrap: anywhere;
+}
+
 .orders-list {
   background-color: var(--pf-global--BackgroundColor--100)
 }

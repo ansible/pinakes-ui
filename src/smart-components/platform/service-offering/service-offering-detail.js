@@ -45,7 +45,7 @@ const ServiceOfferingDetail = () => {
 
   return (
     <Section className="global-primary-background full-height">
-      <Grid className="pf-u-p-lg">
+      <Grid gutter="md" className="pf-u-p-lg">
         <div className="pf-u-mb-sm">
           <CatalogBreadcrumbs />
         </div>
@@ -61,13 +61,21 @@ const ServiceOfferingDetail = () => {
           </Level>
         </GridItem>
         <GridItem md={3} lg={2}>
-          <TextContent className="pf-u-mb-md">
+          <TextContent>
             <Text className="font-14">Platform</Text>
-            <Text id="source" component={TextVariants.p}>
+            <Text
+              id="source"
+              className="overflow-wrap"
+              component={TextVariants.p}
+            >
               {source.name}
             </Text>
             <Text className="font-14">Created</Text>
-            <Text id="created_at" component={TextVariants.p}>
+            <Text
+              id="created_at"
+              className="overflow-wrap"
+              component={TextVariants.p}
+            >
               <DateFormat type="relative" date={service.created_at} />
             </Text>
           </TextContent>
