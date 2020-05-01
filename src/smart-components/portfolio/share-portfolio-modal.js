@@ -171,7 +171,7 @@ const SharePortfolioModal = ({
               validate={validateShares}
               initialValues={{ ...initialValues, ...initialShares() }}
               formContainer="modal"
-              buttonsLabels={{ submitLabel: 'Send' }}
+              buttonsLabels={{ submitLabel: 'Apply' }}
             />
           </StackItem>
         </Stack>
