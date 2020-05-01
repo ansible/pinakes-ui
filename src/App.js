@@ -8,7 +8,7 @@ import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-
 import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
-import { SET_OPENAPI_SCHEMA, SET_SOURCETYPE_ICONS } from './redux/action-types';
+import { SET_SOURCETYPE_ICONS } from './redux/action-types';
 
 import 'whatwg-fetch';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -33,6 +33,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
   const [userPermissions, setUserPermissions] = useState();
   const [userIdentity, setUserIdentity] = useState({ identity: {} });
+  const [openApiSchema, setOpenApiSchema] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
@@ -42,7 +43,7 @@ const App = () => {
     Promise.all([
       getAxiosInstance()
         .get(`${CATALOG_API_BASE}/openapi.json`)
-        .then((payload) => dispatch({ type: SET_OPENAPI_SCHEMA, payload })),
+        .then((data) => setOpenApiSchema(data)),
       getAxiosInstance()
         .get(`${SOURCES_API_BASE}/source_types`)
         .then(({ data }) =>
@@ -108,7 +109,7 @@ const App = () => {
   return (
     <IntlProvider locale="en">
       <UserContext.Provider
-        value={{ permissions: userPermissions, userIdentity }}
+        value={{ permissions: userPermissions, userIdentity, openApiSchema }}
       >
         <Fragment>
           <NotificationsPortal />

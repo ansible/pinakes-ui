@@ -79,6 +79,7 @@ const Portfolios = () => {
   const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
+
   useEffect(() => {
     dispatch(fetchPortfoliosWithState(viewState?.portfolio)).then(() =>
       stateDispatch({ type: 'setFetching', payload: false })
