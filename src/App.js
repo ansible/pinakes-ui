@@ -8,7 +8,7 @@ import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-
 import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
-import { SET_SOURCETYPE_ICONS } from './redux/action-types';
+import { SET_OPENAPI_SCHEMA, SET_SOURCETYPE_ICONS } from './redux/action-types';
 
 import 'whatwg-fetch';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -43,7 +43,10 @@ const App = () => {
     Promise.all([
       getAxiosInstance()
         .get(`${CATALOG_API_BASE}/openapi.json`)
-        .then((data) => setOpenApiSchema(data)),
+        .then((payload) => {
+          setOpenApiSchema(payload);
+          dispatch({ type: SET_OPENAPI_SCHEMA, payload });
+        }),
       getAxiosInstance()
         .get(`${SOURCES_API_BASE}/source_types`)
         .then(({ data }) =>

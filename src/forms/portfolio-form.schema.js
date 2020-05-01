@@ -32,8 +32,6 @@ export const createPortfolioSchema = (
   openApiSchema,
   portfolioId
 ) => {
-  console.log('DEBUG - openApiSchema: ', openApiSchema);
-
   return {
     fields: [
       {
