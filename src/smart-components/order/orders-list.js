@@ -176,14 +176,6 @@ const OrdersList = () => {
                     filterValues: {
                       items: [
                         {
-                          value: 'Failed',
-                          label: 'Failed'
-                        },
-                        {
-                          value: 'Completed',
-                          label: 'Completed'
-                        },
-                        {
                           value: 'Approval Pending',
                           label: 'Approval Pending'
                         },
@@ -192,8 +184,20 @@ const OrdersList = () => {
                           label: 'Canceled'
                         },
                         {
+                          value: 'Completed',
+                          label: 'Completed'
+                        },
+                        {
                           value: 'Created',
                           label: 'Created'
+                        },
+                        {
+                          value: 'Failed',
+                          label: 'Failed'
+                        },
+                        {
+                          value: 'Ordered',
+                          label: 'Ordered'
                         }
                       ],
                       value: filters.state,
