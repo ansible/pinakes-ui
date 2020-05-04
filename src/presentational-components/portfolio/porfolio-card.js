@@ -46,6 +46,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={SHARE_PORTFOLIO_ROUTE}
+            preserveHash
           >
             Share
           </CatalogLink>
@@ -63,6 +64,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
+            preserveHash
           >
             Set approval
           </CatalogLink>
@@ -80,6 +82,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={EDIT_PORTFOLIO_ROUTE}
+            preserveHash
           >
             Edit
           </CatalogLink>
@@ -97,6 +100,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={REMOVE_PORTFOLIO_ROUTE}
+            preserveHash
           >
             Delete
           </CatalogLink>
