@@ -45,6 +45,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="/platform/platform-templates"
+                        preserveHash={false}
                         preserveSearch={false}
                         searchParams={
                           Object {
@@ -55,6 +56,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                         <Styled(Component)
                           to={
                             Object {
+                              "hash": undefined,
                               "pathname": "/platform/platform-templates",
                               "search": "?platform=undefined",
                             }
@@ -64,6 +66,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                             className="sc-AxiKw drCTeX"
                             to={
                               Object {
+                                "hash": undefined,
                                 "pathname": "/platform/platform-templates",
                                 "search": "?platform=undefined",
                               }
@@ -73,6 +76,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                               className="sc-AxiKw drCTeX"
                               to={
                                 Object {
+                                  "hash": undefined,
                                   "pathname": "/platform/platform-templates",
                                   "search": "?platform=undefined",
                                 }
@@ -201,6 +205,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="/platform/platform-templates"
+                        preserveHash={false}
                         preserveSearch={false}
                         searchParams={
                           Object {
@@ -211,6 +216,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                         <Styled(Component)
                           to={
                             Object {
+                              "hash": undefined,
                               "pathname": "/platform/platform-templates",
                               "search": "?platform=undefined",
                             }
@@ -220,6 +226,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             className="sc-AxiKw drCTeX"
                             to={
                               Object {
+                                "hash": undefined,
                                 "pathname": "/platform/platform-templates",
                                 "search": "?platform=undefined",
                               }
@@ -229,6 +236,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               className="sc-AxiKw drCTeX"
                               to={
                                 Object {
+                                  "hash": undefined,
                                   "pathname": "/platform/platform-templates",
                                   "search": "?platform=undefined",
                                 }

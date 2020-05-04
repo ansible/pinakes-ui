@@ -26,6 +26,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         isDisabled={false}
         nav={false}
         pathname="foo/bar"
+        preserveHash={false}
         preserveSearch={true}
         searchParams={Object {}}
       >
@@ -33,6 +34,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           isDisabled={false}
           to={
             Object {
+              "hash": undefined,
               "pathname": "foo/bar",
               "search": "",
             }
@@ -43,6 +45,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             isDisabled={false}
             to={
               Object {
+                "hash": undefined,
                 "pathname": "foo/bar",
                 "search": "",
               }
@@ -52,6 +55,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               className="sc-AxiKw drCTeX"
               to={
                 Object {
+                  "hash": undefined,
                   "pathname": "foo/bar",
                   "search": "",
                 }
@@ -171,6 +175,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 <CatalogLink
                   nav={false}
                   pathname="foo/baz"
+                  preserveHash={false}
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -186,6 +191,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 <CatalogLink
                   nav={false}
                   pathname="foo/copy"
+                  preserveHash={false}
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -201,6 +207,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 <CatalogLink
                   nav={false}
                   pathname="foo/workflow"
+                  preserveHash={false}
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -216,6 +223,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 <CatalogLink
                   nav={false}
                   pathname="foo/edit-survey"
+                  preserveHash={false}
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
@@ -248,6 +256,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <CatalogLink
                     nav={false}
                     pathname="foo/baz"
+                    preserveHash={false}
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -263,6 +272,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <CatalogLink
                     nav={false}
                     pathname="foo/copy"
+                    preserveHash={false}
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -278,6 +288,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <CatalogLink
                     nav={false}
                     pathname="foo/workflow"
+                    preserveHash={false}
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -293,6 +304,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   <CatalogLink
                     nav={false}
                     pathname="foo/edit-survey"
+                    preserveHash={false}
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
@@ -326,6 +338,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/baz"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -341,6 +354,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/copy"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -356,6 +370,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/workflow"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -371,6 +386,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/edit-survey"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -405,6 +421,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/baz"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -420,6 +437,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/copy"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -435,6 +453,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/workflow"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >
@@ -450,6 +469,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       <CatalogLink
                         nav={false}
                         pathname="foo/edit-survey"
+                        preserveHash={false}
                         preserveSearch={true}
                         searchParams={Object {}}
                       >

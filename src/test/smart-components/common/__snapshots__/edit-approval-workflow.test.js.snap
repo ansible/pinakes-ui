@@ -35,6 +35,7 @@ exports[`<EditApprovalWorkflow /> should create the edit workflow modal 1`] = `
   <MemoryRouter>
     <EditApprovalWorkflow
       closeUrl="foo"
+      keepHash={false}
       objectName={[Function]}
       objectType="Portfolio"
       portfolioId="123"

@@ -564,8 +564,12 @@ describe('Portfolio actions', () => {
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` })
     ];
-    return store.dispatch(undoRemovePortfolio(123, 'restore-key')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(
+        undoRemovePortfolio(123, 'restore-key', { limit: 50, offset: 0 })
+      )
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 });

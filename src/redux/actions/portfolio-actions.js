@@ -14,7 +14,7 @@ export const doFetchPortfolios = ({
   ...options
 } = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  meta: { filter, ...options },
+  meta: { ...defaultSettings, filter, ...options },
   payload: PortfolioHelper.listPortfolios(filter, options)
 });
 
@@ -94,14 +94,17 @@ export const addToPortfolio = (portfolioId, items) => ({
   }
 });
 
-export const updatePortfolio = (portfolioData) => (dispatch, getState) => {
+export const updatePortfolio = (portfolioData, options) => (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO,
     payload: portfolioData
   });
 
   return PortfolioHelper.updatePortfolio(portfolioData, { getState })
-    .then(() => dispatch(doFetchPortfolios()))
+    .then(() => dispatch(doFetchPortfolios(options)))
     .then(() =>
       dispatch({
         type: ADD_NOTIFICATION,
@@ -125,9 +128,8 @@ export const updatePortfolio = (portfolioData) => (dispatch, getState) => {
     );
 };
 
-export const undoRemovePortfolio = (portfolioId, restoreKey) => (
-  dispatch,
-  getState
+export const undoRemovePortfolio = (portfolioId, restoreKey, viewState) => (
+  dispatch
 ) => {
   dispatch({ type: CLEAR_NOTIFICATIONS });
   return PortfolioHelper.undeletePortfolio(portfolioId, restoreKey).then(
@@ -140,14 +142,15 @@ export const undoRemovePortfolio = (portfolioId, restoreKey) => (
           title: `Portfolio ${portfolio.name} has been restored`
         }
       });
-      return dispatch(
-        fetchPortfolios(getState().portfolioReducer.portfolios.meta)
-      );
+      return dispatch(fetchPortfolios(viewState));
     }
   );
 };
 
-export const removePortfolio = (portfolioId) => (dispatch, getState) => {
+export const removePortfolio = (portfolioId, viewState = {}) => (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
     payload: portfolioId
@@ -170,7 +173,9 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
                   id={`undo-delete-portfolio-${portfolioId}`}
                   onClick={(event) => {
                     event.preventDefault();
-                    dispatch(undoRemovePortfolio(portfolioId, restore_key));
+                    dispatch(
+                      undoRemovePortfolio(portfolioId, restore_key, viewState)
+                    );
                   }}
                 >
                   Undo
@@ -183,6 +188,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
         const { meta, data } = getState().portfolioReducer.portfolios;
         return dispatch(
           fetchPortfolios({
+            ...viewState,
             ...meta,
             offset: data.length === 0 ? 0 : meta.offset
           })

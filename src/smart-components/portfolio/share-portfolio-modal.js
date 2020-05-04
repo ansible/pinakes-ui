@@ -27,10 +27,11 @@ import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 const SharePortfolioModal = ({
   closeUrl,
   removeQuery,
+  viewState,
   portfolioName = () => ''
 }) => {
   const dispatch = useDispatch();
-  const { push } = useEnhancedHistory(removeQuery);
+  const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
   const [{ portfolio }, search] = useQuery(['portfolio']);
   const [isFetching, setFetching] = useState(true);
   const initialValues = useSelector(
@@ -119,7 +120,9 @@ const SharePortfolioModal = ({
     });
     push({ pathname: closeUrl, search });
 
-    return Promise.all(sharePromises).then(() => dispatch(fetchPortfolios()));
+    return Promise.all(sharePromises).then(() =>
+      dispatch(fetchPortfolios(viewState))
+    );
   };
 
   const onCancel = () => push({ pathname: closeUrl, search });
@@ -183,7 +186,13 @@ const SharePortfolioModal = ({
 SharePortfolioModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   removeQuery: PropTypes.bool,
-  portfolioName: PropTypes.func
+  portfolioName: PropTypes.func,
+  viewState: PropTypes.shape({
+    count: PropTypes.number,
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+    filter: PropTypes.string
+  })
 };
 
 export default SharePortfolioModal;

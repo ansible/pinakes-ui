@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
-import { useHistory } from 'react-router-dom';
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
 import {
@@ -18,13 +17,12 @@ import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
 
-const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
+const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
-  const { push } = useEnhancedHistory(removeQuery);
-  const history = useHistory();
+  const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
   const initialValues = useSelector(({ portfolioReducer }) =>
     getPortfolioFromState(portfolioReducer, portfolioId)
   );
@@ -34,7 +32,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
     const newPortfolio = await dispatch(addPortfolio(data));
     setSubmitting(false);
     return newPortfolio && newPortfolio.value && newPortfolio.value.id
-      ? history.push({
+      ? push({
           pathname: PORTFOLIO_ROUTE,
           search: `?portfolio=${newPortfolio.value.id}`
         })
@@ -44,9 +42,9 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
   const onSubmit = (data) => {
     if (initialValues) {
       push(closeTarget);
-      return dispatch(updatePortfolio(data));
+      return dispatch(updatePortfolio(data, viewState));
     } else {
-      return onAddPortfolio(data);
+      return onAddPortfolio(data, viewState);
     }
   };
 
@@ -96,7 +94,13 @@ AddPortfolioModal.propTypes = {
       pathname: PropTypes.string.isRequired,
       search: PropTypes.string
     })
-  ]).isRequired
+  ]).isRequired,
+  viewState: PropTypes.shape({
+    count: PropTypes.number,
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+    filter: PropTypes.string
+  })
 };
 
 export default AddPortfolioModal;
