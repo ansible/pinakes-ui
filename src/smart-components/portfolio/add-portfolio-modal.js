@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '@patternfly/react-core';
@@ -16,10 +16,12 @@ import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
+import UserContext from '../../user-context';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
+  const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const { push } = useEnhancedHistory(removeQuery);
   const history = useHistory();
@@ -64,7 +66,11 @@ const AddPortfolioModal = ({ removeQuery, closeTarget }) => {
     >
       {!portfolioId || editVariant ? (
         <FormRenderer
-          schema={createPortfolioSchema(!initialValues, portfolioId)}
+          schema={createPortfolioSchema(
+            !initialValues,
+            openApiSchema,
+            portfolioId
+          )}
           schemaType="default"
           onSubmit={onSubmit}
           onCancel={() => push(closeTarget)}

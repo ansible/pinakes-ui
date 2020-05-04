@@ -33,6 +33,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
   const [userPermissions, setUserPermissions] = useState();
   const [userIdentity, setUserIdentity] = useState({ identity: {} });
+  const [openApiSchema, setOpenApiSchema] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
@@ -42,7 +43,10 @@ const App = () => {
     Promise.all([
       getAxiosInstance()
         .get(`${CATALOG_API_BASE}/openapi.json`)
-        .then((payload) => dispatch({ type: SET_OPENAPI_SCHEMA, payload })),
+        .then((payload) => {
+          setOpenApiSchema(payload);
+          dispatch({ type: SET_OPENAPI_SCHEMA, payload });
+        }),
       getAxiosInstance()
         .get(`${SOURCES_API_BASE}/source_types`)
         .then(({ data }) =>
@@ -108,7 +112,7 @@ const App = () => {
   return (
     <IntlProvider locale="en">
       <UserContext.Provider
-        value={{ permissions: userPermissions, userIdentity }}
+        value={{ permissions: userPermissions, userIdentity, openApiSchema }}
       >
         <Fragment>
           <NotificationsPortal />
