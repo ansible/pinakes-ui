@@ -40,13 +40,13 @@ const OrderDetails = () => {
           Portfolio
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
-          {portfolio.name}
+          {portfolio?.name}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dt}>
           Platform
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
-          {platform.name}
+          {platform?.name || undefined}
         </TextListItem>
       </TextList>
       <hr className="pf-c-divider" />
