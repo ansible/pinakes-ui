@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router as ReactRouter } from 'react-router-dom';
 import App from './App';
+import { createBrowserHistory } from 'history';
 import AppContext from './app-context';
 import GlobalStyle from './global-styles';
 
@@ -12,12 +13,16 @@ if (pathName[0] === 'beta') {
   release = `/${pathName.shift()}/`;
 }
 
+export const catalogHistory = createBrowserHistory({
+  basename: `${release}${pathName[0]}/${pathName[1]}`
+});
+
 const Router = () => (
   <AppContext.Provider value={{ release }}>
     <GlobalStyle />
-    <BrowserRouter basename={`${release}${pathName[0]}/${pathName[1]}`}>
+    <ReactRouter history={catalogHistory}>
       <App />
-    </BrowserRouter>
+    </ReactRouter>
   </AppContext.Provider>
 );
 

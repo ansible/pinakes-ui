@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
   ADD_NOTIFICATION,
@@ -185,7 +185,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
             title: 'Success removing portfolio',
             dismissable: true,
             description: (
-              <span>
+              <Fragment>
                 The portfolio was removed successfully. You can&nbsp;
                 <a
                   href="#"
@@ -198,7 +198,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
                   Undo
                 </a>
                 &nbsp;this action if this was a mistake.
-              </span>
+              </Fragment>
             )
           }
         });

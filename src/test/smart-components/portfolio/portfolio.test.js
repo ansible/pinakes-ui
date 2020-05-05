@@ -140,13 +140,13 @@ describe('<Portfolio />', () => {
         }
       },
       expect.objectContaining({
+        type: `${FETCH_PLATFORMS}_FULFILLED`
+      }),
+      expect.objectContaining({
         type: `${FETCH_PORTFOLIO}_FULFILLED`
       }),
       expect.objectContaining({
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
-      }),
-      expect.objectContaining({
-        type: `${FETCH_PLATFORMS}_FULFILLED`
       })
     ];
 

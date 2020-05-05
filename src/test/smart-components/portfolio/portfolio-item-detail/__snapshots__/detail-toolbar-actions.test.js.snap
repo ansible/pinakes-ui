@@ -14,6 +14,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   userCapabilities={
     Object {
       "copy": true,
+      "set_approval": true,
       "update": true,
     }
   }
@@ -206,6 +207,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Set approval
                 </CatalogLink>
               }
+              id="set-approval_workflow"
               role="link"
             />,
             <DropdownItem
@@ -282,6 +284,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     Set approval
                   </CatalogLink>
                 }
+                id="set-approval_workflow"
                 role="link"
               />,
               <DropdownItem
@@ -359,6 +362,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Set approval
                       </CatalogLink>
                     }
+                    id="set-approval_workflow"
                     role="link"
                   />,
                   <DropdownItem
@@ -437,6 +441,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         Set approval
                       </CatalogLink>
                     }
+                    id="set-approval_workflow"
                     role="link"
                   />,
                   <DropdownItem
