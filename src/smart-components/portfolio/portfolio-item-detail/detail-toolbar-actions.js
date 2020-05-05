@@ -20,7 +20,7 @@ const DetailToolbarActions = ({
   setOpen,
   isFetching,
   availability,
-  userCapabilities: { update, copy }
+  userCapabilities: { update, copy, set_approval }
 }) => {
   const dropdownItems = [];
   if (update) {
@@ -55,18 +55,21 @@ const DetailToolbarActions = ({
     );
   }
 
-  dropdownItems.push(
-    <DropdownItem
-      aria-label="Set approval"
-      key="edit-approval_workflow"
-      component={
-        <CatalogLink pathname={workflowUrl} preserveSearch>
-          Set approval
-        </CatalogLink>
-      }
-      role="link"
-    />
-  );
+  if (set_approval) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Set approval"
+        key="set-approval_workflow"
+        id="set-approval_workflow"
+        component={
+          <CatalogLink pathname={workflowUrl} preserveSearch>
+            Set approval
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
 
   if (update) {
     dropdownItems.push(
@@ -103,20 +106,22 @@ const DetailToolbarActions = ({
         </CatalogLink>
       </LevelItem>
       <LevelItem style={{ marginLeft: 16 }}>
-        <Dropdown
-          isPlain
-          onToggle={setOpen}
-          onSelect={() => setOpen(false)}
-          position={DropdownPosition.right}
-          toggle={
-            <KebabToggle
-              id="portfolio-item-actions-toggle"
-              onToggle={(isOpen) => setOpen(isOpen)}
-            />
-          }
-          isOpen={isOpen}
-          dropdownItems={dropdownItems}
-        />
+        {dropdownItems.length > 0 && (
+          <Dropdown
+            isPlain
+            onToggle={setOpen}
+            onSelect={() => setOpen(false)}
+            position={DropdownPosition.right}
+            toggle={
+              <KebabToggle
+                id="portfolio-item-actions-toggle"
+                onToggle={(isOpen) => setOpen(isOpen)}
+              />
+            }
+            isOpen={isOpen}
+            dropdownItems={dropdownItems}
+          />
+        )}
       </LevelItem>
     </Fragment>
   );
@@ -134,7 +139,8 @@ DetailToolbarActions.propTypes = {
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
   userCapabilities: PropTypes.shape({
     update: PropTypes.bool,
-    copy: PropTypes.bool
+    copy: PropTypes.bool,
+    set_approval: PropTypes.bool
   }).isRequired
 };
 

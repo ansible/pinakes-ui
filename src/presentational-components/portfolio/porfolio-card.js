@@ -33,7 +33,7 @@ const TO_DISPLAY = ['description'];
 
 const HeaderActions = ({
   portfolioId,
-  userCapabilities: { share, unshare, update, destroy }
+  userCapabilities: { share, unshare, update, destroy, set_approval }
 }) => {
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
@@ -54,20 +54,22 @@ const HeaderActions = ({
     );
   }
 
-  dropdownItems.push(
-    <DropdownItem
-      key="workflow-portfolio-action"
-      id="workflow-portfolio-action"
-      component={
-        <CatalogLink
-          searchParams={{ portfolio: portfolioId }}
-          pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
-        >
-          Set approval
-        </CatalogLink>
-      }
-    />
-  );
+  if (set_approval) {
+    dropdownItems.push(
+      <DropdownItem
+        key="workflow-portfolio-action"
+        id="workflow-portfolio-action"
+        component={
+          <CatalogLink
+            searchParams={{ portfolio: portfolioId }}
+            pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
+          >
+            Set approval
+          </CatalogLink>
+        }
+      />
+    );
+  }
 
   if (update) {
     dropdownItems.push(
@@ -103,7 +105,7 @@ const HeaderActions = ({
     );
   }
 
-  return (
+  return dropdownItems.length === 0 ? null : (
     <Dropdown
       key="portfolio-dropdown"
       id={`portfolio-${portfolioId}-dropdown`}
@@ -128,7 +130,8 @@ HeaderActions.propTypes = {
     destroy: PropTypes.bool,
     update: PropTypes.bool,
     share: PropTypes.bool,
-    unshare: PropTypes.bool
+    unshare: PropTypes.bool,
+    set_approval: PropTypes.bool
   }).isRequired
 };
 

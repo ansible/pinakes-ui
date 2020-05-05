@@ -13,7 +13,7 @@ const OrderLifecycle = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { order, orderItem } = orderDetailData;
-  if (order.state !== 'Completed') {
+  if (order.state !== 'Completed' && order.state !== 'Ordered') {
     return (
       <Redirect
         to={{

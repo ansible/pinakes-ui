@@ -31,9 +31,11 @@ Tbody.propTypes = {
 export const TableCell = styled(({ shrink, children, ...props }) => (
   <td {...props}>{children}</td>
 ))`
-  vertical-align: middle !important;
-  width: ${({ shrink }) => (shrink ? '10%' : 'initial')};
-  img {
-    object-fit: cover;
+  @media screen and (min-width: 768px) {
+    vertical-align: middle !important;
+    width: ${({ shrink }) => (shrink ? '10%' : 'initial')};
+    img {
+      object-fit: cover;
+    }
   }
 `;
