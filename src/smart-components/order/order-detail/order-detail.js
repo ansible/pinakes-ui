@@ -93,7 +93,7 @@ const OrderDetail = () => {
             <Level className="pf-u-mb-md">
               <CatalogBreadcrumbs />
             </Level>
-            <Level>
+            <Level className="flex-no-wrap">
               {unAvailable.length > 0 ? (
                 <UnAvailableAlertContainer>
                   {unAvailable}
@@ -106,7 +106,7 @@ const OrderDetail = () => {
                       orderId={order.id}
                     />
                   </LevelItem>
-                  <LevelItem>
+                  <LevelItem className="flex-item-no-wrap">
                     <OrderToolbarActions
                       portfolioItemName={portfolioItem.name}
                       orderId={order.id}

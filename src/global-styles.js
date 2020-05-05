@@ -12,6 +12,16 @@ const GlobalStyle = createGlobalStyle`
   margin-bottom: 2px !important;
 }
 
+.flex-no-wrap {
+  flex-wrap: nowrap !important;
+  .flex-item-no-wrap {
+    align-self: flex-start;
+    white-space: nowrap;
+  .pf-c-form__actions {
+    flex-wrap: nowrap !important;
+  }
+}
+
 .orders-list {
   background-color: var(--pf-global--BackgroundColor--100)
 }
@@ -82,15 +92,7 @@ a.pf-c-breadcrumb__item {
   &::before {
     z-index: 1;
   }
-
 }
-
-@media screen and (min-width: 768px) { /* missing from patternfly-react */
-  .pf-u-text-align-right-on-md {
-    text-align:right !important
-  }
-}
-
 /**
 * End of PF4 fixes
 */

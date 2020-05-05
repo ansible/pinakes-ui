@@ -63,9 +63,7 @@ export const TopToolbarTitle = ({
 }) => (
   <Fragment>
     <TopToolbarTitleContainer
-      className={clsx({
-        'pf-u-mb-lg': !noData
-      })}
+      className={clsx({ 'pf-u-mb-lg': !noData, 'flex-no-wrap': true })}
       {...rest}
     >
       <LevelItem>
@@ -83,7 +81,7 @@ export const TopToolbarTitle = ({
           )}
         </TextContent>
       </LevelItem>
-      {children}
+      <LevelItem className="flex-item-no-wrap">{children}</LevelItem>
     </TopToolbarTitleContainer>
   </Fragment>
 );

@@ -74,29 +74,30 @@ const OrderItem = memo(
         <TableCell>
           <TextContent>
             <Grid gutter="sm" className="pf-u-gg-md">
-              <GridItem className="pf-m-9-col-on-md pf-m-10-col-on-lg">
-                <Text
-                  className="pf-u-mb-0 overflow-wrap"
-                  component={TextVariants.h5}
-                >
-                  <CatalogLink
-                    pathname={ORDER_ROUTE}
-                    searchParams={searchParams}
-                  >
-                    {orderName} - Order # {item.id}
-                  </CatalogLink>
-                </Text>
-              </GridItem>
-              <GridItem className="pf-m-3-col-on-md pf-m-2-col-on-lg pf-u-text-align-right-on-md">
-                <CatalogLink
-                  pathname={routeMapper[item.state] || ORDER_ROUTE}
-                  searchParams={searchParams}
-                >
-                  {item.state === 'Failed' && (
-                    <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
-                  )}
-                  {item.state}
-                </CatalogLink>
+              <GridItem>
+                <Level className="flex-no-wrap">
+                  <LevelItem>
+                    <Text className="pf-u-mb-0" component={TextVariants.h5}>
+                      <CatalogLink
+                        pathname={ORDER_ROUTE}
+                        searchParams={searchParams}
+                      >
+                        {orderName} - Order # {item.id}
+                      </CatalogLink>
+                    </Text>
+                  </LevelItem>
+                  <LevelItem className="flex-item-no-wrap">
+                    <CatalogLink
+                      pathname={routeMapper[item.state] || ORDER_ROUTE}
+                      searchParams={searchParams}
+                    >
+                      {item.state === 'Failed' && (
+                        <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
+                      )}
+                      {item.state}
+                    </CatalogLink>
+                  </LevelItem>
+                </Level>
               </GridItem>
               <GridItem>
                 <Level>
