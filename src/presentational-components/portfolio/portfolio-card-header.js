@@ -18,8 +18,8 @@ const HeaderTitle = styled(LevelItem)`
 const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
   <Level>
     <HeaderTitle className="pf-m-grow">
-      <Link to={to} id={`portfolio-link-${id}`}>
-        <TextContent>
+      <TextContent>
+        <Link to={to} id={`portfolio-link-${id}`}>
           <Text
             title={portfolioName}
             className="pf-u-mb-0"
@@ -27,8 +27,8 @@ const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
           >
             <EllipsisTextContainer>{portfolioName}</EllipsisTextContainer>
           </Text>
-        </TextContent>
-      </Link>
+        </Link>
+      </TextContent>
     </HeaderTitle>
     <LevelItem onClick={(event) => event.preventDefault()}>
       {headerActions}
