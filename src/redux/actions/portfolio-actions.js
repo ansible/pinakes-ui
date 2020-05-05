@@ -359,9 +359,9 @@ export const updatePortfolioItem = (values) => (dispatch, getState) => {
     payload: values
   });
   return PortfolioHelper.updatePortfolioItem(values, { getState })
-    .then(() => {
-      dispatch({ type: ActionTypes.UPDATE_PORTFOLIO_ITEM, payload: values });
-      return values;
+    .then((data) => {
+      dispatch({ type: ActionTypes.UPDATE_PORTFOLIO_ITEM, payload: data });
+      return data;
     })
     .then((item) =>
       dispatch({

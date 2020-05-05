@@ -133,12 +133,18 @@ const updateTemporaryPortfolioItem = (state, { payload }) => ({
   prevState: { ...state },
   portfolioItem: {
     ...state.portfolioItem,
-    portfolioItem: payload
+    portfolioItem: {
+      created_at: state.portfolioItem.portfolioItem.created_at,
+      updated_at: new Date().toString(),
+      ...payload
+    }
   },
   portfolioItems: {
     ...state.portfolioItems,
     data: state.portfolioItems.data.map((item) =>
-      item.id === payload.id ? { ...payload } : item
+      item.id === payload.id
+        ? { created_at: item.created_at, ...payload }
+        : item
     )
   }
 });

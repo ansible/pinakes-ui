@@ -13,8 +13,14 @@ if (pathName[0] === 'beta') {
   release = `/${pathName.shift()}/`;
 }
 
+/**
+ * Make sure that the [1] fragment is present in the pathname.
+ * Otherwise we could end up with /undefined/ which will be transformed by the router to //
+ */
+const basename = `${release}${pathName[0]}/${pathName[1] ? pathName[1] : ''}`;
+
 export const catalogHistory = createBrowserHistory({
-  basename: `${release}${pathName[0]}/${pathName[1]}`
+  basename
 });
 
 const Router = () => (

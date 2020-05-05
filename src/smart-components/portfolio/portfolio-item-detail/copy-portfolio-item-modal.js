@@ -69,7 +69,11 @@ const ValueOnly = ({ name, label, value }) => (
 ValueOnly.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string
+};
+
+ValueOnly.defaultProps = {
+  value: ''
 };
 
 const CopyPortfolioItemModal = ({
