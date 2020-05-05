@@ -289,6 +289,10 @@ section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
   font-weight: 500;
   margin: 0 10px; 
 }
+
+.ins-c-primary-toolbar__pagination {
+  margin-left: auto;
+}
 `;
 
 export default GlobalStyle;
