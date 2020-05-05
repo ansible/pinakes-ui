@@ -240,40 +240,44 @@ const OrdersList = () => {
                   <OrderItem key={item.id} index={index} item={item} />
                 ))
               ) : (
-                <EmptyTable>
-                  <Bullseye>
-                    <EmptyState>
+                <tr>
+                  <td>
+                    <EmptyTable>
                       <Bullseye>
-                        <EmptyStateIcon icon={SearchIcon} />
-                      </Bullseye>
-                      <Title size="lg">
-                        {meta.noData ? 'No orders' : 'No results found'}
-                      </Title>
-                      <EmptyStateBody>
-                        {meta.noData
-                          ? 'No orders have been created.'
-                          : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
-                      </EmptyStateBody>
+                        <EmptyState>
+                          <Bullseye>
+                            <EmptyStateIcon icon={SearchIcon} />
+                          </Bullseye>
+                          <Title size="lg">
+                            {meta.noData ? 'No orders' : 'No results found'}
+                          </Title>
+                          <EmptyStateBody>
+                            {meta.noData
+                              ? 'No orders have been created.'
+                              : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+                          </EmptyStateBody>
 
-                      <EmptyStateSecondaryActions>
-                        {!meta.noData && (
-                          <Button
-                            variant="link"
-                            onClick={() => {
-                              stateDispatch({
-                                type: 'setFilteringFlag',
-                                payload: true
-                              });
-                              handleFilterItems('');
-                            }}
-                          >
-                            Clear all filters
-                          </Button>
-                        )}
-                      </EmptyStateSecondaryActions>
-                    </EmptyState>
-                  </Bullseye>
-                </EmptyTable>
+                          <EmptyStateSecondaryActions>
+                            {!meta.noData && (
+                              <Button
+                                variant="link"
+                                onClick={() => {
+                                  stateDispatch({
+                                    type: 'setFilteringFlag',
+                                    payload: true
+                                  });
+                                  handleFilterItems('');
+                                }}
+                              >
+                                Clear all filters
+                              </Button>
+                            )}
+                          </EmptyStateSecondaryActions>
+                        </EmptyState>
+                      </Bullseye>
+                    </EmptyTable>
+                  </td>
+                </tr>
               )}
             </Tbody>
           </Table>
