@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
 import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import { Routes } from './Routes';
@@ -115,13 +114,13 @@ const App = () => {
       >
         <Fragment>
           <NotificationsPortal />
-          <Main className="pf-u-p-0 pf-u-ml-0">
+          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
             <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
               <GridItem sm={12} className="content-layout">
                 <Routes />
               </GridItem>
             </Grid>
-          </Main>
+          </section>
         </Fragment>
       </UserContext.Provider>
     </IntlProvider>
