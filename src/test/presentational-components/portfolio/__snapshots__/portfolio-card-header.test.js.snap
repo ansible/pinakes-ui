@@ -5,16 +5,16 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
   <Styled(LevelItem)
     className="pf-m-grow"
   >
-    <Link
-      id="portfolio-link-undefined"
-      to={
-        Object {
-          "pathname": "foo/bar",
-          "search": "?something=1",
+    <TextContent>
+      <Link
+        id="portfolio-link-undefined"
+        to={
+          Object {
+            "pathname": "foo/bar",
+            "search": "?something=1",
+          }
         }
-      }
-    >
-      <TextContent>
+      >
         <Text
           className="pf-u-mb-0"
           component="h3"
@@ -24,8 +24,8 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
             foo
           </styled.div>
         </Text>
-      </TextContent>
-    </Link>
+      </Link>
+    </TextContent>
   </Styled(LevelItem)>
   <LevelItem
     onClick={[Function]}
