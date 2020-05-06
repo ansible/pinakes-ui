@@ -104,7 +104,14 @@ const addTemporaryPortfolio = (state, { payload }) => ({
 const updateTemporaryPortfolio = (state, { payload }) => ({
   prevState: { ...state },
   ...state,
-  selectedPortfolio: payload,
+  selectedPortfolio: {
+    metadata: {
+      user_capabilities: {
+        ...state.selectedPortfolio.metadata.user_capabilities
+      }
+    },
+    ...payload
+  },
   portfolios: {
     ...state.portfolios,
     data: state.portfolios.data.map((item) =>
