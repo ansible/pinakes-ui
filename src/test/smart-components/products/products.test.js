@@ -19,6 +19,7 @@ import {
   mockApi,
   mockGraphql
 } from '../../../helpers/shared/__mocks__/user-login';
+import UserContext from '../../../user-context';
 
 describe('<Products />', () => {
   let initialState;
@@ -28,7 +29,11 @@ describe('<Products />', () => {
 
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
     <Provider store={store}>
-      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      <UserContext.Provider
+        value={{ userIdentity: { identity: { user: { is_org_admin: true } } } }}
+      >
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      </UserContext.Provider>
     </Provider>
   );
 
