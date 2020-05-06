@@ -51,9 +51,11 @@ const OrderDetails = () => {
       </TextList>
       <hr className="pf-c-divider" />
       <Text component={TextVariants.h2}>Order parameters</Text>
-      <ReactJsonView src={orderItem.service_parameters} />
+      {orderItem?.service_parameters && (
+        <ReactJsonView src={orderItem.service_parameters} />
+      )}
       <Text component={TextVariants.h2}>Progress messages</Text>
-      <ReactJsonView src={progressMessages.data} />
+      {progressMessages?.data && <ReactJsonView src={progressMessages.data} />}
     </TextContent>
   );
 };
