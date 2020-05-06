@@ -7,9 +7,11 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
       <PortfolioCardHeader
         headerActions={
           <HeaderActions
+            handleCopyPortfolio={[MockFunction]}
             portfolioId="123"
             userCapabilities={
               Object {
+                "copy": true,
                 "destroy": true,
                 "set_approval": true,
                 "share": true,
