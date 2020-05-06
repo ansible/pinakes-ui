@@ -12,12 +12,18 @@ import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
-import { Button } from '@patternfly/react-core';
+import {
+  Button,
+  TextContent,
+  Text,
+  TextVariants
+} from '@patternfly/react-core';
 import AppContext from '../../app-context';
 import AsyncPagination from '../common/async-pagination';
 import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
+import UserContext from '../../user-context';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -74,6 +80,13 @@ const Products = () => {
       filterValue: viewState?.products?.filter || ''
     }
   );
+  const {
+    userIdentity: {
+      identity: {
+        user: { is_org_admin }
+      }
+    }
+  } = useContext(UserContext);
   const dispatch = useDispatch();
   const { data, meta } = useSelector(
     ({ portfolioReducer: { portfolioItems } }) => portfolioItems
@@ -107,11 +120,12 @@ const Products = () => {
     />
   ));
 
-  const SourcesAction = () => (
-    <a href={`${release}settings/sources/new`}>
-      <Button variant="primary">Add source</Button>
-    </a>
-  );
+  const SourcesAction = () =>
+    is_org_admin && (
+      <a href={`${release}settings/sources/new`}>
+        <Button variant="primary">Add source</Button>
+      </a>
+    );
 
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
@@ -119,12 +133,34 @@ const Products = () => {
     </Button>
   );
 
+  const renderEmptyStateDescription = () => (
+    <Fragment>
+      <TextContent>
+        <Text component={TextVariants.p}>
+          {meta.noData
+            ? 'Configure a source and add products into portfolios.'
+            : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+        </Text>
+        {is_org_admin ? (
+          <Text component={TextVariants.p}>
+            To connect to a source, go to{' '}
+            <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
+            &nbsp;under Settings.
+          </Text>
+        ) : (
+          <Text>
+            Contact your organization administrator to setup sources for
+            Catalog.
+          </Text>
+        )}
+      </TextContent>
+    </Fragment>
+  );
+
   const emptyStateProps = {
     PrimaryAction: meta.noData ? SourcesAction : FilterAction,
     title: meta.noData ? 'No products yet' : 'No results found',
-    description: meta.noData
-      ? 'Configure a source to add products into portfolios.'
-      : 'No results match the filter criteria. Remove all filters or clear all filters to show results.',
+    renderDescription: renderEmptyStateDescription,
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
 
