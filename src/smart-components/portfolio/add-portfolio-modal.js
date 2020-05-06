@@ -20,6 +20,7 @@ import UserContext from '../../user-context';
 const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
@@ -41,8 +42,17 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
 
   const onSubmit = (data) => {
     if (initialValues) {
-      push(closeTarget);
-      return dispatch(updatePortfolio(data, viewState));
+      /**
+       * Fake the redirect by closing the modal
+       */
+      setIsOpen(false);
+      return dispatch(updatePortfolio(data, viewState)).then(() =>
+        /**
+         * Redirect only after the update was finished.
+         * This will ensure that API requests are triggered in correct order when chaning the router pathname
+         * */
+        push(closeTarget)
+      );
     } else {
       return onAddPortfolio(data, viewState);
     }
@@ -58,7 +68,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   return (
     <Modal
       title={portfolioId ? 'Edit portfolio' : 'Create portfolio'}
-      isOpen
+      isOpen={isOpen}
       onClose={() => push(closeTarget)}
       isSmall
     >
