@@ -83,13 +83,22 @@ export function getOrderApprovalRequests(orderItemId) {
 export const getOrderDetail = (params) => {
   let detailPromises = [
     axiosInstance.get(`${CATALOG_API_BASE}/orders/${params.order}`),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${params['order-item']}`
-    ),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Order item',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
     axiosInstance
       .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`)
       .catch((error) => {
-        if (error.status === 404) {
+        if (error.status === 404 || error.status === 400) {
           return {
             object: 'Product',
             notFound: true
@@ -98,12 +107,28 @@ export const getOrderDetail = (params) => {
 
         throw error;
       }),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${params['order-item']}/approval_requests`
-    ),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
-    )
+    axiosInstance
+      .get(
+        `${CATALOG_API_BASE}/order_items/${params['order-item']}/approval_requests`
+      )
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {};
+        }
+
+        throw error;
+      }),
+    axiosInstance
+      .get(
+        `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
+      )
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {};
+        }
+
+        throw error;
+      })
   ];
 
   if (params && params.platform && params.platform !== 'undefined') {

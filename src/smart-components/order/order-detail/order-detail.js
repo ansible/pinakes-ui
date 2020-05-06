@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import {
   StackItem,
   Level,
@@ -25,7 +25,7 @@ import OrderLifecycle from './order-lifecycle';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
-import { ORDER_ROUTE, ORDERS_ROUTE } from '../../../constants/routes';
+import { ORDER_ROUTE } from '../../../constants/routes';
 import {
   OrderDetailStack,
   OrderDetailStackItem
@@ -59,10 +59,6 @@ const OrderDetail = () => {
     ]).then(() => setIsFetching(false));
     return () => resetBreadcrumbs();
   }, []);
-
-  if (!isFetching && Object.keys(orderDetailData).length === 0) {
-    return <Redirect to={ORDERS_ROUTE} />;
-  }
 
   const {
     order,
@@ -124,7 +120,7 @@ const OrderDetail = () => {
                   state={order.state}
                   jobName={portfolioItem.name}
                   orderRequestDate={order.created_at}
-                  orderUpdateDate={orderItem.updated_at}
+                  orderUpdateDate={orderItem?.updated_at}
                   owner={order.owner}
                 />
               </Level>

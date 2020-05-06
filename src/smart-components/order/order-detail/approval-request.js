@@ -41,6 +41,7 @@ const ApprovalRequests = () => {
     if (
       approvalRequest &&
       order.state !== 'Failed' &&
+      orderItem?.id &&
       approvalRequest.data.length === 0
     ) {
       checkRequest(() => dispatch(fetchApprovalRequests(orderItem.id)));
