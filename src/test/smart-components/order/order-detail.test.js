@@ -115,7 +115,7 @@ describe('<OrderDetail />', () => {
         wrapper.update();
       });
       wrapper.update();
-      expect(wrapper.find('div#no-approval-requests')).toHaveLength(1);
+      expect(wrapper.find('div#creating-approval-request')).toHaveLength(1);
     });
   });
 });
