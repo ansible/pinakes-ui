@@ -31,6 +31,11 @@ const checkRequest = async (fetchRequests) => {
   }
 };
 
+const isEmpty = (approvalRequest) =>
+  !approvalRequest ||
+  !approvalRequest.data ||
+  approvalRequest.data.length === 0;
+
 const ApprovalRequests = () => {
   const dispatch = useDispatch();
   const { order, approvalRequest, orderItem } = useSelector(
@@ -38,20 +43,12 @@ const ApprovalRequests = () => {
   );
 
   useEffect(() => {
-    if (
-      approvalRequest &&
-      order.state !== 'Failed' &&
-      orderItem?.id &&
-      approvalRequest.data.length === 0
-    ) {
+    if (order.state !== 'Failed' && orderItem?.id && isEmpty(approvalRequest)) {
       checkRequest(() => dispatch(fetchApprovalRequests(orderItem.id)));
     }
   }, []);
 
-  if (
-    !approvalRequest ||
-    (order.state === 'Failed' && approvalRequest.data.length === 0)
-  ) {
+  if (order.state === 'Failed' && isEmpty(approvalRequest)) {
     return (
       <Bullseye id="no-approval-requests">
         <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
@@ -70,7 +67,7 @@ const ApprovalRequests = () => {
 
   return (
     <TextContent>
-      {approvalRequest.data && approvalRequest.data.length === 0 ? (
+      {isEmpty(approvalRequest) ? (
         <Bullseye>
           <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
             <Bullseye>
