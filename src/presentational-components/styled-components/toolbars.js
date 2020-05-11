@@ -19,6 +19,7 @@ export const TopToolbarWrapper = styled.div`
       pointer-events: none;
     }
   }
+  h1,
   h2 {
     margin-bottom: 0 !important;
     @supports not (overflow-wrap: anywhere) {
