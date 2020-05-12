@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
   .flex-item-no-wrap {
     align-self: flex-start;
     white-space: nowrap;
+  }
   .pf-c-form__actions {
     flex-wrap: nowrap !important;
   }
