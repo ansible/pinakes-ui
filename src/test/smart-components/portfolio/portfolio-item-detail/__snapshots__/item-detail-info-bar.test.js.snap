@@ -40,11 +40,12 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         </p>
       </Text>
       <Text
+        className="overflow-wrap"
         component="p"
         id="source-name"
       >
         <p
-          className=""
+          className="overflow-wrap"
           data-pf-content={true}
           id="source-name"
         >
@@ -62,11 +63,12 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         </p>
       </Text>
       <Text
+        className="overflow-wrap"
         component="p"
         id="portfolio-name"
       >
         <p
-          className=""
+          className="overflow-wrap"
           data-pf-content={true}
           id="portfolio-name"
         >
@@ -87,10 +89,11 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           </p>
         </Text>
         <Text
+          className="overflow-wrap"
           component="p"
         >
           <p
-            className=""
+            className="overflow-wrap"
             data-pf-content={true}
           >
             foo
@@ -305,11 +308,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         </p>
       </Text>
       <Text
+        className="overflow-wrap"
         component="p"
         id="source-name"
       >
         <p
-          className=""
+          className="overflow-wrap"
           data-pf-content={true}
           id="source-name"
         >
@@ -327,11 +331,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         </p>
       </Text>
       <Text
+        className="overflow-wrap"
         component="p"
         id="portfolio-name"
       >
         <p
-          className=""
+          className="overflow-wrap"
           data-pf-content={true}
           id="portfolio-name"
         >
@@ -550,11 +555,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         </p>
       </Text>
       <Text
+        className="overflow-wrap"
         component="p"
         id="source-name"
       >
         <p
-          className=""
+          className="overflow-wrap"
           data-pf-content={true}
           id="source-name"
         >
@@ -572,11 +578,12 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         </p>
       </Text>
       <Text
+        className="overflow-wrap"
         component="p"
         id="portfolio-name"
       >
         <p
-          className=""
+          className="overflow-wrap"
           data-pf-content={true}
           id="portfolio-name"
         >
@@ -597,10 +604,11 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           </p>
         </Text>
         <Text
+          className="overflow-wrap"
           component="p"
         >
           <p
-            className=""
+            className="overflow-wrap"
             data-pf-content={true}
           >
             foo

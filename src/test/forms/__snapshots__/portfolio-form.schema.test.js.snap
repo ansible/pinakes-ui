@@ -7,6 +7,7 @@ Object {
       "component": "text-field",
       "isRequired": true,
       "label": "Name",
+      "maxLength": 64,
       "name": "name",
       "validate": Array [
         [Function],
@@ -28,6 +29,7 @@ Object {
       "component": "text-field",
       "isRequired": true,
       "label": "Name",
+      "maxLength": 64,
       "name": "name",
       "validate": Array [
         [Function],

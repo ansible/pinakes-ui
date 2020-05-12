@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import {
   Bullseye,
@@ -106,14 +105,14 @@ CardLoader.defaultProps = {
 };
 
 export const AppPlaceholder = () => (
-  <Main className="pf-u-m-0 pf-u-p-0">
+  <section className="pf-u-m-0 pf-u-p-0 pf-l-page__main-section pf-c-page__main-section">
     <Skeleton height={32} className="pf-u-p-lg global-primary-background" />
     <div className="pf-u-mt-lg">
       <Bullseye>
         <Spinner />
       </Bullseye>
     </div>
-  </Main>
+  </section>
 );
 
 export const ToolbarTitlePlaceholder = () => <Skeleton height={30} />;

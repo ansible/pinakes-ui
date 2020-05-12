@@ -96,7 +96,10 @@ const Portfolio = () => {
       )
     ])
       .then((data) => {
-        stateDispatch({ type: 'setIsFetching', payload: false });
+        if (isMounted.current) {
+          stateDispatch({ type: 'setIsFetching', payload: false });
+        }
+
         return data;
       })
       .catch(() => stateDispatch({ type: 'setIsFetching', payload: false }));
@@ -104,22 +107,25 @@ const Portfolio = () => {
 
   useEffect(() => {
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
-  }, []);
-
-  useEffect(() => {
     fetchData(id);
     scrollToTop();
+
     return () => {
       resetBreadcrumbs();
       dispatch(resetSelectedPortfolio());
     };
-  }, [id]);
+  }, []);
 
   useEffect(() => {
-    if (isMounted && history.location.pathname === PORTFOLIO_ROUTE) {
+    if (
+      isMounted.current === true &&
+      !state.isFetching &&
+      history.location.pathname === PORTFOLIO_ROUTE
+    ) {
       fetchData(id);
+      scrollToTop();
     }
-  }, [history.location.pathname]);
+  }, [id, history.location.pathname]);
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
