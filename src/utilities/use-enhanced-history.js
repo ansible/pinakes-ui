@@ -18,17 +18,26 @@ const removeSearchQuery = (target) => {
 /**
  * Wrapper around useHistory hook which adds aditional settings to standard history methods
  * @param {Boolean} removeSearch if true, using history navigation methods will remove search string from path
+ * @param {Boolean} keepHash if true, using history navigation methods will not remove hash from URL
  */
-const useEnhancedHistory = (removeSearch) => {
+const useEnhancedHistory = ({ removeSearch, keepHash } = {}) => {
   const history = useHistory();
   return {
     ...history,
     push: (target) => {
-      if (removeSearch) {
-        return history.push(removeSearchQuery(target));
+      let internalTarget = target;
+      if (keepHash && history.location.hash.length > 0) {
+        internalTarget =
+          typeof internalTarget === 'object'
+            ? { ...internalTarget, hash: history.location.hash }
+            : `${internalTarget}${history.location.hash}`;
       }
 
-      return history.push(target);
+      if (removeSearch) {
+        return history.push(removeSearchQuery(internalTarget));
+      }
+
+      return history.push(internalTarget);
     }
   };
 };

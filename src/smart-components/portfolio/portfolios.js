@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useRouteMatch } from 'react-router-dom';
+import { Route, useRouteMatch, useHistory } from 'react-router-dom';
 import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
 import { Button } from '@patternfly/react-core';
 
@@ -12,7 +12,10 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { fetchPortfoliosWithState } from '../../redux/actions/portfolio-actions';
+import {
+  fetchPortfoliosWithState,
+  copyPortfolio
+} from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, {
@@ -28,7 +31,8 @@ import {
   EDIT_PORTFOLIO_ROUTE,
   REMOVE_PORTFOLIO_ROUTE,
   SHARE_PORTFOLIO_ROUTE,
-  WORKFLOW_PORTFOLIO_ROUTE
+  WORKFLOW_PORTFOLIO_ROUTE,
+  PORTFOLIO_ROUTE
 } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
@@ -79,6 +83,8 @@ const Portfolios = () => {
   const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
+  const history = useHistory();
+
   useEffect(() => {
     dispatch(fetchPortfoliosWithState(viewState?.portfolio)).then(() =>
       stateDispatch({ type: 'setFetching', payload: false })
@@ -103,6 +109,14 @@ const Portfolios = () => {
       }
     );
   };
+
+  const handleCopyPortfolio = (id) =>
+    dispatch(copyPortfolio(id)).then(({ id }) =>
+      history.push({
+        pathname: PORTFOLIO_ROUTE,
+        search: `?portfolio=${id}`
+      })
+    );
 
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
@@ -131,7 +145,11 @@ const Portfolios = () => {
   };
 
   const galleryItems = data.map((item) => (
-    <PortfolioCard key={item.id} {...item} />
+    <PortfolioCard
+      key={item.id}
+      {...item}
+      handleCopyPortfolio={handleCopyPortfolio}
+    />
   ));
 
   return (
@@ -152,29 +170,34 @@ const Portfolios = () => {
         })}
       />
       <Route exact path={[ADD_PORTFOLIO_ROUTE, EDIT_PORTFOLIO_ROUTE]}>
-        <AddPortfolio removeQuery closeTarget={PORTFOLIOS_ROUTE} />
+        <AddPortfolio
+          removeQuery
+          viewState={viewState?.portfolio}
+          closeTarget={PORTFOLIOS_ROUTE}
+        />
       </Route>
-      <Route exact path={REMOVE_PORTFOLIO_ROUTE} component={RemovePortfolio} />
+      <Route exact path={REMOVE_PORTFOLIO_ROUTE}>
+        <RemovePortfolio viewState={viewState?.portfolio} />
+      </Route>
       <Route exact path={SHARE_PORTFOLIO_ROUTE}>
         <SharePortfolio
           closeUrl={match.url}
           querySelector="portfolio"
           removeQuery
+          viewState={viewState?.portfolio}
           portfolioName={itemName}
         />
       </Route>
-      <Route
-        exact
-        path={WORKFLOW_PORTFOLIO_ROUTE}
-        render={() => (
-          <EditApprovalWorkflow
-            pushParam={{ pathname: match.url }}
-            objectType={PORTFOLIO_RESOURCE_TYPE}
-            objectName={itemName}
-            querySelector="portfolio"
-          />
-        )}
-      />
+      <Route exact path={WORKFLOW_PORTFOLIO_ROUTE}>
+        <EditApprovalWorkflow
+          pushParam={{ pathname: match.url }}
+          objectType={PORTFOLIO_RESOURCE_TYPE}
+          objectName={itemName}
+          querySelector="portfolio"
+          removeQuery
+          keepHash
+        />
+      </Route>
       <ContentGallery
         items={galleryItems}
         isLoading={isFetching || isFiltering}

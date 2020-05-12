@@ -33,7 +33,8 @@ const TO_DISPLAY = ['description'];
 
 const HeaderActions = ({
   portfolioId,
-  userCapabilities: { share, unshare, update, destroy, set_approval }
+  handleCopyPortfolio,
+  userCapabilities: { share, copy, unshare, update, destroy, set_approval }
 }) => {
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
@@ -46,11 +47,24 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={SHARE_PORTFOLIO_ROUTE}
+            preserveHash
           >
             Share
           </CatalogLink>
         }
       />
+    );
+  }
+
+  if (copy) {
+    dropdownItems.push(
+      <DropdownItem
+        key="copy-portfolio-action"
+        id="copy-portfolio-action"
+        onClick={() => handleCopyPortfolio(portfolioId)}
+      >
+        Copy
+      </DropdownItem>
     );
   }
 
@@ -63,6 +77,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
+            preserveHash
           >
             Set approval
           </CatalogLink>
@@ -80,6 +95,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={EDIT_PORTFOLIO_ROUTE}
+            preserveHash
           >
             Edit
           </CatalogLink>
@@ -97,6 +113,7 @@ const HeaderActions = ({
           <CatalogLink
             searchParams={{ portfolio: portfolioId }}
             pathname={REMOVE_PORTFOLIO_ROUTE}
+            preserveHash
           >
             Delete
           </CatalogLink>
@@ -131,8 +148,10 @@ HeaderActions.propTypes = {
     update: PropTypes.bool,
     share: PropTypes.bool,
     unshare: PropTypes.bool,
-    set_approval: PropTypes.bool
-  }).isRequired
+    set_approval: PropTypes.bool,
+    copy: PropTypes.bool
+  }).isRequired,
+  handleCopyPortfolio: PropTypes.func.isRequired
 };
 
 const PortfolioCard = ({
@@ -140,6 +159,7 @@ const PortfolioCard = ({
   isDisabled,
   name,
   id,
+  handleCopyPortfolio,
   metadata: { user_capabilities },
   ...props
 }) => {
@@ -159,6 +179,7 @@ const PortfolioCard = ({
               <HeaderActions
                 portfolioId={id}
                 userCapabilities={user_capabilities}
+                handleCopyPortfolio={handleCopyPortfolio}
               />
             }
           />
@@ -195,7 +216,8 @@ PortfolioCard.propTypes = {
   owner: PropTypes.string,
   isDisabled: PropTypes.bool,
   metadata: PropTypes.shape({ user_capabilities: PropTypes.object.isRequired })
-    .isRequired
+    .isRequired,
+  handleCopyPortfolio: PropTypes.func.isRequired
 };
 
 export default PortfolioCard;

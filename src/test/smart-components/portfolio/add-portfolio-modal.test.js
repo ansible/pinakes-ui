@@ -71,6 +71,7 @@ describe('<AddPortfolioModal />', () => {
           isRequired: true,
           label: 'Name',
           name: 'name',
+          maxLength: 64,
           validate: [expect.any(Function)]
         },
         {

@@ -104,7 +104,14 @@ const addTemporaryPortfolio = (state, { payload }) => ({
 const updateTemporaryPortfolio = (state, { payload }) => ({
   prevState: { ...state },
   ...state,
-  selectedPortfolio: payload,
+  selectedPortfolio: {
+    metadata: {
+      user_capabilities: {
+        ...state.selectedPortfolio.metadata.user_capabilities
+      }
+    },
+    ...payload
+  },
   portfolios: {
     ...state.portfolios,
     data: state.portfolios.data.map((item) =>
@@ -133,12 +140,18 @@ const updateTemporaryPortfolioItem = (state, { payload }) => ({
   prevState: { ...state },
   portfolioItem: {
     ...state.portfolioItem,
-    portfolioItem: payload
+    portfolioItem: {
+      created_at: state.portfolioItem.portfolioItem.created_at,
+      updated_at: new Date().toString(),
+      ...payload
+    }
   },
   portfolioItems: {
     ...state.portfolioItems,
     data: state.portfolioItems.data.map((item) =>
-      item.id === payload.id ? { ...payload } : item
+      item.id === payload.id
+        ? { created_at: item.created_at, ...payload }
+        : item
     )
   }
 });

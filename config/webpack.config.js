@@ -14,6 +14,28 @@ const commonConfig = {
   entry: {
     App: common.paths.entry
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 300000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 6,
+      maxInitialRequests: 4,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          reuseExistingChunk: true
+        },
+        default: {
+          priority: 20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   output: {
     filename: 'js/[name].js',
     chunkFilename: 'js/[name].js',

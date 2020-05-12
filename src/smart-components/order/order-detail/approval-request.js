@@ -31,6 +31,11 @@ const checkRequest = async (fetchRequests) => {
   }
 };
 
+const isEmpty = (approvalRequest) =>
+  !approvalRequest ||
+  !approvalRequest.data ||
+  approvalRequest.data.length === 0;
+
 const ApprovalRequests = () => {
   const dispatch = useDispatch();
   const { order, approvalRequest, orderItem } = useSelector(
@@ -38,20 +43,20 @@ const ApprovalRequests = () => {
   );
 
   useEffect(() => {
-    if (order.state !== 'Failed' && approvalRequest.data.length === 0) {
+    if (order.state !== 'Failed' && orderItem?.id && isEmpty(approvalRequest)) {
       checkRequest(() => dispatch(fetchApprovalRequests(orderItem.id)));
     }
   }, []);
 
-  if (order.state === 'Failed' && approvalRequest.data.length === 0) {
+  if (order.state === 'Failed' && isEmpty(approvalRequest)) {
     return (
-      <Bullseye>
+      <Bullseye id="no-approval-requests">
         <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
           <Bullseye>
             <InfoIcon size="xl" />
           </Bullseye>
           <Bullseye>
-            <Title>
+            <Title size="2xl">
               We were unable to find any approval requests for this order.
             </Title>
           </Bullseye>
@@ -62,10 +67,10 @@ const ApprovalRequests = () => {
 
   return (
     <TextContent>
-      {approvalRequest.data.length === 0 ? (
+      {isEmpty(approvalRequest) ? (
         <Bullseye>
           <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
-            <Bullseye>
+            <Bullseye id={'creating-approval-request'}>
               <Title>Creating approval request</Title>
             </Bullseye>
             <Bullseye>
@@ -82,7 +87,7 @@ const ApprovalRequests = () => {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`${document.baseURI}ansible/catalog/approval/requests/detail/${request.approval_request_ref}`}
+                  href={`${document.baseURI}ansible/catalog/approval/requests?request=${request.approval_request_ref}`}
                 >
                   {`View this order's approval request details`}
                 </a>

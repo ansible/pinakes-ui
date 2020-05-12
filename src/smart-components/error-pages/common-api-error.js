@@ -18,8 +18,8 @@ const TITLES = {
 };
 
 const MESSAGES = {
-  '/401': 'You are not auhtorized to access this section: ',
-  '/403': 'You are not auhtorized to access this section: '
+  '/401': 'You are not authorized to access this section: ',
+  '/403': 'You are not authorized to access this section: '
 };
 
 const SourceSpan = styled.span`

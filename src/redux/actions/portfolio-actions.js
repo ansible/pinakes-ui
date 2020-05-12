@@ -14,7 +14,7 @@ export const doFetchPortfolios = ({
   ...options
 } = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  meta: { filter, ...options },
+  meta: { ...defaultSettings, filter, ...options },
   payload: PortfolioHelper.listPortfolios(filter, options)
 });
 
@@ -66,41 +66,19 @@ export const searchPortfolioItems = (value) => ({
   })
 });
 
-export const addPortfolio = (portfolioData, items) => (dispatch) => {
-  dispatch({
-    type: ActionTypes.ADD_TEMPORARY_PORTFOLIO,
-    payload: {
-      ...portfolioData,
-      isDisabled: true,
-      isTemporary: true,
-      id: Date.now().toString(),
-      created_at: new Date().toString()
-    }
-  });
-  return dispatch({
-    type: ActionTypes.ADD_PORTFOLIO,
-    payload: PortfolioHelper.addPortfolio(
-      {
-        ...portfolioData
-      },
-      items
-    )
-      .then(() => dispatch(doFetchPortfolios()))
-      .catch((error) => {
-        dispatch({ type: ActionTypes.RESTORE_PORTFOLIO_PREV_STATE });
-        throw error;
-      }),
-    meta: {
-      notifications: {
-        fulfilled: {
-          variant: 'success',
-          title: 'Success adding portfolio',
-          description: `Portfolio ${portfolioData.name} was added successfully.`
-        }
+export const addPortfolio = (portfolioData) => ({
+  type: ActionTypes.ADD_PORTFOLIO,
+  payload: PortfolioHelper.addPortfolio(portfolioData),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Success adding portfolio',
+        description: `Portfolio ${portfolioData.name} was added successfully.`
       }
     }
-  });
-};
+  }
+});
 
 export const addToPortfolio = (portfolioId, items) => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
@@ -116,14 +94,17 @@ export const addToPortfolio = (portfolioId, items) => ({
   }
 });
 
-export const updatePortfolio = (portfolioData) => (dispatch, getState) => {
+export const updatePortfolio = (portfolioData, options) => (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO,
     payload: portfolioData
   });
 
   return PortfolioHelper.updatePortfolio(portfolioData, { getState })
-    .then(() => dispatch(doFetchPortfolios()))
+    .then(() => dispatch(doFetchPortfolios(options)))
     .then(() =>
       dispatch({
         type: ADD_NOTIFICATION,
@@ -147,9 +128,8 @@ export const updatePortfolio = (portfolioData) => (dispatch, getState) => {
     );
 };
 
-export const undoRemovePortfolio = (portfolioId, restoreKey) => (
-  dispatch,
-  getState
+export const undoRemovePortfolio = (portfolioId, restoreKey, viewState) => (
+  dispatch
 ) => {
   dispatch({ type: CLEAR_NOTIFICATIONS });
   return PortfolioHelper.undeletePortfolio(portfolioId, restoreKey).then(
@@ -162,14 +142,15 @@ export const undoRemovePortfolio = (portfolioId, restoreKey) => (
           title: `Portfolio ${portfolio.name} has been restored`
         }
       });
-      return dispatch(
-        fetchPortfolios(getState().portfolioReducer.portfolios.meta)
-      );
+      return dispatch(fetchPortfolios(viewState));
     }
   );
 };
 
-export const removePortfolio = (portfolioId) => (dispatch, getState) => {
+export const removePortfolio = (portfolioId, viewState = {}) => (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
     payload: portfolioId
@@ -192,7 +173,9 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
                   id={`undo-delete-portfolio-${portfolioId}`}
                   onClick={(event) => {
                     event.preventDefault();
-                    dispatch(undoRemovePortfolio(portfolioId, restore_key));
+                    dispatch(
+                      undoRemovePortfolio(portfolioId, restore_key, viewState)
+                    );
                   }}
                 >
                   Undo
@@ -205,6 +188,7 @@ export const removePortfolio = (portfolioId) => (dispatch, getState) => {
         const { meta, data } = getState().portfolioReducer.portfolios;
         return dispatch(
           fetchPortfolios({
+            ...viewState,
             ...meta,
             offset: data.length === 0 ? 0 : meta.offset
           })
@@ -375,9 +359,9 @@ export const updatePortfolioItem = (values) => (dispatch, getState) => {
     payload: values
   });
   return PortfolioHelper.updatePortfolioItem(values, { getState })
-    .then(() => {
-      dispatch({ type: ActionTypes.UPDATE_PORTFOLIO_ITEM, payload: values });
-      return values;
+    .then((data) => {
+      dispatch({ type: ActionTypes.UPDATE_PORTFOLIO_ITEM, payload: data });
+      return data;
     })
     .then((item) =>
       dispatch({
