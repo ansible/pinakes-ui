@@ -30,6 +30,7 @@ const approvalState = (state, action) => {
 const EditApprovalWorkflow = ({
   objectType,
   removeQuery,
+  keepHash,
   querySelector,
   pushParam,
   objectName = () => objectType
@@ -42,7 +43,7 @@ const EditApprovalWorkflow = ({
     ({ approvalReducer: { resolvedWorkflows } }) => resolvedWorkflows
   );
   const dispatch = useDispatch();
-  const history = useEnhancedHistory(removeQuery);
+  const history = useEnhancedHistory({ removeQuery, keepHash });
   const [query] = useQuery([querySelector]);
 
   useEffect(() => {
@@ -123,7 +124,12 @@ EditApprovalWorkflow.propTypes = {
     'platform',
     'inventory',
     'portfolio-item'
-  ]).isRequired
+  ]).isRequired,
+  keepHash: PropTypes.bool
+};
+
+EditApprovalWorkflow.defaultProps = {
+  keepHash: false
 };
 
 export default EditApprovalWorkflow;

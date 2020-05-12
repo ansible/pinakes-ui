@@ -49,7 +49,7 @@ export const PortfolioItemDetailToolbar = ({
   userCapabilities
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
-    <Level>
+    <Level className="flex-no-wrap">
       <StyledLevelItem alignStart className="pf-l-flex">
         {userCapabilities.update ? (
           <PortfolioItemIconItem
@@ -68,8 +68,8 @@ export const PortfolioItemDetailToolbar = ({
           <Text component={TextVariants.h1}>{product.name}</Text>
         </TextContent>
       </StyledLevelItem>
-      <LevelItem style={{ minHeight: 36 }}>
-        <Level>
+      <LevelItem style={{ minHeight: 36 }} className="flex-item-no-wrap">
+        <Level className="flex-no-wrap">
           <Route
             exact
             path={url}

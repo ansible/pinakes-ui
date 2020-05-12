@@ -81,17 +81,26 @@ export function getOrderApprovalRequests(orderItemId) {
 }
 
 export const getOrderDetail = (params) => {
-  return Promise.all([
+  let detailPromises = [
     axiosInstance.get(`${CATALOG_API_BASE}/orders/${params.order}`),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${params['order-item']}`
-    ),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Order item',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
     axiosInstance
       .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`)
       .catch((error) => {
-        if (error.status === 404) {
+        if (error.status === 404 || error.status === 400) {
           return {
-            object: 'Portfolio item',
+            object: 'Product',
             notFound: true
           };
         }
@@ -99,36 +108,64 @@ export const getOrderDetail = (params) => {
         throw error;
       }),
     axiosInstance
-      .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+      .get(
+        `${CATALOG_API_BASE}/order_items/${params['order-item']}/approval_requests`
+      )
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Platform',
-            notFound: true
-          };
+          return {};
         }
 
         throw error;
       }),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
-    ),
     axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
+      .get(
+        `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
+      )
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Portfolio',
-            notFound: true
-          };
+          return {};
         }
 
         throw error;
-      }),
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${params['order-item']}/approval_requests`
-    )
-  ]);
+      })
+  ];
+
+  if (params && params.platform && params.platform !== 'undefined') {
+    detailPromises.push(
+      axiosInstance
+        .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+        .catch((error) => {
+          if (error.status === 404 || error.status === 400) {
+            return {
+              object: 'Platform',
+              notFound: true
+            };
+          }
+
+          throw error;
+        })
+    );
+  }
+
+  if (params && params.portfolio && params.portfolio !== 'undefined') {
+    detailPromises.push(
+      axiosInstance
+        .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
+        .catch((error) => {
+          if (error.status === 404 || error.status === 400) {
+            return {
+              object: 'Portfolio',
+              notFound: true
+            };
+          }
+
+          throw error;
+        })
+    );
+  }
+
+  return Promise.all(detailPromises);
 };
 
 export const getApprovalRequests = (orderItemId) =>

@@ -34,9 +34,6 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
         >
           Cancel order
         </Button>
-        <Button isDisabled type="button">
-          Reorder
-        </Button>
       </ActionGroup>
     </Fragment>
   );

@@ -33,8 +33,10 @@ describe('<PortfolioCard />', () => {
       id: '123',
       created_at: 'created',
       owner: 'Owner',
+      handleCopyPortfolio: jest.fn(),
       metadata: {
         user_capabilities: {
+          copy: true,
           destroy: true,
           update: true,
           share: true,
@@ -58,7 +60,7 @@ describe('<PortfolioCard />', () => {
     );
     expect(wrapper.find('button')).toHaveLength(1);
     wrapper.find('button#portfolio-123-toggle').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(4);
+    expect(wrapper.find('li')).toHaveLength(5);
   });
 
   it('should show share dropdown option if only unshare is set to true', () => {
@@ -115,6 +117,20 @@ describe('<PortfolioCard />', () => {
     wrapper.find('button#portfolio-123-toggle').simulate('click');
     expect(wrapper.find('li')).toHaveLength(1);
     expect(wrapper.find('li#set-approval-portfolio-action'));
+  });
+
+  it('should have copy action in dropdown', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <PortfolioCard
+          {...initialProps}
+          metadata={prepareTruthyCapability('copy')}
+        />
+      </MemoryRouter>
+    );
+    wrapper.find('button#portfolio-123-toggle').simulate('click');
+    expect(wrapper.find('li')).toHaveLength(1);
+    expect(wrapper.find('li#copy-portfolio-action'));
   });
 
   it('should not render dropdown', () => {
