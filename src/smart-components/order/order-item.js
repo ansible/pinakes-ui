@@ -64,7 +64,7 @@ const OrderItem = memo(
         aria-labelledby={`${item.id}-expand`}
         className="data-list-expand-fix"
       >
-        <TableCell shrink className="pf-u-pl-xl">
+        <TableCell shrink className="pf-u-pl-xl-on-md">
           <CardIcon
             height={60}
             src={getOrderIcon(item)}
