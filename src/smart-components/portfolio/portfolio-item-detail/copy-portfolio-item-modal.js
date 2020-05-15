@@ -15,13 +15,11 @@ import FormRenderer from '../../common/form-renderer';
 import { getPortfolioItemApi } from '../../../helpers/shared/user-login';
 import {
   copyPortfolioItem,
-  fetchPortfolioItemsWithPortfolio
+  fetchPortfolioItemsWithPortfolio,
+  fetchSelectedPortfolio
 } from '../../../redux/actions/portfolio-actions';
 import asyncFormValidator from '../../../utilities/async-form-validator';
-import {
-  listPortfolios,
-  getPortfolio
-} from '../../../helpers/portfolio/portfolio-helper';
+import { listPortfolios } from '../../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 
 const loadPortfolios = (filter) =>
@@ -95,8 +93,14 @@ const CopyPortfolioItemModal = ({
   }, []);
   const onSubmit = async (values) => {
     setSubmitting(true);
-    const portfolio = await getPortfolio(values.portfolio_id);
-    dispatch(copyPortfolioItem(portfolioItemId, values, portfolio))
+    /**
+     * dispatch redux action to set selected portfolio in store
+     * this will ensure that correct portfolio data will be loaded after the redirect occurs
+     */
+    const { value: portfolio } = await dispatch(
+      fetchSelectedPortfolio(values.portfolio_id)
+    );
+    return dispatch(copyPortfolioItem(portfolioItemId, values, portfolio))
       .then(({ id, service_offering_source_ref }) =>
         push({
           pathname: PORTFOLIO_ITEM_ROUTE,
@@ -146,7 +150,7 @@ const CopyPortfolioItemModal = ({
         formContainer="modal"
         componentMapper={{ 'value-only': ValueOnly }}
         buttonsLabels={{ submitLabel: 'Save' }}
-        disableSubmit={submitting ? ['pristine', 'diry'] : []}
+        disableSubmit={submitting ? ['pristine', 'dirty'] : []}
       />
     </Modal>
   );
