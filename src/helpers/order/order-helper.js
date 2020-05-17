@@ -106,18 +106,30 @@ export const getOrderDetail = (params) => {
         }
 
         throw error;
-      }),
-    axiosInstance
-      .get(
-        `${CATALOG_API_BASE}/order_items/${params['order-item']}/approval_requests`
-      )
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {};
-        }
+      })
+  ];
 
-        throw error;
-      }),
+  detailPromises.push(
+    params.platform && params.platform !== 'undefined'
+      ? axiosInstance
+          .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+          .catch((error) => {
+            if (error.status === 404 || error.status === 400) {
+              return {
+                object: 'Platform',
+                notFound: true
+              };
+            }
+
+            throw error;
+          })
+      : {
+          object: 'Platform',
+          notFound: true
+        }
+  );
+
+  detailPromises.push(
     axiosInstance
       .get(
         `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
@@ -129,41 +141,24 @@ export const getOrderDetail = (params) => {
 
         throw error;
       })
-  ];
+  );
 
-  if (params && params.platform && params.platform !== 'undefined') {
-    detailPromises.push(
-      axiosInstance
-        .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
-        .catch((error) => {
-          if (error.status === 404 || error.status === 400) {
-            return {
-              object: 'Platform',
-              notFound: true
-            };
-          }
+  detailPromises.push(
+    params.portfolio && params.portfolio !== 'undefined'
+      ? axiosInstance
+          .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
+          .catch((error) => {
+            if (error.status === 404 || error.status === 400) {
+              return {
+                object: 'Portfolio',
+                notFound: true
+              };
+            }
 
-          throw error;
-        })
-    );
-  }
-
-  if (params && params.portfolio && params.portfolio !== 'undefined') {
-    detailPromises.push(
-      axiosInstance
-        .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
-        .catch((error) => {
-          if (error.status === 404 || error.status === 400) {
-            return {
-              object: 'Portfolio',
-              notFound: true
-            };
-          }
-
-          throw error;
-        })
-    );
-  }
+            throw error;
+          })
+      : { object: 'Portfolio', notFound: true }
+  );
 
   return Promise.all(detailPromises);
 };

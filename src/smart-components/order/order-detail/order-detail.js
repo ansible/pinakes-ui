@@ -31,6 +31,7 @@ import {
   OrderDetailStackItem
 } from '../../../presentational-components/styled-components/orders';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
+import { FormattedMessage } from 'react-intl';
 
 const requiredParams = [
   'order-item',
@@ -68,16 +69,41 @@ const OrderDetail = () => {
     portfolio
   } = orderDetailData;
 
-  const unAvailable = [portfolioItem, platform, portfolio || {}]
-    .filter(({ notFound }) => notFound)
-    .map(({ object }) => (
+  const unAvailable = () => {
+    const notFound = [portfolioItem, platform, portfolio || {}].filter(
+      ({ notFound }) => notFound
+    );
+    if (notFound.length === 0) {
+      return null;
+    }
+
+    let notFoundObjects = [];
+    if (portfolioItem.notFound) {
+      notFoundObjects.push(portfolioItem.object);
+    } else {
+      notFoundObjects = notFound.map(({ object }) => object);
+    }
+
+    return (
       <Alert
-        key={object}
+        key="order-object-missing"
         variant="warning"
         isInline
-        title={`The ${object} for this order is not available`}
+        title={
+          <FormattedMessage
+            id={'order-detail-not-found'}
+            defaultMessage={`The ${notFoundObjects.join(
+              ', '
+            )} {count, plural, one {is}
+                    other {are}}  not available`}
+            values={{ count: notFoundObjects.length }}
+          />
+        }
       />
-    ));
+    );
+  };
+
+  const unavailableMessages = unAvailable();
 
   return (
     <OrderDetailStack className="bg-fill">
@@ -90,9 +116,9 @@ const OrderDetail = () => {
               <CatalogBreadcrumbs />
             </Level>
             <Level className="flex-no-wrap">
-              {unAvailable.length > 0 ? (
+              {unavailableMessages ? (
                 <UnAvailableAlertContainer>
-                  {unAvailable}
+                  {unavailableMessages}
                 </UnAvailableAlertContainer>
               ) : (
                 <Fragment>
@@ -112,7 +138,7 @@ const OrderDetail = () => {
                 </Fragment>
               )}
             </Level>
-            {unAvailable.length === 0 && (
+            {!unavailableMessages && (
               <Level>
                 <OrderDetailInformation
                   portfolioItemId={portfolioItem.id}
