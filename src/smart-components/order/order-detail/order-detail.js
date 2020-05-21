@@ -94,8 +94,7 @@ const OrderDetail = () => {
             id={'order-detail-not-found'}
             defaultMessage={`The ${notFoundObjects.join(
               ', '
-            )} {count, plural, one {is}
-                    other {are}}  not available`}
+            )} for this order {count, plural, one {is} other {are}} not available`}
             values={{ count: notFoundObjects.length }}
           />
         }
