@@ -19,9 +19,15 @@ export const TopToolbarWrapper = styled.div`
       pointer-events: none;
     }
   }
+  h1,
   h2 {
     margin-bottom: 0 !important;
-    overflow-wrap: anywhere;
+    @supports not (overflow-wrap: anywhere) {
+      word-break: break-all;
+    }
+    @supports (overflow-wrap: anywhere) {
+      overflow-wrap: anywhere;
+    }
   }
   .top-toolbar-title {
     min-width: 200px;

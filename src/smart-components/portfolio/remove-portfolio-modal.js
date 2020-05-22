@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { WarningTriangleIcon } from '@patternfly/react-icons';
@@ -16,8 +17,9 @@ import useQuery from '../../utilities/use-query';
 import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
-const RemovePortfolioModal = () => {
+const RemovePortfolioModal = ({ viewState }) => {
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const portfolio = useSelector(({ portfolioReducer }) =>
@@ -26,7 +28,7 @@ const RemovePortfolioModal = () => {
   const { push, goBack } = useHistory();
   const onSubmit = () => {
     push(PORTFOLIOS_ROUTE);
-    return dispatch(removePortfolio(portfolioId));
+    return dispatch(removePortfolio(portfolioId, viewState));
   };
 
   if (!portfolio) {
@@ -78,6 +80,19 @@ const RemovePortfolioModal = () => {
       </Split>
     </Modal>
   );
+};
+
+RemovePortfolioModal.propTypes = {
+  viewState: PropTypes.shape({
+    count: PropTypes.number,
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+    filter: PropTypes.string
+  })
+};
+
+RemovePortfolioModal.defaultProps = {
+  viewState: defaultSettings
 };
 
 export default RemovePortfolioModal;

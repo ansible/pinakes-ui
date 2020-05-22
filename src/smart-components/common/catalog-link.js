@@ -29,13 +29,15 @@ const CatalogLink = ({
   searchParams,
   nav,
   preserveSearch,
+  preserveHash,
   ...props
 }) => {
-  const { search } = useLocation();
+  const { search, hash } = useLocation();
   const Component = nav ? StyledNavLink : StyledLink;
   const to = {
     pathname,
-    search: createSearchQuery(search, searchParams, preserveSearch)
+    search: createSearchQuery(search, searchParams, preserveSearch),
+    hash: preserveHash ? hash : undefined
   };
   return <Component to={to} {...props} />;
 };
@@ -46,13 +48,15 @@ CatalogLink.propTypes = {
     [PropTypes.string]: PropTypes.string
   }),
   nav: PropTypes.bool,
-  preserveSearch: PropTypes.bool
+  preserveSearch: PropTypes.bool,
+  preserveHash: PropTypes.bool
 };
 
 CatalogLink.defaultProps = {
   nav: false,
   preserveSearch: false,
-  searchParams: {}
+  searchParams: {},
+  preserveHash: false
 };
 
 export default CatalogLink;

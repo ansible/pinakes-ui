@@ -32,10 +32,10 @@ export const TableCell = styled(({ shrink, children, ...props }) => (
   <td {...props}>{children}</td>
 ))`
   @media screen and (min-width: 768px) {
-    vertical-align: middle !important;
-    width: ${({ shrink }) => (shrink ? '10%' : 'initial')};
+    vertical-align: top !important;
+    width: ${({ shrink }) => (shrink ? '200px' : 'initial')};
     img {
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 `;

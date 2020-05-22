@@ -17,7 +17,6 @@ import {
   RESTORE_PORTFOLIO_ITEMS,
   RESET_SELECTED_PORTFOLIO,
   DELETE_TEMPORARY_PORTFOLIO,
-  ADD_TEMPORARY_PORTFOLIO,
   RESTORE_PORTFOLIO_PREV_STATE,
   UPDATE_TEMPORARY_PORTFOLIO
 } from '../../../redux/action-types';
@@ -221,19 +220,7 @@ describe('Portfolio actions', () => {
       .replyOnce(200, [{ data: 'foo' }]);
 
     const expectedActions = [
-      {
-        type: ADD_TEMPORARY_PORTFOLIO,
-        payload: {
-          data: 'new portfolio',
-          isDisabled: true,
-          isTemporary: true,
-          created_at: expect.any(String),
-          id: expect.any(String)
-        }
-      },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
-      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
-      expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` }),
       expect.objectContaining({
         type: ADD_NOTIFICATION,
         payload: expect.objectContaining({ variant: 'success' })
@@ -256,18 +243,7 @@ describe('Portfolio actions', () => {
     mockApi.onPost(CATALOG_API_BASE + '/portfolios').replyOnce(500);
 
     const expectedActions = [
-      {
-        type: ADD_TEMPORARY_PORTFOLIO,
-        payload: {
-          data: 'new portfolio',
-          isDisabled: true,
-          isTemporary: true,
-          created_at: expect.any(String),
-          id: expect.any(String)
-        }
-      },
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_PENDING` }),
-      { type: RESTORE_PORTFOLIO_PREV_STATE },
       expect.objectContaining({
         type: ADD_NOTIFICATION,
         payload: expect.objectContaining({ variant: 'danger' })
@@ -588,8 +564,12 @@ describe('Portfolio actions', () => {
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_PENDING` }),
       expect.objectContaining({ type: `${FETCH_PORTFOLIOS}_FULFILLED` })
     ];
-    return store.dispatch(undoRemovePortfolio(123, 'restore-key')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(
+        undoRemovePortfolio(123, 'restore-key', { limit: 50, offset: 0 })
+      )
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 });

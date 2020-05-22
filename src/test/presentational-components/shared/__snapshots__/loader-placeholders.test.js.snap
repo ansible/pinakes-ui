@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
-<Connect(Main)
-  className="pf-u-m-0 pf-u-p-0"
+<section
+  className="pf-u-m-0 pf-u-p-0 pf-l-page__main-section pf-c-page__main-section"
 >
   <Skeleton
     className="pf-u-p-lg global-primary-background"
@@ -15,7 +15,7 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
       <Spinner />
     </Bullseye>
   </div>
-</Connect(Main)>
+</section>
 `;
 
 exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `

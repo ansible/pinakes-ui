@@ -12,6 +12,17 @@ const GlobalStyle = createGlobalStyle`
   margin-bottom: 2px !important;
 }
 
+.flex-no-wrap {
+  flex-wrap: nowrap !important;
+  .flex-item-no-wrap {
+    align-self: flex-start;
+    white-space: nowrap;
+  }
+  .pf-c-form__actions {
+    flex-wrap: nowrap !important;
+  }
+}
+
 .orders-list {
   background-color: var(--pf-global--BackgroundColor--100)
 }
@@ -59,13 +70,19 @@ const GlobalStyle = createGlobalStyle`
   flex-grow: 1;
 }
 
-.pf-c-breadcrumb__list {
-  overflow-wrap: anywhere;
-  a.pf-c-breadcrumb__item {
+.pf-c-breadcrumb__list, .overflow-wrap {
+  @supports not (overflow-wrap: anywhere) {
+    word-break: break-all;
+  }
+  @supports (overflow-wrap: anywhere) {
+    overflow-wrap: anywhere;
+  }
+}
+
+a.pf-c-breadcrumb__item {
+  cursor: pointer;
+  >* {
     cursor: pointer;
-    >* {
-      cursor: pointer;
-    }
   }
 }
 
@@ -76,7 +93,6 @@ const GlobalStyle = createGlobalStyle`
   &::before {
     z-index: 1;
   }
-
 }
 /**
 * End of PF4 fixes
@@ -282,6 +298,10 @@ section.ins-l-icon-group__with-major .ins-battery:last-of-type {
 section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
   font-weight: 500;
   margin: 0 10px; 
+}
+
+.ins-c-primary-toolbar__pagination {
+  margin-left: auto;
 }
 `;
 

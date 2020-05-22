@@ -311,7 +311,7 @@ describe('<Portfolio />', () => {
     });
   });
 
-  it('should mount and render remove portfolio modal', (done) => {
+  it('should mount and render remove portfolio modal', async () => {
     const store = mockStore({
       ...initialState,
       platformReducer: { platforms: [] },
@@ -350,22 +350,22 @@ describe('<Portfolio />', () => {
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
 
-    const wrapper = mount(
-      <ComponentWrapper
-        store={store}
-        initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
-      >
-        <Route
-          path="/portfolio"
-          render={(...args) => <Portfolio {...initialProps} {...args} />}
-        />
-      </ComponentWrapper>
-    );
-
-    setImmediate(() => {
-      expect(wrapper.find(RemovePortfolioModal)).toHaveLength(1);
-      done();
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
+        >
+          <Route
+            path="/portfolio"
+            render={(...args) => <Portfolio {...initialProps} {...args} />}
+          />
+        </ComponentWrapper>
+      );
     });
+
+    expect(wrapper.find(RemovePortfolioModal)).toHaveLength(1);
   });
 
   it('should mount and render order item modal', async (done) => {
@@ -435,7 +435,10 @@ describe('<Portfolio />', () => {
               id: '123',
               name: 'Foo',
               description: 'desc',
-              modified: 'sometimes'
+              modified: 'sometimes',
+              metadata: {
+                user_capabilities: {}
+              }
             }
           ],
           meta: {
@@ -689,12 +692,16 @@ describe('<Portfolio />', () => {
       })
     ]);
     wrapper.update();
+
     expect(wrapper.find(CatalogBreadcrumbs)).toHaveLength(1);
     expect(wrapper.find(BreadcrumbItem)).toHaveLength(3);
-    wrapper
-      .find('a.pf-c-breadcrumb__item')
-      .at(1)
-      .simulate('click', { button: 0 });
+
+    await act(async () => {
+      wrapper
+        .find('a.pf-c-breadcrumb__item')
+        .at(1)
+        .simulate('click', { button: 0 });
+    });
     wrapper.update();
     expect(wrapper.find(BreadcrumbItem)).toHaveLength(2);
     expect(store.getState().breadcrumbsReducer.fragments).toEqual([
