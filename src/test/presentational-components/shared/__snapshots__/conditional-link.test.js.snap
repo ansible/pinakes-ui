@@ -7,12 +7,14 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
   <CatalogLink
     nav={false}
     pathname="/some/url"
+    preserveHash={false}
     preserveSearch={false}
     searchParams={Object {}}
   >
     <Styled(Component)
       to={
         Object {
+          "hash": undefined,
           "pathname": "/some/url",
           "search": "",
         }
@@ -22,6 +24,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
         className="sc-AxjAm jfRa-DE"
         to={
           Object {
+            "hash": undefined,
             "pathname": "/some/url",
             "search": "",
           }
@@ -31,6 +34,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
           className="sc-AxjAm jfRa-DE"
           to={
             Object {
+              "hash": undefined,
               "pathname": "/some/url",
               "search": "",
             }

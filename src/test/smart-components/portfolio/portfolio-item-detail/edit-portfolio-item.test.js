@@ -75,7 +75,7 @@ describe('<EditPortfolioItem />', () => {
           description: 'https://www.google.com/',
           distributor: 'https://www.google.com/'
         });
-        return [200, {}];
+        return [200, { id: '123', ...JSON.parse(req.data) }];
       });
 
     const expectedActions = [

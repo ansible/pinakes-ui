@@ -8,7 +8,11 @@ import {
   ORDER_ROUTE
 } from './constants/routes';
 import CatalogRoute from './routing/catalog-route';
-import CommonApiError from './smart-components/error-pages/common-api-error';
+const CommonApiError = lazy(() =>
+  import(
+    /* webpackChunkName: "error-page" */ './smart-components/error-pages/common-api-error'
+  )
+);
 
 const Products = lazy(() =>
   import(

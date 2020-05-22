@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import {
   StackItem,
   Level,
@@ -25,7 +25,7 @@ import OrderLifecycle from './order-lifecycle';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
-import { ORDER_ROUTE, ORDERS_ROUTE } from '../../../constants/routes';
+import { ORDER_ROUTE } from '../../../constants/routes';
 import {
   OrderDetailStack,
   OrderDetailStackItem
@@ -44,7 +44,7 @@ const OrderDetail = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [queryValues] = useQuery(requiredParams);
   const orderDetailData = useSelector(
-    ({ orderReducer: { orderDetail } }) => orderDetail || {}
+    ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const match = useRouteMatch(ORDER_ROUTE);
   const dispatch = useDispatch();
@@ -60,10 +60,6 @@ const OrderDetail = () => {
     return () => resetBreadcrumbs();
   }, []);
 
-  if (!isFetching && Object.keys(orderDetailData).length === 0) {
-    return <Redirect to={ORDERS_ROUTE} />;
-  }
-
   const {
     order,
     portfolioItem,
@@ -72,7 +68,7 @@ const OrderDetail = () => {
     portfolio
   } = orderDetailData;
 
-  const unAvailable = [portfolioItem, platform, portfolio]
+  const unAvailable = [portfolioItem, platform, portfolio || {}]
     .filter(({ notFound }) => notFound)
     .map(({ object }) => (
       <Alert
@@ -93,7 +89,7 @@ const OrderDetail = () => {
             <Level className="pf-u-mb-md">
               <CatalogBreadcrumbs />
             </Level>
-            <Level>
+            <Level className="flex-no-wrap">
               {unAvailable.length > 0 ? (
                 <UnAvailableAlertContainer>
                   {unAvailable}
@@ -106,7 +102,7 @@ const OrderDetail = () => {
                       orderId={order.id}
                     />
                   </LevelItem>
-                  <LevelItem>
+                  <LevelItem className="flex-item-no-wrap">
                     <OrderToolbarActions
                       portfolioItemName={portfolioItem.name}
                       orderId={order.id}
@@ -124,7 +120,7 @@ const OrderDetail = () => {
                   state={order.state}
                   jobName={portfolioItem.name}
                   orderRequestDate={order.created_at}
-                  orderUpdateDate={orderItem.updated_at}
+                  orderUpdateDate={orderItem?.updated_at}
                   owner={order.owner}
                 />
               </Level>
@@ -132,7 +128,7 @@ const OrderDetail = () => {
           </Fragment>
         )}
       </OrderDetailStackItem>
-      <StackItem className="pf-u-pt-xl">
+      <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
         <Split gutter="md" className="orders-nav-layout">
           <SplitItem className="order-detail-nav-cotainer">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />

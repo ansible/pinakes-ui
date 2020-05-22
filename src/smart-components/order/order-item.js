@@ -64,7 +64,7 @@ const OrderItem = memo(
         aria-labelledby={`${item.id}-expand`}
         className="data-list-expand-fix"
       >
-        <TableCell shrink className="pf-u-pl-xl">
+        <TableCell shrink className="pf-u-pl-xl-on-md">
           <CardIcon
             height={60}
             src={getOrderIcon(item)}
@@ -75,7 +75,7 @@ const OrderItem = memo(
           <TextContent>
             <Grid gutter="sm" className="pf-u-gg-md">
               <GridItem>
-                <Level>
+                <Level className="flex-no-wrap">
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.h5}>
                       <CatalogLink
@@ -86,7 +86,7 @@ const OrderItem = memo(
                       </CatalogLink>
                     </Text>
                   </LevelItem>
-                  <LevelItem>
+                  <LevelItem className="flex-item-no-wrap">
                     <CatalogLink
                       pathname={routeMapper[item.state] || ORDER_ROUTE}
                       searchParams={searchParams}

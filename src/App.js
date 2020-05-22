@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { Main } from '@redhat-cloud-services/frontend-components/components/Main';
 import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications/';
 
 import { Routes } from './Routes';
@@ -16,8 +15,8 @@ import smoothscroll from 'smoothscroll-polyfill';
 // react-int eng locale data
 import { IntlProvider } from 'react-intl';
 
-import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import '@redhat-cloud-services/frontend-components/index.css';
+import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from './utilities/constants';
 import UserContext from './user-context';
@@ -33,6 +32,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
   const [userPermissions, setUserPermissions] = useState();
   const [userIdentity, setUserIdentity] = useState({ identity: {} });
+  const [openApiSchema, setOpenApiSchema] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
   let unregister;
@@ -42,7 +42,10 @@ const App = () => {
     Promise.all([
       getAxiosInstance()
         .get(`${CATALOG_API_BASE}/openapi.json`)
-        .then((payload) => dispatch({ type: SET_OPENAPI_SCHEMA, payload })),
+        .then((payload) => {
+          setOpenApiSchema(payload);
+          dispatch({ type: SET_OPENAPI_SCHEMA, payload });
+        }),
       getAxiosInstance()
         .get(`${SOURCES_API_BASE}/source_types`)
         .then(({ data }) =>
@@ -108,17 +111,17 @@ const App = () => {
   return (
     <IntlProvider locale="en">
       <UserContext.Provider
-        value={{ permissions: userPermissions, userIdentity }}
+        value={{ permissions: userPermissions, userIdentity, openApiSchema }}
       >
         <Fragment>
           <NotificationsPortal />
-          <Main className="pf-u-p-0 pf-u-ml-0">
+          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
             <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
               <GridItem sm={12} className="content-layout">
                 <Routes />
               </GridItem>
             </Grid>
-          </Main>
+          </section>
         </Fragment>
       </UserContext.Provider>
     </IntlProvider>

@@ -385,7 +385,7 @@ describe('<Orders />', () => {
         orderDetail: {
           ...orderReducer.orderDetail,
           platform: { notFound: true, object: 'Platform' },
-          portfolioItem: { notFound: true, object: 'Portfolio item' }
+          portfolioItem: { notFound: true, object: 'Product' }
         }
       }
     });
