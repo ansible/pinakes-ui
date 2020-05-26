@@ -85,8 +85,6 @@ const ApprovalRequests = () => {
             <TextList key={request.id} component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
                 <a
-                  target="_blank"
-                  rel="noopener noreferrer"
                   href={`${document.baseURI}ansible/catalog/approval/request?request=${request.approval_request_ref}`}
                 >
                   {`View this order's approval request details`}
