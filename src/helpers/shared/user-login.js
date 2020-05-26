@@ -26,10 +26,8 @@ const axiosInstance = axios.create({
 
 const resolveInterceptor = (response) => response.data || response;
 const errorInterceptor = (error = {}) => {
-  const requestId = error.response?.headers['x-rh-insights-request-id'];
-  throw requestId
-    ? { ...error.response, sentryId: requestId }
-    : { ...error.response };
+  const requestId = error.response?.headers?.['x-rh-insights-request-id'];
+  throw requestId ? { ...error.response, requestId } : { ...error.response };
 };
 
 const unauthorizedInterceptor = (error = {}) => {

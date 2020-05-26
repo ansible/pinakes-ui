@@ -431,7 +431,7 @@ describe('<Orders />', () => {
     });
     wrapper.update();
 
-    expect(wrapper.find(Alert)).toHaveLength(2);
+    expect(wrapper.find(Alert)).toHaveLength(1);
     done();
   });
 });
