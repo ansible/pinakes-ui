@@ -87,7 +87,7 @@ const ApprovalRequests = () => {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`${document.baseURI}ansible/catalog/approval/requests?request=${request.approval_request_ref}`}
+                  href={`${document.baseURI}ansible/catalog/approval/request?request=${request.approval_request_ref}`}
                 >
                   {`View this order's approval request details`}
                 </a>
