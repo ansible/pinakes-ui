@@ -157,6 +157,6 @@ describe('<AddPortfolioModal />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
   });
 });

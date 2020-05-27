@@ -6,7 +6,7 @@ export const UnauthorizedRedirect = () => {
   return (
     <Redirect
       to={{
-        pathname: '/401',
+        pathname: '/403',
         state: {
           from: location
         }

@@ -720,7 +720,7 @@ describe('<Portfolio />', () => {
     expect(search).toEqual('?portfolio=portfolio-id');
   });
 
-  it('should redirect the user to 401 page if the user capability show is set to false', async (done) => {
+  it('should redirect the user to 403 page if the user capability show is set to false', async (done) => {
     const store = mockStore({
       ...initialState,
       portfolioReducer: {
@@ -758,13 +758,13 @@ describe('<Portfolio />', () => {
             path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
-          <Route path="/401" component={CommonApiError} />
+          <Route path="/403" component={CommonApiError} />
         </ComponentWrapper>
       );
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
     wrapper.update();
     expect(wrapper.find(CommonApiError)).toHaveLength(1);
     done();
