@@ -37,8 +37,8 @@ const commonConfig = {
     }
   },
   output: {
-    filename: 'js/[name].js',
-    chunkFilename: 'js/[name].js',
+    filename: 'js/[name].[contenthash].js',
+    chunkFilename: 'js/[name].[contenthash].js',
     path: common.paths.public,
     publicPath: common.paths.publicPath
   },
