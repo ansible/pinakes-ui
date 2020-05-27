@@ -94,6 +94,11 @@ a.pf-c-breadcrumb__item {
     z-index: 1;
   }
 }
+
+.pf-c-modal-box__body {
+  overflow-y: hidden !important;
+}
+
 /**
 * End of PF4 fixes
 */
