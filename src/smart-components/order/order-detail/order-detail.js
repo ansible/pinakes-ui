@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, Suspense, lazy } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import {
   StackItem,
@@ -17,11 +17,8 @@ import OrderDetailTitle from './order-detail-title';
 import OrderToolbarActions from './order-toolbar-actions';
 import OrderDetailInformation from './order-detail-information';
 import OrderDetailMenu from './order-detail-menu';
-import OrderDetails from './order-details';
-import ApprovalRequests from './approval-request';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
-import OrderLifecycle from './order-lifecycle';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
@@ -33,6 +30,15 @@ import {
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
 import { FormattedMessage } from 'react-intl';
 
+const ApprovalRequests = lazy(() =>
+  import(/* webpackChunkName: "approval-request" */ './approval-request')
+);
+const OrderLifecycle = lazy(() =>
+  import(/* webpackChunkName: "order-lifecycle" */ './order-lifecycle')
+);
+const OrderDetails = lazy(() =>
+  import(/* webpackChunkName: "order-details" */ './order-details')
+);
 const requiredParams = [
   'order-item',
   'portfolio-item',
@@ -164,16 +170,18 @@ const OrderDetail = () => {
                 <Spinner />
               </Bullseye>
             ) : (
-              <Switch>
-                <Route
-                  path={`${match.url}/approval`}
-                  component={ApprovalRequests}
-                />
-                <Route path={`${match.url}/lifecycle`}>
-                  <OrderLifecycle />
-                </Route>
-                <Route path={match.url} component={OrderDetails} />
-              </Switch>
+              <Suspense fallback={Fragment}>
+                <Switch>
+                  <Route
+                    path={`${match.url}/approval`}
+                    component={ApprovalRequests}
+                  />
+                  <Route path={`${match.url}/lifecycle`}>
+                    <OrderLifecycle />
+                  </Route>
+                  <Route path={match.url} component={OrderDetails} />
+                </Switch>
+              </Suspense>
             )}
           </SplitItem>
         </Split>
