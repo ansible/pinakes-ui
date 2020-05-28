@@ -6,10 +6,7 @@ import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformItems } from '../../redux/actions/platform-actions';
 import PlatformItem from '../../presentational-components/platform/platform-item';
-import {
-  createPlatformsFilterToolbarSchema,
-  createPlatformsTopToolbarSchema
-} from '../../toolbar/schemas/platforms-toolbar.schema';
+import { createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGallery from '../content-gallery/content-gallery';
@@ -125,13 +122,6 @@ const PlatformTemplates = () => {
   const title = platform ? platform.name : '';
   return (
     <Fragment>
-      <ToolbarRenderer
-        schema={createPlatformsTopToolbarSchema({
-          title,
-          paddingBottom: false,
-          tabItems
-        })}
-      />
       <ToolbarRenderer
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
