@@ -4,10 +4,8 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 
-import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
 import ItemDetailDescription from './item-detail-description';
-import CopyPortfolioItemModal from './copy-portfolio-item-modal';
 import { PortfolioItemDetailToolbar } from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions';
@@ -131,22 +129,6 @@ const PortfolioItemDetail = () => {
                 />
               </GridItem>
               <GridItem md={9} lg={10}>
-                <Route path={`${url}/order`}>
-                  <OrderModal closeUrl={url} />
-                </Route>
-                <CatalogRoute
-                  path={`${url}/copy`}
-                  requiredCapabilities="copy"
-                  userCapabilities={userCapabilities}
-                >
-                  <CopyPortfolioItemModal
-                    search={search}
-                    portfolioItemId={portfolioItem.id}
-                    portfolioId={portfolio.id}
-                    closeUrl={url}
-                  />
-                </CatalogRoute>
-
                 <ItemDetailDescription
                   product={portfolioItem}
                   userCapabilities={userCapabilities}

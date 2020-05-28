@@ -8,6 +8,7 @@ import {
   ORDER_ROUTE
 } from './constants/routes';
 import CatalogRoute from './routing/catalog-route';
+import DialogRoutes from './smart-components/dialog-routes';
 const CommonApiError = lazy(() =>
   import(
     /* webpackChunkName: "error-page" */ './smart-components/error-pages/common-api-error'
@@ -89,6 +90,7 @@ export const Routes = () => {
           }
         />
       </Switch>
+      <DialogRoutes />
     </Suspense>
   );
 };
