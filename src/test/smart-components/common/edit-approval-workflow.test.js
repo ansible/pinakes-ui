@@ -4,7 +4,6 @@ import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { Modal } from '@patternfly/react-core';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
@@ -112,7 +111,7 @@ describe('<EditApprovalWorkflow />', () => {
         {
           component: componentTypes.SELECT,
           name: 'selectedWorkflows',
-          label: 'Select approval process',
+          label: '',
           loadOptions: expect.any(Function),
           multi: true,
           isSearchable: true,
@@ -145,9 +144,6 @@ describe('<EditApprovalWorkflow />', () => {
     wrapper.update();
     const modal = wrapper.find(Modal);
     const form = wrapper.find(FormRenderer);
-    expect(modal.props().title).toEqual(
-      'Set approval process for Test Resource Name'
-    );
     expect(form.props().schema).toEqual(expectedSchema);
     done();
   });
