@@ -5,7 +5,6 @@ import {
   Modal,
   TextContent,
   Text,
-  TextVariants,
   Stack,
   StackItem
 } from '@patternfly/react-core';
@@ -103,7 +102,8 @@ const EditApprovalWorkflow = ({
           <StackItem>
             <TextContent>
               <Text>
-                Select approval processes for <strong>{objectName(query[querySelector])}</strong>
+                Select approval processes for{' '}
+                <strong>{objectName(query[querySelector])}</strong>
               </Text>
             </TextContent>
           </StackItem>
