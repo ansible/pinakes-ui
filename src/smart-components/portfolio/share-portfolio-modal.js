@@ -6,7 +6,6 @@ import {
   Modal,
   TextContent,
   Text,
-  TextVariants,
   Stack,
   StackItem
 } from '@patternfly/react-core';

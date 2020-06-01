@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import { Modal } from '@patternfly/react-core';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
@@ -144,6 +145,7 @@ describe('<EditApprovalWorkflow />', () => {
     wrapper.update();
     const modal = wrapper.find(Modal);
     const form = wrapper.find(FormRenderer);
+    expect(modal.props().title).toEqual('Set approval process');
     expect(form.props().schema).toEqual(expectedSchema);
     done();
   });
