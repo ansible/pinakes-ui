@@ -144,7 +144,7 @@ const Products = () => {
         {is_org_admin ? (
           <Text component={TextVariants.p}>
             To connect to a source, go to{' '}
-            <a href={`${document.baseURI}settings/sources`}>Catalog sources</a>
+            <a href={`${document.baseURI}settings/sources`}>Sources</a>
             &nbsp;under Settings.
           </Text>
         ) : (
