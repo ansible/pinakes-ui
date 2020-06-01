@@ -89,7 +89,7 @@ const Platform = () => {
           })}
         />
       </Route>
-      <Suspense fallback={Fragment}>
+      <Suspense fallback={<div></div>}>
         <Switch>
           <Route path={PLATFORM_SERVICE_OFFERINGS_ROUTE}>
             <ServiceOfferingDetail />

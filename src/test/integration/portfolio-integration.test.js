@@ -248,10 +248,17 @@ describe('Integration test for portfolio entity', () => {
       wrapper.update();
       jest.runAllTimers();
     });
+    await act(async () => {
+      wrapper.update();
+      jest.runAllTimers();
+    });
+    // expect(wrapper.debug()).toMatchSnapshot();
     wrapper
       .find('div.ddorg__pf4-component-mapper__select__control')
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
-
+    await act(async () => {
+      wrapper.update();
+    });
     expect(
       wrapper.find('div.ddorg__pf4-component-mapper__select__option')
     ).toHaveLength(2);
@@ -316,13 +323,20 @@ describe('Integration test for portfolio entity', () => {
         .simulate('click', { button: 0 });
     });
 
+    /**
+     * Lazy laod chunks
+     */
     await act(async () => {
-      wrapper.update();
       jest.runAllTimers();
+      wrapper.update();
     });
     /**
      * cear the existing share and select the new share
      */
+    await act(async () => {
+      wrapper.update();
+      jest.runAllTimers();
+    });
     const clearButton = wrapper.find(
       '.ddorg__pf4-component-mapper__select__indicators .pf-c-button.pf-m-plain'
     );
@@ -485,7 +499,16 @@ describe('Integration test for portfolio entity', () => {
      * Click on create portfolio link
      * Modal with create portfolio form should appear
      */
-    wrapper.find('a#create-portfolio').simulate('click', { button: 0 });
+    await act(async () => {
+      wrapper.find('a#create-portfolio').simulate('click', { button: 0 });
+    });
+    /**
+     * load chunks
+     */
+    await act(async () => {
+      jest.runAllTimers();
+      wrapper.update();
+    });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual('/portfolios/add-portfolio');
@@ -692,9 +715,19 @@ describe('Integration test for portfolio entity', () => {
     wrapper
       .find(`div#portfolio-${initialPortfolio.id}-dropdown button`)
       .simulate('click');
-    wrapper
-      .find('li#remove-portfolio-action a')
-      .simulate('click', { button: 0 });
+    await act(async () => {
+      wrapper
+        .find('li#remove-portfolio-action a')
+        .simulate('click', { button: 0 });
+    });
+
+    /**
+     * load chunks
+     */
+    await act(async () => {
+      jest.runAllTimers();
+      wrapper.update();
+    });
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname

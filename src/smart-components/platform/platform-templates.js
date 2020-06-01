@@ -14,11 +14,7 @@ import { Button } from '@patternfly/react-core';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
-import {
-  PLATFORM_SERVICE_OFFERINGS_ROUTE,
-  PLATFORM_TEMPLATES_ROUTE,
-  PLATFORM_INVENTORIES_ROUTE
-} from '../../constants/routes';
+import { PLATFORM_SERVICE_OFFERINGS_ROUTE } from '../../constants/routes';
 
 const initialState = {
   filterValue: '',
@@ -66,19 +62,6 @@ const PlatformTemplates = () => {
     })
   );
   const dispatch = useDispatch();
-
-  const tabItems = [
-    {
-      eventKey: 0,
-      title: 'Templates',
-      name: PLATFORM_TEMPLATES_ROUTE
-    },
-    {
-      eventKey: 1,
-      title: 'Inventories',
-      name: PLATFORM_INVENTORIES_ROUTE
-    }
-  ];
 
   useEffect(() => {
     dispatch(fetchPlatformItems(id, filterValue, defaultSettings)).then(() =>

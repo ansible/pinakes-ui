@@ -170,7 +170,7 @@ const OrderDetail = () => {
                 <Spinner />
               </Bullseye>
             ) : (
-              <Suspense fallback={Fragment}>
+              <Suspense fallback={<div></div>}>
                 <Switch>
                   <Route
                     path={`${match.url}/approval`}

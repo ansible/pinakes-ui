@@ -90,7 +90,14 @@ export const Routes = () => {
           }
         />
       </Switch>
-      <DialogRoutes />
+      {/*
+       * We require the empty DIV around the dialog routes to avoid testing issues
+       * It does not have any visual effect on the application
+       * Emzyme simply cannot handle direct descendant of Suspense to be another Suspense
+       */}
+      <div>
+        <DialogRoutes />
+      </div>
     </Suspense>
   );
 };
