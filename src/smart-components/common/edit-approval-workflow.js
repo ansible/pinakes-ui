@@ -1,7 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from '@patternfly/react-core';
+import {
+  Modal,
+  TextContent,
+  Text,
+  TextVariants,
+  Stack,
+  StackItem
+} from '@patternfly/react-core';
 import FormRenderer from '../common/form-renderer';
 import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
 import {
@@ -85,24 +92,34 @@ const EditApprovalWorkflow = ({
 
   return (
     <Modal
-      title={`Set approval process for ${objectName(query[querySelector])}`}
+      title="Set approval process"
       isOpen
       onClose={() => history.push(pushParam)}
       isSmall
     >
-      {!isFetching ? (
-        <FormRenderer
-          initialValues={{
-            selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
-          }}
-          onSubmit={onSubmit}
-          onCancel={() => history.push(pushParam)}
-          schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
-          formContainer="modal"
-          buttonsLabels={{ submitLabel: 'Save' }}
-        />
-      ) : (
-        <WorkflowLoader />
+      {isFetching && <WorkflowLoader />}
+      {!isFetching && (
+        <Stack gutter="md">
+          <StackItem>
+            <TextContent>
+              <Text>
+                Select approval processes for <strong>{objectName(query[querySelector])}</strong>
+              </Text>
+            </TextContent>
+          </StackItem>
+          <StackItem>
+            <FormRenderer
+              initialValues={{
+                selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
+              }}
+              onSubmit={onSubmit}
+              onCancel={() => history.push(pushParam)}
+              schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
+              formContainer="modal"
+              buttonsLabels={{ submitLabel: 'Save' }}
+            />
+          </StackItem>
+        </Stack>
       )}
     </Modal>
   );
