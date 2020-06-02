@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment, lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 
 import OrderModal from '../../common/order-modal';
 import ItemDetailInfoBar from './item-detail-info-bar';
