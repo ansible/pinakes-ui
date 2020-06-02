@@ -1,5 +1,5 @@
 import React from 'react';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 
 import * as ActionTypes from '../action-types';
 import * as OrderHelper from '../../helpers/order/order-helper';
