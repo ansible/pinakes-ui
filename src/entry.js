@@ -21,7 +21,11 @@ ReactDOM.render(
  */
 if (navigator.serviceWorker) {
   navigator.serviceWorker
-    .register('/apps/catalog/service-worker.js')
+    .register(
+      `${
+        window.location.pathname.includes('/beta') ? '/beta' : ''
+      }/apps/catalog/service-worker.js`
+    )
     .then((...args) => console.log('Service worker registered with: ', args))
     .catch(console.log);
 }
