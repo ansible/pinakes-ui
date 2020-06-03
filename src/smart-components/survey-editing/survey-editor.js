@@ -112,7 +112,7 @@ const pf4Skin = {
   componentProperties
 };
 
-// remove after full migration to v2
+// remove after API full migration to v2
 const changeValidators = (schema) => {
   const result = { ...schema };
   result.fields = result.fields.map(({ validate, ...rest }) => {
@@ -129,7 +129,7 @@ const changeValidators = (schema) => {
   return result;
 };
 
-// remove after full mugration to v2
+// remove after API full migration to v2
 const appendValidator = (schema) => {
   const result = { ...schema };
   result.fields = result.fields.map(({ validate, ...rest }) => {

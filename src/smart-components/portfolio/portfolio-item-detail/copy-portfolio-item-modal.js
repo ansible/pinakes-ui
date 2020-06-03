@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 
 import FormRenderer from '../../common/form-renderer';
 import { getPortfolioItemApi } from '../../../helpers/shared/user-login';

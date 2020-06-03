@@ -1,4 +1,4 @@
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import { DEFAULT_MAX_LENGTH } from '../utilities/constants';
 
 import asyncFormValidator from '../utilities/async-form-validator';
