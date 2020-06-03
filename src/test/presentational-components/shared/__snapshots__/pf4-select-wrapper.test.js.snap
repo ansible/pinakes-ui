@@ -1,122 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
-<FormGroup
-  fieldId="bazz"
-  isValid={true}
->
-  <Select
-    FieldProvider={[Function]}
-    formOptions={
+<Pf4SelectWrapper
+  id="bazz"
+  name="bazz"
+  options={
+    Array [
       Object {
-        "change": [MockFunction],
-      }
-    }
-    id="bazz"
-    input={
-      Object {
-        "name": "bazz",
-        "onChange": [MockFunction],
-        "value": "",
-      }
-    }
-    isSearchable={false}
-    isValid={true}
-    meta={Object {}}
-    multi={false}
-    options={
-      Array [
-        Object {
-          "label": "Foo",
-          "value": "bar",
-        },
-      ]
-    }
-  />
-</FormGroup>
+        "label": "Foo",
+        "value": "bar",
+      },
+    ]
+  }
+/>
 `;
 
 exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
-<FormGroup
-  fieldId="bazz"
-  helperTextInvalid="Error"
-  isValid={false}
->
-  <Select
-    FieldProvider={[Function]}
-    formOptions={
+<Pf4SelectWrapper
+  id="bazz"
+  isRequired={true}
+  name="bazz"
+  options={
+    Array [
       Object {
-        "change": [MockFunction],
-      }
-    }
-    id="bazz"
-    input={
-      Object {
-        "name": "bazz",
-        "onChange": [MockFunction],
-        "value": "",
-      }
-    }
-    isSearchable={false}
-    isValid={false}
-    meta={
-      Object {
-        "error": "Error",
-        "touched": true,
-      }
-    }
-    multi={false}
-    options={
-      Array [
-        Object {
-          "label": "Foo",
-          "value": "bar",
-        },
-      ]
-    }
-  />
-</FormGroup>
+        "label": "Foo",
+        "value": "bar",
+      },
+    ]
+  }
+  validate={[Function]}
+/>
 `;
 
 exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
-<FormGroup
-  fieldId="bazz"
-  isValid={true}
->
-  <TextContent>
-    <Text
-      component="small"
-    >
-      description
-    </Text>
-  </TextContent>
-  <Select
-    FieldProvider={[Function]}
-    formOptions={
+<Pf4SelectWrapper
+  description="description"
+  id="bazz"
+  name="bazz"
+  options={
+    Array [
       Object {
-        "change": [MockFunction],
-      }
-    }
-    id="bazz"
-    input={
-      Object {
-        "name": "bazz",
-        "onChange": [MockFunction],
-        "value": "",
-      }
-    }
-    isSearchable={false}
-    isValid={true}
-    meta={Object {}}
-    multi={false}
-    options={
-      Array [
-        Object {
-          "label": "Foo",
-          "value": "bar",
-        },
-      ]
-    }
-  />
-</FormGroup>
+        "label": "Foo",
+        "value": "bar",
+      },
+    ]
+  }
+/>
 `;

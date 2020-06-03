@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select'
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import { FilterIcon } from '@patternfly/react-icons';
 
 const ValueContainer = ({ children }) => (

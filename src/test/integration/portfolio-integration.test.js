@@ -165,7 +165,6 @@ describe('Integration test for portfolio entity', () => {
     wrapper
       .find('div.ddorg__pf4-component-mapper__select__control')
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
-
     expect(
       wrapper.find('div.ddorg__pf4-component-mapper__select__option')
     ).toHaveLength(2);
