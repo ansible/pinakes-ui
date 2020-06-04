@@ -157,6 +157,14 @@ describe('Integration test for portfolio entity', () => {
     expect(wrapper.find(EditApprovalWorkflow)).toHaveLength(1);
     /**
      * open the select and choose forst option Workflow 1
+     * wait for async data-pre fetch
+     */
+    await act(async () => {
+      wrapper.update();
+      jest.runAllTimers();
+    });
+    /**
+     * wait for debounced data fetch options to finish
      */
     await act(async () => {
       wrapper.update();
@@ -252,7 +260,7 @@ describe('Integration test for portfolio entity', () => {
       wrapper.update();
       jest.runAllTimers();
     });
-    // expect(wrapper.debug()).toMatchSnapshot();
+
     wrapper
       .find('div.ddorg__pf4-component-mapper__select__control')
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
