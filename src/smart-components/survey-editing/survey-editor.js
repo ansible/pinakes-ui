@@ -1,15 +1,15 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
-import FormBuilder from '@data-driven-forms/form-builder';
+import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
+import FormBuilder from '@data-driven-forms/form-builder/dist/cjs';
 import {
   builderMapper,
   fieldProperties,
   pickerMapper,
   propertiesMapper,
   BuilderTemplate
-} from '@data-driven-forms/form-builder/dist/pf4-builder-mappers';
+} from '@data-driven-forms/form-builder/dist/cjs/pf4-builder-mappers';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 
 import {
@@ -21,6 +21,8 @@ import { Bullseye } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
+import { catalogValidatorAlias } from '../common/form-renderer';
+import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -91,11 +93,61 @@ const componentProperties = {
   }
 };
 
+componentProperties['select-field'] =
+  componentProperties[componentTypes.SELECT];
+componentProperties['textarea-field'] =
+  componentProperties[componentTypes.TEXTAREA];
 const pf4Skin = {
-  componentMapper: builderMapper,
-  pickerMapper,
+  componentMapper: {
+    ...builderMapper,
+    'select-field': builderMapper[componentTypes.SELECT],
+    'textarea-field': builderMapper[componentTypes.TEXTAREA]
+  },
+  pickerMapper: {
+    ...pickerMapper,
+    'select-field': pickerMapper[componentTypes.SELECT],
+    'textarea-field': pickerMapper[componentTypes.TEXTAREA]
+  },
   propertiesMapper,
   componentProperties
+};
+
+// remove after API full migration to v2
+const changeValidators = (schema) => {
+  const result = { ...schema };
+  result.fields = result.fields.map(({ validate, ...rest }) => {
+    return validate
+      ? {
+          ...rest,
+          validate: validate.map(({ type, ...rest }) => ({
+            ...rest,
+            type: catalogValidatorAlias[type] || type
+          }))
+        }
+      : rest;
+  });
+  return result;
+};
+
+// remove after API full migration to v2
+const appendValidator = (schema) => {
+  const result = { ...schema };
+  result.fields = result.fields.map(({ validate, ...rest }) => {
+    return validate
+      ? {
+          ...rest,
+          validate: validate.map(({ type, ...rest }) => ({
+            ...rest,
+            type:
+              type !== validatorTypes.MAX_NUMBER_VALUE &&
+              type !== validatorTypes.MIN_NUMBER_VALUE
+                ? `${type}-validator`
+                : type
+          }))
+        }
+      : rest;
+  });
+  return result;
 };
 
 const BuilderWrapper = (props) => <FormBuilder {...props} />;
@@ -123,12 +175,14 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
           return getAxiosInstance()
             .get(`${CATALOG_API_BASE}/service_plans/${servicePlan[0].id}/base`)
             .then((baseSchema) => {
-              setBaseSchema(baseSchema.create_json_schema.schema);
-              return schema;
+              setBaseSchema(
+                changeValidators(baseSchema.create_json_schema.schema)
+              );
+              return changeValidators(schema);
             });
         }
 
-        return schema;
+        return changeValidators(schema);
       })
       .then((schema) => {
         setSchema(schema);
@@ -153,9 +207,8 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
       );
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
-    let submitCall = servicePlan.imported ? modifySurvey : createSurvey;
-
-    return submitCall(editedTemplate)
+    const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
+    return submitCall(appendValidator(editedTemplate))
       .then(() => {
         setIsFetching(false);
         dispatch(

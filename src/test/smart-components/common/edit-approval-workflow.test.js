@@ -13,8 +13,6 @@ import { notificationsMiddleware } from '@redhat-cloud-services/frontend-compone
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
-import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/index';
-import { Button } from '@patternfly/react-core/dist/js/index';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<EditApprovalWorkflow />', () => {
@@ -151,24 +149,13 @@ describe('<EditApprovalWorkflow />', () => {
   });
 
   it('should unlink/link unselected/selected workflows', async (done) => {
+    jest.useFakeTimers();
     const store = mockStore(initialState);
     mockApi
       .onGet(
         `${APPROVAL_API_BASE}/workflows?filter[name][contains]=&filter[id][]=111`
       )
-      .replyOnce(200, {
-        data: [
-          {
-            name: 'workflow1',
-            id: '111'
-          }
-        ]
-      });
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows?filter[name][contains]=&filter[id][]=111`
-      )
-      .replyOnce(200, {
+      .reply(200, {
         data: [
           {
             name: 'workflow1',
@@ -194,7 +181,7 @@ describe('<EditApprovalWorkflow />', () => {
       .onGet(
         `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
       )
-      .replyOnce(200, { data: [{ name: 'workflow1', id: '111' }] });
+      .reply(200, { data: [{ name: 'workflow1', id: '111' }] });
 
     mockApi
       .onPost(`${APPROVAL_API_BASE}/workflows/222/link`)
@@ -238,30 +225,36 @@ describe('<EditApprovalWorkflow />', () => {
         </ComponentWrapper>
       );
     });
-    wrapper.update();
-    let form;
     await act(async () => {
-      form = wrapper
-        .find(ReactFormRender)
-        .children()
-        .instance().form;
-      form.change('selectedWorkflows', ['222']);
+      /**run first debounced data loading for existing workflows */
+      jest.runAllTimers();
+      wrapper.update();
     });
+    await act(async () => {
+      /**run rest of paginated async request */
+      jest.runAllTimers();
+      wrapper.update();
+    });
+    await act(async () => {
+      wrapper
+        .find('div.ddorg__pf4-component-mapper__select__control')
+        .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
+    });
+    wrapper.update();
+    // console.log(wrapper.find(InternalSelect).debug({ verbose: true }));
 
     await act(async () => {
       wrapper
-        .find('button')
-        .at(1)
-        .simulate('click');
-    });
-
-    wrapper.update();
-    await act(async () => {
-      wrapper
-        .find(Button)
+        .find('div.ddorg__pf4-component-mapper__select__option')
         .last()
         .simulate('click');
     });
+
+    await act(async () => {
+      wrapper.find('form').simulate('submit');
+    });
+
+    wrapper.update();
 
     setImmediate(() => {
       expect(
