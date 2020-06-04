@@ -71,7 +71,7 @@ const ApprovalRequests = () => {
         <Bullseye>
           <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
             <Bullseye id={'creating-approval-request'}>
-              <Title>Creating approval request</Title>
+              <Title size="xl">Creating approval request</Title>
             </Bullseye>
             <Bullseye>
               <Spinner size="xl" />

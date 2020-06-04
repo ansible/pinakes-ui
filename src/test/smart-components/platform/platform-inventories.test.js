@@ -86,7 +86,7 @@ describe('<PlatformInventories />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should mount and fetch data', async (done) => {
+  it('should mount and fetch data', async () => {
     const store = mockStore(initialState);
     mockApi
       .onGet(
@@ -102,8 +102,9 @@ describe('<PlatformInventories />', () => {
       }
     ];
 
+    let wrapper;
     await act(async () => {
-      mount(
+      wrapper = mount(
         <ComponentWrapper
           store={store}
           initialEntries={['/platform/platform-inventories?platform=123']}
@@ -116,19 +117,17 @@ describe('<PlatformInventories />', () => {
       );
     });
 
-    setImmediate(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
+    await act(async () => {
+      wrapper.update();
     });
+
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('should redirect to the Edit workflow modal', async (done) => {
+  it('should redirect to the Edit workflow modal', async () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows`)
-      .replyOnce(200, { data: [] });
     mockApi
       .onGet(
         `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`
@@ -189,6 +188,5 @@ describe('<PlatformInventories />', () => {
       })
     );
     expect(wrapper.find(EditApprovalWorkflow)).toHaveLength(1);
-    done();
   });
 });
