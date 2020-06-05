@@ -18,6 +18,7 @@ import { approvalInitialState } from '../../../redux/reducers/approval-reducer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { act } from 'react-dom/test-utils';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
+import DialogRoutes from '../../../smart-components/dialog-routes';
 
 describe('<PlatformInventories />', () => {
   let initialProps;
@@ -29,6 +30,7 @@ describe('<PlatformInventories />', () => {
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>
         <Route path="/platform/platform-inventories">{children}</Route>
+        <DialogRoutes />
       </MemoryRouter>
     </Provider>
   );
@@ -176,6 +178,9 @@ describe('<PlatformInventories />', () => {
         .simulate('click');
     });
 
+    await act(async () => {
+      wrapper.update();
+    });
     wrapper.update();
     expect(wrapper.find(MemoryRouter).instance().history.location).toEqual(
       expect.objectContaining({

@@ -16,24 +16,53 @@ const commonConfig = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'async',
-      minSize: 300000,
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 6,
-      maxInitialRequests: 4,
-      automaticNameDelimiter: '~',
+      chunks: 'all',
       cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: 10,
+        default: false,
+        vendors: false,
+        framework: {
+          chunks: 'all',
+          name: 'framework',
+          test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|prop-types)[\\/]/,
+          priority: 40
+        },
+        /**
+         * Consolidate all PF assets into one chunk.
+         * Witouth this, we will have multiple PF assets duplications (FormSelect was included 5x for some reason).
+         * Reduces the over all build size about 2 MB but tanks the initial load a little bit (from 1.4MB -> 1.9MB).
+         * That will be eliminated by asset pre caching and will reduce the overall bandwith usage. Swill worth it i think
+         * PF itselfs witouth any duplications is around 1.1MB with duplications almost 3MB.
+         */
+        patternfly: {
+          chunks: 'all',
+          name: 'patternfly',
+          test: /(?<!node_modules.*)[\\/]node_modules[\\/]@patternfly[\\/]/,
+          priority: 40
+        },
+        lib: {
+          priority: 30,
+          minChunks: 1,
           reuseExistingChunk: true
         },
-        default: {
-          priority: 20,
+        commons: {
+          name: 'commons',
+          minChunks: 47,
+          priority: 20
+        },
+        shared: {
+          priority: 10,
+          minChunks: 2,
           reuseExistingChunk: true
         }
-      }
+      },
+      maxInitialRequests: 25,
+      /**
+       * Smaller size will benefit from paraller asset loading and pre-caching, 244KB is recommended size
+       * This also helped with some module duplication issues.
+       * Now all reasobly sized modules ale properly re-used and larger ones are split into multipl chunks
+       */
+      maxSize: 244000,
+      minSize: 20000 // no point of having smaller size
     }
   },
   output: {
