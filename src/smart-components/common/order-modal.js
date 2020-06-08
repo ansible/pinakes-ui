@@ -70,7 +70,7 @@ const OrderModal = ({ closeUrl }) => {
           search
         })
       }
-      isSmall
+      variant="small"
     >
       <div className="pf-u-mb-md">
         <Split>

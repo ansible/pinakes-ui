@@ -116,7 +116,7 @@ const OrdersList = () => {
   };
 
   return (
-    <Grid gutter="md">
+    <Grid hasGutter>
       <GridItem>
         <Section type="content">
           {!meta.noData && (

@@ -111,7 +111,7 @@ const CopyPortfolioItemModal = ({
           search
         })
       }
-      isSmall
+      variant="small"
     >
       <FormRenderer
         initialValues={{ portfolio_id: portfolioId, portfolio_item_name: name }}

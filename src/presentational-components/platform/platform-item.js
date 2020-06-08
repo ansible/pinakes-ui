@@ -6,11 +6,16 @@ import CardIcon from '../shared/card-icon';
 import CardCheckbox from '../shared/card-checkbox';
 import ServiceOfferingCardBody from '../shared/service-offering-body';
 import { StyledCard } from '../styled-components/styled-gallery';
+import styled from 'styled-components';
+
+const StyledLevel = styled(Level)`
+  flex: 1;
+`;
 
 const PlatformItem = ({ src, ...props }) => (
   <StyledCard key={props.id}>
     <CardHeader>
-      <Level>
+      <StyledLevel>
         <CardIcon height={40} sourceId={props.source_id} />
         {props.editMode && (
           <CardCheckbox
@@ -19,7 +24,7 @@ const PlatformItem = ({ src, ...props }) => (
             handleCheck={props.onToggleItemSelect}
           />
         )}
-      </Level>
+      </StyledLevel>
     </CardHeader>
     <ServiceOfferingCardBody {...props} />
     <CardFooter />

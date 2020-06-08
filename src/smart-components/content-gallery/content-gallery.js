@@ -22,7 +22,7 @@ const ContentGallery = ({ isLoading, items, renderEmptyState }) =>
     )
   ) : (
     <Section type="content">
-      <Gallery gutter="md" className="content-gallery">
+      <Gallery hasGutter className="content-gallery">
         {items}
       </Gallery>
     </Section>

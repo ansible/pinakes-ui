@@ -122,7 +122,7 @@ const PortfolioItemDetail = () => {
                 title="The platform for this product is unavailable"
               />
             )}
-            <Grid gutter="md" className="pf-u-p-lg">
+            <Grid hasGutter className="pf-u-p-lg">
               <GridItem md={3} lg={2}>
                 <ItemDetailInfoBar
                   product={portfolioItem}

@@ -15,7 +15,7 @@ export const ShareGroupSelect = ({
   const selectProps = useFieldApi({ name: selectName });
 
   return (
-    <Grid gutter="md" className="share-column">
+    <Grid hasGutter className="share-column">
       <GridItem span={7}>
         <InternalSelect
           isSearchable

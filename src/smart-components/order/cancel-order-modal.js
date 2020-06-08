@@ -13,7 +13,7 @@ const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => (
         <ExclamationTriangleIcon fill="#F0AB00" /> Cancel order
       </Title>
     }
-    isSmall
+    variant="small"
     actions={[
       <Button
         onClick={cancelOrder}

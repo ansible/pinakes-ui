@@ -13,7 +13,7 @@ import {
 const ShareGroupEdit = (props) => {
   const { input, label, ...rest } = useFieldApi(props);
   return (
-    <Grid gutter="md" className="share-column">
+    <Grid hasGutter className="share-column">
       <GridItem span={7}>
         <TextContent>
           <Text component={TextVariants.h4}>{label}</Text>

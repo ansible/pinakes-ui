@@ -47,7 +47,7 @@ const RemovePortfolioModal = ({ viewState }) => {
     <Modal
       title="Delete Portfolio?"
       isOpen
-      isSmall
+      variant="small"
       onClose={goBack}
       isFooterLeftAligned
       actions={[
@@ -65,7 +65,7 @@ const RemovePortfolioModal = ({ viewState }) => {
         </Button>
       ]}
     >
-      <Split gutter="md">
+      <Split hasGutter>
         <SplitItem>
           <WarningTriangleIcon size="xl" fill="#f0ab00" />
         </SplitItem>
