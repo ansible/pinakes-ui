@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
@@ -13,9 +13,9 @@ import {
   Button
 } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
-import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
+// import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
-import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar';
+// import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar';
 import { SearchIcon } from '@patternfly/react-icons';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
@@ -74,6 +74,9 @@ const ordersListState = (state, action) => {
 
   return state;
 };
+
+const PrimaryToolbar = Fragment;
+const TableToolbar = Fragment;
 
 const OrdersList = () => {
   const viewState = useInitialUriHash();
