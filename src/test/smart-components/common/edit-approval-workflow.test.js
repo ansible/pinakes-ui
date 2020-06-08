@@ -72,33 +72,26 @@ describe('<EditApprovalWorkflow />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
     const store = mockStore(initialState);
     mockApi
       .onGet(`${APPROVAL_API_BASE}/workflows`)
       .replyOnce(200, { data: [] });
-    const wrapper = shallow(
-      <ComponentWrapper store={store}>
-        <EditApprovalWorkflow querySelector="portfolio" {...initialProps} />
-      </ComponentWrapper>
-    ).dive();
-
-    setImmediate(() => {
-      expect(shallowToJson(wrapper)).toMatchSnapshot();
+    let wrapper;
+    await act(async () => {
+      wrapper = shallow(
+        <ComponentWrapper store={store}>
+          <EditApprovalWorkflow querySelector="portfolio" {...initialProps} />
+        </ComponentWrapper>
+      ).dive();
     });
+
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
   it('should create the edit workflow modal', async (done) => {
     const store = mockStore(initialState);
 
-    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, {
-      data: [
-        {
-          name: 'workflow',
-          id: '123'
-        }
-      ]
-    });
     mockApi
       .onGet(
         `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&limit=50&offset=0`
@@ -194,17 +187,6 @@ describe('<EditApprovalWorkflow />', () => {
         return [204];
       });
 
-    mockApi
-      .onPost(`${APPROVAL_API_BASE}/workflows/111/unlink`)
-      .replyOnce((req) => {
-        expect(JSON.parse(req.data)).toEqual({
-          object_type: 'Portfolio',
-          app_name: 'catalog',
-          object_id: '123'
-        });
-        return [204];
-      });
-
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -241,7 +223,6 @@ describe('<EditApprovalWorkflow />', () => {
         .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
     });
     wrapper.update();
-    // console.log(wrapper.find(InternalSelect).debug({ verbose: true }));
 
     await act(async () => {
       wrapper
