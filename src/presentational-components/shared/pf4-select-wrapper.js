@@ -34,7 +34,7 @@ const Select = ({
   ...rest
 }) => {
   const [initialFetch, setInitialFetch] = useState(true);
-  const { change } = useFormApi;
+  const formOptions = useFormApi();
   let loadOptionsOverride = loadOptions;
   if (loadOptions && meta.initial) {
     const lookupArguments = Array.isArray(meta.initial)
@@ -70,7 +70,7 @@ const Select = ({
       onChange={(value, ...args) => {
         if (rest.onChange) {
           rest.onChange(value);
-          change(input.name, value);
+          formOptions.change(input.name, value);
         } else {
           input.onChange(value, ...args);
         }
