@@ -1,88 +1,70 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import { Grid, GridItem } from '@patternfly/react-core';
 import asyncFormValidator from '../../utilities/async-form-validator';
+import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
 
 export const ShareGroupSelect = ({
-  FieldProvider,
   inputName,
   selectName,
   loadOptions,
   permissions
 }) => {
+  const inputProps = useFieldApi({ name: inputName });
+  const selectProps = useFieldApi({ name: selectName });
+
   return (
     <Grid gutter="md" className="share-column">
       <GridItem span={7}>
-        <FieldProvider
-          name={inputName}
+        <InternalSelect
+          isSearchable
+          isClearable
+          menuIsPortal
           loadOptions={asyncFormValidator(loadOptions)}
-          render={({ input, ...props }) => (
-            <React.Fragment>
-              <rawComponents.Select
-                isSearchable
-                isClearable
-                menuIsPortal
-                loadOptions={asyncFormValidator(loadOptions)}
-                placeholder="Select group"
-                isValid={!(props?.meta?.error && props.meta.touched)}
-                {...input}
-                {...props}
-              />
-              {props?.meta?.error && props.meta.touched && (
-                <div
-                  className="pf-c-form__helper-text pf-m-error"
-                  id="permission-helper"
-                  aria-live="polite"
-                >
-                  {props.meta.error}
-                </div>
-              )}
-            </React.Fragment>
-          )}
+          placeholder="Select group"
+          isValid={!(inputProps?.meta?.error && inputProps.meta.touched)}
+          {...inputProps}
+          {...inputProps.input}
         />
+        {inputProps?.meta?.error && inputProps.meta.touched && (
+          <div
+            className="pf-c-form__helper-text pf-m-error"
+            id="permission-helper"
+            aria-live="polite"
+          >
+            {selectProps.meta.error}
+          </div>
+        )}
       </GridItem>
       <GridItem span={5}>
-        <FieldProvider
-          name={selectName}
+        <InternalSelect
           options={permissions}
           menuIsPortal
-          render={({ input, ...props }) => (
-            <React.Fragment>
-              <rawComponents.Select
-                placeholder="Select permission"
-                isValid={!(props?.meta?.error && props.meta.touched)}
-                {...input}
-                {...props}
-              />
-              {props?.meta?.error && props.meta.touched && (
-                <div
-                  className="pf-c-form__helper-text pf-m-error"
-                  id="permission-helper"
-                  aria-live="polite"
-                >
-                  {props.meta.error}
-                </div>
-              )}
-            </React.Fragment>
-          )}
+          placeholder="Select permission"
+          isValid={!(selectProps?.meta?.error && selectProps.meta.touched)}
+          {...selectProps}
+          {...selectProps.input}
         />
+        {selectProps?.meta?.error && selectProps.meta.touched && (
+          <div
+            className="pf-c-form__helper-text pf-m-error"
+            id="permission-helper"
+            aria-live="polite"
+          >
+            {selectProps.meta.error}
+          </div>
+        )}
       </GridItem>
     </Grid>
   );
 };
 
 ShareGroupSelect.propTypes = {
-  FieldProvider: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
-    .isRequired,
   inputName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
   loadOptions: PropTypes.func.isRequired,
-  permissions: PropTypes.any,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string
-  })
+  permissions: PropTypes.any
 };
 
 export default ShareGroupSelect;

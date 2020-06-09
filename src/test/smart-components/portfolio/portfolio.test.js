@@ -8,7 +8,7 @@ import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/cjs/notificationsMiddleware';
 
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import OrderModal from '../../../smart-components/common/order-modal';
@@ -35,6 +35,7 @@ import {
   mockApi,
   mockGraphql
 } from '../../../helpers/shared/__mocks__/user-login';
+import DialogRoutes from '../../../smart-components/dialog-routes';
 
 describe('<Portfolio />', () => {
   let initialProps;
@@ -48,7 +49,10 @@ describe('<Portfolio />', () => {
     children
   }) => (
     <Provider store={store}>
-      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      <MemoryRouter initialEntries={initialEntries}>
+        {children}
+        <DialogRoutes />
+      </MemoryRouter>
     </Provider>
   );
 
@@ -213,7 +217,7 @@ describe('<Portfolio />', () => {
         </ComponentWrapper>
       );
     });
-
+    wrapper.update();
     setImmediate(() => {
       expect(wrapper.find(AddProductsToPortfolio)).toHaveLength(1);
       done();
@@ -358,13 +362,19 @@ describe('<Portfolio />', () => {
           initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolio"
+            path="/portfolio/remove-portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
       );
     });
-
+    /**
+     * await for lazy loaded component
+     */
+    await act(async () => {
+      wrapper.update();
+    });
+    wrapper.update();
     expect(wrapper.find(RemovePortfolioModal)).toHaveLength(1);
   });
 
@@ -379,11 +389,15 @@ describe('<Portfolio />', () => {
       portfolioReducer: {
         ...initialState.portfolioReducer,
         portfolioItem: {
+          source: { id: '321', availability_status: 'available' },
           portfolioItem: {
             id: '123',
             name: 'Foo',
             description: 'desc',
-            modified: 'sometimes'
+            modified: 'sometimes',
+            metadata: {
+              user_capabilities: { order: true }
+            }
           }
         }
       }
@@ -407,7 +421,9 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/order?source=321&portfolio=123']}
+          initialEntries={[
+            '/portfolio/portfolio-item/order?source=321&portfolio=123&portfolio-item=123'
+          ]}
         >
           <Route
             path="/portfolio"
@@ -417,10 +433,12 @@ describe('<Portfolio />', () => {
       );
     });
 
-    setImmediate(() => {
-      expect(wrapper.find(OrderModal)).toHaveLength(1);
-      done();
+    await act(async () => {
+      wrapper.update();
     });
+    wrapper.update();
+    expect(wrapper.find(OrderModal)).toHaveLength(1);
+    done();
   });
 
   it('should mount and filter portfolio items', async (done) => {
@@ -720,7 +738,7 @@ describe('<Portfolio />', () => {
     expect(search).toEqual('?portfolio=portfolio-id');
   });
 
-  it('should redirect the user to 401 page if the user capability show is set to false', async (done) => {
+  it('should redirect the user to 403 page if the user capability show is set to false', async (done) => {
     const store = mockStore({
       ...initialState,
       portfolioReducer: {
@@ -758,13 +776,13 @@ describe('<Portfolio />', () => {
             path="/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
-          <Route path="/401" component={CommonApiError} />
+          <Route path="/403" component={CommonApiError} />
         </ComponentWrapper>
       );
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
     wrapper.update();
     expect(wrapper.find(CommonApiError)).toHaveLength(1);
     done();

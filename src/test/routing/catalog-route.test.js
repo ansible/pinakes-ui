@@ -19,7 +19,7 @@ describe('<CatalogRoute />', () => {
             >
               <div id="behind-protected-route"></div>
             </CatalogRoute>
-            <Route path="/401">
+            <Route path="/403">
               <CommonApiError />
             </Route>
           </Switch>
@@ -28,7 +28,7 @@ describe('<CatalogRoute />', () => {
     );
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
     expect(wrapper.find(CommonApiError)).toHaveLength(1);
     expect(wrapper.find('#behind-protected-route')).toHaveLength(0);
   });
@@ -45,7 +45,7 @@ describe('<CatalogRoute />', () => {
             >
               <div id="behind-protected-route"></div>
             </CatalogRoute>
-            <Route path="/401">
+            <Route path="/403">
               <CommonApiError />
             </Route>
           </Switch>
@@ -54,7 +54,7 @@ describe('<CatalogRoute />', () => {
     );
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
     expect(wrapper.find(CommonApiError)).toHaveLength(1);
     expect(wrapper.find('#behind-protected-route')).toHaveLength(0);
   });
@@ -98,7 +98,7 @@ describe('<CatalogRoute />', () => {
             >
               <div id="behind-protected-route"></div>
             </CatalogRoute>
-            <Route path="/401">
+            <Route path="/403">
               <CommonApiError />
             </Route>
           </Switch>
@@ -107,7 +107,7 @@ describe('<CatalogRoute />', () => {
     );
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
     expect(wrapper.find(CommonApiError)).toHaveLength(1);
     expect(wrapper.find('#behind-protected-route')).toHaveLength(0);
   });

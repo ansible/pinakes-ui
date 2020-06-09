@@ -85,11 +85,6 @@ describe('<OrderModal />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/321/service_plans`)
       .replyOnce(200, { data: [{ id: '1' }] });
-    mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`
-      )
-      .replyOnce(200, {});
 
     let wrapper;
 
@@ -127,11 +122,6 @@ describe('<OrderModal />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/321/service_plans`)
       .replyOnce(200, [{}]);
-    mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolio_items/1/provider_control_parameters`
-      )
-      .replyOnce(200, {});
 
     // order endpoints
     mockApi.onPost(`${CATALOG_API_BASE}/orders`).replyOnce(200, { id: '321' });

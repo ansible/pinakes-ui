@@ -1,4 +1,4 @@
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import asyncFormValidator from '../utilities/async-form-validator';
 
 const editWorkflowSchema = (loadWorkflows) => ({
@@ -6,7 +6,7 @@ const editWorkflowSchema = (loadWorkflows) => ({
     {
       component: componentTypes.SELECT,
       name: 'selectedWorkflows',
-      label: 'Select approval process',
+      label: '',
       loadOptions: asyncFormValidator(loadWorkflows),
       multi: true,
       isSearchable: true,

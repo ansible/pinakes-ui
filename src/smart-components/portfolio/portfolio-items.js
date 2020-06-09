@@ -1,32 +1,18 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Route, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolio-toolbar.schema';
-import AddPortfolioModal from './add-portfolio-modal';
-import RemovePortfolioModal from './remove-portfolio-modal';
-import SharePortfolioModal from './share-portfolio-modal';
-import OrderModal from '../common/order-modal';
 import PortfolioEmptyState from './portfolio-empty-state';
 import ContentGallery from '../content-gallery/content-gallery';
-import EditApprovalWorkflow from '../common/edit-approval-workflow';
-import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
-import {
-  PORTFOLIO_ROUTE,
-  NESTED_EDIT_PORTFOLIO_ROUTE,
-  NESTED_REMOVE_PORTFOLIO_ROUTE,
-  NESTED_SHARE_PORTFOLIO_ROUTE,
-  NESTED_WORKFLOW_PORTFOLIO_ROUTE,
-  NESTED_ORDER_PORTFOLIO_ROUTE
-} from '../../constants/routes';
-import CatalogRoute from '../../routing/catalog-route';
+import { PORTFOLIO_ROUTE } from '../../constants/routes';
 
 const PortfolioItems = ({
   routes,
@@ -62,7 +48,7 @@ const PortfolioItems = ({
     })
   );
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
-  const [{ portfolio: id }, search] = useQuery(['portfolio']);
+  const [{ portfolio: id }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
 
   const items = data.map((item) => (
@@ -83,8 +69,6 @@ const PortfolioItems = ({
       removeInProgress={removeInProgress}
     />
   ));
-
-  const itemName = () => name || 'portfolio';
 
   return (
     <Fragment>
@@ -109,55 +93,6 @@ const PortfolioItems = ({
           portfolioId: id,
           userCapabilities
         })}
-      />
-      <CatalogRoute
-        userCapabilities={userCapabilities}
-        requiredCapabilities="update"
-        exact
-        path={NESTED_EDIT_PORTFOLIO_ROUTE}
-      >
-        <AddPortfolioModal
-          closeTarget={{ pathname: PORTFOLIO_ROUTE, search }}
-        />
-      </CatalogRoute>
-      <CatalogRoute
-        userCapabilities={userCapabilities}
-        requiredCapabilities="destroy"
-        exact
-        path={NESTED_REMOVE_PORTFOLIO_ROUTE}
-        component={RemovePortfolioModal}
-      />
-      <Route
-        exact
-        path={NESTED_SHARE_PORTFOLIO_ROUTE}
-        render={(...args) => (
-          <SharePortfolioModal
-            closeUrl={routes.portfolioRoute}
-            {...args}
-            portfolioName={itemName}
-          />
-        )}
-      />
-      <Route
-        exact
-        path={NESTED_WORKFLOW_PORTFOLIO_ROUTE}
-        render={(...args) => (
-          <EditApprovalWorkflow
-            querySelector="portfolio"
-            pushParam={{ pathname: routes.portfolioRoute, search }}
-            closeUrl={routes.portfolioRoute}
-            objectType={PORTFOLIO_RESOURCE_TYPE}
-            objectName={itemName}
-            {...args}
-          />
-        )}
-      />
-      <Route
-        exact
-        path={NESTED_ORDER_PORTFOLIO_ROUTE}
-        render={(props) => (
-          <OrderModal {...props} closeUrl={routes.portfolioRoute} />
-        )}
       />
       <ContentGallery
         items={items}

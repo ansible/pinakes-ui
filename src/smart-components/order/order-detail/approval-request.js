@@ -13,7 +13,7 @@ import {
   TextListItemVariants,
   Title
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
 
@@ -71,7 +71,7 @@ const ApprovalRequests = () => {
         <Bullseye>
           <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
             <Bullseye id={'creating-approval-request'}>
-              <Title>Creating approval request</Title>
+              <Title size="xl">Creating approval request</Title>
             </Bullseye>
             <Bullseye>
               <Spinner size="xl" />
@@ -85,8 +85,6 @@ const ApprovalRequests = () => {
             <TextList key={request.id} component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
                 <a
-                  target="_blank"
-                  rel="noopener noreferrer"
                   href={`${document.baseURI}ansible/catalog/approval/request?request=${request.approval_request_ref}`}
                 >
                   {`View this order's approval request details`}

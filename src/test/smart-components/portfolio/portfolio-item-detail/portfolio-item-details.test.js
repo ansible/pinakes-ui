@@ -22,6 +22,7 @@ import { PortfolioItemDetailToolbar } from '../../../../smart-components/portfol
 import { Alert } from '@patternfly/react-core';
 import UserContext from '../../../../user-context';
 import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
+import DialogRoutes from '../../../../smart-components/dialog-routes';
 
 describe('<PortfolioItemDetail />', () => {
   let initialProps;
@@ -42,6 +43,7 @@ describe('<PortfolioItemDetail />', () => {
           initialIndex={initialIndex}
         >
           {children}
+          <DialogRoutes />
         </MemoryRouter>
       </Provider>
       .
@@ -122,20 +124,9 @@ describe('<PortfolioItemDetail />', () => {
 
   it('should mount and open order modal', async (done) => {
     const store = mockStore(initialState);
-
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/123`).replyOnce(200, {});
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolio_items/321`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolio_items/321/provider_control_parameters`
-      )
-      .replyOnce(200, {
-        properties: { namespace: { enum: [] } }
-      }),
-      mockApi.onGet(`${SOURCES_API_BASE}/sources/source-id`).replyOnce(200, {});
 
     let wrapper;
 
@@ -144,7 +135,6 @@ describe('<PortfolioItemDetail />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/portfolio/portfolio-item?source=source-id&portfolio=123&portfolio-item=321',
             '/portfolio/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
           ]}
           initialIndex={0}
@@ -155,13 +145,6 @@ describe('<PortfolioItemDetail />', () => {
         </ComponentWrapper>
       );
     });
-    wrapper.update();
-    wrapper
-      .find(MemoryRouter)
-      .instance()
-      .history.push(
-        '/portfolio/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
-      );
     await act(async () => {
       wrapper.update();
     });

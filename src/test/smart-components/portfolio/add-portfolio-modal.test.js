@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
@@ -48,20 +49,21 @@ describe('<AddPortfolioModal />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
     const store = mockStore({});
-    const wrapper = shallow(
-      <ComponentWrapper store={store} initialEntries={['/portfolios']}>
-        <AddPortfolioModal {...initialProps} />
-      </ComponentWrapper>
-    ).dive();
-
-    setImmediate(() => {
-      expect(shallowToJson(wrapper)).toMatchSnapshot();
+    let wrapper;
+    await act(async () => {
+      wrapper = shallow(
+        <ComponentWrapper store={store} initialEntries={['/portfolios']}>
+          <AddPortfolioModal {...initialProps} />
+        </ComponentWrapper>
+      ).dive();
     });
+
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should create edit variant of portfolio modal', (done) => {
+  it('should create edit variant of portfolio modal', async () => {
     const store = mockStore(initialState);
 
     const expectedSchema = {
@@ -82,28 +84,30 @@ describe('<AddPortfolioModal />', () => {
       ]
     };
 
-    const wrapper = mount(
-      <ComponentWrapper
-        store={store}
-        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
-      >
-        <Route
-          path="/portfolio"
-          render={() => <AddPortfolioModal {...initialProps} />}
-        />
-      </ComponentWrapper>
-    );
-
-    setImmediate(() => {
-      const modal = wrapper.find(Modal);
-      const form = wrapper.find(FormRenderer);
-      expect(modal.props().title).toEqual('Edit portfolio');
-      expect(form.props().schema).toEqual(expectedSchema);
-      done();
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+        >
+          <Route
+            path="/portfolio"
+            render={() => <AddPortfolioModal {...initialProps} />}
+          />
+        </ComponentWrapper>
+      );
     });
+
+    wrapper.update();
+
+    const modal = wrapper.find(Modal);
+    const form = wrapper.find(FormRenderer);
+    expect(modal.props().title).toEqual('Edit portfolio');
+    expect(form.props().schema).toEqual(expectedSchema);
   });
 
-  it('should create edit variant of portfolio modal and call updatePortfolio on submit', () => {
+  it('should create edit variant of portfolio modal and call updatePortfolio on submit', async () => {
     const store = mockStore(initialState);
 
     mockApi.onPatch(`${CATALOG_API_BASE}/portfolios/123`).replyOnce((req) => {
@@ -111,17 +115,22 @@ describe('<AddPortfolioModal />', () => {
       return [200, {}];
     });
 
-    const wrapper = mount(
-      <ComponentWrapper
-        store={store}
-        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
-      >
-        <Route
-          path="/portfolio"
-          render={() => <AddPortfolioModal {...initialProps} />}
-        />
-      </ComponentWrapper>
-    );
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+        >
+          <Route
+            path="/portfolio"
+            render={() => <AddPortfolioModal {...initialProps} />}
+          />
+        </ComponentWrapper>
+      );
+    });
+
+    wrapper.update();
 
     const button = wrapper.find('button').last();
     button.simulate('click');
@@ -157,6 +166,6 @@ describe('<AddPortfolioModal />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
   });
 });

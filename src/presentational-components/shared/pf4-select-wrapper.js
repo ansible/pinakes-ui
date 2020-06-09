@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import {
   FormGroup,
   TextContent,
   Text,
   TextVariants
 } from '@patternfly/react-core';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
+import useFormApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-form-api';
 
 const createOptions = (options, inputValue, isRequired) => {
   if (inputValue && isRequired) {
@@ -26,13 +28,13 @@ const Select = ({
   isDisabled,
   FieldProvider,
   isRequired,
-  formOptions: { change },
   multi,
   loadOptions,
   meta,
   ...rest
 }) => {
   const [initialFetch, setInitialFetch] = useState(true);
+  const formOptions = useFormApi();
   let loadOptionsOverride = loadOptions;
   if (loadOptions && meta.initial) {
     const lookupArguments = Array.isArray(meta.initial)
@@ -59,7 +61,7 @@ const Select = ({
   }
 
   return (
-    <rawComponents.Select
+    <InternalSelect
       hideSelectedOptions={false}
       menuIsPortal
       {...input}
@@ -68,13 +70,17 @@ const Select = ({
       onChange={(value, ...args) => {
         if (rest.onChange) {
           rest.onChange(value);
-          change(input.name, value);
+          formOptions.change(input.name, value);
         } else {
           input.onChange(value, ...args);
         }
       }}
       isMulti={multi}
-      options={createOptions(options, input.value, isRequired)}
+      options={
+        !loadOptions
+          ? createOptions(options, input.value, isRequired)
+          : undefined
+      }
       isDisabled={isDisabled || isReadOnly}
       closeMenuOnSelect={!multi}
     />
@@ -94,9 +100,6 @@ Select.propTypes = {
   isRequired: PropTypes.bool,
   isSearchable: PropTypes.bool,
   FieldProvider: PropTypes.any,
-  formOptions: PropTypes.shape({
-    change: PropTypes.func
-  }),
   multi: PropTypes.bool,
   loadOptions: PropTypes.func,
   meta: PropTypes.shape({
@@ -105,27 +108,26 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  formOptions: {},
   isSearchable: false,
   multi: false,
   options: []
 };
 
-const Pf4SelectWrapper = ({
-  componentType,
-  label,
-  isRequired,
-  helperText,
-  meta,
-  description,
-  hideLabel,
-  formOptions,
-  dataType,
-  initialKey,
-  id,
-  initialValue,
-  ...rest
-}) => {
+const Pf4SelectWrapper = (props) => {
+  const {
+    componentType,
+    label,
+    isRequired,
+    helperText,
+    meta,
+    description,
+    hideLabel,
+    dataType,
+    initialKey,
+    id,
+    initialValue,
+    ...rest
+  } = useFieldApi(props);
   const { error, touched } = meta;
   const showError = touched && error;
   const { name } = rest.input;
@@ -145,7 +147,6 @@ const Pf4SelectWrapper = ({
         </TextContent>
       )}
       <Select
-        formOptions={formOptions}
         id={id || name}
         meta={meta}
         label={label}
@@ -166,7 +167,6 @@ Pf4SelectWrapper.propTypes = {
   meta: PropTypes.object,
   description: PropTypes.string,
   hideLabel: PropTypes.bool,
-  formOptions: PropTypes.object,
   dataType: PropTypes.string,
   initialKey: PropTypes.any,
   initialValue: PropTypes.any
