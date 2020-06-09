@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
@@ -134,7 +134,7 @@ describe('<AddProductsToPortfolio />', () => {
       })
     ];
 
-    const select = wrapper.find(rawComponents.Select);
+    const select = wrapper.find(InternalSelect);
     await act(async () => {
       select.props().onChange({ id: '1' });
     });
@@ -223,7 +223,7 @@ describe('<AddProductsToPortfolio />', () => {
     });
 
     await act(async () => {
-      let select = wrapper.find(rawComponents.Select).props();
+      let select = wrapper.find(InternalSelect).props();
       select.onChange({
         id: '1'
       });

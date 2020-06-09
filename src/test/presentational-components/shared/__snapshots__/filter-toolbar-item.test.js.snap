@@ -25,7 +25,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
           >
             <ForwardRef
               aria-label="Foo"
-              className="sc-AxirZ lpqCWk"
+              className="sc-AxirZ hrVIZw"
               id="toolbar-filter"
               onChange={[MockFunction]}
               placeholder="Foo"
@@ -34,7 +34,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
             >
               <TextInputBase
                 aria-label="Foo"
-                className="sc-AxirZ lpqCWk"
+                className="sc-AxirZ hrVIZw"
                 id="toolbar-filter"
                 innerRef={null}
                 isDisabled={false}
@@ -50,7 +50,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                 <input
                   aria-invalid={false}
                   aria-label="Foo"
-                  className="pf-c-form-control sc-AxirZ lpqCWk"
+                  className="pf-c-form-control sc-AxirZ hrVIZw"
                   disabled={false}
                   id="toolbar-filter"
                   onChange={[Function]}
