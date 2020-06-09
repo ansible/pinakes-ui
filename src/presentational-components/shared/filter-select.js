@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import { FilterIcon } from '@patternfly/react-icons';
 
 const ValueContainer = ({ children }) => (
@@ -25,7 +25,7 @@ const FilterSelect = (props) => {
         id="filter-select-placeholder"
         className="filter-select"
       >
-        <rawComponents.Select
+        <InternalSelect
           components={{ ValueContainer }}
           simpleValue={false}
           options={[]}
@@ -38,7 +38,7 @@ const FilterSelect = (props) => {
 
   return (
     <div key="filter-select" id="filter-select" className="filter-select">
-      <rawComponents.Select
+      <InternalSelect
         components={{ ValueContainer }}
         simpleValue={false}
         {...props}

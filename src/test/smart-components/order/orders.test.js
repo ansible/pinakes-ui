@@ -25,6 +25,7 @@ import {
   mockApi,
   mockGraphql
 } from '../../../helpers/shared/__mocks__/user-login';
+import { IntlProvider } from 'react-intl';
 
 describe('<Orders />', () => {
   let initialProps;
@@ -75,9 +76,11 @@ describe('<Orders />', () => {
   };
 
   const ComponentWrapper = ({ store, children, ...props }) => (
-    <Provider store={store}>
-      <MemoryRouter {...props}>{children}</MemoryRouter>
-    </Provider>
+    <IntlProvider locale="en">
+      <Provider store={store}>
+        <MemoryRouter {...props}>{children}</MemoryRouter>
+      </Provider>
+    </IntlProvider>
   );
 
   beforeEach(() => {
@@ -111,18 +114,6 @@ describe('<Orders />', () => {
       orderReducer: { ...orderInitialState, ...orderReducer }
     });
 
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/orders?limit=50&offset=0`)
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items`)
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items`)
-      .replyOnce(200, { data: [] });
-    mockGraphql
-      .onPost(`${SOURCES_API_BASE}/graphql`)
-      .replyOnce(200, { data: { application_types: [] } });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -139,7 +130,8 @@ describe('<Orders />', () => {
     done();
   });
 
-  it.skip('should mount and render orders list component and paginate correctly', async (done) => {
+  it('should mount and render orders list component and paginate correctly', async () => {
+    jest.useFakeTimers();
     const orderItemsPagination = { ...orderReducer };
     orderItemsPagination.orders = {
       meta: {
@@ -190,15 +182,7 @@ describe('<Orders />', () => {
      * Pagination requests
      */
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/orders?filter[state][contains_i]=&limit=50&offset=100`
-      )
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items?`)
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items?`)
+      .onGet(`${CATALOG_API_BASE}/orders?&limit=50&offset=100`)
       .replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
@@ -210,7 +194,9 @@ describe('<Orders />', () => {
         </ComponentWrapper>
       );
     });
-    wrapper.update();
+    await act(async () => {
+      wrapper.update();
+    });
 
     store.clearActions();
     await act(async () => {
@@ -219,17 +205,32 @@ describe('<Orders />', () => {
         .first()
         .simulate('click');
     });
-    wrapper.update();
+    /**
+     * wait for the debounce to run
+     */
+    await act(async () => {
+      jest.runAllTimers();
+      wrapper.update();
+    });
     expect(store.getActions()).toEqual([
       { type: `${FETCH_ORDERS}_PENDING` },
       { type: SET_PORTFOLIO_ITEMS, payload: { data: [] } },
       {
         type: `${FETCH_ORDERS}_FULFILLED`,
-        meta: { filter: '' },
+        meta: {
+          filter: '',
+          filters: {
+            owner: '',
+            state: []
+          },
+          limit: 50,
+          offset: 100,
+          stateKey: 'orders',
+          storeState: true
+        },
         payload: { data: [] }
       }
     ]);
-    done();
   });
 
   it('should mount and render order detail component', async (done) => {
@@ -241,22 +242,6 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/orders/123`)
       .replyOnce(200, { data: [{ id: 123 }] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
-      .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
-      .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
-      .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -272,7 +257,9 @@ describe('<Orders />', () => {
         </ComponentWrapper>
       );
     });
-    wrapper.update();
+    await act(async () => {
+      wrapper.update();
+    });
 
     expect(wrapper.find(OrderDetail)).toHaveLength(1);
     done();

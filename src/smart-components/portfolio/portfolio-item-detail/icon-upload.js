@@ -3,7 +3,7 @@ import { EditIcon } from '@patternfly/react-icons';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import styled from 'styled-components';
 
 const UploadButton = styled.button`

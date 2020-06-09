@@ -1,12 +1,9 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
-
-import PortfolioItems from './portfolio-items';
+import PropTypes from 'prop-types';
 import { scrollToTop } from '../../helpers/shared/helpers';
-import AddProductsToPortfolio from './add-products-to-portfolio';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
-import PortfolioItemDetail from './portfolio-item-detail/portfolio-item-detail';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import {
   copyPortfolio,
@@ -24,7 +21,54 @@ import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import CatalogRoute from '../../routing/catalog-route';
 import useIsMounted from '../../utilities/use-is-mounted';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
+import ToolbarRenderer from '../../toolbar/toolbar-renderer';
+import { toolbarComponentTypes } from '../../toolbar/toolbar-mapper';
 
+/**
+ * Fake the toolbar until the chunk is loaded
+ */
+const PortfolioSuspenseFallback = ({ title, description }) => (
+  <ToolbarRenderer
+    schema={{
+      fields: [
+        {
+          component: toolbarComponentTypes.TOP_TOOLBAR,
+          key: 'portfolio-top-toolbar',
+          fields: [
+            {
+              component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
+              key: 'portfolio-toolbar-title',
+              title,
+              description
+            }
+          ]
+        }
+      ]
+    }}
+  />
+);
+
+PortfolioSuspenseFallback.propTypes = {
+  title: PropTypes.node,
+  description: PropTypes.node
+};
+
+const PortfolioItems = lazy(() =>
+  /* webpackChunkName: "portfolio-items" */ import('./portfolio-items')
+);
+
+const PortfolioItemDetail = lazy(() =>
+  import(
+    /* webpackChunkName: "portfolio-item-detail" */
+    './portfolio-item-detail/portfolio-item-detail'
+  )
+);
+const AddProductsToPortfolio = lazy(() =>
+  import(
+    /* webpackChunkName: "add-products-to-portfolio" */
+    './add-products-to-portfolio'
+  )
+);
 const initialState = {
   selectedItems: [],
   removeInProgress: false,
@@ -182,28 +226,37 @@ const Portfolio = () => {
   }
 
   return (
-    <Switch>
-      <CatalogRoute
-        path={routes.addProductsRoute}
-        userCapabilities={portfolio.metadata.user_capabilities}
-        requiredCapabilities="update"
-      >
-        <AddProductsToPortfolio portfolioRoute={routes.portfolioRoute} />
-      </CatalogRoute>
-      <Route path={routes.portfolioItemRoute}>
-        <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
-      </Route>
-      <Route path={routes.portfolioRoute}>
-        <PortfolioItems
-          routes={routes}
-          handleFilterChange={handleFilterChange}
-          removeProducts={removeProducts}
-          copyPortfolio={handleCopyPortfolio}
-          state={state}
-          stateDispatch={stateDispatch}
+    <Suspense
+      fallback={
+        <PortfolioSuspenseFallback
+          title={portfolio.name}
+          description={portfolio.description}
         />
-      </Route>
-    </Switch>
+      }
+    >
+      <Switch>
+        <CatalogRoute
+          path={routes.addProductsRoute}
+          userCapabilities={portfolio.metadata.user_capabilities}
+          requiredCapabilities="update"
+        >
+          <AddProductsToPortfolio portfolioRoute={routes.portfolioRoute} />
+        </CatalogRoute>
+        <Route path={routes.portfolioItemRoute}>
+          <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
+        </Route>
+        <Route path={routes.portfolioRoute}>
+          <PortfolioItems
+            routes={routes}
+            handleFilterChange={handleFilterChange}
+            removeProducts={removeProducts}
+            copyPortfolio={handleCopyPortfolio}
+            state={state}
+            stateDispatch={stateDispatch}
+          />
+        </Route>
+      </Switch>
+    </Suspense>
   );
 };
 
