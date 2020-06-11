@@ -12,7 +12,10 @@ exports[`<PortfoliosFilterToolbar /> should render correctly with create button 
         "LevelItem": [Function],
         "Link": [Function],
         "Toolbar": [Function],
-        "ToolbarGroup": [Function],
+        "ToolbarGroup": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
         "ToolbarItem": [Function],
         "TopToolbar": [Function],
         "TopToolbarTitle": [Function],
@@ -81,7 +84,10 @@ exports[`<PortfoliosFilterToolbar /> should render correctly without the create 
         "LevelItem": [Function],
         "Link": [Function],
         "Toolbar": [Function],
-        "ToolbarGroup": [Function],
+        "ToolbarGroup": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
         "ToolbarItem": [Function],
         "TopToolbar": [Function],
         "TopToolbarTitle": [Function],

@@ -23,7 +23,11 @@ export const ShareGroupSelect = ({
           menuIsPortal
           loadOptions={asyncFormValidator(loadOptions)}
           placeholder="Select group"
-          isValid={!(inputProps?.meta?.error && inputProps.meta.touched)}
+          validated={
+            inputProps?.meta?.error && inputProps.meta.touched
+              ? 'error'
+              : 'default'
+          }
           {...inputProps}
           {...inputProps.input}
         />

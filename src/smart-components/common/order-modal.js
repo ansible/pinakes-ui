@@ -62,8 +62,6 @@ const OrderModal = ({ closeUrl }) => {
   return (
     <Modal
       isOpen
-      title=""
-      hideTitle
       onClose={() =>
         push({
           pathname: closeUrl,

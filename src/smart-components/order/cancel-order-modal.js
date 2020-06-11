@@ -27,7 +27,6 @@ const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => (
         Keep order
       </Button>
     ]}
-    isFooterLeftAligned
   >
     Are you sure you want to cancel {name}?
   </Modal>

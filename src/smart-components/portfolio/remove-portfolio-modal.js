@@ -49,7 +49,6 @@ const RemovePortfolioModal = ({ viewState }) => {
       isOpen
       variant="small"
       onClose={goBack}
-      isFooterLeftAligned
       actions={[
         <Button
           key="submit"

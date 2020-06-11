@@ -4,75 +4,60 @@ exports[`<PlatformItem /> should render correctly 1`] = `
 <PlatformItem
   id="Foo"
 >
-  <Styled(Card)
+  <Styled(Component)
     key="Foo"
   >
-    <Card
+    <Component
       className="sc-fzplWN kZIWSH"
     >
       <article
         className="pf-c-card sc-fzplWN kZIWSH"
       >
-        <CardHeader>
+        <Component>
           <div
-            className="pf-c-card__header pf-c-title pf-m-md"
+            className="pf-c-card__header"
           >
-            <Level>
-              <div
-                className="pf-l-level"
+            <Styled(Component)>
+              <Component
+                className="sc-fznKkj jHfxlR"
               >
-                <CardIcon
-                  height={40}
-                  style={Object {}}
+                <div
+                  className="pf-l-level sc-fznKkj jHfxlR"
                 >
-                  <styled.div
+                  <CardIcon
                     height={40}
+                    style={Object {}}
                   >
-                    <div
-                      className="sc-AxheI eDjZka"
+                    <styled.div
                       height={40}
                     >
-                      <IconPlaceholder
+                      <div
+                        className="sc-AxheI eDjZka"
                         height={40}
                       >
-                        <svg
+                        <IconPlaceholder
                           height={40}
-                          width={40}
                         >
-                          <circle
-                            cx={20}
-                            cy={20}
-                            fill="#ecebeb"
-                            r={20}
-                          />
-                        </svg>
-                      </IconPlaceholder>
-                      <Styled(t)
-                        delayTime={0}
-                        height={0}
-                        hidden={true}
-                        onError={[Function]}
-                        onLoad={[Function]}
-                        src="test-file-stub"
-                        threshold={2000}
-                      >
-                        <t
-                          afterLoad={[Function]}
-                          beforeLoad={[Function]}
-                          className="sc-AxgMl hkMtbB"
-                          delayMethod="throttle"
+                          <svg
+                            height={40}
+                            width={40}
+                          >
+                            <circle
+                              cx={20}
+                              cy={20}
+                              fill="#ecebeb"
+                              r={20}
+                            />
+                          </svg>
+                        </IconPlaceholder>
+                        <Styled(t)
                           delayTime={0}
-                          effect=""
                           height={0}
                           hidden={true}
                           onError={[Function]}
                           onLoad={[Function]}
-                          placeholderSrc={null}
                           src="test-file-stub"
                           threshold={2000}
-                          useIntersectionObserver={true}
-                          visibleByDefault={false}
-                          wrapperClassName=""
                         >
                           <t
                             afterLoad={[Function]}
@@ -80,45 +65,64 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             className="sc-AxgMl hkMtbB"
                             delayMethod="throttle"
                             delayTime={0}
+                            effect=""
                             height={0}
+                            hidden={true}
+                            onError={[Function]}
+                            onLoad={[Function]}
+                            placeholderSrc={null}
+                            src="test-file-stub"
                             threshold={2000}
                             useIntersectionObserver={true}
                             visibleByDefault={false}
+                            wrapperClassName=""
                           >
-                            <img
+                            <t
+                              afterLoad={[Function]}
+                              beforeLoad={[Function]}
                               className="sc-AxgMl hkMtbB"
+                              delayMethod="throttle"
+                              delayTime={0}
                               height={0}
-                              hidden={true}
-                              onError={[Function]}
-                              onLoad={[Function]}
-                              src="test-file-stub"
-                            />
+                              threshold={2000}
+                              useIntersectionObserver={true}
+                              visibleByDefault={false}
+                            >
+                              <img
+                                className="sc-AxgMl hkMtbB"
+                                height={0}
+                                hidden={true}
+                                onError={[Function]}
+                                onLoad={[Function]}
+                                src="test-file-stub"
+                              />
+                            </t>
                           </t>
-                        </t>
-                      </Styled(t)>
-                    </div>
-                  </styled.div>
-                </CardIcon>
-              </div>
-            </Level>
+                        </Styled(t)>
+                      </div>
+                    </styled.div>
+                  </CardIcon>
+                </div>
+              </Component>
+            </Styled(Component)>
           </div>
-        </CardHeader>
+        </Component>
         <ServiceOfferingCardBody
           id="Foo"
         >
-          <Styled(CardBody)>
-            <CardBody
+          <Styled(Component)>
+            <Component
               className="sc-fzpans hEOQak"
             >
               <div
                 className="pf-c-card__body sc-fzpans hEOQak"
               >
-                <TextContent>
+                <Component>
                   <div
                     className="pf-c-content"
                   >
                     <ConditionalLink>
-                      <Text
+                      <Component
                         component="h3"
                       >
                         <h3
@@ -131,10 +135,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             />
                           </styled.div>
                         </h3>
-                      </Text>
+                      </Component>
                     </ConditionalLink>
                   </div>
-                </TextContent>
+                </Component>
                 <ItemDetails
                   id="Foo"
                   toDisplay={
@@ -152,16 +156,16 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   </styled.div>
                 </ItemDetails>
               </div>
-            </CardBody>
-          </Styled(CardBody)>
+            </Component>
+          </Styled(Component)>
         </ServiceOfferingCardBody>
-        <CardFooter>
+        <Component>
           <div
             className="pf-c-card__footer"
           />
-        </CardFooter>
+        </Component>
       </article>
-    </Card>
-  </Styled(Card)>
+    </Component>
+  </Styled(Component)>
 </PlatformItem>
 `;

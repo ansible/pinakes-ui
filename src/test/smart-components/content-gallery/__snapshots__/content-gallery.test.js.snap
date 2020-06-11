@@ -24,9 +24,9 @@ exports[`<ContentGallery /> should render all items 1`] = `
       className="ins-l-content"
     >
        
-      <Gallery
+      <Component
         className="content-gallery"
-        gutter="md"
+        hasGutter={true}
       >
         <div
           className="pf-l-gallery pf-m-gutter content-gallery"
@@ -47,7 +47,7 @@ exports[`<ContentGallery /> should render all items 1`] = `
             3
           </div>
         </div>
-      </Gallery>
+      </Component>
        
     </section>
   </Section>
@@ -67,7 +67,7 @@ exports[`<ContentGallery /> should render no items placeholder 1`] = `
 >
   <NoItems>
     <div>
-      <Text
+      <Component
         component="h1"
       >
         <h1
@@ -76,7 +76,7 @@ exports[`<ContentGallery /> should render no items placeholder 1`] = `
         >
           No items found
         </h1>
-      </Text>
+      </Component>
     </div>
   </NoItems>
 </ContentGallery>

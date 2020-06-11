@@ -51,12 +51,12 @@ const ApprovalRequests = () => {
   if (order.state === 'Failed' && isEmpty(approvalRequest)) {
     return (
       <Bullseye id="no-approval-requests">
-        <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
+        <Flex direction="column" grow="grow">
           <Bullseye>
             <InfoIcon size="xl" />
           </Bullseye>
           <Bullseye>
-            <Title size="2xl">
+            <Title headingLevel="h1" size="2xl">
               We were unable to find any approval requests for this order.
             </Title>
           </Bullseye>
@@ -69,9 +69,11 @@ const ApprovalRequests = () => {
     <TextContent>
       {isEmpty(approvalRequest) ? (
         <Bullseye>
-          <Flex breakpointMods={[{ modifier: 'column' }, { modifier: 'grow' }]}>
+          <Flex direction="column" grow="grow">
             <Bullseye id={'creating-approval-request'}>
-              <Title size="xl">Creating approval request</Title>
+              <Title headingLevel="h1" size="xl">
+                Creating approval request
+              </Title>
             </Bullseye>
             <Bullseye>
               <Spinner size="xl" />

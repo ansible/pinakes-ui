@@ -36,7 +36,9 @@ const CommonApiError = () => {
           <EmptyStateIcon icon={Exclamation} />
         </div>
         <div>
-          <Title size="lg">{TITLES[pathname]}</Title>
+          <Title headingLevel="h1" size="lg">
+            {TITLES[pathname]}
+          </Title>
         </div>
         <EmptyStateBody>
           {MESSAGES[pathname]}

@@ -19,82 +19,65 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
     <Component
       className="sc-fznyAO hahLsc"
     >
-      <GalleryItem
+      <Component
         className="sc-fznyAO hahLsc"
       >
         <div
           className="sc-fznyAO hahLsc"
         >
-          <Styled(Card)>
-            <Card
+          <Styled(Component)>
+            <Component
               className="sc-fzplWN kZIWSH"
             >
               <article
                 className="pf-c-card sc-fzplWN kZIWSH"
               >
-                <CardHeader
-                  className="card_header"
-                >
+                <Component>
                   <div
-                    className="pf-c-card__header pf-c-title pf-m-md card_header"
+                    className="pf-c-card__header"
                   >
-                    <Level>
-                      <div
-                        className="pf-l-level"
+                    <Styled(Component)>
+                      <Component
+                        className="sc-fznKkj jHfxlR"
                       >
-                        <CardIcon
-                          height={40}
-                          src="/api/catalog/v1.1/portfolio_items/1/icon"
-                          style={Object {}}
+                        <div
+                          className="pf-l-level sc-fznKkj jHfxlR"
                         >
-                          <styled.div
+                          <CardIcon
                             height={40}
+                            src="/api/catalog/v1.1/portfolio_items/1/icon"
+                            style={Object {}}
                           >
-                            <div
-                              className="sc-AxheI eDjZka"
+                            <styled.div
                               height={40}
                             >
-                              <IconPlaceholder
+                              <div
+                                className="sc-AxheI eDjZka"
                                 height={40}
                               >
-                                <svg
+                                <IconPlaceholder
                                   height={40}
-                                  width={40}
                                 >
-                                  <circle
-                                    cx={20}
-                                    cy={20}
-                                    fill="#ecebeb"
-                                    r={20}
-                                  />
-                                </svg>
-                              </IconPlaceholder>
-                              <Styled(t)
-                                delayTime={0}
-                                height={0}
-                                hidden={true}
-                                onError={[Function]}
-                                onLoad={[Function]}
-                                src="/api/catalog/v1.1/portfolio_items/1/icon"
-                                threshold={2000}
-                              >
-                                <t
-                                  afterLoad={[Function]}
-                                  beforeLoad={[Function]}
-                                  className="sc-AxgMl hkMtbB"
-                                  delayMethod="throttle"
+                                  <svg
+                                    height={40}
+                                    width={40}
+                                  >
+                                    <circle
+                                      cx={20}
+                                      cy={20}
+                                      fill="#ecebeb"
+                                      r={20}
+                                    />
+                                  </svg>
+                                </IconPlaceholder>
+                                <Styled(t)
                                   delayTime={0}
-                                  effect=""
                                   height={0}
                                   hidden={true}
                                   onError={[Function]}
                                   onLoad={[Function]}
-                                  placeholderSrc={null}
                                   src="/api/catalog/v1.1/portfolio_items/1/icon"
                                   threshold={2000}
-                                  useIntersectionObserver={true}
-                                  visibleByDefault={false}
-                                  wrapperClassName=""
                                 >
                                   <t
                                     afterLoad={[Function]}
@@ -102,29 +85,48 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     className="sc-AxgMl hkMtbB"
                                     delayMethod="throttle"
                                     delayTime={0}
+                                    effect=""
                                     height={0}
+                                    hidden={true}
+                                    onError={[Function]}
+                                    onLoad={[Function]}
+                                    placeholderSrc={null}
+                                    src="/api/catalog/v1.1/portfolio_items/1/icon"
                                     threshold={2000}
                                     useIntersectionObserver={true}
                                     visibleByDefault={false}
+                                    wrapperClassName=""
                                   >
-                                    <img
+                                    <t
+                                      afterLoad={[Function]}
+                                      beforeLoad={[Function]}
                                       className="sc-AxgMl hkMtbB"
+                                      delayMethod="throttle"
+                                      delayTime={0}
                                       height={0}
-                                      hidden={true}
-                                      onError={[Function]}
-                                      onLoad={[Function]}
-                                      src="/api/catalog/v1.1/portfolio_items/1/icon"
-                                    />
+                                      threshold={2000}
+                                      useIntersectionObserver={true}
+                                      visibleByDefault={false}
+                                    >
+                                      <img
+                                        className="sc-AxgMl hkMtbB"
+                                        height={0}
+                                        hidden={true}
+                                        onError={[Function]}
+                                        onLoad={[Function]}
+                                        src="/api/catalog/v1.1/portfolio_items/1/icon"
+                                      />
+                                    </t>
                                   </t>
-                                </t>
-                              </Styled(t)>
-                            </div>
-                          </styled.div>
-                        </CardIcon>
-                      </div>
-                    </Level>
+                                </Styled(t)>
+                              </div>
+                            </styled.div>
+                          </CardIcon>
+                        </div>
+                      </Component>
+                    </Styled(Component)>
                   </div>
-                </CardHeader>
+                </Component>
                 <ServiceOfferingCardBody
                   description="Bar"
                   display_name="quux"
@@ -139,19 +141,19 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                   name="Foo"
                   orderUrl="/order"
                 >
-                  <Styled(CardBody)>
-                    <CardBody
+                  <Styled(Component)>
+                    <Component
                       className="sc-fzpans hEOQak"
                     >
                       <div
                         className="pf-c-card__body sc-fzpans hEOQak"
                       >
-                        <TextContent>
+                        <Component>
                           <div
                             className="pf-c-content"
                           >
                             <ConditionalLink>
-                              <Text
+                              <Component
                                 component="h3"
                                 title="Foo"
                               >
@@ -168,10 +170,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     </div>
                                   </styled.div>
                                 </h3>
-                              </Text>
+                              </Component>
                             </ConditionalLink>
                           </div>
-                        </TextContent>
+                        </Component>
                         <ItemDetails
                           description="Bar"
                           id="1"
@@ -200,19 +202,19 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           </styled.div>
                         </ItemDetails>
                       </div>
-                    </CardBody>
-                  </Styled(CardBody)>
+                    </Component>
+                  </Styled(Component)>
                 </ServiceOfferingCardBody>
-                <CardFooter>
+                <Component>
                   <div
                     className="pf-c-card__footer"
                   />
-                </CardFooter>
+                </Component>
               </article>
-            </Card>
-          </Styled(Card)>
+            </Component>
+          </Styled(Component)>
         </div>
-      </GalleryItem>
+      </Component>
     </Component>
   </Styled(Component)>
 </PortfolioItem>
