@@ -52,7 +52,7 @@ ValueOnly.propTypes = {
   value: PropTypes.string.isRequired
 };
 
-const catalogComponentMapper = {
+export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
   [componentTypes.TEXTAREA]: Textarea,
   [componentTypes.PLAIN_TEXT]: PlainText,
