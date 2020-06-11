@@ -18,15 +18,13 @@ import useQuery from '../../../utilities/use-query';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 import CatalogRoute from '../../../routing/catalog-route';
 
-// const SurveyEditor = lazy(() =>
-// import(
-// /* webpackChunkName: "survey-editor" */ '../../survey-editing/survey-editor'
-// )
-// );
+const SurveyEditor = lazy(() =>
+  import(
+    /* webpackChunkName: "survey-editor" */ '../../survey-editing/survey-editor'
+  )
+);
 
 const requiredParams = ['portfolio', 'source', 'portfolio-item'];
-
-const SurveyEditor = Fragment;
 
 const PortfolioItemDetail = () => {
   const [isOpen, setOpen] = useState(false);
