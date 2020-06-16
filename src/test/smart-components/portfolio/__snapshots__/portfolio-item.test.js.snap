@@ -89,9 +89,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   hidden={true}
                                   onError={[Function]}
                                   onLoad={[Function]}
-                                  placeholderSrc=""
+                                  placeholderSrc={null}
                                   src="/api/catalog/v1.1/portfolio_items/1/icon"
                                   threshold={2000}
+                                  useIntersectionObserver={true}
                                   visibleByDefault={false}
                                   wrapperClassName=""
                                 >
@@ -103,6 +104,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     delayTime={0}
                                     height={0}
                                     threshold={2000}
+                                    useIntersectionObserver={true}
                                     visibleByDefault={false}
                                   >
                                     <img
