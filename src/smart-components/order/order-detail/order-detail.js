@@ -161,10 +161,10 @@ const OrderDetail = () => {
       </OrderDetailStackItem>
       <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
         <Split gutter="md" className="orders-nav-layout">
-          <SplitItem className="order-detail-nav-cotainer">
+          <SplitItem className="order-detail-nav-container">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
           </SplitItem>
-          <SplitItem className="order-detail-content-cotainer">
+          <SplitItem className="order-detail-content-container">
             {isFetching ? (
               <Bullseye>
                 <Spinner />
