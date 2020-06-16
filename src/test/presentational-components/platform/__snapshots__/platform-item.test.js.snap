@@ -67,9 +67,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                           hidden={true}
                           onError={[Function]}
                           onLoad={[Function]}
-                          placeholderSrc=""
+                          placeholderSrc={null}
                           src="test-file-stub"
                           threshold={2000}
+                          useIntersectionObserver={true}
                           visibleByDefault={false}
                           wrapperClassName=""
                         >
@@ -81,6 +82,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             delayTime={0}
                             height={0}
                             threshold={2000}
+                            useIntersectionObserver={true}
                             visibleByDefault={false}
                           >
                             <img
