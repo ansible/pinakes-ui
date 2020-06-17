@@ -101,7 +101,9 @@ describe('Order actions', () => {
   it('should dispatch correct actions after submitting order', () => {
     const store = mockStore({});
     mockApi.onPost(`${CATALOG_API_BASE}/orders`).reply(200, { id: '123' });
-    mockApi.onPost(`${CATALOG_API_BASE}/orders/123/order_items`).reply(200, {});
+    mockApi
+      .onPost(`${CATALOG_API_BASE}/orders/123/order_items`)
+      .reply(200, { id: 'order-item-id' });
     mockApi.onPost(`${CATALOG_API_BASE}/orders/123/submit_order`).reply(200, {
       id: 'new-order-id'
     });
@@ -124,14 +126,21 @@ describe('Order actions', () => {
 
     return store
       .dispatch(
-        sendSubmitOrder({
-          portfolio_item_id: 'Foo',
-          service_plan_ref: 'Bar',
-          service_parameters: {
-            bax: 'quxx',
-            providerControlParameters: { namespace: 'default' }
+        sendSubmitOrder(
+          {
+            portfolio_item_id: 'Foo',
+            service_plan_ref: 'Bar',
+            service_parameters: {
+              bax: 'quxx',
+              providerControlParameters: { namespace: 'default' }
+            }
+          },
+          {
+            id: 'Foo',
+            portfolio_id: 'portfolio-id',
+            service_offering_source_ref: 'source-id'
           }
-        })
+        )
       )
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
