@@ -125,7 +125,7 @@ describe('<PortfolioItemDetail />', () => {
   it('should mount and open order modal', async (done) => {
     const store = mockStore(initialState);
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items/123/service_plans`)
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/321/service_plans`)
       .replyOnce(200, {});
 
     let wrapper;
