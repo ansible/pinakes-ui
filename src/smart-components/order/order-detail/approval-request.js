@@ -51,7 +51,7 @@ const ApprovalRequests = () => {
   if (order.state === 'Failed' && isEmpty(approvalRequest)) {
     return (
       <Bullseye id="no-approval-requests">
-        <Flex direction="column" grow="grow">
+        <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
           <Bullseye>
             <InfoIcon size="xl" />
           </Bullseye>
@@ -69,7 +69,7 @@ const ApprovalRequests = () => {
     <TextContent>
       {isEmpty(approvalRequest) ? (
         <Bullseye>
-          <Flex direction="column" grow="grow">
+          <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
             <Bullseye id={'creating-approval-request'}>
               <Title headingLevel="h1" size="xl">
                 Creating approval request

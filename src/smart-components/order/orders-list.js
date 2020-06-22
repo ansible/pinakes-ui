@@ -281,9 +281,9 @@ const OrdersList = () => {
               )}
             </Tbody>
           </Table>
-          <TableToolbar>
+          <TableToolbar className="pf-u-mr-0">
             <div className="bottom-pagination-container">
-              <Flex justifyContent="flex-end">
+              <Flex justifyContent={{ default: 'justifyContentFlexEnd' }}>
                 {meta.count > 0 && (
                   <AsyncPagination
                     className="pf-u-mt-0"
