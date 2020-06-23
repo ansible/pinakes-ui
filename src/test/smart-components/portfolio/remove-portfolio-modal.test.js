@@ -279,6 +279,6 @@ describe('<RemovePortfolioModal />', () => {
         .find(MemoryRouter)
         .children()
         .props().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
   });
 });

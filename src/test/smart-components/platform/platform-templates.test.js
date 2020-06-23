@@ -66,7 +66,7 @@ describe('<PlatformTemplates />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should mount and fetch data', async (done) => {
+  it('should mount and fetch data', async () => {
     mockApi
       .onGet(
         `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
@@ -107,6 +107,5 @@ describe('<PlatformTemplates />', () => {
       );
     });
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });

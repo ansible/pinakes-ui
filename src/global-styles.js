@@ -53,6 +53,7 @@ const GlobalStyle = createGlobalStyle`
   }
   .ddorg__pf4-component-mapper__select__single-value {
     margin-left: 22px !important;
+    max-width: calc(100% - 55px)!important;
   }
   .ddorg__pf4-component-mapper__select__control::before {
     border-right: none !important;

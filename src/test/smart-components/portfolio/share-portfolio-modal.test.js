@@ -6,15 +6,13 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import ReactFormRender from '@data-driven-forms/react-form-renderer';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
 
-import FormRenderer from '../../../smart-components/common/form-renderer';
 import { CATALOG_API_BASE, RBAC_API_BASE } from '../../../utilities/constants';
 import SharePortfolioModal from '../../../smart-components/portfolio/share-portfolio-modal';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
-describe('<SharePortfolioModal', () => {
+describe('<SharePortfolioModal/>', () => {
   let initialProps;
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
@@ -26,16 +24,20 @@ describe('<SharePortfolioModal', () => {
     </Provider>
   );
 
+  afterEach(() => {
+    mockApi.restore();
+    mockApi.resetHandlers();
+  });
+
   beforeEach(() => {
     initialProps = {
       addNotification: jest.fn(),
-      portfolioId: '123',
       closeUrl: '/foo'
     };
     initialState = {
       portfolioReducer: {
         selectedPortfolio: {
-          id: '123',
+          id: '2',
           name: 'Portfolio 1',
           metadata: {
             user_capabilities: {
@@ -70,52 +72,28 @@ describe('<SharePortfolioModal', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should mount and load data', async (done) => {
-    const store = mockStore(initialState);
-
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`)
-      .replyOnce(200, { data: {} });
-    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
-
-    let wrapper;
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
-          <Route
-            path="/portfolio/:id"
-            render={(args) => (
-              <SharePortfolioModal {...args} {...initialProps} />
-            )}
-          />
-        </ComponentWrapper>
-      );
-    });
-
-    wrapper.update();
-    expect(wrapper.find(SharePortfolioModal)).toHaveLength(1);
-    expect(wrapper.find(FormRenderer)).toHaveLength(1);
-    done();
-  });
-
   it('should submit share data', async (done) => {
-    expect.assertions(3);
+    jest.useFakeTimers();
+    expect.assertions(1);
     const store = mockStore(initialState);
 
     /**
      * download data endpoints
      */
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`)
-      .replyOnce(200, { data: {} });
-    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
-    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
+      .onGet(`${CATALOG_API_BASE}/portfolios/2/share_info`)
+      .replyOnce(200, {
+        data: []
+      });
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, {
+      data: [{ uuid: '123', name: 'Group 123' }]
+    });
 
     /**
      * submit data endpoints
      */
     mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/123/share`)
+      .onPost(`${CATALOG_API_BASE}/portfolios/2/share`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
           permissions: ['all'],
@@ -123,54 +101,52 @@ describe('<SharePortfolioModal', () => {
         });
         return [200, {}];
       });
-    mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/123/unshare`)
-      .replyOnce((req) => {
-        expect(JSON.parse(req.data)).toEqual({
-          permissions: ['update'],
-          group_uuids: [null]
-        });
-        return [200, {}];
-      });
-    mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
-      .replyOnce((req) => {
-        expect(req).toBeTruthy();
-        return [200, { data: [] }];
-      });
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio?portfolio=123']}
+          initialEntries={['/portfolio/share-portfolio?portfolio=2']}
         >
-          <Route
-            path="/portfolio"
-            render={(args) => (
-              <SharePortfolioModal {...args} {...initialProps} />
-            )}
-          />
+          <Route exact path="/portfolio/share-portfolio">
+            <SharePortfolioModal {...initialProps} />
+          </Route>
         </ComponentWrapper>
       );
     });
 
-    wrapper.update();
-    const form = wrapper
-      .find(ReactFormRender)
-      .children()
-      .instance().form;
-    /*
-     * simulate form changes
-     * group_uuid
-     * permissions
-     */
+    await act(async () => {
+      jest.runAllTimers();
+      wrapper.update();
+    });
 
-    form.change('group_uuid', '123');
-    form.change('permissions', 'all');
+    await act(async () => {
+      jest.runAllTimers();
+      wrapper.update();
+    });
+
+    wrapper
+      .find('div.ddorg__pf4-component-mapper__select__control')
+      .first()
+      .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
+    await act(async () => {
+      wrapper
+        .find('div.ddorg__pf4-component-mapper__select__option')
+        .first()
+        .simulate('click');
+    });
+    wrapper
+      .find('div.ddorg__pf4-component-mapper__select__control')
+      .at(1)
+      .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
+    await act(async () => {
+      wrapper
+        .find('div.ddorg__pf4-component-mapper__select__option')
+        .first()
+        .simulate('click');
+    });
+
     await act(async () => {
       wrapper.find('form').simulate('submit');
     });
@@ -196,16 +172,19 @@ describe('<SharePortfolioModal', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/123/share_info`)
-      .replyOnce(200, { data: {} });
+      .onGet(`${CATALOG_API_BASE}/portfolios/3/share_info`)
+      .replyOnce(200, { data: [] });
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
 
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/portfolio/123']}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio/share-portfolio?portfolio=3']}
+        >
           <Route
-            path="/portfolio/:id"
+            path="/portfolio/share-portfolio"
             render={(args) => (
               <SharePortfolioModal {...args} {...initialProps} />
             )}
@@ -214,10 +193,12 @@ describe('<SharePortfolioModal', () => {
       );
     });
 
-    wrapper.update();
+    await act(async () => {
+      wrapper.update();
+    });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/401');
+    ).toEqual('/403');
     done();
   });
 });

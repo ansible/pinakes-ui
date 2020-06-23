@@ -1,89 +1,108 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { rawComponents } from '@data-driven-forms/pf4-component-mapper';
 import Pf4SelectWrapper from '../../../presentational-components/shared/pf4-select-wrapper';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import Form from '@data-driven-forms/react-form-renderer/dist/cjs/form';
 
 describe('<Pf4SelectWrapper />', () => {
   let initialProps;
   beforeEach(() => {
     initialProps = {
       id: 'bazz',
-      input: {
-        name: 'bazz',
-        value: '',
-        onChange: jest.fn()
-      },
-      meta: {},
+      name: 'bazz',
       options: [
         {
           label: 'Foo',
           value: 'bar'
         }
-      ],
-      formOptions: {
-        change: jest.fn()
-      },
-      FieldProvider: () => <div />
+      ]
     };
   });
 
   it('should render correctly', () => {
-    const wrapper = shallow(<Pf4SelectWrapper {...initialProps} />);
+    const wrapper = shallow(
+      <Form onSubmit={Function}>
+        {() => <Pf4SelectWrapper {...initialProps} />}
+      </Form>
+    ).dive();
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it('should create empty option', () => {
-    const wrapper = mount(<Pf4SelectWrapper {...initialProps} />);
-    const options = wrapper.find(rawComponents.Select).props().options;
+    const wrapper = mount(
+      <Form onSubmit={Function}>
+        {() => <Pf4SelectWrapper {...initialProps} />}
+      </Form>
+    );
+    const options = wrapper.find(InternalSelect).props().options;
     expect(options).toHaveLength(2);
   });
 
   it('should create empty option for required field', () => {
-    const wrapper = mount(<Pf4SelectWrapper isRequired {...initialProps} />);
-    const options = wrapper.find(rawComponents.Select).props().options;
+    const wrapper = mount(
+      <Form onSubmit={Function}>
+        {() => <Pf4SelectWrapper isRequired {...initialProps} />}
+      </Form>
+    );
+    const options = wrapper.find(InternalSelect).props().options;
     expect(options).toHaveLength(2);
     expect(options[0].label).toEqual('Please choose');
   });
 
   it('should not create empty option', () => {
     const wrapper = mount(
-      <Pf4SelectWrapper
-        {...initialProps}
-        options={[{ label: 'Foo', value: 'bar' }, { label: 'Empty value' }]}
-      />
+      <Form onSubmit={Function}>
+        {() => (
+          <Pf4SelectWrapper
+            {...initialProps}
+            options={[{ label: 'Foo', value: 'bar' }, { label: 'Empty value' }]}
+          />
+        )}
+      </Form>
     );
-    const options = wrapper.find(rawComponents.Select).props().options;
+    const options = wrapper.find(InternalSelect).props().options;
     expect(options).toHaveLength(2);
   });
 
   it('should not create empty option if select has value and is required', () => {
     const wrapper = mount(
-      <Pf4SelectWrapper
-        isRequired
-        {...initialProps}
-        input={{ ...initialProps.input, value: 'some value' }}
-        options={[{ label: 'Foo', value: 'bar' }]}
-      />
+      <Form onSubmit={Function}>
+        {() => (
+          <Pf4SelectWrapper
+            isRequired
+            {...initialProps}
+            initialValue="bar"
+            options={[{ label: 'Foo', value: 'bar' }]}
+          />
+        )}
+      </Form>
     );
-    const options = wrapper.find(rawComponents.Select).props().options;
+    const options = wrapper.find(InternalSelect).props().options;
     expect(options).toHaveLength(1);
   });
 
   it('should render correctly in error state', () => {
     const wrapper = shallow(
-      <Pf4SelectWrapper
-        {...initialProps}
-        meta={{ error: 'Error', touched: true }}
-      />
-    );
+      <Form onSubmit={Function}>
+        {() => (
+          <Pf4SelectWrapper
+            {...initialProps}
+            isRequired
+            validate={() => false}
+          />
+        )}
+      </Form>
+    ).dive();
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it('should render correctly with description', () => {
     const wrapper = shallow(
-      <Pf4SelectWrapper {...initialProps} description="description" />
-    );
+      <Form onSubmit={Function}>
+        {() => <Pf4SelectWrapper {...initialProps} description="description" />}
+      </Form>
+    ).dive();
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

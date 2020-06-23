@@ -1,22 +1,17 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
-import { Section } from '@redhat-cloud-services/frontend-components/components/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformInventories } from '../../redux/actions/platform-actions';
-import {
-  createPlatformsFilterToolbarSchema,
-  createPlatformsTopToolbarSchema
-} from '../../toolbar/schemas/platforms-toolbar.schema';
+import { createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGaleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentList from '../../presentational-components/shared/content-list';
 import { createRows } from './platform-table-helpers.js';
-import EditApprovalWorkflow from '../common/edit-approval-workflow';
-import { INVENTORY_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
@@ -68,19 +63,6 @@ const PlatformInventories = () => {
   const [{ platform: id }] = useQuery(['platform']);
   const history = useHistory();
 
-  const tabItems = [
-    {
-      eventKey: 0,
-      title: 'Templates',
-      name: `/platform/platform-templates`
-    },
-    {
-      eventKey: 1,
-      title: 'Inventories',
-      name: `/platform/platform-inventories`
-    }
-  ];
-
   useEffect(() => {
     dispatch(
       fetchPlatformInventories(id, filterValue, defaultSettings)
@@ -116,25 +98,10 @@ const PlatformInventories = () => {
     ];
   };
 
-  const objectName = (id) => {
-    if (data) {
-      return data.find((obj) => obj.id === id).name;
-    }
-
-    return 'inventory';
-  };
-
   const inventoryRows = data ? createRows(data, filterValue) : [];
   const title = platform ? platform.name : '';
   return (
     <Fragment>
-      <ToolbarRenderer
-        schema={createPlatformsTopToolbarSchema({
-          title,
-          paddingBottom: false,
-          tabItems
-        })}
-      />
       <ToolbarRenderer
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
@@ -145,17 +112,6 @@ const PlatformInventories = () => {
             dispatch(fetchPlatformInventories(id, filterValue, options))
         })}
       />
-      <Route path="/platform/platform-inventories/edit-workflow">
-        <EditApprovalWorkflow
-          pushParam={{
-            pathname: '/platform/platform-inventories',
-            search: `?platform=${id}`
-          }}
-          objectType={INVENTORY_RESOURCE_TYPE}
-          objectName={objectName}
-          querySelector="inventory"
-        />
-      </Route>
       <Section type="content">
         <ContentList
           title={title}
