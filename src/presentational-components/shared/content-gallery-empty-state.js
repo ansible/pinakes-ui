@@ -65,5 +65,6 @@ export const EmptyStatePrimaryAction = ({
 EmptyStatePrimaryAction.propTypes = {
   url: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  od: PropTypes.string
+  id: PropTypes.string,
+  hasPermission: PropTypes.bool
 };

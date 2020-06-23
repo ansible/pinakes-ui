@@ -16,6 +16,7 @@ import {
 } from '../../constants/routes';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { createPlatformsTopToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
+import { PlatformToolbarPlaceholder } from '../../presentational-components/shared/loader-placeholders';
 
 const PlatformTemplates = lazy(() =>
   import(/* webpackChunkName: "platform-templates" */ './platform-templates')
@@ -89,7 +90,7 @@ const Platform = () => {
           })}
         />
       </Route>
-      <Suspense fallback={<div></div>}>
+      <Suspense fallback={<PlatformToolbarPlaceholder />}>
         <Switch>
           <Route path={PLATFORM_SERVICE_OFFERINGS_ROUTE}>
             <ServiceOfferingDetail />

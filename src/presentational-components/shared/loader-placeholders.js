@@ -23,6 +23,7 @@ import {
   Button
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
+import { StyledToolbar } from '../styled-components/toolbars';
 
 const wave = keyframes`
   0% {
@@ -215,3 +216,9 @@ ListLoader.defaultProps = {
 };
 
 export const OrderDetailToolbarPlaceholder = () => <Skeleton height={70} />;
+
+export const PlatformToolbarPlaceholder = () => (
+  <StyledToolbar className="pf-u-pr-lg pf-u-pl-lg pf-u-pb-md pf-u-pt-md">
+    <Skeleton height={36} width={300} />
+  </StyledToolbar>
+);

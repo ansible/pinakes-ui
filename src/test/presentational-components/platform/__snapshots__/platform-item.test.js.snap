@@ -8,10 +8,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     key="Foo"
   >
     <Card
-      className="sc-fzozJi dCCegk"
+      className="sc-fzplWN kZIWSH"
     >
       <article
-        className="pf-c-card sc-fzozJi dCCegk"
+        className="pf-c-card sc-fzplWN kZIWSH"
       >
         <CardHeader>
           <div
@@ -29,7 +29,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     height={40}
                   >
                     <div
-                      className="sc-AxhCb kcBhCv"
+                      className="sc-AxheI eDjZka"
                       height={40}
                     >
                       <IconPlaceholder
@@ -59,7 +59,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         <t
                           afterLoad={[Function]}
                           beforeLoad={[Function]}
-                          className="sc-AxiKw kPfjgK"
+                          className="sc-AxgMl hkMtbB"
                           delayMethod="throttle"
                           delayTime={0}
                           effect=""
@@ -67,24 +67,26 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                           hidden={true}
                           onError={[Function]}
                           onLoad={[Function]}
-                          placeholderSrc=""
+                          placeholderSrc={null}
                           src="test-file-stub"
                           threshold={2000}
+                          useIntersectionObserver={true}
                           visibleByDefault={false}
                           wrapperClassName=""
                         >
                           <t
                             afterLoad={[Function]}
                             beforeLoad={[Function]}
-                            className="sc-AxiKw kPfjgK"
+                            className="sc-AxgMl hkMtbB"
                             delayMethod="throttle"
                             delayTime={0}
                             height={0}
                             threshold={2000}
+                            useIntersectionObserver={true}
                             visibleByDefault={false}
                           >
                             <img
-                              className="sc-AxiKw kPfjgK"
+                              className="sc-AxgMl hkMtbB"
                               height={0}
                               hidden={true}
                               onError={[Function]}
@@ -106,10 +108,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         >
           <Styled(CardBody)>
             <CardBody
-              className="sc-AxmLO dGjJwL"
+              className="sc-fzpans hEOQak"
             >
               <div
-                className="pf-c-card__body sc-AxmLO dGjJwL"
+                className="pf-c-card__body sc-fzpans hEOQak"
               >
                 <TextContent>
                   <div
@@ -125,7 +127,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         >
                           <styled.div>
                             <div
-                              className="sc-Axmtr TurKp"
+                              className="sc-fzoLsD VNciv"
                             />
                           </styled.div>
                         </h3>
@@ -145,7 +147,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     key="card-prop-long_description"
                   >
                     <div
-                      className="sc-AxhUy cLUHxg"
+                      className="sc-Axmtr bQyRiD"
                     />
                   </styled.div>
                 </ItemDetails>
