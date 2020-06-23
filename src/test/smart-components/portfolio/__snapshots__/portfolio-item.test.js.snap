@@ -17,20 +17,20 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
 >
   <Styled(Component)>
     <Component
-      className="sc-fzoLsD iHpspR"
+      className="sc-fznyAO hahLsc"
     >
       <GalleryItem
-        className="sc-fzoLsD iHpspR"
+        className="sc-fznyAO hahLsc"
       >
         <div
-          className="sc-fzoLsD iHpspR"
+          className="sc-fznyAO hahLsc"
         >
           <Styled(Card)>
             <Card
-              className="sc-fzozJi dCCegk"
+              className="sc-fzplWN kZIWSH"
             >
               <article
-                className="pf-c-card sc-fzozJi dCCegk"
+                className="pf-c-card sc-fzplWN kZIWSH"
               >
                 <CardHeader
                   className="card_header"
@@ -51,7 +51,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                             height={40}
                           >
                             <div
-                              className="sc-AxhCb kcBhCv"
+                              className="sc-AxheI eDjZka"
                               height={40}
                             >
                               <IconPlaceholder
@@ -81,7 +81,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                 <t
                                   afterLoad={[Function]}
                                   beforeLoad={[Function]}
-                                  className="sc-AxiKw kPfjgK"
+                                  className="sc-AxgMl hkMtbB"
                                   delayMethod="throttle"
                                   delayTime={0}
                                   effect=""
@@ -89,24 +89,26 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   hidden={true}
                                   onError={[Function]}
                                   onLoad={[Function]}
-                                  placeholderSrc=""
+                                  placeholderSrc={null}
                                   src="/api/catalog/v1.1/portfolio_items/1/icon"
                                   threshold={2000}
+                                  useIntersectionObserver={true}
                                   visibleByDefault={false}
                                   wrapperClassName=""
                                 >
                                   <t
                                     afterLoad={[Function]}
                                     beforeLoad={[Function]}
-                                    className="sc-AxiKw kPfjgK"
+                                    className="sc-AxgMl hkMtbB"
                                     delayMethod="throttle"
                                     delayTime={0}
                                     height={0}
                                     threshold={2000}
+                                    useIntersectionObserver={true}
                                     visibleByDefault={false}
                                   >
                                     <img
-                                      className="sc-AxiKw kPfjgK"
+                                      className="sc-AxgMl hkMtbB"
                                       height={0}
                                       hidden={true}
                                       onError={[Function]}
@@ -139,10 +141,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                 >
                   <Styled(CardBody)>
                     <CardBody
-                      className="sc-AxmLO dGjJwL"
+                      className="sc-fzpans hEOQak"
                     >
                       <div
-                        className="pf-c-card__body sc-AxmLO dGjJwL"
+                        className="pf-c-card__body sc-fzpans hEOQak"
                       >
                         <TextContent>
                           <div
@@ -160,7 +162,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                 >
                                   <styled.div>
                                     <div
-                                      className="sc-Axmtr TurKp"
+                                      className="sc-fzoLsD VNciv"
                                     >
                                       Foo
                                     </div>
@@ -191,7 +193,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                             key="card-prop-description"
                           >
                             <div
-                              className="sc-AxhUy cLUHxg"
+                              className="sc-Axmtr bQyRiD"
                             >
                               Bar
                             </div>

@@ -597,7 +597,6 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       aria-expanded={false}
                       aria-haspopup={true}
                       aria-label="Actions"
-                      bubbleEvent={false}
                       className="pf-c-dropdown__toggle pf-m-plain"
                       disabled={false}
                       id="portfolio-item-actions-toggle"

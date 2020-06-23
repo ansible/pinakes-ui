@@ -30,8 +30,10 @@ export async function sendSubmitOrder({
     service_parameters,
     provider_control_parameters: providerControlParameters || {}
   };
-  await orderApi.addToOrder(order.id, orderItem);
-  return orderApi.submitOrder(order.id);
+  const orderItemResponse = await orderApi.addToOrder(order.id, orderItem);
+  return orderApi
+    .submitOrder(order.id)
+    .then((order) => ({ ...order, orderItem: orderItemResponse }));
 }
 
 export function cancelOrder(orderId) {
