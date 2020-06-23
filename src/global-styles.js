@@ -219,12 +219,6 @@ a.pf-c-breadcrumb__item {
   }
 }
 
-a.breadcrumb-active {
-  pointer-events: none;
-  color: var(--pf-c-breadcrumb__link--m-current--Color);
-  text-decoration: none;
-}
-
 .icon-danger-fill {
   fill: var(--pf-global--danger-color--100)
 }
