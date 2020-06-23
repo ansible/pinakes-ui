@@ -23,19 +23,19 @@ describe('createPortfolioSchema', () => {
   });
 
   it('should not pass unique name validation', () => {
-    return validateName('should-conflict', '123').then((data) => {
+    return validateName('should-conflict', '123').catch((data) => {
       expect(data).toEqual('Name has already been taken');
     });
   });
 
   it('should not pass unique name validation if no name is passed', () => {
-    return validateName('', '123').then((data) => {
+    return validateName('', '123').catch((data) => {
       expect(data).toEqual('Required');
     });
   });
 
   it('should pass unique name validation if the portfolio conflicts with itself', () => {
-    return validateName('should-conflict', 'conflict-id').then((data) => {
+    return validateName('should-conflict', 'conflict-id').catch((data) => {
       expect(data).toBeUndefined();
     });
   });

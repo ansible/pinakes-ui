@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 import * as ApprovalHelper from '../../helpers/approval/approval-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/index';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 
 export const fetchWorkflows = () => ({
   type: ASYNC_ACTIONS.FETCH_WORKFLOWS,

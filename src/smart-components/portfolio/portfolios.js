@@ -1,13 +1,9 @@
 import React, { Fragment, useEffect, useReducer, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
 import { Button } from '@patternfly/react-core';
 
-import AddPortfolio from './add-portfolio-modal';
-import SharePortfolio from './share-portfolio-modal';
-import RemovePortfolio from './remove-portfolio-modal';
-import EditApprovalWorkflow from '../../smart-components/common/edit-approval-workflow';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
@@ -22,18 +18,9 @@ import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
-import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
-import {
-  PORTFOLIOS_ROUTE,
-  ADD_PORTFOLIO_ROUTE,
-  EDIT_PORTFOLIO_ROUTE,
-  REMOVE_PORTFOLIO_ROUTE,
-  SHARE_PORTFOLIO_ROUTE,
-  WORKFLOW_PORTFOLIO_ROUTE,
-  PORTFOLIO_ROUTE
-} from '../../constants/routes';
+import { ADD_PORTFOLIO_ROUTE, PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
@@ -80,7 +67,6 @@ const Portfolios = () => {
   const { data, meta } = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
-  const match = useRouteMatch(PORTFOLIOS_ROUTE);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
   const history = useHistory();
@@ -92,9 +78,6 @@ const Portfolios = () => {
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
-
-  const itemName = (id) =>
-    data.find((item) => item.id === id)?.name || 'portfolio';
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -169,35 +152,6 @@ const Portfolios = () => {
           }
         })}
       />
-      <Route exact path={[ADD_PORTFOLIO_ROUTE, EDIT_PORTFOLIO_ROUTE]}>
-        <AddPortfolio
-          removeQuery
-          viewState={viewState?.portfolio}
-          closeTarget={PORTFOLIOS_ROUTE}
-        />
-      </Route>
-      <Route exact path={REMOVE_PORTFOLIO_ROUTE}>
-        <RemovePortfolio viewState={viewState?.portfolio} />
-      </Route>
-      <Route exact path={SHARE_PORTFOLIO_ROUTE}>
-        <SharePortfolio
-          closeUrl={match.url}
-          querySelector="portfolio"
-          removeQuery
-          viewState={viewState?.portfolio}
-          portfolioName={itemName}
-        />
-      </Route>
-      <Route exact path={WORKFLOW_PORTFOLIO_ROUTE}>
-        <EditApprovalWorkflow
-          pushParam={{ pathname: match.url }}
-          objectType={PORTFOLIO_RESOURCE_TYPE}
-          objectName={itemName}
-          querySelector="portfolio"
-          removeQuery
-          keepHash
-        />
-      </Route>
       <ContentGallery
         items={galleryItems}
         isLoading={isFetching || isFiltering}

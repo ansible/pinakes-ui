@@ -6,24 +6,6 @@ import { useLocation, useHistory } from 'react-router-dom';
 import FormRenderer from '../../common/form-renderer';
 import editPortfolioItemSchema from '../../../forms/edit-portfolio-item-form.schema';
 import { updatePortfolioItem } from '../../../redux/actions/portfolio-actions';
-import { Button, ActionGroup } from '@patternfly/react-core';
-
-const FormButtons = ({ onCancel, submitting, valid }) => (
-  <ActionGroup>
-    <Button isDisabled={submitting || !valid} type="submit" variant="primary">
-      Save
-    </Button>
-    <Button onClick={onCancel} variant="link">
-      Cancel
-    </Button>
-  </ActionGroup>
-);
-
-FormButtons.propTypes = {
-  onCancel: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  valid: PropTypes.bool
-};
 
 const EditPortfolioItem = ({
   cancelUrl,
@@ -49,17 +31,12 @@ const EditPortfolioItem = ({
         );
       }}
       schema={editPortfolioItemSchema}
-      renderFormButtons={(props) => (
-        <FormButtons
-          {...props}
-          onCancel={() =>
-            push({
-              pathname: cancelUrl,
-              search
-            })
-          }
-        />
-      )}
+      onCancel={() =>
+        push({
+          pathname: cancelUrl,
+          search
+        })
+      }
     />
   );
 };

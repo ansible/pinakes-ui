@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications';
+import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import { ORDERS_ROUTE } from '../../constants/routes';
 
 const OrderNotification = ({ id, dispatch }) => (

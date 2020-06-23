@@ -22,6 +22,7 @@ exports[`<PortfolioItemDetail /> should render correctly 1`] = `
   >
     <MemoryRouter>
       <PortfolioItemDetail />
+      <DialogRoutes />
     </MemoryRouter>
   </Provider>
   .

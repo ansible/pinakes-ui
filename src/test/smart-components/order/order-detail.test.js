@@ -5,26 +5,15 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
-
-import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
-import {
-  mockApi,
-  mockGraphql
-} from '../../../helpers/shared/__mocks__/user-login';
-import {
-  CATALOG_API_BASE,
-  SOURCES_API_BASE
-} from '../../../utilities/constants';
+import { IntlProvider } from 'react-intl';
 
+import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
 /**
- *   'order-item',
-  'portfolio-item',
-  'platform',
-  'portfolio',
-  'order'
+ * this import is required in order to use the mocked API instance even though we are not mocking any calls
  */
+import '../../../helpers/shared/__mocks__/user-login';
 
 describe('<OrderDetail />', () => {
   describe('missing order data', () => {
@@ -66,39 +55,16 @@ describe('<OrderDetail />', () => {
         '/order?order=order-id&portfolio-item=undefined&order-item=undefined&platform=undefined&portfolio=undefined'
       ]
     }) => (
-      <Provider store={store}>
-        <MemoryRouter initialEntries={initialEntries}>
-          <OrderDetail />
-        </MemoryRouter>
-      </Provider>
+      <IntlProvider locale="en">
+        <Provider store={store}>
+          <MemoryRouter initialEntries={initialEntries}>
+            <OrderDetail />
+          </MemoryRouter>
+        </Provider>
+      </IntlProvider>
     );
 
     it('should render the component in the approval tab with missing order detail data', async () => {
-      mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-        data: {
-          application_types: [
-            {
-              sources: [
-                {
-                  id: '1',
-                  name: 'Source 1'
-                }
-              ]
-            }
-          ]
-        }
-      });
-      mockApi
-        .onGet(`${CATALOG_API_BASE}/orders/order-id`)
-        .replyOnce(200, {})
-        .onGet(`${CATALOG_API_BASE}/order_items/undefined`)
-        .replyOnce(404, {}, {}) // arguments -> status, body, headers
-        .onGet(`${CATALOG_API_BASE}/portfolio_items/undefined`)
-        .replyOnce(404, {}, {})
-        .onGet(`${CATALOG_API_BASE}/order_items/undefined/approval_requests`)
-        .replyOnce(404, {}, {})
-        .onGet(`${CATALOG_API_BASE}/order_items/undefined/progress_messages`)
-        .replyOnce(404, {}, {});
       const store = mockStore(initialState);
       let wrapper;
       await act(async () => {

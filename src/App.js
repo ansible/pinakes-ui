@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
-import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications/';
+import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/cjs/NotificationPortal';
 
 import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
@@ -15,7 +15,7 @@ import smoothscroll from 'smoothscroll-polyfill';
 // react-int eng locale data
 import { IntlProvider } from 'react-intl';
 
-import '@redhat-cloud-services/frontend-components/index.css';
+import '@redhat-cloud-services/frontend-components/components/index.css';
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from './utilities/constants';

@@ -8,6 +8,7 @@ import {
   ORDER_ROUTE
 } from './constants/routes';
 import CatalogRoute from './routing/catalog-route';
+import DialogRoutes from './smart-components/dialog-routes';
 const CommonApiError = lazy(() =>
   import(
     /* webpackChunkName: "error-page" */ './smart-components/error-pages/common-api-error'
@@ -89,6 +90,14 @@ export const Routes = () => {
           }
         />
       </Switch>
+      {/*
+       * We require the empty DIV around the dialog routes to avoid testing issues
+       * It does not have any visual effect on the application
+       * Emzyme simply cannot handle direct descendant of Suspense to be another Suspense
+       */}
+      <div>
+        <DialogRoutes />
+      </div>
     </Suspense>
   );
 };

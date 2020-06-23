@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -29,44 +30,44 @@ describe('<Platforms />', () => {
     };
   });
 
-  it('should mount and fetch platforms data', (done) => {
+  it('should mount and fetch platforms data', async () => {
     const store = mockStore(initialState);
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
-    mount(
-      <UserContext.Provider
-        value={{
-          userIdentity: {
-            identity: {
-              user: { is_org_admin: true }
+
+    await act(async () => {
+      mount(
+        <UserContext.Provider
+          value={{
+            userIdentity: {
+              identity: {
+                user: { is_org_admin: true }
+              }
             }
-          }
-        }}
-      >
-        <MemoryRouter>
-          <Provider store={store}>
-            <Platforms {...initialProps} />
-          </Provider>
-        </MemoryRouter>
-      </UserContext.Provider>
-    );
-    setImmediate(() => {
-      const expectedActions = [
-        {
-          type: `${FETCH_PLATFORMS}_PENDING`
-        },
-        {
-          type: `${FETCH_PLATFORMS}_FULFILLED`,
-          payload: [{ id: '1', name: 'foo' }]
-        }
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
+          }}
+        >
+          <MemoryRouter>
+            <Provider store={store}>
+              <Platforms {...initialProps} />
+            </Provider>
+          </MemoryRouter>
+        </UserContext.Provider>
+      );
     });
+    const expectedActions = [
+      {
+        type: `${FETCH_PLATFORMS}_PENDING`
+      },
+      {
+        type: `${FETCH_PLATFORMS}_FULFILLED`,
+        payload: [{ id: '1', name: 'foo' }]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('should call filter handler and filter data', (done) => {
+  it('should call filter handler and filter data', async () => {
     const initialState = {
       breadcrumbsReducer: { fragments: [] },
       platformReducer: {
@@ -97,32 +98,32 @@ describe('<Platforms />', () => {
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
-    const wrapper = mount(
-      <UserContext.Provider
-        value={{
-          userIdentity: {
-            identity: {
-              user: { is_org_admin: true }
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <UserContext.Provider
+          value={{
+            userIdentity: {
+              identity: {
+                user: { is_org_admin: true }
+              }
             }
-          }
-        }}
-      >
-        <Provider store={store}>
-          <MemoryRouter initialEntries={['/platforms']}>
-            <Platforms {...initialProps} />
-          </MemoryRouter>
-        </Provider>
-      </UserContext.Provider>
-    );
-
-    setImmediate(() => {
-      const search = wrapper.find('input');
-
-      search.getDOMNode().value = 'foo';
-      search.simulate('change');
-      wrapper.update();
-      expect(wrapper.find('input').instance().value).toEqual('foo');
-      done();
+          }}
+        >
+          <Provider store={store}>
+            <MemoryRouter initialEntries={['/platforms']}>
+              <Platforms {...initialProps} />
+            </MemoryRouter>
+          </Provider>
+        </UserContext.Provider>
+      );
     });
+
+    const search = wrapper.find('input');
+
+    search.getDOMNode().value = 'foo';
+    search.simulate('change');
+    wrapper.update();
+    expect(wrapper.find('input').instance().value).toEqual('foo');
   });
 });
