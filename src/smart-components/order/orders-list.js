@@ -283,10 +283,7 @@ const OrdersList = () => {
           </Table>
           <TableToolbar>
             <div className="bottom-pagination-container">
-              <Flex
-                className="example-border"
-                breakpointMods={[{ modifier: 'justify-content-flex-end' }]}
-              >
+              <Flex breakpointMods={[{ modifier: 'justify-content-flex-end' }]}>
                 {meta.count > 0 && (
                   <AsyncPagination
                     className="pf-u-mt-0"
