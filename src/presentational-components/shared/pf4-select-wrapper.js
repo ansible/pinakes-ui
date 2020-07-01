@@ -137,7 +137,7 @@ const Pf4SelectWrapper = (props) => {
       isRequired={isRequired}
       label={!hideLabel && label}
       fieldId={id || name}
-      isValid={!showError}
+      validated={showError ? 'error' : 'default'}
       helperText={helperText}
       helperTextInvalid={meta.error}
     >
@@ -150,7 +150,7 @@ const Pf4SelectWrapper = (props) => {
         id={id || name}
         meta={meta}
         label={label}
-        isValid={!showError}
+        validated={showError ? 'error' : 'default'}
         isRequired={isRequired}
         {...rest}
       />

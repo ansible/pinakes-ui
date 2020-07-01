@@ -62,15 +62,13 @@ const OrderModal = ({ closeUrl }) => {
   return (
     <Modal
       isOpen
-      title=""
-      hideTitle
       onClose={() =>
         push({
           pathname: closeUrl,
           search
         })
       }
-      isSmall
+      variant="small"
     >
       <div className="pf-u-mb-md">
         <Split>

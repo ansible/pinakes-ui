@@ -1,7 +1,12 @@
 import styled from 'styled-components';
-import { Toolbar, Level } from '@patternfly/react-core';
+import { Level } from '@patternfly/react-core';
 
-export const StyledToolbar = styled(Toolbar)`
+export const StyledToolbar = styled.div`
+  display: flex;
+  flex-grow: 1;
+  > *:not(:last-child) {
+    margin-right: var(--pf-global--spacer--md);
+  }
   background-color: #ffffff;
   h2 {
     margin-bottom: 0 !important;

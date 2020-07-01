@@ -113,7 +113,7 @@ const OrdersList = () => {
   };
 
   return (
-    <Grid gutter="md">
+    <Grid hasGutter>
       <GridItem>
         <Section type="content">
           {!meta.noData && (
@@ -248,7 +248,7 @@ const OrdersList = () => {
                           <Bullseye>
                             <EmptyStateIcon icon={SearchIcon} />
                           </Bullseye>
-                          <Title size="lg">
+                          <Title headingLevel="h1" size="lg">
                             {meta.noData ? 'No orders' : 'No results found'}
                           </Title>
                           <EmptyStateBody>
@@ -281,9 +281,9 @@ const OrdersList = () => {
               )}
             </Tbody>
           </Table>
-          <TableToolbar>
+          <TableToolbar className="pf-u-mr-0">
             <div className="bottom-pagination-container">
-              <Flex breakpointMods={[{ modifier: 'justify-content-flex-end' }]}>
+              <Flex justifyContent={{ default: 'justifyContentFlexEnd' }}>
                 {meta.count > 0 && (
                   <AsyncPagination
                     className="pf-u-mt-0"

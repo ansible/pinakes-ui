@@ -160,7 +160,7 @@ const OrderDetail = () => {
         )}
       </OrderDetailStackItem>
       <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
-        <Split gutter="md" className="orders-nav-layout">
+        <Split hasGutter className="orders-nav-layout">
           <SplitItem className="order-detail-nav-container">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
           </SplitItem>

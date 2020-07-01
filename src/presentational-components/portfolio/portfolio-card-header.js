@@ -15,8 +15,12 @@ const HeaderTitle = styled(LevelItem)`
   max-width: calc(100% - 44px);
 `;
 
+const HeaderLevel = styled(Level)`
+  width: 100%;
+`;
+
 const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
-  <Level>
+  <HeaderLevel>
     <HeaderTitle className="pf-m-grow">
       <TextContent>
         <Link to={to} id={`portfolio-link-${id}`}>
@@ -33,7 +37,7 @@ const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
     <LevelItem onClick={(event) => event.preventDefault()}>
       {headerActions}
     </LevelItem>
-  </Level>
+  </HeaderLevel>
 );
 
 PortfolioCardHeader.propTypes = {

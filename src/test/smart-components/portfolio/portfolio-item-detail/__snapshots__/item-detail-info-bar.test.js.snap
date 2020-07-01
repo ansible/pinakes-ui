@@ -23,13 +23,13 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
     }
   }
 >
-  <TextContent
+  <Component
     className="pf-u-mb-md"
   >
     <div
       className="pf-c-content pf-u-mb-md"
     >
-      <Text
+      <Component
         className="font-14"
       >
         <p
@@ -38,8 +38,8 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           Platform
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="overflow-wrap"
         component="p"
         id="source-name"
@@ -51,8 +51,8 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           bar
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="font-14"
       >
         <p
@@ -61,8 +61,8 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           Portfolio
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="overflow-wrap"
         component="p"
         id="portfolio-name"
@@ -74,11 +74,11 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           quux
         </p>
-      </Text>
+      </Component>
       <span
         id="distributor"
       >
-        <Text
+        <Component
           className="font-14"
         >
           <p
@@ -87,8 +87,8 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           >
             Vendor
           </p>
-        </Text>
-        <Text
+        </Component>
+        <Component
           className="overflow-wrap"
           component="p"
         >
@@ -98,9 +98,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
           >
             foo
           </p>
-        </Text>
+        </Component>
       </span>
-      <Text
+      <Component
         className="font-14"
       >
         <p
@@ -109,8 +109,8 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           Created
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         component="p"
         id="created_at"
       >
@@ -170,14 +170,14 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                     id=""
                     role="tooltip"
                   >
-                    <TooltipContent
+                    <Unknown
                       isLeftAligned={false}
                     >
                       <div>
                         
                         22 Mar 2019 07:36 UTC
                       </div>
-                    </TooltipContent>
+                    </Unknown>
                   </div>
                 }
                 delay={
@@ -248,7 +248,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                     id=""
                     role="tooltip"
                   >
-                    <TooltipContent
+                    <Component
                       isLeftAligned={false}
                     >
                       <div
@@ -258,16 +258,16 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                           22 Mar 2019 07:36 UTC
                         </div>
                       </div>
-                    </TooltipContent>
+                    </Component>
                   </div>
                 </Portal>
               </PopoverBase>
             </Tooltip>
           </DateFormat>
         </p>
-      </Text>
+      </Component>
     </div>
-  </TextContent>
+  </Component>
 </ItemDetailInfoBar>
 `;
 
@@ -291,13 +291,13 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
     }
   }
 >
-  <TextContent
+  <Component
     className="pf-u-mb-md"
   >
     <div
       className="pf-c-content pf-u-mb-md"
     >
-      <Text
+      <Component
         className="font-14"
       >
         <p
@@ -306,8 +306,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         >
           Platform
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="overflow-wrap"
         component="p"
         id="source-name"
@@ -319,8 +319,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         >
           bar
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="font-14"
       >
         <p
@@ -329,8 +329,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         >
           Portfolio
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="overflow-wrap"
         component="p"
         id="portfolio-name"
@@ -342,8 +342,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         >
           quux
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="font-14"
       >
         <p
@@ -352,8 +352,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
         >
           Created
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         component="p"
         id="created_at"
       >
@@ -413,14 +413,14 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                     id=""
                     role="tooltip"
                   >
-                    <TooltipContent
+                    <Unknown
                       isLeftAligned={false}
                     >
                       <div>
                         
                         22 Mar 2019 07:36 UTC
                       </div>
-                    </TooltipContent>
+                    </Unknown>
                   </div>
                 }
                 delay={
@@ -491,7 +491,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                     id=""
                     role="tooltip"
                   >
-                    <TooltipContent
+                    <Component
                       isLeftAligned={false}
                     >
                       <div
@@ -501,16 +501,16 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                           22 Mar 2019 07:36 UTC
                         </div>
                       </div>
-                    </TooltipContent>
+                    </Component>
                   </div>
                 </Portal>
               </PopoverBase>
             </Tooltip>
           </DateFormat>
         </p>
-      </Text>
+      </Component>
     </div>
-  </TextContent>
+  </Component>
 </ItemDetailInfoBar>
 `;
 
@@ -538,13 +538,13 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
     }
   }
 >
-  <TextContent
+  <Component
     className="pf-u-mb-md"
   >
     <div
       className="pf-c-content pf-u-mb-md"
     >
-      <Text
+      <Component
         className="font-14"
       >
         <p
@@ -553,8 +553,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           Platform
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="overflow-wrap"
         component="p"
         id="source-name"
@@ -566,8 +566,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           bar
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="font-14"
       >
         <p
@@ -576,8 +576,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           Portfolio
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         className="overflow-wrap"
         component="p"
         id="portfolio-name"
@@ -589,11 +589,11 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           quux
         </p>
-      </Text>
+      </Component>
       <span
         id="distributor"
       >
-        <Text
+        <Component
           className="font-14"
         >
           <p
@@ -602,8 +602,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           >
             Vendor
           </p>
-        </Text>
-        <Text
+        </Component>
+        <Component
           className="overflow-wrap"
           component="p"
         >
@@ -613,9 +613,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
           >
             foo
           </p>
-        </Text>
+        </Component>
       </span>
-      <Text
+      <Component
         className="font-14"
       >
         <p
@@ -624,8 +624,8 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           Created
         </p>
-      </Text>
-      <Text
+      </Component>
+      <Component
         component="p"
         id="created_at"
       >
@@ -685,14 +685,14 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                     id=""
                     role="tooltip"
                   >
-                    <TooltipContent
+                    <Unknown
                       isLeftAligned={false}
                     >
                       <div>
                         
                         22 Mar 2019 07:36 UTC
                       </div>
-                    </TooltipContent>
+                    </Unknown>
                   </div>
                 }
                 delay={
@@ -763,7 +763,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                     id=""
                     role="tooltip"
                   >
-                    <TooltipContent
+                    <Component
                       isLeftAligned={false}
                     >
                       <div
@@ -773,15 +773,15 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                           22 Mar 2019 07:36 UTC
                         </div>
                       </div>
-                    </TooltipContent>
+                    </Component>
                   </div>
                 </Portal>
               </PopoverBase>
             </Tooltip>
           </DateFormat>
         </p>
-      </Text>
+      </Component>
     </div>
-  </TextContent>
+  </Component>
 </ItemDetailInfoBar>
 `;

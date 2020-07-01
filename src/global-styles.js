@@ -116,6 +116,9 @@ a.pf-c-breadcrumb__item {
 .orders-side-nav-category > .pf-c-nav__link {
   border-left: 4px solid transparent;
   padding: 8px 16px;
+  &::before {
+    border: none;
+  }
 }
 
 .orders-side-nav-category > .pf-c-nav__link,

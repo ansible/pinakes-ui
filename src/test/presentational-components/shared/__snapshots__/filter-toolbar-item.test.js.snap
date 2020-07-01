@@ -7,9 +7,9 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
   placeholder="Foo"
   searchValue=""
 >
-  <ToolbarItem>
+  <Component>
     <div
-      className="pf-l-toolbar__item"
+      className="pf-c-toolbar__item"
     >
       <styled.div>
         <div
@@ -40,7 +40,6 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                 isDisabled={false}
                 isReadOnly={false}
                 isRequired={false}
-                isValid={true}
                 onChange={[MockFunction]}
                 placeholder="Foo"
                 type="text"
@@ -73,7 +72,6 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                   color="currentColor"
                   noVerticalAlign={false}
                   size="sm"
-                  title={null}
                 >
                   <svg
                     aria-hidden={true}
@@ -102,6 +100,6 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         </div>
       </styled.div>
     </div>
-  </ToolbarItem>
+  </Component>
 </FilterToolbarItem>
 `;

@@ -21,7 +21,10 @@ import { Bullseye } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
-import { catalogValidatorAlias } from '../common/form-renderer';
+import {
+  catalogValidatorAlias,
+  catalogComponentMapper
+} from '../common/form-renderer';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 
 const componentProperties = {
@@ -99,9 +102,10 @@ componentProperties['textarea-field'] =
   componentProperties[componentTypes.TEXTAREA];
 const pf4Skin = {
   componentMapper: {
-    ...builderMapper,
-    'select-field': builderMapper[componentTypes.SELECT],
-    'textarea-field': builderMapper[componentTypes.TEXTAREA]
+    ...catalogComponentMapper
+  },
+  builderMapper: {
+    ...builderMapper
   },
   pickerMapper: {
     ...pickerMapper,
