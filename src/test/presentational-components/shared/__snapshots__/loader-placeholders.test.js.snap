@@ -19,7 +19,9 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
 `;
 
 exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
-<Component>
+<Component
+  hasGutter={true}
+>
   <Component
     sm={12}
   >

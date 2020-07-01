@@ -78,7 +78,7 @@ const SkeletonContainer = styled.div`
 `;
 
 export const CardLoader = ({ items }) => (
-  <Grid>
+  <Grid hasGutter>
     <GridItem sm={12}>
       <Section type="content">
         <Gallery hasGutter>
