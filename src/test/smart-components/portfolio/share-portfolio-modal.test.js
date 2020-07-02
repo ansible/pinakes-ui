@@ -127,25 +127,24 @@ describe('<SharePortfolioModal/>', () => {
     });
 
     wrapper
-      .find('div.ddorg__pf4-component-mapper__select__control')
+      .find('.pf-c-select__toggle')
       .first()
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
+    let option = wrapper.find('button.pf-c-select__menu-item').first();
     await act(async () => {
-      wrapper
-        .find('div.ddorg__pf4-component-mapper__select__option')
-        .first()
-        .simulate('click');
+      option.simulate('click');
     });
     wrapper
-      .find('div.ddorg__pf4-component-mapper__select__control')
+      .find('.pf-c-select__toggle')
       .at(1)
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
+    wrapper.update();
+    option = wrapper.find('button.pf-c-select__menu-item').first();
     await act(async () => {
-      wrapper
-        .find('div.ddorg__pf4-component-mapper__select__option')
-        .first()
-        .simulate('click');
+      option.simulate('click');
     });
+
+    wrapper.update();
 
     await act(async () => {
       wrapper.find('form').simulate('submit');

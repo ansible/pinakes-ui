@@ -81,7 +81,7 @@ const Select = ({
           ? createOptions(options, input.value, isRequired)
           : undefined
       }
-      isDisabled={isDisabled || isReadOnly}
+      isDisabled={isDisabled}
       closeMenuOnSelect={!multi}
     />
   );

@@ -4,8 +4,8 @@
   "private": false,
   "dependencies": {
     "@data-driven-forms/form-builder": "0.0.10-rc7",
-    "@data-driven-forms/pf4-component-mapper": "^2.5.3",
-    "@data-driven-forms/react-form-renderer": "^2.5.3",
+    "@data-driven-forms/pf4-component-mapper": "^2.6.3",
+    "@data-driven-forms/react-form-renderer": "^2.6.3",
     "@patternfly/react-core": "^4.23.1",
     "@patternfly/react-table": "^4.8.6",
     "@patternfly/react-icons": "^4.4.2",
