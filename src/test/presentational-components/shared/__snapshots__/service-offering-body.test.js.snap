@@ -7,19 +7,19 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
   long_description="long description"
   name="Foo"
 >
-  <Styled(Component)>
-    <Component
+  <Styled(CardBody)>
+    <CardBody
       className="sc-AxhUy loBGYF"
     >
       <div
         className="pf-c-card__body sc-AxhUy loBGYF"
       >
-        <Component>
+        <TextContent>
           <div
             className="pf-c-content"
           >
             <ConditionalLink>
-              <Component
+              <Text
                 component="h3"
                 title="Foo"
               >
@@ -36,9 +36,9 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                     </div>
                   </styled.div>
                 </h3>
-              </Component>
+              </Text>
             </ConditionalLink>
-            <Component
+            <Text
               component="small"
             >
               <small
@@ -47,9 +47,9 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
               >
                 Red Hat
               </small>
-            </Component>
+            </Text>
           </div>
-        </Component>
+        </TextContent>
         <ItemDetails
           long_description="long description"
           toDisplay={
@@ -69,8 +69,8 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           </styled.div>
         </ItemDetails>
       </div>
-    </Component>
-  </Styled(Component)>
+    </CardBody>
+  </Styled(CardBody)>
 </ServiceOfferingCardBody>
 `;
 
@@ -79,19 +79,19 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
   description="Bar"
   name="Foo"
 >
-  <Styled(Component)>
-    <Component
+  <Styled(CardBody)>
+    <CardBody
       className="sc-AxhUy loBGYF"
     >
       <div
         className="pf-c-card__body sc-AxhUy loBGYF"
       >
-        <Component>
+        <TextContent>
           <div
             className="pf-c-content"
           >
             <ConditionalLink>
-              <Component
+              <Text
                 component="h3"
                 title="Foo"
               >
@@ -108,10 +108,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                     </div>
                   </styled.div>
                 </h3>
-              </Component>
+              </Text>
             </ConditionalLink>
           </div>
-        </Component>
+        </TextContent>
         <ItemDetails
           description="Bar"
           toDisplay={
@@ -131,7 +131,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
           </styled.div>
         </ItemDetails>
       </div>
-    </Component>
-  </Styled(Component)>
+    </CardBody>
+  </Styled(CardBody)>
 </ServiceOfferingCardBody>
 `;

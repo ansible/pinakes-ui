@@ -5,16 +5,16 @@ exports[`<PlatformCard /> should choose card image 1`] = `
   description="desc"
   modified="Foo"
 >
-  <Component>
+  <GalleryItem>
     <div>
-      <Styled(Component)>
-        <Component
+      <Styled(Card)>
+        <Card
           className="sc-AxhUy kEBXQD"
         >
           <article
             className="pf-c-card sc-AxhUy kEBXQD"
           >
-            <Component>
+            <CardHeader>
               <div
                 className="pf-c-card__header"
               >
@@ -30,15 +30,15 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                   />
                 </ImageWithDefault>
               </div>
-            </Component>
-            <Styled(Component)>
-              <Component
+            </CardHeader>
+            <Styled(CardBody)>
+              <CardBody
                 className="sc-AxheI dqZNlB"
               >
                 <div
                   className="pf-c-card__body sc-AxheI dqZNlB"
                 >
-                  <Component>
+                  <TextContent>
                     <div
                       className="pf-c-content"
                     >
@@ -92,7 +92,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                                   href="/platform/platform-templates?platform=undefined"
                                   onClick={[Function]}
                                 >
-                                  <Component
+                                  <Text
                                     className="pf-u-mb-0"
                                     component="h3"
                                   >
@@ -106,7 +106,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                                         />
                                       </styled.div>
                                     </h3>
-                                  </Component>
+                                  </Text>
                                 </a>
                               </LinkAnchor>
                             </Link>
@@ -114,7 +114,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                         </Styled(Component)>
                       </CatalogLink>
                     </div>
-                  </Component>
+                  </TextContent>
                   <ItemDetails
                     description="desc"
                     modified="Foo"
@@ -145,18 +145,18 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                     </styled.div>
                   </ItemDetails>
                 </div>
-              </Component>
-            </Styled(Component)>
-            <Component>
+              </CardBody>
+            </Styled(CardBody)>
+            <CardFooter>
               <div
                 className="pf-c-card__footer"
               />
-            </Component>
+            </CardFooter>
           </article>
-        </Component>
-      </Styled(Component)>
+        </Card>
+      </Styled(Card)>
     </div>
-  </Component>
+  </GalleryItem>
 </PlatformCard>
 `;
 
@@ -165,16 +165,16 @@ exports[`<PlatformCard /> should render correctly 1`] = `
   description="desc"
   modified="Foo"
 >
-  <Component>
+  <GalleryItem>
     <div>
-      <Styled(Component)>
-        <Component
+      <Styled(Card)>
+        <Card
           className="sc-AxhUy kEBXQD"
         >
           <article
             className="pf-c-card sc-AxhUy kEBXQD"
           >
-            <Component>
+            <CardHeader>
               <div
                 className="pf-c-card__header"
               >
@@ -190,15 +190,15 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                   />
                 </ImageWithDefault>
               </div>
-            </Component>
-            <Styled(Component)>
-              <Component
+            </CardHeader>
+            <Styled(CardBody)>
+              <CardBody
                 className="sc-AxheI dqZNlB"
               >
                 <div
                   className="pf-c-card__body sc-AxheI dqZNlB"
                 >
-                  <Component>
+                  <TextContent>
                     <div
                       className="pf-c-content"
                     >
@@ -252,7 +252,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                   href="/platform/platform-templates?platform=undefined"
                                   onClick={[Function]}
                                 >
-                                  <Component
+                                  <Text
                                     className="pf-u-mb-0"
                                     component="h3"
                                   >
@@ -266,7 +266,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                         />
                                       </styled.div>
                                     </h3>
-                                  </Component>
+                                  </Text>
                                 </a>
                               </LinkAnchor>
                             </Link>
@@ -274,7 +274,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                         </Styled(Component)>
                       </CatalogLink>
                     </div>
-                  </Component>
+                  </TextContent>
                   <ItemDetails
                     description="desc"
                     modified="Foo"
@@ -305,17 +305,17 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     </styled.div>
                   </ItemDetails>
                 </div>
-              </Component>
-            </Styled(Component)>
-            <Component>
+              </CardBody>
+            </Styled(CardBody)>
+            <CardFooter>
               <div
                 className="pf-c-card__footer"
               />
-            </Component>
+            </CardFooter>
           </article>
-        </Component>
-      </Styled(Component)>
+        </Card>
+      </Styled(Card)>
     </div>
-  </Component>
+  </GalleryItem>
 </PlatformCard>
 `;

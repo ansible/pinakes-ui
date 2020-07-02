@@ -11,37 +11,37 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
   <div
     className="pf-u-mt-lg"
   >
-    <Component>
-      <Component />
-    </Component>
+    <Bullseye>
+      <Spinner />
+    </Bullseye>
   </div>
 </section>
 `;
 
 exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
-<Component
+<Grid
   hasGutter={true}
 >
-  <Component
+  <GridItem
     sm={12}
   >
     <Section
       type="content"
     >
-      <Component
+      <Gallery
         hasGutter={true}
       >
-        <Component
+        <GalleryItem
           key="0"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -62,20 +62,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="1"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -96,20 +96,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="2"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -130,20 +130,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="3"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -164,20 +164,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="4"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -198,20 +198,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="5"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -232,20 +232,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="6"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -266,20 +266,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="7"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -300,20 +300,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="8"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -334,20 +334,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="9"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -368,20 +368,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="10"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -402,20 +402,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="11"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -436,20 +436,20 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
           key="12"
         >
-          <Component
+          <Card
             style={
               Object {
                 "height": 350,
               }
             }
           >
-            <Component>
+            <CardBody>
               <Skeleton
                 className="pf-u-mb-lg"
                 height={70}
@@ -470,119 +470,119 @@ exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
                 height={5}
                 width="76%"
               />
-            </Component>
-          </Component>
-        </Component>
-      </Component>
+            </CardBody>
+          </Card>
+        </GalleryItem>
+      </Gallery>
     </Section>
-  </Component>
-</Component>
+  </GridItem>
+</Grid>
 `;
 
 exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
-<Component
+<DataList
   aria-label="list-loader"
   aria-labelledby="datalist-placeholder"
 >
-  <Component
+  <DataListItem
     aria-labelledby="datalist-item-placeholder"
     key="0"
   >
-    <Component
+    <DataListItemRow
       aria-label="datalist-item-placeholder-row"
     >
-      <Component
+      <DataListItemCells
         dataListCells={
           Array [
-            <Unknown>
+            <DataListCell>
               <Skeleton
                 height={67}
               />
-            </Unknown>,
+            </DataListCell>,
           ]
         }
       />
-    </Component>
-  </Component>
-  <Component
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
     aria-labelledby="datalist-item-placeholder"
     key="1"
   >
-    <Component
+    <DataListItemRow
       aria-label="datalist-item-placeholder-row"
     >
-      <Component
+      <DataListItemCells
         dataListCells={
           Array [
-            <Unknown>
+            <DataListCell>
               <Skeleton
                 height={67}
               />
-            </Unknown>,
+            </DataListCell>,
           ]
         }
       />
-    </Component>
-  </Component>
-  <Component
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
     aria-labelledby="datalist-item-placeholder"
     key="2"
   >
-    <Component
+    <DataListItemRow
       aria-label="datalist-item-placeholder-row"
     >
-      <Component
+      <DataListItemCells
         dataListCells={
           Array [
-            <Unknown>
+            <DataListCell>
               <Skeleton
                 height={67}
               />
-            </Unknown>,
+            </DataListCell>,
           ]
         }
       />
-    </Component>
-  </Component>
-  <Component
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
     aria-labelledby="datalist-item-placeholder"
     key="3"
   >
-    <Component
+    <DataListItemRow
       aria-label="datalist-item-placeholder-row"
     >
-      <Component
+      <DataListItemCells
         dataListCells={
           Array [
-            <Unknown>
+            <DataListCell>
               <Skeleton
                 height={67}
               />
-            </Unknown>,
+            </DataListCell>,
           ]
         }
       />
-    </Component>
-  </Component>
-  <Component
+    </DataListItemRow>
+  </DataListItem>
+  <DataListItem
     aria-labelledby="datalist-item-placeholder"
     key="4"
   >
-    <Component
+    <DataListItemRow
       aria-label="datalist-item-placeholder-row"
     >
-      <Component
+      <DataListItemCells
         dataListCells={
           Array [
-            <Unknown>
+            <DataListCell>
               <Skeleton
                 height={67}
               />
-            </Unknown>,
+            </DataListCell>,
           ]
         }
       />
-    </Component>
-  </Component>
-</Component>
+    </DataListItemRow>
+  </DataListItem>
+</DataList>
 `;

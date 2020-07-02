@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PortfolioCardHeader /> should render correctly 1`] = `
-<Styled(Component)>
-  <Styled(Component)
+<Styled(Level)>
+  <Styled(LevelItem)
     className="pf-m-grow"
   >
-    <Component>
+    <TextContent>
       <Link
         id="portfolio-link-undefined"
         to={
@@ -15,7 +15,7 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
           }
         }
       >
-        <Component
+        <Text
           className="pf-u-mb-0"
           component="h3"
           title="foo"
@@ -23,12 +23,12 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
           <styled.div>
             foo
           </styled.div>
-        </Component>
+        </Text>
       </Link>
-    </Component>
-  </Styled(Component)>
-  <Component
+    </TextContent>
+  </Styled(LevelItem)>
+  <LevelItem
     onClick={[Function]}
   />
-</Styled(Component)>
+</Styled(Level)>
 `;
