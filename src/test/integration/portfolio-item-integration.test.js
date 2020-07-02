@@ -173,16 +173,12 @@ describe('Integration tests for portfolio items', () => {
         }
       });
     wrapper
-      .find('div.ddorg__pf4-component-mapper__select__control')
+      .find('.pf-c-select__toggle')
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
     wrapper.update();
-    expect(
-      wrapper.find('div.ddorg__pf4-component-mapper__select__option')
-    ).toHaveLength(1);
+    expect(wrapper.find('button.pf-c-select__menu-item')).toHaveLength(1);
     await act(async () => {
-      wrapper
-        .find('div.ddorg__pf4-component-mapper__select__option')
-        .simulate('click');
+      wrapper.find('button.pf-c-select__menu-item').simulate('click');
     });
     wrapper.update();
     /**

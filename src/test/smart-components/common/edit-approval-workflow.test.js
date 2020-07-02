@@ -219,14 +219,13 @@ describe('<EditApprovalWorkflow />', () => {
     });
     await act(async () => {
       wrapper
-        .find('div.ddorg__pf4-component-mapper__select__control')
+        .find('.pf-c-select__toggle')
         .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
     });
     wrapper.update();
-
     await act(async () => {
       wrapper
-        .find('div.ddorg__pf4-component-mapper__select__option')
+        .find('button.pf-c-select__menu-item')
         .last()
         .simulate('click');
     });
