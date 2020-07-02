@@ -2,8 +2,8 @@
 
 exports[`<PortfolioCard /> should render correctly 1`] = `
 <Styled(Component)>
-  <Styled(Component)>
-    <Component>
+  <Styled(Card)>
+    <CardHeader>
       <PortfolioCardHeader
         headerActions={
           <HeaderActions
@@ -30,12 +30,12 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           }
         }
       />
-    </Component>
-    <Styled(Component)>
-      <Component
+    </CardHeader>
+    <Styled(CardBody)>
+      <TextContent
         className="pf-u-mb-md"
       >
-        <Component
+        <Text
           className="pf-i-mb-sm"
           component="small"
         >
@@ -44,13 +44,13 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
             date="created"
             type="relative"
           />
-        </Component>
-        <Component
+        </Text>
+        <Text
           component="small"
         >
           Owner
-        </Component>
-      </Component>
+        </Text>
+      </TextContent>
       <ItemDetails
         created_at="created"
         description="description"
@@ -64,8 +64,8 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
           ]
         }
       />
-    </Styled(Component)>
-    <Component />
-  </Styled(Component)>
+    </Styled(CardBody)>
+    <CardFooter />
+  </Styled(Card)>
 </Styled(Component)>
 `;

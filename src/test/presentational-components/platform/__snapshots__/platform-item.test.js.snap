@@ -4,21 +4,21 @@ exports[`<PlatformItem /> should render correctly 1`] = `
 <PlatformItem
   id="Foo"
 >
-  <Styled(Component)
+  <Styled(Card)
     key="Foo"
   >
-    <Component
+    <Card
       className="sc-fzplWN kZIWSH"
     >
       <article
         className="pf-c-card sc-fzplWN kZIWSH"
       >
-        <Component>
+        <CardHeader>
           <div
             className="pf-c-card__header"
           >
-            <Styled(Component)>
-              <Component
+            <Styled(Level)>
+              <Level
                 className="sc-fznKkj jHfxlR"
               >
                 <div
@@ -103,26 +103,26 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                     </styled.div>
                   </CardIcon>
                 </div>
-              </Component>
-            </Styled(Component)>
+              </Level>
+            </Styled(Level)>
           </div>
-        </Component>
+        </CardHeader>
         <ServiceOfferingCardBody
           id="Foo"
         >
-          <Styled(Component)>
-            <Component
+          <Styled(CardBody)>
+            <CardBody
               className="sc-fzpans hEOQak"
             >
               <div
                 className="pf-c-card__body sc-fzpans hEOQak"
               >
-                <Component>
+                <TextContent>
                   <div
                     className="pf-c-content"
                   >
                     <ConditionalLink>
-                      <Component
+                      <Text
                         component="h3"
                       >
                         <h3
@@ -135,10 +135,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             />
                           </styled.div>
                         </h3>
-                      </Component>
+                      </Text>
                     </ConditionalLink>
                   </div>
-                </Component>
+                </TextContent>
                 <ItemDetails
                   id="Foo"
                   toDisplay={
@@ -156,16 +156,16 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   </styled.div>
                 </ItemDetails>
               </div>
-            </Component>
-          </Styled(Component)>
+            </CardBody>
+          </Styled(CardBody)>
         </ServiceOfferingCardBody>
-        <Component>
+        <CardFooter>
           <div
             className="pf-c-card__footer"
           />
-        </Component>
+        </CardFooter>
       </article>
-    </Component>
-  </Styled(Component)>
+    </Card>
+  </Styled(Card)>
 </PlatformItem>
 `;

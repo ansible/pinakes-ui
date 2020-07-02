@@ -19,25 +19,25 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
     <Component
       className="sc-fznyAO hahLsc"
     >
-      <Component
+      <GalleryItem
         className="sc-fznyAO hahLsc"
       >
         <div
           className="sc-fznyAO hahLsc"
         >
-          <Styled(Component)>
-            <Component
+          <Styled(Card)>
+            <Card
               className="sc-fzplWN kZIWSH"
             >
               <article
                 className="pf-c-card sc-fzplWN kZIWSH"
               >
-                <Component>
+                <CardHeader>
                   <div
                     className="pf-c-card__header"
                   >
-                    <Styled(Component)>
-                      <Component
+                    <Styled(Level)>
+                      <Level
                         className="sc-fznKkj jHfxlR"
                       >
                         <div
@@ -123,10 +123,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                             </styled.div>
                           </CardIcon>
                         </div>
-                      </Component>
-                    </Styled(Component)>
+                      </Level>
+                    </Styled(Level)>
                   </div>
-                </Component>
+                </CardHeader>
                 <ServiceOfferingCardBody
                   description="Bar"
                   display_name="quux"
@@ -141,19 +141,19 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                   name="Foo"
                   orderUrl="/order"
                 >
-                  <Styled(Component)>
-                    <Component
+                  <Styled(CardBody)>
+                    <CardBody
                       className="sc-fzpans hEOQak"
                     >
                       <div
                         className="pf-c-card__body sc-fzpans hEOQak"
                       >
-                        <Component>
+                        <TextContent>
                           <div
                             className="pf-c-content"
                           >
                             <ConditionalLink>
-                              <Component
+                              <Text
                                 component="h3"
                                 title="Foo"
                               >
@@ -170,10 +170,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     </div>
                                   </styled.div>
                                 </h3>
-                              </Component>
+                              </Text>
                             </ConditionalLink>
                           </div>
-                        </Component>
+                        </TextContent>
                         <ItemDetails
                           description="Bar"
                           id="1"
@@ -202,19 +202,19 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           </styled.div>
                         </ItemDetails>
                       </div>
-                    </Component>
-                  </Styled(Component)>
+                    </CardBody>
+                  </Styled(CardBody)>
                 </ServiceOfferingCardBody>
-                <Component>
+                <CardFooter>
                   <div
                     className="pf-c-card__footer"
                   />
-                </Component>
+                </CardFooter>
               </article>
-            </Component>
-          </Styled(Component)>
+            </Card>
+          </Styled(Card)>
         </div>
-      </Component>
+      </GalleryItem>
     </Component>
   </Styled(Component)>
 </PortfolioItem>

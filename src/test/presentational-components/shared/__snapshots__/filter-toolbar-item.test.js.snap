@@ -7,7 +7,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
   placeholder="Foo"
   searchValue=""
 >
-  <Component>
+  <ToolbarItem>
     <div
       className="pf-c-toolbar__item"
     >
@@ -100,6 +100,6 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         </div>
       </styled.div>
     </div>
-  </Component>
+  </ToolbarItem>
 </FilterToolbarItem>
 `;

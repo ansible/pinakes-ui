@@ -20,7 +20,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   }
   workflowUrl="foo/workflow"
 >
-  <Component>
+  <LevelItem>
     <div>
       <CatalogLink
         isDisabled={false}
@@ -77,27 +77,26 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     showSpinner={false}
                     variant="primary"
                   >
-                    <Styled(Component)
+                    <Styled(Button)
                       id="order-portfolio-item"
                       isDisabled={false}
                       variant="primary"
                     >
-                      <Component
+                      <Button
                         className="sc-AxjAm jhCAUI"
                         id="order-portfolio-item"
                         isDisabled={false}
                         variant="primary"
                       >
                         <button
-                          aria-disabled={null}
+                          aria-disabled={false}
                           aria-label={null}
                           className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
-                          data-ouia-component-id={null}
+                          data-ouia-component-id={0}
                           data-ouia-component-type="PF4/Button"
                           data-ouia-safe={true}
                           disabled={false}
                           id="order-portfolio-item"
-                          tabIndex={null}
                           type="button"
                         >
                           <styled.span
@@ -110,8 +109,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                             </span>
                           </styled.span>
                         </button>
-                      </Component>
-                    </Styled(Component)>
+                      </Button>
+                    </Styled(Button)>
                   </ButtonWithSpinner>
                 </a>
               </LinkAnchor>
@@ -120,8 +119,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         </Styled(Component)>
       </CatalogLink>
     </div>
-  </Component>
-  <Component
+  </LevelItem>
+  <LevelItem
     style={
       Object {
         "marginLeft": 16,
@@ -135,10 +134,10 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         }
       }
     >
-      <Component
+      <Dropdown
         dropdownItems={
           Array [
-            <Unknown
+            <DropdownItem
               aria-label="Edit Portfolio"
               component={
                 <CatalogLink
@@ -154,7 +153,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               id="edit-portfolio-item"
               role="link"
             />,
-            <Unknown
+            <DropdownItem
               aria-label="Copy Portfolio"
               component={
                 <CatalogLink
@@ -170,7 +169,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               id="copy-portfolio-item"
               role="link"
             />,
-            <Unknown
+            <DropdownItem
               aria-label="Set approval"
               component={
                 <CatalogLink
@@ -186,7 +185,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               id="set-approval_workflow"
               role="link"
             />,
-            <Unknown
+            <DropdownItem
               aria-label="Edit survey"
               component={
                 <CatalogLink
@@ -210,7 +209,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         onToggle={[MockFunction]}
         position="right"
         toggle={
-          <Unknown
+          <KebabToggle
             id="portfolio-item-actions-toggle"
             onToggle={[Function]}
           />
@@ -222,7 +221,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           direction="down"
           dropdownItems={
             Array [
-              <Unknown
+              <DropdownItem
                 aria-label="Edit Portfolio"
                 component={
                   <CatalogLink
@@ -238,7 +237,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 id="edit-portfolio-item"
                 role="link"
               />,
-              <Unknown
+              <DropdownItem
                 aria-label="Copy Portfolio"
                 component={
                   <CatalogLink
@@ -254,7 +253,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 id="copy-portfolio-item"
                 role="link"
               />,
-              <Unknown
+              <DropdownItem
                 aria-label="Set approval"
                 component={
                   <CatalogLink
@@ -270,7 +269,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 id="set-approval_workflow"
                 role="link"
               />,
-              <Unknown
+              <DropdownItem
                 aria-label="Edit survey"
                 component={
                   <CatalogLink
@@ -291,12 +290,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           isGrouped={false}
           isOpen={false}
           isPlain={true}
+          menuAppendTo="inline"
           onSelect={[Function]}
           onToggle={[MockFunction]}
-          ouiaComponentType="Dropdown"
           position="right"
           toggle={
-            <Unknown
+            <KebabToggle
               id="portfolio-item-actions-toggle"
               onToggle={[Function]}
             />
@@ -304,13 +303,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         >
           <div
             className="pf-c-dropdown pf-m-align-right"
-            data-ouia-component-id={0}
+            data-ouia-component-id={1}
             data-ouia-component-type="PF4/Dropdown"
             data-ouia-safe={true}
             onToggle={[MockFunction]}
           >
-            <Component
+            <KebabToggle
               aria-haspopup={true}
+              getMenuRef={[Function]}
               id="portfolio-item-actions-toggle"
               isOpen={false}
               isPlain={true}
@@ -321,7 +321,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 Object {
                   "current": <div
                     class="pf-c-dropdown pf-m-align-right"
-                    data-ouia-component-id="0"
+                    data-ouia-component-id="1"
                     data-ouia-component-type="PF4/Dropdown"
                     data-ouia-safe="true"
                   >
@@ -357,6 +357,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Actions"
                 bubbleEvent={false}
                 className=""
+                getMenuRef={[Function]}
                 id="portfolio-item-actions-toggle"
                 isActive={false}
                 isDisabled={false}
@@ -370,7 +371,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Object {
                     "current": <div
                       class="pf-c-dropdown pf-m-align-right"
-                      data-ouia-component-id="0"
+                      data-ouia-component-id="1"
                       data-ouia-component-type="PF4/Dropdown"
                       data-ouia-safe="true"
                     >
@@ -439,11 +440,11 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   </EllipsisVIcon>
                 </button>
               </Toggle>
-            </Component>
+            </KebabToggle>
           </div>
         </DropdownWithContext>
-      </Component>
+      </Dropdown>
     </div>
-  </Component>
+  </LevelItem>
 </DetailToolbarActions>
 `;
