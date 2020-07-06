@@ -147,10 +147,10 @@ const SharePortfolioModal = ({
   };
 
   return (
-    <Modal title="Share portfolio" isOpen isSmall onClose={onCancel}>
+    <Modal title="Share portfolio" isOpen variant="small" onClose={onCancel}>
       {isFetching && <ShareLoader />}
       {!isFetching && (
-        <Stack gutter="md">
+        <Stack hasGutter>
           <StackItem>
             <TextContent>
               <Text>

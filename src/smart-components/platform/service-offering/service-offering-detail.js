@@ -45,7 +45,7 @@ const ServiceOfferingDetail = () => {
 
   return (
     <Section className="global-primary-background full-height">
-      <Grid gutter="md" className="pf-u-p-lg">
+      <Grid hasGutter className="pf-u-p-lg">
         <div className="pf-u-mb-sm">
           <CatalogBreadcrumbs />
         </div>

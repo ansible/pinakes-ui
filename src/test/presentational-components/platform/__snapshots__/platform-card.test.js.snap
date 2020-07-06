@@ -16,7 +16,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
           >
             <CardHeader>
               <div
-                className="pf-c-card__header pf-c-title pf-m-md"
+                className="pf-c-card__header"
               >
                 <ImageWithDefault
                   height="40"
@@ -176,7 +176,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
           >
             <CardHeader>
               <div
-                className="pf-c-card__header pf-c-title pf-m-md"
+                className="pf-c-card__header"
               >
                 <ImageWithDefault
                   height="40"

@@ -12,7 +12,10 @@ exports[`<Orders /> should render correctly 1`] = `
         "LevelItem": [Function],
         "Link": [Function],
         "Toolbar": [Function],
-        "ToolbarGroup": [Function],
+        "ToolbarGroup": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
         "ToolbarItem": [Function],
         "TopToolbar": [Function],
         "TopToolbarTitle": [Function],
@@ -54,7 +57,10 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
         "LevelItem": [Function],
         "Link": [Function],
         "Toolbar": [Function],
-        "ToolbarGroup": [Function],
+        "ToolbarGroup": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "render": [Function],
+        },
         "ToolbarItem": [Function],
         "TopToolbar": [Function],
         "TopToolbarTitle": [Function],

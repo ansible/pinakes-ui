@@ -10,12 +10,17 @@ import {
   StyledCard,
   StyledGalleryItem
 } from '../../presentational-components/styled-components/styled-gallery';
+import styled from 'styled-components';
+
+const StyledLevel = styled(Level)`
+  flex: 1;
+`;
 
 const PortfolioItem = (props) => (
   <StyledGalleryItem isDisabled={props.removeInProgress && props.isSelected}>
     <StyledCard>
-      <CardHeader className="card_header">
-        <Level>
+      <CardHeader>
+        <StyledLevel>
           <CardIcon
             src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
             sourceId={props.service_offering_source_ref}
@@ -27,7 +32,7 @@ const PortfolioItem = (props) => (
               id={props.id}
             />
           )}
-        </Level>
+        </StyledLevel>
       </CardHeader>
       <ServiceOfferingCardBody {...props} />
       <CardFooter></CardFooter>

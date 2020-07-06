@@ -83,6 +83,11 @@ describe('<AddProductsToPortfolio />', () => {
         data: [],
         meta: { count: 123, limit: 50, offset: 123 }
       });
+    mockApi
+      .onGet(
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
+      )
+      .replyOnce(200, { data: [] });
 
     let wrapper;
     await act(async () => {
@@ -134,18 +139,20 @@ describe('<AddProductsToPortfolio />', () => {
       })
     ];
 
-    const select = wrapper.find(InternalSelect);
+    wrapper
+      .find('.pf-c-select__toggle')
+      .first()
+      .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
     await act(async () => {
-      select.props().onChange({ id: '1' });
+      wrapper
+        .find('button.pf-c-select__menu-item')
+        .first()
+        .simulate('click');
     });
     wrapper.update();
-    mockApi
-      .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
-      )
-      .replyOnce(200, { data: [] });
+
     expect(wrapper.find(PlatformItem)).toHaveLength(1);
-    const searchInput = wrapper.find('input').at(1);
+    const searchInput = wrapper.find('input').at(0);
     await act(async () => {
       searchInput.getDOMNode().value = 'foo';
       searchInput.simulate('change');
