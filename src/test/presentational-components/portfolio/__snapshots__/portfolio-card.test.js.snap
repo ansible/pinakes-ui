@@ -65,15 +65,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         }
       />
     </Styled(CardBody)>
-    <CardFooter>
-      <Flex
-        justifyContent={
-          Object {
-            "default": "justifyContentFlexEnd",
-          }
-        }
-      />
-    </CardFooter>
+    <CardFooter />
   </Styled(Card)>
 </Styled(Component)>
 `;

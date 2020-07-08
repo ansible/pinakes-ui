@@ -11,9 +11,7 @@ import {
   Text,
   TextContent,
   TextVariants,
-  Label,
-  Flex,
-  FlexItem
+  Label
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
@@ -207,15 +205,11 @@ const PortfolioCard = ({
           />
         </StyledCardBody>
         <CardFooter>
-          <Flex justifyContent={{ default: 'justifyContentFlexEnd' }}>
-            {shared_groups > 0 && (
-              <FlexItem>
-                <Label variant="filled" color="blue">
-                  Shared
-                </Label>
-              </FlexItem>
-            )}
-          </Flex>
+          {shared_groups > 0 && (
+            <Label variant="filled" color="blue">
+              Shared
+            </Label>
+          )}
         </CardFooter>
       </StyledCard>
     </StyledGalleryItem>

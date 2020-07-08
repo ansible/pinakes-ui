@@ -143,10 +143,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                 >
                   <Styled(CardBody)>
                     <CardBody
-                      className="sc-fzpans hEOQak"
+                      className="sc-fzpans uQIxF"
                     >
                       <div
-                        className="pf-c-card__body sc-fzpans hEOQak"
+                        className="pf-c-card__body sc-fzpans uQIxF"
                       >
                         <TextContent>
                           <div
