@@ -18,7 +18,8 @@ const prepareTruthyCapability = (truthyCapability) => ({
           [truthyCapability]: true
         }
       : {})
-  }
+  },
+  statistics: {}
 });
 
 describe('<PortfolioCard />', () => {
@@ -42,7 +43,8 @@ describe('<PortfolioCard />', () => {
           share: true,
           unshare: true,
           set_approval: true
-        }
+        },
+        statistics: {}
       }
     };
   });
@@ -136,7 +138,10 @@ describe('<PortfolioCard />', () => {
   it('should not render dropdown', () => {
     const wrapper = mount(
       <MemoryRouter>
-        <PortfolioCard {...initialProps} metadata={{ user_capabilities: {} }} />
+        <PortfolioCard
+          {...initialProps}
+          metadata={{ user_capabilities: {}, statistics: {} }}
+        />
       </MemoryRouter>
     );
     expect(wrapper.find(Dropdown)).toHaveLength(0);

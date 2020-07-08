@@ -33,7 +33,8 @@ export const portfoliosInitialState = {
   portfolioItem: {
     portfolioItem: {
       metadata: {
-        user_capabilities: {}
+        user_capabilities: {},
+        statistics: {}
       }
     }
   },
@@ -46,7 +47,8 @@ export const portfoliosInitialState = {
   },
   selectedPortfolio: {
     metadata: {
-      user_capabilities: {}
+      user_capabilities: {},
+      statistics: {}
     }
   },
   portfolio: {},
@@ -84,7 +86,7 @@ const filterPortfolios = (state, { payload }) => ({
 });
 const resetSelectedPortfolio = (state) => ({
   ...state,
-  selectedPortfolio: { metadata: { user_capabilities: {} } },
+  selectedPortfolio: { metadata: { user_capabilities: {}, statistics: {} } },
   portfolioItems: portfoliosInitialState.portfolioItems
 });
 
@@ -97,7 +99,7 @@ const addTemporaryPortfolio = (state, { payload }) => ({
     ...state.portfolios,
     data: [
       ...state.portfolios.data,
-      { ...payload, metadata: { user_capabilities: {} } }
+      { ...payload, metadata: { user_capabilities: {}, statistics: {} } }
     ]
   }
 });
@@ -106,6 +108,7 @@ const updateTemporaryPortfolio = (state, { payload }) => ({
   ...state,
   selectedPortfolio: {
     metadata: {
+      ...state.selectedPortfolio.metadata,
       user_capabilities: {
         ...state.selectedPortfolio.metadata.user_capabilities
       }
@@ -128,7 +131,7 @@ const updateTemporaryPortfolio = (state, { payload }) => ({
 const deleteTemporaryPortfolio = (state, { payload }) => ({
   prevState: { ...state },
   ...state,
-  selectedPortfolio: { metadata: { user_capabilities: {} } },
+  selectedPortfolio: { metadata: { user_capabilities: {}, statistics: {} } },
   portfolios: {
     ...state.portfolios,
     data: state.portfolios.data.filter(({ id }) => id !== payload)

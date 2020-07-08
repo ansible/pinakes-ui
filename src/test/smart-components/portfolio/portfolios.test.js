@@ -50,7 +50,8 @@ describe('<Portfolios />', () => {
                   unshare: true,
                   update: true,
                   destroy: true
-                }
+                },
+                statistics: {}
               }
             }
           ],

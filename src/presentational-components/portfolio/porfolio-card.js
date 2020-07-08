@@ -10,7 +10,10 @@ import {
   KebabToggle,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  Label,
+  Flex,
+  FlexItem
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
@@ -160,7 +163,10 @@ const PortfolioCard = ({
   name,
   id,
   handleCopyPortfolio,
-  metadata: { user_capabilities },
+  metadata: {
+    user_capabilities,
+    statistics: { shared_groups }
+  },
   ...props
 }) => {
   const to = {
@@ -200,7 +206,17 @@ const PortfolioCard = ({
             toDisplay={TO_DISPLAY}
           />
         </StyledCardBody>
-        <CardFooter />
+        <CardFooter>
+          <Flex justifyContent={{ default: 'justifyContentFlexEnd' }}>
+            {shared_groups > 0 && (
+              <FlexItem>
+                <Label variant="filled" color="blue">
+                  Shared
+                </Label>
+              </FlexItem>
+            )}
+          </Flex>
+        </CardFooter>
       </StyledCard>
     </StyledGalleryItem>
   );
@@ -215,8 +231,10 @@ PortfolioCard.propTypes = {
   created_at: PropTypes.string.isRequired,
   owner: PropTypes.string,
   isDisabled: PropTypes.bool,
-  metadata: PropTypes.shape({ user_capabilities: PropTypes.object.isRequired })
-    .isRequired,
+  metadata: PropTypes.shape({
+    user_capabilities: PropTypes.object.isRequired,
+    statistics: PropTypes.shape({ shared_groups: PropTypes.number }).isRequired
+  }).isRequired,
   handleCopyPortfolio: PropTypes.func.isRequired
 };
 
