@@ -43,7 +43,8 @@ describe('<SharePortfolioModal/>', () => {
             user_capabilities: {
               share: true,
               unshare: true
-            }
+            },
+            statistics: {}
           }
         }
       },
@@ -164,7 +165,8 @@ describe('<SharePortfolioModal/>', () => {
             user_capabilities: {
               share: false,
               unshare: false
-            }
+            },
+            statistics: {}
           }
         }
       }

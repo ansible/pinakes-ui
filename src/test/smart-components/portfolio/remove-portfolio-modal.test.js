@@ -58,7 +58,8 @@ describe('<RemovePortfolioModal />', () => {
               metadata: {
                 user_capabilities: {
                   destroy: true
-                }
+                },
+                statistics: {}
               }
             }
           ]
@@ -250,7 +251,8 @@ describe('<RemovePortfolioModal />', () => {
               metadata: {
                 user_capabilities: {
                   destroy: false
-                }
+                },
+                statistics: {}
               }
             }
           ]

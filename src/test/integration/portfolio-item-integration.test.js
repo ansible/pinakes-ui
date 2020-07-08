@@ -51,7 +51,8 @@ describe('Integration tests for portfolio items', () => {
           destroy: true,
           share: true,
           unshare: true
-        }
+        },
+        statistics: {}
       }
     };
     const addedPortfolioItem = {

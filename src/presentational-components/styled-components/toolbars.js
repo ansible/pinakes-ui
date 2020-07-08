@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Level } from '@patternfly/react-core';
 
 export const StyledToolbar = styled.div`
-  display: flex;
-  flex-grow: 1;
   > *:not(:last-child) {
     margin-right: var(--pf-global--spacer--md);
   }

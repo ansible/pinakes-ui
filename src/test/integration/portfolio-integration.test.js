@@ -43,7 +43,8 @@ describe('Integration test for portfolio entity', () => {
           destroy: true,
           share: true,
           unshare: true
-        }
+        },
+        statistics: {}
       }
     };
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, {

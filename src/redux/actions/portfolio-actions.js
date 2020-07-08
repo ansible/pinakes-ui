@@ -266,11 +266,8 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
           dismissable: true,
           description: (
             <FormattedMessage
-              id="portfolio.remove-portfolio-items"
-              defaultMessage={`You have removed {count, number} {count, plural,
-            one {product}
-            other {products}
-          } from the {portfolioName} portfolio. {undo} if this was a mistake.`}
+              id="portfolio.remove.portfolio-items"
+              defaultMessage="You have removed {count, number} {count, plural, one {product} other {products} } from the {portfolioName} portfolio. {undo} if this was a mistake." // eslint-disable-line max-len
               values={{
                 count: portfolioItems.length,
                 portfolioName,
