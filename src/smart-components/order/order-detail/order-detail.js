@@ -97,11 +97,12 @@ const OrderDetail = () => {
         isInline
         title={
           <FormattedMessage
-            id={'order-detail-not-found'}
-            defaultMessage={`The ${notFoundObjects.join(
-              ', '
-            )} for this order {count, plural, one {is} other {are}} not available`}
-            values={{ count: notFoundObjects.length }}
+            id="order.detail.not-found"
+            defaultMessage="The {objects} for this order {count, plural, one {is} other {are}} not available"
+            values={{
+              objects: notFoundObjects.join(', '),
+              count: notFoundObjects.length
+            }}
           />
         }
       />
