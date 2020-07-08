@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
-import { Dropdown } from '@patternfly/react-core';
+import { Dropdown, Label } from '@patternfly/react-core';
 
 const prepareTruthyCapability = (truthyCapability) => ({
   user_capabilities: {
@@ -145,5 +145,21 @@ describe('<PortfolioCard />', () => {
       </MemoryRouter>
     );
     expect(wrapper.find(Dropdown)).toHaveLength(0);
+  });
+
+  it('should render with shared label', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <PortfolioCard
+          {...initialProps}
+          metadata={{
+            ...initialProps.metadata,
+            statistics: { shared_groups: 2 }
+          }}
+        />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(Label)).toHaveLength(1);
+    expect(wrapper.find(Label).text()).toEqual('Shared');
   });
 });
