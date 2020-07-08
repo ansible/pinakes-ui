@@ -35,7 +35,8 @@ describe('Portfolio share and workflow setting integration', () => {
           share: true,
           unshare: true,
           set_approval: true
-        }
+        },
+        statistics: {}
       }
     };
     jest.spyOn(global.insights.chrome, 'getUserPermissions').mockImplementation(

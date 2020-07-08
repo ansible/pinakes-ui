@@ -78,7 +78,8 @@ describe('<Portfolio />', () => {
               unshare: true,
               show: true
             }
-          }
+          },
+          statistics: {}
         },
         portfolioItems: {
           data: [],
@@ -103,7 +104,8 @@ describe('<Portfolio />', () => {
                   unshare: true,
                   show: true
                 }
-              }
+              },
+              statistics: {}
             }
           ]
         }
@@ -251,7 +253,8 @@ describe('<Portfolio />', () => {
                   share: true,
                   unshare: true,
                   show: true
-                }
+                },
+                statistics: {}
               }
             }
           ],
@@ -331,7 +334,8 @@ describe('<Portfolio />', () => {
               metadata: {
                 user_capabilities: {
                   destroy: true
-                }
+                },
+                statistics: {}
               }
             }
           ],
@@ -642,7 +646,7 @@ describe('<Portfolio />', () => {
       .replyOnce(200, {
         id: 'portfolio-id',
         name: 'Portfolio',
-        metadata: { user_capabilities: { show: true } }
+        metadata: { user_capabilities: { show: true }, statistics: {} }
       })
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {
@@ -748,7 +752,8 @@ describe('<Portfolio />', () => {
           metadata: {
             user_capabilities: {
               show: false
-            }
+            },
+            statistics: {}
           }
         }
       }
