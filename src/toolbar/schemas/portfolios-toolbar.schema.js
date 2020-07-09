@@ -1,5 +1,5 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
-import { createSingleItemGroup, createLinkButton } from '../helpers';
+import { createLinkButton } from '../helpers';
 import { hasPermission } from '../../helpers/shared/helpers';
 
 import AsyncPagination from '../../smart-components/common/async-pagination';
@@ -31,31 +31,35 @@ const createPortfolioToolbarSchema = ({
                   component: toolbarComponentTypes.TOOLBAR,
                   key: 'main-portfolio-toolbar',
                   fields: [
-                    createSingleItemGroup({
-                      groupName: 'filter-group',
-                      component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
-                      key: 'filter-input',
-                      searchValue,
-                      onFilterChange,
-                      placeholder,
-                      isClearable: true
-                    }),
-                    createSingleItemGroup({
-                      hidden:
-                        meta.count === 0 ||
-                        !hasPermission(userPermissions, [
-                          'catalog:portfolios:create'
-                        ]),
-                      groupName: 'portfolio-button-group',
-                      key: 'create-portfolio',
-                      ...createLinkButton({
-                        pathname: '/portfolios/add-portfolio',
-                        variant: 'primary',
-                        key: 'create-portfolio-button',
-                        'aria-label': 'Create portfolio',
-                        title: 'Create'
-                      })
-                    })
+                    {
+                      key: 'portfolio-actions-group',
+                      component: toolbarComponentTypes.TOOLBAR_GROUP,
+                      fields: [
+                        {
+                          component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
+                          key: 'filter-input',
+                          searchValue,
+                          onFilterChange,
+                          placeholder,
+                          isClearable: true
+                        },
+                        {
+                          hidden:
+                            meta.count === 0 ||
+                            !hasPermission(userPermissions, [
+                              'catalog:portfolios:create'
+                            ]),
+                          key: 'create-portfolio',
+                          ...createLinkButton({
+                            pathname: '/portfolios/add-portfolio',
+                            variant: 'primary',
+                            key: 'create-portfolio-button',
+                            'aria-label': 'Create portfolio',
+                            title: 'Create'
+                          })
+                        }
+                      ]
+                    }
                   ]
                 },
                 {
