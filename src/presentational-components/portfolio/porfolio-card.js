@@ -29,6 +29,7 @@ import {
   StyledGalleryItem
 } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
+import { FormattedMessage } from 'react-intl';
 
 const TO_DISPLAY = ['description'];
 
@@ -50,7 +51,10 @@ const HeaderActions = ({
             pathname={SHARE_PORTFOLIO_ROUTE}
             preserveHash
           >
-            Share
+            <FormattedMessage
+              id="dropdown.options.share"
+              defaultMessage="Share"
+            />
           </CatalogLink>
         }
       />
@@ -64,7 +68,7 @@ const HeaderActions = ({
         id="copy-portfolio-action"
         onClick={() => handleCopyPortfolio(portfolioId)}
       >
-        Copy
+        <FormattedMessage id="dropdown.options.copy" defaultMessage="Copy" />
       </DropdownItem>
     );
   }
@@ -80,7 +84,10 @@ const HeaderActions = ({
             pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
             preserveHash
           >
-            Set approval
+            <FormattedMessage
+              id="dropdown.options.set-approval"
+              defaultMessage="Set approval"
+            />
           </CatalogLink>
         }
       />
@@ -98,7 +105,10 @@ const HeaderActions = ({
             pathname={EDIT_PORTFOLIO_ROUTE}
             preserveHash
           >
-            Edit
+            <FormattedMessage
+              id="dropdown.options.edit"
+              defaultMessage="Edit"
+            />
           </CatalogLink>
         }
       />
@@ -116,7 +126,10 @@ const HeaderActions = ({
             pathname={REMOVE_PORTFOLIO_ROUTE}
             preserveHash
           >
-            Delete
+            <FormattedMessage
+              id="dropdown.options.delete"
+              defaultMessage="Delete"
+            />
           </CatalogLink>
         }
       />
@@ -207,7 +220,10 @@ const PortfolioCard = ({
         <CardFooter>
           {shared_groups > 0 && (
             <Label variant="filled" color="blue">
-              Shared
+              <FormattedMessage
+                id="common.labels.shared"
+                defaultMessage="Shared"
+              />
             </Label>
           )}
         </CardFooter>

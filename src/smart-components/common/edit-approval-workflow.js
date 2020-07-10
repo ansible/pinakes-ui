@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,6 +19,7 @@ import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
+import { useIntl, defineMessage, FormattedMessage } from 'react-intl';
 
 const initialState = {
   isFetching: true
@@ -41,6 +42,15 @@ const EditApprovalWorkflow = ({
   pushParam,
   objectName = () => objectType
 }) => {
+  const { formatMessage } = useIntl();
+  const { current: modalTitle } = useRef(
+    formatMessage(
+      defineMessage({
+        id: 'workflows.modal.title',
+        defaultMessage: 'Set approval process'
+      })
+    )
+  );
   const [{ isFetching }, stateDispatch] = useReducer(
     approvalState,
     initialState
@@ -91,7 +101,7 @@ const EditApprovalWorkflow = ({
 
   return (
     <Modal
-      title="Set approval process"
+      title={modalTitle}
       isOpen
       onClose={() => history.push(pushParam)}
       variant="small"
@@ -102,8 +112,15 @@ const EditApprovalWorkflow = ({
           <StackItem>
             <TextContent>
               <Text>
-                Select approval processes for{' '}
-                <strong>{objectName(query[querySelector])}</strong>
+                <FormattedMessage
+                  id="workflows.edit.set-approval"
+                  defaultMessage="Select approval processes for <strong>{objectName}</strong>"
+                  values={{
+                    // eslint-disable-next-line react/display-name
+                    strong: (chunks) => <strong>{chunks}</strong>,
+                    objectName: objectName(query[querySelector])
+                  }}
+                />
               </Text>
             </TextContent>
           </StackItem>
@@ -116,7 +133,14 @@ const EditApprovalWorkflow = ({
               onCancel={() => history.push(pushParam)}
               schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
               formContainer="modal"
-              buttonsLabels={{ submitLabel: 'Save' }}
+              templateProps={{
+                submitLabel: (
+                  <FormattedMessage
+                    id="common.forms.save"
+                    defaultMessage="Save"
+                  />
+                )
+              }}
             />
           </StackItem>
         </Stack>

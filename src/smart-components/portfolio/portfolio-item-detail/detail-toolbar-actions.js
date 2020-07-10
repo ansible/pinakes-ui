@@ -9,6 +9,30 @@ import {
 } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import CatalogLink from '../../common/catalog-link';
+import { useIntl, defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  edit: {
+    id: 'portfolio.item.detail.actions.edit',
+    defaultMessage: 'Edit'
+  },
+  copy: {
+    id: 'portfolio.item.detail.actions.copy',
+    defaultMessage: 'Copy'
+  },
+  approval: {
+    id: 'portfolio.item.detail.actions.approval',
+    defaultMessage: 'Set approval'
+  },
+  survey: {
+    id: 'portfolio.item.detail.actions.survey',
+    defaultMessage: 'Edit survey'
+  },
+  order: {
+    id: 'portfolio.item.detail.actions.order',
+    defaultMessage: 'Order'
+  }
+});
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -22,6 +46,7 @@ const DetailToolbarActions = ({
   availability,
   userCapabilities: { update, copy, set_approval }
 }) => {
+  const { formatMessage } = useIntl();
   const dropdownItems = [];
   if (update) {
     dropdownItems.push(
@@ -31,7 +56,7 @@ const DetailToolbarActions = ({
         id="edit-portfolio-item"
         component={
           <CatalogLink pathname={editUrl} preserveSearch>
-            Edit
+            {formatMessage(messages.edit)}
           </CatalogLink>
         }
         role="link"
@@ -47,7 +72,7 @@ const DetailToolbarActions = ({
         id="copy-portfolio-item"
         component={
           <CatalogLink pathname={copyUrl} preserveSearch>
-            Copy
+            {formatMessage(messages.copy)}
           </CatalogLink>
         }
         role="link"
@@ -63,7 +88,7 @@ const DetailToolbarActions = ({
         id="set-approval_workflow"
         component={
           <CatalogLink pathname={workflowUrl} preserveSearch>
-            Set approval
+            {formatMessage(messages.approval)}
           </CatalogLink>
         }
         role="link"
@@ -79,7 +104,7 @@ const DetailToolbarActions = ({
         id="edit-survey"
         component={
           <CatalogLink pathname={editSurveyUrl} preserveSearch>
-            Edit survey
+            {formatMessage(messages.survey)}
           </CatalogLink>
         }
         role="link"
@@ -101,7 +126,7 @@ const DetailToolbarActions = ({
             variant="primary"
             id="order-portfolio-item"
           >
-            Order
+            {formatMessage(messages.order)}
           </ButtonWithSpinner>
         </CatalogLink>
       </LevelItem>

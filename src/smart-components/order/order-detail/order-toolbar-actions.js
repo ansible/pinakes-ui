@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { cancelOrder } from '../../../redux/actions/order-actions';
 import CancelOrderModal from '../cancel-order-modal';
+import { FormattedMessage } from 'react-intl';
 
 const CANCELABLE_STATES = ['Approval Pending'];
 
@@ -32,7 +33,10 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
           className="pf-u-mr-md"
           id="cancel-order-action"
         >
-          Cancel order
+          <FormattedMessage
+            id="orders.order.actions.cancel"
+            defaultMessage="Cancel order"
+          />
         </Button>
       </ActionGroup>
     </Fragment>

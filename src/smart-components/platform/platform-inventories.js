@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
@@ -15,6 +15,7 @@ import { createRows } from './platform-table-helpers.js';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
+import { FormattedMessage, defineMessage, useIntl } from 'react-intl';
 
 const initialState = {
   filterValue: '',
@@ -46,9 +47,49 @@ const platformInventoriesState = (state, action) => {
   }
 };
 
-const columns = ['Name', 'Description', 'Created', 'Workflow'];
-
 const PlatformInventories = () => {
+  const { formatMessage } = useIntl();
+  /**
+   * Has to be wrapped in fragment because the amazing piece of code called react tabular used byt PF is copying
+   * the props and shoving them onto the table header cell DOM element and we need to wrap the text intro extra element to prevent
+   * errors. ¯\_(ツ)_/¯
+   */
+  const {
+    current: { columns, filterPlaceholder }
+  } = useRef({
+    filterPlaceholder: formatMessage(
+      defineMessage({
+        id: 'platform.inventories.filter.placeholder',
+        defaultMessage: 'Filter by inventory'
+      })
+    ),
+    columns: [
+      <Fragment key="name">
+        <FormattedMessage
+          id="platform.inventories.columns.name"
+          defaultMessage="Name"
+        />
+      </Fragment>,
+      <Fragment key="description">
+        <FormattedMessage
+          id="platform.inventories.columns.description"
+          defaultMessage="Description"
+        />
+      </Fragment>,
+      <Fragment key="created">
+        <FormattedMessage
+          id="platform.inventories.columns.created"
+          defaultMessage="Created"
+        />
+      </Fragment>,
+      <Fragment key="workflow">
+        <FormattedMessage
+          id="platform.inventories.columns.workflow"
+          defaultMessage="Workflow"
+        />
+      </Fragment>
+    ]
+  });
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformInventoriesState,
     initialState
@@ -106,7 +147,7 @@ const PlatformInventories = () => {
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
-          filterPlaceholder: 'Filter by inventory',
+          filterPlaceholder,
           meta,
           apiRequest: (_, options) =>
             dispatch(fetchPlatformInventories(id, filterValue, options))
@@ -124,9 +165,17 @@ const PlatformInventories = () => {
               title="No inventories"
               Icon={SearchIcon}
               description={
-                filterValue === ''
-                  ? 'No inventories found.'
-                  : 'No inventories match your filter criteria.'
+                filterValue === '' ? (
+                  <FormattedMessage
+                    id="platform.inventories.empty.no-inventories"
+                    defaultMessage="No inventories found."
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="platform.inventories.empty.no-esults"
+                    defaultMessage="No inventories match your filter criteria."
+                  />
+                )
               }
             />
           )}

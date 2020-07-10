@@ -9,8 +9,13 @@ import {
 } from '@patternfly/react-table';
 
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
+import { FormattedMessage } from 'react-intl';
 
-const NoItems = () => <Text component={TextVariants.h1}>No items found</Text>;
+const NoItems = () => (
+  <Text component={TextVariants.h1}>
+    <FormattedMessage id="gallery.no-items" defaultMessage="No items found" />
+  </Text>
+);
 
 const ContentList = ({
   data,

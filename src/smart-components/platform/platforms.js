@@ -11,6 +11,7 @@ import PlatformCard from '../../presentational-components/platform/platform-card
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import UserContext from '../../user-context';
+import { FormattedMessage } from 'react-intl';
 
 const Platforms = () => {
   const [filterValue, setFilterValue] = useState('');
@@ -39,18 +40,30 @@ const Platforms = () => {
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
-          Configure a source in order to add products to portfolios.
+          <FormattedMessage
+            id="platforms.list.configure-source"
+            defaultMessage="Configure a source in order to add products to portfolios."
+          />
         </Text>
         {is_org_admin ? (
           <Text component={TextVariants.p}>
-            To connect to a source, go to{' '}
-            <a href={`${document.baseURI}settings/sources`}>Sources</a>
-            &nbsp;under Settings.
+            <FormattedMessage
+              id="platforms.list.connect-source"
+              defaultMessage="To connect to a source, go to <a>Sources</a> under Settings."
+              values={{
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
+                  <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+                )
+              }}
+            />
           </Text>
         ) : (
           <Text>
-            Contact your organization administrator to setup sources for
-            Catalog.
+            <FormattedMessage
+              id="platforms.list.contact-admin"
+              defaultMessage="Contact your organization administrator to setup sources for Catalog."
+            />
           </Text>
         )}
       </TextContent>
@@ -70,14 +83,24 @@ const Platforms = () => {
         schema={createPlatformsToolbarSchema({
           onFilterChange: (value) => setFilterValue(value),
           searchValue: filterValue,
-          title: 'Platforms'
+          title: (
+            <FormattedMessage
+              id="platforms.list.title"
+              defaultMessage="Platforms"
+            />
+          )
         })}
       />
       <ContentGallery
         {...filteredItems}
         renderEmptyState={() => (
           <ContentGalleryEmptyState
-            title="No platforms yet"
+            title={
+              <FormattedMessage
+                id="platforms.list.empty.title"
+                defaultMessage="No platforms yet"
+              />
+            }
             renderDescription={renderEmptyStateDescription}
             Icon={SearchIcon}
           />

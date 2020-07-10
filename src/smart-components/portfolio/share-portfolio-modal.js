@@ -22,6 +22,41 @@ import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
+import { defineMessages, useIntl, defineMessage } from 'react-intl';
+
+const messages = defineMessages({
+  unknown: {
+    id: 'portfolio.share.modal.option.unknown',
+    defaultMessage: 'Unknown'
+  },
+  permissions: {
+    id: 'portfolio.share.modal.permissions',
+    defaultMessage: 'Select the share permissions'
+  },
+  groups: {
+    id: 'portfolio.share.modal.groups',
+    defaultMessage: 'Select a group'
+  },
+  title: {
+    id: 'portfolio.share.modal.title',
+    defaultMessage: 'Share portfolio'
+  },
+  apply: {
+    id: 'portfolio.share.modal.apply',
+    defaultMessage: 'Apply'
+  }
+});
+
+const getDescription = (name) =>
+  defineMessage({
+    id: 'portfolio.share.modal.description',
+    defaultMessage: 'Share <strong>{name}</strong> portfolio',
+    values: {
+      // eslint-disable-next-line react/display-name
+      strong: (chunks) => <strong>{chunks}</strong>,
+      name
+    }
+  });
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -29,6 +64,7 @@ const SharePortfolioModal = ({
   viewState,
   portfolioName = () => ''
 }) => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
   const [{ portfolio }, search] = useQuery(['portfolio']);
@@ -56,7 +92,7 @@ const SharePortfolioModal = ({
         (perm) => perm.value === groupPermissions.sort().join(',')
       );
       return {
-        [groupName]: options ? options.value : 'Unknown'
+        [groupName]: options ? options.value : formatMessage(messages.unknown)
       };
     });
     let initialShareList = initialGroupShareList.reduce(
@@ -136,26 +172,29 @@ const SharePortfolioModal = ({
   const validateShares = (values) => {
     const errors = {};
     if (values.group_uuid && !values.permissions) {
-      errors.permissions = 'Select the share permissions';
+      errors.permissions = formatMessage(messages.permissions);
     }
 
     if (values.permissions && !values.group_uuid) {
-      errors.group_uuid = 'Select a group';
+      errors.group_uuid = formatMessage(messages.groups);
     }
 
     return errors;
   };
 
   return (
-    <Modal title="Share portfolio" isOpen variant="small" onClose={onCancel}>
+    <Modal
+      title={formatMessage(messages.title)}
+      isOpen
+      variant="small"
+      onClose={onCancel}
+    >
       {isFetching && <ShareLoader />}
       {!isFetching && (
         <Stack hasGutter>
           <StackItem>
             <TextContent>
-              <Text>
-                Share <strong>{portfolioName(portfolio)}</strong> portfolio
-              </Text>
+              <Text>{getDescription(portfolioName(portfolio))}</Text>
             </TextContent>
           </StackItem>
           <StackItem>
@@ -173,7 +212,7 @@ const SharePortfolioModal = ({
               validate={validateShares}
               initialValues={{ ...initialValues, ...initialShares() }}
               formContainer="modal"
-              buttonsLabels={{ submitLabel: 'Apply' }}
+              templateProps={{ submitLabel: formatMessage(messages.apply) }}
             />
           </StackItem>
         </Stack>

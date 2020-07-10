@@ -18,8 +18,33 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import { defineMessages, useIntl, defineMessage } from 'react-intl';
+
+const getWarningMessage = (name) =>
+  defineMessage({
+    id: 'portfolio.remove.modal.description',
+    defaultMessages:
+      'This action will permanently delete portfolio {name} and its data.',
+    values: { name }
+  });
+
+const messages = defineMessages({
+  title: {
+    id: 'portfolio.remove.modal.title',
+    defaultMessages: 'Delete Portfolio?'
+  },
+  confirm: {
+    id: 'portfolio.remove.modal.confirm',
+    defaultMessages: 'Confirm'
+  },
+  cancel: {
+    id: 'portfolio.remove.modal.cancel',
+    defaultMessages: 'Cancel'
+  }
+});
 
 const RemovePortfolioModal = ({ viewState }) => {
+  const { formatMessage } = useIntl();
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const portfolio = useSelector(({ portfolioReducer }) =>
@@ -45,7 +70,7 @@ const RemovePortfolioModal = ({ viewState }) => {
     <UnauthorizedRedirect />
   ) : (
     <Modal
-      title="Delete Portfolio?"
+      title={formatMessage(messages.title)}
       isOpen
       variant="small"
       onClose={goBack}
@@ -57,10 +82,10 @@ const RemovePortfolioModal = ({ viewState }) => {
           id="confirm-delete-portfolio"
           onClick={onSubmit}
         >
-          Confirm
+          {formatMessage(messages.confirm)}
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>
-          Cancel
+          {formatMessage(messages.cancel)}
         </Button>
       ]}
     >
@@ -71,8 +96,7 @@ const RemovePortfolioModal = ({ viewState }) => {
         <SplitItem>
           <TextContent>
             <Text component={TextVariants.p}>
-              This action will permanently delete portfolio {portfolio.name} and
-              its data.
+              {getWarningMessage(portfolio.name)}
             </Text>
           </TextContent>
         </SplitItem>

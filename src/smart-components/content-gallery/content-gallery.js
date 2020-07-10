@@ -4,10 +4,13 @@ import { Section } from '@redhat-cloud-services/frontend-components/components/c
 import { Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
+import { FormattedMessage } from 'react-intl';
 
 const NoItems = () => (
   <div>
-    <Text component={TextVariants.h1}>No items found</Text>
+    <Text component={TextVariants.h1}>
+      <FormattedMessage id="gallery.no-items" defaultMessage="No items found" />
+    </Text>
   </div>
 );
 

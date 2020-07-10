@@ -15,6 +15,7 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components/component
 
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
+import { FormattedMessage } from 'react-intl';
 
 const OrderDetailInformation = ({
   jobName,
@@ -42,11 +43,17 @@ const OrderDetailInformation = ({
         </LevelItem>
         <LevelItem>
           <Title headingLevel="h5" size="md">
-            Status:{' '}
-            {state === 'Failed' && (
-              <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
-            )}{' '}
-            {state}
+            <FormattedMessage
+              id="orders.order.details.status"
+              defaultMessage="Status: <icon></icon> {state}"
+              values={{
+                // eslint-disable-next-line react/display-name
+                icon: () => (
+                  <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
+                ),
+                state
+              }}
+            />
           </Title>
         </LevelItem>
       </Level>
@@ -54,20 +61,34 @@ const OrderDetailInformation = ({
         <LevelItem className="pf-u-mr-lg">
           <TextContent>
             <Text component={TextVariants.small}>
-              Ordered&nbsp;
+              <FormattedMessage
+                id="orders.order.details.ordered"
+                defaultMessage="Ordered"
+              />
+              &nbsp;
               <DateFormat date={orderRequestDate} type="relative" />
             </Text>
           </TextContent>
         </LevelItem>
         <LevelItem className="pf-u-mr-lg">
           <TextContent>
-            <Text component={TextVariants.small}>Ordered by {owner}</Text>
+            <Text component={TextVariants.small}>
+              <FormattedMessage
+                id="orders.order.details.ordered-by"
+                defaultMessage="Ordered by {owner}"
+                values={{ owner }}
+              />
+            </Text>
           </TextContent>
         </LevelItem>
         <LevelItem>
           <TextContent>
             <Text component={TextVariants.small}>
-              Last updated&nbsp;
+              <FormattedMessage
+                id="orders.order.details.last-updated"
+                defaultMessage="Last updated"
+              />
+              &nbsp;
               <DateFormat date={orderUpdateDate} type="relative" />
             </Text>
           </TextContent>

@@ -25,6 +25,7 @@ import {
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
 import { StyledToolbar } from '../styled-components/toolbars';
+import { FormattedMessage } from 'react-intl';
 
 const wave = keyframes`
   0% {
@@ -162,13 +163,23 @@ const FormItemLoader = () => <Skeleton height={38} className="pf-u-mb-lg" />;
 export const ShareLoader = () => (
   <Form>
     <TextContent>
-      <Text component={TextVariants.small}>Invite group</Text>
+      <Text component={TextVariants.small}>
+        <FormattedMessage
+          id="loaders.share.invite-group"
+          defaultMessage="Invite group"
+        />
+      </Text>
     </TextContent>
     <FormGroup fieldId="1">
       <FormItemLoader />
     </FormGroup>
     <TextContent>
-      <Text component={TextVariants.small}>Groups with access</Text>
+      <Text component={TextVariants.small}>
+        <FormattedMessage
+          id="loaders.share.groups-with-access"
+          defaultMessage="Groups with access"
+        />
+      </Text>
     </TextContent>
     <FormGroup fieldId="3">
       <FormItemLoader />
@@ -186,7 +197,7 @@ export const WorkflowLoader = () => (
     </FormGroup>
     <ActionGroup>
       <Button variant="primary" isDisabled>
-        Save
+        <FormattedMessage id="common.forms.save" defaultMessage="Save" />
       </Button>
     </ActionGroup>
   </Form>

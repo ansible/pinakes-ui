@@ -5,6 +5,14 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import styled from 'styled-components';
+import { defineMessages, useIntl } from 'react-intl';
+
+const messages = defineMessages({
+  title: {
+    id: 'portfolio.item.icon.upload.notification',
+    defaultMessage: 'Icon upload error'
+  }
+});
 
 const UploadButton = styled.button`
   border: none;
@@ -35,6 +43,7 @@ const ImagePreview = styled.img`
 `;
 
 const IconUpload = ({ uploadIcon, children }) => {
+  const { formatMessage } = useIntl();
   const inputRef = useRef();
   const [image, setImage] = useState();
   const [isUploading, setIsUploading] = useState(false);
@@ -54,7 +63,7 @@ const IconUpload = ({ uploadIcon, children }) => {
               dispatch(
                 addNotification({
                   variant: 'danger',
-                  title: 'Icon upload error',
+                  title: formatMessage(messages.title),
                   description: error.data.errors[0].detail,
                   dismissable: true
                 })

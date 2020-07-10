@@ -24,6 +24,35 @@ import { ADD_PORTFOLIO_ROUTE, PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
+import { defineMessages, useIntl } from 'react-intl';
+
+const messages = defineMessages({
+  clear: {
+    id: 'portfolios.filters.clear-all',
+    defaultMessage: 'Clear all filters'
+  },
+  placeholder: {
+    id: 'portfolios.filters.placeholder',
+    defaultMessage: 'Filter by portfolio'
+  },
+  noData: {
+    id: 'portfolios.empty.noData.title',
+    defaultMessage: 'No portfolios'
+  },
+  noDataDescription: {
+    id: 'portfolios.empty.noData.description',
+    defaultMessage: 'No portfolios match your filter criteria.'
+  },
+  noResults: {
+    id: 'portfolios.empty.noResults.title',
+    defaultMessage: 'No results found'
+  },
+  noResultsDescription: {
+    id: 'portfolios.empty.noResults.description',
+    defaultMessage:
+      'No results match the filter criteria. Remove all filters or clear all filters to show results.'
+  }
+});
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -56,6 +85,7 @@ const portfoliosState = (state, action) => {
 };
 
 const Portfolios = () => {
+  const { formatMessage } = useIntl();
   const viewState = useInitialUriHash();
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     portfoliosState,
@@ -114,16 +144,18 @@ const Portfolios = () => {
 
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
-      Clear all filters
+      {formatMessage(messages.clear)}
     </Button>
   );
 
   const emptyStateProps = {
     PrimaryAction: meta.noData ? NoDataAction : FilterAction,
-    title: meta.noData ? 'No portfolios' : 'No results found',
+    title: meta.noData
+      ? formatMessage(messages.noData)
+      : formatMessage(messages.noResults),
     description: meta.noData
-      ? 'No portfolios match your filter criteria.'
-      : 'No results match the filter criteria. Remove all filters or clear all filters to show results.',
+      ? formatMessage(messages.noDataDescription)
+      : formatMessage(messages.noResultsDescription),
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
 
@@ -148,7 +180,7 @@ const Portfolios = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by portfolio'
+            placeholder: formatMessage(messages.placeholder)
           }
         })}
       />

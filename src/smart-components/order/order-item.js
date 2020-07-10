@@ -26,6 +26,7 @@ import {
   ORDER_LIFECYCLE_ROUTE
 } from '../../constants/routes';
 import { TableCell } from '../../presentational-components/styled-components/table';
+import { FormattedMessage } from 'react-intl';
 
 const routeMapper = {
   'Approval Pending': ORDER_APPROVAL_ROUTE,
@@ -82,7 +83,14 @@ const OrderItem = memo(
                         pathname={ORDER_ROUTE}
                         searchParams={searchParams}
                       >
-                        {orderName} - Order # {item.id}
+                        <FormattedMessage
+                          id="orders.item.detail.title"
+                          defaultMessage="{orderName} - Order # {itemId}"
+                          values={{
+                            orderName,
+                            itemId: item.id
+                          }}
+                        />
                       </CatalogLink>
                     </Text>
                   </LevelItem>
@@ -103,18 +111,30 @@ const OrderItem = memo(
                 <Level>
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.small}>
-                      Ordered&nbsp;
+                      <FormattedMessage
+                        id="orders.item.details.ordered"
+                        defaultMessage="Ordered"
+                      />
+                      &nbsp;
                       <DateFormat date={item.created_at} variant="relative" />
                     </Text>
                   </LevelItem>
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.small}>
-                      Ordered by {item.owner}
+                      <FormattedMessage
+                        id="orders.item.details.ordered-by"
+                        defaultMessage="Ordered by {owner}"
+                        values={{ owner: item.owner }}
+                      />
                     </Text>
                   </LevelItem>
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.small}>
-                      Last updated&nbsp;
+                      <FormattedMessage
+                        id="orders.items.details.last-updated"
+                        defaultMessage="Last updated"
+                      />
+                      &nbsp;
                       <DateFormat
                         date={
                           item.orderItems[0] && item.orderItems[0].updated_at

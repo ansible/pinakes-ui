@@ -12,6 +12,7 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import ReactJsonView from 'react-json-view';
+import { FormattedMessage } from 'react-intl';
 
 const OrderDetails = () => {
   const {
@@ -24,37 +25,66 @@ const OrderDetails = () => {
 
   return (
     <TextContent>
-      <Text component={TextVariants.h2}>Order details</Text>
+      <Text component={TextVariants.h2}>
+        <FormattedMessage
+          id="orders.order.detail.heading"
+          defaultMessage="Order details"
+        />
+      </Text>
       <TextList component={TextListVariants.dl}>
         <TextListItem component={TextListItemVariants.dt}>
-          Order ID
+          <FormattedMessage
+            id="orders.order.detail.ID"
+            defaultMessage="Order ID"
+          />
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {order.id}
         </TextListItem>
-        <TextListItem component={TextListItemVariants.dt}>Ordered</TextListItem>
+        <TextListItem component={TextListItemVariants.dt}>
+          <FormattedMessage
+            id="orders.order.detail.ordered"
+            defaultMessage="Ordered"
+          />
+        </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           <DateFormat date={order.created_at} variant="relative" />
         </TextListItem>
         <TextListItem component={TextListItemVariants.dt}>
-          Portfolio
+          <FormattedMessage
+            id="orders.order.detail.portfolio"
+            defaultMessage="Portfolio"
+          />
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {portfolio?.name}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dt}>
-          Platform
+          <FormattedMessage
+            id="orders.order.detail.platform"
+            defaultMessage="Platform"
+          />
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {platform?.name || undefined}
         </TextListItem>
       </TextList>
       <hr className="pf-c-divider" />
-      <Text component={TextVariants.h2}>Order parameters</Text>
+      <Text component={TextVariants.h2}>
+        <FormattedMessage
+          id="orders.order.detail.parameters"
+          defaultMessage="Order parameters"
+        />
+      </Text>
       {orderItem?.service_parameters && (
         <ReactJsonView src={orderItem.service_parameters} />
       )}
-      <Text component={TextVariants.h2}>Progress messages</Text>
+      <Text component={TextVariants.h2}>
+        <FormattedMessage
+          id="orders.order.detail.messages"
+          defaultMessage="Progress messages"
+        />
+      </Text>
       {progressMessages?.data && <ReactJsonView src={progressMessages.data} />}
     </TextContent>
   );

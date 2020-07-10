@@ -8,6 +8,7 @@ const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => (
     isOpen={isOpen}
     onClose={onClose}
     title=" "
+    aria-labelledby="cancel-order"
     header={
       <Title size="2xl" headingLevel="h2">
         <ExclamationTriangleIcon fill="#F0AB00" /> Cancel order

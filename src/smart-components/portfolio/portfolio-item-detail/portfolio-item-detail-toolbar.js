@@ -21,6 +21,25 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
+import { defineMessages, useIntl, defineMessage } from 'react-intl';
+
+const getEditTitle = (name) =>
+  defineMessage({
+    id: 'portfolio.item.survey.edit',
+    defaultMessage: 'Editing survey: {name}',
+    values: { name }
+  });
+
+const messages = defineMessages({
+  restoreSurvey: {
+    id: 'portfolio.item.survey.restore',
+    defaultMessage: 'Restore to Ansible Tower version'
+  },
+  save: {
+    id: 'portfolio.item.survey.save',
+    defaultMessage: 'Save'
+  }
+});
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
   <IconUpload uploadIcon={uploadIcon}>
@@ -116,6 +135,7 @@ PortfolioItemDetailToolbar.defaultProps = {
 };
 
 const SurveyEditorDropdown = ({ handleResetSurvey }) => {
+  const { formatMessage } = useIntl();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Dropdown
@@ -130,7 +150,7 @@ const SurveyEditorDropdown = ({ handleResetSurvey }) => {
           component="button"
           key="synchronize"
         >
-          Restore to Ansible Tower version
+          {formatMessage(messages.restoreSurvey)}
         </DropdownItem>
       ]}
     />
@@ -151,47 +171,50 @@ export const SurveyEditingToolbar = ({
   isValid,
   modified,
   handleResetSurvey
-}) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
-    <Level>
-      <StyledLevelItem alignStart className="pf-l-flex">
-        <PortfolioItemIconItem
-          uploadIcon={uploadIcon}
-          id={product.id}
-          sourceId={product.service_offering_source_ref}
-        />
-        <TextContent className="pf-u-ml-md">
-          <Text component={TextVariants.h1}>
-            Editing survey: {product.name}
-          </Text>
-        </TextContent>
-      </StyledLevelItem>
-      <LevelItem>
-        <Flex className="align-items-center">
-          <ButtonWithSpinner
-            variant="primary"
-            showSpinner={isFetching}
-            isDisabled={isFetching || !isValid}
-            onClick={handleSaveSurvey}
-          >
-            Save
-          </ButtonWithSpinner>
-          <Link
-            to={{
-              pathname: closeUrl,
-              search
-            }}
-          >
-            <Button variant="link">Cancel</Button>
-          </Link>
-          {modified && (
-            <SurveyEditorDropdown handleResetSurvey={handleResetSurvey} />
-          )}
-        </Flex>
-      </LevelItem>
-    </Level>
-  </TopToolbar>
-);
+}) => {
+  const { formatMessage } = useIntl();
+  return (
+    <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
+      <Level>
+        <StyledLevelItem alignStart className="pf-l-flex">
+          <PortfolioItemIconItem
+            uploadIcon={uploadIcon}
+            id={product.id}
+            sourceId={product.service_offering_source_ref}
+          />
+          <TextContent className="pf-u-ml-md">
+            <Text component={TextVariants.h1}>
+              {formatMessage(getEditTitle(product.name))}
+            </Text>
+          </TextContent>
+        </StyledLevelItem>
+        <LevelItem>
+          <Flex className="align-items-center">
+            <ButtonWithSpinner
+              variant="primary"
+              showSpinner={isFetching}
+              isDisabled={isFetching || !isValid}
+              onClick={handleSaveSurvey}
+            >
+              {formatMessage(messages.save)}
+            </ButtonWithSpinner>
+            <Link
+              to={{
+                pathname: closeUrl,
+                search
+              }}
+            >
+              <Button variant="link">Cancel</Button>
+            </Link>
+            {modified && (
+              <SurveyEditorDropdown handleResetSurvey={handleResetSurvey} />
+            )}
+          </Flex>
+        </LevelItem>
+      </Level>
+    </TopToolbar>
+  );
+};
 
 SurveyEditingToolbar.propTypes = {
   uploadIcon: PropTypes.func.isRequired,

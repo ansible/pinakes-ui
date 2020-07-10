@@ -9,19 +9,29 @@ import {
   Nav
 } from '@patternfly/react-core';
 import CatalogLink from '../../common/catalog-link';
+import { FormattedMessage } from 'react-intl';
 
-const useNavItems = ({ state } = {}) => [
+const useNavItems = ({ state } = {}, FormattedMessage) => [
   {
     link: '',
-    title: 'Order details'
+    title: (
+      <FormattedMessage
+        id="orders.menu.details"
+        defaultMessage="Order details"
+      />
+    )
   },
   {
     link: '/approval',
-    title: 'Approval'
+    title: (
+      <FormattedMessage id="orders.menu.approval" defaultMessage="Approval" />
+    )
   },
   {
     link: '/lifecycle',
-    title: 'Lifecycle',
+    title: (
+      <FormattedMessage id="orders.menu.lifecycle" defaultMessage="Lifecycle" />
+    ),
     isDisabled: state !== 'Completed' && state !== 'Ordered'
   }
 ];
@@ -31,13 +41,18 @@ const OrderDetailMenu = ({ baseUrl, isFetching }) => {
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { order } = orderDetailData;
-  const navItems = useNavItems(order);
+  const navItems = useNavItems(order, FormattedMessage);
   return (
     <Nav>
       <NavList className="orders-side-nav-list">
         <li className="pf-c-nav__item orders-nav-section-group">
           <TextContent>
-            <Text component={TextVariants.small}>Order steps</Text>
+            <Text component={TextVariants.small}>
+              <FormattedMessage
+                id="orders.menu.steps"
+                defaultMessage="Order steps"
+              />
+            </Text>
           </TextContent>
         </li>
         {navItems.map(({ link, title, isDisabled }) => (

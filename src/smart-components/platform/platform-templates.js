@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchIcon } from '@patternfly/react-icons';
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -15,6 +15,7 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { PLATFORM_SERVICE_OFFERINGS_ROUTE } from '../../constants/routes';
+import { useIntl, defineMessage, FormattedMessage } from 'react-intl';
 
 const initialState = {
   filterValue: '',
@@ -47,6 +48,15 @@ const debouncedFilter = asyncFormValidator(
 );
 
 const PlatformTemplates = () => {
+  const { formatMessage } = useIntl();
+  const { current: filterPlaceholder } = useRef(
+    formatMessage(
+      defineMessage({
+        id: 'platform.templates.filter.placeholder',
+        defaultMessage: 'Filter by template'
+      })
+    )
+  );
   const [{ platform: id }] = useQuery(['platform']);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformItemsState,
@@ -109,7 +119,7 @@ const PlatformTemplates = () => {
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
-          filterPlaceholder: 'Filter by template',
+          filterPlaceholder,
           meta,
           apiRequest: (_, options) =>
             dispatch(fetchPlatformItems(id, filterValue, options))
@@ -120,19 +130,42 @@ const PlatformTemplates = () => {
         isLoading={isFetching || isFiltering}
         renderEmptyState={() => (
           <ContentGalleryEmptyState
-            title={filterValue === '' ? 'No templates' : 'No results found'}
+            title={
+              filterValue === '' ? (
+                <FormattedMessage
+                  id="platform.templates.no-templates"
+                  defaultMessage="No templates"
+                />
+              ) : (
+                <FormattedMessage
+                  id="platform.templates.no-results"
+                  defaultMessage="No results found"
+                />
+              )
+            }
             Icon={SearchIcon}
             PrimaryAction={() =>
               filterValue !== '' ? (
                 <Button onClick={() => handleFilterChange('')} variant="link">
-                  Clear all filters
+                  <FormattedMessage
+                    id="platform.templates.filter.clear"
+                    defaultMessage="Clear all filters"
+                  />
                 </Button>
               ) : null
             }
             description={
-              filterValue === ''
-                ? 'This platform has no templates.'
-                : 'No results match the filter critera. Remove all filters or clear all filters to show results.'
+              filterValue === '' ? (
+                <FormattedMessage
+                  id="platform.templates.empty.no-templates"
+                  defaultMessage="This platform has no templates."
+                />
+              ) : (
+                <FormattedMessage
+                  id="platform.templates.empty.no-results"
+                  defaultMessage="No results match the filter critera. Remove all filters or clear all filters to show results."
+                />
+              )
             }
           />
         )}

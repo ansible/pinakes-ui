@@ -16,6 +16,7 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
+import { FormattedMessage } from 'react-intl';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,7 +58,10 @@ const ApprovalRequests = () => {
           </Bullseye>
           <Bullseye>
             <Title headingLevel="h1" size="2xl">
-              We were unable to find any approval requests for this order.
+              <FormattedMessage
+                id="orders.approval.no-requests"
+                defaultMessage="We were unable to find any approval requests for this order."
+              />
             </Title>
           </Bullseye>
         </Flex>
@@ -70,9 +74,12 @@ const ApprovalRequests = () => {
       {isEmpty(approvalRequest) ? (
         <Bullseye>
           <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
-            <Bullseye id={'creating-approval-request'}>
+            <Bullseye id="creating-approval-request">
               <Title headingLevel="h1" size="xl">
-                Creating approval request
+                <FormattedMessage
+                  id="orders.approval.creating"
+                  defaultMessage="Creating approval request"
+                />
               </Title>
             </Bullseye>
             <Bullseye>
@@ -82,24 +89,38 @@ const ApprovalRequests = () => {
         </Bullseye>
       ) : (
         <Fragment>
-          <Text component={TextVariants.h2}>Approval request</Text>
+          <Text component={TextVariants.h2}>
+            <FormattedMessage
+              id="orders.approval.title"
+              defaultMessage="Approval request"
+            />
+          </Text>
           {approvalRequest.data.map((request) => (
             <TextList key={request.id} component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
                 <a
                   href={`${document.baseURI}ansible/catalog/approval/request?request=${request.approval_request_ref}`}
                 >
-                  {`View this order's approval request details`}
+                  <FormattedMessage
+                    id="orders.approval.view-detail"
+                    defaultMessage="View this order's approval request details"
+                  />
                 </a>
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                Request created
+                <FormattedMessage
+                  id="orders.approval.details.created"
+                  defaultMessage="Request created"
+                />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat date={order.created_at} variant="relative" />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                State
+                <FormattedMessage
+                  id="orders.approval.details.state"
+                  defaultMessage="State"
+                />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 {request.state}
@@ -107,7 +128,10 @@ const ApprovalRequests = () => {
               {request.reason && (
                 <Fragment>
                   <TextListItem component={TextListItemVariants.dt}>
-                    Approval reason
+                    <FormattedMessage
+                      id="orders.approval.details.reason"
+                      defaultMessage="Approval reason"
+                    />
                   </TextListItem>
                   <TextListItem component={TextListItemVariants.dd}>
                     {request.reason}
@@ -117,7 +141,10 @@ const ApprovalRequests = () => {
               {request.request_completed_at && (
                 <Fragment>
                   <TextListItem component={TextListItemVariants.dt}>
-                    Completed at
+                    <FormattedMessage
+                      id="orders.approval.details.completed"
+                      defaultMessage="Completed at"
+                    />
                   </TextListItem>
                   <TextListItem component={TextListItemVariants.dd}>
                     <DateFormat

@@ -1,25 +1,50 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SearchIcon, FilterIcon } from '@patternfly/react-icons';
 
 import ContentGallery from '../../content-gallery/content-gallery';
 import ContentGalleryEmptyState from '../../../presentational-components/shared/content-gallery-empty-state';
+import { defineMessages, useIntl } from 'react-intl';
 
-const EmptyState = ({ platform }) => (
-  <ContentGalleryEmptyState
-    Icon={platform ? SearchIcon : FilterIcon}
-    title={
-      platform
-        ? 'No products match filter parameters'
-        : 'Please choose platform'
-    }
-    description={
-      platform
-        ? 'Please try to extend your search parameters '
-        : 'In order to select products for your portfolio you must choose platform first'
-    }
-  />
-);
+const EmptyState = ({ platform }) => {
+  const { formatMessage } = useIntl();
+  const { current: messages } = useRef(
+    defineMessages({
+      platformTitle: {
+        id: 'portfolio.add.platform.title.empty',
+        defaultMessage: 'Please choose platform'
+      },
+      platformDescription: {
+        id: 'portfolio.add.platform.description.empty',
+        defaultMessage:
+          'In order to select products for your portfolio you must choose platform first'
+      },
+      filterTitle: {
+        id: 'portfolio.add.platform.filter.empty',
+        defaultMessage: 'No products match filter parameters'
+      },
+      filterDescription: {
+        id: 'portfolio.add.platform.filterDescription.empty',
+        defaultMessage: 'Please try to extend your search parameters'
+      }
+    })
+  );
+  return (
+    <ContentGalleryEmptyState
+      Icon={platform ? SearchIcon : FilterIcon}
+      title={
+        platform
+          ? formatMessage(messages.filterTitle)
+          : formatMessage(messages.platformTitle)
+      }
+      description={
+        platform
+          ? formatMessage(messages.filterDescription)
+          : formatMessage(messages.platformDescription)
+      }
+    />
+  );
+};
 
 EmptyState.propTypes = {
   platform: PropTypes.any

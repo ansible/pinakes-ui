@@ -30,6 +30,7 @@ import {
   Tbody
 } from '../../presentational-components/styled-components/table';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
+import { FormattedMessage } from 'react-intl';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -177,27 +178,57 @@ const OrdersList = () => {
                       items: [
                         {
                           value: 'Approval Pending',
-                          label: 'Approval Pending'
+                          label: (
+                            <FormattedMessage
+                              id="orders.filter.status.approval-pending"
+                              defaultMessage="Approval Pending"
+                            />
+                          )
                         },
                         {
                           value: 'Canceled',
-                          label: 'Canceled'
+                          label: (
+                            <FormattedMessage
+                              id="orders.filter.status.canceled"
+                              defaultMessage="Canceled"
+                            />
+                          )
                         },
                         {
                           value: 'Completed',
-                          label: 'Completed'
+                          label: (
+                            <FormattedMessage
+                              id="orders.filter.status.completed"
+                              defaultMessage="Completed"
+                            />
+                          )
                         },
                         {
                           value: 'Created',
-                          label: 'Created'
+                          label: (
+                            <FormattedMessage
+                              id="orders.filter.status.created"
+                              defaultMessage="Created"
+                            />
+                          )
                         },
                         {
                           value: 'Failed',
-                          label: 'Failed'
+                          label: (
+                            <FormattedMessage
+                              id="orders.filter.status.failed"
+                              defaultMessage="Failed"
+                            />
+                          )
                         },
                         {
                           value: 'Ordered',
-                          label: 'Ordered'
+                          label: (
+                            <FormattedMessage
+                              id="orders.filter.status.ordered"
+                              defaultMessage="Ordered"
+                            />
+                          )
                         }
                       ],
                       value: filters.state,
@@ -249,12 +280,30 @@ const OrdersList = () => {
                             <EmptyStateIcon icon={SearchIcon} />
                           </Bullseye>
                           <Title headingLevel="h1" size="lg">
-                            {meta.noData ? 'No orders' : 'No results found'}
+                            {meta.noData ? (
+                              <FormattedMessage
+                                id="orders.list.no-orders"
+                                defaultMessage="No orders"
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="orders.list.no-results"
+                                defaultMessage="No results found"
+                              />
+                            )}
                           </Title>
                           <EmptyStateBody>
-                            {meta.noData
-                              ? 'No orders have been created.'
-                              : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+                            {meta.noData ? (
+                              <FormattedMessage
+                                id="orders.list.empty.no-results"
+                                defaultMessage="No orders have been created."
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="orders.list.empty.no-match"
+                                defaultMessage="No results match the filter criteria. Remove all filters or clear all filters to show results."
+                              />
+                            )}
                           </EmptyStateBody>
 
                           <EmptyStateSecondaryActions>
@@ -269,7 +318,10 @@ const OrdersList = () => {
                                   handleFilterItems('');
                                 }}
                               >
-                                Clear all filters
+                                <FormattedMessage
+                                  id="orders.list.empty.clear-filters"
+                                  defaultMessage="Clear all filters"
+                                />
                               </Button>
                             )}
                           </EmptyStateSecondaryActions>

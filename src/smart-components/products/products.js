@@ -24,6 +24,7 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import UserContext from '../../user-context';
+import { FormattedMessage, useIntl, defineMessage } from 'react-intl';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -71,6 +72,7 @@ const productsState = (state, action) => {
 };
 
 const Products = () => {
+  const { formatMessage } = useIntl();
   const viewState = useInitialUriHash();
   const { release } = useContext(AppContext);
   const [{ isFetching, filterValue, isFiltering }, stateDispatch] = useReducer(
@@ -123,13 +125,21 @@ const Products = () => {
   const SourcesAction = () =>
     is_org_admin && (
       <a href={`${release}settings/sources/new`}>
-        <Button variant="primary">Add source</Button>
+        <Button variant="primary">
+          <FormattedMessage
+            id="products.add-source"
+            defaultMessage="Add source"
+          />
+        </Button>
       </a>
     );
 
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
-      Clear all filters
+      <FormattedMessage
+        id="common.filtering-clear-filters"
+        defaultMessage="Clear all filters"
+      />
     </Button>
   );
 
@@ -137,20 +147,40 @@ const Products = () => {
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
-          {meta.noData
-            ? 'Configure a source and add products into portfolios.'
-            : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+          {meta.noData ? (
+            <FormattedMessage
+              id="products.configure-source"
+              defaultMessage="Configure a source and add products into portfolios."
+            />
+          ) : (
+            <FormattedMessage
+              id="common.filtering.no-results"
+              defaultMessage="No results match the filter criteria. Remove all filters or clear all filters to show results."
+            />
+          )}
         </Text>
         {is_org_admin ? (
           <Text component={TextVariants.p}>
-            To connect to a source, go to{' '}
-            <a href={`${document.baseURI}settings/sources`}>Sources</a>
-            &nbsp;under Settings.
+            <FormattedMessage
+              id="products.connect-source"
+              defaultMessage="To connect to a source, go to <a>Sources</a> under Settings"
+              values={{
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
+                  <Fragment>
+                    <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+                    &nbsp;
+                  </Fragment>
+                )
+              }}
+            />
           </Text>
         ) : (
           <Text>
-            Contact your organization administrator to setup sources for
-            Catalog.
+            <FormattedMessage
+              id="products.contact-admin"
+              defaultMessage="Contact your organization administrator to setup sources forCatalog."
+            />
           </Text>
         )}
       </TextContent>
@@ -159,10 +189,28 @@ const Products = () => {
 
   const emptyStateProps = {
     PrimaryAction: meta.noData ? SourcesAction : FilterAction,
-    title: meta.noData ? 'No products yet' : 'No results found',
+    title: meta.noData ? (
+      <FormattedMessage
+        id="products.title.no-products"
+        defaultMessage="No products yet"
+      />
+    ) : (
+      <FormattedMessage
+        id="products.title.no-results"
+        defaultMessage="No results found"
+      />
+    ),
     renderDescription: renderEmptyStateDescription,
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
+
+  /**
+   * Not possible to use formated message for input placeholder
+   */
+  const placeholderMessage = defineMessage({
+    id: 'products.filter.placeholder',
+    defaultMessage: 'Filter by product'
+  });
 
   return (
     <Fragment>
@@ -171,9 +219,14 @@ const Products = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by product'
+            placeholder: formatMessage(placeholderMessage)
           },
-          title: 'Products',
+          title: (
+            <FormattedMessage
+              id="products.toolbar.title"
+              defaultMessage="Products"
+            />
+          ),
           isLoading: isFiltering || isFetching,
           meta,
           fetchProducts: (...args) => dispatch(fetchPortfolioItems(...args))
