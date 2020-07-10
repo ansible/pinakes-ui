@@ -8,7 +8,7 @@ import {
 } from '@patternfly/react-core';
 
 import { toolbarComponentTypes } from '../toolbar-mapper';
-import { createSingleItemGroup, createLinkButton } from '../helpers';
+import { createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
 import CatalogLink from '../../smart-components/common/catalog-link';
 
@@ -157,8 +157,9 @@ const createPortfolioToolbarSchema = ({
           description,
           fields: [
             {
-              component: toolbarComponentTypes.LEVEL_ITEM,
+              component: toolbarComponentTypes.TOOLBAR,
               key: 'portfolio-actions',
+              noWrap: true,
               fields: [
                 createLinkButton({
                   pathname: sharePortfolioRoute,
@@ -171,14 +172,20 @@ const createPortfolioToolbarSchema = ({
                   hidden: !share && !unshare
                 }),
                 {
-                  component: PortfolioActionsToolbar,
-                  editPortfolioRoute,
-                  workflowPortfolioRoute,
-                  removePortfolioRoute,
-                  copyPortfolio,
-                  copyInProgress,
-                  userCapabilities,
-                  key: 'portfolio-actions-dropdown'
+                  component: toolbarComponentTypes.TOOLBAR_ITEM,
+                  key: 'portfolio-actions-dropdown-item',
+                  fields: [
+                    {
+                      component: PortfolioActionsToolbar,
+                      editPortfolioRoute,
+                      workflowPortfolioRoute,
+                      removePortfolioRoute,
+                      copyPortfolio,
+                      copyInProgress,
+                      userCapabilities,
+                      key: 'portfolio-actions-dropdown'
+                    }
+                  ]
                 }
               ]
             }
@@ -194,7 +201,7 @@ const createPortfolioToolbarSchema = ({
                   component: toolbarComponentTypes.TOOLBAR,
                   key: 'portfolio-items-actions',
                   fields: [
-                    createSingleItemGroup({
+                    {
                       groupName: 'filter-portfolio-items',
                       component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
                       isClearable: true,
@@ -202,8 +209,8 @@ const createPortfolioToolbarSchema = ({
                       searchValue,
                       onFilterChange,
                       placeholder
-                    }),
-                    createSingleItemGroup({
+                    },
+                    {
                       hidden: meta.count === 0 || !userCapabilities.update,
                       groupName: 'add-portfolio-items',
                       key: 'portfolio-items-add-group',
@@ -215,18 +222,24 @@ const createPortfolioToolbarSchema = ({
                         title: 'Add',
                         key: 'add-products-button'
                       })
-                    }),
-                    createSingleItemGroup({
-                      component: toolbarComponentTypes.BUTTON,
+                    },
+                    {
+                      component: toolbarComponentTypes.TOOLBAR_ITEM,
+                      key: 'remove-products-item',
                       hidden: meta.count === 0 || !userCapabilities.update,
-                      groupName: 'remove-portfolio-items',
-                      variant: 'link',
-                      title: 'Remove',
-                      key: 'remove-products-button',
-                      id: 'remove-products-button',
-                      isDisabled: !itemsSelected,
-                      onClick: removeProducts
-                    })
+                      fields: [
+                        {
+                          component: toolbarComponentTypes.BUTTON,
+                          groupName: 'remove-portfolio-items',
+                          variant: 'link',
+                          title: 'Remove',
+                          key: 'remove-products-button',
+                          id: 'remove-products-button',
+                          isDisabled: !itemsSelected,
+                          onClick: removeProducts
+                        }
+                      ]
+                    }
                   ]
                 },
                 {
