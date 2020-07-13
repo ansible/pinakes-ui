@@ -50,6 +50,6 @@ describe('<CatalogBreadcrumbs />', () => {
         .find(BreadcrumbItem)
         .last()
         .props()
-    ).toEqual({ children: 'Second', isActive: true });
+    ).toEqual({ children: 'Second', isActive: true, showDivider: true });
   });
 });

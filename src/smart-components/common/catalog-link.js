@@ -30,6 +30,7 @@ const CatalogLink = ({
   nav,
   preserveSearch,
   preserveHash,
+  showDivider,
   ...props
 }) => {
   const { search, hash } = useLocation();
@@ -49,7 +50,8 @@ CatalogLink.propTypes = {
   }),
   nav: PropTypes.bool,
   preserveSearch: PropTypes.bool,
-  preserveHash: PropTypes.bool
+  preserveHash: PropTypes.bool,
+  showDivider: PropTypes.any // this has to be removed from the spread props. This is PF internal prop which is forced on breadcrumbs child
 };
 
 CatalogLink.defaultProps = {

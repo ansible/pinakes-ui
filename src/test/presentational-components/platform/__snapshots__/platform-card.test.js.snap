@@ -16,7 +16,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
           >
             <CardHeader>
               <div
-                className="pf-c-card__header pf-c-title pf-m-md"
+                className="pf-c-card__header"
               >
                 <ImageWithDefault
                   height="40"
@@ -33,10 +33,10 @@ exports[`<PlatformCard /> should choose card image 1`] = `
             </CardHeader>
             <Styled(CardBody)>
               <CardBody
-                className="sc-AxheI dqZNlB"
+                className="sc-AxheI jOYejY"
               >
                 <div
-                  className="pf-c-card__body sc-AxheI dqZNlB"
+                  className="pf-c-card__body sc-AxheI jOYejY"
                 >
                   <TextContent>
                     <div
@@ -176,7 +176,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
           >
             <CardHeader>
               <div
-                className="pf-c-card__header pf-c-title pf-m-md"
+                className="pf-c-card__header"
               >
                 <ImageWithDefault
                   height="40"
@@ -193,10 +193,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
             </CardHeader>
             <Styled(CardBody)>
               <CardBody
-                className="sc-AxheI dqZNlB"
+                className="sc-AxheI jOYejY"
               >
                 <div
-                  className="pf-c-card__body sc-AxheI dqZNlB"
+                  className="pf-c-card__body sc-AxheI jOYejY"
                 >
                   <TextContent>
                     <div

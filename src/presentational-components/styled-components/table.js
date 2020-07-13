@@ -33,7 +33,7 @@ export const TableCell = styled(({ shrink, children, ...props }) => (
 ))`
   @media screen and (min-width: 768px) {
     vertical-align: top !important;
-    width: ${({ shrink }) => (shrink ? '200px' : 'initial')};
+    width: ${({ shrink }) => (shrink ? '200px !important' : 'initial')};
     img {
       object-fit: contain;
     }

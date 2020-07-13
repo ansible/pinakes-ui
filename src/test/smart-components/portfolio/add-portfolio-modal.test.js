@@ -40,7 +40,8 @@ describe('<AddPortfolioModal />', () => {
           metadata: {
             user_capabilities: {
               update: true
-            }
+            },
+            statistics: {}
           }
         },
         portfolios: { data: [] }
@@ -146,7 +147,8 @@ describe('<AddPortfolioModal />', () => {
           metadata: {
             user_capabilities: {
               update: false
-            }
+            },
+            statistics: {}
           }
         }
       }

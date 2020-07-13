@@ -1,13 +1,23 @@
+import React from 'react';
 import styled from 'styled-components';
-import { Toolbar, Level } from '@patternfly/react-core';
+import { Level, Toolbar, ToolbarGroup } from '@patternfly/react-core';
 
-export const StyledToolbar = styled(Toolbar)`
+export const StyledToolbar = styled(({ noWrap, ...props }) => (
+  <Toolbar {...props} />
+))`
   background-color: #ffffff;
   h2 {
     margin-bottom: 0 !important;
   }
   position: relative;
   top: 1px;
+  .pf-c-toolbar__content-section {
+    flex-wrap: ${({ noWrap }) => (noWrap ? 'nowrap' : 'wrap')};
+  }
+`;
+
+export const StyledToolbarGroup = styled(ToolbarGroup)`
+  flex-wrap: wrap;
 `;
 
 export const TopToolbarWrapper = styled.div`

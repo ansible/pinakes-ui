@@ -23,12 +23,15 @@ import {
   sendSubmitOrder
 } from '../../redux/actions/order-actions';
 import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
+import useQuery from '../../utilities/use-query';
 
 const OrderModal = ({ closeUrl }) => {
   const [isFetching, setFetching] = useState(true);
   const { search } = useLocation();
   const { push } = useHistory();
   const dispatch = useDispatch();
+  const [searchParams] = useQuery(['portfolio-item']);
+  const portfolioItemId = searchParams['portfolio-item'];
   const { portfolioItem } = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
@@ -37,37 +40,30 @@ const OrderModal = ({ closeUrl }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchServicePlans(portfolioItem.id)).then(() =>
-      setFetching(false)
-    );
+    dispatch(fetchServicePlans(portfolioItemId)).then(() => setFetching(false));
   }, []);
 
-  const onSubmit = (data) => {
-    dispatch(
-      sendSubmitOrder({
-        portfolio_item_id: portfolioItem.id,
-        service_parameters: data
-      })
-    );
+  const handleClose = () =>
     push({
       pathname: closeUrl,
       search
     });
+
+  const onSubmit = (data) => {
+    dispatch(
+      sendSubmitOrder(
+        {
+          portfolio_item_id: portfolioItem.id,
+          service_parameters: data
+        },
+        portfolioItem
+      )
+    );
+    handleClose();
   };
 
   return (
-    <Modal
-      isOpen
-      title=""
-      hideTitle
-      onClose={() =>
-        push({
-          pathname: closeUrl,
-          search
-        })
-      }
-      isSmall
-    >
+    <Modal isOpen onClose={handleClose} variant="small">
       <div className="pf-u-mb-md">
         <Split>
           <SplitItem className="pf-u-mr-sm">
@@ -105,6 +101,7 @@ const OrderModal = ({ closeUrl }) => {
         <FormRenderer
           schema={servicePlans[0].create_json_schema.schema}
           onSubmit={onSubmit}
+          onCancel={handleClose}
           formContainer="modal"
         />
       )}
