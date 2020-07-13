@@ -16,6 +16,8 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { FormattedMessage, defineMessage, useIntl } from 'react-intl';
+import statesMessages from '../../messages/states.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const initialState = {
   filterValue: '',
@@ -64,24 +66,9 @@ const PlatformInventories = () => {
       })
     ),
     columns: [
-      <Fragment key="name">
-        <FormattedMessage
-          id="platform.inventories.columns.name"
-          defaultMessage="Name"
-        />
-      </Fragment>,
-      <Fragment key="description">
-        <FormattedMessage
-          id="platform.inventories.columns.description"
-          defaultMessage="Description"
-        />
-      </Fragment>,
-      <Fragment key="created">
-        <FormattedMessage
-          id="platform.inventories.columns.created"
-          defaultMessage="Created"
-        />
-      </Fragment>,
+      formatMessage(labelMessages.name),
+      formatMessage(labelMessages.description),
+      formatMessage(statesMessages.created),
       <Fragment key="workflow">
         <FormattedMessage
           id="platform.inventories.columns.workflow"

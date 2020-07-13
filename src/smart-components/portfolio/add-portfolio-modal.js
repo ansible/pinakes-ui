@@ -17,6 +17,7 @@ import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { defineMessages, useIntl } from 'react-intl';
+import actionMessages from '../../messages/actions.messages';
 
 const messages = defineMessages({
   modalCreateTitle: {
@@ -30,10 +31,6 @@ const messages = defineMessages({
   modalEditTitle: {
     id: 'portfolio.modal.edit.title',
     defaultMessage: 'Edit portfolio'
-  },
-  modalEditSubmit: {
-    id: 'portfolio.modal.edit.save',
-    defaultMessage: 'Save'
   }
 });
 
@@ -111,7 +108,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
           formContainer="modal"
           templateProps={{
             submitLabel: portfolioId
-              ? formatMessage(messages.modalEditSubmit)
+              ? formatMessage(actionMessages.save)
               : formatMessage(messages.modalCreateSubmit)
           }}
           disableSubmit={submitting ? ['pristine', 'diry'] : []}

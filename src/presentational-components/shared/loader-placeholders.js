@@ -25,7 +25,8 @@ import {
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
 import { StyledToolbar } from '../styled-components/toolbars';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import actionMessages from '../../messages/actions.messages';
 
 const wave = keyframes`
   0% {
@@ -190,18 +191,21 @@ export const ShareLoader = () => (
   </Form>
 );
 
-export const WorkflowLoader = () => (
-  <Form>
-    <FormGroup fieldId="2" label="Select workflow">
-      <FormItemLoader />
-    </FormGroup>
-    <ActionGroup>
-      <Button variant="primary" isDisabled>
-        <FormattedMessage id="common.forms.save" defaultMessage="Save" />
-      </Button>
-    </ActionGroup>
-  </Form>
-);
+export const WorkflowLoader = () => {
+  const { formatMessage } = useIntl();
+  return (
+    <Form>
+      <FormGroup fieldId="2" label="Select workflow">
+        <FormItemLoader />
+      </FormGroup>
+      <ActionGroup>
+        <Button variant="primary" isDisabled>
+          {formatMessage(actionMessages.save)}
+        </Button>
+      </ActionGroup>
+    </Form>
+  );
+};
 
 export const ListLoader = ({ items }) => (
   <DataList aria-label="list-loader" aria-labelledby="datalist-placeholder">

@@ -5,6 +5,7 @@ import { SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import ContentGallery from '../../content-gallery/content-gallery';
 import ContentGalleryEmptyState from '../../../presentational-components/shared/content-gallery-empty-state';
 import { defineMessages, useIntl } from 'react-intl';
+import filteringMessages from '../../../messages/filtering.messages';
 
 const EmptyState = ({ platform }) => {
   const { formatMessage } = useIntl();
@@ -22,10 +23,6 @@ const EmptyState = ({ platform }) => {
       filterTitle: {
         id: 'portfolio.add.platform.filter.empty',
         defaultMessage: 'No products match filter parameters'
-      },
-      filterDescription: {
-        id: 'portfolio.add.platform.filterDescription.empty',
-        defaultMessage: 'Please try to extend your search parameters'
       }
     })
   );
@@ -39,7 +36,7 @@ const EmptyState = ({ platform }) => {
       }
       description={
         platform
-          ? formatMessage(messages.filterDescription)
+          ? formatMessage(filteringMessages.noResultsDescription)
           : formatMessage(messages.platformDescription)
       }
     />

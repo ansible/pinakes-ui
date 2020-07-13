@@ -29,7 +29,9 @@ import {
   StyledGalleryItem
 } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
+import actionMessages from '../../messages/actions.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const TO_DISPLAY = ['description'];
 
@@ -38,6 +40,7 @@ const HeaderActions = ({
   handleCopyPortfolio,
   userCapabilities: { share, copy, unshare, update, destroy, set_approval }
 }) => {
+  const { formatMessage } = useIntl();
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
   if (share || unshare) {
@@ -51,10 +54,7 @@ const HeaderActions = ({
             pathname={SHARE_PORTFOLIO_ROUTE}
             preserveHash
           >
-            <FormattedMessage
-              id="dropdown.options.share"
-              defaultMessage="Share"
-            />
+            {formatMessage(actionMessages.share)}
           </CatalogLink>
         }
       />
@@ -68,7 +68,7 @@ const HeaderActions = ({
         id="copy-portfolio-action"
         onClick={() => handleCopyPortfolio(portfolioId)}
       >
-        <FormattedMessage id="dropdown.options.copy" defaultMessage="Copy" />
+        {formatMessage(actionMessages.copy)}
       </DropdownItem>
     );
   }
@@ -84,10 +84,7 @@ const HeaderActions = ({
             pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
             preserveHash
           >
-            <FormattedMessage
-              id="dropdown.options.set-approval"
-              defaultMessage="Set approval"
-            />
+            {formatMessage(actionMessages.setApproval)}
           </CatalogLink>
         }
       />
@@ -105,10 +102,7 @@ const HeaderActions = ({
             pathname={EDIT_PORTFOLIO_ROUTE}
             preserveHash
           >
-            <FormattedMessage
-              id="dropdown.options.edit"
-              defaultMessage="Edit"
-            />
+            {formatMessage(actionMessages.edit)}
           </CatalogLink>
         }
       />
@@ -126,10 +120,7 @@ const HeaderActions = ({
             pathname={REMOVE_PORTFOLIO_ROUTE}
             preserveHash
           >
-            <FormattedMessage
-              id="dropdown.options.delete"
-              defaultMessage="Delete"
-            />
+            {formatMessage(actionMessages.delete)}
           </CatalogLink>
         }
       />
@@ -180,6 +171,7 @@ const PortfolioCard = ({
   },
   ...props
 }) => {
+  const { formatMessage } = useIntl();
   const to = {
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
@@ -220,10 +212,7 @@ const PortfolioCard = ({
         <CardFooter>
           {shared_groups > 0 && (
             <Label variant="filled" color="blue">
-              <FormattedMessage
-                id="common.labels.shared"
-                defaultMessage="Shared"
-              />
+              {formatMessage(labelMessages.shared)}
             </Label>
           )}
         </CardFooter>

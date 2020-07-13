@@ -24,7 +24,8 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import UserContext from '../../user-context';
-import { FormattedMessage, useIntl, defineMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import filteringMessages from '../../messages/filtering.messages';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -136,10 +137,7 @@ const Products = () => {
 
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
-      <FormattedMessage
-        id="common.filtering-clear-filters"
-        defaultMessage="Clear all filters"
-      />
+      {formatMessage(filteringMessages.clearFilters)}
     </Button>
   );
 
@@ -153,10 +151,7 @@ const Products = () => {
               defaultMessage="Configure a source and add products into portfolios."
             />
           ) : (
-            <FormattedMessage
-              id="common.filtering.no-results"
-              defaultMessage="No results match the filter criteria. Remove all filters or clear all filters to show results."
-            />
+            formatMessage(filteringMessages.noResultsDescription)
           )}
         </Text>
         {is_org_admin ? (
@@ -189,28 +184,12 @@ const Products = () => {
 
   const emptyStateProps = {
     PrimaryAction: meta.noData ? SourcesAction : FilterAction,
-    title: meta.noData ? (
-      <FormattedMessage
-        id="products.title.no-products"
-        defaultMessage="No products yet"
-      />
-    ) : (
-      <FormattedMessage
-        id="products.title.no-results"
-        defaultMessage="No results found"
-      />
-    ),
+    title: meta.noData
+      ? formatMessage(filteringMessages.noProducts)
+      : formatMessage(filteringMessages.noResults),
     renderDescription: renderEmptyStateDescription,
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
-
-  /**
-   * Not possible to use formated message for input placeholder
-   */
-  const placeholderMessage = defineMessage({
-    id: 'products.filter.placeholder',
-    defaultMessage: 'Filter by product'
-  });
 
   return (
     <Fragment>
@@ -219,7 +198,7 @@ const Products = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: formatMessage(placeholderMessage)
+            placeholder: formatMessage(filteringMessages.filterByProduct)
           },
           title: (
             <FormattedMessage

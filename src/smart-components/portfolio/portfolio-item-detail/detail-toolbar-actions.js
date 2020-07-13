@@ -10,20 +10,9 @@ import {
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import CatalogLink from '../../common/catalog-link';
 import { useIntl, defineMessages } from 'react-intl';
+import actionMessages from '../../../messages/actions.messages';
 
 const messages = defineMessages({
-  edit: {
-    id: 'portfolio.item.detail.actions.edit',
-    defaultMessage: 'Edit'
-  },
-  copy: {
-    id: 'portfolio.item.detail.actions.copy',
-    defaultMessage: 'Copy'
-  },
-  approval: {
-    id: 'portfolio.item.detail.actions.approval',
-    defaultMessage: 'Set approval'
-  },
   survey: {
     id: 'portfolio.item.detail.actions.survey',
     defaultMessage: 'Edit survey'
@@ -56,7 +45,7 @@ const DetailToolbarActions = ({
         id="edit-portfolio-item"
         component={
           <CatalogLink pathname={editUrl} preserveSearch>
-            {formatMessage(messages.edit)}
+            {formatMessage(actionMessages.edit)}
           </CatalogLink>
         }
         role="link"
@@ -72,7 +61,7 @@ const DetailToolbarActions = ({
         id="copy-portfolio-item"
         component={
           <CatalogLink pathname={copyUrl} preserveSearch>
-            {formatMessage(messages.copy)}
+            {formatMessage(actionMessages.copy)}
           </CatalogLink>
         }
         role="link"
@@ -88,7 +77,7 @@ const DetailToolbarActions = ({
         id="set-approval_workflow"
         component={
           <CatalogLink pathname={workflowUrl} preserveSearch>
-            {formatMessage(messages.approval)}
+            {formatMessage(actionMessages.setApproval)}
           </CatalogLink>
         }
         role="link"

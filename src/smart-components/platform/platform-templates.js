@@ -16,6 +16,7 @@ import BottomPaginationContainer from '../../presentational-components/shared/bo
 import useQuery from '../../utilities/use-query';
 import { PLATFORM_SERVICE_OFFERINGS_ROUTE } from '../../constants/routes';
 import { useIntl, defineMessage, FormattedMessage } from 'react-intl';
+import filteringMessages from '../../messages/filtering.messages';
 
 const initialState = {
   filterValue: '',
@@ -137,20 +138,14 @@ const PlatformTemplates = () => {
                   defaultMessage="No templates"
                 />
               ) : (
-                <FormattedMessage
-                  id="platform.templates.no-results"
-                  defaultMessage="No results found"
-                />
+                formatMessage(filteringMessages.noResults)
               )
             }
             Icon={SearchIcon}
             PrimaryAction={() =>
               filterValue !== '' ? (
                 <Button onClick={() => handleFilterChange('')} variant="link">
-                  <FormattedMessage
-                    id="platform.templates.filter.clear"
-                    defaultMessage="Clear all filters"
-                  />
+                  {formatMessage(filteringMessages.clearFilters)}
                 </Button>
               ) : null
             }
@@ -161,10 +156,7 @@ const PlatformTemplates = () => {
                   defaultMessage="This platform has no templates."
                 />
               ) : (
-                <FormattedMessage
-                  id="platform.templates.empty.no-results"
-                  defaultMessage="No results match the filter critera. Remove all filters or clear all filters to show results."
-                />
+                formatMessage(filteringMessages.noResultsDescription)
               )
             }
           />

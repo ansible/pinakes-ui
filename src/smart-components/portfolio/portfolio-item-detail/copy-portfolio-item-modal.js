@@ -16,23 +16,13 @@ import asyncFormValidator from '../../../utilities/async-form-validator';
 import { listPortfolios } from '../../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 import { defineMessages, useIntl } from 'react-intl';
+import actionMessages from '../../../messages/actions.messages';
+import labelMessages from '../../../messages/labels.messages';
 
 const messages = defineMessages({
-  name: {
-    id: 'forms.schemas.copy-portfolio.name',
-    defaultMessage: 'Name'
-  },
-  portfolioId: {
-    id: 'forms.schemas.copy-portfolio.id',
-    defaultMessage: 'Portfolio'
-  },
   title: {
     id: 'portfolio.item.copy',
     defaultMessage: 'Copy product'
-  },
-  save: {
-    id: 'portfolio.item.copy.save',
-    defaultMessage: 'Save'
   }
 });
 
@@ -59,13 +49,13 @@ const copySchema = (
     {
       component: 'value-only',
       name: 'portfolio_item_name',
-      label: formatMessage(messages.name),
+      label: formatMessage(labelMessages.name),
       value: portfolioName
     },
     {
       component: componentTypes.SELECT,
       name: 'portfolio_id',
-      label: formatMessage(messages.portfolioId),
+      label: formatMessage(labelMessages.portfolio),
       isRequired: true,
       loadOptions: asyncFormValidator(loadPortfolios),
       onChange: portfolioChange,
@@ -150,7 +140,7 @@ const CopyPortfolioItemModal = ({
           })
         }
         formContainer="modal"
-        templateProps={{ submitLabel: formatMessage(messages.save) }}
+        templateProps={{ submitLabel: formatMessage(actionMessages.save) }}
         disableSubmit={submitting ? ['pristine', 'dirty'] : []}
       />
     </Modal>

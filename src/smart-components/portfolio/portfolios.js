@@ -25,12 +25,9 @@ import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import { defineMessages, useIntl } from 'react-intl';
+import filteringMessages from '../../messages/filtering.messages';
 
 const messages = defineMessages({
-  clear: {
-    id: 'portfolios.filters.clear-all',
-    defaultMessage: 'Clear all filters'
-  },
   placeholder: {
     id: 'portfolios.filters.placeholder',
     defaultMessage: 'Filter by portfolio'
@@ -42,15 +39,6 @@ const messages = defineMessages({
   noDataDescription: {
     id: 'portfolios.empty.noData.description',
     defaultMessage: 'No portfolios match your filter criteria.'
-  },
-  noResults: {
-    id: 'portfolios.empty.noResults.title',
-    defaultMessage: 'No results found'
-  },
-  noResultsDescription: {
-    id: 'portfolios.empty.noResults.description',
-    defaultMessage:
-      'No results match the filter criteria. Remove all filters or clear all filters to show results.'
   }
 });
 
@@ -144,7 +132,7 @@ const Portfolios = () => {
 
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
-      {formatMessage(messages.clear)}
+      {formatMessage(filteringMessages.clearFilters)}
     </Button>
   );
 
@@ -152,10 +140,10 @@ const Portfolios = () => {
     PrimaryAction: meta.noData ? NoDataAction : FilterAction,
     title: meta.noData
       ? formatMessage(messages.noData)
-      : formatMessage(messages.noResults),
+      : formatMessage(filteringMessages.noResults),
     description: meta.noData
       ? formatMessage(messages.noDataDescription)
-      : formatMessage(messages.noResultsDescription),
+      : formatMessage(filteringMessages.noResultsDescription),
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
 

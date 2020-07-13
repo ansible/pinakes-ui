@@ -18,28 +18,25 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { defineMessages, useIntl, defineMessage } from 'react-intl';
-
-const getWarningMessage = (name) =>
-  defineMessage({
-    id: 'portfolio.remove.modal.description',
-    defaultMessages:
-      'This action will permanently delete portfolio {name} and its data.',
-    values: { name }
-  });
+import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
+  removeDescription: {
+    id: 'portfolio.remove.modal.description',
+    defaultMessage:
+      'This action will permanently delete portfolio {name} and its data.'
+  },
   title: {
     id: 'portfolio.remove.modal.title',
-    defaultMessages: 'Delete Portfolio?'
+    defaultMessage: 'Delete Portfolio?'
   },
   confirm: {
     id: 'portfolio.remove.modal.confirm',
-    defaultMessages: 'Confirm'
+    defaultMessage: 'Confirm'
   },
   cancel: {
     id: 'portfolio.remove.modal.cancel',
-    defaultMessages: 'Cancel'
+    defaultMessage: 'Cancel'
   }
 });
 
@@ -96,7 +93,9 @@ const RemovePortfolioModal = ({ viewState }) => {
         <SplitItem>
           <TextContent>
             <Text component={TextVariants.p}>
-              {getWarningMessage(portfolio.name)}
+              {formatMessage(messages.removeDescription, {
+                name: portfolio.name
+              })}
             </Text>
           </TextContent>
         </SplitItem>

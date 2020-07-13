@@ -30,7 +30,9 @@ import {
   Tbody
 } from '../../presentational-components/styled-components/table';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import statesMessages from '../../messages/states.messages';
+import filteringMessages from '../../messages/filtering.messages';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -77,6 +79,7 @@ const ordersListState = (state, action) => {
 };
 
 const OrdersList = () => {
+  const { formatMessage } = useIntl();
   const viewState = useInitialUriHash();
   const [
     { isFetching, isFiltering, filterType, filters },
@@ -178,57 +181,27 @@ const OrdersList = () => {
                       items: [
                         {
                           value: 'Approval Pending',
-                          label: (
-                            <FormattedMessage
-                              id="orders.filter.status.approval-pending"
-                              defaultMessage="Approval Pending"
-                            />
-                          )
+                          label: formatMessage(statesMessages.approvalPending)
                         },
                         {
                           value: 'Canceled',
-                          label: (
-                            <FormattedMessage
-                              id="orders.filter.status.canceled"
-                              defaultMessage="Canceled"
-                            />
-                          )
+                          label: formatMessage(statesMessages.canceled)
                         },
                         {
                           value: 'Completed',
-                          label: (
-                            <FormattedMessage
-                              id="orders.filter.status.completed"
-                              defaultMessage="Completed"
-                            />
-                          )
+                          label: formatMessage(statesMessages.completed)
                         },
                         {
                           value: 'Created',
-                          label: (
-                            <FormattedMessage
-                              id="orders.filter.status.created"
-                              defaultMessage="Created"
-                            />
-                          )
+                          label: formatMessage(statesMessages.created)
                         },
                         {
                           value: 'Failed',
-                          label: (
-                            <FormattedMessage
-                              id="orders.filter.status.failed"
-                              defaultMessage="Failed"
-                            />
-                          )
+                          label: formatMessage(statesMessages.failed)
                         },
                         {
                           value: 'Ordered',
-                          label: (
-                            <FormattedMessage
-                              id="orders.filter.status.ordered"
-                              defaultMessage="Ordered"
-                            />
-                          )
+                          label: formatMessage(statesMessages.ordered)
                         }
                       ],
                       value: filters.state,
@@ -286,10 +259,7 @@ const OrdersList = () => {
                                 defaultMessage="No orders"
                               />
                             ) : (
-                              <FormattedMessage
-                                id="orders.list.no-results"
-                                defaultMessage="No results found"
-                              />
+                              formatMessage(filteringMessages.noResults)
                             )}
                           </Title>
                           <EmptyStateBody>
@@ -299,10 +269,9 @@ const OrdersList = () => {
                                 defaultMessage="No orders have been created."
                               />
                             ) : (
-                              <FormattedMessage
-                                id="orders.list.empty.no-match"
-                                defaultMessage="No results match the filter criteria. Remove all filters or clear all filters to show results."
-                              />
+                              formatMessage(
+                                filteringMessages.noResultsDescription
+                              )
                             )}
                           </EmptyStateBody>
 
@@ -318,10 +287,7 @@ const OrdersList = () => {
                                   handleFilterItems('');
                                 }}
                               >
-                                <FormattedMessage
-                                  id="orders.list.empty.clear-filters"
-                                  defaultMessage="Clear all filters"
-                                />
+                                {formatMessage(filteringMessages.clearFilters)}
                               </Button>
                             )}
                           </EmptyStateSecondaryActions>

@@ -20,6 +20,7 @@ import { WorkflowLoader } from '../../presentational-components/shared/loader-pl
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { useIntl, defineMessage, FormattedMessage } from 'react-intl';
+import actionMessages from '../../messages/actions.messages';
 
 const initialState = {
   isFetching: true
@@ -134,12 +135,7 @@ const EditApprovalWorkflow = ({
               schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
               formContainer="modal"
               templateProps={{
-                submitLabel: (
-                  <FormattedMessage
-                    id="common.forms.save"
-                    defaultMessage="Save"
-                  />
-                )
+                submitLabel: formatMessage(actionMessages.save)
               }}
             />
           </StackItem>

@@ -12,9 +12,12 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import ReactJsonView from 'react-json-view';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import statesMessages from '../../../messages/states.messages';
+import labelMessages from '../../../messages/labels.messages';
 
 const OrderDetails = () => {
+  const { formatMessage } = useIntl();
   const {
     order,
     platform,
@@ -42,28 +45,19 @@ const OrderDetails = () => {
           {order.id}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dt}>
-          <FormattedMessage
-            id="orders.order.detail.ordered"
-            defaultMessage="Ordered"
-          />
+          {formatMessage(statesMessages.ordered)}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           <DateFormat date={order.created_at} variant="relative" />
         </TextListItem>
         <TextListItem component={TextListItemVariants.dt}>
-          <FormattedMessage
-            id="orders.order.detail.portfolio"
-            defaultMessage="Portfolio"
-          />
+          {formatMessage(labelMessages.portfolio)}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {portfolio?.name}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dt}>
-          <FormattedMessage
-            id="orders.order.detail.platform"
-            defaultMessage="Platform"
-          />
+          {formatMessage(labelMessages.platform)}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {platform?.name || undefined}

@@ -22,6 +22,7 @@ import IconUpload from './icon-upload';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 import { defineMessages, useIntl, defineMessage } from 'react-intl';
+import actionMessages from '../../../messages/actions.messages';
 
 const getEditTitle = (name) =>
   defineMessage({
@@ -34,10 +35,6 @@ const messages = defineMessages({
   restoreSurvey: {
     id: 'portfolio.item.survey.restore',
     defaultMessage: 'Restore to Ansible Tower version'
-  },
-  save: {
-    id: 'portfolio.item.survey.save',
-    defaultMessage: 'Save'
   }
 });
 
@@ -196,7 +193,7 @@ export const SurveyEditingToolbar = ({
               isDisabled={isFetching || !isValid}
               onClick={handleSaveSurvey}
             >
-              {formatMessage(messages.save)}
+              {formatMessage(actionMessages.save)}
             </ButtonWithSpinner>
             <Link
               to={{
