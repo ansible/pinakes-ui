@@ -4,7 +4,8 @@ import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs
 import { Grid, GridItem } from '@patternfly/react-core';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
-import { useIntl, defineMessages } from 'react-intl';
+import { useIntl } from 'react-intl';
+import formsMessages from '../../messages/forms.messages';
 
 export const ShareGroupSelect = ({
   inputName,
@@ -15,16 +16,6 @@ export const ShareGroupSelect = ({
   const { formatMessage } = useIntl();
   const inputProps = useFieldApi({ name: inputName });
   const selectProps = useFieldApi({ name: selectName });
-  const placeholderMessages = defineMessages({
-    groups: {
-      id: 'share.groups.group.placeholder',
-      defaultMessage: 'Select group'
-    },
-    permissions: {
-      id: 'share.groups.permissions.placeholder',
-      defaultMessage: 'Select permission'
-    }
-  });
 
   return (
     <Grid hasGutter className="share-column">
@@ -34,7 +25,7 @@ export const ShareGroupSelect = ({
           isClearable
           menuIsPortal
           loadOptions={asyncFormValidator(loadOptions)}
-          placeholder={formatMessage(placeholderMessages.groups)}
+          placeholder={formatMessage(formsMessages.groupsPlaceholder)}
           validated={
             inputProps?.meta?.error && inputProps.meta.touched
               ? 'error'
@@ -57,7 +48,7 @@ export const ShareGroupSelect = ({
         <InternalSelect
           options={permissions}
           menuIsPortal
-          placeholder={formatMessage(placeholderMessages.permissions)}
+          placeholder={formatMessage(formsMessages.permissionsPlaceholder)}
           isValid={!(selectProps?.meta?.error && selectProps.meta.touched)}
           {...selectProps}
           {...selectProps.input}

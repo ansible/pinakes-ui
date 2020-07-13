@@ -11,9 +11,11 @@ import PlatformCard from '../../presentational-components/platform/platform-card
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import UserContext from '../../user-context';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
+import platformsMessages from '../../messages/platforms.messages';
 
 const Platforms = () => {
+  const { formatMessage } = useIntl();
   const [filterValue, setFilterValue] = useState('');
   const { platforms, isLoading } = useSelector(
     ({ platformReducer: { platforms, isPlatformDataLoading } }) => ({
@@ -40,31 +42,19 @@ const Platforms = () => {
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
-          <FormattedMessage
-            id="platforms.list.configure-source"
-            defaultMessage="Configure a source in order to add products to portfolios."
-          />
+          {formatMessage(platformsMessages.configureSourceTitle)}
         </Text>
         {is_org_admin ? (
           <Text component={TextVariants.p}>
-            <FormattedMessage
-              id="platforms.list.connect-source"
-              defaultMessage="To connect to a source, go to <a>Sources</a> under Settings."
-              values={{
-                // eslint-disable-next-line react/display-name
-                a: (chunks) => (
-                  <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
-                )
-              }}
-            />
+            {formatMessage(platformsMessages.connectSource, {
+              // eslint-disable-next-line react/display-name
+              a: (chunks) => (
+                <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+              )
+            })}
           </Text>
         ) : (
-          <Text>
-            <FormattedMessage
-              id="platforms.list.contact-admin"
-              defaultMessage="Contact your organization administrator to setup sources for Catalog."
-            />
-          </Text>
+          <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
         )}
       </TextContent>
     </Fragment>
@@ -83,24 +73,14 @@ const Platforms = () => {
         schema={createPlatformsToolbarSchema({
           onFilterChange: (value) => setFilterValue(value),
           searchValue: filterValue,
-          title: (
-            <FormattedMessage
-              id="platforms.list.title"
-              defaultMessage="Platforms"
-            />
-          )
+          title: formatMessage(platformsMessages.title)
         })}
       />
       <ContentGallery
         {...filteredItems}
         renderEmptyState={() => (
           <ContentGalleryEmptyState
-            title={
-              <FormattedMessage
-                id="platforms.list.empty.title"
-                defaultMessage="No platforms yet"
-              />
-            }
+            title={formatMessage(platformsMessages.noPlatforms)}
             renderDescription={renderEmptyStateDescription}
             Icon={SearchIcon}
           />

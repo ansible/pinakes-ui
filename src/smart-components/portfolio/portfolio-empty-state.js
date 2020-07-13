@@ -6,19 +6,9 @@ import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import { Button } from '@patternfly/react-core';
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
-
-const messages = defineMessages({
-  addProducts: {
-    id: 'portfolio.empty.add.products',
-    defaultMessage: 'Add products'
-  },
-  emptyNoProducts: {
-    id: 'portfolio.empty.no-products',
-    defaultMessage: 'No products in your portfolio'
-  }
-});
+import portfolioMessages from '../../messages/portfolio.messages';
 
 const PortfolioEmptyState = ({
   url,
@@ -30,7 +20,7 @@ const PortfolioEmptyState = ({
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={url}
-      label={formatMessage(messages.addProducts)}
+      label={formatMessage(portfolioMessages.addProducts)}
       id="add-products-to-portfolio"
       hasPermission={update}
     />
@@ -52,7 +42,7 @@ const PortfolioEmptyState = ({
       ? formatMessage(filteringMessages.noProducts)
       : formatMessage(filteringMessages.noResults),
     description: meta.noData
-      ? formatMessage(messages.emptyNoProducts)
+      ? formatMessage(portfolioMessages.emptyNoProducts)
       : formatMessage(filteringMessages.noResultsDescription),
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };

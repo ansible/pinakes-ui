@@ -7,26 +7,8 @@ import EditPortfolioItem from './edit-portfolio-item';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 import CatalogRoute from '../../../routing/catalog-route';
-import { defineMessages, useIntl } from 'react-intl';
-
-const messages = defineMessages({
-  overview: {
-    id: 'portfolio.item.detail.overview',
-    defaultMessage: 'Overview'
-  },
-  support: {
-    id: 'portfolio.item.detail.support',
-    defaultMessage: 'Learn more'
-  },
-  documentation: {
-    id: 'portfolio.item.detail.documentation',
-    defaultMessage: 'Documentation'
-  },
-  docLink: {
-    id: 'portfolio.item.detail.doclink',
-    defaultMessage: 'Doc link'
-  }
-});
+import { useIntl } from 'react-intl';
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
   const { formatMessage } = useIntl();
@@ -39,7 +21,7 @@ const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
           <TextContent>
             {(product.description || product.long_description) && (
               <Text component={TextVariants.h6}>
-                {formatMessage(messages.overview)}
+                {formatMessage(portfolioMessages.portfolioItemOverview)}
               </Text>
             )}
             {product.description && (
@@ -59,14 +41,14 @@ const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {formatMessage(messages.support)}
+                  {formatMessage(portfolioMessages.portfolioItemSupport)}
                 </a>
               </Text>
             )}
             {product.documentation_url && (
               <Fragment>
                 <Text component={TextVariants.h6}>
-                  {formatMessage(messages.documentation)}
+                  {formatMessage(portfolioMessages.portfolioItemDocumentation)}
                 </Text>
                 <Text id="documentation_url" component={TextVariants.p}>
                   <a
@@ -74,7 +56,7 @@ const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {formatMessage(messages.docLink)}
+                    {formatMessage(portfolioMessages.portfolioItemDocLink)}
                   </a>
                 </Text>
               </Fragment>

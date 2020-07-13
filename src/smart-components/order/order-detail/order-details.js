@@ -12,9 +12,10 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import ReactJsonView from 'react-json-view';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import statesMessages from '../../../messages/states.messages';
 import labelMessages from '../../../messages/labels.messages';
+import ordersMessages from '../../../messages/orders.messages';
 
 const OrderDetails = () => {
   const { formatMessage } = useIntl();
@@ -29,17 +30,11 @@ const OrderDetails = () => {
   return (
     <TextContent>
       <Text component={TextVariants.h2}>
-        <FormattedMessage
-          id="orders.order.detail.heading"
-          defaultMessage="Order details"
-        />
+        {formatMessage(ordersMessages.orderDetails)}
       </Text>
       <TextList component={TextListVariants.dl}>
         <TextListItem component={TextListItemVariants.dt}>
-          <FormattedMessage
-            id="orders.order.detail.ID"
-            defaultMessage="Order ID"
-          />
+          {formatMessage(ordersMessages.orderID)}
         </TextListItem>
         <TextListItem component={TextListItemVariants.dd}>
           {order.id}
@@ -65,19 +60,13 @@ const OrderDetails = () => {
       </TextList>
       <hr className="pf-c-divider" />
       <Text component={TextVariants.h2}>
-        <FormattedMessage
-          id="orders.order.detail.parameters"
-          defaultMessage="Order parameters"
-        />
+        {formatMessage(ordersMessages.orderParameters)}
       </Text>
       {orderItem?.service_parameters && (
         <ReactJsonView src={orderItem.service_parameters} />
       )}
       <Text component={TextVariants.h2}>
-        <FormattedMessage
-          id="orders.order.detail.messages"
-          defaultMessage="Progress messages"
-        />
+        {formatMessage(ordersMessages.orderProgressMessages)}
       </Text>
       {progressMessages?.data && <ReactJsonView src={progressMessages.data} />}
     </TextContent>

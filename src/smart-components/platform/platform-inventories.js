@@ -15,9 +15,10 @@ import { createRows } from './platform-table-helpers.js';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
-import { FormattedMessage, defineMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import statesMessages from '../../messages/states.messages';
 import labelMessages from '../../messages/labels.messages';
+import platformsMessages from '../../messages/platforms.messages';
 
 const initialState = {
   filterValue: '',
@@ -51,32 +52,12 @@ const platformInventoriesState = (state, action) => {
 
 const PlatformInventories = () => {
   const { formatMessage } = useIntl();
-  /**
-   * Has to be wrapped in fragment because the amazing piece of code called react tabular used byt PF is copying
-   * the props and shoving them onto the table header cell DOM element and we need to wrap the text intro extra element to prevent
-   * errors. ¯\_(ツ)_/¯
-   */
-  const {
-    current: { columns, filterPlaceholder }
-  } = useRef({
-    filterPlaceholder: formatMessage(
-      defineMessage({
-        id: 'platform.inventories.filter.placeholder',
-        defaultMessage: 'Filter by inventory'
-      })
-    ),
-    columns: [
-      formatMessage(labelMessages.name),
-      formatMessage(labelMessages.description),
-      formatMessage(statesMessages.created),
-      <Fragment key="workflow">
-        <FormattedMessage
-          id="platform.inventories.columns.workflow"
-          defaultMessage="Workflow"
-        />
-      </Fragment>
-    ]
-  });
+  const { current: columns } = useRef([
+    formatMessage(labelMessages.name),
+    formatMessage(labelMessages.description),
+    formatMessage(statesMessages.created),
+    formatMessage(platformsMessages.workflowColumn)
+  ]);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformInventoriesState,
     initialState
@@ -134,7 +115,7 @@ const PlatformInventories = () => {
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
-          filterPlaceholder,
+          filterPlaceholder: formatMessage(platformsMessages.inventoriesFilter),
           meta,
           apiRequest: (_, options) =>
             dispatch(fetchPlatformInventories(id, filterValue, options))
@@ -152,17 +133,11 @@ const PlatformInventories = () => {
               title="No inventories"
               Icon={SearchIcon}
               description={
-                filterValue === '' ? (
-                  <FormattedMessage
-                    id="platform.inventories.empty.no-inventories"
-                    defaultMessage="No inventories found."
-                  />
-                ) : (
-                  <FormattedMessage
-                    id="platform.inventories.empty.no-esults"
-                    defaultMessage="No inventories match your filter criteria."
-                  />
-                )
+                filterValue === ''
+                  ? formatMessage(platformsMessages.noInventoriesDescription)
+                  : formatMessage(
+                      platformsMessages.noInventoriesFilterDescription
+                    )
               }
             />
           )}

@@ -15,16 +15,10 @@ import {
 import asyncFormValidator from '../../../utilities/async-form-validator';
 import { listPortfolios } from '../../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
 import labelMessages from '../../../messages/labels.messages';
-
-const messages = defineMessages({
-  title: {
-    id: 'portfolio.item.copy',
-    defaultMessage: 'Copy product'
-  }
-});
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const loadPortfolios = (filter) =>
   listPortfolios(filter, { limit: 100, offset: 0 }).then(({ data }) =>
@@ -120,7 +114,7 @@ const CopyPortfolioItemModal = ({
   return (
     <Modal
       isOpen
-      title={formatMessage(messages.title)}
+      title={formatMessage(portfolioMessages.copyItemTitle)}
       onClose={() =>
         push({
           pathname: closeUrl,

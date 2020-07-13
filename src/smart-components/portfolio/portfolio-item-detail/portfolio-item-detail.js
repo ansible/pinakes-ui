@@ -17,29 +17,14 @@ import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-he
 import useQuery from '../../../utilities/use-query';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 import CatalogRoute from '../../../routing/catalog-route';
-import { defineMessage, useIntl, defineMessages } from 'react-intl';
+import { useIntl } from 'react-intl';
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const SurveyEditor = lazy(() =>
   import(
     /* webpackChunkName: "survey-editor" */ '../../survey-editing/survey-editor'
   )
 );
-
-const messages = defineMessages({
-  source: {
-    id: 'portfolio.detail.alert.source.unavailable',
-    defaultMessage: 'The platform for this product is unavailable'
-  }
-});
-
-const getAlertMessage = (object) =>
-  defineMessage({
-    id: 'portfolio.detail.alert.unavailable',
-    defaultMessage: 'The {object} for this product is no longer available',
-    values: {
-      object
-    }
-  });
 
 const requiredParams = ['portfolio', 'source', 'portfolio-item'];
 
@@ -92,7 +77,7 @@ const PortfolioItemDetail = () => {
         key={object}
         variant="warning"
         isInline
-        title={formatMessage(getAlertMessage(object))}
+        title={formatMessage(portfolioMessages.objectUnavaiable, { object })}
       />
     ));
   const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
@@ -135,7 +120,7 @@ const PortfolioItemDetail = () => {
                 id="unavailable-alert-info"
                 variant="info"
                 isInline
-                title={formatMessage(messages.source)}
+                title={formatMessage(portfolioMessages.sourceUnavaiable)}
               />
             )}
             <Grid hasGutter className="pf-u-p-lg">

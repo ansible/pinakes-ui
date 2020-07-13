@@ -18,9 +18,11 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import labelMessages from '../../../messages/labels.messages';
 import statesMessages from '../../../messages/states.messages';
+import platformsMessages from '../../../messages/platforms.messages';
+import formsMessages from '../../../messages/forms.messages';
 
 const requiredParams = ['service', 'platform'];
 
@@ -60,10 +62,7 @@ const ServiceOfferingDetail = () => {
               <TextContent>
                 <Text component="h1">{service.name}</Text>
                 <Text component="small">
-                  <FormattedMessage
-                    id="platforms.offerings.detail.title"
-                    defaultMessage="Service offering"
-                  />
+                  {formatMessage(platformsMessages.offeringTitle)}
                 </Text>
               </TextContent>
             </StyledLevelItem>
@@ -107,10 +106,7 @@ const ServiceOfferingDetail = () => {
             </Text>
             <hr className="pf-c-divider" />
             <Text component="h2">
-              <FormattedMessage
-                id="platforms.offerings.detail.extra-params"
-                defaultMessage="Extra parameters"
-              />
+              {formsMessages(platformsMessages.offeringParameters)}
             </Text>
             <ReactJsonView src={service.extra} />
           </TextContent>

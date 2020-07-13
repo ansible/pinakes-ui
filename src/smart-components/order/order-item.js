@@ -26,7 +26,7 @@ import {
   ORDER_LIFECYCLE_ROUTE
 } from '../../constants/routes';
 import { TableCell } from '../../presentational-components/styled-components/table';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import statesMessages from '../../messages/states.messages';
 import ordersMessages from '../../messages/orders.messages';
 

@@ -9,19 +9,9 @@ import {
 } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import CatalogLink from '../../common/catalog-link';
-import { useIntl, defineMessages } from 'react-intl';
+import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
-
-const messages = defineMessages({
-  survey: {
-    id: 'portfolio.item.detail.actions.survey',
-    defaultMessage: 'Edit survey'
-  },
-  order: {
-    id: 'portfolio.item.detail.actions.order',
-    defaultMessage: 'Order'
-  }
-});
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -93,7 +83,7 @@ const DetailToolbarActions = ({
         id="edit-survey"
         component={
           <CatalogLink pathname={editSurveyUrl} preserveSearch>
-            {formatMessage(messages.survey)}
+            {formatMessage(portfolioMessages.portfolioItemSurvey)}
           </CatalogLink>
         }
         role="link"
@@ -115,7 +105,7 @@ const DetailToolbarActions = ({
             variant="primary"
             id="order-portfolio-item"
           >
-            {formatMessage(messages.order)}
+            {formatMessage(portfolioMessages.portfolioItemOrder)}
           </ButtonWithSpinner>
         </CatalogLink>
       </LevelItem>

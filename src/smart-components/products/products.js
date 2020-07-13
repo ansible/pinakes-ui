@@ -24,8 +24,10 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import UserContext from '../../user-context';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
+import productsMessages from '../../messages/products.messages';
+import platformsMessages from '../../messages/platforms.messages';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -127,10 +129,7 @@ const Products = () => {
     is_org_admin && (
       <a href={`${release}settings/sources/new`}>
         <Button variant="primary">
-          <FormattedMessage
-            id="products.add-source"
-            defaultMessage="Add source"
-          />
+          {formatMessage(productsMessages.addSource)}
         </Button>
       </a>
     );
@@ -145,38 +144,23 @@ const Products = () => {
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
-          {meta.noData ? (
-            <FormattedMessage
-              id="products.configure-source"
-              defaultMessage="Configure a source and add products into portfolios."
-            />
-          ) : (
-            formatMessage(filteringMessages.noResultsDescription)
-          )}
+          {meta.noData
+            ? formatMessage(productsMessages.configureSource)
+            : formatMessage(filteringMessages.noResultsDescription)}
         </Text>
         {is_org_admin ? (
           <Text component={TextVariants.p}>
-            <FormattedMessage
-              id="products.connect-source"
-              defaultMessage="To connect to a source, go to <a>Sources</a> under Settings"
-              values={{
-                // eslint-disable-next-line react/display-name
-                a: (chunks) => (
-                  <Fragment>
-                    <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
-                    &nbsp;
-                  </Fragment>
-                )
-              }}
-            />
+            {formatMessage(platformsMessages.connectSource, {
+              // eslint-disable-next-line react/display-name
+              a: (chunks) => (
+                <Fragment>
+                  <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+                </Fragment>
+              )
+            })}
           </Text>
         ) : (
-          <Text>
-            <FormattedMessage
-              id="products.contact-admin"
-              defaultMessage="Contact your organization administrator to setup sources forCatalog."
-            />
-          </Text>
+          <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
         )}
       </TextContent>
     </Fragment>
@@ -200,12 +184,7 @@ const Products = () => {
             onFilterChange: handleFilterItems,
             placeholder: formatMessage(filteringMessages.filterByProduct)
           },
-          title: (
-            <FormattedMessage
-              id="products.toolbar.title"
-              defaultMessage="Products"
-            />
-          ),
+          title: formatMessage(productsMessages.title),
           isLoading: isFiltering || isFetching,
           meta,
           fetchProducts: (...args) => dispatch(fetchPortfolioItems(...args))

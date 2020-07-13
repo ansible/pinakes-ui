@@ -21,22 +21,9 @@ import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import IconUpload from './icon-upload';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
-import { defineMessages, useIntl, defineMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
-
-const getEditTitle = (name) =>
-  defineMessage({
-    id: 'portfolio.item.survey.edit',
-    defaultMessage: 'Editing survey: {name}',
-    values: { name }
-  });
-
-const messages = defineMessages({
-  restoreSurvey: {
-    id: 'portfolio.item.survey.restore',
-    defaultMessage: 'Restore to Ansible Tower version'
-  }
-});
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
   <IconUpload uploadIcon={uploadIcon}>
@@ -147,7 +134,7 @@ const SurveyEditorDropdown = ({ handleResetSurvey }) => {
           component="button"
           key="synchronize"
         >
-          {formatMessage(messages.restoreSurvey)}
+          {formatMessage(portfolioMessages.restoreSurvey)}
         </DropdownItem>
       ]}
     />
@@ -181,7 +168,9 @@ export const SurveyEditingToolbar = ({
           />
           <TextContent className="pf-u-ml-md">
             <Text component={TextVariants.h1}>
-              {formatMessage(getEditTitle(product.name))}
+              {formatMessage(portfolioMessages.surveyTitle, {
+                name: product.name
+              })}
             </Text>
           </TextContent>
         </StyledLevelItem>

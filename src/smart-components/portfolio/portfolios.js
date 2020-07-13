@@ -24,23 +24,9 @@ import { ADD_PORTFOLIO_ROUTE, PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
-
-const messages = defineMessages({
-  placeholder: {
-    id: 'portfolios.filters.placeholder',
-    defaultMessage: 'Filter by portfolio'
-  },
-  noData: {
-    id: 'portfolios.empty.noData.title',
-    defaultMessage: 'No portfolios'
-  },
-  noDataDescription: {
-    id: 'portfolios.empty.noData.description',
-    defaultMessage: 'No portfolios match your filter criteria.'
-  }
-});
+import portfolioMessages from '../../messages/portfolio.messages';
 
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
@@ -139,10 +125,10 @@ const Portfolios = () => {
   const emptyStateProps = {
     PrimaryAction: meta.noData ? NoDataAction : FilterAction,
     title: meta.noData
-      ? formatMessage(messages.noData)
+      ? formatMessage(portfolioMessages.portfoliosNoData)
       : formatMessage(filteringMessages.noResults),
     description: meta.noData
-      ? formatMessage(messages.noDataDescription)
+      ? formatMessage(portfolioMessages.portfoliosNoDataDescription)
       : formatMessage(filteringMessages.noResultsDescription),
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
@@ -168,7 +154,7 @@ const Portfolios = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: formatMessage(messages.placeholder)
+            placeholder: formatMessage(portfolioMessages.portfoliosPlaceholder)
           }
         })}
       />

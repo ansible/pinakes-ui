@@ -19,8 +19,9 @@ import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
-import { useIntl, defineMessage, FormattedMessage } from 'react-intl';
+import { useIntl, defineMessage } from 'react-intl';
 import actionMessages from '../../messages/actions.messages';
+import approvalMessages from '../../messages/approval.messages';
 
 const initialState = {
   isFetching: true
@@ -113,15 +114,11 @@ const EditApprovalWorkflow = ({
           <StackItem>
             <TextContent>
               <Text>
-                <FormattedMessage
-                  id="workflows.edit.set-approval"
-                  defaultMessage="Select approval processes for <strong>{objectName}</strong>"
-                  values={{
-                    // eslint-disable-next-line react/display-name
-                    strong: (chunks) => <strong>{chunks}</strong>,
-                    objectName: objectName(query[querySelector])
-                  }}
-                />
+                {formatMessage(approvalMessages.setWorkflow, {
+                  // eslint-disable-next-line react/display-name
+                  strong: (chunks) => <strong>{chunks}</strong>,
+                  objectName: objectName(query[querySelector])
+                })}
               </Text>
             </TextContent>
           </StackItem>

@@ -1,6 +1,10 @@
 const { defineMessages } = require('react-intl');
 
 const statesMessages = defineMessages({
+  title: {
+    id: 'common.states.title',
+    defaultMessage: 'State'
+  },
   ordered: {
     id: 'common.states.ordered',
     defaultMessages: 'Ordered'

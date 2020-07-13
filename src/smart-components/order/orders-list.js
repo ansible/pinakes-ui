@@ -12,6 +12,7 @@ import {
   EmptyStateSecondaryActions,
   Button
 } from '@patternfly/react-core';
+import { useIntl } from 'react-intl';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
@@ -30,9 +31,9 @@ import {
   Tbody
 } from '../../presentational-components/styled-components/table';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
-import { FormattedMessage, useIntl } from 'react-intl';
 import statesMessages from '../../messages/states.messages';
 import filteringMessages from '../../messages/filtering.messages';
+import ordersMessages from '../../messages/orders.messages';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -253,26 +254,18 @@ const OrdersList = () => {
                             <EmptyStateIcon icon={SearchIcon} />
                           </Bullseye>
                           <Title headingLevel="h1" size="lg">
-                            {meta.noData ? (
-                              <FormattedMessage
-                                id="orders.list.no-orders"
-                                defaultMessage="No orders"
-                              />
-                            ) : (
-                              formatMessage(filteringMessages.noResults)
-                            )}
+                            {meta.noData
+                              ? formatMessage(ordersMessages.noOrdersTitle)
+                              : formatMessage(filteringMessages.noResults)}
                           </Title>
                           <EmptyStateBody>
-                            {meta.noData ? (
-                              <FormattedMessage
-                                id="orders.list.empty.no-results"
-                                defaultMessage="No orders have been created."
-                              />
-                            ) : (
-                              formatMessage(
-                                filteringMessages.noResultsDescription
-                              )
-                            )}
+                            {meta.noData
+                              ? formatMessage(
+                                  ordersMessages.noOrdersDescription
+                                )
+                              : formatMessage(
+                                  filteringMessages.noResultsDescription
+                                )}
                           </EmptyStateBody>
 
                           <EmptyStateSecondaryActions>

@@ -15,7 +15,7 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components/component
 
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import statesMessages from '../../../messages/states.messages';
 import ordersMessages from '../../../messages/orders.messages';
 
@@ -47,17 +47,13 @@ const OrderDetailInformation = ({
           </LevelItem>
           <LevelItem>
             <Title headingLevel="h5" size="md">
-              <FormattedMessage
-                id="orders.order.details.status"
-                defaultMessage="Status: <icon></icon> {state}"
-                values={{
-                  // eslint-disable-next-line react/display-name
-                  icon: () => (
-                    <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
-                  ),
-                  state
-                }}
-              />
+              {formatMessage(ordersMessages.orderStatus, {
+                // eslint-disable-next-line react/display-name
+                icon: () => (
+                  <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
+                ),
+                state
+              })}
             </Title>
           </LevelItem>
         </Level>

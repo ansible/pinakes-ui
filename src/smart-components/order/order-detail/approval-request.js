@@ -16,7 +16,9 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
+import statesMessages from '../../../messages/states.messages';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -38,6 +40,7 @@ const isEmpty = (approvalRequest) =>
   approvalRequest.data.length === 0;
 
 const ApprovalRequests = () => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const { order, approvalRequest, orderItem } = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail
@@ -58,10 +61,7 @@ const ApprovalRequests = () => {
           </Bullseye>
           <Bullseye>
             <Title headingLevel="h1" size="2xl">
-              <FormattedMessage
-                id="orders.approval.no-requests"
-                defaultMessage="We were unable to find any approval requests for this order."
-              />
+              {formatMessage(ordersMessages.noApprovalRequests)}
             </Title>
           </Bullseye>
         </Flex>
@@ -76,10 +76,7 @@ const ApprovalRequests = () => {
           <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
             <Bullseye id="creating-approval-request">
               <Title headingLevel="h1" size="xl">
-                <FormattedMessage
-                  id="orders.approval.creating"
-                  defaultMessage="Creating approval request"
-                />
+                {formatMessage(ordersMessages.creatingApprovalRequest)}
               </Title>
             </Bullseye>
             <Bullseye>
@@ -90,10 +87,7 @@ const ApprovalRequests = () => {
       ) : (
         <Fragment>
           <Text component={TextVariants.h2}>
-            <FormattedMessage
-              id="orders.approval.title"
-              defaultMessage="Approval request"
-            />
+            {formatMessage(ordersMessages.approvalTitle)}
           </Text>
           {approvalRequest.data.map((request) => (
             <TextList key={request.id} component={TextListVariants.dl}>
@@ -101,26 +95,17 @@ const ApprovalRequests = () => {
                 <a
                   href={`${document.baseURI}ansible/catalog/approval/request?request=${request.approval_request_ref}`}
                 >
-                  <FormattedMessage
-                    id="orders.approval.view-detail"
-                    defaultMessage="View this order's approval request details"
-                  />
+                  {formatMessage(ordersMessages.approvalDetail)}
                 </a>
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                <FormattedMessage
-                  id="orders.approval.details.created"
-                  defaultMessage="Request created"
-                />
+                {formatMessage(ordersMessages.approvalCreated)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat date={order.created_at} variant="relative" />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                <FormattedMessage
-                  id="orders.approval.details.state"
-                  defaultMessage="State"
-                />
+                {formatMessage(statesMessages.title)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 {request.state}
@@ -128,10 +113,7 @@ const ApprovalRequests = () => {
               {request.reason && (
                 <Fragment>
                   <TextListItem component={TextListItemVariants.dt}>
-                    <FormattedMessage
-                      id="orders.approval.details.reason"
-                      defaultMessage="Approval reason"
-                    />
+                    {formatMessage(ordersMessages.approvalReason)}
                   </TextListItem>
                   <TextListItem component={TextListItemVariants.dd}>
                     {request.reason}
@@ -141,10 +123,7 @@ const ApprovalRequests = () => {
               {request.request_completed_at && (
                 <Fragment>
                   <TextListItem component={TextListItemVariants.dt}>
-                    <FormattedMessage
-                      id="orders.approval.details.completed"
-                      defaultMessage="Completed at"
-                    />
+                    {formatMessage(ordersMessages.approvalCompleted)}
                   </TextListItem>
                   <TextListItem component={TextListItemVariants.dd}>
                     <DateFormat

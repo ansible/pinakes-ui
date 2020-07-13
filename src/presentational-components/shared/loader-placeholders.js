@@ -24,9 +24,10 @@ import {
   Button
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
+import { useIntl } from 'react-intl';
 import { StyledToolbar } from '../styled-components/toolbars';
-import { FormattedMessage, useIntl } from 'react-intl';
 import actionMessages from '../../messages/actions.messages';
+import formsMessages from '../../messages/forms.messages';
 
 const wave = keyframes`
   0% {
@@ -161,35 +162,32 @@ IconPlaceholder.defaultProps = {
 
 const FormItemLoader = () => <Skeleton height={38} className="pf-u-mb-lg" />;
 
-export const ShareLoader = () => (
-  <Form>
-    <TextContent>
-      <Text component={TextVariants.small}>
-        <FormattedMessage
-          id="loaders.share.invite-group"
-          defaultMessage="Invite group"
-        />
-      </Text>
-    </TextContent>
-    <FormGroup fieldId="1">
-      <FormItemLoader />
-    </FormGroup>
-    <TextContent>
-      <Text component={TextVariants.small}>
-        <FormattedMessage
-          id="loaders.share.groups-with-access"
-          defaultMessage="Groups with access"
-        />
-      </Text>
-    </TextContent>
-    <FormGroup fieldId="3">
-      <FormItemLoader />
-    </FormGroup>
-    <FormGroup fieldId="4">
-      <FormItemLoader />
-    </FormGroup>
-  </Form>
-);
+export const ShareLoader = () => {
+  const { formatMessage } = useIntl();
+  return (
+    <Form>
+      <TextContent>
+        <Text component={TextVariants.small}>
+          {formatMessage(formsMessages.inviteGroup)}
+        </Text>
+      </TextContent>
+      <FormGroup fieldId="1">
+        <FormItemLoader />
+      </FormGroup>
+      <TextContent>
+        <Text component={TextVariants.small}>
+          {formatMessage(formsMessages.groupsAccess)}
+        </Text>
+      </TextContent>
+      <FormGroup fieldId="3">
+        <FormItemLoader />
+      </FormGroup>
+      <FormGroup fieldId="4">
+        <FormItemLoader />
+      </FormGroup>
+    </Form>
+  );
+};
 
 export const WorkflowLoader = () => {
   const { formatMessage } = useIntl();

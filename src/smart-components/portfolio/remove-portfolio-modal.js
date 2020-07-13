@@ -18,27 +18,8 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { defineMessages, useIntl } from 'react-intl';
-
-const messages = defineMessages({
-  removeDescription: {
-    id: 'portfolio.remove.modal.description',
-    defaultMessage:
-      'This action will permanently delete portfolio {name} and its data.'
-  },
-  title: {
-    id: 'portfolio.remove.modal.title',
-    defaultMessage: 'Delete Portfolio?'
-  },
-  confirm: {
-    id: 'portfolio.remove.modal.confirm',
-    defaultMessage: 'Confirm'
-  },
-  cancel: {
-    id: 'portfolio.remove.modal.cancel',
-    defaultMessage: 'Cancel'
-  }
-});
+import { useIntl } from 'react-intl';
+import portfolioMessages from '../../messages/portfolio.messages';
 
 const RemovePortfolioModal = ({ viewState }) => {
   const { formatMessage } = useIntl();
@@ -67,7 +48,7 @@ const RemovePortfolioModal = ({ viewState }) => {
     <UnauthorizedRedirect />
   ) : (
     <Modal
-      title={formatMessage(messages.title)}
+      title={formatMessage(portfolioMessages.portfolioRemoveTitle)}
       isOpen
       variant="small"
       onClose={goBack}
@@ -79,10 +60,10 @@ const RemovePortfolioModal = ({ viewState }) => {
           id="confirm-delete-portfolio"
           onClick={onSubmit}
         >
-          {formatMessage(messages.confirm)}
+          {formatMessage(portfolioMessages.portfolioRemoveConfirm)}
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>
-          {formatMessage(messages.cancel)}
+          {formatMessage(portfolioMessages.portfolioRemoveCancel)}
         </Button>
       ]}
     >
@@ -93,7 +74,7 @@ const RemovePortfolioModal = ({ viewState }) => {
         <SplitItem>
           <TextContent>
             <Text component={TextVariants.p}>
-              {formatMessage(messages.removeDescription, {
+              {formatMessage(portfolioMessages.portfolioRemoveDescription, {
                 name: portfolio.name
               })}
             </Text>

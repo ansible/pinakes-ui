@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React from 'react';
 import {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
@@ -8,6 +7,8 @@ import {
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import extractFormatMessage from '../../utilities/extract-format-message';
+import portfolioMessages from '../../messages/portfolio.messages';
 
 export const doFetchPortfolios = ({
   filter,
@@ -155,6 +156,7 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
     type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
     payload: portfolioId
   });
+  const formatMessage = extractFormatMessage(getState);
   return dispatch({
     type: ActionTypes.REMOVE_PORTFOLIO,
     payload: PortfolioHelper.removePortfolio(portfolioId)
@@ -165,23 +167,25 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
             variant: 'success',
             title: 'Success removing portfolio',
             dismissable: true,
-            description: (
-              <Fragment>
-                The portfolio was removed successfully. You can&nbsp;
-                <a
-                  href="#"
-                  id={`undo-delete-portfolio-${portfolioId}`}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    dispatch(
-                      undoRemovePortfolio(portfolioId, restore_key, viewState)
-                    );
-                  }}
-                >
-                  Undo
-                </a>
-                &nbsp;this action if this was a mistake.
-              </Fragment>
+            description: formatMessage(
+              portfolioMessages.removePortfolioNotification,
+              {
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
+                  <a
+                    href="#"
+                    id={`undo-delete-portfolio-${portfolioId}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      dispatch(
+                        undoRemovePortfolio(portfolioId, restore_key, viewState)
+                      );
+                    }}
+                  >
+                    {chunks}
+                  </a>
+                )
+              }
             )
           }
         });
@@ -247,6 +251,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
       selectedPortfolio: { id: portfolioId }
     }
   } = getState();
+  const formatMessage = extractFormatMessage(getState);
   return PortfolioHelper.removePortfolioItems(portfolioItems)
     .then((data) =>
       dispatch(
@@ -264,29 +269,26 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
           variant: 'success',
           title: 'Products removed',
           dismissable: true,
-          description: (
-            <FormattedMessage
-              id="portfolio.remove.portfolio-items"
-              defaultMessage="You have removed {count, number} {count, plural, one {product} other {products} } from the {portfolioName} portfolio. {undo} if this was a mistake." // eslint-disable-line max-len
-              values={{
-                count: portfolioItems.length,
-                portfolioName,
-                undo: (
-                  <a
-                    href="#"
-                    id={`restore-portfolio-item-${portfolioId}`}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      dispatch(
-                        undoRemoveProductsFromPortfolio(data, portfolioId)
-                      );
-                    }}
-                  >
-                    Undo
-                  </a>
-                )
-              }}
-            />
+          description: formatMessage(
+            portfolioMessages.removeItemsNotification,
+            {
+              count: portfolioItems.length,
+              portfolioName,
+              undo: (
+                <a
+                  href="#"
+                  id={`restore-portfolio-item-${portfolioId}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    dispatch(
+                      undoRemoveProductsFromPortfolio(data, portfolioId)
+                    );
+                  }}
+                >
+                  Undo
+                </a>
+              )
+            }
           )
         }
       });
