@@ -114,7 +114,7 @@ const CopyPortfolioItemModal = ({
       variant="small"
     >
       <FormRenderer
-        initialValues={{ portfolio_id: portfolioId, portfolio_item_name: name }}
+        initialValues={{ portfolio_id: portfolioId }}
         schema={copySchema(name, portfolioChange, nameFetching)}
         onSubmit={onSubmit}
         onCancel={() =>
