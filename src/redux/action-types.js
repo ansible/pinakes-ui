@@ -83,3 +83,9 @@ export const SET_SOURCETYPE_ICONS = '@@sources/SET_SOURCETYPE_ICONS';
  * Breadcrumbs actions
  */
 export const INITIALIZE_BREADCRUMBS = '@@breadcrumbs/INITIALIZE_BREADCRUMBS';
+
+/**
+ * In18l actions
+ */
+
+export const INITIALIZE_I18N = '@@i18l/INITIALIZE_I18N';

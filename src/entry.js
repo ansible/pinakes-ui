@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './utilities/store';
 import Router from './router';
+import { IntlProvider } from 'react-intl';
 
 ReactDOM.render(
   <Provider store={store(true)}>
-    <Router />
+    <IntlProvider locale="en">
+      <Router />
+    </IntlProvider>
   </Provider>,
   document.getElementById('root')
 );
