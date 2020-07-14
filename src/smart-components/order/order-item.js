@@ -63,6 +63,9 @@ const OrderItem = memo(
       platform: orderPlatform,
       portfolio: orderPortfolio
     };
+    const translatableState = item.state
+      .replace(/\s/g, '')
+      .replace(/^./, (char) => char.toLowerCase());
     return (
       <tr
         aria-labelledby={`${item.id}-expand`}
@@ -86,7 +89,7 @@ const OrderItem = memo(
                         pathname={ORDER_ROUTE}
                         searchParams={searchParams}
                       >
-                        {formatMessage(ordersMessages.compositeTitlem, {
+                        {formatMessage(ordersMessages.compositeTitle, {
                           name: orderName,
                           id: item.id
                         })}
@@ -101,7 +104,7 @@ const OrderItem = memo(
                       {item.state === 'Failed' && (
                         <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
                       )}
-                      {item.state}
+                      {formatMessage(statesMessages[translatableState])}
                     </CatalogLink>
                   </LevelItem>
                 </Level>

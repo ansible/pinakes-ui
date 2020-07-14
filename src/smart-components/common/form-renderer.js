@@ -1,7 +1,6 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import isEqual from 'lodash/isEqual';
 import { FormGroup, TextContent, Text } from '@patternfly/react-core';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';

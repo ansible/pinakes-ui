@@ -49,9 +49,10 @@ const OrderDetailInformation = ({
             <Title headingLevel="h5" size="md">
               {formatMessage(ordersMessages.orderStatus, {
                 // eslint-disable-next-line react/display-name
-                icon: () => (
-                  <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
-                ),
+                icon: () =>
+                  state === 'Failed' ? (
+                    <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
+                  ) : null,
                 state
               })}
             </Title>

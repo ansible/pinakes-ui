@@ -7,7 +7,7 @@ const statesMessages = defineMessages({
   },
   ordered: {
     id: 'common.states.ordered',
-    defaultMessages: 'Ordered'
+    defaultMessage: 'Ordered'
   },
   approvalPending: {
     id: 'common.states.approval-pending',
@@ -28,6 +28,22 @@ const statesMessages = defineMessages({
   failed: {
     id: 'common.states.failed',
     defaultMessage: 'Failed'
+  },
+  undecided: {
+    id: 'common.states.undecided',
+    defaultMessage: 'Undecided'
+  },
+  approved: {
+    id: 'common.states.approved',
+    defaultMessage: 'Approved'
+  },
+  denied: {
+    id: 'common.states.denied',
+    defaultMessage: 'Denied'
+  },
+  error: {
+    id: 'common.states.error',
+    defaultMessage: 'Error'
   }
 });
 

@@ -108,7 +108,7 @@ const ApprovalRequests = () => {
                 {formatMessage(statesMessages.title)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {request.state}
+                {formatMessage(statesMessages[request.state.toLowerCase()])}
               </TextListItem>
               {request.reason && (
                 <Fragment>
