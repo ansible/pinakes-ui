@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
+import { useIntl } from 'react-intl';
+import isEqual from 'lodash/isEqual';
 import { FormGroup, TextContent, Text } from '@patternfly/react-core';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
@@ -11,11 +13,13 @@ import PlainText from '@data-driven-forms/pf4-component-mapper/dist/cjs/plain-te
 import Checkbox from '@data-driven-forms/pf4-component-mapper/dist/cjs/checkbox';
 import Radio from '@data-driven-forms/pf4-component-mapper/dist/cjs/radio';
 import Switch from '@data-driven-forms/pf4-component-mapper/dist/cjs/switch';
+
 import Pf4SelectWrapper from '../../presentational-components/shared/pf4-select-wrapper';
 import ShareGroupSelect from '../../forms/form-fields/share-group-select';
 import ShareGroupEdit from '../../forms/form-fields/share-group-edit';
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+import translateSchema from '../../utilities/translate-schema';
 
 const ValueOnly = ({ name, label, value }) => (
   <FormGroup label={label} fieldId={name}>
@@ -68,20 +72,25 @@ export const catalogValidatorAlias = {
   'url-validator': validatorTypes.URL
 };
 
-const FormRenderer = ({ formContainer, templateProps, ...rest }) => (
-  <div>
-    <ReactFormRender
-      componentMapper={catalogComponentMapper}
-      FormTemplate={(props) => <FormTemplate {...props} {...templateProps} />}
-      validatorMapper={catalogValidatorMapper}
-      {...rest}
-    />
-  </div>
-);
+const FormRenderer = ({ formContainer, templateProps, schema, ...rest }) => {
+  const { formatMessage } = useIntl();
+  return (
+    <div>
+      <ReactFormRender
+        componentMapper={catalogComponentMapper}
+        FormTemplate={(props) => <FormTemplate {...props} {...templateProps} />}
+        validatorMapper={catalogValidatorMapper}
+        schema={translateSchema(schema, formatMessage)}
+        {...rest}
+      />
+    </div>
+  );
+};
 
 FormRenderer.propTypes = {
   formContainer: PropTypes.oneOf(['default', 'modal']),
-  templateProps: PropTypes.object
+  templateProps: PropTypes.object,
+  schema: PropTypes.object.isRequired
 };
 
 FormRenderer.defaultProps = {
@@ -89,4 +98,4 @@ FormRenderer.defaultProps = {
   templateProps: {}
 };
 
-export default FormRenderer;
+export default memo(FormRenderer);

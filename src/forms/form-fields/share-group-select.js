@@ -16,6 +16,7 @@ export const ShareGroupSelect = ({
   const { formatMessage } = useIntl();
   const inputProps = useFieldApi({ name: inputName });
   const selectProps = useFieldApi({ name: selectName });
+  console.log({selectProps, inputProps})
 
   return (
     <Grid hasGutter className="share-column">

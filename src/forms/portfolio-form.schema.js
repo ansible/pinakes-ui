@@ -34,7 +34,7 @@ export const createPortfolioSchema = (
   return {
     fields: [
       {
-        label: 'Name',
+        label: 'schemas.portfolio.name',
         name: 'name',
         component: componentTypes.TEXT_FIELD,
         isRequired: true,
@@ -44,7 +44,7 @@ export const createPortfolioSchema = (
         validate: [(value) => debouncedValidator(value, portfolioId)]
       },
       {
-        label: 'Description',
+        label: 'schemas.portfolio.description',
         component: componentTypes.TEXTAREA,
         name: 'description'
       }
