@@ -16,8 +16,12 @@ import SpinnerWrapper from '../../presentational-components/styled-components/sp
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
+import { useIntl } from 'react-intl';
+import actionMessages from '../../messages/actions.messages';
+import portfolioMessages from '../../messages/portfolio.messages';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
@@ -67,7 +71,11 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
 
   return (
     <Modal
-      title={portfolioId ? 'Edit portfolio' : 'Create portfolio'}
+      title={
+        portfolioId
+          ? formatMessage(portfolioMessages.modalEditTitle)
+          : formatMessage(portfolioMessages.modalCreateTitle)
+      }
       isOpen={isOpen}
       onClose={() => push(closeTarget)}
       variant="small"
@@ -84,7 +92,11 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
           onCancel={() => push(closeTarget)}
           initialValues={{ ...initialValues }}
           formContainer="modal"
-          buttonsLabels={{ submitLabel: portfolioId ? 'Save' : 'Create' }}
+          templateProps={{
+            submitLabel: portfolioId
+              ? formatMessage(actionMessages.save)
+              : formatMessage(portfolioMessages.modalCreateSubmit)
+          }}
           disableSubmit={submitting ? ['pristine', 'diry'] : []}
         />
       ) : (

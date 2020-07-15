@@ -5,8 +5,11 @@ import ExternalLinkAlt from '@patternfly/react-icons/dist/js/icons/external-link
 
 import useQuery from '../../../utilities/use-query';
 import { ORDER_ROUTE } from '../../../constants/routes';
+import { useIntl } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
 
 const OrderLifecycle = () => {
+  const { formatMessage } = useIntl();
   const [, search] = useQuery([]);
   const { url } = useRouteMatch(ORDER_ROUTE);
   const orderDetailData = useSelector(
@@ -31,7 +34,8 @@ const OrderLifecycle = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Manage product&nbsp;
+        {formatMessage(ordersMessages.lifecycleLink)}
+        &nbsp;
         <ExternalLinkAlt />
       </a>
     </div>

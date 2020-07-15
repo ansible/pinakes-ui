@@ -9,6 +9,9 @@ import {
 } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import CatalogLink from '../../common/catalog-link';
+import { useIntl } from 'react-intl';
+import actionMessages from '../../../messages/actions.messages';
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -22,6 +25,7 @@ const DetailToolbarActions = ({
   availability,
   userCapabilities: { update, copy, set_approval }
 }) => {
+  const { formatMessage } = useIntl();
   const dropdownItems = [];
   if (update) {
     dropdownItems.push(
@@ -31,7 +35,7 @@ const DetailToolbarActions = ({
         id="edit-portfolio-item"
         component={
           <CatalogLink pathname={editUrl} preserveSearch>
-            Edit
+            {formatMessage(actionMessages.edit)}
           </CatalogLink>
         }
         role="link"
@@ -47,7 +51,7 @@ const DetailToolbarActions = ({
         id="copy-portfolio-item"
         component={
           <CatalogLink pathname={copyUrl} preserveSearch>
-            Copy
+            {formatMessage(actionMessages.copy)}
           </CatalogLink>
         }
         role="link"
@@ -63,7 +67,7 @@ const DetailToolbarActions = ({
         id="set-approval_workflow"
         component={
           <CatalogLink pathname={workflowUrl} preserveSearch>
-            Set approval
+            {formatMessage(actionMessages.setApproval)}
           </CatalogLink>
         }
         role="link"
@@ -79,7 +83,7 @@ const DetailToolbarActions = ({
         id="edit-survey"
         component={
           <CatalogLink pathname={editSurveyUrl} preserveSearch>
-            Edit survey
+            {formatMessage(portfolioMessages.portfolioItemSurvey)}
           </CatalogLink>
         }
         role="link"
@@ -101,7 +105,7 @@ const DetailToolbarActions = ({
             variant="primary"
             id="order-portfolio-item"
           >
-            Order
+            {formatMessage(portfolioMessages.portfolioItemOrder)}
           </ButtonWithSpinner>
         </CatalogLink>
       </LevelItem>

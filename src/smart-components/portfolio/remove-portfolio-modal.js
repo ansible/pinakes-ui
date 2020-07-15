@@ -18,8 +18,11 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import { useIntl } from 'react-intl';
+import portfolioMessages from '../../messages/portfolio.messages';
 
 const RemovePortfolioModal = ({ viewState }) => {
+  const { formatMessage } = useIntl();
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const portfolio = useSelector(({ portfolioReducer }) =>
@@ -45,7 +48,7 @@ const RemovePortfolioModal = ({ viewState }) => {
     <UnauthorizedRedirect />
   ) : (
     <Modal
-      title="Delete Portfolio?"
+      title={formatMessage(portfolioMessages.portfolioRemoveTitle)}
       isOpen
       variant="small"
       onClose={goBack}
@@ -57,10 +60,10 @@ const RemovePortfolioModal = ({ viewState }) => {
           id="confirm-delete-portfolio"
           onClick={onSubmit}
         >
-          Confirm
+          {formatMessage(portfolioMessages.portfolioRemoveConfirm)}
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>
-          Cancel
+          {formatMessage(portfolioMessages.portfolioRemoveCancel)}
         </Button>
       ]}
     >
@@ -71,8 +74,9 @@ const RemovePortfolioModal = ({ viewState }) => {
         <SplitItem>
           <TextContent>
             <Text component={TextVariants.p}>
-              This action will permanently delete portfolio {portfolio.name} and
-              its data.
+              {formatMessage(portfolioMessages.portfolioRemoveDescription, {
+                name: portfolio.name
+              })}
             </Text>
           </TextContent>
         </SplitItem>

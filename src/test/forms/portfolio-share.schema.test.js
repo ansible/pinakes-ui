@@ -10,7 +10,7 @@ describe('create portfolio share schema', () => {
   const newSharePartial = [
     {
       component: 'sub-form',
-      description: 'Invite group',
+      description: 'share.new.description',
       fields: [
         {
           component: 'share-group-select',
@@ -35,7 +35,7 @@ describe('create portfolio share schema', () => {
   const existingSharePartial = [
     {
       component: 'sub-form',
-      description: 'Groups with access',
+      description: 'share.groups.access',
       fields: [
         {
           component: 'sub-form',

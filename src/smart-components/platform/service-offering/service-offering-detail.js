@@ -18,10 +18,15 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
+import { useIntl } from 'react-intl';
+import labelMessages from '../../../messages/labels.messages';
+import statesMessages from '../../../messages/states.messages';
+import platformsMessages from '../../../messages/platforms.messages';
 
 const requiredParams = ['service', 'platform'];
 
 const ServiceOfferingDetail = () => {
+  const { formatMessage } = useIntl();
   const [queryValues] = useQuery(requiredParams);
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
@@ -55,14 +60,18 @@ const ServiceOfferingDetail = () => {
               <CardIcon src={source.icon_url} height={64} />
               <TextContent>
                 <Text component="h1">{service.name}</Text>
-                <Text component="small">Service offering</Text>
+                <Text component="small">
+                  {formatMessage(platformsMessages.offeringTitle)}
+                </Text>
               </TextContent>
             </StyledLevelItem>
           </Level>
         </GridItem>
         <GridItem md={3} lg={2}>
           <TextContent>
-            <Text className="font-14">Platform</Text>
+            <Text className="font-14">
+              {formatMessage(labelMessages.platform)}
+            </Text>
             <Text
               id="source"
               className="overflow-wrap"
@@ -70,7 +79,9 @@ const ServiceOfferingDetail = () => {
             >
               {source.name}
             </Text>
-            <Text className="font-14">Created</Text>
+            <Text className="font-14">
+              {formatMessage(statesMessages.created)}
+            </Text>
             <Text
               id="created_at"
               className="overflow-wrap"
@@ -82,16 +93,20 @@ const ServiceOfferingDetail = () => {
         </GridItem>
         <GridItem md={9} lg={10}>
           <TextContent>
-            <Text className="font-14">Name</Text>
+            <Text className="font-14">{formatMessage(labelMessages.name)}</Text>
             <Text id="description" component={TextVariants.p}>
               {service.name}
             </Text>
-            <Text className="font-14">Description</Text>
+            <Text className="font-14">
+              {formatMessage(labelMessages.description)}
+            </Text>
             <Text id="long_description" component={TextVariants.p}>
               {service.description}
             </Text>
             <hr className="pf-c-divider" />
-            <Text component="h2">Extra parameters</Text>
+            <Text component="h2">
+              {formatMessage(platformsMessages.offeringParameters)}
+            </Text>
             <ReactJsonView src={service.extra} />
           </TextContent>
         </GridItem>

@@ -20,6 +20,7 @@ import {
   DELETE_TEMPORARY_PORTFOLIO
 } from '../../../redux/action-types';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
+import { useIntl, IntlProvider } from 'react-intl';
 
 describe('<RemovePortfolioModal />', () => {
   let initialProps;
@@ -45,6 +46,9 @@ describe('<RemovePortfolioModal />', () => {
       id: '123'
     };
     initialState = {
+      i18nReducer: {
+        ...useIntl()
+      },
       portfolioReducer: {
         portfolios: {
           meta: {
@@ -206,7 +210,11 @@ describe('<RemovePortfolioModal />', () => {
         .at(1)
         .simulate('click');
     });
-    const notification = mount(store.getActions()[2].payload.description);
+    const notification = mount(
+      <IntlProvider locale="en">
+        {store.getActions()[2].payload.description}
+      </IntlProvider>
+    );
     store.clearActions();
     await act(async () => {
       notification.find('a').simulate('click');

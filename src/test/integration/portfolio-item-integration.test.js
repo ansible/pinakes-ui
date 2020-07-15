@@ -1,3 +1,4 @@
+jest.requireActual('react-intl');
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
@@ -20,6 +21,7 @@ import PortfolioItems from '../../smart-components/portfolio/portfolio-items';
 import PortfolioEmptyState from '../../smart-components/portfolio/portfolio-empty-state';
 import PlatformItem from '../../presentational-components/platform/platform-item';
 import PortfolioItem from '../../smart-components/portfolio/portfolio-item';
+import { IntlProvider } from 'react-intl';
 
 describe('Integration tests for portfolio items', () => {
   const commonSourcesResponse = {
@@ -98,7 +100,7 @@ describe('Integration tests for portfolio items', () => {
       .replyOnce(200, { data: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/123`)
-      .replyOnce(200, initialPortfolio);
+      .reply(200, initialPortfolio);
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios/123/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
@@ -114,9 +116,11 @@ describe('Integration tests for portfolio items', () => {
     await act(async () => {
       wrapper = mount(
         <Provider store={store}>
-          <MemoryRouter initialEntries={['/portfolio?portfolio=123']}>
-            <App />
-          </MemoryRouter>
+          <IntlProvider locale="en">
+            <MemoryRouter initialEntries={['/portfolio?portfolio=123']}>
+              <App />
+            </MemoryRouter>
+          </IntlProvider>
         </Provider>
       );
     });
@@ -357,7 +361,7 @@ describe('Integration tests for portfolio items', () => {
       .onGet(
         `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=100&offset=0`
       )
-      .replyOnce(200, {
+      .reply(200, {
         data: [initialPortfolio],
         meta: {
           count: 0,

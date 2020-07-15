@@ -12,6 +12,7 @@ import {
   EmptyStateSecondaryActions,
   Button
 } from '@patternfly/react-core';
+import { useIntl } from 'react-intl';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
@@ -30,6 +31,9 @@ import {
   Tbody
 } from '../../presentational-components/styled-components/table';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
+import statesMessages from '../../messages/states.messages';
+import filteringMessages from '../../messages/filtering.messages';
+import ordersMessages from '../../messages/orders.messages';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -76,6 +80,7 @@ const ordersListState = (state, action) => {
 };
 
 const OrdersList = () => {
+  const { formatMessage } = useIntl();
   const viewState = useInitialUriHash();
   const [
     { isFetching, isFiltering, filterType, filters },
@@ -177,27 +182,27 @@ const OrdersList = () => {
                       items: [
                         {
                           value: 'Approval Pending',
-                          label: 'Approval Pending'
+                          label: formatMessage(statesMessages.approvalPending)
                         },
                         {
                           value: 'Canceled',
-                          label: 'Canceled'
+                          label: formatMessage(statesMessages.canceled)
                         },
                         {
                           value: 'Completed',
-                          label: 'Completed'
+                          label: formatMessage(statesMessages.completed)
                         },
                         {
                           value: 'Created',
-                          label: 'Created'
+                          label: formatMessage(statesMessages.created)
                         },
                         {
                           value: 'Failed',
-                          label: 'Failed'
+                          label: formatMessage(statesMessages.failed)
                         },
                         {
                           value: 'Ordered',
-                          label: 'Ordered'
+                          label: formatMessage(statesMessages.ordered)
                         }
                       ],
                       value: filters.state,
@@ -249,12 +254,18 @@ const OrdersList = () => {
                             <EmptyStateIcon icon={SearchIcon} />
                           </Bullseye>
                           <Title headingLevel="h1" size="lg">
-                            {meta.noData ? 'No orders' : 'No results found'}
+                            {meta.noData
+                              ? formatMessage(ordersMessages.noOrdersTitle)
+                              : formatMessage(filteringMessages.noResults)}
                           </Title>
                           <EmptyStateBody>
                             {meta.noData
-                              ? 'No orders have been created.'
-                              : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+                              ? formatMessage(
+                                  ordersMessages.noOrdersDescription
+                                )
+                              : formatMessage(
+                                  filteringMessages.noResultsDescription
+                                )}
                           </EmptyStateBody>
 
                           <EmptyStateSecondaryActions>
@@ -269,7 +280,7 @@ const OrdersList = () => {
                                   handleFilterItems('');
                                 }}
                               >
-                                Clear all filters
+                                {formatMessage(filteringMessages.clearFilters)}
                               </Button>
                             )}
                           </EmptyStateSecondaryActions>

@@ -5,12 +5,15 @@ import { useDispatch } from 'react-redux';
 
 import { cancelOrder } from '../../../redux/actions/order-actions';
 import CancelOrderModal from '../cancel-order-modal';
+import { useIntl } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
 
 const CANCELABLE_STATES = ['Approval Pending'];
 
 const canCancel = (state) => CANCELABLE_STATES.includes(state);
 
 const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   return (
@@ -32,7 +35,7 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
           className="pf-u-mr-md"
           id="cancel-order-action"
         >
-          Cancel order
+          {formatMessage(ordersMessages.cancelOrder)}
         </Button>
       </ActionGroup>
     </Fragment>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
 import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
@@ -9,8 +9,9 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import useFormApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-form-api';
+import { useIntl, defineMessage } from 'react-intl';
 
-const createOptions = (options, inputValue, isRequired) => {
+const createOptions = (options, inputValue, isRequired, optionsMessages) => {
   if (inputValue && isRequired) {
     return options;
   }
@@ -18,7 +19,10 @@ const createOptions = (options, inputValue, isRequired) => {
   let selectOptions = [...options];
   return selectOptions.find(({ value }) => value === undefined)
     ? [...selectOptions]
-    : [{ label: isRequired ? 'Please choose' : 'None' }, ...selectOptions];
+    : [
+        { label: isRequired ? optionsMessages.choose : optionsMessages.none },
+        ...selectOptions
+      ];
 };
 
 const Select = ({
@@ -33,6 +37,21 @@ const Select = ({
   meta,
   ...rest
 }) => {
+  const { formatMessage } = useIntl();
+  const optionsMessages = useRef({
+    none: formatMessage(
+      defineMessage({
+        id: 'forms.select.options.none',
+        defaultMessage: 'None'
+      })
+    ),
+    choose: formatMessage(
+      defineMessage({
+        id: 'forms.select.options.choose',
+        defaultMessage: 'Please choose'
+      })
+    )
+  });
   const [initialFetch, setInitialFetch] = useState(true);
   const formOptions = useFormApi();
   let loadOptionsOverride = loadOptions;
@@ -78,7 +97,12 @@ const Select = ({
       isMulti={multi}
       options={
         !loadOptions
-          ? createOptions(options, input.value, isRequired)
+          ? createOptions(
+              options,
+              input.value,
+              isRequired,
+              optionsMessages.current
+            )
           : undefined
       }
       isDisabled={isDisabled}

@@ -31,6 +31,7 @@ import emptyDataMiddleware from './empty-data-middleware';
 import breadcrumbsReducer, {
   initialBreadcrumbsState
 } from '../redux/reducers/breadcrumbs-reducer';
+import i18nReducer, { i18nInitialState } from '../redux/reducers/i18n-reducer';
 import viewStateMiddleware from './view-state-middleware';
 import unAuthorizedMiddleware from './unauthorized-middleware';
 
@@ -74,6 +75,7 @@ const registerReducers = (registry) => {
       breadcrumbsReducer,
       initialBreadcrumbsState
     ),
+    i18nReducer: applyReducerHash(i18nReducer, i18nInitialState),
     notifications
   });
 };

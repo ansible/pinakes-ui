@@ -20,7 +20,8 @@ describe('redux store', () => {
       rbacReducer: expect.any(Object),
       shareReducer: expect.any(Object),
       notifications: expect.any(Object),
-      openApiReducer: expect.any(Object)
+      openApiReducer: expect.any(Object),
+      i18nReducer: expect.any(Object)
     };
     expect(wrapper.props().store.getState()).toEqual(expectedState);
   });

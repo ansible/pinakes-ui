@@ -4,7 +4,7 @@
 const newShareSchema = (loadGroupOptions, permissionVerbs) => [
   {
     component: 'sub-form',
-    description: 'Invite group',
+    description: 'share.new.description',
     name: 'new_share',
     key: '1',
     fields: [
@@ -24,7 +24,7 @@ const newShareSchema = (loadGroupOptions, permissionVerbs) => [
 const groupListSchema = (groupFieldList) => [
   {
     component: 'sub-form',
-    description: 'Groups with access',
+    description: 'share.groups.access',
     name: 'share_list',
     key: 'share_list',
     fields: groupFieldList

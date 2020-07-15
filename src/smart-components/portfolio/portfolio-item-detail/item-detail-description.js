@@ -7,78 +7,87 @@ import EditPortfolioItem from './edit-portfolio-item';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 import CatalogRoute from '../../../routing/catalog-route';
+import { useIntl } from 'react-intl';
+import portfolioMessages from '../../../messages/portfolio.messages';
 
-const ItemDetailDescription = ({ userCapabilities, product, url, search }) => (
-  <Switch>
-    <Route
-      exact
-      path={url}
-      render={() => (
-        <TextContent>
-          {(product.description || product.long_description) && (
-            <Text component={TextVariants.h6}>Overview</Text>
-          )}
-          {product.description && (
-            <Text id="description" component={TextVariants.p}>
-              {product.description}
-            </Text>
-          )}
-          {product.long_description && (
-            <Text id="long_description" component={TextVariants.p}>
-              {product.long_description}
-            </Text>
-          )}
-          {product.support_url && (
-            <Text id="support_url" component={TextVariants.p}>
-              <a
-                href={product.support_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn more
-              </a>
-            </Text>
-          )}
-          {product.documentation_url && (
-            <Fragment>
-              <Text component={TextVariants.h6}>Documentation</Text>
-              <Text id="documentation_url" component={TextVariants.p}>
+const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
+  const { formatMessage } = useIntl();
+  return (
+    <Switch>
+      <Route
+        exact
+        path={url}
+        render={() => (
+          <TextContent>
+            {(product.description || product.long_description) && (
+              <Text component={TextVariants.h6}>
+                {formatMessage(portfolioMessages.portfolioItemOverview)}
+              </Text>
+            )}
+            {product.description && (
+              <Text id="description" component={TextVariants.p}>
+                {product.description}
+              </Text>
+            )}
+            {product.long_description && (
+              <Text id="long_description" component={TextVariants.p}>
+                {product.long_description}
+              </Text>
+            )}
+            {product.support_url && (
+              <Text id="support_url" component={TextVariants.p}>
                 <a
-                  href={product.documentation_url}
+                  href={product.support_url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Doc link
+                  {formatMessage(portfolioMessages.portfolioItemSupport)}
                 </a>
               </Text>
-            </Fragment>
-          )}
-        </TextContent>
-      )}
-    />
-    <CatalogRoute
-      exact
-      path={`${url}/edit`}
-      requiredCapabilities="update"
-      userCapabilities={userCapabilities}
-    >
-      <EditPortfolioItem
-        cancelUrl={url}
-        product={product}
+            )}
+            {product.documentation_url && (
+              <Fragment>
+                <Text component={TextVariants.h6}>
+                  {formatMessage(portfolioMessages.portfolioItemDocumentation)}
+                </Text>
+                <Text id="documentation_url" component={TextVariants.p}>
+                  <a
+                    href={product.documentation_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {formatMessage(portfolioMessages.portfolioItemDocLink)}
+                  </a>
+                </Text>
+              </Fragment>
+            )}
+          </TextContent>
+        )}
+      />
+      <CatalogRoute
+        exact
+        path={`${url}/edit`}
+        requiredCapabilities="update"
         userCapabilities={userCapabilities}
-      />
-    </CatalogRoute>
-    <Route exact path={`${url}/edit-workflow`}>
-      <EditApprovalWorkflow
-        pushParam={{ pathname: url, search }}
-        objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
-        objectId={product.id}
-        objectName={() => product.name}
-        querySelector="portfolio-item"
-      />
-    </Route>
-  </Switch>
-);
+      >
+        <EditPortfolioItem
+          cancelUrl={url}
+          product={product}
+          userCapabilities={userCapabilities}
+        />
+      </CatalogRoute>
+      <Route exact path={`${url}/edit-workflow`}>
+        <EditApprovalWorkflow
+          pushParam={{ pathname: url, search }}
+          objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
+          objectId={product.id}
+          objectName={() => product.name}
+          querySelector="portfolio-item"
+        />
+      </Route>
+    </Switch>
+  );
+};
 
 ItemDetailDescription.propTypes = {
   product: PropTypes.shape({

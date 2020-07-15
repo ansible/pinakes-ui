@@ -15,6 +15,10 @@ import {
 import asyncFormValidator from '../../../utilities/async-form-validator';
 import { listPortfolios } from '../../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
+import { useIntl } from 'react-intl';
+import actionMessages from '../../../messages/actions.messages';
+import labelMessages from '../../../messages/labels.messages';
+import portfolioMessages from '../../../messages/portfolio.messages';
 
 const loadPortfolios = (filter) =>
   listPortfolios(filter, { limit: 100, offset: 0 }).then(({ data }) =>
@@ -29,18 +33,23 @@ const loadPortfolios = (filter) =>
       .map(({ name, id }) => ({ value: id, label: name }))
   );
 
-const copySchema = (portfolioName, portfolioChange, nameFetching) => ({
+const copySchema = (
+  portfolioName,
+  portfolioChange,
+  nameFetching,
+  formatMessage
+) => ({
   fields: [
     {
       component: 'value-only',
       name: 'portfolio_item_name',
-      label: 'Name',
+      label: formatMessage(labelMessages.name),
       value: portfolioName
     },
     {
       component: componentTypes.SELECT,
       name: 'portfolio_id',
-      label: 'Portfolio',
+      label: formatMessage(labelMessages.portfolio),
       isRequired: true,
       loadOptions: asyncFormValidator(loadPortfolios),
       onChange: portfolioChange,
@@ -56,6 +65,7 @@ const CopyPortfolioItemModal = ({
   closeUrl,
   search
 }) => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const { push } = useHistory();
   const [submitting, setSubmitting] = useState(false);
@@ -104,7 +114,7 @@ const CopyPortfolioItemModal = ({
   return (
     <Modal
       isOpen
-      title="Copy product"
+      title={formatMessage(portfolioMessages.copyItemTitle)}
       onClose={() =>
         push({
           pathname: closeUrl,
@@ -115,7 +125,7 @@ const CopyPortfolioItemModal = ({
     >
       <FormRenderer
         initialValues={{ portfolio_id: portfolioId }}
-        schema={copySchema(name, portfolioChange, nameFetching)}
+        schema={copySchema(name, portfolioChange, nameFetching, formatMessage)}
         onSubmit={onSubmit}
         onCancel={() =>
           push({
@@ -124,7 +134,7 @@ const CopyPortfolioItemModal = ({
           })
         }
         formContainer="modal"
-        buttonsLabels={{ submitLabel: 'Save' }}
+        templateProps={{ submitLabel: formatMessage(actionMessages.save) }}
         disableSubmit={submitting ? ['pristine', 'dirty'] : []}
       />
     </Modal>

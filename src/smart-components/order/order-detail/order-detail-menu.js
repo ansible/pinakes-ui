@@ -9,35 +9,40 @@ import {
   Nav
 } from '@patternfly/react-core';
 import CatalogLink from '../../common/catalog-link';
+import { useIntl } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
 
-const useNavItems = ({ state } = {}) => [
+const useNavItems = ({ state } = {}, formatMessage) => [
   {
     link: '',
-    title: 'Order details'
+    title: formatMessage(ordersMessages.orderDetails)
   },
   {
     link: '/approval',
-    title: 'Approval'
+    title: formatMessage(ordersMessages.menuApproval)
   },
   {
     link: '/lifecycle',
-    title: 'Lifecycle',
+    title: formatMessage(ordersMessages.menuLifecycle),
     isDisabled: state !== 'Completed' && state !== 'Ordered'
   }
 ];
 
 const OrderDetailMenu = ({ baseUrl, isFetching }) => {
+  const { formatMessage } = useIntl();
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { order } = orderDetailData;
-  const navItems = useNavItems(order);
+  const navItems = useNavItems(order, formatMessage);
   return (
     <Nav>
       <NavList className="orders-side-nav-list">
         <li className="pf-c-nav__item orders-nav-section-group">
           <TextContent>
-            <Text component={TextVariants.small}>Order steps</Text>
+            <Text component={TextVariants.small}>
+              {formatMessage(ordersMessages.menuSteps)}
+            </Text>
           </TextContent>
         </li>
         {navItems.map(({ link, title, isDisabled }) => (

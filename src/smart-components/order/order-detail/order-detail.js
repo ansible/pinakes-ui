@@ -28,7 +28,8 @@ import {
   OrderDetailStackItem
 } from '../../../presentational-components/styled-components/orders';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -48,6 +49,7 @@ const requiredParams = [
 ];
 
 const OrderDetail = () => {
+  const { formatMessage } = useIntl();
   const [isFetching, setIsFetching] = useState(true);
   const [queryValues] = useQuery(requiredParams);
   const orderDetailData = useSelector(
@@ -95,16 +97,10 @@ const OrderDetail = () => {
         key="order-object-missing"
         variant="warning"
         isInline
-        title={
-          <FormattedMessage
-            id="order.detail.not-found"
-            defaultMessage="The {objects} for this order {count, plural, one {is} other {are}} not available"
-            values={{
-              objects: notFoundObjects.join(', '),
-              count: notFoundObjects.length
-            }}
-          />
-        }
+        title={formatMessage(ordersMessages.objectsNotFound, {
+          objects: notFoundObjects.join(', '),
+          count: notFoundObjects.length
+        })}
       />
     );
   };

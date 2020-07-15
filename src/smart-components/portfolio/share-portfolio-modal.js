@@ -22,6 +22,8 @@ import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
+import { useIntl } from 'react-intl';
+import portfolioMessages from '../../messages/portfolio.messages';
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -29,6 +31,7 @@ const SharePortfolioModal = ({
   viewState,
   portfolioName = () => ''
 }) => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
   const [{ portfolio }, search] = useQuery(['portfolio']);
@@ -56,7 +59,9 @@ const SharePortfolioModal = ({
         (perm) => perm.value === groupPermissions.sort().join(',')
       );
       return {
-        [groupName]: options ? options.value : 'Unknown'
+        [groupName]: options
+          ? options.value
+          : formatMessage(portfolioMessages.portfolioShareUnknown)
       };
     });
     let initialShareList = initialGroupShareList.reduce(
@@ -136,25 +141,36 @@ const SharePortfolioModal = ({
   const validateShares = (values) => {
     const errors = {};
     if (values.group_uuid && !values.permissions) {
-      errors.permissions = 'Select the share permissions';
+      errors.permissions = formatMessage(
+        portfolioMessages.portfolioSharePermissions
+      );
     }
 
     if (values.permissions && !values.group_uuid) {
-      errors.group_uuid = 'Select a group';
+      errors.group_uuid = formatMessage(portfolioMessages.portfolioShareGroups);
     }
 
     return errors;
   };
 
   return (
-    <Modal title="Share portfolio" isOpen variant="small" onClose={onCancel}>
+    <Modal
+      title={formatMessage(portfolioMessages.portfolioShareTitle)}
+      isOpen
+      variant="small"
+      onClose={onCancel}
+    >
       {isFetching && <ShareLoader />}
       {!isFetching && (
         <Stack hasGutter>
           <StackItem>
             <TextContent>
               <Text>
-                Share <strong>{portfolioName(portfolio)}</strong> portfolio
+                {formatMessage(portfolioMessages.portfolioShareDescription, {
+                  name: portfolioName(portfolio),
+                  // eslint-disable-next-line react/display-name
+                  strong: (chunks) => <strong>{chunks}</strong>
+                })}
               </Text>
             </TextContent>
           </StackItem>
@@ -173,7 +189,11 @@ const SharePortfolioModal = ({
               validate={validateShares}
               initialValues={{ ...initialValues, ...initialShares() }}
               formContainer="modal"
-              buttonsLabels={{ submitLabel: 'Apply' }}
+              templateProps={{
+                submitLabel: formatMessage(
+                  portfolioMessages.portfolioShareApply
+                )
+              }}
             />
           </StackItem>
         </Stack>

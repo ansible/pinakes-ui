@@ -61,6 +61,9 @@ describe('<Portfolio />', () => {
       id: '123'
     };
     initialState = {
+      i18nReducer: {
+        formatMessage: ({ defaultMessage }) => defaultMessage
+      },
       breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platformItems: []
@@ -635,6 +638,7 @@ describe('<Portfolio />', () => {
       <IntlProvider locale="en">{notification}</IntlProvider>
     );
     await act(async () => {
+      console.log(notificationWrapper.debug());
       notificationWrapper.find('a').simulate('click');
     });
   });

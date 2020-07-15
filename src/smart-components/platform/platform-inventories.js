@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
@@ -15,6 +15,10 @@ import { createRows } from './platform-table-helpers.js';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
+import { useIntl } from 'react-intl';
+import statesMessages from '../../messages/states.messages';
+import labelMessages from '../../messages/labels.messages';
+import platformsMessages from '../../messages/platforms.messages';
 
 const initialState = {
   filterValue: '',
@@ -46,9 +50,14 @@ const platformInventoriesState = (state, action) => {
   }
 };
 
-const columns = ['Name', 'Description', 'Created', 'Workflow'];
-
 const PlatformInventories = () => {
+  const { formatMessage } = useIntl();
+  const { current: columns } = useRef([
+    formatMessage(labelMessages.name),
+    formatMessage(labelMessages.description),
+    formatMessage(statesMessages.created),
+    formatMessage(platformsMessages.workflowColumn)
+  ]);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformInventoriesState,
     initialState
@@ -106,7 +115,7 @@ const PlatformInventories = () => {
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
-          filterPlaceholder: 'Filter by inventory',
+          filterPlaceholder: formatMessage(platformsMessages.inventoriesFilter),
           meta,
           apiRequest: (_, options) =>
             dispatch(fetchPlatformInventories(id, filterValue, options))
@@ -125,8 +134,10 @@ const PlatformInventories = () => {
               Icon={SearchIcon}
               description={
                 filterValue === ''
-                  ? 'No inventories found.'
-                  : 'No inventories match your filter criteria.'
+                  ? formatMessage(platformsMessages.noInventoriesDescription)
+                  : formatMessage(
+                      platformsMessages.noInventoriesFilterDescription
+                    )
               }
             />
           )}

@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React from 'react';
 import {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
@@ -8,6 +7,9 @@ import {
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
+
+import portfolioMessages from '../../messages/portfolio.messages';
+import { FormattedMessage } from 'react-intl';
 
 export const doFetchPortfolios = ({
   filter,
@@ -166,22 +168,30 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
             title: 'Success removing portfolio',
             dismissable: true,
             description: (
-              <Fragment>
-                The portfolio was removed successfully. You can&nbsp;
-                <a
-                  href="#"
-                  id={`undo-delete-portfolio-${portfolioId}`}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    dispatch(
-                      undoRemovePortfolio(portfolioId, restore_key, viewState)
-                    );
-                  }}
-                >
-                  Undo
-                </a>
-                &nbsp;this action if this was a mistake.
-              </Fragment>
+              <FormattedMessage
+                {...portfolioMessages.removePortfolioNotification}
+                values={{
+                  // eslint-disable-next-line react/display-name
+                  a: (chunks) => (
+                    <a
+                      href="#"
+                      id={`undo-delete-portfolio-${portfolioId}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        dispatch(
+                          undoRemovePortfolio(
+                            portfolioId,
+                            restore_key,
+                            viewState
+                          )
+                        );
+                      }}
+                    >
+                      {chunks}
+                    </a>
+                  )
+                }}
+              />
             )
           }
         });
@@ -266,12 +276,12 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
           dismissable: true,
           description: (
             <FormattedMessage
-              id="portfolio.remove.portfolio-items"
-              defaultMessage="You have removed {count, number} {count, plural, one {product} other {products} } from the {portfolioName} portfolio. {undo} if this was a mistake." // eslint-disable-line max-len
+              {...portfolioMessages.removeItemsNotification}
               values={{
                 count: portfolioItems.length,
                 portfolioName,
-                undo: (
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
                   <a
                     href="#"
                     id={`restore-portfolio-item-${portfolioId}`}
@@ -282,7 +292,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
                       );
                     }}
                   >
-                    Undo
+                    {chunks}
                   </a>
                 )
               }}

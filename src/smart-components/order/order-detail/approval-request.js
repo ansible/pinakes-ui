@@ -16,6 +16,9 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
+import { useIntl } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
+import statesMessages from '../../../messages/states.messages';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -37,6 +40,7 @@ const isEmpty = (approvalRequest) =>
   approvalRequest.data.length === 0;
 
 const ApprovalRequests = () => {
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const { order, approvalRequest, orderItem } = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail
@@ -57,7 +61,7 @@ const ApprovalRequests = () => {
           </Bullseye>
           <Bullseye>
             <Title headingLevel="h1" size="2xl">
-              We were unable to find any approval requests for this order.
+              {formatMessage(ordersMessages.noApprovalRequests)}
             </Title>
           </Bullseye>
         </Flex>
@@ -70,9 +74,9 @@ const ApprovalRequests = () => {
       {isEmpty(approvalRequest) ? (
         <Bullseye>
           <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
-            <Bullseye id={'creating-approval-request'}>
+            <Bullseye id="creating-approval-request">
               <Title headingLevel="h1" size="xl">
-                Creating approval request
+                {formatMessage(ordersMessages.creatingApprovalRequest)}
               </Title>
             </Bullseye>
             <Bullseye>
@@ -82,32 +86,34 @@ const ApprovalRequests = () => {
         </Bullseye>
       ) : (
         <Fragment>
-          <Text component={TextVariants.h2}>Approval request</Text>
+          <Text component={TextVariants.h2}>
+            {formatMessage(ordersMessages.approvalTitle)}
+          </Text>
           {approvalRequest.data.map((request) => (
             <TextList key={request.id} component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
                 <a
                   href={`${document.baseURI}ansible/catalog/approval/request?request=${request.approval_request_ref}`}
                 >
-                  {`View this order's approval request details`}
+                  {formatMessage(ordersMessages.approvalDetail)}
                 </a>
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                Request created
+                {formatMessage(ordersMessages.approvalCreated)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat date={order.created_at} variant="relative" />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                State
+                {formatMessage(statesMessages.title)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {request.state}
+                {formatMessage(statesMessages[request.state.toLowerCase()])}
               </TextListItem>
               {request.reason && (
                 <Fragment>
                   <TextListItem component={TextListItemVariants.dt}>
-                    Approval reason
+                    {formatMessage(ordersMessages.approvalReason)}
                   </TextListItem>
                   <TextListItem component={TextListItemVariants.dd}>
                     {request.reason}
@@ -117,7 +123,7 @@ const ApprovalRequests = () => {
               {request.request_completed_at && (
                 <Fragment>
                   <TextListItem component={TextListItemVariants.dt}>
-                    Completed at
+                    {formatMessage(ordersMessages.approvalCompleted)}
                   </TextListItem>
                   <TextListItem component={TextListItemVariants.dd}>
                     <DateFormat
