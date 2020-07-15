@@ -10,6 +10,7 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import { useIntl } from 'react-intl';
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
@@ -36,6 +37,9 @@ describe('<EditApprovalWorkflow />', () => {
       pushParam: { pathname: '/foo', search: '?platform=1' }
     };
     initialState = {
+      i18nReducer: {
+        ...useIntl()
+      },
       portfolioReducer: {
         portfolios: {
           data: [

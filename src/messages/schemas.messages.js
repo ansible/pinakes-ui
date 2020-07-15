@@ -3,11 +3,11 @@ const { defineMessages } = require('react-intl');
 const schemasMessages = defineMessages({
   'schemas.portfolio.name': {
     id: 'schemas.portfolio.name',
-    defaultMessage: 'Name translated'
+    defaultMessage: 'Name'
   },
   'schemas.portfolio.description': {
     id: 'schemas.portfolio.description',
-    defaultMessage: 'Description translated'
+    defaultMessage: 'Description'
   },
   'schemas.portfolio-item.name': {
     id: 'schemas.portfolio-item.name',

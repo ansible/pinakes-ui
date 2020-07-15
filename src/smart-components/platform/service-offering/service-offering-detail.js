@@ -22,7 +22,6 @@ import { useIntl } from 'react-intl';
 import labelMessages from '../../../messages/labels.messages';
 import statesMessages from '../../../messages/states.messages';
 import platformsMessages from '../../../messages/platforms.messages';
-import formsMessages from '../../../messages/forms.messages';
 
 const requiredParams = ['service', 'platform'];
 
@@ -106,7 +105,7 @@ const ServiceOfferingDetail = () => {
             </Text>
             <hr className="pf-c-divider" />
             <Text component="h2">
-              {formsMessages(platformsMessages.offeringParameters)}
+              {formatMessage(platformsMessages.offeringParameters)}
             </Text>
             <ReactJsonView src={service.extra} />
           </TextContent>

@@ -7,8 +7,9 @@ import {
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import extractFormatMessage from '../../utilities/extract-format-message';
+
 import portfolioMessages from '../../messages/portfolio.messages';
+import { FormattedMessage } from 'react-intl';
 
 export const doFetchPortfolios = ({
   filter,
@@ -156,7 +157,6 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
     type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
     payload: portfolioId
   });
-  const formatMessage = extractFormatMessage(getState);
   return dispatch({
     type: ActionTypes.REMOVE_PORTFOLIO,
     payload: PortfolioHelper.removePortfolio(portfolioId)
@@ -167,25 +167,31 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
             variant: 'success',
             title: 'Success removing portfolio',
             dismissable: true,
-            description: formatMessage(
-              portfolioMessages.removePortfolioNotification,
-              {
-                // eslint-disable-next-line react/display-name
-                a: (chunks) => (
-                  <a
-                    href="#"
-                    id={`undo-delete-portfolio-${portfolioId}`}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      dispatch(
-                        undoRemovePortfolio(portfolioId, restore_key, viewState)
-                      );
-                    }}
-                  >
-                    {chunks}
-                  </a>
-                )
-              }
+            description: (
+              <FormattedMessage
+                {...portfolioMessages.removePortfolioNotification}
+                values={{
+                  // eslint-disable-next-line react/display-name
+                  a: (chunks) => (
+                    <a
+                      href="#"
+                      id={`undo-delete-portfolio-${portfolioId}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        dispatch(
+                          undoRemovePortfolio(
+                            portfolioId,
+                            restore_key,
+                            viewState
+                          )
+                        );
+                      }}
+                    >
+                      {chunks}
+                    </a>
+                  )
+                }}
+              />
             )
           }
         });
@@ -251,7 +257,6 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
       selectedPortfolio: { id: portfolioId }
     }
   } = getState();
-  const formatMessage = extractFormatMessage(getState);
   return PortfolioHelper.removePortfolioItems(portfolioItems)
     .then((data) =>
       dispatch(
@@ -269,26 +274,29 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
           variant: 'success',
           title: 'Products removed',
           dismissable: true,
-          description: formatMessage(
-            portfolioMessages.removeItemsNotification,
-            {
-              count: portfolioItems.length,
-              portfolioName,
-              undo: (
-                <a
-                  href="#"
-                  id={`restore-portfolio-item-${portfolioId}`}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    dispatch(
-                      undoRemoveProductsFromPortfolio(data, portfolioId)
-                    );
-                  }}
-                >
-                  Undo
-                </a>
-              )
-            }
+          description: (
+            <FormattedMessage
+              {...portfolioMessages.removeItemsNotification}
+              values={{
+                count: portfolioItems.length,
+                portfolioName,
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
+                  <a
+                    href="#"
+                    id={`restore-portfolio-item-${portfolioId}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      dispatch(
+                        undoRemoveProductsFromPortfolio(data, portfolioId)
+                      );
+                    }}
+                  >
+                    {chunks}
+                  </a>
+                )
+              }}
+            />
           )
         }
       });

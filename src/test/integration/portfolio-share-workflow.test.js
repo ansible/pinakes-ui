@@ -17,6 +17,7 @@ import Portfolios from '../../smart-components/portfolio/portfolios';
 
 import { StyledGalleryItem } from '../../presentational-components/styled-components/styled-gallery';
 import EditApprovalWorkflow from '../../smart-components/common/edit-approval-workflow';
+import { IntlProvider } from 'react-intl';
 
 describe('Portfolio share and workflow setting integration', () => {
   jest.useFakeTimers();
@@ -75,9 +76,11 @@ describe('Portfolio share and workflow setting integration', () => {
     await act(async () => {
       wrapper = mount(
         <Provider store={store}>
-          <MemoryRouter initialEntries={['/']}>
-            <App />
-          </MemoryRouter>
+          <IntlProvider locale="en">
+            <MemoryRouter initialEntries={['/']}>
+              <App />
+            </MemoryRouter>
+          </IntlProvider>
         </Provider>
       );
     });
