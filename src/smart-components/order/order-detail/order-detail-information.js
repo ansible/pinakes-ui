@@ -1,103 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Split,
-  SplitItem,
-  LevelItem,
-  Level,
-  Title,
-  TextContent,
-  Text,
-  TextVariants
-} from '@patternfly/react-core';
-import { ExclamationCircleIcon } from '@patternfly/react-icons';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import { LevelItem, Level, Title, Label } from '@patternfly/react-core';
+import CheckCircleIcon from '@patternfly/react-icons/dist/js/icons/check-circle-icon';
+import ExclamationCircleIcon from '@patternfly/react-icons/dist/js/icons/exclamation-circle-icon';
 
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
+import CatalogLink from '../../common/catalog-link';
 import { useIntl } from 'react-intl';
-import statesMessages from '../../../messages/states.messages';
-import ordersMessages from '../../../messages/orders.messages';
+import statesMessages, {
+  getTranslatableState
+} from '../../../messages/states.messages';
 
 const OrderDetailInformation = ({
+  portfolioId,
   jobName,
-  state,
-  orderRequestDate,
-  orderUpdateDate,
-  owner,
   portfolioItemId,
-  sourceId
+  sourceId,
+  state
 }) => {
   const { formatMessage } = useIntl();
   return (
-    <Split className="pf-u-mt-sm">
-      <SplitItem className="pf-u-mr-md">
+    <Level className="pf-u-mt-sm" hasGutter>
+      <Level hasGutter>
         <CardIcon
           sourceId={sourceId}
           height={60}
           src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon`}
         />
-      </SplitItem>
-      <SplitItem>
-        <Level>
-          <LevelItem className="pf-u-mr-lg">
-            <Title headingLevel="h5" size="md">
-              {jobName}
-            </Title>
-          </LevelItem>
+        <Title headingLevel="h2" size="3xl">
+          <CatalogLink
+            pathname="/portfolio/portfolio-item"
+            searchParams={{
+              portfolio: portfolioId,
+              source: sourceId,
+              'portfolio-item': portfolioItemId
+            }}
+          >
+            {jobName}
+          </CatalogLink>
+        </Title>
+      </Level>
+      {state === 'Completed' ||
+        (state === 'Failed' && (
           <LevelItem>
-            <Title headingLevel="h5" size="md">
-              {formatMessage(ordersMessages.orderStatus, {
-                // eslint-disable-next-line react/display-name
-                icon: () =>
-                  state === 'Failed' ? (
-                    <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
-                  ) : null,
-                state
-              })}
-            </Title>
+            <Label
+              variant="outline"
+              color={state === 'Completed' ? 'green' : 'red'}
+              icon={
+                state === 'Completed' ? (
+                  <CheckCircleIcon />
+                ) : (
+                  <ExclamationCircleIcon />
+                )
+              }
+            >
+              {formatMessage(statesMessages[getTranslatableState(state)])}
+            </Label>
           </LevelItem>
-        </Level>
-        <Level>
-          <LevelItem className="pf-u-mr-lg">
-            <TextContent>
-              <Text component={TextVariants.small}>
-                {formatMessage(statesMessages.ordered)}
-                &nbsp;
-                <DateFormat date={orderRequestDate} type="relative" />
-              </Text>
-            </TextContent>
-          </LevelItem>
-          <LevelItem className="pf-u-mr-lg">
-            <TextContent>
-              <Text component={TextVariants.small}>
-                {formatMessage(ordersMessages.orderedBy, { owner })}
-              </Text>
-            </TextContent>
-          </LevelItem>
-          <LevelItem>
-            <TextContent>
-              <Text component={TextVariants.small}>
-                {formatMessage(ordersMessages.lastUpdated)}
-                &nbsp;
-                <DateFormat date={orderUpdateDate} type="relative" />
-              </Text>
-            </TextContent>
-          </LevelItem>
-        </Level>
-      </SplitItem>
-    </Split>
+        ))}
+    </Level>
   );
 };
 
 OrderDetailInformation.propTypes = {
   portfolioItemId: PropTypes.string.isRequired,
   sourceId: PropTypes.string.isRequired,
-  state: PropTypes.string.isRequired,
   jobName: PropTypes.string.isRequired,
-  orderRequestDate: PropTypes.string.isRequired,
-  orderUpdateDate: PropTypes.string.isRequired,
-  owner: PropTypes.string.isRequired
+  portfolioId: PropTypes.string.isRequired,
+  state: PropTypes.string.isRequired
 };
 
 export default OrderDetailInformation;

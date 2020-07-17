@@ -28,15 +28,17 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
         name={portfolioItemName}
       />
       <ActionGroup>
-        <Button
-          onClick={() => setCancelModalOpen(true)}
-          isDisabled={!canCancel(state)}
-          type="button"
-          className="pf-u-mr-md"
-          id="cancel-order-action"
-        >
-          {formatMessage(ordersMessages.cancelOrder)}
-        </Button>
+        {canCancel(state) && (
+          <Button
+            onClick={() => setCancelModalOpen(true)}
+            isDisabled={!canCancel(state)}
+            type="button"
+            className="pf-u-mr-md"
+            id="cancel-order-action"
+          >
+            {formatMessage(ordersMessages.cancelOrder)}
+          </Button>
+        )}
       </ActionGroup>
     </Fragment>
   );

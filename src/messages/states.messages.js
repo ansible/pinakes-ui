@@ -47,4 +47,7 @@ const statesMessages = defineMessages({
   }
 });
 
+export const getTranslatableState = (state) =>
+  state.replace(/\s/g, '').replace(/^./, (char) => char.toLowerCase());
+
 export default statesMessages;

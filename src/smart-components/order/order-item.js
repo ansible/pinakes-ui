@@ -27,7 +27,9 @@ import {
 } from '../../constants/routes';
 import { TableCell } from '../../presentational-components/styled-components/table';
 import { useIntl } from 'react-intl';
-import statesMessages from '../../messages/states.messages';
+import statesMessages, {
+  getTranslatableState
+} from '../../messages/states.messages';
 import ordersMessages from '../../messages/orders.messages';
 
 const routeMapper = {
@@ -63,9 +65,7 @@ const OrderItem = memo(
       platform: orderPlatform,
       portfolio: orderPortfolio
     };
-    const translatableState = item.state
-      .replace(/\s/g, '')
-      .replace(/^./, (char) => char.toLowerCase());
+    const translatableState = getTranslatableState(item.state);
     return (
       <tr
         aria-labelledby={`${item.id}-expand`}
