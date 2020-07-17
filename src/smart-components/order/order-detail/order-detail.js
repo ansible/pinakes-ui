@@ -1,13 +1,14 @@
 import React, { useEffect, useState, Fragment, Suspense, lazy } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import {
-  StackItem,
   Level,
   LevelItem,
-  Split,
-  SplitItem,
+  Stack,
+  StackItem,
   Bullseye,
-  Alert
+  Alert,
+  Card,
+  CardBody
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon';
@@ -23,10 +24,6 @@ import useQuery from '../../../utilities/use-query';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { ORDER_ROUTE } from '../../../constants/routes';
-import {
-  OrderDetailStack,
-  OrderDetailStackItem
-} from '../../../presentational-components/styled-components/orders';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
 import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
@@ -103,8 +100,8 @@ const OrderDetail = () => {
   const unavailableMessages = unAvailable();
 
   return (
-    <OrderDetailStack className="bg-fill">
-      <OrderDetailStackItem className="pf-u-p-lg">
+    <Stack>
+      <StackItem className="pf-u-p-lg global-primary-background">
         {isFetching ? (
           <OrderDetailToolbarPlaceholder />
         ) : (
@@ -148,35 +145,39 @@ const OrderDetail = () => {
             )}
           </Fragment>
         )}
-      </OrderDetailStackItem>
-      <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
-        <Split hasGutter className="orders-nav-layout">
-          <SplitItem className="order-detail-nav-container">
+      </StackItem>
+      <StackItem>
+        <Stack hasGutter>
+          <StackItem className="global-primary-background">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
-          </SplitItem>
-          <SplitItem className="order-detail-content-container">
+          </StackItem>
+          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg">
             {isFetching ? (
               <Bullseye>
                 <Spinner />
               </Bullseye>
             ) : (
               <Suspense fallback={<div></div>}>
-                <Switch>
-                  <Route
-                    path={`${match.url}/approval`}
-                    component={ApprovalRequests}
-                  />
-                  <Route path={`${match.url}/lifecycle`}>
-                    <OrderLifecycle />
-                  </Route>
-                  <Route path={match.url} component={OrderDetails} />
-                </Switch>
+                <Card>
+                  <CardBody>
+                    <Switch>
+                      <Route
+                        path={`${match.url}/approval`}
+                        component={ApprovalRequests}
+                      />
+                      <Route path={`${match.url}/lifecycle`}>
+                        <OrderLifecycle />
+                      </Route>
+                      <Route path={match.url} component={OrderDetails} />
+                    </Switch>
+                  </CardBody>
+                </Card>
               </Suspense>
             )}
-          </SplitItem>
-        </Split>
+          </StackItem>
+        </Stack>
       </StackItem>
-    </OrderDetailStack>
+    </Stack>
   );
 };
 
