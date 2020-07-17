@@ -13,6 +13,10 @@ const ordersMessages = defineMessages({
     id: 'orders.common.compositeTitle',
     defaultMessage: '{name} - Order # {id}'
   },
+  detailTitle: {
+    id: 'orders.detail.title',
+    defaultMessage: 'Order ID {id}'
+  },
   orderSuccess: {
     id: 'orders.notification.success',
     defaultMessage:
@@ -55,10 +59,6 @@ const ordersMessages = defineMessages({
   approvalCompleted: {
     id: 'orders.approval.details.completed',
     defaultMessage: 'Completed at'
-  },
-  orderStatus: {
-    id: 'orders.order.details.status',
-    defaultMessage: 'Status: <icon></icon> {state}'
   },
   orderDetails: {
     id: 'orders.common.details',
@@ -108,6 +108,10 @@ const ordersMessages = defineMessages({
   cancelDescription: {
     id: 'orders.cancel.description',
     defaultMessage: 'Are you sure you want to cancel {name}?'
+  },
+  backToOrders: {
+    id: 'orders.toolbar.backLink',
+    defaultMessage: 'Back to orders'
   }
 });
 

@@ -10,6 +10,7 @@ import {
   Alert
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
+import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';
@@ -19,7 +20,6 @@ import OrderDetailInformation from './order-detail-information';
 import OrderDetailMenu from './order-detail-menu';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
-import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { ORDER_ROUTE } from '../../../constants/routes';
@@ -30,6 +30,7 @@ import {
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
 import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
+import CatalogLink from '../../common/catalog-link';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -69,13 +70,7 @@ const OrderDetail = () => {
     return () => resetBreadcrumbs();
   }, []);
 
-  const {
-    order,
-    portfolioItem,
-    platform,
-    orderItem,
-    portfolio
-  } = orderDetailData;
+  const { order, portfolioItem, platform, portfolio } = orderDetailData;
 
   const unAvailable = () => {
     const notFound = [portfolioItem, platform, portfolio || {}].filter(
@@ -115,7 +110,12 @@ const OrderDetail = () => {
         ) : (
           <Fragment>
             <Level className="pf-u-mb-md">
-              <CatalogBreadcrumbs />
+              <LevelItem>
+                <AngleLeftIcon className="pf-u-mr-md" />
+                <CatalogLink pathname="/orders">
+                  {formatMessage(ordersMessages.backToOrders)}
+                </CatalogLink>
+              </LevelItem>
             </Level>
             <Level className="flex-no-wrap">
               {unavailableMessages ? (
@@ -125,12 +125,9 @@ const OrderDetail = () => {
               ) : (
                 <Fragment>
                   <LevelItem>
-                    <OrderDetailTitle
-                      portfolioItemName={portfolioItem.name}
-                      orderId={order.id}
-                    />
+                    <OrderDetailTitle orderId={order.id} />
                   </LevelItem>
-                  <LevelItem className="flex-item-no-wrap">
+                  <LevelItem>
                     <OrderToolbarActions
                       portfolioItemName={portfolioItem.name}
                       orderId={order.id}
@@ -141,17 +138,13 @@ const OrderDetail = () => {
               )}
             </Level>
             {!unavailableMessages && (
-              <Level>
-                <OrderDetailInformation
-                  portfolioItemId={portfolioItem.id}
-                  sourceId={platform.id}
-                  state={order.state}
-                  jobName={portfolioItem.name}
-                  orderRequestDate={order.created_at}
-                  orderUpdateDate={orderItem?.updated_at}
-                  owner={order.owner}
-                />
-              </Level>
+              <OrderDetailInformation
+                portfolioItemId={portfolioItem.id}
+                portfolioId={portfolio.id}
+                sourceId={platform.id}
+                jobName={portfolioItem.name}
+                state={order.state}
+              />
             )}
           </Fragment>
         )}
