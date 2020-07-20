@@ -7,6 +7,7 @@ import useQuery from '../../../utilities/use-query';
 import { ORDER_ROUTE } from '../../../constants/routes';
 import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
+import { Card, CardBody } from '@patternfly/react-core';
 
 const OrderLifecycle = () => {
   const { formatMessage } = useIntl();
@@ -28,17 +29,19 @@ const OrderLifecycle = () => {
   }
 
   return (
-    <div>
-      <a
-        href={orderItem.external_url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {formatMessage(ordersMessages.lifecycleLink)}
-        &nbsp;
-        <ExternalLinkAlt />
-      </a>
-    </div>
+    <Card>
+      <CardBody>
+        <a
+          href={orderItem.external_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {formatMessage(ordersMessages.lifecycleLink)}
+          &nbsp;
+          <ExternalLinkAlt />
+        </a>
+      </CardBody>
+    </Card>
   );
 };
 

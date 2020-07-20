@@ -5,6 +5,10 @@ const ordersMessages = defineMessages({
     id: 'orders.common.orderedBy',
     defaultMessage: 'Ordered by {owner}'
   },
+  orderedByLabel: {
+    id: 'orders.approval.orderedBy',
+    defaultMessage: 'Ordered by'
+  },
   lastUpdated: {
     id: 'orders.common.lastUpdated',
     defaultMessage: 'Last updated'
@@ -41,7 +45,7 @@ const ordersMessages = defineMessages({
   },
   approvalTitle: {
     id: 'orders.approval.title',
-    defaultMessage: 'Approval request'
+    defaultMessage: 'Summary'
   },
   approvalDetail: {
     id: 'orders.approval.view-detail',
@@ -112,6 +116,22 @@ const ordersMessages = defineMessages({
   backToOrders: {
     id: 'orders.toolbar.backLink',
     defaultMessage: 'Back to orders'
+  },
+  approvalProduct: {
+    id: 'orders.approval.product',
+    defaultMessage: 'Product'
+  },
+  orderDate: {
+    id: 'orders.approval.order-date',
+    defaultMessage: 'Order date'
+  },
+  approvalParameters: {
+    id: 'orders.approval.parameters',
+    defaultMessage: 'Parameters'
+  },
+  activity: {
+    id: 'orders.approval.activity',
+    defaultMessage: 'Activity'
   }
 });
 

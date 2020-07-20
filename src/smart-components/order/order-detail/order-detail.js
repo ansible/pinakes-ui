@@ -6,9 +6,7 @@ import {
   Stack,
   StackItem,
   Bullseye,
-  Alert,
-  Card,
-  CardBody
+  Alert
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon';
@@ -158,20 +156,16 @@ const OrderDetail = () => {
               </Bullseye>
             ) : (
               <Suspense fallback={<div></div>}>
-                <Card>
-                  <CardBody>
-                    <Switch>
-                      <Route
-                        path={`${match.url}/approval`}
-                        component={ApprovalRequests}
-                      />
-                      <Route path={`${match.url}/lifecycle`}>
-                        <OrderLifecycle />
-                      </Route>
-                      <Route path={match.url} component={OrderDetails} />
-                    </Switch>
-                  </CardBody>
-                </Card>
+                <Switch>
+                  <Route
+                    path={`${match.url}/approval`}
+                    component={ApprovalRequests}
+                  />
+                  <Route path={`${match.url}/lifecycle`}>
+                    <OrderLifecycle />
+                  </Route>
+                  <Route path={match.url} component={OrderDetails} />
+                </Switch>
               </Suspense>
             )}
           </StackItem>
