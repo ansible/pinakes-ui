@@ -4,7 +4,7 @@ const createOrdersToolbarSchema = () => ({
   fields: [
     {
       component: toolbarComponentTypes.TOP_TOOLBAR,
-      className: 'orders bg-fill pf-u-p-lg',
+      className: 'orders pf-u-p-lg',
       key: 'orders-toolbar',
       fields: [
         {

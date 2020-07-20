@@ -48,7 +48,7 @@ exports[`<Orders /> should render correctly 1`] = `
       Object {
         "fields": Array [
           Object {
-            "className": "orders bg-fill pf-u-p-lg",
+            "className": "orders pf-u-p-lg",
             "component": "TopToolbar",
             "fields": Array [
               Object {
@@ -116,7 +116,7 @@ exports[`<Orders /> should render correctly in loading state 1`] = `
       Object {
         "fields": Array [
           Object {
-            "className": "orders bg-fill pf-u-p-lg",
+            "className": "orders pf-u-p-lg",
             "component": "TopToolbar",
             "fields": Array [
               Object {
