@@ -6,9 +6,7 @@ import {
   Stack,
   StackItem,
   Bullseye,
-  Alert,
-  Card,
-  CardBody
+  Alert
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon';

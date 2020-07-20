@@ -44,6 +44,22 @@ const statesMessages = defineMessages({
   error: {
     id: 'common.states.error',
     defaultMessage: 'Error'
+  },
+  pending: {
+    id: 'common.states.pending',
+    defaultMessage: 'Pending'
+  },
+  skipped: {
+    id: 'common.states.skipped',
+    defaultMessage: 'Skipped'
+  },
+  started: {
+    id: 'common.states.started',
+    defaultMessage: 'Started'
+  },
+  notified: {
+    id: 'common.states.notified',
+    defaultMessage: 'Notified'
   }
 });
 
