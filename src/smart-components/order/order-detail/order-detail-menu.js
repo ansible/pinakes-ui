@@ -8,6 +8,11 @@ import CatalogLink from '../../common/catalog-link';
 import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
 
+/**
+ * Make sure to import correct Tabs styles
+ */
+import '@patternfly/react-styles/css/components/Tabs/tabs.css';
+
 const StyledCatalogLink = styled(CatalogLink)`
   color: var(--pf-c-tabs__link--Color);
   text-decoration: none;
