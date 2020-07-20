@@ -158,20 +158,16 @@ const OrderDetail = () => {
               </Bullseye>
             ) : (
               <Suspense fallback={<div></div>}>
-                <Card>
-                  <CardBody>
-                    <Switch>
-                      <Route
-                        path={`${match.url}/approval`}
-                        component={ApprovalRequests}
-                      />
-                      <Route path={`${match.url}/lifecycle`}>
-                        <OrderLifecycle />
-                      </Route>
-                      <Route path={match.url} component={OrderDetails} />
-                    </Switch>
-                  </CardBody>
-                </Card>
+                <Switch>
+                  <Route
+                    path={`${match.url}/approval`}
+                    component={ApprovalRequests}
+                  />
+                  <Route path={`${match.url}/lifecycle`}>
+                    <OrderLifecycle />
+                  </Route>
+                  <Route path={match.url} component={OrderDetails} />
+                </Switch>
               </Suspense>
             )}
           </StackItem>
