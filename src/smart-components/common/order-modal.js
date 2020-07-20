@@ -43,6 +43,12 @@ const OrderModal = ({ closeUrl }) => {
     dispatch(fetchServicePlans(portfolioItemId)).then(() => setFetching(false));
   }, []);
 
+  const handleClose = () =>
+    push({
+      pathname: closeUrl,
+      search
+    });
+
   const onSubmit = (data) => {
     dispatch(
       sendSubmitOrder(
@@ -53,25 +59,11 @@ const OrderModal = ({ closeUrl }) => {
         portfolioItem
       )
     );
-    push({
-      pathname: closeUrl,
-      search
-    });
+    handleClose();
   };
 
   return (
-    <Modal
-      isOpen
-      title=""
-      hideTitle
-      onClose={() =>
-        push({
-          pathname: closeUrl,
-          search
-        })
-      }
-      isSmall
-    >
+    <Modal isOpen onClose={handleClose} variant="small">
       <div className="pf-u-mb-md">
         <Split>
           <SplitItem className="pf-u-mr-sm">
@@ -109,6 +101,7 @@ const OrderModal = ({ closeUrl }) => {
         <FormRenderer
           schema={servicePlans[0].create_json_schema.schema}
           onSubmit={onSubmit}
+          onCancel={handleClose}
           formContainer="modal"
         />
       )}

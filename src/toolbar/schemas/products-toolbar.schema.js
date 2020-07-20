@@ -1,5 +1,4 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
-import { createSingleItemGroup } from '../helpers';
 
 import AsyncPagination from '../../smart-components/common/async-pagination';
 
@@ -31,7 +30,7 @@ const createPortfolioToolbarSchema = ({
                   component: toolbarComponentTypes.TOOLBAR,
                   key: 'main-portfolio-toolbar',
                   fields: [
-                    createSingleItemGroup({
+                    {
                       groupName: 'filter-group',
                       component: toolbarComponentTypes.FILTER_TOOLBAR_ITEM,
                       key: 'filter-input',
@@ -39,7 +38,7 @@ const createPortfolioToolbarSchema = ({
                       onFilterChange,
                       placeholder,
                       isClearable: true
-                    })
+                    }
                   ]
                 },
                 {

@@ -97,11 +97,12 @@ const OrderDetail = () => {
         isInline
         title={
           <FormattedMessage
-            id={'order-detail-not-found'}
-            defaultMessage={`The ${notFoundObjects.join(
-              ', '
-            )} for this order {count, plural, one {is} other {are}} not available`}
-            values={{ count: notFoundObjects.length }}
+            id="order.detail.not-found"
+            defaultMessage="The {objects} for this order {count, plural, one {is} other {are}} not available"
+            values={{
+              objects: notFoundObjects.join(', '),
+              count: notFoundObjects.length
+            }}
           />
         }
       />
@@ -160,7 +161,7 @@ const OrderDetail = () => {
         )}
       </OrderDetailStackItem>
       <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
-        <Split gutter="md" className="orders-nav-layout">
+        <Split hasGutter className="orders-nav-layout">
           <SplitItem className="order-detail-nav-container">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
           </SplitItem>

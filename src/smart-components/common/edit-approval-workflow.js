@@ -94,11 +94,11 @@ const EditApprovalWorkflow = ({
       title="Set approval process"
       isOpen
       onClose={() => history.push(pushParam)}
-      isSmall
+      variant="small"
     >
       {isFetching && <WorkflowLoader />}
       {!isFetching && (
-        <Stack gutter="md">
+        <Stack hasGutter>
           <StackItem>
             <TextContent>
               <Text>

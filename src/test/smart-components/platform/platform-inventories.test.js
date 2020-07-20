@@ -170,9 +170,10 @@ describe('<PlatformInventories />', () => {
       .find('button.pf-c-dropdown__toggle.pf-m-plain')
       .last()
       .simulate('click');
+    wrapper.update();
     await act(async () => {
       wrapper
-        .find('div.pf-c-dropdown__menu-item')
+        .find('button.pf-c-dropdown__menu-item')
         .first()
         .simulate('click');
     });

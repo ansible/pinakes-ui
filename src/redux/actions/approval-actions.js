@@ -31,9 +31,8 @@ export const updateWorkflows = (toUnlinkIds, toLinkIds, resourceObject) => (
             <Fragment>
               {toUnlinkIds.length > 0 ? (
                 <FormattedMessage
-                  id="workflows.update_workflows"
-                  defaultMessage={`{count, number} {count, plural, one {approval process was}
-                    other {approval processes were}} unlinked successfully. `}
+                  id="workflows.update_workflows.unlink"
+                  defaultMessage="{count, number} {count, plural, one {approval process was} other {approval processes were}} unlinked successfully."
                   values={{ count: toUnlinkIds.length }}
                 />
               ) : (
@@ -41,9 +40,8 @@ export const updateWorkflows = (toUnlinkIds, toLinkIds, resourceObject) => (
               )}
               {toLinkIds.length > 0 ? (
                 <FormattedMessage
-                  id="workflows.update_workflows"
-                  defaultMessage={`{count, number} {count, plural, one {approval process was}
-                    other {approval processes were}} linked successfully.`}
+                  id="workflows.update_workflows.link"
+                  defaultMessage="{count, number} {count, plural, one {approval process was} other {approval processes were}} linked successfully."
                   values={{ count: toLinkIds.length }}
                 />
               ) : (

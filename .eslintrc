@@ -17,7 +17,8 @@
     "plugin:react/recommended"
   ],
   "plugins": [
-    "react"
+    "react",
+    "formatjs"
   ],
   "parserOptions": {
     "ecmaVersion": 7,

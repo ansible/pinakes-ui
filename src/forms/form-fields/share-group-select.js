@@ -15,7 +15,7 @@ export const ShareGroupSelect = ({
   const selectProps = useFieldApi({ name: selectName });
 
   return (
-    <Grid gutter="md" className="share-column">
+    <Grid hasGutter className="share-column">
       <GridItem span={7}>
         <InternalSelect
           isSearchable
@@ -23,7 +23,11 @@ export const ShareGroupSelect = ({
           menuIsPortal
           loadOptions={asyncFormValidator(loadOptions)}
           placeholder="Select group"
-          isValid={!(inputProps?.meta?.error && inputProps.meta.touched)}
+          validated={
+            inputProps?.meta?.error && inputProps.meta.touched
+              ? 'error'
+              : 'default'
+          }
           {...inputProps}
           {...inputProps.input}
         />

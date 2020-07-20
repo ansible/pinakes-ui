@@ -1,5 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
 
+/**
+ * Use direct css imports for FCE components
+ * This will save some bundle size
+ */
+import '@redhat-cloud-services/frontend-components/components/ConditionalFilter.css';
+import '@redhat-cloud-services/frontend-components/components/EmptyTable.css';
+import '@redhat-cloud-services/frontend-components/components/PrimaryToolbar.css';
+import '@redhat-cloud-services/frontend-components/components/Section.css';
+import '@redhat-cloud-services/frontend-components/components/TableToolbar.css';
+
 const GlobalStyle = createGlobalStyle`
 .disabled-link {
   pointer-events: none
@@ -28,8 +38,10 @@ const GlobalStyle = createGlobalStyle`
 }
 
 .share-column {
-  .ddorg__pf4-component-mapper__select__single-value {
+  .pf-c-select_toggle-wrapper {
     max-width: calc(100% - 70px);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -38,28 +50,16 @@ const GlobalStyle = createGlobalStyle`
 */
 .filter-select {
   width: 300px;
-  .filter-value-container {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  .pf-c-select__menu {
+    max-width: 100%
   }
-  .ddorg__pf4-component-mapper__select__indicators {
-    margin-left: auto
+  .pf-c-select__menu-item {
+    white-space: break-spaces;
   }
-  .ddorg__pf4-component-mapper__select__placeholder {
-    margin-left: 29px !important;
-  }
-  .ddorg__pf4-component-mapper__select__single-value {
-    margin-left: 22px !important;
-    max-width: calc(100% - 55px)!important;
-  }
-  .ddorg__pf4-component-mapper__select__control::before {
-    border-right: none !important;
-  }
-  .ddorg__pf4-component-mapper__select__control {
-    min-height: 36px !important;
+  .pf-c-select_toggle-wrapper {
+    max-width: calc(100% - 32px);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -116,6 +116,9 @@ a.pf-c-breadcrumb__item {
 .orders-side-nav-category > .pf-c-nav__link {
   border-left: 4px solid transparent;
   padding: 8px 16px;
+  &::before {
+    border: none;
+  }
 }
 
 .orders-side-nav-category > .pf-c-nav__link,

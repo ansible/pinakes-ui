@@ -70,7 +70,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
       title={portfolioId ? 'Edit portfolio' : 'Create portfolio'}
       isOpen={isOpen}
       onClose={() => push(closeTarget)}
-      isSmall
+      variant="small"
     >
       {!portfolioId || editVariant ? (
         <FormRenderer

@@ -73,7 +73,7 @@ const OrderItem = memo(
         </TableCell>
         <TableCell>
           <TextContent>
-            <Grid gutter="sm" className="pf-u-gg-md">
+            <Grid hasGutter className="pf-u-gg-md">
               <GridItem>
                 <Level className="flex-no-wrap">
                   <LevelItem>
