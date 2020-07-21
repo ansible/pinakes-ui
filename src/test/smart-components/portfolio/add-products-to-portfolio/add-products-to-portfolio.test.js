@@ -119,23 +119,6 @@ describe('<AddProductsToPortfolio />', () => {
           meta: expect.any(Object)
         },
         type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`
-      }),
-      expect.objectContaining({
-        type: `${FETCH_PLATFORM_ITEMS}_PENDING`,
-        meta: {
-          filter: 'foo',
-          offset: 0,
-          platformId: '1'
-        }
-      }),
-      expect.objectContaining({
-        type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`,
-        meta: {
-          filter: 'foo',
-          offset: 0,
-          platformId: '1'
-        },
-        payload: { data: [] }
       })
     ];
 
