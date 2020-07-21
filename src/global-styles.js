@@ -170,6 +170,7 @@ section.ins-l-icon-group__with-major .ins-battery:last-of-type {
   padding-left: 15px;
   border-left: 2px solid #eaeaea; 
 }
+
 section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
   font-weight: 500;
   margin: 0 10px; 
@@ -178,6 +179,11 @@ section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
 .ins-c-primary-toolbar__pagination {
   margin-left: auto;
 }
+
+.ins-c-primary-toolbar .ins-c-primary-toolbar__group-filter {
+  margin-right: 7px;
+}
+
 `;
 
 export default GlobalStyle;
