@@ -19,6 +19,7 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
 import CatalogRoute from '../../../routing/catalog-route';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -26,7 +27,12 @@ const SurveyEditor = lazy(() =>
   )
 );
 
-const requiredParams = ['portfolio', 'source', 'portfolio-item'];
+const requiredParams = [
+  'portfolio',
+  'source',
+  'portfolio-item',
+  'from-products'
+];
 
 const PortfolioItemDetail = () => {
   const { formatMessage } = useIntl();
@@ -45,9 +51,14 @@ const PortfolioItemDetail = () => {
   const portfolio = useSelector(
     ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
   );
+  const fromProducts = queryValues['from-products'] === 'true';
 
   useEffect(() => {
     setIsFetching(true);
+    insights.chrome.appNavClick({
+      id: fromProducts ? 'products' : 'portfolios',
+      secondaryNav: true
+    });
     dispatch(
       getPortfolioItemDetail({
         portfolioItem: queryValues['portfolio-item'],
@@ -61,7 +72,8 @@ const PortfolioItemDetail = () => {
   if (isFetching || Object.keys(portfolioItem).length === 0) {
     return (
       <Section className="global-primary-background full-height">
-        <TopToolbar>
+        <TopToolbar breadcrumbs={!fromProducts}>
+          {fromProducts && <BackToProducts />}
           <ProductLoaderPlaceholder />
         </TopToolbar>
       </Section>
@@ -102,6 +114,7 @@ const PortfolioItemDetail = () => {
         <Route>
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar
+              fromProducts={fromProducts}
               uploadIcon={uploadIcon}
               url={url}
               isOpen={isOpen}

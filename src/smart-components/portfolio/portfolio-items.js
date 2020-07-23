@@ -22,6 +22,7 @@ const PortfolioItems = ({
   removeProducts,
   copyPortfolio,
   stateDispatch,
+  fromProducts,
   state: {
     removeInProgress,
     isFetching,
@@ -77,6 +78,7 @@ const PortfolioItems = ({
     <Fragment>
       <ToolbarRenderer
         schema={createPortfolioToolbarSchema({
+          fromProducts,
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterChange,
@@ -141,7 +143,8 @@ PortfolioItems.propTypes = {
     copyInProgress: PropTypes.bool,
     selectedItems: PropTypes.arrayOf(PropTypes.string),
     filterValue: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  fromProducts: PropTypes.bool
 };
 
 export default PortfolioItems;

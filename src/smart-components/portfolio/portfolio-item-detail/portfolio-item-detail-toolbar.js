@@ -24,6 +24,7 @@ import { StyledLevelItem } from '../../../presentational-components/styled-compo
 import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 
 const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
   <IconUpload uploadIcon={uploadIcon}>
@@ -49,9 +50,11 @@ export const PortfolioItemDetailToolbar = ({
   isFetching,
   uploadIcon,
   availability,
-  userCapabilities
+  userCapabilities,
+  fromProducts
 }) => (
-  <TopToolbar breadcrumbsSpacing={false}>
+  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={!fromProducts}>
+    {fromProducts && <BackToProducts />}
     <Level className="flex-no-wrap">
       <StyledLevelItem alignStart className="pf-l-flex">
         {userCapabilities.update ? (
@@ -111,7 +114,8 @@ PortfolioItemDetailToolbar.propTypes = {
   isFetching: PropTypes.bool,
   uploadIcon: PropTypes.func.isRequired,
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
-  userCapabilities: PropTypes.object
+  userCapabilities: PropTypes.object,
+  fromProducts: PropTypes.bool
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
@@ -158,7 +162,7 @@ export const SurveyEditingToolbar = ({
 }) => {
   const { formatMessage } = useIntl();
   return (
-    <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
+    <TopToolbar breadcrumbsSpacing={false} breadcrumbs>
       <Level>
         <StyledLevelItem alignStart className="pf-l-flex">
           <PortfolioItemIconItem
@@ -211,5 +215,6 @@ SurveyEditingToolbar.propTypes = {
   isFetching: PropTypes.bool,
   isValid: PropTypes.bool,
   modified: PropTypes.bool,
-  handleResetSurvey: PropTypes.func
+  handleResetSurvey: PropTypes.func,
+  fromProducts: PropTypes.bool
 };

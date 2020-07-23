@@ -46,7 +46,8 @@ const buildItemLink = ({ portfolio_id, id, service_offering_source_ref }) => {
       searchParams: {
         portfolio: portfolio_id,
         'portfolio-item': id,
-        source: service_offering_source_ref
+        source: service_offering_source_ref,
+        'from-products': 'true'
       }
     };
   }
