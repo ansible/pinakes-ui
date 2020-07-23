@@ -12,16 +12,124 @@ describe('redux store', () => {
       </Provider>
     );
     const expectedState = {
-      breadcrumbsReducer: expect.any(Object),
-      orderReducer: expect.any(Object),
-      platformReducer: expect.any(Object),
-      portfolioReducer: expect.any(Object),
-      approvalReducer: expect.any(Object),
-      rbacReducer: expect.any(Object),
-      shareReducer: expect.any(Object),
-      notifications: expect.any(Object),
-      openApiReducer: expect.any(Object),
-      i18nReducer: expect.any(Object)
+      approvalReducer: {
+        isFetching: false,
+        isResolving: false,
+        resolvedWorkflows: [],
+        workflows: []
+      },
+      breadcrumbsReducer: {
+        fragments: []
+      },
+      i18nReducer: {
+        formatMessage: {}
+      },
+      notifications: [],
+      openApiReducer: {},
+      orderProcessReducer: {
+        filterValue: '',
+        isLoading: false,
+        orderProcesses: {
+          data: [],
+          meta: {
+            count: 0,
+            limit: 50,
+            offset: 0
+          }
+        },
+        sortBy: {
+          direction: 'asc',
+          index: 0,
+          property: 'name'
+        }
+      },
+      orderReducer: {
+        isLoading: false,
+        orderDetail: {
+          order: {},
+          platform: {},
+          portfolio: {},
+          portfolioItem: {}
+        },
+        orders: {
+          data: [],
+          meta: {
+            count: 0,
+            filter: '',
+            limit: 50,
+            offset: 0
+          }
+        },
+        requests: [],
+        selectedPlan: {},
+        serviceData: {},
+        servicePlans: []
+      },
+      platformReducer: {
+        filterValue: '',
+        isPlatformDataLoading: false,
+        platform: {},
+        platformIconMapping: {},
+        platformInventories: {
+          meta: {
+            count: 0,
+            filter: '',
+            limit: 50,
+            offset: 0
+          }
+        },
+        platformItem: {},
+        platformItems: {},
+        platforms: [],
+        selectedPlatform: {},
+        serviceOffering: {
+          service: {},
+          source: {}
+        },
+        sourceTypeIcons: {}
+      },
+      portfolioReducer: {
+        filterValue: '',
+        isLoading: false,
+        portfolio: {},
+        portfolioItem: {
+          portfolioItem: {
+            metadata: {
+              statistics: {},
+              user_capabilities: {}
+            }
+          }
+        },
+        portfolioItems: {
+          data: [],
+          meta: {
+            filter: '',
+            limit: 50,
+            offset: 0
+          }
+        },
+        portfolios: {
+          data: [],
+          meta: {
+            limit: 50,
+            offset: 0
+          }
+        },
+        selectedPortfolio: {
+          metadata: {
+            statistics: {},
+            user_capabilities: {}
+          }
+        }
+      },
+      rbacReducer: {
+        isLoading: false,
+        rbacGroups: []
+      },
+      shareReducer: {
+        isLoading: false,
+        shareInfo: []
+      }
     };
     expect(wrapper.props().store.getState()).toEqual(expectedState);
   });
