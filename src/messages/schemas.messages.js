@@ -36,10 +36,6 @@ const schemasMessages = defineMessages({
   'share.new.description': {
     id: 'share.new.description',
     defaultMessage: 'Invite group'
-  },
-  'share.groups.access': {
-    id: 'share.groups.access',
-    defaultMessage: 'Groups with access'
   }
 });
 
