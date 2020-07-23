@@ -167,7 +167,7 @@ const PortfolioCard = ({
   handleCopyPortfolio,
   metadata: {
     user_capabilities,
-    statistics: { shared_groups }
+    statistics: { shared_groups, portfolio_items }
   },
   ...props
 }) => {
@@ -183,7 +183,7 @@ const PortfolioCard = ({
           <PortfolioCardHeader
             id={id}
             to={to}
-            portfolioName={name}
+            portfolioName={`${name} (${portfolio_items || 0})`}
             headerActions={
               <HeaderActions
                 portfolioId={id}
@@ -232,7 +232,10 @@ PortfolioCard.propTypes = {
   isDisabled: PropTypes.bool,
   metadata: PropTypes.shape({
     user_capabilities: PropTypes.object.isRequired,
-    statistics: PropTypes.shape({ shared_groups: PropTypes.number }).isRequired
+    statistics: PropTypes.shape({
+      shared_groups: PropTypes.number,
+      portfolio_items: PropTypes.number
+    }).isRequired
   }).isRequired,
   handleCopyPortfolio: PropTypes.func.isRequired
 };
