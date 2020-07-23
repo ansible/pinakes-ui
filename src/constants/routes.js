@@ -24,3 +24,4 @@ export const PORTFOLIOS_ROUTE = '/portfolios';
 export const REMOVE_PORTFOLIO_ROUTE = '/portfolios/remove';
 export const SHARE_PORTFOLIO_ROUTE = '/portfolios/share';
 export const WORKFLOW_PORTFOLIO_ROUTE = '/portfolios/edit-workflow';
+export const ORDER_PROCESSES_ROUTE = '/order-processes';
