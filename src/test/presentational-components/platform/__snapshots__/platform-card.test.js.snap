@@ -13,6 +13,9 @@ exports[`<PlatformCard /> should choose card image 1`] = `
         >
           <article
             className="pf-c-card sc-AxhUy kEBXQD"
+            data-ouia-component-id={1}
+            data-ouia-component-type="PF4/Card"
+            data-ouia-safe={true}
           >
             <CardHeader>
               <div
@@ -173,6 +176,9 @@ exports[`<PlatformCard /> should render correctly 1`] = `
         >
           <article
             className="pf-c-card sc-AxhUy kEBXQD"
+            data-ouia-component-id={0}
+            data-ouia-component-type="PF4/Card"
+            data-ouia-safe={true}
           >
             <CardHeader>
               <div
