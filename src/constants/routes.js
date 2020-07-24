@@ -19,6 +19,7 @@ export const PLATFORM_TEMPLATES_ROUTE = '/platform/platform-templates';
 export const PLATFORMS_ROUTE = '/platforms';
 export const PORTFOLIO_ROUTE = '/portfolio';
 export const PORTFOLIO_ITEM_ROUTE = '/portfolio/portfolio-item';
+export const PORTFOLIO_ITEM_ROUTE_EDIT = '/portfolio/portfolio-item/edit';
 export const PORTFOLIOS_ROUTE = '/portfolios';
 export const REMOVE_PORTFOLIO_ROUTE = '/portfolios/remove';
 export const SHARE_PORTFOLIO_ROUTE = '/portfolios/share';
