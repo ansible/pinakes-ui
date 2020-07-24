@@ -144,6 +144,10 @@ const portfolioMessages = defineMessages({
   objectUnavaiable: {
     id: 'portfolio.detail.alert.unavailable',
     defaultMessage: 'The {object} for this product is no longer available'
+  },
+  backToProducts: {
+    id: 'portfolio.detail.back-to-products',
+    defaultMessage: 'Back to products'
   }
 });
 

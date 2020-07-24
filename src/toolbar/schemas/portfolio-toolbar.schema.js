@@ -11,6 +11,7 @@ import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
 import CatalogLink from '../../smart-components/common/catalog-link';
+import BackToProducts from '../../presentational-components/portfolio/back-to-products';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -141,14 +142,21 @@ const createPortfolioToolbarSchema = ({
   fetchPortfolioItemsWithPortfolio,
   portfolioId,
   description,
+  fromProducts,
   filterProps: { searchValue, onFilterChange, placeholder },
   userCapabilities: { share, unshare, ...userCapabilities }
 }) => ({
   fields: [
     {
       component: toolbarComponentTypes.TOP_TOOLBAR,
+      breadcrumbs: !fromProducts,
       key: 'portfolio-top-toolbar',
       fields: [
+        {
+          key: 'back-to-products',
+          hidden: !fromProducts,
+          component: BackToProducts
+        },
         {
           component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
           key: 'portfolio-toolbar-title',
