@@ -10,13 +10,20 @@ import CatalogRoute from '../../../routing/catalog-route';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../../messages/portfolio.messages';
 
-const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
+const ItemDetailDescription = ({
+  userCapabilities,
+  product,
+  url,
+  search,
+  detailPaths,
+  uploadIcon
+}) => {
   const { formatMessage } = useIntl();
   return (
     <Switch>
       <Route
         exact
-        path={url}
+        path={detailPaths}
         render={() => (
           <TextContent>
             {(product.description || product.long_description) && (
@@ -74,6 +81,7 @@ const ItemDetailDescription = ({ userCapabilities, product, url, search }) => {
           cancelUrl={url}
           product={product}
           userCapabilities={userCapabilities}
+          uploadIcon={uploadIcon}
         />
       </CatalogRoute>
       <Route exact path={`${url}/edit-workflow`}>
@@ -100,7 +108,9 @@ ItemDetailDescription.propTypes = {
   }).isRequired,
   url: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
-  userCapabilities: PropTypes.object.isRequired
+  userCapabilities: PropTypes.object.isRequired,
+  detailPaths: PropTypes.arrayOf(PropTypes.string),
+  uploadIcon: PropTypes.func.isRequired
 };
 
 export default ItemDetailDescription;

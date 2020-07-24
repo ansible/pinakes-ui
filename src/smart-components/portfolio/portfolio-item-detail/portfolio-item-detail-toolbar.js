@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch, useLocation } from 'react-router-dom';
 import {
   Level,
   LevelItem,
@@ -17,27 +17,26 @@ import {
 import DetailToolbarActions from './detail-toolbar-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
-import TopToolbar from '../../../presentational-components/shared/top-toolbar';
-import IconUpload from './icon-upload';
+import TopToolbar, {
+  TopToolbarTitle
+} from '../../../presentational-components/shared/top-toolbar';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
+import { PORTFOLIO_ITEM_ROUTE_EDIT } from '../../../constants/routes';
 
-const PortfolioItemIconItem = ({ uploadIcon, id, sourceId }) => (
-  <IconUpload uploadIcon={uploadIcon}>
-    <CardIcon
-      src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
-      sourceId={sourceId}
-      height={64}
-    />
-  </IconUpload>
+const PortfolioItemIconItem = ({ id, sourceId }) => (
+  <CardIcon
+    src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
+    sourceId={sourceId}
+    height={64}
+  />
 );
 
 PortfolioItemIconItem.propTypes = {
-  uploadIcon: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   sourceId: PropTypes.string.isRequired
 };
@@ -48,58 +47,74 @@ export const PortfolioItemDetailToolbar = ({
   product,
   setOpen,
   isFetching,
-  uploadIcon,
   availability,
   userCapabilities,
   fromProducts
-}) => (
-  <TopToolbar breadcrumbsSpacing={false} breadcrumbs={!fromProducts}>
-    {fromProducts && <BackToProducts />}
-    <Level className="flex-no-wrap">
-      <StyledLevelItem alignStart className="pf-l-flex">
-        {userCapabilities.update ? (
-          <PortfolioItemIconItem
-            uploadIcon={uploadIcon}
-            id={product.id}
-            sourceId={product.service_offering_source_ref}
-          />
-        ) : (
-          <CardIcon
-            src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
-            sourceId={product.service_offering_source_ref}
-            height={64}
-          />
-        )}
-        <TextContent className="pf-u-ml-md">
-          <Text component={TextVariants.h1}>{product.name}</Text>
-        </TextContent>
-      </StyledLevelItem>
-      <LevelItem style={{ minHeight: 36 }} className="flex-item-no-wrap">
-        <Level className="flex-no-wrap">
-          <Route
-            exact
-            path={url}
-            render={(...args) => (
-              <DetailToolbarActions
-                isOpen={isOpen}
-                setOpen={(open) => setOpen(open)}
-                orderUrl={`${url}/order`}
-                editUrl={`${url}/edit`}
-                copyUrl={`${url}/copy`}
-                editSurveyUrl={`${url}/edit-survey`}
-                workflowUrl={`${url}/edit-workflow`}
-                isFetching={isFetching}
-                availability={availability}
-                userCapabilities={userCapabilities}
-                {...args}
-              />
-            )}
-          />
-        </Level>
-      </LevelItem>
-    </Level>
-  </TopToolbar>
-);
+}) => {
+  const { formatMessage } = useIntl();
+  const { pathname } = useLocation();
+  return (
+    <TopToolbar
+      paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
+      breadcrumbsSpacing={false}
+      breadcrumbs={!fromProducts}
+    >
+      {fromProducts && <BackToProducts />}
+      <Level className="flex-no-wrap">
+        <Switch>
+          <Route path={PORTFOLIO_ITEM_ROUTE_EDIT} exact>
+            <TopToolbarTitle
+              title={formatMessage(portfolioMessages.editProduct)}
+              noData
+            />
+          </Route>
+          <Route>
+            <StyledLevelItem alignStart className="pf-l-flex">
+              {userCapabilities.update ? (
+                <PortfolioItemIconItem
+                  id={product.id}
+                  sourceId={product.service_offering_source_ref}
+                />
+              ) : (
+                <CardIcon
+                  src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
+                  sourceId={product.service_offering_source_ref}
+                  height={64}
+                />
+              )}
+              <TextContent className="pf-u-ml-md">
+                <Text component={TextVariants.h1}>{product.name}</Text>
+              </TextContent>
+            </StyledLevelItem>
+            <LevelItem style={{ minHeight: 36 }} className="flex-item-no-wrap">
+              <Level className="flex-no-wrap">
+                <Route
+                  exact
+                  path={url}
+                  render={(...args) => (
+                    <DetailToolbarActions
+                      isOpen={isOpen}
+                      setOpen={(open) => setOpen(open)}
+                      orderUrl={`${url}/order`}
+                      editUrl={`${url}/edit`}
+                      copyUrl={`${url}/copy`}
+                      editSurveyUrl={`${url}/edit-survey`}
+                      workflowUrl={`${url}/edit-workflow`}
+                      isFetching={isFetching}
+                      availability={availability}
+                      userCapabilities={userCapabilities}
+                      {...args}
+                    />
+                  )}
+                />
+              </Level>
+            </LevelItem>
+          </Route>
+        </Switch>
+      </Level>
+    </TopToolbar>
+  );
+};
 
 PortfolioItemDetailToolbar.propTypes = {
   url: PropTypes.string.isRequired,
@@ -112,7 +127,6 @@ PortfolioItemDetailToolbar.propTypes = {
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
-  uploadIcon: PropTypes.func.isRequired,
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
   userCapabilities: PropTypes.object,
   fromProducts: PropTypes.bool

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { EditIcon } from '@patternfly/react-icons';
+import { PencilAltIcon } from '@patternfly/react-icons';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -17,11 +17,23 @@ const UploadButton = styled.button`
   width: 100%;
   height: 100%;
   background-color: transparent;
-  svg {
+  &::after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: -0.3em;
+    right: -0.3em;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.8);
+    z-index: 0;
+  }
+  svg {
+    z-index: 1;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
   }
 `;
 
@@ -74,7 +86,7 @@ const IconUpload = ({ uploadIcon, children }) => {
         hidden
       />
       <UploadButton disabled={isUploading} onClick={handleClick}>
-        {isUploading ? <Spinner size="md" /> : <EditIcon size="sm" />}
+        {isUploading ? <Spinner size="md" /> : <PencilAltIcon size="sm" />}
       </UploadButton>
       {!image && children}
       {image && (

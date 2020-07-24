@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment, lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 
@@ -15,7 +15,10 @@ import {
 } from '../../../presentational-components/shared/loader-placeholders';
 import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
-import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
+import {
+  PORTFOLIO_ITEM_ROUTE,
+  PORTFOLIO_ITEM_ROUTE_EDIT
+} from '../../../constants/routes';
 import CatalogRoute from '../../../routing/catalog-route';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../../messages/portfolio.messages';
@@ -40,6 +43,7 @@ const PortfolioItemDetail = () => {
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const [queryValues, search] = useQuery(requiredParams);
+  const { pathname } = useLocation();
   const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
   const {
     portfolioItem: {
@@ -93,6 +97,12 @@ const PortfolioItemDetail = () => {
       />
     ));
   const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
+  const detailPaths = [
+    PORTFOLIO_ITEM_ROUTE,
+    `${url}/order`,
+    `${url}/copy`,
+    `${url}/edit-workflow`
+  ];
   return (
     <Fragment>
       <Switch>
@@ -115,7 +125,6 @@ const PortfolioItemDetail = () => {
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar
               fromProducts={fromProducts}
-              uploadIcon={uploadIcon}
               url={url}
               isOpen={isOpen}
               product={portfolioItem}
@@ -137,18 +146,25 @@ const PortfolioItemDetail = () => {
               />
             )}
             <Grid hasGutter className="pf-u-p-lg">
-              <GridItem md={3} lg={2}>
-                <ItemDetailInfoBar
-                  product={portfolioItem}
-                  portfolio={portfolio}
-                  source={source}
-                />
-              </GridItem>
-              <GridItem md={9} lg={10}>
+              <Route path={detailPaths} exact>
+                <GridItem md={3} lg={2}>
+                  <ItemDetailInfoBar
+                    product={portfolioItem}
+                    portfolio={portfolio}
+                    source={source}
+                  />
+                </GridItem>
+              </Route>
+              <GridItem
+                md={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 9}
+                lg={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 10}
+              >
                 <ItemDetailDescription
+                  uploadIcon={uploadIcon}
                   product={portfolioItem}
                   userCapabilities={userCapabilities}
                   url={url}
+                  detailPaths={detailPaths}
                   search={search}
                 />
               </GridItem>

@@ -148,6 +148,10 @@ const portfolioMessages = defineMessages({
   backToProducts: {
     id: 'portfolio.detail.back-to-products',
     defaultMessage: 'Back to products'
+  },
+  editProduct: {
+    id: 'portfolio.item.edit.title',
+    defaultMessage: 'Edit product'
   }
 });
 
