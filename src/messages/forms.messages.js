@@ -20,6 +20,18 @@ const formsMessages = defineMessages({
   permissionsPlaceholder: {
     id: 'share.groups.permissions.placeholder',
     defaultMessage: 'Select permission'
+  },
+  orderProcessName: {
+    id: 'formMessages.orderProcessName',
+    defaultMessage: 'Order process name'
+  },
+  enterOrderProcessName: {
+    id: 'formMessages.enterOrderProcessName',
+    defaultMessage: 'Enter a name for the order process'
+  },
+  nameTaken: {
+    id: 'formMessages.nameTaken',
+    defaultMessage: 'Name has already been taken'
   }
 });
 
