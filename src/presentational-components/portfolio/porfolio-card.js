@@ -183,7 +183,8 @@ const PortfolioCard = ({
           <PortfolioCardHeader
             id={id}
             to={to}
-            portfolioName={`${name} (${portfolio_items || 0})`}
+            portfolioName={name}
+            portfolio_items={portfolio_items || 0}
             headerActions={
               <HeaderActions
                 portfolioId={id}
