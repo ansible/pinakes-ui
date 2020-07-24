@@ -20,6 +20,7 @@ import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/vali
 import translateSchema from '../../utilities/translate-schema';
 import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
+import InitialChips from '../../forms/form-fields/initial-chips';
 
 export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
@@ -35,7 +36,8 @@ export const catalogComponentMapper = {
   'share-group-edit': ShareGroupEdit,
   'copy-name-display': CopyNameDisplay,
   'textarea-field': Textarea,
-  'select-field': Pf4SelectWrapper
+  'select-field': Pf4SelectWrapper,
+  'initial-chips': InitialChips
 };
 
 const catalogValidatorMapper = {

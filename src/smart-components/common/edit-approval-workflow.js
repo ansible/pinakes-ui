@@ -131,7 +131,8 @@ const EditApprovalWorkflow = ({
           <StackItem>
             <FormRenderer
               initialValues={{
-                selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
+                selectedWorkflows: data ? data.map((wf) => wf.id) : undefined,
+                'selected-workflows-spy': data
               }}
               onSubmit={onSubmit}
               onCancel={close}

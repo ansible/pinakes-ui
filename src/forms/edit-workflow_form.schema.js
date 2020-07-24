@@ -11,6 +11,10 @@ const editWorkflowSchema = (loadWorkflows) => ({
       multi: true,
       isSearchable: true,
       isClearable: true
+    },
+    {
+      component: 'initial-chips',
+      name: 'selected-workflows-spy'
     }
   ]
 });
