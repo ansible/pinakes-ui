@@ -15,7 +15,8 @@ const ItemDetailDescription = ({
   product,
   url,
   search,
-  detailPaths
+  detailPaths,
+  uploadIcon
 }) => {
   const { formatMessage } = useIntl();
   return (
@@ -80,6 +81,7 @@ const ItemDetailDescription = ({
           cancelUrl={url}
           product={product}
           userCapabilities={userCapabilities}
+          uploadIcon={uploadIcon}
         />
       </CatalogRoute>
       <Route exact path={`${url}/edit-workflow`}>
@@ -107,7 +109,8 @@ ItemDetailDescription.propTypes = {
   url: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
   userCapabilities: PropTypes.object.isRequired,
-  detailPaths: PropTypes.arrayOf(PropTypes.string)
+  detailPaths: PropTypes.arrayOf(PropTypes.string),
+  uploadIcon: PropTypes.func.isRequired
 };
 
 export default ItemDetailDescription;

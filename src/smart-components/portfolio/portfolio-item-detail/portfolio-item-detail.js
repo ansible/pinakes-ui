@@ -125,7 +125,6 @@ const PortfolioItemDetail = () => {
           <Section className="full-height global-primary-background">
             <PortfolioItemDetailToolbar
               fromProducts={fromProducts}
-              uploadIcon={uploadIcon}
               url={url}
               isOpen={isOpen}
               product={portfolioItem}
@@ -161,6 +160,7 @@ const PortfolioItemDetail = () => {
                 lg={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 10}
               >
                 <ItemDetailDescription
+                  uploadIcon={uploadIcon}
                   product={portfolioItem}
                   userCapabilities={userCapabilities}
                   url={url}
