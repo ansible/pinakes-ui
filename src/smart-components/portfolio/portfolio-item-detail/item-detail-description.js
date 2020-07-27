@@ -21,6 +21,15 @@ const ItemDetailDescription = ({
   const { formatMessage } = useIntl();
   return (
     <Switch>
+      <Route path={`${url}/edit-workflow`}>
+        <EditApprovalWorkflow
+          pushParam={{ pathname: url, search }}
+          objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
+          objectId={product.id}
+          objectName={() => product.name}
+          querySelector="portfolio-item"
+        />
+      </Route>
       <Route
         exact
         path={detailPaths}
@@ -84,15 +93,6 @@ const ItemDetailDescription = ({
           uploadIcon={uploadIcon}
         />
       </CatalogRoute>
-      <Route exact path={`${url}/edit-workflow`}>
-        <EditApprovalWorkflow
-          pushParam={{ pathname: url, search }}
-          objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
-          objectId={product.id}
-          objectName={() => product.name}
-          querySelector="portfolio-item"
-        />
-      </Route>
     </Switch>
   );
 };

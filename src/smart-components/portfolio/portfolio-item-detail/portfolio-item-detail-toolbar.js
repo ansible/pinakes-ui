@@ -88,24 +88,17 @@ export const PortfolioItemDetailToolbar = ({
             </StyledLevelItem>
             <LevelItem style={{ minHeight: 36 }} className="flex-item-no-wrap">
               <Level className="flex-no-wrap">
-                <Route
-                  exact
-                  path={url}
-                  render={(...args) => (
-                    <DetailToolbarActions
-                      isOpen={isOpen}
-                      setOpen={(open) => setOpen(open)}
-                      orderUrl={`${url}/order`}
-                      editUrl={`${url}/edit`}
-                      copyUrl={`${url}/copy`}
-                      editSurveyUrl={`${url}/edit-survey`}
-                      workflowUrl={`${url}/edit-workflow`}
-                      isFetching={isFetching}
-                      availability={availability}
-                      userCapabilities={userCapabilities}
-                      {...args}
-                    />
-                  )}
+                <DetailToolbarActions
+                  isOpen={isOpen}
+                  setOpen={(open) => setOpen(open)}
+                  orderUrl={`${url}/order`}
+                  editUrl={`${url}/edit`}
+                  copyUrl={`${url}/copy`}
+                  editSurveyUrl={`${url}/edit-survey`}
+                  workflowUrl={`${url}/edit-workflow`}
+                  isFetching={isFetching}
+                  availability={availability}
+                  userCapabilities={userCapabilities}
                 />
               </Level>
             </LevelItem>
