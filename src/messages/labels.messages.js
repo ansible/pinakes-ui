@@ -20,6 +20,10 @@ const labelMessages = defineMessages({
   description: {
     id: 'common.labels.description',
     defaultMessage: 'Description'
+  },
+  loading: {
+    id: 'common.labels.loading',
+    defaultMessage: 'Loading'
   }
 });
 
