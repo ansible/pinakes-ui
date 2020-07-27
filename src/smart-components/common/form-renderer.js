@@ -16,6 +16,8 @@ import ShareGroupSelect from '../../forms/form-fields/share-group-select';
 import ShareGroupEdit from '../../forms/form-fields/share-group-edit';
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 
 const FormContext = createContext({});
 
@@ -38,20 +40,6 @@ FormButton.propTypes = {
   variant: PropTypes.string
 };
 
-const ValueOnly = ({ name, label, value }) => (
-  <FormGroup label={label} fieldId={name}>
-    <TextContent>
-      <Text component="h6">{value}</Text>
-    </TextContent>
-  </FormGroup>
-);
-
-ValueOnly.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
-};
-
 export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
   [componentTypes.TEXTAREA]: Textarea,
@@ -61,9 +49,10 @@ export const catalogComponentMapper = {
   [componentTypes.RADIO]: Radio,
   [componentTypes.SWITCH]: Switch,
   [componentTypes.SUB_FORM]: SubForm,
+  'initial-select': Select,
   'share-group-select': ShareGroupSelect,
   'share-group-edit': ShareGroupEdit,
-  'value-only': ValueOnly,
+  'copy-name-display': CopyNameDisplay,
   'textarea-field': Textarea,
   'select-field': Pf4SelectWrapper
 };

@@ -146,6 +146,7 @@ const PortfolioRoutes = () => {
         >
           {portfolioItemId && (
             <CopyPortfolioItemModal
+              portfolioName={itemName()}
               search={search}
               portfolioItemId={portfolioItemId}
               portfolioId={id}
