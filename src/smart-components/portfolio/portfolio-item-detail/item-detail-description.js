@@ -10,6 +10,15 @@ import CatalogRoute from '../../../routing/catalog-route';
 
 const ItemDetailDescription = ({ userCapabilities, product, url, search }) => (
   <Switch>
+    <Route path={`${url}/edit-workflow`}>
+      <EditApprovalWorkflow
+        pushParam={{ pathname: url, search }}
+        objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
+        objectId={product.id}
+        objectName={() => product.name}
+        querySelector="portfolio-item"
+      />
+    </Route>
     <Route
       exact
       path={url}
@@ -68,15 +77,6 @@ const ItemDetailDescription = ({ userCapabilities, product, url, search }) => (
         userCapabilities={userCapabilities}
       />
     </CatalogRoute>
-    <Route exact path={`${url}/edit-workflow`}>
-      <EditApprovalWorkflow
-        pushParam={{ pathname: url, search }}
-        objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
-        objectId={product.id}
-        objectName={() => product.name}
-        querySelector="portfolio-item"
-      />
-    </Route>
   </Switch>
 );
 
