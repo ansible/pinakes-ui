@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button, FormGroup, TextContent, Text } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
