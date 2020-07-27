@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, GridItem, Button, Level, Tooltip } from '@patternfly/react-core';
 import PlusIcon from '@patternfly/react-icons/dist/js/icons/plus-icon';
@@ -11,18 +11,42 @@ import formsMessages from '../../messages/forms.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 import { StyledLevelItem } from '../../presentational-components/styled-components/level';
 
+const initialState = {
+  /**
+   * This counter will re-initialize select components withouth having to re-initialize the whole form after new group was added
+   */
+  resetGroup: 0,
+  group: undefined,
+  permission: undefined
+};
+
+const shareReducer = (state, { type, payload }) => {
+  switch (type) {
+    case 'setGroup':
+      return { ...state, group: payload };
+    case 'setPermission':
+      return { ...state, permission: payload };
+    case 'resetField':
+      return {
+        group: undefined,
+        permission: undefined,
+        resetGroup: state.resetGroup + 1
+      };
+  }
+
+  return state;
+};
+
 export const NewGroupSelect = ({
   loadOptions,
   permissions,
   addGroup,
   currentGroups
 }) => {
-  /**
-   * This counter will re-initialize select components withouth having to re-initialize the whole form after new group was added
-   */
-  const [resetGroup, setResetGroup] = useState(0);
-  const [group, setGroup] = useState(undefined);
-  const [permission, setPermission] = useState(undefined);
+  const [{ group, permission, resetGroup }, dispatch] = useReducer(
+    shareReducer,
+    initialState
+  );
   const { formatMessage } = useIntl();
 
   let tooltipContent;
@@ -56,7 +80,9 @@ export const NewGroupSelect = ({
               menuIsPortal
               loadOptions={asyncFormValidator(loadOptions)}
               placeholder={formatMessage(formsMessages.groupsPlaceholder)}
-              onChange={(value) => setGroup(value)}
+              onChange={(value) =>
+                dispatch({ type: 'setGroup', payload: value })
+              }
               validated={hasError ? 'error' : 'default'}
               value={group}
             />
@@ -76,7 +102,9 @@ export const NewGroupSelect = ({
               options={permissions}
               menuIsPortal
               placeholder={formatMessage(formsMessages.permissionsPlaceholder)}
-              onChange={(value) => setPermission(value)}
+              onChange={(value) =>
+                dispatch({ type: 'setPermission', payload: value })
+              }
               value={permission}
             />
           </GridItem>
@@ -95,9 +123,7 @@ export const NewGroupSelect = ({
                   group_uuid: group.value,
                   permissions: permission
                 });
-                setPermission(undefined);
-                setGroup(undefined);
-                setResetGroup((prev) => prev + 1);
+                dispatch({ type: 'resetField' });
               }}
             >
               <PlusIcon />
