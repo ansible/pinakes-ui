@@ -25,6 +25,22 @@ const filteringMessages = defineMessages({
   noProducts: {
     id: 'common.filtering.no-products',
     defaultMessage: 'No products yet'
+  },
+  noRecords: {
+    id: 'commonMessages.noRecords',
+    defaultMessage: 'No records'
+  },
+  filterByTitle: {
+    id: 'tableToolbar.filterByTitle',
+    defaultMessage: 'Filter by {title}'
+  },
+  noResultsFound: {
+    id: 'tableToolbar.noResultsFound',
+    defaultMessage: 'No results found'
+  },
+  noResult: {
+    id: 'tableToolbar.noResult',
+    defaultMessage: 'No {results}'
   }
 });
 

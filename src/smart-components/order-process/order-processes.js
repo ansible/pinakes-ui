@@ -23,6 +23,7 @@ import TableEmptyState from '../../presentational-components/shared/table-empty-
 import { useIntl } from 'react-intl';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import tableToolbarMessages from '../../messages/table-toolbar.messages';
+import filteringMessages from '../../messages/filtering.messages';
 
 const columns = (intl) => [
   {
@@ -159,22 +160,20 @@ const OrderProcesses = () => {
             title={
               filterValue === ''
                 ? intl.formatMessage(orderProcessesMessages.noOrderProcesses)
-                : intl.formatMessage(tableToolbarMessages.noResultsFound)
+                : intl.formatMessage(filteringMessages.noResultsFound)
             }
             Icon={SearchIcon}
             PrimaryAction={() =>
               filterValue !== '' ? (
                 <Button onClick={() => handleFilterChange('')} variant="link">
-                  {intl.formatMessage(tableToolbarMessages.clearAllFilters)}
+                  {intl.formatMessage(filteringMessages.clearFilters)}
                 </Button>
               ) : null
             }
             description={
               filterValue === ''
                 ? intl.formatMessage(orderProcessesMessages.noOrderProcesses)
-                : intl.formatMessage(
-                    tableToolbarMessages.clearAllFiltersDescription
-                  )
+                : intl.formatMessage(filteringMessages.noResultsDescription)
             }
           />
         )}

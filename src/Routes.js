@@ -50,7 +50,7 @@ const OrderDetail = lazy(() =>
 );
 const OrderProcesses = lazy(() =>
   import(
-    /* webpackChunkName: "platforms" */ './smart-components/order-process/order-processes'
+    /* webpackChunkName: "order-processes" */ './smart-components/order-process/order-processes'
   )
 );
 

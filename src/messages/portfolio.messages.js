@@ -52,14 +52,6 @@ const portfolioMessages = defineMessages({
     id: 'portfolio.remove.modal.title',
     defaultMessage: 'Delete Portfolio?'
   },
-  portfolioRemoveCancel: {
-    id: 'portfolio.remove.modal.cancel',
-    defaultMessage: 'Cancel'
-  },
-  portfolioShareUnknown: {
-    id: 'portfolio.share.modal.option.unknown',
-    defaultMessage: 'Unknown'
-  },
   portfolioSharePermissions: {
     id: 'portfolio.share.modal.permissions',
     defaultMessage: 'Select the share permissions'

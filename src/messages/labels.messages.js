@@ -24,6 +24,18 @@ const labelMessages = defineMessages({
   loading: {
     id: 'common.labels.loading',
     defaultMessage: 'Loading'
+  },
+  cancel: {
+    id: 'common.labels.cancel',
+    defaultMessage: 'Cancel'
+  },
+  save: {
+    id: 'common.labels.save',
+    defaultMessage: 'Save'
+  },
+  confirm: {
+    id: 'common.labels.confirm',
+    defaultMessage: 'Confirm'
   }
 });
 
