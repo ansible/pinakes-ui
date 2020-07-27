@@ -370,9 +370,7 @@ describe('Portfolio share and workflow setting integration', () => {
       wrapper.update();
       jest.runAllTimers();
     });
-    const clearButton = wrapper.find(
-      '.pf-c-button.pf-m-plain.pf-c-select__toggle-clear'
-    );
+    const clearButton = wrapper.find('button#remove-share-0');
     clearButton.simulate('click');
     wrapper.update();
     wrapper
@@ -397,6 +395,7 @@ describe('Portfolio share and workflow setting integration', () => {
       .last()
       .simulate('click');
 
+    wrapper.find('button#add-new-group').simulate('click');
     /**
      * mock share/ushare calls
      */

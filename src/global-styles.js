@@ -48,6 +48,10 @@ const GlobalStyle = createGlobalStyle`
 /**
 * Update DDF select styles for select component
 */
+.ddorg__pf4-component-mapper__select-toggle {
+  min-height: 36px;
+}
+
 .filter-select {
   width: 300px;
   .pf-c-select__menu {

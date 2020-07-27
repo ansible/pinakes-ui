@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FormRenderer from '../common/form-renderer';
 import { useDispatch, useSelector } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 import {
   Modal,
   TextContent,
@@ -24,6 +25,7 @@ import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
+import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes';
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -59,74 +61,81 @@ const SharePortfolioModal = ({
         (perm) => perm.value === groupPermissions.sort().join(',')
       );
       return {
-        [groupName]: options
+        groupName,
+        group_uuid: group.group_uuid,
+        permissions: options
           ? options.value
           : formatMessage(portfolioMessages.portfolioShareUnknown)
       };
     });
-    let initialShareList = initialGroupShareList.reduce(
-      (acc, curr) => ({ ...acc, ...curr }),
-      {}
-    );
-    return initialShareList;
+    return initialGroupShareList;
   };
 
   const loadGroupOptions = (inputValue) => fetchFilterGroups(inputValue);
 
-  const onSubmit = (data) => {
-    let sharePromises = [];
-    if (data.group_uuid && data.permissions) {
-      sharePromises.push(dispatch(sharePortfolio({ id: portfolio, ...data })));
-    }
-
-    shareInfo.forEach((share) => {
-      let initialPerm = share.permissions.sort().join(',');
-      if (data[share.group_name] !== initialPerm) {
-        if (!data[share.group_name]) {
-          const sharePermissions = share.permissions.filter(
-            (permission) => permissionValues.indexOf(permission) > -1
-          );
-          sharePromises.push(
-            dispatch(
-              unsharePortfolio({
-                id: portfolio,
-                permissions: sharePermissions,
-                group_uuid: share.group_uuid
-              })
-            )
-          );
+  const onSubmit = (data, formApi) => {
+    const shareData = data['shared-groups'];
+    const newGroups = [];
+    const initialGroups = formApi.getState().initialValues['shared-groups'];
+    const removedGroups = initialGroups
+      .filter(
+        (group) =>
+          !shareData.find((item) => item.group_uuid === group.group_uuid)
+      )
+      .map(({ permissions, ...group }) => ({
+        ...group,
+        permissions: permissions.split(',')
+      }));
+    shareData.forEach((group) => {
+      const initialEntry = initialGroups.find(
+        (item) => item.group_uuid === group.group_uuid
+      );
+      if (initialEntry && !isEqual(initialEntry, group)) {
+        if (initialEntry.permissions.length > group.permissions.length) {
+          removedGroups.push({
+            id: portfolio,
+            permissions: ['update'],
+            group_uuid: group.group_uuid
+          });
         } else {
-          if (
-            share.permissions.length > data[share.group_name].split(',').length
-          ) {
-            sharePromises.push(
-              dispatch(
-                unsharePortfolio({
-                  id: portfolio,
-                  permissions: ['update'],
-                  group_uuid: share.group_uuid
-                })
-              )
-            );
-          } else {
-            sharePromises.push(
-              dispatch(
-                sharePortfolio({
-                  id: portfolio,
-                  permissions: data[share.group_name],
-                  group_uuid: share.group_uuid
-                })
-              )
-            );
-          }
+          newGroups.push(group);
         }
       }
+
+      if (!initialEntry) {
+        newGroups.push(group);
+      }
     });
+
+    const createSharePromise = (group, unshare = false) => {
+      const action = unshare ? unsharePortfolio : sharePortfolio;
+      return dispatch(
+        action({
+          id: portfolio,
+          permissions: group.permissions,
+          group_uuid: group.group_uuid
+        })
+      );
+    };
+
+    const sharePromises = [
+      ...newGroups.map((group) => createSharePromise(group)),
+      ...removedGroups.map((group) => createSharePromise(group, true))
+    ];
+
     push({ pathname: closeUrl, search });
 
-    return Promise.all(sharePromises).then(() =>
-      dispatch(fetchPortfolios(viewState))
-    );
+    return Promise.all(sharePromises).then(() => {
+      dispatch({
+        type: ADD_NOTIFICATION,
+        payload: {
+          dismissable: true,
+          variant: 'success',
+          title: formatMessage(portfolioMessages.shareSuccessTitle)
+        }
+      });
+      return dispatch(fetchPortfolios(viewState));
+    });
   };
 
   const onCancel = () => push({ pathname: closeUrl, search });
@@ -169,7 +178,7 @@ const SharePortfolioModal = ({
                 {formatMessage(portfolioMessages.portfolioShareDescription, {
                   name: portfolioName(portfolio),
                   // eslint-disable-next-line react/display-name
-                  strong: (chunks) => <strong>{chunks}</strong>
+                  strong: (chunks) => <strong key="strong">{chunks}</strong>
                 })}
               </Text>
             </TextContent>
@@ -177,7 +186,6 @@ const SharePortfolioModal = ({
           <StackItem>
             <FormRenderer
               schema={createPortfolioShareSchema(
-                shareInfo,
                 loadGroupOptions,
                 permissionOptions,
                 initialValues?.metadata?.user_capabilities?.share !== false,
@@ -187,9 +195,13 @@ const SharePortfolioModal = ({
               onSubmit={onSubmit}
               onCancel={onCancel}
               validate={validateShares}
-              initialValues={{ ...initialValues, ...initialShares() }}
+              initialValues={{
+                ...initialValues,
+                'shared-groups': initialShares()
+              }}
               formContainer="modal"
               templateProps={{
+                disableSubmit: ['pristine', 'validating'],
                 submitLabel: formatMessage(
                   portfolioMessages.portfolioShareApply
                 )

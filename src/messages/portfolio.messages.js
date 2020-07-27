@@ -152,6 +152,38 @@ const portfolioMessages = defineMessages({
   editProduct: {
     id: 'portfolio.item.edit.title',
     defaultMessage: 'Edit product'
+  },
+  shareTooltip: {
+    id: 'portfolio.share.add.tooltip',
+    defaultMessage: 'Share portfolio with selected group and permissions.'
+  },
+  shareErrorMissingGroup: {
+    id: 'portfolio.share.add.missing-group',
+    defaultMessage: 'Select group to share portfolio.'
+  },
+  shareErrorMissingPermission: {
+    id: 'portfolio.share.add.missing-permission',
+    defaultMessage: 'Assign permissions to selected group.'
+  },
+  shareErrorMissingData: {
+    id: 'portfolio.share.add.missing-data',
+    defaultMessage: 'Choose group and permissions.'
+  },
+  shareDuplicate: {
+    id: 'portfolio.share.add.duplicate',
+    defaultMessage: 'Portfolio is already shared with this group.'
+  },
+  noShares: {
+    id: 'portfolio.share.add.no-shares',
+    defaultMessage: 'To share portfolio select a group and permissions'
+  },
+  shareGroupsAccess: {
+    id: 'share.groups.access',
+    defaultMessage: 'Groups with access'
+  },
+  shareSuccessTitle: {
+    id: 'share.notification.success.title',
+    defaultMessage: 'Portfolio sharing settings were updated'
   }
 });
 
