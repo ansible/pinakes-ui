@@ -25,6 +25,7 @@ import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
+import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes';
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -124,9 +125,17 @@ const SharePortfolioModal = ({
 
     push({ pathname: closeUrl, search });
 
-    return Promise.all(sharePromises).then(() =>
-      dispatch(fetchPortfolios(viewState))
-    );
+    return Promise.all(sharePromises).then(() => {
+      dispatch({
+        type: ADD_NOTIFICATION,
+        payload: {
+          dismissable: true,
+          variant: 'success',
+          title: formatMessage(portfolioMessages.shareSuccessTitle)
+        }
+      });
+      return dispatch(fetchPortfolios(viewState));
+    });
   };
 
   const onCancel = () => push({ pathname: closeUrl, search });

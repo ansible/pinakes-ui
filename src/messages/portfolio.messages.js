@@ -180,6 +180,10 @@ const portfolioMessages = defineMessages({
   shareGroupsAccess: {
     id: 'share.groups.access',
     defaultMessage: 'Groups with access'
+  },
+  shareSuccessTitle: {
+    id: 'share.notification.success.title',
+    defaultMessage: 'Portfolio sharing settings were updated'
   }
 });
 
