@@ -32,7 +32,12 @@ const formsMessages = defineMessages({
   nameTaken: {
     id: 'formMessages.nameTaken',
     defaultMessage: 'Name has already been taken'
-  }
+  },
+  createOrderProcess: {
+    id: 'formMessages.createOrderProcessTitle',
+    defaultMessage: 'Create order process'
+  },
+
 });
 
 export default formsMessages;

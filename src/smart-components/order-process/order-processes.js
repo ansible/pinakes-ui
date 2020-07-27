@@ -128,11 +128,28 @@ const OrderProcesses = () => {
       { ...meta, offset: 0 }
     );
   };
+  const routes = () => <Fragment>
+    <Route exact path={ ADD_ORDER_PROCESS_ROUTE }
+           render={ props => <AddOrderProcess { ...props } postMethod={ updateWorkflows } /> }/>
+  </Fragment>;
 
   const onSort = (_e, index, direction, { property }) => {
     dispatch(sortOrderProcesses({ index, direction, property }));
     return updateOrderProcesses();
   };
+
+  const toolbarButtons = () => <ToolbarGroup className={ `pf-u-pl-lg top-toolbar` }>
+    <ToolbarItem>
+      <Link id="add-order-process-link" to={ { pathname: ADD_ORDER_PROCESS_ROUTE } }>
+        <Button
+            variant="primary"
+            aria-label={ intl.formatMessage(formMessages.createOrderProcessTitle) }
+        >
+          { intl.formatMessage(formMessages.createOrderProcessTitle) }
+        </Button>
+      </Link>
+    </ToolbarItem>
+  </ToolbarGroup>;
 
   return (
     <Fragment>
@@ -156,6 +173,7 @@ const OrderProcesses = () => {
         filterValue={filterValue}
         onFilterChange={handleFilterChange}
         isLoading={isFetching || isFiltering}
+        toolbarButtons={ toolbarButtons }
         renderEmptyState={() => (
           <TableEmptyState
             title={
