@@ -17,7 +17,7 @@ import {
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import CatalogRoute from '../../routing/catalog-route';
 import useQuery from '../../utilities/use-query';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import {
   setOrFetchPortfolio,
@@ -59,19 +59,25 @@ const AddPortfolioModal = lazy(() =>
 
 const PortfolioRoutes = () => {
   const viewState = useInitialUriHash();
-  const {
-    portfolioItemId,
-    portfolioItemUserCapabilities,
-    portfolios,
-    selectedPortfolio
-  } = useSelector((state) => ({
-    portfolioItemId: state?.portfolioReducer?.portfolioItem?.portfolioItem?.id,
-    portfolioItemUserCapabilities:
+
+  const portfolioItemId = useSelector(
+    (state) => state?.portfolioReducer?.portfolioItem?.portfolioItem?.id
+  );
+  const portfolioItemUserCapabilities = useSelector(
+    (state) =>
       state?.portfolioReducer?.portfolioItem?.portfolioItem?.metadata
         ?.user_capabilities,
-    portfolios: state?.portfolioReducer?.portfolios,
-    selectedPortfolio: state?.portfolioReducer?.selectedPortfolio
-  }));
+    shallowEqual
+  );
+  const portfolios = useSelector(
+    (state) => state?.portfolioReducer?.portfolios,
+    shallowEqual
+  );
+  const selectedPortfolio = useSelector(
+    (state) => state?.portfolioReducer?.selectedPortfolio,
+    shallowEqual
+  );
+
   const { portfolioUserCapabilities, itemName } = useSelector((state) => ({
     portfolioUserCapabilities:
       state?.portfolioReducer?.selectedPortfolio?.metadata?.user_capabilities,
