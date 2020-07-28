@@ -60,7 +60,7 @@ describe('<PortfolioItemDetail />', () => {
       },
       portfolioReducer: {
         selectedPortfolio: {
-          id: '333',
+          id: '123',
           name: 'Portfolio name'
         },
         portfolioItem: {

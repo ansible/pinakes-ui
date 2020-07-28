@@ -36,6 +36,7 @@ describe('<SharePortfolioModal/>', () => {
     };
     initialState = {
       portfolioReducer: {
+        isLoading: false,
         selectedPortfolio: {
           id: '2',
           name: 'Portfolio 1',
