@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
-import { FormGroup, TextContent, Text } from '@patternfly/react-core';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
@@ -19,20 +18,8 @@ import ShareGroupEdit from '../../forms/form-fields/share-group-edit';
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 import translateSchema from '../../utilities/translate-schema';
-
-const ValueOnly = ({ name, label, value }) => (
-  <FormGroup label={label} fieldId={name}>
-    <TextContent>
-      <Text component="h6">{value}</Text>
-    </TextContent>
-  </FormGroup>
-);
-
-ValueOnly.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
-};
+import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 
 export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
@@ -43,9 +30,10 @@ export const catalogComponentMapper = {
   [componentTypes.RADIO]: Radio,
   [componentTypes.SWITCH]: Switch,
   [componentTypes.SUB_FORM]: SubForm,
+  'initial-select': Select,
   'share-group-select': ShareGroupSelect,
   'share-group-edit': ShareGroupEdit,
-  'value-only': ValueOnly,
+  'copy-name-display': CopyNameDisplay,
   'textarea-field': Textarea,
   'select-field': Pf4SelectWrapper
 };
