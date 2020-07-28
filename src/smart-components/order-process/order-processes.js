@@ -22,16 +22,16 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import TableEmptyState from '../../presentational-components/shared/table-empty-state';
 import { useIntl } from 'react-intl';
 import orderProcessesMessages from '../../messages/order-processes.messages';
-import tableToolbarMessages from '../../messages/table-toolbar.messages';
 import filteringMessages from '../../messages/filtering.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const columns = (intl) => [
   {
-    title: intl.formatMessage(tableToolbarMessages.name),
+    title: intl.formatMessage(labelMessages.name),
     transforms: [sortable]
   },
   {
-    title: intl.formatMessage(orderProcessesMessages.description),
+    title: intl.formatMessage(labelMessages.description),
     transforms: [sortable]
   },
   {
@@ -55,7 +55,7 @@ const prepareChips = (filterValue, intl) =>
   filterValue
     ? [
         {
-          category: intl.formatMessage(tableToolbarMessages.name),
+          category: intl.formatMessage(labelMessages.name),
           key: 'name',
           chips: [{ name: filterValue, value: filterValue }]
         }

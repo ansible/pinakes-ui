@@ -41,7 +41,10 @@ const filteringMessages = defineMessages({
   noResult: {
     id: 'tableToolbar.noResult',
     defaultMessage: 'No {results}'
-  }
+  },
+  unknown: {
+    id: 'commonMessages.unknown',
+    defaultMessage: 'Unknown'}
 });
 
 export default filteringMessages;
