@@ -12,68 +12,31 @@ import { Section } from '@redhat-cloud-services/frontend-components/components/c
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 
 export const TableToolbarView = ({
-  isSelectable,
   createRows,
   columns,
   fetchData,
   toolbarButtons,
   data,
   actionResolver,
-  actionsDisabled,
   routes,
-  titlePlural,
-  titleSingular,
+  plural,
+  singular,
   pagination,
-  setCheckedItems,
   filterValue,
   onFilterChange,
   isLoading,
-  onCollapse,
   renderEmptyState,
   sortBy,
   onSort,
   activeFiltersConfig,
-  filterConfig,
-  indexpath
+  filterConfig
 }) => {
   const intl = useIntl();
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    setRows(createRows(data, actionsDisabled, indexpath));
+    setRows(createRows(data));
   }, [data]);
-
-  const setOpen = (data, id) =>
-    data.map((row) =>
-      row.id === id
-        ? {
-            ...row,
-            isOpen: !row.isOpen
-          }
-        : {
-            ...row
-          }
-    );
-
-  const setSelected = (_event, selected, index, { id } = {}) => {
-    const newData = rows.map((row) =>
-      row.id === id || index === -1
-        ? {
-            ...row,
-            selected: index === -1 ? selected : !row.selected
-          }
-        : {
-            ...row
-          }
-    );
-
-    const checkedItems = newData.filter((item) => item.id && item.selected);
-    setCheckedItems(checkedItems);
-    return setRows(newData);
-  };
-
-  const onCollapseInternal = (_event, _index, _isOpen, { id }) =>
-    onCollapse ? onCollapse(id, setRows, setOpen) : setRows(setOpen(rows, id));
 
   const paginationConfig = {
     itemCount: pagination.count,
@@ -111,14 +74,14 @@ export const TableToolbarView = ({
                   id: 'filter-by-name',
                   defaultMessage: 'Filter by {title}'
                 },
-                { title: titleSingular }
+                { title: singular }
               ),
               'aria-label': intl.formatMessage(
                 {
                   id: 'filter-by-name',
                   defaultMessage: 'Filter by {title}'
                 },
-                { title: titleSingular }
+                { title: singular }
               ),
               onChange: (_event, value) => onFilterChange(value),
               value: filterValue
@@ -132,11 +95,7 @@ export const TableToolbarView = ({
   );
 
   return (
-    <Section
-      type="content"
-      page-type={`tab-${titlePlural}`}
-      id={`tab-${titlePlural}`}
-    >
+    <Section type="content" page-type={`tab-${plural}`} id={`tab-${plural}`}>
       {routes()}
       {renderToolbar(isLoading)}
       {isLoading && <ListLoader />}
@@ -146,16 +105,13 @@ export const TableToolbarView = ({
         <Fragment>
           {!isLoading && (
             <Table
-              aria-label={`${titlePlural} table`}
-              onCollapse={onCollapseInternal}
+              aria-label={`${plural} table`}
               rows={rows}
               cells={columns}
-              onSelect={isSelectable && setSelected}
               actionResolver={actionResolver}
               className="pf-u-pt-0"
               sortBy={sortBy}
               onSort={onSort}
-              canSelectAll
             >
               <TableHeader />
               <TableBody />
@@ -179,7 +135,6 @@ export const TableToolbarView = ({
 };
 
 TableToolbarView.propTypes = {
-  isSelectable: propTypes.bool,
   createRows: propTypes.func.isRequired,
   columns: propTypes.array.isRequired,
   toolbarButtons: propTypes.func,
@@ -190,22 +145,18 @@ TableToolbarView.propTypes = {
     offset: propTypes.number,
     count: propTypes.number
   }),
-  titlePlural: propTypes.string,
-  titleSingular: propTypes.string,
+  plural: propTypes.string,
+  singular: propTypes.string,
   routes: propTypes.func,
   actionResolver: propTypes.func,
-  setCheckedItems: propTypes.func,
   filterValue: propTypes.string,
   onFilterChange: propTypes.func,
   isLoading: propTypes.bool,
-  onCollapse: propTypes.func,
   renderEmptyState: propTypes.func,
   sortBy: propTypes.object,
   onSort: propTypes.func,
   activeFiltersConfig: propTypes.object,
-  filterConfig: propTypes.array,
-  actionsDisabled: propTypes.func,
-  indexpath: propTypes.shape({ index: propTypes.string })
+  filterConfig: propTypes.array
 };
 
 TableToolbarView.defaultProps = {

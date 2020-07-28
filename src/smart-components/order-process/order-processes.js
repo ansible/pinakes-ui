@@ -113,6 +113,7 @@ const OrderProcesses = () => {
   };
 
   useEffect(() => {
+    insights.chrome.appNavClick({ id: 'order-processes', secondaryNav: true });
     updateOrderProcesses(defaultSettings);
     scrollToTop();
   }, []);

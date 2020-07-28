@@ -44,7 +44,8 @@ const filteringMessages = defineMessages({
   },
   unknown: {
     id: 'commonMessages.unknown',
-    defaultMessage: 'Unknown'}
+    defaultMessage: 'Unknown'
+  }
 });
 
 export default filteringMessages;
