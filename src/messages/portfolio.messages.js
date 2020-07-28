@@ -52,10 +52,6 @@ const portfolioMessages = defineMessages({
     id: 'portfolio.remove.modal.title',
     defaultMessage: 'Delete Portfolio?'
   },
-  portfolioRemoveConfirm: {
-    id: 'portfolio.remove.modal.confirm',
-    defaultMessage: 'Confirm'
-  },
   portfolioRemoveCancel: {
     id: 'portfolio.remove.modal.cancel',
     defaultMessage: 'Cancel'

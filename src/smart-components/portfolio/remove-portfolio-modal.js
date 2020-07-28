@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { WarningTriangleIcon } from '@patternfly/react-icons';
+import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import {
   Modal,
   Button,
@@ -20,6 +20,7 @@ import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
+import actionMessages from '../../messages/actions.messages';
 
 const RemovePortfolioModal = ({ viewState }) => {
   const { formatMessage } = useIntl();
@@ -48,7 +49,21 @@ const RemovePortfolioModal = ({ viewState }) => {
     <UnauthorizedRedirect />
   ) : (
     <Modal
-      title={formatMessage(portfolioMessages.portfolioRemoveTitle)}
+      aria-label={formatMessage(portfolioMessages.portfolioRemoveTitle)}
+      header={
+        <TextContent>
+          <Split hasGutter>
+            <SplitItem>
+              <ExclamationTriangleIcon size="lg" fill="#f0ab00" />
+            </SplitItem>
+            <SplitItem>
+              <Text component="h1" size="2xl">
+                {formatMessage(portfolioMessages.portfolioRemoveTitle)}
+              </Text>
+            </SplitItem>
+          </Split>
+        </TextContent>
+      }
       isOpen
       variant="small"
       onClose={goBack}
@@ -60,27 +75,20 @@ const RemovePortfolioModal = ({ viewState }) => {
           id="confirm-delete-portfolio"
           onClick={onSubmit}
         >
-          {formatMessage(portfolioMessages.portfolioRemoveConfirm)}
+          {formatMessage(actionMessages.delete)}
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>
           {formatMessage(portfolioMessages.portfolioRemoveCancel)}
         </Button>
       ]}
     >
-      <Split hasGutter>
-        <SplitItem>
-          <WarningTriangleIcon size="xl" fill="#f0ab00" />
-        </SplitItem>
-        <SplitItem>
-          <TextContent>
-            <Text component={TextVariants.p}>
-              {formatMessage(portfolioMessages.portfolioRemoveDescription, {
-                name: portfolio.name
-              })}
-            </Text>
-          </TextContent>
-        </SplitItem>
-      </Split>
+      <TextContent>
+        <Text component={TextVariants.p}>
+          {formatMessage(portfolioMessages.portfolioRemoveDescription, {
+            name: portfolio.name
+          })}
+        </Text>
+      </TextContent>
     </Modal>
   );
 };
