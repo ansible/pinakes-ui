@@ -10,6 +10,7 @@ import { ListLoader } from './loader-placeholders';
 import { useIntl } from 'react-intl';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
+import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const TableToolbarView = ({
   createRows,
@@ -20,7 +21,6 @@ export const TableToolbarView = ({
   actionResolver,
   routes,
   plural,
-  singular,
   pagination,
   filterValue,
   onFilterChange,
@@ -50,7 +50,7 @@ export const TableToolbarView = ({
 
   const renderToolbar = () => (
     <PrimaryToolbar
-      className="pf-u-p-lg ins__approval__primary_toolbar"
+      className="pf-u-p-lg"
       pagination={paginationConfig}
       {...(toolbarButtons && {
         actionsConfig: {
@@ -70,18 +70,10 @@ export const TableToolbarView = ({
             filterValues: {
               id: 'filter-by-name',
               placeholder: intl.formatMessage(
-                {
-                  id: 'filter-by-name',
-                  defaultMessage: 'Filter by {title}'
-                },
-                { title: singular }
+                orderProcessesMessages.orderProcessesFilter
               ),
               'aria-label': intl.formatMessage(
-                {
-                  id: 'filter-by-name',
-                  defaultMessage: 'Filter by {title}'
-                },
-                { title: singular }
+                orderProcessesMessages.orderProcessesFilter
               ),
               onChange: (_event, value) => onFilterChange(value),
               value: filterValue
@@ -119,7 +111,7 @@ export const TableToolbarView = ({
           )}
           {pagination.count > 0 && (
             <PrimaryToolbar
-              className="pf-u-pl-lg pf-u-pr-lg ins__approval__primary_toolbar"
+              className="pf-u-pl-lg pf-u-pr-lg"
               pagination={{
                 ...paginationConfig,
                 dropDirection: 'up',

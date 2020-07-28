@@ -21,6 +21,7 @@ import { defaultSettings } from '../../helpers/shared/pagination';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
 import actionMessages from '../../messages/actions.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const RemovePortfolioModal = ({ viewState }) => {
   const { formatMessage } = useIntl();
@@ -78,7 +79,7 @@ const RemovePortfolioModal = ({ viewState }) => {
           {formatMessage(actionMessages.delete)}
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>
-          {formatMessage(portfolioMessages.portfolioRemoveCancel)}
+          {formatMessage(labelMessages.cancel)}
         </Button>
       ]}
     >
