@@ -13,6 +13,9 @@ import orderReducer, {
 import platformReducer, {
   platformInitialState
 } from '../redux/reducers/platform-reducer';
+import orderProcessReducer, {
+  orderProcessInitialState
+} from '../redux/reducers/order-process-reducer';
 import portfolioReducer, {
   portfoliosInitialState
 } from '../redux/reducers/portfolio-reducer';
@@ -63,6 +66,10 @@ const registerReducers = (registry) => {
   registry.register({
     orderReducer: applyReducerHash(orderReducer, orderInitialState),
     platformReducer: applyReducerHash(platformReducer, platformInitialState),
+    orderProcessReducer: applyReducerHash(
+      orderProcessReducer,
+      orderProcessInitialState
+    ),
     portfolioReducer: applyReducerHash(
       portfolioReducer,
       portfoliosInitialState

@@ -88,6 +88,10 @@ const App = () => {
         title: 'Platforms'
       },
       {
+        id: 'order-processes',
+        title: 'Order processes'
+      },
+      {
         id: 'orders',
         title: 'Orders'
       }

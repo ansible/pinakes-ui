@@ -15,6 +15,7 @@ describe('redux store', () => {
       breadcrumbsReducer: expect.any(Object),
       orderReducer: expect.any(Object),
       platformReducer: expect.any(Object),
+      orderProcessReducer: expect.any(Object),
       portfolioReducer: expect.any(Object),
       approvalReducer: expect.any(Object),
       rbacReducer: expect.any(Object),

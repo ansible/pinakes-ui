@@ -1,6 +1,10 @@
 const { defineMessages } = require('react-intl');
 
 const formsMessages = defineMessages({
+  orderProcessTitle: {
+    id: 'commonMessages.orderProcessesTitle',
+    defaultMessage: 'Order processes'
+  },
   inviteGroup: {
     id: 'forms.share.invite-group',
     defaultMessage: 'Invite group'

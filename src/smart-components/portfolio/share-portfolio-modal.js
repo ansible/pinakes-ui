@@ -26,6 +26,7 @@ import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
 import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes';
+import filteringMessages from '../../messages/filtering.messages';
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -65,7 +66,7 @@ const SharePortfolioModal = ({
         group_uuid: group.group_uuid,
         permissions: options
           ? options.value
-          : formatMessage(portfolioMessages.portfolioShareUnknown)
+          : formatMessage(filteringMessages.unknown)
       };
     });
     return initialGroupShareList;
