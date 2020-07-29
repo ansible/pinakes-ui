@@ -172,6 +172,14 @@ const portfolioMessages = defineMessages({
   shareSuccessTitle: {
     id: 'share.notification.success.title',
     defaultMessage: 'Portfolio sharing settings were updated'
+  },
+  addSuccessTitle: {
+    id: 'portfolio.add.success.title',
+    defaultMessage: 'Success adding portfolio'
+  },
+  addSuccessDescription: {
+    id: 'portfolio.add.success.description',
+    defaultMessage: 'Portfolio <b>{name}</b> was added successfully.'
   }
 });
 
