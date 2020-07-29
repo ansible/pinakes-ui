@@ -65,10 +65,8 @@ describe('Portfolio share and workflow setting integration', () => {
      * Response is empty
      */
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
-      .replyOnce(200, {
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
+      .reply(200, {
         data: [initialPortfolio],
         meta: { count: 1, limit: 50, offset: 0 }
       });

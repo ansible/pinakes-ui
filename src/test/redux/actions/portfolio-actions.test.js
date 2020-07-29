@@ -53,9 +53,7 @@ describe('Portfolio actions', () => {
   it('should dispatch correct actions after fetching portfolios', () => {
     const expectedPortfolio = { name: 'Name', description: 'Description' };
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, { data: [expectedPortfolio], meta: {} });
     const store = mockStore({
       portfolioReducer: {
@@ -115,10 +113,7 @@ describe('Portfolio actions', () => {
     ]);
 
     mockApi
-      .onGet(
-        CATALOG_API_BASE +
-          '/portfolios?filter[name][contains_i]=&limit=50&offset=0'
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(500);
 
     return store.dispatch(fetchPortfolios()).catch(() => {
@@ -213,9 +208,7 @@ describe('Portfolio actions', () => {
   it('should create correct action creators when adding portfolio', () => {
     const store = mockStore({});
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, [{ data: [], meta: {} }]);
     mockApi
       .onPost(`${CATALOG_API_BASE}/portfolios`)
@@ -240,9 +233,7 @@ describe('Portfolio actions', () => {
   it('should create error action creators when adding portfolio failed', () => {
     const store = mockStore({});
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, [{ data: [], meta: {} }]);
     mockApi.onPost(CATALOG_API_BASE + '/portfolios').replyOnce(500);
 
@@ -263,9 +254,7 @@ describe('Portfolio actions', () => {
   it('should create correct action creators when updating portfolio', () => {
     const store = mockStore({ openApiReducer: openApiReducerMock });
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, { data: [], meta: {} });
     mockApi
       .onPatch(CATALOG_API_BASE + '/portfolios/123')
@@ -321,9 +310,7 @@ describe('Portfolio actions', () => {
       }
     });
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, {});
     mockApi
       .onDelete(CATALOG_API_BASE + '/portfolios/123')
@@ -352,9 +339,7 @@ describe('Portfolio actions', () => {
   it('should create correct action creators when removing portfolio failed', () => {
     const store = mockStore({});
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, [{ data: [], meta: {} }]);
     mockApi.onDelete(CATALOG_API_BASE + '/portfolios/123').replyOnce(500);
 
@@ -554,9 +539,7 @@ describe('Portfolio actions', () => {
       .onPost(`${CATALOG_API_BASE}/portfolios/123/undelete`)
       .replyOnce(200, { id: '123', name: 'Yay' });
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, { data: [] });
     const expectedActions = [
       {

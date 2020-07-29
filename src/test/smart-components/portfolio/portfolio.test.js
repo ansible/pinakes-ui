@@ -638,7 +638,6 @@ describe('<Portfolio />', () => {
       <IntlProvider locale="en">{notification}</IntlProvider>
     );
     await act(async () => {
-      console.log(notificationWrapper.debug());
       notificationWrapper.find('a').simulate('click');
     });
   });

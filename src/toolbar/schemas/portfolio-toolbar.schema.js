@@ -229,6 +229,7 @@ const createPortfolioToolbarSchema = ({
                         isDisabled: isLoading || copyInProgress,
                         variant: 'primary',
                         title: 'Add',
+                        id: 'add-products-button',
                         key: 'add-products-button'
                       })
                     },

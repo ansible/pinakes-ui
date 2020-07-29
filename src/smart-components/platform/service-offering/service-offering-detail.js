@@ -20,7 +20,6 @@ import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
 import { useIntl } from 'react-intl';
 import labelMessages from '../../../messages/labels.messages';
-import statesMessages from '../../../messages/states.messages';
 import platformsMessages from '../../../messages/platforms.messages';
 
 const requiredParams = ['service', 'platform'];
@@ -80,7 +79,7 @@ const ServiceOfferingDetail = () => {
               {source.name}
             </Text>
             <Text className="font-14">
-              {formatMessage(statesMessages.created)}
+              {formatMessage(labelMessages.created)}
             </Text>
             <Text
               id="created_at"

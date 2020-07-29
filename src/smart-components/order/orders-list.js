@@ -34,6 +34,7 @@ import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import statesMessages from '../../messages/states.messages';
 import filteringMessages from '../../messages/filtering.messages';
 import ordersMessages from '../../messages/orders.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -194,7 +195,7 @@ const OrdersList = () => {
                         },
                         {
                           value: 'Created',
-                          label: formatMessage(statesMessages.created)
+                          label: formatMessage(labelMessages.created)
                         },
                         {
                           value: 'Failed',

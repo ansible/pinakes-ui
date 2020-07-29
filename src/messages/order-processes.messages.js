@@ -28,10 +28,6 @@ const orderProcessesMessages = defineMessages({
   orderProcess: {
     id: 'order-process.toolbar.order-process',
     defaultMessage: 'Order process'
-  },
-  created_at: {
-    id: 'order-process.table.created_at',
-    defaultMessage: 'Created'
   }
 });
 

@@ -114,9 +114,7 @@ describe('<RemovePortfolioModal />', () => {
     });
 
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce((req) => {
         expect(req).toBeTruthy();
         return [200, { data: [] }];
@@ -179,9 +177,7 @@ describe('<RemovePortfolioModal />', () => {
     });
 
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .reply((req) => {
         expect(req).toBeTruthy();
         return [200, { data: [] }];

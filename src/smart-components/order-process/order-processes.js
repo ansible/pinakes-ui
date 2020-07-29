@@ -35,7 +35,7 @@ const columns = (intl) => [
     transforms: [sortable]
   },
   {
-    title: intl.formatMessage(orderProcessesMessages.created_at),
+    title: intl.formatMessage(labelMessages.created),
     transforms: [sortable]
   }
 ];

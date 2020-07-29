@@ -19,6 +19,7 @@ import UserContext from '../../user-context';
 import { useIntl } from 'react-intl';
 import actionMessages from '../../messages/actions.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   const { formatMessage } = useIntl();
@@ -104,7 +105,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
           templateProps={{
             submitLabel: portfolioId
               ? formatMessage(actionMessages.save)
-              : formatMessage(portfolioMessages.modalCreateSubmit)
+              : formatMessage(labelMessages.create)
           }}
           disableSubmit={submitting ? ['pristine', 'diry'] : []}
         />

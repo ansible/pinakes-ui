@@ -16,7 +16,6 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { useIntl } from 'react-intl';
-import statesMessages from '../../messages/states.messages';
 import labelMessages from '../../messages/labels.messages';
 import platformsMessages from '../../messages/platforms.messages';
 
@@ -55,7 +54,7 @@ const PlatformInventories = () => {
   const { current: columns } = useRef([
     formatMessage(labelMessages.name),
     formatMessage(labelMessages.description),
-    formatMessage(statesMessages.created),
+    formatMessage(labelMessages.created),
     formatMessage(platformsMessages.workflowColumn)
   ]);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(

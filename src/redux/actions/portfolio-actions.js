@@ -12,22 +12,28 @@ import portfolioMessages from '../../messages/portfolio.messages';
 import { FormattedMessage } from 'react-intl';
 
 export const doFetchPortfolios = ({
-  filter,
+  filters,
   ...options
 } = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  meta: { ...defaultSettings, filter, ...options },
-  payload: PortfolioHelper.listPortfolios(filter, options)
+  meta: { ...defaultSettings, filters, ...options },
+  payload: PortfolioHelper.listPortfolios(filters, options)
 });
 
 export const fetchPortfolios = (options) => (dispatch) =>
   dispatch(doFetchPortfolios(options));
 
-export const fetchPortfoliosWithState = (options = defaultSettings) => (
-  dispatch
-) =>
+export const fetchPortfoliosWithState = (
+  filters,
+  options = defaultSettings
+) => (dispatch) =>
   dispatch(
-    doFetchPortfolios({ ...options, storeState: true, stateKey: 'portfolio' })
+    doFetchPortfolios({
+      ...options,
+      filters,
+      storeState: true,
+      stateKey: 'portfolio'
+    })
   );
 
 export const fetchPortfolioItems = (

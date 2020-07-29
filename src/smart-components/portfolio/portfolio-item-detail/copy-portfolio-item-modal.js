@@ -19,8 +19,8 @@ import actionMessages from '../../../messages/actions.messages';
 import labelMessages from '../../../messages/labels.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
 
-const loadPortfolios = (filter) =>
-  listPortfolios(filter, { limit: 100, offset: 0 }).then(({ data }) =>
+const loadPortfolios = (name) =>
+  listPortfolios({ name }, { limit: 100, offset: 0 }).then(({ data }) =>
     data
       .filter(
         ({
