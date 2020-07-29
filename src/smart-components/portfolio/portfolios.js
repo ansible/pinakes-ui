@@ -5,7 +5,6 @@ import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
 import { Button } from '@patternfly/react-core';
 
 import { scrollToTop } from '../../helpers/shared/helpers';
-import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
@@ -13,7 +12,6 @@ import {
   copyPortfolio
 } from '../../redux/actions/portfolio-actions';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
-import createPortfolioToolbarSchema from '../../toolbar/schemas/portfolios-toolbar.schema';
 import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
@@ -28,31 +26,70 @@ import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 
+import { SortByDirection } from '@patternfly/react-table';
+import useIsMounted from '../../utilities/use-is-mounted';
+import PortfoliosPrimaryToolbar from './toolbars/portfolios-primary-toolbar';
+import TopToolbar, {
+  TopToolbarTitle
+} from '../../presentational-components/shared/top-toolbar';
+
 const debouncedFilter = asyncFormValidator(
-  (filter, dispatch, filteringCallback, meta = defaultSettings) => {
+  (filters, meta = defaultSettings, dispatch, filteringCallback) => {
     filteringCallback(true);
-    dispatch(fetchPortfoliosWithState({ ...meta, filter })).then(() =>
+    dispatch(fetchPortfoliosWithState(filters, meta)).then(() =>
       filteringCallback(false)
     );
   },
   1000
 );
 
+const chipCategories = {
+  name: 'Name',
+  owner: 'Owner',
+  sort_by: 'Sort by'
+};
+
 const initialState = {
-  filterValue: '',
   isOpen: false,
   isFetching: true,
-  isFiltering: false
+  isFiltering: false,
+  filterType: 'name',
+  filters: {
+    name: '',
+    owner: '',
+    sort_by: undefined
+  },
+  sortDirection: SortByDirection.asc
 };
+
+const changeFilters = (value, type, filters) => ({
+  ...filters,
+  [type]: value
+});
 
 const portfoliosState = (state, action) => {
   switch (action.type) {
     case 'setFetching':
       return { ...state, isFetching: action.payload };
     case 'setFilterValue':
-      return { ...state, filterValue: action.payload };
+      return {
+        ...state,
+        filters: changeFilters(action.payload, state.filterType, state.filters)
+      };
+    case 'replaceFilterChip':
+      return { ...state, filters: action.payload };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
+    case 'setFilterType':
+      return { ...state, filterType: action.payload };
+    case 'setSortBy':
+      return {
+        ...state,
+        sortDirection: action.payload,
+        filters: !state.filters.sort_by
+          ? { ...state.filters, sort_by: 'name' }
+          : state.filters
+      };
   }
 
   return state;
@@ -61,13 +98,14 @@ const portfoliosState = (state, action) => {
 const Portfolios = () => {
   const { formatMessage } = useIntl();
   const viewState = useInitialUriHash();
-  const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
-    portfoliosState,
-    {
-      ...initialState,
-      filterValue: viewState?.portfolio?.filter || ''
-    }
-  );
+  const isMounted = useIsMounted();
+  const [
+    { isFetching, isFiltering, filters, filterType, sortDirection },
+    stateDispatch
+  ] = useReducer(portfoliosState, {
+    ...initialState,
+    ...viewState?.portfolio
+  });
   const { data, meta } = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
@@ -76,9 +114,9 @@ const Portfolios = () => {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchPortfoliosWithState(viewState?.portfolio)).then(() =>
-      stateDispatch({ type: 'setFetching', payload: false })
-    );
+    dispatch(
+      fetchPortfoliosWithState(filters, { ...meta, sortDirection })
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
     insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
@@ -86,16 +124,22 @@ const Portfolios = () => {
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
-      value,
+      { ...filters, [filterType]: value },
+      { ...meta, offset: 0, sortDirection },
       dispatch,
       (isFiltering) =>
-        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
-      {
-        ...meta,
-        offset: 0
-      }
+        stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
     );
   };
+
+  useEffect(() => {
+    if (isMounted && (!isFiltering || !isFetching)) {
+      handleFilterItems(filters[filterType]);
+    }
+  }, [sortDirection]);
+
+  const handleSort = (direction) =>
+    stateDispatch({ type: 'setSortBy', payload: direction });
 
   const handleCopyPortfolio = (id) =>
     dispatch(copyPortfolio(id)).then(({ id }) =>
@@ -143,21 +187,24 @@ const Portfolios = () => {
 
   return (
     <Fragment>
-      <ToolbarRenderer
-        schema={createPortfolioToolbarSchema({
-          meta,
-          userPermissions,
-          fetchPortfolios: (_, options) =>
-            dispatch(
-              fetchPortfoliosWithState({ filter: filterValue, ...options })
-            ),
-          filterProps: {
-            searchValue: filterValue,
-            onFilterChange: handleFilterItems,
-            placeholder: formatMessage(portfolioMessages.portfoliosPlaceholder)
-          }
-        })}
-      />
+      <TopToolbar>
+        <TopToolbarTitle title="Portfolios" />
+        <PortfoliosPrimaryToolbar
+          filters={filters}
+          chipCategories={chipCategories}
+          stateDispatch={stateDispatch}
+          debouncedFilter={debouncedFilter}
+          initialState={initialState}
+          meta={meta}
+          filterType={filterType}
+          handleFilterItems={handleFilterItems}
+          sortDirection={sortDirection}
+          handleSort={handleSort}
+          fetchPortfoliosWithState={fetchPortfoliosWithState}
+          isFetching={isFetching}
+          isFiltering={isFiltering}
+        />
+      </TopToolbar>
       <ContentGallery
         items={galleryItems}
         isLoading={isFetching || isFiltering}
@@ -170,9 +217,7 @@ const Portfolios = () => {
           <AsyncPagination
             meta={meta}
             apiRequest={(_, options) =>
-              dispatch(
-                fetchPortfoliosWithState({ filter: filterValue, ...options })
-              )
+              dispatch(fetchPortfoliosWithState(filters, options))
             }
             dropDirection="up"
           />

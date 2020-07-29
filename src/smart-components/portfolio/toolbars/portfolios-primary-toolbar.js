@@ -1,0 +1,176 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
+
+import AsyncPagination from '../../common/async-pagination';
+import CatalogLink from '../../common/catalog-link';
+import { Button } from '@patternfly/react-core';
+
+const PortfoliosPrimaryToolbar = ({
+  filters,
+  chipCategories,
+  stateDispatch,
+  debouncedFilter,
+  initialState,
+  meta,
+  filterType,
+  handleFilterItems,
+  sortDirection,
+  handleSort,
+  fetchPortfoliosWithState,
+  isFetching,
+  isFiltering
+}) => {
+  const dispatch = useDispatch();
+  return (
+    <PrimaryToolbar
+      dedicatedAction={
+        <CatalogLink pathname="/portfolios/add-portfolio">
+          <Button variant="primary" type="button">
+            Create
+          </Button>
+        </CatalogLink>
+      }
+      activeFiltersConfig={{
+        filters: Object.entries(filters)
+          .filter(([, value]) => value && value.length > 0)
+          .map(([key, value]) => ({
+            category: chipCategories[key],
+            type: key,
+            chips: Array.isArray(value)
+              ? value.map((name) => ({ name }))
+              : [{ name: value }]
+          })),
+        onDelete: (_e, [chip], clearAll) => {
+          if (clearAll) {
+            stateDispatch({
+              type: 'replaceFilterChip',
+              payload: initialState.filters
+            });
+            return debouncedFilter(
+              initialState.filters,
+              meta,
+              dispatch,
+              (isFiltering) =>
+                stateDispatch({
+                  type: 'setFilteringFlag',
+                  payload: isFiltering
+                })
+            );
+          }
+
+          const newFilters = { ...filters };
+          if (chip.type === 'state') {
+            newFilters[chip.type] = newFilters[chip.type].filter(
+              (value) => value !== chip.chips[0].name
+            );
+          } else {
+            newFilters[chip.type] = '';
+          }
+
+          stateDispatch({
+            type: 'replaceFilterChip',
+            payload: newFilters
+          });
+          debouncedFilter(newFilters, meta, dispatch, (isFiltering) =>
+            stateDispatch({
+              type: 'setFilteringFlag',
+              payload: isFiltering
+            })
+          );
+        }
+      }}
+      filterConfig={{
+        onChange: (_e, value) =>
+          stateDispatch({ type: 'setFilterType', payload: value }),
+        value: filterType,
+        items: [
+          {
+            filterValues: {
+              value: filters.name,
+              onChange: (_e, value) => handleFilterItems(value)
+            },
+            label: 'Name',
+            value: 'name'
+          },
+          {
+            filterValues: {
+              value: filters.owner,
+              onChange: (_e, value) => handleFilterItems(value)
+            },
+            label: 'Owner',
+            value: 'owner'
+          },
+          {
+            filterValues: {
+              value: filters.sort_by || 'name',
+              onChange: (_e, value) => handleFilterItems(value),
+              items: [
+                {
+                  label: 'Name',
+                  value: 'name'
+                },
+                {
+                  label: 'Owner',
+                  value: 'owner'
+                },
+                {
+                  label: 'Created at',
+                  value: 'created_at'
+                },
+                {
+                  label: 'Updated at',
+                  value: 'updated_at'
+                }
+              ]
+            },
+            placeholder: filters.sort_by || 'Name',
+            label: 'Sort by',
+            value: 'sort_by',
+            type: 'radio'
+          }
+        ]
+      }}
+      sortByConfig={{
+        direction: sortDirection,
+        onSortChange: (_event, direction) => handleSort(direction)
+      }}
+      pagination={
+        <AsyncPagination
+          isDisabled={isFetching || isFiltering}
+          meta={meta}
+          apiRequest={(_, options) =>
+            dispatch(fetchPortfoliosWithState(filters, options))
+          }
+          isCompact
+        />
+      }
+    />
+  );
+};
+
+PortfoliosPrimaryToolbar.propTypes = {
+  filters: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    owner: PropTypes.string.isRequired,
+    sort_by: PropTypes.string
+  }).isRequired,
+  chipCategories: PropTypes.shape({ [PropTypes.string]: PropTypes.any })
+    .isRequired,
+  stateDispatch: PropTypes.func.isRequired,
+  debouncedFilter: PropTypes.func.isRequired,
+  initialState: PropTypes.shape({
+    filters: PropTypes.shape({ [PropTypes.string]: PropTypes.any }).isRequired
+  }).isRequired,
+  meta: PropTypes.object.isRequired,
+  filterType: PropTypes.string.isRequired,
+  handleFilterItems: PropTypes.func.isRequired,
+  sortDirection: PropTypes.string.isRequired,
+  handleSort: PropTypes.func.isRequired,
+  fetchPortfoliosWithState: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  isFiltering: PropTypes.bool.isRequired
+};
+
+export default PortfoliosPrimaryToolbar;
