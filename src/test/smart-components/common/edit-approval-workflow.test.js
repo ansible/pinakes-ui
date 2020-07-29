@@ -106,12 +106,18 @@ describe('<EditApprovalWorkflow />', () => {
       fields: [
         {
           component: componentTypes.SELECT,
-          name: 'selectedWorkflows',
           label: '',
           loadOptions: expect.any(Function),
           multi: true,
           isSearchable: true,
-          isClearable: true
+          isClearable: true,
+          name: 'new-workflows',
+          resolveProps: expect.any(Function)
+        },
+        {
+          component: 'initial-chips',
+          label: 'Current approval processes',
+          name: 'initial-workflows'
         }
       ]
     };
