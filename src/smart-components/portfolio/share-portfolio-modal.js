@@ -11,7 +11,10 @@ import {
   StackItem
 } from '@patternfly/react-core';
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
-import { fetchPortfolios } from '../../redux/actions/portfolio-actions';
+import {
+  fetchPortfolios,
+  resetSelectedPortfolio
+} from '../../redux/actions/portfolio-actions';
 import {
   fetchShareInfo,
   sharePortfolio,
@@ -30,17 +33,20 @@ import filteringMessages from '../../messages/filtering.messages';
 
 const SharePortfolioModal = ({
   closeUrl,
-  removeQuery,
+  removeSearch,
   viewState,
   portfolioName = () => ''
 }) => {
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
-  const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
+  const { push } = useEnhancedHistory({ removeSearch, keepHash: true });
   const [{ portfolio }, search] = useQuery(['portfolio']);
   const [isFetching, setFetching] = useState(true);
-  const initialValues = useSelector(
-    ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
+  const { selectedPortfolio: initialValues, isLoading } = useSelector(
+    ({ portfolioReducer: { selectedPortfolio, isLoading } }) => ({
+      selectedPortfolio,
+      isLoading
+    })
   );
   const { shareInfo } = useSelector(({ shareReducer: { shareInfo } }) => ({
     shareInfo
@@ -51,6 +57,11 @@ const SharePortfolioModal = ({
       .then(() => setFetching(false))
       .catch(() => setFetching(false));
   }, []);
+
+  const onCancel = () => {
+    dispatch(resetSelectedPortfolio());
+    push({ pathname: closeUrl, search });
+  };
 
   const initialShares = () => {
     let initialGroupShareList = shareInfo.map((group) => {
@@ -124,7 +135,7 @@ const SharePortfolioModal = ({
       ...removedGroups.map((group) => createSharePromise(group, true))
     ];
 
-    push({ pathname: closeUrl, search });
+    onCancel();
 
     return Promise.all(sharePromises).then(() => {
       dispatch({
@@ -138,8 +149,6 @@ const SharePortfolioModal = ({
       return dispatch(fetchPortfolios(viewState));
     });
   };
-
-  const onCancel = () => push({ pathname: closeUrl, search });
 
   if (
     initialValues?.metadata?.user_capabilities?.share === false &&
@@ -163,6 +172,8 @@ const SharePortfolioModal = ({
     return errors;
   };
 
+  const isLoadingFinal = isFetching || isLoading;
+
   return (
     <Modal
       title={formatMessage(portfolioMessages.portfolioShareTitle)}
@@ -170,8 +181,8 @@ const SharePortfolioModal = ({
       variant="small"
       onClose={onCancel}
     >
-      {isFetching && <ShareLoader />}
-      {!isFetching && (
+      {isLoadingFinal && <ShareLoader />}
+      {!isLoadingFinal && (
         <Stack hasGutter>
           <StackItem>
             <TextContent>
@@ -217,7 +228,7 @@ const SharePortfolioModal = ({
 
 SharePortfolioModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  removeQuery: PropTypes.bool,
+  removeSearch: PropTypes.bool,
   portfolioName: PropTypes.func,
   viewState: PropTypes.shape({
     count: PropTypes.number,

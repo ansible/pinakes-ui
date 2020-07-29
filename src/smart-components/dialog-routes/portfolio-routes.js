@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
   ADD_PORTFOLIO_ROUTE,
@@ -17,8 +17,12 @@ import {
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import CatalogRoute from '../../routing/catalog-route';
 import useQuery from '../../utilities/use-query';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
+import {
+  setOrFetchPortfolio,
+  resetSelectedPortfolio
+} from '../../redux/actions/portfolio-actions';
 
 const CopyPortfolioItemModal = lazy(() =>
   import(
@@ -55,21 +59,39 @@ const AddPortfolioModal = lazy(() =>
 
 const PortfolioRoutes = () => {
   const viewState = useInitialUriHash();
-  const { portfolioItemId, portfolioItemUserCapabilities } = useSelector(
-    (state) => ({
-      portfolioItemId:
-        state?.portfolioReducer?.portfolioItem?.portfolioItem?.id,
-      portfolioItemUserCapabilities:
-        state?.portfolioReducer?.portfolioItem?.portfolioItem?.metadata
-          ?.user_capabilities
-    })
+
+  const portfolioItemId = useSelector(
+    (state) => state?.portfolioReducer?.portfolioItem?.portfolioItem?.id
   );
+  const portfolioItemUserCapabilities = useSelector(
+    (state) =>
+      state?.portfolioReducer?.portfolioItem?.portfolioItem?.metadata
+        ?.user_capabilities,
+    shallowEqual
+  );
+  const portfolios = useSelector(
+    (state) => state?.portfolioReducer?.portfolios,
+    shallowEqual
+  );
+  const selectedPortfolio = useSelector(
+    (state) => state?.portfolioReducer?.selectedPortfolio,
+    shallowEqual
+  );
+
   const { portfolioUserCapabilities, itemName } = useSelector((state) => ({
     portfolioUserCapabilities:
       state?.portfolioReducer?.selectedPortfolio?.metadata?.user_capabilities,
     itemName: () => state?.portfolioReducer?.selectedPortfolio?.name
   }));
   const [{ portfolio: id }, search] = useQuery(['portfolio']);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (id && (!selectedPortfolio.id || id !== selectedPortfolio.id)) {
+      dispatch(setOrFetchPortfolio(id, portfolios));
+    }
+  }, [id]);
+
   return (
     <div>
       <Switch>
@@ -105,7 +127,7 @@ const PortfolioRoutes = () => {
           <SharePortfolioModal
             closeUrl={PORTFOLIOS_ROUTE}
             querySelector="portfolio"
-            removeQuery
+            removeSearch
             viewState={viewState?.portfolio}
             portfolioName={itemName}
           />
@@ -122,8 +144,9 @@ const PortfolioRoutes = () => {
             objectType={PORTFOLIO_RESOURCE_TYPE}
             objectName={itemName}
             querySelector="portfolio"
-            removeQuery
+            removeSearch
             keepHash
+            onClose={() => dispatch(resetSelectedPortfolio())}
           />
         </Route>
         <Route exact path={NESTED_WORKFLOW_PORTFOLIO_ROUTE}>

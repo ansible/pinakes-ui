@@ -18,7 +18,8 @@ import {
   RESET_SELECTED_PORTFOLIO,
   DELETE_TEMPORARY_PORTFOLIO,
   RESTORE_PORTFOLIO_PREV_STATE,
-  UPDATE_TEMPORARY_PORTFOLIO
+  UPDATE_TEMPORARY_PORTFOLIO,
+  FETCH_PORTFOLIO
 } from '../../../redux/action-types';
 import {
   fetchPortfolios,
@@ -29,7 +30,8 @@ import {
   removePortfolio,
   removeProductsFromPortfolio,
   undoRemoveProductsFromPortfolio,
-  undoRemovePortfolio
+  undoRemovePortfolio,
+  setOrFetchPortfolio
 } from '../../../redux/actions/portfolio-actions';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 
@@ -571,5 +573,29 @@ describe('Portfolio actions', () => {
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
+  });
+
+  describe('setOrFetchPortfolio', () => {
+    const id = '123';
+    const fullPorfolios = {
+      data: [{ id: '898' }, { id, customProperty: 'cosi' }]
+    };
+    const emptyPortfolios = {
+      data: [{ id: '898' }]
+    };
+
+    it('should set existing portfolio', () => {
+      expect(setOrFetchPortfolio(id, fullPorfolios)).toEqual({
+        type: `${FETCH_PORTFOLIO}_FULFILLED`,
+        payload: fullPorfolios.data[1]
+      });
+    });
+
+    it('should fetch portfolio', () => {
+      expect(setOrFetchPortfolio(id, emptyPortfolios)).toEqual({
+        type: FETCH_PORTFOLIO,
+        payload: expect.any(Promise)
+      });
+    });
   });
 });

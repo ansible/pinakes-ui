@@ -44,6 +44,9 @@ describe('<PlatformInventories />', () => {
         ...approvalInitialState,
         resolvedWorkflows: []
       },
+      portfolioReducer: {
+        isLoading: false
+      },
       platformReducer: {
         ...platformInitialState,
         selectedPlatform: {

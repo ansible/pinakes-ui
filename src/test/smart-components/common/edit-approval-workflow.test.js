@@ -191,6 +191,8 @@ describe('<EditApprovalWorkflow />', () => {
         return [204];
       });
 
+    let onCloseMock = jest.fn();
+
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -205,6 +207,7 @@ describe('<EditApprovalWorkflow />', () => {
                 {...args}
                 {...initialProps}
                 querySelector="portfolio"
+                onClose={onCloseMock}
               />
             )}
           />
@@ -234,6 +237,8 @@ describe('<EditApprovalWorkflow />', () => {
         .simulate('click');
     });
 
+    expect(onCloseMock).not.toHaveBeenCalled();
+
     await act(async () => {
       wrapper.find('form').simulate('submit');
     });
@@ -241,6 +246,8 @@ describe('<EditApprovalWorkflow />', () => {
     wrapper.update();
 
     setImmediate(() => {
+      expect(onCloseMock).toHaveBeenCalled();
+
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
       ).toEqual('/foo');

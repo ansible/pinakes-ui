@@ -38,11 +38,12 @@ const approvalState = (state, action) => {
 
 const EditApprovalWorkflow = ({
   objectType,
-  removeQuery,
+  removeSearch,
   keepHash,
   querySelector,
   pushParam,
-  objectName = () => objectType
+  objectName = () => objectType,
+  onClose
 }) => {
   const { formatMessage } = useIntl();
   const { current: modalTitle } = useRef(
@@ -60,8 +61,11 @@ const EditApprovalWorkflow = ({
   const { data, meta } = useSelector(
     ({ approvalReducer: { resolvedWorkflows } }) => resolvedWorkflows
   );
+  const isLoading = useSelector(
+    ({ portfolioReducer: { isLoading } }) => isLoading
+  );
   const dispatch = useDispatch();
-  const history = useEnhancedHistory({ removeQuery, keepHash });
+  const history = useEnhancedHistory({ removeSearch, keepHash });
   const [query] = useQuery([querySelector]);
 
   useEffect(() => {
@@ -77,12 +81,17 @@ const EditApprovalWorkflow = ({
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
+  const close = () => {
+    onClose && onClose();
+    history.push(pushParam);
+  };
+
   const onSubmit = (formData, formApi) => {
     const initialWorkflows =
       formApi.getState().initialValues.selectedWorkflows || [];
     const newWorkflows = formData.selectedWorkflows || [];
 
-    history.push(pushParam);
+    close();
     const toUnlinkWorkflows = initialWorkflows.filter(
       (wf) => newWorkflows.findIndex((w) => w === wf) < 0
     );
@@ -101,15 +110,12 @@ const EditApprovalWorkflow = ({
     }
   };
 
+  const isLoadingFinal = isLoading || isFetching;
+
   return (
-    <Modal
-      title={modalTitle}
-      isOpen
-      onClose={() => history.push(pushParam)}
-      variant="small"
-    >
-      {isFetching && <WorkflowLoader />}
-      {!isFetching && (
+    <Modal title={modalTitle} isOpen onClose={close} variant="small">
+      {isLoadingFinal && <WorkflowLoader />}
+      {!isLoadingFinal && (
         <Stack hasGutter>
           <StackItem>
             <TextContent>
@@ -128,7 +134,7 @@ const EditApprovalWorkflow = ({
                 selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
               }}
               onSubmit={onSubmit}
-              onCancel={() => history.push(pushParam)}
+              onCancel={close}
               schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
               formContainer="modal"
               templateProps={{
@@ -152,14 +158,15 @@ EditApprovalWorkflow.propTypes = {
   ]).isRequired,
   objectType: PropTypes.string.isRequired,
   objectName: PropTypes.func,
-  removeQuery: PropTypes.bool,
+  removeSearch: PropTypes.bool,
   querySelector: PropTypes.oneOf([
     'portfolio',
     'platform',
     'inventory',
     'portfolio-item'
   ]).isRequired,
-  keepHash: PropTypes.bool
+  keepHash: PropTypes.bool,
+  onClose: PropTypes.func
 };
 
 EditApprovalWorkflow.defaultProps = {

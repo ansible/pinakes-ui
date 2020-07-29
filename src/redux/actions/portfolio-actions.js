@@ -405,3 +405,18 @@ export const getPortfolioItemDetail = (params) => (dispatch) => {
       })
   );
 };
+
+export const setOrFetchPortfolio = (id, portfolios) => {
+  const existingPorfolio = portfolios?.data?.find(
+    (portfolio) => portfolio.id === id
+  );
+
+  if (existingPorfolio) {
+    return {
+      type: `${ActionTypes.FETCH_PORTFOLIO}_FULFILLED`,
+      payload: existingPorfolio
+    };
+  }
+
+  return fetchSelectedPortfolio(id);
+};
