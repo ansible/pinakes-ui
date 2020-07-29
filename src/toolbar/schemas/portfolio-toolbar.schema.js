@@ -26,6 +26,27 @@ const PortfolioActionsToolbar = ({
 }) => {
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
+
+  if (update) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Edit Portfolio"
+        key="edit-portfolio"
+        id="edit-portfolio"
+        component={
+          <CatalogLink
+            id="edit-portfolio"
+            preserveSearch
+            pathname={editPortfolioRoute}
+          >
+            Edit
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
   if (copy) {
     dropdownItems.push(
       <DropdownItem
@@ -49,26 +70,6 @@ const PortfolioActionsToolbar = ({
         component={
           <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
             Set approval
-          </CatalogLink>
-        }
-        role="link"
-      />
-    );
-  }
-
-  if (update) {
-    dropdownItems.push(
-      <DropdownItem
-        aria-label="Edit Portfolio"
-        key="edit-portfolio"
-        id="edit-portfolio"
-        component={
-          <CatalogLink
-            id="edit-portfolio"
-            preserveSearch
-            pathname={editPortfolioRoute}
-          >
-            Edit
           </CatalogLink>
         }
         role="link"
