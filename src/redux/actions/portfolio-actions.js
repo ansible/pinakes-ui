@@ -68,16 +68,12 @@ export const searchPortfolioItems = (value) => ({
   })
 });
 
-export const addPortfolio = (portfolioData) => ({
+export const addPortfolio = (portfolioData, notification) => ({
   type: ActionTypes.ADD_PORTFOLIO,
   payload: PortfolioHelper.addPortfolio(portfolioData),
   meta: {
     notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success adding portfolio',
-        description: `Portfolio ${portfolioData.name} was added successfully.`
-      }
+      fulfilled: notification
     }
   }
 });

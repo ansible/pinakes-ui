@@ -34,7 +34,16 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
 
   const onAddPortfolio = async (data) => {
     setSubmitting(true);
-    const newPortfolio = await dispatch(addPortfolio(data));
+    const notification = {
+      variant: 'success',
+      title: formatMessage(portfolioMessages.addSuccessTitle),
+      description: formatMessage(portfolioMessages.addSuccessDescription, {
+        name: data.name,
+        // eslint-disable-next-line react/display-name
+        b: (chunks) => <b key="strong">{chunks}</b>
+      })
+    };
+    const newPortfolio = await dispatch(addPortfolio(data, notification));
     setSubmitting(false);
     return newPortfolio && newPortfolio.value && newPortfolio.value.id
       ? push({

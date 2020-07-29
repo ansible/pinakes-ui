@@ -230,9 +230,11 @@ describe('Portfolio actions', () => {
       expect.objectContaining({ type: `${ADD_PORTFOLIO}_FULFILLED` })
     ];
 
-    return store.dispatch(addPortfolio({ data: 'new portfolio' })).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(addPortfolio({ data: 'new portfolio' }, { variant: 'success' }))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('should create error action creators when adding portfolio failed', () => {
