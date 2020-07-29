@@ -1,6 +1,10 @@
 const { defineMessages } = require('react-intl');
 
 const portfolioMessages = defineMessages({
+  portfoliosTitle: {
+    id: 'portfolios.heading.title',
+    defaultMessage: 'Portfolios'
+  },
   removeItemsNotification: {
     id: 'portfolio.notifications.remove.portfolio-items',
     defaultMessage:
@@ -14,10 +18,6 @@ const portfolioMessages = defineMessages({
   modalCreateTitle: {
     id: 'portfolio.modal.add.title',
     defaultMessage: 'Create portfolio'
-  },
-  modalCreateSubmit: {
-    id: 'portfolio.modal.add.create',
-    defaultMessage: 'Create'
   },
   modalEditTitle: {
     id: 'portfolio.modal.edit.title',

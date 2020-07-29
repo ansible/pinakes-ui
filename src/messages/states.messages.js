@@ -21,10 +21,6 @@ const statesMessages = defineMessages({
     id: 'common.states.completed',
     defaultMessage: 'Completed'
   },
-  created: {
-    id: 'common.states.created',
-    defaultMessage: 'Created'
-  },
   failed: {
     id: 'common.states.failed',
     defaultMessage: 'Failed'

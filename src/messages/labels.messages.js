@@ -36,6 +36,26 @@ const labelMessages = defineMessages({
   confirm: {
     id: 'common.labels.confirm',
     defaultMessage: 'Confirm'
+  },
+  create: {
+    id: 'common.labels.create',
+    defaultMessage: 'Create'
+  },
+  owner: {
+    id: 'common.labels.owner',
+    defaultMessage: 'Owner'
+  },
+  sortBy: {
+    id: 'common.labels.sort-by',
+    defaultMessage: 'Sort by'
+  },
+  updated: {
+    id: 'common.labels.updated',
+    defaultMessage: 'Updated'
+  },
+  created: {
+    id: 'common.states.created',
+    defaultMessage: 'Created'
   }
 });
 

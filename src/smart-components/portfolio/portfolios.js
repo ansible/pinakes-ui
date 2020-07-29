@@ -43,12 +43,6 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const chipCategories = {
-  name: 'Name',
-  owner: 'Owner',
-  sort_by: 'Sort by'
-};
-
 const initialState = {
   isOpen: false,
   isFetching: true,
@@ -188,10 +182,11 @@ const Portfolios = () => {
   return (
     <Fragment>
       <TopToolbar>
-        <TopToolbarTitle title="Portfolios" />
+        <TopToolbarTitle
+          title={formatMessage(portfolioMessages.portfoliosTitle)}
+        />
         <PortfoliosPrimaryToolbar
           filters={filters}
-          chipCategories={chipCategories}
           stateDispatch={stateDispatch}
           debouncedFilter={debouncedFilter}
           initialState={initialState}

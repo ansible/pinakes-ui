@@ -6,10 +6,24 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/compo
 import AsyncPagination from '../../common/async-pagination';
 import CatalogLink from '../../common/catalog-link';
 import { Button } from '@patternfly/react-core';
+import { useIntl } from 'react-intl';
+import labelMessages from '../../../messages/labels.messages';
+
+const chipCategories = {
+  name: labelMessages.name,
+  owner: labelMessages.owner,
+  sort_by: labelMessages.sortBy
+};
+
+const sortByMapping = {
+  name: labelMessages.name,
+  owner: labelMessages.owner,
+  updated_at: labelMessages.updated,
+  created_at: labelMessages.created
+};
 
 const PortfoliosPrimaryToolbar = ({
   filters,
-  chipCategories,
   stateDispatch,
   debouncedFilter,
   initialState,
@@ -23,25 +37,37 @@ const PortfoliosPrimaryToolbar = ({
   isFiltering
 }) => {
   const dispatch = useDispatch();
+  const { formatMessage } = useIntl();
   return (
     <PrimaryToolbar
       dedicatedAction={
         <CatalogLink pathname="/portfolios/add-portfolio">
           <Button variant="primary" type="button">
-            Create
+            {formatMessage(labelMessages.create)}
           </Button>
         </CatalogLink>
       }
       activeFiltersConfig={{
         filters: Object.entries(filters)
           .filter(([, value]) => value && value.length > 0)
-          .map(([key, value]) => ({
-            category: chipCategories[key],
-            type: key,
-            chips: Array.isArray(value)
-              ? value.map((name) => ({ name }))
-              : [{ name: value }]
-          })),
+          .map(([key, value]) => {
+            return {
+              category: formatMessage(chipCategories[key]),
+              type: key,
+              chips: Array.isArray(value)
+                ? value.map((name) => ({
+                    name
+                  }))
+                : [
+                    {
+                      name:
+                        key === 'sort_by'
+                          ? formatMessage(sortByMapping[value])
+                          : value
+                    }
+                  ]
+            };
+          }),
         onDelete: (_e, [chip], clearAll) => {
           if (clearAll) {
             stateDispatch({
@@ -91,7 +117,7 @@ const PortfoliosPrimaryToolbar = ({
               value: filters.name,
               onChange: (_e, value) => handleFilterItems(value)
             },
-            label: 'Name',
+            label: formatMessage(labelMessages.name),
             value: 'name'
           },
           {
@@ -99,7 +125,7 @@ const PortfoliosPrimaryToolbar = ({
               value: filters.owner,
               onChange: (_e, value) => handleFilterItems(value)
             },
-            label: 'Owner',
+            label: formatMessage(labelMessages.owner),
             value: 'owner'
           },
           {
@@ -108,25 +134,27 @@ const PortfoliosPrimaryToolbar = ({
               onChange: (_e, value) => handleFilterItems(value),
               items: [
                 {
-                  label: 'Name',
+                  label: formatMessage(labelMessages.name),
                   value: 'name'
                 },
                 {
-                  label: 'Owner',
+                  label: formatMessage(labelMessages.owner),
                   value: 'owner'
                 },
                 {
-                  label: 'Created at',
+                  label: formatMessage(labelMessages.created),
                   value: 'created_at'
                 },
                 {
-                  label: 'Updated at',
+                  label: formatMessage(labelMessages.updated),
                   value: 'updated_at'
                 }
               ]
             },
-            placeholder: filters.sort_by || 'Name',
-            label: 'Sort by',
+            placeholder: filters.sort_by
+              ? formatMessage(sortByMapping[filters.sort_by])
+              : formatMessage(labelMessages.name),
+            label: formatMessage(labelMessages.sortBy),
             value: 'sort_by',
             type: 'radio'
           }
@@ -156,8 +184,6 @@ PortfoliosPrimaryToolbar.propTypes = {
     owner: PropTypes.string.isRequired,
     sort_by: PropTypes.string
   }).isRequired,
-  chipCategories: PropTypes.shape({ [PropTypes.string]: PropTypes.any })
-    .isRequired,
   stateDispatch: PropTypes.func.isRequired,
   debouncedFilter: PropTypes.func.isRequired,
   initialState: PropTypes.shape({
