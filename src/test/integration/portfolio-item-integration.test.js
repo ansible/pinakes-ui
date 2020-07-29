@@ -352,7 +352,7 @@ describe('Integration tests for portfolio items', () => {
       .onGet(
         `${CATALOG_API_BASE}/portfolio_items/source-offering-1/next_name?destination_portfolio_id=123`
       )
-      .replyOnce(200, { next_name: `Copy of ${addedPortfolioItem.name}` });
+      .reply(200, { next_name: `Copy of ${addedPortfolioItem.name}` });
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=100&offset=0`
