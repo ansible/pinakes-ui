@@ -103,7 +103,7 @@ describe('Integration tests for portfolio items', () => {
       .reply(200, initialPortfolio);
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
+        `${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [],
@@ -142,9 +142,7 @@ describe('Integration tests for portfolio items', () => {
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, commonSourcesResponse);
     await act(async () => {
-      wrapper
-        .find('a#add-products-to-portfolio')
-        .simulate('click', { button: 0 });
+      wrapper.find('a#add-products-button').simulate('click', { button: 0 });
     });
     await act(async () => {
       wrapper.update();
@@ -226,6 +224,7 @@ describe('Integration tests for portfolio items', () => {
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual('/portfolio');
+
     expect(wrapper.find(PortfolioItem)).toHaveLength(1);
     /**
      * Select portfolio, remove it and call undo
@@ -358,9 +357,7 @@ describe('Integration tests for portfolio items', () => {
       )
       .reply(200, { next_name: `Copy of ${addedPortfolioItem.name}` });
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=100&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=100&offset=0`)
       .reply(200, {
         data: [initialPortfolio],
         meta: {
