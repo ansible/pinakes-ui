@@ -50,7 +50,7 @@ export const PortfolioItemDetailToolbar = ({
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level className="flex-no-wrap">
-      <StyledLevelItem alignStart className="pf-l-flex">
+      <StyledLevelItem grow alignStart className="pf-l-flex">
         {userCapabilities.update ? (
           <PortfolioItemIconItem
             uploadIcon={uploadIcon}
@@ -147,7 +147,7 @@ export const SurveyEditingToolbar = ({
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <Level>
-      <StyledLevelItem alignStart className="pf-l-flex">
+      <StyledLevelItem grow alignStart className="pf-l-flex">
         <PortfolioItemIconItem
           uploadIcon={uploadIcon}
           id={product.id}
