@@ -16,3 +16,9 @@ export function fetchOrderProcessByName(name) {
   return listOrderProcesses(name);
 }
 
+export function addOrderProcess(processData) {
+  const addUrl = `${CATALOG_API_BASE}/order-processes/add`;
+  console.log('Debug - add processdata', processData) ;
+  //return axiosInstance.post(addUrl, processData);
+
+}

@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { Link, Route } from 'react-router-dom';
 import {
   Button,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  ToolbarItem
 } from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
 import { sortable } from '@patternfly/react-table';
@@ -24,6 +26,9 @@ import { useIntl } from 'react-intl';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import filteringMessages from '../../messages/filtering.messages';
 import labelMessages from '../../messages/labels.messages';
+import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
+import { ADD_ORDER_PROCESS_ROUTE } from '../../constants/routes';
+import AddOrderProcess from './order-process-wizard/add-order-process-wizard';
 
 const columns = (intl) => [
   {
@@ -128,28 +133,43 @@ const OrderProcesses = () => {
       { ...meta, offset: 0 }
     );
   };
-  const routes = () => <Fragment>
-    <Route exact path={ ADD_ORDER_PROCESS_ROUTE }
-           render={ props => <AddOrderProcess { ...props } postMethod={ updateWorkflows } /> }/>
-  </Fragment>;
+
+  const routes = () => (
+    <Fragment>
+      <Route
+        exact
+        path={ADD_ORDER_PROCESS_ROUTE}
+        render={(props) => (
+          <AddOrderProcess {...props} postMethod={updateOrderProcesses} />
+        )}
+      />
+    </Fragment>
+  );
 
   const onSort = (_e, index, direction, { property }) => {
     dispatch(sortOrderProcesses({ index, direction, property }));
     return updateOrderProcesses();
   };
 
-  const toolbarButtons = () => <ToolbarGroup className={ `pf-u-pl-lg top-toolbar` }>
-    <ToolbarItem>
-      <Link id="add-order-process-link" to={ { pathname: ADD_ORDER_PROCESS_ROUTE } }>
-        <Button
-            variant="primary"
-            aria-label={ intl.formatMessage(formMessages.createOrderProcessTitle) }
+  const toolbarButtons = () => (
+    <StyledToolbarGroup className={`pf-u-pl-lg top-toolbar`}>
+      <ToolbarItem>
+        <Link
+          id="add-order-process-link"
+          to={{ pathname: ADD_ORDER_PROCESS_ROUTE }}
         >
-          { intl.formatMessage(formMessages.createOrderProcessTitle) }
-        </Button>
-      </Link>
-    </ToolbarItem>
-  </ToolbarGroup>;
+          <Button
+            variant="primary"
+            aria-label={intl.formatMessage(
+              orderProcessesMessages.createOrderProcessTitle
+            )}
+          >
+            {intl.formatMessage(orderProcessesMessages.createOrderProcessTitle)}
+          </Button>
+        </Link>
+      </ToolbarItem>
+    </StyledToolbarGroup>
+  );
 
   return (
     <Fragment>
@@ -165,6 +185,7 @@ const OrderProcesses = () => {
         onSort={onSort}
         data={data}
         createRows={createRows}
+        routes={routes}
         columns={columns(intl)}
         fetchData={updateOrderProcesses}
         titlePlural={intl.formatMessage(orderProcessesMessages.orderProcesses)}
@@ -173,7 +194,7 @@ const OrderProcesses = () => {
         filterValue={filterValue}
         onFilterChange={handleFilterChange}
         isLoading={isFetching || isFiltering}
-        toolbarButtons={ toolbarButtons }
+        toolbarButtons={toolbarButtons}
         renderEmptyState={() => (
           <TableEmptyState
             title={

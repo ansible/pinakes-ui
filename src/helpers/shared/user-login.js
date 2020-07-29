@@ -9,7 +9,8 @@ import {
   OrderApi,
   OrderItemApi,
   IconApi,
-  ServicePlansApi
+  ServicePlansApi,
+  OrderProcessApi,
 } from '@redhat-cloud-services/catalog-client';
 
 import {

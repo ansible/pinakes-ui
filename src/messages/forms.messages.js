@@ -33,11 +33,18 @@ const formsMessages = defineMessages({
     id: 'formMessages.nameTaken',
     defaultMessage: 'Name has already been taken'
   },
-  createOrderProcess: {
-    id: 'formMessages.createOrderProcessTitle',
-    defaultMessage: 'Create order process'
+  generalInformation: {
+    id: 'formMessages.generalInformation',
+    defaultMessage: 'General information'
   },
-
+  review: {
+    id: 'formMessages.Review',
+    defaultMessage: 'Review'
+  },
+  enterInfo: {
+    id: 'formMessages.enterInfo',
+    defaultMessage: 'Enter your information'
+  }
 });
 
 export default formsMessages;
