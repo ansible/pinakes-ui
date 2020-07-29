@@ -6,7 +6,7 @@
     "@data-driven-forms/form-builder": "0.0.10-rc7",
     "@data-driven-forms/pf4-component-mapper": "^2.8.7",
     "@data-driven-forms/react-form-renderer": "^2.8.7",
-    "@patternfly/react-core": "^4.32.1",
+    "@patternfly/react-core": "^4.32.14",
     "@patternfly/react-table": "^4.12.1",
     "@patternfly/react-icons": "^4.5.0",
     "@redhat-cloud-services/approval-client": "^1.0.64",
