@@ -38,6 +38,10 @@ const PortfoliosPrimaryToolbar = ({
 }) => {
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
+  if (meta.noData) {
+    return null;
+  }
+
   return (
     <PrimaryToolbar
       dedicatedAction={
@@ -165,14 +169,18 @@ const PortfoliosPrimaryToolbar = ({
         onSortChange: (_event, direction) => handleSort(direction)
       }}
       pagination={
-        <AsyncPagination
-          isDisabled={isFetching || isFiltering}
-          meta={meta}
-          apiRequest={(_, options) =>
-            dispatch(fetchPortfoliosWithState(filters, options))
-          }
-          isCompact
-        />
+        meta.count > 0 ? (
+          <AsyncPagination
+            isDisabled={isFetching || isFiltering}
+            meta={meta}
+            apiRequest={(_, options) =>
+              dispatch(fetchPortfoliosWithState(filters, options))
+            }
+            isCompact
+          />
+        ) : (
+          undefined
+        )
       }
     />
   );

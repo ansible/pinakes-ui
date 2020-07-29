@@ -7,9 +7,16 @@ const emptyDataMiddleware = () => (dispatch) => (action) => {
     action.payload.data &&
     action.payload.meta
   ) {
+    const noFilter = Object.prototype.hasOwnProperty.call(
+      nextAction.meta,
+      'filters'
+    )
+      ? Object.values(nextAction.meta.filters).every(
+          (value) => typeof value === 'undefined' || value.length === 0
+        )
+      : nextAction.meta.filter.length === 0;
     nextAction.payload.meta.noData =
-      nextAction.payload.meta.count === 0 &&
-      nextAction.meta.filter.length === 0;
+      nextAction.payload.meta.count === 0 && noFilter;
     return dispatch(nextAction);
   }
 
