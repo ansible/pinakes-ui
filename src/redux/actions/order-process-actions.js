@@ -2,12 +2,16 @@ import * as ActionTypes from '../action-types';
 import * as OrderProcessHelper from '../../helpers/order-process/order-process-helper';
 
 export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
-  const { sortBy, orderProcesses, filterValue } = getState().orderProcessReducer;
+  const {
+    sortBy,
+    orderProcesses,
+    filterValue
+  } = getState().orderProcessReducer;
 
   let finalPagination = pagination;
 
-  if (!pagination && workflows) {
-    const { limit, offset } = workflows.meta;
+  if (!pagination && orderProcesses) {
+    const { limit, offset } = orderProcesses.meta;
     finalPagination = { limit, offset };
   }
 
@@ -21,7 +25,7 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
   });
 };
 
-export const createOrderProcess = (processData) => ({
+export const addOrderProcess = (processData) => ({
   type: ActionTypes.ADD_ORDER_PROCESS,
   payload: OrderProcessHelper.addOrderProcess(processData),
   meta: {

@@ -28,7 +28,8 @@ import filteringMessages from '../../messages/filtering.messages';
 import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
 import { ADD_ORDER_PROCESS_ROUTE } from '../../constants/routes';
-import AddOrderProcess from './order-process-wizard/add-order-process-wizard';
+import AddOrderProcess from './add-order-process-modal';
+import formsMessages from "../../messages/forms.messages";
 
 const columns = (intl) => [
   {
@@ -161,10 +162,10 @@ const OrderProcesses = () => {
           <Button
             variant="primary"
             aria-label={intl.formatMessage(
-              orderProcessesMessages.createOrderProcessTitle
+              formsMessages.createOrderProcessTitle
             )}
           >
-            {intl.formatMessage(orderProcessesMessages.createOrderProcessTitle)}
+            {intl.formatMessage(formsMessages.createOrderProcessTitle)}
           </Button>
         </Link>
       </ToolbarItem>

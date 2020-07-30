@@ -12,7 +12,7 @@ import {
   NESTED_SHARE_PORTFOLIO_ROUTE,
   WORKFLOW_PORTFOLIO_ROUTE,
   NESTED_WORKFLOW_PORTFOLIO_ROUTE,
-  PORTFOLIO_ITEM_ROUTE, ORDER_PROCESSES_ROUTE
+  PORTFOLIO_ITEM_ROUTE
 } from '../../constants/routes';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import CatalogRoute from '../../routing/catalog-route';
@@ -55,12 +55,6 @@ const AddPortfolioModal = lazy(() =>
   import(
     /* webpackChunkName: "add-portfolio" */ '../portfolio/add-portfolio-modal'
   )
-);
-
-const AddOrderProcessModal = lazy(() =>
-    import(
-        /* webpackChunkName: "add-order-process" */ '../order-process/add-order-process-modal'
-        )
 );
 
 const PortfolioRoutes = () => {
@@ -183,12 +177,6 @@ const PortfolioRoutes = () => {
             />
           )}
         </CatalogRoute>
-        <Route path={[ADD_ORDER_PROCESS_ROUTE]}>
-          <AddOrderprocessModal
-              removeQuery
-              closeTarget={ORDER_PROCESSES_ROUTE}
-          />
-        </Route>
       </Switch>
     </div>
   );

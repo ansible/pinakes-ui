@@ -37,13 +37,13 @@ const formsMessages = defineMessages({
     id: 'formMessages.generalInformation',
     defaultMessage: 'General information'
   },
-  review: {
-    id: 'formMessages.Review',
-    defaultMessage: 'Review'
-  },
   enterInfo: {
     id: 'formMessages.enterInfo',
     defaultMessage: 'Enter your information'
+  },
+  createOrderProcessTitle: {
+    id: 'formMessages.createOrderProcessTitle',
+    defaultMessage: 'Create order process'
   }
 });
 

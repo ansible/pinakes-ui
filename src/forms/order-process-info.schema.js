@@ -2,7 +2,7 @@ import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/comp
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 
 import debouncedValidatorName from './name-async-validator';
-import formMessages from '../messages/form.messages';
+import formsMessages from '../messages/forms.messages';
 
 const orderProcessInfoSchema = (intl, id) => [
   {
@@ -10,12 +10,12 @@ const orderProcessInfoSchema = (intl, id) => [
     name: 'name',
     isRequired: true,
     id: 'order-process-name',
-    label: intl.formatMessage(formMessages.orderProcessName),
+    label: intl.formatMessage(formsMessages.orderProcessName),
     validate: [
       (value) => debouncedValidatorName(value, id, intl),
       {
         type: validatorTypes.REQUIRED,
-        message: intl.formatMessage(formMessages.enterOrderProcessName)
+        message: intl.formatMessage(formsMessages.enterOrderProcessName)
       }
     ]
   },
@@ -23,7 +23,7 @@ const orderProcessInfoSchema = (intl, id) => [
     component: componentTypes.TEXTAREA,
     name: 'description',
     id: 'order-process-description',
-    label: intl.formatMessage(formMessages.description)
+    label: intl.formatMessage(formsMessages.description)
   }
 ];
 

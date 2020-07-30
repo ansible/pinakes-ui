@@ -1,6 +1,6 @@
 import { fetchOrderProcessByName } from '../helpers/order-process/order-process-helper';
 import asyncFormValidator from '../utilities/async-form-validator';
-import formMessages from '../messages/form.messages';
+import formsMessages from '../messages/forms.messages';
 
 const validateName = (name, id, intl) =>
   fetchOrderProcessByName(name).then(({ data }) => {
@@ -9,7 +9,7 @@ const validateName = (name, id, intl) =>
       : data.find((op) => name === op.name);
 
     if (order_process) {
-      throw intl.formatMessage(formMessages.nameTaken);
+      throw intl.formatMessage(formsMessages.nameTaken);
     }
   });
 
