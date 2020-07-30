@@ -7,10 +7,10 @@ import ExclamationCircleIcon from '@patternfly/react-icons/dist/js/icons/exclama
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CatalogLink from '../../common/catalog-link';
-import { useIntl } from 'react-intl';
 import statesMessages, {
   getTranslatableState
 } from '../../../messages/states.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const OrderDetailInformation = ({
   portfolioId,
@@ -19,7 +19,7 @@ const OrderDetailInformation = ({
   sourceId,
   state
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <Level className="pf-u-mt-sm" hasGutter>
       <Level hasGutter>

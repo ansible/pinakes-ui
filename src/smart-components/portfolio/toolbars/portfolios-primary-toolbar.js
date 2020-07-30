@@ -6,8 +6,8 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/compo
 import AsyncPagination from '../../common/async-pagination';
 import CatalogLink from '../../common/catalog-link';
 import { Button } from '@patternfly/react-core';
-import { useIntl } from 'react-intl';
 import labelMessages from '../../../messages/labels.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const chipCategories = {
   name: labelMessages.name,
@@ -37,7 +37,7 @@ const PortfoliosPrimaryToolbar = ({
   isFiltering
 }) => {
   const dispatch = useDispatch();
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   if (meta.noData) {
     return null;
   }

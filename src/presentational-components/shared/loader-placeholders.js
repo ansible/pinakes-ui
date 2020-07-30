@@ -24,10 +24,10 @@ import {
   Button
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
-import { useIntl } from 'react-intl';
 import { StyledToolbar } from '../styled-components/toolbars';
 import actionMessages from '../../messages/actions.messages';
 import formsMessages from '../../messages/forms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const wave = keyframes`
   0% {
@@ -163,7 +163,7 @@ IconPlaceholder.defaultProps = {
 const FormItemLoader = () => <Skeleton height={38} className="pf-u-mb-lg" />;
 
 export const ShareLoader = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <Form>
       <TextContent>
@@ -190,7 +190,7 @@ export const ShareLoader = () => {
 };
 
 export const WorkflowLoader = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <Form>
       <FormGroup fieldId="2" label="Select workflow">

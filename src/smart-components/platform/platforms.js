@@ -11,11 +11,11 @@ import PlatformCard from '../../presentational-components/platform/platform-card
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import UserContext from '../../user-context';
-import { useIntl } from 'react-intl';
 import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const Platforms = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [filterValue, setFilterValue] = useState('');
   const { platforms, isLoading } = useSelector(
     ({ platformReducer: { platforms, isPlatformDataLoading } }) => ({

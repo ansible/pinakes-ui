@@ -18,14 +18,14 @@ import { ProductLoaderPlaceholder } from '../../../presentational-components/sha
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
-import { useIntl } from 'react-intl';
 import labelMessages from '../../../messages/labels.messages';
 import platformsMessages from '../../../messages/platforms.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const requiredParams = ['service', 'platform'];
 
 const ServiceOfferingDetail = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [queryValues] = useQuery(requiredParams);
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();

@@ -18,13 +18,13 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import ReactJsonView from 'react-json-view';
-import { useIntl } from 'react-intl';
 import statesMessages from '../../../messages/states.messages';
 import labelMessages from '../../../messages/labels.messages';
 import ordersMessages from '../../../messages/orders.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const OrderDetails = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const {
     order,
     platform,

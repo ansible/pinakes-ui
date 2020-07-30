@@ -15,8 +15,8 @@ import {
 import TrashIcon from '@patternfly/react-icons/dist/js/icons/trash-icon';
 import { StyledLevelItem } from '../../presentational-components/styled-components/level';
 import styled from 'styled-components';
-import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const StyledText = styled(Text)`
   line-height: 36px !important;
@@ -77,7 +77,7 @@ SharedGroup.propTypes = {
 };
 
 const ShareGroupEdit = ({ name, permissionVerbs }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <FieldArray name={name}>
       {({ fields: { map, remove, length } }) => (

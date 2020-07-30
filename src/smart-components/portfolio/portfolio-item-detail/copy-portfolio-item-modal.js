@@ -14,10 +14,10 @@ import {
 import asyncFormValidator from '../../../utilities/async-form-validator';
 import { listPortfolios } from '../../../helpers/portfolio/portfolio-helper';
 import { PORTFOLIO_ITEM_ROUTE } from '../../../constants/routes';
-import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
 import labelMessages from '../../../messages/labels.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const loadPortfolios = (name) =>
   listPortfolios({ name }, { limit: 100, offset: 0 }).then(({ data }) =>
@@ -61,7 +61,7 @@ const CopyPortfolioItemModal = ({
   search,
   portfolioName
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const { push } = useHistory();
 

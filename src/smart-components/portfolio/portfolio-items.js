@@ -13,8 +13,8 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const PortfolioItems = ({
   routes,
@@ -32,7 +32,7 @@ const PortfolioItems = ({
     filterValue
   }
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const { data, meta, name, description, userCapabilities } = useSelector(
     ({
       portfolioReducer: {

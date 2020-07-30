@@ -24,10 +24,10 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import UserContext from '../../user-context';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
 import productsMessages from '../../messages/products.messages';
 import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -76,7 +76,7 @@ const productsState = (state, action) => {
 };
 
 const Products = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const viewState = useInitialUriHash();
   const { release } = useContext(AppContext);
   const [{ isFetching, filterValue, isFiltering }, stateDispatch] = useReducer(

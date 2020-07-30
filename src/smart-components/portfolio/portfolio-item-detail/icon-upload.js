@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import styled from 'styled-components';
-import { useIntl } from 'react-intl';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const UploadButton = styled.button`
   border: none;
@@ -49,7 +49,7 @@ const ImagePreview = styled.img`
 `;
 
 const IconUpload = ({ uploadIcon, children }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const inputRef = useRef();
   const [image, setImage] = useState();
   const [isUploading, setIsUploading] = useState(false);

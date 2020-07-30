@@ -31,11 +31,11 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
-import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
 import statesMessages from '../../../messages/states.messages';
 import labelMessages from '../../../messages/labels.messages';
 import { CheckCircleIcon } from '@patternfly/react-icons';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const rowOrder = ['updated', 'group_name', 'state'];
 
@@ -59,7 +59,7 @@ const isEmpty = (approvalRequest) =>
   approvalRequest.data.length === 0;
 
 const ApprovalRequests = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [sortBy, setSortBy] = useState({});
   const {

@@ -4,11 +4,11 @@ import { Section } from '@redhat-cloud-services/frontend-components/components/c
 import { Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const NoItems = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <div>
       <Text component={TextVariants.h1}>

@@ -5,13 +5,13 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import CatalogLink from '../../common/catalog-link';
-import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
 
 /**
  * Make sure to import correct Tabs styles
  */
 import '@patternfly/react-styles/css/components/Tabs/tabs.css';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const StyledCatalogLink = styled(CatalogLink)`
   color: var(--pf-c-tabs__link--Color);
@@ -45,7 +45,7 @@ const useNavItems = ({ state } = {}, formatMessage) => [
 ];
 
 const OrderDetailMenu = ({ baseUrl, isFetching }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const { push } = useEnhancedHistory();
   const orderDetailData = useSelector(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}

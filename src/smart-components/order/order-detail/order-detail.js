@@ -23,9 +23,9 @@ import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { ORDER_ROUTE } from '../../../constants/routes';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
-import { useIntl } from 'react-intl';
 import ordersMessages from '../../../messages/orders.messages';
 import CatalogLink from '../../common/catalog-link';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -45,7 +45,7 @@ const requiredParams = [
 ];
 
 const OrderDetail = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [isFetching, setIsFetching] = useState(true);
   const [queryValues] = useQuery(requiredParams);
   const orderDetailData = useSelector(

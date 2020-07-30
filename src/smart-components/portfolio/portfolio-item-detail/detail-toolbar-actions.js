@@ -9,9 +9,9 @@ import {
 } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import CatalogLink from '../../common/catalog-link';
-import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -25,7 +25,7 @@ const DetailToolbarActions = ({
   availability,
   userCapabilities: { update, copy, set_approval }
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const dropdownItems = [];
   if (update) {
     dropdownItems.push(

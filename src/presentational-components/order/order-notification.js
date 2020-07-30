@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
-import { useIntl } from 'react-intl';
 import { ORDER_ROUTE } from '../../constants/routes';
 import ordersMessages from '../../messages/orders.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const OrderNotification = ({
   id,
@@ -15,7 +15,7 @@ const OrderNotification = ({
   platformId,
   orderItemId
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return formatMessage(ordersMessages.orderSuccess, {
     id,
     // eslint-disable-next-line react/display-name

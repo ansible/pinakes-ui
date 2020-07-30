@@ -15,9 +15,9 @@ import { createRows } from './platform-table-helpers.js';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
-import { useIntl } from 'react-intl';
 import labelMessages from '../../messages/labels.messages';
 import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const initialState = {
   filterValue: '',
@@ -50,7 +50,7 @@ const platformInventoriesState = (state, action) => {
 };
 
 const PlatformInventories = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const { current: columns } = useRef([
     formatMessage(labelMessages.name),
     formatMessage(labelMessages.description),
