@@ -51,7 +51,8 @@ describe('Integration tests for portfolio items', () => {
           destroy: true,
           share: true,
           unshare: true
-        }
+        },
+        statistics: {}
       }
     };
     const addedPortfolioItem = {
@@ -173,16 +174,12 @@ describe('Integration tests for portfolio items', () => {
         }
       });
     wrapper
-      .find('div.ddorg__pf4-component-mapper__select__control')
+      .find('.pf-c-select__toggle')
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
     wrapper.update();
-    expect(
-      wrapper.find('div.ddorg__pf4-component-mapper__select__option')
-    ).toHaveLength(1);
+    expect(wrapper.find('button.pf-c-select__menu-item')).toHaveLength(1);
     await act(async () => {
-      wrapper
-        .find('div.ddorg__pf4-component-mapper__select__option')
-        .simulate('click');
+      wrapper.find('button.pf-c-select__menu-item').simulate('click');
     });
     wrapper.update();
     /**
@@ -355,7 +352,7 @@ describe('Integration tests for portfolio items', () => {
       .onGet(
         `${CATALOG_API_BASE}/portfolio_items/source-offering-1/next_name?destination_portfolio_id=123`
       )
-      .replyOnce(200, { next_name: `Copy of ${addedPortfolioItem.name}` });
+      .reply(200, { next_name: `Copy of ${addedPortfolioItem.name}` });
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=100&offset=0`

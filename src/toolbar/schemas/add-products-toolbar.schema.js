@@ -1,5 +1,5 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
-import { createSingleItemGroup, createLinkButton } from '../helpers';
+import { createLinkButton } from '../helpers';
 import FilterSelect from '../../presentational-components/shared/filter-select';
 import ButtonWithSpinner from '../../presentational-components/shared/button-with-spinner';
 import AsyncPagination from '../../smart-components/common/async-pagination';
@@ -59,7 +59,7 @@ const createAddProductsSchema = ({
                     }
                   ]
                 },
-                createSingleItemGroup({
+                {
                   groupName: 'cancel-group-item',
                   ...createLinkButton({
                     key: 'add-products-cancel-button',
@@ -69,21 +69,26 @@ const createAddProductsSchema = ({
                     preserveSearch: true,
                     title: 'Cancel'
                   })
-                }),
-                createSingleItemGroup({
-                  groupName: 'add-group-item',
-                  key: 'portfolio-items-add-group',
-                  component: ButtonWithSpinner,
-                  variant: 'primary',
-                  'aria-label': 'Add products to Portfolio',
-                  title: 'Add',
-                  type: 'button',
-                  onClick: onClickAddToPortfolio,
-                  isDisabled: !itemsSelected || isFetching,
-                  showSpinner: isFetching,
-                  children: 'Add',
-                  id: 'add-products-to-portfolio'
-                })
+                },
+                {
+                  component: toolbarComponentTypes.TOOLBAR_ITEM,
+                  key: 'add-group-item',
+                  fields: [
+                    {
+                      key: 'portfolio-items-add-group',
+                      component: ButtonWithSpinner,
+                      variant: 'primary',
+                      'aria-label': 'Add products to Portfolio',
+                      title: 'Add',
+                      type: 'button',
+                      onClick: onClickAddToPortfolio,
+                      isDisabled: !itemsSelected || isFetching,
+                      showSpinner: isFetching,
+                      children: 'Add',
+                      id: 'add-products-to-portfolio'
+                    }
+                  ]
+                }
               ]
             },
             {

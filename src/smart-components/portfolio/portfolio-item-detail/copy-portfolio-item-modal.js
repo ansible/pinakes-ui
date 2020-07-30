@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
-import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 
 import FormRenderer from '../../common/form-renderer';
 import { getPortfolioItemApi } from '../../../helpers/shared/user-login';
@@ -29,23 +28,24 @@ const loadPortfolios = (filter) =>
       .map(({ name, id }) => ({ value: id, label: name }))
   );
 
-const copySchema = (portfolioName, portfolioChange, nameFetching) => ({
+const copySchema = (getName, initialOptions) => ({
   fields: [
     {
-      component: 'value-only',
+      component: 'copy-name-display',
       name: 'portfolio_item_name',
       label: 'Name',
-      value: portfolioName
+      getName,
+      fieldSpy: 'portfolio_id'
     },
     {
-      component: componentTypes.SELECT,
+      component: 'initial-select',
       name: 'portfolio_id',
       label: 'Portfolio',
       isRequired: true,
       loadOptions: asyncFormValidator(loadPortfolios),
-      onChange: portfolioChange,
-      isDisabled: nameFetching,
-      isSearchable: true
+      isSearchable: true,
+      options: initialOptions,
+      menuIsPortal: true
     }
   ]
 });
@@ -54,21 +54,13 @@ const CopyPortfolioItemModal = ({
   portfolioId,
   portfolioItemId,
   closeUrl,
-  search
+  search,
+  portfolioName
 }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
-  const [submitting, setSubmitting] = useState(false);
-  const [name, setName] = useState();
-  const [nameFetching, setNameFetching] = useState(false);
 
-  useEffect(() => {
-    getPortfolioItemApi()
-      .getPortfolioItemNextName(portfolioItemId, portfolioId)
-      .then(({ next_name }) => setName(next_name));
-  }, []);
   const onSubmit = async (values) => {
-    setSubmitting(true);
     /**
      * dispatch redux action to set selected portfolio in store
      * this will ensure that correct portfolio data will be loaded after the redirect occurs
@@ -87,19 +79,13 @@ const CopyPortfolioItemModal = ({
         () =>
           values.portfolio_id === portfolioId &&
           dispatch(fetchPortfolioItemsWithPortfolio(portfolioId))
-      )
-      .catch(() => setSubmitting(false));
+      );
   };
 
-  const portfolioChange = (portfolioId) => {
-    setNameFetching(true);
-    return getPortfolioItemApi()
+  const portfolioChange = (portfolioId) =>
+    getPortfolioItemApi()
       .getPortfolioItemNextName(portfolioItemId, portfolioId)
-      .then(({ next_name }) => {
-        setName(next_name);
-      })
-      .then(() => setNameFetching(false));
-  };
+      .then(({ next_name }) => next_name);
 
   return (
     <Modal
@@ -111,11 +97,13 @@ const CopyPortfolioItemModal = ({
           search
         })
       }
-      isSmall
+      variant="small"
     >
       <FormRenderer
-        initialValues={{ portfolio_id: portfolioId, portfolio_item_name: name }}
-        schema={copySchema(name, portfolioChange, nameFetching)}
+        initialValues={{ portfolio_id: portfolioId }}
+        schema={copySchema(portfolioChange, [
+          { value: portfolioId, label: portfolioName }
+        ])}
         onSubmit={onSubmit}
         onCancel={() =>
           push({
@@ -124,8 +112,10 @@ const CopyPortfolioItemModal = ({
           })
         }
         formContainer="modal"
-        buttonsLabels={{ submitLabel: 'Save' }}
-        disableSubmit={submitting ? ['pristine', 'dirty'] : []}
+        templateProps={{
+          submitLabel: 'Save',
+          disableSubmit: ['validating', 'submitting']
+        }}
       />
     </Modal>
   );
@@ -135,6 +125,7 @@ CopyPortfolioItemModal.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   portfolioId: PropTypes.string,
   portfolioItemId: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired
+  search: PropTypes.string.isRequired,
+  portfolioName: PropTypes.string.isRequired
 };
 export default CopyPortfolioItemModal;

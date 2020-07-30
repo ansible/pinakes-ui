@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Level,
   LevelItem,
@@ -50,7 +50,7 @@ export const PortfolioItemDetailToolbar = ({
 }) => (
   <TopToolbar breadcrumbsSpacing={false}>
     <Level className="flex-no-wrap">
-      <StyledLevelItem alignStart className="pf-l-flex">
+      <StyledLevelItem grow alignStart className="pf-l-flex">
         {userCapabilities.update ? (
           <PortfolioItemIconItem
             uploadIcon={uploadIcon}
@@ -70,24 +70,17 @@ export const PortfolioItemDetailToolbar = ({
       </StyledLevelItem>
       <LevelItem style={{ minHeight: 36 }} className="flex-item-no-wrap">
         <Level className="flex-no-wrap">
-          <Route
-            exact
-            path={url}
-            render={(...args) => (
-              <DetailToolbarActions
-                isOpen={isOpen}
-                setOpen={(open) => setOpen(open)}
-                orderUrl={`${url}/order`}
-                editUrl={`${url}/edit`}
-                copyUrl={`${url}/copy`}
-                editSurveyUrl={`${url}/edit-survey`}
-                workflowUrl={`${url}/edit-workflow`}
-                isFetching={isFetching}
-                availability={availability}
-                userCapabilities={userCapabilities}
-                {...args}
-              />
-            )}
+          <DetailToolbarActions
+            isOpen={isOpen}
+            setOpen={(open) => setOpen(open)}
+            orderUrl={`${url}/order`}
+            editUrl={`${url}/edit`}
+            copyUrl={`${url}/copy`}
+            editSurveyUrl={`${url}/edit-survey`}
+            workflowUrl={`${url}/edit-workflow`}
+            isFetching={isFetching}
+            availability={availability}
+            userCapabilities={userCapabilities}
           />
         </Level>
       </LevelItem>
@@ -154,7 +147,7 @@ export const SurveyEditingToolbar = ({
 }) => (
   <TopToolbar breadcrumbsSpacing={false} breadcrumbs={true}>
     <Level>
-      <StyledLevelItem alignStart className="pf-l-flex">
+      <StyledLevelItem grow alignStart className="pf-l-flex">
         <PortfolioItemIconItem
           uploadIcon={uploadIcon}
           id={product.id}

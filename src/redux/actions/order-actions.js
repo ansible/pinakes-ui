@@ -21,15 +21,24 @@ export const setSelectedPlan = (data) => ({
   payload: data
 });
 
-export const sendSubmitOrder = (apiProps) => (dispatch) =>
+export const sendSubmitOrder = (apiProps, portfolioItem) => (dispatch) =>
   dispatch({
     type: ActionTypes.SUBMIT_SERVICE_ORDER,
-    payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id }) =>
+    payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id, orderItem }) =>
       dispatch(
         addNotification({
           variant: 'success',
           title: 'Your order has been accepted successfully',
-          description: <OrderNotification id={id} dispatch={dispatch} />,
+          description: (
+            <OrderNotification
+              id={id}
+              dispatch={dispatch}
+              portfolioItemId={portfolioItem.id}
+              portfolioId={portfolioItem.portfolio_id}
+              platformId={portfolioItem.service_offering_source_ref}
+              orderItemId={orderItem.id}
+            />
+          ),
           dismissable: true
         })
       )

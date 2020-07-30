@@ -36,19 +36,37 @@ const plugins = [
   ]),
   new WorkboxWebpackPlugin.GenerateSW({
     clientsClaim: true,
+    navigationPreload: true,
     exclude: [/\.map$/, /asset-manifest\.json$/],
     // navigateFallback: paths.publicUrlOrPath + 'index.html',
     navigateFallbackDenylist: [
       // Exclude URLs with hashes
       new RegExp('#'),
-      // Exclude any URLs whose last part seems to be a file extension
-      // as they're likely a resource and not a SPA route.
-      // URLs containing a "?" character won't be blacklisted as they're likely
-      // a route with query params (e.g. auth callbacks).
-      new RegExp('/[^/?]+\\.[^/]+$'),
       // For now exclude any API calls
       // we might want use staleWhileRevalide or networkFirst strategy for entitlements or rbac permissions later
       new RegExp(/\/api\//)
+    ],
+    runtimeCaching: [
+      {
+        urlPattern: /^https?.*\.js$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'offlineCache',
+          expiration: {
+            maxEntries: 200
+          }
+        }
+      },
+      {
+        urlPattern: /\.(png|svg|jpg)$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'imageCache',
+          expiration: {
+            maxEntries: 200
+          }
+        }
+      }
     ]
   })
 ];

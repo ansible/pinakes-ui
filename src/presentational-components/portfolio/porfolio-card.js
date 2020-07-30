@@ -10,7 +10,8 @@ import {
   KebabToggle,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  Label
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
@@ -160,7 +161,10 @@ const PortfolioCard = ({
   name,
   id,
   handleCopyPortfolio,
-  metadata: { user_capabilities },
+  metadata: {
+    user_capabilities,
+    statistics: { shared_groups }
+  },
   ...props
 }) => {
   const to = {
@@ -200,7 +204,13 @@ const PortfolioCard = ({
             toDisplay={TO_DISPLAY}
           />
         </StyledCardBody>
-        <CardFooter />
+        <CardFooter>
+          {shared_groups > 0 && (
+            <Label variant="filled" color="blue">
+              Shared
+            </Label>
+          )}
+        </CardFooter>
       </StyledCard>
     </StyledGalleryItem>
   );
@@ -215,8 +225,10 @@ PortfolioCard.propTypes = {
   created_at: PropTypes.string.isRequired,
   owner: PropTypes.string,
   isDisabled: PropTypes.bool,
-  metadata: PropTypes.shape({ user_capabilities: PropTypes.object.isRequired })
-    .isRequired,
+  metadata: PropTypes.shape({
+    user_capabilities: PropTypes.object.isRequired,
+    statistics: PropTypes.shape({ shared_groups: PropTypes.number }).isRequired
+  }).isRequired,
   handleCopyPortfolio: PropTypes.func.isRequired
 };
 

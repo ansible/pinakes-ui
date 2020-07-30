@@ -20,458 +20,461 @@ exports[`Loader placeholders should render <AppPlaceholder /> correctly 1`] = `
 
 exports[`Loader placeholders should render <CardLoader /> correctly 1`] = `
 <Grid
-  gutter="md"
+  hasGutter={true}
 >
   <GridItem
-    className="pf-u-p-md"
     sm={12}
   >
-    <Gallery
-      gutter="md"
+    <Section
+      type="content"
     >
-      <GalleryItem
-        key="0"
+      <Gallery
+        hasGutter={true}
       >
-        <Card
-          style={
-            Object {
-              "height": 350,
-            }
-          }
+        <GalleryItem
+          key="0"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="1"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="1"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="2"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="2"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="3"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="3"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="4"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="4"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="5"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="5"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="6"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="6"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="7"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="7"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="8"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="8"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="9"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="9"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="10"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="10"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="11"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="11"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-      <GalleryItem
-        key="12"
-      >
-        <Card
-          style={
-            Object {
-              "height": 350,
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
             }
-          }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+        <GalleryItem
+          key="12"
         >
-          <CardBody>
-            <Skeleton
-              className="pf-u-mb-lg"
-              height={70}
-              width="85%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="90%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="100%"
-            />
-            <Skeleton
-              className="pf-u-mb-sm"
-              height={5}
-              width="76%"
-            />
-          </CardBody>
-        </Card>
-      </GalleryItem>
-    </Gallery>
+          <Card
+            style={
+              Object {
+                "height": 350,
+              }
+            }
+          >
+            <CardBody>
+              <Skeleton
+                className="pf-u-mb-lg"
+                height={70}
+                width="85%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="90%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="100%"
+              />
+              <Skeleton
+                className="pf-u-mb-sm"
+                height={5}
+                width="76%"
+              />
+            </CardBody>
+          </Card>
+        </GalleryItem>
+      </Gallery>
+    </Section>
   </GridItem>
 </Grid>
 `;

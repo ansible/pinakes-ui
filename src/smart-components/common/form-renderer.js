@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button, FormGroup, TextContent, Text } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
@@ -13,9 +13,11 @@ import Radio from '@data-driven-forms/pf4-component-mapper/dist/cjs/radio';
 import Switch from '@data-driven-forms/pf4-component-mapper/dist/cjs/switch';
 import Pf4SelectWrapper from '../../presentational-components/shared/pf4-select-wrapper';
 import ShareGroupSelect from '../../forms/form-fields/share-group-select';
-import ShareGroupEdit from '../../forms/form-fields/shage-group-edit';
+import ShareGroupEdit from '../../forms/form-fields/share-group-edit';
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 
 const FormContext = createContext({});
 
@@ -38,21 +40,7 @@ FormButton.propTypes = {
   variant: PropTypes.string
 };
 
-const ValueOnly = ({ name, label, value }) => (
-  <FormGroup label={label} fieldId={name}>
-    <TextContent>
-      <Text component="h6">{value}</Text>
-    </TextContent>
-  </FormGroup>
-);
-
-ValueOnly.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
-};
-
-const catalogComponentMapper = {
+export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
   [componentTypes.TEXTAREA]: Textarea,
   [componentTypes.PLAIN_TEXT]: PlainText,
@@ -61,9 +49,10 @@ const catalogComponentMapper = {
   [componentTypes.RADIO]: Radio,
   [componentTypes.SWITCH]: Switch,
   [componentTypes.SUB_FORM]: SubForm,
+  'initial-select': Select,
   'share-group-select': ShareGroupSelect,
   'share-group-edit': ShareGroupEdit,
-  'value-only': ValueOnly,
+  'copy-name-display': CopyNameDisplay,
   'textarea-field': Textarea,
   'select-field': Pf4SelectWrapper
 };

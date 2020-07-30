@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import {
   Bullseye,
   Card,
@@ -23,6 +24,7 @@ import {
   Button
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
+import { StyledToolbar } from '../styled-components/toolbars';
 
 const wave = keyframes`
   0% {
@@ -76,22 +78,24 @@ const SkeletonContainer = styled.div`
 `;
 
 export const CardLoader = ({ items }) => (
-  <Grid gutter="md">
-    <GridItem sm={12} className="pf-u-p-md">
-      <Gallery gutter="md">
-        {[...Array(items)].map((_item, index) => (
-          <GalleryItem key={index}>
-            <Card style={{ height: 350 }}>
-              <CardBody>
-                <Skeleton height={70} width="85%" className="pf-u-mb-lg" />
-                <Skeleton height={5} width="90%" className="pf-u-mb-sm" />
-                <Skeleton height={5} width="100%" className="pf-u-mb-sm" />
-                <Skeleton height={5} width="76%" className="pf-u-mb-sm" />
-              </CardBody>
-            </Card>
-          </GalleryItem>
-        ))}
-      </Gallery>
+  <Grid hasGutter>
+    <GridItem sm={12}>
+      <Section type="content">
+        <Gallery hasGutter>
+          {[...Array(items)].map((_item, index) => (
+            <GalleryItem key={index}>
+              <Card style={{ height: 350 }}>
+                <CardBody>
+                  <Skeleton height={70} width="85%" className="pf-u-mb-lg" />
+                  <Skeleton height={5} width="90%" className="pf-u-mb-sm" />
+                  <Skeleton height={5} width="100%" className="pf-u-mb-sm" />
+                  <Skeleton height={5} width="76%" className="pf-u-mb-sm" />
+                </CardBody>
+              </Card>
+            </GalleryItem>
+          ))}
+        </Gallery>
+      </Section>
     </GridItem>
   </Grid>
 );
@@ -215,3 +219,9 @@ ListLoader.defaultProps = {
 };
 
 export const OrderDetailToolbarPlaceholder = () => <Skeleton height={70} />;
+
+export const PlatformToolbarPlaceholder = () => (
+  <StyledToolbar className="pf-u-pr-lg pf-u-pl-lg pf-u-pb-md pf-u-pt-md">
+    <Skeleton height={36} width={300} />
+  </StyledToolbar>
+);

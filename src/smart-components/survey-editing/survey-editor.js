@@ -21,7 +21,10 @@ import { Bullseye } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
-import { catalogValidatorAlias } from '../common/form-renderer';
+import {
+  catalogValidatorAlias,
+  catalogComponentMapper
+} from '../common/form-renderer';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 
 const componentProperties = {
@@ -99,9 +102,10 @@ componentProperties['textarea-field'] =
   componentProperties[componentTypes.TEXTAREA];
 const pf4Skin = {
   componentMapper: {
-    ...builderMapper,
-    'select-field': builderMapper[componentTypes.SELECT],
-    'textarea-field': builderMapper[componentTypes.TEXTAREA]
+    ...catalogComponentMapper
+  },
+  builderMapper: {
+    ...builderMapper
   },
   pickerMapper: {
     ...pickerMapper,
@@ -157,6 +161,15 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
   const [isFetching, setIsFetching] = useState(false);
   const [baseSchema, setBaseSchema] = useState();
   const [servicePlan, setServicePlan] = useState();
+  /**
+   * There is an issues with later versions react final form, that it ignores parent props changes and caches
+   * itself to increase performance. This had an unfortunate side effect of ignoring the outside schema changes
+   * which are not propagated to the component tree. We use this counter to destroy the old and create a new instance
+   * when the key (updateHack) counter is changed. There is currently no better sollution due to the fact that the
+   * react final form is an outside dependency.
+   * We will make an effort to fix it inside the library but until then we need this workaround.
+   */
+  const [updateHack, setUpdateHack] = useState(0);
   const dispatch = useDispatch();
   const { push } = useHistory();
   const getServicePlan = () =>
@@ -231,46 +244,56 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
     getServicePlansApi()
       .resetServicePlanModified(id)
       .then(getServicePlan)
-      .then(() =>
-        dispatch(
+      .then(() => {
+        /**
+         * Counter has to updated again after the update was successfull
+         * This mutation amkes sure that new instance will be created after the data was returned
+         * form API.
+         */
+        setUpdateHack((prevCount) => prevCount + 1);
+        return dispatch(
           addNotification({
             variant: 'success',
             title: `Survey of ${portfolioItem.name} has been restored.`,
             dismissable: true
           })
-        )
-      );
+        );
+      });
   };
 
   return (
     <Fragment>
       {schema ? (
-        <BuilderWrapper
-          {...pf4Skin}
-          schema={schema}
-          disableDrag
-          disableAdd
-          schemaTemplate={baseSchema}
-          mode="subset"
-        >
-          {({ getSchema, isValid, ...props }) => (
-            <Fragment>
-              <SurveyEditingToolbar
-                key="survey-editor-toolbar"
-                uploadIcon={uploadIcon}
-                product={portfolioItem}
-                handleSaveSurvey={() => handleSaveSurvey(getSchema())}
-                isValid={isValid}
-                closeUrl={closeUrl}
-                search={search}
-                isFetching={isFetching || !schema}
-                modified={servicePlan.modified}
-                handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
-              />
-              <BuilderTemplate {...props} />;
-            </Fragment>
-          )}
-        </BuilderWrapper>
+        [
+          <BuilderWrapper
+            {...pf4Skin}
+            // this key is required to destroy outdated instances of the form builder
+            key={updateHack}
+            schema={schema}
+            disableDrag
+            disableAdd
+            schemaTemplate={baseSchema}
+            mode="subset"
+          >
+            {({ getSchema, isValid, ...props }) => (
+              <Fragment>
+                <SurveyEditingToolbar
+                  key="survey-editor-toolbar"
+                  uploadIcon={uploadIcon}
+                  product={portfolioItem}
+                  handleSaveSurvey={() => handleSaveSurvey(getSchema())}
+                  isValid={isValid}
+                  closeUrl={closeUrl}
+                  search={search}
+                  isFetching={isFetching || !schema}
+                  modified={servicePlan?.modified}
+                  handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
+                />
+                <BuilderTemplate {...props} />;
+              </Fragment>
+            )}
+          </BuilderWrapper>
+        ]
       ) : (
         <Fragment>
           <SurveyEditingToolbar

@@ -22,7 +22,10 @@ const CatalogBreadcrumbs = () => {
           key={pathname}
           className="pf-c-breadcrumb__item"
         >
-          <BreadcrumbItem isActive={fragments.length === index + 1}>
+          <BreadcrumbItem
+            showDivider={index > 0}
+            isActive={fragments.length === index + 1}
+          >
             {title}
           </BreadcrumbItem>
         </ConditionalLink>

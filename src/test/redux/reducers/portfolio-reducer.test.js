@@ -111,7 +111,8 @@ describe('Portfolio reducer', () => {
     const resetState = {
       selectedPortfolio: {
         metadata: {
-          user_capabilities: {}
+          user_capabilities: {},
+          statistics: {}
         }
       },
       portfolioItems: { data: [], meta: { offset: 0, limit: 50, filter: '' } }
