@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useRef } from 'react';
+import difference from 'lodash/difference';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -86,19 +87,25 @@ const EditApprovalWorkflow = ({
     history.push(pushParam);
   };
 
-  const onSubmit = (formData, formApi) => {
-    const initialWorkflows =
-      formApi.getState().initialValues.selectedWorkflows || [];
-    const newWorkflows = formData.selectedWorkflows || [];
-
+  const onSubmit = (formData) => {
     close();
-    const toUnlinkWorkflows = initialWorkflows.filter(
-      (wf) => newWorkflows.findIndex((w) => w === wf) < 0
+    const unlinkArray = data
+      .filter(
+        ({ id }) =>
+          !formData['initial-workflows'].find((workflow) => id === workflow.id)
+      )
+      .map(({ id }) => id);
+    /**
+     * prevent uneccesary unlink and link API calls of the same workflow
+     */
+    const linkDiff = difference(formData['new-workflows'], unlinkArray);
+    const unLinkDiff = difference(unlinkArray, formData['new-workflows']);
+    const toLinkWorkflows = linkDiff.filter(
+      (id) => !data.find((item) => item.id === id)
     );
-    const toLinkWorkflows = newWorkflows.filter(
-      (wf) => initialWorkflows.findIndex((w) => w === wf) < 0
+    const toUnlinkWorkflows = unLinkDiff.filter((id) =>
+      data.find((item) => item.id === id)
     );
-
     if (toUnlinkWorkflows.length > 0 || toLinkWorkflows.length > 0) {
       dispatch(
         updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
@@ -130,8 +137,9 @@ const EditApprovalWorkflow = ({
           </StackItem>
           <StackItem>
             <FormRenderer
+              subscription={{ values: true }}
               initialValues={{
-                selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
+                'initial-workflows': data
               }}
               onSubmit={onSubmit}
               onCancel={close}

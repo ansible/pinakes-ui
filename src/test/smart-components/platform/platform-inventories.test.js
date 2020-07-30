@@ -42,7 +42,7 @@ describe('<PlatformInventories />', () => {
       breadcrumbsReducer: { fragments: [] },
       approvalReducer: {
         ...approvalInitialState,
-        resolvedWorkflows: []
+        resolvedWorkflows: { data: [], meta: { limit: 50, offset: 0 } }
       },
       portfolioReducer: {
         isLoading: false

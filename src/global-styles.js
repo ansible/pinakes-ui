@@ -48,8 +48,12 @@ const GlobalStyle = createGlobalStyle`
 /**
 * Update DDF select styles for select component
 */
+.ddorg__pf4-component-mapper__select-toggle.pf-c-select__toggle.pf-m-typeahead {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 .ddorg__pf4-component-mapper__select-toggle {
-  min-height: 36px;
+  min-height: 34px;
 }
 
 .filter-select {
