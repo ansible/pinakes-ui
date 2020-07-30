@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useFormatMessage should assign values to message properly 1`] = `
+<MessageDummy
+  definedMessage={
+    Object {
+      "defaultMessage": "Foo {foo} bar {bar}",
+      "id": "foo",
+    }
+  }
+  messageValues={
+    Object {
+      "bar": "bar value",
+      "foo": "foo value",
+    }
+  }
+>
+  <IntlProvider
+    defaultFormats={Object {}}
+    defaultLocale="en"
+    formats={Object {}}
+    locale="en"
+    messages={Object {}}
+    onError={[Function]}
+    textComponent={Symbol(react.fragment)}
+  >
+    <HookedComponent
+      definedMessage={
+        Object {
+          "defaultMessage": "Foo {foo} bar {bar}",
+          "id": "foo",
+        }
+      }
+      messageValues={
+        Object {
+          "bar": "bar value",
+          "foo": "foo value",
+        }
+      }
+    >
+      <span>
+        Foo foo value bar bar value
+      </span>
+    </HookedComponent>
+  </IntlProvider>
+</MessageDummy>
+`;
+
+exports[`useFormatMessage should return fallback message if the message is not defined properly 1`] = `
+<MessageDummy
+  definedMessage={
+    Object {
+      "defaultMessage": "Foo",
+    }
+  }
+>
+  <IntlProvider
+    defaultFormats={Object {}}
+    defaultLocale="en"
+    formats={Object {}}
+    locale="en"
+    messages={Object {}}
+    onError={[Function]}
+    textComponent={Symbol(react.fragment)}
+  >
+    <HookedComponent
+      definedMessage={
+        Object {
+          "defaultMessage": "Foo",
+        }
+      }
+    >
+      <span>
+        Unable to translate message. Definition: [object Object], values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message.
+      </span>
+    </HookedComponent>
+  </IntlProvider>
+</MessageDummy>
+`;
+
+exports[`useFormatMessage should return fallback message if the message is not defined properly 2`] = `
+<MessageDummy
+  definedMessage="nonsense"
+>
+  <IntlProvider
+    defaultFormats={Object {}}
+    defaultLocale="en"
+    formats={Object {}}
+    locale="en"
+    messages={Object {}}
+    onError={[Function]}
+    textComponent={Symbol(react.fragment)}
+  >
+    <HookedComponent
+      definedMessage="nonsense"
+    >
+      <span>
+        Unable to translate message. Definition: nonsense, values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message.
+      </span>
+    </HookedComponent>
+  </IntlProvider>
+</MessageDummy>
+`;
+
+exports[`useFormatMessage should return translated simple message 1`] = `
+<MessageDummy
+  definedMessage={
+    Object {
+      "defaultMessage": "Foo",
+      "id": "foo",
+    }
+  }
+>
+  <IntlProvider
+    defaultFormats={Object {}}
+    defaultLocale="en"
+    formats={Object {}}
+    locale="en"
+    messages={Object {}}
+    onError={[Function]}
+    textComponent={Symbol(react.fragment)}
+  >
+    <HookedComponent
+      definedMessage={
+        Object {
+          "defaultMessage": "Foo",
+          "id": "foo",
+        }
+      }
+    >
+      <span>
+        Foo
+      </span>
+    </HookedComponent>
+  </IntlProvider>
+</MessageDummy>
+`;
+
+exports[`useFormatMessage should wrap rich text value to fragment to prevent missing key error 1`] = `
+<MessageDummy
+  definedMessage={
+    Object {
+      "defaultMessage": "Foo {foo} bar <b>{bar}</b>",
+      "id": "foo",
+    }
+  }
+  messageValues={
+    Object {
+      "b": [Function],
+      "bar": "bar value",
+      "foo": "foo value",
+    }
+  }
+>
+  <IntlProvider
+    defaultFormats={Object {}}
+    defaultLocale="en"
+    formats={Object {}}
+    locale="en"
+    messages={Object {}}
+    onError={[Function]}
+    textComponent={Symbol(react.fragment)}
+  >
+    <HookedComponent
+      definedMessage={
+        Object {
+          "defaultMessage": "Foo {foo} bar <b>{bar}</b>",
+          "id": "foo",
+        }
+      }
+      messageValues={
+        Object {
+          "b": [Function],
+          "bar": "bar value",
+          "foo": "foo value",
+        }
+      }
+    >
+      <span>
+        Foo foo value bar 
+        <b>
+          bar value
+        </b>
+      </span>
+    </HookedComponent>
+  </IntlProvider>
+</MessageDummy>
+`;
