@@ -1,3 +1,5 @@
+import labelMessages from './labels.messages';
+
 const { defineMessages } = require('react-intl');
 
 const statesMessages = defineMessages({
@@ -62,4 +64,8 @@ const statesMessages = defineMessages({
 export const getTranslatableState = (state) =>
   state.replace(/\s/g, '').replace(/^./, (char) => char.toLowerCase());
 
-export default statesMessages;
+/**
+ * We must include the created state so the dynamic data from DB can look for these messages in one place
+ * The created message is shared among other components and is just a state message
+ */
+export default { ...statesMessages, created: labelMessages.created };
