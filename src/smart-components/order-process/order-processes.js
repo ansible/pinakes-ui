@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Link, Route } from 'react-router-dom';
 import {
@@ -105,7 +105,7 @@ const OrderProcesses = () => {
       filterValue: viewState?.orderProcesses.filter || initialState.filterValue
     }
   );
-
+  const [selectedOrderProcesses, setSelectedOrderProcesses] = useState([]);
   const dispatch = useDispatch();
   const intl = useIntl();
 
@@ -158,6 +158,11 @@ const OrderProcesses = () => {
     });
   };
 
+  const setCheckedItems = (checkedOrderProcesses) =>
+    setSelectedOrderProcesses(checkedOrderProcesses.map((wf) => wf.id));
+
+  const anyWorkflowsSelected = selectedOrderProcesses.length > 0;
+
   const toolbarButtons = () => (
     <StyledToolbarGroup className="pf-u-pl-lg top-toolbar">
       <ToolbarItem>
@@ -200,6 +205,8 @@ const OrderProcesses = () => {
         onFilterChange={handleFilterChange}
         isLoading={isFetching || isFiltering}
         toolbarButtons={toolbarButtons}
+        isSelectable
+        setCheckedItems={setCheckedItems}
         renderEmptyState={() => (
           <TableEmptyState
             title={

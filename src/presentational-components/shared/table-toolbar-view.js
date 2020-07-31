@@ -13,6 +13,7 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/compo
 import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const TableToolbarView = ({
+  isSelectable,
   createRows,
   columns,
   fetchData,
@@ -22,6 +23,7 @@ export const TableToolbarView = ({
   routes,
   plural,
   pagination,
+  setCheckedItems,
   filterValue,
   onFilterChange,
   isLoading,
@@ -37,6 +39,23 @@ export const TableToolbarView = ({
   useEffect(() => {
     setRows(createRows(data));
   }, [data]);
+
+  const setSelected = (_event, selected, index, { id } = {}) => {
+    const newData = rows.map((row) =>
+      row.id === id || index === -1
+        ? {
+            ...row,
+            selected: index === -1 ? selected : !row.selected
+          }
+        : {
+            ...row
+          }
+    );
+
+    const checkedItems = newData.filter((item) => item.id && item.selected);
+    setCheckedItems(checkedItems);
+    return setRows(newData);
+  };
 
   const paginationConfig = {
     itemCount: pagination.count,
@@ -104,6 +123,8 @@ export const TableToolbarView = ({
               className="pf-u-pt-0"
               sortBy={sortBy}
               onSort={onSort}
+              onSelect={isSelectable && setSelected}
+              canSelectAll
             >
               <TableHeader />
               <TableBody />
@@ -116,7 +137,8 @@ export const TableToolbarView = ({
                 ...paginationConfig,
                 dropDirection: 'up',
                 variant: 'bottom',
-                isCompact: false
+                isCompact: false,
+                className: 'pf-u-pr-0'
               }}
             />
           )}
@@ -127,6 +149,7 @@ export const TableToolbarView = ({
 };
 
 TableToolbarView.propTypes = {
+  isSelectable: propTypes.bool,
   createRows: propTypes.func.isRequired,
   columns: propTypes.array.isRequired,
   toolbarButtons: propTypes.func,
