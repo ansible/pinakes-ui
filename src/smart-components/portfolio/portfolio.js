@@ -79,6 +79,7 @@ const AddProductsToPortfolio = lazy(() =>
 );
 const initialState = {
   selectedItems: [],
+  firstSelectedProduct: undefined,
   removeInProgress: false,
   filterValue: '',
   copyInProgress: false,
@@ -96,11 +97,15 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const porftolioUiReducer = (state, { type, payload }) =>
+const porftolioUiReducer = (state, { type, payload = {} }) =>
   ({
     selectItem: {
       ...state,
-      selectedItems: toggleArraySelection(state.selectedItems, payload)
+      selectedItems: toggleArraySelection(
+        state.selectedItems,
+        payload.selectedItem
+      ),
+      firstSelectedProduct: payload.product || state.firstSelectedProduct
     },
     setRemoveInProgress: { ...state, removeInProgress: payload },
     removeSucessfull: { ...state, selectedItems: [], removeInProgress: false },
@@ -200,7 +205,13 @@ const Portfolio = () => {
 
   const removeProducts = (products) => {
     stateDispatch({ type: 'setRemoveInProgress', payload: true });
-    dispatch(removeProductsFromPortfolio(products, portfolio.name))
+    dispatch(
+      removeProductsFromPortfolio(
+        products,
+        portfolio.name,
+        state.firstSelectedProduct
+      )
+    )
       .then(() => stateDispatch({ type: 'removeSucessfull' }))
       .catch(() =>
         stateDispatch({ type: 'setRemoveInProgress', payload: false })

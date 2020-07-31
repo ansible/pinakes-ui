@@ -246,10 +246,11 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => (
     );
 };
 
-export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
-  dispatch,
-  getState
-) => {
+export const removeProductsFromPortfolio = (
+  portfolioItems,
+  portfolioName,
+  firstSelectedProduct
+) => (dispatch, getState) => {
   dispatch({
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
@@ -281,7 +282,10 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
               {...portfolioMessages.removeItemsNotification}
               values={{
                 count: portfolioItems.length,
+                productName: firstSelectedProduct.name,
                 portfolioName,
+                // eslint-disable-next-line react/display-name
+                b: (chunks) => <b>{chunks}</b>,
                 // eslint-disable-next-line react/display-name
                 a: (chunks) => (
                   <a

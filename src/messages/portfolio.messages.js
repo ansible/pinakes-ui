@@ -8,7 +8,7 @@ const portfolioMessages = defineMessages({
   removeItemsNotification: {
     id: 'portfolio.notifications.remove.portfolio-items',
     defaultMessage:
-      'You have removed {count, number} {count, plural, one {product} other {products} } from the {portfolioName} portfolio. <a>Undo</a> if this was a mistake.' // eslint-disable-line max-len
+      'You have removed {count, plural, one {} other {<b>{count, number}</b>}} {count, plural, one {<b>{productName}</b>} other {<b>products</b>} } from the {portfolioName} portfolio. <a>Undo</a> if this was a mistake.' // eslint-disable-line max-len
   },
   removePortfolioNotification: {
     id: 'portfolio.notifications.remove.portfolio',
