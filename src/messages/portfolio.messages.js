@@ -171,7 +171,31 @@ const portfolioMessages = defineMessages({
   },
   shareSuccessTitle: {
     id: 'share.notification.success.title',
-    defaultMessage: 'Portfolio sharing settings were updated'
+    defaultMessage: 'Share permissions were updated successfully.'
+  },
+  shareSuccessTitleOnlySharing: {
+    id: 'share.notification.success.share.title',
+    defaultMessage: 'Success sharing portfolio'
+  },
+  shareSuccessTitleOnlyUnsharing: {
+    id: 'share.notification.success.unshare.title',
+    defaultMessage: 'Success unsharing portfolio'
+  },
+  shareSuccessTitleOnlyChaningPermissions: {
+    id: 'share.notification.success.change-permission.title',
+    defaultMessage: 'Success changing permissions'
+  },
+  shareSuccessDescriptionOnlySharing: {
+    id: 'share.notification.success.share.description',
+    defaultMessage: 'Portfolio <b>{name}</b> was shared with <b>{group}</b>.'
+  },
+  shareSuccessDescriptionOnlyUnsharing: {
+    id: 'share.notification.success.unshare.description',
+    defaultMessage: 'Portfolio <b>{name}</b> was unshared with <b>{group}</b>.'
+  },
+  shareSuccessDescriptionOnlyChaningPermissions: {
+    id: 'share.notification.success.change-permission.description',
+    defaultMessage: 'Share permissions for <b>{group}</b> were updated.'
   },
   addSuccessTitle: {
     id: 'portfolio.add.success.title',
