@@ -43,7 +43,7 @@ const formsMessages = defineMessages({
   },
   createOrderProcessTitle: {
     id: 'formMessages.createOrderProcessTitle',
-    defaultMessage: 'Create order process'
+    defaultMessage: 'Create'
   },
   required: {
     id: 'formMessages.required',
