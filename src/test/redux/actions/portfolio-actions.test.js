@@ -413,7 +413,12 @@ describe('Portfolio actions', () => {
       .replyOnce(200, []);
 
     return store
-      .dispatch(removeProductsFromPortfolio(['1', '2', '3'], 'Foo portfolio'))
+      .dispatch(
+        removeProductsFromPortfolio(['1', '2', '3'], 'Foo portfolio', {
+          id: '1',
+          name: 'bar'
+        })
+      )
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 

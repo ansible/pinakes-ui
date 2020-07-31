@@ -67,7 +67,10 @@ const PortfolioItems = ({
       preserveSearch
       isSelectable={userCapabilities.update}
       onSelect={(selectedItem) =>
-        stateDispatch({ type: 'selectItem', payload: selectedItem })
+        stateDispatch({
+          type: 'selectItem',
+          payload: { selectedItem, product: item }
+        })
       }
       isSelected={selectedItems.includes(item.id)}
       removeInProgress={removeInProgress}
