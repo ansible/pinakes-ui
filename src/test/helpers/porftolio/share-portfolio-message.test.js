@@ -13,6 +13,17 @@ describe('#sharePorfolioMessage', () => {
 
   let result;
 
+  const groupMock1 = {
+    permissions: 'read',
+    group_uuid: '123',
+    groupName: 'group-name'
+  };
+  const groupMock2 = {
+    permissions: 'read, update',
+    group_uuid: '789',
+    groupName: 'group-name-989'
+  };
+
   beforeEach(() => {
     shareData = [];
     initialGroups = [];
@@ -26,20 +37,8 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only sharing two items', () => {
-    const newGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
-    const newGroup2 = {
-      permissions: 'read, update',
-      group_uuid: '789',
-      groupName: 'group-name-989'
-    };
-
-    initialGroups = [];
-    shareData = [newGroup, newGroup2];
-    newGroups = [newGroup, newGroup2];
+    shareData = [groupMock1, groupMock2];
+    newGroups = [groupMock1, groupMock2];
 
     result = {
       description: {
@@ -75,16 +74,6 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only sharing multiple items', () => {
-    const newGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
-    const newGroup2 = {
-      permissions: 'read, update',
-      group_uuid: '789',
-      groupName: 'group-name-989'
-    };
     const newGroup3 = {
       permissions: 'read, update',
       group_uuid: '78229',
@@ -92,8 +81,8 @@ describe('#sharePorfolioMessage', () => {
     };
 
     initialGroups = [];
-    shareData = [newGroup, newGroup2, newGroup3];
-    newGroups = [newGroup, newGroup2, newGroup3];
+    shareData = [groupMock1, groupMock2, newGroup3];
+    newGroups = [groupMock1, groupMock2, newGroup3];
 
     result = {
       description: {
@@ -128,15 +117,8 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only sharing', () => {
-    const newGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
-
-    initialGroups = [];
-    shareData = [newGroup];
-    newGroups = [newGroup];
+    shareData = [groupMock1];
+    newGroups = [groupMock1];
 
     result = {
       description: {
@@ -166,14 +148,8 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only unsharing', () => {
-    const removedGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
-
-    initialGroups = [removedGroup];
-    removedGroups = [removedGroup];
+    initialGroups = [groupMock1];
+    removedGroups = [groupMock1];
 
     result = {
       description: {
@@ -203,19 +179,8 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only unsharing multiple', () => {
-    const removedGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
-    const removedGroup1 = {
-      permissions: 'read',
-      group_uuid: '12323',
-      groupName: 'group-name1'
-    };
-
-    initialGroups = [removedGroup, removedGroup1];
-    removedGroups = [removedGroup, removedGroup1];
+    initialGroups = [groupMock1, groupMock2];
+    removedGroups = [groupMock1, groupMock2];
 
     result = {
       description: {
@@ -226,7 +191,7 @@ describe('#sharePorfolioMessage', () => {
             defaultMessage: '{group1} and {group2}',
             values: {
               group1: 'group-name',
-              group2: 'group-name1'
+              group2: 'group-name-989'
             }
           },
           name: 'Porfolio'
@@ -251,18 +216,12 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only changing permissions', () => {
-    const originalGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
     const changedGroup = {
-      permissions: 'read,update',
-      group_uuid: '123',
-      groupName: 'group-name'
+      ...groupMock1,
+      permissions: 'read,update'
     };
 
-    initialGroups = [originalGroup];
+    initialGroups = [groupMock1];
     newGroups = [changedGroup];
     shareData = [changedGroup];
 
@@ -293,15 +252,9 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('only changing multiple permissions', () => {
-    const originalGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
     const changedGroup = {
-      permissions: 'read,update',
-      group_uuid: '123',
-      groupName: 'group-name'
+      ...groupMock1,
+      permissions: 'read,update'
     };
     const originalGroup2 = {
       permissions: 'read,update',
@@ -314,7 +267,7 @@ describe('#sharePorfolioMessage', () => {
       groupName: 'group2'
     };
 
-    initialGroups = [originalGroup, originalGroup2];
+    initialGroups = [groupMock1, originalGroup2];
     newGroups = [changedGroup];
     shareData = [changedGroup, changedGroup2];
     removedGroups = [changedGroup2];
@@ -352,11 +305,7 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('combination', () => {
-    const originalGroup = {
-      permissions: 'read',
-      group_uuid: '123',
-      groupName: 'group-name'
-    };
+    const originalGroup = groupMock1;
     const changedGroup = {
       permissions: 'read,update',
       group_uuid: '123',
