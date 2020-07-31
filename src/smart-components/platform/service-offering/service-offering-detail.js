@@ -55,7 +55,7 @@ const ServiceOfferingDetail = () => {
         </div>
         <GridItem sm={12} className="pf-u-mb-md">
           <Level>
-            <StyledLevelItem alignStart className="pf-l-flex">
+            <StyledLevelItem grow alignStart className="pf-l-flex">
               <CardIcon src={source.icon_url} height={64} />
               <TextContent>
                 <Text component="h1">{service.name}</Text>
