@@ -169,7 +169,7 @@ describe('#sharePorfolioMessage', () => {
     result = {
       description: undefined,
       title: {
-        defaultMessage: 'Share permissions were updated successfully.',
+        defaultMessage: 'Share permissions were updated successfully',
         values: undefined
       }
     };

@@ -171,7 +171,7 @@ const portfolioMessages = defineMessages({
   },
   shareSuccessTitle: {
     id: 'share.notification.success.title',
-    defaultMessage: 'Share permissions were updated successfully.'
+    defaultMessage: 'Share permissions were updated successfully'
   },
   shareSuccessTitleOnlySharing: {
     id: 'share.notification.success.share.title',
