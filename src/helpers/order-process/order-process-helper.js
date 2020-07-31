@@ -1,23 +1,20 @@
-import { getAxiosInstance } from '../shared/user-login';
+import { getAxiosInstance, getOrderProcessApi } from '../shared/user-login';
 import { defaultSettings } from '../shared/pagination';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 const axiosInstance = getAxiosInstance();
 
 export function listOrderProcesses(
-  filter = '',
-  { limit, offset } = defaultSettings
+    filter= {},
+    { limit, offset, sortBy='name' ,sortDirection = 'asc' } = defaultSettings
 ) {
-  return axiosInstance.get(
-    `${CATALOG_API_BASE}/order_processes?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
-  );
+  const filterQuery = `&filter[name][contains_i]=${filter}`;
+  const sortQuery = sortBy ? `&sort_by=${sortBy}:${sortDirection}` : '';
+  const paginationQuery = `&limit=${limit}&offset=${offset}`;
+  return axiosInstance.get(`${CATALOG_API_BASE}/order_processes` );
 }
 
-export function fetchOrderProcessByName(name) {
-  return listOrderProcesses(name);
-}
-
+export function fetchOrderProcessByName(name = '') {
+  return axiosInstance.get(`${CATALOG_API_BASE}/order_processes`)}
 export function addOrderProcess(processData) {
-  //const addUrl = `${CATALOG_API_BASE}/order-processes/add`;
-  console.log('Debug - add processdata', processData);
-  //return axiosInstance.post(addUrl, processData);
+  return getOrderProcessApi().createOrderProcess(processData);
 }

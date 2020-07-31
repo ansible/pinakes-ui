@@ -1,7 +1,41 @@
-import orderProcessInfoSchema from './order-process-info.schema';
+import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
+import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 
-const createOrderProcessSchema = (intl, id) => ({
-  fields: orderProcessInfoSchema(intl, id)
-});
+import formsMessages from '../messages/forms.messages';
+import labelMessages from "../messages/labels.messages";
+import debouncedValidatorName from "./name-async-validator";
+
+/**
+ * Creates a data-driven-form schema for adding/editing portfolio
+ * @param {bool} newRecord sets the variant of portfolio form
+ * @param openApiSchema
+ * @param portfolioId
+ */
+const createOrderProcessSchema = (intl, id) => {
+  return {
+    fields: [
+      {
+        component: componentTypes.TEXT_FIELD,
+        name: 'name',
+        isRequired: true,
+        id: 'order-process-name',
+        label: intl.formatMessage(formsMessages.orderProcessName),
+        validate: [
+          (value) => debouncedValidatorName(value, id, intl),
+          {
+            type: validatorTypes.REQUIRED,
+            message: intl.formatMessage(formsMessages.enterOrderProcessName)
+          }
+        ],
+      },
+      {
+        component: componentTypes.TEXTAREA,
+        name: 'description',
+        id: 'order-process-description',
+        label: intl.formatMessage(labelMessages.description)
+      }
+    ]
+  };
+};
 
 export default createOrderProcessSchema;

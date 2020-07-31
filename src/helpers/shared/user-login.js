@@ -9,7 +9,8 @@ import {
   OrderApi,
   OrderItemApi,
   IconApi,
-  ServicePlansApi
+  ServicePlansApi,
+  OrderProcessApi
 } from '@redhat-cloud-services/catalog-client';
 
 import {
@@ -82,6 +83,12 @@ const servicePlansApi = new ServicePlansApi(
   axiosInstance
 );
 
+const orderProcessApi = new OrderProcessApi(
+    undefined,
+    CATALOG_API_BASE,
+    axiosInstance
+);
+
 export function getPortfolioApi() {
   return portfolioApi;
 }
@@ -122,6 +129,10 @@ export function getIconApi() {
 
 export function getServicePlansApi() {
   return servicePlansApi;
+}
+
+export function getOrderProcessApi() {
+  return orderProcessApi;
 }
 
 const grapqlInstance = axios.create();
