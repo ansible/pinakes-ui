@@ -22,7 +22,6 @@ import { ADD_PORTFOLIO_ROUTE, PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
 import { hasPermission } from '../../helpers/shared/helpers';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 
@@ -32,6 +31,7 @@ import PortfoliosPrimaryToolbar from './toolbars/portfolios-primary-toolbar';
 import TopToolbar, {
   TopToolbarTitle
 } from '../../presentational-components/shared/top-toolbar';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -90,7 +90,7 @@ const portfoliosState = (state, action) => {
 };
 
 const Portfolios = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const viewState = useInitialUriHash();
   const isMounted = useIsMounted();
   const [

@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { useIntl } from 'react-intl';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
@@ -21,6 +20,7 @@ import translateSchema from '../../utilities/translate-schema';
 import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 import InitialChips from '../../forms/form-fields/initial-chips';
+import useFormatMessage from '../../utilities/use-format-message';
 
 export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
@@ -62,7 +62,7 @@ export const catalogValidatorAlias = {
 };
 
 const FormRenderer = ({ formContainer, templateProps, schema, ...rest }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <div>
       <ReactFormRender

@@ -7,8 +7,8 @@ import EditPortfolioItem from './edit-portfolio-item';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 import CatalogRoute from '../../../routing/catalog-route';
-import { useIntl } from 'react-intl';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const ItemDetailDescription = ({
   userCapabilities,
@@ -18,7 +18,7 @@ const ItemDetailDescription = ({
   detailPaths,
   uploadIcon
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <Switch>
       <Route path={`${url}/edit-workflow`}>

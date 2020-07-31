@@ -9,7 +9,8 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import useFormApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-form-api';
-import { useIntl, defineMessage } from 'react-intl';
+import { defineMessage } from 'react-intl';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const createOptions = (options, inputValue, isRequired, optionsMessages) => {
   if (inputValue && isRequired) {
@@ -37,7 +38,7 @@ const Select = ({
   meta,
   ...rest
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const optionsMessages = useRef({
     none: formatMessage(
       defineMessage({

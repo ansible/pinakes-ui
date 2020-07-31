@@ -22,11 +22,11 @@ import TopToolbar, {
 } from '../../../presentational-components/shared/top-toolbar';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import { StyledLevelItem } from '../../../presentational-components/styled-components/level';
-import { useIntl } from 'react-intl';
 import actionMessages from '../../../messages/actions.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 import { PORTFOLIO_ITEM_ROUTE_EDIT } from '../../../constants/routes';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const PortfolioItemIconItem = ({ id, sourceId }) => (
   <CardIcon
@@ -51,7 +51,7 @@ export const PortfolioItemDetailToolbar = ({
   userCapabilities,
   fromProducts
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
   return (
     <TopToolbar
@@ -130,7 +130,7 @@ PortfolioItemDetailToolbar.defaultProps = {
 };
 
 const SurveyEditorDropdown = ({ handleResetSurvey }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Dropdown
@@ -167,7 +167,7 @@ export const SurveyEditingToolbar = ({
   modified,
   handleResetSurvey
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <TopToolbar breadcrumbsSpacing={false} breadcrumbs>
       <Level>

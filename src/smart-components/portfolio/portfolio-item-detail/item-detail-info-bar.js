@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
-import { useIntl } from 'react-intl';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const messages = {
   platform: {
@@ -24,7 +24,7 @@ const messages = {
 };
 
 const ItemDetailInfoBar = ({ product, source, portfolio }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <TextContent className="pf-u-mb-md">
       <Text className="font-14">{formatMessage(messages.platform)}</Text>

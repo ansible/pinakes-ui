@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Title } from '@patternfly/react-core';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
-import { useIntl } from 'react-intl';
 import ordersMessages from '../../messages/orders.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <Modal
       isOpen={isOpen}

@@ -9,11 +9,11 @@ import {
 } from '@patternfly/react-table';
 
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const NoItems = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <Text component={TextVariants.h1}>
       {formatMessage(filteringMessages.noItems)}

@@ -12,7 +12,6 @@ import {
   EmptyStateSecondaryActions,
   Button
 } from '@patternfly/react-core';
-import { useIntl } from 'react-intl';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
@@ -35,6 +34,7 @@ import statesMessages from '../../messages/states.messages';
 import filteringMessages from '../../messages/filtering.messages';
 import ordersMessages from '../../messages/orders.messages';
 import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -81,7 +81,7 @@ const ordersListState = (state, action) => {
 };
 
 const OrdersList = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const viewState = useInitialUriHash();
   const [
     { isFetching, isFiltering, filterType, filters },

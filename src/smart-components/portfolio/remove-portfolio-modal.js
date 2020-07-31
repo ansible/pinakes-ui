@@ -18,13 +18,13 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
 import actionMessages from '../../messages/actions.messages';
 import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const RemovePortfolioModal = ({ viewState }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const portfolio = useSelector(({ portfolioReducer }) =>

@@ -16,13 +16,13 @@ import SpinnerWrapper from '../../presentational-components/styled-components/sp
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
-import { useIntl } from 'react-intl';
 import actionMessages from '../../messages/actions.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(true);

@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { useIntl } from 'react-intl';
 import { useLocation } from 'react-router-dom';
 import {
   Bullseye,
@@ -13,13 +12,14 @@ import Exclamation from '@patternfly/react-icons/dist/js/icons/exclamation-icon'
 import CatalogLink from '../common/catalog-link';
 import styled from 'styled-components';
 import apiErrorsMessages from '../../messages/api-errors.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const SourceSpan = styled.span`
   white-space: nowrap;
 `;
 
 const CommonApiError = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const { state, pathname } = useLocation();
   const translations = useRef({
     titles: {

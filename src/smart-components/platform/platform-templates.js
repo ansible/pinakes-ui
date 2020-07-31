@@ -15,9 +15,9 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { PLATFORM_SERVICE_OFFERINGS_ROUTE } from '../../constants/routes';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
 import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const initialState = {
   filterValue: '',
@@ -50,7 +50,7 @@ const debouncedFilter = asyncFormValidator(
 );
 
 const PlatformTemplates = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [{ platform: id }] = useQuery(['platform']);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformItemsState,

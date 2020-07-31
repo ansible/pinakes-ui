@@ -20,9 +20,10 @@ import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
 import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
-import { useIntl, defineMessage } from 'react-intl';
+import { defineMessage } from 'react-intl';
 import actionMessages from '../../messages/actions.messages';
 import approvalMessages from '../../messages/approval.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const initialState = {
   isFetching: true
@@ -46,7 +47,7 @@ const EditApprovalWorkflow = ({
   objectName = () => objectType,
   onClose
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const { current: modalTitle } = useRef(
     formatMessage(
       defineMessage({

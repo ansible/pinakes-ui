@@ -6,10 +6,10 @@ import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs
 import FieldArray from '@data-driven-forms/react-form-renderer/dist/cjs/field-array';
 
 import asyncFormValidator from '../../utilities/async-form-validator';
-import { useIntl } from 'react-intl';
 import formsMessages from '../../messages/forms.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 import { StyledLevelItem } from '../../presentational-components/styled-components/level';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const initialState = {
   /**
@@ -47,7 +47,7 @@ export const NewGroupSelect = ({
     shareReducer,
     initialState
   );
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
 
   let tooltipContent;
   if (!group && !permission) {

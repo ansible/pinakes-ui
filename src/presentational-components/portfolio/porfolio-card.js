@@ -29,9 +29,9 @@ import {
   StyledGalleryItem
 } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
-import { useIntl } from 'react-intl';
 import actionMessages from '../../messages/actions.messages';
 import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const TO_DISPLAY = ['description'];
 
@@ -40,7 +40,7 @@ const HeaderActions = ({
   handleCopyPortfolio,
   userCapabilities: { share, copy, unshare, update, destroy, set_approval }
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
   if (share || unshare) {
@@ -171,7 +171,7 @@ const PortfolioCard = ({
   },
   ...props
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const to = {
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`

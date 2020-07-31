@@ -6,9 +6,9 @@ import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import { Button } from '@patternfly/react-core';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../messages/filtering.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const PortfolioEmptyState = ({
   url,
@@ -16,7 +16,7 @@ const PortfolioEmptyState = ({
   meta,
   userCapabilities: { update }
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={url}

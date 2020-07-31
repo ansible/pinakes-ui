@@ -20,9 +20,9 @@ import {
   PORTFOLIO_ITEM_ROUTE_EDIT
 } from '../../../constants/routes';
 import CatalogRoute from '../../../routing/catalog-route';
-import { useIntl } from 'react-intl';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -38,7 +38,7 @@ const requiredParams = [
 ];
 
 const PortfolioItemDetail = () => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const [isOpen, setOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();

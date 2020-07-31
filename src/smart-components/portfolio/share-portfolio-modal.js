@@ -26,10 +26,10 @@ import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
-import { useIntl } from 'react-intl';
 import portfolioMessages from '../../messages/portfolio.messages';
 import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes';
 import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -37,7 +37,7 @@ const SharePortfolioModal = ({
   viewState,
   portfolioName = () => ''
 }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const { push } = useEnhancedHistory({ removeSearch, keepHash: true });
   const [{ portfolio }, search] = useQuery(['portfolio']);

@@ -26,11 +26,11 @@ import {
   ORDER_LIFECYCLE_ROUTE
 } from '../../constants/routes';
 import { TableCell } from '../../presentational-components/styled-components/table';
-import { useIntl } from 'react-intl';
 import statesMessages, {
   getTranslatableState
 } from '../../messages/states.messages';
 import ordersMessages from '../../messages/orders.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const routeMapper = {
   'Approval Pending': ORDER_APPROVAL_ROUTE,
@@ -39,7 +39,7 @@ const routeMapper = {
 
 const OrderItem = memo(
   ({ item }) => {
-    const { formatMessage } = useIntl();
+    const formatMessage = useFormatMessage();
     const { orderPlatform, orderPortfolio, orderName } = useSelector(
       ({
         portfolioReducer: {

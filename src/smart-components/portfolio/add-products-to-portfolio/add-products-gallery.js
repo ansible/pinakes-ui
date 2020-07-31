@@ -4,12 +4,12 @@ import { SearchIcon, FilterIcon } from '@patternfly/react-icons';
 
 import ContentGallery from '../../content-gallery/content-gallery';
 import ContentGalleryEmptyState from '../../../presentational-components/shared/content-gallery-empty-state';
-import { useIntl } from 'react-intl';
 import filteringMessages from '../../../messages/filtering.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const EmptyState = ({ platform }) => {
-  const { formatMessage } = useIntl();
+  const formatMessage = useFormatMessage();
   return (
     <ContentGalleryEmptyState
       Icon={platform ? SearchIcon : FilterIcon}
