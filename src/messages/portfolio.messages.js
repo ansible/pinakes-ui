@@ -187,15 +187,23 @@ const portfolioMessages = defineMessages({
   },
   shareSuccessDescriptionOnlySharing: {
     id: 'share.notification.success.share.description',
-    defaultMessage: 'Portfolio <b>{name}</b> was shared with <b>{group}</b>.'
+    defaultMessage: 'Portfolio <b>{name}</b> was shared with {group}.'
   },
   shareSuccessDescriptionOnlyUnsharing: {
     id: 'share.notification.success.unshare.description',
-    defaultMessage: 'Portfolio <b>{name}</b> was unshared with <b>{group}</b>.'
+    defaultMessage: 'Portfolio <b>{name}</b> was unshared with {group}.'
   },
   shareSuccessDescriptionOnlyChaningPermissions: {
     id: 'share.notification.success.change-permission.description',
     defaultMessage: 'Share permissions for <b>{group}</b> were updated.'
+  },
+  shareSuccessTwoGroup: {
+    id: 'share.notification.success.two-groups',
+    defaultMessage: '{group1} and {group2}'
+  },
+  shareSuccessMultipleGroups: {
+    id: 'share.notification.success.multiple-groups',
+    defaultMessage: '{count} groups'
   },
   addSuccessTitle: {
     id: 'portfolio.add.success.title',

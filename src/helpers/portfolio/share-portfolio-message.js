@@ -3,6 +3,22 @@ import portfolioMessages from '../../messages/portfolio.messages';
 
 export const bold = (chunks) => <b>{chunks}</b>;
 
+const groupMessage = (groupNames, formatMessage) => {
+  switch (groupNames.length) {
+    case 1:
+      return groupNames[0];
+    case 2:
+      return formatMessage(portfolioMessages.shareSuccessTwoGroup, {
+        group1: groupNames[0],
+        group2: groupNames[1]
+      });
+    default:
+      return formatMessage(portfolioMessages.shareSuccessMultipleGroups, {
+        count: groupNames.length
+      });
+  }
+};
+
 const sharePorfolioMessage = ({
   shareData,
   initialGroups,
@@ -28,15 +44,13 @@ const sharePorfolioMessage = ({
   const unshared =
     removedGroups.filter(
       ({ group_uuid }) =>
-        initialGroups.find((group) => group.group_uuid === group_uuid) &&
-        group_uuid !== changedPermissions[0]?.group_uuid
-    ).length === 1;
+        !changedPermissions.find((group) => group.group_uuid === group_uuid)
+    ).length > 0;
   const shared =
     newGroups.filter(
       ({ group_uuid }) =>
-        !initialGroups.find((group) => group.group_uuid === group_uuid) &&
-        group_uuid !== changedPermissions[0]?.group_uuid
-    ).length === 1;
+        !initialGroups.find((group) => group.group_uuid === group_uuid)
+    ).length > 0;
 
   if (unshared && !shared && changedPermissions.length === 0) {
     title = formatMessage(portfolioMessages.shareSuccessTitleOnlyUnsharing);
@@ -44,7 +58,10 @@ const sharePorfolioMessage = ({
       portfolioMessages.shareSuccessDescriptionOnlyUnsharing,
       {
         name: portfolioName(),
-        group: removedGroups[0].groupName,
+        group: groupMessage(
+          removedGroups.map(({ groupName }) => groupName),
+          formatMessage
+        ),
         b: bold
       }
     );
@@ -56,20 +73,26 @@ const sharePorfolioMessage = ({
       portfolioMessages.shareSuccessDescriptionOnlySharing,
       {
         name: portfolioName(),
-        group: newGroups[0].groupName,
+        group: groupMessage(
+          newGroups.map(({ groupName }) => groupName),
+          formatMessage
+        ),
         b: bold
       }
     );
   }
 
-  if (!unshared && !shared && changedPermissions.length === 1) {
+  if (!unshared && !shared && changedPermissions.length > 0) {
     title = formatMessage(
       portfolioMessages.shareSuccessTitleOnlyChaningPermissions
     );
     description = formatMessage(
       portfolioMessages.shareSuccessDescriptionOnlyChaningPermissions,
       {
-        group: changedPermissions[0].groupName,
+        group: groupMessage(
+          changedPermissions.map(({ groupName }) => groupName),
+          formatMessage
+        ),
         b: bold
       }
     );
