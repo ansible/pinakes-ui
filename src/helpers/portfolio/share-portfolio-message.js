@@ -1,6 +1,8 @@
 import React from 'react';
 import portfolioMessages from '../../messages/portfolio.messages';
 
+export const bold = (chunks) => <b>{chunks}</b>;
+
 const sharePorfolioMessage = ({
   shareData,
   initialGroups,
@@ -43,8 +45,7 @@ const sharePorfolioMessage = ({
       {
         name: portfolioName(),
         group: removedGroups[0].groupName,
-        // eslint-disable-next-line react/display-name
-        b: (chunks) => <b>{chunks}</b>
+        b: bold
       }
     );
   }
@@ -56,8 +57,7 @@ const sharePorfolioMessage = ({
       {
         name: portfolioName(),
         group: newGroups[0].groupName,
-        // eslint-disable-next-line react/display-name
-        b: (chunks) => <b>{chunks}</b>
+        b: bold
       }
     );
   }
@@ -70,8 +70,7 @@ const sharePorfolioMessage = ({
       portfolioMessages.shareSuccessDescriptionOnlyChaningPermissions,
       {
         group: changedPermissions[0].groupName,
-        // eslint-disable-next-line react/display-name
-        b: (chunks) => <b>{chunks}</b>
+        b: bold
       }
     );
   }
