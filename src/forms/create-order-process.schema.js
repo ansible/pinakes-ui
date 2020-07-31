@@ -2,8 +2,8 @@ import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/comp
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
 
 import formsMessages from '../messages/forms.messages';
-import labelMessages from "../messages/labels.messages";
-import debouncedValidatorName from "./name-async-validator";
+import labelMessages from '../messages/labels.messages';
+import debouncedValidatorName from './name-async-validator';
 
 /**
  * Creates a data-driven-form schema for adding/editing portfolio
@@ -26,7 +26,7 @@ const createOrderProcessSchema = (intl, id) => {
             type: validatorTypes.REQUIRED,
             message: intl.formatMessage(formsMessages.enterOrderProcessName)
           }
-        ],
+        ]
       },
       {
         component: componentTypes.TEXTAREA,

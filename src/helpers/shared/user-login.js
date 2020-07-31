@@ -84,9 +84,9 @@ const servicePlansApi = new ServicePlansApi(
 );
 
 const orderProcessApi = new OrderProcessApi(
-    undefined,
-    CATALOG_API_BASE,
-    axiosInstance
+  undefined,
+  CATALOG_API_BASE,
+  axiosInstance
 );
 
 export function getPortfolioApi() {

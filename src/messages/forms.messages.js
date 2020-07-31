@@ -49,7 +49,6 @@ const formsMessages = defineMessages({
     id: 'formMessages.required',
     defaultMessage: 'Required'
   }
-
 });
 
 export default formsMessages;

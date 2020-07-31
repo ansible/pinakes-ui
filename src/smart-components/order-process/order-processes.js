@@ -29,7 +29,7 @@ import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
 import { ADD_ORDER_PROCESS_ROUTE } from '../../constants/routes';
 import AddOrderProcess from './add-order-process-modal';
-import formsMessages from "../../messages/forms.messages";
+import formsMessages from '../../messages/forms.messages';
 
 const columns = (intl) => [
   {
