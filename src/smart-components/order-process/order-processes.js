@@ -26,9 +26,15 @@ import orderProcessesMessages from '../../messages/order-processes.messages';
 import filteringMessages from '../../messages/filtering.messages';
 import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
-import { ADD_ORDER_PROCESS_ROUTE } from '../../constants/routes';
+import {
+  ADD_ORDER_PROCESS_ROUTE,
+  REMOVE_ORDER_PROCESS_ROUTE
+} from '../../constants/routes';
 import AddOrderProcess from './add-order-process-modal';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
+import RemoveOrderProcess from './remove-order-process-modal';
+import formsMessages from '../../messages/forms.messages';
+import actionMessages from '../../messages/actions.messages';
 
 const columns = (intl) => [
   {
@@ -141,14 +147,40 @@ const OrderProcesses = () => {
   };
 
   const routes = () => (
-    <Route
-      exact
-      path={ADD_ORDER_PROCESS_ROUTE}
-      render={(props) => (
-        <AddOrderProcess {...props} postMethod={updateOrderProcesses} />
-      )}
-    />
+    <Fragment>
+      <Route
+        exact
+        path={ADD_ORDER_PROCESS_ROUTE}
+        render={(props) => (
+          <AddOrderProcess {...props} postMethod={updateOrderProcesses} />
+        )}
+      />
+      <Route
+        exact
+        path={REMOVE_ORDER_PROCESS_ROUTE}
+        render={(props) => (
+          <RemoveOrderProcess
+            {...props}
+            ids={selectedOrderProcesses}
+            fetchData={updateOrderProcesses}
+            setSelectedOrderProcesses={setSelectedOrderProcesses}
+          />
+        )}
+      />
+    </Fragment>
   );
+
+  const actionResolver = () => [
+    {
+      title: intl.formatMessage(actionMessages.delete),
+      component: 'button',
+      onClick: (_event, _rowId, orderProcess) =>
+        history.push({
+          pathname: REMOVE_ORDER_PROCESS_ROUTE,
+          search: `?order-processes=${orderProcess.id}`
+        })
+    }
+  ];
 
   const onSort = (_e, index, direction, { property }) => {
     dispatch(sortOrderProcesses({ index, direction, property }));
@@ -161,7 +193,7 @@ const OrderProcesses = () => {
   const setCheckedItems = (checkedOrderProcesses) =>
     setSelectedOrderProcesses(checkedOrderProcesses.map((wf) => wf.id));
 
-  const anyWorkflowsSelected = selectedOrderProcesses.length > 0;
+  const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
 
   const toolbarButtons = () => (
     <StyledToolbarGroup className="pf-u-pl-lg top-toolbar">
@@ -175,6 +207,23 @@ const OrderProcesses = () => {
             aria-label={intl.formatMessage(labelMessages.create)}
           >
             {intl.formatMessage(labelMessages.create)}
+          </Button>
+        </Link>
+      </ToolbarItem>
+      <ToolbarItem>
+        <Link
+          id="remove-multiple-order-processes'"
+          className={anyOrderProcessSelected ? '' : 'disabled-link'}
+          to={{ pathname: REMOVE_ORDER_PROCESS_ROUTE }}
+        >
+          <Button
+            variant="secondary"
+            isDisabled={!anyOrderProcessSelected}
+            aria-label={intl.formatMessage(
+              formsMessages.removeOrderProcessTitle
+            )}
+          >
+            {intl.formatMessage(actionMessages.delete)}
           </Button>
         </Link>
       </ToolbarItem>
@@ -207,6 +256,7 @@ const OrderProcesses = () => {
         toolbarButtons={toolbarButtons}
         isSelectable
         setCheckedItems={setCheckedItems}
+        actionResolver={actionResolver}
         renderEmptyState={() => (
           <TableEmptyState
             title={

@@ -21,6 +21,10 @@ const actionMessages = defineMessages({
     id: 'common.actions.delete',
     defaultMessage: 'Delete'
   },
+  deleting: {
+    id: 'common.actions.deleting',
+    defaultMessage: 'Deleting'
+  },
   save: {
     id: 'common.actions.save',
     defaultMessage: 'Save'

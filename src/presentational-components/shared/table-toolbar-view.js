@@ -171,7 +171,8 @@ TableToolbarView.propTypes = {
   sortBy: propTypes.object,
   onSort: propTypes.func,
   activeFiltersConfig: propTypes.object,
-  filterConfig: propTypes.array
+  filterConfig: propTypes.array,
+  setCheckedItems: propTypes.func
 };
 
 TableToolbarView.defaultProps = {
