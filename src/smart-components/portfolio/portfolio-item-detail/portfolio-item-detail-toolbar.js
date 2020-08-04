@@ -157,8 +157,6 @@ SurveyEditorDropdown.propTypes = {
 };
 
 export const SurveyEditingToolbar = ({
-  uploadIcon,
-  product,
   handleSaveSurvey,
   closeUrl,
   search,
@@ -172,16 +170,9 @@ export const SurveyEditingToolbar = ({
     <TopToolbar breadcrumbsSpacing={false} breadcrumbs>
       <Level>
         <StyledLevelItem grow alignStart className="pf-l-flex">
-          <PortfolioItemIconItem
-            uploadIcon={uploadIcon}
-            id={product.id}
-            sourceId={product.service_offering_source_ref}
-          />
-          <TextContent className="pf-u-ml-md">
+          <TextContent>
             <Text component={TextVariants.h1}>
-              {formatMessage(portfolioMessages.surveyTitle, {
-                name: product.name
-              })}
+              {formatMessage(portfolioMessages.portfolioItemSurvey)}
             </Text>
           </TextContent>
         </StyledLevelItem>
@@ -214,8 +205,6 @@ export const SurveyEditingToolbar = ({
 };
 
 SurveyEditingToolbar.propTypes = {
-  uploadIcon: PropTypes.func.isRequired,
-  product: PropTypes.object,
   handleSaveSurvey: PropTypes.func.isRequired,
   closeUrl: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,

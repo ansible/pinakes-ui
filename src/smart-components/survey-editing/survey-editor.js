@@ -156,7 +156,7 @@ const appendValidator = (schema) => {
 
 const BuilderWrapper = (props) => <FormBuilder {...props} />;
 
-const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
+const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const [schema, setSchema] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [baseSchema, setBaseSchema] = useState();
@@ -279,8 +279,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
               <Fragment>
                 <SurveyEditingToolbar
                   key="survey-editor-toolbar"
-                  uploadIcon={uploadIcon}
-                  product={portfolioItem}
                   handleSaveSurvey={() => handleSaveSurvey(getSchema())}
                   isValid={isValid}
                   closeUrl={closeUrl}
@@ -297,8 +295,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
       ) : (
         <Fragment>
           <SurveyEditingToolbar
-            uploadIcon={uploadIcon}
-            product={portfolioItem}
             handleSaveSurvey={handleSaveSurvey}
             closeUrl={closeUrl}
             search={search}
@@ -316,7 +312,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem, uploadIcon }) => {
 SurveyEditor.propTypes = {
   closeUrl: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
-  uploadIcon: PropTypes.func.isRequired,
   portfolioItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
