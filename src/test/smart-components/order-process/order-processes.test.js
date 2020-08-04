@@ -77,7 +77,9 @@ describe('<OrderProcesses />', () => {
     const store = mockStore(initialState);
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_processes`)
+      .onGet(
+        `${CATALOG_API_BASE}/order_processes?filter[name][contains_i]=&limit=50&offset=0`
+      )
       .replyOnce(200, { data: [{ name: 'Foo', id: '11' }] });
     const expectedActions = [
       {
