@@ -47,6 +47,9 @@ const EditPortfolioItem = ({
             );
           }}
           schema={editPortfolioItemSchema}
+          templateProps={{
+            disableSubmit: ['pristine']
+          }}
           onCancel={() =>
             push({
               pathname: cancelUrl,
