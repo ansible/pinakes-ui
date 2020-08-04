@@ -12,6 +12,8 @@ import { setOrderProcess } from '../../redux/actions/order-process-actions';
 import { APP_NAME } from '../../utilities/constants';
 import useQuery from '../../utilities/use-query';
 import TaggingModal from '../common/tagging-modal';
+import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 
 const SetOrderProcessModal = ({ pushParam, objectType, querySelector }) => {
   const dispatch = useDispatch();
@@ -32,6 +34,23 @@ const SetOrderProcessModal = ({ pushParam, objectType, querySelector }) => {
         app_name: APP_NAME[objectType],
         object_id: query[querySelector]
       })
+    ).then(() =>
+      dispatch(
+        addNotification({
+          dismissable: true,
+          variant: 'success',
+          title: formatMessage(
+            orderProcessesMessages.setOrderProcessNotificationTitle
+          ),
+          description: formatMessage(
+            orderProcessesMessages.setOrderProcessNotificationDescription,
+            {
+              linked: toLink.length,
+              unlinked: toUnlink.length
+            }
+          )
+        })
+      )
     );
   };
 
@@ -50,8 +69,7 @@ const SetOrderProcessModal = ({ pushParam, objectType, querySelector }) => {
         orderProcessesMessages.currentOrderProcesses
       )}
       subTitle={formatMessage(orderProcessesMessages.setOrderProcessSubtitle, {
-        // eslint-disable-next-line react/display-name
-        strong: (chunks) => <strong>{chunks}</strong>,
+        strong: Bold,
         objectType
       })}
     />

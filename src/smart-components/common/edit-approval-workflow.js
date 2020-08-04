@@ -13,6 +13,7 @@ import { defineMessage } from 'react-intl';
 import approvalMessages from '../../messages/approval.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import TaggingModal from './tagging-modal';
+import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
 
 const EditApprovalWorkflow = ({
   objectType,
@@ -66,8 +67,7 @@ const EditApprovalWorkflow = ({
       }
       loadTags={loadWorkflowOptions}
       subTitle={formatMessage(approvalMessages.setWorkflow, {
-        // eslint-disable-next-line react/display-name
-        strong: (chunks) => <strong>{chunks}</strong>,
+        strong: Bold,
         objectName: objectName(query[querySelector])
       })}
       existingTagsMessage={formatMessage(approvalMessages.currentWorkflows)}

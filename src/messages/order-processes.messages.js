@@ -44,6 +44,16 @@ const orderProcessesMessages = defineMessages({
   currentOrderProcesses: {
     id: 'order-process.set-order-process.current',
     defaultMessage: 'Current order processes'
+  },
+  setOrderProcessNotificationTitle: {
+    id: 'order-process.notification.title',
+    defaultMessage: 'Success updating order process'
+  },
+  setOrderProcessNotificationDescription: {
+    id: 'order-process.notification.description',
+    defaultMessage:
+      // eslint-disable-next-line max-len
+      '{linked, plural, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {order process was} other {order processes were}} unlinked.}}'
   }
 });
 

@@ -1,7 +1,5 @@
-import React from 'react';
 import portfolioMessages from '../../messages/portfolio.messages';
-
-export const bold = (chunks) => <b>{chunks}</b>;
+import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
 
 const groupMessage = (groupNames, formatMessage) => {
   switch (groupNames.length) {
@@ -62,7 +60,7 @@ const sharePorfolioMessage = ({
           removedGroups.map(({ groupName }) => groupName),
           formatMessage
         ),
-        b: bold
+        b: Bold
       }
     );
   }
@@ -77,7 +75,7 @@ const sharePorfolioMessage = ({
           newGroups.map(({ groupName }) => groupName),
           formatMessage
         ),
-        b: bold
+        b: Bold
       }
     );
   }
@@ -93,7 +91,7 @@ const sharePorfolioMessage = ({
           changedPermissions.map(({ groupName }) => groupName),
           formatMessage
         ),
-        b: bold
+        b: Bold
       }
     );
   }

@@ -88,12 +88,6 @@ const orderProcessApi = new OrderProcessApi(
   axiosInstance
 );
 
-const orderProcessApi = new OrderProcessApi(
-  undefined,
-  CATALOG_API_BASE,
-  axiosInstance
-);
-
 export function getPortfolioApi() {
   return portfolioApi;
 }

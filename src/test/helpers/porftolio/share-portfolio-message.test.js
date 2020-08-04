@@ -1,7 +1,6 @@
 import React from 'react';
-import sharePorfolioMessage, {
-  bold
-} from '../../../helpers/portfolio/share-portfolio-message';
+import sharePorfolioMessage from '../../../helpers/portfolio/share-portfolio-message';
+import { Bold } from '../../../presentational-components/shared/intl-rich-text-components';
 
 describe('#sharePorfolioMessage', () => {
   let shareData;
@@ -343,6 +342,7 @@ describe('#sharePorfolioMessage', () => {
   });
 
   it('renders bold', () => {
-    expect(bold('Some text')).toEqual(<b>Some text</b>);
+    const b = Bold;
+    expect(b('Some text')).toEqual(<b>Some text</b>);
   });
 });
