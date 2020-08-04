@@ -1,8 +1,10 @@
 export const ADD_PORTFOLIO_ROUTE = '/portfolios/add-portfolio';
 export const ADD_PRODUCTS_ROUTE = '/portfolio/add-products';
+export const EDIT_ORDER_PROCESS_ROUTE = '/portfolios/edit-order-process';
 export const EDIT_PORTFOLIO_ROUTE = '/portfolios/edit';
 export const EDIT_PORTFOLIO_WORKFLOW_ROUTE = '/portfolios/edit-workflow';
 export const EDIT_SURVEY_ROUTE = '/portfolio/portfolio-item/edit-survey';
+export const NESTED_EDIT_ORDER_PROCESS_ROUTE = '/portfolio/edit-order-process';
 export const NESTED_EDIT_PORTFOLIO_ROUTE = '/portfolio/edit-portfolio';
 export const NESTED_ORDER_PORTFOLIO_ROUTE = '/portfolio/order';
 export const NESTED_REMOVE_PORTFOLIO_ROUTE = '/portfolio/remove-portfolio';

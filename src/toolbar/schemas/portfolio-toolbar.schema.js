@@ -12,6 +12,9 @@ import { createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
 import CatalogLink from '../../smart-components/common/catalog-link';
 import BackToProducts from '../../presentational-components/portfolio/back-to-products';
+import useFormatMessage from '../../utilities/use-format-message';
+import orderProcessesMessages from '../../messages/order-processes.messages';
+import { NESTED_EDIT_ORDER_PROCESS_ROUTE } from '../../constants/routes';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -25,6 +28,7 @@ const PortfolioActionsToolbar = ({
   userCapabilities: { copy, destroy, update, set_approval }
 }) => {
   const [isOpen, setOpen] = useState(false);
+  const formatMessage = useFormatMessage();
   const dropdownItems = [];
 
   if (update) {
@@ -70,6 +74,28 @@ const PortfolioActionsToolbar = ({
         component={
           <CatalogLink preserveSearch pathname={workflowPortfolioRoute}>
             Set approval
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
+  if (window.insights.chrome.isBeta() && update) {
+    const orderProcessAction = formatMessage(
+      orderProcessesMessages.setOrderProcess
+    );
+    dropdownItems.push(
+      <DropdownItem
+        aria-label={orderProcessAction}
+        key="attach-order-processes"
+        id="attach-order-processes"
+        component={
+          <CatalogLink
+            preserveSearch
+            pathname={NESTED_EDIT_ORDER_PROCESS_ROUTE}
+          >
+            {orderProcessAction}
           </CatalogLink>
         }
         role="link"

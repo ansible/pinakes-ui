@@ -12,7 +12,9 @@ import {
   NESTED_SHARE_PORTFOLIO_ROUTE,
   WORKFLOW_PORTFOLIO_ROUTE,
   NESTED_WORKFLOW_PORTFOLIO_ROUTE,
-  PORTFOLIO_ITEM_ROUTE
+  PORTFOLIO_ITEM_ROUTE,
+  NESTED_EDIT_ORDER_PROCESS_ROUTE,
+  EDIT_ORDER_PROCESS_ROUTE
 } from '../../constants/routes';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import CatalogRoute from '../../routing/catalog-route';
@@ -23,6 +25,7 @@ import {
   setOrFetchPortfolio,
   resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
+import SetOrderProcessModal from '../order-process/set-order-process-modal';
 
 const CopyPortfolioItemModal = lazy(() =>
   import(
@@ -160,6 +163,12 @@ const PortfolioRoutes = () => {
         </Route>
         <Route exact path={`${PORTFOLIO_ITEM_ROUTE}/order`}>
           <OrderModal closeUrl={PORTFOLIO_ITEM_ROUTE} />
+        </Route>
+        <Route
+          exact
+          path={[EDIT_ORDER_PROCESS_ROUTE, NESTED_EDIT_ORDER_PROCESS_ROUTE]}
+        >
+          <SetOrderProcessModal />
         </Route>
 
         <CatalogRoute
