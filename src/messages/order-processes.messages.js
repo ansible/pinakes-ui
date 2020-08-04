@@ -35,7 +35,11 @@ const orderProcessesMessages = defineMessages({
   },
   setOrderProcess: {
     id: 'order-process.actions.set',
-    defaultMessage: 'Set order processs'
+    defaultMessage: 'Set order processes'
+  },
+  setOrderProcessSubtitle: {
+    id: 'order-process.tags.set',
+    defaultMessage: 'Set order processes for <strong>{objectType}</strong>'
   },
   currentOrderProcesses: {
     id: 'order-process.set-order-process.current',

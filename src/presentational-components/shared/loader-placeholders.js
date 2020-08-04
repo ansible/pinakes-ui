@@ -193,7 +193,7 @@ export const WorkflowLoader = () => {
   const formatMessage = useFormatMessage();
   return (
     <Form>
-      <FormGroup fieldId="2" label="Select workflow">
+      <FormGroup fieldId="2" label="">
         <FormItemLoader />
       </FormGroup>
       <ActionGroup>

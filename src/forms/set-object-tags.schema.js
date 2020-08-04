@@ -1,9 +1,8 @@
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import asyncFormValidator from '../utilities/async-form-validator';
-import orderProcessesMessages from '../messages/order-processes.messages';
 
 const resolveNewProcessProps = (props, _fieldApi, formOptions) => {
-  const initialProcessess = formOptions.getState().values['initial-processes'];
+  const initialProcessess = formOptions.getState().values['initial-tags'];
   return {
     key: initialProcessess.length, // used to trigger options re-load and disable options update
     loadOptions: (...args) =>
@@ -18,13 +17,13 @@ const resolveNewProcessProps = (props, _fieldApi, formOptions) => {
   };
 };
 
-const createSchema = (formatMessage, loadProcesses) => ({
+const createSchema = (existingTagsMessage, loadTags) => ({
   fields: [
     {
       component: componentTypes.SELECT,
-      name: 'new-processes',
+      name: 'new-tags',
       label: '',
-      loadOptions: asyncFormValidator(loadProcesses),
+      loadOptions: asyncFormValidator(loadTags),
       multi: true,
       isSearchable: true,
       isClearable: true,
@@ -32,8 +31,8 @@ const createSchema = (formatMessage, loadProcesses) => ({
     },
     {
       component: 'initial-chips',
-      name: 'initial-processes',
-      label: formatMessage(orderProcessesMessages.currentOrderProcesses)
+      name: 'initial-tags',
+      label: existingTagsMessage
     }
   ]
 });

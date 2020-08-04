@@ -35,7 +35,7 @@ const ItemDetailDescription = ({
       <Route path={PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE}>
         <SetOrderProcessModal
           querySelector="portfolio-item"
-          objectType="PortfolioItem"
+          objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
           pushParam={{ pathname: url, search }}
         />
       </Route>

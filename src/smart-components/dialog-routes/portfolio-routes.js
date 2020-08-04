@@ -171,7 +171,7 @@ const PortfolioRoutes = () => {
         >
           <SetOrderProcessModal
             querySelector="portfolio"
-            objectType="Portfolio"
+            objectType={PORTFOLIO_RESOURCE_TYPE}
             pushParam={{
               pathname:
                 pathname === EDIT_ORDER_PROCESS_ROUTE

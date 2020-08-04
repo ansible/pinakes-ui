@@ -15,6 +15,10 @@ const approvalMessages = defineMessages({
     id: 'approval.workflows.set',
     defaultMessage:
       'Select approval processes for <strong>{objectName}</strong>'
+  },
+  currentWorkflows: {
+    id: 'approval.workflows.current',
+    defaultMessage: 'Current approval processes'
   }
 });
 

@@ -12,7 +12,7 @@ export const fetchWorkflows = () => ({
   ])
 });
 
-export const updateWorkflows = (toUnlinkIds, toLinkIds, resourceObject) => (
+export const updateWorkflows = (toLinkIds, toUnlinkIds, resourceObject) => (
   dispatch,
   getState
 ) => {
