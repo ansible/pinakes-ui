@@ -6,10 +6,9 @@ import labelMessages from '../messages/labels.messages';
 import debouncedValidatorName from './name-async-validator';
 
 /**
- * Creates a data-driven-form schema for adding/editing portfolio
- * @param {bool} newRecord sets the variant of portfolio form
+ * Creates a data-driven-form schema for adding an order processes
  * @param openApiSchema
- * @param portfolioId
+ * @param name
  */
 const createOrderProcessSchema = (intl, id) => {
   return {

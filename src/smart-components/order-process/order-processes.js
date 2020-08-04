@@ -136,15 +136,13 @@ const OrderProcesses = () => {
   };
 
   const routes = () => (
-    <Fragment>
-      <Route
-        exact
-        path={ADD_ORDER_PROCESS_ROUTE}
-        render={(props) => (
-          <AddOrderProcess {...props} postMethod={updateOrderProcesses} />
-        )}
-      />
-    </Fragment>
+    <Route
+      exact
+      path={ADD_ORDER_PROCESS_ROUTE}
+      render={(props) => (
+        <AddOrderProcess {...props} postMethod={updateOrderProcesses} />
+      )}
+    />
   );
 
   const onSort = (_e, index, direction, { property }) => {

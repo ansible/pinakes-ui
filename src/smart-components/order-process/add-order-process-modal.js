@@ -20,7 +20,7 @@ const AddOrderProcess = () => {
   const onSave = (values) => {
     push(ORDER_PROCESSES_ROUTE);
 
-    return dispatch(addOrderProcess(values)).then(() =>
+    return dispatch(addOrderProcess(values, intl)).then(() =>
       dispatch(fetchOrderProcesses())
     );
   };

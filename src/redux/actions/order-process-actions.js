@@ -1,5 +1,6 @@
 import * as ActionTypes from '../action-types';
 import * as OrderProcessHelper from '../../helpers/order-process/order-process-helper';
+import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
   const {
@@ -25,15 +26,19 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
   });
 };
 
-export const addOrderProcess = (processData) => ({
+export const addOrderProcess = (processData, intl) => ({
   type: ActionTypes.ADD_ORDER_PROCESS,
   payload: OrderProcessHelper.addOrderProcess(processData),
   meta: {
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: 'Success adding order process',
-        description: 'The order process was added successfully.'
+        title: intl.formatMessage(
+          orderProcessesMessages.addProcessSuccessTitle
+        ),
+        description: intl.formatMessage(
+          orderProcessesMessages.addProcessSuccessDescription
+        )
       }
     }
   }
