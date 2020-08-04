@@ -147,7 +147,8 @@ const EditApprovalWorkflow = ({
               schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
               formContainer="modal"
               templateProps={{
-                submitLabel: formatMessage(actionMessages.save)
+                submitLabel: formatMessage(actionMessages.save),
+                disableSubmit: ['pristine']
               }}
             />
           </StackItem>

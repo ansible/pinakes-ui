@@ -24,7 +24,6 @@ import useFormatMessage from '../../utilities/use-format-message';
 const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
-  const [submitting, setSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
@@ -34,7 +33,6 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   );
 
   const onAddPortfolio = async (data) => {
-    setSubmitting(true);
     const notification = {
       variant: 'success',
       title: formatMessage(portfolioMessages.addSuccessTitle),
@@ -45,7 +43,6 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
       })
     };
     const newPortfolio = await dispatch(addPortfolio(data, notification));
-    setSubmitting(false);
     return newPortfolio && newPortfolio.value && newPortfolio.value.id
       ? push({
           pathname: PORTFOLIO_ROUTE,
@@ -105,9 +102,9 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
           templateProps={{
             submitLabel: portfolioId
               ? formatMessage(actionMessages.save)
-              : formatMessage(labelMessages.create)
+              : formatMessage(labelMessages.create),
+            disableSubmit: ['pristine', 'submitting']
           }}
-          disableSubmit={submitting ? ['pristine', 'diry'] : []}
         />
       ) : (
         <SpinnerWrapper className="pf-u-m-md">
