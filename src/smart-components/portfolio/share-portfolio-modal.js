@@ -30,6 +30,7 @@ import portfolioMessages from '../../messages/portfolio.messages';
 import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes';
 import filteringMessages from '../../messages/filtering.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import sharePorfolioMessage from '../../helpers/portfolio/share-portfolio-message';
 
 const SharePortfolioModal = ({
   closeUrl,
@@ -137,13 +138,23 @@ const SharePortfolioModal = ({
 
     onCancel();
 
+    const { title, description } = sharePorfolioMessage({
+      shareData,
+      initialGroups,
+      removedGroups,
+      newGroups,
+      formatMessage,
+      portfolioName
+    });
+
     return Promise.all(sharePromises).then(() => {
       dispatch({
         type: ADD_NOTIFICATION,
         payload: {
           dismissable: true,
           variant: 'success',
-          title: formatMessage(portfolioMessages.shareSuccessTitle)
+          title,
+          description
         }
       });
       return dispatch(fetchPortfolios(viewState));
