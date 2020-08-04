@@ -103,7 +103,11 @@ const HeaderActions = ({
         key="attach-order-processes"
         id="attach-order-processes"
         component={
-          <CatalogLink preserveSearch pathname={EDIT_ORDER_PROCESS_ROUTE}>
+          <CatalogLink
+            preserveSearch
+            pathname={EDIT_ORDER_PROCESS_ROUTE}
+            searchParams={{ portfolio: portfolioId }}
+          >
             {orderProcessAction}
           </CatalogLink>
         }

@@ -21,10 +21,6 @@ const orderProcessesMessages = defineMessages({
     id: 'order-process.toolbar.order-process',
     defaultMessage: 'No order processes'
   },
-  orderProcesses: {
-    id: 'order-process.toolbar.order-processes',
-    defaultMessage: 'Order processes'
-  },
   orderProcess: {
     id: 'order-process.toolbar.order-process',
     defaultMessage: 'Order process'
@@ -40,6 +36,10 @@ const orderProcessesMessages = defineMessages({
   setOrderProcess: {
     id: 'order-process.actions.set',
     defaultMessage: 'Set order processs'
+  },
+  currentOrderProcesses: {
+    id: 'order-process.set-order-process.current',
+    defaultMessage: 'Current order processes'
   }
 });
 

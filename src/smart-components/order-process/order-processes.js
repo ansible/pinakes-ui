@@ -187,7 +187,7 @@ const OrderProcesses = () => {
         routes={routes}
         columns={columns(intl)}
         fetchData={updateOrderProcesses}
-        titlePlural={intl.formatMessage(orderProcessesMessages.orderProcesses)}
+        titlePlural={intl.formatMessage(orderProcessesMessages.title)}
         titleSingular={intl.formatMessage(orderProcessesMessages.orderProcess)}
         pagination={meta}
         filterValue={filterValue}

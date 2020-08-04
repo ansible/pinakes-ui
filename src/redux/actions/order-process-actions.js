@@ -53,3 +53,8 @@ export const setFilterValueOrderProcesses = (filterValue) => ({
   type: ActionTypes.SET_FILTER_ORDER_PROCESSES,
   payload: filterValue
 });
+
+export const setOrderProcess = (...args) => ({
+  type: ActionTypes.SET_ORDER_PROCESS,
+  payload: OrderProcessHelper.setOrderProcesses(...args)
+});

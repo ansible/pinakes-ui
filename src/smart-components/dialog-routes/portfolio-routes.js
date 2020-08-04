@@ -170,12 +170,17 @@ const PortfolioRoutes = () => {
           path={[EDIT_ORDER_PROCESS_ROUTE, NESTED_EDIT_ORDER_PROCESS_ROUTE]}
         >
           <SetOrderProcessModal
+            querySelector="portfolio"
+            objectType="Portfolio"
             pushParam={{
               pathname:
                 pathname === EDIT_ORDER_PROCESS_ROUTE
                   ? PORTFOLIOS_ROUTE
                   : PORTFOLIO_ROUTE,
-              search
+              search:
+                pathname === NESTED_EDIT_ORDER_PROCESS_ROUTE
+                  ? search
+                  : undefined
             }}
           />
         </Route>
