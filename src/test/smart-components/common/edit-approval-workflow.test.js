@@ -111,13 +111,13 @@ describe('<EditApprovalWorkflow />', () => {
           multi: true,
           isSearchable: true,
           isClearable: true,
-          name: 'new-workflows',
+          name: 'new-tags',
           resolveProps: expect.any(Function)
         },
         {
           component: 'initial-chips',
           label: 'Current approval processes',
-          name: 'initial-workflows'
+          name: 'initial-tags'
         }
       ]
     };
