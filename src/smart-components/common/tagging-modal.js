@@ -60,7 +60,7 @@ const TaggingModal = ({
         <Stack hasGutter>
           <StackItem>
             <TextContent>
-              <Text>{subTitle}</Text>
+              <Text id="sub-title">{subTitle}</Text>
             </TextContent>
           </StackItem>
           <StackItem>
