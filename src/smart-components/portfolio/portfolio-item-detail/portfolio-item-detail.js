@@ -17,7 +17,8 @@ import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-he
 import useQuery from '../../../utilities/use-query';
 import {
   PORTFOLIO_ITEM_ROUTE,
-  PORTFOLIO_ITEM_ROUTE_EDIT
+  PORTFOLIO_ITEM_ROUTE_EDIT,
+  PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE
 } from '../../../constants/routes';
 import CatalogRoute from '../../../routing/catalog-route';
 import portfolioMessages from '../../../messages/portfolio.messages';
@@ -101,7 +102,8 @@ const PortfolioItemDetail = () => {
     PORTFOLIO_ITEM_ROUTE,
     `${url}/order`,
     `${url}/copy`,
-    `${url}/edit-workflow`
+    `${url}/edit-workflow`,
+    PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE
   ];
   return (
     <Fragment>

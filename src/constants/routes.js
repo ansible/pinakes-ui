@@ -22,6 +22,8 @@ export const PLATFORMS_ROUTE = '/platforms';
 export const PORTFOLIO_ROUTE = '/portfolio';
 export const PORTFOLIO_ITEM_ROUTE = '/portfolio/portfolio-item';
 export const PORTFOLIO_ITEM_ROUTE_EDIT = '/portfolio/portfolio-item/edit';
+export const PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE =
+  '/portfolio/portfolio-item/edit-order-process';
 export const PORTFOLIOS_ROUTE = '/portfolios';
 export const REMOVE_PORTFOLIO_ROUTE = '/portfolios/remove';
 export const SHARE_PORTFOLIO_ROUTE = '/portfolios/share';
