@@ -1,5 +1,5 @@
 import React, { lazy, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import {
   ADD_PORTFOLIO_ROUTE,
   EDIT_PORTFOLIO_ROUTE,
@@ -62,6 +62,7 @@ const AddPortfolioModal = lazy(() =>
 
 const PortfolioRoutes = () => {
   const viewState = useInitialUriHash();
+  const { pathname } = useLocation();
 
   const portfolioItemId = useSelector(
     (state) => state?.portfolioReducer?.portfolioItem?.portfolioItem?.id
@@ -168,7 +169,15 @@ const PortfolioRoutes = () => {
           exact
           path={[EDIT_ORDER_PROCESS_ROUTE, NESTED_EDIT_ORDER_PROCESS_ROUTE]}
         >
-          <SetOrderProcessModal />
+          <SetOrderProcessModal
+            pushParam={{
+              pathname:
+                pathname === EDIT_ORDER_PROCESS_ROUTE
+                  ? PORTFOLIOS_ROUTE
+                  : PORTFOLIO_ROUTE,
+              search
+            }}
+          />
         </Route>
 
         <CatalogRoute
