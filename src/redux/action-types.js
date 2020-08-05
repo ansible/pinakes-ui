@@ -94,6 +94,7 @@ export const INITIALIZE_I18N = '@@i18l/INITIALIZE_I18N';
  * Order processes actions
  */
 export const FETCH_ORDER_PROCESSES = '@@order_processes/FETCH_ORDER_PROCESSES';
+export const ADD_ORDER_PROCESS = '@@order_processes/ADD_ORDER_PROCESS';
 export const SORT_ORDER_PROCESSES = '@@order_processes/SORT_ORDER_PROCESSES';
 export const SET_FILTER_ORDER_PROCESSES =
   '@@order_processes/SET_FILTER_ORDER_PROCESSES';

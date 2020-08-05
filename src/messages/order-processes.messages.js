@@ -28,6 +28,14 @@ const orderProcessesMessages = defineMessages({
   orderProcess: {
     id: 'order-process.toolbar.order-process',
     defaultMessage: 'Order process'
+  },
+  addProcessSuccessTitle: {
+    id: 'common.actions.addProcessSuccessTitle',
+    defaultMessage: 'Success adding order process'
+  },
+  addProcessSuccessDescription: {
+    id: 'common.actions.addProcessSuccessDescription',
+    defaultMessage: 'The order process was added successfully.'
   }
 });
 

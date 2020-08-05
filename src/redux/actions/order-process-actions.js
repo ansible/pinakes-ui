@@ -1,13 +1,18 @@
 import * as ActionTypes from '../action-types';
 import * as OrderProcessHelper from '../../helpers/order-process/order-process-helper';
+import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
-  const { sortBy, workflows, filterValue } = getState().orderProcessReducer;
+  const {
+    sortBy,
+    orderProcesses,
+    filterValue
+  } = getState().orderProcessReducer;
 
   let finalPagination = pagination;
 
-  if (!pagination && workflows) {
-    const { limit, offset } = workflows.meta;
+  if (!pagination && orderProcesses) {
+    const { limit, offset } = orderProcesses.meta;
     finalPagination = { limit, offset };
   }
 
@@ -20,6 +25,24 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
     )
   });
 };
+
+export const addOrderProcess = (processData, intl) => ({
+  type: ActionTypes.ADD_ORDER_PROCESS,
+  payload: OrderProcessHelper.addOrderProcess(processData),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: intl.formatMessage(
+          orderProcessesMessages.addProcessSuccessTitle
+        ),
+        description: intl.formatMessage(
+          orderProcessesMessages.addProcessSuccessDescription
+        )
+      }
+    }
+  }
+});
 
 export const sortOrderProcesses = (sortBy) => ({
   type: ActionTypes.SORT_ORDER_PROCESSES,

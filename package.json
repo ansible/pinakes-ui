@@ -10,7 +10,7 @@
     "@patternfly/react-table": "^4.12.1",
     "@patternfly/react-icons": "^4.5.0",
     "@redhat-cloud-services/approval-client": "^1.0.64",
-    "@redhat-cloud-services/catalog-client": "^1.0.51",
+    "@redhat-cloud-services/catalog-client": "^1.0.70",
     "@redhat-cloud-services/frontend-components": "^2.3.10",
     "@redhat-cloud-services/frontend-components-notifications": "^2.1.2",
     "@redhat-cloud-services/frontend-components-utilities": "^2.1.1",

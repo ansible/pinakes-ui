@@ -1,4 +1,4 @@
-import { getAxiosInstance } from '../shared/user-login';
+import { getAxiosInstance, getOrderProcessApi } from '../shared/user-login';
 import { defaultSettings } from '../shared/pagination';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 const axiosInstance = getAxiosInstance();
@@ -10,4 +10,12 @@ export function listOrderProcesses(
   return axiosInstance.get(
     `${CATALOG_API_BASE}/order_processes?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
   );
+}
+
+export function fetchOrderProcessByName(name) {
+  return listOrderProcesses(name);
+}
+
+export function addOrderProcess(processData) {
+  return getOrderProcessApi().createOrderProcess(processData);
 }
