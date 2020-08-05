@@ -274,6 +274,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
             disableAdd
             schemaTemplate={baseSchema}
             mode="subset"
+            openEditor
           >
             {({ getSchema, isValid, ...props }) => (
               <Fragment>
