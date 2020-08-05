@@ -62,6 +62,7 @@ global.insights = {
     on: () => {
       return () => {};
     },
+    isBeta: () => true,
     auth: {
       getUser: () =>
         new Promise((resolve) =>

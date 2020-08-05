@@ -69,7 +69,7 @@ describe('portfolio toolbar schema', () => {
       </ToolbarWrapper>
     );
     wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(4);
+    expect(wrapper.find('li')).toHaveLength(5);
     expect(wrapper.find('a#portfolio-share-button')).toHaveLength(1);
   });
 
@@ -117,8 +117,9 @@ describe('portfolio toolbar schema', () => {
       </ToolbarWrapper>
     );
     wrapper.find('button#toggle-portfolio-actions').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(1);
+    expect(wrapper.find('li')).toHaveLength(2);
     expect(wrapper.find('li#edit-portfolio')).toHaveLength(1);
+    expect(wrapper.find('li#attach-order-processes')).toHaveLength(1);
     expect(wrapper.find('button#portfolio-share-button')).toHaveLength(0);
   });
 

@@ -22,7 +22,8 @@ import {
   EDIT_PORTFOLIO_WORKFLOW_ROUTE,
   EDIT_PORTFOLIO_ROUTE,
   REMOVE_PORTFOLIO_ROUTE,
-  PORTFOLIO_ROUTE
+  PORTFOLIO_ROUTE,
+  EDIT_ORDER_PROCESS_ROUTE
 } from '../../constants/routes';
 import {
   StyledCard,
@@ -32,6 +33,7 @@ import { StyledCardBody } from '../styled-components/card';
 import actionMessages from '../../messages/actions.messages';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import orderProcessesMessages from '../../messages/order-processes.messages';
 
 const TO_DISPLAY = ['description'];
 
@@ -87,6 +89,29 @@ const HeaderActions = ({
             {formatMessage(actionMessages.setApproval)}
           </CatalogLink>
         }
+      />
+    );
+  }
+
+  if (window.insights.chrome.isBeta() && update) {
+    const orderProcessAction = formatMessage(
+      orderProcessesMessages.setOrderProcess
+    );
+    dropdownItems.push(
+      <DropdownItem
+        aria-label={orderProcessAction}
+        key="attach-order-processes"
+        id="attach-order-processes"
+        component={
+          <CatalogLink
+            preserveSearch
+            pathname={EDIT_ORDER_PROCESS_ROUTE}
+            searchParams={{ portfolio: portfolioId }}
+          >
+            {orderProcessAction}
+          </CatalogLink>
+        }
+        role="link"
       />
     );
   }

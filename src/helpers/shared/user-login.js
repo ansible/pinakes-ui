@@ -82,7 +82,6 @@ const servicePlansApi = new ServicePlansApi(
   CATALOG_API_BASE,
   axiosInstance
 );
-
 const orderProcessApi = new OrderProcessApi(
   undefined,
   CATALOG_API_BASE,

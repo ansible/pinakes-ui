@@ -63,7 +63,7 @@ describe('<DetailToolbarActions />', () => {
     expect(wrapper.find('li#copy-portfolio-item')).toHaveLength(1);
   });
 
-  it('should show edit and edit survey actions in dropdown', () => {
+  it('should show edit, set order processes and edit survey actions in dropdown', () => {
     const wrapper = mount(
       <MemoryRouter>
         <DetailToolbarActions
@@ -74,9 +74,10 @@ describe('<DetailToolbarActions />', () => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find('li')).toHaveLength(2);
+    expect(wrapper.find('li')).toHaveLength(3);
     expect(wrapper.find('li#edit-portfolio-item')).toHaveLength(1);
     expect(wrapper.find('li#edit-survey')).toHaveLength(1);
+    expect(wrapper.find('li#attach-order-processes')).toHaveLength(1);
   });
 
   it('should show set_approval action in dropdown', () => {

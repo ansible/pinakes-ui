@@ -12,6 +12,8 @@ import CatalogLink from '../../common/catalog-link';
 import actionMessages from '../../../messages/actions.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import orderProcessesMessages from '../../../messages/order-processes.messages';
+import { PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE } from '../../../constants/routes';
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -68,6 +70,28 @@ const DetailToolbarActions = ({
         component={
           <CatalogLink pathname={workflowUrl} preserveSearch>
             {formatMessage(actionMessages.setApproval)}
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
+  if (window.insights.chrome.isBeta() && update) {
+    const orderProcessAction = formatMessage(
+      orderProcessesMessages.setOrderProcess
+    );
+    dropdownItems.push(
+      <DropdownItem
+        aria-label={orderProcessAction}
+        key="attach-order-processes"
+        id="attach-order-processes"
+        component={
+          <CatalogLink
+            preserveSearch
+            pathname={PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE}
+          >
+            {orderProcessAction}
           </CatalogLink>
         }
         role="link"

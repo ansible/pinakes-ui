@@ -9,6 +9,8 @@ import { PORTFOLIO_ITEM_RESOURCE_TYPE } from '../../../utilities/constants';
 import CatalogRoute from '../../../routing/catalog-route';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import SetOrderProcessModal from '../../order-process/set-order-process-modal';
+import { PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE } from '../../../constants/routes';
 
 const ItemDetailDescription = ({
   userCapabilities,
@@ -28,6 +30,13 @@ const ItemDetailDescription = ({
           objectId={product.id}
           objectName={() => product.name}
           querySelector="portfolio-item"
+        />
+      </Route>
+      <Route path={PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE}>
+        <SetOrderProcessModal
+          querySelector="portfolio-item"
+          objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
+          pushParam={{ pathname: url, search }}
         />
       </Route>
       <Route

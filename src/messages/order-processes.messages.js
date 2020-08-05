@@ -21,10 +21,6 @@ const orderProcessesMessages = defineMessages({
     id: 'order-process.toolbar.order-process',
     defaultMessage: 'No order processes'
   },
-  orderProcesses: {
-    id: 'order-process.toolbar.order-processes',
-    defaultMessage: 'Order processes'
-  },
   orderProcess: {
     id: 'order-process.toolbar.order-process',
     defaultMessage: 'Order process'
@@ -36,6 +32,28 @@ const orderProcessesMessages = defineMessages({
   addProcessSuccessDescription: {
     id: 'common.actions.addProcessSuccessDescription',
     defaultMessage: 'The order process was added successfully.'
+  },
+  setOrderProcess: {
+    id: 'order-process.actions.set',
+    defaultMessage: 'Set order processes'
+  },
+  setOrderProcessSubtitle: {
+    id: 'order-process.tags.set',
+    defaultMessage: 'Set order processes for <strong>{objectType}</strong>'
+  },
+  currentOrderProcesses: {
+    id: 'order-process.set-order-process.current',
+    defaultMessage: 'Current order processes'
+  },
+  setOrderProcessNotificationTitle: {
+    id: 'order-process.notification.title',
+    defaultMessage: 'Success updating order process'
+  },
+  setOrderProcessNotificationDescription: {
+    id: 'order-process.notification.description',
+    defaultMessage:
+      // eslint-disable-next-line max-len
+      '{linked, plural, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {order process was} other {order processes were}} unlinked.}}'
   }
 });
 
