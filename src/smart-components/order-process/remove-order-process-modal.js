@@ -78,7 +78,7 @@ const RemoveOrderProcessModal = ({
       ) : (
         <React.Fragment>
           {ids.length}{' '}
-          {intl.formatMessage(orderProcessMessages.approvalProcesses)}
+          {intl.formatMessage(orderProcessMessages.orderProcesses)}
         </React.Fragment>
       )}
     </b>
