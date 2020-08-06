@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useHistory } from 'react-router-dom';
 import {
   Button,
   Text,
@@ -33,7 +33,6 @@ import {
 import AddOrderProcess from './add-order-process-modal';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import RemoveOrderProcess from './remove-order-process-modal';
-import formsMessages from '../../messages/forms.messages';
 import actionMessages from '../../messages/actions.messages';
 
 const columns = (intl) => [
@@ -114,6 +113,7 @@ const OrderProcesses = () => {
   const [selectedOrderProcesses, setSelectedOrderProcesses] = useState([]);
   const dispatch = useDispatch();
   const intl = useIntl();
+  const history = useHistory();
 
   const updateOrderProcesses = (pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
@@ -163,7 +163,9 @@ const OrderProcesses = () => {
             {...props}
             ids={selectedOrderProcesses}
             fetchData={updateOrderProcesses}
-            setSelectedOrderProcesses={setSelectedOrderProcesses}
+            resetSelectedOrderProcesses={() =>
+              stateDispatch({ type: 'resetSelected' })
+            }
           />
         )}
       />
@@ -174,11 +176,13 @@ const OrderProcesses = () => {
     {
       title: intl.formatMessage(actionMessages.delete),
       component: 'button',
-      onClick: (_event, _rowId, orderProcess) =>
-        history.push({
+      onClick: (_event, _rowId, orderProcess) => {
+        console.log('Debug - orderProcess', orderProcess);
+        return history.push({
           pathname: REMOVE_ORDER_PROCESS_ROUTE,
-          search: `?order-processes=${orderProcess.id}`
-        })
+          search: `?order_process=${orderProcess.id}`
+        });
+      }
     }
   ];
 
@@ -220,7 +224,7 @@ const OrderProcesses = () => {
             variant="secondary"
             isDisabled={!anyOrderProcessSelected}
             aria-label={intl.formatMessage(
-              formsMessages.removeOrderProcessTitle
+              orderProcessesMessages.deleteOrderProcess
             )}
           >
             {intl.formatMessage(actionMessages.delete)}

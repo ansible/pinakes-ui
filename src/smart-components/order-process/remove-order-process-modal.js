@@ -24,17 +24,18 @@ import useOrderProcess from '../../utilities/use-order-process';
 import { FormItemLoader } from '../../presentational-components/shared/loader-placeholders';
 import orderProcessMessages from '../../messages/order-processes.messages';
 import actionMessages from '../../messages/actions.messages';
+import labelMessages from '../../messages/labels.messages';
 
 const RemoveOrderProcessModal = ({
   ids = [],
   fetchData,
-  setSelectedOrderProcesses
+  resetSelectedOrderProcesses
 }) => {
   const dispatch = useDispatch();
   const [fetchedOrderProcess, setFetchedOrderProcess] = useState();
   const [submitting, setSubmitting] = useState(false);
   const { push } = useHistory();
-  const [{ orderProcess: orderProcessId }] = useQuery(['order-process']);
+  const [{ order_process: orderProcessId }] = useQuery(['order_process']);
 
   const finalId = orderProcessId || (ids.length === 1 && ids[0]);
 
@@ -52,22 +53,22 @@ const RemoveOrderProcessModal = ({
   if (!finalId && ids.length === 0) {
     return null;
   }
-
-  const removeWf = () =>
+  console.log('Debug - id', orderProcessId);
+  const removeProcesses = () =>
     (finalId
       ? dispatch(removeOrderProcess(finalId, intl))
       : dispatch(removeOrderProcesses(ids, intl))
     )
       .catch(() => setSubmitting(false))
       .then(() => push(ORDER_PROCESSES_ROUTE))
-      .then(() => setSelectedOrderProcesses([]))
+      .then(() => resetSelectedOrderProcesses())
       .then(() => fetchData());
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
   const onSubmit = () => {
     setSubmitting(true);
-    return removeWf();
+    return removeProcesses();
   };
 
   const name = (
@@ -77,8 +78,7 @@ const RemoveOrderProcessModal = ({
         (orderProcess && orderProcess.name)
       ) : (
         <React.Fragment>
-          {ids.length}{' '}
-          {intl.formatMessage(orderProcessMessages.orderProcesses)}
+          {ids.length} {intl.formatMessage(orderProcessMessages.orderProcesses)}
         </React.Fragment>
       )}
     </b>
@@ -133,7 +133,7 @@ const RemoveOrderProcessModal = ({
           isDisabled={submitting}
           onClick={onCancel}
         >
-          {intl.formatMessage(actionMessages.cancel)}
+          {intl.formatMessage(labelMessages.cancel)}
         </Button>
       ]}
     >
@@ -154,8 +154,8 @@ const RemoveOrderProcessModal = ({
 
 RemoveOrderProcessModal.propTypes = {
   fetchData: PropTypes.func.isRequired,
-  setSelectedOrderProcesses: PropTypes.func.isRequired,
-  ids: PropTypes.array
+  ids: PropTypes.array,
+  resetSelectedOrderProcesses: PropTypes.func.isRequired
 };
 
 export default RemoveOrderProcessModal;

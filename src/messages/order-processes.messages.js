@@ -63,6 +63,10 @@ const orderProcessesMessages = defineMessages({
     id: 'order-process.enterName',
     defaultMessage: 'Enter a name for the order process'
   },
+  orderProcesses: {
+    id: 'order-process.orderProcesses',
+    defaultMessage: 'order processes'
+  },
   removeProcessSuccessTitle: {
     id: 'order-process.removeProcessSuccessTitle',
     defaultMessage: 'Success removing order process'
@@ -79,21 +83,23 @@ const orderProcessesMessages = defineMessages({
     id: 'order-process.removeProcessesSuccessDescription',
     defaultMessage: 'The selected order processes were removed successfully.'
   },
+  deleteOrderProcess: {
+    id: 'order-process.deleteProcessAriaMenu',
+    defaultMessage: 'Delete order processes'
+  },
   removeProcessTitle: {
-    id: 'workflowMessages.removeProcessTitle',
-    defaultMessage: 'Delete {count, plural, one {approval process} other {approval processes}}?'
+    id: 'order-process.removeProcessTitle',
+    defaultMessage:
+      'Delete {count, plural, one {order process} other {order processes}}?'
   },
   removeProcessAriaLabel: {
-    id: 'workflowMessages.removeProcessTitle',
-    defaultMessage: 'Delete {count, plural, one {approval process} other {approval processes}} modal'
+    id: 'order-process.removeProcessAriaLabel',
+    defaultMessage:
+      'Delete {count, plural, one {order process} other {order processes}} modal'
   },
   removeProcessDescription: {
-    id: 'workflowMessages.removeProcessDescription',
+    id: 'order-process.removeProcessDescription',
     defaultMessage: '{name} will be removed.'
-  },
-  removeProcessDescriptionWithDeps: {
-    id: 'workflowMessages.removeProcessDescriptionWithDeps',
-    defaultMessage: '{name} will be removed from the following applications: {dependenciesList}'
   }
 });
 
