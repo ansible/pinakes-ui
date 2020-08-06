@@ -54,6 +54,14 @@ const orderProcessesMessages = defineMessages({
     defaultMessage:
       // eslint-disable-next-line max-len
       '{linked, plural, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {order process was} other {order processes were}} unlinked.}}'
+  },
+  orderProcessName: {
+    id: 'order-process.name',
+    defaultMessage: 'Order process name'
+  },
+  enterOrderProcessName: {
+    id: 'order-process.enterName',
+    defaultMessage: 'Enter a name for the order process'
   }
 });
 
