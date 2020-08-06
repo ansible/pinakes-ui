@@ -29,7 +29,6 @@ import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
 import { ADD_ORDER_PROCESS_ROUTE } from '../../constants/routes';
 import AddOrderProcess from './add-order-process-modal';
-import formsMessages from '../../messages/forms.messages';
 
 const columns = (intl) => [
   {
@@ -151,7 +150,7 @@ const OrderProcesses = () => {
   };
 
   const toolbarButtons = () => (
-    <StyledToolbarGroup className={`pf-u-pl-lg top-toolbar`}>
+    <StyledToolbarGroup className="pf-u-pl-lg top-toolbar">
       <ToolbarItem>
         <Link
           id="add-order-process-link"
@@ -159,11 +158,9 @@ const OrderProcesses = () => {
         >
           <Button
             variant="primary"
-            aria-label={intl.formatMessage(
-              formsMessages.createOrderProcessTitle
-            )}
+            aria-label={intl.formatMessage(labelMessages.create)}
           >
-            {intl.formatMessage(formsMessages.createOrderProcessTitle)}
+            {intl.formatMessage(labelMessages.create)}
           </Button>
         </Link>
       </ToolbarItem>

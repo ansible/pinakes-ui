@@ -22,32 +22,16 @@ const formsMessages = defineMessages({
     defaultMessage: 'Select permission'
   },
   orderProcessName: {
-    id: 'formMessages.orderProcessName',
+    id: 'forms.orders.processName',
     defaultMessage: 'Order process name'
   },
   enterOrderProcessName: {
-    id: 'formMessages.enterOrderProcessName',
+    id: 'forms.orders.enterOrderProcessName',
     defaultMessage: 'Enter a name for the order process'
   },
   nameTaken: {
-    id: 'formMessages.nameTaken',
+    id: 'forms.orders.nameTaken',
     defaultMessage: 'Name has already been taken'
-  },
-  generalInformation: {
-    id: 'formMessages.generalInformation',
-    defaultMessage: 'General information'
-  },
-  enterInfo: {
-    id: 'formMessages.enterInfo',
-    defaultMessage: 'Enter your information'
-  },
-  createOrderProcessTitle: {
-    id: 'formMessages.createOrderProcessTitle',
-    defaultMessage: 'Create'
-  },
-  required: {
-    id: 'formMessages.required',
-    defaultMessage: 'Required'
   }
 });
 

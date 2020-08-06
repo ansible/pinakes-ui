@@ -7,8 +7,8 @@ import debouncedValidatorName from './name-async-validator';
 
 /**
  * Creates a data-driven-form schema for adding an order processes
- * @param openApiSchema
- * @param name
+ * @param {object} intl React.intl with formatMessage function
+ * @param {string} id Id of order process (when editing)
  */
 const createOrderProcessSchema = (intl, id) => {
   return {
