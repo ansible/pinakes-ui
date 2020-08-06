@@ -4,22 +4,28 @@ import { SearchIcon, FilterIcon } from '@patternfly/react-icons';
 
 import ContentGallery from '../../content-gallery/content-gallery';
 import ContentGalleryEmptyState from '../../../presentational-components/shared/content-gallery-empty-state';
+import filteringMessages from '../../../messages/filtering.messages';
+import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
 
-const EmptyState = ({ platform }) => (
-  <ContentGalleryEmptyState
-    Icon={platform ? SearchIcon : FilterIcon}
-    title={
-      platform
-        ? 'No products match filter parameters'
-        : 'Please choose platform'
-    }
-    description={
-      platform
-        ? 'Please try to extend your search parameters '
-        : 'In order to select products for your portfolio you must choose platform first'
-    }
-  />
-);
+const EmptyState = ({ platform }) => {
+  const formatMessage = useFormatMessage();
+  return (
+    <ContentGalleryEmptyState
+      Icon={platform ? SearchIcon : FilterIcon}
+      title={
+        platform
+          ? formatMessage(portfolioMessages.addProducstFilterTitle)
+          : formatMessage(portfolioMessages.addProducstPlatformTitle)
+      }
+      description={
+        platform
+          ? formatMessage(filteringMessages.noResultsDescription)
+          : formatMessage(portfolioMessages.addProducstPlatformDescription)
+      }
+    />
+  );
+};
 
 EmptyState.propTypes = {
   platform: PropTypes.any

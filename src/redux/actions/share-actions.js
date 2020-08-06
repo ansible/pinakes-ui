@@ -10,30 +10,12 @@ export const sharePortfolio = (portfolioData) => ({
   type: ActionTypes.SHARE_PORTFOLIO,
   payload: ShareHelper.sharePortfolio({
     ...portfolioData
-  }),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success sharing portfolio',
-        description: 'The portfolio was shared successfully.'
-      }
-    }
-  }
+  })
 });
 
 export const unsharePortfolio = (portfolioData) => ({
   type: ActionTypes.UNSHARE_PORTFOLIO,
   payload: ShareHelper.unsharePortfolio({
     ...portfolioData
-  }),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success unsharing portfolio',
-        description: 'The portfolio was unshared successfully.'
-      }
-    }
-  }
+  })
 });

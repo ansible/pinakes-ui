@@ -23,18 +23,25 @@ import useIsMounted from '../../utilities/use-is-mounted';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { toolbarComponentTypes } from '../../toolbar/toolbar-mapper';
+import BackToProducts from '../../presentational-components/portfolio/back-to-products';
 
 /**
  * Fake the toolbar until the chunk is loaded
  */
-const PortfolioSuspenseFallback = ({ title, description }) => (
+const PortfolioSuspenseFallback = ({ fromProducts, title, description }) => (
   <ToolbarRenderer
     schema={{
       fields: [
         {
           component: toolbarComponentTypes.TOP_TOOLBAR,
+          breadcrumbs: !fromProducts,
           key: 'portfolio-top-toolbar',
           fields: [
+            {
+              component: BackToProducts,
+              key: 'back-to-products',
+              hidden: !fromProducts
+            },
             {
               component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
               key: 'portfolio-toolbar-title',
@@ -50,7 +57,8 @@ const PortfolioSuspenseFallback = ({ title, description }) => (
 
 PortfolioSuspenseFallback.propTypes = {
   title: PropTypes.node,
-  description: PropTypes.node
+  description: PropTypes.node,
+  fromProducts: PropTypes.bool
 };
 
 const PortfolioItems = lazy(() =>
@@ -71,6 +79,7 @@ const AddProductsToPortfolio = lazy(() =>
 );
 const initialState = {
   selectedItems: [],
+  firstSelectedProduct: undefined,
   removeInProgress: false,
   filterValue: '',
   copyInProgress: false,
@@ -88,11 +97,15 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const porftolioUiReducer = (state, { type, payload }) =>
+const porftolioUiReducer = (state, { type, payload = {} }) =>
   ({
     selectItem: {
       ...state,
-      selectedItems: toggleArraySelection(state.selectedItems, payload)
+      selectedItems: toggleArraySelection(
+        state.selectedItems,
+        payload.selectedItem
+      ),
+      firstSelectedProduct: payload.product || state.firstSelectedProduct
     },
     setRemoveInProgress: { ...state, removeInProgress: payload },
     removeSucessfull: { ...state, selectedItems: [], removeInProgress: false },
@@ -108,8 +121,8 @@ const Portfolio = () => {
     ...initialState,
     filterValue: viewState?.portfolioItems?.filter || ''
   });
-  const [searchParams] = useQuery(['portfolio']);
-  const { portfolio: id } = searchParams;
+  const [searchParams] = useQuery(['portfolio', 'from-products']);
+  const { portfolio: id, 'from-products': fromProducts } = searchParams;
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -150,7 +163,10 @@ const Portfolio = () => {
   };
 
   useEffect(() => {
-    insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
+    insights.chrome.appNavClick({
+      id: fromProducts === 'true' ? 'products' : 'portfolios',
+      secondaryNav: true
+    });
     fetchData(id);
     scrollToTop();
 
@@ -189,7 +205,13 @@ const Portfolio = () => {
 
   const removeProducts = (products) => {
     stateDispatch({ type: 'setRemoveInProgress', payload: true });
-    dispatch(removeProductsFromPortfolio(products, portfolio.name))
+    dispatch(
+      removeProductsFromPortfolio(
+        products,
+        portfolio.name,
+        state.firstSelectedProduct
+      )
+    )
       .then(() => stateDispatch({ type: 'removeSucessfull' }))
       .catch(() =>
         stateDispatch({ type: 'setRemoveInProgress', payload: false })
@@ -229,6 +251,7 @@ const Portfolio = () => {
     <Suspense
       fallback={
         <PortfolioSuspenseFallback
+          fromProducts={fromProducts === 'true'}
           title={portfolio.name}
           description={portfolio.description}
         />
@@ -248,6 +271,7 @@ const Portfolio = () => {
         <Route path={routes.portfolioRoute}>
           <PortfolioItems
             routes={routes}
+            fromProducts={fromProducts === 'true'}
             handleFilterChange={handleFilterChange}
             removeProducts={removeProducts}
             copyPortfolio={handleCopyPortfolio}

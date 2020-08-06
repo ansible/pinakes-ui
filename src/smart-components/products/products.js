@@ -24,6 +24,10 @@ import { PORTFOLIO_ITEM_ROUTE } from '../../constants/routes';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import UserContext from '../../user-context';
+import filteringMessages from '../../messages/filtering.messages';
+import productsMessages from '../../messages/products.messages';
+import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -42,7 +46,8 @@ const buildItemLink = ({ portfolio_id, id, service_offering_source_ref }) => {
       searchParams: {
         portfolio: portfolio_id,
         'portfolio-item': id,
-        source: service_offering_source_ref
+        source: service_offering_source_ref,
+        'from-products': 'true'
       }
     };
   }
@@ -71,6 +76,7 @@ const productsState = (state, action) => {
 };
 
 const Products = () => {
+  const formatMessage = useFormatMessage();
   const viewState = useInitialUriHash();
   const { release } = useContext(AppContext);
   const [{ isFetching, filterValue, isFiltering }, stateDispatch] = useReducer(
@@ -123,13 +129,15 @@ const Products = () => {
   const SourcesAction = () =>
     is_org_admin && (
       <a href={`${release}settings/sources/new`}>
-        <Button variant="primary">Add source</Button>
+        <Button variant="primary">
+          {formatMessage(productsMessages.addSource)}
+        </Button>
       </a>
     );
 
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
-      Clear all filters
+      {formatMessage(filteringMessages.clearFilters)}
     </Button>
   );
 
@@ -138,20 +146,22 @@ const Products = () => {
       <TextContent>
         <Text component={TextVariants.p}>
           {meta.noData
-            ? 'Configure a source and add products into portfolios.'
-            : 'No results match the filter criteria. Remove all filters or clear all filters to show results.'}
+            ? formatMessage(productsMessages.configureSource)
+            : formatMessage(filteringMessages.noResultsDescription)}
         </Text>
         {is_org_admin ? (
           <Text component={TextVariants.p}>
-            To connect to a source, go to{' '}
-            <a href={`${document.baseURI}settings/sources`}>Sources</a>
-            &nbsp;under Settings.
+            {formatMessage(platformsMessages.connectSource, {
+              // eslint-disable-next-line react/display-name
+              a: (chunks) => (
+                <Fragment>
+                  <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+                </Fragment>
+              )
+            })}
           </Text>
         ) : (
-          <Text>
-            Contact your organization administrator to setup sources for
-            Catalog.
-          </Text>
+          <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
         )}
       </TextContent>
     </Fragment>
@@ -159,7 +169,9 @@ const Products = () => {
 
   const emptyStateProps = {
     PrimaryAction: meta.noData ? SourcesAction : FilterAction,
-    title: meta.noData ? 'No products yet' : 'No results found',
+    title: meta.noData
+      ? formatMessage(filteringMessages.noProducts)
+      : formatMessage(filteringMessages.noResults),
     renderDescription: renderEmptyStateDescription,
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
@@ -171,9 +183,9 @@ const Products = () => {
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterItems,
-            placeholder: 'Filter by product'
+            placeholder: formatMessage(filteringMessages.filterByProduct)
           },
-          title: 'Products',
+          title: formatMessage(productsMessages.title),
           isLoading: isFiltering || isFetching,
           meta,
           fetchProducts: (...args) => dispatch(fetchPortfolioItems(...args))

@@ -79,15 +79,19 @@ describe('<Portfolios />', () => {
     const store = mockStore(initialState);
 
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, { data: [{ name: 'Foo', id: '11' }] });
     const expectedActions = [
       {
         type: `${FETCH_PORTFOLIOS}_PENDING`,
         meta: {
           filter: '',
+          filters: {
+            name: '',
+            owner: '',
+            sort_by: undefined
+          },
+          sortDirection: 'asc',
           count: 0,
           limit: 50,
           offset: 0,
@@ -120,14 +124,12 @@ describe('<Portfolios />', () => {
     const store = mockStore(initialState);
 
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, { data: [{ name: 'Foo', id: '11' }] });
 
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=nothing&limit=50&offset=0`
+        `${CATALOG_API_BASE}/portfolios?limit=50&offset=0&filter[name][contains_i]=nothing`
       )
       .replyOnce((req) => {
         expect(req).toBeTruthy();
@@ -170,9 +172,7 @@ describe('<Portfolios />', () => {
       }
     });
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
       .replyOnce(200, { data: [{ name: 'Foo', id: '11' }] });
     let wrapper;
     await act(async () => {

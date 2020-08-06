@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { WarningTriangleIcon } from '@patternfly/react-icons';
+import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import {
   Modal,
   Button,
@@ -18,8 +18,13 @@ import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper'
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import portfolioMessages from '../../messages/portfolio.messages';
+import actionMessages from '../../messages/actions.messages';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const RemovePortfolioModal = ({ viewState }) => {
+  const formatMessage = useFormatMessage();
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const portfolio = useSelector(({ portfolioReducer }) =>
@@ -45,7 +50,21 @@ const RemovePortfolioModal = ({ viewState }) => {
     <UnauthorizedRedirect />
   ) : (
     <Modal
-      title="Delete Portfolio?"
+      aria-label={formatMessage(portfolioMessages.portfolioRemoveTitle)}
+      header={
+        <TextContent>
+          <Split hasGutter>
+            <SplitItem>
+              <ExclamationTriangleIcon size="lg" fill="#f0ab00" />
+            </SplitItem>
+            <SplitItem>
+              <Text component="h1" size="2xl">
+                {formatMessage(portfolioMessages.portfolioRemoveTitle)}
+              </Text>
+            </SplitItem>
+          </Split>
+        </TextContent>
+      }
       isOpen
       variant="small"
       onClose={goBack}
@@ -57,26 +76,20 @@ const RemovePortfolioModal = ({ viewState }) => {
           id="confirm-delete-portfolio"
           onClick={onSubmit}
         >
-          Confirm
+          {formatMessage(actionMessages.delete)}
         </Button>,
         <Button key="cancel" variant="link" type="button" onClick={goBack}>
-          Cancel
+          {formatMessage(labelMessages.cancel)}
         </Button>
       ]}
     >
-      <Split hasGutter>
-        <SplitItem>
-          <WarningTriangleIcon size="xl" fill="#f0ab00" />
-        </SplitItem>
-        <SplitItem>
-          <TextContent>
-            <Text component={TextVariants.p}>
-              This action will permanently delete portfolio {portfolio.name} and
-              its data.
-            </Text>
-          </TextContent>
-        </SplitItem>
-      </Split>
+      <TextContent>
+        <Text component={TextVariants.p}>
+          {formatMessage(portfolioMessages.portfolioRemoveDescription, {
+            name: portfolio.name
+          })}
+        </Text>
+      </TextContent>
     </Modal>
   );
 };

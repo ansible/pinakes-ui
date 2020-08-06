@@ -16,10 +16,14 @@ import SpinnerWrapper from '../../presentational-components/styled-components/sp
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import UserContext from '../../user-context';
+import actionMessages from '../../messages/actions.messages';
+import portfolioMessages from '../../messages/portfolio.messages';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
+  const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
-  const [submitting, setSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
@@ -29,9 +33,16 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
   );
 
   const onAddPortfolio = async (data) => {
-    setSubmitting(true);
-    const newPortfolio = await dispatch(addPortfolio(data));
-    setSubmitting(false);
+    const notification = {
+      variant: 'success',
+      title: formatMessage(portfolioMessages.addSuccessTitle),
+      description: formatMessage(portfolioMessages.addSuccessDescription, {
+        name: data.name,
+        // eslint-disable-next-line react/display-name
+        b: (chunks) => <b key="strong">{chunks}</b>
+      })
+    };
+    const newPortfolio = await dispatch(addPortfolio(data, notification));
     return newPortfolio && newPortfolio.value && newPortfolio.value.id
       ? push({
           pathname: PORTFOLIO_ROUTE,
@@ -67,7 +78,11 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
 
   return (
     <Modal
-      title={portfolioId ? 'Edit portfolio' : 'Create portfolio'}
+      title={
+        portfolioId
+          ? formatMessage(portfolioMessages.modalEditTitle)
+          : formatMessage(portfolioMessages.modalCreateTitle)
+      }
       isOpen={isOpen}
       onClose={() => push(closeTarget)}
       variant="small"
@@ -84,8 +99,12 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
           onCancel={() => push(closeTarget)}
           initialValues={{ ...initialValues }}
           formContainer="modal"
-          buttonsLabels={{ submitLabel: portfolioId ? 'Save' : 'Create' }}
-          disableSubmit={submitting ? ['pristine', 'diry'] : []}
+          templateProps={{
+            submitLabel: portfolioId
+              ? formatMessage(actionMessages.save)
+              : formatMessage(labelMessages.create),
+            disableSubmit: ['pristine', 'submitting']
+          }}
         />
       ) : (
         <SpinnerWrapper className="pf-u-m-md">

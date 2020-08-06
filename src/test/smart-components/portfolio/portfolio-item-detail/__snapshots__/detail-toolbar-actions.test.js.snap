@@ -186,6 +186,22 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               role="link"
             />,
             <DropdownItem
+              aria-label="Set order processes"
+              component={
+                <CatalogLink
+                  nav={false}
+                  pathname="/portfolio/portfolio-item/edit-order-process"
+                  preserveHash={false}
+                  preserveSearch={true}
+                  searchParams={Object {}}
+                >
+                  Set order processes
+                </CatalogLink>
+              }
+              id="attach-order-processes"
+              role="link"
+            />,
+            <DropdownItem
               aria-label="Edit survey"
               component={
                 <CatalogLink
@@ -267,6 +283,22 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   </CatalogLink>
                 }
                 id="set-approval_workflow"
+                role="link"
+              />,
+              <DropdownItem
+                aria-label="Set order processes"
+                component={
+                  <CatalogLink
+                    nav={false}
+                    pathname="/portfolio/portfolio-item/edit-order-process"
+                    preserveHash={false}
+                    preserveSearch={true}
+                    searchParams={Object {}}
+                  >
+                    Set order processes
+                  </CatalogLink>
+                }
+                id="attach-order-processes"
                 role="link"
               />,
               <DropdownItem

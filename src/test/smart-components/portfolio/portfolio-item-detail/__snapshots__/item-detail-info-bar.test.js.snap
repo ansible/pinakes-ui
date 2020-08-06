@@ -124,70 +124,17 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
             variant="relative"
           >
             <Tooltip
-              appendTo={[Function]}
-              aria="describedby"
-              boundary="window"
-              className=""
               content={
                 <div>
                   
                   22 Mar 2019 07:36 UTC
                 </div>
               }
-              distance={15}
-              enableFlip={true}
-              entryDelay={500}
-              exitDelay={500}
-              flipBehavior={
-                Array [
-                  "top",
-                  "right",
-                  "bottom",
-                  "left",
-                  "top",
-                  "right",
-                  "bottom",
-                ]
-              }
-              id=""
-              isAppLauncher={false}
-              isContentLeftAligned={false}
-              isVisible={false}
-              maxWidth="18.75rem"
-              position="top"
-              tippyProps={Object {}}
-              trigger="mouseenter focus"
-              zIndex={9999}
             >
-              <PopoverBase
+              <Popper
                 appendTo={[Function]}
-                aria="describedby"
-                arrow={true}
-                boundary="window"
-                content={
-                  <div
-                    className=""
-                    id=""
-                    role="tooltip"
-                  >
-                    <TooltipContent
-                      isLeftAligned={false}
-                    >
-                      <div>
-                        
-                        22 Mar 2019 07:36 UTC
-                      </div>
-                    </TooltipContent>
-                  </div>
-                }
-                delay={
-                  Array [
-                    500,
-                    500,
-                  ]
-                }
                 distance={15}
-                flip={true}
+                enableFlip={true}
                 flipBehavior={
                   Array [
                     "top",
@@ -200,68 +147,66 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                   ]
                 }
                 isVisible={false}
-                lazy={true}
-                maxWidth="18.75rem"
-                onCreate={[Function]}
+                onBlur={[Function]}
+                onDocumentClick={false}
+                onDocumentKeyDown={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTriggerEnter={[Function]}
                 placement="top"
-                popperOptions={
-                  Object {
-                    "modifiers": Object {
-                      "hide": Object {
-                        "enabled": true,
-                      },
-                      "preventOverflow": Object {
-                        "enabled": true,
-                      },
-                    },
-                  }
-                }
-                theme="pf-tooltip"
-                trigger="mouseenter focus"
-                zIndex={9999}
-              >
-                <span>
-                  Just now
-                </span>
-                <Portal
-                  containerInfo={
-                    <div>
-                      <div
-                        class=""
-                        id=""
-                        role="tooltip"
-                      >
-                        <div
-                          class="pf-c-tooltip__content"
-                        >
-                          <div>
-                            
-                            22 Mar 2019 07:36 UTC
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  }
-                >
+                popper={
                   <div
-                    className=""
-                    id=""
+                    className="pf-c-tooltip"
+                    id="pf-tooltip-1"
                     role="tooltip"
+                    style={
+                      Object {
+                        "maxWidth": null,
+                        "opacity": 0,
+                        "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                      }
+                    }
                   >
+                    <TooltipArrow />
                     <TooltipContent
                       isLeftAligned={false}
                     >
-                      <div
-                        className="pf-c-tooltip__content"
-                      >
-                        <div>
-                          22 Mar 2019 07:36 UTC
-                        </div>
+                      <div>
+                        
+                        22 Mar 2019 07:36 UTC
                       </div>
                     </TooltipContent>
                   </div>
-                </Portal>
-              </PopoverBase>
+                }
+                popperMatchesTriggerWidth={false}
+                positionModifiers={
+                  Object {
+                    "bottom": "pf-m-bottom",
+                    "left": "pf-m-left",
+                    "right": "pf-m-right",
+                    "top": "pf-m-top",
+                  }
+                }
+                trigger={
+                  <span
+                    aria-describedby="pf-tooltip-1"
+                  >
+                    Just now
+                  </span>
+                }
+                zIndex={9999}
+              >
+                <FindRefWrapper
+                  onFoundRef={[Function]}
+                >
+                  <span
+                    aria-describedby="pf-tooltip-1"
+                  >
+                    Just now
+                  </span>
+                </FindRefWrapper>
+              </Popper>
             </Tooltip>
           </DateFormat>
         </p>
@@ -367,70 +312,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
             variant="relative"
           >
             <Tooltip
-              appendTo={[Function]}
-              aria="describedby"
-              boundary="window"
-              className=""
               content={
                 <div>
                   
                   22 Mar 2019 07:36 UTC
                 </div>
               }
-              distance={15}
-              enableFlip={true}
-              entryDelay={500}
-              exitDelay={500}
-              flipBehavior={
-                Array [
-                  "top",
-                  "right",
-                  "bottom",
-                  "left",
-                  "top",
-                  "right",
-                  "bottom",
-                ]
-              }
-              id=""
-              isAppLauncher={false}
-              isContentLeftAligned={false}
-              isVisible={false}
-              maxWidth="18.75rem"
-              position="top"
-              tippyProps={Object {}}
-              trigger="mouseenter focus"
-              zIndex={9999}
             >
-              <PopoverBase
+              <Popper
                 appendTo={[Function]}
-                aria="describedby"
-                arrow={true}
-                boundary="window"
-                content={
-                  <div
-                    className=""
-                    id=""
-                    role="tooltip"
-                  >
-                    <TooltipContent
-                      isLeftAligned={false}
-                    >
-                      <div>
-                        
-                        22 Mar 2019 07:36 UTC
-                      </div>
-                    </TooltipContent>
-                  </div>
-                }
-                delay={
-                  Array [
-                    500,
-                    500,
-                  ]
-                }
                 distance={15}
-                flip={true}
+                enableFlip={true}
                 flipBehavior={
                   Array [
                     "top",
@@ -443,68 +335,66 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                   ]
                 }
                 isVisible={false}
-                lazy={true}
-                maxWidth="18.75rem"
-                onCreate={[Function]}
+                onBlur={[Function]}
+                onDocumentClick={false}
+                onDocumentKeyDown={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTriggerEnter={[Function]}
                 placement="top"
-                popperOptions={
-                  Object {
-                    "modifiers": Object {
-                      "hide": Object {
-                        "enabled": true,
-                      },
-                      "preventOverflow": Object {
-                        "enabled": true,
-                      },
-                    },
-                  }
-                }
-                theme="pf-tooltip"
-                trigger="mouseenter focus"
-                zIndex={9999}
-              >
-                <span>
-                  Just now
-                </span>
-                <Portal
-                  containerInfo={
-                    <div>
-                      <div
-                        class=""
-                        id=""
-                        role="tooltip"
-                      >
-                        <div
-                          class="pf-c-tooltip__content"
-                        >
-                          <div>
-                            
-                            22 Mar 2019 07:36 UTC
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  }
-                >
+                popper={
                   <div
-                    className=""
-                    id=""
+                    className="pf-c-tooltip"
+                    id="pf-tooltip-2"
                     role="tooltip"
+                    style={
+                      Object {
+                        "maxWidth": null,
+                        "opacity": 0,
+                        "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                      }
+                    }
                   >
+                    <TooltipArrow />
                     <TooltipContent
                       isLeftAligned={false}
                     >
-                      <div
-                        className="pf-c-tooltip__content"
-                      >
-                        <div>
-                          22 Mar 2019 07:36 UTC
-                        </div>
+                      <div>
+                        
+                        22 Mar 2019 07:36 UTC
                       </div>
                     </TooltipContent>
                   </div>
-                </Portal>
-              </PopoverBase>
+                }
+                popperMatchesTriggerWidth={false}
+                positionModifiers={
+                  Object {
+                    "bottom": "pf-m-bottom",
+                    "left": "pf-m-left",
+                    "right": "pf-m-right",
+                    "top": "pf-m-top",
+                  }
+                }
+                trigger={
+                  <span
+                    aria-describedby="pf-tooltip-2"
+                  >
+                    Just now
+                  </span>
+                }
+                zIndex={9999}
+              >
+                <FindRefWrapper
+                  onFoundRef={[Function]}
+                >
+                  <span
+                    aria-describedby="pf-tooltip-2"
+                  >
+                    Just now
+                  </span>
+                </FindRefWrapper>
+              </Popper>
             </Tooltip>
           </DateFormat>
         </p>
@@ -639,70 +529,17 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
             variant="relative"
           >
             <Tooltip
-              appendTo={[Function]}
-              aria="describedby"
-              boundary="window"
-              className=""
               content={
                 <div>
                   
                   22 Mar 2019 07:36 UTC
                 </div>
               }
-              distance={15}
-              enableFlip={true}
-              entryDelay={500}
-              exitDelay={500}
-              flipBehavior={
-                Array [
-                  "top",
-                  "right",
-                  "bottom",
-                  "left",
-                  "top",
-                  "right",
-                  "bottom",
-                ]
-              }
-              id=""
-              isAppLauncher={false}
-              isContentLeftAligned={false}
-              isVisible={false}
-              maxWidth="18.75rem"
-              position="top"
-              tippyProps={Object {}}
-              trigger="mouseenter focus"
-              zIndex={9999}
             >
-              <PopoverBase
+              <Popper
                 appendTo={[Function]}
-                aria="describedby"
-                arrow={true}
-                boundary="window"
-                content={
-                  <div
-                    className=""
-                    id=""
-                    role="tooltip"
-                  >
-                    <TooltipContent
-                      isLeftAligned={false}
-                    >
-                      <div>
-                        
-                        22 Mar 2019 07:36 UTC
-                      </div>
-                    </TooltipContent>
-                  </div>
-                }
-                delay={
-                  Array [
-                    500,
-                    500,
-                  ]
-                }
                 distance={15}
-                flip={true}
+                enableFlip={true}
                 flipBehavior={
                   Array [
                     "top",
@@ -715,68 +552,66 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                   ]
                 }
                 isVisible={false}
-                lazy={true}
-                maxWidth="18.75rem"
-                onCreate={[Function]}
+                onBlur={[Function]}
+                onDocumentClick={false}
+                onDocumentKeyDown={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTriggerEnter={[Function]}
                 placement="top"
-                popperOptions={
-                  Object {
-                    "modifiers": Object {
-                      "hide": Object {
-                        "enabled": true,
-                      },
-                      "preventOverflow": Object {
-                        "enabled": true,
-                      },
-                    },
-                  }
-                }
-                theme="pf-tooltip"
-                trigger="mouseenter focus"
-                zIndex={9999}
-              >
-                <span>
-                  Just now
-                </span>
-                <Portal
-                  containerInfo={
-                    <div>
-                      <div
-                        class=""
-                        id=""
-                        role="tooltip"
-                      >
-                        <div
-                          class="pf-c-tooltip__content"
-                        >
-                          <div>
-                            
-                            22 Mar 2019 07:36 UTC
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  }
-                >
+                popper={
                   <div
-                    className=""
-                    id=""
+                    className="pf-c-tooltip"
+                    id="pf-tooltip-3"
                     role="tooltip"
+                    style={
+                      Object {
+                        "maxWidth": null,
+                        "opacity": 0,
+                        "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                      }
+                    }
                   >
+                    <TooltipArrow />
                     <TooltipContent
                       isLeftAligned={false}
                     >
-                      <div
-                        className="pf-c-tooltip__content"
-                      >
-                        <div>
-                          22 Mar 2019 07:36 UTC
-                        </div>
+                      <div>
+                        
+                        22 Mar 2019 07:36 UTC
                       </div>
                     </TooltipContent>
                   </div>
-                </Portal>
-              </PopoverBase>
+                }
+                popperMatchesTriggerWidth={false}
+                positionModifiers={
+                  Object {
+                    "bottom": "pf-m-bottom",
+                    "left": "pf-m-left",
+                    "right": "pf-m-right",
+                    "top": "pf-m-top",
+                  }
+                }
+                trigger={
+                  <span
+                    aria-describedby="pf-tooltip-3"
+                  >
+                    Just now
+                  </span>
+                }
+                zIndex={9999}
+              >
+                <FindRefWrapper
+                  onFoundRef={[Function]}
+                >
+                  <span
+                    aria-describedby="pf-tooltip-3"
+                  >
+                    Just now
+                  </span>
+                </FindRefWrapper>
+              </Popper>
             </Tooltip>
           </DateFormat>
         </p>

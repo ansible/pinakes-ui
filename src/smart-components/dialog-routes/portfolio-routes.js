@@ -1,5 +1,5 @@
-import React, { lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { lazy, useEffect } from 'react';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import {
   ADD_PORTFOLIO_ROUTE,
   EDIT_PORTFOLIO_ROUTE,
@@ -12,13 +12,20 @@ import {
   NESTED_SHARE_PORTFOLIO_ROUTE,
   WORKFLOW_PORTFOLIO_ROUTE,
   NESTED_WORKFLOW_PORTFOLIO_ROUTE,
-  PORTFOLIO_ITEM_ROUTE
+  PORTFOLIO_ITEM_ROUTE,
+  NESTED_EDIT_ORDER_PROCESS_ROUTE,
+  EDIT_ORDER_PROCESS_ROUTE
 } from '../../constants/routes';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import CatalogRoute from '../../routing/catalog-route';
 import useQuery from '../../utilities/use-query';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
+import {
+  setOrFetchPortfolio,
+  resetSelectedPortfolio
+} from '../../redux/actions/portfolio-actions';
+import SetOrderProcessModal from '../order-process/set-order-process-modal';
 
 const CopyPortfolioItemModal = lazy(() =>
   import(
@@ -55,21 +62,40 @@ const AddPortfolioModal = lazy(() =>
 
 const PortfolioRoutes = () => {
   const viewState = useInitialUriHash();
-  const { portfolioItemId, portfolioItemUserCapabilities } = useSelector(
-    (state) => ({
-      portfolioItemId:
-        state?.portfolioReducer?.portfolioItem?.portfolioItem?.id,
-      portfolioItemUserCapabilities:
-        state?.portfolioReducer?.portfolioItem?.portfolioItem?.metadata
-          ?.user_capabilities
-    })
+  const { pathname } = useLocation();
+
+  const portfolioItemId = useSelector(
+    (state) => state?.portfolioReducer?.portfolioItem?.portfolioItem?.id
   );
+  const portfolioItemUserCapabilities = useSelector(
+    (state) =>
+      state?.portfolioReducer?.portfolioItem?.portfolioItem?.metadata
+        ?.user_capabilities,
+    shallowEqual
+  );
+  const portfolios = useSelector(
+    (state) => state?.portfolioReducer?.portfolios,
+    shallowEqual
+  );
+  const selectedPortfolio = useSelector(
+    (state) => state?.portfolioReducer?.selectedPortfolio,
+    shallowEqual
+  );
+
   const { portfolioUserCapabilities, itemName } = useSelector((state) => ({
     portfolioUserCapabilities:
       state?.portfolioReducer?.selectedPortfolio?.metadata?.user_capabilities,
     itemName: () => state?.portfolioReducer?.selectedPortfolio?.name
   }));
   const [{ portfolio: id }, search] = useQuery(['portfolio']);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (id && (!selectedPortfolio.id || id !== selectedPortfolio.id)) {
+      dispatch(setOrFetchPortfolio(id, portfolios));
+    }
+  }, [id]);
+
   return (
     <div>
       <Switch>
@@ -105,7 +131,7 @@ const PortfolioRoutes = () => {
           <SharePortfolioModal
             closeUrl={PORTFOLIOS_ROUTE}
             querySelector="portfolio"
-            removeQuery
+            removeSearch
             viewState={viewState?.portfolio}
             portfolioName={itemName}
           />
@@ -122,8 +148,9 @@ const PortfolioRoutes = () => {
             objectType={PORTFOLIO_RESOURCE_TYPE}
             objectName={itemName}
             querySelector="portfolio"
-            removeQuery
+            removeSearch
             keepHash
+            onClose={() => dispatch(resetSelectedPortfolio())}
           />
         </Route>
         <Route exact path={NESTED_WORKFLOW_PORTFOLIO_ROUTE}>
@@ -137,6 +164,25 @@ const PortfolioRoutes = () => {
         </Route>
         <Route exact path={`${PORTFOLIO_ITEM_ROUTE}/order`}>
           <OrderModal closeUrl={PORTFOLIO_ITEM_ROUTE} />
+        </Route>
+        <Route
+          exact
+          path={[EDIT_ORDER_PROCESS_ROUTE, NESTED_EDIT_ORDER_PROCESS_ROUTE]}
+        >
+          <SetOrderProcessModal
+            querySelector="portfolio"
+            objectType={PORTFOLIO_RESOURCE_TYPE}
+            pushParam={{
+              pathname:
+                pathname === EDIT_ORDER_PROCESS_ROUTE
+                  ? PORTFOLIOS_ROUTE
+                  : PORTFOLIO_ROUTE,
+              search:
+                pathname === NESTED_EDIT_ORDER_PROCESS_ROUTE
+                  ? search
+                  : undefined
+            }}
+          />
         </Route>
 
         <CatalogRoute
