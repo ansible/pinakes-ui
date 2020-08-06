@@ -39,10 +39,7 @@ exports[`<AddPortfolioModal /> should render correctly 1`] = `
       ]
     }
   >
-    <AddOrderProcess
-      closeTarget="/close-target"
-      fetchOrderProcesses={[MockFunction]}
-    />
+    <AddOrderProcess />
   </MemoryRouter>
 </ContextProvider>
 `;
