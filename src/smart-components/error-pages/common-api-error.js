@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Bullseye,
@@ -11,24 +11,30 @@ import {
 import Exclamation from '@patternfly/react-icons/dist/js/icons/exclamation-icon';
 import CatalogLink from '../common/catalog-link';
 import styled from 'styled-components';
-
-const TITLES = {
-  '/401': 'Unauthorized',
-  '/403': 'Forbidden'
-};
-
-const MESSAGES = {
-  '/401': 'You are not authorized to access this section: ',
-  '/403': 'You are not authorized to access this section: '
-};
+import apiErrorsMessages from '../../messages/api-errors.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const SourceSpan = styled.span`
   white-space: nowrap;
 `;
 
 const CommonApiError = () => {
+  const formatMessage = useFormatMessage();
   const { state, pathname } = useLocation();
-
+  const translations = useRef({
+    titles: {
+      '/401': formatMessage(apiErrorsMessages.unauthorizedTitle),
+      '/403': formatMessage(apiErrorsMessages.forbiddenTitle)
+    },
+    description: formatMessage(apiErrorsMessages.unauthorizedDescription, {
+      pathname: state?.from?.pathname,
+      search: state?.from?.search,
+      // eslint-disable-next-line react/display-name
+      br: () => <br />,
+      // eslint-disable-next-line react/display-name
+      nowrap: (chunks) => <SourceSpan>{chunks}</SourceSpan>
+    })
+  });
   return (
     <Bullseye className="global-primary-background">
       <EmptyState>
@@ -37,20 +43,14 @@ const CommonApiError = () => {
         </div>
         <div>
           <Title headingLevel="h1" size="lg">
-            {TITLES[pathname]}
+            {translations.current.titles[pathname]}
           </Title>
         </div>
-        <EmptyStateBody>
-          {MESSAGES[pathname]}
-          <SourceSpan>
-            {state?.from?.pathname}
-            {state?.from?.search}
-          </SourceSpan>
-          <br />
-          If you believe this is a mistake, please contact support.
-        </EmptyStateBody>
+        <EmptyStateBody>{translations.current.description}</EmptyStateBody>
         <EmptyStatePrimary>
-          <CatalogLink pathname="/">Return to catalog</CatalogLink>
+          <CatalogLink pathname="/">
+            {formatMessage(apiErrorsMessages.return)}
+          </CatalogLink>
         </EmptyStatePrimary>
       </EmptyState>
     </Bullseye>

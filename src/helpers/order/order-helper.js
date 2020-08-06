@@ -3,15 +3,21 @@ import {
   getAxiosInstance,
   getPortfolioItemApi,
   getOrderApi,
-  getOrderItemApi
+  getOrderItemApi,
+  getGraphqlInstance
 } from '../shared/user-login';
-import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
+import {
+  CATALOG_API_BASE,
+  SOURCES_API_BASE,
+  APPROVAL_API_BASE
+} from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
 
 const orderApi = getOrderApi();
 const orderItemApi = getOrderItemApi();
 const portfolioItemApi = getPortfolioItemApi();
 const axiosInstance = getAxiosInstance();
+const graphqlInstance = getGraphqlInstance();
 
 export function getServicePlans(portfolioItemId) {
   return portfolioItemApi.listServicePlans(portfolioItemId);
@@ -165,7 +171,37 @@ export const getOrderDetail = (params) => {
   return Promise.all(detailPromises);
 };
 
+const APPROVAL_REQUESTER_PERSONA = 'approval/requester';
+const requestTranscriptQuery = (parent_id) => `query {
+  requests(id: "${parent_id}") {
+    group_name
+    state
+    actions {
+      created_at
+    }
+  }
+}`;
+const fetchRequestTranscript = (requestId) =>
+  graphqlInstance
+    .post(
+      `${APPROVAL_API_BASE}/graphql`,
+      { query: requestTranscriptQuery(requestId) },
+      { 'x-rh-persona': APPROVAL_REQUESTER_PERSONA }
+    )
+    .then(({ data: { requests } }) => requests);
+
 export const getApprovalRequests = (orderItemId) =>
-  axiosInstance.get(
-    `${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests`
-  );
+  axiosInstance
+    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests`)
+    .then(({ data }) => {
+      const promises = data.map(({ approval_request_ref }) =>
+        fetchRequestTranscript(approval_request_ref)
+      );
+      return Promise.all(promises).then((requests) => {
+        const data = requests?.[0]?.map(({ actions, ...request }) => ({
+          ...request,
+          updated: actions?.length > 0 ? actions.pop().created_at : undefined
+        }));
+        return { data: data || [] };
+      });
+    });

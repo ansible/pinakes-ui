@@ -22,13 +22,18 @@ import {
   EDIT_PORTFOLIO_WORKFLOW_ROUTE,
   EDIT_PORTFOLIO_ROUTE,
   REMOVE_PORTFOLIO_ROUTE,
-  PORTFOLIO_ROUTE
+  PORTFOLIO_ROUTE,
+  EDIT_ORDER_PROCESS_ROUTE
 } from '../../constants/routes';
 import {
   StyledCard,
   StyledGalleryItem
 } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
+import actionMessages from '../../messages/actions.messages';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
+import orderProcessesMessages from '../../messages/order-processes.messages';
 
 const TO_DISPLAY = ['description'];
 
@@ -37,6 +42,7 @@ const HeaderActions = ({
   handleCopyPortfolio,
   userCapabilities: { share, copy, unshare, update, destroy, set_approval }
 }) => {
+  const formatMessage = useFormatMessage();
   const [isOpen, setOpen] = useState(false);
   const dropdownItems = [];
   if (share || unshare) {
@@ -50,7 +56,7 @@ const HeaderActions = ({
             pathname={SHARE_PORTFOLIO_ROUTE}
             preserveHash
           >
-            Share
+            {formatMessage(actionMessages.share)}
           </CatalogLink>
         }
       />
@@ -64,7 +70,7 @@ const HeaderActions = ({
         id="copy-portfolio-action"
         onClick={() => handleCopyPortfolio(portfolioId)}
       >
-        Copy
+        {formatMessage(actionMessages.copy)}
       </DropdownItem>
     );
   }
@@ -80,9 +86,32 @@ const HeaderActions = ({
             pathname={EDIT_PORTFOLIO_WORKFLOW_ROUTE}
             preserveHash
           >
-            Set approval
+            {formatMessage(actionMessages.setApproval)}
           </CatalogLink>
         }
+      />
+    );
+  }
+
+  if (window.insights.chrome.isBeta() && update) {
+    const orderProcessAction = formatMessage(
+      orderProcessesMessages.setOrderProcess
+    );
+    dropdownItems.push(
+      <DropdownItem
+        aria-label={orderProcessAction}
+        key="attach-order-processes"
+        id="attach-order-processes"
+        component={
+          <CatalogLink
+            preserveSearch
+            pathname={EDIT_ORDER_PROCESS_ROUTE}
+            searchParams={{ portfolio: portfolioId }}
+          >
+            {orderProcessAction}
+          </CatalogLink>
+        }
+        role="link"
       />
     );
   }
@@ -98,7 +127,7 @@ const HeaderActions = ({
             pathname={EDIT_PORTFOLIO_ROUTE}
             preserveHash
           >
-            Edit
+            {formatMessage(actionMessages.edit)}
           </CatalogLink>
         }
       />
@@ -116,7 +145,7 @@ const HeaderActions = ({
             pathname={REMOVE_PORTFOLIO_ROUTE}
             preserveHash
           >
-            Delete
+            {formatMessage(actionMessages.delete)}
           </CatalogLink>
         }
       />
@@ -163,10 +192,11 @@ const PortfolioCard = ({
   handleCopyPortfolio,
   metadata: {
     user_capabilities,
-    statistics: { shared_groups }
+    statistics: { shared_groups, portfolio_items }
   },
   ...props
 }) => {
+  const formatMessage = useFormatMessage();
   const to = {
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
@@ -179,6 +209,7 @@ const PortfolioCard = ({
             id={id}
             to={to}
             portfolioName={name}
+            portfolio_items={portfolio_items || 0}
             headerActions={
               <HeaderActions
                 portfolioId={id}
@@ -207,7 +238,7 @@ const PortfolioCard = ({
         <CardFooter>
           {shared_groups > 0 && (
             <Label variant="filled" color="blue">
-              Shared
+              {formatMessage(labelMessages.shared)}
             </Label>
           )}
         </CardFooter>
@@ -227,7 +258,10 @@ PortfolioCard.propTypes = {
   isDisabled: PropTypes.bool,
   metadata: PropTypes.shape({
     user_capabilities: PropTypes.object.isRequired,
-    statistics: PropTypes.shape({ shared_groups: PropTypes.number }).isRequired
+    statistics: PropTypes.shape({
+      shared_groups: PropTypes.number,
+      portfolio_items: PropTypes.number
+    }).isRequired
   }).isRequired,
   handleCopyPortfolio: PropTypes.func.isRequired
 };

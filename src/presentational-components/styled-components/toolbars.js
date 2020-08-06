@@ -45,6 +45,12 @@ export const TopToolbarWrapper = styled.div`
   .top-toolbar-title-description {
     word-break: break-word;
   }
+  .ins-c-primary-toolbar {
+    padding: 0;
+  }
+  .pf-c-toolbar__content {
+    padding: 0;
+  }
 `;
 
 export const TopToolbarTitleContainer = styled(Level)`

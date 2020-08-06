@@ -2,9 +2,7 @@
 
 exports[`<PortfolioCardHeader /> should render correctly 1`] = `
 <Styled(Level)>
-  <Styled(LevelItem)
-    className="pf-m-grow"
-  >
+  <Styled(LevelItem)>
     <TextContent>
       <Link
         id="portfolio-link-undefined"
@@ -27,7 +25,10 @@ exports[`<PortfolioCardHeader /> should render correctly 1`] = `
       </Link>
     </TextContent>
   </Styled(LevelItem)>
-  <LevelItem
+  <Badge
+    isRead={true}
+  />
+  <div
     onClick={[Function]}
   />
 </Styled(Level)>

@@ -13,6 +13,9 @@ import orderReducer, {
 import platformReducer, {
   platformInitialState
 } from '../redux/reducers/platform-reducer';
+import orderProcessReducer, {
+  orderProcessInitialState
+} from '../redux/reducers/order-process-reducer';
 import portfolioReducer, {
   portfoliosInitialState
 } from '../redux/reducers/portfolio-reducer';
@@ -31,6 +34,7 @@ import emptyDataMiddleware from './empty-data-middleware';
 import breadcrumbsReducer, {
   initialBreadcrumbsState
 } from '../redux/reducers/breadcrumbs-reducer';
+import i18nReducer, { i18nInitialState } from '../redux/reducers/i18n-reducer';
 import viewStateMiddleware from './view-state-middleware';
 import unAuthorizedMiddleware from './unauthorized-middleware';
 
@@ -62,6 +66,10 @@ const registerReducers = (registry) => {
   registry.register({
     orderReducer: applyReducerHash(orderReducer, orderInitialState),
     platformReducer: applyReducerHash(platformReducer, platformInitialState),
+    orderProcessReducer: applyReducerHash(
+      orderProcessReducer,
+      orderProcessInitialState
+    ),
     portfolioReducer: applyReducerHash(
       portfolioReducer,
       portfoliosInitialState
@@ -74,6 +82,7 @@ const registerReducers = (registry) => {
       breadcrumbsReducer,
       initialBreadcrumbsState
     ),
+    i18nReducer: applyReducerHash(i18nReducer, i18nInitialState),
     notifications
   });
 };

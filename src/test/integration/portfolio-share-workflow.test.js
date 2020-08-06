@@ -17,6 +17,7 @@ import Portfolios from '../../smart-components/portfolio/portfolios';
 
 import { StyledGalleryItem } from '../../presentational-components/styled-components/styled-gallery';
 import EditApprovalWorkflow from '../../smart-components/common/edit-approval-workflow';
+import { IntlProvider } from 'react-intl';
 
 describe('Portfolio share and workflow setting integration', () => {
   jest.useFakeTimers();
@@ -64,10 +65,8 @@ describe('Portfolio share and workflow setting integration', () => {
      * Response is empty
      */
     mockApi
-      .onGet(
-        `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=&limit=50&offset=0`
-      )
-      .replyOnce(200, {
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
+      .reply(200, {
         data: [initialPortfolio],
         meta: { count: 1, limit: 50, offset: 0 }
       });
@@ -75,9 +74,11 @@ describe('Portfolio share and workflow setting integration', () => {
     await act(async () => {
       wrapper = mount(
         <Provider store={store}>
-          <MemoryRouter initialEntries={['/']}>
-            <App />
-          </MemoryRouter>
+          <IntlProvider locale="en">
+            <MemoryRouter initialEntries={['/']}>
+              <App />
+            </MemoryRouter>
+          </IntlProvider>
         </Provider>
       );
     });
@@ -367,9 +368,7 @@ describe('Portfolio share and workflow setting integration', () => {
       wrapper.update();
       jest.runAllTimers();
     });
-    const clearButton = wrapper.find(
-      '.pf-c-button.pf-m-plain.pf-c-select__toggle-clear'
-    );
+    const clearButton = wrapper.find('button#remove-share-0');
     clearButton.simulate('click');
     wrapper.update();
     wrapper
@@ -394,6 +393,7 @@ describe('Portfolio share and workflow setting integration', () => {
       .last()
       .simulate('click');
 
+    wrapper.find('button#add-new-group').simulate('click');
     /**
      * mock share/ushare calls
      */

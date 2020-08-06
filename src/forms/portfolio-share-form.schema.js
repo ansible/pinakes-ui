@@ -4,15 +4,13 @@
 const newShareSchema = (loadGroupOptions, permissionVerbs) => [
   {
     component: 'sub-form',
-    description: 'Invite group',
+    description: 'share.new.description',
     name: 'new_share',
     key: '1',
     fields: [
       {
         name: 'group-selection',
         component: 'share-group-select',
-        inputName: 'group_uuid',
-        selectName: 'permissions',
         loadOptions: loadGroupOptions,
         isSearchable: true,
         permissions: permissionVerbs
@@ -21,48 +19,34 @@ const newShareSchema = (loadGroupOptions, permissionVerbs) => [
   }
 ];
 
-const groupListSchema = (groupFieldList) => [
+const groupShareSchema = (permissionVerbs) => [
   {
     component: 'sub-form',
-    description: 'Groups with access',
-    name: 'share_list',
-    key: 'share_list',
-    fields: groupFieldList
+    name: 'current-groups-sub-form',
+    fields: [
+      {
+        name: 'shared-groups',
+        permissionVerbs,
+        component: 'share-group-edit'
+      }
+    ]
   }
 ];
 
-const groupShareSchema = (groupShareInfo, permissionVerbs) => ({
-  component: 'sub-form',
-  name: `${groupShareInfo.group_name}`,
-  key: `${groupShareInfo.group_name}`,
-  fields: [
-    {
-      name: `${groupShareInfo.group_name}`,
-      label: `${groupShareInfo.group_name}`,
-      component: 'share-group-edit',
-      options: permissionVerbs,
-      isClearable: true
-    }
-  ]
-});
-
 export const createPortfolioShareSchema = (
-  shareInfo,
   loadGroupOptions,
   permissionVerbs,
   canShare,
   canUnshare,
   validate
 ) => {
-  const formSchema = canShare
-    ? newShareSchema(loadGroupOptions, permissionVerbs, validate)
-    : [];
-  const groupInfoFields = shareInfo.map((group) =>
-    groupShareSchema(group, permissionVerbs)
-  );
-  const shareListSchema = canUnshare ? groupListSchema(groupInfoFields) : [];
   const portfolioSchema = {
-    fields: [...formSchema, ...shareListSchema]
+    fields: [
+      ...(canShare
+        ? newShareSchema(loadGroupOptions, permissionVerbs, validate)
+        : []),
+      ...(canUnshare ? groupShareSchema(permissionVerbs) : [])
+    ]
   };
   return portfolioSchema;
 };

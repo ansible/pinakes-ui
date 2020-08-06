@@ -45,6 +45,7 @@ const createAddProductsSchema = ({
                       key: 'select-platforms',
                       id: 'products-platform-select',
                       isMulti: false,
+                      isSearchable: true,
                       placeholder: 'Filter by Platform',
                       options,
                       onChange: onOptionSelect

@@ -15,6 +15,9 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { PLATFORM_SERVICE_OFFERINGS_ROUTE } from '../../constants/routes';
+import filteringMessages from '../../messages/filtering.messages';
+import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const initialState = {
   filterValue: '',
@@ -47,6 +50,7 @@ const debouncedFilter = asyncFormValidator(
 );
 
 const PlatformTemplates = () => {
+  const formatMessage = useFormatMessage();
   const [{ platform: id }] = useQuery(['platform']);
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     platformItemsState,
@@ -109,7 +113,7 @@ const PlatformTemplates = () => {
         schema={createPlatformsFilterToolbarSchema({
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
-          filterPlaceholder: 'Filter by template',
+          filterPlaceholder: formatMessage(platformsMessages.templatesFilter),
           meta,
           apiRequest: (_, options) =>
             dispatch(fetchPlatformItems(id, filterValue, options))
@@ -120,19 +124,23 @@ const PlatformTemplates = () => {
         isLoading={isFetching || isFiltering}
         renderEmptyState={() => (
           <ContentGalleryEmptyState
-            title={filterValue === '' ? 'No templates' : 'No results found'}
+            title={
+              filterValue === ''
+                ? formatMessage(platformsMessages.noTemplatesTitle)
+                : formatMessage(filteringMessages.noResults)
+            }
             Icon={SearchIcon}
             PrimaryAction={() =>
               filterValue !== '' ? (
                 <Button onClick={() => handleFilterChange('')} variant="link">
-                  Clear all filters
+                  {formatMessage(filteringMessages.clearFilters)}
                 </Button>
               ) : null
             }
             description={
               filterValue === ''
-                ? 'This platform has no templates.'
-                : 'No results match the filter critera. Remove all filters or clear all filters to show results.'
+                ? formatMessage(platformsMessages.noTemplatesDescription)
+                : formatMessage(filteringMessages.noResultsDescription)
             }
           />
         )}

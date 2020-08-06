@@ -9,8 +9,17 @@ import {
 } from '@patternfly/react-table';
 
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
+import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
-const NoItems = () => <Text component={TextVariants.h1}>No items found</Text>;
+const NoItems = () => {
+  const formatMessage = useFormatMessage();
+  return (
+    <Text component={TextVariants.h1}>
+      {formatMessage(filteringMessages.noItems)}
+    </Text>
+  );
+};
 
 const ContentList = ({
   data,

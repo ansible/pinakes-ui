@@ -22,6 +22,7 @@ const AppTabs = ({ tabItems }) => {
           key={item.eventKey}
           eventKey={item.eventKey}
           name={item.name}
+          disabled={item.disabled}
         />
       ))}
     </Tabs>

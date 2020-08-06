@@ -1,127 +1,77 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  Modal,
-  TextContent,
-  Text,
-  Stack,
-  StackItem
-} from '@patternfly/react-core';
-import FormRenderer from '../common/form-renderer';
-import editApprovalWorkflowSchema from '../../forms/edit-workflow_form.schema';
-import {
-  listWorkflowsForObject,
-  updateWorkflows
-} from '../../redux/actions/approval-actions';
+import { useDispatch } from 'react-redux';
+import { updateWorkflows } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
-import { loadWorkflowOptions } from '../../helpers/approval/approval-helper';
-import { WorkflowLoader } from '../../presentational-components/shared/loader-placeholders';
+import {
+  loadWorkflowOptions,
+  listWorkflowsForObject
+} from '../../helpers/approval/approval-helper';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
-
-const initialState = {
-  isFetching: true
-};
-
-const approvalState = (state, action) => {
-  switch (action.type) {
-    case 'setFetching':
-      return { ...state, isFetching: action.payload };
-    default:
-      return state;
-  }
-};
+import { defineMessage } from 'react-intl';
+import approvalMessages from '../../messages/approval.messages';
+import useFormatMessage from '../../utilities/use-format-message';
+import TaggingModal from './tagging-modal';
+import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
 
 const EditApprovalWorkflow = ({
   objectType,
-  removeQuery,
+  removeSearch,
   keepHash,
   querySelector,
   pushParam,
-  objectName = () => objectType
+  objectName = () => objectType,
+  onClose
 }) => {
-  const [{ isFetching }, stateDispatch] = useReducer(
-    approvalState,
-    initialState
-  );
-  const { data, meta } = useSelector(
-    ({ approvalReducer: { resolvedWorkflows } }) => resolvedWorkflows
+  const formatMessage = useFormatMessage();
+  const { current: modalTitle } = useRef(
+    formatMessage(
+      defineMessage({
+        id: 'workflows.modal.title',
+        defaultMessage: 'Set approval process'
+      })
+    )
   );
   const dispatch = useDispatch();
-  const history = useEnhancedHistory({ removeQuery, keepHash });
+  const history = useEnhancedHistory({ removeSearch, keepHash });
   const [query] = useQuery([querySelector]);
 
-  useEffect(() => {
-    dispatch(
-      listWorkflowsForObject(
-        {
-          objectType,
-          appName: APP_NAME[objectType],
-          objectId: query[querySelector]
-        },
-        meta
-      )
-    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
-  }, []);
-
-  const onSubmit = (formData, formApi) => {
-    const initialWorkflows =
-      formApi.getState().initialValues.selectedWorkflows || [];
-    const newWorkflows = formData.selectedWorkflows || [];
-
+  const close = () => {
+    onClose && onClose();
     history.push(pushParam);
-    const toUnlinkWorkflows = initialWorkflows.filter(
-      (wf) => newWorkflows.findIndex((w) => w === wf) < 0
-    );
-    const toLinkWorkflows = newWorkflows.filter(
-      (wf) => initialWorkflows.findIndex((w) => w === wf) < 0
-    );
+  };
 
-    if (toUnlinkWorkflows.length > 0 || toLinkWorkflows.length > 0) {
-      dispatch(
-        updateWorkflows(toUnlinkWorkflows, toLinkWorkflows, {
-          object_type: objectType,
-          app_name: APP_NAME[objectType],
-          object_id: query[querySelector]
-        })
-      );
-    }
+  const onSubmit = (toLink, toUnlink) => {
+    close();
+    dispatch(
+      updateWorkflows(toLink, toUnlink, {
+        object_type: objectType,
+        app_name: APP_NAME[objectType],
+        object_id: query[querySelector]
+      })
+    );
   };
 
   return (
-    <Modal
-      title="Set approval process"
-      isOpen
-      onClose={() => history.push(pushParam)}
-      variant="small"
-    >
-      {isFetching && <WorkflowLoader />}
-      {!isFetching && (
-        <Stack hasGutter>
-          <StackItem>
-            <TextContent>
-              <Text>
-                Select approval processes for{' '}
-                <strong>{objectName(query[querySelector])}</strong>
-              </Text>
-            </TextContent>
-          </StackItem>
-          <StackItem>
-            <FormRenderer
-              initialValues={{
-                selectedWorkflows: data ? data.map((wf) => wf.id) : undefined
-              }}
-              onSubmit={onSubmit}
-              onCancel={() => history.push(pushParam)}
-              schema={editApprovalWorkflowSchema(loadWorkflowOptions)}
-              formContainer="modal"
-              buttonsLabels={{ submitLabel: 'Save' }}
-            />
-          </StackItem>
-        </Stack>
-      )}
-    </Modal>
+    <TaggingModal
+      title={modalTitle}
+      onClose={close}
+      onSubmit={onSubmit}
+      getInitialTags={() =>
+        listWorkflowsForObject({
+          objectType,
+          appName: APP_NAME[objectType],
+          objectId: query[querySelector]
+        }).then(({ data }) => data)
+      }
+      loadTags={loadWorkflowOptions}
+      subTitle={formatMessage(approvalMessages.setWorkflow, {
+        strong: Bold,
+        objectName: objectName(query[querySelector])
+      })}
+      existingTagsMessage={formatMessage(approvalMessages.currentWorkflows)}
+    />
   );
 };
 
@@ -135,14 +85,15 @@ EditApprovalWorkflow.propTypes = {
   ]).isRequired,
   objectType: PropTypes.string.isRequired,
   objectName: PropTypes.func,
-  removeQuery: PropTypes.bool,
+  removeSearch: PropTypes.bool,
   querySelector: PropTypes.oneOf([
     'portfolio',
     'platform',
     'inventory',
     'portfolio-item'
   ]).isRequired,
-  keepHash: PropTypes.bool
+  keepHash: PropTypes.bool,
+  onClose: PropTypes.func
 };
 
 EditApprovalWorkflow.defaultProps = {

@@ -36,6 +36,7 @@ describe('<SharePortfolioModal/>', () => {
     };
     initialState = {
       portfolioReducer: {
+        isLoading: false,
         selectedPortfolio: {
           id: '2',
           name: 'Portfolio 1',
@@ -144,6 +145,7 @@ describe('<SharePortfolioModal/>', () => {
     await act(async () => {
       option.simulate('click');
     });
+    wrapper.find('button#add-new-group').simulate('click');
 
     wrapper.update();
 

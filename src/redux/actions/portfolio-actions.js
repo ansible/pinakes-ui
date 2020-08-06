@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React from 'react';
 import {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
@@ -9,23 +8,32 @@ import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
+import portfolioMessages from '../../messages/portfolio.messages';
+import { FormattedMessage } from 'react-intl';
+
 export const doFetchPortfolios = ({
-  filter,
+  filters,
   ...options
 } = defaultSettings) => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
-  meta: { ...defaultSettings, filter, ...options },
-  payload: PortfolioHelper.listPortfolios(filter, options)
+  meta: { ...defaultSettings, filters, ...options },
+  payload: PortfolioHelper.listPortfolios(filters, options)
 });
 
 export const fetchPortfolios = (options) => (dispatch) =>
   dispatch(doFetchPortfolios(options));
 
-export const fetchPortfoliosWithState = (options = defaultSettings) => (
-  dispatch
-) =>
+export const fetchPortfoliosWithState = (
+  filters,
+  options = defaultSettings
+) => (dispatch) =>
   dispatch(
-    doFetchPortfolios({ ...options, storeState: true, stateKey: 'portfolio' })
+    doFetchPortfolios({
+      ...options,
+      filters,
+      storeState: true,
+      stateKey: 'portfolio'
+    })
   );
 
 export const fetchPortfolioItems = (
@@ -66,16 +74,12 @@ export const searchPortfolioItems = (value) => ({
   })
 });
 
-export const addPortfolio = (portfolioData) => ({
+export const addPortfolio = (portfolioData, notification) => ({
   type: ActionTypes.ADD_PORTFOLIO,
   payload: PortfolioHelper.addPortfolio(portfolioData),
   meta: {
     notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success adding portfolio',
-        description: `Portfolio ${portfolioData.name} was added successfully.`
-      }
+      fulfilled: notification
     }
   }
 });
@@ -166,22 +170,30 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
             title: 'Success removing portfolio',
             dismissable: true,
             description: (
-              <Fragment>
-                The portfolio was removed successfully. You can&nbsp;
-                <a
-                  href="#"
-                  id={`undo-delete-portfolio-${portfolioId}`}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    dispatch(
-                      undoRemovePortfolio(portfolioId, restore_key, viewState)
-                    );
-                  }}
-                >
-                  Undo
-                </a>
-                &nbsp;this action if this was a mistake.
-              </Fragment>
+              <FormattedMessage
+                {...portfolioMessages.removePortfolioNotification}
+                values={{
+                  // eslint-disable-next-line react/display-name
+                  a: (chunks) => (
+                    <a
+                      href="#"
+                      id={`undo-delete-portfolio-${portfolioId}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        dispatch(
+                          undoRemovePortfolio(
+                            portfolioId,
+                            restore_key,
+                            viewState
+                          )
+                        );
+                      }}
+                    >
+                      {chunks}
+                    </a>
+                  )
+                }}
+              />
             )
           }
         });
@@ -234,10 +246,11 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => (
     );
 };
 
-export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
-  dispatch,
-  getState
-) => {
+export const removeProductsFromPortfolio = (
+  portfolioItems,
+  portfolioName,
+  firstSelectedProduct
+) => (dispatch, getState) => {
   dispatch({
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
@@ -266,12 +279,15 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
           dismissable: true,
           description: (
             <FormattedMessage
-              id="portfolio.remove.portfolio-items"
-              defaultMessage="You have removed {count, number} {count, plural, one {product} other {products} } from the {portfolioName} portfolio. {undo} if this was a mistake." // eslint-disable-line max-len
+              {...portfolioMessages.removeItemsNotification}
               values={{
                 count: portfolioItems.length,
+                productName: firstSelectedProduct.name,
                 portfolioName,
-                undo: (
+                // eslint-disable-next-line react/display-name
+                b: (chunks) => <b>{chunks}</b>,
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
                   <a
                     href="#"
                     id={`restore-portfolio-item-${portfolioId}`}
@@ -282,7 +298,7 @@ export const removeProductsFromPortfolio = (portfolioItems, portfolioName) => (
                       );
                     }}
                   >
-                    Undo
+                    {chunks}
                   </a>
                 )
               }}
@@ -394,4 +410,19 @@ export const getPortfolioItemDetail = (params) => (dispatch) => {
         }
       })
   );
+};
+
+export const setOrFetchPortfolio = (id, portfolios) => {
+  const existingPorfolio = portfolios?.data?.find(
+    (portfolio) => portfolio.id === id
+  );
+
+  if (existingPorfolio) {
+    return {
+      type: `${ActionTypes.FETCH_PORTFOLIO}_FULFILLED`,
+      payload: existingPorfolio
+    };
+  }
+
+  return fetchSelectedPortfolio(id);
 };

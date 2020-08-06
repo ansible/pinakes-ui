@@ -9,6 +9,11 @@ import {
 } from '@patternfly/react-core';
 import ButtonWithSpinner from '../../../presentational-components/shared/button-with-spinner';
 import CatalogLink from '../../common/catalog-link';
+import actionMessages from '../../../messages/actions.messages';
+import portfolioMessages from '../../../messages/portfolio.messages';
+import useFormatMessage from '../../../utilities/use-format-message';
+import orderProcessesMessages from '../../../messages/order-processes.messages';
+import { PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE } from '../../../constants/routes';
 
 const DetailToolbarActions = ({
   copyUrl,
@@ -22,6 +27,7 @@ const DetailToolbarActions = ({
   availability,
   userCapabilities: { update, copy, set_approval }
 }) => {
+  const formatMessage = useFormatMessage();
   const dropdownItems = [];
   if (update) {
     dropdownItems.push(
@@ -31,7 +37,7 @@ const DetailToolbarActions = ({
         id="edit-portfolio-item"
         component={
           <CatalogLink pathname={editUrl} preserveSearch>
-            Edit
+            {formatMessage(actionMessages.edit)}
           </CatalogLink>
         }
         role="link"
@@ -47,7 +53,7 @@ const DetailToolbarActions = ({
         id="copy-portfolio-item"
         component={
           <CatalogLink pathname={copyUrl} preserveSearch>
-            Copy
+            {formatMessage(actionMessages.copy)}
           </CatalogLink>
         }
         role="link"
@@ -63,7 +69,29 @@ const DetailToolbarActions = ({
         id="set-approval_workflow"
         component={
           <CatalogLink pathname={workflowUrl} preserveSearch>
-            Set approval
+            {formatMessage(actionMessages.setApproval)}
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
+  if (window.insights.chrome.isBeta() && update) {
+    const orderProcessAction = formatMessage(
+      orderProcessesMessages.setOrderProcess
+    );
+    dropdownItems.push(
+      <DropdownItem
+        aria-label={orderProcessAction}
+        key="attach-order-processes"
+        id="attach-order-processes"
+        component={
+          <CatalogLink
+            preserveSearch
+            pathname={PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE}
+          >
+            {orderProcessAction}
           </CatalogLink>
         }
         role="link"
@@ -79,7 +107,7 @@ const DetailToolbarActions = ({
         id="edit-survey"
         component={
           <CatalogLink pathname={editSurveyUrl} preserveSearch>
-            Edit survey
+            {formatMessage(portfolioMessages.portfolioItemSurvey)}
           </CatalogLink>
         }
         role="link"
@@ -101,7 +129,7 @@ const DetailToolbarActions = ({
             variant="primary"
             id="order-portfolio-item"
           >
-            Order
+            {formatMessage(portfolioMessages.portfolioItemOrder)}
           </ButtonWithSpinner>
         </CatalogLink>
       </LevelItem>
