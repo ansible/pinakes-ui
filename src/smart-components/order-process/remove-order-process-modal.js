@@ -53,7 +53,7 @@ const RemoveOrderProcessModal = ({
   if (!finalId && ids.length === 0) {
     return null;
   }
-  console.log('Debug - id', orderProcessId);
+
   const removeProcesses = () =>
     (finalId
       ? dispatch(removeOrderProcess(finalId, intl))

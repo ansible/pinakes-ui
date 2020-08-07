@@ -186,7 +186,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               role="link"
             />,
             <DropdownItem
-              aria-label="Unable to translate message. Definition: undefined, values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message."
+              aria-label="Set order processes"
               component={
                 <CatalogLink
                   nav={false}
@@ -195,7 +195,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   preserveSearch={true}
                   searchParams={Object {}}
                 >
-                  Unable to translate message. Definition: undefined, values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message.
+                  Set order processes
                 </CatalogLink>
               }
               id="attach-order-processes"
@@ -286,7 +286,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 role="link"
               />,
               <DropdownItem
-                aria-label="Unable to translate message. Definition: undefined, values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message."
+                aria-label="Set order processes"
                 component={
                   <CatalogLink
                     nav={false}
@@ -295,7 +295,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     preserveSearch={true}
                     searchParams={Object {}}
                   >
-                    Unable to translate message. Definition: undefined, values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message.
+                    Set order processes
                   </CatalogLink>
                 }
                 id="attach-order-processes"
