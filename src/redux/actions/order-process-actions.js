@@ -3,11 +3,7 @@ import * as OrderProcessHelper from '../../helpers/order-process/order-process-h
 import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
-  const {
-    sortBy,
-    orderProcesses,
-    filterValue
-  } = getState().orderProcessReducer;
+  const { sortBy, orderProcesses } = getState().orderProcessReducer;
 
   let finalPagination = pagination;
 
@@ -18,8 +14,14 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
 
   return dispatch({
     type: ActionTypes.FETCH_ORDER_PROCESSES,
+    meta: {
+      ...finalPagination,
+      filter: pagination?.filterValue || '',
+      storeState: true,
+      stateKey: 'orderProcesses'
+    },
     payload: OrderProcessHelper.listOrderProcesses(
-      filterValue,
+      pagination?.filterValue,
       finalPagination,
       sortBy
     )
@@ -47,11 +49,6 @@ export const addOrderProcess = (processData, intl) => ({
 export const sortOrderProcesses = (sortBy) => ({
   type: ActionTypes.SORT_ORDER_PROCESSES,
   payload: sortBy
-});
-
-export const setFilterValueOrderProcesses = (filterValue) => ({
-  type: ActionTypes.SET_FILTER_ORDER_PROCESSES,
-  payload: filterValue
 });
 
 export const setOrderProcess = (...args) => ({
