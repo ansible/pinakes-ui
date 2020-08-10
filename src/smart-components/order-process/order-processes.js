@@ -175,14 +175,11 @@ const OrderProcesses = () => {
   const actionResolver = () => [
     {
       title: intl.formatMessage(actionMessages.delete),
-      component: 'button',
-      onClick: (_event, _rowId, orderProcess) => {
-        console.log('Debug - orderProcess', orderProcess);
-        return history.push({
+      onClick: (_event, _rowId, orderProcess) =>
+        history.push({
           pathname: REMOVE_ORDER_PROCESS_ROUTE,
           search: `?order_process=${orderProcess.id}`
-        });
-      }
+        })
     }
   ];
 
@@ -195,7 +192,9 @@ const OrderProcesses = () => {
   };
 
   const setCheckedItems = (checkedOrderProcesses) =>
-    setSelectedOrderProcesses(checkedOrderProcesses.map((wf) => wf.id));
+    setSelectedOrderProcesses(
+      checkedOrderProcesses.map((orderProcess) => orderProcess.id)
+    );
 
   const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
 

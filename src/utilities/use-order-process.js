@@ -6,11 +6,7 @@ const useOrderProcess = (id) => {
     shallowEqual
   );
 
-  return (
-    orderProcesses &&
-    orderProcesses.data &&
-    orderProcesses.data.find((op) => op.id === id)
-  );
+  return orderProcesses?.data?.find((op) => op.id === id);
 };
 
 export default useOrderProcess;
