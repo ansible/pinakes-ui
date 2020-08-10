@@ -12,8 +12,7 @@ import { SearchIcon } from '@patternfly/react-icons';
 import { sortable } from '@patternfly/react-table';
 import {
   fetchOrderProcesses,
-  sortOrderProcesses,
-  setFilterValueOrderProcesses
+  sortOrderProcesses
 } from '../../redux/actions/order-process-actions';
 import { createRows } from './order-process-table-helpers';
 import { TableToolbarView } from '../../presentational-components/shared/table-toolbar-view';
@@ -29,6 +28,7 @@ import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
 import { ADD_ORDER_PROCESS_ROUTE } from '../../constants/routes';
 import AddOrderProcess from './add-order-process-modal';
+import useInitialUriHash from '../../routing/use-initial-uri-hash';
 
 const columns = (intl) => [
   {
@@ -48,10 +48,9 @@ const columns = (intl) => [
 const debouncedFilter = asyncFormValidator(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(setFilterValueOrderProcesses(filter, meta));
-    return dispatch(fetchOrderProcesses(meta)).then(() =>
-      filteringCallback(false)
-    );
+    return dispatch(
+      fetchOrderProcesses({ filterValue: filter, ...meta })
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -67,12 +66,12 @@ const prepareChips = (filterValue, intl) =>
       ]
     : [];
 
-const initialState = (filterValue = '') => ({
-  filterValue,
+const initialState = {
+  filter: '',
   isOpen: false,
   isFetching: true,
   isFiltering: false
-});
+};
 
 const orderProcessesState = (state, action) => {
   switch (action.type) {
@@ -88,23 +87,23 @@ const orderProcessesState = (state, action) => {
 };
 
 const OrderProcesses = () => {
+  const viewState = useInitialUriHash();
   const {
     orderProcesses: { data, meta },
-    sortBy,
-    filterValueRedux
+    sortBy
   } = useSelector(
-    ({
-      orderProcessReducer: {
-        orderProcesses,
-        sortBy,
-        filterValue: filterValueRedux
-      }
-    }) => ({ orderProcesses, sortBy, filterValueRedux }),
+    ({ orderProcessReducer: { orderProcesses, sortBy } }) => ({
+      orderProcesses,
+      sortBy
+    }),
     shallowEqual
   );
   const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
     orderProcessesState,
-    initialState(filterValueRedux)
+    {
+      ...initialState,
+      filterValue: viewState?.orderProcesses.filter || initialState.filterValue
+    }
   );
 
   const dispatch = useDispatch();
@@ -119,7 +118,14 @@ const OrderProcesses = () => {
 
   useEffect(() => {
     insights.chrome.appNavClick({ id: 'order-processes', secondaryNav: true });
-    updateOrderProcesses(defaultSettings);
+    updateOrderProcesses(
+      viewState?.orderProcesses
+        ? {
+            ...viewState.orderProcesses,
+            filterValue
+          }
+        : defaultSettings
+    );
     scrollToTop();
   }, []);
 
@@ -146,7 +152,10 @@ const OrderProcesses = () => {
 
   const onSort = (_e, index, direction, { property }) => {
     dispatch(sortOrderProcesses({ index, direction, property }));
-    return updateOrderProcesses();
+    return updateOrderProcesses({
+      ...meta,
+      filterValue
+    });
   };
 
   const toolbarButtons = () => (
