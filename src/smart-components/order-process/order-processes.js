@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer, useState } from 'react';
+import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Link, Route, useHistory } from 'react-router-dom';
 import {
@@ -9,7 +9,7 @@ import {
   ToolbarItem
 } from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
-import { sortable } from '@patternfly/react-table';
+import { sortable, cellWidth } from '@patternfly/react-table';
 import {
   fetchOrderProcesses,
   sortOrderProcesses
@@ -34,8 +34,16 @@ import AddOrderProcess from './add-order-process-modal';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import RemoveOrderProcess from './remove-order-process-modal';
 import actionMessages from '../../messages/actions.messages';
+import OrderProcessTableContext from './order-process-table-context';
+import { Checkbox } from '@patternfly/react-core';
 
-const columns = (intl) => [
+const columns = (intl, allSelected, selectAll) => [
+  {
+    title: (
+      <Checkbox onChange={selectAll} isChecked={allSelected} id="select-all" />
+    ),
+    transforms: [cellWidth(1)]
+  },
   {
     title: intl.formatMessage(labelMessages.name),
     transforms: [sortable]
@@ -71,19 +79,70 @@ const prepareChips = (filterValue, intl) =>
       ]
     : [];
 
-const initialState = {
-  filter: '',
-  isOpen: false,
+const initialState = (filterValue = '') => ({
+  filterValue,
   isFetching: true,
-  isFiltering: false
-};
+  isFiltering: false,
+  selectedOrderProcesses: [],
+  allSelected: false,
+  rows: []
+});
+
+const areAllSelected = (rows = [], selected) =>
+  rows.every((row) => selected.includes(row.id));
+const unique = (value, index, self) => self.indexOf(value) === index;
 
 const orderProcessesState = (state, action) => {
   switch (action.type) {
+    case 'setRows':
+      return {
+        ...state,
+        rows: action.payload,
+        selectedAll: areAllSelected(
+          action.payload,
+          state.selectedOrderProcesses
+        )
+      };
     case 'setFetching':
-      return { ...state, isFetching: action.payload };
+      return {
+        ...state,
+        isFetching: action.payload
+      };
     case 'setFilterValue':
       return { ...state, filterValue: action.payload };
+    case 'select':
+      return {
+        ...state,
+        selectedAll: false,
+        selectedOrderProcesses: state.selectedOrderProcesses.includes(
+          action.payload
+        )
+          ? state.selectedOrderProcesses.filter((id) => id !== action.payload)
+          : [...state.selectedOrderProcesses, action.payload]
+      };
+    case 'selectAll':
+      return {
+        ...state,
+        selectedOrderProceses: [
+          ...state.selectedOrderProcesses,
+          ...action.payload
+        ].filter(unique),
+        allSelected: true
+      };
+    case 'unselectAll':
+      return {
+        ...state,
+        selectedOrderProcesses: state.selectedOrderProcesses.filter(
+          (selected) => !action.payload.includes(selected)
+        ),
+        selectedAll: false
+      };
+    case 'resetSelected':
+      return {
+        ...state,
+        selectedOrderProceses: [],
+        selectedAll: false
+      };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
     default:
@@ -103,17 +162,26 @@ const OrderProcesses = () => {
     }),
     shallowEqual
   );
-  const [{ filterValue, isFetching, isFiltering }, stateDispatch] = useReducer(
-    orderProcessesState,
+  const [
     {
-      ...initialState,
-      filterValue: viewState?.orderProcesses.filter || initialState.filterValue
-    }
-  );
-  const [selectedOrderProcesses, setSelectedOrderProcesses] = useState([]);
+      filterValue,
+      isFetching,
+      isFiltering,
+      selectedOrderProcesses,
+      allSelected,
+      rows
+    },
+    stateDispatch
+  ] = useReducer(orderProcessesState, {
+    ...initialState,
+    filterValue: viewState?.orderProcesses.filter || initialState.filterValue
+  });
+
   const dispatch = useDispatch();
   const intl = useIntl();
   const history = useHistory();
+  const setSelectedOrderProcesses = (id) =>
+    stateDispatch({ type: 'select', payload: id });
 
   const updateOrderProcesses = (pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
@@ -134,6 +202,10 @@ const OrderProcesses = () => {
     );
     scrollToTop();
   }, []);
+
+  useEffect(() => {
+    stateDispatch({ type: 'setRows', payload: createRows(data) });
+  }, [data]);
 
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -183,6 +255,13 @@ const OrderProcesses = () => {
     }
   ];
 
+  const doSelectAll = () =>
+    allSelected
+      ? stateDispatch({ type: 'unselectAll', payload: data.map((op) => op.id) })
+      : stateDispatch({ type: 'selectAll', payload: data.map((op) => op.id) });
+
+  const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
+
   const onSort = (_e, index, direction, { property }) => {
     dispatch(sortOrderProcesses({ index, direction, property }));
     return updateOrderProcesses({
@@ -190,13 +269,6 @@ const OrderProcesses = () => {
       filterValue
     });
   };
-
-  const setCheckedItems = (checkedOrderProcesses) =>
-    setSelectedOrderProcesses(
-      checkedOrderProcesses.map((orderProcess) => orderProcess.id)
-    );
-
-  const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
 
   const toolbarButtons = () => (
     <StyledToolbarGroup className="pf-u-pl-lg top-toolbar">
@@ -242,51 +314,54 @@ const OrderProcesses = () => {
           </Text>
         </TextContent>
       </TopToolbar>
-      <TableToolbarView
-        sortBy={sortBy}
-        onSort={onSort}
-        data={data}
-        createRows={createRows}
-        routes={routes}
-        columns={columns(intl)}
-        fetchData={updateOrderProcesses}
-        titlePlural={intl.formatMessage(orderProcessesMessages.title)}
-        titleSingular={intl.formatMessage(orderProcessesMessages.orderProcess)}
-        pagination={meta}
-        filterValue={filterValue}
-        onFilterChange={handleFilterChange}
-        isLoading={isFetching || isFiltering}
-        toolbarButtons={toolbarButtons}
-        isSelectable
-        setCheckedItems={setCheckedItems}
-        actionResolver={actionResolver}
-        renderEmptyState={() => (
-          <TableEmptyState
-            title={
-              filterValue === ''
-                ? intl.formatMessage(orderProcessesMessages.noOrderProcesses)
-                : intl.formatMessage(filteringMessages.noResultsFound)
-            }
-            Icon={SearchIcon}
-            PrimaryAction={() =>
-              filterValue !== '' ? (
-                <Button onClick={() => handleFilterChange('')} variant="link">
-                  {intl.formatMessage(filteringMessages.clearFilters)}
-                </Button>
-              ) : null
-            }
-            description={
-              filterValue === ''
-                ? intl.formatMessage(orderProcessesMessages.noOrderProcesses)
-                : intl.formatMessage(filteringMessages.noResultsDescription)
-            }
-          />
-        )}
-        activeFiltersConfig={{
-          filters: prepareChips(filterValue, intl),
-          onDelete: () => handleFilterChange('')
-        }}
-      />
+      <OrderProcessTableContext.Provider
+        value={{ selectedOrderProcesses, setSelectedOrderProcesses }}
+      >
+        <TableToolbarView
+          sortBy={sortBy}
+          onSort={onSort}
+          rows={rows}
+          columns={columns(intl, allSelected, doSelectAll)}
+          routes={routes}
+          fetchData={updateOrderProcesses}
+          titlePlural={intl.formatMessage(orderProcessesMessages.title)}
+          titleSingular={intl.formatMessage(
+            orderProcessesMessages.orderProcess
+          )}
+          pagination={meta}
+          filterValue={filterValue}
+          onFilterChange={handleFilterChange}
+          isLoading={isFetching || isFiltering}
+          toolbarButtons={toolbarButtons}
+          actionResolver={actionResolver}
+          renderEmptyState={() => (
+            <TableEmptyState
+              title={
+                filterValue === ''
+                  ? intl.formatMessage(orderProcessesMessages.noOrderProcesses)
+                  : intl.formatMessage(filteringMessages.noResultsFound)
+              }
+              Icon={SearchIcon}
+              PrimaryAction={() =>
+                filterValue !== '' ? (
+                  <Button onClick={() => handleFilterChange('')} variant="link">
+                    {intl.formatMessage(filteringMessages.clearFilters)}
+                  </Button>
+                ) : null
+              }
+              description={
+                filterValue === ''
+                  ? intl.formatMessage(orderProcessesMessages.noOrderProcesses)
+                  : intl.formatMessage(filteringMessages.noResultsDescription)
+              }
+            />
+          )}
+          activeFiltersConfig={{
+            filters: prepareChips(filterValue, intl),
+            onDelete: () => handleFilterChange('')
+          }}
+        />
+      </OrderProcessTableContext.Provider>
     </Fragment>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
 import { Table, TableHeader, TableBody } from '@patternfly/react-table';
 import {
@@ -13,17 +13,13 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/compo
 import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const TableToolbarView = ({
-  isSelectable,
-  createRows,
   columns,
   fetchData,
   toolbarButtons,
-  data,
   actionResolver,
   routes,
   plural,
   pagination,
-  setCheckedItems,
   filterValue,
   onFilterChange,
   isLoading,
@@ -31,31 +27,10 @@ export const TableToolbarView = ({
   sortBy,
   onSort,
   activeFiltersConfig,
-  filterConfig
+  filterConfig,
+  rows
 }) => {
   const intl = useIntl();
-  const [rows, setRows] = useState([]);
-
-  useEffect(() => {
-    setRows(createRows(data));
-  }, [data]);
-
-  const setSelected = (_event, selected, index, { id } = {}) => {
-    const newData = rows.map((row) =>
-      row.id === id || index === -1
-        ? {
-            ...row,
-            selected: index === -1 ? selected : !row.selected
-          }
-        : {
-            ...row
-          }
-    );
-
-    const checkedItems = newData.filter((item) => item.id && item.selected);
-    setCheckedItems(checkedItems);
-    return setRows(newData);
-  };
 
   const paginationConfig = {
     itemCount: pagination.count,
@@ -123,8 +98,6 @@ export const TableToolbarView = ({
               className="pf-u-pt-0"
               sortBy={sortBy}
               onSort={onSort}
-              onSelect={isSelectable && setSelected}
-              canSelectAll
             >
               <TableHeader />
               <TableBody />
@@ -149,12 +122,9 @@ export const TableToolbarView = ({
 };
 
 TableToolbarView.propTypes = {
-  isSelectable: propTypes.bool,
-  createRows: propTypes.func.isRequired,
   columns: propTypes.array.isRequired,
   toolbarButtons: propTypes.func,
   fetchData: propTypes.func.isRequired,
-  data: propTypes.array,
   pagination: propTypes.shape({
     limit: propTypes.number,
     offset: propTypes.number,
@@ -172,14 +142,13 @@ TableToolbarView.propTypes = {
   onSort: propTypes.func,
   activeFiltersConfig: propTypes.object,
   filterConfig: propTypes.array,
-  setCheckedItems: propTypes.func
+  rows: propTypes.array
 };
 
 TableToolbarView.defaultProps = {
   requests: [],
   isLoading: false,
   pagination: defaultSettings,
-  isSelectable: null,
   routes: () => null,
   renderEmptyState: () => null,
   filterConfig: []
