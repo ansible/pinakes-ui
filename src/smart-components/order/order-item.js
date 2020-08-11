@@ -10,21 +10,12 @@ import {
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon } from '../../helpers/shared/orders';
 import CatalogLink from '../common/catalog-link';
-import {
-  ORDER_ROUTE,
-  ORDER_APPROVAL_ROUTE,
-  ORDER_LIFECYCLE_ROUTE
-} from '../../constants/routes';
+import { ORDER_ROUTE } from '../../constants/routes';
 import statesMessages, {
   getTranslatableState
 } from '../../messages/states.messages';
 
 import { TableText } from '@patternfly/react-table';
-
-const routeMapper = {
-  'Approval Pending': ORDER_APPROVAL_ROUTE,
-  Completed: ORDER_LIFECYCLE_ROUTE
-};
 
 const labelProps = {
   Completed: { icon: <CheckCircleIcon />, color: 'green' },
@@ -101,14 +92,9 @@ const createOrderItem = (
     {
       title: (
         <TableText>
-          <CatalogLink
-            pathname={routeMapper[item.state] || ORDER_ROUTE}
-            searchParams={searchParams}
-          >
-            <Label {...labelProps[item.state]} variant="outline">
-              {formatMessage(statesMessages[translatableState])}
-            </Label>
-          </CatalogLink>
+          <Label {...labelProps[item.state]} variant="outline">
+            {formatMessage(statesMessages[translatableState])}
+          </Label>
         </TableText>
       )
     }
