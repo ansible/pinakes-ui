@@ -174,7 +174,14 @@ const OrdersList = () => {
 
   const handlePagination = (_apiProps, pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(fetchOrders(filters, pagination))
+    return dispatch(
+      fetchOrders(filters, {
+        ...pagination,
+        sortBy: sortIndexMapper[sortBy.index],
+        sortDirection: sortBy.direction,
+        sortIndex: sortBy.index
+      })
+    )
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
@@ -183,7 +190,13 @@ const OrdersList = () => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
       { ...filters, [filterType]: value },
-      { ...meta, offset: 0 },
+      {
+        ...meta,
+        sortBy: sortIndexMapper[sortBy.index],
+        sortDirection: sortBy.direction,
+        sortIndex: sortBy.index,
+        offset: 0
+      },
       dispatch,
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
@@ -197,7 +210,12 @@ const OrdersList = () => {
     });
     return debouncedFilter(
       initialState.filters,
-      meta,
+      {
+        ...meta,
+        sortBy: sortIndexMapper[sortBy.index],
+        sortDirection: sortBy.direction,
+        sortIndex: sortBy.index
+      },
       dispatch,
       (isFiltering) =>
         stateDispatch({
@@ -337,14 +355,13 @@ const OrdersList = () => {
                       ? formatMessage(ordersMessages.noOrdersDescription)
                       : formatMessage(filteringMessages.noResultsDescription)}
                   </EmptyStateBody>
-
-                  <EmptyStateSecondaryActions>
-                    {!meta.noData && (
+                  {!meta.noData && (
+                    <EmptyStateSecondaryActions>
                       <Button variant="link" onClick={handleClearAll}>
                         {formatMessage(filteringMessages.clearFilters)}
                       </Button>
-                    )}
-                  </EmptyStateSecondaryActions>
+                    </EmptyStateSecondaryActions>
+                  )}
                 </EmptyState>
               </Bullseye>
             </EmptyTable>
