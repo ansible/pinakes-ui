@@ -18,7 +18,6 @@ import {
 import statesMessages, {
   getTranslatableState
 } from '../../messages/states.messages';
-import ordersMessages from '../../messages/orders.messages';
 
 import { TableText } from '@patternfly/react-table';
 

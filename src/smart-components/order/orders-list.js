@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
@@ -104,18 +104,6 @@ const OrdersList = () => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const viewState = useInitialUriHash();
-  const { current: columns } = useRef([
-    { title: formatMessage(ordersMessages.orderID), transforms: [sortable] },
-    formatMessage(labelMessages.product),
-    '', // need empty row column to correctly aling product names after the icon column
-    {
-      title: formatMessage(ordersMessages.orderedByLabel),
-      transforms: [sortable]
-    },
-    { title: formatMessage(ordersMessages.orderDate), transforms: [sortable] },
-    formatMessage(labelMessages.updated),
-    { title: formatMessage(labelMessages.status), transforms: [sortable] }
-  ]);
   const [
     { isFetching, isFiltering, filterType, filters, sortBy },
     stateDispatch
@@ -128,6 +116,24 @@ const OrdersList = () => {
     }
   });
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
+  const columns = [
+    { title: formatMessage(ordersMessages.orderID) },
+    formatMessage(labelMessages.product),
+    '', // need empty row column to correctly aling product names after the icon column
+    {
+      title: formatMessage(ordersMessages.orderedByLabel)
+    },
+    { title: formatMessage(ordersMessages.orderDate) },
+    formatMessage(labelMessages.updated),
+    { title: formatMessage(labelMessages.status) }
+  ].map((column) =>
+    typeof column === 'object' &&
+    !isFetching &&
+    !isFiltering &&
+    data.length !== 0
+      ? { ...column, transforms: [sortable] }
+      : column
+  );
   const portfolioItems = useSelector(
     ({
       portfolioReducer: {
@@ -329,8 +335,9 @@ const OrdersList = () => {
           )}
           <Table
             aria-label="orders"
-            sortBy={sortBy}
-            onSort={onSort}
+            {...(!(isFetching || isFiltering) && data.length === 0
+              ? {}
+              : { sortBy, onSort })}
             cells={columns}
             rows={isFetching || isFiltering ? [] : rows}
             className="orders-table"
