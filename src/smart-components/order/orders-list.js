@@ -21,7 +21,8 @@ import {
   Table,
   TableHeader,
   TableBody,
-  sortable
+  sortable,
+  SortByDirection
 } from '@patternfly/react-table';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
@@ -58,6 +59,10 @@ const initialState = {
   filters: {
     state: [],
     owner: ''
+  },
+  sortBy: {
+    index: 0,
+    direction: SortByDirection.desc
   }
 };
 
@@ -81,28 +86,46 @@ const ordersListState = (state, action) => {
       return { ...state, isFiltering: action.payload };
     case 'setFilterType':
       return { ...state, filterType: action.payload };
+    case 'setSortBy':
+      return { ...state, sortBy: action.payload, isFetching: true };
   }
 
   return state;
 };
 
+const sortIndexMapper = {
+  0: 'id',
+  3: 'owner',
+  4: 'created_at',
+  6: 'state'
+};
+
 const OrdersList = () => {
   const formatMessage = useFormatMessage();
+  const dispatch = useDispatch();
   const viewState = useInitialUriHash();
   const { current: columns } = useRef([
-    { title: 'Order ID', transforms: [sortable] },
-    'Product',
-    '',
-    { title: 'Ordered by', transforms: [sortable] },
-    'Updated',
-    { title: 'Status', transforms: [sortable] }
+    { title: formatMessage(ordersMessages.orderID), transforms: [sortable] },
+    formatMessage(labelMessages.product),
+    '', // need empty row column to correctly aling product names after the icon column
+    {
+      title: formatMessage(ordersMessages.orderedByLabel),
+      transforms: [sortable]
+    },
+    { title: formatMessage(ordersMessages.orderDate), transforms: [sortable] },
+    formatMessage(labelMessages.updated),
+    { title: formatMessage(labelMessages.status), transforms: [sortable] }
   ]);
   const [
-    { isFetching, isFiltering, filterType, filters },
+    { isFetching, isFiltering, filterType, filters, sortBy },
     stateDispatch
   ] = useReducer(ordersListState, {
     ...initialState,
-    filters: viewState?.orders?.filters || { state: [], owner: '' }
+    filters: viewState?.orders?.filters || { state: [], owner: '' },
+    sortBy: {
+      direction: viewState?.orders?.sortDirection || SortByDirection.desc,
+      index: viewState?.orders?.sortIndex || 0
+    }
   });
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
   const portfolioItems = useSelector(
@@ -112,6 +135,21 @@ const OrdersList = () => {
       }
     }) => data
   );
+  const onSort = (_e, index, direction) => {
+    stateDispatch({
+      type: 'setSortBy',
+      payload: { index, direction }
+    });
+    return dispatch(
+      fetchOrders(filters, {
+        ...meta,
+        sortBy: sortIndexMapper[index],
+        sortDirection: direction,
+        sortIndex: index
+      })
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+  };
+
   const rows = data.map((item) => {
     const { orderPlatform, orderPortfolio } = getOrderPlatformId(
       item,
@@ -125,7 +163,7 @@ const OrdersList = () => {
       formatMessage
     );
   });
-  const dispatch = useDispatch();
+
   useEffect(() => {
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.all([
@@ -273,8 +311,8 @@ const OrdersList = () => {
           )}
           <Table
             aria-label="orders"
-            sortBy={undefined}
-            onSort={console.log}
+            sortBy={sortBy}
+            onSort={onSort}
             cells={columns}
             rows={isFetching || isFiltering ? [] : rows}
             className="orders-table"

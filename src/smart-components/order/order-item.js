@@ -85,6 +85,13 @@ const createOrderItem = (
     {
       title: (
         <Text className="pf-u-mb-0" component={TextVariants.small}>
+          <DateFormat date={item.created_at} variant="relative" />
+        </Text>
+      )
+    },
+    {
+      title: (
+        <Text className="pf-u-mb-0" component={TextVariants.small}>
           {formatMessage(ordersMessages.lastUpdated)}
           &nbsp;
           <DateFormat
