@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
@@ -17,24 +17,30 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/compo
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
 import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar';
 import { SearchIcon } from '@patternfly/react-icons';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  sortable
+} from '@patternfly/react-table';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
-import OrderItem from './order-item';
+import createOrderItem from './order-item';
 import AsyncPagination from '../common/async-pagination';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import {
-  Table,
-  Tbody
-} from '../../presentational-components/styled-components/table';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import statesMessages from '../../messages/states.messages';
 import filteringMessages from '../../messages/filtering.messages';
 import ordersMessages from '../../messages/orders.messages';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import {
+  getOrderPlatformId,
+  getOrderPortfolioName
+} from '../../helpers/shared/orders';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -83,6 +89,14 @@ const ordersListState = (state, action) => {
 const OrdersList = () => {
   const formatMessage = useFormatMessage();
   const viewState = useInitialUriHash();
+  const { current: columns } = useRef([
+    { title: 'Order ID', transforms: [sortable] },
+    'Product',
+    '',
+    { title: 'Ordered by', transforms: [sortable] },
+    'Updated',
+    { title: 'Status', transforms: [sortable] }
+  ]);
   const [
     { isFetching, isFiltering, filterType, filters },
     stateDispatch
@@ -91,6 +105,26 @@ const OrdersList = () => {
     filters: viewState?.orders?.filters || { state: [], owner: '' }
   });
   const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
+  const portfolioItems = useSelector(
+    ({
+      portfolioReducer: {
+        portfolioItems: { data }
+      }
+    }) => data
+  );
+  const rows = data.map((item) => {
+    const { orderPlatform, orderPortfolio } = getOrderPlatformId(
+      item,
+      portfolioItems
+    );
+    const orderName = getOrderPortfolioName(item, portfolioItems);
+    return createOrderItem(
+      { ...item, orderName },
+      orderPlatform,
+      orderPortfolio,
+      formatMessage
+    );
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     stateDispatch({ type: 'setFetching', payload: true });
@@ -118,6 +152,23 @@ const OrdersList = () => {
     );
   };
 
+  const handleClearAll = () => {
+    stateDispatch({
+      type: 'replaceFilterChip',
+      payload: initialState.filters
+    });
+    return debouncedFilter(
+      initialState.filters,
+      meta,
+      dispatch,
+      (isFiltering) =>
+        stateDispatch({
+          type: 'setFilteringFlag',
+          payload: isFiltering
+        })
+    );
+  };
+
   return (
     <Grid hasGutter>
       <GridItem>
@@ -136,20 +187,7 @@ const OrdersList = () => {
                   })),
                 onDelete: (_e, [chip], clearAll) => {
                   if (clearAll) {
-                    stateDispatch({
-                      type: 'replaceFilterChip',
-                      payload: initialState.filters
-                    });
-                    return debouncedFilter(
-                      initialState.filters,
-                      meta,
-                      dispatch,
-                      (isFiltering) =>
-                        stateDispatch({
-                          type: 'setFilteringFlag',
-                          payload: isFiltering
-                        })
-                    );
+                    return handleClearAll();
                   }
 
                   const newFilters = { ...filters };
@@ -233,66 +271,47 @@ const OrdersList = () => {
               }
             />
           )}
-          <Table aria-label="order-list">
-            <Tbody>
-              {isFetching || isFiltering ? (
-                <tr>
-                  <td className="pf-u-p-0">
-                    <ListLoader />
-                  </td>
-                </tr>
-              ) : data.length > 0 ? (
-                data.map((item, index) => (
-                  <OrderItem key={item.id} index={index} item={item} />
-                ))
-              ) : (
-                <tr>
-                  <td>
-                    <EmptyTable>
-                      <Bullseye>
-                        <EmptyState>
-                          <Bullseye>
-                            <EmptyStateIcon icon={SearchIcon} />
-                          </Bullseye>
-                          <Title headingLevel="h1" size="lg">
-                            {meta.noData
-                              ? formatMessage(ordersMessages.noOrdersTitle)
-                              : formatMessage(filteringMessages.noResults)}
-                          </Title>
-                          <EmptyStateBody>
-                            {meta.noData
-                              ? formatMessage(
-                                  ordersMessages.noOrdersDescription
-                                )
-                              : formatMessage(
-                                  filteringMessages.noResultsDescription
-                                )}
-                          </EmptyStateBody>
-
-                          <EmptyStateSecondaryActions>
-                            {!meta.noData && (
-                              <Button
-                                variant="link"
-                                onClick={() => {
-                                  stateDispatch({
-                                    type: 'setFilteringFlag',
-                                    payload: true
-                                  });
-                                  handleFilterItems('');
-                                }}
-                              >
-                                {formatMessage(filteringMessages.clearFilters)}
-                              </Button>
-                            )}
-                          </EmptyStateSecondaryActions>
-                        </EmptyState>
-                      </Bullseye>
-                    </EmptyTable>
-                  </td>
-                </tr>
-              )}
-            </Tbody>
+          <Table
+            aria-label="orders"
+            sortBy={undefined}
+            onSort={console.log}
+            cells={columns}
+            rows={isFetching || isFiltering ? [] : rows}
+            className="orders-table"
+          >
+            <TableHeader />
+            <TableBody />
           </Table>
+          {!(isFetching || isFiltering) && data.length === 0 && (
+            <EmptyTable>
+              <Bullseye>
+                <EmptyState>
+                  <Bullseye>
+                    <EmptyStateIcon icon={SearchIcon} />
+                  </Bullseye>
+                  <Title headingLevel="h1" size="lg">
+                    {meta.noData
+                      ? formatMessage(ordersMessages.noOrdersTitle)
+                      : formatMessage(filteringMessages.noResults)}
+                  </Title>
+                  <EmptyStateBody>
+                    {meta.noData
+                      ? formatMessage(ordersMessages.noOrdersDescription)
+                      : formatMessage(filteringMessages.noResultsDescription)}
+                  </EmptyStateBody>
+
+                  <EmptyStateSecondaryActions>
+                    {!meta.noData && (
+                      <Button variant="link" onClick={handleClearAll}>
+                        {formatMessage(filteringMessages.clearFilters)}
+                      </Button>
+                    )}
+                  </EmptyStateSecondaryActions>
+                </EmptyState>
+              </Bullseye>
+            </EmptyTable>
+          )}
+          {(isFetching || isFiltering) && <ListLoader />}
           <TableToolbar className="pf-u-mr-0">
             <div className="bottom-pagination-container">
               <Flex justifyContent={{ default: 'justifyContentFlexEnd' }}>
