@@ -79,14 +79,14 @@ const prepareChips = (filterValue, intl) =>
       ]
     : [];
 
-const initialState = (filterValue = '') => ({
-  filterValue,
+const initialState = {
+  filter: '',
   isFetching: true,
   isFiltering: false,
   selectedOrderProcesses: [],
   allSelected: false,
   rows: []
-});
+};
 
 const areAllSelected = (rows = [], selected) =>
   rows.every((row) => selected.includes(row.id));
@@ -98,7 +98,7 @@ const orderProcessesState = (state, action) => {
       return {
         ...state,
         rows: action.payload,
-        selectedAll: areAllSelected(
+        allSelected: areAllSelected(
           action.payload,
           state.selectedOrderProcesses
         )
@@ -113,7 +113,7 @@ const orderProcessesState = (state, action) => {
     case 'select':
       return {
         ...state,
-        selectedAll: false,
+        allSelected: false,
         selectedOrderProcesses: state.selectedOrderProcesses.includes(
           action.payload
         )
@@ -123,7 +123,7 @@ const orderProcessesState = (state, action) => {
     case 'selectAll':
       return {
         ...state,
-        selectedOrderProceses: [
+        selectedOrderProcesses: [
           ...state.selectedOrderProcesses,
           ...action.payload
         ].filter(unique),
@@ -135,13 +135,13 @@ const orderProcessesState = (state, action) => {
         selectedOrderProcesses: state.selectedOrderProcesses.filter(
           (selected) => !action.payload.includes(selected)
         ),
-        selectedAll: false
+        allSelected: false
       };
     case 'resetSelected':
       return {
         ...state,
         selectedOrderProceses: [],
-        selectedAll: false
+        allSelected: false
       };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
@@ -255,10 +255,11 @@ const OrderProcesses = () => {
     }
   ];
 
-  const doSelectAll = () =>
-    allSelected
+  const doSelectAll = () => {
+    return allSelected
       ? stateDispatch({ type: 'unselectAll', payload: data.map((op) => op.id) })
       : stateDispatch({ type: 'selectAll', payload: data.map((op) => op.id) });
+  };
 
   const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
 
