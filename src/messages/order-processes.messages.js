@@ -62,6 +62,44 @@ const orderProcessesMessages = defineMessages({
   enterOrderProcessName: {
     id: 'order-process.enterName',
     defaultMessage: 'Enter a name for the order process'
+  },
+  orderProcesses: {
+    id: 'order-process.orderProcesses',
+    defaultMessage: 'order processes'
+  },
+  removeProcessSuccessTitle: {
+    id: 'order-process.removeProcessSuccessTitle',
+    defaultMessage: 'Success removing order process'
+  },
+  removeProcessSuccessDescription: {
+    id: 'order-process.removeProcessSuccessDescription',
+    defaultMessage: 'The order process was removed successfully.'
+  },
+  removeProcessesSuccessTitle: {
+    id: 'order-process.removeProcessesSuccessTitle',
+    defaultMessage: 'Success removing order processes'
+  },
+  removeProcessesSuccessDescription: {
+    id: 'order-process.removeProcessesSuccessDescription',
+    defaultMessage: 'The selected order processes were removed successfully.'
+  },
+  deleteOrderProcess: {
+    id: 'order-process.deleteProcessAriaMenu',
+    defaultMessage: 'Delete order processes'
+  },
+  removeProcessTitle: {
+    id: 'order-process.removeProcessTitle',
+    defaultMessage:
+      'Delete {count, plural, one {order process} other {order processes}}?'
+  },
+  removeProcessAriaLabel: {
+    id: 'order-process.removeProcessAriaLabel',
+    defaultMessage:
+      'Delete {count, plural, one {order process} other {order processes}} modal'
+  },
+  removeProcessDescription: {
+    id: 'order-process.removeProcessDescription',
+    defaultMessage: '{name} will be removed.'
   }
 });
 

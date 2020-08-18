@@ -28,6 +28,11 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
   });
 };
 
+export const fetchOrderProcess = (apiProps) => ({
+  type: ActionTypes.FETCH_ORDER_PROCESS,
+  payload: OrderProcessHelper.fetchOrderProcess(apiProps)
+});
+
 export const addOrderProcess = (processData, intl) => ({
   type: ActionTypes.ADD_ORDER_PROCESS,
   payload: OrderProcessHelper.addOrderProcess(processData),
@@ -54,4 +59,40 @@ export const sortOrderProcesses = (sortBy) => ({
 export const setOrderProcess = (...args) => ({
   type: ActionTypes.SET_ORDER_PROCESS,
   payload: OrderProcessHelper.setOrderProcesses(...args)
+});
+
+export const removeOrderProcess = (orderProcess, intl) => ({
+  type: ActionTypes.REMOVE_ORDER_PROCESS,
+  payload: OrderProcessHelper.removeOrderProcess(orderProcess),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: intl.formatMessage(
+          orderProcessesMessages.removeProcessSuccessTitle
+        ),
+        description: intl.formatMessage(
+          orderProcessesMessages.removeProcessSuccessDescription
+        )
+      }
+    }
+  }
+});
+
+export const removeOrderProcesses = (orderProcesses, intl) => ({
+  type: ActionTypes.REMOVE_ORDER_PROCESSES,
+  payload: OrderProcessHelper.removeOrderProcesses(orderProcesses),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: intl.formatMessage(
+          orderProcessesMessages.removeProcessesSuccessTitle
+        ),
+        description: intl.formatMessage(
+          orderProcessesMessages.removeProcessesSuccessDescription
+        )
+      }
+    }
+  }
 });
