@@ -1,11 +1,6 @@
 import React, { Fragment } from 'react';
 import { Label, Text, TextVariants } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
-import {
-  ExclamationCircleIcon,
-  InfoCircleIcon,
-  CheckCircleIcon
-} from '@patternfly/react-icons';
 
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon } from '../../helpers/shared/orders';
@@ -16,16 +11,7 @@ import statesMessages, {
 } from '../../messages/states.messages';
 
 import { TableText } from '@patternfly/react-table';
-
-const labelProps = {
-  Completed: { icon: <CheckCircleIcon />, color: 'green' },
-  'Approval Pending': {
-    icon: <InfoCircleIcon />,
-    color: 'blue'
-  },
-  Ordered: { icon: <InfoCircleIcon />, color: 'blue' },
-  Failed: { icon: <ExclamationCircleIcon />, color: 'red' }
-};
+import orderStatusMapper from './order-status-mapper';
 
 /**
  * Create order row definition for react tabular table
@@ -92,7 +78,7 @@ const createOrderItem = (
     {
       title: (
         <TableText>
-          <Label {...labelProps[item.state]} variant="outline">
+          <Label {...orderStatusMapper[item.state]} variant="outline">
             {formatMessage(statesMessages[translatableState])}
           </Label>
         </TableText>
