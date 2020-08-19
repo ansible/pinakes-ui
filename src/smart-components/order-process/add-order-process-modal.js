@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Modal } from '@patternfly/react-core';
 
@@ -16,6 +15,7 @@ import FormRenderer from '../common/form-renderer';
 import labelMessages from '../../messages/labels.messages';
 import useQuery from '../../utilities/use-query';
 import orderProcessesMessages from '../../messages/order-processes.messages';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
 const AddOrderProcess = ({ edit }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const AddOrderProcess = ({ edit }) => {
       }
     }) => (edit ? data.find(({ id }) => id === order_process) : {})
   );
-  const { push } = useHistory();
+  const { push } = useEnhancedHistory({ keepHash: true });
   const intl = useIntl();
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
