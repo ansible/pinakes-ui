@@ -11,6 +11,10 @@ import { toolbarComponentTypes } from '../toolbar-mapper';
 import { createLinkButton } from '../helpers';
 import AsyncPagination from '../../smart-components/common/async-pagination';
 import CatalogLink from '../../smart-components/common/catalog-link';
+import BackToProducts from '../../presentational-components/portfolio/back-to-products';
+import useFormatMessage from '../../utilities/use-format-message';
+import orderProcessesMessages from '../../messages/order-processes.messages';
+import { NESTED_EDIT_ORDER_PROCESS_ROUTE } from '../../constants/routes';
 
 /**
  * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
@@ -24,7 +28,29 @@ const PortfolioActionsToolbar = ({
   userCapabilities: { copy, destroy, update, set_approval }
 }) => {
   const [isOpen, setOpen] = useState(false);
+  const formatMessage = useFormatMessage();
   const dropdownItems = [];
+
+  if (update) {
+    dropdownItems.push(
+      <DropdownItem
+        aria-label="Edit Portfolio"
+        key="edit-portfolio"
+        id="edit-portfolio"
+        component={
+          <CatalogLink
+            id="edit-portfolio"
+            preserveSearch
+            pathname={editPortfolioRoute}
+          >
+            Edit
+          </CatalogLink>
+        }
+        role="link"
+      />
+    );
+  }
+
   if (copy) {
     dropdownItems.push(
       <DropdownItem
@@ -55,19 +81,21 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (update) {
+  if (window.insights.chrome.isBeta() && update) {
+    const orderProcessAction = formatMessage(
+      orderProcessesMessages.setOrderProcess
+    );
     dropdownItems.push(
       <DropdownItem
-        aria-label="Edit Portfolio"
-        key="edit-portfolio"
-        id="edit-portfolio"
+        aria-label={orderProcessAction}
+        key="attach-order-processes"
+        id="attach-order-processes"
         component={
           <CatalogLink
-            id="edit-portfolio"
             preserveSearch
-            pathname={editPortfolioRoute}
+            pathname={NESTED_EDIT_ORDER_PROCESS_ROUTE}
           >
-            Edit
+            {orderProcessAction}
           </CatalogLink>
         }
         role="link"
@@ -141,14 +169,21 @@ const createPortfolioToolbarSchema = ({
   fetchPortfolioItemsWithPortfolio,
   portfolioId,
   description,
+  fromProducts,
   filterProps: { searchValue, onFilterChange, placeholder },
   userCapabilities: { share, unshare, ...userCapabilities }
 }) => ({
   fields: [
     {
       component: toolbarComponentTypes.TOP_TOOLBAR,
+      breadcrumbs: !fromProducts,
       key: 'portfolio-top-toolbar',
       fields: [
+        {
+          key: 'back-to-products',
+          hidden: !fromProducts,
+          component: BackToProducts
+        },
         {
           component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
           key: 'portfolio-toolbar-title',
@@ -220,6 +255,7 @@ const createPortfolioToolbarSchema = ({
                         isDisabled: isLoading || copyInProgress,
                         variant: 'primary',
                         title: 'Add',
+                        id: 'add-products-button',
                         key: 'add-products-button'
                       })
                     },

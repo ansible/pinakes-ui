@@ -11,8 +11,11 @@ import PlatformCard from '../../presentational-components/platform/platform-card
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import UserContext from '../../user-context';
+import platformsMessages from '../../messages/platforms.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const Platforms = () => {
+  const formatMessage = useFormatMessage();
   const [filterValue, setFilterValue] = useState('');
   const { platforms, isLoading } = useSelector(
     ({ platformReducer: { platforms, isPlatformDataLoading } }) => ({
@@ -39,19 +42,19 @@ const Platforms = () => {
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
-          Configure a source in order to add products to portfolios.
+          {formatMessage(platformsMessages.configureSourceTitle)}
         </Text>
         {is_org_admin ? (
           <Text component={TextVariants.p}>
-            To connect to a source, go to{' '}
-            <a href={`${document.baseURI}settings/sources`}>Sources</a>
-            &nbsp;under Settings.
+            {formatMessage(platformsMessages.connectSource, {
+              // eslint-disable-next-line react/display-name
+              a: (chunks) => (
+                <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+              )
+            })}
           </Text>
         ) : (
-          <Text>
-            Contact your organization administrator to setup sources for
-            Catalog.
-          </Text>
+          <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
         )}
       </TextContent>
     </Fragment>
@@ -70,14 +73,14 @@ const Platforms = () => {
         schema={createPlatformsToolbarSchema({
           onFilterChange: (value) => setFilterValue(value),
           searchValue: filterValue,
-          title: 'Platforms'
+          title: formatMessage(platformsMessages.title)
         })}
       />
       <ContentGallery
         {...filteredItems}
         renderEmptyState={() => (
           <ContentGalleryEmptyState
-            title="No platforms yet"
+            title={formatMessage(platformsMessages.noPlatforms)}
             renderDescription={renderEmptyStateDescription}
             Icon={SearchIcon}
           />

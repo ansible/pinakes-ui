@@ -6,6 +6,9 @@ import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
 import { Button } from '@patternfly/react-core';
+import filteringMessages from '../../messages/filtering.messages';
+import portfolioMessages from '../../messages/portfolio.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const PortfolioEmptyState = ({
   url,
@@ -13,10 +16,11 @@ const PortfolioEmptyState = ({
   meta,
   userCapabilities: { update }
 }) => {
+  const formatMessage = useFormatMessage();
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={url}
-      label="Add products"
+      label={formatMessage(portfolioMessages.addProducts)}
       id="add-products-to-portfolio"
       hasPermission={update}
     />
@@ -28,16 +32,18 @@ const PortfolioEmptyState = ({
       variant="link"
       onClick={() => handleFilterChange('')}
     >
-      Clear all filters
+      {formatMessage(filteringMessages.clearFilters)}
     </Button>
   );
 
   const emptyStateProps = {
     PrimaryAction: meta.noData ? NoDataAction : FilterAction,
-    title: meta.noData ? 'No products yet' : 'No results found',
+    title: meta.noData
+      ? formatMessage(filteringMessages.noProducts)
+      : formatMessage(filteringMessages.noResults),
     description: meta.noData
-      ? 'No products in your portfolio'
-      : 'No results match the filter criteria. Remove all filters or clear all filters to show results.',
+      ? formatMessage(portfolioMessages.emptyNoProducts)
+      : formatMessage(filteringMessages.noResultsDescription),
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
   return <ContentGalleryEmptyState {...emptyStateProps} />;

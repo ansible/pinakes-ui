@@ -7,6 +7,22 @@ import React from 'react';
  */
 import 'whatwg-fetch';
 
+/**
+ * mock react-intl in tests
+ */
+// eslint-disable-next-line no-undef
+jest.mock('react-intl', () => {
+  const reactIntl = require.requireActual('react-intl');
+  const intl = reactIntl.createIntl({
+    locale: 'en'
+  });
+
+  return {
+    ...reactIntl,
+    useIntl: () => intl
+  };
+});
+
 configure({ adapter: new Adapter() });
 
 global.shallow = shallow;
@@ -43,7 +59,10 @@ global.insights = {
     init: () => {},
     identifyApp: () => {},
     navigation: () => {},
-    on: () => {},
+    on: () => {
+      return () => {};
+    },
+    isBeta: () => true,
     auth: {
       getUser: () =>
         new Promise((resolve) =>

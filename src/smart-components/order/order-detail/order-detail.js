@@ -1,15 +1,15 @@
 import React, { useEffect, useState, Fragment, Suspense, lazy } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import {
-  StackItem,
   Level,
   LevelItem,
-  Split,
-  SplitItem,
+  Stack,
+  StackItem,
   Bullseye,
   Alert
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
+import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';
@@ -19,16 +19,13 @@ import OrderDetailInformation from './order-detail-information';
 import OrderDetailMenu from './order-detail-menu';
 import { OrderDetailToolbarPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import useQuery from '../../../utilities/use-query';
-import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
 import { ORDER_ROUTE } from '../../../constants/routes';
-import {
-  OrderDetailStack,
-  OrderDetailStackItem
-} from '../../../presentational-components/styled-components/orders';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
-import { FormattedMessage } from 'react-intl';
+import ordersMessages from '../../../messages/orders.messages';
+import CatalogLink from '../../common/catalog-link';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -48,6 +45,7 @@ const requiredParams = [
 ];
 
 const OrderDetail = () => {
+  const formatMessage = useFormatMessage();
   const [isFetching, setIsFetching] = useState(true);
   const [queryValues] = useQuery(requiredParams);
   const orderDetailData = useSelector(
@@ -67,13 +65,7 @@ const OrderDetail = () => {
     return () => resetBreadcrumbs();
   }, []);
 
-  const {
-    order,
-    portfolioItem,
-    platform,
-    orderItem,
-    portfolio
-  } = orderDetailData;
+  const { order, portfolioItem, platform, portfolio } = orderDetailData;
 
   const unAvailable = () => {
     const notFound = [portfolioItem, platform, portfolio || {}].filter(
@@ -95,16 +87,10 @@ const OrderDetail = () => {
         key="order-object-missing"
         variant="warning"
         isInline
-        title={
-          <FormattedMessage
-            id="order.detail.not-found"
-            defaultMessage="The {objects} for this order {count, plural, one {is} other {are}} not available"
-            values={{
-              objects: notFoundObjects.join(', '),
-              count: notFoundObjects.length
-            }}
-          />
-        }
+        title={formatMessage(ordersMessages.objectsNotFound, {
+          objects: notFoundObjects.join(', '),
+          count: notFoundObjects.length
+        })}
       />
     );
   };
@@ -112,14 +98,19 @@ const OrderDetail = () => {
   const unavailableMessages = unAvailable();
 
   return (
-    <OrderDetailStack className="bg-fill">
-      <OrderDetailStackItem className="pf-u-p-lg">
+    <Stack>
+      <StackItem className="pf-u-p-lg global-primary-background">
         {isFetching ? (
           <OrderDetailToolbarPlaceholder />
         ) : (
           <Fragment>
             <Level className="pf-u-mb-md">
-              <CatalogBreadcrumbs />
+              <LevelItem>
+                <AngleLeftIcon className="pf-u-mr-md" />
+                <CatalogLink pathname="/orders">
+                  {formatMessage(ordersMessages.backToOrders)}
+                </CatalogLink>
+              </LevelItem>
             </Level>
             <Level className="flex-no-wrap">
               {unavailableMessages ? (
@@ -129,12 +120,9 @@ const OrderDetail = () => {
               ) : (
                 <Fragment>
                   <LevelItem>
-                    <OrderDetailTitle
-                      portfolioItemName={portfolioItem.name}
-                      orderId={order.id}
-                    />
+                    <OrderDetailTitle orderId={order.id} />
                   </LevelItem>
-                  <LevelItem className="flex-item-no-wrap">
+                  <LevelItem>
                     <OrderToolbarActions
                       portfolioItemName={portfolioItem.name}
                       orderId={order.id}
@@ -145,27 +133,23 @@ const OrderDetail = () => {
               )}
             </Level>
             {!unavailableMessages && (
-              <Level>
-                <OrderDetailInformation
-                  portfolioItemId={portfolioItem.id}
-                  sourceId={platform.id}
-                  state={order.state}
-                  jobName={portfolioItem.name}
-                  orderRequestDate={order.created_at}
-                  orderUpdateDate={orderItem?.updated_at}
-                  owner={order.owner}
-                />
-              </Level>
+              <OrderDetailInformation
+                portfolioItemId={portfolioItem.id}
+                portfolioId={portfolio.id}
+                sourceId={platform.id}
+                jobName={portfolioItem.name}
+                state={order.state}
+              />
             )}
           </Fragment>
         )}
-      </OrderDetailStackItem>
-      <StackItem className="pf-u-pt-xl pf-u-ml-lg pf-u-ml-0-on-md">
-        <Split hasGutter className="orders-nav-layout">
-          <SplitItem className="order-detail-nav-container">
+      </StackItem>
+      <StackItem>
+        <Stack hasGutter>
+          <StackItem className="global-primary-background">
             <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
-          </SplitItem>
-          <SplitItem className="order-detail-content-container">
+          </StackItem>
+          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg">
             {isFetching ? (
               <Bullseye>
                 <Spinner />
@@ -184,10 +168,10 @@ const OrderDetail = () => {
                 </Switch>
               </Suspense>
             )}
-          </SplitItem>
-        </Split>
+          </StackItem>
+        </Stack>
       </StackItem>
-    </OrderDetailStack>
+    </Stack>
   );
 };
 

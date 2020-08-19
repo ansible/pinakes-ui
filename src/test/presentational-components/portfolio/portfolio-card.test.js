@@ -62,7 +62,7 @@ describe('<PortfolioCard />', () => {
     );
     expect(wrapper.find('button')).toHaveLength(1);
     wrapper.find('button#portfolio-123-toggle').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(5);
+    expect(wrapper.find('li')).toHaveLength(6);
   });
 
   it('should show share dropdown option if only unshare is set to true', () => {
@@ -79,7 +79,7 @@ describe('<PortfolioCard />', () => {
     expect(wrapper.find('li#share-portfolio-action'));
   });
 
-  it('should have edit portfolio action in dropdown', () => {
+  it('should have edit portfolio action and set order processes in dropdown', () => {
     const wrapper = mount(
       <MemoryRouter>
         <PortfolioCard
@@ -89,8 +89,9 @@ describe('<PortfolioCard />', () => {
       </MemoryRouter>
     );
     wrapper.find('button#portfolio-123-toggle').simulate('click');
-    expect(wrapper.find('li')).toHaveLength(1);
+    expect(wrapper.find('li')).toHaveLength(2);
     expect(wrapper.find('li#edit-portfolio-action'));
+    expect(wrapper.find('li#attach-order-processes')).toHaveLength(1);
   });
 
   it('should have remove portfolio action in dropdown', () => {

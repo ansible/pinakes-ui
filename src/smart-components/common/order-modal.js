@@ -6,10 +6,8 @@ import {
   Modal,
   Level,
   LevelItem,
-  Title,
   TextContent,
   Text,
-  TextVariants,
   Split,
   SplitItem
 } from '@patternfly/react-core';
@@ -63,36 +61,32 @@ const OrderModal = ({ closeUrl }) => {
   };
 
   return (
-    <Modal isOpen onClose={handleClose} variant="small">
-      <div className="pf-u-mb-md">
-        <Split>
-          <SplitItem className="pf-u-mr-sm">
-            <CardIcon
-              height={64}
-              src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/icon`}
-              sourceId={portfolioItem.service_offering_source_ref}
-            />
-          </SplitItem>
-          <SplitItem isFilled>
-            <Level>
-              <LevelItem>
-                <Title headingLevel="h2" size="3xl">
-                  {portfolioItem.name}
-                </Title>
-              </LevelItem>
-            </Level>
-            <Level>
-              <LevelItem>
-                <TextContent>
-                  <Text component={TextVariants.small}>
-                    {portfolioItem.name}
-                  </Text>
-                </TextContent>
-              </LevelItem>
-            </Level>
-          </SplitItem>
-        </Split>
-      </div>
+    <Modal
+      isOpen
+      onClose={handleClose}
+      title="Confirm order submission"
+      variant="small"
+    >
+      <Split hasGutter className="pf-u-mb-md">
+        <SplitItem>
+          <CardIcon
+            height={48}
+            src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/icon`}
+            sourceId={portfolioItem.service_offering_source_ref}
+          />
+        </SplitItem>
+        <SplitItem>
+          <Level>
+            <LevelItem>
+              <TextContent>
+                <Text>
+                  <strong>{portfolioItem.name}</strong>
+                </Text>
+              </TextContent>
+            </LevelItem>
+          </Level>
+        </SplitItem>
+      </Split>
       {isFetching ? (
         <SpinnerWrapper className="pf-u-m-sm">
           <Spinner />

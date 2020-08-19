@@ -31,6 +31,9 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
             >
               <article
                 className="pf-c-card sc-fznyAO jPogVH"
+                data-ouia-component-id={0}
+                data-ouia-component-type="PF4/Card"
+                data-ouia-safe={true}
               >
                 <CardHeader>
                   <div
@@ -45,7 +48,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         >
                           <CardIcon
                             height={40}
-                            src="/api/catalog/v1.1/portfolio_items/1/icon"
+                            src="/api/catalog/v1.2/portfolio_items/1/icon"
                             style={Object {}}
                           >
                             <styled.div
@@ -76,7 +79,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   hidden={true}
                                   onError={[Function]}
                                   onLoad={[Function]}
-                                  src="/api/catalog/v1.1/portfolio_items/1/icon"
+                                  src="/api/catalog/v1.2/portfolio_items/1/icon"
                                   threshold={2000}
                                 >
                                   <t
@@ -91,7 +94,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     onError={[Function]}
                                     onLoad={[Function]}
                                     placeholderSrc={null}
-                                    src="/api/catalog/v1.1/portfolio_items/1/icon"
+                                    src="/api/catalog/v1.2/portfolio_items/1/icon"
                                     threshold={2000}
                                     useIntersectionObserver={true}
                                     visibleByDefault={false}
@@ -114,7 +117,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                         hidden={true}
                                         onError={[Function]}
                                         onLoad={[Function]}
-                                        src="/api/catalog/v1.1/portfolio_items/1/icon"
+                                        src="/api/catalog/v1.2/portfolio_items/1/icon"
                                       />
                                     </t>
                                   </t>

@@ -4,12 +4,19 @@ import { Section } from '@redhat-cloud-services/frontend-components/components/c
 import { Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
+import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
-const NoItems = () => (
-  <div>
-    <Text component={TextVariants.h1}>No items found</Text>
-  </div>
-);
+const NoItems = () => {
+  const formatMessage = useFormatMessage();
+  return (
+    <div>
+      <Text component={TextVariants.h1}>
+        {formatMessage(filteringMessages.noItems)}
+      </Text>
+    </div>
+  );
+};
 
 const ContentGallery = ({ isLoading, items, renderEmptyState }) =>
   isLoading ? (

@@ -61,6 +61,9 @@ describe('<Portfolio />', () => {
       id: '123'
     };
     initialState = {
+      i18nReducer: {
+        formatMessage: ({ defaultMessage }) => defaultMessage
+      },
       breadcrumbsReducer: { fragments: [] },
       platformReducer: {
         platformItems: []

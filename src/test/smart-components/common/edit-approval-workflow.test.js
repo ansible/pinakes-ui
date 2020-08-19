@@ -10,6 +10,7 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import { useIntl } from 'react-intl';
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
@@ -36,6 +37,9 @@ describe('<EditApprovalWorkflow />', () => {
       pushParam: { pathname: '/foo', search: '?platform=1' }
     };
     initialState = {
+      i18nReducer: {
+        ...useIntl()
+      },
       portfolioReducer: {
         portfolios: {
           data: [
@@ -102,12 +106,18 @@ describe('<EditApprovalWorkflow />', () => {
       fields: [
         {
           component: componentTypes.SELECT,
-          name: 'selectedWorkflows',
           label: '',
           loadOptions: expect.any(Function),
           multi: true,
           isSearchable: true,
-          isClearable: true
+          isClearable: true,
+          name: 'new-tags',
+          resolveProps: expect.any(Function)
+        },
+        {
+          component: 'initial-chips',
+          label: 'Current approval processes',
+          name: 'initial-tags'
         }
       ]
     };
@@ -187,6 +197,8 @@ describe('<EditApprovalWorkflow />', () => {
         return [204];
       });
 
+    let onCloseMock = jest.fn();
+
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -201,6 +213,7 @@ describe('<EditApprovalWorkflow />', () => {
                 {...args}
                 {...initialProps}
                 querySelector="portfolio"
+                onClose={onCloseMock}
               />
             )}
           />
@@ -230,6 +243,8 @@ describe('<EditApprovalWorkflow />', () => {
         .simulate('click');
     });
 
+    expect(onCloseMock).not.toHaveBeenCalled();
+
     await act(async () => {
       wrapper.find('form').simulate('submit');
     });
@@ -237,6 +252,8 @@ describe('<EditApprovalWorkflow />', () => {
     wrapper.update();
 
     setImmediate(() => {
+      expect(onCloseMock).toHaveBeenCalled();
+
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
       ).toEqual('/foo');

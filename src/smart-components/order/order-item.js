@@ -26,6 +26,11 @@ import {
   ORDER_LIFECYCLE_ROUTE
 } from '../../constants/routes';
 import { TableCell } from '../../presentational-components/styled-components/table';
+import statesMessages, {
+  getTranslatableState
+} from '../../messages/states.messages';
+import ordersMessages from '../../messages/orders.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const routeMapper = {
   'Approval Pending': ORDER_APPROVAL_ROUTE,
@@ -34,6 +39,7 @@ const routeMapper = {
 
 const OrderItem = memo(
   ({ item }) => {
+    const formatMessage = useFormatMessage();
     const { orderPlatform, orderPortfolio, orderName } = useSelector(
       ({
         portfolioReducer: {
@@ -59,6 +65,7 @@ const OrderItem = memo(
       platform: orderPlatform,
       portfolio: orderPortfolio
     };
+    const translatableState = getTranslatableState(item.state);
     return (
       <tr
         aria-labelledby={`${item.id}-expand`}
@@ -82,7 +89,10 @@ const OrderItem = memo(
                         pathname={ORDER_ROUTE}
                         searchParams={searchParams}
                       >
-                        {orderName} - Order # {item.id}
+                        {formatMessage(ordersMessages.compositeTitle, {
+                          name: orderName,
+                          id: item.id
+                        })}
                       </CatalogLink>
                     </Text>
                   </LevelItem>
@@ -94,7 +104,7 @@ const OrderItem = memo(
                       {item.state === 'Failed' && (
                         <ExclamationCircleIcon className="pf-u-mr-sm icon-danger-fill" />
                       )}
-                      {item.state}
+                      {formatMessage(statesMessages[translatableState])}
                     </CatalogLink>
                   </LevelItem>
                 </Level>
@@ -103,18 +113,22 @@ const OrderItem = memo(
                 <Level>
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.small}>
-                      Ordered&nbsp;
+                      {formatMessage(statesMessages.ordered)}
+                      &nbsp;
                       <DateFormat date={item.created_at} variant="relative" />
                     </Text>
                   </LevelItem>
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.small}>
-                      Ordered by {item.owner}
+                      {formatMessage(ordersMessages.orderedBy, {
+                        owner: item.owner
+                      })}
                     </Text>
                   </LevelItem>
                   <LevelItem>
                     <Text className="pf-u-mb-0" component={TextVariants.small}>
-                      Last updated&nbsp;
+                      {formatMessage(ordersMessages.lastUpdated)}
+                      &nbsp;
                       <DateFormat
                         date={
                           item.orderItems[0] && item.orderItems[0].updated_at

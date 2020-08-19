@@ -5,8 +5,12 @@ import ExternalLinkAlt from '@patternfly/react-icons/dist/js/icons/external-link
 
 import useQuery from '../../../utilities/use-query';
 import { ORDER_ROUTE } from '../../../constants/routes';
+import ordersMessages from '../../../messages/orders.messages';
+import { Card, CardBody } from '@patternfly/react-core';
+import useFormatMessage from '../../../utilities/use-format-message';
 
 const OrderLifecycle = () => {
+  const formatMessage = useFormatMessage();
   const [, search] = useQuery([]);
   const { url } = useRouteMatch(ORDER_ROUTE);
   const orderDetailData = useSelector(
@@ -25,16 +29,19 @@ const OrderLifecycle = () => {
   }
 
   return (
-    <div>
-      <a
-        href={orderItem.external_url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Manage product&nbsp;
-        <ExternalLinkAlt />
-      </a>
-    </div>
+    <Card>
+      <CardBody>
+        <a
+          href={orderItem.external_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {formatMessage(ordersMessages.lifecycleLink)}
+          &nbsp;
+          <ExternalLinkAlt />
+        </a>
+      </CardBody>
+    </Card>
   );
 };
 

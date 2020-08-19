@@ -23,6 +23,7 @@ describe('<EditPortfolioItem />', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   let initialProps;
+  const intialState = { platformReducer: { platformIconMapping: {} } };
 
   const ComponentWrapper = ({ store, children }) => (
     <Provider store={store}>
@@ -32,6 +33,7 @@ describe('<EditPortfolioItem />', () => {
   beforeEach(() => {
     mockStore = configureStore(middlewares);
     initialProps = {
+      uploadIcon: jest.fn(),
       workflows: [],
       cancelUrl: '/cancel',
       userCapabilities: {},
@@ -43,7 +45,7 @@ describe('<EditPortfolioItem />', () => {
   });
 
   it('should fail form validation and not submit the data', () => {
-    const store = mockStore({});
+    const store = mockStore(intialState);
     const wrapper = mount(
       <ComponentWrapper store={store}>
         <EditPortfolioItem {...initialProps} />
@@ -62,7 +64,10 @@ describe('<EditPortfolioItem />', () => {
 
   it('should submit form data', async (done) => {
     expect.assertions(3);
-    const store = mockStore({ openApiReducer: openApiReducerMock });
+    const store = mockStore({
+      ...intialState,
+      openApiReducer: openApiReducerMock
+    });
     mockApi
       .onPatch(`${CATALOG_API_BASE}/portfolio_items/123`)
       .replyOnce((req) => {
@@ -147,7 +152,7 @@ describe('<EditPortfolioItem />', () => {
 
   it('should trigger cancel callback', () => {
     expect.assertions(1);
-    const store = mockStore({});
+    const store = mockStore(intialState);
     const wrapper = mount(
       <ComponentWrapper store={store}>
         <EditPortfolioItem {...initialProps} />
