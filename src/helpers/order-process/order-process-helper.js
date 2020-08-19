@@ -54,3 +54,6 @@ export async function removeOrderProcesses(selectedProcesses) {
     )
   );
 }
+
+export const updateOrderProcess = (id, data) =>
+  getOrderProcessApi().updateOrderProcess(id, data);

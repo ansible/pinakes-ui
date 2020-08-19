@@ -28,7 +28,8 @@ import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
 import {
   ADD_ORDER_PROCESS_ROUTE,
-  REMOVE_ORDER_PROCESS_ROUTE
+  REMOVE_ORDER_PROCESS_ROUTE,
+  UPDATE_ORDER_PROCESS_ROUTE
 } from '../../constants/routes';
 import AddOrderProcess from './add-order-process-modal';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
@@ -241,6 +242,9 @@ const OrderProcesses = () => {
           />
         )}
       />
+      <Route exact path={UPDATE_ORDER_PROCESS_ROUTE}>
+        <AddOrderProcess edit />
+      </Route>
     </Fragment>
   );
 
@@ -250,6 +254,14 @@ const OrderProcesses = () => {
       onClick: (_event, _rowId, orderProcess) =>
         history.push({
           pathname: REMOVE_ORDER_PROCESS_ROUTE,
+          search: `?order_process=${orderProcess.id}`
+        })
+    },
+    {
+      title: intl.formatMessage(actionMessages.edit),
+      onClick: (_event, _rowId, orderProcess) =>
+        history.push({
+          pathname: UPDATE_ORDER_PROCESS_ROUTE,
           search: `?order_process=${orderProcess.id}`
         })
     }

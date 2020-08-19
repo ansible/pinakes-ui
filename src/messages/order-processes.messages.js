@@ -100,6 +100,18 @@ const orderProcessesMessages = defineMessages({
   removeProcessDescription: {
     id: 'order-process.removeProcessDescription',
     defaultMessage: '{name} will be removed.'
+  },
+  updateProcessSuccessTitle: {
+    id: 'order-process.actions.updateProcessSuccessTitle',
+    defaultMessage: 'Order process {name} was updated'
+  },
+  updateOrderProcess: {
+    id: 'order-process.actions.updateOrderProcess',
+    defaultMessage: 'Edit order process'
+  },
+  createOrderProcess: {
+    id: 'order-process.actions.createOrderProcess',
+    defaultMessage: 'Create order process'
   }
 });
 

@@ -15,7 +15,7 @@ import * as validator from '../../../forms/name-async-validator';
 import * as helpers from '../../../helpers/order-process/order-process-helper';
 import * as actions from '../../../redux/actions/order-process-actions';
 
-describe('<AddPortfolioModal />', () => {
+describe('<AddOrderProcess />', () => {
   let initialProps;
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
@@ -30,7 +30,9 @@ describe('<AddPortfolioModal />', () => {
     initialProps = {};
     initialState = {
       orderProcessReducer: {
-        orderProcesses: { data: [] }
+        orderProcesses: {
+          data: [{ id: '123', name: 'foo', description: 'bar' }]
+        }
       }
     };
     mockStore = configureStore(middlewares);
@@ -78,7 +80,7 @@ describe('<AddPortfolioModal />', () => {
     ).toEqual(ORDER_PROCESSES_ROUTE);
   });
 
-  it('should submit form correctly', async () => {
+  it('should submit new order process form correctly', async () => {
     helpers.addOrderProcess = jest
       .fn()
       .mockImplementation(() => Promise.resolve('ok'));
@@ -102,7 +104,7 @@ describe('<AddPortfolioModal />', () => {
     });
     wrapper.update();
 
-    const id = undefined;
+    const id = null;
     const intl = expect.any(Object);
     expect(validator.default).toHaveBeenCalledWith('some-name', id, intl);
 
@@ -121,6 +123,49 @@ describe('<AddPortfolioModal />', () => {
     expect(helpers.addOrderProcess).toHaveBeenCalledWith({
       description: 'some-description',
       name: 'some-name'
+    });
+    expect(actions.fetchOrderProcesses).toHaveBeenCalled();
+  });
+
+  it('should edit order process correctly', async () => {
+    helpers.updateOrderProcess = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
+    actions.fetchOrderProcesses = jest.fn();
+
+    const store = mockStore(initialState);
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/order-processes?order_process=123']}
+        >
+          <AddOrderProcessModal edit {...initialProps} />
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+
+    const id = '123';
+    const intl = expect.any(Object);
+    expect(validator.default).toHaveBeenCalledWith('foo', id, intl);
+
+    await act(async () => {
+      const descriptionField = wrapper.find('textarea');
+      descriptionField.instance().value = 'some-description';
+      descriptionField.simulate('change');
+    });
+    wrapper.update();
+
+    await act(async () => {
+      wrapper.find('form').simulate('submit');
+    });
+    wrapper.update();
+
+    expect(helpers.updateOrderProcess).toHaveBeenCalledWith('123', {
+      description: 'some-description',
+      name: 'foo'
     });
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();
   });

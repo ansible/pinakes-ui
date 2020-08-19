@@ -51,6 +51,22 @@ export const addOrderProcess = (processData, intl) => ({
   }
 });
 
+export const updateOrderProcess = (processId, data, intl) => ({
+  type: ActionTypes.UPDATE_ORDER_PROCESS,
+  payload: OrderProcessHelper.updateOrderProcess(processId, data),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: intl.formatMessage(
+          orderProcessesMessages.updateProcessSuccessTitle,
+          { name: data.name }
+        )
+      }
+    }
+  }
+});
+
 export const sortOrderProcesses = (sortBy) => ({
   type: ActionTypes.SORT_ORDER_PROCESSES,
   payload: sortBy
