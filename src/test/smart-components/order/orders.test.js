@@ -159,7 +159,7 @@ describe('<Orders />', () => {
 
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/orders?filter[state][contains_i]=&limit=50&offset=0`
+        `${CATALOG_API_BASE}/orders?&sort_by=id:descfilter[state][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [] });
     mockApi
@@ -186,7 +186,7 @@ describe('<Orders />', () => {
      * Pagination requests
      */
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders?&limit=50&offset=100`)
+      .onGet(`${CATALOG_API_BASE}/orders?&sort_by=id:desc&limit=50&offset=100`)
       .replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
@@ -222,13 +222,16 @@ describe('<Orders />', () => {
       {
         type: `${FETCH_ORDERS}_FULFILLED`,
         meta: {
-          filter: '',
+          filter: '&sort_by=id:desc',
           filters: {
             owner: '',
             state: []
           },
           limit: 50,
           offset: 100,
+          sortBy: 'id',
+          sortDirection: 'desc',
+          sortIndex: 0,
           stateKey: 'orders',
           storeState: true
         },

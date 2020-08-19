@@ -117,10 +117,6 @@ const ordersMessages = defineMessages({
     id: 'orders.toolbar.backLink',
     defaultMessage: 'Back to orders'
   },
-  approvalProduct: {
-    id: 'orders.approval.product',
-    defaultMessage: 'Product'
-  },
   orderDate: {
     id: 'orders.approval.order-date',
     defaultMessage: 'Order date'

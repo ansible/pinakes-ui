@@ -88,7 +88,7 @@ export const cancelOrder = (orderId) => (dispatch, getState) => {
 export const fetchOrders = (filters, pagination = defaultSettings) => (
   dispatch
 ) => {
-  const queryFilter = Object.entries(filters)
+  let queryFilter = Object.entries(filters)
     .filter(([, value]) => value && value.length > 0)
     .map(([key, value]) =>
       Array.isArray(value)
@@ -96,6 +96,12 @@ export const fetchOrders = (filters, pagination = defaultSettings) => (
         : `filter[${key}][contains_i]=${value}`
     )
     .join('&');
+  if (pagination.sortBy) {
+    queryFilter = `${queryFilter}&sort_by=${
+      pagination.sortBy
+    }:${pagination.sortDirection || 'desc'}`;
+  }
+
   dispatch({ type: `${ActionTypes.FETCH_ORDERS}_PENDING` });
   return OrderHelper.getOrders(queryFilter, pagination)
     .then(({ portfolioItems, ...orders }) => {

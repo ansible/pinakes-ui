@@ -168,7 +168,7 @@ const ApprovalRequests = () => {
                     </Text>
                     <TextList component={TextListVariants.dl}>
                       <TextListItem component={TextListItemVariants.dt}>
-                        {formatMessage(ordersMessages.approvalProduct)}
+                        {formatMessage(labelMessages.product)}
                       </TextListItem>
                       <TextListItem component={TextListItemVariants.dd}>
                         {portfolioItem.name}

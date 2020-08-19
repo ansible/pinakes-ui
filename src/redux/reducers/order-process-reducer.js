@@ -2,7 +2,7 @@ import {
   FETCH_ORDER_PROCESSES,
   SORT_ORDER_PROCESSES,
   SET_FILTER_ORDER_PROCESSES
-} from '../../redux/action-types';
+} from '../action-types';
 
 // Initial State
 export const orderProcessInitialState = {
@@ -20,7 +20,8 @@ export const orderProcessInitialState = {
     index: 0,
     property: 'name',
     direction: 'asc'
-  }
+  },
+  selectedOrderProcesses: []
 };
 
 const setLoadingState = (state) => ({ ...state, isLoading: true });
