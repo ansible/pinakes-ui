@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AddPortfolioModal /> should render correctly 1`] = `
+exports[`<AddOrderProcess /> should render correctly 1`] = `
 <ContextProvider
   value={
     Object {
@@ -39,7 +39,9 @@ exports[`<AddPortfolioModal /> should render correctly 1`] = `
       ]
     }
   >
-    <AddOrderProcess />
+    <AddOrderProcess
+      edit={false}
+    />
   </MemoryRouter>
 </ContextProvider>
 `;

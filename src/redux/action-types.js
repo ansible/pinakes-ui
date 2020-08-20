@@ -103,3 +103,4 @@ export const REMOVE_ORDER_PROCESSES =
   '@@order_processes/REMOVE_ORDER_PROCESSES';
 export const SET_FILTER_ORDER_PROCESSES =
   '@@order_processes/SET_FILTER_ORDER_PROCESSES';
+export const UPDATE_ORDER_PROCESS = '@@order_process/UPDATE_ORDER_PROCESS';

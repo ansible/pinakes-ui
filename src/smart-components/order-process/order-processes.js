@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { Link, Route, useHistory } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import {
   Button,
   Text,
@@ -28,7 +28,8 @@ import labelMessages from '../../messages/labels.messages';
 import { StyledToolbarGroup } from '../../presentational-components/styled-components/toolbars';
 import {
   ADD_ORDER_PROCESS_ROUTE,
-  REMOVE_ORDER_PROCESS_ROUTE
+  REMOVE_ORDER_PROCESS_ROUTE,
+  UPDATE_ORDER_PROCESS_ROUTE
 } from '../../constants/routes';
 import AddOrderProcess from './add-order-process-modal';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
@@ -36,6 +37,7 @@ import RemoveOrderProcess from './remove-order-process-modal';
 import actionMessages from '../../messages/actions.messages';
 import OrderProcessTableContext from './order-process-table-context';
 import { Checkbox } from '@patternfly/react-core';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
 const columns = (intl, allSelected, selectAll) => [
   {
@@ -179,7 +181,7 @@ const OrderProcesses = () => {
 
   const dispatch = useDispatch();
   const intl = useIntl();
-  const history = useHistory();
+  const history = useEnhancedHistory({ keepHash: true });
   const setSelectedOrderProcesses = (id) =>
     stateDispatch({ type: 'select', payload: id });
 
@@ -220,31 +222,33 @@ const OrderProcesses = () => {
 
   const routes = () => (
     <Fragment>
-      <Route
-        exact
-        path={ADD_ORDER_PROCESS_ROUTE}
-        render={(props) => (
-          <AddOrderProcess {...props} postMethod={updateOrderProcesses} />
-        )}
-      />
-      <Route
-        exact
-        path={REMOVE_ORDER_PROCESS_ROUTE}
-        render={(props) => (
-          <RemoveOrderProcess
-            {...props}
-            ids={selectedOrderProcesses}
-            fetchData={updateOrderProcesses}
-            resetSelectedOrderProcesses={() =>
-              stateDispatch({ type: 'resetSelected' })
-            }
-          />
-        )}
-      />
+      <Route exact path={ADD_ORDER_PROCESS_ROUTE}>
+        <AddOrderProcess postMethod={updateOrderProcesses} />
+      </Route>
+      <Route exact path={REMOVE_ORDER_PROCESS_ROUTE}>
+        <RemoveOrderProcess
+          ids={selectedOrderProcesses}
+          fetchData={updateOrderProcesses}
+          resetSelectedOrderProcesses={() =>
+            stateDispatch({ type: 'resetSelected' })
+          }
+        />
+      </Route>
+      <Route exact path={UPDATE_ORDER_PROCESS_ROUTE}>
+        <AddOrderProcess edit />
+      </Route>
     </Fragment>
   );
 
   const actionResolver = () => [
+    {
+      title: intl.formatMessage(actionMessages.edit),
+      onClick: (_event, _rowId, orderProcess) =>
+        history.push({
+          pathname: UPDATE_ORDER_PROCESS_ROUTE,
+          search: `?order_process=${orderProcess.id}`
+        })
+    },
     {
       title: intl.formatMessage(actionMessages.delete),
       onClick: (_event, _rowId, orderProcess) =>
