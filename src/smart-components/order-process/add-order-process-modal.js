@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
@@ -16,6 +16,34 @@ import labelMessages from '../../messages/labels.messages';
 import useQuery from '../../utilities/use-query';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
+import useOrderProcess from '../../utilities/use-order-process';
+import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
+
+const reducer = (state, { type, initialValues, schema }) => {
+  switch (type) {
+    case 'loaded':
+      return {
+        ...state,
+        initialValues,
+        schema,
+        isLoading: false
+      };
+    default:
+      return state;
+  }
+};
+
+const prepareInitialValues = (opData) => {
+  const beforeOptions = opData.before_items.map((item) => ({
+    label: item.name,
+    value: item.id
+  }));
+  const afterOptions = opData.after_items.map((item) => ({
+    label: item.name,
+    value: item.id
+  }));
+  return { ...opData, before_items: beforeOptions, after_items: afterOptions };
+};
 
 const AddOrderProcess = ({ edit }) => {
   const dispatch = useDispatch();
@@ -29,13 +57,48 @@ const AddOrderProcess = ({ edit }) => {
   );
   const { push } = useEnhancedHistory({ keepHash: true });
   const intl = useIntl();
+  const loadedProcess = useOrderProcess(order_process);
+
+  const [{ initialValues }, stateDispatch] = useReducer(reducer, {
+    isLoading: true
+  });
+
+  useEffect(() => {
+    if (!loadedProcess) {
+      fetchOrderProcess(order_process).then((data) =>
+        stateDispatch({
+          type: 'loaded',
+          initialValues: prepareInitialValues(data),
+          schema: createOrderProcessSchema(intl, data.id)
+        })
+      );
+    } else {
+      stateDispatch({
+        type: 'loaded',
+        initialValues: prepareInitialValues(loadedProcess),
+        schema: createOrderProcessSchema(intl, loadedProcess.id)
+      });
+    }
+  }, []);
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
-  const onSave = (values) => {
+  const onSave = ({ beforeItems = [], afterItems = [], ...values }) => {
+    const processData = {
+      ...values,
+      before_items: beforeItems.map((item) => ({
+        name: item.label,
+        id: item.value
+      })),
+      after_items: afterItems.map((item) => ({
+        name: item.label,
+        id: item.value
+      }))
+    };
+
     const submitAction = edit
-      ? () => updateOrderProcess(order_process, values, intl)
-      : () => addOrderProcess(values, intl);
+      ? () => updateOrderProcess(order_process, processData, intl)
+      : () => addOrderProcess(processData, intl);
     onCancel();
 
     return dispatch(submitAction()).then(() => dispatch(fetchOrderProcesses()));
@@ -44,8 +107,6 @@ const AddOrderProcess = ({ edit }) => {
   if (edit && !data) {
     return null;
   }
-
-  const initialValues = { name: data.name, description: data.description };
 
   return (
     <Modal
