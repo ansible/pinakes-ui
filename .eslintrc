@@ -14,11 +14,14 @@
     "plugin:prettier/recommended",
     "prettier/react",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "react",
-    "formatjs"
+    "formatjs",
+    "@typescript-eslint"
   ],
   "parserOptions": {
     "ecmaVersion": 7,
@@ -141,6 +144,7 @@
       "error",
       "never"
     ],
-    "react/prop-types": 2
+    "react/prop-types": 2,
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

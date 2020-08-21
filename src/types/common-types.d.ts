@@ -1,3 +1,3 @@
 export interface StringObject {
-  [key: string]: string
+  [key: string]: string;
 }
