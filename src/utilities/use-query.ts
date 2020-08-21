@@ -1,6 +1,10 @@
 import { useLocation } from 'react-router-dom';
+import { StringObject } from '../types/common-types';
 
-const useQuery = (requiredParams = []) => {
+type UseQueryValue = [StringObject, string | undefined, URLSearchParams]
+type UseQuery = (requiredParams: string[]) => UseQueryValue
+
+const useQuery: UseQuery = (requiredParams = []) => {
   const { search } = useLocation();
   const query = new URLSearchParams(search);
   return [
