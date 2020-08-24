@@ -12,7 +12,7 @@ import {
   APPROVAL_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
-import { catalogHistory } from '../../router';
+import catalogHistory from '../../routing/catalog-history';
 
 const orderApi = getOrderApi();
 const orderItemApi = getOrderItemApi();

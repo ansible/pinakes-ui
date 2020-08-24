@@ -1,5 +1,5 @@
 import { encodeState } from '../routing/uri-state-manager';
-import { catalogHistory } from '../router';
+import catalogHistory from '../routing/catalog-history';
 
 const viewStateMiddleware = () => (dispatch) => (action) => {
   if (

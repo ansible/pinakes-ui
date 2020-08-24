@@ -1,4 +1,4 @@
-import { catalogHistory } from '../router';
+import catalogHistory from '../routing/catalog-history';
 
 const unAuthorizedMiddleware = () => (dispatch) => (action) => {
   const nextAction = { ...action };
