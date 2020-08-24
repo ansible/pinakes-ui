@@ -12,6 +12,7 @@ import {
   APPROVAL_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
+import { catalogHistory } from '../../router';
 
 const orderApi = getOrderApi();
 const orderItemApi = getOrderItemApi();
@@ -90,7 +91,18 @@ export function getOrderApprovalRequests(orderItemId) {
 
 export const getOrderDetail = (params) => {
   let detailPromises = [
-    axiosInstance.get(`${CATALOG_API_BASE}/orders/${params.order}`),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/orders/${params.order}`)
+      .catch((error) => {
+        if (error.status === 404) {
+          return catalogHistory.replace({
+            pathname: '/404',
+            state: { from: catalogHistory.location }
+          });
+        }
+
+        throw error;
+      }),
     axiosInstance
       .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`)
       .catch((error) => {

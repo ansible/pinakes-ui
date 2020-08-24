@@ -18,22 +18,37 @@ const SourceSpan = styled.span`
   white-space: nowrap;
 `;
 
+const Br = () => <br />;
+const Nowrap = (chunks) => <SourceSpan>{chunks}</SourceSpan>;
+
 const CommonApiError = () => {
   const formatMessage = useFormatMessage();
   const { state, pathname } = useLocation();
   const translations = useRef({
     titles: {
       '/401': formatMessage(apiErrorsMessages.unauthorizedTitle),
-      '/403': formatMessage(apiErrorsMessages.forbiddenTitle)
+      '/403': formatMessage(apiErrorsMessages.forbiddenTitle),
+      '/404': formatMessage(apiErrorsMessages.notFoundTitle)
     },
-    description: formatMessage(apiErrorsMessages.unauthorizedDescription, {
-      pathname: state?.from?.pathname,
-      search: state?.from?.search,
-      // eslint-disable-next-line react/display-name
-      br: () => <br />,
-      // eslint-disable-next-line react/display-name
-      nowrap: (chunks) => <SourceSpan>{chunks}</SourceSpan>
-    })
+    descriptions: {
+      '/401': formatMessage(apiErrorsMessages.unauthorizedDescription, {
+        pathname: state?.from?.pathname,
+        search: state?.from?.search,
+        br: Br,
+        nowrap: Nowrap
+      }),
+      '/403': formatMessage(apiErrorsMessages.unauthorizedDescription, {
+        pathname: state?.from?.pathname,
+        search: state?.from?.search,
+        br: Br,
+        nowrap: Nowrap
+      }),
+      '/404': formatMessage(apiErrorsMessages.notFoundDescription, {
+        pathname: state?.from?.pathname,
+        search: state?.from?.search,
+        nowrap: Nowrap
+      })
+    }
   });
   return (
     <Bullseye className="global-primary-background">
@@ -46,7 +61,9 @@ const CommonApiError = () => {
             {translations.current.titles[pathname]}
           </Title>
         </div>
-        <EmptyStateBody>{translations.current.description}</EmptyStateBody>
+        <EmptyStateBody>
+          {translations.current.descriptions[pathname]}
+        </EmptyStateBody>
         <EmptyStatePrimary>
           <CatalogLink pathname="/">
             {formatMessage(apiErrorsMessages.return)}
