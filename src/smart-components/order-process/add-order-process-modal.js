@@ -34,11 +34,11 @@ const reducer = (state, { type, initialValues, schema }) => {
 };
 
 const prepareInitialValues = (opData) => {
-  const beforeOptions = opData.before_items.map((item) => ({
+  const beforeOptions = opData?.before_items?.map((item) => ({
     label: item.name,
     value: item.id
   }));
-  const afterOptions = opData.after_items.map((item) => ({
+  const afterOptions = opData?.after_items?.map((item) => ({
     label: item.name,
     value: item.id
   }));
@@ -64,7 +64,7 @@ const AddOrderProcess = ({ edit }) => {
   });
 
   useEffect(() => {
-    if (!loadedProcess) {
+    if (!loadedProcess && loadedProcess !== undefined) {
       fetchOrderProcess(order_process).then((data) =>
         stateDispatch({
           type: 'loaded',
@@ -72,7 +72,7 @@ const AddOrderProcess = ({ edit }) => {
           schema: createOrderProcessSchema(intl, data.id)
         })
       );
-    } else {
+    } else if (loadedProcess !== undefined) {
       stateDispatch({
         type: 'loaded',
         initialValues: prepareInitialValues(loadedProcess),
@@ -86,11 +86,11 @@ const AddOrderProcess = ({ edit }) => {
   const onSave = ({ beforeItems = [], afterItems = [], ...values }) => {
     const processData = {
       ...values,
-      before_items: beforeItems.map((item) => ({
+      before_items: beforeItems?.map((item) => ({
         name: item.label,
         id: item.value
       })),
-      after_items: afterItems.map((item) => ({
+      after_items: afterItems?.map((item) => ({
         name: item.label,
         id: item.value
       }))

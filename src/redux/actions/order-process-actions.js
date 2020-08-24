@@ -30,7 +30,12 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
 
 export const fetchOrderProcess = (apiProps) => ({
   type: ActionTypes.FETCH_ORDER_PROCESS,
-  payload: OrderProcessHelper.fetchOrderProcess(apiProps)
+  payload: OrderProcessHelper.fetchOrderProcessWithTags(apiProps)
+});
+
+export const fetchOrderProcessTags = (apiProps) => ({
+  type: ActionTypes.FETCH_ORDER_PROCESS_TAGS,
+  payload: OrderProcessHelper.fetchOrderProcessTags(apiProps)
 });
 
 export const addOrderProcess = (processData, intl) => ({
