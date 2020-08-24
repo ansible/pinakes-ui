@@ -35,7 +35,7 @@ export interface ServerError {
   config?: AxiosRequestConfig;
 }
 
-const axiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
   paramsSerializer: (params) => stringify(params)
 });
 
