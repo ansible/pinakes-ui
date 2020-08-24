@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
 import {
   RequestApi,
   WorkflowApi
@@ -21,17 +21,32 @@ import {
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
 
+export interface ApiHeaders extends Headers {
+  'x-rh-insights-request-id': string;
+}
+
+export interface ErrorResponse {
+  headers?: ApiHeaders;
+}
+
+export interface ServerError {
+  response?: ErrorResponse;
+  status?: 403 | 404 | 401 | 400 | 500 | 200; // not a complete list, replace by library with complete interface
+  config?: AxiosRequestConfig;
+}
+
 const axiosInstance = axios.create({
   paramsSerializer: (params) => stringify(params)
 });
 
-const resolveInterceptor = (response) => response.data || response;
-const errorInterceptor = (error = {}) => {
+const resolveInterceptor = (response: AxiosResponse) =>
+  response.data || response;
+const errorInterceptor = (error: ServerError = {}) => {
   const requestId = error.response?.headers?.['x-rh-insights-request-id'];
   throw requestId ? { ...error.response, requestId } : { ...error.response };
 };
 
-const unauthorizedInterceptor = (error = {}) => {
+const unauthorizedInterceptor = (error: ServerError = {}) => {
   if (error.status === 403) {
     throw {
       ...error,
@@ -51,8 +66,8 @@ axiosInstance.interceptors.request.use(async (config) => {
   return config;
 });
 axiosInstance.interceptors.response.use(resolveInterceptor);
-axiosInstance.interceptors.response.use(null, errorInterceptor);
-axiosInstance.interceptors.response.use(null, unauthorizedInterceptor);
+axiosInstance.interceptors.response.use(undefined, errorInterceptor);
+axiosInstance.interceptors.response.use(undefined, unauthorizedInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(
@@ -88,49 +103,49 @@ const orderProcessApi = new OrderProcessApi(
   axiosInstance
 );
 
-export function getPortfolioApi() {
+export function getPortfolioApi(): PortfolioApi {
   return portfolioApi;
 }
 
-export function getPortfolioItemApi() {
+export function getPortfolioItemApi(): PortfolioItemApi {
   return portfolioItemApi;
 }
 
-export function getOrderApi() {
+export function getOrderApi(): OrderApi {
   return orderApi;
 }
 
-export function getOrderItemApi() {
+export function getOrderItemApi(): OrderItemApi {
   return orderItemApi;
 }
 
-export function getRequestsApi() {
+export function getRequestsApi(): RequestApi {
   return requestsApi;
 }
 
 const rbacGroupApi = new GroupApi(undefined, RBAC_API_BASE, axiosInstance);
 
-export function getRbacGroupApi() {
+export function getRbacGroupApi(): GroupApi {
   return rbacGroupApi;
 }
 
-export function getWorkflowApi() {
+export function getWorkflowApi(): WorkflowApi {
   return workflowApi;
 }
 
-export function getAxiosInstance() {
+export function getAxiosInstance(): AxiosInstance {
   return axiosInstance;
 }
 
-export function getIconApi() {
+export function getIconApi(): IconApi {
   return iconApi;
 }
 
-export function getServicePlansApi() {
+export function getServicePlansApi(): ServicePlansApi {
   return servicePlansApi;
 }
 
-export function getOrderProcessApi() {
+export function getOrderProcessApi(): OrderProcessApi {
   return orderProcessApi;
 }
 
@@ -155,6 +170,6 @@ grapqlInstance.interceptors.response.use(({ data }) => {
   return data;
 });
 
-export function getGraphqlInstance() {
+export function getGraphqlInstance(): AxiosInstance {
   return grapqlInstance;
 }
