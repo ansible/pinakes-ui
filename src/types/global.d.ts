@@ -1,5 +1,5 @@
 interface Auth {
-  getUser: () => Promise<{}>;
+  getUser: () => Promise<any>;
 }
 
 interface Chrome {

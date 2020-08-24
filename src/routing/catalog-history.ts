@@ -1,4 +1,4 @@
-import { createBrowserHistory } from "history";
+import { createBrowserHistory } from 'history';
 
 const pathName = window.location.pathname.split('/');
 pathName.shift();

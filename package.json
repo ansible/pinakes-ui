@@ -42,7 +42,7 @@
     "collectCoverage": true,
     "verbose": true,
     "collectCoverageFrom": [
-      "src/**/*.js",
+      "src/**/*.(js|ts|tsx)",
       "!src/**/stories/*"
     ],
     "setupFiles": [
@@ -65,6 +65,7 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.4",
+    "@redhat-cloud-services/sources-client": "^1.0.71",
     "@types/jest": "^26.0.10",
     "@types/node": "^14.6.0",
     "@types/qs": "^6.9.4",
