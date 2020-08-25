@@ -29,10 +29,12 @@ const createOrderItem = (
   const orderItem = (item.orderItems[0] && item.orderItems[0]) || {};
   const searchParams = {
     order: item.id,
-    'order-item': orderItem.id,
-    'portfolio-item': orderItem.portfolio_item_id,
-    platform: orderPlatform,
-    portfolio: orderPortfolio
+    ...(orderItem.id ? { 'order-item': orderItem.id } : {}),
+    ...(orderItem.portfolio_item_id
+      ? { 'portfolio-item': orderItem.portfolio_item_id }
+      : {}),
+    ...(orderPlatform ? { platform: orderPlatform } : {}),
+    ...(orderPortfolio ? { portfolio: orderPortfolio } : {})
   };
   const translatableState = getTranslatableState(item.state);
   return [
