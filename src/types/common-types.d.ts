@@ -1,3 +1,16 @@
 export interface StringObject {
   [key: string]: string;
 }
+
+export interface ApiMetadata {
+  count: number;
+  limit: number;
+  offset: number;
+}
+
+export interface ApiCollectionResponse<
+  T /** he type of collection item. For instance Portfolio or Order*/
+> {
+  data: T[];
+  meta: ApiMetadata;
+}
