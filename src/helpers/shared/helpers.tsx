@@ -1,4 +1,10 @@
+/* eslint-disable react/prop-types */
+/**
+ * No prop types in TSX files are needed.
+ * Props are defined via interface
+ */
 import React from 'react';
+import { Store } from 'redux';
 import get from 'lodash/get';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
@@ -6,15 +12,19 @@ import {
   PORTFOLIO_ITEM_NULLABLE,
   PORTFOLIO_NULLABLE
 } from '../../constants/nullable-attributes';
+import { AnyObject, StringObject } from '../../types/common-types';
 
-export const scrollToTop = () =>
-  document.getElementById('root').scrollTo({
+export const scrollToTop = (): void =>
+  document.getElementById('root')?.scrollTo({
     behavior: 'smooth',
     top: 0,
     left: 0
   });
 
-export const filterServiceOffering = ({ display_name, name }, filter) => {
+export const filterServiceOffering = (
+  { display_name, name }: { display_name?: string; name: string },
+  filter: string
+): boolean => {
   const filterAtrribute = display_name || name;
   return filterAtrribute
     .trim()
@@ -22,15 +32,7 @@ export const filterServiceOffering = ({ display_name, name }, filter) => {
     .includes(filter.toLowerCase());
 };
 
-export const allowNull = (wrappedPropTypes) => (props, propName, ...rest) => {
-  if (props[propName] === null) {
-    return null;
-  }
-
-  return wrappedPropTypes(props, propName, ...rest);
-};
-
-export const udefinedToNull = (entity, keys) =>
+export const udefinedToNull = (entity: AnyObject, keys: string[]): AnyObject =>
   [...Object.keys(entity), ...keys].reduce(
     (acc, curr) => ({
       ...acc,
@@ -39,12 +41,21 @@ export const udefinedToNull = (entity, keys) =>
     {}
   );
 
-const nullableMapper = {
+interface NullableMapper extends AnyObject {
+  PortfolioItem: string[];
+  Portfolio: string[];
+}
+
+const nullableMapper: NullableMapper = {
   PortfolioItem: PORTFOLIO_ITEM_NULLABLE,
   Portfolio: PORTFOLIO_NULLABLE
 };
 
-export const sanitizeValues = (values, entityType, store) => {
+export const sanitizeValues = (
+  values: AnyObject,
+  entityType: string,
+  store: Store
+): AnyObject => {
   const schemas = store.getState().openApiReducer.schema.components.schemas;
   const permittedValues = Object.keys(values)
     .filter((key) => !get(schemas, `${entityType}.properties.${key}.readOnly`))
@@ -55,24 +66,31 @@ export const sanitizeValues = (values, entityType, store) => {
   return udefinedToNull(permittedValues, nullableMapper[entityType]);
 };
 
-export const timeAgo = (date) => (
-  <span key={date}>
+export interface TimeAgoProps {
+  date: Date | string | number;
+}
+
+export const TimeAgo: React.ComponentType<TimeAgoProps> = ({ date }) => (
+  <span key={`${date}`}>
     <DateFormat date={date} type="relative" />
   </span>
 );
 
 const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-export const readableBytes = (bytes) => {
+export const readableBytes = (bytes: number): string => {
   if (bytes === 0) {
     return 'O B';
   }
 
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  const i: number = Math.floor(Math.log(bytes) / Math.log(1024));
 
-  return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i];
+  return `${Number((bytes / Math.pow(1024, i)).toFixed(2)) * 1} ${sizes[i]}`;
 };
 
-export const hasPermission = (userPermissions = [], permissions = []) =>
+export const hasPermission = (
+  userPermissions: StringObject[] = [],
+  permissions: string[] = []
+): boolean =>
   permissions.every((permission) =>
     userPermissions.find((item) => item.permission === permission)
   );
