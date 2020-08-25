@@ -5,7 +5,7 @@ import formMessages from '../messages/forms.messages';
 
 const setItemsSelectSchema = (type, intl) => ({
   component: componentTypes.SELECT,
-  name: 'items',
+  name: `${type}-items`,
   label: intl.formatMessage( type === 'before' ? formMessages.setBeforeProducts : formMessages.setAfterProducts),
   loadOptions,
   noValueUpdates: true,
@@ -14,7 +14,7 @@ const setItemsSelectSchema = (type, intl) => ({
   simpleValue: false,
   menuIsPortal: true,
   isClearable: true,
-  placeholder: intl.formatMessage(formMessages.selectProductPlaceholder)
+  placeholder: intl.formatMessage(formMessages.productsPlaceholder)
 });
 
 export default setItemsSelectSchema;

@@ -18,6 +18,24 @@ export const listOrderProcesses = (
     `${CATALOG_API_BASE}/order_processes?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
   );
 
+export const loadProductOptions = (
+  filterValue = '',
+  initialLookup: string[] = []
+) => {
+  const initialLookupQuery = initialLookup
+    .map((product) => `filter[id][]=${product}`)
+    .join('&');
+
+  return getAxiosInstance()
+    .get(
+      `${CATALOG_API_BASE}/portfolio-items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
+        ''}`
+    )
+    .then(({ data }) =>
+      data.map(({ id, name }) => ({ label: name, value: id }))
+    );
+};
+
 export const fetchOrderProcessByName = (
   name: string
 ): Promise<ApiCollectionResponse<OrderProcess>> => listOrderProcesses(name);

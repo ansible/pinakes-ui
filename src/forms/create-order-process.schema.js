@@ -36,8 +36,8 @@ const createOrderProcessSchema = (intl, id) => {
         id: 'order-process-description',
         label: intl.formatMessage(labelMessages.description)
       },
-      setItemsSelectSchema('before', id),
-      setItemsSelectSchema('after', id)
+      setItemsSelectSchema('before', intl),
+      setItemsSelectSchema('after', intl)
     ]
   };
 };

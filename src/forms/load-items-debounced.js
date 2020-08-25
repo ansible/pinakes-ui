@@ -1,4 +1,4 @@
-import asyncDebounce from '../utilities/async-debounce';
-import { listPortfolioItems } from '../helpers/portfolio/portfolio-helper';
+import asyncDebounce from '../utilities/async-form-validator';
+import { loadProductOptions } from '../helpers/order-process/order-process-helper';
 
-export default asyncDebounce(listPortfolioItems);
+export default asyncDebounce(loadProductOptions);
