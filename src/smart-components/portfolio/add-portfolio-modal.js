@@ -89,11 +89,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
     >
       {!portfolioId || editVariant ? (
         <FormRenderer
-          schema={createPortfolioSchema(
-            !initialValues,
-            openApiSchema,
-            portfolioId
-          )}
+          schema={createPortfolioSchema(openApiSchema, portfolioId)}
           schemaType="default"
           onSubmit={onSubmit}
           onCancel={() => push(closeTarget)}

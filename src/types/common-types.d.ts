@@ -18,3 +18,8 @@ export interface ApiCollectionResponse<
   data: T[];
   meta: ApiMetadata;
 }
+
+export interface RestorePortfolioItemConfig {
+  portfolioItemId: string;
+  restoreKey: string;
+}
