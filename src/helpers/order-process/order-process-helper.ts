@@ -28,11 +28,14 @@ export const loadProductOptions = (
 
   return getAxiosInstance()
     .get(
-      `${CATALOG_API_BASE}/portfolio-items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
+      `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
         ''}`
     )
     .then(({ data }) =>
-      data.map(({ id, name }) => ({ label: name, value: id }))
+      data.map((item: { name: string; id: string }) => ({
+        label: item.name,
+        value: item.id
+      }))
     );
 };
 
