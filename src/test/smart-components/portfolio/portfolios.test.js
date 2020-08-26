@@ -16,15 +16,25 @@ import PortfolioCard from '../../../presentational-components/portfolio/porfolio
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
+import * as PortfolioActions from '../../../redux/actions/portfolio-actions';
+import UserContext from '../../../user-context';
+
 describe('<Portfolios />', () => {
   let initialProps;
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
-  const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
-    <Provider store={store} value={{ userPermissions: [] }}>
-      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+  const ComponentWrapper = ({
+    store,
+    initialEntries = ['/foo'],
+    permissions = [],
+    children
+  }) => (
+    <Provider store={store}>
+      <UserContext.Provider value={{ permissions }}>
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      </UserContext.Provider>
     </Provider>
   );
 
@@ -189,5 +199,55 @@ describe('<Portfolios />', () => {
 
     expect(wrapper.find(CardLoader)).toHaveLength(1);
     done();
+  });
+
+  it('should not show create button when the user does not have "catalog:portfolios:create" permission', async () => {
+    const spy = jest
+      .spyOn(PortfolioActions, 'fetchPortfoliosWithState')
+      .mockReturnValue({
+        payload: jest.fn().mockResolvedValue({}),
+        meta: {},
+        type: ''
+      });
+    const store = mockStore(initialState);
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store} initialEntries={['/portfolios']}>
+          <Route exact path="/portfolios">
+            <Portfolios {...initialProps} />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    expect(wrapper.find('button#create-portfolio')).toHaveLength(0);
+    spy.mockRestore();
+  });
+
+  it('should show create button when the user does have "catalog:portfolios:create" permission', async () => {
+    const spy = jest
+      .spyOn(PortfolioActions, 'fetchPortfoliosWithState')
+      .mockReturnValue({
+        payload: jest.fn().mockResolvedValue({}),
+        meta: {},
+        type: ''
+      });
+    const store = mockStore(initialState);
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          permissions={[{ permission: 'catalog:portfolios:create' }]}
+          store={store}
+          initialEntries={['/portfolios']}
+        >
+          <Route exact path="/portfolios">
+            <Portfolios {...initialProps} />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    expect(wrapper.find('button#create-portfolio')).toHaveLength(1);
+    spy.mockRestore();
   });
 });
