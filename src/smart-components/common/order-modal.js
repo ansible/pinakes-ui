@@ -7,14 +7,9 @@ import {
   Level,
   LevelItem,
   TextContent,
-  Text,
-  Split,
-  SplitItem
+  Text
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
-
-import { CATALOG_API_BASE } from '../../utilities/constants';
-import CardIcon from '../../presentational-components/shared/card-icon';
 import FormRenderer from './form-renderer';
 import {
   fetchServicePlans,
@@ -64,29 +59,19 @@ const OrderModal = ({ closeUrl }) => {
     <Modal
       isOpen
       onClose={handleClose}
-      title="Confirm order submission"
+      title="Order submission"
       variant="small"
     >
-      <Split hasGutter className="pf-u-mb-md">
-        <SplitItem>
-          <CardIcon
-            height={48}
-            src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/icon`}
-            sourceId={portfolioItem.service_offering_source_ref}
-          />
-        </SplitItem>
-        <SplitItem>
-          <Level>
-            <LevelItem>
-              <TextContent>
-                <Text>
-                  <strong>{portfolioItem.name}</strong>
-                </Text>
-              </TextContent>
-            </LevelItem>
-          </Level>
-        </SplitItem>
-      </Split>
+      <Level className="pf-u-mb-md">
+        <LevelItem>
+          <TextContent>
+            <Text>
+              <strong>{portfolioItem.name}</strong>
+            </Text>
+          </TextContent>
+        </LevelItem>
+      </Level>
+
       {isFetching ? (
         <SpinnerWrapper className="pf-u-m-sm">
           <Spinner />
