@@ -1,7 +1,9 @@
 import { ApiMetadata } from '../../types/common-types';
+import { SortByDirection } from '@patternfly/react-table';
 
 export interface PaginationConfiguration extends ApiMetadata {
   filter?: string;
+  sortDirection?: SortByDirection;
 }
 
 export const defaultSettings: PaginationConfiguration = {

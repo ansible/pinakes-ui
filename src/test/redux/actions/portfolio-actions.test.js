@@ -281,7 +281,7 @@ describe('Portfolio actions', () => {
   });
 
   it('should create correct action creators when updating portfolio failed', () => {
-    const store = mockStore({});
+    const store = mockStore({ openApiReducer: openApiReducerMock });
     mockApi.onPatch(CATALOG_API_BASE + '/portfolios/123').replyOnce(500);
 
     const expectedActions = [

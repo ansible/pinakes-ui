@@ -2,6 +2,10 @@ export interface StringObject {
   [key: string]: string;
 }
 
+export interface AnyObject {
+  [key: string]: any;
+}
+
 export interface ApiMetadata {
   count: number;
   limit: number;
@@ -13,4 +17,9 @@ export interface ApiCollectionResponse<
 > {
   data: T[];
   meta: ApiMetadata;
+}
+
+export interface RestorePortfolioItemConfig {
+  portfolioItemId: string;
+  restoreKey: string;
 }
