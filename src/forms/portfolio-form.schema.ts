@@ -1,10 +1,15 @@
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
+import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
 import { DEFAULT_MAX_LENGTH } from '../utilities/constants';
 
 import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
+import { AnyObject } from '../types/common-types';
 
-export const validateName = (name, portfolioId) =>
+export const validateName = (
+  name: string,
+  portfolioId: string
+): Promise<void> =>
   fetchPortfolioByName(name).then(({ data }) => {
     if (!name || name.trim().length === 0) {
       throw 'Required';
@@ -27,27 +32,24 @@ const debouncedValidator = asyncFormValidator(validateName);
  * @param portfolioId
  */
 export const createPortfolioSchema = (
-  newRecord,
-  openApiSchema,
-  portfolioId
-) => {
-  return {
-    fields: [
-      {
-        label: 'schemas.portfolio.name',
-        name: 'name',
-        component: componentTypes.TEXT_FIELD,
-        isRequired: true,
-        maxLength:
-          openApiSchema?.components?.schemas?.Portfolio?.properties?.name
-            ?.maxLength || DEFAULT_MAX_LENGTH,
-        validate: [(value) => debouncedValidator(value, portfolioId)]
-      },
-      {
-        label: 'schemas.portfolio.description',
-        component: componentTypes.TEXTAREA,
-        name: 'description'
-      }
-    ]
-  };
-};
+  openApiSchema: AnyObject,
+  portfolioId: string
+): Schema => ({
+  fields: [
+    {
+      label: 'schemas.portfolio.name',
+      name: 'name',
+      component: componentTypes.TEXT_FIELD,
+      isRequired: true,
+      maxLength:
+        openApiSchema?.components?.schemas?.Portfolio?.properties?.name
+          ?.maxLength || DEFAULT_MAX_LENGTH,
+      validate: [(value: string) => debouncedValidator(value, portfolioId)]
+    },
+    {
+      label: 'schemas.portfolio.description',
+      component: componentTypes.TEXTAREA,
+      name: 'description'
+    }
+  ]
+});
