@@ -37,6 +37,7 @@ import breadcrumbsReducer, {
 import i18nReducer, { i18nInitialState } from '../redux/reducers/i18n-reducer';
 import viewStateMiddleware from './view-state-middleware';
 import unAuthorizedMiddleware from './unauthorized-middleware';
+import { Store } from 'redux';
 
 const prodMiddlewares = [
   notificationsMiddleware({
@@ -62,7 +63,7 @@ const baseMiddlewares = [
   loadingStateMiddleware,
   emptyDataMiddleware
 ];
-const registerReducers = (registry) => {
+const registerReducers = (registry: ReducerRegistry): void => {
   registry.register({
     orderReducer: applyReducerHash(orderReducer, orderInitialState),
     platformReducer: applyReducerHash(platformReducer, platformInitialState),
@@ -87,18 +88,18 @@ const registerReducers = (registry) => {
   });
 };
 
-export default (isProd = false) => {
+export default (isProd = false): Store => {
   const registry = new ReducerRegistry({}, [
     ...baseMiddlewares,
     ...prodMiddlewares,
     ...(isProd ? [] : [reduxLogger])
   ]);
   registerReducers(registry);
-  return registry.getStore();
+  return registry.getStore() as Store;
 };
 
-export const testStore = () => {
+export const testStore = (): Store => {
   const registry = new ReducerRegistry({}, [...baseMiddlewares]);
   registerReducers(registry);
-  return registry.getStore();
+  return registry.getStore() as Store;
 };
