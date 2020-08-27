@@ -1,9 +1,17 @@
+import { StateFromReducersMapObject } from 'redux';
+import { Request } from '@redhat-cloud-services/approval-client';
+import {
+  ServicePlan,
+  Order,
+  PortfolioItem,
+  Portfolio
+} from '@redhat-cloud-services/catalog-client';
+import { Source } from '@redhat-cloud-services/sources-client';
 import {
   FETCH_SERVICE_PLANS,
   LIST_ORDERS,
   FETCH_SERVICE_PLAN_PARAMETERS,
   SUBMIT_SERVICE_ORDER,
-  UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
   FETCH_REQUESTS,
   FETCH_ORDER_ITEMS,
@@ -14,11 +22,30 @@ import {
   FETCH_APPROVAL_REQUESTS
 } from '../action-types';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import {
+  ApiCollectionResponse,
+  ReduxAction,
+  AnyObject
+} from '../../types/common-types';
+
+export interface OrderDetail extends AnyObject {
+  order: Order;
+  portfolioItem: PortfolioItem;
+  platform: Source;
+  portfolio: Portfolio;
+}
+export interface OrderReducerState extends AnyObject {
+  servicePlans: ServicePlan[];
+  selectedPlan: ServicePlan;
+  isLoading: boolean;
+  requests: Request[];
+  orderDetail: OrderDetail;
+  orders: ApiCollectionResponse<Order>;
+}
 // Initial State
-export const orderInitialState = {
+export const orderInitialState: OrderReducerState = {
   servicePlans: [],
   selectedPlan: {},
-  serviceData: {},
   isLoading: false,
   requests: [],
   orderDetail: {
@@ -33,58 +60,70 @@ export const orderInitialState = {
   }
 };
 
-const setLoadingState = (state, { payload = true }) => ({
+export type OrderReducerActionHandler = (
+  state: StateFromReducersMapObject<OrderReducerState>,
+  action: ReduxAction
+) => OrderReducerState;
+
+const setLoadingState: OrderReducerActionHandler = (
+  state,
+  { payload = true }
+) => ({
   ...state,
   isLoading: payload
 });
-const setServicePlans = (state, { payload }) => ({
+const setServicePlans: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   servicePlans: payload,
   isLoading: false
 });
-const setListOrder = (state, { payload }) => ({
+const setListOrder: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   orders: payload,
   isLoading: false
 });
-const setPlanParameters = (state, { payload }) => ({
+const setPlanParameters: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   planParameters: payload,
   isLoading: false
 });
-const submitServiceOrder = (state, { payload }) => ({
+const submitServiceOrder: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   ...payload,
   isLoading: false
 });
-const updateServiceData = (state, { payload }) => ({
-  ...state,
-  serviceData: payload,
-  isLoading: false
-});
-const selectPlan = (state, { payload }) => ({
+const selectPlan: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   selectedPlan: payload,
   isLoading: false
 });
-const setRequests = (state, { payload }) => ({
+const setRequests: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   requests: payload,
   isLoading: false
 });
-const setOrderItems = (state, { payload }) => ({
+const setOrderItems: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   orderItems: payload,
   isLoading: false
 });
-const setOrders = (state, { payload }) => ({ ...state, orders: payload });
-const setOrderDetail = (state, { payload }) => ({
+const setOrders: OrderReducerActionHandler = (state, { payload }) => ({
+  ...state,
+  orders: payload
+});
+const setOrderDetail: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   orderDetail: payload
 });
-const updateOrderApprovalRequests = (state, { payload }) => ({
+const updateOrderApprovalRequests: OrderReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
-  orderDetail: { ...state.orderDetail, approvalRequest: payload }
+  orderDetail: {
+    ...(state.orderDetail as OrderDetail),
+    approvalRequest: payload
+  }
 });
 
 export default {
@@ -96,7 +135,6 @@ export default {
   [`${FETCH_SERVICE_PLAN_PARAMETERS}_FULFILLED`]: setPlanParameters,
   [`${SUBMIT_SERVICE_ORDER}_PENDING`]: setLoadingState,
   [`${SUBMIT_SERVICE_ORDER}_FULFILLED`]: submitServiceOrder,
-  [UPDATE_SERVICE_DATA]: updateServiceData,
   [SET_SELECTED_PLAN]: selectPlan,
   [`${FETCH_REQUESTS}_PENDING`]: setLoadingState,
   [`${FETCH_REQUESTS}_FULFILLED`]: setRequests,
