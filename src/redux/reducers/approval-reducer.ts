@@ -16,7 +16,7 @@ export type ApprovalReducerActionHandler = (
   action: ReduxAction
 ) => ApprovalReducerState;
 
-export const approvalInitialState = {
+export const approvalInitialState: ApprovalReducerState = {
   isFetching: false,
   isResolving: false,
   workflows: [],
