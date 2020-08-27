@@ -47,6 +47,6 @@ export interface ReduxAction {
 }
 
 export type ReduxActionHandler<T /**Reducer state definition */> = (
-  state: StateFromReducersMapObject<T>,
+  state: T,
   action: ReduxAction
 ) => T;

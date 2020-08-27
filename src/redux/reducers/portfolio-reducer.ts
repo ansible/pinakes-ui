@@ -19,16 +19,38 @@ import {
   UPDATE_PORTFOLIO_ITEM,
   RESTORE_PORTFOLIO_ITEM_PREV_STATE
 } from '../action-types';
+import {
+  ApiCollectionResponse,
+  AnyObject,
+  ReduxActionHandler
+} from '../../types/common-types';
+import {
+  PortfolioItem,
+  Portfolio
+} from '@redhat-cloud-services/catalog-client';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
-// Initial State
-export const portfoliosInitialState = {
+export interface PortfolioItemStateObject {
+  portfolioItem: PortfolioItem;
+}
+export interface PortfolioReducerState extends AnyObject {
+  portfolioItems: ApiCollectionResponse<PortfolioItem>;
+  portfolioItem: PortfolioItemStateObject;
+  portfolios: ApiCollectionResponse<Portfolio>;
+  selectedPortfolio: Portfolio;
+  portfolio: Portfolio;
+  filterValue: string;
+  isLoading: boolean;
+}
+
+export type PortfolioReducerActionHandler = ReduxActionHandler<
+  PortfolioReducerState
+>;
+
+export const portfoliosInitialState: PortfolioReducerState = {
   portfolioItems: {
     data: [],
-    meta: {
-      limit: 50,
-      offset: 0,
-      filter: ''
-    }
+    meta: defaultSettings
   },
   portfolioItem: {
     portfolioItem: {
@@ -40,10 +62,7 @@ export const portfoliosInitialState = {
   },
   portfolios: {
     data: [],
-    meta: {
-      limit: 50,
-      offset: 0
-    }
+    meta: defaultSettings
   },
   selectedPortfolio: {
     metadata: {
@@ -56,35 +75,50 @@ export const portfoliosInitialState = {
   isLoading: false
 };
 
-const setLoadingState = (state, { payload = true }) => ({
+const setLoadingState: PortfolioReducerActionHandler = (
+  state,
+  { payload = true }
+) => ({
   ...state,
   isLoading: payload
 });
-const setPortfolios = (state, { payload }) => ({
+const setPortfolios: PortfolioReducerActionHandler = (state, { payload }) => ({
   ...state,
   portfolios: payload,
   isLoading: false
 });
-const setPortfolioItems = (state, { payload }) => ({
+const setPortfolioItems: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   portfolioItems: payload,
   isLoading: false
 });
-const setPortfolioItem = (state, { payload }) => ({
+const setPortfolioItem: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   portfolioItem: payload,
   isLoading: false
 });
-const selectPortfolio = (state, { payload }) => ({
+const selectPortfolio: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   selectedPortfolio: payload,
   isLoading: false
 });
-const filterPortfolios = (state, { payload }) => ({
+const filterPortfolios: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   filterValue: payload
 });
-const resetSelectedPortfolio = (state) => ({
+const resetSelectedPortfolio: PortfolioReducerActionHandler = (state) => ({
   ...state,
   selectedPortfolio: { metadata: { user_capabilities: {}, statistics: {} } },
   portfolioItems: portfoliosInitialState.portfolioItems
@@ -92,7 +126,10 @@ const resetSelectedPortfolio = (state) => ({
 
 // these are optimistic UI updates that mutate the portfolio state immediately after user action.
 // State is synchronized with API after actions are sucesfull
-const addTemporaryPortfolio = (state, { payload }) => ({
+const addTemporaryPortfolio: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   prevState: { ...state },
   ...state,
   portfolios: {
@@ -103,14 +140,18 @@ const addTemporaryPortfolio = (state, { payload }) => ({
     ]
   }
 });
-const updateTemporaryPortfolio = (state, { payload }) => ({
+const updateTemporaryPortfolio: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   prevState: { ...state },
   ...state,
   selectedPortfolio: {
     metadata: {
       ...state.selectedPortfolio.metadata,
       user_capabilities: {
-        ...state.selectedPortfolio.metadata.user_capabilities
+        // the client typings define metadaas object which will result it unknow property TS error. So we have to override it
+        ...(state.selectedPortfolio.metadata as AnyObject).user_capabilities
       }
     },
     ...payload
@@ -128,7 +169,10 @@ const updateTemporaryPortfolio = (state, { payload }) => ({
   }
 });
 
-const deleteTemporaryPortfolio = (state, { payload }) => ({
+const deleteTemporaryPortfolio: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   prevState: { ...state },
   ...state,
   selectedPortfolio: { metadata: { user_capabilities: {}, statistics: {} } },
@@ -138,7 +182,10 @@ const deleteTemporaryPortfolio = (state, { payload }) => ({
   }
 });
 
-const updateTemporaryPortfolioItem = (state, { payload }) => ({
+const updateTemporaryPortfolioItem: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   prevState: { ...state },
   portfolioItem: {
@@ -159,7 +206,10 @@ const updateTemporaryPortfolioItem = (state, { payload }) => ({
   }
 });
 
-const updatePortfolioItem = (state, { payload }) => ({
+const updatePortfolioItem: PortfolioReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   portfolioItem: {
     ...state.portfolioItem,
@@ -173,7 +223,7 @@ const updatePortfolioItem = (state, { payload }) => ({
   }
 });
 
-const restorePrevState = (state) =>
+const restorePrevState: PortfolioReducerActionHandler = (state) =>
   state.prevState ? { ...state.prevState } : { ...state };
 
 export default {
