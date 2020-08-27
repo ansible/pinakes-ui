@@ -3,9 +3,24 @@ import {
   SORT_ORDER_PROCESSES,
   SET_FILTER_ORDER_PROCESSES
 } from '../action-types';
+import {
+  ApiCollectionResponse,
+  AnyObject,
+  ReduxActionHandler
+} from '../../types/common-types';
+import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 
+export interface OrderProcessReducerState extends AnyObject {
+  orderProcesses: ApiCollectionResponse<OrderProcess>;
+  isLoading: boolean;
+  selectedOrderProcesses: string[];
+}
+
+export type OrderProcessReducerActionHandler = ReduxActionHandler<
+  OrderProcessReducerState
+>;
 // Initial State
-export const orderProcessInitialState = {
+export const orderProcessInitialState: OrderProcessReducerState = {
   orderProcesses: {
     data: [],
     meta: {
@@ -24,13 +39,22 @@ export const orderProcessInitialState = {
   selectedOrderProcesses: []
 };
 
-const setLoadingState = (state) => ({ ...state, isLoading: true });
-const setOrderProcesses = (state, { payload }) => ({
+const setLoadingState: OrderProcessReducerActionHandler = (state) => ({
+  ...state,
+  isLoading: true
+});
+const setOrderProcesses: OrderProcessReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   orderProcesses: payload,
   isLoading: false
 });
-const setSortOrderProcesses = (state, { payload }) => ({
+const setSortOrderProcesses: OrderProcessReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   sortBy: payload,
   orderProcesses: {
@@ -41,7 +65,10 @@ const setSortOrderProcesses = (state, { payload }) => ({
     }
   }
 });
-const setFilterValue = (state, { payload }) => ({
+const setFilterValue: OrderProcessReducerActionHandler = (
+  state,
+  { payload }
+) => ({
   ...state,
   filterValue: payload,
   orderProcesses: {

@@ -1,4 +1,9 @@
-const emptyDataMiddleware = () => (dispatch) => (action) => {
+import { Dispatch } from 'redux';
+import { ReduxAction } from '../types/common-types';
+
+const emptyDataMiddleware = () => (dispatch: Dispatch) => (
+  action: ReduxAction
+): ReduxAction => {
   const nextAction = { ...action };
   if (
     action.type.match(/_FULFILLED$/) &&
@@ -11,8 +16,8 @@ const emptyDataMiddleware = () => (dispatch) => (action) => {
       nextAction.meta,
       'filters'
     )
-      ? Object.values(nextAction.meta.filters || {}).every(
-          (value) => typeof value === 'undefined' || value.length === 0
+      ? Object.values(nextAction.meta?.filters || {}).every(
+          (value?: string) => typeof value === 'undefined' || value.length === 0
         )
       : nextAction.meta?.filter?.length === 0;
 
