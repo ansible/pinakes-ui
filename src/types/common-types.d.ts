@@ -33,16 +33,17 @@ export interface ActionNotification {
   rejected?: AnyObject;
 }
 
-export interface ActionMeta extends PaginationConfiguration {
+export interface ActionMeta extends PaginationConfiguration, AnyObject {
   storeState?: boolean;
   stateKey?: string;
   notifications?: ActionNotification;
   filters?: StringObject;
+  platformId?: string;
 }
 export interface ReduxAction {
   type: string;
   payload?: any;
-  meta?: ActionMeta;
+  meta: ActionMeta;
 }
 
 export type ReduxActionHandler<T /**Reducer state definition */> = (
