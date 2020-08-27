@@ -1,6 +1,10 @@
 import catalogHistory from '../routing/catalog-history';
+import { Dispatch } from 'redux';
+import { ReduxAction } from '../types/common-types';
 
-const unAuthorizedMiddleware = () => (dispatch) => (action) => {
+const unAuthorizedMiddleware = () => (dispatch: Dispatch) => (
+  action: ReduxAction
+): ReduxAction | void => {
   const nextAction = { ...action };
   if (action.type.match(/_REJECTED$/) && action?.payload?.redirect) {
     setTimeout(() => {
