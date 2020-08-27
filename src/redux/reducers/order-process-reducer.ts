@@ -6,8 +6,7 @@ import {
 import {
   ApiCollectionResponse,
   AnyObject,
-  ReduxActionHandler,
-  ApiMetadata
+  ReduxActionHandler
 } from '../../types/common-types';
 import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 
@@ -59,9 +58,9 @@ const setSortOrderProcesses: OrderProcessReducerActionHandler = (
   ...state,
   sortBy: payload,
   orderProcesses: {
-    ...(state.orderProcesses as ApiCollectionResponse<OrderProcess>),
+    ...state.orderProcesses,
     meta: {
-      ...((state.orderProcesses as AnyObject).meta as ApiMetadata),
+      ...state.orderProcesses.meta,
       offset: 0
     }
   }
@@ -73,9 +72,9 @@ const setFilterValue: OrderProcessReducerActionHandler = (
   ...state,
   filterValue: payload,
   orderProcesses: {
-    ...(state.orderProcesses as ApiCollectionResponse<OrderProcess>),
+    ...state.orderProcesses,
     meta: {
-      ...((state.orderProcesses as AnyObject).meta as ApiMetadata),
+      ...state.orderProcesses.meta,
       offset: 0
     }
   }

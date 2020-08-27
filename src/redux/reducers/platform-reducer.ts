@@ -109,7 +109,7 @@ const setPlatformItems: PlatformReducerActionHandler = (
 ) => ({
   ...state,
   platformItems: {
-    ...(state.platformItems as PlatformItemsObject),
+    ...state.platformItems,
     [platformId!]: payload
   },
   isPlatformDataLoading: false
@@ -120,7 +120,7 @@ const setMultiplePlatformItems: PlatformReducerActionHandler = (
 ) => ({
   ...state,
   platformItems: {
-    ...(state.platformItems as PlatformItemsObject),
+    ...state.platformItems,
     ...payload
   },
   isPlatformDataLoading: false

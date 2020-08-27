@@ -117,7 +117,7 @@ const updateOrderApprovalRequests: OrderReducerActionHandler = (
 ) => ({
   ...state,
   orderDetail: {
-    ...(state.orderDetail as OrderDetail),
+    ...state.orderDetail,
     approvalRequest: payload
   }
 });

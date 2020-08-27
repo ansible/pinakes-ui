@@ -1,5 +1,4 @@
 import { PaginationConfiguration } from '../helpers/shared/pagination';
-import { StateFromReducersMapObject } from 'redux';
 
 export interface StringObject {
   [key: string]: string;
