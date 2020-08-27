@@ -8,8 +8,8 @@ export interface AnyObject {
   [key: string]: any;
 }
 
-export interface ApiMetadata {
-  count: number;
+export interface ApiMetadata extends AnyObject {
+  count?: number;
   limit: number;
   offset: number;
 }

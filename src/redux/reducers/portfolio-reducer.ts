@@ -50,7 +50,7 @@ export type PortfolioReducerActionHandler = ReduxActionHandler<
 export const portfoliosInitialState: PortfolioReducerState = {
   portfolioItems: {
     data: [],
-    meta: defaultSettings
+    meta: { limit: 50, offset: 0, filter: '' }
   },
   portfolioItem: {
     portfolioItem: {
