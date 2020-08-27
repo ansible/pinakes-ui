@@ -1,4 +1,6 @@
-export const decodeState = (encodedState) => {
+import { AnyObject } from '../types/common-types';
+
+export const decodeState = (encodedState: string): AnyObject | undefined => {
   try {
     return JSON.parse(atob(decodeURIComponent(encodedState)));
   } catch (error) {
@@ -6,7 +8,7 @@ export const decodeState = (encodedState) => {
   }
 };
 
-export const encodeState = (state, stateKey) => {
+export const encodeState = (state: AnyObject, stateKey?: string): string => {
   const stateObject = stateKey
     ? {
         ...decodeState(window.location.hash),

@@ -1,7 +1,11 @@
 import { encodeState } from '../routing/uri-state-manager';
 import catalogHistory from '../routing/catalog-history';
+import { Dispatch } from 'redux';
+import { ReduxAction } from '../types/common-types';
 
-const viewStateMiddleware = () => (dispatch) => (action) => {
+const viewStateMiddleware = () => (dispatch: Dispatch) => (
+  action: ReduxAction
+): ReduxAction => {
   if (
     action.type.match(/_FULFILLED$/) &&
     action?.payload?.meta &&
