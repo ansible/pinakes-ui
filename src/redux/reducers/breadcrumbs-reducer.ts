@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
-import { StateFromReducersMapObject } from 'redux';
 import { INITIALIZE_BREADCRUMBS } from '../action-types';
-import { AnyObject, ReduxAction } from '../../types/common-types';
+import { AnyObject, ReduxActionHandler } from '../../types/common-types';
 
 export interface BreadcrumbFragment {
   pathname: string;
@@ -12,10 +11,9 @@ export interface BreadcrumbsReducerState extends AnyObject {
   fragments: BreadcrumbFragment[];
 }
 
-export type BreadcrumbsReducerActionHandler = (
-  state: StateFromReducersMapObject<BreadcrumbsReducerState>,
-  action: ReduxAction
-) => BreadcrumbsReducerState;
+export type BreadcrumbsReducerActionHandler = ReduxActionHandler<
+  BreadcrumbsReducerState
+>;
 
 export const initialBreadcrumbsState: BreadcrumbsReducerState = {
   fragments: []

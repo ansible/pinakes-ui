@@ -1,8 +1,7 @@
 import { Workflow } from '@redhat-cloud-services/approval-client';
 import { SET_LOADING_STATE } from '../action-types';
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
-import { StateFromReducersMapObject } from 'redux';
-import { ReduxAction, AnyObject } from '../../types/common-types';
+import { AnyObject, ReduxActionHandler } from '../../types/common-types';
 
 export interface ApprovalReducerState extends AnyObject {
   isFetching: boolean;
@@ -11,10 +10,9 @@ export interface ApprovalReducerState extends AnyObject {
   resolvedWorkflows: Workflow[];
 }
 
-export type ApprovalReducerActionHandler = (
-  state: StateFromReducersMapObject<ApprovalReducerState>,
-  action: ReduxAction
-) => ApprovalReducerState;
+export type ApprovalReducerActionHandler = ReduxActionHandler<
+  ApprovalReducerState
+>;
 
 export const approvalInitialState: ApprovalReducerState = {
   isFetching: false,

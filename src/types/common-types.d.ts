@@ -1,4 +1,5 @@
 import { PaginationConfiguration } from '../helpers/shared/pagination';
+import { StateFromReducersMapObject } from 'redux';
 
 export interface StringObject {
   [key: string]: string;
@@ -43,3 +44,8 @@ export interface ReduxAction {
   payload?: any;
   meta?: ActionMeta;
 }
+
+export type ReduxActionHandler<T /**Reducer state definition */> = (
+  state: StateFromReducersMapObject<T>,
+  action: ReduxAction
+) => T;

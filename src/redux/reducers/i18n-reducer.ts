@@ -1,13 +1,9 @@
 import { IntlShape } from 'react-intl';
 import { INITIALIZE_I18N } from '../action-types';
-import { AnyObject, ReduxAction } from '../../types/common-types';
-import { StateFromReducersMapObject } from 'redux';
+import { AnyObject, ReduxActionHandler } from '../../types/common-types';
 
 export type I18nReducerState = Partial<IntlShape> & AnyObject;
-export type I18nReducerActionHandler = (
-  state: StateFromReducersMapObject<I18nReducerState>,
-  action: ReduxAction
-) => I18nReducerState;
+export type I18nReducerActionHandler = ReduxActionHandler<I18nReducerState>;
 
 export const i18nInitialState: I18nReducerState = {
   formatMessage: ({ defaultMessage = '' }) => defaultMessage

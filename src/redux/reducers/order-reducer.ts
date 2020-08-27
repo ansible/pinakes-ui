@@ -1,4 +1,3 @@
-import { StateFromReducersMapObject } from 'redux';
 import { Request } from '@redhat-cloud-services/approval-client';
 import {
   ServicePlan,
@@ -24,8 +23,8 @@ import {
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
   ApiCollectionResponse,
-  ReduxAction,
-  AnyObject
+  AnyObject,
+  ReduxActionHandler
 } from '../../types/common-types';
 
 export interface OrderDetail extends AnyObject {
@@ -60,10 +59,7 @@ export const orderInitialState: OrderReducerState = {
   }
 };
 
-export type OrderReducerActionHandler = (
-  state: StateFromReducersMapObject<OrderReducerState>,
-  action: ReduxAction
-) => OrderReducerState;
+export type OrderReducerActionHandler = ReduxActionHandler<OrderReducerState>;
 
 const setLoadingState: OrderReducerActionHandler = (
   state,
