@@ -1,6 +1,11 @@
-export const createAsyncActionTypes = (actionTypes, prefix) =>
+import { StringObject } from '../../types/common-types';
+
+export const createAsyncActionTypes = (
+  actionTypes: string[],
+  prefix: string
+): StringObject =>
   actionTypes
-    .reduce(
+    .reduce<string[]>(
       (acc, curr) => [
         ...acc,
         ...[curr, `${curr}_PENDING`, `${curr}_FULFILLED`, `${curr}_REJECTED`]
