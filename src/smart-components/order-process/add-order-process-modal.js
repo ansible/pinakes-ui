@@ -33,18 +33,6 @@ const reducer = (state, { type, initialValues, schema }) => {
   }
 };
 
-const prepareInitialValues = (opData) => {
-  const beforeOptions = opData?.before_items?.map((item) => ({
-    label: item.name,
-    value: item.id
-  }));
-  const afterOptions = opData?.after_items?.map((item) => ({
-    label: item.name,
-    value: item.id
-  }));
-  return { ...opData, before_items: beforeOptions, after_items: afterOptions };
-};
-
 const AddOrderProcess = ({ edit }) => {
   const dispatch = useDispatch();
   const [{ order_process }] = useQuery(['order_process']);
@@ -68,37 +56,27 @@ const AddOrderProcess = ({ edit }) => {
       fetchOrderProcess(order_process).then((data) =>
         stateDispatch({
           type: 'loaded',
-          initialValues: prepareInitialValues(data),
+          initialValues: data,
           schema: createOrderProcessSchema(intl, data.id)
         })
       );
     } else if (loadedProcess !== undefined) {
       stateDispatch({
         type: 'loaded',
-        initialValues: prepareInitialValues(loadedProcess),
+        initialValues: loadedProcess,
         schema: createOrderProcessSchema(intl, loadedProcess.id)
       });
     }
+
+    console.log('Debug - intial values: ', data, loadedProcess);
   }, []);
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
-  const onSave = ({ beforeItems = [], afterItems = [], ...values }) => {
-    const processData = {
-      ...values,
-      before_items: beforeItems?.map((item) => ({
-        name: item.label,
-        id: item.value
-      })),
-      after_items: afterItems?.map((item) => ({
-        name: item.label,
-        id: item.value
-      }))
-    };
-
+  const onSave = (values) => {
     const submitAction = edit
-      ? () => updateOrderProcess(order_process, processData, intl)
-      : () => addOrderProcess(processData, intl);
+      ? () => updateOrderProcess(order_process, values, intl)
+      : () => addOrderProcess(values, intl);
     onCancel();
 
     return dispatch(submitAction()).then(() => dispatch(fetchOrderProcesses()));
