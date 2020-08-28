@@ -228,7 +228,7 @@ export const uploadPortfolioItemIcon = (
     return axiosInstance.patch(`${CATALOG_API_BASE}/icons/${iconId}`, data);
   }
 
-  data.append('portfolio_item', portfolioItemId);
+  data.append('portfolio_item_id', portfolioItemId);
   return axiosInstance.post(`${CATALOG_API_BASE}/icons`, data, {
     headers: {
       accept: 'application/json',
@@ -286,8 +286,3 @@ export const undeletePortfolio = (
   axiosInstance.post(`${CATALOG_API_BASE}/portfolios/${portfolioId}/undelete`, {
     restore_key: restoreKey
   });
-
-export const getPortfolioItemName = async (portfolioItemId: string) => {
-  const item = await portfolioItemApi.showPortfolioItem(portfolioItemId);
-  return (item as PortfolioItem).name;
-};

@@ -25,7 +25,6 @@ export const loadProductOptions = (
   const initialLookupQuery = initialLookup
     .map((product) => `filter[id][]=${product}`)
     .join('&');
-
   return getAxiosInstance()
     .get(
       `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
@@ -74,22 +73,6 @@ export const getLinkedOrderProcesses = (
     `${CATALOG_API_BASE}/order_processes?app_name=catalog&object_type=${objectType}&object_id=${objectId}`
   );
 
-export const addBeforePortfolioItem = (
-  id: string,
-  item: string
-): Promise<OrderProcess> =>
-  getOrderProcessApi().addOrderProcessBeforeItem(id, {
-    portfolio_item_id: item
-  }) as Promise<OrderProcess>;
-
-export const addAfterPortfolioItem = (
-  id: string,
-  item: string
-): Promise<OrderProcess> =>
-  getOrderProcessApi().addOrderProcessAfterItem(id, {
-    portfolio_item_id: item
-  }) as Promise<OrderProcess>;
-
 export const removeOrderProcess = (processId: string): Promise<void> =>
   (getOrderProcessApi().destroyOrderProcess(processId) as unknown) as Promise<
     void
@@ -105,22 +88,29 @@ export const removeOrderProcesses = (
     )
   );
 
-export const updateOrderProcess = (
+export const updateOrderProcess = async (
   id: string,
-  data: Partial<OrderProcess>
-): Promise<OrderProcess> =>
-  getOrderProcessApi().updateOrderProcess(id, data) as Promise<OrderProcess>;
+  {
+    before_portfolio_item_id,
+    after_portfolio_item_id,
+    ...data
+  }: Partial<OrderProcess>
+): Promise<OrderProcess> => {
+  const op = await getOrderProcessApi().updateOrderProcess(id, {
+    name: data.name,
+    description: data.description,
+    before_portfolio_item_id: before_portfolio_item_id || '',
+    after_portfolio_item_id: after_portfolio_item_id || ''
+  });
 
-export const listBeforeProductsForProcess = (
-  id: string
-): Promise<OrderProcess> =>
-  getOrderProcessApi().listOrderProcessTags(id) as Promise<OrderProcess>;
+  return op as OrderProcess;
+};
 
 export const addOrderProcess = async ({
   before_portfolio_item_id,
   after_portfolio_item_id,
   ...data
-}: Partial<OrderProcess>): Promise<OrderProcess> => {
+}: Partial<OrderProcess>): Promise<OrderProcess[]> => {
   const op = await getOrderProcessApi().createOrderProcess({
     name: data.name,
     description: data.description
@@ -140,5 +130,5 @@ export const addOrderProcess = async ({
           { portfolio_item_id: after_portfolio_item_id }
         )
       : {};
-  return Promise.all([promiseA, promiseB]) as Promise<OrderProcess>;
+  return Promise.all([promiseA, promiseB]) as Promise<OrderProcess[]>;
 };

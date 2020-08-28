@@ -98,7 +98,7 @@ describe('<AddOrderProcess />', () => {
     wrapper.update();
 
     await act(async () => {
-      const nameField = wrapper.find('input');
+      const nameField = wrapper.find('input').first();
       nameField.instance().value = 'some-name';
       nameField.simulate('change');
     });
@@ -165,6 +165,7 @@ describe('<AddOrderProcess />', () => {
 
     expect(helpers.updateOrderProcess).toHaveBeenCalledWith('123', {
       description: 'some-description',
+      id: '123',
       name: 'foo'
     });
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();

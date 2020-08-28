@@ -67,8 +67,6 @@ const AddOrderProcess = ({ edit }) => {
         schema: createOrderProcessSchema(intl, loadedProcess.id)
       });
     }
-
-    console.log('Debug - intial values: ', data, loadedProcess);
   }, []);
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);

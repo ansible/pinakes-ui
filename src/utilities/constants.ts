@@ -26,3 +26,6 @@ export const APP_NAME = {
   PortfolioItem: 'catalog',
   ServiceInventory: 'topology'
 };
+
+export const BEFORE_TYPE = 'before';
+export const AFTER_TYPE = 'after';
