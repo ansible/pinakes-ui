@@ -3,6 +3,7 @@ import { defaultSettings } from '../shared/pagination';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import {
   OrderProcess,
+  PortfolioItem,
   ResourceObject
 } from '@redhat-cloud-services/catalog-client';
 import { ApiCollectionResponse, ApiMetadata } from '../../types/common-types';
@@ -19,16 +20,11 @@ export const listOrderProcesses = (
   );
 
 export const loadProductOptions = (
-  filterValue = '',
-  initialLookup: string[] = []
-) => {
-  const initialLookupQuery = initialLookup
-    .map((product) => `filter[id][]=${product}`)
-    .join('&');
+  filterValue = ''
+): Promise<ApiCollectionResponse<PortfolioItem>> => {
   return getAxiosInstance()
     .get(
-      `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
-        ''}`
+      `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}`
     )
     .then(({ data }) =>
       data.map((item: { name: string; id: string }) => ({
@@ -110,7 +106,7 @@ export const addOrderProcess = async ({
   before_portfolio_item_id,
   after_portfolio_item_id,
   ...data
-}: Partial<OrderProcess>): Promise<OrderProcess[]> => {
+}: Partial<OrderProcess>) => {
   const op = await getOrderProcessApi().createOrderProcess({
     name: data.name,
     description: data.description
@@ -130,5 +126,6 @@ export const addOrderProcess = async ({
           { portfolio_item_id: after_portfolio_item_id }
         )
       : {};
-  return Promise.all([promiseA, promiseB]) as Promise<OrderProcess[]>;
+  await Promise.all([promiseA, promiseB]);
+  return op;
 };
