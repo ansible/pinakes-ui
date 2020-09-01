@@ -6,29 +6,29 @@ const editPortfolioItemSchema = {
     {
       component: componentTypes.TEXT_FIELD,
       name: 'name',
-      label: 'Name',
+      label: 'schemas.portfolio-item.name',
       isRequired: true,
       validate: [{ type: validatorTypes.REQUIRED }]
     },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'description',
-      label: 'Description'
+      label: 'schemas.portfolio-item.description'
     },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'long_description',
-      label: 'Long description'
+      label: 'schemas.portfolio-item.long_description'
     },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'distributor',
-      label: 'Vendor'
+      label: 'schemas.portfolio-item.vendor'
     },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'documentation_url',
-      label: 'Documentation URL',
+      label: 'schemas.portfolio-item.documentation_url',
       validate: [
         {
           type: validatorTypes.URL
@@ -38,7 +38,7 @@ const editPortfolioItemSchema = {
     {
       component: componentTypes.TEXT_FIELD,
       name: 'support_url',
-      label: 'Support URL',
+      label: 'schemas.portfolio-item.support_url',
       validate: [
         {
           type: validatorTypes.URL

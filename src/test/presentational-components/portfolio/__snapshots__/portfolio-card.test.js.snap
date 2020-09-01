@@ -23,6 +23,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         }
         id="123"
         portfolioName="name"
+        portfolio_items={0}
         to={
           Object {
             "pathname": "/portfolio",

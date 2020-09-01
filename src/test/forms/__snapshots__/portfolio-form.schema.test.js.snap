@@ -6,7 +6,7 @@ Object {
     Object {
       "component": "text-field",
       "isRequired": true,
-      "label": "Name",
+      "label": "schemas.portfolio.name",
       "maxLength": 64,
       "name": "name",
       "validate": Array [
@@ -15,7 +15,7 @@ Object {
     },
     Object {
       "component": "textarea",
-      "label": "Description",
+      "label": "schemas.portfolio.description",
       "name": "description",
     },
   ],
@@ -28,7 +28,7 @@ Object {
     Object {
       "component": "text-field",
       "isRequired": true,
-      "label": "Name",
+      "label": "schemas.portfolio.name",
       "maxLength": 64,
       "name": "name",
       "validate": Array [
@@ -37,7 +37,7 @@ Object {
     },
     Object {
       "component": "textarea",
-      "label": "Description",
+      "label": "schemas.portfolio.description",
       "name": "description",
     },
   ],

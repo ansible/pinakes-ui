@@ -41,7 +41,7 @@ describe('<Orders />', () => {
         data: [
           {
             id: 'request-id',
-            state: 'Foo',
+            state: 'undecided',
             reason: 'Why not'
           }
         ]
@@ -87,6 +87,9 @@ describe('<Orders />', () => {
     initialProps = {};
     mockStore = configureStore(middlewares);
     initialState = {
+      i18nReducer: {
+        formatMessage: ({ defaultMessage }) => defaultMessage
+      },
       breadcrumbsReducer: { fragments: [] },
       orderReducer: { ...orderInitialState, isLoading: false },
       portfolioReducer: { ...portfoliosInitialState, isLoading: false },
@@ -141,6 +144,7 @@ describe('<Orders />', () => {
       },
       data: [...Array(10)].map((item, index) => ({
         id: `order-${index}`,
+        state: 'undecided',
         orderItems: [
           {
             id: `order-item-${index}`

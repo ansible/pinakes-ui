@@ -7,13 +7,17 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { Routes } from './Routes';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
-import { SET_OPENAPI_SCHEMA, SET_SOURCETYPE_ICONS } from './redux/action-types';
+import {
+  SET_OPENAPI_SCHEMA,
+  SET_SOURCETYPE_ICONS,
+  INITIALIZE_I18N
+} from './redux/action-types';
 
 import 'whatwg-fetch';
 import smoothscroll from 'smoothscroll-polyfill';
 
 // react-int eng locale data
-import { IntlProvider } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
 import { getAxiosInstance } from './helpers/shared/user-login';
@@ -33,11 +37,13 @@ const App = () => {
   const [userIdentity, setUserIdentity] = useState({ identity: {} });
   const [openApiSchema, setOpenApiSchema] = useState();
   const dispatch = useDispatch();
+  const i18l = useIntl();
   const history = useHistory();
   let unregister;
 
   useEffect(() => {
     insights.chrome.init();
+    dispatch({ type: INITIALIZE_I18N, payload: i18l });
     Promise.all([
       getAxiosInstance()
         .get(`${CATALOG_API_BASE}/openapi.json`)
@@ -82,6 +88,10 @@ const App = () => {
         title: 'Platforms'
       },
       {
+        id: 'order-processes',
+        title: 'Order processes'
+      },
+      {
         id: 'orders',
         title: 'Orders'
       }
@@ -108,22 +118,20 @@ const App = () => {
   }
 
   return (
-    <IntlProvider locale="en">
-      <UserContext.Provider
-        value={{ permissions: userPermissions, userIdentity, openApiSchema }}
-      >
-        <Fragment>
-          <NotificationsPortal />
-          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
-            <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-              <GridItem sm={12} className="content-layout">
-                <Routes />
-              </GridItem>
-            </Grid>
-          </section>
-        </Fragment>
-      </UserContext.Provider>
-    </IntlProvider>
+    <UserContext.Provider
+      value={{ permissions: userPermissions, userIdentity, openApiSchema }}
+    >
+      <Fragment>
+        <NotificationsPortal />
+        <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
+          <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+            <GridItem sm={12} className="content-layout">
+              <Routes />
+            </GridItem>
+          </Grid>
+        </section>
+      </Fragment>
+    </UserContext.Provider>
   );
 };
 

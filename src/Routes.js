@@ -48,10 +48,16 @@ const OrderDetail = lazy(() =>
     /* webpackChunkName: "order-detail" */ './smart-components/order/order-detail/order-detail'
   )
 );
+const OrderProcesses = lazy(() =>
+  import(
+    /* webpackChunkName: "order-processes" */ './smart-components/order-process/order-processes'
+  )
+);
 
 const paths = {
   products: '/products',
   platforms: '/platforms',
+  order_processes: '/order-processes',
   platform: '/platform',
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,
@@ -79,6 +85,7 @@ export const Routes = () => {
           path={paths.platform}
           component={Platform}
         />
+        <CatalogRoute path={paths.order_processes} component={OrderProcesses} />
         <CatalogRoute path={paths.orders} component={Orders} />
         <CatalogRoute path={paths.order} component={OrderDetail} />
         <Route path={errorPaths} component={CommonApiError} />

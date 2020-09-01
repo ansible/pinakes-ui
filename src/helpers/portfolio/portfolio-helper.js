@@ -12,11 +12,22 @@ const portfolioApi = getPortfolioApi();
 const portfolioItemApi = getPortfolioItemApi();
 
 export function listPortfolios(
-  filter = '',
-  { limit, offset } = defaultSettings
+  filters = {},
+  { limit, offset, sortDirection = 'asc' } = defaultSettings
 ) {
+  const filterQuery = Object.entries(filters).reduce((acc, [key, value]) => {
+    if (!value) {
+      return acc;
+    }
+
+    const partial =
+      key === 'sort_by'
+        ? `sort_by=${value}:${sortDirection}`
+        : `filter[${key}][contains_i]=${value}`;
+    return `${acc}&${partial}`;
+  }, '');
   return axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolios?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
+    `${CATALOG_API_BASE}/portfolios?limit=${limit}&offset=${offset}${filterQuery}`
   );
 }
 

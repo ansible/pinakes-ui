@@ -13,6 +13,8 @@ import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
+import filteringMessages from '../../messages/filtering.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const PortfolioItems = ({
   routes,
@@ -20,6 +22,7 @@ const PortfolioItems = ({
   removeProducts,
   copyPortfolio,
   stateDispatch,
+  fromProducts,
   state: {
     removeInProgress,
     isFetching,
@@ -29,6 +32,7 @@ const PortfolioItems = ({
     filterValue
   }
 }) => {
+  const formatMessage = useFormatMessage();
   const { data, meta, name, description, userCapabilities } = useSelector(
     ({
       portfolioReducer: {
@@ -63,7 +67,10 @@ const PortfolioItems = ({
       preserveSearch
       isSelectable={userCapabilities.update}
       onSelect={(selectedItem) =>
-        stateDispatch({ type: 'selectItem', payload: selectedItem })
+        stateDispatch({
+          type: 'selectItem',
+          payload: { selectedItem, product: item }
+        })
       }
       isSelected={selectedItems.includes(item.id)}
       removeInProgress={removeInProgress}
@@ -74,10 +81,11 @@ const PortfolioItems = ({
     <Fragment>
       <ToolbarRenderer
         schema={createPortfolioToolbarSchema({
+          fromProducts,
           filterProps: {
             searchValue: filterValue,
             onFilterChange: handleFilterChange,
-            placeholder: 'Filter by product'
+            placeholder: formatMessage(filteringMessages.filterByProduct)
           },
           title: name,
           description,
@@ -138,7 +146,8 @@ PortfolioItems.propTypes = {
     copyInProgress: PropTypes.bool,
     selectedItems: PropTypes.arrayOf(PropTypes.string),
     filterValue: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  fromProducts: PropTypes.bool
 };
 
 export default PortfolioItems;

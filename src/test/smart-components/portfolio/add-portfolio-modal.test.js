@@ -72,14 +72,14 @@ describe('<AddPortfolioModal />', () => {
         {
           component: componentTypes.TEXT_FIELD,
           isRequired: true,
-          label: 'Name',
+          label: 'schemas.portfolio.name',
           name: 'name',
           maxLength: 64,
           validate: [expect.any(Function)]
         },
         {
           component: componentTypes.TEXTAREA,
-          label: 'Description',
+          label: 'schemas.portfolio.description',
           name: 'description'
         }
       ]

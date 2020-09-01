@@ -1,71 +1,42 @@
 import { createPortfolioShareSchema } from '../../forms/portfolio-share-form.schema';
 
 describe('create portfolio share schema', () => {
-  const shareInfo = [
+  const permissionVerbs = [
     {
-      group_name: 'existing-share'
+      value: 'first-verb-value',
+      label: 'First verb value'
     }
   ];
 
   const newSharePartial = [
     {
       component: 'sub-form',
-      description: 'Invite group',
+      description: 'share.new.description',
+      name: 'new_share',
+      key: '1',
       fields: [
         {
-          component: 'share-group-select',
-          inputName: 'group_uuid',
-          isSearchable: true,
-          loadOptions: expect.any(Function),
           name: 'group-selection',
-          permissions: [
-            {
-              label: 'First verb value',
-              value: 'first-verb-value'
-            }
-          ],
-          selectName: 'permissions'
+          component: 'share-group-select',
+          loadOptions: expect.any(Function),
+          isSearchable: true,
+          permissions: permissionVerbs
         }
-      ],
-      key: '1',
-      name: 'new_share'
+      ]
     }
   ];
 
   const existingSharePartial = [
     {
       component: 'sub-form',
-      description: 'Groups with access',
+      name: 'current-groups-sub-form',
       fields: [
         {
-          component: 'sub-form',
-          fields: [
-            {
-              component: 'share-group-edit',
-              isClearable: true,
-              label: 'existing-share',
-              name: 'existing-share',
-              options: [
-                {
-                  label: 'First verb value',
-                  value: 'first-verb-value'
-                }
-              ]
-            }
-          ],
-          key: 'existing-share',
-          name: 'existing-share'
+          name: 'shared-groups',
+          permissionVerbs,
+          component: 'share-group-edit'
         }
-      ],
-      key: 'share_list',
-      name: 'share_list'
-    }
-  ];
-
-  const permissionVerbs = [
-    {
-      value: 'first-verb-value',
-      label: 'First verb value'
+      ]
     }
   ];
 
@@ -74,7 +45,6 @@ describe('create portfolio share schema', () => {
       fields: [...newSharePartial, ...existingSharePartial]
     };
     const schema = createPortfolioShareSchema(
-      shareInfo,
       () => {},
       permissionVerbs,
       true,
@@ -88,7 +58,6 @@ describe('create portfolio share schema', () => {
       fields: [...newSharePartial]
     };
     const schema = createPortfolioShareSchema(
-      shareInfo,
       () => {},
       permissionVerbs,
       true,
@@ -102,7 +71,6 @@ describe('create portfolio share schema', () => {
       fields: [...existingSharePartial]
     };
     const schema = createPortfolioShareSchema(
-      shareInfo,
       () => {},
       permissionVerbs,
       false,

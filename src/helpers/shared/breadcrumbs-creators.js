@@ -8,7 +8,8 @@ import {
   PLATFORMS_ROUTE,
   ORDERS_ROUTE,
   EDIT_SURVEY_ROUTE,
-  ADD_PRODUCTS_ROUTE
+  ADD_PRODUCTS_ROUTE,
+  PORTFOLIO_ITEM_ROUTE_EDIT
 } from '../../constants/routes';
 
 export const BASE_PORTFOLIO_FRAGMENTS = [
@@ -37,7 +38,8 @@ export const FRAGMENT_TITLE = {
   [ORDER_ROUTE]: (getState) => {
     const { portfolioItem, order } = getState().orderReducer.orderDetail;
     return `${portfolioItem.name} # ${order.id}`;
-  }
+  },
+  [PORTFOLIO_ITEM_ROUTE_EDIT]: () => 'Edit product'
 };
 
 export const FRAGMENT_PREFIX = {

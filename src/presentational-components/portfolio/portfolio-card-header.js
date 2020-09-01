@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
+  Badge,
   Level,
   LevelItem,
   Text,
@@ -12,16 +13,23 @@ import EllipsisTextContainer from '../styled-components/ellipsis-text-container'
 import styled from 'styled-components';
 
 const HeaderTitle = styled(LevelItem)`
-  max-width: calc(100% - 44px);
+  max-width: calc(100% - 80px);
+  width: calc(100% - 80px);
 `;
 
 const HeaderLevel = styled(Level)`
   width: 100%;
 `;
 
-const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
+const PortfolioCardHeader = ({
+  id,
+  to,
+  portfolioName,
+  portfolio_items,
+  headerActions
+}) => (
   <HeaderLevel>
-    <HeaderTitle className="pf-m-grow">
+    <HeaderTitle>
       <TextContent>
         <Link to={to} id={`portfolio-link-${id}`}>
           <Text
@@ -34,14 +42,14 @@ const PortfolioCardHeader = ({ id, to, portfolioName, headerActions }) => (
         </Link>
       </TextContent>
     </HeaderTitle>
-    <LevelItem onClick={(event) => event.preventDefault()}>
-      {headerActions}
-    </LevelItem>
+    <Badge isRead>{portfolio_items}</Badge>
+    <div onClick={(event) => event.preventDefault()}>{headerActions}</div>
   </HeaderLevel>
 );
 
 PortfolioCardHeader.propTypes = {
   portfolioName: PropTypes.string.isRequired,
+  portfolio_items: PropTypes.number,
   headerActions: PropTypes.node,
   id: PropTypes.string,
   to: PropTypes.shape({
