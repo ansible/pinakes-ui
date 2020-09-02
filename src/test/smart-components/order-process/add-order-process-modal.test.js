@@ -31,7 +31,16 @@ describe('<AddOrderProcess />', () => {
     initialState = {
       orderProcessReducer: {
         orderProcesses: {
-          data: [{ id: '123', name: 'foo', description: 'bar' }]
+          data: [
+            { id: '123', name: 'foo', description: 'bar' },
+            {
+              id: '456',
+              name: 'PrePostTest',
+              description: 'PrePost',
+              before_portfolio_item_id: 'pre',
+              after_portfolio_item_id: 'post'
+            }
+          ]
         }
       }
     };
@@ -98,7 +107,7 @@ describe('<AddOrderProcess />', () => {
     wrapper.update();
 
     await act(async () => {
-      const nameField = wrapper.find('input');
+      const nameField = wrapper.find('input').first();
       nameField.instance().value = 'some-name';
       nameField.simulate('change');
     });
@@ -165,6 +174,7 @@ describe('<AddOrderProcess />', () => {
 
     expect(helpers.updateOrderProcess).toHaveBeenCalledWith('123', {
       description: 'some-description',
+      id: '123',
       name: 'foo'
     });
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();

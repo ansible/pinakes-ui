@@ -24,6 +24,26 @@ const formsMessages = defineMessages({
   nameTaken: {
     id: 'forms.nameTaken',
     defaultMessage: 'Name has already been taken'
+  },
+  currentBeforeProvision: {
+    id: 'forms.before.currentBeforeProducts',
+    defaultMessage: 'Current before provision'
+  },
+  currentAfterProvision: {
+    id: 'forms.after.currentAfterProvision',
+    defaultMessage: 'Current after provision'
+  },
+  beforeProvision: {
+    id: 'forms.before.beforeProvision',
+    defaultMessage: 'Before provision'
+  },
+  afterProvision: {
+    id: 'forms.after.setAfterProvision',
+    defaultMessage: 'After provision'
+  },
+  productsPlaceholder: {
+    id: 'forms.product.placeholder',
+    defaultMessage: 'Select product'
   }
 });
 

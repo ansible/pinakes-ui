@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
@@ -16,6 +16,22 @@ import labelMessages from '../../messages/labels.messages';
 import useQuery from '../../utilities/use-query';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
+import useOrderProcess from '../../utilities/use-order-process';
+import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
+
+const reducer = (state, { type, initialValues, schema }) => {
+  switch (type) {
+    case 'loaded':
+      return {
+        ...state,
+        initialValues,
+        schema,
+        isLoading: false
+      };
+    default:
+      return state;
+  }
+};
 
 const AddOrderProcess = ({ edit }) => {
   const dispatch = useDispatch();
@@ -29,6 +45,29 @@ const AddOrderProcess = ({ edit }) => {
   );
   const { push } = useEnhancedHistory({ keepHash: true });
   const intl = useIntl();
+  const loadedProcess = useOrderProcess(order_process);
+
+  const [{ initialValues }, stateDispatch] = useReducer(reducer, {
+    isLoading: true
+  });
+
+  useEffect(() => {
+    if (!loadedProcess && loadedProcess !== undefined) {
+      fetchOrderProcess(order_process).then((data) =>
+        stateDispatch({
+          type: 'loaded',
+          initialValues: data,
+          schema: createOrderProcessSchema(intl, data.id)
+        })
+      );
+    } else if (loadedProcess !== undefined) {
+      stateDispatch({
+        type: 'loaded',
+        initialValues: loadedProcess,
+        schema: createOrderProcessSchema(intl, loadedProcess.id)
+      });
+    }
+  }, []);
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
@@ -44,8 +83,6 @@ const AddOrderProcess = ({ edit }) => {
   if (edit && !data) {
     return null;
   }
-
-  const initialValues = { name: data.name, description: data.description };
 
   return (
     <Modal
