@@ -3,13 +3,18 @@ import { defaultSettings } from '../shared/pagination';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import {
   OrderProcess,
-  PortfolioItem,
   ResourceObject
 } from '@redhat-cloud-services/catalog-client';
 import { ApiCollectionResponse, ApiMetadata } from '../../types/common-types';
 import { AxiosResponse } from 'axios';
 const axiosInstance = getAxiosInstance();
 const orderProcessApi = getOrderProcessApi();
+
+export interface SelectOption {
+  label: string;
+  value: any;
+}
+export type SelectOptions = SelectOption[];
 
 export const listOrderProcesses = (
   filter = '',
@@ -21,7 +26,7 @@ export const listOrderProcesses = (
 
 export const loadProductOptions = (
   filterValue = ''
-): Promise<ApiCollectionResponse<PortfolioItem>> => {
+): Promise<SelectOptions> => {
   return getAxiosInstance()
     .get(
       `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}`
@@ -106,7 +111,10 @@ export const addOrderProcess = async ({
   before_portfolio_item_id,
   after_portfolio_item_id,
   ...data
-}: Partial<OrderProcess>) => {
+}: Partial<OrderProcess>): Promise<[
+  OrderProcess,
+  OrderProcess | undefined
+]> => {
   const op = await getOrderProcessApi().createOrderProcess({
     name: data.name,
     description: data.description
@@ -126,6 +134,5 @@ export const addOrderProcess = async ({
           { portfolio_item_id: after_portfolio_item_id }
         )
       : {};
-  await Promise.all([promiseA, promiseB]);
-  return op;
+  return Promise.all([promiseA, promiseB]);
 };

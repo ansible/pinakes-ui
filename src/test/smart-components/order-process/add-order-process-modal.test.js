@@ -31,7 +31,16 @@ describe('<AddOrderProcess />', () => {
     initialState = {
       orderProcessReducer: {
         orderProcesses: {
-          data: [{ id: '123', name: 'foo', description: 'bar' }]
+          data: [
+            { id: '123', name: 'foo', description: 'bar' },
+            {
+              id: '456',
+              name: 'PrePostTest',
+              description: 'PrePost',
+              before_portfolio_item_id: 'pre',
+              after_portfolio_item_id: 'post'
+            }
+          ]
         }
       }
     };
