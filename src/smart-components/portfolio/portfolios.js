@@ -71,7 +71,11 @@ const portfoliosState = (state, action) => {
         filters: changeFilters(action.payload, state.filterType, state.filters)
       };
     case 'replaceFilterChip':
-      return { ...state, sortDirection: SortByDirection.asc, filters: action.payload };
+      return {
+        ...state,
+        sortDirection: SortByDirection.asc,
+        filters: action.payload
+      };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
     case 'setFilterType':
