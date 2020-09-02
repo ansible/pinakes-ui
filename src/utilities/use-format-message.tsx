@@ -1,16 +1,22 @@
-import React, { Fragment } from 'react';
-const { useIntl } = require('react-intl');
+import React, { Fragment, ReactNode } from 'react';
+import { useIntl, MessageDescriptor } from 'react-intl';
+import { AnyObject } from '../types/common-types';
 
-const useFormatMessage = () => {
+export type UseFormatMessage = () => (
+  message: MessageDescriptor,
+  values?: AnyObject
+) => ReactNode;
+
+const useFormatMessage: UseFormatMessage = () => {
   const { formatMessage } = useIntl();
-  return (message, values = {}) => {
+  return (message: MessageDescriptor, values = {}) => {
     const internalValues = Object.entries(values).reduce(
       (acc, [key, value]) => {
         return {
           ...acc,
           [key]:
             typeof value === 'function'
-              ? (chunks) => <Fragment key={key}>{value(chunks)}</Fragment>
+              ? (chunks: any) => <Fragment key={key}>{value(chunks)}</Fragment>
               : value
         };
       },
