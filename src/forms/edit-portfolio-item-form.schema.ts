@@ -1,7 +1,8 @@
 import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
 
-const editPortfolioItemSchema = {
+const editPortfolioItemSchema: Schema = {
   fields: [
     {
       component: componentTypes.TEXT_FIELD,

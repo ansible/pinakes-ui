@@ -50,9 +50,12 @@ export type ReduxActionHandler<T /**Reducer state definition */> = (
   action: ReduxAction
 ) => T;
 
-export interface SelectOption {
+export interface SelectOption extends AnyObject {
   label: string;
   value: any;
+  isDisabled?: boolean;
 }
 
 export type SelectOptions = SelectOption[];
+
+export type LoadOptions = (value: string) => Promise<SelectOptions>;
