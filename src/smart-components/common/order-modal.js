@@ -81,7 +81,6 @@ const OrderModal = ({ closeUrl }) => {
           schema={servicePlans[0].create_json_schema.schema}
           onSubmit={onSubmit}
           onCancel={handleClose}
-          formContainer="modal"
         />
       )}
     </Modal>
