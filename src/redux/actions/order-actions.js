@@ -11,11 +11,6 @@ export const fetchServicePlans = (portfolioItemId) => ({
   payload: OrderHelper.getServicePlans(portfolioItemId)
 });
 
-export const updateServiceData = (data) => ({
-  type: ActionTypes.UPDATE_SERVICE_DATA,
-  payload: { serviceData: data }
-});
-
 export const setSelectedPlan = (data) => ({
   type: ActionTypes.SET_SELECTED_PLAN,
   payload: data

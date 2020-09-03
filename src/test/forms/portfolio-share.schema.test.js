@@ -45,7 +45,7 @@ describe('create portfolio share schema', () => {
       fields: [...newSharePartial, ...existingSharePartial]
     };
     const schema = createPortfolioShareSchema(
-      () => {},
+      () => undefined,
       permissionVerbs,
       true,
       true
@@ -58,7 +58,7 @@ describe('create portfolio share schema', () => {
       fields: [...newSharePartial]
     };
     const schema = createPortfolioShareSchema(
-      () => {},
+      () => undefined,
       permissionVerbs,
       true,
       false
@@ -71,7 +71,7 @@ describe('create portfolio share schema', () => {
       fields: [...existingSharePartial]
     };
     const schema = createPortfolioShareSchema(
-      () => {},
+      () => undefined,
       permissionVerbs,
       false,
       true

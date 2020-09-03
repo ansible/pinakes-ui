@@ -71,7 +71,11 @@ const portfoliosState = (state, action) => {
         filters: changeFilters(action.payload, state.filterType, state.filters)
       };
     case 'replaceFilterChip':
-      return { ...state, filters: action.payload };
+      return {
+        ...state,
+        sortDirection: SortByDirection.asc,
+        filters: action.payload
+      };
     case 'setFilteringFlag':
       return { ...state, isFiltering: action.payload };
     case 'setFilterType':
@@ -143,17 +147,18 @@ const Portfolios = () => {
       })
     );
 
+  const canCreate = hasPermission(userPermissions, [
+    'catalog:portfolios:create'
+  ]);
+
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
       id="create-portfolio"
       label="Create portfolio"
-      hasPermission={hasPermission(userPermissions, [
-        'catalog:portfolios:create'
-      ])}
+      hasPermission={canCreate}
     />
   );
-
   const FilterAction = () => (
     <Button variant="link" onClick={() => handleFilterItems('')}>
       {formatMessage(filteringMessages.clearFilters)}
@@ -198,6 +203,7 @@ const Portfolios = () => {
           fetchPortfoliosWithState={fetchPortfoliosWithState}
           isFetching={isFetching}
           isFiltering={isFiltering}
+          canCreate={canCreate}
         />
       </TopToolbar>
       <ContentGallery
