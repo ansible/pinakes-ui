@@ -49,3 +49,10 @@ export type ReduxActionHandler<T /**Reducer state definition */> = (
   state: T,
   action: ReduxAction
 ) => T;
+
+export interface SelectOption {
+  label: string;
+  value: any;
+}
+
+export type SelectOptions = SelectOption[];

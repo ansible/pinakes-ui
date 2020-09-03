@@ -5,16 +5,14 @@ import {
   OrderProcess,
   ResourceObject
 } from '@redhat-cloud-services/catalog-client';
-import { ApiCollectionResponse, ApiMetadata } from '../../types/common-types';
+import {
+  ApiCollectionResponse,
+  ApiMetadata,
+  SelectOptions
+} from '../../types/common-types';
 import { AxiosResponse } from 'axios';
 const axiosInstance = getAxiosInstance();
 const orderProcessApi = getOrderProcessApi();
-
-export interface SelectOption {
-  label: string;
-  value: any;
-}
-export type SelectOptions = SelectOption[];
 
 export const listOrderProcesses = (
   filter = '',

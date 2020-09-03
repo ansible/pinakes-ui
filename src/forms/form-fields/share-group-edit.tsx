@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { Fragment, ComponentType } from 'react';
 import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
 import FieldArray from '@data-driven-forms/react-form-renderer/dist/cjs/field-array';
@@ -17,12 +17,25 @@ import { StyledLevelItem } from '../../presentational-components/styled-componen
 import styled from 'styled-components';
 import portfolioMessages from '../../messages/portfolio.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { SelectOptions } from '../../types/common-types';
 
 const StyledText = styled(Text)`
   line-height: 36px !important;
 `;
 
-const SharedGroup = ({ name, remove, index, permissionVerbs }) => {
+export interface SharedGroupProps {
+  name: string;
+  remove: (index: number) => void;
+  index: number;
+  permissionVerbs: SelectOptions;
+}
+
+const SharedGroup: ComponentType<SharedGroupProps> = ({
+  name,
+  remove,
+  index,
+  permissionVerbs
+}) => {
   const { input } = useFieldApi({ name });
   return (
     <Level>
@@ -64,19 +77,15 @@ const SharedGroup = ({ name, remove, index, permissionVerbs }) => {
   );
 };
 
-SharedGroup.propTypes = {
-  name: PropTypes.string.isRequired,
-  remove: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
-  permissionVerbs: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    })
-  ).isRequired
-};
+export interface ShareGroupEditProps {
+  name: string;
+  permissionVerbs: SelectOptions;
+}
 
-const ShareGroupEdit = ({ name, permissionVerbs }) => {
+const ShareGroupEdit: ComponentType<ShareGroupEditProps> = ({
+  name,
+  permissionVerbs
+}) => {
   const formatMessage = useFormatMessage();
   return (
     <FieldArray name={name}>
@@ -87,7 +96,7 @@ const ShareGroupEdit = ({ name, permissionVerbs }) => {
               <Text>{formatMessage(portfolioMessages.noShares)}</Text>
             </TextContent>
           )}
-          {length > 0 && (
+          {length && length > 0 && (
             <TextContent>
               <Text component="small">
                 {formatMessage(portfolioMessages.shareGroupsAccess)}
@@ -107,11 +116,6 @@ const ShareGroupEdit = ({ name, permissionVerbs }) => {
       )}
     </FieldArray>
   );
-};
-
-ShareGroupEdit.propTypes = {
-  permissionVerbs: PropTypes.array,
-  name: PropTypes.string.isRequired
 };
 
 export default ShareGroupEdit;

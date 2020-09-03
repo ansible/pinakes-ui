@@ -1,11 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState, ReactNode } from 'react';
 import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
 import { FormGroup, TextContent, Text } from '@patternfly/react-core';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 
-const CopyNameDisplay = ({ label, getName, fieldSpy }) => {
+export interface CopyNameDisplayProps {
+  label: ReactNode;
+  getName: (value: any) => Promise<string>;
+  fieldSpy: string;
+}
+
+const CopyNameDisplay: React.ComponentType<CopyNameDisplayProps> = ({
+  label,
+  getName,
+  fieldSpy
+}) => {
   const formatMessage = useFormatMessage();
   const [name, setName] = useState(formatMessage(labelMessages.loading));
   const {
@@ -15,7 +25,7 @@ const CopyNameDisplay = ({ label, getName, fieldSpy }) => {
     name: fieldSpy
   });
   useEffect(() => {
-    getName(value).then((name) => {
+    getName(value).then((name: string) => {
       setName(name);
     });
   }, [value]);
@@ -27,12 +37,6 @@ const CopyNameDisplay = ({ label, getName, fieldSpy }) => {
       </TextContent>
     </FormGroup>
   );
-};
-
-CopyNameDisplay.propTypes = {
-  label: PropTypes.string.isRequired,
-  getName: PropTypes.func.isRequired,
-  fieldSpy: PropTypes.string.isRequired
 };
 
 export default CopyNameDisplay;
