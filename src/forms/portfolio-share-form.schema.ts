@@ -1,6 +1,6 @@
 import Field from '@data-driven-forms/react-form-renderer/dist/cjs/field';
+import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
 import { SelectOptions } from '../types/common-types';
-import { Schema } from '@data-driven-forms/react-form-renderer';
 
 /**
  * Creates a data-driven-form schema for sharing/un-sharing portfolio
