@@ -1,7 +1,14 @@
+import Field from '@data-driven-forms/react-form-renderer/dist/cjs/field';
+import { SelectOptions } from '../types/common-types';
+import { Schema } from '@data-driven-forms/react-form-renderer';
+
 /**
  * Creates a data-driven-form schema for sharing/un-sharing portfolio
  */
-const newShareSchema = (loadGroupOptions, permissionVerbs) => [
+const newShareSchema = (
+  loadGroupOptions: (inputValue?: string) => Promise<SelectOptions>,
+  permissionVerbs: SelectOptions
+): Field[] => [
   {
     component: 'sub-form',
     description: 'share.new.description',
@@ -19,7 +26,7 @@ const newShareSchema = (loadGroupOptions, permissionVerbs) => [
   }
 ];
 
-const groupShareSchema = (permissionVerbs) => [
+const groupShareSchema = (permissionVerbs: SelectOptions): Field[] => [
   {
     component: 'sub-form',
     name: 'current-groups-sub-form',
@@ -34,17 +41,14 @@ const groupShareSchema = (permissionVerbs) => [
 ];
 
 export const createPortfolioShareSchema = (
-  loadGroupOptions,
-  permissionVerbs,
-  canShare,
-  canUnshare,
-  validate
-) => {
+  loadGroupOptions: (inputValue?: string) => Promise<SelectOptions>,
+  permissionVerbs: SelectOptions,
+  canShare: boolean,
+  canUnshare: boolean
+): Schema => {
   const portfolioSchema = {
     fields: [
-      ...(canShare
-        ? newShareSchema(loadGroupOptions, permissionVerbs, validate)
-        : []),
+      ...(canShare ? newShareSchema(loadGroupOptions, permissionVerbs) : []),
       ...(canUnshare ? groupShareSchema(permissionVerbs) : [])
     ]
   };
