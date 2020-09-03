@@ -83,6 +83,14 @@ describe('<OrderProcesses />', () => {
       .replyOnce(200, { data: [{ name: 'Foo', id: '11' }] });
     const expectedActions = [
       {
+        meta: {
+          count: 0,
+          filter: '',
+          limit: 50,
+          offset: 0,
+          stateKey: 'orderProcesses',
+          storeState: true
+        },
         type: `${FETCH_ORDER_PROCESSES}_PENDING`
       },
       expect.objectContaining({

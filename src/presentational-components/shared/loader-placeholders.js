@@ -160,7 +160,9 @@ IconPlaceholder.defaultProps = {
   height: '40'
 };
 
-const FormItemLoader = () => <Skeleton height={38} className="pf-u-mb-lg" />;
+export const FormItemLoader = () => (
+  <Skeleton height={38} className="pf-u-mb-lg" />
+);
 
 export const ShareLoader = () => {
   const formatMessage = useFormatMessage();

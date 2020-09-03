@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LevelItem, Level, Title, Label } from '@patternfly/react-core';
-import CheckCircleIcon from '@patternfly/react-icons/dist/js/icons/check-circle-icon';
-import ExclamationCircleIcon from '@patternfly/react-icons/dist/js/icons/exclamation-circle-icon';
 
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
@@ -11,6 +9,7 @@ import statesMessages, {
   getTranslatableState
 } from '../../../messages/states.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import orderStatusMapper from '../order-status-mapper';
 
 const OrderDetailInformation = ({
   portfolioId,
@@ -41,24 +40,11 @@ const OrderDetailInformation = ({
           </CatalogLink>
         </Title>
       </Level>
-      {state === 'Completed' ||
-        (state === 'Failed' && (
-          <LevelItem>
-            <Label
-              variant="outline"
-              color={state === 'Completed' ? 'green' : 'red'}
-              icon={
-                state === 'Completed' ? (
-                  <CheckCircleIcon />
-                ) : (
-                  <ExclamationCircleIcon />
-                )
-              }
-            >
-              {formatMessage(statesMessages[getTranslatableState(state)])}
-            </Label>
-          </LevelItem>
-        ))}
+      <LevelItem>
+        <Label {...orderStatusMapper[state]} variant="outline">
+          {formatMessage(statesMessages[getTranslatableState(state)])}
+        </Label>
+      </LevelItem>
     </Level>
   );
 };
