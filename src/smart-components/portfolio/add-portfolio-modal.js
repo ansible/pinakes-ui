@@ -79,7 +79,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
       onSubmit={onSubmit}
       onCancel={() => push(closeTarget)}
       initialValues={{ ...initialValues }}
-      formContainer="modal"
+      isModal
       modalProps={{
         title: portfolioId
           ? formatMessage(portfolioMessages.modalEditTitle)

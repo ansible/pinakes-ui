@@ -127,17 +127,17 @@ const ModalFormTemplate: React.ComponentType<ModalFormTemplateProps> = ({
 };
 
 export interface FormTemplateProps extends Pf4FormTemplateProps {
-  formContainer: 'default' | 'modal';
+  isModal: boolean;
   modalProps: InternalModalProps;
   submitlabel?: ReactNode;
 }
 
 const FormTemplate: React.ComponentType<FormTemplateProps> = ({
-  formContainer = 'default',
+  isModal,
   modalProps = {},
   ...props
 }) => {
-  if (formContainer === 'modal') {
+  if (isModal) {
     return <ModalFormTemplate {...props} modalProps={modalProps} />;
   }
 

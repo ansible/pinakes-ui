@@ -62,7 +62,7 @@ export const catalogValidatorAlias = {
 };
 
 const FormRenderer = ({
-  formContainer,
+  isModal,
   templateProps,
   schema,
   modalProps,
@@ -78,7 +78,7 @@ const FormRenderer = ({
             {...props}
             {...templateProps}
             modalProps={modalProps}
-            formContainer={formContainer}
+            isModal={isModal}
           />
         )}
         validatorMapper={catalogValidatorMapper}
@@ -91,6 +91,7 @@ const FormRenderer = ({
 
 FormRenderer.propTypes = {
   formContainer: PropTypes.oneOf(['default', 'modal']),
+  isModal: PropTypes.bool,
   templateProps: PropTypes.object,
   schema: PropTypes.object.isRequired,
   modalProps: PropTypes.object
