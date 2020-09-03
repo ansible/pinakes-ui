@@ -50,6 +50,7 @@ const SharedGroup: ComponentType<SharedGroupProps> = ({
           </GridItem>
           <GridItem span={5}>
             <InternalSelect
+              name={name}
               menuIsPortal
               options={permissionVerbs}
               value={input.value.permissions}

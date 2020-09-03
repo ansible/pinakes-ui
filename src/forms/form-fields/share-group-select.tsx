@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { useReducer, ComponentType } from 'react';
 import { Grid, GridItem, Button, Level, Tooltip } from '@patternfly/react-core';
 import PlusIcon from '@patternfly/react-icons/dist/js/icons/plus-icon';
 import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
@@ -10,6 +10,7 @@ import formsMessages from '../../messages/forms.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 import { StyledLevelItem } from '../../presentational-components/styled-components/level';
 import useFormatMessage from '../../utilities/use-format-message';
+import { SelectOptions } from '../../types/common-types';
 
 const initialState = {
   /**
@@ -20,12 +21,30 @@ const initialState = {
   permission: undefined
 };
 
-const shareReducer = (state, { type, payload }) => {
+interface InternalShareReducerState {
+  group?: { group_uuid: string; value?: string; label: string };
+  permission?: string;
+  resetGroup: number;
+}
+
+type ShareReducer = (
+  state: InternalShareReducerState,
+  action: {
+    type: 'setGroup' | 'setPermission' | 'resetField';
+    payload?: { group_uuid: string; value?: string; label: string } | string;
+  }
+) => InternalShareReducerState;
+
+// TODO create keys for specific objects instead of using common payload. That way we wont need typecasting
+const shareReducer: ShareReducer = (state, { type, payload }) => {
   switch (type) {
     case 'setGroup':
-      return { ...state, group: payload };
+      return {
+        ...state,
+        group: payload as { group_uuid: string; value?: string; label: string }
+      };
     case 'setPermission':
-      return { ...state, permission: payload };
+      return { ...state, permission: payload as string };
     case 'resetField':
       return {
         group: undefined,
@@ -37,7 +56,20 @@ const shareReducer = (state, { type, payload }) => {
   return state;
 };
 
-export const NewGroupSelect = ({
+type AddGroup = (group: {
+  groupName?: string;
+  group_uuid?: string;
+  permissions?: string;
+}) => void;
+
+export interface NewGroupSelectProps {
+  loadOptions: (...args: any[]) => Promise<SelectOptions>;
+  permissions: SelectOptions;
+  addGroup: AddGroup;
+  currentGroups: { group_uuid: string; value?: string }[];
+}
+
+export const NewGroupSelect: ComponentType<NewGroupSelectProps> = ({
   loadOptions,
   permissions,
   addGroup,
@@ -72,7 +104,6 @@ export const NewGroupSelect = ({
         <Grid hasGutter className="share-column">
           <GridItem span={7}>
             <InternalSelect
-              name="select-group"
               key={resetGroup}
               isSearchable
               isClearable
@@ -118,11 +149,12 @@ export const NewGroupSelect = ({
               variant="link"
               isDisabled={!group || !permission}
               onClick={() => {
-                addGroup({
-                  groupName: group.label,
-                  group_uuid: group.value,
-                  permissions: permission
-                });
+                group &&
+                  addGroup({
+                    groupName: group.label,
+                    group_uuid: group.value,
+                    permissions: permission
+                  });
                 dispatch({ type: 'resetField' });
               }}
             >
@@ -135,14 +167,7 @@ export const NewGroupSelect = ({
   );
 };
 
-NewGroupSelect.propTypes = {
-  loadOptions: PropTypes.func.isRequired,
-  permissions: PropTypes.any,
-  addGroup: PropTypes.func.isRequired,
-  currentGroups: PropTypes.array
-};
-
-const ShareGroupSelect = (props) => (
+const ShareGroupSelect: ComponentType<NewGroupSelectProps> = (props) => (
   <FieldArray name="shared-groups">
     {({ fields: { push, value } }) => (
       <NewGroupSelect {...props} addGroup={push} currentGroups={value} />
