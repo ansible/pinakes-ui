@@ -65,3 +65,7 @@ export interface InternalResourceObject {
   objectType: string;
   objectId: string;
 }
+
+export type Full<T> = {
+  [P in keyof T]-?: T[P];
+};
