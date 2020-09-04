@@ -1,8 +1,17 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import propTypes from 'prop-types';
 import { Checkbox } from '@patternfly/react-core';
 
-const CardCheckbox = ({ handleCheck, isChecked, id }) => (
+export interface CardCheckboxProps {
+  handleCheck: (value: any) => void;
+  isChecked?: boolean;
+  id: string;
+}
+const CardCheckbox: React.ComponentType<CardCheckboxProps> = ({
+  handleCheck,
+  isChecked,
+  id
+}) => (
   <Checkbox
     onClick={(event) => event.stopPropagation()}
     isChecked={isChecked}
@@ -11,11 +20,5 @@ const CardCheckbox = ({ handleCheck, isChecked, id }) => (
     id={id}
   />
 );
-
-CardCheckbox.propTypes = {
-  handleCheck: propTypes.func,
-  isChecked: propTypes.bool,
-  id: propTypes.string
-};
 
 export default CardCheckbox;

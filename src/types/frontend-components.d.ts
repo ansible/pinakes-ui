@@ -131,3 +131,7 @@ declare module '@redhat-cloud-services/frontend-components-notifications/cjs/not
 
   export default createNotificationsMiddleware;
 }
+
+declare module '@redhat-cloud-services/frontend-components/components/cjs/Section' {
+  export const Section: React.ComponentType<any>;
+}

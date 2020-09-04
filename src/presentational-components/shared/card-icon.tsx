@@ -1,21 +1,35 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { IconPlaceholder } from './loader-placeholders';
 import CardIconDefault from '../../assets/images/card-icon-default.svg';
 import StyledLazyLoadImage from '../styled-components/lazy-load-image';
+import { CatalogRootState } from '../../types/redux';
+import { StringObject } from '../../types/common-types';
 
-const CardIconContainer = styled.div`
+interface CardIconContainerProps {
+  height: number;
+}
+const CardIconContainer = styled.div<CardIconContainerProps>`
   display: inline-block;
   height: ${({ height }) => `${height}px`};
 `;
 
-const CardIcon = ({ src, height, sourceId }) => {
+export interface CardIconProps {
+  src?: string;
+  height?: number;
+  sourceId?: string;
+}
+const CardIcon: React.ComponentType<CardIconProps> = ({
+  src,
+  height = 40,
+  sourceId
+}) => {
   const [isLoaded, setLoaded] = useState(false);
   const [isUnknown, setUnknown] = useState(false);
-  const platformIconMapping = useSelector(
+  const platformIconMapping = useSelector<CatalogRootState, StringObject>(
     ({ platformReducer: { platformIconMapping } }) => platformIconMapping
   );
   const defaultIcon = sourceId
@@ -36,19 +50,6 @@ const CardIcon = ({ src, height, sourceId }) => {
       />
     </CardIconContainer>
   );
-};
-
-CardIcon.propTypes = {
-  src: PropTypes.string,
-  platformId: PropTypes.string,
-  style: PropTypes.object,
-  height: PropTypes.number,
-  sourceId: PropTypes.string
-};
-
-CardIcon.defaultProps = {
-  style: {},
-  height: 40
 };
 
 export default CardIcon;

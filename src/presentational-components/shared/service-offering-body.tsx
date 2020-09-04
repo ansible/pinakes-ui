@@ -1,14 +1,25 @@
+/* eslint-disable react/prop-types */
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import ItemDetails from './card-common';
 import ConditionalLink from './conditional-link';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
 import { StyledCardBody } from '../styled-components/card';
+import { StringObject } from '../../types/common-types';
 
-const ServiceOfferingCardBody = ({
+export interface ServiceOfferingCardBodyProps {
+  name?: string;
+  display_name?: string;
+  distributor?: string;
+  pathname?: string;
+  searchParams?: StringObject;
+  preserveSearch?: boolean;
+  description?: string;
+  long_description?: string;
+  portfolioName?: string;
+}
+const ServiceOfferingCardBody: React.ComponentType<ServiceOfferingCardBodyProps> = ({
   name,
-  display_name,
   distributor,
   pathname,
   searchParams,
@@ -43,17 +54,5 @@ const ServiceOfferingCardBody = ({
     />
   </StyledCardBody>
 );
-
-ServiceOfferingCardBody.propTypes = {
-  name: PropTypes.string,
-  display_name: PropTypes.string,
-  distributor: PropTypes.string,
-  long_description: PropTypes.string,
-  description: PropTypes.string,
-  pathname: PropTypes.string,
-  preserveSearch: PropTypes.bool,
-  searchParams: PropTypes.shape({ [PropTypes.string]: PropTypes.string }),
-  portfolioName: PropTypes.string
-};
 
 export default ServiceOfferingCardBody;
