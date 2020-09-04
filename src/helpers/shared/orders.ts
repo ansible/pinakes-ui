@@ -1,7 +1,6 @@
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import {
   OrderItem,
-  Icon,
   PortfolioItem
 } from '@redhat-cloud-services/catalog-client';
 import { Full } from '../../types/common-types';
