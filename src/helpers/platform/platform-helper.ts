@@ -4,6 +4,12 @@ import {
   SOURCES_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
+import {
+  Source,
+  ServiceOffering,
+  ServiceInventory
+} from '@redhat-cloud-services/sources-client';
+import { ApiCollectionResponse } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
 const graphqlInstance = getGraphqlInstance();
 
@@ -20,18 +26,22 @@ query {
   }
 }`;
 
-export const getPlatforms = () => {
+export const getPlatforms = (): Promise<Source> => {
   return graphqlInstance
     .post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
     .then(({ data: { application_types } }) => application_types)
     .then(([{ sources }]) => sources);
 };
 
-export const getPlatform = (platformId) => {
+export const getPlatform = (platformId: string): Promise<Source> => {
   return axiosInstance.get(`${SOURCES_API_BASE}/sources/${platformId}`);
 };
 
-export const getPlatformItems = (platformId, filter, options) => {
+export const getPlatformItems = (
+  platformId: string,
+  filter: string,
+  options: PaginationConfiguration
+): Promise<ApiCollectionResponse<ServiceOffering>> => {
   const filterQuery = filter ? `&filter[name][contains_i]=${filter}` : '';
   if (platformId) {
     return axiosInstance.get(
@@ -47,10 +57,10 @@ export const getPlatformItems = (platformId, filter, options) => {
 };
 
 export const getPlatformInventories = (
-  platformId,
+  platformId: string,
   filter = '',
   options = defaultSettings
-) => {
+): Promise<ApiCollectionResponse<ServiceInventory>> => {
   if (platformId) {
     return axiosInstance.get(
       `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${
@@ -64,7 +74,10 @@ export const getPlatformInventories = (
   }
 };
 
-export const getServiceOffering = (serviceOfferingId, sourceId) =>
+export const getServiceOffering = (
+  serviceOfferingId: string,
+  sourceId: string
+): Promise<{ service: ServiceOffering; source: Source }> =>
   Promise.all([
     axiosInstance.get(
       `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/${serviceOfferingId}`
@@ -79,7 +92,7 @@ export const getServiceOffering = (serviceOfferingId, sourceId) =>
             icon_url
           }));
       })
-  ]).then(([service, source]) => ({
+  ]).then(([service, source]: [ServiceOffering, Source]) => ({
     service,
     source
   }));
