@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import propTypes from 'prop-types';
 import {
   CardHeader,
   CardFooter,
@@ -13,7 +13,7 @@ import OpenshiftPlatformImg from '../../assets/images/platform-openshift.svg';
 import AmazonPlatformImg from '../../assets/images/platform-amazon.png';
 import TowerPlatformImg from '../../assets/images/platform-tower.png';
 import ImageWithDefault from '../shared/image-with-default';
-import ItemDetails from '../shared/card-common';
+import ItemDetails, { ItemDetailsProps } from '../shared/card-common';
 
 import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
@@ -29,7 +29,17 @@ const platformTypeImg = {
   3: TowerPlatformImg
 };
 
-const PlatformCard = ({ name, id, ...props }) => (
+export interface PlatformCardProps extends ItemDetailsProps {
+  name: string;
+  id: string;
+  source_type_id: keyof typeof platformTypeImg;
+  imageUrl: string;
+}
+const PlatformCard: React.ComponentType<PlatformCardProps> = ({
+  name,
+  id,
+  ...props
+}) => (
   <GalleryItem>
     <StyledCard key={id}>
       <CardHeader>
@@ -60,13 +70,5 @@ const PlatformCard = ({ name, id, ...props }) => (
     </StyledCard>
   </GalleryItem>
 );
-
-PlatformCard.propTypes = {
-  history: propTypes.object,
-  imageUrl: propTypes.string,
-  name: propTypes.string,
-  source_type_id: propTypes.string,
-  id: propTypes.string
-};
 
 export default PlatformCard;
