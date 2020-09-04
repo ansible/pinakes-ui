@@ -10,8 +10,8 @@ export interface AnyObject {
 
 export interface ApiMetadata extends AnyObject {
   count?: number;
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
 }
 
 export interface ApiCollectionResponse<
@@ -59,3 +59,13 @@ export interface SelectOption extends AnyObject {
 export type SelectOptions = SelectOption[];
 
 export type LoadOptions = (value: string) => Promise<SelectOptions>;
+
+export interface InternalResourceObject {
+  appName: string;
+  objectType: string;
+  objectId: string;
+}
+
+export type Full<T> = {
+  [P in keyof T]-?: T[P];
+};

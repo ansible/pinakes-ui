@@ -1,6 +1,6 @@
 import labelMessages from './labels.messages';
 
-const { defineMessages } = require('react-intl');
+import { defineMessages } from 'react-intl';
 
 const statesMessages = defineMessages({
   title: {
@@ -61,7 +61,7 @@ const statesMessages = defineMessages({
   }
 });
 
-export const getTranslatableState = (state) =>
+export const getTranslatableState = (state: string): string =>
   state.replace(/\s/g, '').replace(/^./, (char) => char.toLowerCase());
 
 /**

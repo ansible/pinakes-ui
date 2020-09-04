@@ -3,7 +3,8 @@ import {
   ServicePlan,
   Order,
   PortfolioItem,
-  Portfolio
+  Portfolio,
+  OrderItem
 } from '@redhat-cloud-services/catalog-client';
 import { Source } from '@redhat-cloud-services/sources-client';
 import {
@@ -27,6 +28,9 @@ import {
   ReduxActionHandler
 } from '../../types/common-types';
 
+export interface CatalogOrder extends Order {
+  orderItems: OrderItem[];
+}
 export interface OrderDetail extends AnyObject {
   order: Order;
   portfolioItem: PortfolioItem;
@@ -39,7 +43,7 @@ export interface OrderReducerState extends AnyObject {
   isLoading: boolean;
   requests: Request[];
   orderDetail: OrderDetail;
-  orders: ApiCollectionResponse<Order>;
+  orders: ApiCollectionResponse<CatalogOrder>;
 }
 // Initial State
 export const orderInitialState: OrderReducerState = {

@@ -1,4 +1,4 @@
-export const toggleArraySelection = (items, item) =>
+export const toggleArraySelection = (items: string[], item: string): string[] =>
   items.includes(item)
     ? [
         ...items.slice(0, items.indexOf(item)),

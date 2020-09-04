@@ -1,0 +1,39 @@
+import { getAxiosInstance, getPortfolioApi } from '../shared/user-login';
+import { CATALOG_API_BASE } from '../../utilities/constants';
+import {
+  ShareInfo,
+  SharePolicy,
+  SharePolicyPermissionsEnum,
+  UnsharePolicyPermissionsEnum,
+  UnsharePolicy
+} from '@redhat-cloud-services/catalog-client';
+import { AxiosPromise } from 'axios';
+
+const axiosInstance = getAxiosInstance();
+const userApi = getPortfolioApi();
+
+export const getShareInfo = (portfolioId: string): AxiosPromise<ShareInfo> =>
+  axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`);
+
+export interface ShareData<T = SharePolicyPermissionsEnum> {
+  permissions: T;
+  group_uuid: string;
+  id: string;
+}
+export const sharePortfolio = (data: ShareData): AxiosPromise<void> => {
+  const policy: SharePolicy = {
+    permissions: data.permissions.split(',') as SharePolicyPermissionsEnum[],
+    group_uuids: [data.group_uuid]
+  };
+  return userApi.sharePortfolio(data.id, policy);
+};
+
+export const unsharePortfolio = (
+  data: ShareData<UnsharePolicyPermissionsEnum[]>
+): AxiosPromise<void> => {
+  const policy: UnsharePolicy = {
+    permissions: data.permissions,
+    group_uuids: [data.group_uuid]
+  };
+  return userApi.unsharePortfolio(data.id, policy);
+};

@@ -12,7 +12,7 @@ import { getAxiosInstance } from '../shared/user-login';
 import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
 const axiosInstance = getAxiosInstance();
 
-interface ObjectNotFound {
+export interface ObjectNotFound {
   object: 'Order item' | 'Product' | 'Portfolio' | 'Messages' | 'Platform';
   notFound: boolean;
 }

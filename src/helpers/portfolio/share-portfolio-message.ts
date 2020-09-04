@@ -1,7 +1,13 @@
 import portfolioMessages from '../../messages/portfolio.messages';
 import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
+import { ReactNode } from 'react';
+import { MessageDescriptor } from 'react-intl';
+import { AnyObject } from '../../types/common-types';
 
-const groupMessage = (groupNames, formatMessage) => {
+const groupMessage = (
+  groupNames: string[],
+  formatMessage: (message: MessageDescriptor, values?: AnyObject) => ReactNode
+) => {
   switch (groupNames.length) {
     case 1:
       return groupNames[0];
@@ -17,6 +23,12 @@ const groupMessage = (groupNames, formatMessage) => {
   }
 };
 
+// TODO This will be the form type
+export interface SharePortfolioData {
+  group_uuid: string;
+  permissions: string;
+  groupName: string;
+}
 const sharePorfolioMessage = ({
   shareData,
   initialGroups,
@@ -24,7 +36,14 @@ const sharePorfolioMessage = ({
   newGroups,
   formatMessage,
   portfolioName
-}) => {
+}: {
+  shareData: SharePortfolioData[];
+  initialGroups: SharePortfolioData[];
+  removedGroups: SharePortfolioData[];
+  newGroups: SharePortfolioData[];
+  formatMessage: (message: MessageDescriptor, values?: AnyObject) => ReactNode;
+  portfolioName: () => string;
+}): { title: ReactNode; description: ReactNode } => {
   let title = formatMessage(portfolioMessages.shareSuccessTitle);
   let description;
 

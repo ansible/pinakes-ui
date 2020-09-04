@@ -16,9 +16,9 @@ declare enum SortByDirection {
 }
 
 interface InternalApiMetadata {
-  count: number;
-  limit: number;
-  offset: number;
+  count?: number;
+  limit?: number;
+  offset?: number;
 }
 
 type InternalAction = (type: string, ...args: any[]) => void;

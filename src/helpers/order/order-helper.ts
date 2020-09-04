@@ -13,7 +13,22 @@ import {
 } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
 import catalogHistory from '../../routing/catalog-history';
-import { fetchOrderDetailSequence } from './new-order-helper';
+import {
+  fetchOrderDetailSequence,
+  OrderDetailPayload
+} from './new-order-helper';
+import { ApiCollectionResponse, Full } from '../../types/common-types';
+import {
+  ServicePlan,
+  Order,
+  OrderItem,
+  PortfolioItem,
+  ApprovalRequest
+} from '@redhat-cloud-services/catalog-client';
+import { AxiosPromise } from 'axios';
+import { AnyObject } from '@data-driven-forms/react-form-renderer';
+import { CatalogOrder } from '../../redux/reducers/order-reducer';
+import { Request, Action } from '@redhat-cloud-services/approval-client';
 
 const orderApi = getOrderApi();
 const orderItemApi = getOrderItemApi();
@@ -21,16 +36,19 @@ const portfolioItemApi = getPortfolioItemApi();
 const axiosInstance = getAxiosInstance();
 const graphqlInstance = getGraphqlInstance();
 
-export function getServicePlans(portfolioItemId) {
-  return portfolioItemApi.listServicePlans(portfolioItemId);
-}
+export const getServicePlans = (
+  portfolioItemId: string
+): AxiosPromise<ApiCollectionResponse<ServicePlan>> =>
+  (portfolioItemApi.listServicePlans(
+    portfolioItemId
+  ) as unknown) as AxiosPromise<ApiCollectionResponse<ServicePlan>>;
 
-export async function sendSubmitOrder({
+export const sendSubmitOrder = async ({
   service_parameters: { providerControlParameters, ...service_parameters },
   ...parameters
-}) {
-  let order = await orderApi.createOrder();
-  let orderItem = {};
+}: AnyObject): Promise<Order> => {
+  const order: Order = ((await orderApi.createOrder()) as unknown) as Order;
+  let orderItem: Partial<OrderItem> = {};
   orderItem.count = 1;
   orderItem = {
     ...orderItem,
@@ -38,36 +56,47 @@ export async function sendSubmitOrder({
     service_parameters,
     provider_control_parameters: providerControlParameters || {}
   };
-  const orderItemResponse = await orderApi.addToOrder(order.id, orderItem);
+  const orderItemResponse = await orderApi.addToOrder(
+    order.id as string,
+    orderItem as OrderItem
+  );
   return orderApi
-    .submitOrder(order.id)
-    .then((order) => ({ ...order, orderItem: orderItemResponse }));
-}
+    .submitOrder(order.id as string)
+    .then((order) => ({ ...order, orderItem: orderItemResponse })) as Promise<
+    Order
+  >;
+};
 
-export function cancelOrder(orderId) {
-  return orderApi.cancelOrder(orderId);
-}
+export const cancelOrder = (orderId: string): AxiosPromise<Order> =>
+  orderApi.cancelOrder(orderId);
 
-const getOrderItems = (orderIds) =>
+const getOrderItems = (
+  orderIds: string[]
+): Promise<ApiCollectionResponse<OrderItem>> =>
   axiosInstance.get(
     `${CATALOG_API_BASE}/order_items?${orderIds
       .map((orderId) => `filter[order_id][]=${orderId}`)
       .join('&')}`
   );
 
-const getOrderPortfolioItems = (itemIds) =>
+const getOrderPortfolioItems = (
+  itemIds: string[]
+): Promise<ApiCollectionResponse<PortfolioItem>> =>
   axiosInstance.get(
     `${CATALOG_API_BASE}/portfolio_items?${itemIds
       .map((itemId) => `filter[id][]=${itemId}`)
       .join('&')}`
   );
 
-export const getOrders = (filter = '', pagination = defaultSettings) =>
+export const getOrders = (
+  filter = '',
+  pagination = defaultSettings
+): Promise<ApiCollectionResponse<CatalogOrder>> =>
   axiosInstance
     .get(
       `${CATALOG_API_BASE}/orders?${filter}&limit=${pagination.limit}&offset=${pagination.offset}`
     ) // eslint-disable-line max-len
-    .then((orders) =>
+    .then((orders: ApiCollectionResponse<Full<Order>>) =>
       getOrderItems(orders.data.map(({ id }) => id)).then((orderItems) =>
         getOrderPortfolioItems(
           orderItems.data.map(({ portfolio_item_id }) => portfolio_item_id)
@@ -86,11 +115,20 @@ export const getOrders = (filter = '', pagination = defaultSettings) =>
       )
     );
 
-export function getOrderApprovalRequests(orderItemId) {
-  return orderItemApi.listApprovalRequests(orderItemId);
-}
+export const getOrderApprovalRequests = (
+  orderItemId: string
+): Promise<ApiCollectionResponse<Request>> =>
+  (orderItemApi.listApprovalRequests(orderItemId) as unknown) as Promise<
+    ApiCollectionResponse<Request>
+  >;
 
-export const getOrderDetail = (params) => {
+export const getOrderDetail = (params: {
+  order: string;
+  'order-item'?: string;
+  'portfolio-item'?: string;
+  platform?: string;
+  portfolio?: string;
+}): Promise<OrderDetailPayload> => {
   if (Object.values(params).some((value) => !value)) {
     /**
      * Try to fetch data sequentially if any of the parameters is unknow
@@ -98,8 +136,8 @@ export const getOrderDetail = (params) => {
     return fetchOrderDetailSequence(params.order);
   }
 
-  let detailPromises = [
-    axiosInstance
+  const detailPromises = [
+    (axiosInstance
       .get(`${CATALOG_API_BASE}/orders/${params.order}`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
@@ -110,7 +148,7 @@ export const getOrderDetail = (params) => {
         }
 
         throw error;
-      }),
+      }) as unknown) as Promise<Order>,
     axiosInstance
       .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`)
       .catch((error) => {
@@ -134,30 +172,19 @@ export const getOrderDetail = (params) => {
         }
 
         throw error;
-      })
-  ];
-
-  detailPromises.push(
-    params.platform && params.platform !== 'undefined'
-      ? axiosInstance
-          .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
-          .catch((error) => {
-            if (error.status === 404 || error.status === 400) {
-              return {
-                object: 'Platform',
-                notFound: true
-              };
-            }
-
-            throw error;
-          })
-      : {
-          object: 'Platform',
-          notFound: true
+      }),
+    axiosInstance
+      .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Platform',
+            notFound: true
+          };
         }
-  );
 
-  detailPromises.push(
+        throw error;
+      }),
     axiosInstance
       .get(
         `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
@@ -168,31 +195,31 @@ export const getOrderDetail = (params) => {
         }
 
         throw error;
+      }),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Portfolio',
+            notFound: true
+          };
+        }
+
+        throw error;
       })
-  );
+  ];
 
-  detailPromises.push(
-    params.portfolio && params.portfolio !== 'undefined'
-      ? axiosInstance
-          .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
-          .catch((error) => {
-            if (error.status === 404 || error.status === 400) {
-              return {
-                object: 'Portfolio',
-                notFound: true
-              };
-            }
-
-            throw error;
-          })
-      : { object: 'Portfolio', notFound: true }
-  );
-
-  return Promise.all(detailPromises);
+  return (Promise.all(detailPromises) as unknown) as Promise<
+    OrderDetailPayload
+  >;
 };
 
 const APPROVAL_REQUESTER_PERSONA = 'approval/requester';
-const requestTranscriptQuery = (parent_id) => `query {
+export interface RequestTranscript extends Full<Request> {
+  actions: Action[];
+}
+const requestTranscriptQuery = (parent_id: string) => `query {
   requests(id: "${parent_id}") {
     group_name
     state
@@ -201,7 +228,9 @@ const requestTranscriptQuery = (parent_id) => `query {
     }
   }
 }`;
-const fetchRequestTranscript = (requestId) =>
+const fetchRequestTranscript = (
+  requestId: string
+): Promise<RequestTranscript[]> =>
   graphqlInstance
     .post(
       `${APPROVAL_API_BASE}/graphql`,
@@ -210,17 +239,21 @@ const fetchRequestTranscript = (requestId) =>
     )
     .then(({ data: { requests } }) => requests);
 
-export const getApprovalRequests = (orderItemId) =>
+export const getApprovalRequests = (
+  orderItemId: string
+): Promise<{
+  data: { group_name: string; state: string; updated?: string }[];
+}> =>
   axiosInstance
     .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests`)
-    .then(({ data }) => {
+    .then(({ data }: { data: Full<ApprovalRequest>[] }) => {
       const promises = data.map(({ approval_request_ref }) =>
         fetchRequestTranscript(approval_request_ref)
       );
       return Promise.all(promises).then((requests) => {
         const data = requests?.[0]?.map(({ actions, ...request }) => ({
           ...request,
-          updated: actions?.length > 0 ? actions.pop().created_at : undefined
+          updated: actions?.length > 0 ? actions.pop()?.created_at : undefined
         }));
         return { data: data || [] };
       });
