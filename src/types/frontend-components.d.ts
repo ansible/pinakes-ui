@@ -98,6 +98,10 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
   export default ReducerRegistry;
 }
 
+declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actions' {
+  export const clearNotifications: () => { type: string };
+  export default clearNotifications;
+}
 declare module '@redhat-cloud-services/frontend-components-notifications/cjs/notifications' {
   export function notifications<T>(): ReducerHandler<T>;
   export default notifications;
