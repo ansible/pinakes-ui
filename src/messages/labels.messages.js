@@ -56,6 +56,14 @@ const labelMessages = defineMessages({
   created: {
     id: 'common.states.created',
     defaultMessage: 'Created'
+  },
+  product: {
+    id: 'common.labels.product',
+    defaultMessage: 'Product'
+  },
+  status: {
+    id: 'common.labels.id',
+    defaultMessage: 'Status'
   }
 });
 

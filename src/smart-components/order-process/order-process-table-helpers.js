@@ -1,15 +1,36 @@
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { Checkbox } from '@patternfly/react-core';
 import { timeAgo } from '../../helpers/shared/helpers';
+import OrderProcessTableContext from './order-process-table-context';
+
+export const SelectBox = ({ id }) => {
+  const { selectedOrderProcesses, setSelectedOrderProcesses } = useContext(
+    OrderProcessTableContext
+  );
+
+  return (
+    <Checkbox
+      id={`select-${id}`}
+      isChecked={selectedOrderProcesses.includes(id)}
+      onChange={() => setSelectedOrderProcesses(id)}
+    />
+  );
+};
+
+SelectBox.propTypes = {
+  id: PropTypes.string.isRequired
+};
 
 export const createRows = (data) =>
-  data.reduce(
-    (acc, { id, name, description, created_at }, key) => [
-      ...acc,
-      {
-        id,
-        key,
-        isOpen: false,
-        cells: [name, description, timeAgo(created_at)]
-      }
-    ],
-    []
-  );
+  data.map(({ id, name, description, created_at }) => ({
+    id,
+    cells: [
+      <React.Fragment key={`${id}-checkbox`}>
+        <SelectBox id={id} />
+      </React.Fragment>,
+      name,
+      description,
+      <React.Fragment key={id}>{timeAgo(created_at)}</React.Fragment>
+    ]
+  }));

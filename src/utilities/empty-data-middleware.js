@@ -11,10 +11,11 @@ const emptyDataMiddleware = () => (dispatch) => (action) => {
       nextAction.meta,
       'filters'
     )
-      ? Object.values(nextAction.meta.filters).every(
+      ? Object.values(nextAction.meta.filters || {}).every(
           (value) => typeof value === 'undefined' || value.length === 0
         )
-      : nextAction.meta.filter.length === 0;
+      : nextAction.meta?.filter?.length === 0;
+
     nextAction.payload.meta.noData =
       nextAction.payload.meta.count === 0 && noFilter;
     return dispatch(nextAction);

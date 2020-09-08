@@ -104,6 +104,12 @@ a.pf-c-breadcrumb__item {
   }
 }
 /**
+ * table vertical align defaults to baseline
+ */
+.pf-c-table.orders-table tbody > tr > *{
+  vertical-align: inherit;
+}
+/**
 * End of PF4 fixes
 */
 

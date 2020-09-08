@@ -17,6 +17,10 @@ export function fetchOrderProcessByName(name) {
   return listOrderProcesses(name);
 }
 
+export function fetchOrderProcess(id) {
+  return getOrderProcessApi().showOrderProcess(id);
+}
+
 export function addOrderProcess(processData) {
   return getOrderProcessApi().createOrderProcess(processData);
 }
@@ -37,3 +41,16 @@ export const getLinkedOrderProcesses = (objectType, objectId) =>
   axiosInstance.get(
     `${CATALOG_API_BASE}/order_processes?app_name=catalog&object_type=${objectType}&object_id=${objectId}`
   );
+
+export async function removeOrderProcess(processId) {
+  return await getOrderProcessApi().destroyOrderProcess(processId);
+}
+
+export async function removeOrderProcesses(selectedProcesses) {
+  return Promise.all(
+    selectedProcesses.map(
+      async (processId) =>
+        await getOrderProcessApi().destroyOrderProcess(processId)
+    )
+  );
+}

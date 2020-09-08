@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
 import { Table, TableHeader, TableBody } from '@patternfly/react-table';
 import {
@@ -13,11 +13,9 @@ import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/compo
 import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export const TableToolbarView = ({
-  createRows,
   columns,
   fetchData,
   toolbarButtons,
-  data,
   actionResolver,
   routes,
   plural,
@@ -29,14 +27,10 @@ export const TableToolbarView = ({
   sortBy,
   onSort,
   activeFiltersConfig,
-  filterConfig
+  filterConfig,
+  rows
 }) => {
   const intl = useIntl();
-  const [rows, setRows] = useState([]);
-
-  useEffect(() => {
-    setRows(createRows(data));
-  }, [data]);
 
   const paginationConfig = {
     itemCount: pagination.count,
@@ -116,7 +110,8 @@ export const TableToolbarView = ({
                 ...paginationConfig,
                 dropDirection: 'up',
                 variant: 'bottom',
-                isCompact: false
+                isCompact: false,
+                className: 'pf-u-pr-0'
               }}
             />
           )}
@@ -127,11 +122,9 @@ export const TableToolbarView = ({
 };
 
 TableToolbarView.propTypes = {
-  createRows: propTypes.func.isRequired,
   columns: propTypes.array.isRequired,
   toolbarButtons: propTypes.func,
   fetchData: propTypes.func.isRequired,
-  data: propTypes.array,
   pagination: propTypes.shape({
     limit: propTypes.number,
     offset: propTypes.number,
@@ -148,14 +141,14 @@ TableToolbarView.propTypes = {
   sortBy: propTypes.object,
   onSort: propTypes.func,
   activeFiltersConfig: propTypes.object,
-  filterConfig: propTypes.array
+  filterConfig: propTypes.array,
+  rows: propTypes.array
 };
 
 TableToolbarView.defaultProps = {
   requests: [],
   isLoading: false,
   pagination: defaultSettings,
-  isSelectable: null,
   routes: () => null,
   renderEmptyState: () => null,
   filterConfig: []
