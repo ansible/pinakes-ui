@@ -18,6 +18,15 @@ const apiErrorsMessages = defineMessages({
   return: {
     id: 'errors.unauthorized.return',
     defaultMessage: 'Return to catalog'
+  },
+  notFoundTitle: {
+    id: 'errors.not-found.title',
+    defaultMessage: 'Not found'
+  },
+  notFoundDescription: {
+    id: 'errors.not-found.description',
+    defaultMessage:
+      'The resource <nowrap>{pathname} {search}</nowrap> does not exist.'
   }
 });
 

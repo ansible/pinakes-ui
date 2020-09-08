@@ -1,4 +1,5 @@
-import { timeAgo } from '../../helpers/shared/helpers';
+import React, { Fragment } from 'react';
+import { TimeAgo } from '../../helpers/shared/helpers';
 
 export const createRows = (data) =>
   data.reduce(
@@ -8,7 +9,14 @@ export const createRows = (data) =>
         id,
         key,
         isOpen: false,
-        cells: [name, description, timeAgo(created_at), workflow]
+        cells: [
+          name,
+          description,
+          <Fragment key="date">
+            <TimeAgo date={created_at} />
+          </Fragment>,
+          workflow
+        ]
       }
     ],
     []

@@ -6,7 +6,6 @@ import {
   LIST_ORDERS,
   FETCH_SERVICE_PLAN_PARAMETERS,
   SUBMIT_SERVICE_ORDER,
-  UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN
 } from '../../../redux/action-types';
 
@@ -85,16 +84,6 @@ describe('Platform reducer', () => {
         type: `${SUBMIT_SERVICE_ORDER}_FULFILLED`,
         payload
       })
-    ).toEqual(expectedState);
-  });
-
-  it('should update serviceData and set loading state to false', () => {
-    const expectedState = expect.objectContaining({
-      isLoading: false,
-      serviceData: payload
-    });
-    expect(
-      reducer(initialState, { type: UPDATE_SERVICE_DATA, payload })
     ).toEqual(expectedState);
   });
 

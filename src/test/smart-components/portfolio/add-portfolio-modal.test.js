@@ -4,7 +4,6 @@ import thunk from 'redux-thunk';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { Modal } from '@patternfly/react-core';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
@@ -15,6 +14,7 @@ import { CATALOG_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import AddPortfolioModal from '../../../smart-components/portfolio/add-portfolio-modal';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
+import FormTemplate from '../../../forms/form-fields/form-template';
 
 describe('<AddPortfolioModal />', () => {
   let initialProps;
@@ -102,9 +102,9 @@ describe('<AddPortfolioModal />', () => {
 
     wrapper.update();
 
-    const modal = wrapper.find(Modal);
+    const modal = wrapper.find(FormTemplate);
     const form = wrapper.find(FormRenderer);
-    expect(modal.props().title).toEqual('Edit portfolio');
+    expect(modal.prop('modalProps').title).toEqual('Edit portfolio');
     expect(form.props().schema).toEqual(expectedSchema);
   });
 

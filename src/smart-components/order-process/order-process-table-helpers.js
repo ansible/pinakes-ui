@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from '@patternfly/react-core';
-import { timeAgo } from '../../helpers/shared/helpers';
+import { TimeAgo } from '../../helpers/shared/helpers';
 import OrderProcessTableContext from './order-process-table-context';
 
 export const SelectBox = ({ id }) => {
@@ -31,6 +31,8 @@ export const createRows = (data) =>
       </React.Fragment>,
       name,
       description,
-      <React.Fragment key={id}>{timeAgo(created_at)}</React.Fragment>
+      <React.Fragment key={id}>
+        <TimeAgo date={created_at} />
+      </React.Fragment>
     ]
   }));

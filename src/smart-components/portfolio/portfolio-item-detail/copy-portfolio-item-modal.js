@@ -116,7 +116,6 @@ const CopyPortfolioItemModal = ({
             search
           })
         }
-        formContainer="modal"
         templateProps={{
           submitLabel: formatMessage(actionMessages.save),
           disableSubmit: ['validating', 'submitting']

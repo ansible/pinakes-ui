@@ -8,13 +8,11 @@ import {
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import {
   fetchServicePlans,
-  updateServiceData,
   setSelectedPlan,
   sendSubmitOrder
 } from '../../../redux/actions/order-actions';
 import {
   FETCH_SERVICE_PLANS,
-  UPDATE_SERVICE_DATA,
   SET_SELECTED_PLAN,
   SUBMIT_SERVICE_ORDER
 } from '../../../redux/action-types';
@@ -70,19 +68,6 @@ describe('Order actions', () => {
     return store.dispatch(fetchServicePlans(1)).catch(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
-  });
-
-  it('should dispatch correct actions after calling update service data', () => {
-    const store = mockStore({});
-    const expectedActions = [
-      {
-        type: UPDATE_SERVICE_DATA,
-        payload: { serviceData: { foo: 'bar' } }
-      }
-    ];
-
-    store.dispatch(updateServiceData({ foo: 'bar' }));
-    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('should dispatch correct actions after calling set selected plan', () => {
