@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import {
   EmptyState,
@@ -11,7 +11,14 @@ import {
 } from '@patternfly/react-core';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
 
-const TableEmptyState = ({
+export interface TableEmptyState {
+  title: ReactNode;
+  Icon: React.ComponentType;
+  description: ReactNode;
+  PrimaryAction?: React.ElementType;
+  renderDescription?: () => ReactNode;
+}
+const TableEmptyState: React.ComponentType<TableEmptyState> = ({
   title,
   Icon,
   description,

@@ -135,3 +135,10 @@ declare module '@redhat-cloud-services/frontend-components-notifications/cjs/not
 declare module '@redhat-cloud-services/frontend-components/components/cjs/Section' {
   export const Section: React.ComponentType<any>;
 }
+
+declare module '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable' {
+  interface EmptyTableProps {
+    centered?: boolean;
+  }
+  export const EmptyTable: React.ComponentType<EmptyTableProps>;
+}
