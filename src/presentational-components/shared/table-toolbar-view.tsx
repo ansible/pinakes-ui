@@ -1,33 +1,66 @@
-import React, { Fragment } from 'react';
-import propTypes from 'prop-types';
-import { Table, TableHeader, TableBody } from '@patternfly/react-table';
+/* eslint-disable react/prop-types */
+import React, { Fragment, ReactNode } from 'react';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  IActionsResolver,
+  ISortBy,
+  OnSort,
+  IRow,
+  ICell
+} from '@patternfly/react-table';
 import {
   defaultSettings,
   getCurrentPage,
-  getNewPage
+  getNewPage,
+  PaginationConfiguration
 } from '../../helpers/shared/pagination';
 import { ListLoader } from './loader-placeholders';
 import { useIntl } from 'react-intl';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
-import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
+import {
+  PrimaryToolbar,
+  ActiveFiltersConfig,
+  FilterItem
+} from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 
-export const TableToolbarView = ({
+export interface TableToolbarViewProps {
+  columns: ICell[];
+  toolbarButtons?: () => ReactNode;
+  fetchData: (pagination: PaginationConfiguration) => Promise<any | void>;
+  pagination?: PaginationConfiguration;
+  plural?: string;
+  singular?: string;
+  routes?: () => ReactNode;
+  actionResolver?: IActionsResolver;
+  filterValue?: string;
+  onFilterChange: (value?: string) => void;
+  isLoading?: boolean;
+  renderEmptyState?: () => ReactNode;
+  sortBy?: ISortBy;
+  onSort?: OnSort;
+  activeFiltersConfig?: ActiveFiltersConfig;
+  filterConfig?: FilterItem[];
+  rows: IRow[];
+}
+export const TableToolbarView: React.ComponentType<TableToolbarViewProps> = ({
   columns,
   fetchData,
   toolbarButtons,
   actionResolver,
-  routes,
+  routes = () => null,
   plural,
-  pagination,
+  pagination = defaultSettings,
   filterValue,
   onFilterChange,
-  isLoading,
-  renderEmptyState,
+  isLoading = false,
+  renderEmptyState = () => null,
   sortBy,
   onSort,
   activeFiltersConfig,
-  filterConfig,
+  filterConfig = [],
   rows
 }) => {
   const intl = useIntl();
@@ -36,9 +69,10 @@ export const TableToolbarView = ({
     itemCount: pagination.count,
     page: getCurrentPage(pagination.limit, pagination.offset),
     perPage: pagination.limit,
-    onSetPage: (_e, page) =>
+    onSetPage: (_e: React.MouseEvent, page: number) =>
       fetchData({ ...pagination, offset: getNewPage(page, pagination.limit) }),
-    onPerPageSelect: (_e, size) => fetchData({ ...pagination, limit: size }),
+    onPerPageSelect: (_e: React.MouseEvent, size: number) =>
+      fetchData({ ...pagination, limit: size }),
     isDisabled: isLoading
   };
 
@@ -69,7 +103,10 @@ export const TableToolbarView = ({
               'aria-label': intl.formatMessage(
                 orderProcessesMessages.orderProcessesFilter
               ),
-              onChange: (_event, value) => onFilterChange(value),
+              onChange: (
+                _event: React.SyntheticEvent<Element, Event>,
+                value?: string
+              ) => onFilterChange(value),
               value: filterValue
             }
           },
@@ -83,7 +120,7 @@ export const TableToolbarView = ({
   return (
     <Section type="content" page-type={`tab-${plural}`} id={`tab-${plural}`}>
       {routes()}
-      {renderToolbar(isLoading)}
+      {renderToolbar()}
       {isLoading && <ListLoader />}
       {!isLoading && rows.length === 0 ? (
         renderEmptyState()
@@ -103,7 +140,7 @@ export const TableToolbarView = ({
               <TableBody />
             </Table>
           )}
-          {pagination.count > 0 && (
+          {pagination.count! > 0 && (
             <PrimaryToolbar
               className="pf-u-pl-lg pf-u-pr-lg"
               pagination={{
@@ -119,37 +156,4 @@ export const TableToolbarView = ({
       )}
     </Section>
   );
-};
-
-TableToolbarView.propTypes = {
-  columns: propTypes.array.isRequired,
-  toolbarButtons: propTypes.func,
-  fetchData: propTypes.func.isRequired,
-  pagination: propTypes.shape({
-    limit: propTypes.number,
-    offset: propTypes.number,
-    count: propTypes.number
-  }),
-  plural: propTypes.string,
-  singular: propTypes.string,
-  routes: propTypes.func,
-  actionResolver: propTypes.func,
-  filterValue: propTypes.string,
-  onFilterChange: propTypes.func,
-  isLoading: propTypes.bool,
-  renderEmptyState: propTypes.func,
-  sortBy: propTypes.object,
-  onSort: propTypes.func,
-  activeFiltersConfig: propTypes.object,
-  filterConfig: propTypes.array,
-  rows: propTypes.array
-};
-
-TableToolbarView.defaultProps = {
-  requests: [],
-  isLoading: false,
-  pagination: defaultSettings,
-  routes: () => null,
-  renderEmptyState: () => null,
-  filterConfig: []
 };

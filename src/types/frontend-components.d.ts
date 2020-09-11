@@ -142,3 +142,108 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/EmptyT
   }
   export const EmptyTable: React.ComponentType<EmptyTableProps>;
 }
+
+declare module '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar' {
+  interface TextInputProps {
+    value?: string;
+    placeholder?: string;
+    onChange?: (
+      event: React.SyntheticEvent<Element, Event>,
+      value?: string
+    ) => void;
+  }
+
+  interface Chip {
+    name: string;
+    isRead?: boolean;
+    count?: number;
+  }
+
+  type ActionsType = (
+    | React.ReactNode
+    | {
+        label?: React.ReactNode;
+        value?: number | string;
+        onClick?: (...args: any[]) => void;
+        props: { [key: string]: any };
+      }
+  )[];
+
+  export interface ActiveFiltersConfig {
+    className?: string;
+    filters?: { category: string; chips: Chip } | Chip;
+    onDelete?: (
+      event: React.MouseEvent<Element, MouseEvent>,
+      chip: Chip
+    ) => void;
+  }
+
+  export interface FilterValues extends Omit<TextInputProps, 'onChange'> {
+    id?: string;
+    placeholder?: string;
+    'aria-label'?: string;
+    value?:
+      | string
+      | string[]
+      | { label?: React.ReactNode; value?: string }
+      | { [key: string]: any };
+    onChange?: (
+      event: React.SyntheticEvent<Element, Event>,
+      value?: string
+    ) => void;
+  }
+
+  export interface FilterItem {
+    id?: string;
+    label?: React.ReactNode;
+    value?: string;
+    type?: 'text' | 'checkbox' | 'radio' | 'custom' | 'group';
+    filterValues: FilterValues | TextInputProps[];
+  }
+  export interface FilterConfig {
+    hideLabel?: boolean;
+    items: FilterItem[];
+    isDisabled?: boolean;
+  }
+  export interface PrimaryToolbarProps extends TextInputProps {
+    dedicatedAction?: React.ReactNode;
+    pagination?: { [key: string]: any };
+    sortByConfig?: {
+      direction: SortByDirection;
+      onSortChange: (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        direction: SortByDirection
+      ) => void;
+    };
+    activeFiltersConfig?: ActiveFiltersConfig;
+    filterConfig?: FilterConfig;
+    className?: string;
+    bulkSelect?: {
+      count?: number;
+      className?: string;
+      items?: {
+        title?: string;
+        onClick?: (
+          event: React.MouseEvent<any> | React.KeyboardEvent | MouseEvent,
+          item: any,
+          key: number
+        ) => void;
+      }[];
+      checked?: boolean;
+      id?: string;
+      onSelect?: (
+        checked: boolean,
+        event: React.FormEvent<HTMLInputElement>
+      ) => void;
+      toggleProps?: { [key: string]: any };
+    };
+    toggleIsExpanded?: () => void;
+    id?: string | number;
+    actionsConfig?: {
+      actions?: ActionsType;
+      dropdownProps?: { [key: string]: any };
+      onSelect?: (...args: any[]) => void;
+    };
+  }
+  export const PrimaryToolbar: React.ComponentType<PrimaryToolbarProps>;
+}
