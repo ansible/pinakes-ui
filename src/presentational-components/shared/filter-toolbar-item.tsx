@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { SearchIcon, CloseIcon } from '@patternfly/react-icons';
-import { ToolbarItem, TextInput } from '@patternfly/react-core';
+import { ToolbarItem, TextInput, TextInputProps } from '@patternfly/react-core';
 
 const FilterInputGroup = styled.div`
   position: relative;
@@ -37,11 +37,17 @@ const StyledSearchIcon = styled(SearchIcon)`
   fill: #72767b;
 `;
 
-const FilterToolbarItem = ({
-  searchValue,
+export interface FilterToolbarItemProps {
+  searchValue?: string;
+  onFilterChange: (value: string) => void;
+  placeholder?: string;
+  isClearable?: boolean;
+}
+const FilterToolbarItem: React.ComponentType<FilterToolbarItemProps> = ({
+  searchValue = '',
   onFilterChange,
   placeholder,
-  isClearable,
+  isClearable = false,
   ...rest
 }) => (
   <ToolbarItem>
@@ -67,17 +73,5 @@ const FilterToolbarItem = ({
     </FilterInputGroup>
   </ToolbarItem>
 );
-
-FilterToolbarItem.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  searchValue: PropTypes.string,
-  isClearable: PropTypes.bool
-};
-
-FilterToolbarItem.defaultProps = {
-  searchValue: '',
-  isClearable: false
-};
 
 export default FilterToolbarItem;
