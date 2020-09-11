@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
@@ -53,7 +54,11 @@ Skeleton.propTypes = {
   component: PropTypes.string
 };
 
-const SkeletonContainer = styled.div`
+const SkeletonContainer = styled.div<{
+  width?: number | string;
+  height?: number | string;
+  secondaryColor?: string;
+}>`
   & > * {
     position: relative;
     overflow: hidden;
@@ -80,7 +85,12 @@ const SkeletonContainer = styled.div`
   }
 `;
 
-export const CardLoader = ({ items }) => (
+export interface CardLoaderProps {
+  items?: number;
+}
+export const CardLoader: React.ComponentType<CardLoaderProps> = ({
+  items = 13
+}) => (
   <Grid hasGutter>
     <GridItem sm={12}>
       <Section type="content">
@@ -103,15 +113,7 @@ export const CardLoader = ({ items }) => (
   </Grid>
 );
 
-CardLoader.propTypes = {
-  items: PropTypes.number
-};
-
-CardLoader.defaultProps = {
-  items: 13
-};
-
-export const AppPlaceholder = () => (
+export const AppPlaceholder: React.ElementType = () => (
   <section className="pf-u-m-0 pf-u-p-0 pf-l-page__main-section pf-c-page__main-section">
     <Skeleton height={32} className="pf-u-p-lg global-primary-background" />
     <div className="pf-u-mt-lg">
@@ -122,14 +124,16 @@ export const AppPlaceholder = () => (
   </section>
 );
 
-export const ToolbarTitlePlaceholder = () => <Skeleton height={30} />;
+export const ToolbarTitlePlaceholder: React.ElementType = () => (
+  <Skeleton height={30} />
+);
 
 const ProducLoaderColumn = styled.div`
   width: 100%;
   max-width: 250px;
 `;
 
-export const ProductLoaderPlaceholder = () => (
+export const ProductLoaderPlaceholder: React.ElementType = () => (
   <Fragment>
     <Skeleton height={70} className="pf-u-mb-xl" />
     <ProducLoaderColumn>
@@ -146,25 +150,22 @@ export const ProductLoaderPlaceholder = () => (
   </Fragment>
 );
 
-export const IconPlaceholder = ({ height }) => (
+export interface IconPlaceholderProps {
+  height: number;
+}
+export const IconPlaceholder: React.ElementType<IconPlaceholderProps> = ({
+  height
+}) => (
   <svg height={height} width={height}>
     <circle cx={height / 2} cy={height / 2} r={height / 2} fill="#ecebeb" />
   </svg>
 );
 
-IconPlaceholder.propTypes = {
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-
-IconPlaceholder.defaultProps = {
-  height: '40'
-};
-
-export const FormItemLoader = () => (
+export const FormItemLoader: React.ElementType = () => (
   <Skeleton height={38} className="pf-u-mb-lg" />
 );
 
-export const ShareLoader = () => {
+export const ShareLoader: React.ElementType = () => {
   const formatMessage = useFormatMessage();
   return (
     <Form>
@@ -191,7 +192,7 @@ export const ShareLoader = () => {
   );
 };
 
-export const WorkflowLoader = () => {
+export const WorkflowLoader: React.ElementType = () => {
   const formatMessage = useFormatMessage();
   return (
     <Form>
@@ -207,7 +208,12 @@ export const WorkflowLoader = () => {
   );
 };
 
-export const ListLoader = ({ items }) => (
+export interface ListLoaderProps {
+  items?: number;
+}
+export const ListLoader: React.ElementType<ListLoaderProps> = ({
+  items = 5
+}) => (
   <DataList aria-label="list-loader" aria-labelledby="datalist-placeholder">
     {[...Array(items)].map((_item, index) => (
       <DataListItem key={index} aria-labelledby="datalist-item-placeholder">
@@ -225,17 +231,11 @@ export const ListLoader = ({ items }) => (
   </DataList>
 );
 
-ListLoader.propTypes = {
-  items: PropTypes.number
-};
+export const OrderDetailToolbarPlaceholder: React.ElementType = () => (
+  <Skeleton height={70} />
+);
 
-ListLoader.defaultProps = {
-  items: 5
-};
-
-export const OrderDetailToolbarPlaceholder = () => <Skeleton height={70} />;
-
-export const PlatformToolbarPlaceholder = () => (
+export const PlatformToolbarPlaceholder: React.ElementType = () => (
   <StyledToolbar className="pf-u-pr-lg pf-u-pl-lg pf-u-pb-md pf-u-pt-md">
     <Skeleton height={36} width={300} />
   </StyledToolbar>
