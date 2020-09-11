@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import ItemDetails from '../shared/card-common';
 import {
   CardHeader,
@@ -34,10 +34,16 @@ import actionMessages from '../../messages/actions.messages';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import orderProcessesMessages from '../../messages/order-processes.messages';
+import { UserCapabilities, PortfolioMetadata } from '../../types/common-types';
 
 const TO_DISPLAY = ['description'];
 
-const HeaderActions = ({
+interface HeaderActionsProps {
+  portfolioId: string;
+  handleCopyPortfolio: (portfolioId: string) => void;
+  userCapabilities: UserCapabilities;
+}
+const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
   portfolioId,
   handleCopyPortfolio,
   userCapabilities: { share, copy, unshare, update, destroy, set_approval }
@@ -96,7 +102,7 @@ const HeaderActions = ({
   if (window.insights.chrome.isBeta() && update) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
-    );
+    ) as string;
     dropdownItems.push(
       <DropdownItem
         aria-label={orderProcessAction}
@@ -171,20 +177,18 @@ const HeaderActions = ({
   );
 };
 
-HeaderActions.propTypes = {
-  portfolioId: PropTypes.string.isRequired,
-  userCapabilities: PropTypes.shape({
-    destroy: PropTypes.bool,
-    update: PropTypes.bool,
-    share: PropTypes.bool,
-    unshare: PropTypes.bool,
-    set_approval: PropTypes.bool,
-    copy: PropTypes.bool
-  }).isRequired,
-  handleCopyPortfolio: PropTypes.func.isRequired
-};
-
-const PortfolioCard = ({
+export interface PortfolioCardProps {
+  imageUrl?: string;
+  name?: string;
+  id: string;
+  updated_at?: string;
+  created_at: string;
+  owner?: string;
+  isDisabled?: boolean;
+  metadata: PortfolioMetadata;
+  handleCopyPortfolio: (portfolioId: string) => void;
+}
+const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
   imageUrl,
   isDisabled,
   name,
@@ -245,25 +249,6 @@ const PortfolioCard = ({
       </StyledCard>
     </StyledGalleryItem>
   );
-};
-
-PortfolioCard.propTypes = {
-  history: PropTypes.object,
-  imageUrl: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  updated_at: PropTypes.string,
-  created_at: PropTypes.string.isRequired,
-  owner: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  metadata: PropTypes.shape({
-    user_capabilities: PropTypes.object.isRequired,
-    statistics: PropTypes.shape({
-      shared_groups: PropTypes.number,
-      portfolio_items: PropTypes.number
-    }).isRequired
-  }).isRequired,
-  handleCopyPortfolio: PropTypes.func.isRequired
 };
 
 export default PortfolioCard;

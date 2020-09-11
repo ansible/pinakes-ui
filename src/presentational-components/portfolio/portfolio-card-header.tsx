@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Badge,
@@ -11,6 +11,7 @@ import {
 } from '@patternfly/react-core';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
 import styled from 'styled-components';
+import { CatalogLinkTo } from '../../smart-components/common/catalog-link';
 
 const HeaderTitle = styled(LevelItem)`
   max-width: calc(100% - 80px);
@@ -21,12 +22,19 @@ const HeaderLevel = styled(Level)`
   width: 100%;
 `;
 
-const PortfolioCardHeader = ({
+export interface PortfolioCardHeaderProps {
+  id: string;
+  to: CatalogLinkTo;
+  portfolioName?: string;
+  portfolio_items: number;
+  headerActions: ReactNode;
+}
+const PortfolioCardHeader: React.ComponentType<PortfolioCardHeaderProps> = ({
   id,
   to,
   portfolioName,
   portfolio_items,
-  headerActions
+  headerActions = []
 }) => (
   <HeaderLevel>
     <HeaderTitle>
@@ -46,20 +54,5 @@ const PortfolioCardHeader = ({
     <div onClick={(event) => event.preventDefault()}>{headerActions}</div>
   </HeaderLevel>
 );
-
-PortfolioCardHeader.propTypes = {
-  portfolioName: PropTypes.string.isRequired,
-  portfolio_items: PropTypes.number,
-  headerActions: PropTypes.node,
-  id: PropTypes.string,
-  to: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired
-  }).isRequired
-};
-
-PortfolioCardHeader.defaultProps = {
-  headerActions: []
-};
 
 export default PortfolioCardHeader;

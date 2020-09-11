@@ -69,3 +69,22 @@ export interface InternalResourceObject {
 export type Full<T> = {
   [P in keyof T]-?: T[P];
 };
+
+export interface UserCapabilities {
+  share?: boolean;
+  copy?: boolean;
+  unshare?: boolean;
+  update?: boolean;
+  destroy?: boolean;
+  set_approval?: boolean;
+}
+
+export interface PortfolioStatistics {
+  shared_groups: number;
+  portfolio_items: number;
+}
+
+export interface PortfolioMetadata {
+  user_capabilities: UserCapabilities;
+  statistics: PortfolioStatistics;
+}
