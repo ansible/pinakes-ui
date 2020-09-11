@@ -1,15 +1,25 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Tabs, Tab } from '@patternfly/react-core';
 import { useLocation } from 'react-router-dom';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
-const AppTabs = ({ tabItems }) => {
+export interface AppTabsProps {
+  tabItems: {
+    name: string;
+    eventKey: number;
+    title: string;
+    disabled?: boolean;
+  }[];
+}
+const AppTabs: React.ComponentType<AppTabsProps> = ({ tabItems }) => {
   const { push } = useEnhancedHistory();
   const { pathname, search } = useLocation();
   const activeTab = tabItems.find(({ name }) => pathname.includes(name));
-  const handleTabClick = (_event, tabIndex) =>
-    push({ pathname: tabItems[tabIndex].name, search });
+  const handleTabClick = (
+    _event: React.MouseEvent<HTMLElement, MouseEvent>,
+    tabIndex: number | string
+  ) => push({ pathname: tabItems[tabIndex as number].name, search });
 
   return (
     <Tabs
@@ -27,10 +37,6 @@ const AppTabs = ({ tabItems }) => {
       ))}
     </Tabs>
   );
-};
-
-AppTabs.propTypes = {
-  tabItems: PropTypes.array.isRequired
 };
 
 export default AppTabs;
