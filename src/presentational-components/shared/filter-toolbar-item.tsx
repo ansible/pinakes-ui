@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SearchIcon, CloseIcon } from '@patternfly/react-icons';
-import { ToolbarItem, TextInput, TextInputProps } from '@patternfly/react-core';
+import { ToolbarItem, TextInput } from '@patternfly/react-core';
 
 const FilterInputGroup = styled.div`
   position: relative;
