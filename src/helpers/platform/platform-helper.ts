@@ -3,7 +3,7 @@ import {
   TOPOLOGICAL_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../utilities/constants';
-import { defaultSettings } from '../shared/pagination';
+import { defaultSettings, PaginationConfiguration } from '../shared/pagination';
 import {
   Source,
   ServiceOffering,

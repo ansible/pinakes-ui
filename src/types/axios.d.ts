@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosRequestConfig } from 'axios';
+import {
+  AxiosTransformer,
+  AxiosAdapter,
+  AxiosBasicCredentials,
+  AxiosProxyConfig,
+  CancelToken
+} from 'axios';
 import { ApiCollectionResponse } from './common-types';
 
 declare module 'axios' {
@@ -8,7 +14,8 @@ declare module 'axios' {
     : Promise<T>;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  export interface AxiosPromise<T> extends InternalAxiosPromise<T, C> {}
+  export interface AxiosPromise<T, C = any>
+    extends InternalAxiosPromise<T, C> {}
 
   export interface AxiosRequestConfig {
     url?: string;

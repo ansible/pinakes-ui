@@ -90,7 +90,7 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
       composeEnhancersDefault?: (...args: any[]) => ReducerRegistry
     );
     getStore: () => InternalAnyObject;
-    register<T>(newReducers: ReducerHandlerObject): void;
+    register(newReducers: ReducerHandlerObject): void;
   }
 
   export const reducerRegistry: ReducerRegistry;

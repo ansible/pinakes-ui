@@ -4,7 +4,7 @@ import {
 } from '@redhat-cloud-services/approval-client';
 import { getWorkflowApi, getAxiosInstance } from '../shared/user-login';
 import { APPROVAL_API_BASE } from '../../utilities/constants';
-import { defaultSettings } from '../shared/pagination';
+import { defaultSettings, PaginationConfiguration } from '../shared/pagination';
 import {
   ApiCollectionResponse,
   SelectOptions,
