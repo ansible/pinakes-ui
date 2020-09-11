@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { Fragment, ReactNode } from 'react';
 import {
   LevelItem,
   Text,
@@ -14,11 +14,14 @@ import {
   TopToolbarTitleContainer
 } from '../styled-components/toolbars';
 
-const TopToolbar = ({
+export interface TopToolbarProps {
+  paddingBottom?: boolean;
+  breadcrumbs?: boolean;
+}
+const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   children,
-  paddingBottom,
-  breadcrumbs,
-  breadcrumbsSpacing,
+  paddingBottom = true,
+  breadcrumbs = true,
   ...rest
 }) => (
   <TopToolbarWrapper
@@ -37,25 +40,15 @@ const TopToolbar = ({
   </TopToolbarWrapper>
 );
 
-TopToolbar.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  paddingBottom: PropTypes.bool,
-  breadcrumbs: PropTypes.bool,
-  breadcrumbsSpacing: PropTypes.bool
-};
-
-TopToolbar.defaultProps = {
-  paddingBottom: true,
-  breadcrumbs: true
-};
-
 export default TopToolbar;
 
-export const TopToolbarTitle = ({
-  title,
+export interface TopToolbarTitleProps {
+  title?: React.ElementType;
+  description?: ReactNode;
+  noData?: boolean;
+}
+export const TopToolbarTitle: React.ComponentType<TopToolbarTitleProps> = ({
+  title = <ToolbarTitlePlaceholder />,
   description,
   children,
   noData,
@@ -85,17 +78,3 @@ export const TopToolbarTitle = ({
     </TopToolbarTitleContainer>
   </Fragment>
 );
-
-TopToolbarTitle.propTypes = {
-  title: PropTypes.node,
-  description: PropTypes.node,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node)
-  ]),
-  noData: PropTypes.bool
-};
-
-TopToolbarTitle.defaultProps = {
-  title: <ToolbarTitlePlaceholder />
-};
