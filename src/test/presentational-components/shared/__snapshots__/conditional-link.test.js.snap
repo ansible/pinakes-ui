@@ -5,11 +5,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
   pathname="/some/url"
 >
   <CatalogLink
-    nav={false}
     pathname="/some/url"
-    preserveHash={false}
-    preserveSearch={false}
-    searchParams={Object {}}
   >
     <Styled(Component)
       to={

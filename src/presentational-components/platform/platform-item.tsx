@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { CardHeader, CardFooter, Level } from '@patternfly/react-core';
 
 import CardIcon from '../shared/card-icon';
@@ -12,7 +12,14 @@ const StyledLevel = styled(Level)`
   flex: 1;
 `;
 
-const PlatformItem = ({ src, ...props }) => (
+export interface PlatformItemProps {
+  id: string;
+  source_id?: string;
+  editMode?: boolean;
+  checked?: boolean;
+  onToggleItemSelect: (value: any) => void;
+}
+const PlatformItem: React.ComponentType<PlatformItemProps> = (props) => (
   <StyledCard key={props.id}>
     <CardHeader>
       <StyledLevel>
@@ -30,17 +37,5 @@ const PlatformItem = ({ src, ...props }) => (
     <CardFooter />
   </StyledCard>
 );
-
-PlatformItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  service_offering_icon_id: PropTypes.string,
-  source_id: PropTypes.string,
-  platformId: PropTypes.string,
-  name: PropTypes.string,
-  editMode: PropTypes.bool,
-  checked: PropTypes.bool,
-  onToggleItemSelect: PropTypes.func,
-  src: PropTypes.string
-};
 
 export default PlatformItem;

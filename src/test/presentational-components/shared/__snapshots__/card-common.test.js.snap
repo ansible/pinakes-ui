@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CardCommon /> should render correctly empty 1`] = `
-<ItemDetails
-  toDisplay={Array []}
-/>
-`;
+exports[`<CardCommon /> should render correctly empty 1`] = `<ItemDetails />`;
 
 exports[`<CardCommon /> should render correctly with content 1`] = `
 <ItemDetails

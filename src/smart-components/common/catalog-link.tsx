@@ -1,7 +1,14 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  useLocation,
+  LinkProps,
+  NavLinkProps
+} from 'react-router-dom';
 import styled from 'styled-components';
+import { StringObject } from '../../types/common-types';
 
 const StyledLink = styled(({ isDisabled, ...props }) => <Link {...props} />)`
   pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'initial')};
@@ -13,7 +20,11 @@ const StyledNavLink = styled(({ isDisabled, ...props }) => (
   pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'initial')};
 `;
 
-const createSearchQuery = (search, searchParams, preserveSearch) => {
+const createSearchQuery = (
+  search: string,
+  searchParams: StringObject,
+  preserveSearch: boolean
+): string => {
   const paramsQuery = Object.entries(searchParams)
     .map(([key, value]) => `${key}=${value}`)
     .join('&');
@@ -24,12 +35,23 @@ const createSearchQuery = (search, searchParams, preserveSearch) => {
     : '';
 };
 
-const CatalogLink = ({
+export interface CatalogLinkProps
+  extends Omit<LinkProps, 'to'>,
+    Omit<NavLinkProps, 'to'> {
+  pathname: string;
+  searchParams?: StringObject;
+  nav?: boolean;
+  preserveSearch?: boolean;
+  preserveHash?: boolean;
+  showDivider?: boolean;
+  to?: string | { pathname: string; search?: string; hash?: string };
+}
+const CatalogLink: React.ComponentType<CatalogLinkProps> = ({
   pathname,
-  searchParams,
-  nav,
-  preserveSearch,
-  preserveHash,
+  searchParams = {},
+  nav = false,
+  preserveSearch = false,
+  preserveHash = false,
   showDivider,
   ...props
 }) => {
@@ -40,25 +62,7 @@ const CatalogLink = ({
     search: createSearchQuery(search, searchParams, preserveSearch),
     hash: preserveHash ? hash : undefined
   };
-  return <Component to={to} {...props} />;
-};
-
-CatalogLink.propTypes = {
-  pathname: PropTypes.string.isRequired,
-  searchParams: PropTypes.shape({
-    [PropTypes.string]: PropTypes.string
-  }),
-  nav: PropTypes.bool,
-  preserveSearch: PropTypes.bool,
-  preserveHash: PropTypes.bool,
-  showDivider: PropTypes.any // this has to be removed from the spread props. This is PF internal prop which is forced on breadcrumbs child
-};
-
-CatalogLink.defaultProps = {
-  nav: false,
-  preserveSearch: false,
-  searchParams: {},
-  preserveHash: false
+  return <Component {...props} to={to} />;
 };
 
 export default CatalogLink;

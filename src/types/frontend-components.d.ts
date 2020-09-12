@@ -90,7 +90,7 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
       composeEnhancersDefault?: (...args: any[]) => ReducerRegistry
     );
     getStore: () => InternalAnyObject;
-    register<T>(newReducers: ReducerHandlerObject): void;
+    register(newReducers: ReducerHandlerObject): void;
   }
 
   export const reducerRegistry: ReducerRegistry;
@@ -98,6 +98,10 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
   export default ReducerRegistry;
 }
 
+declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actions' {
+  export const clearNotifications: () => { type: string };
+  export default clearNotifications;
+}
 declare module '@redhat-cloud-services/frontend-components-notifications/cjs/notifications' {
   export function notifications<T>(): ReducerHandler<T>;
   export default notifications;
@@ -126,4 +130,8 @@ declare module '@redhat-cloud-services/frontend-components-notifications/cjs/not
   ) => NotificationMiddleware;
 
   export default createNotificationsMiddleware;
+}
+
+declare module '@redhat-cloud-services/frontend-components/components/cjs/Section' {
+  export const Section: React.ComponentType<any>;
 }

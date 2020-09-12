@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
+import React, { ReactNode, Fragment } from 'react';
 import styled from 'styled-components';
-import React, { ReactNode, Fragment, ComponentType } from 'react';
 import ReactDOM from 'react-dom';
 import PF4FormTemplate, {
   FormTemplateProps as Pf4FormTemplateProps
