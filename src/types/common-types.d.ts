@@ -39,10 +39,10 @@ export interface ActionMeta extends PaginationConfiguration, AnyObject {
   filters?: StringObject;
   platformId?: string;
 }
-export interface ReduxAction {
+export interface ReduxAction<T = any> {
   type: string;
-  payload?: any;
-  meta: ActionMeta;
+  payload?: T;
+  meta?: ActionMeta;
 }
 
 export type ReduxActionHandler<T /**Reducer state definition */> = (
