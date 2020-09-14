@@ -8,6 +8,7 @@ import { I18nReducerState } from '../redux/reducers/i18n-reducer';
 import { ApprovalReducerState } from '../redux/reducers/approval-reducer';
 import { ShareReducerState } from '../redux/reducers/share-reducer';
 import { BreadcrumbsReducerState } from '../redux/reducers/breadcrumbs-reducer';
+import { FluxStandardAction } from 'redux-promise-middleware';
 
 export interface CatalogRootState {
   orderReducer: OrderReducerState;
@@ -20,4 +21,9 @@ export interface CatalogRootState {
   openApiReducer: OpenApiReducerState;
   breadcrumbsReducer: BreadcrumbsReducerState;
   i18nReducer: I18nReducerState;
+}
+
+export interface AsyncMiddlewareAction<T = any>
+  extends Omit<FluxStandardAction, 'payload'> {
+  payload?: Promise<T>;
 }
