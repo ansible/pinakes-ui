@@ -1,6 +1,12 @@
 import { useHistory } from 'react-router-dom';
+import { History, Path } from 'history';
+import { AnyObject } from '@data-driven-forms/react-form-renderer';
 
-const removeSearchQuery = (target) => {
+export type EnhancedHistoryPushtarget =
+  | Path
+  | { pathname: string; hash?: string; search?: string; state?: AnyObject };
+
+const removeSearchQuery = (target: EnhancedHistoryPushtarget) => {
   if (typeof target === 'string') {
     return target.split('?')[0];
   }
@@ -20,11 +26,17 @@ const removeSearchQuery = (target) => {
  * @param {Boolean} removeSearch if true, using history navigation methods will remove search string from path
  * @param {Boolean} keepHash if true, using history navigation methods will not remove hash from URL
  */
-const useEnhancedHistory = ({ removeSearch, keepHash } = {}) => {
+const useEnhancedHistory = ({
+  removeSearch,
+  keepHash
+}: {
+  removeSearch?: boolean;
+  keepHash?: boolean;
+} = {}): History<History.UnknownFacade> => {
   const history = useHistory();
   return {
     ...history,
-    push: (target) => {
+    push: (target: EnhancedHistoryPushtarget) => {
       let internalTarget = target;
       if (keepHash && history.location.hash.length > 0) {
         internalTarget =

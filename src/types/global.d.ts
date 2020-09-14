@@ -4,6 +4,7 @@ interface Auth {
 
 interface Chrome {
   auth: Auth;
+  isBeta: () => boolean;
 }
 
 interface Insights {

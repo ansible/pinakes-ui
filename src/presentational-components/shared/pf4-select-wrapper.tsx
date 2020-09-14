@@ -1,6 +1,8 @@
-import React, { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
+/* eslint-disable react/prop-types */
+import React, { useState, useRef, ReactNode } from 'react';
+import useFieldApi, {
+  ValidatorType
+} from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
 import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import {
   FormGroup,
@@ -11,13 +13,19 @@ import {
 import useFormApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-form-api';
 import { defineMessage } from 'react-intl';
 import useFormatMessage from '../../utilities/use-format-message';
+import { SelectOptions } from '../../types/common-types';
 
-const createOptions = (options, inputValue, isRequired, optionsMessages) => {
+const createOptions = (
+  options: SelectOptions,
+  inputValue: string,
+  isRequired: boolean,
+  optionsMessages: { choose: ReactNode; none: ReactNode }
+) => {
   if (inputValue && isRequired) {
     return options;
   }
 
-  let selectOptions = [...options];
+  const selectOptions = [...options];
   return selectOptions.find(({ value }) => value === undefined)
     ? [...selectOptions]
     : [
@@ -26,20 +34,42 @@ const createOptions = (options, inputValue, isRequired, optionsMessages) => {
       ];
 };
 
-const Select = ({
+interface SelectProps {
+  input: {
+    name: string;
+    onChange: (value: any) => void;
+    value: any;
+  };
+  id?: string;
+  label?: ReactNode;
+  options?: SelectOptions;
+  isReadOnly?: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+  validated?: 'default' | 'success' | 'error';
+  multi?: boolean;
+  loadOptions?: (
+    search?: string,
+    lookupArguments?: any[]
+  ) => Promise<SelectOptions>;
+  meta: { initial?: any };
+  onChange?: (...args: any[]) => unknown;
+}
+const Select: React.ComponentType<SelectProps> = ({
   input,
-  options,
-  isReadOnly,
-  isDisabled,
-  FieldProvider,
-  isRequired,
-  multi,
+  options = [],
+  isDisabled = false,
+  isRequired = false,
+  multi = false,
   loadOptions,
   meta,
   ...rest
 }) => {
   const formatMessage = useFormatMessage();
-  const optionsMessages = useRef({
+  const optionsMessages = useRef<{
+    none: ReactNode;
+    choose: ReactNode;
+  }>({
     none: formatMessage(
       defineMessage({
         id: 'forms.select.options.none',
@@ -82,7 +112,6 @@ const Select = ({
 
   return (
     <InternalSelect
-      hideSelectedOptions={false}
       menuIsPortal
       {...input}
       {...rest}
@@ -107,52 +136,35 @@ const Select = ({
           : undefined
       }
       isDisabled={isDisabled}
-      closeMenuOnSelect={!multi}
     />
   );
 };
 
-Select.propTypes = {
-  input: PropTypes.object.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.any,
-      label: PropTypes.string.isRequired
-    })
-  ),
-  isReadOnly: PropTypes.bool,
-  isDisabled: PropTypes.bool,
-  isRequired: PropTypes.bool,
-  isSearchable: PropTypes.bool,
-  FieldProvider: PropTypes.any,
-  multi: PropTypes.bool,
-  loadOptions: PropTypes.func,
-  meta: PropTypes.shape({
-    initial: PropTypes.any
-  }).isRequired
-};
-
-Select.defaultProps = {
-  isSearchable: false,
-  multi: false,
-  options: []
-};
-
-const Pf4SelectWrapper = (props) => {
+export interface Pf4SelectWrapperProps
+  extends Omit<Omit<SelectProps, 'input'>, 'meta'> {
+  name: string;
+  label?: ReactNode;
+  isRequired?: boolean;
+  helperText?: ReactNode;
+  description?: ReactNode;
+  hideLabel?: boolean;
+  id?: string;
+  initialValue?: any;
+  validate?: ValidatorType[];
+}
+function Pf4SelectWrapper<T = any /**Type of select value */>(
+  props: Pf4SelectWrapperProps
+): ReactNode {
   const {
-    componentType,
     label,
     isRequired,
     helperText,
     meta,
     description,
     hideLabel,
-    dataType,
-    initialKey,
     id,
-    initialValue,
     ...rest
-  } = useFieldApi(props);
+  } = useFieldApi<T>(props);
   const { error, touched } = meta;
   const showError = touched && error;
   const { name } = rest.input;
@@ -181,20 +193,6 @@ const Pf4SelectWrapper = (props) => {
       />
     </FormGroup>
   );
-};
-
-Pf4SelectWrapper.propTypes = {
-  componentType: PropTypes.string,
-  id: PropTypes.string,
-  label: PropTypes.string,
-  isRequired: PropTypes.bool,
-  helperText: PropTypes.string,
-  meta: PropTypes.object,
-  description: PropTypes.string,
-  hideLabel: PropTypes.bool,
-  dataType: PropTypes.string,
-  initialKey: PropTypes.any,
-  initialValue: PropTypes.any
-};
+}
 
 export default Pf4SelectWrapper;

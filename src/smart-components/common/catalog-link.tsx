@@ -35,6 +35,9 @@ const createSearchQuery = (
     : '';
 };
 
+export type CatalogLinkTo =
+  | string
+  | { pathname: string; search?: string; hash?: string };
 export interface CatalogLinkProps
   extends Omit<LinkProps, 'to'>,
     Omit<NavLinkProps, 'to'> {
@@ -44,7 +47,7 @@ export interface CatalogLinkProps
   preserveSearch?: boolean;
   preserveHash?: boolean;
   showDivider?: boolean;
-  to?: string | { pathname: string; search?: string; hash?: string };
+  to?: CatalogLinkTo;
 }
 const CatalogLink: React.ComponentType<CatalogLinkProps> = ({
   pathname,

@@ -2,9 +2,11 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
 import { useSelector } from 'react-redux';
 import ConditionalLink from '../../presentational-components/shared/conditional-link';
+import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
+import { CatalogRootState } from '../../types/redux';
 
-const CatalogBreadcrumbs = () => {
-  const fragments = useSelector(
+const CatalogBreadcrumbs: React.ComponentType = () => {
+  const fragments = useSelector<CatalogRootState, BreadcrumbFragment[]>(
     ({ breadcrumbsReducer: { fragments } }) => fragments
   );
   if (fragments.length <= 1) {

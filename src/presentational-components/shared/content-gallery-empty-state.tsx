@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { ReactNode } from 'react';
 import {
   Button,
   EmptyState,
@@ -12,12 +12,20 @@ import {
 } from '@patternfly/react-core';
 import CatalogLink from '../../smart-components/common/catalog-link';
 
-const ContentGalleryEmptyState = ({
+export interface ContentGalleryEmptyStateProps {
+  title: string;
+  Icon: React.ComponentType;
+  description?: ReactNode;
+  PrimaryAction?: React.ComponentType;
+  renderDescription?: () => ReactNode;
+}
+
+const ContentGalleryEmptyState: React.ComponentType<ContentGalleryEmptyStateProps> = ({
   title,
   Icon,
   description,
   PrimaryAction,
-  renderDescription
+  renderDescription = () => null
 }) => (
   <div className="pf-u-mt-xl">
     <EmptyState className="pf-u-ml-auto pf-u-mr-auto">
@@ -36,35 +44,22 @@ const ContentGalleryEmptyState = ({
   </div>
 );
 
-ContentGalleryEmptyState.defaultProps = {
-  renderDescription: () => null
-};
-
-ContentGalleryEmptyState.propTypes = {
-  title: PropTypes.string.isRequired,
-  Icon: PropTypes.any.isRequired,
-  description: PropTypes.string,
-  PrimaryAction: PropTypes.any,
-  renderDescription: PropTypes.func
-};
-
 export default ContentGalleryEmptyState;
 
-export const EmptyStatePrimaryAction = ({
+export interface EmptyStatePrimaryAction {
+  url: string;
+  label: string;
+  hasPermission?: boolean;
+  id?: string;
+}
+export const EmptyStatePrimaryAction: React.ComponentType<EmptyStatePrimaryAction> = ({
   url,
   label,
   hasPermission = false,
   id
 }) =>
-  hasPermission && (
+  hasPermission ? (
     <CatalogLink id={id} pathname={url} preserveSearch>
       <Button variant="primary">{label}</Button>
     </CatalogLink>
-  );
-
-EmptyStatePrimaryAction.propTypes = {
-  url: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  hasPermission: PropTypes.bool
-};
+  ) : null;

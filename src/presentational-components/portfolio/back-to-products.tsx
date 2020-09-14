@@ -6,7 +6,7 @@ import portfolioMessages from '../../messages/portfolio.messages';
 import CatalogLink from '../../smart-components/common/catalog-link';
 import useFormatMessage from '../../utilities/use-format-message';
 
-const BackToProducts = () => {
+const BackToProducts: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   return (
     <div className="pf-u-mb-md">
