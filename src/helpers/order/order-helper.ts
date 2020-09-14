@@ -221,10 +221,26 @@ export interface RequestTranscript extends Full<Request> {
 }
 const requestTranscriptQuery = (parent_id: string) => `query {
   requests(id: "${parent_id}") {
+    id
+    number_of_children
+    decision
     group_name
     state
     actions {
+      id
       created_at
+    }
+    requests {
+      id
+      number_of_children
+      decision
+      group_name
+      state
+      parent_id
+      actions {
+        id
+        created_at
+      }
     }
   }
 }`;
@@ -237,7 +253,13 @@ const fetchRequestTranscript = (
       { query: requestTranscriptQuery(requestId) },
       { 'x-rh-persona': APPROVAL_REQUESTER_PERSONA }
     )
-    .then(({ data: { requests } }) => requests);
+    .then(({ data: { requests } }) => {
+      return requests &&
+        requests.length > 0 &&
+        requests[0].number_of_children > 0
+        ? requests[0].requests
+        : requests;
+    });
 
 export const getApprovalRequests = (
   orderItemId: string
