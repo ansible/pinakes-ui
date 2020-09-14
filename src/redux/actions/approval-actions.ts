@@ -1,21 +1,36 @@
+import { Dispatch } from 'redux';
+import {
+  ApiCollectionResponse,
+  ApiMetadata,
+  InternalResourceObject
+} from '../../types/common-types';
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 import * as ApprovalHelper from '../../helpers/approval/approval-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import extractFormatMessage from '../../utilities/extract-format-message';
 import approvalMessages from '../../messages/approval.messages';
+import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
+import {
+  ResourceObject,
+  Workflow
+} from '@redhat-cloud-services/approval-client';
 
-export const fetchWorkflows = () => ({
+export const fetchWorkflows = (): AsyncMiddlewareAction<{
+  value?: string;
+  label?: string;
+}[]> => ({
   type: ASYNC_ACTIONS.FETCH_WORKFLOWS,
-  payload: ApprovalHelper.getApprovalWorkflows().then(({ data }) => [
-    ...data.map(({ id, name }) => ({ value: id, label: name }))
-  ])
+  payload: ApprovalHelper.getApprovalWorkflows().then(({ data }) =>
+    data.map(({ id, name }) => ({ value: id, label: name }))
+  )
 });
 
-export const updateWorkflows = (toLinkIds, toUnlinkIds, resourceObject) => (
-  dispatch,
-  getState
-) => {
+export const updateWorkflows = (
+  toLinkIds: string[],
+  toUnlinkIds: string[],
+  resourceObject: ResourceObject
+) => (dispatch: Dispatch, getState: GetReduxState): AsyncMiddlewareAction => {
   const formatMessage = extractFormatMessage(getState);
   return dispatch({
     type: ASYNC_ACTIONS.UPDATE_WORKFLOWS,
@@ -31,7 +46,8 @@ export const updateWorkflows = (toLinkIds, toUnlinkIds, resourceObject) => (
           dismissable: true,
           description: `${
             toUnlinkIds.length > 0
-              ? formatMessage(approvalMessages.unlinkNotification, {
+              ? formatMessage &&
+                formatMessage(approvalMessages.unlinkNotification, {
                   count: toUnlinkIds.length
                 })
               : ''
@@ -50,10 +66,13 @@ export const updateWorkflows = (toLinkIds, toUnlinkIds, resourceObject) => (
 };
 
 export const listWorkflowsForObject = (
-  resourceObject,
-  meta = { limit: defaultSettings.limit, offset: defaultSettings.offset },
+  resourceObject: InternalResourceObject,
+  meta: ApiMetadata = {
+    limit: defaultSettings.limit,
+    offset: defaultSettings.offset
+  },
   filter = ''
-) => ({
+): AsyncMiddlewareAction<ApiCollectionResponse<Workflow>> => ({
   type: ASYNC_ACTIONS.RESOLVE_WORKFLOWS,
   payload: ApprovalHelper.listWorkflowsForObject(resourceObject, meta, filter)
 });

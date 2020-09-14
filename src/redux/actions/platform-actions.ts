@@ -1,7 +1,18 @@
 import * as ActionTypes from '../action-types';
 import * as PlatformHelper from '../../helpers/platform/platform-helper';
+import { Dispatch } from 'redux';
+import {
+  ServiceInventory,
+  ServiceOffering,
+  Source
+} from '@redhat-cloud-services/sources-client';
+import { AsyncMiddlewareAction } from '../../types/redux';
+import { ApiCollectionResponse } from '../../types/common-types';
+import { PaginationConfiguration } from '../../helpers/shared/pagination';
 
-export const fetchPlatforms = () => (dispatch) => {
+export const fetchPlatforms = () => (
+  dispatch: Dispatch
+): Promise<{ type: string; payload: Source }> => {
   dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_PENDING` });
   return PlatformHelper.getPlatforms()
     .then((data) =>
@@ -18,7 +29,11 @@ export const fetchPlatforms = () => (dispatch) => {
     );
 };
 
-export const fetchPlatformItems = (platformId, filter, options) => ({
+export const fetchPlatformItems = (
+  platformId: string,
+  filter: string,
+  options: PaginationConfiguration
+): AsyncMiddlewareAction<ApiCollectionResponse<ServiceOffering>> => ({
   type: ActionTypes.FETCH_PLATFORM_ITEMS,
   payload: PlatformHelper.getPlatformItems(platformId, filter, options),
   meta: {
@@ -28,7 +43,14 @@ export const fetchPlatformItems = (platformId, filter, options) => ({
   }
 });
 
-export const fetchMultiplePlatformItems = (platformsId) => {
+export const fetchMultiplePlatformItems = (
+  platformsId: string[]
+): {
+  type: string;
+  payload: Promise<
+    [] | { [x: string]: ApiCollectionResponse<ServiceOffering> }
+  >;
+} => {
   const platformPromisses = platformsId.map((platformId) =>
     PlatformHelper.getPlatformItems(platformId).then((data) => ({
       [platformId]: data
@@ -48,24 +70,26 @@ export const fetchMultiplePlatformItems = (platformsId) => {
   };
 };
 
-export const fetchSelectedPlatform = (id) => ({
+export const fetchSelectedPlatform = (
+  id: string
+): AsyncMiddlewareAction<Source> => ({
   type: ActionTypes.FETCH_PLATFORM,
   payload: PlatformHelper.getPlatform(id)
 });
 
-export const searchPlatformItems = (value) => ({
-  type: ActionTypes.FILTER_PLATFORM_ITEMS,
-  payload: new Promise((resolve) => {
-    resolve(value);
-  })
-});
-
-export const fetchPlatformInventories = (platformId, filter, options) => ({
+export const fetchPlatformInventories = (
+  platformId: string,
+  filter: string,
+  options: PaginationConfiguration
+): AsyncMiddlewareAction<ApiCollectionResponse<ServiceInventory>> => ({
   type: ActionTypes.FETCH_PLATFORM_INVENTORIES,
   payload: PlatformHelper.getPlatformInventories(platformId, filter, options)
 });
 
-export const fetchServiceOffering = (...args) => ({
+export const fetchServiceOffering = (
+  serviceOfferingId: string,
+  sourceId: string
+): AsyncMiddlewareAction<{ service: ServiceOffering; source: Source }> => ({
   type: ActionTypes.FETCH_SERVICE_OFFERING,
-  payload: PlatformHelper.getServiceOffering(...args)
+  payload: PlatformHelper.getServiceOffering(serviceOfferingId, sourceId)
 });

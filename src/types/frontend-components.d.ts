@@ -59,6 +59,13 @@ type InternalReducerHash<T> = (
   initialState: InternalAnyObject
 ) => ReducerHandler<T>;
 
+interface NotificationConfig {
+  variant: 'success' | 'info' | 'error';
+  title: React.ReactNode;
+  dismissable?: boolean;
+  description?: React.ReactNode | React.ComponentType;
+}
+
 /**
  * Frontend components do not provide TS typings so we have to define them
  */
@@ -99,6 +106,12 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
 }
 
 declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actions' {
+  export type AddNotification = (
+    notification: NotificationConfig
+  ) => {
+    type: string;
+  };
+  export const addNotification: AddNotification;
   export const clearNotifications: () => { type: string };
   export default clearNotifications;
 }

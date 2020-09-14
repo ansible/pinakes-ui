@@ -1,3 +1,4 @@
+import { Order, OrderItem } from '@redhat-cloud-services/catalog-client';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
 
 export interface StringObject {
@@ -39,10 +40,10 @@ export interface ActionMeta extends PaginationConfiguration, AnyObject {
   filters?: StringObject;
   platformId?: string;
 }
-export interface ReduxAction {
+export interface ReduxAction<T = any> {
   type: string;
-  payload?: any;
-  meta: ActionMeta;
+  payload?: T;
+  meta?: ActionMeta;
 }
 
 export type ReduxActionHandler<T /**Reducer state definition */> = (
@@ -87,4 +88,8 @@ export interface PortfolioStatistics {
 export interface PortfolioMetadata {
   user_capabilities: UserCapabilities;
   statistics: PortfolioStatistics;
+}
+
+export interface EnhancedOrder extends Order {
+  orderItem: OrderItem;
 }

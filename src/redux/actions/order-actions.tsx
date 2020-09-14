@@ -5,18 +5,45 @@ import * as ActionTypes from '../action-types';
 import * as OrderHelper from '../../helpers/order/order-helper';
 import OrderNotification from '../../presentational-components/order/order-notification';
 import { defaultSettings } from '../../helpers/shared/pagination';
+import {
+  Order,
+  OrderItem,
+  OrderStateEnum,
+  Portfolio,
+  PortfolioItem,
+  ProgressMessage,
+  ServicePlan
+} from '@redhat-cloud-services/catalog-client';
+import { AnyObject } from '@data-driven-forms/react-form-renderer';
+import { Dispatch } from 'redux';
+import {
+  Full,
+  StringObject,
+  ReduxAction,
+  ApiCollectionResponse
+} from '../../types/common-types';
+import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
+import { Source } from '@redhat-cloud-services/sources-client';
+import { ObjectNotFound } from '../../helpers/order/new-order-helper';
 
-export const fetchServicePlans = (portfolioItemId) => ({
+export const fetchServicePlans = (
+  portfolioItemId: string
+): AsyncMiddlewareAction<ApiCollectionResponse<ServicePlan>> => ({
   type: ActionTypes.FETCH_SERVICE_PLANS,
   payload: OrderHelper.getServicePlans(portfolioItemId)
 });
 
-export const setSelectedPlan = (data) => ({
+export const setSelectedPlan = (
+  data: ServicePlan
+): ReduxAction<ServicePlan> => ({
   type: ActionTypes.SET_SELECTED_PLAN,
   payload: data
 });
 
-export const sendSubmitOrder = (apiProps, portfolioItem) => (dispatch) =>
+export const sendSubmitOrder = (
+  apiProps: AnyObject,
+  portfolioItem: Full<PortfolioItem>
+) => (dispatch: Dispatch): AsyncMiddlewareAction =>
   dispatch({
     type: ActionTypes.SUBMIT_SERVICE_ORDER,
     payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id, orderItem }) =>
@@ -26,12 +53,12 @@ export const sendSubmitOrder = (apiProps, portfolioItem) => (dispatch) =>
           title: 'Your order has been accepted successfully',
           description: (
             <OrderNotification
-              id={id}
+              id={id!}
               dispatch={dispatch}
               portfolioItemId={portfolioItem.id}
               portfolioId={portfolioItem.portfolio_id}
               platformId={portfolioItem.service_offering_source_ref}
-              orderItemId={orderItem.id}
+              orderItemId={orderItem.id!}
             />
           ),
           dismissable: true
@@ -40,14 +67,17 @@ export const sendSubmitOrder = (apiProps, portfolioItem) => (dispatch) =>
     )
   });
 
-export const cancelOrder = (orderId) => (dispatch, getState) => {
+export const cancelOrder = (orderId: string) => (
+  dispatch: Dispatch,
+  getState: GetReduxState
+): Promise<void | { type: string }> => {
   dispatch({ type: `${ActionTypes.CANCEL_ORDER}_PENDING` });
   const {
     orderReducer: { orderDetail }
   } = getState();
   return OrderHelper.cancelOrder(orderId)
     .then(() => {
-      orderDetail.order.state = 'Canceled';
+      orderDetail.order.state = OrderStateEnum.Canceled;
       if (
         orderDetail.approvalRequest &&
         orderDetail.approvalRequest.length > 0
@@ -80,9 +110,10 @@ export const cancelOrder = (orderId) => (dispatch, getState) => {
     });
 };
 
-export const fetchOrders = (filters, pagination = defaultSettings) => (
-  dispatch
-) => {
+export const fetchOrders = (
+  filters: StringObject,
+  pagination = defaultSettings
+) => (dispatch: Dispatch): Promise<ReduxAction> => {
   let queryFilter = Object.entries(filters)
     .filter(([, value]) => value && value.length > 0)
     .map(([key, value]) =>
@@ -124,7 +155,19 @@ export const fetchOrders = (filters, pagination = defaultSettings) => (
     );
 };
 
-export const fetchOrderDetails = (params) => (dispatch) => {
+export const fetchOrderDetails = (params: OrderHelper.GetOrderDetailParams) => (
+  dispatch: Dispatch
+): Promise<{
+  type: string;
+  payload: {
+    order: Order | ObjectNotFound;
+    orderItem: OrderItem | ObjectNotFound;
+    portfolioItem: PortfolioItem | ObjectNotFound;
+    platform: Source | ObjectNotFound;
+    progressMessages: ProgressMessage | ObjectNotFound;
+    portfolio: Portfolio | ObjectNotFound;
+  };
+}> => {
   dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
   return OrderHelper.getOrderDetail(params)
     .then(
@@ -134,8 +177,7 @@ export const fetchOrderDetails = (params) => (dispatch) => {
         portfolioItem,
         platform,
         progressMessages,
-        portfolio,
-        approvalRequest
+        portfolio
       ]) =>
         dispatch({
           type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`,
@@ -145,8 +187,7 @@ export const fetchOrderDetails = (params) => (dispatch) => {
             portfolioItem,
             platform,
             progressMessages,
-            portfolio,
-            approvalRequest
+            portfolio
           }
         })
     )
@@ -158,7 +199,18 @@ export const fetchOrderDetails = (params) => (dispatch) => {
     );
 };
 
-export const fetchApprovalRequests = (orderItemId) => (dispatch) => {
+export const fetchApprovalRequests = (orderItemId: string) => (
+  dispatch: Dispatch
+): Promise<
+  | {
+      data: {
+        group_name: string;
+        state: string;
+        updated?: string | undefined;
+      }[];
+    }
+  | { type: string; payload: any } /** the action in catch branch */
+> => {
   dispatch({ type: `${ActionTypes.FETCH_APPROVAL_REQUESTS}_PENDING` });
   return OrderHelper.getApprovalRequests(orderItemId)
     .then((data) => {

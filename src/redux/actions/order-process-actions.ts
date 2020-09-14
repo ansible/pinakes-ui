@@ -1,9 +1,20 @@
 import * as ActionTypes from '../action-types';
 import * as OrderProcessHelper from '../../helpers/order-process/order-process-helper';
 import orderProcessesMessages from '../../messages/order-processes.messages';
+import { PaginationConfiguration } from '../../helpers/shared/pagination';
+import { Dispatch } from 'redux';
+import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
+import { ApiCollectionResponse, ReduxAction } from '../../types/common-types';
+import { Order, OrderProcess } from '@redhat-cloud-services/catalog-client';
+import { IntlShape } from 'react-intl';
+import { ResourceObject } from '@redhat-cloud-services/approval-client';
+import { AxiosResponse } from 'axios';
 
-export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
-  const { sortBy, orderProcesses } = getState().orderProcessReducer;
+export const fetchOrderProcesses = (pagination: PaginationConfiguration) => (
+  dispatch: Dispatch,
+  getState: GetReduxState
+): AsyncMiddlewareAction<ApiCollectionResponse<Order>> => {
+  const { orderProcesses } = getState().orderProcessReducer;
 
   let finalPagination = pagination;
 
@@ -22,18 +33,22 @@ export const fetchOrderProcesses = (pagination) => (dispatch, getState) => {
     },
     payload: OrderProcessHelper.listOrderProcesses(
       pagination?.filterValue,
-      finalPagination,
-      sortBy
+      finalPagination
     )
   });
 };
 
-export const fetchOrderProcess = (apiProps) => ({
+export const fetchOrderProcess = (
+  id: string
+): AsyncMiddlewareAction<OrderProcess> => ({
   type: ActionTypes.FETCH_ORDER_PROCESS,
-  payload: OrderProcessHelper.fetchOrderProcess(apiProps)
+  payload: OrderProcessHelper.fetchOrderProcess(id)
 });
 
-export const addOrderProcess = (processData, intl) => ({
+export const addOrderProcess = (
+  processData: OrderProcess,
+  intl: IntlShape
+): AsyncMiddlewareAction<[OrderProcess, OrderProcess | undefined]> => ({
   type: ActionTypes.ADD_ORDER_PROCESS,
   payload: OrderProcessHelper.addOrderProcess(processData),
   meta: {
@@ -51,7 +66,11 @@ export const addOrderProcess = (processData, intl) => ({
   }
 });
 
-export const updateOrderProcess = (processId, data, intl) => ({
+export const updateOrderProcess = (
+  processId: string,
+  data: Partial<OrderProcess>,
+  intl: IntlShape
+): AsyncMiddlewareAction<OrderProcess> => ({
   type: ActionTypes.UPDATE_ORDER_PROCESS,
   payload: OrderProcessHelper.updateOrderProcess(processId, data),
   meta: {
@@ -67,17 +86,24 @@ export const updateOrderProcess = (processId, data, intl) => ({
   }
 });
 
-export const sortOrderProcesses = (sortBy) => ({
+export const sortOrderProcesses = (sortBy: string): ReduxAction<string> => ({
   type: ActionTypes.SORT_ORDER_PROCESSES,
   payload: sortBy
 });
 
-export const setOrderProcess = (...args) => ({
+export const setOrderProcess = (
+  toTag: string[],
+  toUntag: string[],
+  resourceType: ResourceObject
+): AsyncMiddlewareAction<AxiosResponse<void>[]> => ({
   type: ActionTypes.SET_ORDER_PROCESS,
-  payload: OrderProcessHelper.setOrderProcesses(...args)
+  payload: OrderProcessHelper.setOrderProcesses(toTag, toUntag, resourceType)
 });
 
-export const removeOrderProcess = (orderProcess, intl) => ({
+export const removeOrderProcess = (
+  orderProcess: string,
+  intl: IntlShape
+): AsyncMiddlewareAction<void> => ({
   type: ActionTypes.REMOVE_ORDER_PROCESS,
   payload: OrderProcessHelper.removeOrderProcess(orderProcess),
   meta: {
@@ -95,7 +121,10 @@ export const removeOrderProcess = (orderProcess, intl) => ({
   }
 });
 
-export const removeOrderProcesses = (orderProcesses, intl) => ({
+export const removeOrderProcesses = (
+  orderProcesses: string[],
+  intl: IntlShape
+): AsyncMiddlewareAction<AxiosResponse<void>[]> => ({
   type: ActionTypes.REMOVE_ORDER_PROCESSES,
   payload: OrderProcessHelper.removeOrderProcesses(orderProcesses),
   meta: {

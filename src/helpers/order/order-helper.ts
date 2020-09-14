@@ -17,7 +17,12 @@ import {
   fetchOrderDetailSequence,
   OrderDetailPayload
 } from './new-order-helper';
-import { ApiCollectionResponse, Full } from '../../types/common-types';
+import {
+  ApiCollectionResponse,
+  ApiMetadata,
+  EnhancedOrder,
+  Full
+} from '../../types/common-types';
 import {
   ServicePlan,
   Order,
@@ -27,7 +32,6 @@ import {
 } from '@redhat-cloud-services/catalog-client';
 import { AxiosPromise } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
-import { CatalogOrder } from '../../redux/reducers/order-reducer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
 
 const orderApi = getOrderApi();
@@ -38,15 +42,15 @@ const graphqlInstance = getGraphqlInstance();
 
 export const getServicePlans = (
   portfolioItemId: string
-): AxiosPromise<ApiCollectionResponse<ServicePlan>> =>
-  (portfolioItemApi.listServicePlans(
-    portfolioItemId
-  ) as unknown) as AxiosPromise<ApiCollectionResponse<ServicePlan>>;
+): Promise<ApiCollectionResponse<ServicePlan>> =>
+  (portfolioItemApi.listServicePlans(portfolioItemId) as unknown) as Promise<
+    ApiCollectionResponse<ServicePlan>
+  >;
 
 export const sendSubmitOrder = async ({
   service_parameters: { providerControlParameters, ...service_parameters },
   ...parameters
-}: AnyObject): Promise<Order> => {
+}: AnyObject): Promise<EnhancedOrder> => {
   const order: Order = ((await orderApi.createOrder()) as unknown) as Order;
   let orderItem: Partial<OrderItem> = {};
   orderItem.count = 1;
@@ -60,11 +64,10 @@ export const sendSubmitOrder = async ({
     order.id as string,
     orderItem as OrderItem
   );
-  return orderApi
-    .submitOrder(order.id as string)
-    .then((order) => ({ ...order, orderItem: orderItemResponse })) as Promise<
-    Order
-  >;
+  return orderApi.submitOrder(order.id as string).then((order) => ({
+    ...order,
+    orderItem: (orderItemResponse as unknown) as OrderItem
+  }));
 };
 
 export const cancelOrder = (orderId: string): AxiosPromise<Order> =>
@@ -91,7 +94,11 @@ const getOrderPortfolioItems = (
 export const getOrders = (
   filter = '',
   pagination = defaultSettings
-): Promise<ApiCollectionResponse<CatalogOrder>> =>
+): Promise<{
+  data: (Order & { orderItems: OrderItem[] })[];
+  portfolioItems: ApiCollectionResponse<PortfolioItem>;
+  meta: ApiMetadata;
+}> =>
   axiosInstance
     .get(
       `${CATALOG_API_BASE}/orders?${filter}&limit=${pagination.limit}&offset=${pagination.offset}`
@@ -122,13 +129,16 @@ export const getOrderApprovalRequests = (
     ApiCollectionResponse<Request>
   >;
 
-export const getOrderDetail = (params: {
+export interface GetOrderDetailParams {
   order: string;
   'order-item'?: string;
   'portfolio-item'?: string;
   platform?: string;
   portfolio?: string;
-}): Promise<OrderDetailPayload> => {
+}
+export const getOrderDetail = (
+  params: GetOrderDetailParams
+): Promise<OrderDetailPayload> => {
   if (Object.values(params).some((value) => !value)) {
     /**
      * Try to fetch data sequentially if any of the parameters is unknow

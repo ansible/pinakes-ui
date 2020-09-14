@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentType, ReactElement, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
@@ -16,14 +16,14 @@ export interface OrderNotificationProps {
   orderItemId: string;
 }
 
-const OrderNotification: ReactNode = ({
+const OrderNotification: ComponentType<OrderNotificationProps> = ({
   id,
   dispatch,
   portfolioItemId,
   portfolioId,
   platformId,
   orderItemId
-}: OrderNotificationProps) => {
+}) => {
   const formatMessage = useFormatMessage();
   return formatMessage(ordersMessages.orderSuccess, {
     id,
@@ -39,7 +39,7 @@ const OrderNotification: ReactNode = ({
         {chunks}
       </Link>
     )
-  });
+  }) as ReactElement;
 };
 
 export default OrderNotification;
