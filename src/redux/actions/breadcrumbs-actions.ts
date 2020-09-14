@@ -6,7 +6,7 @@ import {
 } from '../../helpers/shared/breadcrumbs-creators';
 import { Dispatch } from 'redux';
 import { BreadcrumbFragment } from '../reducers/breadcrumbs-reducer';
-import { CatalogRootState } from '../../types/redux';
+import { GetReduxState } from '../../types/redux';
 import { AnyObject, ReduxAction } from '../../types/common-types';
 
 export const createBreadcrumbsFromLocations = (
@@ -14,7 +14,7 @@ export const createBreadcrumbsFromLocations = (
   search: AnyObject = {}
 ) => (
   dispatch: Dispatch,
-  getState: () => CatalogRootState
+  getState: GetReduxState
 ): ReduxAction<BreadcrumbFragment[]> => {
   if (pathname.length === 0) {
     return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: [] });
@@ -30,7 +30,7 @@ export const createBreadcrumbsFromLocations = (
 
       const generateTitle = (FRAGMENT_TITLE[
         pathname as keyof typeof FRAGMENT_TITLE
-      ] as unknown) as (getState: () => CatalogRootState) => string;
+      ] as unknown) as (getState: GetReduxState) => string;
       if (!generateTitle) {
         return acc;
       }

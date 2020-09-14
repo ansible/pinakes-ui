@@ -63,7 +63,7 @@ interface NotificationConfig {
   variant: 'success' | 'info' | 'error';
   title: React.ReactNode;
   dismissable?: boolean;
-  description?: React.ReactNode;
+  description?: React.ReactNode | React.ComponentType;
 }
 
 /**

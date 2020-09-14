@@ -2,10 +2,10 @@ import React, { Fragment, ReactNode } from 'react';
 import { useIntl, MessageDescriptor } from 'react-intl';
 import { AnyObject } from '../types/common-types';
 
-export type UseFormatMessage = () => (
+export type UseFormatMessage<T = undefined> = () => (
   message: MessageDescriptor,
   values?: AnyObject
-) => ReactNode;
+) => ReactNode | React.ComponentType<T>;
 
 const useFormatMessage: UseFormatMessage = () => {
   const { formatMessage } = useIntl();

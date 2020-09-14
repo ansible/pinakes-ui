@@ -10,7 +10,7 @@ import { defaultSettings } from '../../helpers/shared/pagination';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import extractFormatMessage from '../../utilities/extract-format-message';
 import approvalMessages from '../../messages/approval.messages';
-import { AsyncMiddlewareAction, CatalogRootState } from '../../types/redux';
+import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
 import {
   ResourceObject,
   Workflow
@@ -30,10 +30,7 @@ export const updateWorkflows = (
   toLinkIds: string[],
   toUnlinkIds: string[],
   resourceObject: ResourceObject
-) => (
-  dispatch: Dispatch,
-  getState: () => CatalogRootState
-): AsyncMiddlewareAction => {
+) => (dispatch: Dispatch, getState: GetReduxState): AsyncMiddlewareAction => {
   const formatMessage = extractFormatMessage(getState);
   return dispatch({
     type: ASYNC_ACTIONS.UPDATE_WORKFLOWS,

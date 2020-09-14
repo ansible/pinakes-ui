@@ -1,3 +1,4 @@
+import { Order, OrderItem } from '@redhat-cloud-services/catalog-client';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
 
 export interface StringObject {
@@ -87,4 +88,8 @@ export interface PortfolioStatistics {
 export interface PortfolioMetadata {
   user_capabilities: UserCapabilities;
   statistics: PortfolioStatistics;
+}
+
+export interface EnhancedOrder extends Order {
+  orderItem: OrderItem;
 }

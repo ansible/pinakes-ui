@@ -25,5 +25,8 @@ export interface CatalogRootState {
 
 export interface AsyncMiddlewareAction<T = any>
   extends Omit<FluxStandardAction, 'payload'> {
+  type?: string;
   payload?: Promise<T>;
 }
+
+export type GetReduxState = () => CatalogRootState;
