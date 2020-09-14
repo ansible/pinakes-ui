@@ -39,8 +39,8 @@ export const getPlatform = (platformId: string): Promise<Source> => {
 
 export const getPlatformItems = (
   platformId: string,
-  filter: string,
-  options: PaginationConfiguration
+  filter?: string,
+  options?: PaginationConfiguration
 ): Promise<ApiCollectionResponse<ServiceOffering>> => {
   const filterQuery = filter ? `&filter[name][contains_i]=${filter}` : '';
   if (platformId) {
