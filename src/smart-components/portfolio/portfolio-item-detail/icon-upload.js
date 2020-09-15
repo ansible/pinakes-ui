@@ -55,6 +55,13 @@ const ImagePreview = styled.img`
   object-fit: cover;
 `;
 
+const StyledDropdown = styled(Dropdown)`
+  .pf-c-dropdown__menu {
+    top: 24px;
+    left: calc(100% - 24px);
+  }
+`;
+
 const IconUpload = ({ uploadIcon, resetIcon, enableReset, children }) => {
   const formatMessage = useFormatMessage();
   const inputRef = useRef();
@@ -116,7 +123,7 @@ const IconUpload = ({ uploadIcon, resetIcon, enableReset, children }) => {
         id="icon-upload"
         hidden
       />
-      <Dropdown
+      <StyledDropdown
         onSelect={() => setIsOpen(false)}
         isOpen={isOpen}
         isPlain

@@ -3,11 +3,11 @@ import { defineMessages } from 'react-intl';
 const iconMessages = defineMessages({
   changeIcon: {
     id: 'icons.actions.change',
-    defaultMessage: 'Change icon'
+    defaultMessage: 'Upload image'
   },
   resetIcon: {
     id: 'icons.actions.reset',
-    defaultMessage: 'Reset icon'
+    defaultMessage: 'Reset image'
   }
 });
 
