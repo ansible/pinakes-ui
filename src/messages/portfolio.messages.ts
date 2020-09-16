@@ -1,4 +1,4 @@
-const { defineMessages } = require('react-intl');
+import { defineMessages } from 'react-intl';
 
 const portfolioMessages = defineMessages({
   portfoliosTitle: {

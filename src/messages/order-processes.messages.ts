@@ -1,4 +1,4 @@
-const { defineMessages } = require('react-intl');
+import { defineMessages } from 'react-intl';
 
 const orderProcessesMessages = defineMessages({
   noOrderProcessesDescription: {
@@ -39,7 +39,7 @@ const orderProcessesMessages = defineMessages({
   },
   setOrderProcessSubtitle: {
     id: 'order-process.tags.set',
-    defaultMessage: 'Set order processes for <strong>{objectType}</strong>'
+    defaultMessage: 'Set order processes for <strong>{object}</strong>'
   },
   currentOrderProcesses: {
     id: 'order-process.set-order-process.current',

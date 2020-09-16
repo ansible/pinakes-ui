@@ -1,10 +1,14 @@
 import { ReactNode } from 'react';
 import { INITIALIZE_BREADCRUMBS } from '../action-types';
-import { AnyObject, ReduxActionHandler } from '../../types/common-types';
+import {
+  AnyObject,
+  ReduxActionHandler,
+  StringObject
+} from '../../types/common-types';
 
 export interface BreadcrumbFragment {
   pathname: string;
-  searchParams?: string;
+  searchParams?: StringObject;
   title?: ReactNode;
 }
 export interface BreadcrumbsReducerState extends AnyObject {

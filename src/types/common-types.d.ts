@@ -1,3 +1,4 @@
+import { Order, OrderItem } from '@redhat-cloud-services/catalog-client';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
 
 export interface StringObject {
@@ -10,8 +11,8 @@ export interface AnyObject {
 
 export interface ApiMetadata extends AnyObject {
   count?: number;
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
 }
 
 export interface ApiCollectionResponse<
@@ -39,10 +40,10 @@ export interface ActionMeta extends PaginationConfiguration, AnyObject {
   filters?: StringObject;
   platformId?: string;
 }
-export interface ReduxAction {
+export interface ReduxAction<T = any> {
   type: string;
-  payload?: any;
-  meta: ActionMeta;
+  payload?: T;
+  meta?: ActionMeta;
 }
 
 export type ReduxActionHandler<T /**Reducer state definition */> = (
@@ -59,3 +60,36 @@ export interface SelectOption extends AnyObject {
 export type SelectOptions = SelectOption[];
 
 export type LoadOptions = (value: string) => Promise<SelectOptions>;
+
+export interface InternalResourceObject {
+  appName: string;
+  objectType: string;
+  objectId: string;
+}
+
+export type Full<T> = {
+  [P in keyof T]-?: T[P];
+};
+
+export interface UserCapabilities {
+  share?: boolean;
+  copy?: boolean;
+  unshare?: boolean;
+  update?: boolean;
+  destroy?: boolean;
+  set_approval?: boolean;
+}
+
+export interface PortfolioStatistics {
+  shared_groups: number;
+  portfolio_items: number;
+}
+
+export interface PortfolioMetadata {
+  user_capabilities: UserCapabilities;
+  statistics: PortfolioStatistics;
+}
+
+export interface EnhancedOrder extends Order {
+  orderItem: OrderItem;
+}

@@ -6,9 +6,11 @@
     "node": true
   },
   "settings": {
-    "react": {
-      "version": "16.0"
-    }
+    "react": { "version": "detect" },
+    "import/resolver": { "typescript": {} }
+  },
+  "ecmaFeatures": {
+    "jsx": true
   },
   "extends": [
     "plugin:prettier/recommended",
@@ -83,12 +85,7 @@
       }
     ],
     "no-trailing-spaces": 2,
-    "no-use-before-define": [
-      "warn",
-      {
-        "functions": false
-      }
-    ],
+    "no-use-before-define": [0],
     "no-undef": 2,
     "no-unused-vars": [
       "error",
@@ -145,6 +142,8 @@
       "never"
     ],
     "react/prop-types": 2,
-    "@typescript-eslint/no-var-requires": "off"
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-use-before-define": [1]
+
   }
 }

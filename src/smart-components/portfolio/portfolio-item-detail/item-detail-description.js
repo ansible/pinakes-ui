@@ -18,7 +18,8 @@ const ItemDetailDescription = ({
   url,
   search,
   detailPaths,
-  uploadIcon
+  uploadIcon,
+  resetIcon
 }) => {
   const formatMessage = useFormatMessage();
   return (
@@ -36,6 +37,7 @@ const ItemDetailDescription = ({
         <SetOrderProcessModal
           querySelector="portfolio-item"
           objectType={PORTFOLIO_ITEM_RESOURCE_TYPE}
+          objectName={() => product.name}
           pushParam={{ pathname: url, search }}
         />
       </Route>
@@ -100,6 +102,7 @@ const ItemDetailDescription = ({
           product={product}
           userCapabilities={userCapabilities}
           uploadIcon={uploadIcon}
+          resetIcon={resetIcon}
         />
       </CatalogRoute>
     </Switch>
@@ -119,7 +122,8 @@ ItemDetailDescription.propTypes = {
   search: PropTypes.string.isRequired,
   userCapabilities: PropTypes.object.isRequired,
   detailPaths: PropTypes.arrayOf(PropTypes.string),
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  resetIcon: PropTypes.func.isRequired
 };
 
 export default ItemDetailDescription;

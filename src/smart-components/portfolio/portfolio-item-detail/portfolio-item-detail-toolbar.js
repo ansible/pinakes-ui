@@ -56,7 +56,6 @@ export const PortfolioItemDetailToolbar = ({
   return (
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
-      breadcrumbsSpacing={false}
       breadcrumbs={!fromProducts}
     >
       {fromProducts && <BackToProducts />}
@@ -167,7 +166,7 @@ export const SurveyEditingToolbar = ({
 }) => {
   const formatMessage = useFormatMessage();
   return (
-    <TopToolbar breadcrumbsSpacing={false} breadcrumbs>
+    <TopToolbar breadcrumbs>
       <Level>
         <StyledLevelItem grow alignStart className="pf-l-flex">
           <TextContent>

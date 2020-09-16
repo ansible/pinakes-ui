@@ -217,6 +217,9 @@ export const copyPortfolioItem = (
 ): AxiosPromise<PortfolioItem> =>
   portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
 
+export const resetPortfolioItemIcon = (iconId: string): AxiosPromise<void> =>
+  axiosInstance.delete(`${CATALOG_API_BASE}/icons/${iconId}`);
+
 export const uploadPortfolioItemIcon = (
   portfolioItemId: string,
   file: File,

@@ -46,10 +46,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                       className="pf-c-content"
                     >
                       <CatalogLink
-                        nav={false}
                         pathname="/platform/platform-templates"
-                        preserveHash={false}
-                        preserveSearch={false}
                         searchParams={
                           Object {
                             "platform": undefined,
@@ -209,10 +206,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                       className="pf-c-content"
                     >
                       <CatalogLink
-                        nav={false}
                         pathname="/platform/platform-templates"
-                        preserveHash={false}
-                        preserveSearch={false}
                         searchParams={
                           Object {
                             "platform": undefined,

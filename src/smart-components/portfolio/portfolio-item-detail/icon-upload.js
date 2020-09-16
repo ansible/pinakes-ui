@@ -1,14 +1,20 @@
 import React, { useState, useRef } from 'react';
 import { PencilAltIcon } from '@patternfly/react-icons';
-import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
+import {
+  Spinner,
+  Dropdown,
+  DropdownToggle,
+  DropdownItem
+} from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 import styled from 'styled-components';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import iconMessages from '../../../messages/icon.messages';
 
-const UploadButton = styled.button`
+const UploadButton = styled.span`
   border: none;
   position: absolute;
   top: 0;
@@ -29,7 +35,8 @@ const UploadButton = styled.button`
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 0;
   }
-  svg {
+  svg,
+  .pf-c-spinner {
     z-index: 1;
     position: absolute;
     top: 0;
@@ -48,13 +55,44 @@ const ImagePreview = styled.img`
   object-fit: cover;
 `;
 
-const IconUpload = ({ uploadIcon, children }) => {
+const StyledDropdown = styled(Dropdown)`
+  .pf-c-dropdown__menu {
+    top: 24px;
+    left: calc(100% - 24px);
+  }
+`;
+
+const IconUpload = ({ uploadIcon, resetIcon, enableReset, children }) => {
   const formatMessage = useFormatMessage();
   const inputRef = useRef();
   const [image, setImage] = useState();
   const [isUploading, setIsUploading] = useState(false);
-  const handleClick = () => inputRef.current.click();
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClick = () => {
+    setIsOpen(false);
+    return inputRef.current.click();
+  };
+
+  const handleReset = () => {
+    setImage(undefined);
+    setIsUploading(true);
+    return resetIcon().then(() => setIsUploading(false));
+  };
+
   const dispatch = useDispatch();
+
+  const dropdownItems = [
+    <DropdownItem onClick={handleClick} key="change-icon">
+      {formatMessage(iconMessages.changeIcon)}
+    </DropdownItem>,
+    <DropdownItem
+      isDisabled={!enableReset}
+      onClick={handleReset}
+      key="reset-icon"
+    >
+      {formatMessage(iconMessages.resetIcon)}
+    </DropdownItem>
+  ];
 
   return (
     <UploadIconWrapper>
@@ -85,17 +123,39 @@ const IconUpload = ({ uploadIcon, children }) => {
         id="icon-upload"
         hidden
       />
-      <UploadButton disabled={isUploading} onClick={handleClick}>
-        {isUploading ? <Spinner size="md" /> : <PencilAltIcon size="sm" />}
-      </UploadButton>
-      {!image && children}
-      {image && (
-        <ImagePreview
-          style={{ height: 64 }}
-          src={URL.createObjectURL(image)}
-          id={image.name}
-        />
-      )}
+      <StyledDropdown
+        onSelect={() => setIsOpen(false)}
+        isOpen={isOpen}
+        isPlain
+        disabled={isUploading}
+        dropdownItems={dropdownItems}
+        toggle={
+          <DropdownToggle
+            disabled={isUploading}
+            toggleIndicator={null}
+            onToggle={(isOpen, event) => {
+              event.stopPropagation();
+              setIsOpen(isOpen);
+            }}
+          >
+            <UploadButton>
+              {isUploading ? (
+                <Spinner size="md" />
+              ) : (
+                <PencilAltIcon size="sm" />
+              )}
+            </UploadButton>
+            {!image && children}
+            {image && (
+              <ImagePreview
+                style={{ height: 64 }}
+                src={URL.createObjectURL(image)}
+                id={image.name}
+              />
+            )}
+          </DropdownToggle>
+        }
+      />
     </UploadIconWrapper>
   );
 };
@@ -105,7 +165,9 @@ IconUpload.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
-  ])
+  ]),
+  resetIcon: PropTypes.func.isRequired,
+  enableReset: PropTypes.bool
 };
 
 export default IconUpload;
