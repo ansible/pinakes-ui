@@ -14,6 +14,7 @@ import CardIcon from '../../../presentational-components/shared/card-icon';
 const EditPortfolioItem = ({
   cancelUrl,
   uploadIcon,
+  resetIcon,
   product: { owner, created_at, updated_at, ...product },
   userCapabilities
 }) => {
@@ -22,10 +23,16 @@ const EditPortfolioItem = ({
   const { search } = useLocation();
   return (
     <Stack hasGutter>
-      <StackItem>
-        <IconUpload uploadIcon={uploadIcon}>
+      <StackItem key={product.icon_id || 'default'}>
+        <IconUpload
+          uploadIcon={uploadIcon}
+          resetIcon={resetIcon}
+          enableReset={!!product.icon_id}
+        >
           <CardIcon
-            src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
+            src={`${CATALOG_API_BASE}/portfolio_items/${
+              product.id
+            }/icon?cache_id=${product.icon_id || 'default'}`} // we need ho add the query to prevent the browser caching when reseting the image
             sourceId={product.service_offering_source_ref}
             height={64}
           />
@@ -66,7 +73,8 @@ EditPortfolioItem.propTypes = {
   cancelUrl: PropTypes.string.isRequired,
   product: PropTypes.object.isRequired,
   userCapabilities: PropTypes.object.isRequired,
-  uploadIcon: PropTypes.func.isRequired
+  uploadIcon: PropTypes.func.isRequired,
+  resetIcon: PropTypes.func.isRequired
 };
 
 export default EditPortfolioItem;

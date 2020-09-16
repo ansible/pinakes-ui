@@ -105,7 +105,7 @@ const setPlatforms: PlatformReducerActionHandler = (state, { payload }) => ({
 });
 const setPlatformItems: PlatformReducerActionHandler = (
   state,
-  { payload, meta: { platformId } }
+  { payload, meta: { platformId } = {} }
 ) => ({
   ...state,
   platformItems: {

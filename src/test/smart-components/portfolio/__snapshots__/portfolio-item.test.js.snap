@@ -47,9 +47,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           className="pf-l-level sc-fznZeY dhizEt"
                         >
                           <CardIcon
-                            height={40}
                             src="/api/catalog/v1.2/portfolio_items/1/icon"
-                            style={Object {}}
                           >
                             <styled.div
                               height={40}
@@ -179,6 +177,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                         </TextContent>
                         <ItemDetails
                           description="Bar"
+                          display_name="quux"
                           id="1"
                           metadata={
                             Object {

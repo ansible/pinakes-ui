@@ -29,7 +29,6 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                 >
                   <CardIcon
                     height={40}
-                    style={Object {}}
                   >
                     <styled.div
                       height={40}

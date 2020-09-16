@@ -41,11 +41,9 @@ export const fetchOrderProcessByName = (
   name: string
 ): Promise<ApiCollectionResponse<OrderProcess>> => listOrderProcesses(name);
 
-export const fetchOrderProcess = (
-  id: string
-): Promise<ApiCollectionResponse<OrderProcess>> =>
+export const fetchOrderProcess = (id: string): Promise<OrderProcess> =>
   (getOrderProcessApi().showOrderProcess(id) as unknown) as Promise<
-    ApiCollectionResponse<OrderProcess>
+    OrderProcess
   >;
 
 export const setOrderProcesses = (

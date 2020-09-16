@@ -2,10 +2,8 @@
 
 exports[`<FilterToolbarItem /> should render correcntly 1`] = `
 <FilterToolbarItem
-  isClearable={false}
   onFilterChange={[MockFunction]}
   placeholder="Foo"
-  searchValue=""
 >
   <ToolbarItem>
     <div

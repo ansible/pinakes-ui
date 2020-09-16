@@ -13,7 +13,10 @@ import {
   ProductLoaderPlaceholder,
   AppPlaceholder
 } from '../../../presentational-components/shared/loader-placeholders';
-import { uploadPortfolioItemIcon } from '../../../helpers/portfolio/portfolio-helper';
+import {
+  uploadPortfolioItemIcon,
+  resetPortfolioItemIcon
+} from '../../../helpers/portfolio/portfolio-helper';
 import useQuery from '../../../utilities/use-query';
 import {
   PORTFOLIO_ITEM_ROUTE,
@@ -58,12 +61,11 @@ const PortfolioItemDetail = () => {
   );
   const fromProducts = queryValues['from-products'] === 'true';
 
-  useEffect(() => {
-    setIsFetching(true);
-    insights.chrome.appNavClick({
-      id: fromProducts ? 'products' : 'portfolios',
-      secondaryNav: true
-    });
+  const fetchData = (skipLoading) => {
+    if (!skipLoading) {
+      setIsFetching(true);
+    }
+
     dispatch(
       getPortfolioItemDetail({
         portfolioItem: queryValues['portfolio-item'],
@@ -72,6 +74,14 @@ const PortfolioItemDetail = () => {
     )
       .then(() => setIsFetching(false))
       .catch(() => setIsFetching(false));
+  };
+
+  useEffect(() => {
+    insights.chrome.appNavClick({
+      id: fromProducts ? 'products' : 'portfolios',
+      secondaryNav: true
+    });
+    fetchData();
   }, [queryValues['portfolio-item']]);
 
   if (isFetching || Object.keys(portfolioItem).length === 0) {
@@ -97,7 +107,10 @@ const PortfolioItemDetail = () => {
         title={formatMessage(portfolioMessages.objectUnavaiable, { object })}
       />
     ));
-  const uploadIcon = (file) => uploadPortfolioItemIcon(portfolioItem.id, file);
+  const uploadIcon = (file) =>
+    uploadPortfolioItemIcon(portfolioItem.id, file).then(() => fetchData(true));
+  const resetIcon = () =>
+    resetPortfolioItemIcon(portfolioItem.icon_id).then(fetchData);
   const detailPaths = [
     PORTFOLIO_ITEM_ROUTE,
     `${url}/order`,
@@ -162,6 +175,7 @@ const PortfolioItemDetail = () => {
                 lg={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 10}
               >
                 <ItemDetailDescription
+                  resetIcon={resetIcon}
                   uploadIcon={uploadIcon}
                   product={portfolioItem}
                   userCapabilities={userCapabilities}
