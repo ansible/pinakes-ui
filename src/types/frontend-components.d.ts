@@ -260,3 +260,9 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
   }
   export const PrimaryToolbar: React.ComponentType<PrimaryToolbarProps>;
 }
+
+declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes' {
+  const notificationsPrefix = '@@INSIGHTS-CORE/NOTIFICATIONS/';
+  export const ADD_NOTIFICATION = `${notificationsPrefix}ADD_NOTIFICATION`;
+  export const CLEAR_NOTIFICATIONS = `${notificationsPrefix}CLEAR_NOTIFICATIONS`;
+}

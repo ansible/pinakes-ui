@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
+import ReactFormRender, {
+  FormRendererProps as DDFFormRendererProps
+} from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
 import TextField from '@data-driven-forms/pf4-component-mapper/dist/cjs/text-field';
 import Textarea from '@data-driven-forms/pf4-component-mapper/dist/cjs/textarea';
@@ -20,9 +22,16 @@ import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 import InitialChips from '../../forms/form-fields/initial-chips';
 import useFormatMessage from '../../utilities/use-format-message';
-import FormTemplate from '../../forms/form-fields/form-template';
+import FormTemplate, {
+  FormTemplateProps,
+  InternalModalProps
+} from '../../forms/form-fields/form-template';
+import {
+  ComponentMapper,
+  Schema
+} from '@data-driven-forms/react-form-renderer';
 
-export const catalogComponentMapper = {
+export const catalogComponentMapper: ComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
   [componentTypes.TEXTAREA]: Textarea,
   [componentTypes.PLAIN_TEXT]: PlainText,
@@ -61,9 +70,17 @@ export const catalogValidatorAlias = {
   'url-validator': validatorTypes.URL
 };
 
-const FormRenderer = ({
+export interface FormRendererProps extends Partial<DDFFormRendererProps> {
+  isModal?: boolean;
+  templateProps?: Omit<FormTemplateProps, 'modalProps'>;
+  schema: Schema;
+  modalProps?: InternalModalProps;
+  onSubmit: (...args: any[]) => any;
+}
+
+const FormRenderer: React.ComponentType<FormRendererProps> = ({
   isModal,
-  templateProps,
+  templateProps = {},
   schema,
   modalProps,
   ...rest
@@ -87,19 +104,6 @@ const FormRenderer = ({
       />
     </div>
   );
-};
-
-FormRenderer.propTypes = {
-  formContainer: PropTypes.oneOf(['default', 'modal']),
-  isModal: PropTypes.bool,
-  templateProps: PropTypes.object,
-  schema: PropTypes.object.isRequired,
-  modalProps: PropTypes.object
-};
-
-FormRenderer.defaultProps = {
-  formContainer: 'default',
-  templateProps: {}
 };
 
 export default memo(FormRenderer);

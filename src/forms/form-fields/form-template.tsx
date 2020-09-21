@@ -34,7 +34,7 @@ const StyledForm = styled(({ variant, ...props }) => <form {...props} />)`
   max-height: calc(100% - 48px);
 `;
 
-interface InternalModalProps extends Omit<ModalProps, 'ref'> {
+export interface InternalModalProps extends Omit<ModalProps, 'ref'> {
   isLoading: boolean;
 }
 
@@ -127,8 +127,8 @@ const ModalFormTemplate: React.ComponentType<ModalFormTemplateProps> = ({
 };
 
 export interface FormTemplateProps extends Pf4FormTemplateProps {
-  isModal: boolean;
-  modalProps: InternalModalProps;
+  isModal?: boolean;
+  modalProps?: InternalModalProps;
   submitlabel?: ReactNode;
 }
 

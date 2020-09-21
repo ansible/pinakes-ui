@@ -1,23 +1,33 @@
+import { Field, Schema } from '@data-driven-forms/react-form-renderer';
+import { MessageDescriptor } from 'react-intl';
 import schemasMessages from '../messages/schemas.messages';
+import { FormatMessage } from '../types/common-types';
 
-const translateString = (string, formatMessage) => {
+const translateString = (
+  string: MessageDescriptor,
+  formatMessage?: FormatMessage
+) => {
   try {
-    return formatMessage(string);
+    return formatMessage!(string);
   } catch {
     return string;
   }
 };
 
-const translateField = (field, formatMessage, translateKeys) => {
-  const fieldCopy = { ...field };
+const translateField = (
+  field: Field,
+  formatMessage: FormatMessage,
+  translateKeys: string[]
+) => {
+  const fieldCopy: Field = { ...field };
   translateKeys.forEach((key) => {
     if (
       Object.prototype.hasOwnProperty.call(fieldCopy, key) &&
       typeof fieldCopy[key] === 'string' &&
-      schemasMessages[fieldCopy[key]]
+      schemasMessages[fieldCopy[key] as keyof typeof schemasMessages]
     ) {
       fieldCopy[key] = translateString(
-        schemasMessages[fieldCopy[key]],
+        schemasMessages[fieldCopy[key] as keyof typeof schemasMessages],
         formatMessage
       );
     }
@@ -27,10 +37,15 @@ const translateField = (field, formatMessage, translateKeys) => {
     Array.isArray(fieldCopy.options)
   ) {
     fieldCopy.options = fieldCopy.options.map((option) =>
-      translateString(schemasMessages[option.label])
+      translateString(
+        schemasMessages[option.label as keyof typeof schemasMessages]
+      )
         ? {
             ...option,
-            label: translateString(schemasMessages[option.label], formatMessage)
+            label: translateString(
+              schemasMessages[option.label as keyof typeof schemasMessages],
+              formatMessage
+            )
           }
         : option
     );
@@ -49,10 +64,10 @@ const translateField = (field, formatMessage, translateKeys) => {
 };
 
 const translateSchema = (
-  schema,
-  formatMessage,
+  schema: Schema,
+  formatMessage: FormatMessage,
   translateKeys = ['label', 'placeholder', 'title', 'description']
-) => {
+): Schema => {
   const schemaCopy = { ...schema };
   schemaCopy.fields = schemaCopy.fields.map((field) =>
     translateField(field, formatMessage, translateKeys)
