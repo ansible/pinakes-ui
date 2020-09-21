@@ -1,13 +1,12 @@
 import { getAxiosInstance, getRbacGroupApi } from '../shared/user-login';
 import { RBAC_API_BASE } from '../../utilities/constants';
 import { GroupPagination } from '@redhat-cloud-services/rbac-client';
-import { AxiosPromise } from 'axios';
 import { SelectOptions } from '../../types/common-types';
 
 const api = getRbacGroupApi();
 
-export const getRbacGroups = (): AxiosPromise<GroupPagination> =>
-  api.listGroups();
+export const getRbacGroups = (): Promise<GroupPagination> =>
+  (api.listGroups() as unknown) as Promise<GroupPagination>;
 
 export const fetchFilterGroups = (filterValue = ''): Promise<SelectOptions> =>
   getAxiosInstance()

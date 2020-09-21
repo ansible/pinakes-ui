@@ -9,6 +9,7 @@ import { defaultSettings } from '../shared/pagination';
 import {
   AnyObject,
   ApiCollectionResponse,
+  Full,
   RestorePortfolioItemConfig
 } from '../../types/common-types';
 import {
@@ -19,6 +20,7 @@ import {
 import { AxiosPromise, AxiosResponse } from 'axios';
 import { Store } from 'redux';
 import { Source } from '@redhat-cloud-services/sources-client';
+import { GetReduxState } from '../../types/redux';
 
 const axiosInstance = getAxiosInstance();
 const portfolioApi = getPortfolioApi();
@@ -27,7 +29,7 @@ const portfolioItemApi = getPortfolioItemApi();
 export const listPortfolios = (
   filters: AnyObject = {},
   { limit, offset, sortDirection = 'asc' } = defaultSettings
-): Promise<Portfolio[]> => {
+): Promise<ApiCollectionResponse<Portfolio>> => {
   const filterQuery = Object.entries(filters).reduce((acc, [key, value]) => {
     if (!value) {
       return acc;
@@ -39,9 +41,9 @@ export const listPortfolios = (
         : `filter[${key}][contains_i]=${value}`;
     return `${acc}&${partial}`;
   }, '');
-  return axiosInstance.get(
+  return (axiosInstance.get(
     `${CATALOG_API_BASE}/portfolios?limit=${limit}&offset=${offset}${filterQuery}`
-  );
+  ) as unknown) as Promise<ApiCollectionResponse<Portfolio>>;
 };
 
 export const listPortfolioItems = (
@@ -93,8 +95,8 @@ export const listPortfolioItems = (
     });
 };
 
-export const getPortfolio = (portfolioId: string): AxiosPromise<Portfolio> =>
-  portfolioApi.showPortfolio(portfolioId);
+export const getPortfolio = (portfolioId: string): Promise<Portfolio> =>
+  portfolioApi.showPortfolio(portfolioId) as Promise<Portfolio>;
 
 export const getPortfolioItemsWithPortfolio = (
   portfolioId: string,
@@ -107,7 +109,7 @@ export const getPortfolioItemsWithPortfolio = (
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export const addPortfolio = async (
   portfolioData: Partial<Portfolio>,
-  items: string[]
+  items?: string[]
 ): Promise<Portfolio> => {
   const portfolio = await portfolioApi.createPortfolio(portfolioData);
   if (portfolio && items && items.length > 0) {
@@ -120,7 +122,7 @@ export const addPortfolio = async (
 export const addToPortfolio = (
   portfolioId: string,
   items: string[]
-): Promise<AxiosResponse<PortfolioItem>[]> =>
+): Promise<PortfolioItem[]> =>
   Promise.all(
     items.map((item) =>
       portfolioItemApi.createPortfolioItem({
@@ -128,29 +130,37 @@ export const addToPortfolio = (
         service_offering_ref: item
       })
     )
-  );
+  ) as Promise<PortfolioItem[]>;
 
 export const updatePortfolio = (
   { id, ...portfolioData }: Partial<Portfolio>,
-  store: Store
+  store: Partial<Store>
 ): AxiosPromise<Portfolio> =>
   portfolioApi.updatePortfolio(
     id!,
     sanitizeValues(portfolioData, 'Portfolio', store)
   );
 
-export const removePortfolio = (portfolioId: string): AxiosPromise =>
-  portfolioApi.destroyPortfolio(portfolioId);
+export const removePortfolio = (
+  portfolioId: string
+): Promise<Full<RestoreKey>> =>
+  (portfolioApi.destroyPortfolio(portfolioId) as unknown) as Promise<
+    Full<RestoreKey>
+  >;
 
 export const removePortfolioItem = (
   portfolioItemId: string
 ): AxiosPromise<RestoreKey> =>
   portfolioItemApi.destroyPortfolioItem(portfolioItemId);
 
-export const removePortfolioItems = (portfolioItemIds: string[]) =>
+export const removePortfolioItems = (
+  portfolioItemIds: string[]
+): Promise<RestorePortfolioItemConfig[]> =>
   Promise.all(
     portfolioItemIds.map(async (itemId) => {
-      const { restore_key } = (await removePortfolioItem(itemId)) as RestoreKey;
+      const { restore_key } = ((await removePortfolioItem(
+        itemId
+      )) as unknown) as RestorePortfolioItemConfig;
       return {
         portfolioItemId: itemId,
         restoreKey: restore_key
@@ -179,12 +189,12 @@ export const fetchProviderControlParameters = (
 
 export const updatePortfolioItem = (
   { id, ...portfolioItem }: Partial<PortfolioItem>,
-  store: Store
-): AxiosPromise<PortfolioItem> =>
+  store: { getState: GetReduxState }
+): Promise<PortfolioItem> =>
   portfolioItemApi.updatePortfolioItem(
     id!,
     sanitizeValues(portfolioItem, 'PortfolioItem', store)
-  );
+  ) as Promise<PortfolioItem>;
 
 export const fetchPortfolioByName = (
   name = ''
@@ -208,14 +218,17 @@ export const restorePortfolioItems = (
     )
   );
 
-export const copyPortfolio = (portfolioId: string): AxiosPromise<Portfolio> =>
-  portfolioApi.postCopyPortfolio(portfolioId);
+export const copyPortfolio = (portfolioId: string): Promise<Portfolio> =>
+  portfolioApi.postCopyPortfolio(portfolioId) as Promise<Portfolio>;
 
 export const copyPortfolioItem = (
   portfolioItemId: string,
   copyObject: Partial<PortfolioItem> = {}
-): AxiosPromise<PortfolioItem> =>
-  portfolioItemApi.postCopyPortfolioItem(portfolioItemId, copyObject);
+): Promise<PortfolioItem> =>
+  portfolioItemApi.postCopyPortfolioItem(
+    portfolioItemId,
+    copyObject
+  ) as Promise<PortfolioItem>;
 
 export const resetPortfolioItemIcon = (iconId: string): AxiosPromise<void> =>
   axiosInstance.delete(`${CATALOG_API_BASE}/icons/${iconId}`);

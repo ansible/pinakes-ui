@@ -24,7 +24,8 @@ export interface ApiCollectionResponse<
 
 export interface RestorePortfolioItemConfig {
   portfolioItemId: string;
-  restoreKey: string;
+  restoreKey?: string;
+  restore_key?: string;
 }
 
 export interface ActionNotification {
@@ -93,3 +94,18 @@ export interface PortfolioMetadata {
 export interface EnhancedOrder extends Order {
   orderItem: OrderItem;
 }
+
+export type NotificationPayload =
+  | {
+      type: string;
+      payload: {
+        dismissable: boolean;
+        variant: string;
+        title: string;
+        description: string;
+      };
+    }
+  | {
+      type: string;
+      payload: any;
+    };

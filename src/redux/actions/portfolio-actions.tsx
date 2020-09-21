@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
@@ -6,40 +6,68 @@ import {
 
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';
-import { defaultSettings } from '../../helpers/shared/pagination';
+import {
+  defaultSettings,
+  PaginationConfiguration
+} from '../../helpers/shared/pagination';
 
 import portfolioMessages from '../../messages/portfolio.messages';
 import { FormattedMessage } from 'react-intl';
+import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
+import {
+  ApiCollectionResponse,
+  Full,
+  NotificationPayload,
+  ReduxAction,
+  RestorePortfolioItemConfig,
+  StringObject
+} from '../../types/common-types';
+import {
+  Portfolio,
+  PortfolioItem
+} from '@redhat-cloud-services/catalog-client';
+import { AnyAction, Dispatch } from 'redux';
+import { AnyObject } from '@data-driven-forms/react-form-renderer';
 
 export const doFetchPortfolios = ({
   filters,
   ...options
-} = defaultSettings) => ({
+} = defaultSettings): AsyncMiddlewareAction<Full<
+  ApiCollectionResponse<Portfolio>
+>> => ({
   type: ActionTypes.FETCH_PORTFOLIOS,
   meta: { ...defaultSettings, filters, ...options },
   payload: PortfolioHelper.listPortfolios(filters, options)
 });
 
-export const fetchPortfolios = (options) => (dispatch) =>
-  dispatch(doFetchPortfolios(options));
+export const fetchPortfolios = (options: PaginationConfiguration) => (
+  dispatch: Dispatch
+): AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>> =>
+  dispatch(
+    doFetchPortfolios(options) as Full<
+      AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>>
+    >
+  );
 
 export const fetchPortfoliosWithState = (
-  filters,
+  filters: StringObject,
   options = defaultSettings
-) => (dispatch) =>
+) => (
+  dispatch: Dispatch
+): AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>> =>
   dispatch(
     doFetchPortfolios({
       ...options,
       filters,
       storeState: true,
       stateKey: 'portfolio'
-    })
+    }) as Full<AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>>>
   );
 
 export const fetchPortfolioItems = (
   filter = '',
   options = defaultSettings
-) => ({
+): AsyncMiddlewareAction<ApiCollectionResponse<PortfolioItem>> => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS,
   meta: { filter, storeState: true, stateKey: 'products' },
   payload: PortfolioHelper.listPortfolioItems(
@@ -50,9 +78,9 @@ export const fetchPortfolioItems = (
 });
 
 export const fetchPortfolioItemsWithPortfolio = (
-  portfolioId,
+  portfolioId: string,
   options = defaultSettings
-) => ({
+): AsyncMiddlewareAction<ApiCollectionResponse<PortfolioItem>> => ({
   type: ActionTypes.FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO,
   payload: PortfolioHelper.getPortfolioItemsWithPortfolio(portfolioId, options),
   meta: {
@@ -62,19 +90,17 @@ export const fetchPortfolioItemsWithPortfolio = (
   }
 });
 
-export const fetchSelectedPortfolio = (id) => ({
+export const fetchSelectedPortfolio = (
+  id: string
+): AsyncMiddlewareAction<Portfolio> => ({
   type: ActionTypes.FETCH_PORTFOLIO,
   payload: PortfolioHelper.getPortfolio(id)
 });
 
-export const searchPortfolioItems = (value) => ({
-  type: ActionTypes.FILTER_PORTFOLIO_ITEMS,
-  payload: new Promise((resolve) => {
-    resolve(value);
-  })
-});
-
-export const addPortfolio = (portfolioData, notification) => ({
+export const addPortfolio = (
+  portfolioData: Partial<Portfolio>,
+  notification: AnyObject
+): AsyncMiddlewareAction<Portfolio> => ({
   type: ActionTypes.ADD_PORTFOLIO,
   payload: PortfolioHelper.addPortfolio(portfolioData),
   meta: {
@@ -84,7 +110,10 @@ export const addPortfolio = (portfolioData, notification) => ({
   }
 });
 
-export const addToPortfolio = (portfolioId, items) => ({
+export const addToPortfolio = (
+  portfolioId: string,
+  items: string[]
+): AsyncMiddlewareAction<PortfolioItem[]> => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
   payload: PortfolioHelper.addToPortfolio(portfolioId, items),
   meta: {
@@ -98,17 +127,26 @@ export const addToPortfolio = (portfolioId, items) => ({
   }
 });
 
-export const updatePortfolio = (portfolioData, options) => (
-  dispatch,
-  getState
-) => {
+export const updatePortfolio = (
+  portfolioData: Partial<Portfolio>,
+  options: PaginationConfiguration
+) => (
+  dispatch: Dispatch,
+  getState: GetReduxState
+): Promise<NotificationPayload> => {
   dispatch({
     type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO,
     payload: portfolioData
   });
 
   return PortfolioHelper.updatePortfolio(portfolioData, { getState })
-    .then(() => dispatch(doFetchPortfolios(options)))
+    .then(() =>
+      dispatch(
+        doFetchPortfolios(options) as Full<
+          AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>>
+        >
+      )
+    )
     .then(() =>
       dispatch({
         type: ADD_NOTIFICATION,
@@ -132,9 +170,13 @@ export const updatePortfolio = (portfolioData, options) => (
     );
 };
 
-export const undoRemovePortfolio = (portfolioId, restoreKey, viewState) => (
-  dispatch
-) => {
+export const undoRemovePortfolio = (
+  portfolioId: string,
+  restoreKey: string,
+  viewState: PaginationConfiguration
+) => (
+  dispatch: Dispatch
+): Promise<AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>>> => {
   dispatch({ type: CLEAR_NOTIFICATIONS });
   return PortfolioHelper.undeletePortfolio(portfolioId, restoreKey).then(
     (portfolio) => {
@@ -146,15 +188,19 @@ export const undoRemovePortfolio = (portfolioId, restoreKey, viewState) => (
           title: `Portfolio ${portfolio.name} has been restored`
         }
       });
-      return dispatch(fetchPortfolios(viewState));
+      return dispatch(
+        (fetchPortfolios(viewState) as unknown) as Full<
+          AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>>
+        >
+      );
     }
   );
 };
 
-export const removePortfolio = (portfolioId, viewState = {}) => (
-  dispatch,
-  getState
-) => {
+export const removePortfolio = (portfolioId: string, viewState = {}) => (
+  dispatch: Dispatch,
+  getState: GetReduxState
+): AsyncMiddlewareAction<AnyAction> => {
   dispatch({
     type: ActionTypes.DELETE_TEMPORARY_PORTFOLIO,
     payload: portfolioId
@@ -174,18 +220,18 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
                 {...portfolioMessages.removePortfolioNotification}
                 values={{
                   // eslint-disable-next-line react/display-name
-                  a: (chunks) => (
+                  a: (chunks: ReactNode) => (
                     <a
                       href="#"
                       id={`undo-delete-portfolio-${portfolioId}`}
                       onClick={(event) => {
                         event.preventDefault();
                         dispatch(
-                          undoRemovePortfolio(
+                          (undoRemovePortfolio(
                             portfolioId,
                             restore_key,
                             viewState
-                          )
+                          ) as unknown) as AnyAction
                         );
                       }}
                     >
@@ -199,11 +245,11 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
         });
         const { meta, data } = getState().portfolioReducer.portfolios;
         return dispatch(
-          fetchPortfolios({
+          (fetchPortfolios({
             ...viewState,
             ...meta,
             offset: data.length === 0 ? 0 : meta.offset
-          })
+          }) as unknown) as AnyAction
         );
       })
       .catch((error) => {
@@ -213,21 +259,28 @@ export const removePortfolio = (portfolioId, viewState = {}) => (
   });
 };
 
-export const selectPortfolioItem = (portfolioItem) => ({
+export const selectPortfolioItem = (
+  portfolioItem: Full<PortfolioItem>
+): ReduxAction<PortfolioItem> => ({
   type: ActionTypes.SELECT_PORTFOLIO_ITEM,
   payload: portfolioItem
 });
 
-export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => (
-  dispatch
-) => {
+export const undoRemoveProductsFromPortfolio = (
+  restoreData: RestorePortfolioItemConfig[],
+  portfolioId: string
+) => (dispatch: Dispatch): Promise<AnyAction> => {
   dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_PENDING` });
   return PortfolioHelper.restorePortfolioItems(restoreData)
     .then(() =>
       dispatch({ type: `${ActionTypes.RESTORE_PORTFOLIO_ITEMS}_FULFILLED` })
     )
     .then(() => dispatch({ type: CLEAR_NOTIFICATIONS }))
-    .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolioId)))
+    .then(() =>
+      dispatch(
+        (fetchPortfolioItemsWithPortfolio(portfolioId) as unknown) as AnyAction
+      )
+    )
     .then(() =>
       dispatch({
         type: ADD_NOTIFICATION,
@@ -247,10 +300,13 @@ export const undoRemoveProductsFromPortfolio = (restoreData, portfolioId) => (
 };
 
 export const removeProductsFromPortfolio = (
-  portfolioItems,
-  portfolioName,
-  firstSelectedProduct
-) => (dispatch, getState) => {
+  portfolioItems: string[],
+  portfolioName: string,
+  firstSelectedProduct: PortfolioItem
+) => (
+  dispatch: (...args: any[]) => Promise<void>,
+  getState: GetReduxState
+): Promise<void> => {
   dispatch({
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
@@ -263,7 +319,7 @@ export const removeProductsFromPortfolio = (
   return PortfolioHelper.removePortfolioItems(portfolioItems)
     .then((data) =>
       dispatch(
-        fetchPortfolioItemsWithPortfolio(portfolioId, {
+        fetchPortfolioItemsWithPortfolio(portfolioId!, {
           offset: 0,
           limit: meta.limit,
           filter: ''
@@ -285,16 +341,16 @@ export const removeProductsFromPortfolio = (
                 productName: firstSelectedProduct.name,
                 portfolioName,
                 // eslint-disable-next-line react/display-name
-                b: (chunks) => <b>{chunks}</b>,
+                b: (chunks: ReactNode) => <b>{chunks}</b>,
                 // eslint-disable-next-line react/display-name
-                a: (chunks) => (
+                a: (chunks: ReactNode) => (
                   <a
                     href="#"
                     id={`restore-portfolio-item-${portfolioId}`}
                     onClick={(event) => {
                       event.preventDefault();
                       dispatch(
-                        undoRemoveProductsFromPortfolio(data, portfolioId)
+                        undoRemoveProductsFromPortfolio(data, portfolioId!)
                       );
                     }}
                   >
@@ -318,7 +374,9 @@ export const removeProductsFromPortfolio = (
     );
 };
 
-export const copyPortfolio = (id) => (dispatch) => {
+export const copyPortfolio = (id: string) => (
+  dispatch: Dispatch
+): Promise<Portfolio | AnyAction> => {
   dispatch({ type: 'COPY_PORTFOLIO_PENDING' });
   return PortfolioHelper.copyPortfolio(id)
     .then((portfolio) => {
@@ -340,10 +398,10 @@ export const copyPortfolio = (id) => (dispatch) => {
 };
 
 export const copyPortfolioItem = (
-  portfolioItemId,
-  copyObject,
-  newPortfolio
-) => (dispatch) => {
+  portfolioItemId: string,
+  copyObject: Partial<PortfolioItem>,
+  newPortfolio: Full<Portfolio>
+) => (dispatch: Dispatch): Promise<PortfolioItem | AnyAction> => {
   return PortfolioHelper.copyPortfolioItem(portfolioItemId, copyObject)
     .then((data) => {
       dispatch({
@@ -362,11 +420,14 @@ export const copyPortfolioItem = (
     );
 };
 
-export const resetSelectedPortfolio = () => ({
+export const resetSelectedPortfolio = (): AnyAction => ({
   type: ActionTypes.RESET_SELECTED_PORTFOLIO
 });
 
-export const updatePortfolioItem = (values) => (dispatch, getState) => {
+export const updatePortfolioItem = (values: Partial<PortfolioItem>) => (
+  dispatch: Dispatch,
+  getState: GetReduxState
+): Promise<NotificationPayload | AnyAction> => {
   dispatch({
     type: ActionTypes.UPDATE_TEMPORARY_PORTFOLIO_ITEM,
     payload: values
@@ -398,7 +459,9 @@ export const updatePortfolioItem = (values) => (dispatch, getState) => {
     );
 };
 
-export const getPortfolioItemDetail = (params) => (dispatch) => {
+export const getPortfolioItemDetail = (
+  params: PortfolioHelper.GetPortfolioItemDetailParams
+) => (dispatch: Dispatch): Promise<AnyAction> => {
   dispatch({ type: `${ActionTypes.SELECT_PORTFOLIO_ITEM}_PENDING` });
   return PortfolioHelper.getPortfolioItemDetail(params).then(
     ([portfolioItem, source]) =>
@@ -412,7 +475,10 @@ export const getPortfolioItemDetail = (params) => (dispatch) => {
   );
 };
 
-export const setOrFetchPortfolio = (id, portfolios) => {
+export const setOrFetchPortfolio = (
+  id: string,
+  portfolios: ApiCollectionResponse<Portfolio>
+): { type: string; payload: Portfolio } | AsyncMiddlewareAction<Portfolio> => {
   const existingPorfolio = portfolios?.data?.find(
     (portfolio) => portfolio.id === id
   );
