@@ -1,17 +1,21 @@
-import React, { useContext } from 'react';
-import { Route } from 'react-router-dom';
+/* eslint-disable react/prop-types */
+import React, { ComponentType, useContext } from 'react';
+import { Route, RouteProps } from 'react-router-dom';
 import UserContext from '../user-context';
-import PropTypes from 'prop-types';
 import { hasPermission } from '../helpers/shared/helpers';
 import { UnauthorizedRedirect } from '../smart-components/error-pages/error-redirects';
+import { AnyObject } from '../types/common-types';
 
-const ReidrectOnAccess = (props) => (
+const ReidrectOnAccess: React.ComponentType<RouteProps> = (props) => (
   <Route {...props}>
     <UnauthorizedRedirect />
   </Route>
 );
 
-const hasCapability = (userCapabilities, requiredCapabilities) =>
+const hasCapability = (
+  userCapabilities: AnyObject,
+  requiredCapabilities?: string[] | string
+) =>
   requiredCapabilities
     ? Array.isArray(requiredCapabilities)
       ? requiredCapabilities.some(
@@ -20,9 +24,14 @@ const hasCapability = (userCapabilities, requiredCapabilities) =>
       : userCapabilities[requiredCapabilities] !== false
     : true;
 
-const CatalogRoute = ({
-  permissions,
-  userCapabilities,
+export interface CatalogRouteProps extends RouteProps {
+  permissions?: string[];
+  userCapabilities?: AnyObject;
+  requiredCapabilities?: string | string[];
+}
+const CatalogRoute: ComponentType<CatalogRouteProps> = ({
+  permissions = [],
+  userCapabilities = {},
   requiredCapabilities,
   ...props
 }) => {
@@ -36,20 +45,6 @@ const CatalogRoute = ({
   }
 
   return <Route {...props} />;
-};
-
-CatalogRoute.propTypes = {
-  permissions: PropTypes.arrayOf(PropTypes.string),
-  userCapabilities: PropTypes.object,
-  requiredCapabilities: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string)
-  ])
-};
-
-CatalogRoute.defaultProps = {
-  permissions: [],
-  userCapabilities: {}
 };
 
 export default CatalogRoute;

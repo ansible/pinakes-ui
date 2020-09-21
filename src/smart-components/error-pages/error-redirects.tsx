@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 
-export const UnauthorizedRedirect = () => {
+export const UnauthorizedRedirect: React.ComponentType = () => {
   const location = useLocation();
   return (
     <Redirect
