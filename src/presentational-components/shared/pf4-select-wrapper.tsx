@@ -152,9 +152,9 @@ export interface Pf4SelectWrapperProps
   initialValue?: any;
   validate?: ValidatorType[];
 }
-function Pf4SelectWrapper<T = any /**Type of select value */>(
-  props: Pf4SelectWrapperProps
-): ReactNode {
+const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
+  props
+) => {
   const {
     label,
     isRequired,
@@ -164,7 +164,7 @@ function Pf4SelectWrapper<T = any /**Type of select value */>(
     hideLabel,
     id,
     ...rest
-  } = useFieldApi<T>(props);
+  } = useFieldApi(props);
   const { error, touched } = meta;
   const showError = touched && error;
   const { name } = rest.input;
@@ -193,6 +193,6 @@ function Pf4SelectWrapper<T = any /**Type of select value */>(
       />
     </FormGroup>
   );
-}
+};
 
 export default Pf4SelectWrapper;

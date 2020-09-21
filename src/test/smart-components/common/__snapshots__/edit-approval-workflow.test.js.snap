@@ -35,7 +35,6 @@ exports[`<EditApprovalWorkflow /> should render correctly 1`] = `
   <MemoryRouter>
     <EditApprovalWorkflow
       closeUrl="foo"
-      keepHash={false}
       objectName={[Function]}
       objectType="Portfolio"
       portfolioId="123"

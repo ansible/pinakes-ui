@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import {
@@ -17,23 +17,43 @@ import {
 } from '../../redux/actions/order-actions';
 import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
 import useQuery from '../../utilities/use-query';
+import { AsyncMiddlewareAction, CatalogRootState } from '../../types/redux';
+import {
+  PortfolioItem,
+  ServicePlan
+} from '@redhat-cloud-services/catalog-client';
+import {
+  AnyObject,
+  ApiCollectionResponse,
+  Full
+} from '../../types/common-types';
+import { Schema } from '@data-driven-forms/react-form-renderer';
 
-const OrderModal = ({ closeUrl }) => {
+export interface OrderModalProps {
+  closeUrl: string;
+}
+const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
   const [isFetching, setFetching] = useState(true);
   const { search } = useLocation();
   const { push } = useHistory();
   const dispatch = useDispatch();
   const [searchParams] = useQuery(['portfolio-item']);
   const portfolioItemId = searchParams['portfolio-item'];
-  const { portfolioItem } = useSelector(
-    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
-  );
-  const servicePlans = useSelector(
+  const { portfolioItem } = useSelector<
+    CatalogRootState,
+    { portfolioItem: PortfolioItem }
+  >(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
+
+  const servicePlans = useSelector<CatalogRootState, Full<ServicePlan[]>>(
     ({ orderReducer: { servicePlans } }) => servicePlans
   );
 
   useEffect(() => {
-    dispatch(fetchServicePlans(portfolioItemId)).then(() => setFetching(false));
+    dispatch(
+      fetchServicePlans(portfolioItemId) as Promise<
+        AsyncMiddlewareAction<ApiCollectionResponse<ServicePlan[]>>
+      >
+    ).then(() => setFetching(false));
   }, []);
 
   const handleClose = () =>
@@ -42,14 +62,14 @@ const OrderModal = ({ closeUrl }) => {
       search
     });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ServicePlan) => {
     dispatch(
       sendSubmitOrder(
         {
           portfolio_item_id: portfolioItem.id,
           service_parameters: data
         },
-        portfolioItem
+        portfolioItem as Full<PortfolioItem>
       )
     );
     handleClose();
@@ -78,18 +98,16 @@ const OrderModal = ({ closeUrl }) => {
         </SpinnerWrapper>
       ) : (
         <FormRenderer
-          schema={servicePlans[0].create_json_schema.schema}
+          schema={
+            ((servicePlans[0].create_json_schema! as AnyObject)
+              .schema as unknown) as Schema
+          }
           onSubmit={onSubmit}
           onCancel={handleClose}
         />
       )}
     </Modal>
   );
-};
-
-OrderModal.propTypes = {
-  orderData: PropTypes.func,
-  closeUrl: PropTypes.string.isRequired
 };
 
 export default OrderModal;

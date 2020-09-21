@@ -1,4 +1,6 @@
 import { Order, OrderItem } from '@redhat-cloud-services/catalog-client';
+import { ReactNode } from 'react';
+import { MessageDescriptor } from 'react-intl';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
 
 export interface StringObject {
@@ -109,3 +111,7 @@ export type NotificationPayload =
       type: string;
       payload: any;
     };
+export type FormatMessage = (
+  message: MessageDescriptor,
+  values?: AnyObject
+) => ReactNode;

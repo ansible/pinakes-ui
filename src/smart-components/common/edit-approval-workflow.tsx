@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { ReactNode, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateWorkflows } from '../../redux/actions/approval-actions';
 import { APP_NAME } from '../../utilities/constants';
@@ -12,13 +12,23 @@ import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { defineMessage } from 'react-intl';
 import approvalMessages from '../../messages/approval.messages';
 import useFormatMessage from '../../utilities/use-format-message';
-import TaggingModal from './tagging-modal';
+import TaggingModal, { Tag } from './tagging-modal';
 import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
+import { CatalogLinkTo } from '../common/catalog-link';
 
-const EditApprovalWorkflow = ({
+export interface EditApprovalWorkflowProps {
+  pushParam: CatalogLinkTo;
+  objectType: keyof typeof APP_NAME;
+  objectName: (node: string) => ReactNode;
+  removeSearch?: boolean;
+  querySelector: 'portfolio' | 'platform' | 'inventory' | 'portfolio-item';
+  keepHash?: boolean;
+  onClose: () => any;
+}
+const EditApprovalWorkflow: React.ComponentType<EditApprovalWorkflowProps> = ({
   objectType,
   removeSearch,
-  keepHash,
+  keepHash = false,
   querySelector,
   pushParam,
   objectName = () => objectType,
@@ -42,7 +52,7 @@ const EditApprovalWorkflow = ({
     history.push(pushParam);
   };
 
-  const onSubmit = (toLink, toUnlink) => {
+  const onSubmit = (toLink: string[], toUnlink: string[]) => {
     close();
     dispatch(
       updateWorkflows(toLink, toUnlink, {
@@ -55,7 +65,7 @@ const EditApprovalWorkflow = ({
 
   return (
     <TaggingModal
-      title={modalTitle}
+      title={modalTitle as string}
       onClose={close}
       onSubmit={onSubmit}
       getInitialTags={() =>
@@ -63,7 +73,7 @@ const EditApprovalWorkflow = ({
           objectType,
           appName: APP_NAME[objectType],
           objectId: query[querySelector]
-        }).then(({ data }) => data)
+        }).then(({ data }) => data) as Promise<Tag[]>
       }
       loadTags={loadWorkflowOptions}
       subTitle={formatMessage(approvalMessages.setWorkflow, {
@@ -73,31 +83,6 @@ const EditApprovalWorkflow = ({
       existingTagsMessage={formatMessage(approvalMessages.currentWorkflows)}
     />
   );
-};
-
-EditApprovalWorkflow.propTypes = {
-  pushParam: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string
-    })
-  ]).isRequired,
-  objectType: PropTypes.string.isRequired,
-  objectName: PropTypes.func,
-  removeSearch: PropTypes.bool,
-  querySelector: PropTypes.oneOf([
-    'portfolio',
-    'platform',
-    'inventory',
-    'portfolio-item'
-  ]).isRequired,
-  keepHash: PropTypes.bool,
-  onClose: PropTypes.func
-};
-
-EditApprovalWorkflow.defaultProps = {
-  keepHash: false
 };
 
 export default EditApprovalWorkflow;
