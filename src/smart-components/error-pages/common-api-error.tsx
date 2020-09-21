@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Bullseye,
@@ -19,11 +19,13 @@ const SourceSpan = styled.span`
 `;
 
 const Br = () => <br />;
-const Nowrap = (chunks) => <SourceSpan>{chunks}</SourceSpan>;
+const Nowrap = (chunks: ReactNode) => <SourceSpan>{chunks}</SourceSpan>;
 
-const CommonApiError = () => {
+const CommonApiError: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
-  const { state, pathname } = useLocation();
+  const { state, pathname } = useLocation<{
+    from?: { pathname?: string; search?: string };
+  }>();
   const translations = useRef({
     titles: {
       '/401': formatMessage(apiErrorsMessages.unauthorizedTitle),
@@ -58,11 +60,19 @@ const CommonApiError = () => {
         </div>
         <div>
           <Title headingLevel="h1" size="lg">
-            {translations.current.titles[pathname]}
+            {
+              translations.current.titles[
+                pathname as keyof typeof translations.current.titles
+              ]
+            }
           </Title>
         </div>
         <EmptyStateBody>
-          {translations.current.descriptions[pathname]}
+          {
+            translations.current.descriptions[
+              pathname as keyof typeof translations.current.descriptions
+            ]
+          }
         </EmptyStateBody>
         <EmptyStatePrimary>
           <CatalogLink pathname="/">
