@@ -40,7 +40,7 @@ export const doFetchPortfolios = ({
   payload: PortfolioHelper.listPortfolios(filters, options)
 });
 
-export const fetchPortfolios = (options: PaginationConfiguration) => (
+export const fetchPortfolios = (options?: PaginationConfiguration) => (
   dispatch: Dispatch
 ): AsyncMiddlewareAction<ApiCollectionResponse<Portfolio>> =>
   dispatch(
@@ -129,7 +129,7 @@ export const addToPortfolio = (
 
 export const updatePortfolio = (
   portfolioData: Partial<Portfolio>,
-  options: PaginationConfiguration
+  options?: PaginationConfiguration
 ) => (
   dispatch: Dispatch,
   getState: GetReduxState

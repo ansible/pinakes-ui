@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Modal } from '@patternfly/react-core';
@@ -18,8 +18,18 @@ import actionMessages from '../../../messages/actions.messages';
 import labelMessages from '../../../messages/labels.messages';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import {
+  FormatMessage,
+  Full,
+  SelectOptions
+} from '../../../types/common-types';
+import {
+  Portfolio,
+  PortfolioItem,
+  PortfolioItemNextName
+} from '@redhat-cloud-services/catalog-client';
 
-const loadPortfolios = (name) =>
+const loadPortfolios = (name: string) =>
   listPortfolios({ name }, { limit: 100, offset: 0 }).then(({ data }) =>
     data
       .filter(
@@ -32,7 +42,11 @@ const loadPortfolios = (name) =>
       .map(({ name, id }) => ({ value: id, label: name }))
   );
 
-const copySchema = (getName, formatMessage, initialOptions) => ({
+const copySchema = (
+  getName: (value: string) => Promise<string | undefined>,
+  formatMessage: FormatMessage,
+  initialOptions: SelectOptions
+) => ({
   fields: [
     {
       component: 'copy-name-display',
@@ -54,7 +68,15 @@ const copySchema = (getName, formatMessage, initialOptions) => ({
   ]
 });
 
-const CopyPortfolioItemModal = ({
+export interface CopyPortfolioItemModalProps {
+  closeUrl: string;
+  portfolioId?: string;
+  portfolioItemId: string;
+  search?: string;
+  portfolioName?: string;
+}
+
+const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> = ({
   portfolioId,
   portfolioItemId,
   closeUrl,
@@ -65,15 +87,23 @@ const CopyPortfolioItemModal = ({
   const dispatch = useDispatch();
   const { push } = useHistory();
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: Full<PortfolioItem>) => {
     /**
      * dispatch redux action to set selected portfolio in store
      * this will ensure that correct portfolio data will be loaded after the redirect occurs
      */
     const { value: portfolio } = await dispatch(
-      fetchSelectedPortfolio(values.portfolio_id)
+      fetchSelectedPortfolio(values.portfolio_id) as Promise<{
+        value: Full<Portfolio>;
+      }>
     );
-    return dispatch(copyPortfolioItem(portfolioItemId, values, portfolio))
+    return dispatch(
+      (copyPortfolioItem(
+        portfolioItemId,
+        values,
+        portfolio
+      ) as unknown) as Promise<PortfolioItem>
+    )
       .then(({ id, service_offering_source_ref }) =>
         push({
           pathname: PORTFOLIO_ITEM_ROUTE,
@@ -87,15 +117,16 @@ const CopyPortfolioItemModal = ({
       );
   };
 
-  const portfolioChange = (portfolioId) =>
-    getPortfolioItemApi()
-      .getPortfolioItemNextName(portfolioItemId, portfolioId)
-      .then(({ next_name }) => next_name);
+  const portfolioChange = (portfolioId: string) =>
+    (getPortfolioItemApi().getPortfolioItemNextName(
+      portfolioItemId,
+      portfolioId
+    ) as Promise<PortfolioItemNextName>).then(({ next_name }) => next_name);
 
   return (
     <Modal
       isOpen
-      title={formatMessage(portfolioMessages.copyItemTitle)}
+      title={formatMessage(portfolioMessages.copyItemTitle) as string}
       onClose={() =>
         push({
           pathname: closeUrl,
@@ -125,11 +156,4 @@ const CopyPortfolioItemModal = ({
   );
 };
 
-CopyPortfolioItemModal.propTypes = {
-  closeUrl: PropTypes.string.isRequired,
-  portfolioId: PropTypes.string,
-  portfolioItemId: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
-  portfolioName: PropTypes.string.isRequired
-};
 export default CopyPortfolioItemModal;

@@ -34,8 +34,9 @@ const StyledForm = styled(({ variant, ...props }) => <form {...props} />)`
   max-height: calc(100% - 48px);
 `;
 
-export interface InternalModalProps extends Omit<ModalProps, 'ref'> {
-  isLoading: boolean;
+export interface InternalModalProps
+  extends Omit<Omit<ModalProps, 'ref'>, 'children'> {
+  isLoading?: boolean;
 }
 
 interface ModalFormTemplateProps {

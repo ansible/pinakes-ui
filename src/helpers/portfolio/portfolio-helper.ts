@@ -10,6 +10,7 @@ import {
   AnyObject,
   ApiCollectionResponse,
   Full,
+  InternalPortfolio,
   RestorePortfolioItemConfig
 } from '../../types/common-types';
 import {
@@ -29,7 +30,7 @@ const portfolioItemApi = getPortfolioItemApi();
 export const listPortfolios = (
   filters: AnyObject = {},
   { limit, offset, sortDirection = 'asc' } = defaultSettings
-): Promise<ApiCollectionResponse<Portfolio>> => {
+): Promise<ApiCollectionResponse<InternalPortfolio>> => {
   const filterQuery = Object.entries(filters).reduce((acc, [key, value]) => {
     if (!value) {
       return acc;
@@ -43,7 +44,7 @@ export const listPortfolios = (
   }, '');
   return (axiosInstance.get(
     `${CATALOG_API_BASE}/portfolios?limit=${limit}&offset=${offset}${filterQuery}`
-  ) as unknown) as Promise<ApiCollectionResponse<Portfolio>>;
+  ) as unknown) as Promise<ApiCollectionResponse<InternalPortfolio>>;
 };
 
 export const listPortfolioItems = (

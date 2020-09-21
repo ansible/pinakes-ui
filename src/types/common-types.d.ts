@@ -1,4 +1,9 @@
-import { Order, OrderItem } from '@redhat-cloud-services/catalog-client';
+import {
+  Order,
+  OrderItem,
+  Portfolio,
+  PortfolioItem
+} from '@redhat-cloud-services/catalog-client';
 import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
@@ -55,8 +60,8 @@ export type ReduxActionHandler<T /**Reducer state definition */> = (
 ) => T;
 
 export interface SelectOption extends AnyObject {
-  label: string;
-  value: any;
+  label?: string;
+  value?: any;
   isDisabled?: boolean;
 }
 
@@ -84,8 +89,8 @@ export interface UserCapabilities {
 }
 
 export interface PortfolioStatistics {
-  shared_groups: number;
-  portfolio_items: number;
+  shared_groups?: number;
+  portfolio_items?: number;
 }
 
 export interface PortfolioMetadata {
@@ -115,3 +120,19 @@ export type FormatMessage = (
   message: MessageDescriptor,
   values?: AnyObject
 ) => ReactNode;
+
+export interface InternalPortfolio extends Portfolio {
+  metadata: PortfolioMetadata;
+}
+
+export interface InternalPortfolioItem extends PortfolioItem {
+  metadata: {
+    user_capabilities?: UserCapabilities;
+  };
+}
+export interface FormApi {
+  getState: () => {
+    values: AnyObject;
+    initialValues: AnyObject;
+  };
+}

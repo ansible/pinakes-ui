@@ -22,7 +22,8 @@ import {
 import {
   ApiCollectionResponse,
   AnyObject,
-  ReduxActionHandler
+  ReduxActionHandler,
+  InternalPortfolio
 } from '../../types/common-types';
 import {
   PortfolioItem,
@@ -37,7 +38,7 @@ export interface PortfolioReducerState extends AnyObject {
   portfolioItems: ApiCollectionResponse<PortfolioItem>;
   portfolioItem: PortfolioItemStateObject;
   portfolios: ApiCollectionResponse<Portfolio>;
-  selectedPortfolio: Portfolio;
+  selectedPortfolio: InternalPortfolio;
   portfolio: Portfolio;
   filterValue: string;
   isLoading: boolean;
