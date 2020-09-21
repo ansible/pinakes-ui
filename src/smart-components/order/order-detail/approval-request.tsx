@@ -25,7 +25,8 @@ import {
   TableHeader,
   TableBody,
   sortable,
-  SortByDirection
+  SortByDirection,
+  ISortBy
 } from '@patternfly/react-table';
 
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
@@ -36,12 +37,27 @@ import statesMessages from '../../../messages/states.messages';
 import labelMessages from '../../../messages/labels.messages';
 import { CheckCircleIcon } from '@patternfly/react-icons';
 import useFormatMessage from '../../../utilities/use-format-message';
+import {
+  AnyObject,
+  ApiCollectionResponse,
+  StringObject
+} from '../../../types/common-types';
+import { ApprovalRequest } from '@redhat-cloud-services/catalog-client';
+import { CatalogRootState } from '../../../types/redux';
+import { OrderDetail } from '../../../redux/reducers/order-reducer';
+
+/**
+ * We are using type conversion of **request as StringObject** becuase the generated client does not have correct states listed
+ * Probably a discrepency inside the OpenAPI spec
+ */
 
 const rowOrder = ['updated', 'group_name', 'state'];
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const checkRequest = async (fetchRequests) => {
+const checkRequest = async (
+  fetchRequests: () => Promise<ApiCollectionResponse<any>>
+) => {
   // eslint-disable-next-line no-constant-condition
   while (true) {
     const result = await fetchRequests();
@@ -53,31 +69,43 @@ const checkRequest = async (fetchRequests) => {
   }
 };
 
-const isEmpty = (approvalRequest) =>
+const isEmpty = (approvalRequest?: ApiCollectionResponse<ApprovalRequest>) =>
   !approvalRequest ||
   !approvalRequest.data ||
   approvalRequest.data.length === 0;
 
-const ApprovalRequests = () => {
+const ApprovalRequests: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
-  const [sortBy, setSortBy] = useState({});
+  const [sortBy, setSortBy] = useState<ISortBy>({});
   const {
     order,
-    approvalRequest = { data: [] },
+    approvalRequest,
     platform,
     orderItem,
     portfolio,
     portfolioItem
-  } = useSelector(({ orderReducer: { orderDetail } }) => orderDetail);
+  } = useSelector<CatalogRootState, OrderDetail>(
+    ({ orderReducer: { orderDetail } }) => orderDetail
+  );
 
   useEffect(() => {
     if (order.state !== 'Failed' && orderItem?.id && isEmpty(approvalRequest)) {
-      checkRequest(() => dispatch(fetchApprovalRequests(orderItem.id)));
+      checkRequest(() =>
+        dispatch(
+          (fetchApprovalRequests(orderItem.id!) as unknown) as Promise<
+            ApiCollectionResponse<ApprovalRequest>
+          >
+        )
+      );
     }
   }, []);
 
-  const handleSort = (_e, index, direction) => setSortBy({ index, direction });
+  const handleSort = (
+    _e: React.SyntheticEvent,
+    index: number,
+    direction: SortByDirection
+  ) => setSortBy({ index, direction });
 
   if (order.state === 'Failed' && isEmpty(approvalRequest)) {
     return (
@@ -102,44 +130,54 @@ const ApprovalRequests = () => {
     'Status'
   ];
 
-  const rows = approvalRequest.data
-    .map((request) =>
-      rowOrder.map((key) => {
-        if (key === 'state') {
-          return (
-            <Fragment>
-              {request[key] === 'completed' && (
-                <Fragment>
-                  <CheckCircleIcon color="var(--pf-global--success-color--100)" />
-                  &nbsp;
-                </Fragment>
-              )}
-              {formatMessage(statesMessages[request[key]])}
-            </Fragment>
-          );
-        }
+  const rows =
+    approvalRequest?.data
+      .map((request) =>
+        rowOrder.map((key) => {
+          if (key === 'state') {
+            return (
+              <Fragment>
+                {(request as StringObject)[key] === 'completed' && (
+                  <Fragment>
+                    <CheckCircleIcon color="var(--pf-global--success-color--100)" />
+                    &nbsp;
+                  </Fragment>
+                )}
+                {formatMessage(
+                  statesMessages[
+                    (request as StringObject)[
+                      key
+                    ] as keyof typeof statesMessages
+                  ]
+                )}
+              </Fragment>
+            );
+          }
 
-        if (key === 'updated') {
-          /**
-           * The fragment here is required other wise the super smart PF table will delete the first React element
-           */
-          return (
-            <Fragment>
-              <DateFormat date={request[key]} type="exact" />
-            </Fragment>
-          );
-        }
+          if (key === 'updated') {
+            /**
+             * The fragment here is required other wise the super smart PF table will delete the first React element
+             */
+            return (
+              <Fragment>
+                <DateFormat
+                  date={(request as StringObject)[key]}
+                  type="exact"
+                />
+              </Fragment>
+            );
+          }
 
-        return request[key];
-      })
-    )
-    .sort((a, b) =>
-      a[sortBy.index] < b[sortBy.index]
-        ? -1
-        : a[sortBy.index] < b[sortBy.index]
-        ? 1
-        : 0
-    );
+          return (request as AnyObject)[key];
+        })
+      )
+      .sort((a: AnyObject, b: AnyObject) =>
+        a[sortBy.index!] < b[sortBy.index!]
+          ? -1
+          : a[sortBy.index!] < b[sortBy.index!]
+          ? 1
+          : 0
+      ) || [];
 
   return (
     <TextContent>
@@ -217,7 +255,7 @@ const ApprovalRequests = () => {
                       {formatMessage(ordersMessages.approvalParameters)}
                     </Text>
                     <TextList component={TextListVariants.dl}>
-                      {Object.entries(orderItem.service_parameters).map(
+                      {Object.entries(orderItem?.service_parameters || []).map(
                         ([key, value]) => (
                           <Fragment key={key}>
                             <TextListItem component={TextListItemVariants.dt}>

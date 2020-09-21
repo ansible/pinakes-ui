@@ -78,7 +78,8 @@ const PortfolioRoutes: React.ComponentType = () => {
     CatalogRootState,
     UserCapabilities | undefined
   >((state) => {
-    const { portfolioItem } = state?.portfolioReducer?.portfolioItem;
+    const portfolioItem =
+      state?.portfolioReducer?.portfolioItem?.portfolioItem || {};
     return (portfolioItem as InternalPortfolioItem).metadata?.user_capabilities;
   }, shallowEqual);
 

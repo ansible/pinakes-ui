@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { LevelItem, Level, Title, Label } from '@patternfly/react-core';
 
 import CardIcon from '../../../presentational-components/shared/card-icon';
@@ -11,7 +11,14 @@ import statesMessages, {
 import useFormatMessage from '../../../utilities/use-format-message';
 import orderStatusMapper from '../order-status-mapper';
 
-const OrderDetailInformation = ({
+export interface OrderDetailInformationProps {
+  portfolioItemId: string;
+  sourceId: string;
+  jobName: string;
+  portfolioId: string;
+  state: keyof typeof orderStatusMapper;
+}
+const OrderDetailInformation: React.ComponentType<OrderDetailInformationProps> = ({
   portfolioId,
   jobName,
   portfolioItemId,
@@ -47,14 +54,6 @@ const OrderDetailInformation = ({
       </LevelItem>
     </Level>
   );
-};
-
-OrderDetailInformation.propTypes = {
-  portfolioItemId: PropTypes.string.isRequired,
-  sourceId: PropTypes.string.isRequired,
-  jobName: PropTypes.string.isRequired,
-  portfolioId: PropTypes.string.isRequired,
-  state: PropTypes.string.isRequired
 };
 
 export default OrderDetailInformation;
