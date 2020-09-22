@@ -240,7 +240,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
           />
         </StyledCardBody>
         <CardFooter>
-          {shared_groups > 0 && (
+          {shared_groups && shared_groups > 0 && (
             <Label variant="filled" color="grey">
               {formatMessage(labelMessages.shared)}
             </Label>

@@ -1,11 +1,22 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Modal, Title } from '@patternfly/react-core';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import ordersMessages from '../../messages/orders.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 
-const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => {
+export interface CancelOrderModal {
+  name: string;
+  cancelOrder: () => void;
+  onClose: () => void;
+  isOpen?: boolean;
+}
+const CancelOrderModal: React.ComponentType<CancelOrderModal> = ({
+  name,
+  cancelOrder,
+  onClose,
+  isOpen
+}) => {
   const formatMessage = useFormatMessage();
   return (
     <Modal
@@ -15,7 +26,7 @@ const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => {
       aria-labelledby="cancel-order"
       header={
         <Title size="2xl" headingLevel="h2">
-          <ExclamationTriangleIcon fill="#F0AB00" />{' '}
+          <ExclamationTriangleIcon style={{ fill: '#F0AB00' }} />{' '}
           {formatMessage(ordersMessages.cancelOrder)}
         </Title>
       }
@@ -42,13 +53,6 @@ const CancelOrderModal = ({ name, cancelOrder, onClose, isOpen }) => {
       {formatMessage(ordersMessages.cancelDescription, { name })}
     </Modal>
   );
-};
-
-CancelOrderModal.propTypes = {
-  name: PropTypes.string.isRequired,
-  cancelOrder: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool
 };
 
 export default CancelOrderModal;

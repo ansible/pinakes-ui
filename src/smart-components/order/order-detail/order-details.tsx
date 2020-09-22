@@ -22,8 +22,10 @@ import statesMessages from '../../../messages/states.messages';
 import labelMessages from '../../../messages/labels.messages';
 import ordersMessages from '../../../messages/orders.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { OrderDetail } from '../../../redux/reducers/order-reducer';
+import { CatalogRootState } from '../../../types/redux';
 
-const OrderDetails = () => {
+const OrderDetails: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const {
     order,
@@ -31,7 +33,9 @@ const OrderDetails = () => {
     progressMessages,
     portfolio,
     orderItem
-  } = useSelector(({ orderReducer: { orderDetail } }) => orderDetail);
+  } = useSelector<CatalogRootState, OrderDetail>(
+    ({ orderReducer: { orderDetail } }) => orderDetail
+  );
 
   return (
     <Grid hasGutter>

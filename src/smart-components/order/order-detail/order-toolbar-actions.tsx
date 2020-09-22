@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { ActionGroup, Button } from '@patternfly/react-core';
 import { useDispatch } from 'react-redux';
 
@@ -10,9 +10,18 @@ import useFormatMessage from '../../../utilities/use-format-message';
 
 const CANCELABLE_STATES = ['Approval Pending'];
 
-const canCancel = (state) => CANCELABLE_STATES.includes(state);
+const canCancel = (state = '') => CANCELABLE_STATES.includes(state);
 
-const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
+export interface OrderToolbarActions {
+  state?: string;
+  orderId: string;
+  portfolioItemName: string;
+}
+const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
+  state,
+  orderId,
+  portfolioItemName
+}) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -42,12 +51,6 @@ const OrderToolbarActions = ({ state, orderId, portfolioItemName }) => {
       </ActionGroup>
     </Fragment>
   );
-};
-
-OrderToolbarActions.propTypes = {
-  state: PropTypes.string,
-  orderId: PropTypes.string.isRequired,
-  portfolioItemName: PropTypes.string.isRequired
 };
 
 export default OrderToolbarActions;

@@ -25,6 +25,7 @@ const groupMessage = (
 
 // TODO This will be the form type
 export interface SharePortfolioData {
+  id?: string;
   group_uuid: string;
   permissions: string;
   groupName: string;
@@ -42,7 +43,7 @@ const sharePorfolioMessage = ({
   removedGroups: SharePortfolioData[];
   newGroups: SharePortfolioData[];
   formatMessage: (message: MessageDescriptor, values?: AnyObject) => ReactNode;
-  portfolioName: () => string;
+  portfolioName: (...args: any[]) => string | undefined;
 }): { title: ReactNode; description: ReactNode } => {
   let title = formatMessage(portfolioMessages.shareSuccessTitle);
   let description;

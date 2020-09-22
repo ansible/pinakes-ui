@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { ReactNode, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FormRenderer from '../common/form-renderer';
 import { createPortfolioSchema } from '../../forms/portfolio-form.schema';
@@ -17,29 +17,54 @@ import actionMessages from '../../messages/actions.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { CatalogLinkTo } from '../common/catalog-link';
+import { PaginationConfiguration } from '../../helpers/shared/pagination';
+import { CatalogRootState } from '../../types/redux';
+import { Portfolio } from '@redhat-cloud-services/catalog-client';
+import { InternalPortfolio } from '../../types/common-types';
 
-const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
+export interface AddPortfolioModalProps {
+  removeQuery?: boolean;
+  closeTarget: CatalogLinkTo;
+  viewState?: PaginationConfiguration;
+}
+const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
+  removeQuery,
+  closeTarget,
+  viewState
+}) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
-  const { push } = useEnhancedHistory({ removeQuery, keepHash: true });
-  const initialValues = useSelector(({ portfolioReducer }) =>
-    getPortfolioFromState(portfolioReducer, portfolioId)
+  const { push } = useEnhancedHistory({
+    removeSearch: removeQuery,
+    keepHash: true
+  });
+  const initialValues = useSelector<
+    CatalogRootState,
+    InternalPortfolio | undefined
+  >(
+    ({ portfolioReducer }) =>
+      getPortfolioFromState(portfolioReducer, portfolioId) as
+        | InternalPortfolio
+        | undefined
   );
 
-  const onAddPortfolio = async (data) => {
+  const onAddPortfolio = async (data: Partial<Portfolio>) => {
     const notification = {
       variant: 'success',
       title: formatMessage(portfolioMessages.addSuccessTitle),
       description: formatMessage(portfolioMessages.addSuccessDescription, {
         name: data.name,
         // eslint-disable-next-line react/display-name
-        b: (chunks) => <b key="strong">{chunks}</b>
+        b: (chunks: ReactNode) => <b key="strong">{chunks}</b>
       })
     };
-    const newPortfolio = await dispatch(addPortfolio(data, notification));
+    const newPortfolio = await dispatch(
+      addPortfolio(data, notification) as Promise<{ value: Portfolio }>
+    );
     return newPortfolio && newPortfolio.value && newPortfolio.value.id
       ? push({
           pathname: PORTFOLIO_ROUTE,
@@ -48,13 +73,15 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
       : push(closeTarget);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: Portfolio) => {
     if (initialValues) {
       /**
        * Fake the redirect by closing the modal
        */
       setIsOpen(false);
-      return dispatch(updatePortfolio(data, viewState)).then(() =>
+      return dispatch(
+        (updatePortfolio(data, viewState) as unknown) as Promise<void>
+      ).then(() =>
         /**
          * Redirect only after the update was finished.
          * This will ensure that API requests are triggered in correct order when chaning the router pathname
@@ -62,7 +89,7 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
         push(closeTarget)
       );
     } else {
-      return onAddPortfolio(data, viewState);
+      return onAddPortfolio(data);
     }
   };
 
@@ -82,12 +109,12 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
       isModal
       modalProps={{
         title: portfolioId
-          ? formatMessage(portfolioMessages.modalEditTitle)
-          : formatMessage(portfolioMessages.modalCreateTitle),
+          ? (formatMessage(portfolioMessages.modalEditTitle) as string)
+          : (formatMessage(portfolioMessages.modalCreateTitle) as string),
         isOpen,
         onClose: () => push(closeTarget),
         variant: 'small',
-        loading: !portfolioId || editVariant
+        isLoading: !!(!portfolioId || editVariant)
       }}
       templateProps={{
         submitLabel: portfolioId
@@ -96,23 +123,6 @@ const AddPortfolioModal = ({ removeQuery, closeTarget, viewState }) => {
       }}
     />
   );
-};
-
-AddPortfolioModal.propTypes = {
-  removeQuery: PropTypes.bool,
-  closeTarget: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string
-    })
-  ]).isRequired,
-  viewState: PropTypes.shape({
-    count: PropTypes.number,
-    limit: PropTypes.number,
-    offset: PropTypes.number,
-    filter: PropTypes.string
-  })
 };
 
 export default AddPortfolioModal;

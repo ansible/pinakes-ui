@@ -23,7 +23,7 @@ export interface EditApprovalWorkflowProps {
   removeSearch?: boolean;
   querySelector: 'portfolio' | 'platform' | 'inventory' | 'portfolio-item';
   keepHash?: boolean;
-  onClose: () => any;
+  onClose?: () => any;
 }
 const EditApprovalWorkflow: React.ComponentType<EditApprovalWorkflowProps> = ({
   objectType,

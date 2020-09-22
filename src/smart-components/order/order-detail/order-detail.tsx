@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment, Suspense, lazy } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import {
   Level,
   LevelItem,
@@ -21,11 +21,14 @@ import { OrderDetailToolbarPlaceholder } from '../../../presentational-component
 import useQuery from '../../../utilities/use-query';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
-import { ORDER_ROUTE } from '../../../constants/routes';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
 import ordersMessages from '../../../messages/orders.messages';
 import CatalogLink from '../../common/catalog-link';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { CatalogRootState } from '../../../types/redux';
+import { OrderDetail as OrderDetailType } from '../../../redux/reducers/order-reducer';
+import { GetOrderDetailParams } from '../../../helpers/order/order-helper';
+import { ORDER_ROUTE } from '../../../constants/routes';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -44,25 +47,28 @@ const requiredParams = [
   'order'
 ];
 
-const OrderDetail = () => {
+const OrderDetail: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const [isFetching, setIsFetching] = useState(true);
-  const [queryValues] = useQuery(requiredParams);
-  const orderDetailData = useSelector(
+  const [queryValues] = useQuery<GetOrderDetailParams>(requiredParams);
+  const orderDetailData = useSelector<CatalogRootState, OrderDetailType>(
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
-  const match = useRouteMatch(ORDER_ROUTE);
   const dispatch = useDispatch();
 
   const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
-    insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
+    window.insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
     setIsFetching(true);
     Promise.all([
       dispatch(fetchPlatforms()),
       dispatch(fetchOrderDetails(queryValues))
     ]).then(() => setIsFetching(false));
-    return () => resetBreadcrumbs();
+    return () => {
+      if (typeof resetBreadcrumbs === 'function') {
+        resetBreadcrumbs();
+      }
+    };
   }, []);
 
   const { order, portfolioItem, platform, portfolio } = orderDetailData;
@@ -147,7 +153,7 @@ const OrderDetail = () => {
       <StackItem>
         <Stack hasGutter>
           <StackItem className="global-primary-background">
-            <OrderDetailMenu isFetching={isFetching} baseUrl={match.url} />
+            <OrderDetailMenu isFetching={isFetching} baseUrl={ORDER_ROUTE} />
           </StackItem>
           <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg">
             {isFetching ? (
@@ -158,13 +164,13 @@ const OrderDetail = () => {
               <Suspense fallback={<div></div>}>
                 <Switch>
                   <Route
-                    path={`${match.url}/approval`}
+                    path={`${ORDER_ROUTE}/approval`}
                     component={ApprovalRequests}
                   />
-                  <Route path={`${match.url}/lifecycle`}>
+                  <Route path={`${ORDER_ROUTE}/lifecycle`}>
                     <OrderLifecycle />
                   </Route>
-                  <Route path={match.url} component={OrderDetails} />
+                  <Route path={ORDER_ROUTE} component={OrderDetails} />
                 </Switch>
               </Suspense>
             )}

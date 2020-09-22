@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { useReducer, useEffect, Reducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { Modal } from '@patternfly/react-core';
@@ -18,8 +18,26 @@ import orderProcessesMessages from '../../messages/order-processes.messages';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import useOrderProcess from '../../utilities/use-order-process';
 import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
+import { OrderProcess } from '@redhat-cloud-services/catalog-client';
+import { Schema } from '@data-driven-forms/react-form-renderer';
+import { CatalogRootState } from '../../types/redux';
+import { Full } from '../../types/common-types';
 
-const reducer = (state, { type, initialValues, schema }) => {
+interface OrderProcessModalState {
+  initialValues?: Partial<OrderProcess>;
+  schema?: Schema;
+  isLoading: boolean;
+}
+
+interface OrderProcessModalStateAction {
+  type: 'loaded';
+  initialValues: Partial<OrderProcess>;
+  schema: Schema;
+}
+const reducer = (
+  state: OrderProcessModalState,
+  { type, initialValues, schema }: OrderProcessModalStateAction
+) => {
   switch (type) {
     case 'loaded':
       return {
@@ -33,10 +51,15 @@ const reducer = (state, { type, initialValues, schema }) => {
   }
 };
 
-const AddOrderProcess = ({ edit }) => {
+export interface AddOrderProcessProps {
+  edit?: boolean;
+}
+const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
+  edit = false
+}) => {
   const dispatch = useDispatch();
   const [{ order_process }] = useQuery(['order_process']);
-  const data = useSelector(
+  const data = useSelector<CatalogRootState, Partial<OrderProcess> | undefined>(
     ({
       orderProcessReducer: {
         orderProcesses: { data }
@@ -47,37 +70,42 @@ const AddOrderProcess = ({ edit }) => {
   const intl = useIntl();
   const loadedProcess = useOrderProcess(order_process);
 
-  const [{ initialValues }, stateDispatch] = useReducer(reducer, {
+  const [{ initialValues }, stateDispatch] = useReducer<
+    Reducer<OrderProcessModalState, OrderProcessModalStateAction>
+  >(reducer, {
     isLoading: true
   });
 
   useEffect(() => {
     if (!loadedProcess && loadedProcess !== undefined) {
-      fetchOrderProcess(order_process).then((data) =>
-        stateDispatch({
-          type: 'loaded',
-          initialValues: data,
-          schema: createOrderProcessSchema(intl, data.id)
-        })
+      (fetchOrderProcess(order_process) as Promise<Full<OrderProcess>>).then(
+        (data) =>
+          stateDispatch({
+            type: 'loaded',
+            initialValues: data,
+            schema: createOrderProcessSchema(intl, data.id)
+          })
       );
-    } else if (loadedProcess !== undefined) {
+    } else if (typeof loadedProcess !== 'undefined') {
       stateDispatch({
         type: 'loaded',
         initialValues: loadedProcess,
-        schema: createOrderProcessSchema(intl, loadedProcess.id)
+        schema: createOrderProcessSchema(intl, loadedProcess.id!)
       });
     }
   }, []);
 
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
-  const onSave = (values) => {
+  const onSave = (values: Partial<OrderProcess>) => {
     const submitAction = edit
       ? () => updateOrderProcess(order_process, values, intl)
       : () => addOrderProcess(values, intl);
     onCancel();
 
-    return dispatch(submitAction()).then(() => dispatch(fetchOrderProcesses()));
+    return dispatch(submitAction() as Promise<void>).then(() =>
+      dispatch(fetchOrderProcesses())
+    );
   };
 
   if (edit && !data) {
@@ -109,14 +137,6 @@ const AddOrderProcess = ({ edit }) => {
       />
     </Modal>
   );
-};
-
-AddOrderProcess.propTypes = {
-  edit: PropTypes.bool
-};
-
-AddOrderProcess.defaultProps = {
-  edit: false
 };
 
 export default AddOrderProcess;

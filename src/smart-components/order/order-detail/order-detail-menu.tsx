@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -12,6 +12,10 @@ import ordersMessages from '../../../messages/orders.messages';
  */
 import '@patternfly/react-styles/css/components/Tabs/tabs.css';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { OrderStateEnum } from '@redhat-cloud-services/catalog-client';
+import { FormatMessage } from '../../../types/common-types';
+import { CatalogRootState } from '../../../types/redux';
+import { OrderDetail } from '../../../redux/reducers/order-reducer';
 
 const StyledCatalogLink = styled(CatalogLink)`
   color: var(--pf-c-tabs__link--Color);
@@ -28,7 +32,10 @@ const StyledTabItem = styled(({ isDisabled, ...props }) => <li {...props} />)`
   cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
 `;
 
-const useNavItems = ({ state } = {}, formatMessage) => [
+const useNavItems = (
+  { state }: { state?: OrderStateEnum } = {},
+  formatMessage: FormatMessage
+) => [
   {
     link: '',
     title: formatMessage(ordersMessages.orderDetails)
@@ -44,10 +51,18 @@ const useNavItems = ({ state } = {}, formatMessage) => [
   }
 ];
 
-const OrderDetailMenu = ({ baseUrl, isFetching }) => {
+export interface OrderDetailMenuProps {
+  baseUrl: string;
+  isFetching?: boolean;
+}
+
+const OrderDetailMenu: React.ComponentType<OrderDetailMenuProps> = ({
+  baseUrl,
+  isFetching
+}) => {
   const formatMessage = useFormatMessage();
   const { push } = useEnhancedHistory();
-  const orderDetailData = useSelector(
+  const orderDetailData = useSelector<CatalogRootState, OrderDetail>(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { pathname, search } = useLocation();
@@ -57,7 +72,7 @@ const OrderDetailMenu = ({ baseUrl, isFetching }) => {
     ({ link }) => pathname.split('/').pop() === link.replace('/', '')
   );
   activeKey = activeKey > 0 ? activeKey : 0;
-  const handleTabClick = (tabIndex) =>
+  const handleTabClick = (tabIndex: number) =>
     push({ pathname: `${baseUrl}${navItems[tabIndex].link}`, search });
 
   return (
@@ -69,7 +84,7 @@ const OrderDetailMenu = ({ baseUrl, isFetching }) => {
               index === activeKey ? ' pf-m-current' : ''
             }`}
             isDisabled={isDisabled || isFetching}
-            key={link || title}
+            key={link || index}
           >
             <StyledTabButton
               className="pf-c-tabs__link"
@@ -94,11 +109,6 @@ const OrderDetailMenu = ({ baseUrl, isFetching }) => {
       </ul>
     </div>
   );
-};
-
-OrderDetailMenu.propTypes = {
-  baseUrl: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool
 };
 
 export default OrderDetailMenu;

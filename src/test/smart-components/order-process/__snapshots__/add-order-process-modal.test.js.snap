@@ -39,9 +39,7 @@ exports[`<AddOrderProcess /> should render correctly 1`] = `
       ]
     }
   >
-    <AddOrderProcess
-      edit={false}
-    />
+    <AddOrderProcess />
   </MemoryRouter>
 </ContextProvider>
 `;

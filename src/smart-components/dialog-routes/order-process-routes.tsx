@@ -8,12 +8,12 @@ const AddOrderProcessModal = lazy(() =>
   )
 );
 
-const OrderProcessRoutes = () => {
+const OrderProcessRoutes: React.ComponentType = () => {
   return (
     <div>
       <Switch>
         <Route path={ADD_ORDER_PROCESS_ROUTE}>
-          <AddOrderProcessModal closeTarget={ADD_ORDER_PROCESS_ROUTE} />
+          <AddOrderProcessModal />
         </Route>
       </Switch>
     </div>

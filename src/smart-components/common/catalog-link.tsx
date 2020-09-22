@@ -48,6 +48,7 @@ export interface CatalogLinkProps
   preserveHash?: boolean;
   showDivider?: boolean;
   to?: CatalogLinkTo;
+  isDisabled?: boolean;
 }
 const CatalogLink: React.ComponentType<CatalogLinkProps> = ({
   pathname,

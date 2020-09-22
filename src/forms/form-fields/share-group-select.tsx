@@ -2,7 +2,10 @@
 import React, { useReducer, ComponentType } from 'react';
 import { Grid, GridItem, Button, Level, Tooltip } from '@patternfly/react-core';
 import PlusIcon from '@patternfly/react-icons/dist/js/icons/plus-icon';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import {
+  InternalSelect,
+  SelectOption
+} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import FieldArray from '@data-driven-forms/react-form-renderer/dist/cjs/field-array';
 
 import asyncFormValidator from '../../utilities/async-form-validator';
@@ -130,7 +133,7 @@ export const NewGroupSelect: ComponentType<NewGroupSelectProps> = ({
           <GridItem span={5}>
             <InternalSelect
               name="select-permission"
-              options={permissions}
+              options={permissions as SelectOption[]}
               menuIsPortal
               placeholder={formatMessage(formsMessages.permissionsPlaceholder)}
               onChange={(value) =>

@@ -74,10 +74,11 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/DateFo
     [key: string]: number | string;
   }
   export interface DateFormatProps {
-    date: Date | string | number;
+    date: Date | string | number | undefined;
     type?: 'exact' | 'onlyDate' | 'relative';
     extraTitle?: string;
     tooltipProps?: DateFormatTooltipProps;
+    variant?: 'relative';
   }
   export const DateFormat: React.ComponentType<DateFormatProps>;
 }

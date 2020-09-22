@@ -1,19 +1,20 @@
 import React from 'react';
-import { Redirect, useRouteMatch } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ExternalLinkAlt from '@patternfly/react-icons/dist/js/icons/external-link-alt-icon';
 
 import useQuery from '../../../utilities/use-query';
-import { ORDER_ROUTE } from '../../../constants/routes';
 import ordersMessages from '../../../messages/orders.messages';
 import { Card, CardBody } from '@patternfly/react-core';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { OrderDetail } from '../../../redux/reducers/order-reducer';
+import { CatalogRootState } from '../../../types/redux';
 
-const OrderLifecycle = () => {
+const OrderLifecycle: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const [, search] = useQuery([]);
-  const { url } = useRouteMatch(ORDER_ROUTE);
-  const orderDetailData = useSelector(
+  const { pathname } = useLocation();
+  const orderDetailData = useSelector<CatalogRootState, OrderDetail>(
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { order, orderItem } = orderDetailData;
@@ -21,7 +22,7 @@ const OrderLifecycle = () => {
     return (
       <Redirect
         to={{
-          pathname: url,
+          pathname,
           search
         }}
       />
@@ -32,7 +33,7 @@ const OrderLifecycle = () => {
     <Card>
       <CardBody>
         <a
-          href={orderItem.external_url}
+          href={orderItem?.external_url}
           target="_blank"
           rel="noopener noreferrer"
         >

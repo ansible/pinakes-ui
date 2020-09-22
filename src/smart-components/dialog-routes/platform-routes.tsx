@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { INVENTORY_RESOURCE_TYPE } from '../../utilities/constants';
 import useQuery from '../../utilities/use-query';
 import { useSelector } from 'react-redux';
+import { CatalogRootState } from '../../types/redux';
 
 const EditApprovalWorkflow = lazy(() =>
   import(
@@ -10,14 +11,21 @@ const EditApprovalWorkflow = lazy(() =>
   )
 );
 
-const PlatformRoutes = () => {
+export interface PlatformRoutesProps {
+  [key: string]: never;
+}
+const PlatformRoutes: React.ComponentType<PlatformRoutesProps> = () => {
   const [{ platform: id }] = useQuery(['platform']);
-  const { objectName } = useSelector((state) => {
+  const { objectName } = useSelector<
+    CatalogRootState,
+    { objectName: string | undefined }
+  >((state) => {
     const data = state?.platformReducer?.platformInventories?.data;
     return {
       objectName: data ? data.find((obj) => obj.id === id)?.name : 'inventory'
     };
   });
+
   return (
     <div>
       <Switch>
@@ -28,7 +36,7 @@ const PlatformRoutes = () => {
               search: `?platform=${id}`
             }}
             objectType={INVENTORY_RESOURCE_TYPE}
-            objectName={objectName}
+            objectName={() => objectName}
             querySelector="inventory"
           />
         </Route>

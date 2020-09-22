@@ -26,6 +26,13 @@ import {
   resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
 import SetOrderProcessModal from '../order-process/set-order-process-modal';
+import { CatalogRootState } from '../../types/redux';
+import {
+  ApiCollectionResponse,
+  InternalPortfolioItem,
+  UserCapabilities
+} from '../../types/common-types';
+import { Portfolio } from '@redhat-cloud-services/catalog-client';
 
 const CopyPortfolioItemModal = lazy(() =>
   import(
@@ -60,29 +67,39 @@ const AddPortfolioModal = lazy(() =>
   )
 );
 
-const PortfolioRoutes = () => {
+const PortfolioRoutes: React.ComponentType = () => {
   const viewState = useInitialUriHash();
   const { pathname } = useLocation();
 
-  const portfolioItemId = useSelector(
+  const portfolioItemId = useSelector<CatalogRootState, string | undefined>(
     (state) => state?.portfolioReducer?.portfolioItem?.portfolioItem?.id
   );
-  const portfolioItemUserCapabilities = useSelector(
-    (state) =>
-      state?.portfolioReducer?.portfolioItem?.portfolioItem?.metadata
-        ?.user_capabilities,
-    shallowEqual
-  );
-  const portfolios = useSelector(
-    (state) => state?.portfolioReducer?.portfolios,
-    shallowEqual
-  );
-  const selectedPortfolio = useSelector(
-    (state) => state?.portfolioReducer?.selectedPortfolio,
-    shallowEqual
-  );
+  const portfolioItemUserCapabilities = useSelector<
+    CatalogRootState,
+    UserCapabilities | undefined
+  >((state) => {
+    const portfolioItem =
+      state?.portfolioReducer?.portfolioItem?.portfolioItem || {};
+    return (portfolioItem as InternalPortfolioItem).metadata?.user_capabilities;
+  }, shallowEqual);
 
-  const { portfolioUserCapabilities, itemName } = useSelector((state) => ({
+  const portfolios = useSelector<
+    CatalogRootState,
+    ApiCollectionResponse<Portfolio>
+  >((state) => state?.portfolioReducer?.portfolios, shallowEqual);
+
+  const selectedPortfolio = useSelector<
+    CatalogRootState,
+    Portfolio | undefined
+  >((state) => state?.portfolioReducer?.selectedPortfolio, shallowEqual);
+
+  const { portfolioUserCapabilities, itemName } = useSelector<
+    CatalogRootState,
+    {
+      portfolioUserCapabilities: UserCapabilities;
+      itemName: () => string | undefined;
+    }
+  >((state) => ({
     portfolioUserCapabilities:
       state?.portfolioReducer?.selectedPortfolio?.metadata?.user_capabilities,
     itemName: () => state?.portfolioReducer?.selectedPortfolio?.name
@@ -91,7 +108,7 @@ const PortfolioRoutes = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (id && (!selectedPortfolio.id || id !== selectedPortfolio.id)) {
+    if (id && (!selectedPortfolio?.id || id !== selectedPortfolio.id)) {
       dispatch(setOrFetchPortfolio(id, portfolios));
     }
   }, [id]);
@@ -130,7 +147,6 @@ const PortfolioRoutes = () => {
         <Route exact path={SHARE_PORTFOLIO_ROUTE}>
           <SharePortfolioModal
             closeUrl={PORTFOLIOS_ROUTE}
-            querySelector="portfolio"
             removeSearch
             viewState={viewState?.portfolio}
             portfolioName={itemName}
@@ -157,7 +173,6 @@ const PortfolioRoutes = () => {
           <EditApprovalWorkflow
             querySelector="portfolio"
             pushParam={{ pathname: PORTFOLIO_ROUTE, search }}
-            closeUrl={PORTFOLIO_ROUTE}
             objectType={PORTFOLIO_RESOURCE_TYPE}
             objectName={itemName}
           />

@@ -65,7 +65,7 @@ export const setOrderProcesses = (
 export const getLinkedOrderProcesses = (
   objectType: string,
   objectId: string
-): Promise<OrderProcess> =>
+): Promise<ApiCollectionResponse<OrderProcess>> =>
   axiosInstance.get(
     `${CATALOG_API_BASE}/order_processes?app_name=catalog&object_type=${objectType}&object_id=${objectId}`
   );
