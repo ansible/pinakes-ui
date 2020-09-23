@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { Label, Text, TextVariants } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
@@ -12,22 +12,17 @@ import statesMessages, {
 
 import { TableText } from '@patternfly/react-table';
 import orderStatusMapper from './order-status-mapper';
+import { OrderDetail } from '../../redux/reducers/order-reducer';
+import { FormatMessage, StringObject } from '../../types/common-types';
 
-/**
- * Create order row definition for react tabular table
- * @param {Object} item order object
- * @param {Object} orderPlatform order source data
- * @param {Object} orderPortfolio order portfolio data
- * @param {function} formatMessage translation function
- */
 const createOrderItem = (
-  item,
-  orderPlatform,
-  orderPortfolio,
-  formatMessage
-) => {
+  item: OrderDetail,
+  orderPlatform: string | undefined,
+  orderPortfolio: string | undefined,
+  formatMessage: FormatMessage
+): { title: ReactNode }[] => {
   const orderItem = (item.orderItems[0] && item.orderItems[0]) || {};
-  const searchParams = {
+  const searchParams: StringObject = {
     order: item.id,
     ...(orderItem.id ? { 'order-item': orderItem.id } : {}),
     ...(orderItem.portfolio_item_id
@@ -80,7 +75,10 @@ const createOrderItem = (
     {
       title: (
         <TableText>
-          <Label {...orderStatusMapper[item.state]} variant="outline">
+          <Label
+            {...orderStatusMapper[item.state as keyof typeof orderStatusMapper]}
+            variant="outline"
+          >
             {formatMessage(statesMessages[translatableState])}
           </Label>
         </TableText>

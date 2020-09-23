@@ -1,6 +1,7 @@
 import { toolbarComponentTypes } from '../toolbar-mapper';
+import { ToolbarSchema } from '../toolbar-renderer';
 
-const createOrdersToolbarSchema = () => ({
+const createOrdersToolbarSchema = (): ToolbarSchema => ({
   fields: [
     {
       component: toolbarComponentTypes.TOP_TOOLBAR,

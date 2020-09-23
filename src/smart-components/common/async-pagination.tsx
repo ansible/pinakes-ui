@@ -14,7 +14,7 @@ import { AnyObject } from '@data-driven-forms/react-form-renderer';
 export interface AsyncPaginationProps<T = any> extends AnyObject {
   meta: PaginationConfiguration;
   apiRequest: (...args: any[]) => Promise<T>;
-  apiProps: any;
+  apiProps?: any;
   className?: string;
   isCompact?: boolean;
 }

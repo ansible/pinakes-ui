@@ -13,7 +13,10 @@ import {
   Button
 } from '@patternfly/react-core';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
-import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
+import {
+  Chip,
+  PrimaryToolbar
+} from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
 import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar';
 import { SearchIcon } from '@patternfly/react-icons';
@@ -22,7 +25,10 @@ import {
   TableHeader,
   TableBody,
   sortable,
-  SortByDirection
+  SortByDirection,
+  ISortBy,
+  OnSort,
+  ICell
 } from '@patternfly/react-table';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
@@ -31,7 +37,10 @@ import { ListLoader } from '../../presentational-components/shared/loader-placeh
 import createOrderItem from './order-item';
 import AsyncPagination from '../common/async-pagination';
 import asyncFormValidator from '../../utilities/async-form-validator';
-import { defaultSettings } from '../../helpers/shared/pagination';
+import {
+  defaultSettings,
+  PaginationConfiguration
+} from '../../helpers/shared/pagination';
 import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import statesMessages from '../../messages/states.messages';
 import filteringMessages from '../../messages/filtering.messages';
@@ -42,6 +51,14 @@ import {
   getOrderPlatformId,
   getOrderPortfolioName
 } from '../../helpers/shared/orders';
+import { CatalogRootState } from '../../types/redux';
+import {
+  ApiCollectionResponse,
+  Full,
+  StringObject
+} from '../../types/common-types';
+import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
+import { OrderDetail } from '../../redux/reducers/order-reducer';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -66,12 +83,26 @@ const initialState = {
   }
 };
 
-const changeFilters = (value, type, filters) => ({
+const changeFilters = (
+  value: string,
+  type: string,
+  filters: StringObject
+): StringObject => ({
   ...filters,
   [type]: value
 });
 
-const ordersListState = (state, action) => {
+interface OrdersListState {
+  isFetching?: boolean;
+  filters: StringObject;
+  filterType: string;
+  isFiltering?: boolean;
+  sortBy: Full<ISortBy>;
+}
+const ordersListState = (
+  state: OrdersListState,
+  action: { type: string; payload: any }
+): OrdersListState => {
   switch (action.type) {
     case 'setFetching':
       return { ...state, isFetching: action.payload };
@@ -100,7 +131,7 @@ const sortIndexMapper = {
   6: 'state'
 };
 
-const OrdersList = () => {
+const OrdersList: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const viewState = useInitialUriHash();
@@ -115,8 +146,11 @@ const OrdersList = () => {
       index: viewState?.orders?.sortIndex || 0
     }
   });
-  const { data, meta } = useSelector(({ orderReducer }) => orderReducer.orders);
-  const columns = [
+  const { data, meta } = useSelector<
+    CatalogRootState,
+    ApiCollectionResponse<OrderDetail>
+  >(({ orderReducer }) => orderReducer.orders);
+  const columns: ICell[] = [
     { title: formatMessage(ordersMessages.orderID) },
     formatMessage(labelMessages.product),
     '', // need empty row column to correctly aling product names after the icon column
@@ -133,27 +167,29 @@ const OrdersList = () => {
     data.length !== 0
       ? { ...column, transforms: [sortable] }
       : column
-  );
-  const portfolioItems = useSelector(
+  ) as ICell[];
+  const portfolioItems = useSelector<CatalogRootState, Full<PortfolioItem>[]>(
     ({
       portfolioReducer: {
         portfolioItems: { data }
       }
-    }) => data
+    }) => data as Full<PortfolioItem>[]
   );
-  const onSort = (_e, index, direction) => {
+  const onSort: OnSort = (_e, index, direction) => {
     stateDispatch({
       type: 'setSortBy',
       payload: { index, direction }
     });
-    return dispatch(
+    return ((dispatch(
       fetchOrders(filters, {
         ...meta,
-        sortBy: sortIndexMapper[index],
+        sortBy: sortIndexMapper[index as keyof typeof sortIndexMapper],
         sortDirection: direction,
         sortIndex: index
       })
-    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    ) as unknown) as Promise<void>).then(() =>
+      stateDispatch({ type: 'setFetching', payload: false })
+    );
   };
 
   const rows = data.map((item) => {
@@ -178,33 +214,36 @@ const OrdersList = () => {
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
-  const handlePagination = (_apiProps, pagination) => {
+  const handlePagination = (
+    _apiProps: any,
+    pagination: PaginationConfiguration
+  ) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(
+    return ((dispatch(
       fetchOrders(filters, {
         ...pagination,
-        sortBy: sortIndexMapper[sortBy.index],
-        sortDirection: sortBy.direction,
+        sortBy: sortIndexMapper[sortBy.index as keyof typeof sortIndexMapper],
+        sortDirection: sortBy.direction as SortByDirection,
         sortIndex: sortBy.index
       })
-    )
+    ) as unknown) as Promise<void>)
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
 
-  const handleFilterItems = (value) => {
+  const handleFilterItems = (value = '') => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
       { ...filters, [filterType]: value },
       {
         ...meta,
-        sortBy: sortIndexMapper[sortBy.index],
+        sortBy: sortIndexMapper[sortBy.index as keyof typeof sortIndexMapper],
         sortDirection: sortBy.direction,
         sortIndex: sortBy.index,
         offset: 0
       },
       dispatch,
-      (isFiltering) =>
+      (isFiltering: boolean) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
     );
   };
@@ -218,12 +257,12 @@ const OrdersList = () => {
       initialState.filters,
       {
         ...meta,
-        sortBy: sortIndexMapper[sortBy.index],
+        sortBy: sortIndexMapper[sortBy.index as keyof typeof sortIndexMapper],
         sortDirection: sortBy.direction,
         sortIndex: sortBy.index
       },
       dispatch,
-      (isFiltering) =>
+      (isFiltering: boolean) =>
         stateDispatch({
           type: 'setFilteringFlag',
           payload: isFiltering
@@ -240,13 +279,15 @@ const OrdersList = () => {
               activeFiltersConfig={{
                 filters: Object.entries(filters)
                   .filter(([, value]) => value && value.length > 0)
-                  .map(([key, value]) => ({
-                    category: key,
-                    type: key,
-                    chips: Array.isArray(value)
-                      ? value.map((name) => ({ name }))
-                      : [{ name: value }]
-                  })),
+                  .map<{ category: string; type: string; chips: Chip[] }>(
+                    ([key, value]) => ({
+                      category: key,
+                      type: key,
+                      chips: Array.isArray(value)
+                        ? value.map<Chip>((name) => ({ name }))
+                        : ([{ name: value }] as Chip[])
+                    })
+                  ),
                 onDelete: (_e, [chip], clearAll) => {
                   if (clearAll) {
                     return handleClearAll();
@@ -254,22 +295,28 @@ const OrdersList = () => {
 
                   const newFilters = { ...filters };
                   if (chip.type === 'state') {
-                    newFilters[chip.type] = newFilters[chip.type].filter(
-                      (value) => value !== chip.chips[0].name
-                    );
+                    newFilters[chip.type] = (((newFilters[
+                      chip.type
+                    ] as unknown) as string[]).filter(
+                      (value) => value !== chip?.chips?.[0].name
+                    ) as unknown) as string;
                   } else {
-                    newFilters[chip.type] = '';
+                    newFilters[chip.type!] = '';
                   }
 
                   stateDispatch({
                     type: 'replaceFilterChip',
                     payload: newFilters
                   });
-                  debouncedFilter(newFilters, meta, dispatch, (isFiltering) =>
-                    stateDispatch({
-                      type: 'setFilteringFlag',
-                      payload: isFiltering
-                    })
+                  debouncedFilter(
+                    newFilters,
+                    meta,
+                    dispatch,
+                    (isFiltering: boolean) =>
+                      stateDispatch({
+                        type: 'setFilteringFlag',
+                        payload: isFiltering
+                      })
                   );
                 }
               }}
@@ -377,7 +424,7 @@ const OrdersList = () => {
           <TableToolbar className="pf-u-mr-0">
             <div className="bottom-pagination-container">
               <Flex justifyContent={{ default: 'justifyContentFlexEnd' }}>
-                {meta.count > 0 && (
+                {meta && meta.count! > 0 && (
                   <AsyncPagination
                     className="pf-u-mt-0"
                     isDisabled={isFetching || isFiltering}

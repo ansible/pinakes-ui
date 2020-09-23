@@ -31,9 +31,6 @@ import {
 } from '../../types/common-types';
 import { ObjectNotFound } from '../../helpers/order/new-order-helper';
 
-export interface CatalogOrder extends Order {
-  orderItems: OrderItem[];
-}
 export interface OrderDetail extends AnyObject {
   approvalRequest?: ApiCollectionResponse<ApprovalRequest>;
   order: Full<Order>;
@@ -48,7 +45,7 @@ export interface OrderReducerState extends AnyObject {
   isLoading: boolean;
   requests: Request[];
   orderDetail: OrderDetail;
-  orders: ApiCollectionResponse<CatalogOrder>;
+  orders: ApiCollectionResponse<OrderDetail>;
 }
 // Initial State
 export const orderInitialState: OrderReducerState = {
