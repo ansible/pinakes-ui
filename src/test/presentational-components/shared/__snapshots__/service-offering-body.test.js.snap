@@ -51,6 +51,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           </div>
         </TextContent>
         <ItemDetails
+          display_name="display name"
           long_description="long description"
           toDisplay={
             Array [

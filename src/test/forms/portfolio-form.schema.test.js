@@ -1,21 +1,7 @@
-import {
-  createPortfolioSchema,
-  validateName
-} from '../../forms/portfolio-form.schema';
-// import { fetchPortfolioByName } from '../../helpers/portfolio/portfolio-helper';
+import { validateName } from '../../forms/portfolio-form.schema';
 jest.mock('../../helpers/portfolio/portfolio-helper');
 
 describe('createPortfolioSchema', () => {
-  it('should create new portfolio form schema variant', () => {
-    const schema = createPortfolioSchema(true);
-    expect(schema).toMatchSnapshot();
-  });
-
-  it('should create edit portfolio form schema variant', () => {
-    const schema = createPortfolioSchema(false);
-    expect(schema).toMatchSnapshot();
-  });
-
   it('should pass unique name validation', () => {
     return validateName('unique', '123').then((response) => {
       expect(response).toBeUndefined();

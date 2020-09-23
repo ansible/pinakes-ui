@@ -24,11 +24,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
     <div>
       <CatalogLink
         isDisabled={false}
-        nav={false}
         pathname="foo/bar"
-        preserveHash={false}
         preserveSearch={true}
-        searchParams={Object {}}
       >
         <Styled(Component)
           isDisabled={false}
@@ -141,11 +138,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Edit Portfolio"
               component={
                 <CatalogLink
-                  nav={false}
                   pathname="foo/baz"
-                  preserveHash={false}
                   preserveSearch={true}
-                  searchParams={Object {}}
                 >
                   Edit
                 </CatalogLink>
@@ -157,11 +151,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Copy Portfolio"
               component={
                 <CatalogLink
-                  nav={false}
                   pathname="foo/copy"
-                  preserveHash={false}
                   preserveSearch={true}
-                  searchParams={Object {}}
                 >
                   Copy
                 </CatalogLink>
@@ -173,11 +164,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Set approval"
               component={
                 <CatalogLink
-                  nav={false}
                   pathname="foo/workflow"
-                  preserveHash={false}
                   preserveSearch={true}
-                  searchParams={Object {}}
                 >
                   Set approval
                 </CatalogLink>
@@ -189,11 +177,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Set order processes"
               component={
                 <CatalogLink
-                  nav={false}
                   pathname="/portfolio/portfolio-item/edit-order-process"
-                  preserveHash={false}
                   preserveSearch={true}
-                  searchParams={Object {}}
                 >
                   Set order processes
                 </CatalogLink>
@@ -205,11 +190,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               aria-label="Edit survey"
               component={
                 <CatalogLink
-                  nav={false}
                   pathname="foo/edit-survey"
-                  preserveHash={false}
                   preserveSearch={true}
-                  searchParams={Object {}}
                 >
                   Edit survey
                 </CatalogLink>
@@ -241,11 +223,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Edit Portfolio"
                 component={
                   <CatalogLink
-                    nav={false}
                     pathname="foo/baz"
-                    preserveHash={false}
                     preserveSearch={true}
-                    searchParams={Object {}}
                   >
                     Edit
                   </CatalogLink>
@@ -257,11 +236,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Copy Portfolio"
                 component={
                   <CatalogLink
-                    nav={false}
                     pathname="foo/copy"
-                    preserveHash={false}
                     preserveSearch={true}
-                    searchParams={Object {}}
                   >
                     Copy
                   </CatalogLink>
@@ -273,11 +249,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Set approval"
                 component={
                   <CatalogLink
-                    nav={false}
                     pathname="foo/workflow"
-                    preserveHash={false}
                     preserveSearch={true}
-                    searchParams={Object {}}
                   >
                     Set approval
                   </CatalogLink>
@@ -289,11 +262,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Set order processes"
                 component={
                   <CatalogLink
-                    nav={false}
                     pathname="/portfolio/portfolio-item/edit-order-process"
-                    preserveHash={false}
                     preserveSearch={true}
-                    searchParams={Object {}}
                   >
                     Set order processes
                   </CatalogLink>
@@ -305,11 +275,8 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 aria-label="Edit survey"
                 component={
                   <CatalogLink
-                    nav={false}
                     pathname="foo/edit-survey"
-                    preserveHash={false}
                     preserveSearch={true}
-                    searchParams={Object {}}
                   >
                     Edit survey
                   </CatalogLink>

@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import ReactFormRender from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
 import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
-import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
 import TextField from '@data-driven-forms/pf4-component-mapper/dist/cjs/text-field';
 import Textarea from '@data-driven-forms/pf4-component-mapper/dist/cjs/textarea';
 import SubForm from '@data-driven-forms/pf4-component-mapper/dist/cjs/sub-form';
@@ -21,6 +20,7 @@ import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 import InitialChips from '../../forms/form-fields/initial-chips';
 import useFormatMessage from '../../utilities/use-format-message';
+import FormTemplate from '../../forms/form-fields/form-template';
 
 export const catalogComponentMapper = {
   [componentTypes.TEXT_FIELD]: TextField,
@@ -61,13 +61,26 @@ export const catalogValidatorAlias = {
   'url-validator': validatorTypes.URL
 };
 
-const FormRenderer = ({ formContainer, templateProps, schema, ...rest }) => {
+const FormRenderer = ({
+  isModal,
+  templateProps,
+  schema,
+  modalProps,
+  ...rest
+}) => {
   const formatMessage = useFormatMessage();
   return (
     <div>
       <ReactFormRender
         componentMapper={catalogComponentMapper}
-        FormTemplate={(props) => <FormTemplate {...props} {...templateProps} />}
+        FormTemplate={(props) => (
+          <FormTemplate
+            {...props}
+            {...templateProps}
+            modalProps={modalProps}
+            isModal={isModal}
+          />
+        )}
         validatorMapper={catalogValidatorMapper}
         schema={translateSchema(schema, formatMessage)}
         {...rest}
@@ -78,8 +91,10 @@ const FormRenderer = ({ formContainer, templateProps, schema, ...rest }) => {
 
 FormRenderer.propTypes = {
   formContainer: PropTypes.oneOf(['default', 'modal']),
+  isModal: PropTypes.bool,
   templateProps: PropTypes.object,
-  schema: PropTypes.object.isRequired
+  schema: PropTypes.object.isRequired,
+  modalProps: PropTypes.object
 };
 
 FormRenderer.defaultProps = {

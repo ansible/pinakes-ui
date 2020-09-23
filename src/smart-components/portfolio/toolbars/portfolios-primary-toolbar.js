@@ -34,7 +34,8 @@ const PortfoliosPrimaryToolbar = ({
   handleSort,
   fetchPortfoliosWithState,
   isFetching,
-  isFiltering
+  isFiltering,
+  canCreate
 }) => {
   const dispatch = useDispatch();
   const formatMessage = useFormatMessage();
@@ -44,13 +45,17 @@ const PortfoliosPrimaryToolbar = ({
 
   return (
     <PrimaryToolbar
-      dedicatedAction={
-        <CatalogLink pathname="/portfolios/add-portfolio">
-          <Button variant="primary" type="button">
-            {formatMessage(labelMessages.create)}
-          </Button>
-        </CatalogLink>
-      }
+      {...(canCreate
+        ? {
+            dedicatedAction: (
+              <CatalogLink pathname="/portfolios/add-portfolio">
+                <Button variant="primary" id="create-portfolio" type="button">
+                  {formatMessage(labelMessages.create)}
+                </Button>
+              </CatalogLink>
+            )
+          }
+        : {})}
       activeFiltersConfig={{
         filters: Object.entries(filters)
           .filter(([, value]) => value && value.length > 0)
@@ -204,7 +209,8 @@ PortfoliosPrimaryToolbar.propTypes = {
   handleSort: PropTypes.func.isRequired,
   fetchPortfoliosWithState: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  isFiltering: PropTypes.bool.isRequired
+  isFiltering: PropTypes.bool.isRequired,
+  canCreate: PropTypes.bool
 };
 
 export default PortfoliosPrimaryToolbar;

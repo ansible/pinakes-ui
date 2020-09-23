@@ -7,6 +7,7 @@ const common = require('./webpack.common.js');
 
 const commonConfig = {
   resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
     alias: {
       react: path.resolve(__dirname, '../node_modules/react')
     }
@@ -61,7 +62,12 @@ const commonConfig = {
   module: {
     rules: [
       {
-        test: /src\/.*\.js$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /src\/.*\.(js)$/,
         exclude: /node_modules/,
         use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }]
       },

@@ -1,24 +1,29 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "es6": true,
     "node": true
   },
   "settings": {
-    "react": {
-      "version": "16.0"
-    }
+    "react": { "version": "detect" },
+    "import/resolver": { "typescript": {} }
+  },
+  "ecmaFeatures": {
+    "jsx": true
   },
   "extends": [
     "plugin:prettier/recommended",
     "prettier/react",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "react",
-    "formatjs"
+    "formatjs",
+    "@typescript-eslint"
   ],
   "parserOptions": {
     "ecmaVersion": 7,
@@ -80,12 +85,7 @@
       }
     ],
     "no-trailing-spaces": 2,
-    "no-use-before-define": [
-      "warn",
-      {
-        "functions": false
-      }
-    ],
+    "no-use-before-define": [0],
     "no-undef": 2,
     "no-unused-vars": [
       "error",
@@ -141,6 +141,9 @@
       "error",
       "never"
     ],
-    "react/prop-types": 2
+    "react/prop-types": 2,
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-use-before-define": [1]
+
   }
 }

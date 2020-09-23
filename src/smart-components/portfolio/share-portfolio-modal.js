@@ -222,7 +222,6 @@ const SharePortfolioModal = ({
                 ...initialValues,
                 'shared-groups': initialShares()
               }}
-              formContainer="modal"
               templateProps={{
                 disableSubmit: ['pristine', 'validating'],
                 submitLabel: formatMessage(

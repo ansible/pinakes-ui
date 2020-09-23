@@ -74,29 +74,6 @@ const App = () => {
     ]).then(() => setAuth(true));
 
     insights.chrome.identifyApp('catalog');
-    insights.chrome.navigation([
-      {
-        id: 'products',
-        title: 'Products'
-      },
-      {
-        id: 'portfolios',
-        title: 'Portfolios'
-      },
-      {
-        id: 'platforms',
-        title: 'Platforms'
-      },
-      {
-        id: 'order-processes',
-        title: 'Order processes'
-      },
-      {
-        id: 'orders',
-        title: 'Orders'
-      }
-    ]);
-
     unregister = insights.chrome.on('APP_NAVIGATION', (event) => {
       /**
        * Handle navigation from insights main nav

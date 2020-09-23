@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Modal,
@@ -25,6 +24,7 @@ import { FormItemLoader } from '../../presentational-components/shared/loader-pl
 import orderProcessMessages from '../../messages/order-processes.messages';
 import actionMessages from '../../messages/actions.messages';
 import labelMessages from '../../messages/labels.messages';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
 const RemoveOrderProcessModal = ({
   ids = [],
@@ -34,7 +34,7 @@ const RemoveOrderProcessModal = ({
   const dispatch = useDispatch();
   const [fetchedOrderProcess, setFetchedOrderProcess] = useState();
   const [submitting, setSubmitting] = useState(false);
-  const { push } = useHistory();
+  const { push } = useEnhancedHistory({ keepHash: true });
   const [{ order_process: orderProcessId }] = useQuery(['order_process']);
 
   const finalId = orderProcessId || (ids.length === 1 && ids[0]);

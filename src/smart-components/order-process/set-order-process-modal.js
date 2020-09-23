@@ -15,7 +15,12 @@ import TaggingModal from '../common/tagging-modal';
 import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
 
-const SetOrderProcessModal = ({ pushParam, objectType, querySelector }) => {
+const SetOrderProcessModal = ({
+  pushParam,
+  objectType,
+  querySelector,
+  objectName
+}) => {
   const dispatch = useDispatch();
   const formatMessage = useFormatMessage();
   const { push } = useHistory();
@@ -70,7 +75,7 @@ const SetOrderProcessModal = ({ pushParam, objectType, querySelector }) => {
       )}
       subTitle={formatMessage(orderProcessesMessages.setOrderProcessSubtitle, {
         strong: Bold,
-        objectType
+        object: objectName()
       })}
     />
   );
@@ -82,6 +87,7 @@ SetOrderProcessModal.propTypes = {
     search: PropTypes.string
   }).isRequired,
   objectType: PropTypes.oneOf(['PortfolioItem', 'Portfolio']).isRequired,
+  objectName: PropTypes.func,
   querySelector: PropTypes.string.isRequired
 };
 
