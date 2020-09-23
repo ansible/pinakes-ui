@@ -225,14 +225,14 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
         </CardHeader>
         <StyledCardBody>
           <TextContent className="pf-u-mb-md">
-            <Text component={TextVariants.small} className="pf-i-mb-sm">
+            <Text component={TextVariants.small} className="pf-u-mb-0">
               Last updated&nbsp;
               <DateFormat
                 date={props.updated_at || props.created_at}
                 type="relative"
               />
             </Text>
-            <Text component={TextVariants.small}>{props.owner}</Text>
+            <Text component={TextVariants.small}>by {props.owner}</Text>
           </TextContent>
           <ItemDetails
             {...{ name, imageUrl, ...props }}
