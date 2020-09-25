@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Level, Toolbar, ToolbarGroup } from '@patternfly/react-core';
+import { ToolbarProps } from '@patternfly/react-core';
 
-export const StyledToolbar = styled(({ noWrap, ...props }) => (
-  <Toolbar {...props} />
-))`
+export type StyledToolbarProps = Omit<
+  Omit<ToolbarProps & { noWrap?: boolean; className?: string }, 'ref'>,
+  'as'
+>;
+export const StyledToolbar = styled<React.ComponentType<StyledToolbarProps>>(
+  ({ noWrap, ...props }) => <Toolbar {...props} />
+)`
   background-color: #ffffff;
   h2 {
     margin-bottom: 0 !important;

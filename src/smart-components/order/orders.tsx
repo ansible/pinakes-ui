@@ -5,9 +5,9 @@ import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.schema';
 import OrdersList from './orders-list';
 
-const Orders = () => {
+const Orders: React.ComponentType = () => {
   useEffect(() => {
-    insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
+    window.insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
   }, []);
 
   return (

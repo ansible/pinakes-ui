@@ -1,11 +1,13 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
   Level,
   LevelItem,
   ToolbarItem,
-  ToolbarContent
+  ToolbarContent,
+  ButtonProps
 } from '@patternfly/react-core';
 
 import FilterToolbarItem from '../presentational-components/shared/filter-toolbar-item';
@@ -16,31 +18,31 @@ import AppTabs from '../presentational-components/shared/app-tabs';
 import CatalogLink from '../smart-components/common/catalog-link';
 import {
   StyledToolbar,
-  StyledToolbarGroup
+  StyledToolbarGroup,
+  StyledToolbarProps
 } from '../presentational-components/styled-components/toolbars';
 
-const ToolbarButton = ({ title, ...props }) => (
-  <Button {...props}>{title}</Button>
-);
+export interface ToolbarButtonProps extends Omit<ButtonProps, 'title'> {
+  title: ReactNode;
+}
+
+const ToolbarButton: React.ComponentType<ToolbarButtonProps> = ({
+  title,
+  ...props
+}) => <Button {...props}>{title}</Button>;
 
 ToolbarButton.propTypes = {
   title: PropTypes.string.isRequired
 };
 
-const AppToolbar = ({ children, ...props }) => (
-  <StyledToolbar className={'pf-u-p-0'} {...props}>
+const AppToolbar: React.ComponentType<StyledToolbarProps> = ({
+  children,
+  ...props
+}) => (
+  <StyledToolbar className="pf-u-p-0" {...props}>
     <ToolbarContent className="pf-u-pl-0">{children}</ToolbarContent>
   </StyledToolbar>
 );
-
-AppToolbar.propTypes = {
-  noWrap: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node)
-  ])
-};
-
 const toolbarMapper = {
   TopToolbar,
   TopToolbarTitle,

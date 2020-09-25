@@ -136,3 +136,5 @@ export interface FormApi {
     initialValues: AnyObject;
   };
 }
+
+export type ValueOf<T> = T[keyof T];
