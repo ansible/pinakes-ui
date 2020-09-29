@@ -93,9 +93,6 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     }
   };
 
-  const editVariant =
-    portfolioId && initialValues && Object.keys(initialValues).length > 0;
-
   if (initialValues?.metadata?.user_capabilities?.update === false) {
     return <UnauthorizedRedirect />;
   }
@@ -113,8 +110,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
           : (formatMessage(portfolioMessages.modalCreateTitle) as string),
         isOpen,
         onClose: () => push(closeTarget),
-        variant: 'small',
-        isLoading: !!(!portfolioId || editVariant)
+        variant: 'small'
       }}
       templateProps={{
         submitLabel: portfolioId
