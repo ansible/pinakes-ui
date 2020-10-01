@@ -118,7 +118,7 @@ const PortfolioRoutes: React.ComponentType = () => {
       <Switch>
         <Route path={[ADD_PORTFOLIO_ROUTE, EDIT_PORTFOLIO_ROUTE]}>
           <AddPortfolioModal
-            removeQuery
+            removeQuery={false}
             viewState={viewState?.portfolio}
             closeTarget={PORTFOLIOS_ROUTE}
           />
