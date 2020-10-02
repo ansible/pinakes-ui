@@ -57,7 +57,8 @@ export const portfoliosInitialState: PortfolioReducerState = {
     portfolioItem: {
       metadata: {
         user_capabilities: {},
-        statistics: {}
+        statistics: {},
+        orderable: true
       }
     }
   },
@@ -99,11 +100,15 @@ const setPortfolioItems: PortfolioReducerActionHandler = (
 const setPortfolioItem: PortfolioReducerActionHandler = (
   state,
   { payload }
-) => ({
-  ...state,
-  portfolioItem: payload,
-  isLoading: false
-});
+) => {
+  console.log('setPortfolioItem: payload', payload);
+  return {
+    ...state,
+    portfolioItem: payload,
+    isLoading: false
+  };
+};
+
 const selectPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }

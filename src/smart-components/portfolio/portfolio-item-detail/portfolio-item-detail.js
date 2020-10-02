@@ -84,6 +84,10 @@ const PortfolioItemDetail = () => {
     fetchData();
   }, [queryValues['portfolio-item']]);
 
+  console.log(
+      'Debug - portfolioItem',
+      portfolioItem
+  );
   if (isFetching || Object.keys(portfolioItem).length === 0) {
     return (
       <Section className="global-primary-background full-height">
@@ -147,6 +151,7 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={availability}
               userCapabilities={userCapabilities}
+              orderable={portfolioItem?.metadata?.orderable}
             />
             {unavailable.length > 0 && (
               <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>

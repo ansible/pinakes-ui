@@ -49,10 +49,12 @@ export const PortfolioItemDetailToolbar = ({
   isFetching,
   availability,
   userCapabilities,
+  orderable,
   fromProducts
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
+  console.log('debug - orderable = ', orderable);
   return (
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
@@ -97,6 +99,7 @@ export const PortfolioItemDetailToolbar = ({
                   workflowUrl={`${url}/edit-workflow`}
                   isFetching={isFetching}
                   availability={availability}
+                  orderable={orderable}
                   userCapabilities={userCapabilities}
                 />
               </Level>
@@ -115,17 +118,20 @@ PortfolioItemDetailToolbar.propTypes = {
     distributor: PropTypes.string,
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    service_offering_source_ref: PropTypes.string.isRequired
+    service_offering_source_ref: PropTypes.string.isRequired,
+    metadata: PropTypes.shape({ orderable: PropTypes.bool })
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
   userCapabilities: PropTypes.object,
-  fromProducts: PropTypes.bool
+  fromProducts: PropTypes.bool,
+  orderable: PropTypes.bool
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
-  isFetching: false
+  isFetching: false,
+  orderable: true
 };
 
 const SurveyEditorDropdown = ({ handleResetSurvey }) => {
