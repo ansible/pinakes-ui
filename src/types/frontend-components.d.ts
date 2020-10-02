@@ -74,10 +74,11 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/DateFo
     [key: string]: number | string;
   }
   export interface DateFormatProps {
-    date: Date | string | number;
+    date: Date | string | number | undefined;
     type?: 'exact' | 'onlyDate' | 'relative';
     extraTitle?: string;
     tooltipProps?: DateFormatTooltipProps;
+    variant?: 'relative';
   }
   export const DateFormat: React.ComponentType<DateFormatProps>;
 }
@@ -167,9 +168,11 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
   }
 
   interface Chip {
-    name: string;
+    name?: string;
     isRead?: boolean;
     count?: number;
+    type?: string;
+    chips?: Chip[];
   }
 
   type ActionsType = (
@@ -184,10 +187,15 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
 
   export interface ActiveFiltersConfig {
     className?: string;
-    filters?: { category: string; chips: Chip } | Chip;
+    filters?:
+      | { category: string; type?: string; chips: Chip | Chip[] }
+      | { category: string; type?: string; chips: Chip | Chip[] }[]
+      | Chip
+      | Chip[];
     onDelete?: (
       event: React.MouseEvent<Element, MouseEvent>,
-      chip: Chip
+      chip: Chip[],
+      clearAll?: boolean
     ) => void;
   }
 
@@ -204,6 +212,7 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
       event: React.SyntheticEvent<Element, Event>,
       value?: string
     ) => void;
+    items?: { value: string; label: React.ReactNode }[];
   }
 
   export interface FilterItem {
@@ -212,11 +221,14 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
     value?: string;
     type?: 'text' | 'checkbox' | 'radio' | 'custom' | 'group';
     filterValues: FilterValues | TextInputProps[];
+    chips?: Chip[];
   }
   export interface FilterConfig {
     hideLabel?: boolean;
     items: FilterItem[];
     isDisabled?: boolean;
+    value?: any;
+    onChange?: (event: React.MouseEvent, value?: string) => void;
   }
   export interface PrimaryToolbarProps extends TextInputProps {
     dedicatedAction?: React.ReactNode;
@@ -259,4 +271,17 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
     };
   }
   export const PrimaryToolbar: React.ComponentType<PrimaryToolbarProps>;
+}
+
+declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes' {
+  const notificationsPrefix = '@@INSIGHTS-CORE/NOTIFICATIONS/';
+  export const ADD_NOTIFICATION = `${notificationsPrefix}ADD_NOTIFICATION`;
+  export const CLEAR_NOTIFICATIONS = `${notificationsPrefix}CLEAR_NOTIFICATIONS`;
+}
+
+declare module '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar' {
+  export interface TableToolbarProps {
+    className?: string;
+  }
+  export const TableToolbar: React.ComponentType<TableToolbarProps>;
 }

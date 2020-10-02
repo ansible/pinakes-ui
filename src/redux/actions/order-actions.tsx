@@ -6,6 +6,7 @@ import * as OrderHelper from '../../helpers/order/order-helper';
 import OrderNotification from '../../presentational-components/order/order-notification';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
+  ApprovalRequestStateEnum,
   Order,
   OrderItem,
   OrderStateEnum,
@@ -80,9 +81,9 @@ export const cancelOrder = (orderId: string) => (
       orderDetail.order.state = OrderStateEnum.Canceled;
       if (
         orderDetail.approvalRequest &&
-        orderDetail.approvalRequest.length > 0
+        orderDetail.approvalRequest.data.length > 0
       ) {
-        orderDetail.approvalRequest[0].state = 'canceled';
+        orderDetail.approvalRequest.data[0].state = 'canceled' as ApprovalRequestStateEnum;
       }
 
       dispatch({

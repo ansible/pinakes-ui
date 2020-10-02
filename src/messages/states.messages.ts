@@ -61,8 +61,12 @@ const statesMessages = defineMessages({
   }
 });
 
-export const getTranslatableState = (state: string): string =>
-  state.replace(/\s/g, '').replace(/^./, (char) => char.toLowerCase());
+export const getTranslatableState = (
+  state: string
+): keyof typeof statesMessages =>
+  state
+    .replace(/\s/g, '')
+    .replace(/^./, (char) => char.toLowerCase()) as keyof typeof statesMessages;
 
 /**
  * We must include the created state so the dynamic data from DB can look for these messages in one place

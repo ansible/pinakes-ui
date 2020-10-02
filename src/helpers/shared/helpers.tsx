@@ -54,9 +54,9 @@ const nullableMapper: NullableMapper = {
 export const sanitizeValues = (
   values: AnyObject,
   entityType: string,
-  store: Store
+  store: Partial<Store>
 ): AnyObject => {
-  const schemas = store.getState().openApiReducer.schema.components.schemas;
+  const schemas = store.getState!().openApiReducer.schema.components.schemas;
   const permittedValues = Object.keys(values)
     .filter((key) => !get(schemas, `${entityType}.properties.${key}.readOnly`))
     .reduce(

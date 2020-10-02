@@ -4,7 +4,8 @@ import {
   Order,
   PortfolioItem,
   Portfolio,
-  OrderItem
+  OrderItem,
+  ApprovalRequest
 } from '@redhat-cloud-services/catalog-client';
 import { Source } from '@redhat-cloud-services/sources-client';
 import {
@@ -25,17 +26,18 @@ import { defaultSettings } from '../../helpers/shared/pagination';
 import {
   ApiCollectionResponse,
   AnyObject,
-  ReduxActionHandler
+  ReduxActionHandler,
+  Full
 } from '../../types/common-types';
+import { ObjectNotFound } from '../../helpers/order/new-order-helper';
 
-export interface CatalogOrder extends Order {
-  orderItems: OrderItem[];
-}
 export interface OrderDetail extends AnyObject {
-  order: Order;
-  portfolioItem: PortfolioItem;
-  platform: Source;
-  portfolio: Portfolio;
+  approvalRequest?: ApiCollectionResponse<ApprovalRequest>;
+  order: Full<Order>;
+  orderItem?: Full<OrderItem>;
+  portfolioItem: Full<PortfolioItem> & Partial<ObjectNotFound>;
+  platform: Full<Source> & Partial<ObjectNotFound>;
+  portfolio: Full<Portfolio> & Partial<ObjectNotFound>;
 }
 export interface OrderReducerState extends AnyObject {
   servicePlans: ServicePlan[];
@@ -43,7 +45,7 @@ export interface OrderReducerState extends AnyObject {
   isLoading: boolean;
   requests: Request[];
   orderDetail: OrderDetail;
-  orders: ApiCollectionResponse<CatalogOrder>;
+  orders: ApiCollectionResponse<OrderDetail>;
 }
 // Initial State
 export const orderInitialState: OrderReducerState = {
@@ -52,10 +54,10 @@ export const orderInitialState: OrderReducerState = {
   isLoading: false,
   requests: [],
   orderDetail: {
-    order: {},
-    portfolioItem: {},
-    platform: {},
-    portfolio: {}
+    order: {} as Full<Order>,
+    portfolioItem: {} as Full<PortfolioItem>,
+    platform: {} as Full<Source>,
+    portfolio: {} as Full<Portfolio>
   },
   orders: {
     data: [],
