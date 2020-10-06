@@ -63,6 +63,36 @@ describe('<DetailToolbarActions />', () => {
     expect(wrapper.find('li#copy-portfolio-item')).toHaveLength(1);
   });
 
+  it('should disable the Order button if orderable is false', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <DetailToolbarActions
+          {...initialProps}
+          isOpen
+          orderable={false}
+          userCapabilities={prepareTruthyCapability('copy')}
+        />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find('Button').props().isDisabled).toBeTruthy();
+  });
+
+  it('should disable the Order button if orderable is false', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <DetailToolbarActions
+          {...initialProps}
+          isOpen
+          orderable={true}
+          userCapabilities={prepareTruthyCapability('copy')}
+        />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find('Button').props().isDisabled).toBeFalsy();
+  });
+
   it('should show edit, set order processes and edit survey actions in dropdown', () => {
     const wrapper = mount(
       <MemoryRouter>

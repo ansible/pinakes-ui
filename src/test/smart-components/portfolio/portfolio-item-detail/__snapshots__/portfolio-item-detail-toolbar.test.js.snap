@@ -10,6 +10,9 @@ exports[`<PortfolioItemDetailToolbar /> should render correctly 1`] = `
   product={
     Object {
       "id": "product-id",
+      "metadata": Object {
+        "orderable": false,
+      },
       "name": "bar",
       "service_offering_source_ref": "source-id",
     }
