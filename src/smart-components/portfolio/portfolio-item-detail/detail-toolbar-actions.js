@@ -30,6 +30,7 @@ const DetailToolbarActions = ({
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
+
   if (update) {
     dropdownItems.push(
       <DropdownItem
@@ -139,7 +140,7 @@ const DetailToolbarActions = ({
         </CatalogLink>
       </LevelItem>
       <LevelItem style={{ marginLeft: 16 }}>
-        {dropdownItems.length > 0 && (
+        {availability !== 'unavailable' && dropdownItems.length > 0 && (
           <Dropdown
             isPlain
             onToggle={setOpen}
