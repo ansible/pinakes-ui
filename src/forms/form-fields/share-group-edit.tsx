@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { Fragment, ComponentType } from 'react';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import {
+  InternalSelect,
+  SelectOption
+} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
 import FieldArray from '@data-driven-forms/react-form-renderer/dist/cjs/field-array';
 import {
@@ -52,7 +55,7 @@ const SharedGroup: ComponentType<SharedGroupProps> = ({
             <InternalSelect
               name={name}
               menuIsPortal
-              options={permissionVerbs}
+              options={permissionVerbs as SelectOption[]}
               value={input.value.permissions}
               onChange={(permissions) =>
                 input.onChange({

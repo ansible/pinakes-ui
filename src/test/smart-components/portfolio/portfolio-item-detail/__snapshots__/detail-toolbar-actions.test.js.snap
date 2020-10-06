@@ -89,7 +89,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           aria-disabled={false}
                           aria-label={null}
                           className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
-                          data-ouia-component-id={0}
+                          data-ouia-component-id="OUIA-Generated-Button-primary-1"
                           data-ouia-component-type="PF4/Button"
                           data-ouia-safe={true}
                           disabled={false}
@@ -302,7 +302,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
         >
           <div
             className="pf-c-dropdown pf-m-align-right"
-            data-ouia-component-id={1}
+            data-ouia-component-id="OUIA-Generated-Dropdown-1"
             data-ouia-component-type="PF4/Dropdown"
             data-ouia-safe={true}
             onToggle={[MockFunction]}
@@ -320,7 +320,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                 Object {
                   "current": <div
                     class="pf-c-dropdown pf-m-align-right"
-                    data-ouia-component-id="1"
+                    data-ouia-component-id="OUIA-Generated-Dropdown-1"
                     data-ouia-component-type="PF4/Dropdown"
                     data-ouia-safe="true"
                   >
@@ -343,7 +343,6 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       >
                         <path
                           d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                          transform=""
                         />
                       </svg>
                     </button>
@@ -370,7 +369,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                   Object {
                     "current": <div
                       class="pf-c-dropdown pf-m-align-right"
-                      data-ouia-component-id="1"
+                      data-ouia-component-id="OUIA-Generated-Dropdown-1"
                       data-ouia-component-type="PF4/Dropdown"
                       data-ouia-safe="true"
                     >
@@ -393,7 +392,6 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         >
                           <path
                             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                            transform=""
                           />
                         </svg>
                       </button>
@@ -433,7 +431,6 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                     >
                       <path
                         d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                        transform=""
                       />
                     </svg>
                   </EllipsisVIcon>

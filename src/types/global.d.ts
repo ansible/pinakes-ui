@@ -5,6 +5,7 @@ interface Auth {
 interface Chrome {
   auth: Auth;
   isBeta: () => boolean;
+  appNavClick: (target: { id: string; secondaryNav?: boolean }) => void;
 }
 
 interface Insights {

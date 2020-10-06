@@ -235,6 +235,7 @@ const requestTranscriptQuery = (parent_id: string) => `query {
     number_of_children
     decision
     group_name
+    created_at
     state
     actions {
       id
@@ -247,6 +248,7 @@ const requestTranscriptQuery = (parent_id: string) => `query {
       group_name
       state
       parent_id
+      created_at
       actions {
         id
         created_at
@@ -285,7 +287,8 @@ export const getApprovalRequests = (
       return Promise.all(promises).then((requests) => {
         const data = requests?.[0]?.map(({ actions, ...request }) => ({
           ...request,
-          updated: actions?.length > 0 ? actions.pop()?.created_at : undefined
+          updated:
+            actions?.length > 0 ? actions.pop()?.created_at : request.created_at
         }));
         return { data: data || [] };
       });
