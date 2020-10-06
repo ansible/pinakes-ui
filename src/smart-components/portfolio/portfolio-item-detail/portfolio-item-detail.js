@@ -49,13 +49,9 @@ const PortfolioItemDetail = () => {
   const [queryValues, search] = useQuery(requiredParams);
   const { pathname } = useLocation();
   const { url } = useRouteMatch(PORTFOLIO_ITEM_ROUTE);
-  const {
-    portfolioItem: {
-      metadata: { user_capabilities: userCapabilities },
-      ...portfolioItem
-    },
-    source
-  } = useSelector(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
+  const portfolioItemData = useSelector(
+    ({ portfolioReducer: { portfolioItem } }) => portfolioItem
+  );
   const portfolio = useSelector(
     ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
   );
@@ -81,14 +77,10 @@ const PortfolioItemDetail = () => {
       id: fromProducts ? 'products' : 'portfolios',
       secondaryNav: true
     });
-    fetchData();
+    fetchData(false);
   }, [queryValues['portfolio-item']]);
 
-  console.log(
-      'Debug - portfolioItem',
-      portfolioItem
-  );
-  if (isFetching || Object.keys(portfolioItem).length === 0) {
+  if (isFetching || Object.keys(portfolioItemData).length === 0) {
     return (
       <Section className="global-primary-background full-height">
         <TopToolbar breadcrumbs={!fromProducts}>
@@ -99,8 +91,9 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const availability = source.availability_status || 'unavailable';
-  const unavailable = [source]
+  const availability =
+    portfolioItemData?.source?.availability_status || 'unavailable';
+  const unavailable = [portfolioItemData?.source]
     .filter(({ notFound }) => notFound)
     .map(({ object }) => (
       <Alert
@@ -112,9 +105,14 @@ const PortfolioItemDetail = () => {
       />
     ));
   const uploadIcon = (file) =>
-    uploadPortfolioItemIcon(portfolioItem.id, file).then(() => fetchData(true));
+    uploadPortfolioItemIcon(
+      portfolioItemData?.portfolioItem?.id,
+      file
+    ).then(() => fetchData(true));
   const resetIcon = () =>
-    resetPortfolioItemIcon(portfolioItem.icon_id).then(fetchData);
+    resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id).then(
+      fetchData
+    );
   const detailPaths = [
     PORTFOLIO_ITEM_ROUTE,
     `${url}/order`,
@@ -127,7 +125,9 @@ const PortfolioItemDetail = () => {
       <Switch>
         <CatalogRoute
           requiredCapabilities="update"
-          userCapabilities={userCapabilities}
+          userCapabilities={
+            portfolioItemData?.portfolioItem?.metadata.user_capabilities
+          }
           path={`${url}/edit-survey`}
         >
           <Suspense fallback={<AppPlaceholder />}>
@@ -135,7 +135,7 @@ const PortfolioItemDetail = () => {
               closeUrl={url}
               search={search}
               uploadIcon={uploadIcon}
-              portfolioItem={portfolioItem}
+              portfolioItem={portfolioItemData.portfolioItem}
               portfolio={portfolio}
             />
           </Suspense>
@@ -146,17 +146,20 @@ const PortfolioItemDetail = () => {
               fromProducts={fromProducts}
               url={url}
               isOpen={isOpen}
-              product={portfolioItem}
+              product={portfolioItemData.portfolioItem}
               setOpen={setOpen}
               isFetching={isFetching}
               availability={availability}
-              userCapabilities={userCapabilities}
-              orderable={portfolioItem?.metadata?.orderable}
+              userCapabilities={
+                portfolioItemData?.portfolioItem?.metadata.user_capabilities
+              }
+              orderable={portfolioItemData?.portfolioItem.metadata?.orderable}
             />
             {unavailable.length > 0 && (
               <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>
             )}
-            {source.availability_status === 'unavailable' && (
+            {portfolioItemData?.source?.availability_status ===
+              'unavailable' && (
               <Alert
                 className="pf-u-ml-lg pf-u-mr-lg"
                 id="unavailable-alert-info"
@@ -169,9 +172,9 @@ const PortfolioItemDetail = () => {
               <Route path={detailPaths} exact>
                 <GridItem md={3} lg={2}>
                   <ItemDetailInfoBar
-                    product={portfolioItem}
+                    product={portfolioItemData.portfolioItem}
                     portfolio={portfolio}
-                    source={source}
+                    source={portfolioItemData.source}
                   />
                 </GridItem>
               </Route>
@@ -182,8 +185,10 @@ const PortfolioItemDetail = () => {
                 <ItemDetailDescription
                   resetIcon={resetIcon}
                   uploadIcon={uploadIcon}
-                  product={portfolioItem}
-                  userCapabilities={userCapabilities}
+                  product={portfolioItemData.portfolioItem}
+                  userCapabilities={
+                    portfolioItemData?.portfolioItem?.metadata.user_capabilities
+                  }
                   url={url}
                   detailPaths={detailPaths}
                   search={search}

@@ -9,6 +9,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   isFetching={false}
   isOpen={false}
   orderUrl="foo/bar"
+  orderable={true}
   pathname="foo/bar"
   setOpen={[MockFunction]}
   userCapabilities={

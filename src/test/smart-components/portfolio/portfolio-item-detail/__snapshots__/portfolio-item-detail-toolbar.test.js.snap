@@ -6,6 +6,7 @@ exports[`<PortfolioItemDetailToolbar /> should render correctly 1`] = `
   handleUpdate={[MockFunction]}
   isFetching={false}
   isOpen={false}
+  orderable={true}
   product={
     Object {
       "id": "product-id",

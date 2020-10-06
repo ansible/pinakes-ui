@@ -100,15 +100,11 @@ const setPortfolioItems: PortfolioReducerActionHandler = (
 const setPortfolioItem: PortfolioReducerActionHandler = (
   state,
   { payload }
-) => {
-  console.log('setPortfolioItem: payload', payload);
-  return {
-    ...state,
-    portfolioItem: payload,
-    isLoading: false
-  };
-};
-
+) => ({
+  ...state,
+  portfolioItem: payload,
+  isLoading: false
+});
 const selectPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }

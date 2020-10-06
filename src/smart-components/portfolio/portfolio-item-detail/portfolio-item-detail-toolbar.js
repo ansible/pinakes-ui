@@ -54,7 +54,6 @@ export const PortfolioItemDetailToolbar = ({
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
-  console.log('debug - orderable = ', orderable);
   return (
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
