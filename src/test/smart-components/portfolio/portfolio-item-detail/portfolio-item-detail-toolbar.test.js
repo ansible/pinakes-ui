@@ -30,7 +30,8 @@ describe('<PortfolioItemDetailToolbar />', () => {
       product: {
         name: 'bar',
         id: 'product-id',
-        service_offering_source_ref: 'source-id'
+        service_offering_source_ref: 'source-id',
+        metadata: { orderable: false }
       },
       setOpen: jest.fn(),
       setWorkflow: jest.fn(),

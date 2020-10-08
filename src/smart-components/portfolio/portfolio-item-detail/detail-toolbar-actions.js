@@ -25,10 +25,12 @@ const DetailToolbarActions = ({
   setOpen,
   isFetching,
   availability,
+  orderable,
   userCapabilities: { update, copy, set_approval }
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
+
   if (update) {
     dropdownItems.push(
       <DropdownItem
@@ -119,12 +121,16 @@ const DetailToolbarActions = ({
     <Fragment>
       <LevelItem>
         <CatalogLink
-          isDisabled={isFetching || availability === 'unavailable'}
+          isDisabled={
+            isFetching || availability === 'unavailable' || !orderable
+          }
           pathname={orderUrl}
           preserveSearch
         >
           <ButtonWithSpinner
-            isDisabled={isFetching || availability === 'unavailable'}
+            isDisabled={
+              isFetching || availability === 'unavailable' || !orderable
+            }
             showSpinner={isFetching}
             variant="primary"
             id="order-portfolio-item"
@@ -134,7 +140,7 @@ const DetailToolbarActions = ({
         </CatalogLink>
       </LevelItem>
       <LevelItem style={{ marginLeft: 16 }}>
-        {dropdownItems.length > 0 && (
+        {availability !== 'unavailable' && dropdownItems.length > 0 && (
           <Dropdown
             isPlain
             onToggle={setOpen}
@@ -165,6 +171,7 @@ DetailToolbarActions.propTypes = {
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
+  orderable: PropTypes.bool,
   userCapabilities: PropTypes.shape({
     update: PropTypes.bool,
     copy: PropTypes.bool,
@@ -173,7 +180,8 @@ DetailToolbarActions.propTypes = {
 };
 
 DetailToolbarActions.defaultProps = {
-  isFetching: false
+  isFetching: false,
+  orderable: true
 };
 
 export default DetailToolbarActions;

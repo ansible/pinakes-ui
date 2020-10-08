@@ -57,7 +57,8 @@ export const portfoliosInitialState: PortfolioReducerState = {
     portfolioItem: {
       metadata: {
         user_capabilities: {},
-        statistics: {}
+        statistics: {},
+        orderable: true
       }
     }
   },
