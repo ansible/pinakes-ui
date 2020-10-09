@@ -95,6 +95,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           data-ouia-safe={true}
                           disabled={false}
                           id="order-portfolio-item"
+                          role={null}
                           type="button"
                         >
                           <styled.span
