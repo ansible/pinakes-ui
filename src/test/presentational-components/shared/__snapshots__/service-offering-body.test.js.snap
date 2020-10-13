@@ -59,15 +59,136 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
             ]
           }
         >
-          <styled.div
-            key="card-prop-long_description"
+          <Truncate
+            ellipsis={
+              <Tooltip
+                content={
+                  <div>
+                    long description
+                  </div>
+                }
+              >
+                <span>
+                  ...
+                </span>
+              </Tooltip>
+            }
+            key="tcard-prop-long_description"
+            lines={3}
+            trimWhitespace={false}
+            width={0}
           >
-            <div
-              className="sc-AxjAm hDziHm"
+            <span
+              width={0}
             >
-              long description
-            </div>
-          </styled.div>
+              <span />
+              <span>
+                <styled.div
+                  key="card-prop-long_description"
+                >
+                  <div
+                    className="sc-AxjAm dMwTTJ"
+                  >
+                    long description
+                  </div>
+                </styled.div>
+              </span>
+              <span
+                style={
+                  Object {
+                    "left": 0,
+                    "position": "fixed",
+                    "top": 0,
+                    "visibility": "hidden",
+                  }
+                }
+              >
+                <Tooltip
+                  content={
+                    <div>
+                      long description
+                    </div>
+                  }
+                >
+                  <Popper
+                    appendTo={[Function]}
+                    distance={15}
+                    enableFlip={true}
+                    flipBehavior={
+                      Array [
+                        "top",
+                        "right",
+                        "bottom",
+                        "left",
+                        "top",
+                        "right",
+                        "bottom",
+                      ]
+                    }
+                    isVisible={false}
+                    onBlur={[Function]}
+                    onDocumentClick={false}
+                    onDocumentKeyDown={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onTriggerEnter={[Function]}
+                    placement="top"
+                    popper={
+                      <div
+                        className="pf-c-tooltip"
+                        id="pf-tooltip-1"
+                        role="tooltip"
+                        style={
+                          Object {
+                            "maxWidth": null,
+                            "opacity": 0,
+                            "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                          }
+                        }
+                      >
+                        <TooltipArrow />
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div>
+                            long description
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    }
+                    popperMatchesTriggerWidth={false}
+                    positionModifiers={
+                      Object {
+                        "bottom": "pf-m-bottom",
+                        "left": "pf-m-left",
+                        "right": "pf-m-right",
+                        "top": "pf-m-top",
+                      }
+                    }
+                    trigger={
+                      <span
+                        aria-describedby="pf-tooltip-1"
+                      >
+                        ...
+                      </span>
+                    }
+                    zIndex={9999}
+                  >
+                    <FindRefWrapper
+                      onFoundRef={[Function]}
+                    >
+                      <span
+                        aria-describedby="pf-tooltip-1"
+                      >
+                        ...
+                      </span>
+                    </FindRefWrapper>
+                  </Popper>
+                </Tooltip>
+              </span>
+            </span>
+          </Truncate>
         </ItemDetails>
       </div>
     </CardBody>
@@ -121,15 +242,136 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
             ]
           }
         >
-          <styled.div
-            key="card-prop-description"
+          <Truncate
+            ellipsis={
+              <Tooltip
+                content={
+                  <div>
+                    Bar
+                  </div>
+                }
+              >
+                <span>
+                  ...
+                </span>
+              </Tooltip>
+            }
+            key="tcard-prop-description"
+            lines={3}
+            trimWhitespace={false}
+            width={0}
           >
-            <div
-              className="sc-AxjAm hDziHm"
+            <span
+              width={0}
             >
-              Bar
-            </div>
-          </styled.div>
+              <span />
+              <span>
+                <styled.div
+                  key="card-prop-description"
+                >
+                  <div
+                    className="sc-AxjAm dMwTTJ"
+                  >
+                    Bar
+                  </div>
+                </styled.div>
+              </span>
+              <span
+                style={
+                  Object {
+                    "left": 0,
+                    "position": "fixed",
+                    "top": 0,
+                    "visibility": "hidden",
+                  }
+                }
+              >
+                <Tooltip
+                  content={
+                    <div>
+                      Bar
+                    </div>
+                  }
+                >
+                  <Popper
+                    appendTo={[Function]}
+                    distance={15}
+                    enableFlip={true}
+                    flipBehavior={
+                      Array [
+                        "top",
+                        "right",
+                        "bottom",
+                        "left",
+                        "top",
+                        "right",
+                        "bottom",
+                      ]
+                    }
+                    isVisible={false}
+                    onBlur={[Function]}
+                    onDocumentClick={false}
+                    onDocumentKeyDown={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onTriggerEnter={[Function]}
+                    placement="top"
+                    popper={
+                      <div
+                        className="pf-c-tooltip"
+                        id="pf-tooltip-2"
+                        role="tooltip"
+                        style={
+                          Object {
+                            "maxWidth": null,
+                            "opacity": 0,
+                            "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                          }
+                        }
+                      >
+                        <TooltipArrow />
+                        <TooltipContent
+                          isLeftAligned={false}
+                        >
+                          <div>
+                            Bar
+                          </div>
+                        </TooltipContent>
+                      </div>
+                    }
+                    popperMatchesTriggerWidth={false}
+                    positionModifiers={
+                      Object {
+                        "bottom": "pf-m-bottom",
+                        "left": "pf-m-left",
+                        "right": "pf-m-right",
+                        "top": "pf-m-top",
+                      }
+                    }
+                    trigger={
+                      <span
+                        aria-describedby="pf-tooltip-2"
+                      >
+                        ...
+                      </span>
+                    }
+                    zIndex={9999}
+                  >
+                    <FindRefWrapper
+                      onFoundRef={[Function]}
+                    >
+                      <span
+                        aria-describedby="pf-tooltip-2"
+                      >
+                        ...
+                      </span>
+                    </FindRefWrapper>
+                  </Popper>
+                </Tooltip>
+              </span>
+            </span>
+          </Truncate>
         </ItemDetails>
       </div>
     </CardBody>
