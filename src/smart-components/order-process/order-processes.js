@@ -176,7 +176,7 @@ const OrderProcesses = () => {
     stateDispatch
   ] = useReducer(orderProcessesState, {
     ...initialState,
-    filterValue: viewState?.orderProcesses.filter || initialState.filterValue
+    filterValue: viewState?.orderProcesses?.filter || initialState.filterValue
   });
 
   const dispatch = useDispatch();
