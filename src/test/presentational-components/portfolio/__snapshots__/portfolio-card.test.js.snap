@@ -37,7 +37,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         className="pf-u-mb-md"
       >
         <Text
-          className="pf-i-mb-sm"
+          className="pf-u-mb-0"
           component="small"
         >
           Last updated 
@@ -49,6 +49,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         <Text
           component="small"
         >
+          by 
           Owner
         </Text>
       </TextContent>

@@ -54,7 +54,11 @@ exports[`<ContentGallery /> should render all items 1`] = `
 </ContentGallery>
 `;
 
-exports[`<ContentGallery /> should render in loading state 1`] = `<CardLoader />`;
+exports[`<ContentGallery /> should render in loading state 1`] = `
+<Fragment>
+  <CardLoader />
+</Fragment>
+`;
 
 exports[`<ContentGallery /> should render no items placeholder 1`] = `
 <ContentGallery

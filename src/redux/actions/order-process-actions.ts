@@ -10,7 +10,7 @@ import { IntlShape } from 'react-intl';
 import { ResourceObject } from '@redhat-cloud-services/approval-client';
 import { AxiosResponse } from 'axios';
 
-export const fetchOrderProcesses = (pagination: PaginationConfiguration) => (
+export const fetchOrderProcesses = (pagination?: PaginationConfiguration) => (
   dispatch: Dispatch,
   getState: GetReduxState
 ): AsyncMiddlewareAction<ApiCollectionResponse<Order>> => {

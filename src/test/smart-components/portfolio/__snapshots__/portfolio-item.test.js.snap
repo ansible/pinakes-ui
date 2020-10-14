@@ -31,7 +31,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
             >
               <article
                 className="pf-c-card sc-fznyAO jPogVH"
-                data-ouia-component-id={0}
+                data-ouia-component-id="OUIA-Generated-Card-1"
                 data-ouia-component-type="PF4/Card"
                 data-ouia-safe={true}
               >

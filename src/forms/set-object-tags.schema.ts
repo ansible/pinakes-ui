@@ -3,7 +3,8 @@ import { FieldApi } from '@data-driven-forms/react-form-renderer/dist/cjs/field'
 import { FormOptions } from '@data-driven-forms/react-form-renderer/dist/cjs/renderer-context';
 import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
 import asyncFormValidator from '../utilities/async-form-validator';
-import { LoadOptions, SelectOptions, AnyObject } from '../types/common-types';
+import { LoadOptions, AnyObject } from '../types/common-types';
+import { ReactNode } from 'react';
 
 type ResolveNewProcessProps = (
   props: AnyObject,
@@ -38,7 +39,7 @@ const resolveNewProcessProps: ResolveNewProcessProps = (
 };
 
 const createSchema = (
-  existingTagsMessage: SelectOptions,
+  existingTagsMessage: ReactNode,
   loadTags: LoadOptions
 ): Schema => ({
   fields: [

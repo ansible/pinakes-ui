@@ -3,7 +3,10 @@ import React, { useState, useRef, ReactNode } from 'react';
 import useFieldApi, {
   ValidatorType
 } from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import {
+  InternalSelect,
+  SelectOption
+} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
 import {
   FormGroup,
   TextContent,
@@ -20,18 +23,18 @@ const createOptions = (
   inputValue: string,
   isRequired: boolean,
   optionsMessages: { choose: ReactNode; none: ReactNode }
-) => {
+): SelectOption[] => {
   if (inputValue && isRequired) {
-    return options;
+    return options as SelectOption[];
   }
 
   const selectOptions = [...options];
   return selectOptions.find(({ value }) => value === undefined)
-    ? [...selectOptions]
-    : [
+    ? ([...selectOptions] as SelectOption[])
+    : ([
         { label: isRequired ? optionsMessages.choose : optionsMessages.none },
         ...selectOptions
-      ];
+      ] as SelectOption[]);
 };
 
 interface SelectProps {
@@ -51,7 +54,7 @@ interface SelectProps {
   loadOptions?: (
     search?: string,
     lookupArguments?: any[]
-  ) => Promise<SelectOptions>;
+  ) => Promise<SelectOption[]>;
   meta: { initial?: any };
   onChange?: (...args: any[]) => unknown;
 }
@@ -152,9 +155,9 @@ export interface Pf4SelectWrapperProps
   initialValue?: any;
   validate?: ValidatorType[];
 }
-function Pf4SelectWrapper<T = any /**Type of select value */>(
-  props: Pf4SelectWrapperProps
-): ReactNode {
+const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
+  props
+) => {
   const {
     label,
     isRequired,
@@ -164,7 +167,7 @@ function Pf4SelectWrapper<T = any /**Type of select value */>(
     hideLabel,
     id,
     ...rest
-  } = useFieldApi<T>(props);
+  } = useFieldApi(props);
   const { error, touched } = meta;
   const showError = touched && error;
   const { name } = rest.input;
@@ -193,6 +196,6 @@ function Pf4SelectWrapper<T = any /**Type of select value */>(
       />
     </FormGroup>
   );
-}
+};
 
 export default Pf4SelectWrapper;
