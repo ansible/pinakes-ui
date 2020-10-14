@@ -26,6 +26,11 @@ import {
   catalogComponentMapper
 } from '../common/form-renderer';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+const isTemplate = {
+  ...fieldProperties.IS_DISABLED,
+  propertyName: 'isTemplate',
+  label: 'Template'
+};
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -35,7 +40,8 @@ const componentProperties = {
       fieldProperties.PLACEHOLDER,
       fieldProperties.IS_DISABLED,
       fieldProperties.IS_READ_ONLY,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   },
   [componentTypes.CHECKBOX]: {
@@ -67,7 +73,7 @@ const componentProperties = {
     ]
   },
   [componentTypes.PLAIN_TEXT]: {
-    attributes: [fieldProperties.MULTI_LINE_LABEL]
+    attributes: [fieldProperties.MULTI_LINE_LABEL, isTemplate]
   },
   [componentTypes.RADIO]: {
     attributes: [
@@ -91,7 +97,8 @@ const componentProperties = {
       fieldProperties.HELPER_TEXT,
       fieldProperties.IS_READ_ONLY,
       fieldProperties.IS_DISABLED,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   }
 };
