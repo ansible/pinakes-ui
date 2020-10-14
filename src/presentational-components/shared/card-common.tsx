@@ -7,8 +7,6 @@ import { Tooltip } from '@patternfly/react-core';
 
 const CardPropText = styled.div`
   overflow: hidden;
-  text-overflow: ellipsis;
-  lines: 3;
 `;
 
 export interface ItemDetailsProps extends AnyObject {
