@@ -45,7 +45,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
           key="card-prop-foo"
         >
           <div
-            className="sc-AxjAm dMwTTJ"
+            className="sc-AxjAm hDziHm"
           >
             Foo content
           </div>
@@ -177,7 +177,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
           key="card-prop-bar"
         >
           <div
-            className="sc-AxjAm dMwTTJ"
+            className="sc-AxjAm hDziHm"
           >
             <h1>
               Bar content

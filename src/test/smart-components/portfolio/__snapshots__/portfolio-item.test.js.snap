@@ -221,7 +221,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   key="card-prop-description"
                                 >
                                   <div
-                                    className="sc-AxmLO duuQNt"
+                                    className="sc-AxmLO dHHURS"
                                   >
                                     Bar
                                   </div>

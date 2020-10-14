@@ -173,7 +173,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                           key="card-prop-long_description"
                         >
                           <div
-                            className="sc-AxmLO duuQNt"
+                            className="sc-AxmLO dHHURS"
                           />
                         </styled.div>
                       </span>

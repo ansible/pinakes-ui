@@ -153,7 +153,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                             key="card-prop-description"
                           >
                             <div
-                              className="sc-AxjAm dMwTTJ"
+                              className="sc-AxjAm hDziHm"
                             >
                               desc
                             </div>
@@ -283,7 +283,7 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                             key="card-prop-modified"
                           >
                             <div
-                              className="sc-AxjAm dMwTTJ"
+                              className="sc-AxjAm hDziHm"
                             >
                               Foo
                             </div>
@@ -555,7 +555,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             key="card-prop-description"
                           >
                             <div
-                              className="sc-AxjAm dMwTTJ"
+                              className="sc-AxjAm hDziHm"
                             >
                               desc
                             </div>
@@ -685,7 +685,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             key="card-prop-modified"
                           >
                             <div
-                              className="sc-AxjAm dMwTTJ"
+                              className="sc-AxjAm hDziHm"
                             >
                               Foo
                             </div>

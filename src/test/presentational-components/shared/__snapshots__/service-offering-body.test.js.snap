@@ -87,7 +87,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                   key="card-prop-long_description"
                 >
                   <div
-                    className="sc-AxjAm dMwTTJ"
+                    className="sc-AxjAm hDziHm"
                   >
                     long description
                   </div>
@@ -270,7 +270,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                   key="card-prop-description"
                 >
                   <div
-                    className="sc-AxjAm dMwTTJ"
+                    className="sc-AxjAm hDziHm"
                   >
                     Bar
                   </div>
