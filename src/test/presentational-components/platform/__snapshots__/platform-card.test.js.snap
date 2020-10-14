@@ -125,24 +125,266 @@ exports[`<PlatformCard /> should choose card image 1`] = `
                       ]
                     }
                   >
-                    <styled.div
-                      key="card-prop-description"
+                    <Truncate
+                      ellipsis={
+                        <Tooltip
+                          content={
+                            <div>
+                              desc
+                            </div>
+                          }
+                        >
+                          <span>
+                            ...
+                          </span>
+                        </Tooltip>
+                      }
+                      key="tcard-prop-description"
+                      lines={3}
+                      trimWhitespace={false}
+                      width={0}
                     >
-                      <div
-                        className="sc-AxjAm hDziHm"
+                      <span
+                        width={0}
                       >
-                        desc
-                      </div>
-                    </styled.div>
-                    <styled.div
-                      key="card-prop-modified"
+                        <span />
+                        <span>
+                          <styled.div
+                            key="card-prop-description"
+                          >
+                            <div
+                              className="sc-AxjAm hDziHm"
+                            >
+                              desc
+                            </div>
+                          </styled.div>
+                        </span>
+                        <span
+                          style={
+                            Object {
+                              "left": 0,
+                              "position": "fixed",
+                              "top": 0,
+                              "visibility": "hidden",
+                            }
+                          }
+                        >
+                          <Tooltip
+                            content={
+                              <div>
+                                desc
+                              </div>
+                            }
+                          >
+                            <Popper
+                              appendTo={[Function]}
+                              distance={15}
+                              enableFlip={true}
+                              flipBehavior={
+                                Array [
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                  "left",
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                ]
+                              }
+                              isVisible={false}
+                              onBlur={[Function]}
+                              onDocumentClick={false}
+                              onDocumentKeyDown={[Function]}
+                              onFocus={[Function]}
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              onTriggerEnter={[Function]}
+                              placement="top"
+                              popper={
+                                <div
+                                  className="pf-c-tooltip"
+                                  id="pf-tooltip-3"
+                                  role="tooltip"
+                                  style={
+                                    Object {
+                                      "maxWidth": null,
+                                      "opacity": 0,
+                                      "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                                    }
+                                  }
+                                >
+                                  <TooltipArrow />
+                                  <TooltipContent
+                                    isLeftAligned={false}
+                                  >
+                                    <div>
+                                      desc
+                                    </div>
+                                  </TooltipContent>
+                                </div>
+                              }
+                              popperMatchesTriggerWidth={false}
+                              positionModifiers={
+                                Object {
+                                  "bottom": "pf-m-bottom",
+                                  "left": "pf-m-left",
+                                  "right": "pf-m-right",
+                                  "top": "pf-m-top",
+                                }
+                              }
+                              trigger={
+                                <span
+                                  aria-describedby="pf-tooltip-3"
+                                >
+                                  ...
+                                </span>
+                              }
+                              zIndex={9999}
+                            >
+                              <FindRefWrapper
+                                onFoundRef={[Function]}
+                              >
+                                <span
+                                  aria-describedby="pf-tooltip-3"
+                                >
+                                  ...
+                                </span>
+                              </FindRefWrapper>
+                            </Popper>
+                          </Tooltip>
+                        </span>
+                      </span>
+                    </Truncate>
+                    <Truncate
+                      ellipsis={
+                        <Tooltip
+                          content={
+                            <div>
+                              Foo
+                            </div>
+                          }
+                        >
+                          <span>
+                            ...
+                          </span>
+                        </Tooltip>
+                      }
+                      key="tcard-prop-modified"
+                      lines={3}
+                      trimWhitespace={false}
+                      width={0}
                     >
-                      <div
-                        className="sc-AxjAm hDziHm"
+                      <span
+                        width={0}
                       >
-                        Foo
-                      </div>
-                    </styled.div>
+                        <span />
+                        <span>
+                          <styled.div
+                            key="card-prop-modified"
+                          >
+                            <div
+                              className="sc-AxjAm hDziHm"
+                            >
+                              Foo
+                            </div>
+                          </styled.div>
+                        </span>
+                        <span
+                          style={
+                            Object {
+                              "left": 0,
+                              "position": "fixed",
+                              "top": 0,
+                              "visibility": "hidden",
+                            }
+                          }
+                        >
+                          <Tooltip
+                            content={
+                              <div>
+                                Foo
+                              </div>
+                            }
+                          >
+                            <Popper
+                              appendTo={[Function]}
+                              distance={15}
+                              enableFlip={true}
+                              flipBehavior={
+                                Array [
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                  "left",
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                ]
+                              }
+                              isVisible={false}
+                              onBlur={[Function]}
+                              onDocumentClick={false}
+                              onDocumentKeyDown={[Function]}
+                              onFocus={[Function]}
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              onTriggerEnter={[Function]}
+                              placement="top"
+                              popper={
+                                <div
+                                  className="pf-c-tooltip"
+                                  id="pf-tooltip-4"
+                                  role="tooltip"
+                                  style={
+                                    Object {
+                                      "maxWidth": null,
+                                      "opacity": 0,
+                                      "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                                    }
+                                  }
+                                >
+                                  <TooltipArrow />
+                                  <TooltipContent
+                                    isLeftAligned={false}
+                                  >
+                                    <div>
+                                      Foo
+                                    </div>
+                                  </TooltipContent>
+                                </div>
+                              }
+                              popperMatchesTriggerWidth={false}
+                              positionModifiers={
+                                Object {
+                                  "bottom": "pf-m-bottom",
+                                  "left": "pf-m-left",
+                                  "right": "pf-m-right",
+                                  "top": "pf-m-top",
+                                }
+                              }
+                              trigger={
+                                <span
+                                  aria-describedby="pf-tooltip-4"
+                                >
+                                  ...
+                                </span>
+                              }
+                              zIndex={9999}
+                            >
+                              <FindRefWrapper
+                                onFoundRef={[Function]}
+                              >
+                                <span
+                                  aria-describedby="pf-tooltip-4"
+                                >
+                                  ...
+                                </span>
+                              </FindRefWrapper>
+                            </Popper>
+                          </Tooltip>
+                        </span>
+                      </span>
+                    </Truncate>
                   </ItemDetails>
                 </div>
               </CardBody>
@@ -285,24 +527,266 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                       ]
                     }
                   >
-                    <styled.div
-                      key="card-prop-description"
+                    <Truncate
+                      ellipsis={
+                        <Tooltip
+                          content={
+                            <div>
+                              desc
+                            </div>
+                          }
+                        >
+                          <span>
+                            ...
+                          </span>
+                        </Tooltip>
+                      }
+                      key="tcard-prop-description"
+                      lines={3}
+                      trimWhitespace={false}
+                      width={0}
                     >
-                      <div
-                        className="sc-AxjAm hDziHm"
+                      <span
+                        width={0}
                       >
-                        desc
-                      </div>
-                    </styled.div>
-                    <styled.div
-                      key="card-prop-modified"
+                        <span />
+                        <span>
+                          <styled.div
+                            key="card-prop-description"
+                          >
+                            <div
+                              className="sc-AxjAm hDziHm"
+                            >
+                              desc
+                            </div>
+                          </styled.div>
+                        </span>
+                        <span
+                          style={
+                            Object {
+                              "left": 0,
+                              "position": "fixed",
+                              "top": 0,
+                              "visibility": "hidden",
+                            }
+                          }
+                        >
+                          <Tooltip
+                            content={
+                              <div>
+                                desc
+                              </div>
+                            }
+                          >
+                            <Popper
+                              appendTo={[Function]}
+                              distance={15}
+                              enableFlip={true}
+                              flipBehavior={
+                                Array [
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                  "left",
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                ]
+                              }
+                              isVisible={false}
+                              onBlur={[Function]}
+                              onDocumentClick={false}
+                              onDocumentKeyDown={[Function]}
+                              onFocus={[Function]}
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              onTriggerEnter={[Function]}
+                              placement="top"
+                              popper={
+                                <div
+                                  className="pf-c-tooltip"
+                                  id="pf-tooltip-1"
+                                  role="tooltip"
+                                  style={
+                                    Object {
+                                      "maxWidth": null,
+                                      "opacity": 0,
+                                      "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                                    }
+                                  }
+                                >
+                                  <TooltipArrow />
+                                  <TooltipContent
+                                    isLeftAligned={false}
+                                  >
+                                    <div>
+                                      desc
+                                    </div>
+                                  </TooltipContent>
+                                </div>
+                              }
+                              popperMatchesTriggerWidth={false}
+                              positionModifiers={
+                                Object {
+                                  "bottom": "pf-m-bottom",
+                                  "left": "pf-m-left",
+                                  "right": "pf-m-right",
+                                  "top": "pf-m-top",
+                                }
+                              }
+                              trigger={
+                                <span
+                                  aria-describedby="pf-tooltip-1"
+                                >
+                                  ...
+                                </span>
+                              }
+                              zIndex={9999}
+                            >
+                              <FindRefWrapper
+                                onFoundRef={[Function]}
+                              >
+                                <span
+                                  aria-describedby="pf-tooltip-1"
+                                >
+                                  ...
+                                </span>
+                              </FindRefWrapper>
+                            </Popper>
+                          </Tooltip>
+                        </span>
+                      </span>
+                    </Truncate>
+                    <Truncate
+                      ellipsis={
+                        <Tooltip
+                          content={
+                            <div>
+                              Foo
+                            </div>
+                          }
+                        >
+                          <span>
+                            ...
+                          </span>
+                        </Tooltip>
+                      }
+                      key="tcard-prop-modified"
+                      lines={3}
+                      trimWhitespace={false}
+                      width={0}
                     >
-                      <div
-                        className="sc-AxjAm hDziHm"
+                      <span
+                        width={0}
                       >
-                        Foo
-                      </div>
-                    </styled.div>
+                        <span />
+                        <span>
+                          <styled.div
+                            key="card-prop-modified"
+                          >
+                            <div
+                              className="sc-AxjAm hDziHm"
+                            >
+                              Foo
+                            </div>
+                          </styled.div>
+                        </span>
+                        <span
+                          style={
+                            Object {
+                              "left": 0,
+                              "position": "fixed",
+                              "top": 0,
+                              "visibility": "hidden",
+                            }
+                          }
+                        >
+                          <Tooltip
+                            content={
+                              <div>
+                                Foo
+                              </div>
+                            }
+                          >
+                            <Popper
+                              appendTo={[Function]}
+                              distance={15}
+                              enableFlip={true}
+                              flipBehavior={
+                                Array [
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                  "left",
+                                  "top",
+                                  "right",
+                                  "bottom",
+                                ]
+                              }
+                              isVisible={false}
+                              onBlur={[Function]}
+                              onDocumentClick={false}
+                              onDocumentKeyDown={[Function]}
+                              onFocus={[Function]}
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              onTriggerEnter={[Function]}
+                              placement="top"
+                              popper={
+                                <div
+                                  className="pf-c-tooltip"
+                                  id="pf-tooltip-2"
+                                  role="tooltip"
+                                  style={
+                                    Object {
+                                      "maxWidth": null,
+                                      "opacity": 0,
+                                      "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                                    }
+                                  }
+                                >
+                                  <TooltipArrow />
+                                  <TooltipContent
+                                    isLeftAligned={false}
+                                  >
+                                    <div>
+                                      Foo
+                                    </div>
+                                  </TooltipContent>
+                                </div>
+                              }
+                              popperMatchesTriggerWidth={false}
+                              positionModifiers={
+                                Object {
+                                  "bottom": "pf-m-bottom",
+                                  "left": "pf-m-left",
+                                  "right": "pf-m-right",
+                                  "top": "pf-m-top",
+                                }
+                              }
+                              trigger={
+                                <span
+                                  aria-describedby="pf-tooltip-2"
+                                >
+                                  ...
+                                </span>
+                              }
+                              zIndex={9999}
+                            >
+                              <FindRefWrapper
+                                onFoundRef={[Function]}
+                              >
+                                <span
+                                  aria-describedby="pf-tooltip-2"
+                                >
+                                  ...
+                                </span>
+                              </FindRefWrapper>
+                            </Popper>
+                          </Tooltip>
+                        </span>
+                      </span>
+                    </Truncate>
                   </ItemDetails>
                 </div>
               </CardBody>
