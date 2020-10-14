@@ -483,9 +483,16 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
 <DataList
   aria-label="list-loader"
   aria-labelledby="datalist-placeholder"
+  className=""
+  isCompact={false}
+  selectedDataListItemId=""
+  wrapModifier={null}
 >
   <DataListItem
     aria-labelledby="datalist-item-placeholder"
+    className=""
+    id=""
+    isExpanded={false}
     key="0"
   >
     <DataListItemRow
@@ -506,6 +513,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
   </DataListItem>
   <DataListItem
     aria-labelledby="datalist-item-placeholder"
+    className=""
+    id=""
+    isExpanded={false}
     key="1"
   >
     <DataListItemRow
@@ -526,6 +536,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
   </DataListItem>
   <DataListItem
     aria-labelledby="datalist-item-placeholder"
+    className=""
+    id=""
+    isExpanded={false}
     key="2"
   >
     <DataListItemRow
@@ -546,6 +559,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
   </DataListItem>
   <DataListItem
     aria-labelledby="datalist-item-placeholder"
+    className=""
+    id=""
+    isExpanded={false}
     key="3"
   >
     <DataListItemRow
@@ -566,6 +582,9 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
   </DataListItem>
   <DataListItem
     aria-labelledby="datalist-item-placeholder"
+    className=""
+    id=""
+    isExpanded={false}
     key="4"
   >
     <DataListItemRow

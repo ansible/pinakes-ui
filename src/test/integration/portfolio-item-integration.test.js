@@ -31,7 +31,8 @@ describe('Integration tests for portfolio items', () => {
           sources: [
             {
               id: 'source-id',
-              name: 'Test source'
+              name: 'Test source',
+              availability_status: 'available'
             }
           ]
         }
