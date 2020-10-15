@@ -44,6 +44,17 @@ const componentProperties = {
       isTemplate
     ]
   },
+  Template: {
+    attributes: [
+      fieldProperties.LABEL,
+      fieldProperties.HELPER_TEXT,
+      fieldProperties.PLACEHOLDER,
+      fieldProperties.IS_DISABLED,
+      fieldProperties.IS_READ_ONLY,
+      fieldProperties.HIDE_FIELD,
+      isTemplate
+    ]
+  },
   [componentTypes.CHECKBOX]: {
     attributes: [
       fieldProperties.LABEL,
