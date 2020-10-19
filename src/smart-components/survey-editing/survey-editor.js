@@ -236,10 +236,22 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
           modified: { schema: editedTemplate }
         })
       );
+  const updateSubstitutionFields = (editedTemplate) => {
+    const updatedFields = editedTemplate.fields.map((field) => {
+      let updatedField = field;
+      if (updatedField.isTemplate) {
+        updatedField.isDisabled = true;
+        updatedField.placeholder = field.initialValue;
+      }
+      return updatedField;
+    });
+    return { ...editedTemplate, fields: updatedFields };
+  };
+
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
     const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
-    return submitCall(appendValidator(editedTemplate))
+    return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
       .then(() => {
         setIsFetching(false);
         dispatch(
@@ -264,9 +276,9 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
       .then(getServicePlan)
       .then(() => {
         /**
-         * Counter has to updated again after the update was successfull
-         * This mutation amkes sure that new instance will be created after the data was returned
-         * form API.
+         * Counter has to updated again after the update was successful
+         * This mutation makes sure that new instance will be created after the data was returned
+         * from the API.
          */
         setUpdateHack((prevCount) => prevCount + 1);
         return dispatch(
