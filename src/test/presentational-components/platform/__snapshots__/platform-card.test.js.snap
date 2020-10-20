@@ -1,415 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PlatformCard /> should choose card image 1`] = `
-<PlatformCard
-  description="desc"
-  modified="Foo"
->
-  <GalleryItem>
-    <div>
-      <Styled(Card)>
-        <Card
-          className="sc-AxhUy kEBXQD"
-        >
-          <article
-            className="pf-c-card sc-AxhUy kEBXQD"
-            data-ouia-component-id="OUIA-Generated-Card-2"
-            data-ouia-component-type="PF4/Card"
-            data-ouia-safe={true}
-          >
-            <CardHeader>
-              <div
-                className="pf-c-card__header"
-              >
-                <ImageWithDefault
-                  height="40"
-                  src="test-file-stub"
-                  width="80"
-                >
-                  <img
-                    height="40"
-                    src="test-file-stub"
-                    width="80"
-                  />
-                </ImageWithDefault>
-              </div>
-            </CardHeader>
-            <Styled(CardBody)>
-              <CardBody
-                className="sc-AxheI jOYejY"
-              >
-                <div
-                  className="pf-c-card__body sc-AxheI jOYejY"
-                >
-                  <TextContent>
-                    <div
-                      className="pf-c-content"
-                    >
-                      <CatalogLink
-                        pathname="/platform/platform-templates"
-                        searchParams={
-                          Object {
-                            "platform": undefined,
-                          }
-                        }
-                      >
-                        <Styled(Component)
-                          to={
-                            Object {
-                              "hash": undefined,
-                              "pathname": "/platform/platform-templates",
-                              "search": "?platform=undefined",
-                            }
-                          }
-                        >
-                          <Component
-                            className="sc-AxiKw drCTeX"
-                            to={
-                              Object {
-                                "hash": undefined,
-                                "pathname": "/platform/platform-templates",
-                                "search": "?platform=undefined",
-                              }
-                            }
-                          >
-                            <Link
-                              className="sc-AxiKw drCTeX"
-                              to={
-                                Object {
-                                  "hash": undefined,
-                                  "pathname": "/platform/platform-templates",
-                                  "search": "?platform=undefined",
-                                }
-                              }
-                            >
-                              <LinkAnchor
-                                className="sc-AxiKw drCTeX"
-                                href="/platform/platform-templates?platform=undefined"
-                                navigate={[Function]}
-                              >
-                                <a
-                                  className="sc-AxiKw drCTeX"
-                                  href="/platform/platform-templates?platform=undefined"
-                                  onClick={[Function]}
-                                >
-                                  <Text
-                                    className="pf-u-mb-0"
-                                    component="h3"
-                                  >
-                                    <h3
-                                      className="pf-u-mb-0"
-                                      data-pf-content={true}
-                                    >
-                                      <styled.div>
-                                        <div
-                                          className="sc-AxirZ ZcaGf"
-                                        />
-                                      </styled.div>
-                                    </h3>
-                                  </Text>
-                                </a>
-                              </LinkAnchor>
-                            </Link>
-                          </Component>
-                        </Styled(Component)>
-                      </CatalogLink>
-                    </div>
-                  </TextContent>
-                  <ItemDetails
-                    description="desc"
-                    modified="Foo"
-                    toDisplay={
-                      Array [
-                        "description",
-                        "modified",
-                      ]
-                    }
-                  >
-                    <Truncate
-                      ellipsis={
-                        <Tooltip
-                          content={
-                            <div>
-                              desc
-                            </div>
-                          }
-                        >
-                          <span>
-                            ...
-                          </span>
-                        </Tooltip>
-                      }
-                      key="tcard-prop-description"
-                      lines={3}
-                      trimWhitespace={false}
-                      width={0}
-                    >
-                      <span
-                        width={0}
-                      >
-                        <span />
-                        <span>
-                          <styled.div
-                            key="card-prop-description"
-                          >
-                            <div
-                              className="sc-AxjAm hDziHm"
-                            >
-                              desc
-                            </div>
-                          </styled.div>
-                        </span>
-                        <span
-                          style={
-                            Object {
-                              "left": 0,
-                              "position": "fixed",
-                              "top": 0,
-                              "visibility": "hidden",
-                            }
-                          }
-                        >
-                          <Tooltip
-                            content={
-                              <div>
-                                desc
-                              </div>
-                            }
-                          >
-                            <Popper
-                              appendTo={[Function]}
-                              distance={15}
-                              enableFlip={true}
-                              flipBehavior={
-                                Array [
-                                  "top",
-                                  "right",
-                                  "bottom",
-                                  "left",
-                                  "top",
-                                  "right",
-                                  "bottom",
-                                ]
-                              }
-                              isVisible={false}
-                              onBlur={[Function]}
-                              onDocumentClick={false}
-                              onDocumentKeyDown={[Function]}
-                              onFocus={[Function]}
-                              onMouseEnter={[Function]}
-                              onMouseLeave={[Function]}
-                              onTriggerEnter={[Function]}
-                              placement="top"
-                              popper={
-                                <div
-                                  className="pf-c-tooltip"
-                                  id="pf-tooltip-3"
-                                  role="tooltip"
-                                  style={
-                                    Object {
-                                      "maxWidth": null,
-                                      "opacity": 0,
-                                      "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
-                                    }
-                                  }
-                                >
-                                  <TooltipArrow />
-                                  <TooltipContent
-                                    isLeftAligned={false}
-                                  >
-                                    <div>
-                                      desc
-                                    </div>
-                                  </TooltipContent>
-                                </div>
-                              }
-                              popperMatchesTriggerWidth={false}
-                              positionModifiers={
-                                Object {
-                                  "bottom": "pf-m-bottom",
-                                  "left": "pf-m-left",
-                                  "right": "pf-m-right",
-                                  "top": "pf-m-top",
-                                }
-                              }
-                              trigger={
-                                <span
-                                  aria-describedby="pf-tooltip-3"
-                                >
-                                  ...
-                                </span>
-                              }
-                              zIndex={9999}
-                            >
-                              <FindRefWrapper
-                                onFoundRef={[Function]}
-                              >
-                                <span
-                                  aria-describedby="pf-tooltip-3"
-                                >
-                                  ...
-                                </span>
-                              </FindRefWrapper>
-                            </Popper>
-                          </Tooltip>
-                        </span>
-                      </span>
-                    </Truncate>
-                    <Truncate
-                      ellipsis={
-                        <Tooltip
-                          content={
-                            <div>
-                              Foo
-                            </div>
-                          }
-                        >
-                          <span>
-                            ...
-                          </span>
-                        </Tooltip>
-                      }
-                      key="tcard-prop-modified"
-                      lines={3}
-                      trimWhitespace={false}
-                      width={0}
-                    >
-                      <span
-                        width={0}
-                      >
-                        <span />
-                        <span>
-                          <styled.div
-                            key="card-prop-modified"
-                          >
-                            <div
-                              className="sc-AxjAm hDziHm"
-                            >
-                              Foo
-                            </div>
-                          </styled.div>
-                        </span>
-                        <span
-                          style={
-                            Object {
-                              "left": 0,
-                              "position": "fixed",
-                              "top": 0,
-                              "visibility": "hidden",
-                            }
-                          }
-                        >
-                          <Tooltip
-                            content={
-                              <div>
-                                Foo
-                              </div>
-                            }
-                          >
-                            <Popper
-                              appendTo={[Function]}
-                              distance={15}
-                              enableFlip={true}
-                              flipBehavior={
-                                Array [
-                                  "top",
-                                  "right",
-                                  "bottom",
-                                  "left",
-                                  "top",
-                                  "right",
-                                  "bottom",
-                                ]
-                              }
-                              isVisible={false}
-                              onBlur={[Function]}
-                              onDocumentClick={false}
-                              onDocumentKeyDown={[Function]}
-                              onFocus={[Function]}
-                              onMouseEnter={[Function]}
-                              onMouseLeave={[Function]}
-                              onTriggerEnter={[Function]}
-                              placement="top"
-                              popper={
-                                <div
-                                  className="pf-c-tooltip"
-                                  id="pf-tooltip-4"
-                                  role="tooltip"
-                                  style={
-                                    Object {
-                                      "maxWidth": null,
-                                      "opacity": 0,
-                                      "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
-                                    }
-                                  }
-                                >
-                                  <TooltipArrow />
-                                  <TooltipContent
-                                    isLeftAligned={false}
-                                  >
-                                    <div>
-                                      Foo
-                                    </div>
-                                  </TooltipContent>
-                                </div>
-                              }
-                              popperMatchesTriggerWidth={false}
-                              positionModifiers={
-                                Object {
-                                  "bottom": "pf-m-bottom",
-                                  "left": "pf-m-left",
-                                  "right": "pf-m-right",
-                                  "top": "pf-m-top",
-                                }
-                              }
-                              trigger={
-                                <span
-                                  aria-describedby="pf-tooltip-4"
-                                >
-                                  ...
-                                </span>
-                              }
-                              zIndex={9999}
-                            >
-                              <FindRefWrapper
-                                onFoundRef={[Function]}
-                              >
-                                <span
-                                  aria-describedby="pf-tooltip-4"
-                                >
-                                  ...
-                                </span>
-                              </FindRefWrapper>
-                            </Popper>
-                          </Tooltip>
-                        </span>
-                      </span>
-                    </Truncate>
-                  </ItemDetails>
-                </div>
-              </CardBody>
-            </Styled(CardBody)>
-            <CardFooter>
-              <div
-                className="pf-c-card__footer"
-              />
-            </CardFooter>
-          </article>
-        </Card>
-      </Styled(Card)>
-    </div>
-  </GalleryItem>
-</PlatformCard>
-`;
-
 exports[`<PlatformCard /> should render correctly 1`] = `
 <PlatformCard
-  description="desc"
-  modified="Foo"
+  id="Foo"
 >
   <GalleryItem>
     <div>
-      <Styled(Card)>
+      <Styled(Card)
+        key="Foo"
+      >
         <Card
           className="sc-AxhUy kEBXQD"
         >
@@ -423,17 +22,81 @@ exports[`<PlatformCard /> should render correctly 1`] = `
               <div
                 className="pf-c-card__header"
               >
-                <ImageWithDefault
-                  height="40"
-                  src="test-file-stub"
-                  width="80"
+                <CardIcon
+                  height={40}
+                  sourceId="Foo"
                 >
-                  <img
-                    height="40"
-                    src="test-file-stub"
-                    width="80"
-                  />
-                </ImageWithDefault>
+                  <styled.div
+                    height={40}
+                  >
+                    <div
+                      className="sc-fznKkj dHxwEL"
+                      height={40}
+                    >
+                      <IconPlaceholder
+                        height={40}
+                      >
+                        <svg
+                          height={40}
+                          width={40}
+                        >
+                          <circle
+                            cx={20}
+                            cy={20}
+                            fill="#ecebeb"
+                            r={20}
+                          />
+                        </svg>
+                      </IconPlaceholder>
+                      <Styled(t)
+                        delayTime={0}
+                        height={0}
+                        hidden={true}
+                        onError={[Function]}
+                        onLoad={[Function]}
+                        threshold={2000}
+                      >
+                        <t
+                          afterLoad={[Function]}
+                          beforeLoad={[Function]}
+                          className="sc-fznyAO eTyGtP"
+                          delayMethod="throttle"
+                          delayTime={0}
+                          effect=""
+                          height={0}
+                          hidden={true}
+                          onError={[Function]}
+                          onLoad={[Function]}
+                          placeholderSrc={null}
+                          threshold={2000}
+                          useIntersectionObserver={true}
+                          visibleByDefault={false}
+                          wrapperClassName=""
+                        >
+                          <t
+                            afterLoad={[Function]}
+                            beforeLoad={[Function]}
+                            className="sc-fznyAO eTyGtP"
+                            delayMethod="throttle"
+                            delayTime={0}
+                            height={0}
+                            threshold={2000}
+                            useIntersectionObserver={true}
+                            visibleByDefault={false}
+                          >
+                            <img
+                              className="sc-fznyAO eTyGtP"
+                              height={0}
+                              hidden={true}
+                              onError={[Function]}
+                              onLoad={[Function]}
+                            />
+                          </t>
+                        </t>
+                      </Styled(t)>
+                    </div>
+                  </styled.div>
+                </CardIcon>
               </div>
             </CardHeader>
             <Styled(CardBody)>
@@ -451,7 +114,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                         pathname="/platform/platform-templates"
                         searchParams={
                           Object {
-                            "platform": undefined,
+                            "platform": "Foo",
                           }
                         }
                       >
@@ -460,7 +123,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             Object {
                               "hash": undefined,
                               "pathname": "/platform/platform-templates",
-                              "search": "?platform=undefined",
+                              "search": "?platform=Foo",
                             }
                           }
                         >
@@ -470,7 +133,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               Object {
                                 "hash": undefined,
                                 "pathname": "/platform/platform-templates",
-                                "search": "?platform=undefined",
+                                "search": "?platform=Foo",
                               }
                             }
                           >
@@ -480,18 +143,18 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                 Object {
                                   "hash": undefined,
                                   "pathname": "/platform/platform-templates",
-                                  "search": "?platform=undefined",
+                                  "search": "?platform=Foo",
                                 }
                               }
                             >
                               <LinkAnchor
                                 className="sc-AxiKw drCTeX"
-                                href="/platform/platform-templates?platform=undefined"
+                                href="/platform/platform-templates?platform=Foo"
                                 navigate={[Function]}
                               >
                                 <a
                                   className="sc-AxiKw drCTeX"
-                                  href="/platform/platform-templates?platform=undefined"
+                                  href="/platform/platform-templates?platform=Foo"
                                   onClick={[Function]}
                                 >
                                   <Text
@@ -518,8 +181,6 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     </div>
                   </TextContent>
                   <ItemDetails
-                    description="desc"
-                    modified="Foo"
                     toDisplay={
                       Array [
                         "description",
@@ -530,11 +191,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     <Truncate
                       ellipsis={
                         <Tooltip
-                          content={
-                            <div>
-                              desc
-                            </div>
-                          }
+                          content={<div />}
                         >
                           <span>
                             ...
@@ -556,9 +213,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           >
                             <div
                               className="sc-AxjAm hDziHm"
-                            >
-                              desc
-                            </div>
+                            />
                           </styled.div>
                         </span>
                         <span
@@ -572,11 +227,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           }
                         >
                           <Tooltip
-                            content={
-                              <div>
-                                desc
-                              </div>
-                            }
+                            content={<div />}
                           >
                             <Popper
                               appendTo={[Function]}
@@ -619,9 +270,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                   <TooltipContent
                                     isLeftAligned={false}
                                   >
-                                    <div>
-                                      desc
-                                    </div>
+                                    <div />
                                   </TooltipContent>
                                 </div>
                               }
@@ -660,11 +309,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     <Truncate
                       ellipsis={
                         <Tooltip
-                          content={
-                            <div>
-                              Foo
-                            </div>
-                          }
+                          content={<div />}
                         >
                           <span>
                             ...
@@ -686,9 +331,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           >
                             <div
                               className="sc-AxjAm hDziHm"
-                            >
-                              Foo
-                            </div>
+                            />
                           </styled.div>
                         </span>
                         <span
@@ -702,11 +345,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           }
                         >
                           <Tooltip
-                            content={
-                              <div>
-                                Foo
-                              </div>
-                            }
+                            content={<div />}
                           >
                             <Popper
                               appendTo={[Function]}
@@ -749,9 +388,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                   <TooltipContent
                                     isLeftAligned={false}
                                   >
-                                    <div>
-                                      Foo
-                                    </div>
+                                    <div />
                                   </TooltipContent>
                                 </div>
                               }
