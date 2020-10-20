@@ -44,17 +44,6 @@ const componentProperties = {
       isTemplate
     ]
   },
-  Template: {
-    attributes: [
-      fieldProperties.LABEL,
-      fieldProperties.HELPER_TEXT,
-      fieldProperties.PLACEHOLDER,
-      fieldProperties.IS_DISABLED,
-      fieldProperties.IS_READ_ONLY,
-      fieldProperties.HIDE_FIELD,
-      isTemplate
-    ]
-  },
   [componentTypes.CHECKBOX]: {
     attributes: [
       fieldProperties.LABEL,
@@ -70,7 +59,8 @@ const componentProperties = {
       fieldProperties.IS_DISABLED,
       fieldProperties.PLACEHOLDER,
       fieldProperties.HELPER_TEXT,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   },
   [componentTypes.DATE_PICKER]: {
@@ -80,7 +70,8 @@ const componentProperties = {
       fieldProperties.IS_CLEARABLE,
       fieldProperties.CLOSE_ON_DAY_SELECT,
       fieldProperties.SHOW_TODAY_BUTTON,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   },
   [componentTypes.PLAIN_TEXT]: {
