@@ -26,6 +26,11 @@ import {
   catalogComponentMapper
 } from '../common/form-renderer';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+const isTemplate = {
+  ...fieldProperties.IS_DISABLED,
+  propertyName: 'isTemplate',
+  label: 'Template'
+};
 
 const componentProperties = {
   [componentTypes.TEXT_FIELD]: {
@@ -35,7 +40,8 @@ const componentProperties = {
       fieldProperties.PLACEHOLDER,
       fieldProperties.IS_DISABLED,
       fieldProperties.IS_READ_ONLY,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   },
   [componentTypes.CHECKBOX]: {
@@ -53,7 +59,8 @@ const componentProperties = {
       fieldProperties.IS_DISABLED,
       fieldProperties.PLACEHOLDER,
       fieldProperties.HELPER_TEXT,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   },
   [componentTypes.DATE_PICKER]: {
@@ -63,11 +70,12 @@ const componentProperties = {
       fieldProperties.IS_CLEARABLE,
       fieldProperties.CLOSE_ON_DAY_SELECT,
       fieldProperties.SHOW_TODAY_BUTTON,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   },
   [componentTypes.PLAIN_TEXT]: {
-    attributes: [fieldProperties.MULTI_LINE_LABEL]
+    attributes: [fieldProperties.MULTI_LINE_LABEL, isTemplate]
   },
   [componentTypes.RADIO]: {
     attributes: [
@@ -91,7 +99,8 @@ const componentProperties = {
       fieldProperties.HELPER_TEXT,
       fieldProperties.IS_READ_ONLY,
       fieldProperties.IS_DISABLED,
-      fieldProperties.HIDE_FIELD
+      fieldProperties.HIDE_FIELD,
+      isTemplate
     ]
   }
 };
@@ -218,10 +227,22 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
           modified: { schema: editedTemplate }
         })
       );
+  const updateSubstitutionFields = (editedTemplate) => {
+    const updatedFields = editedTemplate.fields.map((field) => {
+      let updatedField = field;
+      if (updatedField.isTemplate) {
+        updatedField.isDisabled = true;
+        updatedField.placeholder = field.initialValue;
+      }
+      return updatedField;
+    });
+    return { ...editedTemplate, fields: updatedFields };
+  };
+
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
     const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
-    return submitCall(appendValidator(editedTemplate))
+    return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
       .then(() => {
         setIsFetching(false);
         dispatch(
@@ -246,9 +267,9 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
       .then(getServicePlan)
       .then(() => {
         /**
-         * Counter has to updated again after the update was successfull
-         * This mutation amkes sure that new instance will be created after the data was returned
-         * form API.
+         * Counter has to updated again after the update was successful
+         * This mutation makes sure that new instance will be created after the data was returned
+         * from the API.
          */
         setUpdateHack((prevCount) => prevCount + 1);
         return dispatch(
