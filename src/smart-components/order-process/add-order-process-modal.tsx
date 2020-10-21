@@ -99,7 +99,12 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
 
   const onSave = (values: Partial<OrderProcess>) => {
     const submitAction = edit
-      ? () => updateOrderProcess(order_process, values, intl)
+      ? () =>
+          updateOrderProcess(
+            order_process,
+            { name: '', description: '', ...values },
+            intl
+          )
       : () => addOrderProcess(values, intl);
     onCancel();
 
