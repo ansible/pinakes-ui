@@ -71,6 +71,7 @@ describe('<PortfolioCard />', () => {
         <PortfolioCard
           {...initialProps}
           metadata={prepareTruthyCapability('unshare')}
+          canLinkOrderProcesses={true}
         />
       </MemoryRouter>
     );

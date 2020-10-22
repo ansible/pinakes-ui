@@ -42,10 +42,12 @@ interface HeaderActionsProps {
   portfolioId: string;
   handleCopyPortfolio: (portfolioId: string) => void;
   userCapabilities: UserCapabilities;
+  canLinkOrderProcesses: boolean;
 }
 const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
   portfolioId,
   handleCopyPortfolio,
+  canLinkOrderProcesses,
   userCapabilities: { share, copy, unshare, update, destroy, set_approval }
 }) => {
   const formatMessage = useFormatMessage();
@@ -99,7 +101,7 @@ const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
     );
   }
 
-  if (window.insights.chrome.isBeta() && update) {
+  if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     ) as string;
@@ -187,6 +189,7 @@ export interface PortfolioCardProps {
   isDisabled?: boolean;
   metadata: PortfolioMetadata;
   handleCopyPortfolio: (portfolioId: string) => void;
+  canLinkOrderProcesses: boolean;
 }
 const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
   imageUrl,
@@ -198,6 +201,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
     user_capabilities,
     statistics: { shared_groups, portfolio_items }
   },
+  canLinkOrderProcesses,
   ...props
 }) => {
   const formatMessage = useFormatMessage();
@@ -219,6 +223,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
                 portfolioId={id}
                 userCapabilities={user_capabilities}
                 handleCopyPortfolio={handleCopyPortfolio}
+                canLinkOrderProcesses={canLinkOrderProcesses}
               />
             }
           />

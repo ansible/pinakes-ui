@@ -151,6 +151,10 @@ const Portfolios = () => {
     'catalog:portfolios:create'
   ]);
 
+  const canLinkOrderProcesses = hasPermission(userPermissions, [
+    'catalog:order_processes:link'
+  ]);
+
   const NoDataAction = () => (
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
@@ -180,6 +184,7 @@ const Portfolios = () => {
     <PortfolioCard
       key={item.id}
       {...item}
+      canLinkOrderProcesses={canLinkOrderProcesses}
       handleCopyPortfolio={handleCopyPortfolio}
     />
   ));

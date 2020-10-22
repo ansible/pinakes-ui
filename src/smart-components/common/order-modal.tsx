@@ -81,6 +81,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
         delete field.validate;
         delete field.dataType;
       }
+
       return field;
     });
     return { ...schema, fields: updatedFields };
