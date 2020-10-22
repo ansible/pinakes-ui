@@ -26,10 +26,10 @@ import {
   catalogComponentMapper
 } from '../common/form-renderer';
 import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
-const isTemplate = {
+const isSubstitution = {
   ...fieldProperties.IS_DISABLED,
-  propertyName: 'isTemplate',
-  label: 'Template'
+  propertyName: 'isSubstitution',
+  label: 'Substitution'
 };
 
 const componentProperties = {
@@ -41,7 +41,7 @@ const componentProperties = {
       fieldProperties.IS_DISABLED,
       fieldProperties.IS_READ_ONLY,
       fieldProperties.HIDE_FIELD,
-      isTemplate
+      isSubstitution
     ]
   },
   [componentTypes.CHECKBOX]: {
@@ -60,7 +60,7 @@ const componentProperties = {
       fieldProperties.PLACEHOLDER,
       fieldProperties.HELPER_TEXT,
       fieldProperties.HIDE_FIELD,
-      isTemplate
+      isSubstitution
     ]
   },
   [componentTypes.DATE_PICKER]: {
@@ -71,11 +71,11 @@ const componentProperties = {
       fieldProperties.CLOSE_ON_DAY_SELECT,
       fieldProperties.SHOW_TODAY_BUTTON,
       fieldProperties.HIDE_FIELD,
-      isTemplate
+      isSubstitution
     ]
   },
   [componentTypes.PLAIN_TEXT]: {
-    attributes: [fieldProperties.MULTI_LINE_LABEL, isTemplate]
+    attributes: [fieldProperties.MULTI_LINE_LABEL, isSubstitution]
   },
   [componentTypes.RADIO]: {
     attributes: [
@@ -100,7 +100,7 @@ const componentProperties = {
       fieldProperties.IS_READ_ONLY,
       fieldProperties.IS_DISABLED,
       fieldProperties.HIDE_FIELD,
-      isTemplate
+      isSubstitution
     ]
   }
 };
@@ -230,7 +230,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const updateSubstitutionFields = (editedTemplate) => {
     const updatedFields = editedTemplate.fields.map((field) => {
       let updatedField = field;
-      if (updatedField.isTemplate) {
+      if (updatedField.isSubstitution) {
         updatedField.isDisabled = true;
         updatedField.placeholder = field.initialValue;
       }
