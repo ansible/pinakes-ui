@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, lazy, Suspense } from 'react';
+import React, {useEffect, useState, Fragment, lazy, Suspense, useContext} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
@@ -27,6 +27,8 @@ import CatalogRoute from '../../../routing/catalog-route';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 import useFormatMessage from '../../../utilities/use-format-message';
+import {hasPermission} from '../../../helpers/shared/helpers';
+import UserContext from '../../../user-context';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -56,6 +58,10 @@ const PortfolioItemDetail = () => {
     ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
   );
   const fromProducts = queryValues['from-products'] === 'true';
+  const { permissions: userPermissions } = useContext(UserContext);
+  const canLinkOrderProcesses = hasPermission(userPermissions, [
+    'catalog:order_processes:link'
+  ]);
 
   const fetchData = (skipLoading) => {
     if (!skipLoading) {
@@ -154,6 +160,7 @@ const PortfolioItemDetail = () => {
                 portfolioItemData?.portfolioItem?.metadata.user_capabilities
               }
               orderable={portfolioItemData?.portfolioItem.metadata?.orderable}
+              canLinkOrderProcesses={canLinkOrderProcesses}
             />
             {unavailable.length > 0 && (
               <div className="pf-u-mr-lg pf-u-ml-lg">{unavailable}</div>

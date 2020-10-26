@@ -26,7 +26,8 @@ const DetailToolbarActions = ({
   isFetching,
   availability,
   orderable,
-  userCapabilities: { update, copy, set_approval }
+  userCapabilities: { update, copy, set_approval },
+  canLinkOrderProcesses
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
@@ -79,7 +80,11 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (window.insights.chrome.isBeta() && update) {
+  console.log(
+    'Debug - menu 2 - canLinkOrderProcesses: ',
+    canLinkOrderProcesses
+  );
+  if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
@@ -175,7 +180,8 @@ DetailToolbarActions.propTypes = {
   userCapabilities: PropTypes.shape({
     update: PropTypes.bool,
     copy: PropTypes.bool,
-    set_approval: PropTypes.bool
+    set_approval: PropTypes.bool,
+    canLinkOrderProcesses: PropTypes.bool
   }).isRequired
 };
 
