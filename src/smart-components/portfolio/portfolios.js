@@ -179,8 +179,6 @@ const Portfolios = () => {
       : formatMessage(filteringMessages.noResultsDescription),
     Icon: meta.noData ? WrenchIcon : SearchIcon
   };
-
-  console.log('Debug - canLinkOrderProcesses: ', canLinkOrderProcesses);
   const galleryItems = data.map((item) => (
     <PortfolioCard
       key={item.id}

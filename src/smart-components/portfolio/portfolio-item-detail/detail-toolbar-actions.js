@@ -80,10 +80,6 @@ const DetailToolbarActions = ({
     );
   }
 
-  console.log(
-    'Debug - menu 2 - canLinkOrderProcesses: ',
-    canLinkOrderProcesses
-  );
   if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
@@ -180,14 +176,15 @@ DetailToolbarActions.propTypes = {
   userCapabilities: PropTypes.shape({
     update: PropTypes.bool,
     copy: PropTypes.bool,
-    set_approval: PropTypes.bool,
-    canLinkOrderProcesses: PropTypes.bool
-  }).isRequired
+    set_approval: PropTypes.bool
+  }).isRequired,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 DetailToolbarActions.defaultProps = {
   isFetching: false,
-  orderable: true
+  orderable: true,
+  canLinkOrderProcesses: false
 };
 
 export default DetailToolbarActions;

@@ -127,7 +127,8 @@ PortfolioItemDetailToolbar.propTypes = {
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
   userCapabilities: PropTypes.object,
   fromProducts: PropTypes.bool,
-  orderable: PropTypes.bool
+  orderable: PropTypes.bool,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 PortfolioItemDetailToolbar.defaultProps = {

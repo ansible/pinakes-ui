@@ -57,7 +57,7 @@ describe('<PortfolioCard />', () => {
   it('should render and create correct card actions', () => {
     const wrapper = mount(
       <MemoryRouter>
-        <PortfolioCard {...initialProps} />
+        <PortfolioCard {...initialProps} canLinkOrderProcesses={true} />
       </MemoryRouter>
     );
     expect(wrapper.find('button')).toHaveLength(1);
@@ -86,6 +86,7 @@ describe('<PortfolioCard />', () => {
         <PortfolioCard
           {...initialProps}
           metadata={prepareTruthyCapability('update')}
+          canLinkOrderProcesses={true}
         />
       </MemoryRouter>
     );
