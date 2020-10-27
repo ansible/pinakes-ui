@@ -17,7 +17,7 @@ import orderProcessesMessages from '../../messages/order-processes.messages';
 import { NESTED_EDIT_ORDER_PROCESS_ROUTE } from '../../constants/routes';
 
 /**
- * Cannot be anonymous function. Requires Component.diplayName to work with PF4 refs
+ * Cannot be anonymous function. Requires Component.displayName to work with PF4 refs
  */
 const PortfolioActionsToolbar = ({
   editPortfolioRoute,
@@ -25,7 +25,8 @@ const PortfolioActionsToolbar = ({
   removePortfolioRoute,
   copyInProgress,
   copyPortfolio,
-  userCapabilities: { copy, destroy, update, set_approval }
+  userCapabilities: { copy, destroy, update, set_approval },
+  canLinkOrderProcesses
 }) => {
   const [isOpen, setOpen] = useState(false);
   const formatMessage = useFormatMessage();
@@ -81,7 +82,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (window.insights.chrome.isBeta() && update) {
+  if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
@@ -150,7 +151,8 @@ PortfolioActionsToolbar.propTypes = {
     update: PropTypes.bool,
     destroy: PropTypes.bool,
     set_approval: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 const createPortfolioToolbarSchema = ({
@@ -171,7 +173,8 @@ const createPortfolioToolbarSchema = ({
   description,
   fromProducts,
   filterProps: { searchValue, onFilterChange, placeholder },
-  userCapabilities: { share, unshare, ...userCapabilities }
+  userCapabilities: { share, unshare, ...userCapabilities },
+  canLinkOrderProcesses
 }) => ({
   fields: [
     {
@@ -218,6 +221,7 @@ const createPortfolioToolbarSchema = ({
                       copyPortfolio,
                       copyInProgress,
                       userCapabilities,
+                      canLinkOrderProcesses,
                       key: 'portfolio-actions-dropdown'
                     }
                   ]
