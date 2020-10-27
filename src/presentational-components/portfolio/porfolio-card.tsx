@@ -101,10 +101,6 @@ const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
     );
   }
 
-  console.log(
-    'Debug - menu 1 - canLinkOrderProcesses: ',
-    canLinkOrderProcesses
-  );
   if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess

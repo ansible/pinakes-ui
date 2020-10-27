@@ -32,8 +32,6 @@ const PortfolioActionsToolbar = ({
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
 
-  console.log('Debug test 10 - canLinkOrderProceeses -', canLinkOrderProcesses);
-
   if (update) {
     dropdownItems.push(
       <DropdownItem
