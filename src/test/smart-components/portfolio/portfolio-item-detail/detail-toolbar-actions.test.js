@@ -35,7 +35,8 @@ describe('<DetailToolbarActions />', () => {
         copy: true,
         update: true,
         set_approval: true
-      }
+      },
+      canLinkOrderProcesses: true
     };
   });
 

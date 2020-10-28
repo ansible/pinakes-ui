@@ -50,7 +50,8 @@ export const PortfolioItemDetailToolbar = ({
   availability,
   userCapabilities,
   orderable,
-  fromProducts
+  fromProducts,
+  canLinkOrderProcesses
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
@@ -100,6 +101,7 @@ export const PortfolioItemDetailToolbar = ({
                   availability={availability}
                   orderable={orderable}
                   userCapabilities={userCapabilities}
+                  canLinkOrderProcesses={canLinkOrderProcesses}
                 />
               </Level>
             </LevelItem>
@@ -125,7 +127,8 @@ PortfolioItemDetailToolbar.propTypes = {
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
   userCapabilities: PropTypes.object,
   fromProducts: PropTypes.bool,
-  orderable: PropTypes.bool
+  orderable: PropTypes.bool,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
@@ -216,5 +219,6 @@ SurveyEditingToolbar.propTypes = {
   isValid: PropTypes.bool,
   modified: PropTypes.bool,
   handleResetSurvey: PropTypes.func,
-  fromProducts: PropTypes.bool
+  fromProducts: PropTypes.bool,
+  canLinkOrderProcesses: PropTypes.bool
 };

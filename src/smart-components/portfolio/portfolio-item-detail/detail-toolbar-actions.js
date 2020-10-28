@@ -26,7 +26,8 @@ const DetailToolbarActions = ({
   isFetching,
   availability,
   orderable,
-  userCapabilities: { update, copy, set_approval }
+  userCapabilities: { update, copy, set_approval },
+  canLinkOrderProcesses
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
@@ -79,7 +80,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (window.insights.chrome.isBeta() && update) {
+  if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
@@ -176,12 +177,14 @@ DetailToolbarActions.propTypes = {
     update: PropTypes.bool,
     copy: PropTypes.bool,
     set_approval: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 DetailToolbarActions.defaultProps = {
   isFetching: false,
-  orderable: true
+  orderable: true,
+  canLinkOrderProcesses: false
 };
 
 export default DetailToolbarActions;
