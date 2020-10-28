@@ -1,33 +1,48 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
+import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import toJson from 'enzyme-to-json';
+import promiseMiddleware from 'redux-promise-middleware';
+import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import { platformInitialState } from '../../../redux/reducers/platform-reducer';
+
 import PlatformCard from '../../../presentational-components/platform/platform-card';
 
 describe('<PlatformCard />', () => {
   let initialProps;
+  let initialState;
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
+  let mockStore;
+
+  const ComponentWrapper = ({ store, children }) => (
+    <Provider store={store}>
+      <MemoryRouter>{children}</MemoryRouter>
+    </Provider>
+  );
+
   beforeEach(() => {
     initialProps = {
-      description: 'desc',
-      modified: 'Foo'
+      id: 'Foo'
+    };
+    mockStore = configureStore(middlewares);
+    initialState = {
+      platformReducer: { ...platformInitialState, isLoading: false }
     };
   });
 
-  it('should render correctly', () => {
+  it('should render correctly', (done) => {
+    const store = mockStore(initialState);
     const wrapper = mount(
-      <MemoryRouter>
+      <ComponentWrapper store={store}>
         <PlatformCard {...initialProps} />
-      </MemoryRouter>
+      </ComponentWrapper>
     );
-    expect(toJson(wrapper.find(PlatformCard))).toMatchSnapshot();
-  });
-
-  it('should choose card image', () => {
-    let wrapper = mount(
-      <MemoryRouter>
-        <PlatformCard {...initialProps} />
-      </MemoryRouter>
-    );
-    expect(toJson(wrapper.find(PlatformCard))).toMatchSnapshot();
+    setImmediate(() => {
+      expect(shallowToJson(wrapper.find(PlatformCard))).toMatchSnapshot();
+      done();
+    });
   });
 });

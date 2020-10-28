@@ -50,7 +50,8 @@ describe('portfolio toolbar schema', () => {
       update: true,
       destroy: true,
       set_approval: true
-    }
+    },
+    canLinkOrderProcesses: true
   };
 
   const mockStore = configureStore();
@@ -111,7 +112,8 @@ describe('portfolio toolbar schema', () => {
         <ToolbarRenderer
           schema={createPortfolioToolbarSchema({
             ...initialProps,
-            userCapabilities: prepareTruthyCapability('update')
+            userCapabilities: prepareTruthyCapability('update'),
+            canLinkOrderProcesses: true
           })}
         />
       </ToolbarWrapper>

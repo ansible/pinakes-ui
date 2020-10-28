@@ -3,6 +3,7 @@
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
   availability="available"
+  canLinkOrderProcesses={true}
   copyUrl="foo/copy"
   editSurveyUrl="foo/edit-survey"
   editUrl="foo/baz"
