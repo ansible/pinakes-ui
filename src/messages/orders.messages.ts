@@ -128,6 +128,10 @@ const ordersMessages = defineMessages({
   activity: {
     id: 'orders.approval.activity',
     defaultMessage: 'Activity'
+  },
+  artifacts: {
+    id: 'orders.artifacts',
+    defaultMessage: 'Order artifacts'
   }
 });
 

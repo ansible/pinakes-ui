@@ -141,7 +141,7 @@ export const getOrderDetail = (
 ): Promise<OrderDetailPayload> => {
   if (Object.values(params).some((value) => !value)) {
     /**
-     * Try to fetch data sequentially if any of the parameters is unknow
+     * Try to fetch data sequentially if any of the parameters is unknown
      */
     return fetchOrderDetailSequence(params.order);
   }
