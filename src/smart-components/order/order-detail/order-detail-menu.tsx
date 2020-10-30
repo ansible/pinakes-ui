@@ -45,6 +45,10 @@ const useNavItems = (
     title: formatMessage(ordersMessages.menuApproval)
   },
   {
+    link: '/provision',
+    title: formatMessage(ordersMessages.menuProvision)
+  },
+  {
     link: '/lifecycle',
     title: formatMessage(ordersMessages.menuLifecycle),
     isDisabled: state !== 'Completed' && state !== 'Ordered'

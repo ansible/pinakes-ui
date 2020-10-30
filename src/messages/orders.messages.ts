@@ -72,6 +72,10 @@ const ordersMessages = defineMessages({
     id: 'orders.menu.approval',
     defaultMessage: 'Approval'
   },
+  menuProvision: {
+    id: 'orders.menu.provision',
+    defaultMessage: 'Provision'
+  },
   menuLifecycle: {
     id: 'orders.menu.lifecycle',
     defaultMessage: 'Lifecycle'
@@ -132,6 +136,14 @@ const ordersMessages = defineMessages({
   artifacts: {
     id: 'orders.artifacts',
     defaultMessage: 'Order artifacts'
+  },
+  noOrderProvision: {
+    id: 'orders.provision.no-items',
+    defaultMessage: 'We were unable to find provisioning data for this order.'
+  },
+  fetchingOrderProvision: {
+    id: 'orders.provision.fetching-provision',
+    defaultMessage: 'Retrieving order provisioning data'
   }
 });
 

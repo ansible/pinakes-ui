@@ -26,6 +26,11 @@ export type OrderDetailPayload = [
   Portfolio | ObjectNotFound
 ];
 
+export type OrderProvisionPayload = {
+  orderItems: OrderItem[] | [];
+  progressMessages: ProgressMessage[] | [];
+};
+
 export const fetchOrderDetailSequence = async (
   orderId: string
 ): Promise<OrderDetailPayload> => {
@@ -107,4 +112,27 @@ export const fetchOrderDetailSequence = async (
     progressMessages as ProgressMessage | ObjectNotFound,
     portfolio as Portfolio | ObjectNotFound
   ]);
+};
+
+export const fetchOrderProvisionItems = async (
+  orderId: string
+): Promise<OrderProvisionPayload> => {
+  let orderItems: OrderItem[];
+  try {
+    orderItems = await axiosInstance.get(
+      `${CATALOG_API_BASE}/order-items/?order_id=${orderId}`
+    );
+  } catch (error) {
+    orderItems = [];
+    if (error.status === 404 || error.status === 400) {
+      catalogHistory.replace({
+        pathname: '/404',
+        state: { from: catalogHistory.location }
+      });
+    } else {
+      throw error;
+    }
+  }
+  const progressMessages: ProgressMessage[] | [] = [];
+  return { orderItems, progressMessages };
 };

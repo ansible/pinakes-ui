@@ -5,7 +5,8 @@ import {
   PortfolioItem,
   Portfolio,
   OrderItem,
-  ApprovalRequest
+  ApprovalRequest,
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { Source } from '@redhat-cloud-services/sources-client';
 import {
@@ -39,6 +40,12 @@ export interface OrderDetail extends AnyObject {
   platform: Full<Source> & Partial<ObjectNotFound>;
   portfolio: Full<Portfolio> & Partial<ObjectNotFound>;
 }
+
+export interface OrderProvisionType extends AnyObject {
+  orderItems: Full<OrderItem>[];
+  progressMessages: Full<ProgressMessage>[];
+}
+
 export interface OrderReducerState extends AnyObject {
   servicePlans: ServicePlan[];
   selectedPlan: ServicePlan;
@@ -46,6 +53,7 @@ export interface OrderReducerState extends AnyObject {
   requests: Request[];
   orderDetail: OrderDetail;
   orders: ApiCollectionResponse<OrderDetail>;
+  orderProvision: OrderProvisionType;
 }
 // Initial State
 export const orderInitialState: OrderReducerState = {
@@ -58,6 +66,10 @@ export const orderInitialState: OrderReducerState = {
     portfolioItem: {} as Full<PortfolioItem>,
     platform: {} as Full<Source>,
     portfolio: {} as Full<Portfolio>
+  },
+  orderProvision: {
+    orderItems: [] as Full<OrderItem>[],
+    progressMessages: [] as Full<ProgressMessage>[]
   },
   orders: {
     data: [],

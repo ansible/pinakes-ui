@@ -36,6 +36,9 @@ const ApprovalRequests = lazy(() =>
 const OrderLifecycle = lazy(() =>
   import(/* webpackChunkName: "order-lifecycle" */ './order-lifecycle')
 );
+const OrderProvision = lazy(() =>
+  import(/* webpackChunkName: "order-lifecycle" */ './order-provision')
+);
 const OrderDetails = lazy(() =>
   import(/* webpackChunkName: "order-details" */ './order-details')
 );
@@ -167,6 +170,9 @@ const OrderDetail: React.ComponentType = () => {
                     path={`${ORDER_ROUTE}/approval`}
                     component={ApprovalRequests}
                   />
+                  <Route path={`${ORDER_ROUTE}/provision`}>
+                    <OrderProvision />
+                  </Route>
                   <Route path={`${ORDER_ROUTE}/lifecycle`}>
                     <OrderLifecycle />
                   </Route>
