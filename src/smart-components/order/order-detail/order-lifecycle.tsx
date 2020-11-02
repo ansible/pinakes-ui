@@ -5,10 +5,19 @@ import ExternalLinkAlt from '@patternfly/react-icons/dist/js/icons/external-link
 
 import useQuery from '../../../utilities/use-query';
 import ordersMessages from '../../../messages/orders.messages';
-import { Card, CardBody } from '@patternfly/react-core';
+import {
+  Card,
+  CardBody,
+  Stack,
+  StackItem,
+  Text,
+  TextContent,
+  TextVariants
+} from '@patternfly/react-core';
 import useFormatMessage from '../../../utilities/use-format-message';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import { CatalogRootState } from '../../../types/redux';
+import ReactJsonView from 'react-json-view';
 
 const OrderLifecycle: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
@@ -30,19 +39,37 @@ const OrderLifecycle: React.ComponentType = () => {
   }
 
   return (
-    <Card>
-      <CardBody>
-        <a
-          href={orderItem?.external_url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {formatMessage(ordersMessages.lifecycleLink)}
-          &nbsp;
-          <ExternalLinkAlt />
-        </a>
-      </CardBody>
-    </Card>
+    <Stack hasGutter>
+      <StackItem>
+        <Card>
+          <CardBody>
+            <a
+              href={orderItem?.external_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {formatMessage(ordersMessages.lifecycleLink)}
+              &nbsp;
+              <ExternalLinkAlt />
+            </a>
+          </CardBody>
+        </Card>
+      </StackItem>
+      {orderItem?.artifacts && (
+        <StackItem>
+          <Card>
+            <CardBody>
+              <TextContent>
+                <Text className="pf-u-mb-md" component={TextVariants.h2}>
+                  {formatMessage(ordersMessages.artifacts)}
+                </Text>
+              </TextContent>
+              <ReactJsonView src={orderItem.artifacts} />
+            </CardBody>
+          </Card>
+        </StackItem>
+      )}
+    </Stack>
   );
 };
 
