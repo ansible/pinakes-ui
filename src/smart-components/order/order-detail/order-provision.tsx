@@ -39,7 +39,6 @@ import {
 } from '@redhat-cloud-services/catalog-client';
 import { FormatMessage } from '../../../types/common-types';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
-import { fetchPortfolioItem } from '../../../helpers/portfolio/portfolio-helper';
 
 /**
  * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
@@ -100,7 +99,6 @@ const OrderProvision: React.ComponentType = () => {
     orderItemName: string,
     formatMessage: FormatMessage
   ): { title: ReactNode }[] => {
-    console.log('Debug - createRow for item', item);
     const translatableState = getTranslatableState(
       item.state as OrderItemStateEnum
     );
@@ -115,14 +113,14 @@ const OrderProvision: React.ComponentType = () => {
       {
         title: (
           <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <TableText>{capitalize(item.process_scope) as any}</TableText>
+            <TableText>{capitalize(item.process_scope)}</TableText>
           </Text>
         )
       },
       {
         title: (
           <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <TableText>{capitalize(orderItemName) as any}</TableText>
+            <TableText>{orderItemName}</TableText>
           </Text>
         )
       },
@@ -144,15 +142,10 @@ const OrderProvision: React.ComponentType = () => {
     ];
   };
 
-  const rows = orderProvision.orderItems.map(async (item) => {
+  const rows = orderProvision.orderItems.map((item) => {
     //const { orderProgressMessages } = getOrderProgressMessage(item);
-    const portfolioItem = await fetchPortfolioItem(item.portfolio_item_id);
-    const orderItemName = portfolioItem ? portfolioItem.name : '';
-    const testOrder = createOrderItemRow(
-      item,
-      orderItemName || '',
-      formatMessage
-    );
+    const orderItemName = `Order item ${item.id}`;
+    const testOrder = createOrderItemRow(item, orderItemName, formatMessage);
     console.log('Debug - testOrder:', testOrder);
     return testOrder;
   });
