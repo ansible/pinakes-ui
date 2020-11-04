@@ -303,3 +303,13 @@ export const undeletePortfolio = (
   axiosInstance.post(`${CATALOG_API_BASE}/portfolios/${portfolioId}/undelete`, {
     restore_key: restoreKey
   });
+
+export const fetchPortfolioItem = async (
+  portfolioItemId: string
+): Promise<PortfolioItem> => {
+  const portfolioItem = await portfolioItemApi.showPortfolioItem(
+    portfolioItemId
+  );
+  console.log('Debug - get portfolio item', portfolioItem);
+  return (portfolioItem as unknown) as PortfolioItem;
+};

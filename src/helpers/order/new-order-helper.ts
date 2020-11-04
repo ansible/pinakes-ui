@@ -119,9 +119,11 @@ export const fetchOrderProvisionItems = async (
 ): Promise<OrderProvisionPayload> => {
   let orderItems: OrderItem[];
   try {
-    orderItems = await axiosInstance.get(
-      `${CATALOG_API_BASE}/order-items/?order_id=${orderId}`
+    const items = await axiosInstance.get(
+      `${CATALOG_API_BASE}/order_items/?order_id=${orderId}`
     );
+    orderItems = items.data;
+    console.log('Debug - orderItems: items, orderItems', items, orderItems);
   } catch (error) {
     orderItems = [];
     if (error.status === 404 || error.status === 400) {
@@ -133,6 +135,7 @@ export const fetchOrderProvisionItems = async (
       throw error;
     }
   }
+
   const progressMessages: ProgressMessage[] | [] = [];
   return { orderItems, progressMessages };
 };

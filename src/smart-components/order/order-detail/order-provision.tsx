@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Bullseye,
   Card,
   CardBody,
   Flex,
+  Label,
   Spinner,
   Text,
   TextContent,
@@ -13,53 +14,37 @@ import {
 } from '@patternfly/react-core';
 
 import {
-  ISortBy,
-  sortable,
-  SortByDirection,
   Table,
   TableBody,
-  TableHeader
+  TableHeader,
+  TableText
 } from '@patternfly/react-table';
 
-import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchOrderProvision } from '../../../redux/actions/order-actions';
 import ordersMessages from '../../../messages/orders.messages';
-import statesMessages from '../../../messages/states.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
-import { AnyObject, ApiCollectionResponse } from '../../../types/common-types';
+import { CatalogRootState } from '../../../types/redux';
 import {
-  Order,
+  OrderDetail,
+  OrderProvisionType
+} from '../../../redux/reducers/order-reducer';
+import statesMessages, {
+  getTranslatableState
+} from '../../../messages/states.messages';
+import orderStatusMapper from '../order-status-mapper';
+import {
   OrderItem,
   OrderItemStateEnum
 } from '@redhat-cloud-services/catalog-client';
-import { CatalogRootState } from '../../../types/redux';
-import { CheckCircleIcon } from '@patternfly/react-icons';
-import { OrderProvisionPayload } from '../../../helpers/order/new-order-helper';
-import {OrderDetail, OrderProvisionType} from '../../../redux/reducers/order-reducer';
+import { FormatMessage } from '../../../types/common-types';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import { fetchPortfolioItem } from '../../../helpers/portfolio/portfolio-helper';
 
 /**
  * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
  * Probably a discrepancy inside the OpenAPI spec
  */
-
-const rowOrder = ['updated_at', 'id', 'state'];
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const checkItems = async (
-  fetchItems: () => Promise<ApiCollectionResponse<any>>
-) => {
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const result = await fetchItems();
-    if (result?.data.length > 0) {
-      return 'Finished';
-    }
-
-    await delay(3000);
-  }
-};
 
 const isEmpty = (orderProvision?: OrderProvisionType) =>
   !orderProvision ||
@@ -68,8 +53,8 @@ const isEmpty = (orderProvision?: OrderProvisionType) =>
 
 const OrderProvision: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
+  const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
-  const [sortBy, setSortBy] = useState<ISortBy>({});
   const { order } = useSelector<CatalogRootState, OrderDetail>(
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
@@ -78,22 +63,11 @@ const OrderProvision: React.ComponentType = () => {
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
   useEffect(() => {
-    if (order.state !== 'Failed' && order?.id && isEmpty(orderProvision)) {
-      checkItems(() =>
-        dispatch(
-          (fetchOrderProvision(order.id) as unknown) as Promise<
-            ApiCollectionResponse<OrderProvisionPayload>
-          >
-        )
-      );
-    }
+    setIsFetching(true);
+    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
+      setIsFetching(false)
+    );
   }, []);
-
-  const handleSort = (
-    _e: React.SyntheticEvent,
-    index: number,
-    direction: SortByDirection
-  ) => setSortBy({ index, direction });
 
   if (order.state === 'Failed' && isEmpty(orderProvision)) {
     return (
@@ -112,63 +86,81 @@ const OrderProvision: React.ComponentType = () => {
     );
   }
 
+  const capitalize = (str: any) => str?.charAt(0).toUpperCase() + str?.slice(1);
+
   const columns = [
-    { title: 'Updated', transforms: [sortable] },
-    { title: 'Name', transforms: [sortable] },
-    'Status'
+    { title: 'Updated' },
+    { title: 'Type' },
+    { title: 'Activity' },
+    { title: 'State' }
   ];
 
-  const rows = orderProvision?.orderItems
-    ? orderProvision?.orderItems
-        .map((item: OrderItem) =>
-          rowOrder.map((key) => {
-            if (key === 'state') {
-              return (
-                <Fragment>
-                  {(item as OrderItem)[key] ===
-                    OrderItemStateEnum.Completed && (
-                    <Fragment>
-                      <CheckCircleIcon color="var(--pf-global--success-color--100)" />
-                      &nbsp;
-                    </Fragment>
-                  )}
-                  {formatMessage(
-                    statesMessages[
-                      ((item as OrderItem)[
-                        key
-                      ] as unknown) as keyof typeof statesMessages
-                    ]
-                  )}
-                </Fragment>
-              );
-            }
-
-            if (key === 'updated_at') {
-              /**
-               * The fragment here is required other wise the super smart PF table will delete the first React element
-               */
-              return (
-                <Fragment>
-                  <DateFormat date={(item as OrderItem)[key]} type="exact" />
-                </Fragment>
-              );
-            }
-
-            return (item as AnyObject)[key];
-          })
+  const createOrderItemRow = (
+    item: OrderItem,
+    orderItemName: string,
+    formatMessage: FormatMessage
+  ): { title: ReactNode }[] => {
+    console.log('Debug - createRow for item', item);
+    const translatableState = getTranslatableState(
+      item.state as OrderItemStateEnum
+    );
+    return [
+      {
+        title: (
+          <Text className="pf-u-mb-0" component={TextVariants.small}>
+            <DateFormat date={item.updated_at} type="exact" />
+          </Text>
         )
-        .sort((a: AnyObject, b: AnyObject) =>
-          a[sortBy.index!] < b[sortBy.index!]
-            ? -1
-            : a[sortBy.index!] < b[sortBy.index!]
-            ? 1
-            : 0
-        ) || []
-    : [];
+      },
+      {
+        title: (
+          <Text className="pf-u-mb-0" component={TextVariants.small}>
+            <TableText>{capitalize(item.process_scope) as any}</TableText>
+          </Text>
+        )
+      },
+      {
+        title: (
+          <Text className="pf-u-mb-0" component={TextVariants.small}>
+            <TableText>{capitalize(orderItemName) as any}</TableText>
+          </Text>
+        )
+      },
 
+      {
+        title: (
+          <TableText>
+            <Label
+              {...orderStatusMapper[
+                item.state as keyof typeof orderStatusMapper
+              ]}
+              variant="outline"
+            >
+              {formatMessage(statesMessages[translatableState])}
+            </Label>
+          </TableText>
+        )
+      }
+    ];
+  };
+
+  const rows = orderProvision.orderItems.map(async (item) => {
+    //const { orderProgressMessages } = getOrderProgressMessage(item);
+    const portfolioItem = await fetchPortfolioItem(item.portfolio_item_id);
+    const orderItemName = portfolioItem ? portfolioItem.name : '';
+    const testOrder = createOrderItemRow(
+      item,
+      orderItemName || '',
+      formatMessage
+    );
+    console.log('Debug - testOrder:', testOrder);
+    return testOrder;
+  });
+
+  console.log('Debug - orderProvision.orderItems, rows: ', rows);
   return (
     <TextContent>
-      {isEmpty(orderProvision) ? (
+      {isFetching ? (
         <Bullseye>
           <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
             <Bullseye id="fetching-order-provision">
@@ -189,12 +181,8 @@ const OrderProvision: React.ComponentType = () => {
             </Text>
             <Table
               aria-label="Order provisioning activity"
-              onSort={handleSort}
-              sortBy={sortBy}
               cells={columns}
-              rows={
-                sortBy.direction === SortByDirection.asc ? rows : rows.reverse()
-              }
+              rows={rows}
             >
               <TableHeader />
               <TableBody />

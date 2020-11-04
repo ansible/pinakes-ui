@@ -21,8 +21,10 @@ import {
   SET_ORDERS,
   FETCH_ORDERS,
   SET_ORDER_DETAIL,
-  FETCH_APPROVAL_REQUESTS
+  FETCH_APPROVAL_REQUESTS,
+  SET_ORDER_PROVISION_ITEMS
 } from '../action-types';
+
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
   ApiCollectionResponse,
@@ -139,6 +141,13 @@ const updateOrderApprovalRequests: OrderReducerActionHandler = (
     approvalRequest: payload
   }
 });
+const setOrderProvisionItems: OrderReducerActionHandler = (
+  state,
+  { payload }
+) => ({
+  ...state,
+  orderProvision: payload
+});
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -160,5 +169,7 @@ export default {
   [SET_ORDERS]: setOrders,
   [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail,
   [SET_ORDER_DETAIL]: setOrderDetail,
-  [`${FETCH_APPROVAL_REQUESTS}_FULFILLED`]: updateOrderApprovalRequests
+  [`${FETCH_APPROVAL_REQUESTS}_FULFILLED`]: updateOrderApprovalRequests,
+  [`${SET_ORDER_PROVISION_ITEMS}_FULFILLED`]: setOrderProvisionItems,
+  [SET_ORDER_PROVISION_ITEMS]: setOrderProvisionItems
 };
