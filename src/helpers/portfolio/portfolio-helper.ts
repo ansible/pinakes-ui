@@ -310,6 +310,5 @@ export const fetchPortfolioItem = async (
   const portfolioItem = await portfolioItemApi.showPortfolioItem(
     portfolioItemId
   );
-  console.log('Debug - get portfolio item', portfolioItem);
   return (portfolioItem as unknown) as PortfolioItem;
 };

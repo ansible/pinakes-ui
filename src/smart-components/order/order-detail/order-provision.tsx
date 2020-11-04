@@ -145,12 +145,9 @@ const OrderProvision: React.ComponentType = () => {
   const rows = orderProvision.orderItems.map((item) => {
     //const { orderProgressMessages } = getOrderProgressMessage(item);
     const orderItemName = `Order item ${item.id}`;
-    const testOrder = createOrderItemRow(item, orderItemName, formatMessage);
-    console.log('Debug - testOrder:', testOrder);
-    return testOrder;
+    return createOrderItemRow(item, orderItemName, formatMessage);
   });
 
-  console.log('Debug - orderProvision.orderItems, rows: ', rows);
   return (
     <TextContent>
       {isFetching ? (
