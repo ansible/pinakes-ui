@@ -37,7 +37,7 @@ const OrderLifecycle = lazy(() =>
   import(/* webpackChunkName: "order-lifecycle" */ './order-lifecycle')
 );
 const OrderProvision = lazy(() =>
-  import(/* webpackChunkName: "order-lifecycle" */ './order-provision')
+  import(/* webpackChunkName: "order-provision" */ './order-provision')
 );
 const OrderDetails = lazy(() =>
   import(/* webpackChunkName: "order-details" */ './order-details')

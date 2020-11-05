@@ -143,7 +143,6 @@ const OrderProvision: React.ComponentType = () => {
   };
 
   const rows = orderProvision.orderItems.map((item) => {
-    //const { orderProgressMessages } = getOrderProgressMessage(item);
     const orderItemName = `Order item ${item.id}`;
     return createOrderItemRow(item, orderItemName, formatMessage);
   });
