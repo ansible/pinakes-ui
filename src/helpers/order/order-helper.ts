@@ -15,7 +15,9 @@ import { defaultSettings } from '../shared/pagination';
 import catalogHistory from '../../routing/catalog-history';
 import {
   fetchOrderDetailSequence,
-  OrderDetailPayload
+  fetchOrderProvisionItems,
+  OrderDetailPayload,
+  OrderProvisionPayload
 } from './new-order-helper';
 import {
   ApiCollectionResponse,
@@ -293,3 +295,9 @@ export const getApprovalRequests = (
         return { data: data || [] };
       });
     });
+
+export const getOrderProvisionItems = (
+  orderId: string
+): Promise<OrderProvisionPayload> => {
+  return fetchOrderProvisionItems(orderId);
+};

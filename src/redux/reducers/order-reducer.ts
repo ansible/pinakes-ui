@@ -5,7 +5,8 @@ import {
   PortfolioItem,
   Portfolio,
   OrderItem,
-  ApprovalRequest
+  ApprovalRequest,
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { Source } from '@redhat-cloud-services/sources-client';
 import {
@@ -20,8 +21,10 @@ import {
   SET_ORDERS,
   FETCH_ORDERS,
   SET_ORDER_DETAIL,
-  FETCH_APPROVAL_REQUESTS
+  FETCH_APPROVAL_REQUESTS,
+  SET_ORDER_PROVISION_ITEMS
 } from '../action-types';
+
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
   ApiCollectionResponse,
@@ -39,6 +42,12 @@ export interface OrderDetail extends AnyObject {
   platform: Full<Source> & Partial<ObjectNotFound>;
   portfolio: Full<Portfolio> & Partial<ObjectNotFound>;
 }
+
+export interface OrderProvisionType extends AnyObject {
+  orderItems: Full<OrderItem>[];
+  progressMessages: Full<ProgressMessage>[];
+}
+
 export interface OrderReducerState extends AnyObject {
   servicePlans: ServicePlan[];
   selectedPlan: ServicePlan;
@@ -46,6 +55,7 @@ export interface OrderReducerState extends AnyObject {
   requests: Request[];
   orderDetail: OrderDetail;
   orders: ApiCollectionResponse<OrderDetail>;
+  orderProvision: OrderProvisionType;
 }
 // Initial State
 export const orderInitialState: OrderReducerState = {
@@ -58,6 +68,10 @@ export const orderInitialState: OrderReducerState = {
     portfolioItem: {} as Full<PortfolioItem>,
     platform: {} as Full<Source>,
     portfolio: {} as Full<Portfolio>
+  },
+  orderProvision: {
+    orderItems: [] as Full<OrderItem>[],
+    progressMessages: [] as Full<ProgressMessage>[]
   },
   orders: {
     data: [],
@@ -127,6 +141,13 @@ const updateOrderApprovalRequests: OrderReducerActionHandler = (
     approvalRequest: payload
   }
 });
+const setOrderProvisionItems: OrderReducerActionHandler = (
+  state,
+  { payload }
+) => ({
+  ...state,
+  orderProvision: payload
+});
 
 export default {
   [`${FETCH_SERVICE_PLANS}_PENDING`]: setLoadingState,
@@ -148,5 +169,7 @@ export default {
   [SET_ORDERS]: setOrders,
   [`${SET_ORDER_DETAIL}_FULFILLED`]: setOrderDetail,
   [SET_ORDER_DETAIL]: setOrderDetail,
-  [`${FETCH_APPROVAL_REQUESTS}_FULFILLED`]: updateOrderApprovalRequests
+  [`${FETCH_APPROVAL_REQUESTS}_FULFILLED`]: updateOrderApprovalRequests,
+  [`${SET_ORDER_PROVISION_ITEMS}_FULFILLED`]: setOrderProvisionItems,
+  [SET_ORDER_PROVISION_ITEMS]: setOrderProvisionItems
 };

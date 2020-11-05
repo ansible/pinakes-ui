@@ -66,7 +66,9 @@ export const SET_OPENAPI_SCHEMA = '@@open-api/set-schema';
  */
 export const SET_ORDER_DETAIL = '@@orders/set-order-detail';
 export const FETCH_APPROVAL_REQUESTS = '@@orders/fetch-order-requests';
-
+export const FETCH_ORDER_PROVISION_ITEMS =
+  '@@orders/FETCH_ORDER_PROVISION_ITEMS';
+export const SET_ORDER_PROVISION_ITEMS = '@@orders/SET_ORDER_PROVISION_ITEMS';
 /*
  * Portfolio actions
  */
