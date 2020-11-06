@@ -94,56 +94,138 @@ const OrderProvision: React.ComponentType = () => {
     { title: 'State' }
   ];
 
-  const createOrderItemRow = (
+  const createOrderItemMainRow = (
     item: OrderItem,
     orderItemName: string,
     formatMessage: FormatMessage
-  ): { title: ReactNode }[] => {
+  ): {
+    isOpen: boolean;
+    cells: (
+      | { title: any }
+      | { title: any }
+      | { title: any }
+      | { title: any }
+    )[];
+  } => {
     const translatableState = getTranslatableState(
       item.state as OrderItemStateEnum
     );
+    return {
+      isOpen: false,
+      cells: [
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <DateFormat date={item.updated_at} type="exact" />
+            </Text>
+          )
+        },
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <TableText>{capitalize(item.process_scope)}</TableText>
+            </Text>
+          )
+        },
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <TableText>{orderItemName}</TableText>
+            </Text>
+          )
+        },
+        {
+          title: (
+            <TableText>
+              <Label
+                {...orderStatusMapper[
+                  item.state as keyof typeof orderStatusMapper
+                ]}
+                variant="outline"
+              >
+                {formatMessage(statesMessages[translatableState])}
+              </Label>
+            </TableText>
+          )
+        }
+      ]
+    };
+  };
+
+  const createOrderItemExpandedRow = (
+    item: OrderItem,
+    key: number,
+    orderItemName: string,
+    formatMessage: FormatMessage
+  ): {
+    isOpen: boolean;
+    cells: (
+      | { title: any }
+      | { title: any }
+      | { title: any }
+      | { title: any }
+    )[];
+  } => {
+    const translatableState = getTranslatableState(
+      item.state as OrderItemStateEnum
+    );
+    return {
+      isOpen: false,
+      cells: [
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <DateFormat date={item.updated_at} type="exact" />
+            </Text>
+          )
+        },
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <TableText>{capitalize(item.process_scope)}</TableText>
+            </Text>
+          )
+        },
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <TableText>{orderItemName}</TableText>
+            </Text>
+          )
+        },
+        {
+          title: (
+            <TableText>
+              <Label
+                {...orderStatusMapper[
+                  item.state as keyof typeof orderStatusMapper
+                ]}
+                variant="outline"
+              >
+                {formatMessage(statesMessages[translatableState])}
+              </Label>
+            </TableText>
+          )
+        }
+      ]
+    };
+  };
+
+  const createOrderItemRow = (
+    item: OrderItem,
+    key: number,
+    orderItemName: string,
+    formatMessage: FormatMessage
+  ): { isOpen: boolean; cells: { title: any }[] }[] => {
     return [
-      {
-        title: (
-          <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <DateFormat date={item.updated_at} type="exact" />
-          </Text>
-        )
-      },
-      {
-        title: (
-          <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <TableText>{capitalize(item.process_scope)}</TableText>
-          </Text>
-        )
-      },
-      {
-        title: (
-          <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <TableText>{orderItemName}</TableText>
-          </Text>
-        )
-      },
-      {
-        title: (
-          <TableText>
-            <Label
-              {...orderStatusMapper[
-                item.state as keyof typeof orderStatusMapper
-              ]}
-              variant="outline"
-            >
-              {formatMessage(statesMessages[translatableState])}
-            </Label>
-          </TableText>
-        )
-      }
+      createOrderItemMainRow(item, orderItemName, formatMessage),
+      createOrderItemExpandedRow(item, key, orderItemName, formatMessage)
     ];
   };
 
-  const rows = orderProvision.orderItems.map((item) => {
+  const rows = orderProvision.orderItems.map((item, key) => {
     const orderItemName = `Order item ${item.id}`;
-    return createOrderItemRow(item, orderItemName, formatMessage);
+    return createOrderItemRow(item, key, orderItemName, formatMessage);
   });
 
   return (
