@@ -136,6 +136,22 @@ export const fetchOrderProvisionItems = async (
     }
   }
 
-  const progressMessages: ProgressMessage[] | [] = [];
-  return { orderItems, progressMessages };
+  const promises = orderItems.map((orderItem) =>
+    axiosInstance.get(
+      `${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages`
+    )
+  );
+
+  return Promise.all(promises).then((itemMessages) => {
+    console.log('Debug - itemMessages, orderItems', itemMessages, orderItems);
+    const progressMessages = itemMessages.reduce(
+      (acc, curr) => ({
+        ...acc,
+        ...curr.data
+      }),
+      {}
+    );
+    console.log('Debug - progressMessages', progressMessages);
+    return { orderItems, progressMessages };
+  });
 };

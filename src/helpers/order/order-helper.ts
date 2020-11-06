@@ -30,9 +30,10 @@ import {
   Order,
   OrderItem,
   PortfolioItem,
-  ApprovalRequest
+  ApprovalRequest,
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
-import { AxiosPromise } from 'axios';
+import { AxiosPromise, AxiosResponse } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
 
@@ -296,8 +297,21 @@ export const getApprovalRequests = (
       });
     });
 
-export const getOrderProvisionItems = (
+export const getOrderProvisionItems = async (
   orderId: string
 ): Promise<OrderProvisionPayload> => {
-  return fetchOrderProvisionItems(orderId);
+  const items = await fetchOrderProvisionItems(orderId);
+  console.log('debug - fetchOPItems returns: ', items);
+  return items;
 };
+
+export const getProgressMessages = (
+  orderItemId: string
+): Promise<{
+  data: ProgressMessage[];
+}> =>
+  axiosInstance
+    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/progress_messages`)
+    .then(({ data }: { data: Full<ProgressMessage>[] }) => {
+      return { data: data || [] };
+    });

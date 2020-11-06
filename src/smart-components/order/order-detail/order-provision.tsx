@@ -124,7 +124,6 @@ const OrderProvision: React.ComponentType = () => {
           </Text>
         )
       },
-
       {
         title: (
           <TableText>
