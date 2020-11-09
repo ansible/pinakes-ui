@@ -123,7 +123,6 @@ export const fetchOrderProvisionItems = async (
       `${CATALOG_API_BASE}/order_items/?order_id=${orderId}`
     );
     orderItems = items.data;
-    console.log('Debug - orderItems: items, orderItems', items, orderItems);
   } catch (error) {
     orderItems = [];
     if (error.status === 404 || error.status === 400) {
@@ -143,7 +142,6 @@ export const fetchOrderProvisionItems = async (
   );
 
   return Promise.all(promises).then((itemMessages) => {
-    console.log('Debug - itemMessages, orderItems', itemMessages, orderItems);
     const progressMessages = itemMessages.reduce(
       (acc, curr) => ({
         ...acc,
@@ -151,7 +149,6 @@ export const fetchOrderProvisionItems = async (
       }),
       {}
     );
-    console.log('Debug - progressMessages', progressMessages);
     return { orderItems, progressMessages };
   });
 };
