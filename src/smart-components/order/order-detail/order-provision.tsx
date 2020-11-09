@@ -112,7 +112,6 @@ const OrderProvision: React.ComponentType = () => {
 
   const createOrderItemMainRow = (
     item: OrderItem,
-    orderItemName: string,
     formatMessage: FormatMessage
   ): RowType => {
     const translatableState = getTranslatableState(
@@ -139,7 +138,7 @@ const OrderProvision: React.ComponentType = () => {
         {
           title: (
             <Text className="pf-u-mb-0" component={TextVariants.small}>
-              <TableText>{orderItemName}</TableText>
+              <TableText>{item.name}</TableText>
             </Text>
           )
         },
@@ -185,13 +184,10 @@ const OrderProvision: React.ComponentType = () => {
 
   const createOrderRow = (
     item: OrderItem,
-    orderItemName: string,
     formatMessage: FormatMessage,
     key: number
   ): RowType[] => {
-    const orderRow = [
-      createOrderItemMainRow(item, orderItemName, formatMessage)
-    ];
+    const orderRow = [createOrderItemMainRow(item, formatMessage)];
     if (
       showProgressMessages &&
       orderProvision.progressMessages &&
@@ -214,12 +210,7 @@ const OrderProvision: React.ComponentType = () => {
 
   const createRows = (): RowType[] =>
     orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
-      const row = createOrderRow(
-        item,
-        `Order item ${item.id}`,
-        formatMessage,
-        key
-      );
+      const row = createOrderRow(item, formatMessage, key);
       return [...acc, ...row];
     }, []);
 
