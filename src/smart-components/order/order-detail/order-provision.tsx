@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Bullseye,
@@ -44,6 +44,8 @@ import {
 import { FormatMessage } from '../../../types/common-types';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import ProgressMessages from './progress-messages';
+import UserContext from '../../../user-context';
+import { hasPermission } from '../../../helpers/shared/helpers';
 
 export interface RowType {
   id?: string;
@@ -74,6 +76,10 @@ const OrderProvision: React.ComponentType = () => {
   const orderProvision = useSelector<CatalogRootState, OrderProvisionType>(
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
+  const { permissions: userPermissions } = useContext(UserContext);
+  const showProgressMessages = hasPermission(userPermissions, [
+    'catalog:order_processes:link'
+  ]);
 
   if (order.state === 'Failed' && isEmpty(orderProvision)) {
     return (
@@ -184,8 +190,9 @@ const OrderProvision: React.ComponentType = () => {
       createOrderItemMainRow(item, orderItemName, formatMessage)
     ];
     if (
+      showProgressMessages &&
       orderProvision.progressMessages &&
-      orderProvision.progressMessages.length > 0
+      Object.values(orderProvision.progressMessages).length > 0
     ) {
       orderRow.push(
         createOrderItemExpandedRow(
@@ -204,10 +211,13 @@ const OrderProvision: React.ComponentType = () => {
 
   const createRows = (): RowType[] =>
     orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
-      return [
-        ...acc,
-        ...createOrderRow(item, `Order item ${item.id}`, formatMessage, key)
-      ];
+      const row = createOrderRow(
+        item,
+        `Order item ${item.id}`,
+        formatMessage,
+        key
+      );
+      return [...acc, ...row];
     }, []);
 
   const [rows, setRows] = useState<RowType[]>(createRows());
