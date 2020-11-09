@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   TextContent,
@@ -66,12 +65,6 @@ const ProgressMessages: React.ComponentType<ProgressMessagesParams> = ({
       </GridItem>
     </Grid>
   );
-};
-
-ProgressMessages.propTypes = {
-  orderItem: PropTypes.object,
-  progressMessages: PropTypes.object,
-  formatMessage: PropTypes.object
 };
 
 export default ProgressMessages;

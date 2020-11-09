@@ -174,11 +174,20 @@ const OrderProvision: React.ComponentType = () => {
     };
   };
 
-  const createRows = (): RowType[] =>
-    orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
-      return [
-        ...acc,
-        createOrderItemMainRow(item, `Order item ${item.id}`, formatMessage),
+  const createOrderRow = (
+    item: OrderItem,
+    orderItemName: string,
+    formatMessage: FormatMessage,
+    key: number
+  ): RowType[] => {
+    const orderRow = [
+      createOrderItemMainRow(item, orderItemName, formatMessage)
+    ];
+    if (
+      orderProvision.progressMessages &&
+      orderProvision.progressMessages.length > 0
+    ) {
+      orderRow.push(
         createOrderItemExpandedRow(
           item,
           Object.values(orderProvision.progressMessages).filter(
@@ -187,6 +196,17 @@ const OrderProvision: React.ComponentType = () => {
           formatMessage,
           key
         )
+      );
+    }
+
+    return orderRow;
+  };
+
+  const createRows = (): RowType[] =>
+    orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
+      return [
+        ...acc,
+        ...createOrderRow(item, `Order item ${item.id}`, formatMessage, key)
       ];
     }, []);
 
