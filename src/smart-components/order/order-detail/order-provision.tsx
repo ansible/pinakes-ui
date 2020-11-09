@@ -47,9 +47,16 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components/component
 import ProgressMessages from './progress-messages';
 
 export interface RowType {
-  orderItem: OrderItem;
-  progressMessages: ProgressMessage[];
-  formatMessage: FormatMessage;
+  id?: string;
+  parent?: number;
+  isOpen?: boolean;
+  cells: { title: any }[];
+}
+
+export interface ExpandedRowType {
+  parent: number;
+  isOpen: boolean;
+  cells: { title: any }[];
 }
 
 const isEmpty = (orderProvision?: OrderProvisionType) =>
@@ -105,19 +112,12 @@ const OrderProvision: React.ComponentType = () => {
     item: OrderItem,
     orderItemName: string,
     formatMessage: FormatMessage
-  ): {
-    isOpen: boolean;
-    cells: (
-      | { title: any }
-      | { title: any }
-      | { title: any }
-      | { title: any }
-    )[];
-  } => {
+  ): RowType => {
     const translatableState = getTranslatableState(
       item.state as OrderItemStateEnum
     );
     return {
+      id: item.id,
       isOpen: false,
       cells: [
         {
@@ -164,7 +164,7 @@ const OrderProvision: React.ComponentType = () => {
     progressMessages: ProgressMessage[],
     formatMessage: FormatMessage,
     key: number
-  ): { parent: number; cells: { title: any }[] } => {
+  ): RowType => {
     return {
       parent: key * 2,
       cells: [
@@ -181,72 +181,40 @@ const OrderProvision: React.ComponentType = () => {
     };
   };
 
-  const createRows = (): {
-    id?: string;
-    isOpen?: boolean;
-    parent?: number;
-    cells: { title: any }[];
-  }[] =>
-    orderProvision.orderItems.reduce(
-      (
-        acc: {
-          id?: string;
-          isOpen?: boolean;
-          parent?: number;
-          cells: { title: any }[];
-        }[],
-        item: OrderItem,
-        key
-      ) => {
-        return [
-          ...acc,
-          createOrderItemMainRow(item, `Order item ${item.id}`, formatMessage),
-          createOrderItemExpandedRow(
-            item,
-            Object.values(orderProvision.progressMessages).filter(
-              (message) => message.order_item_id === item.id
-            ),
-            formatMessage,
-            key
-          )
-        ];
-      },
-      []
-    );
+  const createRows = (): RowType[] =>
+    orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
+      return [
+        ...acc,
+        createOrderItemMainRow(item, `Order item ${item.id}`, formatMessage),
+        createOrderItemExpandedRow(
+          item,
+          Object.values(orderProvision.progressMessages).filter(
+            (message) => message.order_item_id === item.id
+          ),
+          formatMessage,
+          key
+        )
+      ];
+    }, []);
 
-  const [rows, setRows] = useState<
-    {
-      id?: string;
-      isOpen?: boolean;
-      parent?: number;
-      cells: { title: any }[];
-    }[]
-  >(createRows());
+  const [rows, setRows] = useState<RowType[]>(createRows());
 
   useEffect((): void => {
     console.log('Debug - setRows: rows', rows);
     setRows(createRows());
   }, [orderProvision.orderItems]);
 
-  const setOpen = (
-    data: {
-      id?: string;
-      isOpen?: boolean;
-      parent?: number;
-      cells: { title: any }[];
-    }[],
-    itemId: string
-  ) =>
-    data.map((row) => {
-      return row.id === itemId
+  const setOpen = (data: RowType[], rowId: any) =>
+    data.map((row) =>
+      row.id === rowId
         ? {
             ...row,
             isOpen: !row.isOpen
           }
         : {
             ...row
-          };
-    });
+          }
+    );
 
   const onCollapse = (
     event: React.MouseEvent,
@@ -262,7 +230,7 @@ const OrderProvision: React.ComponentType = () => {
       isOpen,
       rows
     );
-    const u_rows = setOpen(rows, id);
+    const u_rows = setOpen(rows, rowData.id);
     setRows(u_rows);
     console.log('Debug - new rows', rows);
   };

@@ -37,6 +37,11 @@ const ProgressMessages: React.ComponentType<ProgressMessagesParams> = ({
           <StackItem>
             <Card>
               <CardBody>
+                <TextContent>
+                  <Text className="pf-u-mb-md" component={TextVariants.h2}>
+                    {formatMessage(ordersMessages.orderItemParameters)}
+                  </Text>
+                </TextContent>
                 {orderItem?.service_parameters && (
                   <ReactJsonView src={orderItem.service_parameters} />
                 )}

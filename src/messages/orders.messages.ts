@@ -97,6 +97,10 @@ const ordersMessages = defineMessages({
     id: 'orders.order.detail.parameters',
     defaultMessage: 'Order parameters'
   },
+  orderItemParameters: {
+    id: 'orders.order.provision.parameters',
+    defaultMessage: 'Parameters'
+  },
   orderProgressMessages: {
     id: 'orders.order.detail.messages',
     defaultMessage: 'Progress messages'
