@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Bullseye,
@@ -14,6 +14,10 @@ import {
 } from '@patternfly/react-core';
 
 import {
+  expandable,
+  ICell,
+  IExtraData,
+  IRowData,
   Table,
   TableBody,
   TableHeader,
@@ -35,15 +39,18 @@ import statesMessages, {
 import orderStatusMapper from '../order-status-mapper';
 import {
   OrderItem,
-  OrderItemStateEnum
+  OrderItemStateEnum,
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { FormatMessage } from '../../../types/common-types';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import ProgressMessages from './progress-messages';
 
-/**
- * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
- * Probably a discrepancy inside the OpenAPI spec
- */
+export interface RowType {
+  orderItem: OrderItem;
+  progressMessages: ProgressMessage[];
+  formatMessage: FormatMessage;
+}
 
 const isEmpty = (orderProvision?: OrderProvisionType) =>
   !orderProvision ||
@@ -87,8 +94,8 @@ const OrderProvision: React.ComponentType = () => {
 
   const capitalize = (str: any) => str?.charAt(0).toUpperCase() + str?.slice(1);
 
-  const columns = [
-    { title: 'Updated' },
+  const columns: Array<ICell> = [
+    { title: 'Updated', cellFormatters: [expandable] },
     { title: 'Type' },
     { title: 'Activity' },
     { title: 'State' }
@@ -154,79 +161,111 @@ const OrderProvision: React.ComponentType = () => {
 
   const createOrderItemExpandedRow = (
     item: OrderItem,
-    key: number,
-    orderItemName: string,
-    formatMessage: FormatMessage
-  ): {
-    isOpen: boolean;
-    cells: (
-      | { title: any }
-      | { title: any }
-      | { title: any }
-      | { title: any }
-    )[];
-  } => {
-    const translatableState = getTranslatableState(
-      item.state as OrderItemStateEnum
-    );
+    progressMessages: ProgressMessage[],
+    formatMessage: FormatMessage,
+    key: number
+  ): { parent: number; cells: { title: any }[] } => {
     return {
-      isOpen: false,
+      parent: key * 2,
       cells: [
         {
           title: (
-            <Text className="pf-u-mb-0" component={TextVariants.small}>
-              <DateFormat date={item.updated_at} type="exact" />
-            </Text>
-          )
-        },
-        {
-          title: (
-            <Text className="pf-u-mb-0" component={TextVariants.small}>
-              <TableText>{capitalize(item.process_scope)}</TableText>
-            </Text>
-          )
-        },
-        {
-          title: (
-            <Text className="pf-u-mb-0" component={TextVariants.small}>
-              <TableText>{orderItemName}</TableText>
-            </Text>
-          )
-        },
-        {
-          title: (
-            <TableText>
-              <Label
-                {...orderStatusMapper[
-                  item.state as keyof typeof orderStatusMapper
-                ]}
-                variant="outline"
-              >
-                {formatMessage(statesMessages[translatableState])}
-              </Label>
-            </TableText>
+            <ProgressMessages
+              orderItem={item}
+              progressMessages={progressMessages}
+              formatMessage={formatMessage}
+            />
           )
         }
       ]
     };
   };
 
-  const createOrderItemRow = (
-    item: OrderItem,
-    key: number,
-    orderItemName: string,
-    formatMessage: FormatMessage
-  ): { isOpen: boolean; cells: { title: any }[] }[] => {
-    return [
-      createOrderItemMainRow(item, orderItemName, formatMessage),
-      createOrderItemExpandedRow(item, key, orderItemName, formatMessage)
-    ];
-  };
+  const createRows = (): {
+    id?: string;
+    isOpen?: boolean;
+    parent?: number;
+    cells: { title: any }[];
+  }[] =>
+    orderProvision.orderItems.reduce(
+      (
+        acc: {
+          id?: string;
+          isOpen?: boolean;
+          parent?: number;
+          cells: { title: any }[];
+        }[],
+        item: OrderItem,
+        key
+      ) => {
+        return [
+          ...acc,
+          createOrderItemMainRow(item, `Order item ${item.id}`, formatMessage),
+          createOrderItemExpandedRow(
+            item,
+            Object.values(orderProvision.progressMessages).filter(
+              (message) => message.order_item_id === item.id
+            ),
+            formatMessage,
+            key
+          )
+        ];
+      },
+      []
+    );
 
-  const rows = orderProvision.orderItems.map((item, key) => {
-    const orderItemName = `Order item ${item.id}`;
-    return createOrderItemRow(item, key, orderItemName, formatMessage);
-  });
+  const [rows, setRows] = useState<
+    {
+      id?: string;
+      isOpen?: boolean;
+      parent?: number;
+      cells: { title: any }[];
+    }[]
+  >(createRows());
+
+  useEffect((): void => {
+    console.log('Debug - setRows: rows', rows);
+    setRows(createRows());
+  }, [orderProvision.orderItems]);
+
+  const setOpen = (
+    data: {
+      id?: string;
+      isOpen?: boolean;
+      parent?: number;
+      cells: { title: any }[];
+    }[],
+    itemId: string
+  ) =>
+    data.map((row) => {
+      return row.id === itemId
+        ? {
+            ...row,
+            isOpen: !row.isOpen
+          }
+        : {
+            ...row
+          };
+    });
+
+  const onCollapse = (
+    event: React.MouseEvent,
+    rowIndex: number,
+    isOpen: boolean,
+    rowData: IRowData,
+    extraData: IExtraData
+  ): void => {
+    console.log(
+      'Debug - rowData, extraData, isOpen, rows',
+      rowData,
+      extraData,
+      isOpen,
+      rows
+    );
+    const u_rows = setOpen(rows, id);
+    setRows(u_rows);
+    console.log('Debug - new rows', rows);
+  };
 
   return (
     <TextContent>
@@ -253,6 +292,7 @@ const OrderProvision: React.ComponentType = () => {
               aria-label="Order provisioning activity"
               cells={columns}
               rows={rows}
+              onCollapse={onCollapse}
             >
               <TableHeader />
               <TableBody />
