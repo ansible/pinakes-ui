@@ -33,7 +33,7 @@ import {
   ApprovalRequest,
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
-import { AxiosPromise, AxiosResponse } from 'axios';
+import { AxiosPromise } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
 

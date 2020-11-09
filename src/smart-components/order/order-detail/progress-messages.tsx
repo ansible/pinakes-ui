@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes from 'Prop'
+import PropTypes from 'prop-types';
+
 import {
   TextContent,
   Text,
@@ -19,7 +20,6 @@ import {
   OrderItem,
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
-import PropTypes from 'prop-types';
 
 export interface ProgressMessagesParams {
   orderItem: OrderItem;
