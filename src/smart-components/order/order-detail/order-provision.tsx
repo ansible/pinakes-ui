@@ -131,7 +131,12 @@ const OrderProvision: React.ComponentType = () => {
         {
           title: (
             <Text className="pf-u-mb-0" component={TextVariants.small}>
-              <TableText>{capitalize(item.process_scope)}</TableText>
+              <TableText>
+                {capitalize(
+                  item.process_scope ||
+                    formatMessage(ordersMessages.defaultOrderItemType)
+                )}
+              </TableText>
             </Text>
           )
         },
