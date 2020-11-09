@@ -219,7 +219,7 @@ const OrderProvision: React.ComponentType = () => {
     event: React.MouseEvent,
     rowIndex: number,
     isOpen: boolean,
-    rowData: IRowData,
+    rowData: IRowData
   ): void => {
     const u_rows = setOpen(rows, rowData.id);
     setRows(u_rows);

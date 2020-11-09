@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import PropTypes from 'Prop'
 import {
   TextContent,
   Text,
@@ -18,6 +19,7 @@ import {
   OrderItem,
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
+import PropTypes from 'prop-types';
 
 export interface ProgressMessagesParams {
   orderItem: OrderItem;
@@ -64,6 +66,12 @@ const ProgressMessages: React.ComponentType<ProgressMessagesParams> = ({
       </GridItem>
     </Grid>
   );
+};
+
+ProgressMessages.propTypes = {
+  orderItem: PropTypes.object,
+  progressMessages: PropTypes.object,
+  formatMessage: PropTypes.object
 };
 
 export default ProgressMessages;
