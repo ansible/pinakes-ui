@@ -81,7 +81,7 @@ const OrderProvision: React.ComponentType = () => {
     'catalog:order_processes:link'
   ]);
 
-  if (order.state === 'Failed' && isEmpty(orderProvision)) {
+  if (!isFetching && isEmpty(orderProvision)) {
     return (
       <Bullseye id="no-order-provision">
         <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
@@ -101,7 +101,10 @@ const OrderProvision: React.ComponentType = () => {
   const capitalize = (str: any) => str?.charAt(0).toUpperCase() + str?.slice(1);
 
   const columns: Array<ICell> = [
-    { title: 'Updated', cellFormatters: [expandable] },
+    {
+      title: 'Updated',
+      cellFormatters: showProgressMessages ? [expandable] : []
+    },
     { title: 'Type' },
     { title: 'Activity' },
     { title: 'State' }
@@ -280,7 +283,7 @@ const OrderProvision: React.ComponentType = () => {
               aria-label="Order provisioning activity"
               cells={columns}
               rows={rows}
-              onCollapse={onCollapse}
+              onCollapse={showProgressMessages ? onCollapse : undefined}
             >
               <TableHeader />
               <TableBody />
