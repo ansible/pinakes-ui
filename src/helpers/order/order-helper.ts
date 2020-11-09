@@ -301,7 +301,6 @@ export const getOrderProvisionItems = async (
   orderId: string
 ): Promise<OrderProvisionPayload> => {
   const items = await fetchOrderProvisionItems(orderId);
-  console.log('debug - fetchOPItems returns: ', items);
   return items;
 };
 

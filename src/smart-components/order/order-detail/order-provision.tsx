@@ -16,7 +16,6 @@ import {
 import {
   expandable,
   ICell,
-  IExtraData,
   IRowData,
   Table,
   TableBody,
@@ -75,12 +74,6 @@ const OrderProvision: React.ComponentType = () => {
   const orderProvision = useSelector<CatalogRootState, OrderProvisionType>(
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
-  useEffect(() => {
-    setIsFetching(true);
-    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
-      setIsFetching(false)
-    );
-  }, []);
 
   if (order.state === 'Failed' && isEmpty(orderProvision)) {
     return (
@@ -199,10 +192,16 @@ const OrderProvision: React.ComponentType = () => {
 
   const [rows, setRows] = useState<RowType[]>(createRows());
 
+  useEffect(() => {
+    setIsFetching(true);
+    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
+      setIsFetching(false)
+    );
+  }, []);
+
   useEffect((): void => {
-    console.log('Debug - setRows: rows', rows);
     setRows(createRows());
-  }, [orderProvision.orderItems]);
+  }, [orderProvision?.orderItems]);
 
   const setOpen = (data: RowType[], rowId: any) =>
     data.map((row) =>
@@ -221,18 +220,9 @@ const OrderProvision: React.ComponentType = () => {
     rowIndex: number,
     isOpen: boolean,
     rowData: IRowData,
-    extraData: IExtraData
   ): void => {
-    console.log(
-      'Debug - rowData, extraData, isOpen, rows',
-      rowData,
-      extraData,
-      isOpen,
-      rows
-    );
     const u_rows = setOpen(rows, rowData.id);
     setRows(u_rows);
-    console.log('Debug - new rows', rows);
   };
 
   return (
