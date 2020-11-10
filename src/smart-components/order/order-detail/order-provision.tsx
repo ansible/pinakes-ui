@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Bullseye,
@@ -14,6 +14,9 @@ import {
 } from '@patternfly/react-core';
 
 import {
+  expandable,
+  ICell,
+  IRowData,
   Table,
   TableBody,
   TableHeader,
@@ -35,15 +38,27 @@ import statesMessages, {
 import orderStatusMapper from '../order-status-mapper';
 import {
   OrderItem,
-  OrderItemStateEnum
+  OrderItemStateEnum,
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { FormatMessage } from '../../../types/common-types';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import ProgressMessages from './progress-messages';
+import UserContext from '../../../user-context';
+import { hasPermission } from '../../../helpers/shared/helpers';
 
-/**
- * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
- * Probably a discrepancy inside the OpenAPI spec
- */
+export interface RowType {
+  id?: string;
+  parent?: number;
+  isOpen?: boolean;
+  cells: { title: any }[];
+}
+
+export interface ExpandedRowType {
+  parent: number;
+  isOpen: boolean;
+  cells: { title: any }[];
+}
 
 const isEmpty = (orderProvision?: OrderProvisionType) =>
   !orderProvision ||
@@ -61,14 +76,12 @@ const OrderProvision: React.ComponentType = () => {
   const orderProvision = useSelector<CatalogRootState, OrderProvisionType>(
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
-  useEffect(() => {
-    setIsFetching(true);
-    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
-      setIsFetching(false)
-    );
-  }, []);
+  const { permissions: userPermissions } = useContext(UserContext);
+  const showProgressMessages = hasPermission(userPermissions, [
+    'catalog:order_processes:link'
+  ]);
 
-  if (order.state === 'Failed' && isEmpty(orderProvision)) {
+  if (!isFetching && isEmpty(orderProvision)) {
     return (
       <Bullseye id="no-order-provision">
         <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
@@ -87,65 +100,159 @@ const OrderProvision: React.ComponentType = () => {
 
   const capitalize = (str: any) => str?.charAt(0).toUpperCase() + str?.slice(1);
 
-  const columns = [
-    { title: 'Updated' },
+  const columns: Array<ICell> = [
+    {
+      title: 'Updated',
+      cellFormatters: showProgressMessages ? [expandable] : []
+    },
     { title: 'Type' },
     { title: 'Activity' },
     { title: 'State' }
   ];
 
-  const createOrderItemRow = (
+  const createOrderItemMainRow = (
     item: OrderItem,
-    orderItemName: string,
     formatMessage: FormatMessage
-  ): { title: ReactNode }[] => {
+  ): RowType => {
     const translatableState = getTranslatableState(
       item.state as OrderItemStateEnum
     );
-    return [
-      {
-        title: (
-          <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <DateFormat date={item.updated_at} type="exact" />
-          </Text>
-        )
-      },
-      {
-        title: (
-          <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <TableText>{capitalize(item.process_scope)}</TableText>
-          </Text>
-        )
-      },
-      {
-        title: (
-          <Text className="pf-u-mb-0" component={TextVariants.small}>
-            <TableText>{orderItemName}</TableText>
-          </Text>
-        )
-      },
-
-      {
-        title: (
-          <TableText>
-            <Label
-              {...orderStatusMapper[
-                item.state as keyof typeof orderStatusMapper
-              ]}
-              variant="outline"
-            >
-              {formatMessage(statesMessages[translatableState])}
-            </Label>
-          </TableText>
-        )
-      }
-    ];
+    return {
+      id: item.id,
+      isOpen: false,
+      cells: [
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <DateFormat date={item.updated_at} type="exact" />
+            </Text>
+          )
+        },
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <TableText>
+                {capitalize(
+                  item.process_scope ||
+                    formatMessage(ordersMessages.defaultOrderItemType)
+                )}
+              </TableText>
+            </Text>
+          )
+        },
+        {
+          title: (
+            <Text className="pf-u-mb-0" component={TextVariants.small}>
+              <TableText>{item.name}</TableText>
+            </Text>
+          )
+        },
+        {
+          title: (
+            <TableText>
+              <Label
+                {...orderStatusMapper[
+                  item.state as keyof typeof orderStatusMapper
+                ]}
+                variant="outline"
+              >
+                {formatMessage(statesMessages[translatableState])}
+              </Label>
+            </TableText>
+          )
+        }
+      ]
+    };
   };
 
-  const rows = orderProvision.orderItems.map((item) => {
-    const orderItemName = `Order item ${item.id}`;
-    return createOrderItemRow(item, orderItemName, formatMessage);
-  });
+  const createOrderItemExpandedRow = (
+    item: OrderItem,
+    progressMessages: ProgressMessage[],
+    formatMessage: FormatMessage,
+    key: number
+  ): RowType => {
+    return {
+      parent: key * 2,
+      cells: [
+        {
+          title: (
+            <ProgressMessages
+              orderItem={item}
+              progressMessages={progressMessages}
+              formatMessage={formatMessage}
+            />
+          )
+        }
+      ]
+    };
+  };
+
+  const createOrderRow = (
+    item: OrderItem,
+    formatMessage: FormatMessage,
+    key: number
+  ): RowType[] => {
+    const orderRow = [createOrderItemMainRow(item, formatMessage)];
+    if (
+      showProgressMessages &&
+      orderProvision.progressMessages &&
+      Object.values(orderProvision.progressMessages).length > 0
+    ) {
+      orderRow.push(
+        createOrderItemExpandedRow(
+          item,
+          Object.values(orderProvision.progressMessages).filter(
+            (message) => message.order_item_id === item.id
+          ),
+          formatMessage,
+          key
+        )
+      );
+    }
+
+    return orderRow;
+  };
+
+  const createRows = (): RowType[] =>
+    orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
+      const row = createOrderRow(item, formatMessage, key);
+      return [...acc, ...row];
+    }, []);
+
+  const [rows, setRows] = useState<RowType[]>(createRows());
+
+  useEffect(() => {
+    setIsFetching(true);
+    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
+      setIsFetching(false)
+    );
+  }, []);
+
+  useEffect((): void => {
+    setRows(createRows());
+  }, [orderProvision?.orderItems]);
+
+  const setOpen = (data: RowType[], rowId: any) =>
+    data.map((row) =>
+      row.id === rowId
+        ? {
+            ...row,
+            isOpen: !row.isOpen
+          }
+        : {
+            ...row
+          }
+    );
+
+  const onCollapse = (
+    event: React.MouseEvent,
+    rowIndex: number,
+    isOpen: boolean,
+    rowData: IRowData
+  ): void => {
+    const u_rows = setOpen(rows, rowData.id);
+    setRows(u_rows);
+  };
 
   return (
     <TextContent>
@@ -172,6 +279,7 @@ const OrderProvision: React.ComponentType = () => {
               aria-label="Order provisioning activity"
               cells={columns}
               rows={rows}
+              onCollapse={showProgressMessages ? onCollapse : undefined}
             >
               <TableHeader />
               <TableBody />

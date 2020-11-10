@@ -123,7 +123,6 @@ export const fetchOrderProvisionItems = async (
       `${CATALOG_API_BASE}/order_items/?order_id=${orderId}`
     );
     orderItems = items.data;
-    console.log('Debug - orderItems: items, orderItems', items, orderItems);
   } catch (error) {
     orderItems = [];
     if (error.status === 404 || error.status === 400) {
@@ -136,6 +135,20 @@ export const fetchOrderProvisionItems = async (
     }
   }
 
-  const progressMessages: ProgressMessage[] | [] = [];
-  return { orderItems, progressMessages };
+  const promises = orderItems.map((orderItem) =>
+    axiosInstance.get(
+      `${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages`
+    )
+  );
+
+  return Promise.all(promises).then((itemMessages) => {
+    const progressMessages = itemMessages.reduce(
+      (acc, curr) => ({
+        ...acc,
+        ...curr.data
+      }),
+      {}
+    );
+    return { orderItems, progressMessages };
+  });
 };
