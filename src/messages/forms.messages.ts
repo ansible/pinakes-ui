@@ -35,11 +35,11 @@ const formsMessages = defineMessages({
   },
   beforeProvision: {
     id: 'forms.before.beforeProvision',
-    defaultMessage: 'Before provision'
+    defaultMessage: 'Before order'
   },
   afterProvision: {
     id: 'forms.after.setAfterProvision',
-    defaultMessage: 'After provision'
+    defaultMessage: 'After order'
   },
   productsPlaceholder: {
     id: 'forms.product.placeholder',

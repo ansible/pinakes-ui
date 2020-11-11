@@ -72,6 +72,10 @@ const ordersMessages = defineMessages({
     id: 'orders.menu.approval',
     defaultMessage: 'Approval'
   },
+  menuProvision: {
+    id: 'orders.menu.provision',
+    defaultMessage: 'Provision'
+  },
   menuLifecycle: {
     id: 'orders.menu.lifecycle',
     defaultMessage: 'Lifecycle'
@@ -93,12 +97,20 @@ const ordersMessages = defineMessages({
     id: 'orders.order.detail.parameters',
     defaultMessage: 'Order parameters'
   },
+  orderItemParameters: {
+    id: 'orders.order.provision.parameters',
+    defaultMessage: 'Parameters'
+  },
+  defaultOrderItemType: {
+    id: 'orders.order.default_type',
+    defaultMessage: 'Product'
+  },
   orderProgressMessages: {
     id: 'orders.order.detail.messages',
     defaultMessage: 'Progress messages'
   },
   lifecycleLink: {
-    id: 'orders.order.lifecicle.link',
+    id: 'orders.order.lifecycle.link',
     defaultMessage: 'Manage product'
   },
   cancelOrder: {
@@ -128,6 +140,18 @@ const ordersMessages = defineMessages({
   activity: {
     id: 'orders.approval.activity',
     defaultMessage: 'Activity'
+  },
+  artifacts: {
+    id: 'orders.artifacts',
+    defaultMessage: 'Order artifacts'
+  },
+  noOrderProvision: {
+    id: 'orders.provision.no-items',
+    defaultMessage: 'We were unable to find provisioning data for this order.'
+  },
+  fetchingOrderProvision: {
+    id: 'orders.provision.fetching-provision',
+    defaultMessage: 'Retrieving order provisioning data'
   }
 });
 

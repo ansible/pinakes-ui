@@ -26,6 +26,11 @@ export type OrderDetailPayload = [
   Portfolio | ObjectNotFound
 ];
 
+export type OrderProvisionPayload = {
+  orderItems: OrderItem[] | [];
+  progressMessages: ProgressMessage[] | [];
+};
+
 export const fetchOrderDetailSequence = async (
   orderId: string
 ): Promise<OrderDetailPayload> => {
@@ -107,4 +112,43 @@ export const fetchOrderDetailSequence = async (
     progressMessages as ProgressMessage | ObjectNotFound,
     portfolio as Portfolio | ObjectNotFound
   ]);
+};
+
+export const fetchOrderProvisionItems = async (
+  orderId: string
+): Promise<OrderProvisionPayload> => {
+  let orderItems: OrderItem[];
+  try {
+    const items = await axiosInstance.get(
+      `${CATALOG_API_BASE}/order_items/?order_id=${orderId}`
+    );
+    orderItems = items.data;
+  } catch (error) {
+    orderItems = [];
+    if (error.status === 404 || error.status === 400) {
+      catalogHistory.replace({
+        pathname: '/404',
+        state: { from: catalogHistory.location }
+      });
+    } else {
+      throw error;
+    }
+  }
+
+  const promises = orderItems.map((orderItem) =>
+    axiosInstance.get(
+      `${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages`
+    )
+  );
+
+  return Promise.all(promises).then((itemMessages) => {
+    const progressMessages = itemMessages.reduce(
+      (acc, curr) => ({
+        ...acc,
+        ...curr.data
+      }),
+      {}
+    );
+    return { orderItems, progressMessages };
+  });
 };

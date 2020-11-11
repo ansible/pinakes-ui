@@ -228,3 +228,31 @@ export const fetchApprovalRequests = (orderItemId: string) => (
       })
     );
 };
+
+export const fetchOrderProvision = (orderId: string) => (
+  dispatch: Dispatch
+): Promise<{
+  type: string;
+  payload: {
+    orderItems: OrderItem[] | [];
+    progressMessages: ProgressMessage[] | [];
+  };
+}> => {
+  dispatch({ type: `${ActionTypes.SET_ORDER_PROVISION_ITEMS}_PENDING` });
+  return OrderHelper.getOrderProvisionItems(orderId)
+    .then(({ orderItems, progressMessages }) =>
+      dispatch({
+        type: `${ActionTypes.SET_ORDER_PROVISION_ITEMS}_FULFILLED`,
+        payload: {
+          orderItems,
+          progressMessages
+        }
+      })
+    )
+    .catch((error) =>
+      dispatch({
+        type: `${ActionTypes.SET_ORDER_PROVISION_ITEMS}_REJECTED`,
+        payload: error
+      })
+    );
+};

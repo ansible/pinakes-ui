@@ -141,7 +141,7 @@
       "error",
       "never"
     ],
-    "react/prop-types": 2,
+    "react/prop-types": 1,
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-use-before-define": [1]
 
