@@ -3,12 +3,14 @@
 exports[`<DetailToolbarActions /> should render correctly 1`] = `
 <DetailToolbarActions
   availability="available"
+  canLinkOrderProcesses={true}
   copyUrl="foo/copy"
   editSurveyUrl="foo/edit-survey"
   editUrl="foo/baz"
   isFetching={false}
   isOpen={false}
   orderUrl="foo/bar"
+  orderable={true}
   pathname="foo/bar"
   setOpen={[MockFunction]}
   userCapabilities={
@@ -94,6 +96,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           data-ouia-safe={true}
                           disabled={false}
                           id="order-portfolio-item"
+                          role={null}
                           type="button"
                         >
                           <styled.span

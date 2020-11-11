@@ -49,7 +49,9 @@ export const PortfolioItemDetailToolbar = ({
   isFetching,
   availability,
   userCapabilities,
-  fromProducts
+  orderable,
+  fromProducts,
+  canLinkOrderProcesses
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
@@ -97,7 +99,9 @@ export const PortfolioItemDetailToolbar = ({
                   workflowUrl={`${url}/edit-workflow`}
                   isFetching={isFetching}
                   availability={availability}
+                  orderable={orderable}
                   userCapabilities={userCapabilities}
+                  canLinkOrderProcesses={canLinkOrderProcesses}
                 />
               </Level>
             </LevelItem>
@@ -115,17 +119,21 @@ PortfolioItemDetailToolbar.propTypes = {
     distributor: PropTypes.string,
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    service_offering_source_ref: PropTypes.string.isRequired
+    service_offering_source_ref: PropTypes.string.isRequired,
+    metadata: PropTypes.shape({ orderable: PropTypes.bool })
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
   userCapabilities: PropTypes.object,
-  fromProducts: PropTypes.bool
+  fromProducts: PropTypes.bool,
+  orderable: PropTypes.bool,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 PortfolioItemDetailToolbar.defaultProps = {
-  isFetching: false
+  isFetching: false,
+  orderable: true
 };
 
 const SurveyEditorDropdown = ({ handleResetSurvey }) => {
@@ -211,5 +219,6 @@ SurveyEditingToolbar.propTypes = {
   isValid: PropTypes.bool,
   modified: PropTypes.bool,
   handleResetSurvey: PropTypes.func,
-  fromProducts: PropTypes.bool
+  fromProducts: PropTypes.bool,
+  canLinkOrderProcesses: PropTypes.bool
 };

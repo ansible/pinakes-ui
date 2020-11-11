@@ -75,6 +75,18 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     handleClose();
   };
 
+  const updateValidatorsForSubstitution = (schema: Schema) => {
+    const updatedFields = schema?.fields?.map((field) => {
+      if (field.isSubstitution) {
+        delete field.validate;
+        delete field.dataType;
+      }
+
+      return field;
+    });
+    return { ...schema, fields: updatedFields };
+  };
+
   return (
     <Modal
       isOpen
@@ -98,10 +110,10 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
         </SpinnerWrapper>
       ) : (
         <FormRenderer
-          schema={
+          schema={updateValidatorsForSubstitution(
             ((servicePlans[0].create_json_schema! as AnyObject)
               .schema as unknown) as Schema
-          }
+          )}
           onSubmit={onSubmit}
           onCancel={handleClose}
         />

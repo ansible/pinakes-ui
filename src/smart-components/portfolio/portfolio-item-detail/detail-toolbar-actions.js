@@ -25,10 +25,13 @@ const DetailToolbarActions = ({
   setOpen,
   isFetching,
   availability,
-  userCapabilities: { update, copy, set_approval }
+  orderable,
+  userCapabilities: { update, copy, set_approval },
+  canLinkOrderProcesses
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
+
   if (update) {
     dropdownItems.push(
       <DropdownItem
@@ -77,7 +80,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (window.insights.chrome.isBeta() && update) {
+  if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
@@ -119,12 +122,16 @@ const DetailToolbarActions = ({
     <Fragment>
       <LevelItem>
         <CatalogLink
-          isDisabled={isFetching || availability === 'unavailable'}
+          isDisabled={
+            isFetching || availability === 'unavailable' || !orderable
+          }
           pathname={orderUrl}
           preserveSearch
         >
           <ButtonWithSpinner
-            isDisabled={isFetching || availability === 'unavailable'}
+            isDisabled={
+              isFetching || availability === 'unavailable' || !orderable
+            }
             showSpinner={isFetching}
             variant="primary"
             id="order-portfolio-item"
@@ -134,7 +141,7 @@ const DetailToolbarActions = ({
         </CatalogLink>
       </LevelItem>
       <LevelItem style={{ marginLeft: 16 }}>
-        {dropdownItems.length > 0 && (
+        {availability !== 'unavailable' && dropdownItems.length > 0 && (
           <Dropdown
             isPlain
             onToggle={setOpen}
@@ -165,15 +172,19 @@ DetailToolbarActions.propTypes = {
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
   availability: PropTypes.oneOf(['available', 'unavailable']).isRequired,
+  orderable: PropTypes.bool,
   userCapabilities: PropTypes.shape({
     update: PropTypes.bool,
     copy: PropTypes.bool,
     set_approval: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  canLinkOrderProcesses: PropTypes.bool
 };
 
 DetailToolbarActions.defaultProps = {
-  isFetching: false
+  isFetching: false,
+  orderable: true,
+  canLinkOrderProcesses: false
 };
 
 export default DetailToolbarActions;

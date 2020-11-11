@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,6 +15,8 @@ import useQuery from '../../utilities/use-query';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import filteringMessages from '../../messages/filtering.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import UserContext from '../../user-context';
+import { hasPermission } from '../../helpers/shared/helpers';
 
 const PortfolioItems = ({
   routes,
@@ -54,6 +56,10 @@ const PortfolioItems = ({
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const [{ portfolio: id }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
+  const { permissions: userPermissions } = useContext(UserContext);
+  const canLinkOrderProcesses = hasPermission(userPermissions, [
+    'catalog:order_processes:link'
+  ]);
 
   const items = data.map((item) => (
     <PortfolioItem
@@ -99,7 +105,8 @@ const PortfolioItems = ({
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(fetchPortfolioItemsWithPortfolio(...args)),
           portfolioId: id,
-          userCapabilities
+          userCapabilities,
+          canLinkOrderProcesses
         })}
       />
       <ContentGallery
