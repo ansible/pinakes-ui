@@ -61,10 +61,10 @@ const columns = (intl, allSelected, selectAll) => [
 ];
 
 const debouncedFilter = asyncFormValidator(
-  (filter, dispatch, filteringCallback, meta = defaultSettings) => {
+  (filter, dispatch, filteringCallback, meta = defaultSettings, sortBy) => {
     filteringCallback(true);
     return dispatch(
-      fetchOrderProcesses({ filterValue: filter, ...meta })
+      fetchOrderProcesses({ filterValue: filter, ...meta, sortBy })
     ).then(() => filteringCallback(false));
   },
   1000
@@ -186,6 +186,7 @@ const OrderProcesses = () => {
     stateDispatch({ type: 'select', payload: id });
 
   const updateOrderProcesses = (pagination) => {
+    console.log('Debug - updateOrderProcesses sortBy', pagination?.sortBy);
     stateDispatch({ type: 'setFetching', payload: true });
     return dispatch(fetchOrderProcesses(pagination))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
@@ -198,6 +199,7 @@ const OrderProcesses = () => {
       viewState?.orderProcesses
         ? {
             ...viewState.orderProcesses,
+            sortBy,
             filterValue
           }
         : defaultSettings
@@ -271,7 +273,12 @@ const OrderProcesses = () => {
     dispatch(sortOrderProcesses({ index, direction, property }));
     return updateOrderProcesses({
       ...meta,
-      filterValue
+      filterValue,
+      sortBy: {
+        index,
+        direction,
+        property
+      }
     });
   };
 
