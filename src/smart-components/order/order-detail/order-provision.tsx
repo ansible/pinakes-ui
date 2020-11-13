@@ -5,7 +5,6 @@ import {
   Card,
   CardBody,
   Flex,
-  Label,
   Spinner,
   Text,
   TextContent,
@@ -107,7 +106,7 @@ const OrderProvision: React.ComponentType = () => {
     },
     { title: 'Type' },
     { title: 'Activity' },
-    { title: 'State' }
+    { title: '' }
   ];
 
   const createOrderItemMainRow = (
@@ -150,14 +149,22 @@ const OrderProvision: React.ComponentType = () => {
         {
           title: (
             <TableText>
-              <Label
-                {...orderStatusMapper[
-                  item.state as keyof typeof orderStatusMapper
-                ]}
-                variant="outline"
+              <TextContent
+                style={{
+                  color:
+                    orderStatusMapper[
+                      item.state as keyof typeof orderStatusMapper
+                    ].color
+                }}
               >
+                {
+                  orderStatusMapper[
+                    item.state as keyof typeof orderStatusMapper
+                  ].icon
+                }
+                &nbsp;
                 {formatMessage(statesMessages[translatableState])}
-              </Label>
+              </TextContent>
             </TableText>
           )
         }
