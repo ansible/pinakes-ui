@@ -25,7 +25,10 @@ import {
 } from '../../types/common-types';
 import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
 import { Source } from '@redhat-cloud-services/sources-client';
-import { ObjectNotFound } from '../../helpers/order/new-order-helper';
+import {
+  ObjectNotFound,
+  ProgressMessageItem
+} from '../../helpers/order/new-order-helper';
 
 export const fetchServicePlans = (
   portfolioItemId: string
@@ -235,17 +238,17 @@ export const fetchOrderProvision = (orderId: string) => (
   type: string;
   payload: {
     orderItems: OrderItem[] | [];
-    progressMessages: ProgressMessage[] | [];
+    progressMessageItems: ProgressMessageItem[] | [];
   };
 }> => {
   dispatch({ type: `${ActionTypes.SET_ORDER_PROVISION_ITEMS}_PENDING` });
   return OrderHelper.getOrderProvisionItems(orderId)
-    .then(({ orderItems, progressMessages }) =>
+    .then(({ orderItems, progressMessageItems }) =>
       dispatch({
         type: `${ActionTypes.SET_ORDER_PROVISION_ITEMS}_FULFILLED`,
         payload: {
           orderItems,
-          progressMessages
+          progressMessageItems
         }
       })
     )
