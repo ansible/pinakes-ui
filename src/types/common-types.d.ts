@@ -141,6 +141,6 @@ export type ValueOf<T> = T[keyof T];
 
 export interface SortBy {
   index: number;
-  property: string,
-  direction: SortByDirection
+  property: string;
+  direction: SortByDirection;
 }

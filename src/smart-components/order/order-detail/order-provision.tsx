@@ -178,6 +178,7 @@ const OrderProvision: React.ComponentType = () => {
     formatMessage: FormatMessage,
     key: number
   ): RowType => {
+    console.log('Debug - item, progressMessages', item, progressMessages);
     return {
       parent: key * 2,
       cells: [
