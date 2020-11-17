@@ -15,7 +15,9 @@ import { defaultSettings } from '../shared/pagination';
 import catalogHistory from '../../routing/catalog-history';
 import {
   fetchOrderDetailSequence,
-  OrderDetailPayload
+  fetchOrderProvisionItems,
+  OrderDetailPayload,
+  OrderProvisionPayload
 } from './new-order-helper';
 import {
   ApiCollectionResponse,
@@ -28,7 +30,8 @@ import {
   Order,
   OrderItem,
   PortfolioItem,
-  ApprovalRequest
+  ApprovalRequest,
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { AxiosPromise } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
@@ -141,7 +144,7 @@ export const getOrderDetail = (
 ): Promise<OrderDetailPayload> => {
   if (Object.values(params).some((value) => !value)) {
     /**
-     * Try to fetch data sequentially if any of the parameters is unknow
+     * Try to fetch data sequentially if any of the parameters is unknown
      */
     return fetchOrderDetailSequence(params.order);
   }
@@ -292,4 +295,22 @@ export const getApprovalRequests = (
         }));
         return { data: data || [] };
       });
+    });
+
+export const getOrderProvisionItems = async (
+  orderId: string
+): Promise<OrderProvisionPayload> => {
+  const items = await fetchOrderProvisionItems(orderId);
+  return items;
+};
+
+export const getProgressMessages = (
+  orderItemId: string
+): Promise<{
+  data: ProgressMessage[];
+}> =>
+  axiosInstance
+    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/progress_messages`)
+    .then(({ data }: { data: Full<ProgressMessage>[] }) => {
+      return { data: data || [] };
     });

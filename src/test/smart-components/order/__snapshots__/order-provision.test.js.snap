@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Orders /> should render correctly 1`] = `
+<Stack>
+  <ToolbarRenderer
+    schema={
+      Object {
+        "fields": Array [
+          Object {
+            "className": "orders pf-u-p-lg",
+            "component": "TopToolbar",
+            "fields": Array [
+              Object {
+                "className": "",
+                "component": "TopToolbarTitle",
+                "key": "orders-toolbar-title",
+                "title": "Orders",
+              },
+            ],
+            "key": "orders-toolbar",
+          },
+        ],
+      }
+    }
+  />
+  <OrdersList />
+</Stack>
+`;
+
+exports[`<Orders /> should render correctly in loading state 1`] = `
+<Stack>
+  <ToolbarRenderer
+    schema={
+      Object {
+        "fields": Array [
+          Object {
+            "className": "orders pf-u-p-lg",
+            "component": "TopToolbar",
+            "fields": Array [
+              Object {
+                "className": "",
+                "component": "TopToolbarTitle",
+                "key": "orders-toolbar-title",
+                "title": "Orders",
+              },
+            ],
+            "key": "orders-toolbar",
+          },
+        ],
+      }
+    }
+  />
+  <OrdersList />
+</Stack>
+`;
