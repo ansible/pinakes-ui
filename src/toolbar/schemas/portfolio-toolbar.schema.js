@@ -82,7 +82,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (window.insights.chrome.isBeta() && update && canLinkOrderProcesses) {
+  if (update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
