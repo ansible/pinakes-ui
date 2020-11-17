@@ -5,7 +5,6 @@ import {
   Card,
   CardBody,
   Flex,
-  Label,
   Spinner,
   Text,
   TextContent,
@@ -107,7 +106,7 @@ const OrderProvision: React.ComponentType = () => {
     },
     { title: 'Type' },
     { title: 'Activity' },
-    { title: 'State' }
+    { title: '' }
   ];
 
   const createOrderItemMainRow = (
@@ -150,14 +149,22 @@ const OrderProvision: React.ComponentType = () => {
         {
           title: (
             <TableText>
-              <Label
-                {...orderStatusMapper[
-                  item.state as keyof typeof orderStatusMapper
-                ]}
-                variant="outline"
+              <TextContent
+                style={{
+                  color:
+                    orderStatusMapper[
+                      item.state as keyof typeof orderStatusMapper
+                    ].color
+                }}
               >
+                {
+                  orderStatusMapper[
+                    item.state as keyof typeof orderStatusMapper
+                  ].icon
+                }
+                &nbsp;
                 {formatMessage(statesMessages[translatableState])}
-              </Label>
+              </TextContent>
             </TableText>
           )
         }
@@ -195,19 +202,22 @@ const OrderProvision: React.ComponentType = () => {
     const orderRow = [createOrderItemMainRow(item, formatMessage)];
     if (
       showProgressMessages &&
-      orderProvision.progressMessages &&
-      Object.values(orderProvision.progressMessages).length > 0
+      orderProvision.progressMessageItems &&
+      orderProvision.progressMessageItems.length > 0
     ) {
-      orderRow.push(
-        createOrderItemExpandedRow(
-          item,
-          Object.values(orderProvision.progressMessages).filter(
-            (message) => message.order_item_id === item.id
-          ),
-          formatMessage,
-          key
-        )
+      const progressMessageItem = orderProvision.progressMessageItems.find(
+        (msgItem) => msgItem.orderItemId === item.id
       );
+      if (progressMessageItem) {
+        orderRow.push(
+          createOrderItemExpandedRow(
+            item,
+            progressMessageItem.progressMessages,
+            formatMessage,
+            key
+          )
+        );
+      }
     }
 
     return orderRow;

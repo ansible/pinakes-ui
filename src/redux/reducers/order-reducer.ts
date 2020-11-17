@@ -5,8 +5,7 @@ import {
   PortfolioItem,
   Portfolio,
   OrderItem,
-  ApprovalRequest,
-  ProgressMessage
+  ApprovalRequest
 } from '@redhat-cloud-services/catalog-client';
 import { Source } from '@redhat-cloud-services/sources-client';
 import {
@@ -32,7 +31,10 @@ import {
   ReduxActionHandler,
   Full
 } from '../../types/common-types';
-import { ObjectNotFound } from '../../helpers/order/new-order-helper';
+import {
+  ObjectNotFound,
+  ProgressMessageItem
+} from '../../helpers/order/new-order-helper';
 
 export interface OrderDetail extends AnyObject {
   approvalRequest?: ApiCollectionResponse<ApprovalRequest>;
@@ -45,7 +47,7 @@ export interface OrderDetail extends AnyObject {
 
 export interface OrderProvisionType extends AnyObject {
   orderItems: Full<OrderItem>[];
-  progressMessages: Full<ProgressMessage>[];
+  progressMessageItems: Full<ProgressMessageItem>[];
 }
 
 export interface OrderReducerState extends AnyObject {
@@ -71,7 +73,7 @@ export const orderInitialState: OrderReducerState = {
   },
   orderProvision: {
     orderItems: [] as Full<OrderItem>[],
-    progressMessages: [] as Full<ProgressMessage>[]
+    progressMessageItems: [] as Full<ProgressMessageItem>[]
   },
   orders: {
     data: [],
