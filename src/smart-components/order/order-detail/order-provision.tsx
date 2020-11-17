@@ -202,19 +202,22 @@ const OrderProvision: React.ComponentType = () => {
     const orderRow = [createOrderItemMainRow(item, formatMessage)];
     if (
       showProgressMessages &&
-      orderProvision.progressMessages &&
-      Object.values(orderProvision.progressMessages).length > 0
+      orderProvision.progressMessageItems &&
+      orderProvision.progressMessageItems.length > 0
     ) {
-      orderRow.push(
-        createOrderItemExpandedRow(
-          item,
-          Object.values(orderProvision.progressMessages).filter(
-            (message) => message.order_item_id === item.id
-          ),
-          formatMessage,
-          key
-        )
+      const progressMessageItem = orderProvision.progressMessageItems.find(
+        (msgItem) => msgItem.orderItemId === item.id
       );
+      if (progressMessageItem) {
+        orderRow.push(
+          createOrderItemExpandedRow(
+            item,
+            progressMessageItem.progressMessages,
+            formatMessage,
+            key
+          )
+        );
+      }
     }
 
     return orderRow;

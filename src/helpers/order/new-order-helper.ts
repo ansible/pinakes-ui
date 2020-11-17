@@ -26,10 +26,15 @@ export type OrderDetailPayload = [
   Portfolio | ObjectNotFound
 ];
 
-export type OrderProvisionPayload = {
-  orderItems: OrderItem[] | [];
-  progressMessages: ProgressMessage[] | [];
+export type ProgressMessageItem = {
+  orderItemId: string;
+  progressMessages: ProgressMessage[];
 };
+
+export interface OrderProvisionPayload {
+  orderItems: OrderItem[] | [];
+  progressMessageItems: ProgressMessageItem[] | [];
+}
 
 export const fetchOrderDetailSequence = async (
   orderId: string
@@ -135,20 +140,18 @@ export const fetchOrderProvisionItems = async (
     }
   }
 
+  const progressMessageItems: ProgressMessageItem[] = [];
   const promises = orderItems.map((orderItem) =>
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages`
-    )
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages`)
+      .then((item) => {
+        progressMessageItems.push({
+          orderItemId: orderItem.id || '',
+          progressMessages: item.data
+        });
+        return progressMessageItems;
+      })
   );
-
-  return Promise.all(promises).then((itemMessages) => {
-    const progressMessages = itemMessages.reduce(
-      (acc, curr) => ({
-        ...acc,
-        ...curr.data
-      }),
-      {}
-    );
-    return { orderItems, progressMessages };
-  });
+  await Promise.all(promises);
+  return { orderItems, progressMessageItems };
 };
