@@ -7,6 +7,7 @@ import {
 import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
+import { SortByDirection } from '@patternfly/react-table';
 
 export interface StringObject {
   [key: string]: string;

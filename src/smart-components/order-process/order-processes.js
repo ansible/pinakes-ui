@@ -185,10 +185,10 @@ const OrderProcesses = () => {
   const setSelectedOrderProcesses = (id) =>
     stateDispatch({ type: 'select', payload: id });
 
-  const updateOrderProcesses = (pagination) => {
+  const updateOrderProcesses = (pagination, sortBy) => {
     console.log('Debug - updateOrderProcesses sortBy', pagination?.sortBy);
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(fetchOrderProcesses(pagination))
+    return dispatch(fetchOrderProcesses(pagination, sortBy))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
@@ -199,10 +199,10 @@ const OrderProcesses = () => {
       viewState?.orderProcesses
         ? {
             ...viewState.orderProcesses,
-            sortBy,
             filterValue
           }
-        : defaultSettings
+        : defaultSettings,
+      sortBy
     );
     scrollToTop();
   }, []);
@@ -271,15 +271,17 @@ const OrderProcesses = () => {
 
   const onSort = (_e, index, direction, { property }) => {
     dispatch(sortOrderProcesses({ index, direction, property }));
-    return updateOrderProcesses({
-      ...meta,
-      filterValue,
-      sortBy: {
+    return updateOrderProcesses(
+      {
+        ...meta,
+        filterValue
+      },
+      {
         index,
         direction,
         property
       }
-    });
+    );
   };
 
   const toolbarButtons = () => (
