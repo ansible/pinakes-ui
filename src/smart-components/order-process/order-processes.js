@@ -152,6 +152,12 @@ const orderProcessesState = (state, action) => {
   }
 };
 
+const sortIndexMapper = {
+  1: 'name',
+  2: 'description',
+  3: 'created_at'
+};
+
 const OrderProcesses = () => {
   const viewState = useInitialUriHash();
   const {
@@ -270,7 +276,13 @@ const OrderProcesses = () => {
   const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
 
   const onSort = (_e, index, direction, { property }) => {
-    dispatch(sortOrderProcesses({ index, direction, property }));
+    dispatch(
+      sortOrderProcesses({
+        index,
+        direction,
+        property: sortIndexMapper[index] || property
+      })
+    );
     return updateOrderProcesses(
       {
         ...meta,
@@ -279,7 +291,7 @@ const OrderProcesses = () => {
       {
         index,
         direction,
-        property
+        property: sortIndexMapper[index] || property
       }
     );
   };
