@@ -192,7 +192,6 @@ const OrderProcesses = () => {
     stateDispatch({ type: 'select', payload: id });
 
   const updateOrderProcesses = (pagination, sortBy) => {
-    console.log('Debug - updateOrderProcesses sortBy', pagination?.sortBy);
     stateDispatch({ type: 'setFetching', payload: true });
     return dispatch(fetchOrderProcesses(pagination, sortBy))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
