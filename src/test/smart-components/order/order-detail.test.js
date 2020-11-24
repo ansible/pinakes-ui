@@ -72,7 +72,7 @@ describe('<OrderDetail />', () => {
           <OrderComponent
             store={store}
             initialEntries={[
-              '/order/approval?order=order-id&portfolio-item=undefined&order-item=undefined&platform=undefined&portfolio=undefined'
+              '/orders/order/approval?order=order-id&portfolio-item=undefined&order-item=undefined&platform=undefined&portfolio=undefined'
             ]}
           />
         );
