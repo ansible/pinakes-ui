@@ -91,6 +91,7 @@ export interface UserCapabilities {
 
 export interface PortfolioStatistics {
   shared_groups?: number;
+  approval_processes?: number;
   portfolio_items?: number;
 }
 
