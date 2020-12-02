@@ -42,8 +42,8 @@ const PortfolioItem = (props) => {
         <CardFooter>
           {props.metadata &&
           props.metadata.statistics &&
-          props.metadata.statistics.approval_processes > 0 ? (
-            <Label variant="filled" color="blue">
+          props.metadata.statistics.approval_processes >= 0 ? (
+            <Label variant="filled" color="grey">
               {formatMessage(labelMessages.approvalProcessSet)}
             </Label>
           ) : (

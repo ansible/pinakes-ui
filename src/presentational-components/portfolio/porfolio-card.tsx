@@ -246,13 +246,13 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
         </StyledCardBody>
         <CardFooter>
           {approval_processes && approval_processes > 0 && (
-            <Label variant="filled" color="blue">
+            <Label variant="filled" color="grey">
               {formatMessage(labelMessages.approvalProcessSet)}
             </Label>
           )}
           &nbsp;
           {shared_groups && shared_groups > 0 && (
-            <Label variant="filled" color="green">
+            <Label variant="filled" color="grey">
               {formatMessage(labelMessages.shared)}
             </Label>
           )}
