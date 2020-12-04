@@ -64,7 +64,7 @@ const Platforms = () => {
       .filter(({ name }) =>
         name.toLowerCase().includes(filterValue.toLowerCase())
       )
-      .map((item) => <PlatformCard key={item.id} {...item} />),
+      .map((item) => <PlatformCard ouiaId={`platform-${item.id}`} key={item.id} {...item} />),
     isLoading: isLoading && platforms.length === 0
   };
   return (

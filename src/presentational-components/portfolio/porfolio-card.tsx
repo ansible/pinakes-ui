@@ -211,7 +211,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
   };
   return (
     <StyledGalleryItem isDisabled={isDisabled}>
-      <StyledCard>
+      <StyledCard ouiaId={`portfolio-${id}`}>
         <CardHeader>
           <PortfolioCardHeader
             id={id}

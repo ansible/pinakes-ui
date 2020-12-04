@@ -182,6 +182,7 @@ const Portfolios = () => {
   const galleryItems = data.map((item) => (
     <PortfolioCard
       key={item.id}
+      ouiaId={`portfolio-${item.id}`}
       {...item}
       canLinkOrderProcesses={canLinkOrderProcesses}
       handleCopyPortfolio={handleCopyPortfolio}
