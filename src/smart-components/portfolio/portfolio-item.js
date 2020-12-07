@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardHeader, CardFooter, Level } from '@patternfly/react-core';
+import { CardHeader, CardFooter, Level, Label } from '@patternfly/react-core';
 
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import CardIcon from '../../presentational-components/shared/card-icon';
@@ -11,34 +11,47 @@ import {
   StyledGalleryItem
 } from '../../presentational-components/styled-components/styled-gallery';
 import styled from 'styled-components';
+import useFormatMessage from '../../utilities/use-format-message';
+import labelMessages from '../../messages/labels.messages';
 
 const StyledLevel = styled(Level)`
   flex: 1;
 `;
 
-const PortfolioItem = (props) => (
-  <StyledGalleryItem isDisabled={props.removeInProgress && props.isSelected}>
-    <StyledCard>
-      <CardHeader>
-        <StyledLevel>
-          <CardIcon
-            src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
-            sourceId={props.service_offering_source_ref}
-          />
-          {props.isSelectable && (
-            <CardCheckbox
-              handleCheck={() => props.onSelect(props.id)}
-              isChecked={props.isSelected}
-              id={props.id}
+const PortfolioItem = (props) => {
+  const formatMessage = useFormatMessage();
+  return (
+    <StyledGalleryItem isDisabled={props.removeInProgress && props.isSelected}>
+      <StyledCard>
+        <CardHeader>
+          <StyledLevel>
+            <CardIcon
+              src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
+              sourceId={props.service_offering_source_ref}
             />
+            {props.isSelectable && (
+              <CardCheckbox
+                handleCheck={() => props.onSelect(props.id)}
+                isChecked={props.isSelected}
+                id={props.id}
+              />
+            )}
+          </StyledLevel>
+        </CardHeader>
+        <ServiceOfferingCardBody {...props} />
+        <CardFooter>
+          {props.metadata?.statistics?.approval_processes > 0 ? (
+            <Label variant="filled" color="grey">
+              {formatMessage(labelMessages.approvalProcessSet)}
+            </Label>
+          ) : (
+            ''
           )}
-        </StyledLevel>
-      </CardHeader>
-      <ServiceOfferingCardBody {...props} />
-      <CardFooter></CardFooter>
-    </StyledCard>
-  </StyledGalleryItem>
-);
+        </CardFooter>
+      </StyledCard>
+    </StyledGalleryItem>
+  );
+};
 
 PortfolioItem.propTypes = {
   id: PropTypes.string,
