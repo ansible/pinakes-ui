@@ -70,6 +70,7 @@ const SharedGroup: ComponentType<SharedGroupProps> = ({
       <StyledLevelItem>
         <Button
           id={`remove-share-${index}`}
+          ouiaId={`remove-share-${index}`}
           variant="plain"
           onClick={() => remove(index)}
         >

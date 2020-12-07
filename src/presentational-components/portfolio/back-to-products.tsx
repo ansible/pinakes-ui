@@ -13,6 +13,7 @@ const BackToProducts: React.ComponentType = () => {
       <AngleLeftIcon className="pf-u-mr-sm" />
       <Button
         variant="link"
+        ouiaId={'back-to-products'}
         component={() => (
           <CatalogLink pathname="/products">
             {formatMessage(portfolioMessages.backToProducts)}
