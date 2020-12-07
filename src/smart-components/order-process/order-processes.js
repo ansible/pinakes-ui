@@ -343,6 +343,7 @@ const OrderProcesses = () => {
         value={{ selectedOrderProcesses, setSelectedOrderProcesses }}
       >
         <TableToolbarView
+          ouiaId={'OrderProcessesTable'}
           sortBy={sortBy}
           onSort={onSort}
           rows={rows}

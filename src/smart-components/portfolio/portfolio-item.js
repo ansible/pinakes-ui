@@ -22,7 +22,7 @@ const PortfolioItem = (props) => {
   const formatMessage = useFormatMessage();
   return (
     <StyledGalleryItem isDisabled={props.removeInProgress && props.isSelected}>
-      <StyledCard>
+      <StyledCard ouiaId={`portfolio-item-${props.id}`}>
         <CardHeader>
           <StyledLevel>
             <CardIcon

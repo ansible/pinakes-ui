@@ -2,7 +2,9 @@
 
 exports[`<PortfolioCard /> should render correctly 1`] = `
 <Styled(Component)>
-  <Styled(Card)>
+  <Styled(Card)
+    ouiaId="portfolio-123"
+  >
     <CardHeader>
       <PortfolioCardHeader
         headerActions={
