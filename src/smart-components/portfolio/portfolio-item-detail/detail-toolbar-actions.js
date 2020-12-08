@@ -135,6 +135,7 @@ const DetailToolbarActions = ({
             showSpinner={isFetching}
             variant="primary"
             id="order-portfolio-item"
+            ouiaId="order-portfolio-item"
           >
             {formatMessage(portfolioMessages.portfolioItemOrder)}
           </ButtonWithSpinner>

@@ -304,6 +304,7 @@ const OrderProcesses = () => {
         >
           <Button
             variant="primary"
+            ouiaid={'create-order-process'}
             aria-label={intl.formatMessage(labelMessages.create)}
           >
             {intl.formatMessage(labelMessages.create)}
@@ -318,6 +319,7 @@ const OrderProcesses = () => {
         >
           <Button
             variant="secondary"
+            ouiaid={'delete-order-process'}
             isDisabled={!anyOrderProcessSelected}
             aria-label={intl.formatMessage(
               orderProcessesMessages.deleteOrderProcess
@@ -370,7 +372,11 @@ const OrderProcesses = () => {
               Icon={SearchIcon}
               PrimaryAction={() =>
                 filterValue !== '' ? (
-                  <Button onClick={() => handleFilterChange('')} variant="link">
+                  <Button
+                    ouiaId={'clear-filter'}
+                    onClick={() => handleFilterChange('')}
+                    variant="link"
+                  >
                     {intl.formatMessage(filteringMessages.clearFilters)}
                   </Button>
                 ) : null

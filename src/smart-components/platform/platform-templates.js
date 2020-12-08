@@ -132,7 +132,11 @@ const PlatformTemplates = () => {
             Icon={SearchIcon}
             PrimaryAction={() =>
               filterValue !== '' ? (
-                <Button onClick={() => handleFilterChange('')} variant="link">
+                <Button
+                  ouiaId={'clear-filters'}
+                  onClick={() => handleFilterChange('')}
+                  variant="link"
+                >
                   {formatMessage(filteringMessages.clearFilters)}
                 </Button>
               ) : null

@@ -187,6 +187,7 @@ export const SurveyEditingToolbar = ({
           <Flex className="align-items-center">
             <ButtonWithSpinner
               variant="primary"
+              ouiaId={'save-survey'}
               showSpinner={isFetching}
               isDisabled={isFetching || !isValid}
               onClick={handleSaveSurvey}
@@ -199,7 +200,9 @@ export const SurveyEditingToolbar = ({
                 search
               }}
             >
-              <Button variant="link">Cancel</Button>
+              <Button ouiaId={'cancel'} variant="link">
+                Cancel
+              </Button>
             </Link>
             {modified && (
               <SurveyEditorDropdown handleResetSurvey={handleResetSurvey} />

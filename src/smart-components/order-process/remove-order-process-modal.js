@@ -110,6 +110,7 @@ const RemoveOrderProcessModal = ({
       actions={[
         <Button
           id="submit-remove-order-process"
+          ouiaId="submit-remove-order-process"
           key="submit"
           variant="danger"
           type="button"
@@ -127,6 +128,7 @@ const RemoveOrderProcessModal = ({
         </Button>,
         <Button
           id="cancel-remove-order-process"
+          ouiaId="cancel-remove-order-process"
           key="cancel"
           variant="link"
           type="button"

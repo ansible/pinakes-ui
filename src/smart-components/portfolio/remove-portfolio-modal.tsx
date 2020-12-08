@@ -92,11 +92,18 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
           variant="danger"
           type="button"
           id="confirm-delete-portfolio"
+          ouiaId="confirm-delete-portfolio"
           onClick={onSubmit}
         >
           {formatMessage(actionMessages.delete)}
         </Button>,
-        <Button key="cancel" variant="link" type="button" onClick={goBack}>
+        <Button
+          key="cancel"
+          ouiaId="cancel"
+          variant="link"
+          type="button"
+          onClick={goBack}
+        >
           {formatMessage(labelMessages.cancel)}
         </Button>
       ]}

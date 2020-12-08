@@ -149,6 +149,7 @@ export const NewGroupSelect: ComponentType<NewGroupSelectProps> = ({
           <span>
             <Button
               id="add-new-group"
+              ouiaId="add-new-group"
               variant="link"
               isDisabled={!group || !permission}
               onClick={() => {

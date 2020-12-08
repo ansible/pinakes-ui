@@ -164,7 +164,11 @@ const Portfolios = () => {
     />
   );
   const FilterAction = () => (
-    <Button variant="link" onClick={() => handleFilterItems('')}>
+    <Button
+      ouiaId={'clear-filter'}
+      variant="link"
+      onClick={() => handleFilterItems('')}
+    >
       {formatMessage(filteringMessages.clearFilters)}
     </Button>
   );

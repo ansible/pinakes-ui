@@ -411,7 +411,11 @@ const OrdersList: React.ComponentType = () => {
                   </EmptyStateBody>
                   {!meta.noData && (
                     <EmptyStateSecondaryActions>
-                      <Button variant="link" onClick={handleClearAll}>
+                      <Button
+                        ouiaId={'clear-filter'}
+                        variant="link"
+                        onClick={handleClearAll}
+                      >
                         {formatMessage(filteringMessages.clearFilters)}
                       </Button>
                     </EmptyStateSecondaryActions>
