@@ -122,6 +122,7 @@ const PlatformInventories = () => {
       />
       <Section type="content">
         <ContentList
+          ouiaId={'PlatformsTable'}
           title={title}
           data={inventoryRows}
           columns={columns}

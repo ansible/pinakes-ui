@@ -8,13 +8,15 @@ exports[`<PlatformCard /> should render correctly 1`] = `
     <div>
       <Styled(Card)
         key="Foo"
+        ouiaId="platform-Foo"
       >
         <Card
           className="sc-AxhUy kEBXQD"
+          ouiaId="platform-Foo"
         >
           <article
             className="pf-c-card sc-AxhUy kEBXQD"
-            data-ouia-component-id="OUIA-Generated-Card-1"
+            data-ouia-component-id="platform-Foo"
             data-ouia-component-type="PF4/Card"
             data-ouia-safe={true}
           >

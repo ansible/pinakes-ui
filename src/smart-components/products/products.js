@@ -129,14 +129,18 @@ const Products = () => {
   const SourcesAction = () =>
     is_org_admin && (
       <a href={`${release}settings/sources/new`}>
-        <Button variant="primary">
+        <Button ouiaId={'add-source'} variant="primary">
           {formatMessage(productsMessages.addSource)}
         </Button>
       </a>
     );
 
   const FilterAction = () => (
-    <Button variant="link" onClick={() => handleFilterItems('')}>
+    <Button
+      ouiaId={'clear-filter'}
+      variant="link"
+      onClick={() => handleFilterItems('')}
+    >
       {formatMessage(filteringMessages.clearFilters)}
     </Button>
   );

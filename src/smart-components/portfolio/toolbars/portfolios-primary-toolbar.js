@@ -49,7 +49,12 @@ const PortfoliosPrimaryToolbar = ({
         ? {
             dedicatedAction: (
               <CatalogLink pathname="/portfolios/add-portfolio">
-                <Button variant="primary" id="create-portfolio" type="button">
+                <Button
+                  variant="primary"
+                  id="create-portfolio"
+                  ouiaId={'create-portfolio'}
+                  type="button"
+                >
                   {formatMessage(labelMessages.create)}
                 </Button>
               </CatalogLink>

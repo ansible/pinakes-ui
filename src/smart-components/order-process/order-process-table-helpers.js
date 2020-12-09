@@ -25,11 +25,14 @@ SelectBox.propTypes = {
 export const createRows = (data) =>
   data.map(({ id, name, description, created_at }) => ({
     id,
+    'data-ouia-component-id': `test-${id}`,
     cells: [
-      <React.Fragment key={`${id}-checkbox`}>
+      <div key={`${id}-checkbox`} ouiaId={`${id}-checkbox`}>
         <SelectBox id={id} />
-      </React.Fragment>,
-      name,
+      </div>,
+      <div key={`${id}-${name}`} ouiaId={`${id}-${name}`}>
+        {name}
+      </div>,
       description,
       <React.Fragment key={id}>
         <TimeAgo date={created_at} />

@@ -61,10 +61,10 @@ const columns = (intl, allSelected, selectAll) => [
 ];
 
 const debouncedFilter = asyncFormValidator(
-  (filter, dispatch, filteringCallback, meta = defaultSettings) => {
+  (filter, dispatch, filteringCallback, meta = defaultSettings, sortBy) => {
     filteringCallback(true);
     return dispatch(
-      fetchOrderProcesses({ filterValue: filter, ...meta })
+      fetchOrderProcesses({ filterValue: filter, ...meta, sortBy })
     ).then(() => filteringCallback(false));
   },
   1000
@@ -152,6 +152,12 @@ const orderProcessesState = (state, action) => {
   }
 };
 
+const sortIndexMapper = {
+  1: 'name',
+  2: 'description',
+  3: 'created_at'
+};
+
 const OrderProcesses = () => {
   const viewState = useInitialUriHash();
   const {
@@ -185,9 +191,9 @@ const OrderProcesses = () => {
   const setSelectedOrderProcesses = (id) =>
     stateDispatch({ type: 'select', payload: id });
 
-  const updateOrderProcesses = (pagination) => {
+  const updateOrderProcesses = (pagination, sortBy) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(fetchOrderProcesses(pagination))
+    return dispatch(fetchOrderProcesses(pagination, sortBy))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };
@@ -200,7 +206,8 @@ const OrderProcesses = () => {
             ...viewState.orderProcesses,
             filterValue
           }
-        : defaultSettings
+        : defaultSettings,
+      sortBy
     );
     scrollToTop();
   }, []);
@@ -268,11 +275,24 @@ const OrderProcesses = () => {
   const anyOrderProcessSelected = selectedOrderProcesses.length > 0;
 
   const onSort = (_e, index, direction, { property }) => {
-    dispatch(sortOrderProcesses({ index, direction, property }));
-    return updateOrderProcesses({
-      ...meta,
-      filterValue
-    });
+    dispatch(
+      sortOrderProcesses({
+        index,
+        direction,
+        property: sortIndexMapper[index] || property
+      })
+    );
+    return updateOrderProcesses(
+      {
+        ...meta,
+        filterValue
+      },
+      {
+        index,
+        direction,
+        property: sortIndexMapper[index] || property
+      }
+    );
   };
 
   const toolbarButtons = () => (
@@ -284,6 +304,7 @@ const OrderProcesses = () => {
         >
           <Button
             variant="primary"
+            ouiaid={'create-order-process'}
             aria-label={intl.formatMessage(labelMessages.create)}
           >
             {intl.formatMessage(labelMessages.create)}
@@ -298,6 +319,7 @@ const OrderProcesses = () => {
         >
           <Button
             variant="secondary"
+            ouiaid={'delete-order-process'}
             isDisabled={!anyOrderProcessSelected}
             aria-label={intl.formatMessage(
               orderProcessesMessages.deleteOrderProcess
@@ -323,6 +345,7 @@ const OrderProcesses = () => {
         value={{ selectedOrderProcesses, setSelectedOrderProcesses }}
       >
         <TableToolbarView
+          ouiaId={'OrderProcessesTable'}
           sortBy={sortBy}
           onSort={onSort}
           rows={rows}
@@ -349,7 +372,11 @@ const OrderProcesses = () => {
               Icon={SearchIcon}
               PrimaryAction={() =>
                 filterValue !== '' ? (
-                  <Button onClick={() => handleFilterChange('')} variant="link">
+                  <Button
+                    ouiaId={'clear-filter'}
+                    onClick={() => handleFilterChange('')}
+                    variant="link"
+                  >
                     {intl.formatMessage(filteringMessages.clearFilters)}
                   </Button>
                 ) : null

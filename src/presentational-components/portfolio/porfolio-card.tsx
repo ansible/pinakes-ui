@@ -199,7 +199,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
   handleCopyPortfolio,
   metadata: {
     user_capabilities,
-    statistics: { shared_groups, portfolio_items }
+    statistics: { shared_groups, approval_processes, portfolio_items }
   },
   canLinkOrderProcesses,
   ...props
@@ -211,7 +211,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
   };
   return (
     <StyledGalleryItem isDisabled={isDisabled}>
-      <StyledCard>
+      <StyledCard ouiaId={`portfolio-${id}`}>
         <CardHeader>
           <PortfolioCardHeader
             id={id}
@@ -245,6 +245,12 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
           />
         </StyledCardBody>
         <CardFooter>
+          {approval_processes && approval_processes > 0 && (
+            <Label variant="filled" color="grey">
+              {formatMessage(labelMessages.approvalProcessSet)}
+            </Label>
+          )}
+          &nbsp;
           {shared_groups && shared_groups > 0 && (
             <Label variant="filled" color="grey">
               {formatMessage(labelMessages.shared)}

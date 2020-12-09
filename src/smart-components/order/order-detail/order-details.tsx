@@ -86,9 +86,11 @@ const OrderDetails: React.ComponentType = () => {
                     {formatMessage(ordersMessages.orderParameters)}
                   </Text>
                 </TextContent>
-                {orderItem?.service_parameters && (
-                  <ReactJsonView src={orderItem.service_parameters} />
-                )}
+                <TextContent className="overflow-wrap">
+                  {orderItem?.service_parameters && (
+                    <ReactJsonView src={orderItem.service_parameters} />
+                  )}
+                </TextContent>
               </CardBody>
             </Card>
           </StackItem>

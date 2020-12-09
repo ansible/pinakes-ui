@@ -34,6 +34,7 @@ const CancelOrderModal: React.ComponentType<CancelOrderModal> = ({
       actions={[
         <Button
           onClick={cancelOrder}
+          ouiaId={'cancel-order'}
           key="cancel-order"
           id="cancel-order"
           variant="danger"
@@ -42,6 +43,7 @@ const CancelOrderModal: React.ComponentType<CancelOrderModal> = ({
         </Button>,
         <Button
           onClick={onClose}
+          ouiaId={'keep-order'}
           key="keep-order"
           id="keep-order"
           variant="link"

@@ -165,4 +165,20 @@ describe('<PortfolioCard />', () => {
     expect(wrapper.find(Label)).toHaveLength(1);
     expect(wrapper.find(Label).text()).toEqual('Shared');
   });
+
+  it('should render with approval processes set label', () => {
+    const wrapper = mount(
+      <MemoryRouter>
+        <PortfolioCard
+          {...initialProps}
+          metadata={{
+            ...initialProps.metadata,
+            statistics: { approval_processes: 1 }
+          }}
+        />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(Label)).toHaveLength(1);
+    expect(wrapper.find(Label).text()).toEqual('Approval process set');
+  });
 });
