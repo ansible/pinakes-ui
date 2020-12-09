@@ -13,7 +13,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
         <div
           className="sc-AxjAm dPyIza"
         >
-          <Styled(Component)
+          <Styled(TextInput)
             aria-label="Foo"
             id="toolbar-filter"
             onChange={[MockFunction]}
@@ -21,7 +21,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
             type="text"
             value=""
           >
-            <ForwardRef
+            <TextInput
               aria-label="Foo"
               className="sc-AxirZ hrVIZw"
               id="toolbar-filter"
@@ -61,8 +61,8 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                   value=""
                 />
               </TextInputBase>
-            </ForwardRef>
-          </Styled(Component)>
+            </TextInput>
+          </Styled(TextInput)>
           <styled.span>
             <span
               className="sc-AxiKw dNVIvC"
