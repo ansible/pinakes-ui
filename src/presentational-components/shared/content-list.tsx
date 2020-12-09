@@ -36,6 +36,7 @@ export interface ContentListProps {
   routes?: () => ReactNode;
   titlePlural?: ReactNode;
   renderEmptyState: () => ReactNode;
+  ouiaId?: string;
 }
 
 const ContentList: React.ComponentType<ContentListProps> = ({
@@ -48,7 +49,8 @@ const ContentList: React.ComponentType<ContentListProps> = ({
   borders = true,
   routes = () => null,
   titlePlural,
-  renderEmptyState
+  renderEmptyState,
+  ouiaId
 }) => {
   const [rows, setRows] = useState<IRow[]>([]);
 
@@ -70,6 +72,7 @@ const ContentList: React.ComponentType<ContentListProps> = ({
         <Fragment>
           {routes()}
           <Table
+            ouiaId={ouiaId}
             aria-label={`${titlePlural} table`}
             variant={isCompact ? TableVariant.compact : undefined}
             borders={borders}

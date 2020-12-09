@@ -44,6 +44,7 @@ export interface TableToolbarViewProps {
   activeFiltersConfig?: ActiveFiltersConfig;
   filterConfig?: FilterItem[];
   rows: IRow[];
+  ouiaId?: string;
 }
 export const TableToolbarView: React.ComponentType<TableToolbarViewProps> = ({
   columns,
@@ -61,7 +62,8 @@ export const TableToolbarView: React.ComponentType<TableToolbarViewProps> = ({
   onSort,
   activeFiltersConfig,
   filterConfig = [],
-  rows
+  rows,
+  ouiaId
 }) => {
   const intl = useIntl();
 
@@ -135,6 +137,7 @@ export const TableToolbarView: React.ComponentType<TableToolbarViewProps> = ({
               className="pf-u-pt-0"
               sortBy={sortBy}
               onSort={onSort}
+              ouiaId={ouiaId}
             >
               <TableHeader />
               <TableBody />

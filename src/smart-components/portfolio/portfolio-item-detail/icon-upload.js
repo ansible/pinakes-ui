@@ -138,7 +138,7 @@ const IconUpload = ({ uploadIcon, resetIcon, enableReset, children }) => {
               setIsOpen(isOpen);
             }}
           >
-            <UploadButton>
+            <UploadButton ouiaId={'upload-icon'}>
               {isUploading ? (
                 <Spinner size="md" />
               ) : (

@@ -5,6 +5,10 @@ const labelMessages = defineMessages({
     id: 'common.labels.shared',
     defaultMessage: 'Shared'
   },
+  approvalProcessSet: {
+    id: 'common.labels.approval_process_set',
+    defaultMessage: 'Approval process set'
+  },
   portfolio: {
     id: 'common.labels.portfolio',
     defaultMessage: 'Portfolio'

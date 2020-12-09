@@ -44,6 +44,7 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
             type="button"
             className="pf-u-mr-md"
             id="cancel-order-action"
+            ouiaId="cancel-order-action"
           >
             {formatMessage(ordersMessages.cancelOrder)}
           </Button>

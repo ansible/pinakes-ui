@@ -29,6 +29,7 @@ const PortfolioEmptyState = ({
   const FilterAction = () => (
     <Button
       id="clear-portfolio-filter"
+      ouiaId="clear-portfolio-filter"
       variant="link"
       onClick={() => handleFilterChange('')}
     >

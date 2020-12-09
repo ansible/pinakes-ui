@@ -303,10 +303,10 @@ describe('<Orders />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/order/approval?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+            '/orders/order/approval?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
           ]} // eslint-disable-line max-len
         >
-          <Route path="/order/approval">
+          <Route path="/orders/order/approval">
             <OrderDetail />
           </Route>
         </ComponentWrapper>

@@ -4,13 +4,20 @@ import orderProcessesMessages from '../../messages/order-processes.messages';
 import { PaginationConfiguration } from '../../helpers/shared/pagination';
 import { Dispatch } from 'redux';
 import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
-import { ApiCollectionResponse, ReduxAction } from '../../types/common-types';
+import {
+  ApiCollectionResponse,
+  ReduxAction,
+  SortBy
+} from '../../types/common-types';
 import { Order, OrderProcess } from '@redhat-cloud-services/catalog-client';
 import { IntlShape } from 'react-intl';
 import { ResourceObject } from '@redhat-cloud-services/approval-client';
 import { AxiosResponse } from 'axios';
 
-export const fetchOrderProcesses = (pagination?: PaginationConfiguration) => (
+export const fetchOrderProcesses = (
+  pagination?: PaginationConfiguration,
+  sortBy?: SortBy
+) => (
   dispatch: Dispatch,
   getState: GetReduxState
 ): AsyncMiddlewareAction<ApiCollectionResponse<Order>> => {
@@ -27,12 +34,14 @@ export const fetchOrderProcesses = (pagination?: PaginationConfiguration) => (
     type: ActionTypes.FETCH_ORDER_PROCESSES,
     meta: {
       ...finalPagination,
+      sortBy,
       filter: pagination?.filterValue || '',
       storeState: true,
       stateKey: 'orderProcesses'
     },
     payload: OrderProcessHelper.listOrderProcesses(
       pagination?.filterValue,
+      sortBy,
       finalPagination
     )
   });
