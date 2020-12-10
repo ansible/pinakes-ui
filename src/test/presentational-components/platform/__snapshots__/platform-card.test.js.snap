@@ -19,6 +19,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
             data-ouia-component-id="platform-Foo"
             data-ouia-component-type="PF4/Card"
             data-ouia-safe={true}
+            id=""
           >
             <CardHeader>
               <div
