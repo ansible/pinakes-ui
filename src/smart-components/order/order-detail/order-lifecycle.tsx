@@ -55,7 +55,7 @@ const OrderLifecycle: React.ComponentType = () => {
           </CardBody>
         </Card>
       </StackItem>
-      {orderItem?.artifacts && (
+      {orderItem?.artifacts && Object.keys(orderItem.artifacts)?.length > 0 && (
         <StackItem>
           <Card>
             <CardBody>
