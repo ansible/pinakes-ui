@@ -51,7 +51,8 @@ const useNavItems = (
   {
     link: '/lifecycle',
     title: formatMessage(ordersMessages.menuLifecycle),
-    isDisabled: state !== 'Completed' && state !== 'Ordered'
+    isDisabled:
+      state !== 'Completed' && state !== 'Ordered' && state !== 'Failed'
   }
 ];
 

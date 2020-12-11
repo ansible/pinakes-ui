@@ -27,7 +27,11 @@ const OrderLifecycle: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { order, orderItem } = orderDetailData;
-  if (order.state !== 'Completed' && order.state !== 'Ordered') {
+  if (
+    order.state !== 'Completed' &&
+    order.state !== 'Ordered' &&
+    order.state !== 'Failed'
+  ) {
     return (
       <Redirect
         to={{
