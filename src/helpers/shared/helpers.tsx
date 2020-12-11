@@ -94,3 +94,6 @@ export const hasPermission = (
   permissions.every((permission) =>
     userPermissions.find((item) => item.permission === permission)
   );
+
+export const stateToDisplay = (state?: string): boolean =>
+  state !== 'Completed' && state !== 'Ordered' && state !== 'Failed';
