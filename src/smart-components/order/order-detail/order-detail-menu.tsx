@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import CatalogLink from '../../common/catalog-link';
 import ordersMessages from '../../../messages/orders.messages';
+import { stateToDisplay } from '../../../helpers/shared/helpers';
 
 /**
  * Make sure to import correct Tabs styles
@@ -51,8 +52,7 @@ const useNavItems = (
   {
     link: '/lifecycle',
     title: formatMessage(ordersMessages.menuLifecycle),
-    isDisabled:
-      state !== 'Completed' && state !== 'Ordered' && state !== 'Failed'
+    isDisabled: stateToDisplay(state)
   }
 ];
 
