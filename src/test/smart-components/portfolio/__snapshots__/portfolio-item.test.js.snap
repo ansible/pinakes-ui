@@ -51,7 +51,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           className="pf-l-level sc-fznZeY dhizEt"
                         >
                           <CardIcon
-                            src="/api/catalog/v1.2/portfolio_items/1/icon"
+                            src="/api/catalog/v1.3/portfolio_items/1/icon"
                           >
                             <styled.div
                               height={40}
@@ -81,7 +81,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   hidden={true}
                                   onError={[Function]}
                                   onLoad={[Function]}
-                                  src="/api/catalog/v1.2/portfolio_items/1/icon"
+                                  src="/api/catalog/v1.3/portfolio_items/1/icon"
                                   threshold={2000}
                                 >
                                   <t
@@ -96,7 +96,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     onError={[Function]}
                                     onLoad={[Function]}
                                     placeholderSrc={null}
-                                    src="/api/catalog/v1.2/portfolio_items/1/icon"
+                                    src="/api/catalog/v1.3/portfolio_items/1/icon"
                                     threshold={2000}
                                     useIntersectionObserver={true}
                                     visibleByDefault={false}
@@ -119,7 +119,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                         hidden={true}
                                         onError={[Function]}
                                         onLoad={[Function]}
-                                        src="/api/catalog/v1.2/portfolio_items/1/icon"
+                                        src="/api/catalog/v1.3/portfolio_items/1/icon"
                                       />
                                     </t>
                                   </t>
