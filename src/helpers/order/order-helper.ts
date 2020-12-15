@@ -199,9 +199,7 @@ export const getOrderDetail = (
         throw error;
       }),
     axiosInstance
-      .get(
-        `${CATALOG_API_BASE}/order_items/${params['order-item']}/progress_messages`
-      )
+      .get(`${CATALOG_API_BASE}/orders/${params.order}/progress_messages`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {};

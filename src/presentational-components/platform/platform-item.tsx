@@ -20,7 +20,7 @@ export interface PlatformItemProps {
   onToggleItemSelect: (value: any) => void;
 }
 const PlatformItem: React.ComponentType<PlatformItemProps> = (props) => (
-  <StyledCard key={props.id}>
+  <StyledCard key={props.id} ouiaId={`platform-item${props.id}`}>
     <CardHeader>
       <StyledLevel>
         <CardIcon height={40} sourceId={props.source_id} />

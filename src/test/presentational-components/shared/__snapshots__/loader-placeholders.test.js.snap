@@ -484,6 +484,7 @@ exports[`Loader placeholders should render <ListLoader /> correctly 1`] = `
   aria-label="list-loader"
   aria-labelledby="datalist-placeholder"
   className=""
+  gridBreakpoint="md"
   isCompact={false}
   selectedDataListItemId=""
   wrapModifier={null}

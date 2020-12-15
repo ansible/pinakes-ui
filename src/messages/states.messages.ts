@@ -58,15 +58,19 @@ const statesMessages = defineMessages({
   notified: {
     id: 'common.states.notified',
     defaultMessage: 'Notified'
+  },
+  unknown: {
+    id: 'common.states.unknown',
+    defaultMessage: 'Unknown'
   }
 });
 
 export const getTranslatableState = (
   state: string
 ): keyof typeof statesMessages =>
-  state
-    .replace(/\s/g, '')
-    .replace(/^./, (char) => char.toLowerCase()) as keyof typeof statesMessages;
+  (state
+    ? state.replace(/\s/g, '').replace(/^./, (char) => char.toLowerCase())
+    : 'unknown') as keyof typeof statesMessages;
 
 /**
  * We must include the created state so the dynamic data from DB can look for these messages in one place

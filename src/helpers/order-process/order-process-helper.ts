@@ -8,19 +8,27 @@ import {
 import {
   ApiCollectionResponse,
   ApiMetadata,
-  SelectOptions
+  SelectOptions,
+  SortBy
 } from '../../types/common-types';
 import { AxiosResponse } from 'axios';
 const axiosInstance = getAxiosInstance();
 const orderProcessApi = getOrderProcessApi();
 
+const sortPropertiesMapper = (property: string): string => property;
+
 export const listOrderProcesses = (
   filter = '',
+  sortBy?: SortBy,
   { limit, offset }: ApiMetadata = defaultSettings
-): Promise<ApiCollectionResponse<OrderProcess>> =>
-  axiosInstance.get(
-    `${CATALOG_API_BASE}/order_processes?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}`
+): Promise<ApiCollectionResponse<OrderProcess>> => {
+  const sortQuery = sortBy
+    ? `&sort_by=${sortPropertiesMapper(sortBy.property)}:${sortBy.direction}`
+    : '';
+  return axiosInstance.get(
+    `${CATALOG_API_BASE}/order_processes?filter[name][contains_i]=${filter}&limit=${limit}&offset=${offset}${sortQuery}`
   );
+};
 
 export const loadProductOptions = (
   filterValue = ''

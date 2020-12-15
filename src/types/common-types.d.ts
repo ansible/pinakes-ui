@@ -7,6 +7,7 @@ import {
 import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
+import { SortByDirection } from '@patternfly/react-table';
 
 export interface StringObject {
   [key: string]: string;
@@ -90,6 +91,7 @@ export interface UserCapabilities {
 
 export interface PortfolioStatistics {
   shared_groups?: number;
+  approval_processes?: number;
   portfolio_items?: number;
 }
 
@@ -138,3 +140,9 @@ export interface FormApi {
 }
 
 export type ValueOf<T> = T[keyof T];
+
+export interface SortBy {
+  index: number;
+  property: string;
+  direction: SortByDirection;
+}

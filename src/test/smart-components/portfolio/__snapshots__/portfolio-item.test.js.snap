@@ -25,15 +25,19 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
         <div
           className="sc-fznKkj cHdoJl"
         >
-          <Styled(Card)>
+          <Styled(Card)
+            ouiaId="portfolio-item-1"
+          >
             <Card
               className="sc-fznyAO jPogVH"
+              ouiaId="portfolio-item-1"
             >
               <article
                 className="pf-c-card sc-fznyAO jPogVH"
-                data-ouia-component-id="OUIA-Generated-Card-1"
+                data-ouia-component-id="portfolio-item-1"
                 data-ouia-component-type="PF4/Card"
                 data-ouia-safe={true}
+                id=""
               >
                 <CardHeader>
                   <div
@@ -47,7 +51,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                           className="pf-l-level sc-fznZeY dhizEt"
                         >
                           <CardIcon
-                            src="/api/catalog/v1.2/portfolio_items/1/icon"
+                            src="/api/catalog/v1.3/portfolio_items/1/icon"
                           >
                             <styled.div
                               height={40}
@@ -77,7 +81,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                   hidden={true}
                                   onError={[Function]}
                                   onLoad={[Function]}
-                                  src="/api/catalog/v1.2/portfolio_items/1/icon"
+                                  src="/api/catalog/v1.3/portfolio_items/1/icon"
                                   threshold={2000}
                                 >
                                   <t
@@ -92,7 +96,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                     onError={[Function]}
                                     onLoad={[Function]}
                                     placeholderSrc={null}
-                                    src="/api/catalog/v1.2/portfolio_items/1/icon"
+                                    src="/api/catalog/v1.3/portfolio_items/1/icon"
                                     threshold={2000}
                                     useIntersectionObserver={true}
                                     visibleByDefault={false}
@@ -115,7 +119,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                         hidden={true}
                                         onError={[Function]}
                                         onLoad={[Function]}
-                                        src="/api/catalog/v1.2/portfolio_items/1/icon"
+                                        src="/api/catalog/v1.3/portfolio_items/1/icon"
                                       />
                                     </t>
                                   </t>

@@ -32,7 +32,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
 }) => {
   return (
     <GalleryItem>
-      <StyledCard key={id}>
+      <StyledCard key={id} ouiaId={`platform-${id}`}>
         <CardHeader>
           <CardIcon height={40} sourceId={id} />
         </CardHeader>

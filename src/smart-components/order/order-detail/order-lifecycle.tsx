@@ -18,6 +18,7 @@ import useFormatMessage from '../../../utilities/use-format-message';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import { CatalogRootState } from '../../../types/redux';
 import ReactJsonView from 'react-json-view';
+import { stateToDisplay } from '../../../helpers/shared/helpers';
 
 const OrderLifecycle: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
@@ -27,7 +28,7 @@ const OrderLifecycle: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail || {}
   );
   const { order, orderItem } = orderDetailData;
-  if (order.state !== 'Completed' && order.state !== 'Ordered') {
+  if (stateToDisplay(order.state)) {
     return (
       <Redirect
         to={{
@@ -55,7 +56,7 @@ const OrderLifecycle: React.ComponentType = () => {
           </CardBody>
         </Card>
       </StackItem>
-      {orderItem?.artifacts && (
+      {orderItem?.artifacts && Object.keys(orderItem.artifacts)?.length > 0 && (
         <StackItem>
           <Card>
             <CardBody>

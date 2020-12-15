@@ -34,7 +34,7 @@ const OrderDetailInformation: React.ComponentType<OrderDetailInformationProps> =
           height={60}
           src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon`}
         />
-        <Title headingLevel="h2" size="3xl">
+        <Title headingLevel="h2" size="lg">
           <CatalogLink
             pathname="/portfolio/portfolio-item"
             searchParams={{
