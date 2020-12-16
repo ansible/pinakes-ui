@@ -8,7 +8,7 @@
     "@data-driven-forms/react-form-renderer": "^2.9.0",
     "@patternfly/react-core": "^4.79.2",
     "@patternfly/react-icons": "^4.7.18",
-    "@patternfly/react-styles": "^4.7.16",
+    "@patternfly/react-styles": "^4.7.22",
     "@patternfly/react-table": "^4.19.24",
     "@redhat-cloud-services/approval-client": "^1.0.74",
     "@redhat-cloud-services/catalog-client": "^1.0.85",
