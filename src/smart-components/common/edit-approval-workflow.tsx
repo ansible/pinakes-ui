@@ -23,6 +23,7 @@ export interface EditApprovalWorkflowProps {
   removeSearch?: boolean;
   querySelector: 'portfolio' | 'platform' | 'inventory' | 'portfolio-item';
   keepHash?: boolean;
+  postMethod?: () => any;
   onClose?: () => any;
 }
 const EditApprovalWorkflow: React.ComponentType<EditApprovalWorkflowProps> = ({
@@ -32,6 +33,7 @@ const EditApprovalWorkflow: React.ComponentType<EditApprovalWorkflowProps> = ({
   querySelector,
   pushParam,
   objectName = () => objectType,
+  postMethod,
   onClose
 }) => {
   const formatMessage = useFormatMessage();
@@ -54,13 +56,22 @@ const EditApprovalWorkflow: React.ComponentType<EditApprovalWorkflowProps> = ({
 
   const onSubmit = (toLink: string[], toUnlink: string[]) => {
     close();
-    dispatch(
-      updateWorkflows(toLink, toUnlink, {
-        object_type: objectType,
-        app_name: APP_NAME[objectType],
-        object_id: query[querySelector]
-      })
+    const promise = new Promise((resolve) =>
+      resolve(
+        dispatch(
+          updateWorkflows(toLink, toUnlink, {
+            object_type: objectType,
+            app_name: APP_NAME[objectType],
+            object_id: query[querySelector]
+          })
+        )
+      )
     );
+    promise.then(() => {
+      if (postMethod) {
+        dispatch(postMethod());
+      }
+    });
   };
 
   return (
