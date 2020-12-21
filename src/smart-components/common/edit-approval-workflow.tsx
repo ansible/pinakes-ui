@@ -56,18 +56,14 @@ const EditApprovalWorkflow: React.ComponentType<EditApprovalWorkflowProps> = ({
 
   const onSubmit = (toLink: string[], toUnlink: string[]) => {
     close();
-    const promise = new Promise((resolve) =>
-      resolve(
-        dispatch(
-          updateWorkflows(toLink, toUnlink, {
-            object_type: objectType,
-            app_name: APP_NAME[objectType],
-            object_id: query[querySelector]
-          })
-        )
-      )
+    const t = dispatch(
+      updateWorkflows(toLink, toUnlink, {
+        object_type: objectType,
+        app_name: APP_NAME[objectType],
+        object_id: query[querySelector]
+      })
     );
-    promise.then(() => {
+    ((t as unknown) as Promise<any>).then(() => {
       if (postMethod) {
         dispatch(postMethod());
       }
