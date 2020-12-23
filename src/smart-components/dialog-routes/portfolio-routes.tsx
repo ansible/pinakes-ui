@@ -23,7 +23,8 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { PORTFOLIO_RESOURCE_TYPE } from '../../utilities/constants';
 import {
   setOrFetchPortfolio,
-  resetSelectedPortfolio
+  resetSelectedPortfolio,
+  fetchPortfolios
 } from '../../redux/actions/portfolio-actions';
 import SetOrderProcessModal from '../order-process/set-order-process-modal';
 import { CatalogRootState } from '../../types/redux';
@@ -166,6 +167,7 @@ const PortfolioRoutes: React.ComponentType = () => {
             querySelector="portfolio"
             removeSearch
             keepHash
+            postMethod={fetchPortfolios}
             onClose={() => dispatch(resetSelectedPortfolio())}
           />
         </Route>

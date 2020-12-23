@@ -28,6 +28,8 @@ import {
   Full
 } from '../../types/common-types';
 import { Schema } from '@data-driven-forms/react-form-renderer';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 export interface OrderModalProps {
   closeUrl: string;
@@ -43,6 +45,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     CatalogRootState,
     { portfolioItem: PortfolioItem }
   >(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
+  const formatMessage = useFormatMessage();
 
   const servicePlans = useSelector<CatalogRootState, Full<ServicePlan[]>>(
     ({ orderReducer: { servicePlans } }) => servicePlans
@@ -116,6 +119,9 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
           )}
           onSubmit={onSubmit}
           onCancel={handleClose}
+          templateProps={{
+            submitLabel: formatMessage(labelMessages.confirm)
+          }}
         />
       )}
     </Modal>
