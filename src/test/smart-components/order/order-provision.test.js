@@ -140,7 +140,7 @@ describe('<Orders />', () => {
       .onGet(`${CATALOG_API_BASE}/portfolio_items?`)
       .replyOnce(200, { data: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items?`)
+      .onGet(`${CATALOG_API_BASE}/order_items?limit=50`)
       .replyOnce(200, { data: [] });
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {

@@ -153,7 +153,7 @@ const OrdersList: React.ComponentType = () => {
   const columns: ICell[] = [
     { title: formatMessage(ordersMessages.orderID) },
     formatMessage(labelMessages.product),
-    '', // need empty row column to correctly aling product names after the icon column
+    '', // need empty row column to correctly align product names after the icon column
     {
       title: formatMessage(ordersMessages.orderedByLabel)
     },

@@ -94,7 +94,7 @@ describe('Order helper', () => {
       );
       expect(getSpy).toHaveBeenNthCalledWith(
         2,
-        `${CATALOG_API_BASE}/order_items?filter[order_id][]=order-id`
+        `${CATALOG_API_BASE}/order_items?limit=3&filter[order_id][]=order-id`
       );
       expect(getSpy).toHaveBeenNthCalledWith(
         3,
