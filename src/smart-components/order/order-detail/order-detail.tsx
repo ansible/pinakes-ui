@@ -1,12 +1,13 @@
 import React, { useEffect, useState, Fragment, Suspense, lazy } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   Level,
   LevelItem,
   Stack,
   StackItem,
   Bullseye,
-  Alert
+  Alert,
+  Button
 } from '@patternfly/react-core';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
 import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon';
@@ -28,7 +29,13 @@ import useFormatMessage from '../../../utilities/use-format-message';
 import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail as OrderDetailType } from '../../../redux/reducers/order-reducer';
 import { GetOrderDetailParams } from '../../../helpers/order/order-helper';
-import { ORDER_ROUTE } from '../../../constants/routes';
+import {
+  ORDER_ROUTE,
+  PORTFOLIO_ITEM_ORDER_ROUTE
+} from '../../../constants/routes';
+import labelMessages from '../../../messages/labels.messages';
+import { useIntl } from 'react-intl';
+import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -58,6 +65,8 @@ const OrderDetail: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const dispatch = useDispatch();
+  const intl = useIntl();
+  const history = useEnhancedHistory();
 
   const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
@@ -106,6 +115,13 @@ const OrderDetail: React.ComponentType = () => {
 
   const unavailableMessages = unAvailable();
 
+  const onReorder = () => {
+    history.push({
+      pathname: PORTFOLIO_ITEM_ORDER_ROUTE,
+      search: `?portfolio=${portfolio.id}&portfolio-item=${portfolioItem.id}&source=${platform.id}`
+    });
+  };
+
   return (
     <Stack>
       <StackItem className="pf-u-p-lg global-primary-background">
@@ -130,6 +146,19 @@ const OrderDetail: React.ComponentType = () => {
                 <Fragment>
                   <LevelItem>
                     <OrderDetailTitle orderId={order.id} />
+                  </LevelItem>
+                  <LevelItem>
+                    <Button
+                      id="reorder"
+                      ouiaId="reorder"
+                      key="submit-reorder"
+                      variant="primary"
+                      type="button"
+                      isDisabled={false}
+                      onClick={onReorder}
+                    >
+                      {intl.formatMessage(labelMessages.reorder)}
+                    </Button>
                   </LevelItem>
                   <LevelItem>
                     <OrderToolbarActions
