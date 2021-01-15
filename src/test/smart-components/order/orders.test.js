@@ -49,7 +49,8 @@ describe('<Orders />', () => {
       portfolioItem: {
         name: 'Portfolio item name',
         id: 'portfolio-item-id',
-        updated_at: createDate.toString()
+        updated_at: createDate.toString(),
+        metadata: { orderable: true }
       },
       order: {
         id: '123',
