@@ -165,6 +165,9 @@ const OrderDetail: React.ComponentType = () => {
                       portfolioItemName={portfolioItem.name}
                       orderId={order.id}
                       state={order.state}
+                      portfolioItemId={portfolioItem.id}
+                      portfolioId={portfolio.id}
+                      sourceId={platform.id}
                     />
                   </LevelItem>
                 </Fragment>

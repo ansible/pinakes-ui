@@ -7,24 +7,43 @@ import { cancelOrder } from '../../../redux/actions/order-actions';
 import CancelOrderModal from '../cancel-order-modal';
 import ordersMessages from '../../../messages/orders.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { PORTFOLIO_ITEM_ORDER_ROUTE } from '../../../constants/routes';
+import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 
 const CANCELABLE_STATES = ['Approval Pending'];
+const ORDERABLE_STATES = ['Completed'];
 
 const canCancel = (state = '') => CANCELABLE_STATES.includes(state);
+const canReorder = (state = '') => ORDERABLE_STATES.includes(state);
 
 export interface OrderToolbarActions {
   state?: string;
   orderId: string;
   portfolioItemName: string;
+  portfolioItemId: string;
+  portfolioId: string;
+  sourceId: string;
 }
 const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
   state,
   orderId,
-  portfolioItemName
+  portfolioItemName,
+  portfolioItemId,
+  portfolioId,
+  sourceId
 }) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const history = useEnhancedHistory();
+
+  const onReorder = (portfolioId: string, portfolioItemId: string, sourceId: string) => {
+    history.push({
+      pathname: PORTFOLIO_ITEM_ORDER_ROUTE,
+      search: `?portfolio=${portfolioId}&portfolio-item=${portfolioItemId}&source=${sourceId}`
+    });
+  };
+
   return (
     <Fragment>
       <CancelOrderModal
@@ -47,6 +66,18 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
             ouiaId="cancel-order-action"
           >
             {formatMessage(ordersMessages.cancelOrder)}
+          </Button>
+        )}
+        {canReorder(state) && (
+          <Button
+            onClick={() => onReorder(portfolioId, portfolioItemId, sourceId)}
+            isDisabled={!canReorder(state)}
+            type="button"
+            className="pf-u-mr-md"
+            id="cancel-order-action"
+            ouiaId="cancel-order-action"
+          >
+            {formatMessage(ordersMessages.reOrder)}
           </Button>
         )}
       </ActionGroup>
