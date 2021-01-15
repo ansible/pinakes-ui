@@ -45,10 +45,6 @@ const labelMessages = defineMessages({
     id: 'common.labels.create',
     defaultMessage: 'Create'
   },
-  reorder: {
-    id: 'common.labels.reorder',
-    defaultMessage: 'Reorder'
-  },
   owner: {
     id: 'common.labels.owner',
     defaultMessage: 'Owner'
