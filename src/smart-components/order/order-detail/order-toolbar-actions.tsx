@@ -37,7 +37,11 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const history = useEnhancedHistory();
 
-  const onReorder = (portfolioId: string, portfolioItemId: string, sourceId: string) => {
+  const onReorder = (
+    portfolioId: string,
+    portfolioItemId: string,
+    sourceId: string
+  ) => {
     history.push({
       pathname: PORTFOLIO_ITEM_ORDER_ROUTE,
       search: `?portfolio=${portfolioId}&portfolio-item=${portfolioItemId}&source=${sourceId}`
