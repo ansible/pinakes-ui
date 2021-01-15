@@ -87,6 +87,7 @@ export interface UserCapabilities {
   update?: boolean;
   destroy?: boolean;
   set_approval?: boolean;
+  orderable?: boolean;
 }
 
 export interface PortfolioStatistics {

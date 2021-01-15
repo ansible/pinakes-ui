@@ -58,7 +58,6 @@ const OrderDetail: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const dispatch = useDispatch();
-
   const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
     window.insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
@@ -139,6 +138,10 @@ const OrderDetail: React.ComponentType = () => {
                       portfolioItemId={portfolioItem.id}
                       portfolioId={portfolio.id}
                       sourceId={platform.id}
+                      orderable={
+                        portfolioItem.metadata?.user_capabilities?.orderable ||
+                        false
+                      }
                     />
                   </LevelItem>
                 </Fragment>

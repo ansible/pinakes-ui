@@ -14,7 +14,6 @@ const CANCELABLE_STATES = ['Approval Pending'];
 const ORDERABLE_STATES = ['Completed'];
 
 const canCancel = (state = '') => CANCELABLE_STATES.includes(state);
-const canReorder = (state = '') => ORDERABLE_STATES.includes(state);
 
 export interface OrderToolbarActions {
   state?: string;
@@ -23,6 +22,7 @@ export interface OrderToolbarActions {
   portfolioItemId: string;
   portfolioId: string;
   sourceId: string;
+  orderable: boolean;
 }
 const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
   state,
@@ -30,12 +30,15 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
   portfolioItemName,
   portfolioItemId,
   portfolioId,
-  sourceId
+  sourceId,
+  orderable = false
 }) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const history = useEnhancedHistory();
+  const canReorder = () =>
+    orderable && state && ORDERABLE_STATES.includes(state);
 
   const onReorder = (
     portfolioId: string,
@@ -72,10 +75,10 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
             {formatMessage(ordersMessages.cancelOrder)}
           </Button>
         )}
-        {canReorder(state) && (
+        {canReorder() && (
           <Button
             onClick={() => onReorder(portfolioId, portfolioItemId, sourceId)}
-            isDisabled={!canReorder(state)}
+            isDisabled={!canReorder()}
             type="button"
             className="pf-u-mr-md"
             id="reorder-order-action"
