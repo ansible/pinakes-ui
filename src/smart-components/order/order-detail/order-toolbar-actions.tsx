@@ -78,7 +78,7 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
             isDisabled={!canReorder(state)}
             type="button"
             className="pf-u-mr-md"
-            id="cancel-order-action"
+            id="reorder-order-action"
             ouiaId="cancel-order-action"
           >
             {formatMessage(ordersMessages.reOrder)}

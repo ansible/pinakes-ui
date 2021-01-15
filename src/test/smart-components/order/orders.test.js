@@ -371,6 +371,57 @@ describe('<Orders />', () => {
     done();
   });
 
+  it('should mount and render the reorder button with the order modal link', async (done) => {
+    const enabledReorder = { ...orderReducer };
+    enabledReorder.orderDetail.order.state = 'Completed';
+    const store = mockStore({
+      ...initialState,
+      orderReducer: { ...orderInitialState, ...enabledReorder }
+    });
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders/123`)
+      .replyOnce(200, { data: [{ id: 123 }] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
+      .replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+          ]}
+        >
+          <Route path="/order">
+            <OrderDetail />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+    expect(
+      wrapper.find('button#reorder-order-action').props().initialEntries[0]
+    ).toEqual(
+      '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+    );
+    done();
+  });
+
   it('should mount and render order detail component with warnings about unavaiable resources', async (done) => {
     const store = mockStore({
       ...initialState,
