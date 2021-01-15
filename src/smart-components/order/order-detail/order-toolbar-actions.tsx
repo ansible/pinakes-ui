@@ -79,7 +79,7 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
             type="button"
             className="pf-u-mr-md"
             id="reorder-order-action"
-            ouiaId="cancel-order-action"
+            ouiaId="reorder-order-action"
           >
             {formatMessage(ordersMessages.reOrder)}
           </Button>

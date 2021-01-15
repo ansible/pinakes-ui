@@ -63,7 +63,8 @@ describe('<Orders />', () => {
         name: 'Super platform'
       },
       portfolio: {
-        name: 'Portfolio name'
+        name: 'Portfolio name',
+        id: 'portfolio-id'
       },
       orderItem: {
         updated_at: createDate.toString(),
@@ -351,7 +352,7 @@ describe('<Orders />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+            '/order?order=123&order-item=order-item-id&&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
           ]}
         >
           <Route path="/order">
@@ -387,7 +388,7 @@ describe('<Orders />', () => {
       .replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, {});
+      .replyOnce(200, { data: { id: 'portfolio-id' } });
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -414,10 +415,17 @@ describe('<Orders />', () => {
       );
     });
     wrapper.update();
+    expect(wrapper.find('button#reorder-order-action')).toHaveLength(1);
+    wrapper.find('button#reorder-order-action').simulate('click');
+    wrapper.update();
+    wrapper.update();
     expect(
-      wrapper.find('button#reorder-order-action').props().initialEntries[0]
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/portfolio/portfolio-item/order');
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual(
-      '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+      '?portfolio=portfolio-id&portfolio-item=portfolio-item-id&source=123'
     );
     done();
   });
