@@ -104,7 +104,7 @@ const OrderDetail: React.ComponentType = () => {
   };
 
   const unavailableMessages = unAvailable();
-
+  console.log('Debug - order detaild portfolio Item: ', portfolioItem);
   return (
     <Stack>
       <StackItem className="pf-u-p-lg global-primary-background">
@@ -138,10 +138,7 @@ const OrderDetail: React.ComponentType = () => {
                       portfolioItemId={portfolioItem.id}
                       portfolioId={portfolio.id}
                       sourceId={platform.id}
-                      orderable={
-                        portfolioItem.metadata?.user_capabilities?.orderable ||
-                        false
-                      }
+                      orderable={portfolioItem.metadata?.orderable || false}
                     />
                   </LevelItem>
                 </Fragment>

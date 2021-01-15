@@ -87,7 +87,6 @@ export interface UserCapabilities {
   update?: boolean;
   destroy?: boolean;
   set_approval?: boolean;
-  orderable?: boolean;
 }
 
 export interface PortfolioStatistics {
@@ -131,6 +130,7 @@ export interface InternalPortfolio extends Portfolio {
 export interface InternalPortfolioItem extends PortfolioItem {
   metadata: {
     user_capabilities?: UserCapabilities;
+    orderable?: boolean;
   };
 }
 export interface FormApi {
