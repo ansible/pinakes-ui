@@ -104,7 +104,6 @@ const OrderDetail: React.ComponentType = () => {
   };
 
   const unavailableMessages = unAvailable();
-  console.log('Debug - order detaild portfolio Item: ', portfolioItem);
   return (
     <Stack>
       <StackItem className="pf-u-p-lg global-primary-background">
