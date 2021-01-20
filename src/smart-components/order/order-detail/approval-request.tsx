@@ -90,7 +90,7 @@ const ApprovalRequests: React.ComponentType = () => {
   );
 
   useEffect(() => {
-    if (order.state !== 'Failed' && orderItem?.id && isEmpty(approvalRequest)) {
+    if (orderItem?.id && isEmpty(approvalRequest)) {
       checkRequest(() =>
         dispatch(
           (fetchApprovalRequests(orderItem.id!) as unknown) as Promise<
