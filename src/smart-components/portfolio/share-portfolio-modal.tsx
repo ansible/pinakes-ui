@@ -27,7 +27,7 @@ import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import portfolioMessages from '../../messages/portfolio.messages';
-import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes';
+import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/actionTypes';
 import filteringMessages from '../../messages/filtering.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import sharePorfolioMessage, {

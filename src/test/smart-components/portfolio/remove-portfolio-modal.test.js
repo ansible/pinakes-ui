@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import {
-  notificationsMiddleware,
+import notificationsMiddleware, {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
 } from '@redhat-cloud-services/frontend-components-notifications/';

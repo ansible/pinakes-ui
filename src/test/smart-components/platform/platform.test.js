@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import Platform from '../../../smart-components/platform/platform';

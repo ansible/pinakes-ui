@@ -8,7 +8,7 @@ import {
 } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/actions';
 import styled from 'styled-components';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import useFormatMessage from '../../../utilities/use-format-message';

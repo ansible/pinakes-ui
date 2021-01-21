@@ -4,8 +4,7 @@ import { mount } from 'enzyme';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
-import {
-  notificationsMiddleware,
+import notificationsMiddleware, {
   ADD_NOTIFICATION
 } from '@redhat-cloud-services/frontend-components-notifications/';
 import { Provider } from 'react-redux';

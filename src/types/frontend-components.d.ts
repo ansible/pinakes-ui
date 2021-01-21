@@ -106,46 +106,6 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
   export default ReducerRegistry;
 }
 
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actions' {
-  export type AddNotification = (
-    notification: NotificationConfig
-  ) => {
-    type: string;
-  };
-  export const addNotification: AddNotification;
-  export const clearNotifications: () => { type: string };
-  export default clearNotifications;
-}
-declare module '@redhat-cloud-services/frontend-components-notifications/notifications' {
-  export function notifications<T>(): ReducerHandler<T>;
-  export default notifications;
-}
-
-declare module '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware' {
-  export interface NotificationsMiddlewareOptions {
-    dispatchDefaultFailure?: boolean;
-    pendingSuffix?: string;
-    fulfilledSuffix?: string;
-    rejectedSuffix?: string;
-    autoDismiss?: boolean;
-    dismissDelay?: number;
-    errorTitleKey?: string[];
-    errorDescriptionKey?: string[];
-    useStatusText?: false;
-  }
-
-  type NotificationMiddleware = (
-    store: InternalAnyObject
-  ) => (
-    next: InternalDispatch<any>
-  ) => (action: InternalAction) => InternalAction;
-  export const createNotificationsMiddleware: (
-    options: NotificationsMiddlewareOptions
-  ) => NotificationMiddleware;
-
-  export default createNotificationsMiddleware;
-}
-
 declare module '@redhat-cloud-services/frontend-components/components/cjs/Section' {
   export const Section: React.ComponentType<any>;
 }
@@ -271,12 +231,6 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
     };
   }
   export const PrimaryToolbar: React.ComponentType<PrimaryToolbarProps>;
-}
-
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes' {
-  const notificationsPrefix = '@@INSIGHTS-CORE/NOTIFICATIONS/';
-  export const ADD_NOTIFICATION = `${notificationsPrefix}ADD_NOTIFICATION`;
-  export const CLEAR_NOTIFICATIONS = `${notificationsPrefix}CLEAR_NOTIFICATIONS`;
 }
 
 declare module '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar' {

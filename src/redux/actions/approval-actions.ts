@@ -7,7 +7,7 @@ import {
 import { ASYNC_ACTIONS } from '../action-types/approval-action-types';
 import * as ApprovalHelper from '../../helpers/approval/approval-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/actions';
 import extractFormatMessage from '../../utilities/extract-format-message';
 import approvalMessages from '../../messages/approval.messages';
 import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';

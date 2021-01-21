@@ -15,7 +15,7 @@ import {
   CATALOG_API_BASE,
   SOURCES_API_BASE
 } from '../../../utilities/constants';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/';
 import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
 import OrdersList from '../../../smart-components/order/orders-list';
 import OrderDetail from '../../../smart-components/order/order-detail/order-detail';

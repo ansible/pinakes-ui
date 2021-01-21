@@ -6,7 +6,7 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications';
 import RemoveOrderProcessModal from '../../../smart-components/order-process/remove-order-process-modal';
 import { Modal, Text, Title } from '@patternfly/react-core';
 import { CATALOG_API_BASE } from '../../../utilities/constants';

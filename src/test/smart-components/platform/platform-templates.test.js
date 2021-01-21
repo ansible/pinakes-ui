@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import { Route, MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/';
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import PlatformTemplates from '../../../smart-components/platform/platform-templates';
