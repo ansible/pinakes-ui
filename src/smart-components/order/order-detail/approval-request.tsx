@@ -26,32 +26,38 @@ import {
   TableBody,
   sortable,
   SortByDirection,
-  ISortBy
+  ISortBy,
+  TableText
 } from '@patternfly/react-table';
 
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
 import ordersMessages from '../../../messages/orders.messages';
-import statesMessages from '../../../messages/states.messages';
+import statesMessages, {
+  getTranslatableState
+} from '../../../messages/states.messages';
 import labelMessages from '../../../messages/labels.messages';
-import { CheckCircleIcon } from '@patternfly/react-icons';
 import useFormatMessage from '../../../utilities/use-format-message';
 import {
   AnyObject,
   ApiCollectionResponse,
   StringObject
 } from '../../../types/common-types';
-import { ApprovalRequest } from '@redhat-cloud-services/catalog-client';
+import {
+  ApprovalRequest,
+  OrderItemStateEnum
+} from '@redhat-cloud-services/catalog-client';
 import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
+import orderStatusMapper from '../order-status-mapper';
 
 /**
  * We are using type conversion of **request as StringObject** becuase the generated client does not have correct states listed
  * Probably a discrepency inside the OpenAPI spec
  */
 
-const rowOrder = ['updated', 'group_name', 'state'];
+const rowOrder = ['updated', 'group_name', 'decision'];
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -127,30 +133,43 @@ const ApprovalRequests: React.ComponentType = () => {
   const columns = [
     { title: 'Updated', transforms: [sortable] },
     { title: 'Name', transforms: [sortable] },
-    'Status'
+    'Decision'
   ];
 
   const rows =
     approvalRequest?.data
       .map((request) =>
         rowOrder.map((key) => {
-          if (key === 'state') {
+          if (key === 'decision') {
             return (
-              <Fragment>
-                {(request as StringObject)[key] === 'completed' && (
-                  <Fragment>
-                    <CheckCircleIcon color="var(--pf-global--success-color--100)" />
-                    &nbsp;
-                  </Fragment>
-                )}
-                {formatMessage(
-                  statesMessages[
-                    (request as StringObject)[
-                      key
-                    ] as keyof typeof statesMessages
-                  ]
-                )}
-              </Fragment>
+              <TableText>
+                <TextContent
+                  style={{
+                    color:
+                      orderStatusMapper[
+                        (request as StringObject)[
+                          key
+                        ] as keyof typeof orderStatusMapper
+                      ].color
+                  }}
+                >
+                  {
+                    orderStatusMapper[
+                      (request as StringObject)[
+                        key
+                      ] as keyof typeof orderStatusMapper
+                    ].icon
+                  }
+                  &nbsp;
+                  {formatMessage(
+                    statesMessages[
+                      getTranslatableState(
+                        (request as StringObject)[key] as OrderItemStateEnum
+                      )
+                    ]
+                  )}
+                </TextContent>
+              </TableText>
             );
           }
 

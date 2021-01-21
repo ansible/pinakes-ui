@@ -209,7 +209,7 @@ export const fetchApprovalRequests = (orderItemId: string) => (
   | {
       data: {
         group_name: string;
-        state: string;
+        decision: string;
         updated?: string | undefined;
       }[];
     }
