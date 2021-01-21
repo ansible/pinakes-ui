@@ -13,7 +13,7 @@ import { APP_NAME } from '../../utilities/constants';
 import useQuery from '../../utilities/use-query';
 import TaggingModal, { Tag } from '../common/tagging-modal';
 import { Bold } from '../../presentational-components/shared/intl-rich-text-components';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/actions';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { CatalogLinkTo } from '../common/catalog-link';
 import { SelectOptions } from '../../types/common-types';
 

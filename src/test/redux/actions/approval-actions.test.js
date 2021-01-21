@@ -4,7 +4,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import { fetchWorkflows } from '../../../redux/actions/approval-actions';
 import { ASYNC_ACTIONS } from '../../../redux/action-types/approval-action-types';
-import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('approval actions', () => {

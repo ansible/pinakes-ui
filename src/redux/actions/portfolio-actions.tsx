@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
-} from '@redhat-cloud-services/frontend-components-notifications/actionTypes';
+} from '@redhat-cloud-services/frontend-components-notifications/redux';
 
 import * as ActionTypes from '../action-types';
 import * as PortfolioHelper from '../../helpers/portfolio/portfolio-helper';

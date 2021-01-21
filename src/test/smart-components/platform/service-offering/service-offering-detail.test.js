@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter, Route } from 'react-router-dom';
 import thunk from 'redux-thunk';
-import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import ReactJsonView from 'react-json-view';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';

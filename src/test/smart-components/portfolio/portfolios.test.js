@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
@@ -22,7 +22,7 @@ import UserContext from '../../../user-context';
 describe('<Portfolios />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware];
   let mockStore;
 
   const ComponentWrapper = ({

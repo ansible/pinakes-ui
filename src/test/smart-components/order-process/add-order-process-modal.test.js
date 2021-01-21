@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import AddOrderProcessModal from '../../../smart-components/order-process/add-order-process-modal';
 import { Button } from '@patternfly/react-core';
 import { ORDER_PROCESSES_ROUTE } from '../../../constants/routes';
