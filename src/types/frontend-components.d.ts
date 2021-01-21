@@ -116,12 +116,12 @@ declare module '@redhat-cloud-services/frontend-components-notifications/cjs/act
   export const clearNotifications: () => { type: string };
   export default clearNotifications;
 }
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/notifications' {
+declare module '@redhat-cloud-services/frontend-components-notifications/notifications' {
   export function notifications<T>(): ReducerHandler<T>;
   export default notifications;
 }
 
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/notificationsMiddleware' {
+declare module '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware' {
   export interface NotificationsMiddlewareOptions {
     dispatchDefaultFailure?: boolean;
     pendingSuffix?: string;
