@@ -4,7 +4,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware, {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
-} from '@redhat-cloud-services/frontend-components-notifications/';
+} from '@redhat-cloud-services/frontend-components-notifications';
 import {
   FETCH_PORTFOLIOS,
   FETCH_PORTFOLIO_ITEMS,

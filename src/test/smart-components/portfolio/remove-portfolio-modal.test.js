@@ -9,7 +9,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware, {
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
-} from '@redhat-cloud-services/frontend-components-notifications/';
+} from '@redhat-cloud-services/frontend-components-notifications';
 
 import RemovePortfolioModal from '../../../smart-components/portfolio/remove-portfolio-modal';
 import { CATALOG_API_BASE } from '../../../utilities/constants';

@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware, {
   ADD_NOTIFICATION
-} from '@redhat-cloud-services/frontend-components-notifications/';
+} from '@redhat-cloud-services/frontend-components-notifications';
 import {
   FETCH_PLATFORM,
   FETCH_PLATFORMS,

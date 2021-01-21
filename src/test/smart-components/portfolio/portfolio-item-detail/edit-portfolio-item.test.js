@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware, {
   ADD_NOTIFICATION
-} from '@redhat-cloud-services/frontend-components-notifications/';
+} from '@redhat-cloud-services/frontend-components-notifications';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-item-detail/edit-portfolio-item';

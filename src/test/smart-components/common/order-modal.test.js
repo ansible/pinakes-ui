@@ -8,7 +8,7 @@ import { shallowToJson } from 'enzyme-to-json';
 import { Button } from '@patternfly/react-core';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications';
 
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import OrderModal from '../../../smart-components/common/order-modal';
