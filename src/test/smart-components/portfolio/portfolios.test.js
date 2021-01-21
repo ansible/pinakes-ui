@@ -22,7 +22,7 @@ import UserContext from '../../../user-context';
 describe('<Portfolios />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
   const ComponentWrapper = ({
