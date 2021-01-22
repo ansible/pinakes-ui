@@ -119,9 +119,9 @@ declare module '@redhat-cloud-services/frontend-components-notifications/redux' 
   export const clearNotifications: () => { type: string };
   export default clearNotifications;
 }
-declare module '@redhat-cloud-services/frontend-components-notifications/notifications' {
-  export function notifications<T>(): ReducerHandler<T>;
-  export default notifications;
+declare module '@redhat-cloud-services/frontend-components-notifications/redux' {
+  export function notificationsReducer<T>(): ReducerHandler<T>;
+  export default notificationsReducer;
 }
 
 declare module '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware' {
