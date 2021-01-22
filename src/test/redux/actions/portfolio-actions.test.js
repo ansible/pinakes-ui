@@ -2,10 +2,10 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import {
-  notificationsMiddleware,
   ADD_NOTIFICATION,
   CLEAR_NOTIFICATIONS
-} from '@redhat-cloud-services/frontend-components-notifications/';
+} from '@redhat-cloud-services/frontend-components-notifications/redux';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import {
   FETCH_PORTFOLIOS,
   FETCH_PORTFOLIO_ITEMS,

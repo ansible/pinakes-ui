@@ -106,7 +106,10 @@ declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/R
   export default ReducerRegistry;
 }
 
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actions' {
+declare module '@redhat-cloud-services/frontend-components-notifications/redux' {
+  const notificationsPrefix = '@@INSIGHTS-CORE/NOTIFICATIONS/';
+  export const ADD_NOTIFICATION = `${notificationsPrefix}ADD_NOTIFICATION`;
+  export const CLEAR_NOTIFICATIONS = `${notificationsPrefix}CLEAR_NOTIFICATIONS`;
   export type AddNotification = (
     notification: NotificationConfig
   ) => {
@@ -116,12 +119,12 @@ declare module '@redhat-cloud-services/frontend-components-notifications/cjs/act
   export const clearNotifications: () => { type: string };
   export default clearNotifications;
 }
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/notifications' {
-  export function notifications<T>(): ReducerHandler<T>;
-  export default notifications;
+declare module '@redhat-cloud-services/frontend-components-notifications/redux' {
+  export function notificationsReducer<T>(): ReducerHandler<T>;
+  export default notificationsReducer;
 }
 
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/notificationsMiddleware' {
+declare module '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware' {
   export interface NotificationsMiddlewareOptions {
     dispatchDefaultFailure?: boolean;
     pendingSuffix?: string;
@@ -271,12 +274,6 @@ declare module '@redhat-cloud-services/frontend-components/components/cjs/Primar
     };
   }
   export const PrimaryToolbar: React.ComponentType<PrimaryToolbarProps>;
-}
-
-declare module '@redhat-cloud-services/frontend-components-notifications/cjs/actionTypes' {
-  const notificationsPrefix = '@@INSIGHTS-CORE/NOTIFICATIONS/';
-  export const ADD_NOTIFICATION = `${notificationsPrefix}ADD_NOTIFICATION`;
-  export const CLEAR_NOTIFICATIONS = `${notificationsPrefix}CLEAR_NOTIFICATIONS`;
 }
 
 declare module '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar' {

@@ -20,7 +20,7 @@ import { CATALOG_API_BASE } from '../../utilities/constants';
 import { Bullseye } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { useDispatch } from 'react-redux';
-import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import {
   catalogValidatorAlias,
   catalogComponentMapper
