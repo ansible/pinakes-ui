@@ -141,23 +141,38 @@ const ApprovalRequests: React.ComponentType = () => {
       .map((request) =>
         rowOrder.map((key) => {
           if (key === 'decision') {
+            console.log('Debug - request', (request as StringObject)[key]);
+            console.log(
+              'Debug - translated',
+              statesMessages[
+                getTranslatableState((request as StringObject)[key])
+              ].defaultMessage
+            );
+            console.log(
+              'Debug - order',
+              orderStatusMapper[
+                statesMessages[
+                  getTranslatableState((request as StringObject)[key])
+                ].defaultMessage as keyof typeof orderStatusMapper
+              ]
+            );
             return (
               <TableText>
                 <TextContent
                   style={{
                     color:
                       orderStatusMapper[
-                        (request as StringObject)[
-                          key
-                        ] as keyof typeof orderStatusMapper
+                        statesMessages[
+                          getTranslatableState((request as StringObject)[key])
+                        ].defaultMessage as keyof typeof orderStatusMapper
                       ].color
                   }}
                 >
                   {
                     orderStatusMapper[
-                      (request as StringObject)[
-                        key
-                      ] as keyof typeof orderStatusMapper
+                      statesMessages[
+                        getTranslatableState((request as StringObject)[key])
+                      ].defaultMessage as keyof typeof orderStatusMapper
                     ].icon
                   }
                   &nbsp;
