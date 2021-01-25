@@ -29,7 +29,8 @@ import {
   ApiCollectionResponse,
   AnyObject,
   ReduxActionHandler,
-  Full
+  Full,
+  InternalPortfolioItem
 } from '../../types/common-types';
 import {
   ObjectNotFound,
@@ -40,7 +41,7 @@ export interface OrderDetail extends AnyObject {
   approvalRequest?: ApiCollectionResponse<ApprovalRequest>;
   order: Full<Order>;
   orderItem?: Full<OrderItem>;
-  portfolioItem: Full<PortfolioItem> & Partial<ObjectNotFound>;
+  portfolioItem: Full<InternalPortfolioItem> & Partial<ObjectNotFound>;
   platform: Full<Source> & Partial<ObjectNotFound>;
   portfolio: Full<Portfolio> & Partial<ObjectNotFound>;
 }

@@ -4,10 +4,8 @@ import { mount } from 'enzyme';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
-import {
-  notificationsMiddleware,
-  ADD_NOTIFICATION
-} from '@redhat-cloud-services/frontend-components-notifications/';
+import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/redux';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-item-detail/edit-portfolio-item';

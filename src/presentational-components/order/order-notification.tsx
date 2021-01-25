@@ -1,7 +1,7 @@
 import React, { ComponentType, ReactElement, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications/cjs/actions';
+import { clearNotifications } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import { ORDER_ROUTE } from '../../constants/routes';
 import ordersMessages from '../../messages/orders.messages';
 import useFormatMessage from '../../utilities/use-format-message';
