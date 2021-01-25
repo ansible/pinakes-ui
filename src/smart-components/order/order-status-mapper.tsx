@@ -17,6 +17,7 @@ const orderStatusMapper: {
   Approved: { icon: ReactNode; color: 'green' };
   Denied: { icon: ReactNode; color: 'red' };
   Undecided: { icon: ReactNode; color: 'blue' };
+  Unknown: { icon: ReactNode; color: 'grey' };
 } = {
   Completed: { icon: <CheckCircleIcon />, color: 'green' },
   'Approval Pending': {
@@ -32,7 +33,8 @@ const orderStatusMapper: {
   Undecided: {
     icon: <ClockIcon />,
     color: 'blue'
-  }
+  },
+  Unknown: { icon: <ExclamationTriangleIcon />, color: 'grey' }
 };
 
 export default orderStatusMapper;

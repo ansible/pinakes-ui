@@ -136,45 +136,26 @@ const ApprovalRequests: React.ComponentType = () => {
     'Decision'
   ];
 
+  const approvalRequestDecision = (request: StringObject) =>
+    orderStatusMapper[
+      (statesMessages[getTranslatableState(request.decision)].defaultMessage ||
+        'Unknown') as keyof typeof orderStatusMapper
+    ];
+
   const rows =
     approvalRequest?.data
       .map((request) =>
         rowOrder.map((key) => {
           if (key === 'decision') {
-            console.log('Debug - request', (request as StringObject)[key]);
-            console.log(
-              'Debug - translated',
-              statesMessages[
-                getTranslatableState((request as StringObject)[key])
-              ].defaultMessage
-            );
-            console.log(
-              'Debug - order',
-              orderStatusMapper[
-                statesMessages[
-                  getTranslatableState((request as StringObject)[key])
-                ].defaultMessage as keyof typeof orderStatusMapper
-              ]
-            );
             return (
               <TableText>
                 <TextContent
                   style={{
-                    color:
-                      orderStatusMapper[
-                        statesMessages[
-                          getTranslatableState((request as StringObject)[key])
-                        ].defaultMessage as keyof typeof orderStatusMapper
-                      ].color
+                    color: approvalRequestDecision(request as StringObject)
+                      .color
                   }}
                 >
-                  {
-                    orderStatusMapper[
-                      statesMessages[
-                        getTranslatableState((request as StringObject)[key])
-                      ].defaultMessage as keyof typeof orderStatusMapper
-                    ].icon
-                  }
+                  {approvalRequestDecision(request as StringObject).icon}
                   &nbsp;
                   {formatMessage(
                     statesMessages[
