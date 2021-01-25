@@ -65,9 +65,10 @@ const checkRequest = async (
   fetchRequests: () => Promise<ApiCollectionResponse<any>>
 ) => {
   // eslint-disable-next-line no-constant-condition
-  while (true) {
+  let retries = 0;
+  while (retries <= 5) {
     const result = await fetchRequests();
-    if (result?.data.length > 0) {
+    if (result?.data.length > 0 || retries++ === 5) {
       return 'Finished';
     }
 
