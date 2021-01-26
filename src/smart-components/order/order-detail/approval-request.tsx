@@ -53,8 +53,8 @@ import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import orderStatusMapper from '../order-status-mapper';
 
 /**
- * We are using type conversion of **request as StringObject** becuase the generated client does not have correct states listed
- * Probably a discrepency inside the OpenAPI spec
+ * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
+ * Probably a discrepancy inside the OpenAPI spec
  */
 
 const rowOrder = ['updated', 'group_name', 'decision'];
@@ -66,9 +66,9 @@ const checkRequest = async (
 ) => {
   // eslint-disable-next-line no-constant-condition
   let retries = 0;
-  while (retries <= 5) {
+  while (retries <= 3) {
     const result = await fetchRequests();
-    if (result?.data.length > 0 || retries++ === 5) {
+    if (result?.data.length > 0 || retries++ >= 3) {
       return 'Finished';
     }
 
@@ -95,16 +95,18 @@ const ApprovalRequests: React.ComponentType = () => {
   } = useSelector<CatalogRootState, OrderDetail>(
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
+  const [isFetching, setFetching] = useState(true);
 
   useEffect(() => {
     if (orderItem?.id && isEmpty(approvalRequest)) {
+      setFetching(true);
       checkRequest(() =>
         dispatch(
           (fetchApprovalRequests(orderItem.id!) as unknown) as Promise<
             ApiCollectionResponse<ApprovalRequest>
           >
         )
-      );
+      ).then(() => setFetching(false));
     }
   }, []);
 
@@ -114,7 +116,7 @@ const ApprovalRequests: React.ComponentType = () => {
     direction: SortByDirection
   ) => setSortBy({ index, direction });
 
-  if (order.state === 'Failed' && isEmpty(approvalRequest)) {
+  if (isEmpty(approvalRequest) && !isFetching) {
     return (
       <Bullseye id="no-approval-requests">
         <Flex direction={{ default: 'column' }} grow={{ default: 'grow' }}>
