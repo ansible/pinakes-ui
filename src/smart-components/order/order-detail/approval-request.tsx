@@ -51,6 +51,7 @@ import {
 import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import orderStatusMapper from '../order-status-mapper';
+import { MAX_RETRY_LIMIT } from '../../../utilities/constants';
 
 /**
  * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
@@ -66,9 +67,9 @@ const checkRequest = async (
 ) => {
   // eslint-disable-next-line no-constant-condition
   let retries = 0;
-  while (retries <= 3) {
+  while (retries <= MAX_RETRY_LIMIT) {
     const result = await fetchRequests();
-    if (result?.data.length > 0 || retries++ >= 3) {
+    if (result?.data.length > 0 || retries++ >= MAX_RETRY_LIMIT) {
       return 'Finished';
     }
 
