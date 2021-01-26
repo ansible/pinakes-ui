@@ -117,6 +117,10 @@ const ordersMessages = defineMessages({
     id: 'orders.actions.cancel',
     defaultMessage: 'Cancel order'
   },
+  reOrder: {
+    id: 'orders.actions.reorder',
+    defaultMessage: 'Reorder'
+  },
   keepOrder: {
     id: 'orders.actions.keep',
     defaultMessage: 'Keep order'

@@ -8,7 +8,7 @@ import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/cjs/notificationsMiddleware';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 
 import ToolbarRenderer from '../../../toolbar/toolbar-renderer';
 import OrderModal from '../../../smart-components/common/order-modal';
@@ -152,10 +152,10 @@ describe('<Portfolio />', () => {
         type: `${FETCH_PLATFORMS}_FULFILLED`
       }),
       expect.objectContaining({
-        type: `${FETCH_PORTFOLIO}_FULFILLED`
+        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
       }),
       expect.objectContaining({
-        type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
+        type: `${FETCH_PORTFOLIO}_FULFILLED`
       })
     ];
 

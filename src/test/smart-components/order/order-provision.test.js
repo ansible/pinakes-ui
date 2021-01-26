@@ -15,7 +15,7 @@ import {
   CATALOG_API_BASE,
   SOURCES_API_BASE
 } from '../../../utilities/constants';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
 import OrderProvision from '../../../smart-components/order/order-detail/order-provision';
 import {
@@ -140,7 +140,7 @@ describe('<Orders />', () => {
       .onGet(`${CATALOG_API_BASE}/portfolio_items?`)
       .replyOnce(200, { data: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items?`)
+      .onGet(`${CATALOG_API_BASE}/order_items?limit=50`)
       .replyOnce(200, { data: [] });
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {

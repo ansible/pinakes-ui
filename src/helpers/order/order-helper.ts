@@ -80,7 +80,8 @@ const getOrderItems = (
   orderIds: string[]
 ): Promise<ApiCollectionResponse<OrderItem>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/order_items?${orderIds
+    `${CATALOG_API_BASE}/order_items?limit=${orderIds.length * 3 ||
+      defaultSettings.limit}${orderIds.length ? '&' : ''}${orderIds
       .map((orderId) => `filter[order_id][]=${orderId}`)
       .join('&')}`
   );

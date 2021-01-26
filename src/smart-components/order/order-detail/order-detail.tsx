@@ -58,7 +58,6 @@ const OrderDetail: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const dispatch = useDispatch();
-
   const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
     window.insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
@@ -105,7 +104,6 @@ const OrderDetail: React.ComponentType = () => {
   };
 
   const unavailableMessages = unAvailable();
-
   return (
     <Stack>
       <StackItem className="pf-u-p-lg global-primary-background">
@@ -136,6 +134,10 @@ const OrderDetail: React.ComponentType = () => {
                       portfolioItemName={portfolioItem.name}
                       orderId={order.id}
                       state={order.state}
+                      portfolioItemId={portfolioItem.id}
+                      portfolioId={portfolio.id}
+                      sourceId={platform.id}
+                      orderable={portfolioItem.metadata?.orderable || false}
                     />
                   </LevelItem>
                 </Fragment>
