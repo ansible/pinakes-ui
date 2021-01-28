@@ -266,9 +266,11 @@ const ApprovalRequests: React.ComponentType = () => {
               <StackItem>
                 <Card>
                   <CardBody>
-                    <Text className="pf-u-mb-md" component={TextVariants.h2}>
-                      {formatMessage(ordersMessages.approvalParameters)}
-                    </Text>
+                    <TextContent className="overflow-wrap">
+                      <Text className="pf-u-mb-md" component={TextVariants.h2}>
+                        {formatMessage(ordersMessages.approvalParameters)}
+                      </Text>
+                    </TextContent>
                     <TextList component={TextListVariants.dl}>
                       {Object.entries(orderItem?.service_parameters || []).map(
                         ([key, value]) => (
