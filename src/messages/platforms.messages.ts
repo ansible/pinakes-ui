@@ -29,14 +29,17 @@ const platformsMessages = defineMessages({
     id: 'platform.templates.empty.no-templates',
     defaultMessage: 'This platform has no templates.'
   },
+  platformsNoData: {
+    id: 'platforms.empty.noData.title',
+    defaultMessage: 'No platforms yest'
+  },
   configureSourceTitle: {
     id: 'platforms.list.configure-source',
-    defaultMessage: 'Configure a source in order to add products to portfolios.'
+    defaultMessage: 'To get started, add an Ansible Tower cluster as a source.'
   },
   connectSource: {
     id: 'platforms.list.connect-source',
-    defaultMessage:
-      'To connect to a source, go to <a>Sources</a> under Settings.'
+    defaultMessage: 'Go to Sources'
   },
   contactAdmin: {
     id: 'platforms.list.contact-admin',

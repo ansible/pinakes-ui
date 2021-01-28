@@ -1,7 +1,12 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, TextContent, TextVariants } from '@patternfly/react-core';
-import { SearchIcon } from '@patternfly/react-icons';
+import {
+  Button,
+  Text,
+  TextContent,
+  TextVariants
+} from '@patternfly/react-core';
+import { SearchIcon, CogIcon } from '@patternfly/react-icons';
 
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
@@ -13,6 +18,7 @@ import ContentGalleryEmptyState from '../../presentational-components/shared/con
 import UserContext from '../../user-context';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import filteringMessages from '../../messages/filtering.messages';
 
 const Platforms = () => {
   const formatMessage = useFormatMessage();
@@ -38,27 +44,42 @@ const Platforms = () => {
     insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
   }, []);
 
-  const renderEmptyStateDescription = () => (
+  const renderNoResultsDescription = () => (
     <Fragment>
       <TextContent>
         <Text component={TextVariants.p}>
-          {formatMessage(platformsMessages.configureSourceTitle)}
+          {formatMessage(filteringMessages.noResults)}
         </Text>
-        {is_org_admin ? (
-          <Text component={TextVariants.p}>
-            {formatMessage(platformsMessages.connectSource, {
-              // eslint-disable-next-line react/display-name
-              a: (chunks) => (
-                <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
-              )
-            })}
-          </Text>
-        ) : (
-          <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
-        )}
+        {formatMessage(filteringMessages.noResultsDescription)}
       </TextContent>
     </Fragment>
   );
+
+  const renderEmptyStateDescription = (filterValue) =>
+    filterValue && filterValue !== '' ? (
+      renderNoResultsDescription()
+    ) : (
+      <Fragment>
+        <TextContent>
+          <Text component={TextVariants.p}>
+            {formatMessage(platformsMessages.configureSourceTitle)}
+          </Text>
+          {is_org_admin ? (
+            <Button variant="primary">
+              {formatMessage(platformsMessages.connectSource, {
+                // eslint-disable-next-line react/display-name
+                a: (chunks) => (
+                  <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
+                )
+              })}
+            </Button>
+          ) : (
+            <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
+          )}
+        </TextContent>
+      </Fragment>
+    );
+
   const filteredItems = {
     items: platforms
       .filter(({ name }) =>
@@ -69,6 +90,7 @@ const Platforms = () => {
       )),
     isLoading: isLoading && platforms.length === 0
   };
+  console.log('Debug - filterValue', filterValue);
   return (
     <Fragment>
       <ToolbarRenderer
@@ -83,8 +105,10 @@ const Platforms = () => {
         renderEmptyState={() => (
           <ContentGalleryEmptyState
             title={formatMessage(platformsMessages.noPlatforms)}
-            renderDescription={renderEmptyStateDescription}
-            Icon={SearchIcon}
+            renderDescription={(filterValue) =>
+              renderEmptyStateDescription(filterValue)
+            }
+            Icon={filterValue && filterValue !== '' ? SearchIcon : CogIcon}
           />
         )}
       />
