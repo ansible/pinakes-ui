@@ -1,11 +1,6 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Button,
-  Text,
-  TextContent,
-  TextVariants
-} from '@patternfly/react-core';
+import { Button, Text } from '@patternfly/react-core';
 import { SearchIcon, CogIcon } from '@patternfly/react-icons';
 
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -44,42 +39,6 @@ const Platforms = () => {
     insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
   }, []);
 
-  const renderNoResultsDescription = () => (
-    <Fragment>
-      <TextContent>
-        <Text component={TextVariants.p}>
-          {formatMessage(filteringMessages.noResults)}
-        </Text>
-        {formatMessage(filteringMessages.noResultsDescription)}
-      </TextContent>
-    </Fragment>
-  );
-
-  const renderEmptyStateDescription = (filterValue) =>
-    filterValue && filterValue !== '' ? (
-      renderNoResultsDescription()
-    ) : (
-      <Fragment>
-        <TextContent>
-          <Text component={TextVariants.p}>
-            {formatMessage(platformsMessages.configureSourceTitle)}
-          </Text>
-          {is_org_admin ? (
-            <Button variant="primary">
-              {formatMessage(platformsMessages.connectSource, {
-                // eslint-disable-next-line react/display-name
-                a: (chunks) => (
-                  <a href={`${document.baseURI}settings/sources`}>{chunks}</a>
-                )
-              })}
-            </Button>
-          ) : (
-            <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
-          )}
-        </TextContent>
-      </Fragment>
-    );
-
   const filteredItems = {
     items: platforms
       .filter(({ name }) =>
@@ -90,7 +49,44 @@ const Platforms = () => {
       )),
     isLoading: isLoading && platforms.length === 0
   };
-  console.log('Debug - filterValue', filterValue);
+
+  const NoDataAction = () =>
+    is_org_admin ? (
+      <Button
+        component="a"
+        href={`${document.baseURI}settings/sources`}
+        id="add-source"
+      >
+        {formatMessage(platformsMessages.connectSource)}
+      </Button>
+    ) : (
+      <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
+    );
+
+  const FilterAction = () => (
+    <Button
+      ouiaId={'clear-filter'}
+      variant="link"
+      onClick={() => setFilterValue('')}
+    >
+      {formatMessage(filteringMessages.clearFilters)}
+    </Button>
+  );
+
+  const emptyStateProps = {
+    PrimaryAction:
+      filterValue && filterValue !== '' ? FilterAction : NoDataAction,
+    title:
+      filterValue && filterValue !== ''
+        ? formatMessage(filteringMessages.noResults)
+        : formatMessage(platformsMessages.noPlatforms),
+    description:
+      filterValue && filterValue !== ''
+        ? formatMessage(filteringMessages.noResultsDescription)
+        : formatMessage(platformsMessages.platformsNoDataDescription),
+    Icon: filterValue && filterValue !== '' ? SearchIcon : CogIcon
+  };
+
   return (
     <Fragment>
       <ToolbarRenderer
@@ -102,15 +98,9 @@ const Platforms = () => {
       />
       <ContentGallery
         {...filteredItems}
-        renderEmptyState={() => (
-          <ContentGalleryEmptyState
-            title={formatMessage(platformsMessages.noPlatforms)}
-            renderDescription={(filterValue) =>
-              renderEmptyStateDescription(filterValue)
-            }
-            Icon={filterValue && filterValue !== '' ? SearchIcon : CogIcon}
-          />
-        )}
+        renderEmptyState={() => {
+          return <ContentGalleryEmptyState {...emptyStateProps} />;
+        }}
       />
     </Fragment>
   );

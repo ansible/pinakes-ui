@@ -29,11 +29,7 @@ const platformsMessages = defineMessages({
     id: 'platform.templates.empty.no-templates',
     defaultMessage: 'This platform has no templates.'
   },
-  platformsNoData: {
-    id: 'platforms.empty.noData.title',
-    defaultMessage: 'No platforms yest'
-  },
-  configureSourceTitle: {
+  platformsNoDataDescription: {
     id: 'platforms.list.configure-source',
     defaultMessage: 'To get started, add an Ansible Tower cluster as a source.'
   },
