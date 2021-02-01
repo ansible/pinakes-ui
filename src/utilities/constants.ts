@@ -24,7 +24,7 @@ export const DEFAULT_MAX_LENGTH = 64;
 export const APP_NAME = {
   Portfolio: 'catalog',
   PortfolioItem: 'catalog',
-  ServiceInventory: 'topology'
+  ServiceInventory: 'catalog-inventory'
 };
 
 export const BEFORE_TYPE = 'before';
