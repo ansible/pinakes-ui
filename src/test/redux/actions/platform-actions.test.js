@@ -19,7 +19,7 @@ import {
 } from '../../../redux/actions/platform-actions';
 import {
   SOURCES_API_BASE,
-  TOPOLOGICAL_INVENTORY_API_BASE
+  CATALOG_INVENTORY_API_BASE
 } from '../../../utilities/constants';
 import {
   mockApi,
@@ -107,7 +107,7 @@ describe('Platform actions', () => {
 
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, { data: [{ id: '1', name: 'Offering 1' }] });
 
@@ -137,7 +137,7 @@ describe('Platform actions', () => {
 
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`
       )
       .replyOnce(500);
 
@@ -166,7 +166,7 @@ describe('Platform actions', () => {
     });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -178,7 +178,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -190,7 +190,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -230,7 +230,7 @@ describe('Platform actions', () => {
     });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -242,7 +242,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -254,7 +254,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(500);
     const expectedActions = [
@@ -348,7 +348,7 @@ describe('Platform actions', () => {
       }
     ];
     mockApi
-      .onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/offering-id`)
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/service_offerings/offering-id`)
       .replyOnce(200, { id: 'offering-id' });
     mockApi
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)

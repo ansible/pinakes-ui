@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import PlatformInventories from '../../../smart-components/platform/platform-inventories';
 import {
-  TOPOLOGICAL_INVENTORY_API_BASE,
+  CATALOG_INVENTORY_API_BASE,
   APPROVAL_API_BASE
 } from '../../../utilities/constants';
 import { FETCH_PLATFORM_INVENTORIES } from '../../../redux/action-types';
@@ -93,7 +93,7 @@ describe('<PlatformInventories />', () => {
     const store = mockStore(initialState);
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`
+        `${CATALOG_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [{ id: 111 }] });
 
@@ -133,7 +133,7 @@ describe('<PlatformInventories />', () => {
 
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`
+        `${CATALOG_INVENTORY_API_BASE}/sources/123/service_inventories?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [
@@ -147,7 +147,8 @@ describe('<PlatformInventories />', () => {
       });
     mockApi
       .onGet(
-        `${APPROVAL_API_BASE}/workflows?app_name=topology&object_type=ServiceInventory&object_id=222&filter[name][contains]=&limit=50&offset=0`
+        // eslint-disable-next-line max-len
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog-inventory&object_type=ServiceInventory&object_id=222&filter[name][contains]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [] });
 

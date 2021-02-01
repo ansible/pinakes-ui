@@ -10,7 +10,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 
 import {
-  TOPOLOGICAL_INVENTORY_API_BASE,
+  CATALOG_INVENTORY_API_BASE,
   CATALOG_API_BASE,
   SOURCES_API_BASE
 } from '../../../../utilities/constants';
@@ -77,7 +77,7 @@ describe('<AddProductsToPortfolio />', () => {
     });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [],
@@ -85,7 +85,7 @@ describe('<AddProductsToPortfolio />', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
       )
       .replyOnce(200, { data: [] });
 
@@ -177,7 +177,7 @@ describe('<AddProductsToPortfolio />', () => {
 
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [],
