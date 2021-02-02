@@ -3,10 +3,7 @@ import {
   getPortfolioApi,
   getPortfolioItemApi
 } from '../shared/user-login';
-import {
-  CATALOG_API_BASE,
-  CATALOG_INVENTORY_API_BASE
-} from '../../utilities/constants';
+import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
 import { sanitizeValues } from '../shared/helpers';
 import { defaultSettings } from '../shared/pagination';
 import {
@@ -271,7 +268,7 @@ export const getPortfolioItemDetail = (
       `${CATALOG_API_BASE}/portfolio_items/${params.portfolioItem}`
     ),
     axiosInstance
-      .get(`${CATALOG_INVENTORY_API_BASE}/sources/${params.source}`)
+      .get(`${SOURCES_API_BASE}/sources/${params.source}`)
       .catch((error) => {
         if (error.status === 404) {
           return {

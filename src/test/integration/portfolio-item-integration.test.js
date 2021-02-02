@@ -14,7 +14,7 @@ import App from '../../App';
 import {
   CATALOG_API_BASE,
   SOURCES_API_BASE,
-  CATALOG_INVENTORY_API_BASE
+  TOPOLOGICAL_INVENTORY_API_BASE
 } from '../../utilities/constants';
 import Portfolio from '../../smart-components/portfolio/portfolio';
 import PortfolioItems from '../../smart-components/portfolio/portfolio-items';
@@ -157,7 +157,7 @@ describe('Integration tests for portfolio items', () => {
      */
     mockApi
       .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources/source-id/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/source-id/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [
@@ -292,7 +292,7 @@ describe('Integration tests for portfolio items', () => {
       .replyOnce(200, addedPortfolioItem);
     mockApi
       .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources/${addedPortfolioItem.service_offering_source_ref}`
+        `${SOURCES_API_BASE}/sources/${addedPortfolioItem.service_offering_source_ref}`
       )
       .replyOnce(
         200,
