@@ -278,7 +278,7 @@ const fetchRequestTranscript = (
 export const getApprovalRequests = (
   orderItemId: string
 ): Promise<{
-  data: { group_name: string; state: string; updated?: string }[];
+  data: { group_name: string; decision: string; updated?: string }[];
 }> =>
   axiosInstance
     .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests`)

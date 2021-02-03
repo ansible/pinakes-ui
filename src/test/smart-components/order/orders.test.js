@@ -320,6 +320,63 @@ describe('<Orders />', () => {
     done();
   });
 
+  it('should mount and render order approval detail component for order in created state', async (done) => {
+    const createdOrder = {
+      ...orderReducer,
+      orderDetail: {
+        ...orderReducer.orderDetail,
+        order: {
+          id: '123',
+          state: 'Created',
+          created_at: createDate.toString(),
+          owner: 'hula hup'
+        }
+      }
+    };
+    const store = mockStore({
+      ...initialState,
+      orderReducer: { ...orderInitialState, ...orderReducer, ...createdOrder }
+    });
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders/123`)
+      .replyOnce(200, { data: [{ id: 123 }] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
+      .replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/orders/order/approval?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+          ]} // eslint-disable-line max-len
+        >
+          <Route path="/orders/order/approval">
+            <OrderDetail />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+    expect(wrapper.find(OrderDetail)).toHaveLength(1);
+    done();
+  });
+
   it('should mount and render order detail component and open/close cancel order modal', async (done) => {
     const enabledCancel = { ...orderReducer };
     enabledCancel.orderDetail.order.state = 'Approval Pending';
