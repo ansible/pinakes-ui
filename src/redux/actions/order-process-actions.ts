@@ -79,7 +79,7 @@ export const updateOrderProcess = (
   processId: string,
   data: Partial<OrderProcess>,
   intl: IntlShape
-): AsyncMiddlewareAction<OrderProcess> => ({
+): AsyncMiddlewareAction<[OrderProcess, OrderProcess | undefined]> => ({
   type: ActionTypes.UPDATE_ORDER_PROCESS,
   payload: OrderProcessHelper.updateOrderProcess(processId, data),
   meta: {
