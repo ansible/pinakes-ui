@@ -29,7 +29,7 @@ const portfolioMessages = defineMessages({
   },
   emptyNoProducts: {
     id: 'portfolio.empty.no-products',
-    defaultMessage: 'No products in your portfolio'
+    defaultMessage: 'Products will appear here when added to your portfolio.'
   },
   portfoliosPlaceholder: {
     id: 'portfolios.filters.placeholder',
