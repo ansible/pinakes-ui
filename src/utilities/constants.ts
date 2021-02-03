@@ -29,3 +29,5 @@ export const APP_NAME = {
 
 export const BEFORE_TYPE = 'before';
 export const AFTER_TYPE = 'after';
+
+export const MAX_RETRY_LIMIT = 3;
