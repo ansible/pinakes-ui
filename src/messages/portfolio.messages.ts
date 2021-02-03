@@ -37,11 +37,12 @@ const portfolioMessages = defineMessages({
   },
   portfoliosNoData: {
     id: 'portfolios.empty.noData.title',
-    defaultMessage: 'No portfolios'
+    defaultMessage: 'Create a portfolio'
   },
   portfoliosNoDataDescription: {
     id: 'portfolios.empty.noData.description',
-    defaultMessage: 'No portfolios match your filter criteria.'
+    defaultMessage:
+      'You currently have no portfolios. Create a portfolio to get started. **'
   },
   portfolioRemoveDescription: {
     id: 'portfolio.remove.modal.description',
