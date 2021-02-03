@@ -100,15 +100,25 @@ export const updateOrderProcess = async (
     after_portfolio_item_id,
     ...data
   }: Partial<OrderProcess>
-): Promise<OrderProcess> => {
-  const op = await getOrderProcessApi().updateOrderProcess(id, {
+): Promise<[OrderProcess, OrderProcess | undefined]> => {
+  await getOrderProcessApi().updateOrderProcess(id, {
     name: data.name,
-    description: data.description,
-    before_portfolio_item_id: before_portfolio_item_id || '',
-    after_portfolio_item_id: after_portfolio_item_id || ''
+    description: data.description
   });
 
-  return op as OrderProcess;
+  const promiseB =
+    before_portfolio_item_id !== undefined
+      ? getOrderProcessApi().addOrderProcessBeforeItem(id, {
+          portfolio_item_id: before_portfolio_item_id
+        })
+      : {};
+  const promiseA =
+    after_portfolio_item_id !== undefined
+      ? getOrderProcessApi().addOrderProcessAfterItem(id as string, {
+          portfolio_item_id: after_portfolio_item_id
+        })
+      : {};
+  return Promise.all([promiseA, promiseB]);
 };
 
 export const addOrderProcess = async ({
