@@ -9,7 +9,7 @@ import notificationsMiddleware from '@redhat-cloud-services/frontend-components-
 import { mount, shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import PlatformTemplates from '../../../smart-components/platform/platform-templates';
-import { TOPOLOGICAL_INVENTORY_API_BASE } from '../../../utilities/constants';
+import { CATALOG_INVENTORY_API_BASE } from '../../../utilities/constants';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import { FETCH_PLATFORM_ITEMS } from '../../../redux/action-types';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
@@ -69,7 +69,7 @@ describe('<PlatformTemplates />', () => {
   it('should mount and fetch data', async () => {
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [
