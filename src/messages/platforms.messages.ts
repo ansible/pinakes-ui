@@ -64,7 +64,7 @@ const platformsMessages = defineMessages({
   },
   ansibleVersion: {
     id: 'platforms.ansible.version',
-    defaultMessage: 'Platform version'
+    defaultMessage: 'Ansible version'
   },
   platformDetails: {
     id: 'platforms.details',

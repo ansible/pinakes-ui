@@ -49,12 +49,6 @@ const platformDetails = () => {
                 {formatMessage(statesMessages.created)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                <DateFormat date={platform?.created_at} variant="relative" />
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(labelMessages.platform)}
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dd}>
                 {platform?.name}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
