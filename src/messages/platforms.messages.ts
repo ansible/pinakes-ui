@@ -71,13 +71,40 @@ const platformsMessages = defineMessages({
     defaultMessage: 'Platform details'
   },
   mqttClientId: {
-    id: 'platforms.version',
-    defaultMessage: 'MQTT Client Id',
-
-    AnsibleformVersion: {
-      id: 'platforms.version',
-      defaultMessage: 'Platform version'
-    }
+    id: 'platform.mqttClientId',
+    defaultMessage: 'MQTT Client Id'
+  },
+  refreshState: {
+    id: 'platforms.refreshState',
+    defaultMessage: 'Refresh state'
+  },
+  refreshStarted: {
+    id: 'platforms.refreshStarted',
+    defaultMessage: 'Refresh started'
+  },
+  refreshFinished: {
+    id: 'platforms.refreshFinished',
+    defaultMessage: 'Refresh finished'
+  },
+  lastSuccessfulRefresh: {
+    id: 'platforms.lastSuccessfulRefresh',
+    defaultMessage: 'Last successful refresh'
+  },
+  lastChecked: {
+    id: 'platforms.lastChecked',
+    defaultMessage: 'Last checked'
+  },
+  lastAvailable: {
+    id: 'platforms.lastAvailable',
+    defaultMessage: 'Last available'
+  },
+  enabled: {
+    id: 'platforms.enabled',
+    defaultMessage: 'Enabled'
+  },
+  availabilityStatus: {
+    id: 'platforms.availabilityStatus',
+    defaultMessage: 'Availability status'
   }
 });
 

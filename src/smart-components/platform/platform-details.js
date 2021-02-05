@@ -1,7 +1,7 @@
 import React from 'react';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import platformsMessages from '../../messages/platforms.messages';
-import statesMessages from '../../../messages/states.messages';
+import statesMessages from '../../messages/states.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { useSelector } from 'react-redux';
 import {
@@ -35,34 +35,34 @@ const platformDetails = () => {
             </Text>
             <TextList component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.version)}
+                {formatMessage(platformsMessages.platformVersion)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {platform.info.version}
+                {platform?.info?.version}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.ansibleVersion)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {platform.info.ansible_version}
+                {platform?.info?.ansible_version}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(statesMessages.created)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                <DateFormat date={platform.created_at} variant="relative" />
+                <DateFormat date={platform?.created_at} variant="relative" />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(labelMessages.platform)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {platform.name}
+                {platform?.name}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.mqttClientId)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {platform?.mqtt_client_id || undefined}
+                {platform?.mqtt_client_id}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.refreshState)}
@@ -71,16 +71,16 @@ const platformDetails = () => {
                 {platform?.refresh_state}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.refresh_started_at)}
+                {formatMessage(platformsMessages.refreshStarted)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat
-                  date={platform.refresh_started_at}
+                  date={platform?.refresh_started_at}
                   variant="relative"
                 />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.refresh_finished_at)}
+                {formatMessage(platformsMessages.refreshFinished)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat
@@ -89,29 +89,29 @@ const platformDetails = () => {
                 />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.last_successful_refresh_at)}
+                {formatMessage(platformsMessages.lastSuccessfulRefresh)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat
-                  date={platform.last_successful_refresh_at}
+                  date={platform?.last_successful_refresh_at}
                   variant="relative"
                 />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.last_checked_at)}
+                {formatMessage(platformsMessages.lastChecked)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat
-                  date={platform.last_checked_at}
+                  date={platform?.last_checked_at}
                   variant="relative"
                 />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.last_available_at)}
+                {formatMessage(platformsMessages.lastAvailable)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat
-                  date={platform.last_available_at}
+                  date={platform?.last_available_at}
                   variant="relative"
                 />
               </TextListItem>
