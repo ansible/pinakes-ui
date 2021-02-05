@@ -24,7 +24,6 @@ const platformDetails = () => {
     ({ platformReducer: { selectedPlatform } }) => selectedPlatform
   );
 
-  const title = platform ? platform.name : '';
   return (
     <Section type="content">
       <Card>
