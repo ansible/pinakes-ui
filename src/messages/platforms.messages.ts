@@ -66,9 +66,9 @@ const platformsMessages = defineMessages({
     id: 'platforms.ansible.version',
     defaultMessage: 'Ansible version'
   },
-  platformDetails: {
-    id: 'platforms.details',
-    defaultMessage: 'Platform details'
+  platformSummary: {
+    id: 'platforms.summary',
+    defaultMessage: 'Summmary'
   },
   mqttClientId: {
     id: 'platform.mqttClientId',
@@ -105,6 +105,10 @@ const platformsMessages = defineMessages({
   availabilityStatus: {
     id: 'platforms.availabilityStatus',
     defaultMessage: 'Availability status'
+  },
+  dateAdded: {
+    id: 'platforms.dateAdded',
+    defaultMessage: 'Date added'
   }
 });
 

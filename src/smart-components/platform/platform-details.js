@@ -29,7 +29,7 @@ const platformDetails = () => {
         <CardBody>
           <TextContent>
             <Text className="pf-u-mb-md" component={TextVariants.h2}>
-              {formatMessage(platformsMessages.platformDetails)}
+              {formatMessage(platformsMessages.platformSummary)}
             </Text>
             <TextList component={TextListVariants.dl}>
               <TextListItem component={TextListItemVariants.dt}>
@@ -45,7 +45,7 @@ const platformDetails = () => {
                 {platform?.info?.ansible_version}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(statesMessages.created)}
+                {formatMessage(platformsMessages.dateAdded)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
                 <DateFormat date={platform?.created_at} />
