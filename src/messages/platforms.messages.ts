@@ -57,6 +57,27 @@ const platformsMessages = defineMessages({
   offeringParameters: {
     id: 'platforms.offerings.detail.extra-params',
     defaultMessage: 'Extra parameters'
+  },
+  platformVersion: {
+    id: 'platforms.version',
+    defaultMessage: 'Platform version'
+  },
+  ansibleVersion: {
+    id: 'platforms.ansible.version',
+    defaultMessage: 'Platform version'
+  },
+  platformDetails: {
+    id: 'platforms.details',
+    defaultMessage: 'Platform details'
+  },
+  mqttClientId: {
+    id: 'platforms.version',
+    defaultMessage: 'MQTT Client Id',
+
+    AnsibleformVersion: {
+      id: 'platforms.version',
+      defaultMessage: 'Platform version'
+    }
   }
 });
 

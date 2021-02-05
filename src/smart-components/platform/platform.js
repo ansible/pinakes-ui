@@ -12,11 +12,16 @@ import {
   PLATFORM_SERVICE_OFFERINGS_ROUTE,
   PLATFORM_INVENTORIES_ROUTE,
   PLATFORM_ROUTE,
-  PLATFORM_TEMPLATES_ROUTE
+  PLATFORM_TEMPLATES_ROUTE,
+  PLATFORM_DETAILS_ROUTE
 } from '../../constants/routes';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { createPlatformsTopToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import { PlatformToolbarPlaceholder } from '../../presentational-components/shared/loader-placeholders';
+
+const PlatformDetails = lazy(() =>
+  import(/* webpackChunkName: "platform-details" */ './platform-details')
+);
 
 const PlatformTemplates = lazy(() =>
   import(/* webpackChunkName: "platform-templates" */ './platform-templates')
@@ -44,6 +49,11 @@ const tabItems = [
     eventKey: 1,
     title: 'Inventories',
     name: `/platform/platform-inventories`
+  },
+  {
+    eventKey: 2,
+    title: 'Details',
+    name: `/platform/platform-details`
   }
 ];
 
@@ -79,6 +89,7 @@ const Platform = () => {
           PLATFORM_INVENTORIES_ROUTE,
           PLATFORM_ROUTE,
           PLATFORM_TEMPLATES_ROUTE,
+          PLATFORM_DETAILS_ROUTE,
           `${PLATFORM_INVENTORIES_ROUTE}/*`
         ]}
       >
@@ -97,6 +108,9 @@ const Platform = () => {
           </Route>
           <Route path={PLATFORM_INVENTORIES_ROUTE}>
             <PlatformInventories />
+          </Route>
+          <Route path={PLATFORM_DETAILS_ROUTE}>
+            <PlatformDetails />
           </Route>
           <Route path={[PLATFORM_TEMPLATES_ROUTE, PLATFORM_ROUTE]}>
             <PlatformTemplates />
