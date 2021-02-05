@@ -16,7 +16,6 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
-import labelMessages from '../../messages/labels.messages';
 
 const platformDetails = () => {
   const formatMessage = useFormatMessage();
@@ -49,7 +48,7 @@ const platformDetails = () => {
                 {formatMessage(statesMessages.created)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {platform?.name}
+                <DateFormat date={platform?.created_at} />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.mqttClientId)}
