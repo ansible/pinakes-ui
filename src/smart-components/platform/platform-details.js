@@ -1,0 +1,138 @@
+import React from 'react';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
+import platformsMessages from '../../messages/platforms.messages';
+import statesMessages from '../../../messages/states.messages';
+import useFormatMessage from '../../utilities/use-format-message';
+import { useSelector } from 'react-redux';
+import {
+  Card,
+  CardBody,
+  Text,
+  TextContent,
+  TextList,
+  TextListItem,
+  TextListItemVariants,
+  TextListVariants,
+  TextVariants
+} from '@patternfly/react-core';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import labelMessages from '../../messages/labels.messages';
+
+const platformDetails = () => {
+  const formatMessage = useFormatMessage();
+  const platform = useSelector(
+    ({ platformReducer: { selectedPlatform } }) => selectedPlatform
+  );
+
+  const title = platform ? platform.name : '';
+  return (
+    <Section type="content">
+      <Card>
+        <CardBody>
+          <TextContent>
+            <Text className="pf-u-mb-md" component={TextVariants.h2}>
+              {formatMessage(platformsMessages.platformDetails)}
+            </Text>
+            <TextList component={TextListVariants.dl}>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.version)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform.info.version}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.ansibleVersion)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform.info.ansible_version}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(statesMessages.created)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                <DateFormat date={platform.created_at} variant="relative" />
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(labelMessages.platform)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform.name}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.mqttClientId)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform?.mqtt_client_id || undefined}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.refreshState)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform?.refresh_state}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.refresh_started_at)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                <DateFormat
+                  date={platform.refresh_started_at}
+                  variant="relative"
+                />
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.refresh_finished_at)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                <DateFormat
+                  date={platform.refresh_finished_at}
+                  variant="relative"
+                />
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.last_successful_refresh_at)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                <DateFormat
+                  date={platform.last_successful_refresh_at}
+                  variant="relative"
+                />
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.last_checked_at)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                <DateFormat
+                  date={platform.last_checked_at}
+                  variant="relative"
+                />
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.last_available_at)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                <DateFormat
+                  date={platform.last_available_at}
+                  variant="relative"
+                />
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.enabled)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform?.enabled}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.availabilityStatus)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform?.availability_status}
+              </TextListItem>
+            </TextList>
+          </TextContent>
+        </CardBody>
+      </Card>{' '}
+    </Section>
+  );
+};
+
+export default platformDetails;
