@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
+import { PlusCircleIcon, SearchIcon } from '@patternfly/react-icons';
 import { Button } from '@patternfly/react-core';
 
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -159,7 +159,7 @@ const Portfolios = () => {
     <EmptyStatePrimaryAction
       url={ADD_PORTFOLIO_ROUTE}
       id="create-portfolio"
-      label="Create portfolio"
+      label="Create"
       hasPermission={canCreate}
     />
   );
@@ -181,7 +181,7 @@ const Portfolios = () => {
     description: meta.noData
       ? formatMessage(portfolioMessages.portfoliosNoDataDescription)
       : formatMessage(filteringMessages.noResultsDescription),
-    Icon: meta.noData ? WrenchIcon : SearchIcon
+    Icon: meta.noData ? PlusCircleIcon : SearchIcon
   };
   const galleryItems = data.map((item) => (
     <PortfolioCard
