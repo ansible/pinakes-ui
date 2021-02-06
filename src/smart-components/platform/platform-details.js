@@ -1,7 +1,6 @@
 import React from 'react';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import platformsMessages from '../../messages/platforms.messages';
-import statesMessages from '../../messages/states.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { useSelector } from 'react-redux';
 import {
