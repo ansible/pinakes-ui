@@ -18,6 +18,8 @@ import {
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { createPlatformsTopToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import { PlatformToolbarPlaceholder } from '../../presentational-components/shared/loader-placeholders';
+import { Label, Level, LevelItem } from '@patternfly/react-core';
+import { InfoCircleIcon } from '@patternfly/react-icons';
 
 const PlatformDetails = lazy(() =>
   import(/* webpackChunkName: "platform-details" */ './platform-details')
@@ -81,6 +83,25 @@ const Platform = () => {
     };
   }, [platform]);
 
+  const renderLabels = () => (
+    <Fragment>
+      <LevelItem>
+        <Label
+          color={platform.enabled ? 'green' : 'red'}
+          icon={<InfoCircleIcon />}
+        >
+          {platform.enabled ? 'Enabled' : 'Disabled'}
+        </Label>
+        <Label
+          color={platform.availability_status === 'available' ? 'green' : 'red'}
+          icon={<InfoCircleIcon />}
+        >
+          {platform.availability_status ? 'Available' : 'Not available'}
+        </Label>
+      </LevelItem>
+    </Fragment>
+  );
+
   return (
     <Fragment>
       <Route
@@ -93,13 +114,15 @@ const Platform = () => {
           `${PLATFORM_INVENTORIES_ROUTE}/*`
         ]}
       >
-        <ToolbarRenderer
-          schema={createPlatformsTopToolbarSchema({
-            title: selectedPlatform.name,
-            paddingBottom: false,
-            tabItems
-          })}
-        />
+        <LevelItem>
+          <ToolbarRenderer
+            schema={createPlatformsTopToolbarSchema({
+              title: selectedPlatform.name,
+              paddingBottom: false,
+              tabItems
+            })}
+          />
+        </LevelItem>
       </Route>
       <Suspense fallback={<PlatformToolbarPlaceholder />}>
         <Switch>

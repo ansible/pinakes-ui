@@ -49,7 +49,8 @@ export const createPlatformsToolbarSchema = ({
 export const createPlatformsTopToolbarSchema = ({
   title,
   paddingBottom,
-  tabItems
+  tabItems,
+  platformEnabled
 }) => ({
   fields: [
     {
@@ -61,6 +62,17 @@ export const createPlatformsTopToolbarSchema = ({
           component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
           key: 'platforms-toolbar-title',
           title
+        },
+        {
+          component: toolbarComponentTypes.TOOLBAR_ITEM,
+          key: 'platform-label',
+          fields: [
+            {
+              component: toolbarComponentTypes.LABEL,
+              key: 'platform-enabled-label',
+              platformEnabled
+            }
+          ]
         },
         {
           component: toolbarComponentTypes.LEVEL_ITEM,
