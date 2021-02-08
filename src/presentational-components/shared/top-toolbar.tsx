@@ -60,13 +60,12 @@ export const TopToolbarTitle: React.ComponentType<TopToolbarTitleProps> = ({
       {...rest}
     >
       <LevelItem>
-        <TextContent className="top-toolbar-title">
+        <TextContent>
           <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
             {title}
           </Text>
           {description && (
             <Text
-              className="top-toolbar-title-description"
               component={TextVariants.p}
             >
               {description}

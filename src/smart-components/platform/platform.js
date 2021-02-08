@@ -83,24 +83,20 @@ const Platform = () => {
     };
   }, [platform]);
 
-  const renderLabels = () => (
-    <Fragment>
-      <LevelItem>
-        <Label
-          color={platform.enabled ? 'green' : 'red'}
-          icon={<InfoCircleIcon />}
-        >
-          {platform.enabled ? 'Enabled' : 'Disabled'}
-        </Label>
-        <Label
-          color={platform.availability_status === 'available' ? 'green' : 'red'}
-          icon={<InfoCircleIcon />}
-        >
-          {platform.availability_status ? 'Available' : 'Not available'}
-        </Label>
-      </LevelItem>
-    </Fragment>
-  );
+  const platformEnabled = (platform) => ({
+    color: platform.enabled ? 'green' : 'red',
+    icon: <InfoCircleIcon />,
+    title: platform.enabled ? 'Enabled' : 'Disabled'
+  });
+
+  const platformAvailable = (platform) => ({
+    color: platform.availability_status === 'available' ? 'green' : 'red',
+    icon: <InfoCircleIcon />,
+    title:
+      platform.availability_status === 'available'
+        ? 'Available'
+        : 'Not available'
+  });
 
   return (
     <Fragment>
@@ -119,7 +115,9 @@ const Platform = () => {
             schema={createPlatformsTopToolbarSchema({
               title: selectedPlatform.name,
               paddingBottom: false,
-              tabItems
+              tabItems,
+              platformEnabled: () => platformEnabled(selectedPlatform),
+              platformAvailable: () => platformAvailable(selectedPlatform)
             })}
           />
         </LevelItem>

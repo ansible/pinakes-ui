@@ -69,7 +69,8 @@ const toolbarMapper = {
   Level,
   LevelItem,
   Button: ToolbarButton,
-  AppTabs
+  AppTabs,
+  Label: ToolbarLabel
 };
 
 export const toolbarComponentTypes = {

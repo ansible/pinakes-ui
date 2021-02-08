@@ -50,7 +50,8 @@ export const createPlatformsTopToolbarSchema = ({
   title,
   paddingBottom,
   tabItems,
-  platformEnabled
+  platformEnabled,
+  platformAvailable
 }) => ({
   fields: [
     {
@@ -59,18 +60,48 @@ export const createPlatformsTopToolbarSchema = ({
       paddingBottom,
       fields: [
         {
-          component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
-          key: 'platforms-toolbar-title',
-          title
-        },
-        {
-          component: toolbarComponentTypes.TOOLBAR_ITEM,
-          key: 'platform-label',
+          component: toolbarComponentTypes.LEVEL,
           fields: [
             {
-              component: toolbarComponentTypes.LABEL,
-              key: 'platform-enabled-label',
-              platformEnabled
+              component: toolbarComponentTypes.TOOLBAR_GROUP,
+              key: 'platform-toolbar',
+              fields: [
+                {
+                  component: toolbarComponentTypes.TOOLBAR_ITEM,
+                  key: 'platform-toolbar-group',
+                  fields: [
+                    {
+                      component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
+                      key: 'platforms-toolbar-title',
+                      title
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              component: toolbarComponentTypes.TOOLBAR_GROUP,
+              key: 'platform-toolbar',
+              alignment: 'alignRight',
+              fields: [
+                {
+                  component: toolbarComponentTypes.TOOLBAR_ITEM,
+                  key: 'platform-label',
+                  alignment: 'alignRight',
+                  fields: [
+                    {
+                      component: toolbarComponentTypes.LABEL,
+                      key: 'platform-enabled-label',
+                      ...platformEnabled()
+                    },
+                    {
+                      component: toolbarComponentTypes.LABEL,
+                      key: 'platform-available-label',
+                      ...platformAvailable()
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
