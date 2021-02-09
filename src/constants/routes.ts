@@ -18,6 +18,7 @@ export const PLATFORM_INVENTORIES_ROUTE = '/platform/platform-inventories';
 export const PLATFORM_ROUTE = '/platform';
 export const PLATFORM_SERVICE_OFFERINGS_ROUTE = '/platform/service-offerings';
 export const PLATFORM_TEMPLATES_ROUTE = '/platform/platform-templates';
+export const PLATFORM_DETAILS_ROUTE = '/platform/platform-details';
 export const PLATFORMS_ROUTE = '/platforms';
 export const PORTFOLIO_ROUTE = '/portfolio';
 export const PORTFOLIO_ITEM_ROUTE = '/portfolio/portfolio-item';

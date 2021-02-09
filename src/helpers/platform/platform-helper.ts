@@ -34,7 +34,9 @@ export const getPlatforms = (): Promise<Source> => {
 };
 
 export const getPlatform = (platformId: string): Promise<Source> => {
-  return axiosInstance.get(`${SOURCES_API_BASE}/sources/${platformId}`);
+  return axiosInstance.get(
+    `${CATALOG_INVENTORY_API_BASE}/sources/${platformId}`
+  );
 };
 
 export const getPlatformItems = (
