@@ -7,8 +7,7 @@ import {
   Text,
   TextVariants,
   TextContent,
-  TextListItemVariants,
-  TextListItem
+  Label
 } from '@patternfly/react-core';
 import ItemDetails, { ItemDetailsProps } from '../shared/card-common';
 
@@ -19,12 +18,17 @@ import { StyledCard } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
 import CardIcon from '../shared/card-icon';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const TO_DISPLAY = ['description', 'modified'];
 
 export interface PlatformCardProps extends ItemDetailsProps {
   name: string;
   id: string;
+  enabled: boolean;
+  availability_status: string;
+  refresh_finished_at: string;
   source_type_id: string;
   imageUrl: string;
 }
@@ -33,6 +37,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   id,
   ...props
 }) => {
+  const formatMessage = useFormatMessage();
   console.log('Debug - platform props:', props);
   return (
     <GalleryItem>
@@ -66,7 +71,19 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
           </TextContent>
           <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
         </StyledCardBody>
-        <CardFooter />
+        <CardFooter>
+          <Label variant="filled" color={props.enabled ? 'green' : 'red'}>
+            {props.enabled
+              ? formatMessage(labelMessages.enabled)
+              : formatMessage(labelMessages.disabled)}
+          </Label>
+          &nbsp;
+          <Label variant="filled" color={props.enabled ? 'green' : 'red'}>
+            {props.availability_status === 'available'
+              ? formatMessage(labelMessages.available)
+              : formatMessage(labelMessages.notAvailable)}
+          </Label>
+        </CardFooter>
       </StyledCard>
     </GalleryItem>
   );
