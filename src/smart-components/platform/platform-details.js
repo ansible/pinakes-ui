@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
@@ -6,9 +6,6 @@ import { useSelector } from 'react-redux';
 import {
   Card,
   CardBody,
-  Label,
-  Level,
-  LevelItem,
   Text,
   TextContent,
   TextList,
@@ -18,37 +15,16 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
-import { InfoCircleIcon } from '@patternfly/react-icons';
 
 const PlatformDetails = () => {
   const formatMessage = useFormatMessage();
   const platform = useSelector(
     ({ platformReducer: { selectedPlatform } }) => selectedPlatform
   );
-  const renderLabels = () => (
-    <Fragment>
-      <LevelItem>
-        <Label
-          color={platform.enabled ? 'green' : 'red'}
-          icon={<InfoCircleIcon />}
-        >
-          {platform.enabled ? 'Enabled' : 'Disabled'}
-        </Label>
-        <Label
-          color={platform.availability_status === 'available' ? 'green' : 'red'}
-          icon={<InfoCircleIcon />}
-        >
-          {platform.availability_status ? 'Available' : 'Not available'}
-        </Label>
-      </LevelItem>
-    </Fragment>
-  );
-
   return (
     <Section type="content">
       <Card>
         <CardBody>
-          <Level>{renderLabels()}</Level>
           <TextContent>
             <Text className="pf-u-mb-md" component={TextVariants.h2}>
               {formatMessage(platformsMessages.platformSummary)}
@@ -128,18 +104,6 @@ const PlatformDetails = () => {
                   date={platform?.last_available_at}
                   variant="relative"
                 />
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.enabled)}
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dd}>
-                {platform?.enabled}
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.availabilityStatus)}
-              </TextListItem>
-              <TextListItem component={TextListItemVariants.dd}>
-                {platform?.availability_status}
               </TextListItem>
             </TextList>
           </TextContent>

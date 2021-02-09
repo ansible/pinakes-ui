@@ -68,6 +68,22 @@ const labelMessages = defineMessages({
   status: {
     id: 'common.labels.id',
     defaultMessage: 'Status'
+  },
+  enabled: {
+    id: 'common.labels.enabled',
+    defaultMessage: 'Enabled'
+  },
+  disabled: {
+    id: 'common.labels.disabled',
+    defaultMessage: 'Disabled'
+  },
+  available: {
+    id: 'common.labels.available',
+    defaultMessage: 'Available'
+  },
+  notAvailable: {
+    id: 'common.labels.not-available',
+    defaultMessage: 'Not available'
   }
 });
 

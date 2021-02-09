@@ -18,8 +18,10 @@ import {
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { createPlatformsTopToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import { PlatformToolbarPlaceholder } from '../../presentational-components/shared/loader-placeholders';
-import { Label, Level, LevelItem } from '@patternfly/react-core';
+import { LevelItem } from '@patternfly/react-core';
 import { InfoCircleIcon } from '@patternfly/react-icons';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const PlatformDetails = lazy(() =>
   import(/* webpackChunkName: "platform-details" */ './platform-details')
@@ -70,6 +72,7 @@ const Platform = () => {
   );
 
   const resetBreadcrumbs = useBreadcrumbs([selectedPlatform, serviceOffering]);
+  const formatMessage = useFormatMessage();
 
   useEffect(() => {
     insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
@@ -86,7 +89,9 @@ const Platform = () => {
   const platformEnabled = (platform) => ({
     color: platform.enabled ? 'green' : 'red',
     icon: <InfoCircleIcon />,
-    title: platform.enabled ? 'Enabled' : 'Disabled'
+    title: platform.enabled
+      ? formatMessage(labelMessages.enabled)
+      : formatMessage(labelMessages.disabled)
   });
 
   const platformAvailable = (platform) => ({
@@ -94,8 +99,8 @@ const Platform = () => {
     icon: <InfoCircleIcon />,
     title:
       platform.availability_status === 'available'
-        ? 'Available'
-        : 'Not available'
+        ? formatMessage(labelMessages.available)
+        : formatMessage(labelMessages.notAvailable)
   });
 
   return (
