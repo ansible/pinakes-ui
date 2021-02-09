@@ -6,7 +6,9 @@ import {
   GalleryItem,
   Text,
   TextVariants,
-  TextContent
+  TextContent,
+  TextListItemVariants,
+  TextListItem
 } from '@patternfly/react-core';
 import ItemDetails, { ItemDetailsProps } from '../shared/card-common';
 
@@ -16,6 +18,7 @@ import CatalogLink from '../../smart-components/common/catalog-link';
 import { StyledCard } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
 import CardIcon from '../shared/card-icon';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -30,6 +33,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   id,
   ...props
 }) => {
+  console.log('Debug - platform props:', props);
   return (
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
@@ -49,6 +53,15 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
               >
                 <EllipsisTextContainer>{name}</EllipsisTextContainer>
               </Text>
+              <TextContent className="pf-u-mb-md">
+                <Text component={TextVariants.small} className="pf-u-mb-0">
+                  Last refreshed &nbsp;
+                  <DateFormat
+                    date={props.refresh_finished_at}
+                    type="relative"
+                  />
+                </Text>
+              </TextContent>
             </CatalogLink>
           </TextContent>
           <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
