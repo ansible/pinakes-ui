@@ -26,7 +26,6 @@ const TO_DISPLAY = ['description', 'modified'];
 export interface PlatformCardProps extends ItemDetailsProps {
   name: string;
   id: string;
-  enabled: boolean;
   availability_status: string;
   refresh_finished_at: string;
   source_type_id: string;
@@ -38,7 +37,12 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   ...props
 }) => {
   const formatMessage = useFormatMessage();
-  console.log('Debug - platform props:', props);
+  console.log(
+    'Debug - platform availability_status:',
+    name,
+    props,
+    props.availability_status
+  );
   return (
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
