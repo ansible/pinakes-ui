@@ -21,6 +21,7 @@ query {
     sources {
       id
       name
+      availability_status
       source_type_id
     }
   }

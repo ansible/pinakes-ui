@@ -175,6 +175,30 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                       </styled.div>
                                     </h3>
                                   </Text>
+                                  <TextContent
+                                    className="pf-u-mb-md"
+                                  >
+                                    <div
+                                      className="pf-c-content pf-u-mb-md"
+                                    >
+                                      <Text
+                                        className="pf-u-mb-0"
+                                        component="small"
+                                      >
+                                        <small
+                                          className="pf-u-mb-0"
+                                          data-pf-content={true}
+                                        >
+                                          Last refreshed  
+                                          <DateFormat
+                                            type="relative"
+                                          >
+                                            Invalid date
+                                          </DateFormat>
+                                        </small>
+                                      </Text>
+                                    </div>
+                                  </TextContent>
                                 </a>
                               </LinkAnchor>
                             </Link>
@@ -434,7 +458,37 @@ exports[`<PlatformCard /> should render correctly 1`] = `
             <CardFooter>
               <div
                 className="pf-c-card__footer"
-              />
+              >
+                <Label
+                  color="red"
+                  variant="filled"
+                >
+                  <span
+                    className="pf-c-label pf-m-red"
+                  >
+                    <span
+                      className="pf-c-label__content"
+                    >
+                      Disabled
+                    </span>
+                  </span>
+                </Label>
+                 
+                <Label
+                  color="red"
+                  variant="filled"
+                >
+                  <span
+                    className="pf-c-label pf-m-red"
+                  >
+                    <span
+                      className="pf-c-label__content"
+                    >
+                      Not available
+                    </span>
+                  </span>
+                </Label>
+              </div>
             </CardFooter>
           </article>
         </Card>

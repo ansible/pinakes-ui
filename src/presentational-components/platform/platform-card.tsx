@@ -78,7 +78,10 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
               : formatMessage(labelMessages.disabled)}
           </Label>
           &nbsp;
-          <Label variant="filled" color={props.enabled ? 'green' : 'red'}>
+          <Label
+            variant="filled"
+            color={props.availability_status === 'available' ? 'green' : 'red'}
+          >
             {props.availability_status === 'available'
               ? formatMessage(labelMessages.available)
               : formatMessage(labelMessages.notAvailable)}
