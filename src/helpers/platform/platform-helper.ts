@@ -1,6 +1,5 @@
 import { getAxiosInstance, getGraphqlInstance } from '../shared/user-login';
 import {
-  CATALOG_API_BASE,
   CATALOG_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../utilities/constants';
@@ -10,8 +9,7 @@ import {
   ServiceOffering,
   ServiceInventory
 } from '@redhat-cloud-services/sources-client';
-import { ApiCollectionResponse, Full } from '../../types/common-types';
-import { Order, OrderItem } from '@redhat-cloud-services/catalog-client';
+import { ApiCollectionResponse } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
 const graphqlInstance = getGraphqlInstance();
 
