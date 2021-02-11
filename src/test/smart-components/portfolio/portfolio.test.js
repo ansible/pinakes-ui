@@ -206,10 +206,6 @@ describe('<Portfolio />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/123`)
       .replyOnce(200, { data: [], meta: {} });
-    mockApi
-      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=50`)
-      .replyOnce(200, { data: [] });
-
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
@@ -290,27 +286,9 @@ describe('<Portfolio />', () => {
         done();
         return [200];
       });
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        data: {
-          application_types: [
-            {
-              id: '1',
-              name: '/insights/platform/catalog',
-              sources: [
-                {
-                  id: 'source-id',
-                  name: 'Source',
-                  source_type_id: '3',
-                  availability_status: 'available',
-                  enabled: true
-                }
-              ]
-            }
-          ]
-        }
-      }
-    });
+    mockGraphql
+      .onPost(`${SOURCES_API_BASE}/graphql`)
+      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`
@@ -383,27 +361,9 @@ describe('<Portfolio />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/123`)
       .replyOnce(200, { data: [], meta: {} });
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        data: {
-          application_types: [
-            {
-              id: '1',
-              name: '/insights/platform/catalog',
-              sources: [
-                {
-                  id: 'source-id',
-                  name: 'Source',
-                  source_type_id: '3',
-                  availability_status: 'available',
-                  enabled: true
-                }
-              ]
-            }
-          ]
-        }
-      }
-    });
+    mockGraphql
+      .onPost(`${SOURCES_API_BASE}/graphql`)
+      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
 
     let wrapper;
     await act(async () => {
@@ -615,47 +575,9 @@ describe('<Portfolio />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/321`)
       .replyOnce(200, { data: [], meta: {} });
-    mockApi
-      .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
-      )
-      .replyOnce(200, {
-        data: [
-          {
-            id: 'source-id',
-            name: 'Source',
-            availability_status: 'available',
-            enabled: true
-          }
-        ],
-        meta: {
-          count: 1,
-          limit: 50,
-          offset: 0
-        }
-      });
-
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        data: {
-          application_types: [
-            {
-              id: '1',
-              name: '/insights/platform/catalog',
-              sources: [
-                {
-                  id: 'source-id',
-                  name: 'Source',
-                  source_type_id: '3',
-                  availability_status: 'available',
-                  enabled: true
-                }
-              ]
-            }
-          ]
-        }
-      }
-    });
+    mockGraphql
+      .onPost(`${SOURCES_API_BASE}/graphql`)
+      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
 
     /**
      * remove portfolio items calls
@@ -715,7 +637,7 @@ describe('<Portfolio />', () => {
     /**
      * trigger notification undo click
      */
-    const notification = store.getActions()[10].payload.description;
+    const notification = store.getActions()[11].payload.description;
     const notificationWrapper = mount(
       <IntlProvider locale="en">{notification}</IntlProvider>
     );
@@ -746,13 +668,33 @@ describe('<Portfolio />', () => {
         }
       });
 
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: {
+        application_types: [
+          {
+            id: 'source-id',
+            name: '/insights/platform/catalog',
+            sources: [
+              {
+                id: 'source-id',
+                name: 'Source',
+                availability_status: 'available',
+                enabled: true,
+                source_type_id: '3'
+              }
+            ]
+          }
+        ]
+      }
+    });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
       .replyOnce(200, {
         id: 'portfolio-id',
         name: 'Portfolio',
         metadata: { user_capabilities: { show: true }, statistics: {} }
-      })
+      });
+    mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {
         id: 'portfolio-item-id',
@@ -761,32 +703,15 @@ describe('<Portfolio />', () => {
         service_offering_source_ref: 'source-id',
         created_at: '1999-07-26',
         metadata: { user_capabilities: { show: true } }
-      })
+      });
+    mockApi
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)
       .replyOnce(200, { id: 'source-id', name: 'Source', source_type_id: '3' })
       .onGet(
         `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items??filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { meta: {}, data: [] });
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        application_types: [
-          {
-            id: '1',
-            name: '/insights/platform/catalog',
-            sources: [
-              {
-                id: 'source-id',
-                name: 'Source',
-                source_type_id: '3',
-                availability_status: 'available',
-                enabled: true
-              }
-            ]
-          }
-        ]
-      }
-    });
+
     let wrapper;
     await act(async () => {
       wrapper = mount(

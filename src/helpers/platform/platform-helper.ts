@@ -29,7 +29,6 @@ query {
 const getSourcesDetails = (
   sourceIds: string[]
 ): Promise<ApiCollectionResponse<Source>> => {
-  console.log('Debug - sourceIds: ', sourceIds);
   return axiosInstance.get(
     `${CATALOG_INVENTORY_API_BASE}/sources?limit=${sourceIds.length ||
       defaultSettings.limit}${sourceIds.length ? '&' : ''}${sourceIds
@@ -44,14 +43,8 @@ export const getPlatforms = (): Promise<Source> => {
     .post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
     .then(({ data: { application_types } }) => application_types)
     .then(([{ sources }]) => {
-      console.log('Debug - sources: ', sources);
       return getSourcesDetails(sources.map((source: Source) => source.id)).then(
         (sourceDetails) => {
-          console.log(
-            'Debug - serviceDetails, sources',
-            sourceDetails,
-            sources
-          );
           return (sources as Source[]).map((source: Source) => ({
             ...source,
             ...sourceDetails.data.find(
