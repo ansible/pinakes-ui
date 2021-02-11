@@ -727,6 +727,26 @@ describe('<Portfolio />', () => {
   it('should navigate back from portfolio item to portfolio via breadcrumbs', async () => {
     const { ...store } = testStore();
     mockApi
+      .onGet(
+        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: 'source-id',
+            name: 'Source',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
+    mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
       .replyOnce(200, {
         id: 'portfolio-id',
@@ -748,26 +768,6 @@ describe('<Portfolio />', () => {
         `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items??filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { meta: {}, data: [] });
-    mockApi
-      .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
-      )
-      .replyOnce(200, {
-        data: [
-          {
-            id: 'source-id',
-            name: 'Source',
-            availability_status: 'available',
-            enabled: true
-          }
-        ],
-        meta: {
-          count: 1,
-          limit: 50,
-          offset: 0
-        }
-      });
-
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {
         application_types: [
