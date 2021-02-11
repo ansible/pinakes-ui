@@ -141,12 +141,12 @@ describe('Integration tests for portfolio items', () => {
      */
     mockApi
       .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source_id`
+        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
       )
       .replyOnce(200, {
         data: [
           {
-            id: 'source_id',
+            id: 'source-id',
             name: 'Source_1',
             availability_status: 'available',
             enabled: true

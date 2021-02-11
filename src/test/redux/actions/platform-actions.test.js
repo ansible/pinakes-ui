@@ -40,6 +40,24 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
+    mockApi
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
+      .replyOnce(200, {
+        data: [
+          {
+            id: '1',
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {
         application_types: [
@@ -61,7 +79,14 @@ describe('Platform actions', () => {
       },
       {
         type: `${FETCH_PLATFORMS}_FULFILLED`,
-        payload: [expect.objectContaining({ id: '1', name: 'Source 1' })]
+        payload: [
+          expect.objectContaining({
+            id: '1',
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
+          })
+        ]
       }
     ];
 

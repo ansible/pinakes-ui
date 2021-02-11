@@ -72,8 +72,28 @@ describe('<AddProductsToPortfolio />', () => {
         }
       }
     });
+    mockApi
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
+      .replyOnce(200, {
+        data: [
+          {
+            id: '1',
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
+      data: {
+        application_types: [{ sources: [{ id: '1', name: 'Source 1' }] }]
+      }
     });
     mockApi
       .onGet(
@@ -105,7 +125,9 @@ describe('<AddProductsToPortfolio />', () => {
         payload: [
           {
             id: '1',
-            name: 'foo'
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
           }
         ],
         type: `${FETCH_PLATFORMS}_FULFILLED`
@@ -157,7 +179,7 @@ describe('<AddProductsToPortfolio />', () => {
         }
       },
       platformReducer: {
-        platforms: [{ id: '1', name: 'foo' }],
+        platforms: [{ id: '1', name: 'Source 1' }],
         platformItems: {
           1: {
             data: [
@@ -168,8 +190,28 @@ describe('<AddProductsToPortfolio />', () => {
       }
     });
 
+    mockApi
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
+      .replyOnce(200, {
+        data: [
+          {
+            id: '1',
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
+      data: {
+        application_types: [{ sources: [{ id: '1', name: 'Source 1' }] }]
+      }
     });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`)

@@ -16,6 +16,7 @@ import Portfolio from '../../../smart-components/portfolio/portfolio';
 import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 import {
   CATALOG_API_BASE,
+  CATALOG_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../../utilities/constants';
 import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
@@ -149,16 +150,19 @@ describe('<Portfolio />', () => {
         }
       },
       expect.objectContaining({
-        type: `${FETCH_PLATFORMS}_FULFILLED`
-      }),
-      expect.objectContaining({
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
       }),
       expect.objectContaining({
         type: `${FETCH_PORTFOLIO}_FULFILLED`
+      }),
+      expect.objectContaining({
+        type: `${FETCH_PLATFORMS}_FULFILLED`
       })
     ];
 
+    mockApi
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=50`)
+      .replyOnce(200, { data: [] });
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
@@ -202,6 +206,10 @@ describe('<Portfolio />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/123`)
       .replyOnce(200, { data: [], meta: {} });
+    mockApi
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=50`)
+      .replyOnce(200, { data: [] });
+
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
@@ -282,9 +290,27 @@ describe('<Portfolio />', () => {
         done();
         return [200];
       });
-    mockGraphql
-      .onPost(`${SOURCES_API_BASE}/graphql`)
-      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: {
+        data: {
+          application_types: [
+            {
+              id: '1',
+              name: '/insights/platform/catalog',
+              sources: [
+                {
+                  id: 'source-id',
+                  name: 'Source',
+                  source_type_id: '3',
+                  availability_status: 'available',
+                  enabled: true
+                }
+              ]
+            }
+          ]
+        }
+      }
+    });
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/portfolios/123/portfolio_items?limit=50&offset=0`
@@ -357,9 +383,27 @@ describe('<Portfolio />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/123`)
       .replyOnce(200, { data: [], meta: {} });
-    mockGraphql
-      .onPost(`${SOURCES_API_BASE}/graphql`)
-      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: {
+        data: {
+          application_types: [
+            {
+              id: '1',
+              name: '/insights/platform/catalog',
+              sources: [
+                {
+                  id: 'source-id',
+                  name: 'Source',
+                  source_type_id: '3',
+                  availability_status: 'available',
+                  enabled: true
+                }
+              ]
+            }
+          ]
+        }
+      }
+    });
 
     let wrapper;
     await act(async () => {
@@ -571,9 +615,47 @@ describe('<Portfolio />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/321`)
       .replyOnce(200, { data: [], meta: {} });
-    mockGraphql
-      .onPost(`${SOURCES_API_BASE}/graphql`)
-      .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
+    mockApi
+      .onGet(
+        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: 'source-id',
+            name: 'Source',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: {
+        data: {
+          application_types: [
+            {
+              id: '1',
+              name: '/insights/platform/catalog',
+              sources: [
+                {
+                  id: 'source-id',
+                  name: 'Source',
+                  source_type_id: '3',
+                  availability_status: 'available',
+                  enabled: true
+                }
+              ]
+            }
+          ]
+        }
+      }
+    });
 
     /**
      * remove portfolio items calls
@@ -666,6 +748,26 @@ describe('<Portfolio />', () => {
         `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items??filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { meta: {}, data: [] });
+    mockApi
+      .onGet(
+        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: 'source-id',
+            name: 'Source',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {
         application_types: [
@@ -676,7 +778,9 @@ describe('<Portfolio />', () => {
               {
                 id: 'source-id',
                 name: 'Source',
-                source_type_id: '3'
+                source_type_id: '3',
+                availability_status: 'available',
+                enabled: true
               }
             ]
           }
