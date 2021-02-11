@@ -139,6 +139,26 @@ describe('Integration tests for portfolio items', () => {
     /**
      * navigate to add products page
      */
+    mockApi
+      .onGet(
+        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source_id`
+      )
+      .replyOnce(200, {
+        data: [
+          {
+            id: 'source_id',
+            name: 'Source_1',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, commonSourcesResponse);
