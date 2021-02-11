@@ -12,10 +12,7 @@ import { PaginationConfiguration } from '../../helpers/shared/pagination';
 
 export const fetchPlatforms = () => (
   dispatch: Dispatch
-): Promise<{
-  type: string;
-  payload: ApiCollectionResponse<Source> | { data: any };
-}> => {
+): Promise<{ type: string; payload: Source }> => {
   dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_PENDING` });
   return PlatformHelper.getPlatforms()
     .then((data) =>

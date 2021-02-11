@@ -21,7 +21,6 @@ query {
     sources {
       id
       name
-      availability_status
       source_type_id
     }
   }
@@ -29,34 +28,39 @@ query {
 
 const getSourcesDetails = (
   sourceIds: string[]
-): Promise<ApiCollectionResponse<Source> | { data: any }> =>
-  axiosInstance.get(
+): Promise<ApiCollectionResponse<Source>> => {
+  console.log('Debug - sourceIds: ', sourceIds);
+  return axiosInstance.get(
     `${CATALOG_INVENTORY_API_BASE}/sources?limit=${sourceIds.length ||
       defaultSettings.limit}${sourceIds.length ? '&' : ''}${sourceIds
       .map((sourceId) => `filter[id][]=${sourceId}`)
       .join('&')}`
   );
+};
 
-export const getPlatforms = (): Promise<
-  ApiCollectionResponse<Source> | { data: any }
-> => {
+export const getPlatforms = (): Promise<Source> => {
+  // @ts-ignore
   return graphqlInstance
     .post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
     .then(({ data: { application_types } }) => application_types)
-    .then(([{ sources }]) =>
-      getSourcesDetails(sources.map((source: { id: any }) => source.id)).then(
+    .then(([{ sources }]) => {
+      console.log('Debug - sources: ', sources);
+      return getSourcesDetails(sources.map((source: Source) => source.id)).then(
         (sourceDetails) => {
-          return {
-            data: sources.data.map((source: { id: any }) => ({
-              ...source,
-              ...sourceDetails.data.filter(
-                (sourceDetail: { id: any }) => sourceDetail.id === source.id
-              )
-            }))
-          };
+          console.log(
+            'Debug - serviceDetails, sources',
+            sourceDetails,
+            sources
+          );
+          return (sources as Source[]).map((source: Source) => ({
+            ...source,
+            ...sourceDetails.data.find(
+              (sourceDetail: Source) => sourceDetail.id === source.id
+            )
+          }));
         }
-      )
-    );
+      );
+    });
 };
 
 export const getPlatform = (platformId: string): Promise<Source> => {
