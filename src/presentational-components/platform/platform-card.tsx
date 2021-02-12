@@ -56,15 +56,17 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
               >
                 <EllipsisTextContainer>{name}</EllipsisTextContainer>
               </Text>
-              <TextContent className="pf-u-mb-md">
-                <Text component={TextVariants.small} className="pf-u-mb-0">
-                  Last refreshed &nbsp;
-                  <DateFormat
-                    date={props.last_successful_refresh_at}
-                    type="relative"
-                  />
-                </Text>
-              </TextContent>
+              {props.last_successful_refresh_at && (
+                <TextContent className="pf-u-mb-md">
+                  <Text component={TextVariants.small} className="pf-u-mb-0">
+                    Last refreshed &nbsp;
+                    <DateFormat
+                      date={props.last_successful_refresh_at}
+                      type="relative"
+                    />
+                  </Text>
+                </TextContent>
+              )}
             </CatalogLink>
           </TextContent>
           <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
