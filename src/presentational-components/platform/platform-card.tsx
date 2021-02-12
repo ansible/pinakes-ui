@@ -26,8 +26,8 @@ const TO_DISPLAY = ['description', 'modified'];
 export interface PlatformCardProps extends ItemDetailsProps {
   name: string;
   id: string;
-  availability_status: string;
-  last_successful_refresh_at: string;
+  availability_status?: string;
+  last_successful_refresh_at?: string;
   source_type_id: string;
   imageUrl: string;
 }
