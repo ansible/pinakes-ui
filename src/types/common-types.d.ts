@@ -8,6 +8,7 @@ import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
 import { PaginationConfiguration } from '../helpers/shared/pagination';
 import { SortByDirection } from '@patternfly/react-table';
+import { Source } from '@redhat-cloud-services/sources-client';
 
 export interface StringObject {
   [key: string]: string;
@@ -146,4 +147,21 @@ export interface SortBy {
   index: number;
   property: string;
   direction: SortByDirection;
+}
+
+export interface SourceDetails extends Source {
+  availability_status?: string;
+  enabled?: boolean;
+  created_at: string;
+  info?: { version?: string; ansible_version?: string };
+  last_available_at?: string;
+  last_checked_at?: string;
+  last_refresh_message: string;
+  last_successful_refresh_at: string;
+  mqtt_client_id: string;
+  refresh_finished_at: string;
+  refresh_started_at: string;
+  refresh_state: string;
+  refresh_task_id: string;
+  updated_at: string;
 }

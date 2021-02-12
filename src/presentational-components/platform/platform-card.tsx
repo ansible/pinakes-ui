@@ -27,7 +27,7 @@ export interface PlatformCardProps extends ItemDetailsProps {
   name: string;
   id: string;
   availability_status: string;
-  refresh_finished_at: string;
+  last_successful_refresh_at: string;
   source_type_id: string;
   imageUrl: string;
 }
@@ -37,12 +37,6 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   ...props
 }) => {
   const formatMessage = useFormatMessage();
-  console.log(
-    'Debug - platform availability_status:',
-    name,
-    props,
-    props.availability_status
-  );
   return (
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
@@ -66,7 +60,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
                 <Text component={TextVariants.small} className="pf-u-mb-0">
                   Last refreshed &nbsp;
                   <DateFormat
-                    date={props.refresh_finished_at}
+                    date={props.last_successful_refresh_at}
                     type="relative"
                   />
                 </Text>

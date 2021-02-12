@@ -7,12 +7,12 @@ import {
   Source
 } from '@redhat-cloud-services/sources-client';
 import { AsyncMiddlewareAction } from '../../types/redux';
-import { ApiCollectionResponse } from '../../types/common-types';
+import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 import { PaginationConfiguration } from '../../helpers/shared/pagination';
 
 export const fetchPlatforms = () => (
   dispatch: Dispatch
-): Promise<{ type: string; payload: Source }> => {
+): Promise<{ type: string; payload: SourceDetails }> => {
   dispatch({ type: `${ActionTypes.FETCH_PLATFORMS}_PENDING` });
   return PlatformHelper.getPlatforms()
     .then((data) =>
