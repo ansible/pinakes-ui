@@ -109,6 +109,10 @@ const platformsMessages = defineMessages({
   dateAdded: {
     id: 'platforms.dateAdded',
     defaultMessage: 'Date added'
+  },
+  refreshTooltip: {
+    id: 'platforms.refreshTooltip',
+    defaultMessage: 'Refresh platform'
   }
 });
 

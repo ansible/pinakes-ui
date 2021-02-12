@@ -7,9 +7,15 @@ import {
   Text,
   TextVariants,
   TextContent,
-  Label
+  Label,
+  Button,
+  Tooltip
 } from '@patternfly/react-core';
-import ItemDetails, { ItemDetailsProps } from '../shared/card-common';
+import ItemDetails, {
+  HeaderLevel,
+  HeaderTitle,
+  ItemDetailsProps
+} from '../shared/card-common';
 
 import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
@@ -20,6 +26,9 @@ import CardIcon from '../shared/card-icon';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { SyncAltIcon } from '@patternfly/react-icons';
+import { refreshPlatform } from '../../helpers/platform/platform-helper';
+import platformsMessages from '../../messages/platforms.messages';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -41,7 +50,25 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
         <CardHeader>
-          <CardIcon height={40} sourceId={id} />
+          <HeaderLevel>
+            <HeaderTitle>
+              <CardIcon height={40} sourceId={id} />
+            </HeaderTitle>
+            <Tooltip
+              content={
+                <Text>{formatMessage(platformsMessages.refreshTooltip)}</Text>
+              }
+            >
+              <Button
+                id={`refresh-platform-${id}`}
+                ouiaId={`refresh-platform-${id}`}
+                variant="link"
+                onClick={() => refreshPlatform(id)}
+              >
+                <SyncAltIcon key={`refresh-${id}`} color="grey" />
+              </Button>
+            </Tooltip>
+          </HeaderLevel>
         </CardHeader>
         <StyledCardBody>
           <TextContent>
