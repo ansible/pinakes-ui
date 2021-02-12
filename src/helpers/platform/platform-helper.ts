@@ -9,9 +9,9 @@ import {
   ServiceOffering,
   ServiceInventory
 } from '@redhat-cloud-services/sources-client';
-import { ApiCollectionResponse } from '../../types/common-types';
+import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
-const graphqlInstance = getGraphqlInstance();
+const { post } = getGraphqlInstance();
 
 const sourcesQuery = `
 query {
@@ -26,12 +26,32 @@ query {
   }
 }`;
 
-export const getPlatforms = (): Promise<Source> => {
-  return graphqlInstance
-    .post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
-    .then(({ data: { application_types } }) => application_types)
-    .then(([{ sources }]) => sources);
+const getSourcesDetails = (
+  sourceIds: string[]
+): Promise<ApiCollectionResponse<SourceDetails>> => {
+  return axiosInstance.get(
+    `${CATALOG_INVENTORY_API_BASE}/sources?limit=${sourceIds.length ||
+      defaultSettings.limit}${sourceIds.length ? '&' : ''}${sourceIds
+      .map((sourceId) => `filter[id][]=${sourceId}`)
+      .join('&')}`
+  );
 };
+
+export const getPlatforms = (): Promise<SourceDetails> =>
+  post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
+    .then(({ data: { application_types } }) => application_types)
+    .then(([{ sources }]) => {
+      return getSourcesDetails(sources.map((source: Source) => source.id)).then(
+        (sourceDetails) => {
+          return sources.map((source: Source) => ({
+            ...source,
+            ...sourceDetails.data.find(
+              (sourceDetail) => sourceDetail.id === source.id
+            )
+          }));
+        }
+      );
+    });
 
 export const getPlatform = (platformId: string): Promise<Source> => {
   return axiosInstance.get(

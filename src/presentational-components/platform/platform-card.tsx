@@ -6,7 +6,8 @@ import {
   GalleryItem,
   Text,
   TextVariants,
-  TextContent
+  TextContent,
+  Label
 } from '@patternfly/react-core';
 import ItemDetails, { ItemDetailsProps } from '../shared/card-common';
 
@@ -16,12 +17,17 @@ import CatalogLink from '../../smart-components/common/catalog-link';
 import { StyledCard } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
 import CardIcon from '../shared/card-icon';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import labelMessages from '../../messages/labels.messages';
+import useFormatMessage from '../../utilities/use-format-message';
 
 const TO_DISPLAY = ['description', 'modified'];
 
 export interface PlatformCardProps extends ItemDetailsProps {
   name: string;
   id: string;
+  availability_status?: string;
+  last_successful_refresh_at?: string;
   source_type_id: string;
   imageUrl: string;
 }
@@ -30,6 +36,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   id,
   ...props
 }) => {
+  const formatMessage = useFormatMessage();
   return (
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
@@ -49,11 +56,37 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
               >
                 <EllipsisTextContainer>{name}</EllipsisTextContainer>
               </Text>
+              {props.last_successful_refresh_at && (
+                <TextContent className="pf-u-mb-md">
+                  <Text component={TextVariants.small} className="pf-u-mb-0">
+                    Last refreshed &nbsp;
+                    <DateFormat
+                      date={props.last_successful_refresh_at}
+                      type="relative"
+                    />
+                  </Text>
+                </TextContent>
+              )}
             </CatalogLink>
           </TextContent>
           <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
         </StyledCardBody>
-        <CardFooter />
+        <CardFooter>
+          <Label variant="filled" color={props.enabled ? 'green' : 'red'}>
+            {props.enabled
+              ? formatMessage(labelMessages.enabled)
+              : formatMessage(labelMessages.disabled)}
+          </Label>
+          &nbsp;
+          <Label
+            variant="filled"
+            color={props.availability_status === 'available' ? 'green' : 'red'}
+          >
+            {props.availability_status === 'available'
+              ? formatMessage(labelMessages.available)
+              : formatMessage(labelMessages.notAvailable)}
+          </Label>
+        </CardFooter>
       </StyledCard>
     </GalleryItem>
   );
