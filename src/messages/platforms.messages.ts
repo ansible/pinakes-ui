@@ -113,6 +113,10 @@ const platformsMessages = defineMessages({
   refreshTooltip: {
     id: 'platforms.refreshTooltip',
     defaultMessage: 'Refresh platform'
+  },
+  lastRefreshMessage: {
+    id: 'platforms.lastRefreshMessage',
+    defaultMessage: 'Last refresh message'
   }
 });
 
