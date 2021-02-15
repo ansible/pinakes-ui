@@ -17,23 +17,23 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
 >
   <Styled(Component)>
     <Component
-      className="sc-fznKkj cHdoJl"
+      className="sc-fzokOt fXxUEe"
     >
       <GalleryItem
-        className="sc-fznKkj cHdoJl"
+        className="sc-fzokOt fXxUEe"
       >
         <div
-          className="sc-fznKkj cHdoJl"
+          className="sc-fzokOt fXxUEe"
         >
           <Styled(Card)
             ouiaId="portfolio-item-1"
           >
             <Card
-              className="sc-fznyAO jPogVH"
+              className="sc-fznZeY cloDqS"
               ouiaId="portfolio-item-1"
             >
               <article
-                className="pf-c-card sc-fznyAO jPogVH"
+                className="pf-c-card sc-fznZeY cloDqS"
                 data-ouia-component-id="portfolio-item-1"
                 data-ouia-component-type="PF4/Card"
                 data-ouia-safe={true}
@@ -45,10 +45,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                   >
                     <Styled(Level)>
                       <Level
-                        className="sc-fznZeY dhizEt"
+                        className="sc-fzqBZW kPDQfP"
                       >
                         <div
-                          className="pf-l-level sc-fznZeY dhizEt"
+                          className="pf-l-level sc-fzqBZW kPDQfP"
                         >
                           <CardIcon
                             src="/api/catalog/v1.3/portfolio_items/1/icon"
@@ -148,10 +148,10 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                 >
                   <Styled(CardBody)>
                     <CardBody
-                      className="sc-fzplWN eHMLLo"
+                      className="sc-fznKkj icmceZ"
                     >
                       <div
-                        className="pf-c-card__body sc-fzplWN eHMLLo"
+                        className="pf-c-card__body sc-fznKkj icmceZ"
                       >
                         <TextContent>
                           <div
@@ -169,7 +169,7 @@ exports[`<PortfolioItem /> should render correctly 1`] = `
                                 >
                                   <styled.div>
                                     <div
-                                      className="sc-fzpans olCT"
+                                      className="sc-fznyAO fTqqVS"
                                     >
                                       Foo
                                     </div>

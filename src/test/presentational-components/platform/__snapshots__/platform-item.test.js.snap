@@ -9,11 +9,11 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     ouiaId="platform-itemFoo"
   >
     <Card
-      className="sc-fznyAO jPogVH"
+      className="sc-fznZeY cloDqS"
       ouiaId="platform-itemFoo"
     >
       <article
-        className="pf-c-card sc-fznyAO jPogVH"
+        className="pf-c-card sc-fznZeY cloDqS"
         data-ouia-component-id="platform-itemFoo"
         data-ouia-component-type="PF4/Card"
         data-ouia-safe={true}
@@ -25,10 +25,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
           >
             <Styled(Level)>
               <Level
-                className="sc-fznZeY dhizEt"
+                className="sc-fzqBZW kPDQfP"
               >
                 <div
-                  className="pf-l-level sc-fznZeY dhizEt"
+                  className="pf-l-level sc-fzqBZW kPDQfP"
                 >
                   <CardIcon
                     height={40}
@@ -117,10 +117,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         >
           <Styled(CardBody)>
             <CardBody
-              className="sc-fzplWN eHMLLo"
+              className="sc-fznKkj icmceZ"
             >
               <div
-                className="pf-c-card__body sc-fzplWN eHMLLo"
+                className="pf-c-card__body sc-fznKkj icmceZ"
               >
                 <TextContent>
                   <div
@@ -136,7 +136,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         >
                           <styled.div>
                             <div
-                              className="sc-fzpans olCT"
+                              className="sc-fznyAO fTqqVS"
                             />
                           </styled.div>
                         </h3>

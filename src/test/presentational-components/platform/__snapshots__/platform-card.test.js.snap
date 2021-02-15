@@ -11,11 +11,11 @@ exports[`<PlatformCard /> should render correctly 1`] = `
         ouiaId="platform-Foo"
       >
         <Card
-          className="sc-AxhUy kEBXQD"
+          className="sc-AxheI ueGSf"
           ouiaId="platform-Foo"
         >
           <article
-            className="pf-c-card sc-AxhUy kEBXQD"
+            className="pf-c-card sc-AxheI ueGSf"
             data-ouia-component-id="platform-Foo"
             data-ouia-component-type="PF4/Card"
             data-ouia-safe={true}
@@ -25,89 +25,245 @@ exports[`<PlatformCard /> should render correctly 1`] = `
               <div
                 className="pf-c-card__header"
               >
-                <CardIcon
-                  height={40}
-                  sourceId="Foo"
-                >
-                  <styled.div
-                    height={40}
+                <Styled(Level)>
+                  <Level
+                    className="sc-AxiKw hSLCUF"
                   >
                     <div
-                      className="sc-fznKkj dHxwEL"
-                      height={40}
+                      className="pf-l-level sc-AxiKw hSLCUF"
                     >
-                      <IconPlaceholder
-                        height={40}
-                      >
-                        <svg
-                          height={40}
-                          width={40}
+                      <Styled(LevelItem)>
+                        <LevelItem
+                          className="sc-AxirZ dRDdDp"
                         >
-                          <circle
-                            cx={20}
-                            cy={20}
-                            fill="#ecebeb"
-                            r={20}
-                          />
-                        </svg>
-                      </IconPlaceholder>
-                      <Styled(t)
-                        delayTime={0}
-                        height={0}
-                        hidden={true}
-                        onError={[Function]}
-                        onLoad={[Function]}
-                        threshold={2000}
-                      >
-                        <t
-                          afterLoad={[Function]}
-                          beforeLoad={[Function]}
-                          className="sc-fznyAO eTyGtP"
-                          delayMethod="throttle"
-                          delayTime={0}
-                          effect=""
-                          height={0}
-                          hidden={true}
-                          onError={[Function]}
-                          onLoad={[Function]}
-                          placeholderSrc={null}
-                          threshold={2000}
-                          useIntersectionObserver={true}
-                          visibleByDefault={false}
-                          wrapperClassName=""
-                        >
-                          <t
-                            afterLoad={[Function]}
-                            beforeLoad={[Function]}
-                            className="sc-fznyAO eTyGtP"
-                            delayMethod="throttle"
-                            delayTime={0}
-                            height={0}
-                            threshold={2000}
-                            useIntersectionObserver={true}
-                            visibleByDefault={false}
+                          <div
+                            className="sc-AxirZ dRDdDp"
                           >
-                            <img
-                              className="sc-fznyAO eTyGtP"
-                              height={0}
-                              hidden={true}
-                              onError={[Function]}
-                              onLoad={[Function]}
-                            />
-                          </t>
-                        </t>
-                      </Styled(t)>
+                            <CardIcon
+                              height={40}
+                              sourceId="Foo"
+                            >
+                              <styled.div
+                                height={40}
+                              >
+                                <div
+                                  className="sc-fzokOt efqMbY"
+                                  height={40}
+                                >
+                                  <IconPlaceholder
+                                    height={40}
+                                  >
+                                    <svg
+                                      height={40}
+                                      width={40}
+                                    >
+                                      <circle
+                                        cx={20}
+                                        cy={20}
+                                        fill="#ecebeb"
+                                        r={20}
+                                      />
+                                    </svg>
+                                  </IconPlaceholder>
+                                  <Styled(t)
+                                    delayTime={0}
+                                    height={0}
+                                    hidden={true}
+                                    onError={[Function]}
+                                    onLoad={[Function]}
+                                    threshold={2000}
+                                  >
+                                    <t
+                                      afterLoad={[Function]}
+                                      beforeLoad={[Function]}
+                                      className="sc-fznZeY ea-dOJy"
+                                      delayMethod="throttle"
+                                      delayTime={0}
+                                      effect=""
+                                      height={0}
+                                      hidden={true}
+                                      onError={[Function]}
+                                      onLoad={[Function]}
+                                      placeholderSrc={null}
+                                      threshold={2000}
+                                      useIntersectionObserver={true}
+                                      visibleByDefault={false}
+                                      wrapperClassName=""
+                                    >
+                                      <t
+                                        afterLoad={[Function]}
+                                        beforeLoad={[Function]}
+                                        className="sc-fznZeY ea-dOJy"
+                                        delayMethod="throttle"
+                                        delayTime={0}
+                                        height={0}
+                                        threshold={2000}
+                                        useIntersectionObserver={true}
+                                        visibleByDefault={false}
+                                      >
+                                        <img
+                                          className="sc-fznZeY ea-dOJy"
+                                          height={0}
+                                          hidden={true}
+                                          onError={[Function]}
+                                          onLoad={[Function]}
+                                        />
+                                      </t>
+                                    </t>
+                                  </Styled(t)>
+                                </div>
+                              </styled.div>
+                            </CardIcon>
+                          </div>
+                        </LevelItem>
+                      </Styled(LevelItem)>
+                      <Tooltip
+                        content={
+                          <Text>
+                            Refresh platform
+                          </Text>
+                        }
+                      >
+                        <Popper
+                          appendTo={[Function]}
+                          distance={15}
+                          enableFlip={true}
+                          flipBehavior={
+                            Array [
+                              "top",
+                              "right",
+                              "bottom",
+                              "left",
+                              "top",
+                              "right",
+                              "bottom",
+                            ]
+                          }
+                          isVisible={false}
+                          onBlur={[Function]}
+                          onDocumentClick={false}
+                          onDocumentKeyDown={[Function]}
+                          onFocus={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          onTriggerEnter={[Function]}
+                          placement="top"
+                          popper={
+                            <div
+                              className="pf-c-tooltip"
+                              id="pf-tooltip-1"
+                              role="tooltip"
+                              style={
+                                Object {
+                                  "maxWidth": null,
+                                  "opacity": 0,
+                                  "transition": "opacity 300ms cubic-bezier(.54, 1.5, .38, 1.11)",
+                                }
+                              }
+                            >
+                              <TooltipArrow />
+                              <TooltipContent
+                                isLeftAligned={false}
+                              >
+                                <Text>
+                                  Refresh platform
+                                </Text>
+                              </TooltipContent>
+                            </div>
+                          }
+                          popperMatchesTriggerWidth={false}
+                          positionModifiers={
+                            Object {
+                              "bottom": "pf-m-bottom",
+                              "left": "pf-m-left",
+                              "right": "pf-m-right",
+                              "top": "pf-m-top",
+                            }
+                          }
+                          trigger={
+                            <Button
+                              aria-describedby="pf-tooltip-1"
+                              id="refresh-platform-Foo"
+                              isDisabled={false}
+                              onClick={[Function]}
+                              ouiaId="refresh-platform-Foo"
+                              variant="link"
+                            >
+                              <SyncAltIcon
+                                color="blue"
+                                noVerticalAlign={false}
+                                size="sm"
+                              />
+                            </Button>
+                          }
+                          zIndex={9999}
+                        >
+                          <FindRefWrapper
+                            onFoundRef={[Function]}
+                          >
+                            <Button
+                              aria-describedby="pf-tooltip-1"
+                              id="refresh-platform-Foo"
+                              isDisabled={false}
+                              onClick={[Function]}
+                              ouiaId="refresh-platform-Foo"
+                              variant="link"
+                            >
+                              <button
+                                aria-describedby="pf-tooltip-1"
+                                aria-disabled={false}
+                                aria-label={null}
+                                className="pf-c-button pf-m-link"
+                                data-ouia-component-id="refresh-platform-Foo"
+                                data-ouia-component-type="PF4/Button"
+                                data-ouia-safe={true}
+                                disabled={false}
+                                id="refresh-platform-Foo"
+                                onClick={[Function]}
+                                role={null}
+                                type="button"
+                              >
+                                <SyncAltIcon
+                                  color="blue"
+                                  key="refresh-Foo"
+                                  noVerticalAlign={false}
+                                  size="sm"
+                                >
+                                  <svg
+                                    aria-hidden={true}
+                                    aria-labelledby={null}
+                                    fill="blue"
+                                    height="1em"
+                                    role="img"
+                                    style={
+                                      Object {
+                                        "verticalAlign": "-0.125em",
+                                      }
+                                    }
+                                    viewBox="0 0 512 512"
+                                    width="1em"
+                                  >
+                                    <path
+                                      d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z"
+                                    />
+                                  </svg>
+                                </SyncAltIcon>
+                              </button>
+                            </Button>
+                          </FindRefWrapper>
+                        </Popper>
+                      </Tooltip>
                     </div>
-                  </styled.div>
-                </CardIcon>
+                  </Level>
+                </Styled(Level)>
               </div>
             </CardHeader>
             <Styled(CardBody)>
               <CardBody
-                className="sc-AxheI jOYejY"
+                className="sc-AxmLO fFTSWm"
               >
                 <div
-                  className="pf-c-card__body sc-AxheI jOYejY"
+                  className="pf-c-card__body sc-AxmLO fFTSWm"
                 >
                   <TextContent>
                     <div
@@ -131,7 +287,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           }
                         >
                           <Component
-                            className="sc-AxiKw drCTeX"
+                            className="sc-AxhUy cYwveG"
                             to={
                               Object {
                                 "hash": undefined,
@@ -141,7 +297,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             }
                           >
                             <Link
-                              className="sc-AxiKw drCTeX"
+                              className="sc-AxhUy cYwveG"
                               to={
                                 Object {
                                   "hash": undefined,
@@ -151,12 +307,12 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               }
                             >
                               <LinkAnchor
-                                className="sc-AxiKw drCTeX"
+                                className="sc-AxhUy cYwveG"
                                 href="/platform/platform-templates?platform=Foo"
                                 navigate={[Function]}
                               >
                                 <a
-                                  className="sc-AxiKw drCTeX"
+                                  className="sc-AxhUy cYwveG"
                                   href="/platform/platform-templates?platform=Foo"
                                   onClick={[Function]}
                                 >
@@ -170,7 +326,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                     >
                                       <styled.div>
                                         <div
-                                          className="sc-AxirZ ZcaGf"
+                                          className="sc-AxhCb hYKqDj"
                                         />
                                       </styled.div>
                                     </h3>
@@ -259,7 +415,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               popper={
                                 <div
                                   className="pf-c-tooltip"
-                                  id="pf-tooltip-1"
+                                  id="pf-tooltip-2"
                                   role="tooltip"
                                   style={
                                     Object {
@@ -288,7 +444,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               }
                               trigger={
                                 <span
-                                  aria-describedby="pf-tooltip-1"
+                                  aria-describedby="pf-tooltip-2"
                                 >
                                   ...
                                 </span>
@@ -299,7 +455,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                 onFoundRef={[Function]}
                               >
                                 <span
-                                  aria-describedby="pf-tooltip-1"
+                                  aria-describedby="pf-tooltip-2"
                                 >
                                   ...
                                 </span>
@@ -377,7 +533,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               popper={
                                 <div
                                   className="pf-c-tooltip"
-                                  id="pf-tooltip-2"
+                                  id="pf-tooltip-3"
                                   role="tooltip"
                                   style={
                                     Object {
@@ -406,7 +562,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               }
                               trigger={
                                 <span
-                                  aria-describedby="pf-tooltip-2"
+                                  aria-describedby="pf-tooltip-3"
                                 >
                                   ...
                                 </span>
@@ -417,7 +573,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                 onFoundRef={[Function]}
                               >
                                 <span
-                                  aria-describedby="pf-tooltip-2"
+                                  aria-describedby="pf-tooltip-3"
                                 >
                                   ...
                                 </span>

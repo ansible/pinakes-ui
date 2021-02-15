@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useReducer } from 'react';
 import {
   CardHeader,
   CardFooter,
@@ -27,8 +27,9 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components/component
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { SyncAltIcon } from '@patternfly/react-icons';
-import { refreshPlatform } from '../../helpers/platform/platform-helper';
+import { refreshPlatform } from '../../redux/actions/platform-actions';
 import platformsMessages from '../../messages/platforms.messages';
+import { useDispatch } from 'react-redux';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -40,12 +41,35 @@ export interface PlatformCardProps extends ItemDetailsProps {
   source_type_id: string;
   imageUrl: string;
 }
+
+const initialState = {
+  isFetching: false
+};
+
+const platformCardState = (state: any, action: { type: any; payload: any }) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+  }
+
+  return state;
+};
+
 const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   name,
   id,
   ...props
 }) => {
   const formatMessage = useFormatMessage();
+  const dispatch = useDispatch();
+  const [{ isFetching }] = useReducer(platformCardState, initialState);
+
+  const handleRefreshPlatform = (platformId: string) => {
+    dispatch({ type: 'setFetching', payload: true });
+    dispatch(refreshPlatform(platformId));
+    dispatch({ type: 'setFetching', payload: false });
+  };
+
   return (
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
@@ -63,9 +87,10 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
                 id={`refresh-platform-${id}`}
                 ouiaId={`refresh-platform-${id}`}
                 variant="link"
-                onClick={() => refreshPlatform(id)}
+                onClick={() => handleRefreshPlatform(id)}
+                isDisabled={isFetching}
               >
-                <SyncAltIcon key={`refresh-${id}`} color="grey" />
+                <SyncAltIcon key={`refresh-${id}`} color="blue" />
               </Button>
             </Tooltip>
           </HeaderLevel>
