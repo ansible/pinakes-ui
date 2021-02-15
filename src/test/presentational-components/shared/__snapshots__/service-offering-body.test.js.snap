@@ -9,10 +9,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
 >
   <Styled(CardBody)>
     <CardBody
-      className="sc-AxhUy gxeoyg"
+      className="sc-AxheI jOYejY"
     >
       <div
-        className="pf-c-card__body sc-AxhUy gxeoyg"
+        className="pf-c-card__body sc-AxheI jOYejY"
       >
         <TextContent>
           <div
@@ -30,7 +30,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                 >
                   <styled.div>
                     <div
-                      className="sc-AxhCb hYKqDj"
+                      className="sc-AxgMl ytwOc"
                     >
                       Foo
                     </div>
@@ -203,10 +203,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
 >
   <Styled(CardBody)>
     <CardBody
-      className="sc-AxhUy gxeoyg"
+      className="sc-AxheI jOYejY"
     >
       <div
-        className="pf-c-card__body sc-AxhUy gxeoyg"
+        className="pf-c-card__body sc-AxheI jOYejY"
       >
         <TextContent>
           <div
@@ -224,7 +224,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                 >
                   <styled.div>
                     <div
-                      className="sc-AxhCb hYKqDj"
+                      className="sc-AxgMl ytwOc"
                     >
                       Foo
                     </div>

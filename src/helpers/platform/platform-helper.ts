@@ -59,6 +59,12 @@ export const getPlatform = (platformId: string): Promise<Source> => {
   );
 };
 
+export const refreshPlatform = (platformId: string): Promise<Source> => {
+  return axiosInstance.patch(
+    `${CATALOG_INVENTORY_API_BASE}/sources/${platformId}/refresh`
+  );
+};
+
 export const getPlatformItems = (
   platformId: string,
   filter?: string,

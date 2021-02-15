@@ -88,6 +88,12 @@ const PlatformDetails = () => {
                 />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
+                {formatMessage(platformsMessages.lastRefreshMessage)}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dd}>
+                {platform?.last_refresh_message}
+              </TextListItem>
+              <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.lastChecked)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>

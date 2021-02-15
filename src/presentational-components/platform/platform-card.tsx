@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useReducer } from 'react';
 import {
   CardHeader,
   CardFooter,
@@ -7,9 +7,15 @@ import {
   Text,
   TextVariants,
   TextContent,
-  Label
+  Label,
+  Button,
+  Tooltip
 } from '@patternfly/react-core';
-import ItemDetails, { ItemDetailsProps } from '../shared/card-common';
+import ItemDetails, {
+  HeaderLevel,
+  HeaderTitle,
+  ItemDetailsProps
+} from '../shared/card-common';
 
 import { PLATFORM_TEMPLATES_ROUTE } from '../../constants/routes';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
@@ -20,6 +26,10 @@ import CardIcon from '../shared/card-icon';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { SyncAltIcon } from '@patternfly/react-icons';
+import { refreshPlatform } from '../../redux/actions/platform-actions';
+import platformsMessages from '../../messages/platforms.messages';
+import { useDispatch } from 'react-redux';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -31,17 +41,59 @@ export interface PlatformCardProps extends ItemDetailsProps {
   source_type_id: string;
   imageUrl: string;
 }
+
+const initialState = {
+  isFetching: false
+};
+
+const platformCardState = (state: any, action: { type: any; payload: any }) => {
+  switch (action.type) {
+    case 'setFetching':
+      return { ...state, isFetching: action.payload };
+  }
+
+  return state;
+};
+
 const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   name,
   id,
   ...props
 }) => {
   const formatMessage = useFormatMessage();
+  const dispatch = useDispatch();
+  const [{ isFetching }] = useReducer(platformCardState, initialState);
+
+  const handleRefreshPlatform = (platformId: string) => {
+    dispatch({ type: 'setFetching', payload: true });
+    dispatch(refreshPlatform(platformId));
+    dispatch({ type: 'setFetching', payload: false });
+  };
+
   return (
     <GalleryItem>
       <StyledCard key={id} ouiaId={`platform-${id}`}>
         <CardHeader>
-          <CardIcon height={40} sourceId={id} />
+          <HeaderLevel>
+            <HeaderTitle>
+              <CardIcon height={40} sourceId={id} />
+            </HeaderTitle>
+            <Tooltip
+              content={
+                <Text>{formatMessage(platformsMessages.refreshTooltip)}</Text>
+              }
+            >
+              <Button
+                id={`refresh-platform-${id}`}
+                ouiaId={`refresh-platform-${id}`}
+                variant="link"
+                onClick={() => handleRefreshPlatform(id)}
+                isDisabled={isFetching}
+              >
+                <SyncAltIcon key={`refresh-${id}`} color="blue" />
+              </Button>
+            </Tooltip>
+          </HeaderLevel>
         </CardHeader>
         <StyledCardBody>
           <TextContent>

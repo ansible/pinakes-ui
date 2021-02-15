@@ -93,3 +93,19 @@ export const fetchServiceOffering = (
   type: ActionTypes.FETCH_SERVICE_OFFERING,
   payload: PlatformHelper.getServiceOffering(serviceOfferingId, sourceId)
 });
+
+export const refreshPlatform = (
+  platformId: string
+): AsyncMiddlewareAction<Source> => ({
+  type: ActionTypes.REFRESH_PLATFORM,
+  payload: PlatformHelper.refreshPlatform(platformId),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: 'Success refreshing platform',
+        description: 'The platform was successfully refreshed.'
+      }
+    }
+  }
+});
