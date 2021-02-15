@@ -97,3 +97,6 @@ export const hasPermission = (
 
 export const stateToDisplay = (state?: string): boolean =>
   state !== 'Completed' && state !== 'Ordered' && state !== 'Failed';
+
+export const delay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

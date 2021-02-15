@@ -52,6 +52,7 @@ import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import orderStatusMapper from '../order-status-mapper';
 import { MAX_RETRY_LIMIT } from '../../../utilities/constants';
+import { delay } from '../../../helpers/shared/helpers';
 
 /**
  * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
@@ -59,8 +60,6 @@ import { MAX_RETRY_LIMIT } from '../../../utilities/constants';
  */
 
 const rowOrder = ['updated', 'group_name', 'decision'];
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const checkRequest = async (
   fetchRequests: () => Promise<ApiCollectionResponse<any>>

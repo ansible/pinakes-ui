@@ -9,6 +9,7 @@ import {
 import { AsyncMiddlewareAction } from '../../types/redux';
 import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 import { PaginationConfiguration } from '../../helpers/shared/pagination';
+import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
 
 export const fetchPlatforms = () => (
   dispatch: Dispatch
@@ -94,18 +95,38 @@ export const fetchServiceOffering = (
   payload: PlatformHelper.getServiceOffering(serviceOfferingId, sourceId)
 });
 
-export const refreshPlatform = (
-  platformId: string
-): AsyncMiddlewareAction<Source> => ({
-  type: ActionTypes.REFRESH_PLATFORM,
-  payload: PlatformHelper.refreshPlatform(platformId),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: 'Success refreshing platform',
-        description: 'The platform was successfully refreshed.'
-      }
-    }
-  }
-});
+export const refreshPlatform = (platformId: string) => (
+  dispatch: Dispatch
+): AsyncMiddlewareAction => {
+  return dispatch({
+    type: ActionTypes.REFRESH_PLATFORM,
+    payload: PlatformHelper.refreshPlatform(platformId)
+      .then(() =>
+        dispatch(
+          addNotification({
+            variant: 'success',
+            title: 'Success starting the platform refresh',
+            dismissable: true,
+            description: 'The platform refresh started successfully'
+          })
+        )
+      )
+      .catch((error) => {
+        if (error.status === '429') {
+          dispatch(
+            addNotification({
+              variant: 'info',
+              title: 'Platform refresh in progress',
+              dismissable: true,
+              description: 'Platform refresh already running.'
+            })
+          );
+        } else {
+          dispatch({
+            type: `${ActionTypes.REFRESH_PLATFORM}_REJECTED`,
+            payload: error
+          });
+        }
+      })
+  });
+};

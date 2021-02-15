@@ -30,6 +30,7 @@ import { SyncAltIcon } from '@patternfly/react-icons';
 import { refreshPlatform } from '../../redux/actions/platform-actions';
 import platformsMessages from '../../messages/platforms.messages';
 import { useDispatch } from 'react-redux';
+import { delay } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -66,8 +67,11 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
 
   const handleRefreshPlatform = (platformId: string) => {
     dispatch({ type: 'setFetching', payload: true });
-    dispatch(refreshPlatform(platformId));
-    dispatch({ type: 'setFetching', payload: false });
+    Promise.all([dispatch(refreshPlatform(platformId))]).then(async () => {
+      await delay(10000);
+      return;
+      dispatch({ type: 'setFetching', payload: false });
+    });
   };
 
   return (
