@@ -90,9 +90,14 @@ const PlatformDetails = () => {
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.lastRefreshMessage)}
               </TextListItem>
-              <TextListItem component={TextListItemVariants.dd}>
-                {platform?.last_refresh_message}
-              </TextListItem>
+              {platform?.last_refresh_message?.split(/\n/g).map((line, idx) => (
+                <TextListItem
+                  key={`message-key-${idx}`}
+                  component={TextListItemVariants.dd}
+                >
+                  {line}
+                </TextListItem>
+              ))}
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.lastChecked)}
               </TextListItem>
