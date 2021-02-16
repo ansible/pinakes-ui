@@ -45,7 +45,12 @@ const Platforms = () => {
         name.toLowerCase().includes(filterValue.toLowerCase())
       )
       .map((item) => (
-        <PlatformCard ouiaId={`platform-${item.id}`} key={item.id} {...item} />
+        <PlatformCard
+          ouiaId={`platform-${item.id}`}
+          key={item.id}
+          {...item}
+          updateData={() => dispatch(fetchPlatforms())}
+        />
       )),
     isLoading: isLoading && platforms.length === 0
   };
