@@ -34,11 +34,19 @@ import { delay } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = ['description', 'modified'];
 
+export interface PlatformInfo {
+  version?: string;
+  ansible_version?: string;
+}
+
 export interface PlatformCardProps extends ItemDetailsProps {
   name: string;
   id: string;
   availability_status?: string;
   last_successful_refresh_at?: string;
+  refresh_started_at?: string;
+  refresh_finished_at?: string;
+  info?: PlatformInfo;
   source_type_id: string;
   imageUrl: string;
 }
@@ -59,18 +67,22 @@ const platformCardState = (state: any, action: { type: any; payload: any }) => {
 const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   name,
   id,
+  updateData,
   ...props
 }) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
-  const [{ isFetching }] = useReducer(platformCardState, initialState);
 
+  const [{ isFetching }, stateDispatch] = useReducer(
+    platformCardState,
+    initialState
+  );
   const handleRefreshPlatform = (platformId: string) => {
-    dispatch({ type: 'setFetching', payload: true });
-    Promise.all([dispatch(refreshPlatform(platformId))]).then(async () => {
+    stateDispatch({ type: 'setFetching', payload: true });
+    Promise.resolve(dispatch(refreshPlatform(platformId))).then(async () => {
       await delay(10000);
-      return;
-      dispatch({ type: 'setFetching', payload: false });
+      stateDispatch({ type: 'setFetching', payload: false });
+      updateData();
     });
   };
 
@@ -94,7 +106,11 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
                 onClick={() => handleRefreshPlatform(id)}
                 isDisabled={isFetching}
               >
-                <SyncAltIcon key={`refresh-${id}`} color="blue" />
+                {isFetching ? (
+                  <SyncAltIcon key={`refresh-${id}`} color="grey" />
+                ) : (
+                  <SyncAltIcon key={`refresh-${id}`} color="blue" />
+                )}
               </Button>
             </Tooltip>
           </HeaderLevel>
@@ -112,7 +128,15 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
               >
                 <EllipsisTextContainer>{name}</EllipsisTextContainer>
               </Text>
-              {props.last_successful_refresh_at && (
+            </CatalogLink>
+            {isFetching ? (
+              <TextContent className="pf-u-mb-md">
+                <Text component={TextVariants.small} className="pf-u-mb-0">
+                  Retrieving data.... &nbsp;
+                </Text>
+              </TextContent>
+            ) : (
+              props.last_successful_refresh_at && (
                 <TextContent className="pf-u-mb-md">
                   <Text component={TextVariants.small} className="pf-u-mb-0">
                     Last refreshed &nbsp;
@@ -122,8 +146,24 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
                     />
                   </Text>
                 </TextContent>
-              )}
-            </CatalogLink>
+              )
+            )}
+            {props.info && (
+              <TextContent className="pf-u-mb-md">
+                <Text component={TextVariants.small} className="pf-u-mb-0">
+                  {formatMessage(platformsMessages.platformVersion)}
+                </Text>
+                <Text component={TextVariants.small} className="pf-u-mb-0">
+                  {props?.info?.version}
+                </Text>
+                <Text component={TextVariants.small} className="pf-u-mb-0">
+                  {formatMessage(platformsMessages.ansibleVersion)}
+                </Text>
+                <Text component={TextVariants.small} className="pf-u-mb-0">
+                  {props?.info?.ansible_version}
+                </Text>
+              </TextContent>
+            )}
           </TextContent>
           <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
         </StyledCardBody>

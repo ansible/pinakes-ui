@@ -112,7 +112,7 @@ export const refreshPlatform = (platformId: string) => (
         )
       )
       .catch((error) => {
-        if (error.status === '429') {
+        if (error.status === 429) {
           dispatch(
             addNotification({
               variant: 'info',
