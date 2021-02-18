@@ -248,9 +248,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                               }
                             }
                             trigger={
-                              <span
-                                aria-describedby="pf-tooltip-1"
-                              >
+                              <span>
                                 ...
                               </span>
                             }
@@ -259,9 +257,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             <FindRefWrapper
                               onFoundRef={[Function]}
                             >
-                              <span
-                                aria-describedby="pf-tooltip-1"
-                              >
+                              <span>
                                 ...
                               </span>
                             </FindRefWrapper>

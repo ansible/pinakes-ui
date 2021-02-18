@@ -167,9 +167,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                       }
                     }
                     trigger={
-                      <span
-                        aria-describedby="pf-tooltip-1"
-                      >
+                      <span>
                         ...
                       </span>
                     }
@@ -178,9 +176,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                     <FindRefWrapper
                       onFoundRef={[Function]}
                     >
-                      <span
-                        aria-describedby="pf-tooltip-1"
-                      >
+                      <span>
                         ...
                       </span>
                     </FindRefWrapper>
@@ -350,9 +346,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                       }
                     }
                     trigger={
-                      <span
-                        aria-describedby="pf-tooltip-2"
-                      >
+                      <span>
                         ...
                       </span>
                     }
@@ -361,9 +355,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                     <FindRefWrapper
                       onFoundRef={[Function]}
                     >
-                      <span
-                        aria-describedby="pf-tooltip-2"
-                      >
+                      <span>
                         ...
                       </span>
                     </FindRefWrapper>
