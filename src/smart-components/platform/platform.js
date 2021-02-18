@@ -86,14 +86,6 @@ const Platform = () => {
     };
   }, [platform]);
 
-  const platformEnabled = (platform) => ({
-    color: platform.enabled ? 'green' : 'red',
-    icon: <InfoCircleIcon />,
-    title: platform.enabled
-      ? formatMessage(labelMessages.enabled)
-      : formatMessage(labelMessages.disabled)
-  });
-
   const platformAvailable = (platform) => ({
     color: platform.availability_status === 'available' ? 'green' : 'red',
     icon: <InfoCircleIcon />,
@@ -121,7 +113,6 @@ const Platform = () => {
               title: selectedPlatform.name,
               paddingBottom: false,
               tabItems,
-              platformEnabled: () => platformEnabled(selectedPlatform),
               platformAvailable: () => platformAvailable(selectedPlatform)
             })}
           />

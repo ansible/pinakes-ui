@@ -50,7 +50,6 @@ export const createPlatformsTopToolbarSchema = ({
   title,
   paddingBottom,
   tabItems,
-  platformEnabled,
   platformAvailable
 }) => ({
   fields: [
@@ -89,11 +88,6 @@ export const createPlatformsTopToolbarSchema = ({
                   key: 'platform-label',
                   alignment: 'alignRight',
                   fields: [
-                    {
-                      component: toolbarComponentTypes.LABEL,
-                      key: 'platform-enabled-label',
-                      ...platformEnabled()
-                    },
                     {
                       component: toolbarComponentTypes.LABEL,
                       key: 'platform-available-label',
