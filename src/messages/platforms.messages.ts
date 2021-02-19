@@ -72,7 +72,7 @@ const platformsMessages = defineMessages({
   },
   mqttClientId: {
     id: 'platform.mqttClientId',
-    defaultMessage: 'MQTT Client Id'
+    defaultMessage: 'RedHat Connect Client Id'
   },
   refreshState: {
     id: 'platforms.refreshState',
