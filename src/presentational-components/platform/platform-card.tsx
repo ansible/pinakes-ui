@@ -168,12 +168,6 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
           <ItemDetails {...{ name, ...props }} toDisplay={TO_DISPLAY} />
         </StyledCardBody>
         <CardFooter>
-          <Label variant="filled" color={props.enabled ? 'green' : 'red'}>
-            {props.enabled
-              ? formatMessage(labelMessages.enabled)
-              : formatMessage(labelMessages.disabled)}
-          </Label>
-          &nbsp;
           <Label
             variant="filled"
             color={props.availability_status === 'available' ? 'green' : 'red'}

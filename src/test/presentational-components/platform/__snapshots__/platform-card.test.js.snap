@@ -590,21 +590,6 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     <span
                       className="pf-c-label__content"
                     >
-                      Disabled
-                    </span>
-                  </span>
-                </Label>
-                 
-                <Label
-                  color="red"
-                  variant="filled"
-                >
-                  <span
-                    className="pf-c-label pf-m-red"
-                  >
-                    <span
-                      className="pf-c-label__content"
-                    >
                       Not available
                     </span>
                   </span>
