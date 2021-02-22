@@ -101,16 +101,14 @@ const PlatformDetails = () => {
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.lastAvailabilityMessage)}
               </TextListItem>
-              {platform?.last_availability_message
-                ?.split(/\n/g)
-                .map((line, idx) => (
-                  <TextListItem
-                    key={`availability-message-key-${idx}`}
-                    component={TextListItemVariants.dd}
-                  >
-                    {line}
-                  </TextListItem>
-                ))}
+              {platform?.availability_message?.split(/\n/g).map((line, idx) => (
+                <TextListItem
+                  key={`availability-message-key-${idx}`}
+                  component={TextListItemVariants.dd}
+                >
+                  {line}
+                </TextListItem>
+              ))}
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.lastChecked)}
               </TextListItem>

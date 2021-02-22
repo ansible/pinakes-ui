@@ -51,7 +51,7 @@ describe('<PlatformDetails />', () => {
           last_available_at: '2021-02-18T18:54:01Z',
           last_checked_at: '2021-02-18T19:15:57Z',
           last_refresh_state: 'Sending request to RHC',
-          last_availability_message: 'Availability message',
+          availability_message: 'Availability message',
           last_successful_refresh_at: '2021-02-18T18:00:34Z',
           mqtt_client_id: '16d5041f-f2e5-45d7-92a8-5650b1503958',
           refresh_started_at: '2021-02-18T18:55:17Z',
