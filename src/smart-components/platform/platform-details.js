@@ -99,7 +99,7 @@ const PlatformDetails = () => {
                 </TextListItem>
               ))}
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.lastAvailabilityMessage)}
+                {formatMessage(platformsMessages.availabilityMessage)}
               </TextListItem>
               {platform?.availability_message?.split(/\n/g).map((line, idx) => (
                 <TextListItem

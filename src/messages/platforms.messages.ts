@@ -118,9 +118,9 @@ const platformsMessages = defineMessages({
     id: 'platforms.lastRefreshMessage',
     defaultMessage: 'Last refresh message'
   },
-  lastAvailabilityMessage: {
-    id: 'platforms.lastAvailabilityMessage',
-    defaultMessage: 'Last availability message'
+  availabilityMessage: {
+    id: 'platforms.availabilityMessage',
+    defaultMessage: 'Availability message'
   }
 });
 
