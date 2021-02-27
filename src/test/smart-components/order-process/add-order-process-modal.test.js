@@ -107,7 +107,7 @@ describe('<AddOrderProcess />', () => {
     wrapper.update();
 
     await act(async () => {
-      const nameField = wrapper.find('input').first();
+      const nameField = wrapper.find('input').at(2);
       nameField.instance().value = 'some-name';
       nameField.simulate('change');
     });
@@ -134,6 +134,34 @@ describe('<AddOrderProcess />', () => {
       name: 'some-name'
     });
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();
+  });
+
+  it('should display the order process type radio buttons', async () => {
+    helpers.addOrderProcess = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
+    actions.fetchOrderProcesses = jest.fn();
+
+    const store = mockStore(initialState);
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store} initialEntries={['/order-processes']}>
+          <AddOrderProcessModal {...initialProps} />
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+
+    await act(async () => {
+      const itsmField = wrapper.find('input').at(0);
+      expect(itsmField.instance().value).toBe('itsm');
+    });
+
+    await act(async () => {
+      const returnField = wrapper.find('input').at(1);
+      expect(returnField.instance().value).toBe('return');
+    });
   });
 
   it('should edit order process correctly', async () => {
@@ -175,7 +203,8 @@ describe('<AddOrderProcess />', () => {
     expect(helpers.updateOrderProcess).toHaveBeenCalledWith('123', {
       description: 'some-description',
       id: '123',
-      name: 'foo'
+      name: 'foo',
+      order_process_type: 'itsm'
     });
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();
   });
