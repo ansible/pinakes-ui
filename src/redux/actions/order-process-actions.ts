@@ -9,7 +9,8 @@ import {
   ReduxAction,
   SortBy
 } from '../../types/common-types';
-import { Order, OrderProcess } from '@redhat-cloud-services/catalog-client';
+import { Order } from '@redhat-cloud-services/catalog-client';
+import { OrderProcess } from '../../smart-components/order-process/add-order-process-modal';
 import { IntlShape } from 'react-intl';
 import { ResourceObject } from '@redhat-cloud-services/approval-client';
 import { AxiosResponse } from 'axios';
@@ -57,7 +58,11 @@ export const fetchOrderProcess = (
 export const addOrderProcess = (
   processData: OrderProcess,
   intl: IntlShape
-): AsyncMiddlewareAction<[OrderProcess, OrderProcess | undefined]> => ({
+): AsyncMiddlewareAction<[
+  OrderProcess,
+  OrderProcess | undefined,
+  OrderProcess | undefined
+]> => ({
   type: ActionTypes.ADD_ORDER_PROCESS,
   payload: OrderProcessHelper.addOrderProcess(processData),
   meta: {
@@ -79,7 +84,11 @@ export const updateOrderProcess = (
   processId: string,
   data: Partial<OrderProcess>,
   intl: IntlShape
-): AsyncMiddlewareAction<[OrderProcess, OrderProcess | undefined]> => ({
+): AsyncMiddlewareAction<[
+  OrderProcess,
+  OrderProcess | undefined,
+  OrderProcess | undefined
+]> => ({
   type: ActionTypes.UPDATE_ORDER_PROCESS,
   payload: OrderProcessHelper.updateOrderProcess(processId, data),
   meta: {
