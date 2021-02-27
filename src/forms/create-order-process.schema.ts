@@ -6,7 +6,7 @@ import labelMessages from '../messages/labels.messages';
 import debouncedValidatorName from './name-async-validator';
 import orderProcessesMessages from '../messages/order-processes.messages';
 import setItemsSelectSchema from './set-portfolio-item.schema';
-import { BEFORE_TYPE, AFTER_TYPE } from '../utilities/constants';
+import { BEFORE_TYPE, AFTER_TYPE, RETURN_TYPE } from '../utilities/constants';
 import { IntlShape } from 'react-intl';
 
 /**
@@ -17,6 +17,23 @@ import { IntlShape } from 'react-intl';
 const createOrderProcessSchema = (intl: IntlShape, id: string): Schema => {
   return {
     fields: [
+      {
+        component: componentTypes.RADIO,
+        name: 'order-process-type',
+        isRequired: true,
+        id: 'order-process-type',
+        label: intl.formatMessage(orderProcessesMessages.orderProcessType),
+        options: [
+          {
+            label: 'ITSM',
+            value: 'itsm'
+          },
+          {
+            label: 'Return',
+            value: 'return'
+          }
+        ]
+      },
       {
         component: componentTypes.TEXT_FIELD,
         name: 'name',
@@ -39,8 +56,18 @@ const createOrderProcessSchema = (intl: IntlShape, id: string): Schema => {
         id: 'order-process-description',
         label: intl.formatMessage(labelMessages.description)
       },
-      ...setItemsSelectSchema(BEFORE_TYPE, intl),
-      ...setItemsSelectSchema(AFTER_TYPE, intl)
+      ...setItemsSelectSchema(BEFORE_TYPE, intl, {
+        when: 'order-process-type',
+        is: 'itsm'
+      }),
+      ...setItemsSelectSchema(AFTER_TYPE, intl, {
+        when: 'order-process-type',
+        is: 'itsm'
+      }),
+      ...setItemsSelectSchema(RETURN_TYPE, intl, {
+        when: 'order-process-type',
+        is: 'return'
+      })
     ]
   };
 };

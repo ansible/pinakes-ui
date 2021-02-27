@@ -18,20 +18,35 @@ import orderProcessesMessages from '../../messages/order-processes.messages';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import useOrderProcess from '../../utilities/use-order-process';
 import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
-import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 import { Schema } from '@data-driven-forms/react-form-renderer';
 import { CatalogRootState } from '../../types/redux';
 import { Full } from '../../types/common-types';
 
+export interface OrderProcess {
+  id?: string;
+  name?: string;
+  description?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  before_portfolio_item_id?: string;
+  after_portfolio_item_id?: string;
+  return_portfolio_item_id?: string;
+  metadata?: any;
+}
+
+interface OrderProcessWithType extends OrderProcess {
+  order_process_type: string;
+}
+
 interface OrderProcessModalState {
-  initialValues?: Partial<OrderProcess>;
+  initialValues?: Partial<OrderProcessWithType>;
   schema?: Schema;
   isLoading: boolean;
 }
 
 interface OrderProcessModalStateAction {
   type: 'loaded';
-  initialValues: Partial<OrderProcess>;
+  initialValues: Partial<OrderProcessWithType>;
   schema: Schema;
 }
 const reducer = (
@@ -89,7 +104,12 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
     } else if (typeof loadedProcess !== 'undefined') {
       stateDispatch({
         type: 'loaded',
-        initialValues: loadedProcess,
+        initialValues: {
+          ...loadedProcess,
+          order_process_type: loadedProcess.return_portfolio_item_id
+            ? 'return'
+            : 'itsm'
+        },
         schema: createOrderProcessSchema(intl, loadedProcess.id!)
       });
     }

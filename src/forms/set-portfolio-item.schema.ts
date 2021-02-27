@@ -6,8 +6,9 @@ import { BEFORE_TYPE } from '../utilities/constants';
 import { IntlShape } from 'react-intl';
 
 const setItemsSelectSchema = (
-  type: 'before' | 'after',
-  intl: IntlShape
+  type: 'before' | 'after' | 'return',
+  intl: IntlShape,
+  condition: { when: string; is: string }
 ): Field[] => [
   {
     component: componentTypes.SELECT,
@@ -20,7 +21,8 @@ const setItemsSelectSchema = (
     loadOptions,
     noValueUpdates: true,
     isSearchable: true,
-    isClearable: true
+    isClearable: true,
+    condition
   }
 ];
 
