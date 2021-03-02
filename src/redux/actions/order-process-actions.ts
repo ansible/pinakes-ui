@@ -81,22 +81,27 @@ export const addOrderProcess = (
 
 export const updateOrderProcess = (
   processId: string,
-  data: Partial<OrderProcess>,
+  initialData: Partial<OrderProcess> | undefined,
+  newData: Partial<OrderProcess>,
   intl: IntlShape
 ): AsyncMiddlewareAction<[
-  OrderProcess,
-  OrderProcess | undefined,
-  OrderProcess | undefined
+  AxiosResponse<OrderProcess> | unknown,
+  AxiosResponse<OrderProcess> | unknown,
+  AxiosResponse<OrderProcess> | unknown
 ]> => ({
   type: ActionTypes.UPDATE_ORDER_PROCESS,
-  payload: OrderProcessHelper.updateOrderProcess(processId, data),
+  payload: OrderProcessHelper.updateOrderProcess(
+    processId,
+    initialData,
+    newData
+  ),
   meta: {
     notifications: {
       fulfilled: {
         variant: 'success',
         title: intl.formatMessage(
           orderProcessesMessages.updateProcessSuccessTitle,
-          { name: data.name }
+          { name: newData.name }
         )
       }
     }

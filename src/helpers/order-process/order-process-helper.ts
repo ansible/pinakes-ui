@@ -3,7 +3,8 @@ import { defaultSettings } from '../shared/pagination';
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import {
   ResourceObject,
-  OrderProcess
+  OrderProcess,
+  OrderProcessAssociationsToRemoveAssociationsToRemoveEnum
 } from '@redhat-cloud-services/catalog-client';
 import {
   ApiCollectionResponse,
@@ -95,6 +96,7 @@ export const removeOrderProcesses = (
 
 export const updateOrderProcess = async (
   id: string,
+  initialData: Partial<OrderProcess> | undefined,
   {
     before_portfolio_item_id,
     after_portfolio_item_id,
@@ -102,33 +104,56 @@ export const updateOrderProcess = async (
     ...data
   }: Partial<OrderProcess>
 ): Promise<[
-  OrderProcess,
-  OrderProcess | undefined,
-  OrderProcess | undefined
+  AxiosResponse<OrderProcess> | unknown,
+  AxiosResponse<OrderProcess> | unknown,
+  AxiosResponse<OrderProcess> | unknown
 ]> => {
   await getOrderProcessApi().updateOrderProcess(id, {
     name: data.name,
     description: data.description
   });
 
-  const promiseB =
-    before_portfolio_item_id !== undefined
-      ? getOrderProcessApi().addOrderProcessBeforeItem(id, {
-          portfolio_item_id: before_portfolio_item_id
-        })
-      : {};
-  const promiseA =
-    after_portfolio_item_id !== undefined
-      ? getOrderProcessApi().addOrderProcessAfterItem(id as string, {
-          portfolio_item_id: after_portfolio_item_id
-        })
-      : {};
-  const promiseR =
+  let promiseB = {};
+  if (before_portfolio_item_id !== initialData?.before_portfolio_item_id) {
+    promiseB =
+      before_portfolio_item_id !== undefined
+        ? getOrderProcessApi().addOrderProcessBeforeItem(id, {
+            portfolio_item_id: before_portfolio_item_id
+          })
+        : getOrderProcessApi().removeOrderProcessAssociation(id as string, {
+            associations_to_remove: [
+              OrderProcessAssociationsToRemoveAssociationsToRemoveEnum.Before
+            ]
+          });
+  }
+
+  let promiseA = {};
+  if (after_portfolio_item_id !== initialData?.after_portfolio_item_id) {
+    promiseA =
+      after_portfolio_item_id !== undefined
+        ? getOrderProcessApi().addOrderProcessAfterItem(id as string, {
+            portfolio_item_id: after_portfolio_item_id
+          })
+        : getOrderProcessApi().removeOrderProcessAssociation(id as string, {
+            associations_to_remove: [
+              OrderProcessAssociationsToRemoveAssociationsToRemoveEnum.After
+            ]
+          });
+  }
+
+  const promiseR = {};
+  if (return_portfolio_item_id !== initialData?.return_portfolio_item_id) {
     return_portfolio_item_id !== undefined
       ? getOrderProcessApi().addOrderProcessReturnItem(id as string, {
           portfolio_item_id: return_portfolio_item_id
         })
-      : {};
+      : getOrderProcessApi().removeOrderProcessAssociation(id as string, {
+          associations_to_remove: [
+            OrderProcessAssociationsToRemoveAssociationsToRemoveEnum.Return
+          ]
+        });
+  }
+
   return Promise.all([promiseA, promiseB, promiseR]);
 };
 

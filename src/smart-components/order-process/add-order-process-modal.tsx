@@ -81,7 +81,8 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   });
 
   useEffect(() => {
-    if (!loadedProcess && loadedProcess !== undefined) {
+    console.log('Debug - data', loadedProcess);
+    if (!loadedProcess) {
       (fetchOrderProcess(order_process) as Promise<Full<OrderProcess>>).then(
         (data) =>
           stateDispatch({
@@ -107,10 +108,12 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
   const onSave = (values: Partial<OrderProcess>) => {
+    console.log('Debug - onSave - data, values', data, values);
     const submitAction = edit
       ? () =>
           updateOrderProcess(
             order_process,
+            data,
             { name: '', description: '', ...values },
             intl
           )
