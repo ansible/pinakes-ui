@@ -9,8 +9,7 @@ import {
   ReduxAction,
   SortBy
 } from '../../types/common-types';
-import { Order } from '@redhat-cloud-services/catalog-client';
-import { OrderProcess } from '../../smart-components/order-process/add-order-process-modal';
+import { Order, OrderProcess } from '@redhat-cloud-services/catalog-client';
 import { IntlShape } from 'react-intl';
 import { ResourceObject } from '@redhat-cloud-services/approval-client';
 import { AxiosResponse } from 'axios';

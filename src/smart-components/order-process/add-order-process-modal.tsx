@@ -21,18 +21,7 @@ import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
 import { Schema } from '@data-driven-forms/react-form-renderer';
 import { CatalogRootState } from '../../types/redux';
 import { Full } from '../../types/common-types';
-
-export interface OrderProcess {
-  id?: string;
-  name?: string;
-  description?: string | null;
-  created_at?: string;
-  updated_at?: string;
-  before_portfolio_item_id?: string;
-  after_portfolio_item_id?: string;
-  return_portfolio_item_id?: string;
-  metadata?: any;
-}
+import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 
 interface OrderProcessWithType extends OrderProcess {
   order_process_type: string;

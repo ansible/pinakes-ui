@@ -1,8 +1,10 @@
 import { getAxiosInstance, getOrderProcessApi } from '../shared/user-login';
 import { defaultSettings } from '../shared/pagination';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { OrderProcess } from '../../smart-components/order-process/add-order-process-modal';
-import { ResourceObject } from '@redhat-cloud-services/catalog-client';
+import {
+  ResourceObject,
+  OrderProcess
+} from '@redhat-cloud-services/catalog-client';
 import {
   ApiCollectionResponse,
   ApiMetadata,
@@ -123,7 +125,7 @@ export const updateOrderProcess = async (
       : {};
   const promiseR =
     return_portfolio_item_id !== undefined
-      ? getOrderProcessApi().addOrderProcessAfterItem(id as string, {
+      ? getOrderProcessApi().addOrderProcessReturnItem(id as string, {
           portfolio_item_id: return_portfolio_item_id
         })
       : {};
@@ -161,7 +163,7 @@ export const addOrderProcess = async ({
       : {};
   const promiseR =
     return_portfolio_item_id !== undefined
-      ? getOrderProcessApi().addOrderProcessAfterItem(
+      ? getOrderProcessApi().addOrderProcessReturnItem(
           ((op as unknown) as OrderProcess).id as string,
           { portfolio_item_id: return_portfolio_item_id }
         )
