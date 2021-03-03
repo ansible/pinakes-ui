@@ -20,7 +20,6 @@ import useOrderProcess from '../../utilities/use-order-process';
 import { Schema } from '@data-driven-forms/react-form-renderer';
 import { CatalogRootState } from '../../types/redux';
 import { OrderProcess } from '@redhat-cloud-services/catalog-client';
-import { Full } from '../../types/common-types';
 import { fetchOrderProcess } from '../../helpers/order-process/order-process-helper';
 
 interface OrderProcessWithType extends OrderProcess {

@@ -94,7 +94,7 @@ export const removeOrderProcesses = (
     )
   );
 
-export let updateOrderProcess = async (
+export const updateOrderProcess = async (
   id: string,
   initialData: Partial<OrderProcess> | undefined,
   {
