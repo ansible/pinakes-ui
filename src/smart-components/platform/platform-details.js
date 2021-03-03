@@ -49,10 +49,10 @@ const PlatformDetails = () => {
                 <DateFormat date={platform?.created_at} />
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
-                {formatMessage(platformsMessages.mqttClientId)}
+                {formatMessage(platformsMessages.cloudConnectorId)}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dd}>
-                {platform?.mqtt_client_id}
+                {platform?.cloud_connector_id}
               </TextListItem>
               <TextListItem component={TextListItemVariants.dt}>
                 {formatMessage(platformsMessages.refreshState)}
