@@ -17,21 +17,24 @@ import useQuery from '../../utilities/use-query';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import useOrderProcess from '../../utilities/use-order-process';
-import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
-import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 import { Schema } from '@data-driven-forms/react-form-renderer';
 import { CatalogRootState } from '../../types/redux';
-import { Full } from '../../types/common-types';
+import { OrderProcess } from '@redhat-cloud-services/catalog-client';
+import { fetchOrderProcess } from '../../helpers/order-process/order-process-helper';
+
+interface OrderProcessWithType extends OrderProcess {
+  order_process_type: string;
+}
 
 interface OrderProcessModalState {
-  initialValues?: Partial<OrderProcess>;
+  initialValues?: Partial<OrderProcessWithType>;
   schema?: Schema;
   isLoading: boolean;
 }
 
 interface OrderProcessModalStateAction {
   type: 'loaded';
-  initialValues: Partial<OrderProcess>;
+  initialValues: Partial<OrderProcessWithType>;
   schema: Schema;
 }
 const reducer = (
@@ -77,19 +80,32 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   });
 
   useEffect(() => {
-    if (!loadedProcess && loadedProcess !== undefined) {
-      (fetchOrderProcess(order_process) as Promise<Full<OrderProcess>>).then(
-        (data) =>
-          stateDispatch({
-            type: 'loaded',
-            initialValues: data,
-            schema: createOrderProcessSchema(intl, data.id)
-          })
-      );
+    if (!loadedProcess && order_process) {
+      fetchOrderProcess(order_process).then((data) => {
+        return stateDispatch({
+          type: 'loaded',
+          initialValues: {
+            ...data,
+            order_process_type: (data as OrderProcess).return_portfolio_item_id
+              ? 'return'
+              : 'itsm'
+          },
+          schema: createOrderProcessSchema(
+            intl,
+
+            (data as OrderProcess).id || ''
+          )
+        });
+      });
     } else if (typeof loadedProcess !== 'undefined') {
       stateDispatch({
         type: 'loaded',
-        initialValues: loadedProcess,
+        initialValues: {
+          ...loadedProcess,
+          order_process_type: loadedProcess.return_portfolio_item_id
+            ? 'return'
+            : 'itsm'
+        },
         schema: createOrderProcessSchema(intl, loadedProcess.id!)
       });
     }
@@ -98,10 +114,12 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
   const onSave = (values: Partial<OrderProcess>) => {
+    console.log('Debug - onSave - data, values', data, values);
     const submitAction = edit
       ? () =>
           updateOrderProcess(
             order_process,
+            data,
             { name: '', description: '', ...values },
             intl
           )
