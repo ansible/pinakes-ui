@@ -50,10 +50,10 @@ export const fetchOrderProcessByName = (
   name: string
 ): Promise<ApiCollectionResponse<OrderProcess>> => listOrderProcesses(name);
 
-export const fetchOrderProcess = (id: string): Promise<OrderProcess> =>
-  (getOrderProcessApi().showOrderProcess(id) as unknown) as Promise<
-    OrderProcess
-  >;
+export const fetchOrderProcess = (
+  id: string
+): Promise<AxiosResponse<OrderProcess>> =>
+  getOrderProcessApi().showOrderProcess(id);
 
 export const setOrderProcesses = (
   toTag: string[],
@@ -94,7 +94,7 @@ export const removeOrderProcesses = (
     )
   );
 
-export const updateOrderProcess = async (
+export let updateOrderProcess = async (
   id: string,
   initialData: Partial<OrderProcess> | undefined,
   {

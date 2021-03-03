@@ -17,11 +17,11 @@ import useQuery from '../../utilities/use-query';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import useOrderProcess from '../../utilities/use-order-process';
-import { fetchOrderProcess } from '../../redux/actions/order-process-actions';
 import { Schema } from '@data-driven-forms/react-form-renderer';
 import { CatalogRootState } from '../../types/redux';
-import { Full } from '../../types/common-types';
 import { OrderProcess } from '@redhat-cloud-services/catalog-client';
+import { Full } from '../../types/common-types';
+import { fetchOrderProcess } from '../../helpers/order-process/order-process-helper';
 
 interface OrderProcessWithType extends OrderProcess {
   order_process_type: string;
@@ -81,16 +81,18 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   });
 
   useEffect(() => {
-    console.log('Debug - data', loadedProcess);
-    if (!loadedProcess) {
-      (fetchOrderProcess(order_process) as Promise<Full<OrderProcess>>).then(
-        (data) =>
-          stateDispatch({
-            type: 'loaded',
-            initialValues: data,
-            schema: createOrderProcessSchema(intl, data.id)
-          })
-      );
+    if (!loadedProcess && order_process) {
+      fetchOrderProcess(order_process).then((data) => {
+        console.log('Debug - data', data);
+        return stateDispatch({
+          type: 'loaded',
+          initialValues: { ...data, order_process_type: 'itsm' },
+          schema: createOrderProcessSchema(
+            intl,
+            (data as OrderProcess).id || ''
+          )
+        });
+      });
     } else if (typeof loadedProcess !== 'undefined') {
       stateDispatch({
         type: 'loaded',

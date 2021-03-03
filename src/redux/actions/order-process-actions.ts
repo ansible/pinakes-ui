@@ -14,7 +14,7 @@ import { IntlShape } from 'react-intl';
 import { ResourceObject } from '@redhat-cloud-services/approval-client';
 import { AxiosResponse } from 'axios';
 
-export const fetchOrderProcesses = (
+export let fetchOrderProcesses = (
   pagination?: PaginationConfiguration,
   sortBy?: SortBy
 ) => (
@@ -49,7 +49,7 @@ export const fetchOrderProcesses = (
 
 export const fetchOrderProcess = (
   id: string
-): AsyncMiddlewareAction<OrderProcess> => ({
+): { payload: Promise<AxiosResponse<OrderProcess>>; type: string } => ({
   type: ActionTypes.FETCH_ORDER_PROCESS,
   payload: OrderProcessHelper.fetchOrderProcess(id)
 });

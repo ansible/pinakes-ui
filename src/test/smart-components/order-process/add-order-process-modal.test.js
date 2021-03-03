@@ -38,7 +38,8 @@ describe('<AddOrderProcess />', () => {
               name: 'PrePostTest',
               description: 'PrePost',
               before_portfolio_item_id: 'pre',
-              after_portfolio_item_id: 'post'
+              after_portfolio_item_id: 'post',
+              return_portfolio_item_it: ''
             }
           ]
         }
@@ -65,8 +66,13 @@ describe('<AddOrderProcess />', () => {
   });
 
   it('should close correctly', async () => {
+    helpers.addOrderProcess = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
+    actions.fetchOrderProcesses = jest.fn();
     const store = mockStore(initialState);
-    let wrapper;
+
+    let wrapper = {};
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store} initialEntries={['/order-processes']}>
@@ -200,12 +206,20 @@ describe('<AddOrderProcess />', () => {
     });
     wrapper.update();
 
-    expect(helpers.updateOrderProcess).toHaveBeenCalledWith('123', {
-      description: 'some-description',
-      id: '123',
-      name: 'foo',
-      order_process_type: 'itsm'
-    });
+    expect(helpers.updateOrderProcess).toHaveBeenCalledWith(
+      '123',
+      {
+        description: 'bar',
+        id: '123',
+        name: 'foo'
+      },
+      {
+        description: 'some-description',
+        id: '123',
+        name: 'foo',
+        order_process_type: 'itsm'
+      }
+    );
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();
   });
 });
