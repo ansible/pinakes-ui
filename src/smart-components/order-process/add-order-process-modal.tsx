@@ -82,12 +82,17 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   useEffect(() => {
     if (!loadedProcess && order_process) {
       fetchOrderProcess(order_process).then((data) => {
-        console.log('Debug - data', data);
         return stateDispatch({
           type: 'loaded',
-          initialValues: { ...data, order_process_type: 'itsm' },
+          initialValues: {
+            ...data,
+            order_process_type: (data as OrderProcess).return_portfolio_item_id
+              ? 'return'
+              : 'itsm'
+          },
           schema: createOrderProcessSchema(
             intl,
+
             (data as OrderProcess).id || ''
           )
         });

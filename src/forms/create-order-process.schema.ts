@@ -20,7 +20,6 @@ const createOrderProcessSchema = (intl: IntlShape, id: string): Schema => {
       {
         component: componentTypes.RADIO,
         name: 'order-process-type',
-        isRequired: true,
         id: 'order-process-type',
         label: intl.formatMessage(orderProcessesMessages.orderProcessType),
         options: [
