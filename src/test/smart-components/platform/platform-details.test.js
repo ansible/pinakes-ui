@@ -53,7 +53,7 @@ describe('<PlatformDetails />', () => {
           last_refresh_state: 'Sending request to RHC',
           availability_message: 'Availability message',
           last_successful_refresh_at: '2021-02-18T18:00:34Z',
-          mqtt_client_id: '16d5041f-f2e5-45d7-92a8-5650b1503958',
+          cloud_connector_id: '16d5041f-f2e5-45d7-92a8-5650b1503958',
           refresh_started_at: '2021-02-18T18:55:17Z',
           last_refresh_message: 'service_offerings:add=1\n inventories:add=1',
           refresh_task_id: '8c0240e5-2511-4474-b25b-4c5e3cfbe3f0',

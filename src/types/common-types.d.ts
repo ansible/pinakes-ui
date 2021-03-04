@@ -159,7 +159,7 @@ export interface SourceDetails extends Source {
   last_refresh_message: string;
   availability_message: string;
   last_successful_refresh_at: string;
-  mqtt_client_id: string;
+  cloud_connector_id: string;
   refresh_finished_at: string;
   refresh_started_at: string;
   refresh_state: string;
