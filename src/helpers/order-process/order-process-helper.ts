@@ -96,6 +96,7 @@ export const removeOrderProcesses = (
 
 export const updateOrderProcess = async (
   id: string,
+  order_process_type: 'itsm' | 'return',
   initialData: Partial<OrderProcess> | undefined,
   {
     before_portfolio_item_id,
@@ -114,6 +115,10 @@ export const updateOrderProcess = async (
   });
 
   let promiseB = {};
+  order_process_type === 'itsm'
+    ? (return_portfolio_item_id = undefined)
+    : (before_portfolio_item_id = after_portfolio_item_id = undefined);
+
   if (before_portfolio_item_id !== initialData?.before_portfolio_item_id) {
     promiseB =
       before_portfolio_item_id !== undefined
