@@ -22,7 +22,7 @@ import { CatalogRootState } from '../../types/redux';
 import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 import { fetchOrderProcess } from '../../helpers/order-process/order-process-helper';
 
-interface OrderProcessWithType extends OrderProcess {
+export interface OrderProcessWithType extends OrderProcess {
   order_process_type: string;
 }
 

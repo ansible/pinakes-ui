@@ -13,6 +13,7 @@ import {
   SortBy
 } from '../../types/common-types';
 import { AxiosResponse } from 'axios';
+import {OrderProcessWithType} from "../../smart-components/order-process/add-order-process-modal";
 const axiosInstance = getAxiosInstance();
 const orderProcessApi = getOrderProcessApi();
 
@@ -103,7 +104,7 @@ export const updateOrderProcess = async (
     after_portfolio_item_id,
     return_portfolio_item_id,
     ...data
-  }: Partial<OrderProcess>
+  }: Partial<OrderProcessWithType>
 ): Promise<[
   AxiosResponse<OrderProcess> | unknown,
   AxiosResponse<OrderProcess> | unknown,
@@ -115,7 +116,7 @@ export const updateOrderProcess = async (
   });
 
   let promiseB = {};
-  order_process_type === 'itsm'
+  data.order_process_type === 'itsm'
     ? (return_portfolio_item_id = undefined)
     : (before_portfolio_item_id = after_portfolio_item_id = undefined);
 
