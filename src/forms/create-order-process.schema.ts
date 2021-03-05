@@ -19,7 +19,7 @@ const createOrderProcessSchema = (intl: IntlShape, id: string): Schema => {
     fields: [
       {
         component: componentTypes.RADIO,
-        name: 'order-process-type',
+        name: 'order_process_type',
         id: 'order-process-type',
         label: intl.formatMessage(orderProcessesMessages.orderProcessType),
         options: [
@@ -56,15 +56,15 @@ const createOrderProcessSchema = (intl: IntlShape, id: string): Schema => {
         label: intl.formatMessage(labelMessages.description)
       },
       ...setItemsSelectSchema(BEFORE_TYPE, intl, {
-        when: 'order-process-type',
+        when: 'order_process_type',
         is: 'itsm'
       }),
       ...setItemsSelectSchema(AFTER_TYPE, intl, {
-        when: 'order-process-type',
+        when: 'order_process_type',
         is: 'itsm'
       }),
       ...setItemsSelectSchema(RETURN_TYPE, intl, {
-        when: 'order-process-type',
+        when: 'order_process_type',
         is: 'return'
       })
     ]

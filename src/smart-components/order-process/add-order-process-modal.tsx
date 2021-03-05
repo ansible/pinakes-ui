@@ -134,7 +134,7 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   if (edit && !data) {
     return null;
   }
-
+  console.log('Debug - initialValues: ', initialValues);
   return (
     <Modal
       isOpen
@@ -147,10 +147,10 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
       variant="small"
     >
       <FormRenderer
-        initialValues={initialValues}
         onSubmit={onSave}
         onCancel={onCancel}
         schema={createOrderProcessSchema(intl, order_process)}
+        initialValues={initialValues}
         templateProps={{
           submitLabel: edit
             ? intl.formatMessage(labelMessages.save)
