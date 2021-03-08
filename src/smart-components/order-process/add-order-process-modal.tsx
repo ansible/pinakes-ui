@@ -114,7 +114,6 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
   const onSave = (values: Partial<OrderProcess>) => {
-    console.log('Debug - onSave - data, values', data, values);
     const submitAction = edit
       ? () =>
           updateOrderProcess(
@@ -134,7 +133,7 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   if (edit && !data) {
     return null;
   }
-  console.log('Debug - initialValues: ', initialValues);
+
   return (
     <Modal
       isOpen

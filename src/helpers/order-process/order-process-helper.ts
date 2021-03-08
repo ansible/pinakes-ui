@@ -13,7 +13,7 @@ import {
   SortBy
 } from '../../types/common-types';
 import { AxiosResponse } from 'axios';
-import {OrderProcessWithType} from "../../smart-components/order-process/add-order-process-modal";
+import { OrderProcessWithType } from '../../smart-components/order-process/add-order-process-modal';
 const axiosInstance = getAxiosInstance();
 const orderProcessApi = getOrderProcessApi();
 
@@ -97,7 +97,6 @@ export const removeOrderProcesses = (
 
 export const updateOrderProcess = async (
   id: string,
-  order_process_type: 'itsm' | 'return',
   initialData: Partial<OrderProcess> | undefined,
   {
     before_portfolio_item_id,
