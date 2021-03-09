@@ -22,7 +22,7 @@ import { CatalogRootState } from '../../types/redux';
 import { OrderProcess } from '@redhat-cloud-services/catalog-client';
 import { fetchOrderProcess } from '../../helpers/order-process/order-process-helper';
 
-interface OrderProcessWithType extends OrderProcess {
+export interface OrderProcessWithType extends OrderProcess {
   order_process_type: string;
 }
 
@@ -114,7 +114,6 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
   const onCancel = () => push(ORDER_PROCESSES_ROUTE);
 
   const onSave = (values: Partial<OrderProcess>) => {
-    console.log('Debug - onSave - data, values', data, values);
     const submitAction = edit
       ? () =>
           updateOrderProcess(
@@ -147,10 +146,10 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
       variant="small"
     >
       <FormRenderer
-        initialValues={initialValues}
         onSubmit={onSave}
         onCancel={onCancel}
         schema={createOrderProcessSchema(intl, order_process)}
+        initialValues={initialValues}
         templateProps={{
           submitLabel: edit
             ? intl.formatMessage(labelMessages.save)
