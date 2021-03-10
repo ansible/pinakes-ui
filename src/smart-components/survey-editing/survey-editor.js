@@ -17,7 +17,13 @@ import {
   getServicePlansApi
 } from '../../helpers/shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { Bullseye } from '@patternfly/react-core';
+import {
+  Bullseye,
+  FormGroup,
+  Select,
+  SelectOption,
+  TextInput
+} from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
@@ -30,6 +36,113 @@ const isSubstitution = {
   ...fieldProperties.IS_DISABLED,
   propertyName: 'isSubstitution',
   label: 'Substitution'
+};
+
+const FormGroupWrapper = ({
+  propertyValidation: { message },
+  children,
+  ...props
+}) => (
+  <FormGroup
+    helperTextInvalid={message}
+    validated={message ? 'error' : 'default'}
+    {...props}
+  >
+    {children}
+  </FormGroup>
+);
+
+FormGroupWrapper.propTypes = {
+  propertyValidation: PropTypes.shape({ message: PropTypes.string }),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ])
+};
+
+FormGroupWrapper.defaultProps = {
+  propertyValidation: {}
+};
+
+const Input = ({
+  label,
+  initialValueOptions,
+  value,
+  fieldId,
+  innerProps: { propertyValidation },
+  onChange,
+  ...rest
+}) => {
+  const [options, setOptions] = useState([...initialValueOptions]);
+  const [isOpen, setisOpen] = useState(false);
+  if (options.length > 0) {
+    return (
+      <FormGroupWrapper
+        label={label}
+        fieldId={fieldId}
+        propertyValidation={propertyValidation}
+      >
+        <Select
+          variant="typeahead"
+          onToggle={setisOpen}
+          isOpen={isOpen}
+          typeAheadAriaLabel="Select initial value"
+          onSelect={(_event, value) => {
+            onChange(value);
+            setisOpen(false);
+          }}
+          placeholderText="Select initial value"
+          isCreatable
+          onCreateOption={(newValue) =>
+            setOptions((prev) => [...prev, newValue])
+          }
+          selections={[value]}
+        >
+          {options.map((option) => (
+            <SelectOption key={option} value={option} />
+          ))}
+        </Select>
+      </FormGroupWrapper>
+    );
+  }
+
+  return (
+    <Fragment>
+      <FormGroupWrapper
+        label={label}
+        fieldId={fieldId}
+        propertyValidation={propertyValidation}
+      >
+        <TextInput
+          id={fieldId}
+          value={typeof value === undefined ? '' : value.toString()}
+          onChange={onChange}
+          {...rest}
+        />
+      </FormGroupWrapper>
+    </Fragment>
+  );
+};
+
+Input.propTypes = {
+  label: PropTypes.oneOfType([PropTypes.string]).isRequired,
+  value: PropTypes.any,
+  fieldId: PropTypes.string.isRequired,
+  innerProps: PropTypes.shape({
+    propertyValidation: PropTypes.shape({ message: PropTypes.string })
+  }).isRequired,
+  onChange: PropTypes.func,
+  initialValueOptions: PropTypes.arrayOf(PropTypes.string)
+};
+
+Input.defaultProps = {
+  onChange: () => undefined,
+  value: ''
+};
+
+const newPropertiesMapper = {
+  ...propertiesMapper,
+  input: Input
 };
 
 const componentProperties = {
@@ -121,7 +234,7 @@ const pf4Skin = {
     'select-field': pickerMapper[componentTypes.SELECT],
     'textarea-field': pickerMapper[componentTypes.TEXTAREA]
   },
-  propertiesMapper,
+  propertiesMapper: newPropertiesMapper,
   componentProperties
 };
 
@@ -234,6 +347,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
         updatedField.isDisabled = true;
         updatedField.placeholder = field.initialValue;
       }
+
       return updatedField;
     });
     return { ...editedTemplate, fields: updatedFields };
