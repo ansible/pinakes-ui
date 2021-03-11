@@ -13,7 +13,7 @@
     "@redhat-cloud-services/approval-client": "^1.0.94",
     "@redhat-cloud-services/catalog-client": "^1.0.94",
     "@redhat-cloud-services/frontend-components": "^3.0.11",
-    "@redhat-cloud-services/frontend-components-notifications": "^3.0.4",
+    "@redhat-cloud-services/frontend-components-notifications": "^3.1.0",
     "@redhat-cloud-services/frontend-components-utilities": "^3.0.3",
     "@redhat-cloud-services/rbac-client": "^1.0.93",
     "@types/react-truncate": "^2.3.3",
