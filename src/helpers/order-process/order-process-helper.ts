@@ -33,11 +33,17 @@ export const listOrderProcesses = (
 };
 
 export const loadProductOptions = (
-  filterValue = ''
+  filterValue = '',
+  initialLookup: string[] = []
 ): Promise<SelectOptions> => {
+  const initialLookupQuery = initialLookup
+    .map((product) => `filter[id][]=${product}`)
+    .join('&');
+
   return getAxiosInstance()
     .get(
-      `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}`
+      `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
+        ''}`
     )
     .then(({ data }) =>
       data.map((item: { name: string; id: string }) => ({
