@@ -45,12 +45,12 @@ export const loadProductOptions = (
       `${CATALOG_API_BASE}/portfolio_items?filter[name][contains]=${filterValue}&${initialLookupQuery ||
         ''}`
     )
-    .then(({ data }) =>
-      data.map((item: { name: string; id: string }) => ({
+    .then(({ data }) => {
+      return data.map((item: { name: string; id: string }) => ({
         label: item.name,
         value: item.id
-      }))
-    );
+      }));
+    });
 };
 
 export const fetchOrderProcessByName = (
