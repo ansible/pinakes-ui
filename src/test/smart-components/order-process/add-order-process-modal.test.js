@@ -214,6 +214,8 @@ describe('<AddOrderProcess />', () => {
         name: 'foo'
       },
       {
+        after_portfolio_item_id: '',
+        before_portfolio_item_id: '',
         description: 'some-description',
         id: '123',
         name: 'foo',
