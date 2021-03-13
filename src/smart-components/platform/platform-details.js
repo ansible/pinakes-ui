@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/Section';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,7 @@ import {
   TextListVariants,
   TextVariants
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 
 const PlatformDetails = () => {
   const formatMessage = useFormatMessage();

@@ -14,7 +14,7 @@ import { IntlShape } from 'react-intl';
 import { ResourceObject } from '@redhat-cloud-services/approval-client';
 import { AxiosResponse } from 'axios';
 
-export const fetchOrderProcesses = (
+export let fetchOrderProcesses = (
   pagination?: PaginationConfiguration,
   sortBy?: SortBy
 ) => (
