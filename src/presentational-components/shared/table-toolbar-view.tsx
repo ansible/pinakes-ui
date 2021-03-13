@@ -18,12 +18,12 @@ import {
 } from '../../helpers/shared/pagination';
 import { ListLoader } from './loader-placeholders';
 import { useIntl } from 'react-intl';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import {
   PrimaryToolbar,
   ActiveFiltersConfig,
   FilterItem
-} from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
+} from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 
 export interface TableToolbarViewProps {

@@ -15,7 +15,7 @@ import {
   Stack,
   StackItem
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import ReactJsonView from 'react-json-view';
 import statesMessages from '../../../messages/states.messages';

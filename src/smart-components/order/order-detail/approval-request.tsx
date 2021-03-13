@@ -30,7 +30,7 @@ import {
   TableText
 } from '@patternfly/react-table';
 
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
 import ordersMessages from '../../../messages/orders.messages';

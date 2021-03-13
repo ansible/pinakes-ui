@@ -9,8 +9,8 @@ import {
   Level
 } from '@patternfly/react-core';
 import ReactJsonView from 'react-json-view';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import useQuery from '../../../utilities/use-query';
 import { fetchServiceOffering } from '../../../redux/actions/platform-actions';

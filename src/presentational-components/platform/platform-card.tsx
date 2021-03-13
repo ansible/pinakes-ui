@@ -23,7 +23,7 @@ import CatalogLink from '../../smart-components/common/catalog-link';
 import { StyledCard } from '../styled-components/styled-gallery';
 import { StyledCardBody } from '../styled-components/card';
 import CardIcon from '../shared/card-icon';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { SyncAltIcon } from '@patternfly/react-icons';

@@ -168,7 +168,7 @@ export const updateOrderProcess = async (
   return Promise.all([promiseA, promiseB, promiseR]);
 };
 
-export let addOrderProcess = async ({
+export const addOrderProcess = async ({
   before_portfolio_item_id,
   after_portfolio_item_id,
   return_portfolio_item_id,

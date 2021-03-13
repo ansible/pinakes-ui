@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useReducer, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';

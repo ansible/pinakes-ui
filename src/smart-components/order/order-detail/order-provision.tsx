@@ -41,7 +41,7 @@ import {
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { FormatMessage } from '../../../types/common-types';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import ProgressMessages from './progress-messages';
 import UserContext from '../../../user-context';
 import { hasPermission } from '../../../helpers/shared/helpers';
