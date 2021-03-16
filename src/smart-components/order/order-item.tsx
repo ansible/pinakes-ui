@@ -1,6 +1,6 @@
 import React, { Fragment, ReactNode } from 'react';
 import { Label, Text, TextVariants } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 
 import CardIcon from '../../presentational-components/shared/card-icon';
 import { getOrderIcon } from '../../helpers/shared/orders';
