@@ -4,12 +4,6 @@ import { createGlobalStyle } from 'styled-components';
  * Use direct css imports for FCE components
  * This will save some bundle size
  */
-import '@redhat-cloud-services/frontend-components/ConditionalFilter/conditional-filter.css';
-import '@redhat-cloud-services/frontend-components/EmptyTable/EmptyTable.css';
-import '@redhat-cloud-services/frontend-components/PrimaryToolbar/primary-toolbar.css';
-import '@redhat-cloud-services/frontend-components/Section/section.css';
-import '@redhat-cloud-services/frontend-components/TableToolbar/TableToolbar.css';
-
 const GlobalStyle = createGlobalStyle`
 .disabled-link {
   pointer-events: none
