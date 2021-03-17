@@ -590,7 +590,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                     <span
                       className="pf-c-label__content"
                     >
-                      Not available
+                      Unavailable
                     </span>
                   </span>
                 </Label>
