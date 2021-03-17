@@ -137,7 +137,8 @@ Input.propTypes = {
 
 Input.defaultProps = {
   onChange: () => undefined,
-  value: ''
+  value: '',
+  initialValueOptions: []
 };
 
 const newPropertiesMapper = {
