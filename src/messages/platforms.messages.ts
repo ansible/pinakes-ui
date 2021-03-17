@@ -68,7 +68,15 @@ const platformsMessages = defineMessages({
   },
   platformSummary: {
     id: 'platforms.summary',
-    defaultMessage: 'Summmary'
+    defaultMessage: 'Summary'
+  },
+  platformDetails: {
+    id: 'platforms.details',
+    defaultMessage: 'Details'
+  },
+  platformActivity: {
+    id: 'platforms.activity',
+    defaultMessage: 'Activity'
   },
   cloudConnectorId: {
     id: 'platform.cloudConnectorId',
