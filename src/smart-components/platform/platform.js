@@ -56,7 +56,7 @@ const tabItems = [
   },
   {
     eventKey: 2,
-    title: 'Details',
+    title: 'Summary',
     name: `/platform/platform-details`
   }
 ];

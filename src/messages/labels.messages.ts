@@ -83,7 +83,7 @@ const labelMessages = defineMessages({
   },
   notAvailable: {
     id: 'common.labels.not-available',
-    defaultMessage: 'Not available'
+    defaultMessage: 'Unavailable'
   }
 });
 

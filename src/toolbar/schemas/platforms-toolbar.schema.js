@@ -91,6 +91,7 @@ export const createPlatformsTopToolbarSchema = ({
                     {
                       component: toolbarComponentTypes.LABEL,
                       key: 'platform-available-label',
+                      variant: 'outline',
                       ...platformAvailable()
                     }
                   ]
