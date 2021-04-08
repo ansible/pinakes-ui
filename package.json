@@ -38,7 +38,7 @@
     "redux-thunk": "^2.3.0",
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.0.1",
-    "whatwg-fetch": "3.0.0"
+    "whatwg-fetch": "^3.6.2"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -70,7 +70,7 @@
     "@babel/preset-typescript": "^7.10.4",
     "@redhat-cloud-services/sources-client": "^1.0.93",
     "@types/jest": "^26.0.10",
-    "@types/lodash": "^4.14.160",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^14.6.0",
     "@types/qs": "^6.9.4",
     "@types/react": "^16.9.46",
@@ -108,7 +108,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
     "jest-mock-axios": "^3.1.2",
-    "lodash-webpack-plugin": "^0.11.5",
+    "lodash-webpack-plugin": "^0.11.6",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
@@ -123,7 +123,7 @@
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0",
+    "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^4.2.2",
     "workbox-webpack-plugin": "^5.1.4",
     "write-file-webpack-plugin": "^4.5.1"
