@@ -121,13 +121,16 @@ export const updateOrderProcess = async (
   });
 
   let promiseB = {};
-  data.order_process_type === 'itsm'
-    ? (return_portfolio_item_id = undefined)
-    : (before_portfolio_item_id = after_portfolio_item_id = undefined);
+  if (data.order_process_type === 'itsm') {
+    return_portfolio_item_id = undefined;
+  } else {
+    before_portfolio_item_id = undefined;
+    after_portfolio_item_id = undefined;
+  }
 
   if (before_portfolio_item_id !== initialData?.before_portfolio_item_id) {
     promiseB =
-      before_portfolio_item_id !== undefined
+      before_portfolio_item_id && before_portfolio_item_id !== undefined
         ? getOrderProcessApi().addOrderProcessBeforeItem(id, {
             portfolio_item_id: before_portfolio_item_id
           })
@@ -141,7 +144,7 @@ export const updateOrderProcess = async (
   let promiseA = {};
   if (after_portfolio_item_id !== initialData?.after_portfolio_item_id) {
     promiseA =
-      after_portfolio_item_id !== undefined
+      after_portfolio_item_id && after_portfolio_item_id !== undefined
         ? getOrderProcessApi().addOrderProcessAfterItem(id as string, {
             portfolio_item_id: after_portfolio_item_id
           })
@@ -184,6 +187,8 @@ export const addOrderProcess = async ({
   });
 
   const promiseB =
+    before_portfolio_item_id &&
+    before_portfolio_item_id !== '' &&
     before_portfolio_item_id !== undefined
       ? getOrderProcessApi().addOrderProcessBeforeItem(
           ((op as unknown) as OrderProcess).id as string,
@@ -191,6 +196,8 @@ export const addOrderProcess = async ({
         )
       : {};
   const promiseA =
+    after_portfolio_item_id &&
+    after_portfolio_item_id !== '' &&
     after_portfolio_item_id !== undefined
       ? getOrderProcessApi().addOrderProcessAfterItem(
           ((op as unknown) as OrderProcess).id as string,
@@ -198,6 +205,8 @@ export const addOrderProcess = async ({
         )
       : {};
   const promiseR =
+    return_portfolio_item_id &&
+    return_portfolio_item_id !== '' &&
     return_portfolio_item_id !== undefined
       ? getOrderProcessApi().addOrderProcessReturnItem(
           ((op as unknown) as OrderProcess).id as string,
