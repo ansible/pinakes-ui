@@ -63,6 +63,10 @@ const orderProcessesMessages = defineMessages({
     id: 'order-process.enterName',
     defaultMessage: 'Enter a name for the order process'
   },
+  orderProcessType: {
+    id: 'order-process-type',
+    defaultMessage: 'Order process type'
+  },
   orderProcesses: {
     id: 'order-process.orderProcesses',
     defaultMessage: 'order processes'

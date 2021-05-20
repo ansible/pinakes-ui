@@ -9,10 +9,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
 >
   <Styled(CardBody)>
     <CardBody
-      className="sc-AxhUy gxeoyg"
+      className="sc-AxheI jOYejY"
     >
       <div
-        className="pf-c-card__body sc-AxhUy gxeoyg"
+        className="pf-c-card__body sc-AxheI jOYejY"
       >
         <TextContent>
           <div
@@ -30,7 +30,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                 >
                   <styled.div>
                     <div
-                      className="sc-AxhCb hYKqDj"
+                      className="sc-AxgMl ytwOc"
                     >
                       Foo
                     </div>
@@ -167,9 +167,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                       }
                     }
                     trigger={
-                      <span
-                        aria-describedby="pf-tooltip-1"
-                      >
+                      <span>
                         ...
                       </span>
                     }
@@ -178,9 +176,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                     <FindRefWrapper
                       onFoundRef={[Function]}
                     >
-                      <span
-                        aria-describedby="pf-tooltip-1"
-                      >
+                      <span>
                         ...
                       </span>
                     </FindRefWrapper>
@@ -203,10 +199,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
 >
   <Styled(CardBody)>
     <CardBody
-      className="sc-AxhUy gxeoyg"
+      className="sc-AxheI jOYejY"
     >
       <div
-        className="pf-c-card__body sc-AxhUy gxeoyg"
+        className="pf-c-card__body sc-AxheI jOYejY"
       >
         <TextContent>
           <div
@@ -224,7 +220,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                 >
                   <styled.div>
                     <div
-                      className="sc-AxhCb hYKqDj"
+                      className="sc-AxgMl ytwOc"
                     >
                       Foo
                     </div>
@@ -350,9 +346,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                       }
                     }
                     trigger={
-                      <span
-                        aria-describedby="pf-tooltip-2"
-                      >
+                      <span>
                         ...
                       </span>
                     }
@@ -361,9 +355,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                     <FindRefWrapper
                       onFoundRef={[Function]}
                     >
-                      <span
-                        aria-describedby="pf-tooltip-2"
-                      >
+                      <span>
                         ...
                       </span>
                     </FindRefWrapper>

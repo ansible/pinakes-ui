@@ -9,7 +9,10 @@ import {
 } from '@redhat-cloud-services/catalog-client';
 import { Source } from '@redhat-cloud-services/sources-client';
 import { getAxiosInstance } from '../shared/user-login';
-import { CATALOG_API_BASE, SOURCES_API_BASE } from '../../utilities/constants';
+import {
+  CATALOG_API_BASE,
+  CATALOG_INVENTORY_API_BASE
+} from '../../utilities/constants';
 const axiosInstance = getAxiosInstance();
 
 export interface ObjectNotFound {
@@ -85,7 +88,7 @@ export const fetchOrderDetailSequence = async (
   const parallerRequests = [
     axiosInstance
       .get(
-        `${SOURCES_API_BASE}/sources/${
+        `${CATALOG_INVENTORY_API_BASE}/sources/${
           (portfolioItem as PortfolioItem).service_offering_source_ref
         }`
       )

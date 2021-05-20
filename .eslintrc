@@ -88,7 +88,7 @@
     "no-use-before-define": [0],
     "no-undef": 2,
     "no-unused-vars": [
-      "error",
+      "warn",
       {
         "vars": "all",
         "args": "after-used",
@@ -142,6 +142,7 @@
       "never"
     ],
     "react/prop-types": 1,
+    "@typescript-eslint/no-unused-vars": 1,
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-use-before-define": [1]
 

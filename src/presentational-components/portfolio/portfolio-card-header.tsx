@@ -1,26 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Badge,
-  Level,
-  LevelItem,
-  Text,
-  TextContent,
-  TextVariants
-} from '@patternfly/react-core';
+import { Badge, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import EllipsisTextContainer from '../styled-components/ellipsis-text-container';
-import styled from 'styled-components';
 import { CatalogLinkTo } from '../../smart-components/common/catalog-link';
-
-const HeaderTitle = styled(LevelItem)`
-  max-width: calc(100% - 80px);
-  width: calc(100% - 80px);
-`;
-
-const HeaderLevel = styled(Level)`
-  width: 100%;
-`;
+import { HeaderLevel, HeaderTitle } from '../shared/card-common';
 
 export interface PortfolioCardHeaderProps {
   id: string;
