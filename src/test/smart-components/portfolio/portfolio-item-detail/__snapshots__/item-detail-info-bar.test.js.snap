@@ -189,9 +189,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                   }
                 }
                 trigger={
-                  <span
-                    aria-describedby="pf-tooltip-1"
-                  >
+                  <span>
                     Just now
                   </span>
                 }
@@ -200,9 +198,7 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                 <FindRefWrapper
                   onFoundRef={[Function]}
                 >
-                  <span
-                    aria-describedby="pf-tooltip-1"
-                  >
+                  <span>
                     Just now
                   </span>
                 </FindRefWrapper>
@@ -377,9 +373,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                   }
                 }
                 trigger={
-                  <span
-                    aria-describedby="pf-tooltip-2"
-                  >
+                  <span>
                     Just now
                   </span>
                 }
@@ -388,9 +382,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                 <FindRefWrapper
                   onFoundRef={[Function]}
                 >
-                  <span
-                    aria-describedby="pf-tooltip-2"
-                  >
+                  <span>
                     Just now
                   </span>
                 </FindRefWrapper>
@@ -594,9 +586,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                   }
                 }
                 trigger={
-                  <span
-                    aria-describedby="pf-tooltip-3"
-                  >
+                  <span>
                     Just now
                   </span>
                 }
@@ -605,9 +595,7 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                 <FindRefWrapper
                   onFoundRef={[Function]}
                 >
-                  <span
-                    aria-describedby="pf-tooltip-3"
-                  >
+                  <span>
                     Just now
                   </span>
                 </FindRefWrapper>

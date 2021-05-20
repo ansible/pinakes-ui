@@ -1,0 +1,33 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: wednesday
+    time: "12:00"
+    timezone: EST
+  open-pull-requests-limit: 10
+  reviewers:
+  - Hyperkid123
+  allow:
+  - dependency-name: "@redhat-cloud-services/frontend*"
+  - dependency-name: react
+    dependency-type: direct
+  - dependency-name: react-dom
+    dependency-type: direct
+  - dependency-name: "@patternfly/*"
+    dependency-type: direct
+  ignore:
+  - dependency-name: "@redhat-cloud-services/frontend-components"
+    versions:
+    - 3.0.4
+    - 3.1.4
+    - 3.1.5
+    - 3.1.6
+  - dependency-name: "@redhat-cloud-services/frontend-components-utilities"
+    versions:
+    - 3.1.1
+  - dependency-name: "@patternfly/react-core"
+    versions:
+    - 4.97.2

@@ -3,10 +3,19 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { AnyObject } from '../../types/common-types';
 import Truncate from 'react-truncate';
-import { Tooltip } from '@patternfly/react-core';
+import { Level, LevelItem, Tooltip } from '@patternfly/react-core';
 
 const CardPropText = styled.div`
   overflow: hidden;
+`;
+
+export const HeaderTitle = styled(LevelItem)`
+  max-width: calc(100% - 80px);
+  width: calc(100% - 80px);
+`;
+
+export const HeaderLevel = styled(Level)`
+  width: 100%;
 `;
 
 export interface ItemDetailsProps extends AnyObject {

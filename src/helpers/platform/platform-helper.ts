@@ -1,6 +1,6 @@
 import { getAxiosInstance, getGraphqlInstance } from '../shared/user-login';
 import {
-  TOPOLOGICAL_INVENTORY_API_BASE,
+  CATALOG_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings, PaginationConfiguration } from '../shared/pagination';
@@ -9,9 +9,9 @@ import {
   ServiceOffering,
   ServiceInventory
 } from '@redhat-cloud-services/sources-client';
-import { ApiCollectionResponse } from '../../types/common-types';
+import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
-const graphqlInstance = getGraphqlInstance();
+const { post } = getGraphqlInstance();
 
 const sourcesQuery = `
 query {
@@ -26,15 +26,43 @@ query {
   }
 }`;
 
-export const getPlatforms = (): Promise<Source> => {
-  return graphqlInstance
-    .post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
-    .then(({ data: { application_types } }) => application_types)
-    .then(([{ sources }]) => sources);
+const getSourcesDetails = (
+  sourceIds: string[]
+): Promise<ApiCollectionResponse<SourceDetails>> => {
+  return axiosInstance.get(
+    `${CATALOG_INVENTORY_API_BASE}/sources?limit=${sourceIds.length ||
+      defaultSettings.limit}${sourceIds.length ? '&' : ''}${sourceIds
+      .map((sourceId) => `filter[id][]=${sourceId}`)
+      .join('&')}`
+  );
 };
 
+export const getPlatforms = (): Promise<SourceDetails> =>
+  post(`${SOURCES_API_BASE}/graphql`, { query: sourcesQuery })
+    .then(({ data: { application_types } }) => application_types)
+    .then(([{ sources }]) => {
+      return getSourcesDetails(sources.map((source: Source) => source.id)).then(
+        (sourceDetails) => {
+          return sources.map((source: Source) => ({
+            ...source,
+            ...sourceDetails.data.find(
+              (sourceDetail) => sourceDetail.id === source.id
+            )
+          }));
+        }
+      );
+    });
+
 export const getPlatform = (platformId: string): Promise<Source> => {
-  return axiosInstance.get(`${SOURCES_API_BASE}/sources/${platformId}`);
+  return axiosInstance.get(
+    `${CATALOG_INVENTORY_API_BASE}/sources/${platformId}`
+  );
+};
+
+export const refreshPlatform = (platformId: string): Promise<Source> => {
+  return axiosInstance.patch(
+    `${CATALOG_INVENTORY_API_BASE}/sources/${platformId}/refresh`
+  );
 };
 
 export const getPlatformItems = (
@@ -45,14 +73,12 @@ export const getPlatformItems = (
   const filterQuery = filter ? `&filter[name][contains_i]=${filter}` : '';
   if (platformId) {
     return axiosInstance.get(
-      `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_offerings?filter[archived_at][nil]${filterQuery}${
+      `${CATALOG_INVENTORY_API_BASE}/sources/${platformId}/service_offerings?filter[archived_at][nil]${filterQuery}${
         options ? `&limit=${options.limit}&offset=${options.offset}` : ''
       }`
     );
   } else {
-    return axiosInstance.get(
-      `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings`
-    );
+    return axiosInstance.get(`${CATALOG_INVENTORY_API_BASE}/service_offerings`);
   }
 };
 
@@ -63,13 +89,13 @@ export const getPlatformInventories = (
 ): Promise<ApiCollectionResponse<ServiceInventory>> => {
   if (platformId) {
     return axiosInstance.get(
-      `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${
+      `${CATALOG_INVENTORY_API_BASE}/sources/${platformId}/service_inventories?filter[name][contains_i]=${filter}${
         options ? `&limit=${options.limit}&offset=${options.offset}` : ''
       }`
     );
   } else {
     return axiosInstance.get(
-      `${TOPOLOGICAL_INVENTORY_API_BASE}/service_inventories?limit=${options.limit}&offset=${options.offset}`
+      `${CATALOG_INVENTORY_API_BASE}/service_inventories?limit=${options.limit}&offset=${options.offset}`
     );
   }
 };
@@ -80,7 +106,7 @@ export const getServiceOffering = (
 ): Promise<{ service: ServiceOffering; source: Source }> =>
   Promise.all([
     axiosInstance.get(
-      `${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/${serviceOfferingId}`
+      `${CATALOG_INVENTORY_API_BASE}/service_offerings/${serviceOfferingId}`
     ),
     axiosInstance
       .get(`${SOURCES_API_BASE}/sources/${sourceId}`)

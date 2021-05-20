@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Fragment, ReactNode } from 'react';
-import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/Section';
 import { Text, TextVariants, Gallery } from '@patternfly/react-core';
 
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';

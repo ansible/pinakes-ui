@@ -8,8 +8,8 @@ import {
 } from '../shared/user-login';
 import {
   CATALOG_API_BASE,
-  SOURCES_API_BASE,
-  APPROVAL_API_BASE
+  APPROVAL_API_BASE,
+  CATALOG_INVENTORY_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings } from '../shared/pagination';
 import catalogHistory from '../../routing/catalog-history';
@@ -188,7 +188,7 @@ export const getOrderDetail = (
         throw error;
       }),
     axiosInstance
-      .get(`${SOURCES_API_BASE}/sources/${params.platform}`)
+      .get(`${CATALOG_INVENTORY_API_BASE}/sources/${params.platform}`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {

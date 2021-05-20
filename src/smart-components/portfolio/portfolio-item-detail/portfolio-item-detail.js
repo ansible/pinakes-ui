@@ -9,7 +9,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Grid, GridItem, Alert } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/Section';
 
 import ItemDetailInfoBar from './item-detail-info-bar';
 import ItemDetailDescription from './item-detail-description';
