@@ -120,6 +120,7 @@ export const updateOrderProcess = async (
     description: data.description
   });
 
+
   let promiseB = {};
   data.order_process_type === 'itsm'
     ? (return_portfolio_item_id = undefined)
