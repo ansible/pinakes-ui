@@ -49,7 +49,7 @@ export const fetchOrderProcesses = (
 
 export const fetchOrderProcess = (
   id: string
-): { payload: Promise<AxiosResponse<OrderProcess>>; type: string } => ({
+): AsyncMiddlewareAction<OrderProcess> => ({
   type: ActionTypes.FETCH_ORDER_PROCESS,
   payload: OrderProcessHelper.fetchOrderProcess(id)
 });
@@ -57,11 +57,7 @@ export const fetchOrderProcess = (
 export const addOrderProcess = (
   processData: OrderProcess,
   intl: IntlShape
-): AsyncMiddlewareAction<[
-  OrderProcess,
-  OrderProcess | undefined,
-  OrderProcess | undefined
-]> => ({
+): AsyncMiddlewareAction<[OrderProcess, OrderProcess | undefined]> => ({
   type: ActionTypes.ADD_ORDER_PROCESS,
   payload: OrderProcessHelper.addOrderProcess(processData),
   meta: {
@@ -81,27 +77,18 @@ export const addOrderProcess = (
 
 export const updateOrderProcess = (
   processId: string,
-  initialData: Partial<OrderProcess> | undefined,
-  newData: Partial<OrderProcess>,
+  data: Partial<OrderProcess>,
   intl: IntlShape
-): AsyncMiddlewareAction<[
-  AxiosResponse<OrderProcess> | unknown,
-  AxiosResponse<OrderProcess> | unknown,
-  AxiosResponse<OrderProcess> | unknown
-]> => ({
+): AsyncMiddlewareAction<[OrderProcess, OrderProcess | undefined]> => ({
   type: ActionTypes.UPDATE_ORDER_PROCESS,
-  payload: OrderProcessHelper.updateOrderProcess(
-    processId,
-    initialData,
-    newData
-  ),
+  payload: OrderProcessHelper.updateOrderProcess(processId, data),
   meta: {
     notifications: {
       fulfilled: {
         variant: 'success',
         title: intl.formatMessage(
           orderProcessesMessages.updateProcessSuccessTitle,
-          { name: newData.name }
+          { name: data.name }
         )
       }
     }

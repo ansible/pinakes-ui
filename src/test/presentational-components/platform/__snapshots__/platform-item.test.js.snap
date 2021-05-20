@@ -9,11 +9,11 @@ exports[`<PlatformItem /> should render correctly 1`] = `
     ouiaId="platform-itemFoo"
   >
     <Card
-      className="sc-fznZeY cloDqS"
+      className="sc-fznyAO jPogVH"
       ouiaId="platform-itemFoo"
     >
       <article
-        className="pf-c-card sc-fznZeY cloDqS"
+        className="pf-c-card sc-fznyAO jPogVH"
         data-ouia-component-id="platform-itemFoo"
         data-ouia-component-type="PF4/Card"
         data-ouia-safe={true}
@@ -25,10 +25,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
           >
             <Styled(Level)>
               <Level
-                className="sc-fzqBZW kPDQfP"
+                className="sc-fznZeY dhizEt"
               >
                 <div
-                  className="pf-l-level sc-fzqBZW kPDQfP"
+                  className="pf-l-level sc-fznZeY dhizEt"
                 >
                   <CardIcon
                     height={40}
@@ -117,10 +117,10 @@ exports[`<PlatformItem /> should render correctly 1`] = `
         >
           <Styled(CardBody)>
             <CardBody
-              className="sc-fznKkj icmceZ"
+              className="sc-fzplWN eHMLLo"
             >
               <div
-                className="pf-c-card__body sc-fznKkj icmceZ"
+                className="pf-c-card__body sc-fzplWN eHMLLo"
               >
                 <TextContent>
                   <div
@@ -136,7 +136,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         >
                           <styled.div>
                             <div
-                              className="sc-fznyAO fTqqVS"
+                              className="sc-fzpans olCT"
                             />
                           </styled.div>
                         </h3>
@@ -248,7 +248,9 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                               }
                             }
                             trigger={
-                              <span>
+                              <span
+                                aria-describedby="pf-tooltip-1"
+                              >
                                 ...
                               </span>
                             }
@@ -257,7 +259,9 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                             <FindRefWrapper
                               onFoundRef={[Function]}
                             >
-                              <span>
+                              <span
+                                aria-describedby="pf-tooltip-1"
+                              >
                                 ...
                               </span>
                             </FindRefWrapper>

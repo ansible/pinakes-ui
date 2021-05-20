@@ -6,7 +6,7 @@
 import React from 'react';
 import { Store } from 'redux';
 import get from 'lodash/get';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 
 import {
   PORTFOLIO_ITEM_NULLABLE,
@@ -97,6 +97,3 @@ export const hasPermission = (
 
 export const stateToDisplay = (state?: string): boolean =>
   state !== 'Completed' && state !== 'Ordered' && state !== 'Failed';
-
-export const delay = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));

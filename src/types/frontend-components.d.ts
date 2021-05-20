@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /**
  * These modules are not 100% accurate. It has to be fixed in FCE directly to provide 100% match.
  */
@@ -70,7 +69,7 @@ interface NotificationConfig {
 /**
  * Frontend components do not provide TS typings so we have to define them
  */
-declare module '@redhat-cloud-services/frontend-components/DateFormat' {
+declare module '@redhat-cloud-services/frontend-components/components/cjs/DateFormat' {
   export interface DateFormatTooltipProps {
     [key: string]: number | string;
   }
@@ -84,7 +83,7 @@ declare module '@redhat-cloud-services/frontend-components/DateFormat' {
   export const DateFormat: React.ComponentType<DateFormatProps>;
 }
 
-declare module '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry' {
+declare module '@redhat-cloud-services/frontend-components-utilities/files/cjs/ReducerRegistry' {
   export type ApplyReducerHash<T> = InternalReducerHash<T>;
   export function applyReducerHash<T>(
     reducer: ReducerHandlerObject,
@@ -150,18 +149,18 @@ declare module '@redhat-cloud-services/frontend-components-notifications/notific
   export default createNotificationsMiddleware;
 }
 
-declare module '@redhat-cloud-services/frontend-components/Section' {
+declare module '@redhat-cloud-services/frontend-components/components/cjs/Section' {
   export const Section: React.ComponentType<any>;
 }
 
-declare module '@redhat-cloud-services/frontend-components/EmptyTable' {
+declare module '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable' {
   interface EmptyTableProps {
     centered?: boolean;
   }
   export const EmptyTable: React.ComponentType<EmptyTableProps>;
 }
 
-declare module '@redhat-cloud-services/frontend-components/PrimaryToolbar' {
+declare module '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar' {
   interface TextInputProps {
     value?: string;
     placeholder?: string;
@@ -277,7 +276,7 @@ declare module '@redhat-cloud-services/frontend-components/PrimaryToolbar' {
   export const PrimaryToolbar: React.ComponentType<PrimaryToolbarProps>;
 }
 
-declare module '@redhat-cloud-services/frontend-components/TableToolbar' {
+declare module '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar' {
   export interface TableToolbarProps {
     className?: string;
   }

@@ -10,7 +10,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 
 import {
-  CATALOG_INVENTORY_API_BASE,
+  TOPOLOGICAL_INVENTORY_API_BASE,
   CATALOG_API_BASE,
   SOURCES_API_BASE
 } from '../../../../utilities/constants';
@@ -72,32 +72,12 @@ describe('<AddProductsToPortfolio />', () => {
         }
       }
     });
-    mockApi
-      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
-      .replyOnce(200, {
-        data: [
-          {
-            id: '1',
-            name: 'Source 1',
-            availability_status: 'available',
-            enabled: true
-          }
-        ],
-        meta: {
-          count: 1,
-          limit: 50,
-          offset: 0
-        }
-      });
-
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        application_types: [{ sources: [{ id: '1', name: 'Source 1' }] }]
-      }
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
     mockApi
       .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [],
@@ -105,7 +85,7 @@ describe('<AddProductsToPortfolio />', () => {
       });
     mockApi
       .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&filter[name][contains_i]=foo&limit=undefined&offset=0`
       )
       .replyOnce(200, { data: [] });
 
@@ -125,9 +105,7 @@ describe('<AddProductsToPortfolio />', () => {
         payload: [
           {
             id: '1',
-            name: 'Source 1',
-            availability_status: 'available',
-            enabled: true
+            name: 'foo'
           }
         ],
         type: `${FETCH_PLATFORMS}_FULFILLED`
@@ -179,7 +157,7 @@ describe('<AddProductsToPortfolio />', () => {
         }
       },
       platformReducer: {
-        platforms: [{ id: '1', name: 'Source 1' }],
+        platforms: [{ id: '1', name: 'foo' }],
         platformItems: {
           1: {
             data: [
@@ -190,28 +168,8 @@ describe('<AddProductsToPortfolio />', () => {
       }
     });
 
-    mockApi
-      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
-      .replyOnce(200, {
-        data: [
-          {
-            id: '1',
-            name: 'Source 1',
-            availability_status: 'available',
-            enabled: true
-          }
-        ],
-        meta: {
-          count: 1,
-          limit: 50,
-          offset: 0
-        }
-      });
-
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        application_types: [{ sources: [{ id: '1', name: 'Source 1' }] }]
-      }
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/321/portfolio_items`)
@@ -219,7 +177,7 @@ describe('<AddProductsToPortfolio />', () => {
 
     mockApi
       .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
+        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]&limit=50&offset=0`
       )
       .replyOnce(200, {
         data: [],

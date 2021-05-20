@@ -30,7 +30,7 @@ import {
   TableText
 } from '@patternfly/react-table';
 
-import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
 import ordersMessages from '../../../messages/orders.messages';
@@ -52,7 +52,6 @@ import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import orderStatusMapper from '../order-status-mapper';
 import { MAX_RETRY_LIMIT } from '../../../utilities/constants';
-import { delay } from '../../../helpers/shared/helpers';
 
 /**
  * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
@@ -60,6 +59,8 @@ import { delay } from '../../../helpers/shared/helpers';
  */
 
 const rowOrder = ['updated', 'group_name', 'decision'];
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const checkRequest = async (
   fetchRequests: () => Promise<ApiCollectionResponse<any>>

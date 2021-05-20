@@ -41,10 +41,6 @@ const formsMessages = defineMessages({
     id: 'forms.after.setAfterProvision',
     defaultMessage: 'After order'
   },
-  returnProvision: {
-    id: 'forms.after.setReturnProvision',
-    defaultMessage: 'Return'
-  },
   productsPlaceholder: {
     id: 'forms.product.placeholder',
     defaultMessage: 'Select product'

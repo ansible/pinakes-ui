@@ -16,7 +16,6 @@ import Portfolio from '../../../smart-components/portfolio/portfolio';
 import PortfolioItem from '../../../smart-components/portfolio/portfolio-item';
 import {
   CATALOG_API_BASE,
-  CATALOG_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../../utilities/constants';
 import FilterToolbarItem from '../../../presentational-components/shared/filter-toolbar-item';
@@ -150,19 +149,16 @@ describe('<Portfolio />', () => {
         }
       },
       expect.objectContaining({
+        type: `${FETCH_PLATFORMS}_FULFILLED`
+      }),
+      expect.objectContaining({
         type: `${FETCH_PORTFOLIO_ITEMS_WITH_PORTFOLIO}_FULFILLED`
       }),
       expect.objectContaining({
         type: `${FETCH_PORTFOLIO}_FULFILLED`
-      }),
-      expect.objectContaining({
-        type: `${FETCH_PLATFORMS}_FULFILLED`
       })
     ];
 
-    mockApi
-      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=50`)
-      .replyOnce(200, { data: [] });
     mockGraphql
       .onPost(`${SOURCES_API_BASE}/graphql`)
       .replyOnce(200, { data: { application_types: [{ sources: [] }] } });
@@ -637,7 +633,7 @@ describe('<Portfolio />', () => {
     /**
      * trigger notification undo click
      */
-    const notification = store.getActions()[11].payload.description;
+    const notification = store.getActions()[10].payload.description;
     const notificationWrapper = mount(
       <IntlProvider locale="en">{notification}</IntlProvider>
     );
@@ -649,52 +645,12 @@ describe('<Portfolio />', () => {
   it('should navigate back from portfolio item to portfolio via breadcrumbs', async () => {
     const { ...store } = testStore();
     mockApi
-      .onGet(
-        `${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=source-id`
-      )
-      .replyOnce(200, {
-        data: [
-          {
-            id: 'source-id',
-            name: 'Source',
-            availability_status: 'available',
-            enabled: true
-          }
-        ],
-        meta: {
-          count: 1,
-          limit: 50,
-          offset: 0
-        }
-      });
-
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        application_types: [
-          {
-            id: 'source-id',
-            name: '/insights/platform/catalog',
-            sources: [
-              {
-                id: 'source-id',
-                name: 'Source',
-                availability_status: 'available',
-                enabled: true,
-                source_type_id: '3'
-              }
-            ]
-          }
-        ]
-      }
-    });
-    mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
       .replyOnce(200, {
         id: 'portfolio-id',
         name: 'Portfolio',
         metadata: { user_capabilities: { show: true }, statistics: {} }
-      });
-    mockApi
+      })
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {
         id: 'portfolio-item-id',
@@ -703,15 +659,30 @@ describe('<Portfolio />', () => {
         service_offering_source_ref: 'source-id',
         created_at: '1999-07-26',
         metadata: { user_capabilities: { show: true } }
-      });
-    mockApi
+      })
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)
       .replyOnce(200, { id: 'source-id', name: 'Source', source_type_id: '3' })
       .onGet(
         `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items??filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { meta: {}, data: [] });
-
+    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
+      data: {
+        application_types: [
+          {
+            id: '1',
+            name: '/insights/platform/catalog',
+            sources: [
+              {
+                id: 'source-id',
+                name: 'Source',
+                source_type_id: '3'
+              }
+            ]
+          }
+        ]
+      }
+    });
     let wrapper;
     await act(async () => {
       wrapper = mount(

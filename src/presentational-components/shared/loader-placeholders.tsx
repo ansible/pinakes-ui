@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import {
   Bullseye,
   Card,

@@ -12,13 +12,13 @@ import {
   EmptyStateSecondaryActions,
   Button
 } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
 import {
   Chip,
   PrimaryToolbar
-} from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
-import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
-import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableToolbar';
+} from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
+import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
+import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar';
 import { SearchIcon } from '@patternfly/react-icons';
 import {
   Table,

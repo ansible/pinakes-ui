@@ -8,17 +8,11 @@ import { MemoryRouter } from 'react-router-dom';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { platformInitialState } from '../../../redux/reducers/platform-reducer';
 import Platforms from '../../../smart-components/platform/platforms';
-import {
-  CATALOG_INVENTORY_API_BASE,
-  SOURCES_API_BASE
-} from '../../../utilities/constants';
+import { SOURCES_API_BASE } from '../../../utilities/constants';
 import { FETCH_PLATFORMS } from '../../../redux/action-types';
 import { Provider } from 'react-redux';
 import UserContext from '../../../user-context';
-import {
-  mockApi,
-  mockGraphql
-} from '../../../helpers/shared/__mocks__/user-login';
+import { mockGraphql } from '../../../helpers/shared/__mocks__/user-login';
 
 describe('<Platforms />', () => {
   let initialProps;
@@ -38,38 +32,8 @@ describe('<Platforms />', () => {
 
   it('should mount and fetch platforms data', async () => {
     const store = mockStore(initialState);
-
-    mockApi
-      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
-      .replyOnce(200, {
-        data: [
-          {
-            id: '1',
-            name: 'foo',
-            availability_status: 'available',
-            enabled: true
-          }
-        ],
-        meta: {
-          count: 1,
-          limit: 50,
-          offset: 0
-        }
-      });
-
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        application_types: [
-          {
-            sources: [
-              {
-                id: '1',
-                name: 'foo'
-              }
-            ]
-          }
-        ]
-      }
+      data: { application_types: [{ sources: [{ id: '1', name: 'foo' }] }] }
     });
 
     await act(async () => {
@@ -97,14 +61,7 @@ describe('<Platforms />', () => {
       },
       {
         type: `${FETCH_PLATFORMS}_FULFILLED`,
-        payload: [
-          {
-            id: '1',
-            name: 'foo',
-            availability_status: 'available',
-            enabled: true
-          }
-        ]
+        payload: [{ id: '1', name: 'foo' }]
       }
     ];
     expect(store.getActions()).toEqual(expectedActions);

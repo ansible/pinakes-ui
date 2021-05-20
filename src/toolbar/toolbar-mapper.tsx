@@ -3,13 +3,11 @@ import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
-  Label,
   Level,
   LevelItem,
   ToolbarItem,
   ToolbarContent,
-  ButtonProps,
-  LabelProps
+  ButtonProps
 } from '@patternfly/react-core';
 
 import FilterToolbarItem from '../presentational-components/shared/filter-toolbar-item';
@@ -28,25 +26,12 @@ export interface ToolbarButtonProps extends Omit<ButtonProps, 'title'> {
   title: ReactNode;
 }
 
-export interface ToolbarLabelProps extends Omit<LabelProps, 'title'> {
-  title: ReactNode;
-}
-
 const ToolbarButton: React.ComponentType<ToolbarButtonProps> = ({
   title,
   ...props
 }) => <Button {...props}>{title}</Button>;
 
 ToolbarButton.propTypes = {
-  title: PropTypes.string.isRequired
-};
-
-const ToolbarLabel: React.ComponentType<ToolbarLabelProps> = ({
-  title,
-  ...props
-}) => <Label {...props}>{title}</Label>;
-
-ToolbarLabel.propTypes = {
   title: PropTypes.string.isRequired
 };
 
@@ -69,8 +54,7 @@ const toolbarMapper = {
   Level,
   LevelItem,
   Button: ToolbarButton,
-  AppTabs,
-  Label: ToolbarLabel
+  AppTabs
 };
 
 export const toolbarComponentTypes = {
@@ -84,8 +68,7 @@ export const toolbarComponentTypes = {
   BUTTON: 'Button',
   LEVEL: 'Level',
   LEVEL_ITEM: 'LevelItem',
-  TABS: 'AppTabs',
-  LABEL: 'Label'
+  TABS: 'AppTabs'
 };
 
 export default toolbarMapper;
