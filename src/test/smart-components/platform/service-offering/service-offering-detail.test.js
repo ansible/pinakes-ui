@@ -4,14 +4,14 @@ import { Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import { MemoryRouter, Route } from 'react-router-dom';
 import thunk from 'redux-thunk';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import ReactJsonView from 'react-json-view';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 
 import ServiceOfferingDetail from '../../../../smart-components/platform/service-offering/service-offering-detail';
 import {
-  TOPOLOGICAL_INVENTORY_API_BASE,
+  CATALOG_INVENTORY_API_BASE,
   SOURCES_API_BASE
 } from '../../../../utilities/constants';
 import { Text, Breadcrumb } from '@patternfly/react-core';
@@ -76,7 +76,7 @@ describe('<ServiceOfferingDetail />', () => {
     });
 
     mockApi
-      .onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/2266193`)
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/service_offerings/2266193`)
       .replyOnce(200, {
         id: '2266193',
         name: 'Name',

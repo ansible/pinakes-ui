@@ -31,7 +31,7 @@ export interface ErrorResponse {
 
 export interface ServerError {
   response?: ErrorResponse;
-  status?: 403 | 404 | 401 | 400 | 500 | 200; // not a complete list, replace by library with complete interface
+  status?: 403 | 404 | 401 | 400 | 429 | 500 | 200; // not a complete list, replace by library with complete interface
   config?: AxiosRequestConfig;
 }
 

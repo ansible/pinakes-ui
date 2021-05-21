@@ -29,14 +29,13 @@ const platformsMessages = defineMessages({
     id: 'platform.templates.empty.no-templates',
     defaultMessage: 'This platform has no templates.'
   },
-  configureSourceTitle: {
+  platformsNoDataDescription: {
     id: 'platforms.list.configure-source',
-    defaultMessage: 'Configure a source in order to add products to portfolios.'
+    defaultMessage: 'To get started, add an Ansible Tower cluster as a source.'
   },
   connectSource: {
     id: 'platforms.list.connect-source',
-    defaultMessage:
-      'To connect to a source, go to <a>Sources</a> under Settings.'
+    defaultMessage: 'Go to Sources'
   },
   contactAdmin: {
     id: 'platforms.list.contact-admin',
@@ -58,6 +57,78 @@ const platformsMessages = defineMessages({
   offeringParameters: {
     id: 'platforms.offerings.detail.extra-params',
     defaultMessage: 'Extra parameters'
+  },
+  platformVersion: {
+    id: 'platforms.version',
+    defaultMessage: 'Platform version'
+  },
+  ansibleVersion: {
+    id: 'platforms.ansible.version',
+    defaultMessage: 'Ansible version'
+  },
+  platformSummary: {
+    id: 'platforms.summary',
+    defaultMessage: 'Summary'
+  },
+  platformDetails: {
+    id: 'platforms.details',
+    defaultMessage: 'Details'
+  },
+  platformActivity: {
+    id: 'platforms.activity',
+    defaultMessage: 'Activity'
+  },
+  cloudConnectorId: {
+    id: 'platform.cloudConnectorId',
+    defaultMessage: 'RedHat Connect Client Id'
+  },
+  refreshState: {
+    id: 'platforms.refreshState',
+    defaultMessage: 'Refresh state'
+  },
+  refreshStarted: {
+    id: 'platforms.refreshStarted',
+    defaultMessage: 'Refresh started'
+  },
+  refreshFinished: {
+    id: 'platforms.refreshFinished',
+    defaultMessage: 'Refresh finished'
+  },
+  lastSuccessfulRefresh: {
+    id: 'platforms.lastSuccessfulRefresh',
+    defaultMessage: 'Last successful refresh'
+  },
+  lastChecked: {
+    id: 'platforms.lastChecked',
+    defaultMessage: 'Last checked'
+  },
+  lastAvailable: {
+    id: 'platforms.lastAvailable',
+    defaultMessage: 'Last available'
+  },
+  enabled: {
+    id: 'platforms.enabled',
+    defaultMessage: 'Enabled'
+  },
+  availabilityStatus: {
+    id: 'platforms.availabilityStatus',
+    defaultMessage: 'Availability status'
+  },
+  dateAdded: {
+    id: 'platforms.dateAdded',
+    defaultMessage: 'Date added'
+  },
+  refreshTooltip: {
+    id: 'platforms.refreshTooltip',
+    defaultMessage: 'Refresh platform'
+  },
+  lastRefreshMessage: {
+    id: 'platforms.lastRefreshMessage',
+    defaultMessage: 'Last refresh message'
+  },
+  availabilityMessage: {
+    id: 'platforms.availabilityMessage',
+    defaultMessage: 'Availability message'
   }
 });
 

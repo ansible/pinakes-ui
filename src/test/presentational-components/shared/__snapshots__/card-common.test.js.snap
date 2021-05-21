@@ -125,9 +125,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
               }
             }
             trigger={
-              <span
-                aria-describedby="pf-tooltip-1"
-              >
+              <span>
                 ...
               </span>
             }
@@ -136,9 +134,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
             <FindRefWrapper
               onFoundRef={[Function]}
             >
-              <span
-                aria-describedby="pf-tooltip-1"
-              >
+              <span>
                 ...
               </span>
             </FindRefWrapper>
@@ -263,9 +259,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
               }
             }
             trigger={
-              <span
-                aria-describedby="pf-tooltip-2"
-              >
+              <span>
                 ...
               </span>
             }
@@ -274,9 +268,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
             <FindRefWrapper
               onFoundRef={[Function]}
             >
-              <span
-                aria-describedby="pf-tooltip-2"
-              >
+              <span>
                 ...
               </span>
             </FindRefWrapper>

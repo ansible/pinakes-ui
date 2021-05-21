@@ -1,10 +1,8 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import {
-  notificationsMiddleware,
-  ADD_NOTIFICATION
-} from '@redhat-cloud-services/frontend-components-notifications/';
+import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/redux';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import {
   FETCH_PLATFORM,
   FETCH_PLATFORMS,
@@ -21,7 +19,7 @@ import {
 } from '../../../redux/actions/platform-actions';
 import {
   SOURCES_API_BASE,
-  TOPOLOGICAL_INVENTORY_API_BASE
+  CATALOG_INVENTORY_API_BASE
 } from '../../../utilities/constants';
 import {
   mockApi,
@@ -42,6 +40,24 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
+    mockApi
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/sources?limit=1&filter[id][]=1`)
+      .replyOnce(200, {
+        data: [
+          {
+            id: '1',
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
+          }
+        ],
+        meta: {
+          count: 1,
+          limit: 50,
+          offset: 0
+        }
+      });
+
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {
         application_types: [
@@ -63,7 +79,14 @@ describe('Platform actions', () => {
       },
       {
         type: `${FETCH_PLATFORMS}_FULFILLED`,
-        payload: [expect.objectContaining({ id: '1', name: 'Source 1' })]
+        payload: [
+          expect.objectContaining({
+            id: '1',
+            name: 'Source 1',
+            availability_status: 'available',
+            enabled: true
+          })
+        ]
       }
     ];
 
@@ -109,7 +132,7 @@ describe('Platform actions', () => {
 
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, { data: [{ id: '1', name: 'Offering 1' }] });
 
@@ -139,7 +162,7 @@ describe('Platform actions', () => {
 
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter%5Barchived_at%5D%5Bnil%5D=`
       )
       .replyOnce(500);
 
@@ -168,7 +191,7 @@ describe('Platform actions', () => {
     });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -180,7 +203,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -192,7 +215,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -232,7 +255,7 @@ describe('Platform actions', () => {
     });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/1/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -244,7 +267,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/2/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(200, {
         data: [
@@ -256,7 +279,7 @@ describe('Platform actions', () => {
       });
     mockApi
       .onGet(
-        `${TOPOLOGICAL_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
+        `${CATALOG_INVENTORY_API_BASE}/sources/3/service_offerings?filter[archived_at][nil]`
       )
       .replyOnce(500);
     const expectedActions = [
@@ -285,9 +308,23 @@ describe('Platform actions', () => {
         isPlatformDataLoading: false
       }
     });
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/1`).replyOnce(200, {
+    mockApi.onGet(`${CATALOG_INVENTORY_API_BASE}/sources/1`).replyOnce(200, {
       id: '1',
-      name: 'Source 1'
+      name: 'Source 1',
+      created_at: '2021-02-02T02:15:43Z',
+      info: { version: '3.5.0', ansible_version: '2.8.0' },
+      mqtt_client_id: 'ffe724c3-b843-4266-8993-95a246433f96',
+      enabled: true,
+      refresh_state: 'success',
+      bytes_received: 918,
+      refresh_started_at: '2021-02-04T21:00:47Z',
+      refresh_finished_at: '2021-02-04T21:00:47Z',
+      availability_status: 'available',
+      last_successful_refresh_at: '2021-02-04T21:00:39Z',
+      last_checked_at: '2021-02-04T21:00:36Z',
+      last_available_at: '2021-02-04T21:00:36Z',
+      uid: '4983c459-c4e6-4677-8513-ffbe49b32860',
+      updated_at: '2021-02-04T21:00:47Z'
     });
 
     const expectedActions = [
@@ -350,7 +387,7 @@ describe('Platform actions', () => {
       }
     ];
     mockApi
-      .onGet(`${TOPOLOGICAL_INVENTORY_API_BASE}/service_offerings/offering-id`)
+      .onGet(`${CATALOG_INVENTORY_API_BASE}/service_offerings/offering-id`)
       .replyOnce(200, { id: 'offering-id' });
     mockApi
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)

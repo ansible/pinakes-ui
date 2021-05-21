@@ -45,6 +45,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     CatalogRootState,
     { portfolioItem: PortfolioItem }
   >(({ portfolioReducer: { portfolioItem } }) => portfolioItem);
+
   const formatMessage = useFormatMessage();
 
   const servicePlans = useSelector<CatalogRootState, Full<ServicePlan[]>>(

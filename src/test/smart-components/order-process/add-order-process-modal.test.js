@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import AddOrderProcessModal from '../../../smart-components/order-process/add-order-process-modal';
 import { Button } from '@patternfly/react-core';
 import { ORDER_PROCESSES_ROUTE } from '../../../constants/routes';
@@ -38,7 +38,8 @@ describe('<AddOrderProcess />', () => {
               name: 'PrePostTest',
               description: 'PrePost',
               before_portfolio_item_id: 'pre',
-              after_portfolio_item_id: 'post'
+              after_portfolio_item_id: 'post',
+              return_portfolio_item_it: ''
             }
           ]
         }
@@ -65,8 +66,13 @@ describe('<AddOrderProcess />', () => {
   });
 
   it('should close correctly', async () => {
+    helpers.addOrderProcess = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
+    actions.fetchOrderProcesses = jest.fn();
     const store = mockStore(initialState);
-    let wrapper;
+
+    let wrapper = {};
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store} initialEntries={['/order-processes']}>
@@ -107,7 +113,7 @@ describe('<AddOrderProcess />', () => {
     wrapper.update();
 
     await act(async () => {
-      const nameField = wrapper.find('input').first();
+      const nameField = wrapper.find('input').at(2);
       nameField.instance().value = 'some-name';
       nameField.simulate('change');
     });
@@ -134,6 +140,34 @@ describe('<AddOrderProcess />', () => {
       name: 'some-name'
     });
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();
+  });
+
+  it('should display the order process type radio buttons', async () => {
+    helpers.addOrderProcess = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
+    actions.fetchOrderProcesses = jest.fn();
+
+    const store = mockStore(initialState);
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store} initialEntries={['/order-processes']}>
+          <AddOrderProcessModal {...initialProps} />
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+
+    await act(async () => {
+      const itsmField = wrapper.find('input').at(0);
+      expect(itsmField.instance().value).toBe('itsm');
+    });
+
+    await act(async () => {
+      const returnField = wrapper.find('input').at(1);
+      expect(returnField.instance().value).toBe('return');
+    });
   });
 
   it('should edit order process correctly', async () => {
@@ -172,11 +206,22 @@ describe('<AddOrderProcess />', () => {
     });
     wrapper.update();
 
-    expect(helpers.updateOrderProcess).toHaveBeenCalledWith('123', {
-      description: 'some-description',
-      id: '123',
-      name: 'foo'
-    });
+    expect(helpers.updateOrderProcess).toHaveBeenCalledWith(
+      '123',
+      {
+        description: 'bar',
+        id: '123',
+        name: 'foo'
+      },
+      {
+        after_portfolio_item_id: '',
+        before_portfolio_item_id: '',
+        description: 'some-description',
+        id: '123',
+        name: 'foo',
+        order_process_type: 'itsm'
+      }
+    );
     expect(actions.fetchOrderProcesses).toHaveBeenCalled();
   });
 });

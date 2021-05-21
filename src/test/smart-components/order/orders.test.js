@@ -15,7 +15,7 @@ import {
   CATALOG_API_BASE,
   SOURCES_API_BASE
 } from '../../../utilities/constants';
-import { notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications/';
+import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
 import OrdersList from '../../../smart-components/order/orders-list';
 import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
@@ -49,7 +49,8 @@ describe('<Orders />', () => {
       portfolioItem: {
         name: 'Portfolio item name',
         id: 'portfolio-item-id',
-        updated_at: createDate.toString()
+        updated_at: createDate.toString(),
+        metadata: { orderable: true }
       },
       order: {
         id: '123',
@@ -63,7 +64,8 @@ describe('<Orders />', () => {
         name: 'Super platform'
       },
       portfolio: {
-        name: 'Portfolio name'
+        name: 'Portfolio name',
+        id: 'portfolio-id'
       },
       orderItem: {
         updated_at: createDate.toString(),
@@ -166,7 +168,7 @@ describe('<Orders />', () => {
       .onGet(`${CATALOG_API_BASE}/portfolio_items?`)
       .replyOnce(200, { data: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items?`)
+      .onGet(`${CATALOG_API_BASE}/order_items?limit=50`)
       .replyOnce(200, { data: [] });
     mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
       data: {
@@ -318,6 +320,63 @@ describe('<Orders />', () => {
     done();
   });
 
+  it('should mount and render order approval detail component for order in created state', async (done) => {
+    const createdOrder = {
+      ...orderReducer,
+      orderDetail: {
+        ...orderReducer.orderDetail,
+        order: {
+          id: '123',
+          state: 'Created',
+          created_at: createDate.toString(),
+          owner: 'hula hup'
+        }
+      }
+    };
+    const store = mockStore({
+      ...initialState,
+      orderReducer: { ...orderInitialState, ...orderReducer, ...createdOrder }
+    });
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders/123`)
+      .replyOnce(200, { data: [{ id: 123 }] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
+      .replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/orders/order/approval?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+          ]} // eslint-disable-line max-len
+        >
+          <Route path="/orders/order/approval">
+            <OrderDetail />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+    expect(wrapper.find(OrderDetail)).toHaveLength(1);
+    done();
+  });
+
   it('should mount and render order detail component and open/close cancel order modal', async (done) => {
     const enabledCancel = { ...orderReducer };
     enabledCancel.orderDetail.order.state = 'Approval Pending';
@@ -351,7 +410,7 @@ describe('<Orders />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+            '/order?order=123&order-item=order-item-id&&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
           ]}
         >
           <Route path="/order">
@@ -368,6 +427,64 @@ describe('<Orders />', () => {
     wrapper.find('button#keep-order').simulate('click');
     wrapper.update();
     expect(wrapper.find(CancelOrderModal).props().isOpen).toEqual(false);
+    done();
+  });
+
+  it('should mount and render the reorder button with the order modal link', async (done) => {
+    const enabledReorder = { ...orderReducer };
+    enabledReorder.orderDetail.order.state = 'Completed';
+    const store = mockStore({
+      ...initialState,
+      orderReducer: { ...orderInitialState, ...enabledReorder }
+    });
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders/123`)
+      .replyOnce(200, { data: [{ id: 123 }] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .replyOnce(200, { data: { id: 'portfolio-id' } });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
+      .replyOnce(200, {});
+    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={[
+            '/order?order=123&order-item=order-item-id&portfolio-item=portfolio-item-id&platform=platform-id&portfolio=portfolio-id'
+          ]}
+        >
+          <Route path="/order">
+            <OrderDetail />
+          </Route>
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+    expect(wrapper.find('button#reorder-order-action')).toHaveLength(1);
+    wrapper.find('button#reorder-order-action').simulate('click');
+    wrapper.update();
+    wrapper.update();
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/portfolio/portfolio-item/order');
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.search
+    ).toEqual(
+      '?portfolio=portfolio-id&portfolio-item=portfolio-item-id&source=123'
+    );
     done();
   });
 

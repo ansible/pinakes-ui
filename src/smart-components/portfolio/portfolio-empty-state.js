@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SearchIcon, WrenchIcon } from '@patternfly/react-icons';
+import { SearchIcon, PlusCircleIcon } from '@patternfly/react-icons';
 
 import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
@@ -45,7 +45,7 @@ const PortfolioEmptyState = ({
     description: meta.noData
       ? formatMessage(portfolioMessages.emptyNoProducts)
       : formatMessage(filteringMessages.noResultsDescription),
-    Icon: meta.noData ? WrenchIcon : SearchIcon
+    Icon: meta.noData ? PlusCircleIcon : SearchIcon
   };
   return <ContentGalleryEmptyState {...emptyStateProps} />;
 };

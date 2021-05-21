@@ -13,7 +13,7 @@ import {
   TextVariants,
   Label
 } from '@patternfly/react-core';
-import { DateFormat } from '@redhat-cloud-services/frontend-components/components/cjs/DateFormat';
+import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
 
 import CatalogLink from '../../smart-components/common/catalog-link';

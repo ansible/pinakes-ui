@@ -29,7 +29,7 @@ const portfolioMessages = defineMessages({
   },
   emptyNoProducts: {
     id: 'portfolio.empty.no-products',
-    defaultMessage: 'No products in your portfolio'
+    defaultMessage: 'Products will appear here when added to your portfolio.'
   },
   portfoliosPlaceholder: {
     id: 'portfolios.filters.placeholder',
@@ -37,11 +37,12 @@ const portfolioMessages = defineMessages({
   },
   portfoliosNoData: {
     id: 'portfolios.empty.noData.title',
-    defaultMessage: 'No portfolios'
+    defaultMessage: 'Create a portfolio'
   },
   portfoliosNoDataDescription: {
     id: 'portfolios.empty.noData.description',
-    defaultMessage: 'No portfolios match your filter criteria.'
+    defaultMessage:
+      'You currently have no portfolios. Create a portfolio to get started.'
   },
   portfolioRemoveDescription: {
     id: 'portfolio.remove.modal.description',

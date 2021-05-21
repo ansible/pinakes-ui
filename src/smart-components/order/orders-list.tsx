@@ -12,13 +12,13 @@ import {
   EmptyStateSecondaryActions,
   Button
 } from '@patternfly/react-core';
-import { Section } from '@redhat-cloud-services/frontend-components/components/cjs/Section';
+import { Section } from '@redhat-cloud-services/frontend-components/Section';
 import {
   Chip,
   PrimaryToolbar
-} from '@redhat-cloud-services/frontend-components/components/cjs/PrimaryToolbar';
-import { EmptyTable } from '@redhat-cloud-services/frontend-components/components/cjs/EmptyTable';
-import { TableToolbar } from '@redhat-cloud-services/frontend-components/components/cjs/TableToolbar';
+} from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
+import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTable';
+import { TableToolbar } from '@redhat-cloud-services/frontend-components/TableToolbar';
 import { SearchIcon } from '@patternfly/react-icons';
 import {
   Table,
@@ -153,7 +153,7 @@ const OrdersList: React.ComponentType = () => {
   const columns: ICell[] = [
     { title: formatMessage(ordersMessages.orderID) },
     formatMessage(labelMessages.product),
-    '', // need empty row column to correctly aling product names after the icon column
+    '', // need empty row column to correctly align product names after the icon column
     {
       title: formatMessage(ordersMessages.orderedByLabel)
     },
