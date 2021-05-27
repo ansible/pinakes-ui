@@ -71,7 +71,11 @@ exports[`useFormatMessage should return fallback message if the message is not d
       }
     >
       <span>
-        Unable to translate message. Definition: [object Object], values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message.
+        Unable to translate message. Definition: [object Object], values: [object Object], intl-error: Error: [@formatjs/intl] An \`id\` must be provided to format a message. You can either:
+1. Configure your build toolchain with [babel-plugin-formatjs](https://formatjs.io/docs/tooling/babel-plugin)
+or [@formatjs/ts-transformer](https://formatjs.io/docs/tooling/ts-transformer) OR
+2. Configure your \`eslint\` config to include [eslint-plugin-formatjs](https://formatjs.io/docs/tooling/linter#enforce-id)
+to autofix this issue
       </span>
     </HookedComponent>
   </IntlProvider>
@@ -95,7 +99,11 @@ exports[`useFormatMessage should return fallback message if the message is not d
       definedMessage="nonsense"
     >
       <span>
-        Unable to translate message. Definition: nonsense, values: [object Object], intl-error: Error: [React Intl] An \`id\` must be provided to format a message.
+        Unable to translate message. Definition: nonsense, values: [object Object], intl-error: Error: [@formatjs/intl] An \`id\` must be provided to format a message. You can either:
+1. Configure your build toolchain with [babel-plugin-formatjs](https://formatjs.io/docs/tooling/babel-plugin)
+or [@formatjs/ts-transformer](https://formatjs.io/docs/tooling/ts-transformer) OR
+2. Configure your \`eslint\` config to include [eslint-plugin-formatjs](https://formatjs.io/docs/tooling/linter#enforce-id)
+to autofix this issue
       </span>
     </HookedComponent>
   </IntlProvider>
