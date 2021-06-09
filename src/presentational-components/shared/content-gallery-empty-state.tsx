@@ -29,7 +29,7 @@ const ContentGalleryEmptyState: React.ComponentType<ContentGalleryEmptyStateProp
   renderDescription = () => null
 }) => (
   <div className="pf-u-mt-xl">
-    <EmptyState variant={EmptyStateVariant.large}>
+    <EmptyState variant="large">
       <EmptyStateIcon icon={Icon} />
       <TextContent>
         <Text component={TextVariants.h1}>{title}</Text>
