@@ -20,9 +20,7 @@ import UserContext from '../../user-context';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import filteringMessages from '../../messages/filtering.messages';
-
-const PLATFORMS_DOC_URL =
-  'https://docs.google.com/document/d/1_q4XSHyXtSzddh8maG4w8ZOtnTwebNu8a2XdoTlfCWQ/edit#heading=h.m5qd0ouuw2ek';
+import { PLATFORMS_DOC_URL } from '../../utilities/constants';
 
 const Platforms = () => {
   const formatMessage = useFormatMessage();

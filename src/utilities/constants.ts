@@ -32,3 +32,5 @@ export const AFTER_TYPE = 'after';
 export const RETURN_TYPE = 'return';
 
 export const MAX_RETRY_LIMIT = 3;
+export const PLATFORMS_DOC_URL =
+  'https://docs.google.com/document/d/1_q4XSHyXtSzddh8maG4w8ZOtnTwebNu8a2XdoTlfCWQ/edit#heading=h.m5qd0ouuw2ek';
