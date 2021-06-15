@@ -8,7 +8,8 @@ import {
   EmptyStateSecondaryActions,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  EmptyStateVariant
 } from '@patternfly/react-core';
 import CatalogLink from '../../smart-components/common/catalog-link';
 
@@ -28,7 +29,7 @@ const ContentGalleryEmptyState: React.ComponentType<ContentGalleryEmptyStateProp
   renderDescription = () => null
 }) => (
   <div className="pf-u-mt-xl">
-    <EmptyState className="pf-u-ml-auto pf-u-mr-auto">
+    <EmptyState variant="large">
       <EmptyStateIcon icon={Icon} />
       <TextContent>
         <Text component={TextVariants.h1}>{title}</Text>

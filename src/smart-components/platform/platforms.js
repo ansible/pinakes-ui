@@ -1,6 +1,12 @@
-import React, { Fragment, useEffect, useState, useContext } from 'react';
+import React, {
+  Fragment,
+  useEffect,
+  useState,
+  useContext,
+  ReactNode
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Text } from '@patternfly/react-core';
+import { Button, Text, TextVariants } from '@patternfly/react-core';
 import { SearchIcon, CogIcon } from '@patternfly/react-icons';
 
 import { scrollToTop } from '../../helpers/shared/helpers';
@@ -14,6 +20,7 @@ import UserContext from '../../user-context';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import filteringMessages from '../../messages/filtering.messages';
+import { PLATFORMS_DOC_URL } from '../../utilities/constants';
 
 const Platforms = () => {
   const formatMessage = useFormatMessage();
@@ -55,19 +62,6 @@ const Platforms = () => {
     isLoading: isLoading && platforms.length === 0
   };
 
-  const NoDataAction = () =>
-    is_org_admin ? (
-      <Button
-        component="a"
-        href={`${document.baseURI}settings/sources`}
-        id="add-source"
-      >
-        {formatMessage(platformsMessages.connectSource)}
-      </Button>
-    ) : (
-      <Text>{formatMessage(platformsMessages.contactAdmin)}</Text>
-    );
-
   const FilterAction = () => (
     <Button
       ouiaId={'clear-filter'}
@@ -79,16 +73,22 @@ const Platforms = () => {
   );
 
   const emptyStateProps = {
-    PrimaryAction:
-      filterValue && filterValue !== '' ? FilterAction : NoDataAction,
+    PrimaryAction: filterValue && filterValue !== '' ? FilterAction : undefined,
     title:
       filterValue && filterValue !== ''
         ? formatMessage(filteringMessages.noResults)
         : formatMessage(platformsMessages.noPlatforms),
     description:
-      filterValue && filterValue !== ''
-        ? formatMessage(filteringMessages.noResultsDescription)
-        : formatMessage(platformsMessages.platformsNoDataDescription),
+      filterValue && filterValue !== '' ? (
+        formatMessage(filteringMessages.noResultsDescription)
+      ) : (
+        <Text id="platform_doc_url" component={TextVariants.p}>
+          {formatMessage(platformsMessages.platformsNoDataDescription)} &nbsp;
+          <a href={PLATFORMS_DOC_URL} target="_blank" rel="noopener noreferrer">
+            {formatMessage(platformsMessages.platformsDocTitle)}
+          </a>
+        </Text>
+      ),
     Icon: filterValue && filterValue !== '' ? SearchIcon : CogIcon
   };
 

@@ -31,7 +31,12 @@ const platformsMessages = defineMessages({
   },
   platformsNoDataDescription: {
     id: 'platforms.list.configure-source',
-    defaultMessage: 'To get started, add an Ansible Tower cluster as a source.'
+    defaultMessage:
+      'Ansible Automation Services Catalog can be added by following the'
+  },
+  platformsDocTitle: {
+    id: 'platforms.doc.title',
+    defaultMessage: 'Ansible Automation Platform 2.0 BETA documentation'
   },
   connectSource: {
     id: 'platforms.list.connect-source',
