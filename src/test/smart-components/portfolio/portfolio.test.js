@@ -128,7 +128,7 @@ describe('<Portfolio />', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should mount and fetch correct data', async (done) => {
+  it('should mount and fetch correct data', async () => {
     const store = mockStore(initialState);
     const expectedActions = [
       expect.objectContaining({ type: INITIALIZE_BREADCRUMBS }),
@@ -187,13 +187,10 @@ describe('<Portfolio />', () => {
         </ComponentWrapper>
       );
     });
-    setImmediate(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('should mount and render add products page', async (done) => {
+  it('should mount and render add products page', async () => {
     const store = mockStore({
       ...initialState,
       platformReducer: { platforms: [], platformItems: {} }
@@ -227,10 +224,7 @@ describe('<Portfolio />', () => {
       );
     });
     wrapper.update();
-    setImmediate(() => {
-      expect(wrapper.find(AddProductsToPortfolio)).toHaveLength(1);
-      done();
-    });
+    expect(wrapper.find(AddProductsToPortfolio)).toHaveLength(1);
   });
 
   it('should mount and render remove products page and call remove products', async (done) => {

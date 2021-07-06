@@ -40,9 +40,7 @@ describe('<PlatformCard />', () => {
         <PlatformCard {...initialProps} />
       </ComponentWrapper>
     );
-    setImmediate(() => {
-      expect(shallowToJson(wrapper.find(PlatformCard))).toMatchSnapshot();
-      done();
-    });
+    expect(shallowToJson(wrapper.find(PlatformCard))).toMatchSnapshot();
+    done();
   });
 });
