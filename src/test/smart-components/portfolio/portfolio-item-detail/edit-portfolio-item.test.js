@@ -159,7 +159,7 @@ describe('<EditPortfolioItem />', () => {
     ).toEqual('/cancel');
   });
 
-  it('should trigger cancel callback', async() => {
+  it('should trigger cancel callback', async () => {
     expect.assertions(1);
     const store = mockStore(intialState);
     const wrapper = mount(
