@@ -38,7 +38,6 @@
     "redux-thunk": "^2.3.0",
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.0.1",
-    "watchpack": "^1.7.5",
     "whatwg-fetch": "^3.6.2"
   },
   "jest": {
