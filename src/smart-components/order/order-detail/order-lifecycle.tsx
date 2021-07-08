@@ -41,21 +41,6 @@ const OrderLifecycle: React.ComponentType = () => {
 
   return (
     <Stack hasGutter>
-      <StackItem>
-        <Card>
-          <CardBody>
-            <a
-              href={orderItem?.external_url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {formatMessage(ordersMessages.lifecycleLink)}
-              &nbsp;
-              <ExternalLinkAlt />
-            </a>
-          </CardBody>
-        </Card>
-      </StackItem>
       {orderItem?.artifacts && Object.keys(orderItem.artifacts)?.length > 0 && (
         <StackItem>
           <Card>
