@@ -90,28 +90,37 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                         ouiaId="order-portfolio-item"
                         variant="primary"
                       >
-                        <button
-                          aria-disabled={false}
-                          aria-label={null}
-                          className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
-                          data-ouia-component-id="order-portfolio-item"
-                          data-ouia-component-type="PF4/Button"
-                          data-ouia-safe={true}
-                          disabled={false}
+                        <ButtonBase
+                          className="sc-AxjAm jhCAUI"
                           id="order-portfolio-item"
-                          role={null}
-                          type="button"
+                          innerRef={null}
+                          isDisabled={false}
+                          ouiaId="order-portfolio-item"
+                          variant="primary"
                         >
-                          <styled.span
-                            showSpinner={false}
+                          <button
+                            aria-disabled={false}
+                            aria-label={null}
+                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
+                            data-ouia-component-id="order-portfolio-item"
+                            data-ouia-component-type="PF4/Button"
+                            data-ouia-safe={true}
+                            disabled={false}
+                            id="order-portfolio-item"
+                            role={null}
+                            type="button"
                           >
-                            <span
-                              className="sc-AxirZ fnlrkz"
+                            <styled.span
+                              showSpinner={false}
                             >
-                              Order
-                            </span>
-                          </styled.span>
-                        </button>
+                              <span
+                                className="sc-AxirZ fnlrkz"
+                              >
+                                Order
+                              </span>
+                            </styled.span>
+                          </button>
+                        </ButtonBase>
                       </Button>
                     </Styled(Button)>
                   </ButtonWithSpinner>

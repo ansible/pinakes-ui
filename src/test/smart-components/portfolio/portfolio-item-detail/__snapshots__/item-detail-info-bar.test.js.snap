@@ -34,6 +34,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-1"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Platform
@@ -46,6 +49,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       >
         <p
           className="overflow-wrap"
+          data-ouia-component-id="OUIA-Generated-Text-2"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="source-name"
         >
@@ -57,6 +63,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-3"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Portfolio
@@ -69,6 +78,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       >
         <p
           className="overflow-wrap"
+          data-ouia-component-id="OUIA-Generated-Text-4"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="portfolio-name"
         >
@@ -83,6 +95,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           <p
             className="font-14"
+            data-ouia-component-id="OUIA-Generated-Text-5"
+            data-ouia-component-type="PF4/Text"
+            data-ouia-safe={true}
             data-pf-content={true}
           >
             Vendor
@@ -94,6 +109,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
         >
           <p
             className="overflow-wrap"
+            data-ouia-component-id="OUIA-Generated-Text-6"
+            data-ouia-component-type="PF4/Text"
+            data-ouia-safe={true}
             data-pf-content={true}
           >
             foo
@@ -105,6 +123,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-7"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Created
@@ -116,6 +137,9 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
       >
         <p
           className=""
+          data-ouia-component-id="OUIA-Generated-Text-8"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="created_at"
         >
@@ -243,6 +267,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-9"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Platform
@@ -255,6 +282,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       >
         <p
           className="overflow-wrap"
+          data-ouia-component-id="OUIA-Generated-Text-10"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="source-name"
         >
@@ -266,6 +296,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-11"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Portfolio
@@ -278,6 +311,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       >
         <p
           className="overflow-wrap"
+          data-ouia-component-id="OUIA-Generated-Text-12"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="portfolio-name"
         >
@@ -289,6 +325,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-13"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Created
@@ -300,6 +339,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
       >
         <p
           className=""
+          data-ouia-component-id="OUIA-Generated-Text-14"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="created_at"
         >
@@ -431,6 +473,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-15"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Platform
@@ -443,6 +488,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       >
         <p
           className="overflow-wrap"
+          data-ouia-component-id="OUIA-Generated-Text-16"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="source-name"
         >
@@ -454,6 +502,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-17"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Portfolio
@@ -466,6 +517,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       >
         <p
           className="overflow-wrap"
+          data-ouia-component-id="OUIA-Generated-Text-18"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="portfolio-name"
         >
@@ -480,6 +534,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           <p
             className="font-14"
+            data-ouia-component-id="OUIA-Generated-Text-19"
+            data-ouia-component-type="PF4/Text"
+            data-ouia-safe={true}
             data-pf-content={true}
           >
             Vendor
@@ -491,6 +548,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
         >
           <p
             className="overflow-wrap"
+            data-ouia-component-id="OUIA-Generated-Text-20"
+            data-ouia-component-type="PF4/Text"
+            data-ouia-safe={true}
             data-pf-content={true}
           >
             foo
@@ -502,6 +562,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       >
         <p
           className="font-14"
+          data-ouia-component-id="OUIA-Generated-Text-21"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
         >
           Created
@@ -513,6 +576,9 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
       >
         <p
           className=""
+          data-ouia-component-id="OUIA-Generated-Text-22"
+          data-ouia-component-type="PF4/Text"
+          data-ouia-safe={true}
           data-pf-content={true}
           id="created_at"
         >

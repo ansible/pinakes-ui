@@ -60,8 +60,7 @@ describe('<EditPortfolioItem />', () => {
     expect(store.getActions()).toEqual([]);
   });
 
-  it('should submit form data', async (done) => {
-    expect.assertions(3);
+  it('should submit form data', async () => {
     const store = mockStore({
       ...intialState,
       openApiReducer: openApiReducerMock
@@ -80,7 +79,6 @@ describe('<EditPortfolioItem />', () => {
         });
         return [200, { id: '123', ...JSON.parse(req.data) }];
       });
-
     const expectedActions = [
       {
         type: UPDATE_TEMPORARY_PORTFOLIO_ITEM,
@@ -113,30 +111,44 @@ describe('<EditPortfolioItem />', () => {
         payload: expect.any(Object)
       }
     ];
-
-    const wrapper = mount(
-      <ComponentWrapper store={store}>
-        <EditPortfolioItem {...initialProps} />
-      </ComponentWrapper>
-    );
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store}>
+          <EditPortfolioItem {...initialProps} />
+        </ComponentWrapper>
+      );
+    });
     let input = wrapper.find('input#documentation_url');
     input.getDOMNode().value = 'https://www.google.com/';
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
     input = wrapper.find('input#support_url');
     input.getDOMNode().value = 'https://www.google.com/';
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
     input = wrapper.find('input#long_description');
     input.getDOMNode().value = 'https://www.google.com/';
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
     input = wrapper.find('input#long_description');
     input.getDOMNode().value = 'https://www.google.com/';
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
     input = wrapper.find('input#description');
     input.getDOMNode().value = 'https://www.google.com/';
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
     input = wrapper.find('input#distributor');
     input.getDOMNode().value = 'https://www.google.com/';
-    input.simulate('change');
+    await act(async () => {
+      input.simulate('change');
+    });
     wrapper.update();
     await act(async () => {
       wrapper.find('form').simulate('submit');
@@ -145,10 +157,9 @@ describe('<EditPortfolioItem />', () => {
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual('/cancel');
-    done();
   });
 
-  it('should trigger cancel callback', () => {
+  it('should trigger cancel callback', async () => {
     expect.assertions(1);
     const store = mockStore(intialState);
     const wrapper = mount(
@@ -156,10 +167,12 @@ describe('<EditPortfolioItem />', () => {
         <EditPortfolioItem {...initialProps} />
       </ComponentWrapper>
     );
-    wrapper
-      .find('button')
-      .last()
-      .simulate('click');
+    await act(async () => {
+      wrapper
+        .find('button')
+        .last()
+        .simulate('click');
+    });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual('/cancel');
