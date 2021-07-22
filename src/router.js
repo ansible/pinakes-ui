@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router as ReactRouter } from 'react-router-dom';
-import App from './App';
+import App from './standalone-nav';
 import AppContext from './app-context';
 import GlobalStyle from './global-styles';
 import catalogHistory, { release } from './routing/catalog-history';

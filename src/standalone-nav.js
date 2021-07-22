@@ -14,10 +14,6 @@ import {
   Nav,
   NavItem,
   NavList,
-  OverflowMenu,
-  OverflowMenuControl,
-  OverflowMenuDropdownItem,
-  OverflowMenuItem,
   Page,
   PageHeader,
   PageHeaderTools,
@@ -25,17 +21,11 @@ import {
   PageHeaderToolsItem,
   PageSection,
   PageSidebar,
-  Pagination,
-  Select,
-  SelectOption,
   SkipToContent,
   TextContent,
   Text,
   Toolbar,
-  ToolbarItem,
-  ToolbarFilter,
   ToolbarContent,
-  Sidebar,
   NavExpandable
 } from '@patternfly/react-core';
 import CogIcon from '@patternfly/react-icons/dist/js/icons/cog-icon';
@@ -43,7 +33,6 @@ import HelpIcon from '@patternfly/react-icons/dist/js/icons/help-icon';
 import imgBrand from '@patternfly/react-core/src/components/Brand/examples/pfLogo.svg';
 import imgAvatar from '@patternfly/react-core/src/components/Avatar/examples/avatarImg.svg';
 import pfIcon from './assets/images/logo_small.svg';
-import Products from './smart-components/products/products';
 
 class App extends React.Component {
   constructor(props) {
