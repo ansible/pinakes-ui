@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/select';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import Pf4SelectWrapper from '../../../presentational-components/shared/pf4-select-wrapper';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
-import Form from '@data-driven-forms/react-form-renderer/dist/cjs/form';
+import { Pf4SelectWrapper } from '../../../presentational-components/shared/pf4-select-wrapper';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/select';
+import Form from '@data-driven-forms/react-form-renderer/form';
 
 describe('<Pf4SelectWrapper />', () => {
   let initialProps;

@@ -2,18 +2,18 @@
 import React, { useState, useRef, ReactNode } from 'react';
 import useFieldApi, {
   ValidatorType
-} from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
+} from '@data-driven-forms/react-form-renderer/use-field-api';
 import {
   InternalSelect,
   SelectOption
-} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+} from '@data-driven-forms/pf4-component-mapper/select';
 import {
   FormGroup,
   TextContent,
   Text,
   TextVariants
 } from '@patternfly/react-core';
-import useFormApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-form-api';
+import useFormApi from '@data-driven-forms/react-form-renderer/use-form-api';
 import { defineMessage } from 'react-intl';
 import useFormatMessage from '../../utilities/use-format-message';
 import { SelectOptions } from '../../types/common-types';
@@ -143,7 +143,7 @@ const Select: React.ComponentType<SelectProps> = ({
   );
 };
 
-export interface Pf4SelectWrapperProps
+interface Pf4SelectWrapperProps
   extends Omit<Omit<SelectProps, 'input'>, 'meta'> {
   name: string;
   label?: ReactNode;
@@ -155,7 +155,8 @@ export interface Pf4SelectWrapperProps
   initialValue?: any;
   validate?: ValidatorType[];
 }
-const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
+
+export const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
   props
 ) => {
   const {
@@ -197,5 +198,3 @@ const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
     </FormGroup>
   );
 };
-
-export default Pf4SelectWrapper;
