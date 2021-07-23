@@ -1,5 +1,5 @@
-import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
-import Field from '@data-driven-forms/react-form-renderer/dist/cjs/field';
+import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
+import Field from '@data-driven-forms/react-form-renderer/common-types/field';
 
 import formMessages from '../messages/forms.messages';
 import { BEFORE_TYPE, AFTER_TYPE } from '../utilities/constants';

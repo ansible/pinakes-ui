@@ -2,12 +2,11 @@
 import React, { ReactNode, Fragment } from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
-import PF4FormTemplate, {
-  FormTemplateProps as Pf4FormTemplateProps
-} from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
-import useFormApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-form-api';
-import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
-import FormSpy from '@data-driven-forms/react-form-renderer/dist/cjs/form-spy';
+import PF4FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template/form-template';
+import Pf4FormTemplateProps from '@data-driven-forms/react-form-renderer/common-types/form-template-render-props';
+import useFormApi from '@data-driven-forms/react-form-renderer/use-form-api';
+import Schema from '@data-driven-forms/react-form-renderer/common-types/schema';
+import FormSpy from '@data-driven-forms/react-form-renderer/form-spy';
 import {
   ModalProps,
   Spinner,

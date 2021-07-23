@@ -1,6 +1,5 @@
-import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
-import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
-import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
+import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
+import validatorTypes from '@data-driven-forms/react-form-renderer/validator-types';
 
 import labelMessages from '../messages/labels.messages';
 import debouncedValidatorName from './name-async-validator';
@@ -8,6 +7,7 @@ import orderProcessesMessages from '../messages/order-processes.messages';
 import setItemsSelectSchema from './set-portfolio-item.schema';
 import { BEFORE_TYPE, AFTER_TYPE, RETURN_TYPE } from '../utilities/constants';
 import { IntlShape } from 'react-intl';
+import Schema from '@data-driven-forms/react-form-renderer/common-types/schema';
 
 /**
  * Creates a data-driven-form schema for adding an order processes

@@ -1,5 +1,5 @@
-import Field from '@data-driven-forms/react-form-renderer/dist/cjs/field';
-import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
+import Field from '@data-driven-forms/react-form-renderer/common-types/field';
+import Schema from '@data-driven-forms/react-form-renderer/common-types/schema';
 import { SelectOptions } from '../types/common-types';
 
 /**
