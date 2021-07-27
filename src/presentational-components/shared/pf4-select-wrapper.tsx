@@ -143,7 +143,7 @@ const Select: React.ComponentType<SelectProps> = ({
   );
 };
 
-interface Pf4SelectWrapperProps
+export interface Pf4SelectWrapperProps
   extends Omit<Omit<SelectProps, 'input'>, 'meta'> {
   name: string;
   label?: ReactNode;
@@ -155,8 +155,7 @@ interface Pf4SelectWrapperProps
   initialValue?: any;
   validate?: ValidatorType[];
 }
-
-export const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
+const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
   props
 ) => {
   const {
@@ -198,3 +197,5 @@ export const Pf4SelectWrapper: React.ComponentType<Pf4SelectWrapperProps> = (
     </FormGroup>
   );
 };
+
+export default Pf4SelectWrapper;

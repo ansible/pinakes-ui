@@ -12,7 +12,7 @@ import Checkbox from '@data-driven-forms/pf4-component-mapper/checkbox';
 import Radio from '@data-driven-forms/pf4-component-mapper/radio';
 import Switch from '@data-driven-forms/pf4-component-mapper/switch';
 
-import { Pf4SelectWrapper } from '../../presentational-components/shared/pf4-select-wrapper';
+import Pf4SelectWrapper from '../../presentational-components/shared/pf4-select-wrapper';
 import ShareGroupSelect from '../../forms/form-fields/share-group-select';
 import ShareGroupEdit from '../../forms/form-fields/share-group-edit';
 import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
