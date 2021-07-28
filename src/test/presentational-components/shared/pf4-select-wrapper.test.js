@@ -45,7 +45,13 @@ describe('<Pf4SelectWrapper />', () => {
   it('should create empty option for required field', () => {
     const wrapper = mount(
       <Form onSubmit={Function}>
-        {() => <Pf4SelectWrapper skipRegistration={true} isRequired {...initialProps} />}
+        {() => (
+          <Pf4SelectWrapper
+            skipRegistration={true}
+            isRequired
+            {...initialProps}
+          />
+        )}
       </Form>
     );
     const options = wrapper.find(InternalSelect).props().options;
