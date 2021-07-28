@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
-<Component
+<Pf4SelectWrapper
   id="bazz"
   name="bazz"
   options={
@@ -16,7 +16,7 @@ exports[`<Pf4SelectWrapper /> should render correctly 1`] = `
 `;
 
 exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
-<Component
+<Pf4SelectWrapper
   id="bazz"
   isRequired={true}
   name="bazz"
@@ -33,7 +33,7 @@ exports[`<Pf4SelectWrapper /> should render correctly in error state 1`] = `
 `;
 
 exports[`<Pf4SelectWrapper /> should render correctly with description 1`] = `
-<Component
+<Pf4SelectWrapper
   description="description"
   id="bazz"
   name="bazz"
