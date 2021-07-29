@@ -146,7 +146,7 @@
     "start": "rm -rf ./dist && webpack --config config/dev.webpack.config.js --env.prod=false --mode development",
     "start:beta": "NODE_ENV=development BETA=true webpack serve --config config/dev.webpack.config.js",
     "build:prod": "NODE_ENV=production webpack --config config/prod.webpack.config.js",
-    "travis:build": "webpack --config config/test.webpack.config.js",
+    "travis:build": "NODE_ENV=production webpack --config config/prod.webpack.config.js --mode=production",
     "travis:verify": "npm-run-all travis:build lint test",
     "test": "jest --passWithNoTests --runInBand",
     "verify": "npm-run-all build lint test"
