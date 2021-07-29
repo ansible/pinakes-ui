@@ -1,8 +1,12 @@
-export const CATALOG_API_BASE = `${process.env.BASE_PATH}/catalog/v1.3`;
-export const SOURCES_API_BASE = `${process.env.BASE_PATH}/sources/v1.0`;
-export const APPROVAL_API_BASE = `${process.env.BASE_PATH}/approval/v1.2`;
-export const CATALOG_INVENTORY_API_BASE = `${process.env.BASE_PATH}/catalog-inventory/v1.0`;
-export const RBAC_API_BASE = `${process.env.BASE_PATH}/rbac/v1`;
+export const CATALOG_API_BASE = `${process.env.BASE_PATH ||
+  '/api'}/catalog/v1.3`;
+export const SOURCES_API_BASE = `${process.env.BASE_PATH ||
+  '/api'}/sources/v1.0`;
+export const APPROVAL_API_BASE = `${process.env.BASE_PATH ||
+  '/api'}/approval/v1.2`;
+export const CATALOG_INVENTORY_API_BASE = `${process.env.BASE_PATH ||
+  '/api'}/catalog-inventory/v1.0`;
+export const RBAC_API_BASE = `${process.env.BASE_PATH || '/api'}/rbac/v1`;
 export const permissionValues = ['order', 'read', 'update'];
 
 export const permissionOptions = [

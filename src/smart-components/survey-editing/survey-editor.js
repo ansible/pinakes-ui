@@ -1,16 +1,16 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
-import FormBuilder from '@data-driven-forms/form-builder/dist/cjs';
+import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
+import FormBuilder from '@data-driven-forms/form-builder/form-builder';
 import {
   builderMapper,
   fieldProperties,
   pickerMapper,
   propertiesMapper,
   BuilderTemplate
-} from '@data-driven-forms/form-builder/dist/cjs/pf4-builder-mappers';
-import { Spinner } from '@patternfly/react-core/dist/js/components/Spinner/Spinner';
+} from '@data-driven-forms/form-builder/pf4-builder-mappers';
+import { Spinner } from '@patternfly/react-core';
 
 import {
   getAxiosInstance,
@@ -31,7 +31,7 @@ import {
   catalogValidatorAlias,
   catalogComponentMapper
 } from '../common/form-renderer';
-import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+import validatorTypes from '@data-driven-forms/react-form-renderer/validator-types';
 const isSubstitution = {
   ...fieldProperties.IS_DISABLED,
   propertyName: 'isSubstitution',

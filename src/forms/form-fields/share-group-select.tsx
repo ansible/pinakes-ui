@@ -5,8 +5,8 @@ import PlusIcon from '@patternfly/react-icons/dist/js/icons/plus-icon';
 import {
   InternalSelect,
   SelectOption
-} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
-import FieldArray from '@data-driven-forms/react-form-renderer/dist/cjs/field-array';
+} from '@data-driven-forms/pf4-component-mapper/select';
+import FieldArray from '@data-driven-forms/react-form-renderer/field-array';
 
 import asyncFormValidator from '../../utilities/async-form-validator';
 import formsMessages from '../../messages/forms.messages';
