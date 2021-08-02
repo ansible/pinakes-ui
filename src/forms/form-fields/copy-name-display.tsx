@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, ReactNode } from 'react';
-import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
+import useFieldApi from '@data-driven-forms/react-form-renderer/use-field-api';
 import { FormGroup, TextContent, Text } from '@patternfly/react-core';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';

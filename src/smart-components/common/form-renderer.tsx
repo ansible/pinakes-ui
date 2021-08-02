@@ -2,23 +2,23 @@
 import React, { memo } from 'react';
 import ReactFormRender, {
   FormRendererProps as DDFFormRendererProps
-} from '@data-driven-forms/react-form-renderer/dist/cjs/form-renderer';
-import validatorMapper from '@data-driven-forms/react-form-renderer/dist/cjs/validator-mapper';
-import TextField from '@data-driven-forms/pf4-component-mapper/dist/cjs/text-field';
-import Textarea from '@data-driven-forms/pf4-component-mapper/dist/cjs/textarea';
-import SubForm from '@data-driven-forms/pf4-component-mapper/dist/cjs/sub-form';
-import PlainText from '@data-driven-forms/pf4-component-mapper/dist/cjs/plain-text';
-import Checkbox from '@data-driven-forms/pf4-component-mapper/dist/cjs/checkbox';
-import Radio from '@data-driven-forms/pf4-component-mapper/dist/cjs/radio';
-import Switch from '@data-driven-forms/pf4-component-mapper/dist/cjs/switch';
+} from '@data-driven-forms/react-form-renderer/form-renderer';
+import validatorMapper from '@data-driven-forms/react-form-renderer/validator-mapper';
+import TextField from '@data-driven-forms/pf4-component-mapper/text-field';
+import Textarea from '@data-driven-forms/pf4-component-mapper/textarea';
+import SubForm from '@data-driven-forms/pf4-component-mapper/sub-form';
+import PlainText from '@data-driven-forms/pf4-component-mapper/plain-text';
+import Checkbox from '@data-driven-forms/pf4-component-mapper/checkbox';
+import Radio from '@data-driven-forms/pf4-component-mapper/radio';
+import Switch from '@data-driven-forms/pf4-component-mapper/switch';
 
 import Pf4SelectWrapper from '../../presentational-components/shared/pf4-select-wrapper';
 import ShareGroupSelect from '../../forms/form-fields/share-group-select';
 import ShareGroupEdit from '../../forms/form-fields/share-group-edit';
-import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
-import validatorTypes from '@data-driven-forms/react-form-renderer/dist/cjs/validator-types';
+import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
+import validatorTypes from '@data-driven-forms/react-form-renderer/validator-types';
 import translateSchema from '../../utilities/translate-schema';
-import Select from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import Select from '@data-driven-forms/pf4-component-mapper/select';
 import CopyNameDisplay from '../../forms/form-fields/copy-name-display';
 import InitialChips from '../../forms/form-fields/initial-chips';
 import useFormatMessage from '../../utilities/use-format-message';

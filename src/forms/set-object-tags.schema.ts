@@ -1,7 +1,7 @@
-import componentTypes from '@data-driven-forms/react-form-renderer/dist/cjs/component-types';
-import { FieldApi } from '@data-driven-forms/react-form-renderer/dist/cjs/field';
-import { FormOptions } from '@data-driven-forms/react-form-renderer/dist/cjs/renderer-context';
-import Schema from '@data-driven-forms/react-form-renderer/dist/cjs/schema';
+import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
+import { FieldApi } from '@data-driven-forms/react-form-renderer/common-types/field';
+import { FormOptions } from '@data-driven-forms/react-form-renderer/renderer-context';
+import Schema from '@data-driven-forms/react-form-renderer/common-types/schema';
 import asyncFormValidator from '../utilities/async-form-validator';
 import { LoadOptions, AnyObject } from '../types/common-types';
 import { ReactNode } from 'react';
