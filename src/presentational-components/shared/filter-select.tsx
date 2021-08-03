@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   InternalSelect,
   InternalSelectProps
-} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+} from '@data-driven-forms/pf4-component-mapper/select';
 import isEqual from 'lodash/isEqual';
 
 const FilterSelect: React.ComponentType<InternalSelectProps> = ({

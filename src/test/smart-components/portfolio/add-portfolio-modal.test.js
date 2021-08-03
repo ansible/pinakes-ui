@@ -50,17 +50,17 @@ describe('<AddPortfolioModal />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should render correctly', async () => {
+  it('should render correctly', (done) => {
     const store = mockStore({});
     let wrapper;
-    await act(async () => {
+    act(() => {
       wrapper = shallow(
         <ComponentWrapper store={store} initialEntries={['/portfolios']}>
           <AddPortfolioModal {...initialProps} />
         </ComponentWrapper>
       ).dive();
     });
-
+    done();
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -100,7 +100,9 @@ describe('<AddPortfolioModal />', () => {
       );
     });
 
-    wrapper.update();
+    await act(async () => {
+      wrapper.update();
+    });
 
     const modal = wrapper.find(FormTemplate);
     const form = wrapper.find(FormRenderer);

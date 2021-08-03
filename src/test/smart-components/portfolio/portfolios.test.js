@@ -42,6 +42,7 @@ describe('<Portfolios />', () => {
     initialProps = {
       id: '123'
     };
+    jest.clearAllMocks();
     initialState = {
       breadcrumbsReducer: { fragments: [] },
       portfolioReducer: {

@@ -3,9 +3,9 @@ import React, { Fragment, ComponentType } from 'react';
 import {
   InternalSelect,
   SelectOption
-} from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
-import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
-import FieldArray from '@data-driven-forms/react-form-renderer/dist/cjs/field-array';
+} from '@data-driven-forms/pf4-component-mapper/select';
+import useFieldApi from '@data-driven-forms/react-form-renderer/use-field-api';
+import FieldArray from '@data-driven-forms/react-form-renderer/field-array';
 import {
   Text,
   TextContent,

@@ -89,7 +89,7 @@ describe('<EditApprovalWorkflow />', () => {
         </ComponentWrapper>
       ).dive();
     });
-
+    wrapper.update();
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 

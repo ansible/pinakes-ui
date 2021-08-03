@@ -129,7 +129,9 @@ describe('Integration tests for portfolio items', () => {
     await act(async () => {
       wrapper.update();
     });
-    wrapper.update();
+    await act(async () => {
+      wrapper.update();
+    });
     /**
      * Should show empty portfolio with no items
      */

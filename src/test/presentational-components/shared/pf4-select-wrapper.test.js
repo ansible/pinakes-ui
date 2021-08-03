@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import Pf4SelectWrapper from '../../../presentational-components/shared/pf4-select-wrapper';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
-import Form from '@data-driven-forms/react-form-renderer/dist/cjs/form';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/select';
+import { Form } from '@data-driven-forms/react-form-renderer';
 
 describe('<Pf4SelectWrapper />', () => {
   let initialProps;
@@ -30,19 +30,28 @@ describe('<Pf4SelectWrapper />', () => {
   });
 
   it('should create empty option', () => {
+    const props = {
+      id: 'bazz',
+      name: 'bazz',
+      skipRegistration: true
+    };
     const wrapper = mount(
-      <Form onSubmit={Function}>
-        {() => <Pf4SelectWrapper {...initialProps} />}
-      </Form>
+      <Form onSubmit={Function}>{() => <Pf4SelectWrapper {...props} />}</Form>
     );
     const options = wrapper.find(InternalSelect).props().options;
-    expect(options).toHaveLength(2);
+    expect(options).toHaveLength(1);
   });
 
   it('should create empty option for required field', () => {
     const wrapper = mount(
       <Form onSubmit={Function}>
-        {() => <Pf4SelectWrapper isRequired {...initialProps} />}
+        {() => (
+          <Pf4SelectWrapper
+            skipRegistration={true}
+            isRequired
+            {...initialProps}
+          />
+        )}
       </Form>
     );
     const options = wrapper.find(InternalSelect).props().options;
@@ -56,6 +65,7 @@ describe('<Pf4SelectWrapper />', () => {
         {() => (
           <Pf4SelectWrapper
             {...initialProps}
+            skipRegistration={true}
             options={[{ label: 'Foo', value: 'bar' }, { label: 'Empty value' }]}
           />
         )}
@@ -70,6 +80,7 @@ describe('<Pf4SelectWrapper />', () => {
       <Form onSubmit={Function}>
         {() => (
           <Pf4SelectWrapper
+            skipRegistration={true}
             isRequired
             {...initialProps}
             initialValue="bar"

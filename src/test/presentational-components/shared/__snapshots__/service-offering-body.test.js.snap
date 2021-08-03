@@ -25,6 +25,9 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
               >
                 <h3
                   className=""
+                  data-ouia-component-id="OUIA-Generated-Text-1"
+                  data-ouia-component-type="PF4/Text"
+                  data-ouia-safe={true}
                   data-pf-content={true}
                   title="Foo"
                 >
@@ -43,6 +46,9 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
             >
               <small
                 className=""
+                data-ouia-component-id="OUIA-Generated-Text-2"
+                data-ouia-component-type="PF4/Text"
+                data-ouia-safe={true}
                 data-pf-content={true}
               >
                 Red Hat
@@ -215,6 +221,9 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
               >
                 <h3
                   className=""
+                  data-ouia-component-id="OUIA-Generated-Text-3"
+                  data-ouia-component-type="PF4/Text"
+                  data-ouia-safe={true}
                   data-pf-content={true}
                   title="Foo"
                 >
