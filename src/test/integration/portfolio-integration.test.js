@@ -253,7 +253,7 @@ describe('Integration test for portfolio entity', () => {
       .simulate('click', { button: 0 });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio/edit-portfolio');
+    ).toEqual('/portfolios/portfolio/edit-portfolio');
 
     initialPortfolio.description = 'edited portfolio description' // eslint-disable-line
     wrapper.update();

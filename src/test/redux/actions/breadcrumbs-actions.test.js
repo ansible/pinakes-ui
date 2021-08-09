@@ -15,7 +15,7 @@ describe('breadcrumbs actions', () => {
       selectedPlatform: { name: 'Platform' }
     }
   };
-  const portfolioPathname = '/portfolio/portfolio-item/edit-survey';
+  const portfolioPathname = '/portfolios/portfolio/portfolio-item/edit-survey';
   const portfolioSearchParams = {
     portfolio: 'portfolio-id',
     'portfolio-item': 'portfolio-item-id',
@@ -41,7 +41,7 @@ describe('breadcrumbs actions', () => {
             }
           },
           {
-            pathname: '/portfolio/portfolio-item',
+            pathname: '/portfolios/portfolio/portfolio-item',
             title: 'Portfolio item',
             searchParams: {
               portfolio: 'portfolio-id',
@@ -50,7 +50,7 @@ describe('breadcrumbs actions', () => {
             }
           },
           {
-            pathname: '/portfolio/portfolio-item/edit-survey',
+            pathname: '/portfolios/portfolio/portfolio-item/edit-survey',
             title: 'Edit survey',
             searchParams: {
               portfolio: 'portfolio-id',
@@ -78,7 +78,7 @@ describe('breadcrumbs actions', () => {
   it('should skip fragment with unknown title', () => {
     const store = mockStore(initialState);
     store.dispatch(
-      createBreadcrumbsFromLocations('/portfolio/something/unknown', {
+      createBreadcrumbsFromLocations('/portfolios/portfolio/something/unknown', {
         portfolio: 'some-id'
       })
     );

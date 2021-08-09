@@ -58,7 +58,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
               Object {
                 "hash": "",
                 "key": "gkk89l",
-                "pathname": "/portfolio/edit-portfolio",
+                "pathname": "/portfolios/portfolio/edit-portfolio",
                 "search": "?portfolio=123",
               },
             ],
@@ -71,7 +71,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
             "location": Object {
               "hash": "",
               "key": "gkk89l",
-              "pathname": "/portfolio/edit-portfolio",
+              "pathname": "/portfolios/portfolio/edit-portfolio",
               "search": "?portfolio=123",
             },
             "push": [Function],
@@ -138,7 +138,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                               Object {
                                 "hash": "",
                                 "key": "gkk89l",
-                                "pathname": "/portfolio/edit-portfolio",
+                                "pathname": "/portfolios/portfolio/edit-portfolio",
                                 "search": "?portfolio=123",
                               }
                             }
@@ -167,7 +167,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                 Object {
                                   "hash": "",
                                   "key": "gkk89l",
-                                  "pathname": "/portfolio/edit-portfolio",
+                                  "pathname": "/portfolios/portfolio/edit-portfolio",
                                   "search": "?portfolio=123",
                                 }
                               }
@@ -203,7 +203,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                       Object {
                                         "hash": "",
                                         "key": "gkk89l",
-                                        "pathname": "/portfolio/edit-portfolio",
+                                        "pathname": "/portfolios/portfolio/edit-portfolio",
                                         "search": "?portfolio=123",
                                       },
                                     ],
@@ -216,7 +216,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                     "location": Object {
                                       "hash": "",
                                       "key": "gkk89l",
-                                      "pathname": "/portfolio/edit-portfolio",
+                                      "pathname": "/portfolios/portfolio/edit-portfolio",
                                       "search": "?portfolio=123",
                                     },
                                     "push": [Function],
@@ -227,7 +227,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                   Object {
                                     "hash": "",
                                     "key": "gkk89l",
-                                    "pathname": "/portfolio/edit-portfolio",
+                                    "pathname": "/portfolios/portfolio/edit-portfolio",
                                     "search": "?portfolio=123",
                                   }
                                 }
@@ -261,7 +261,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                         Object {
                                           "hash": "",
                                           "key": "gkk89l",
-                                          "pathname": "/portfolio/edit-portfolio",
+                                          "pathname": "/portfolios/portfolio/edit-portfolio",
                                           "search": "?portfolio=123",
                                         }
                                       }
@@ -273,13 +273,13 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                         removeProducts={[Function]}
                                         routes={
                                           Object {
-                                            "addProductsRoute": "/portfolio/add-products",
-                                            "editPortfolioRoute": "/portfolio/edit-portfolio",
-                                            "portfolioItemRoute": "/portfolio/portfolio-item",
+                                            "addProductsRoute": "/portfolios/portfolio/add-products",
+                                            "editPortfolioRoute": "/portfolios/portfolio/edit-portfolio",
+                                            "portfolioItemRoute": "/portfolios/portfolio/portfolio-item",
                                             "portfolioRoute": "/portfolio",
-                                            "removePortfolioRoute": "/portfolio/remove-portfolio",
-                                            "sharePortfolioRoute": "/portfolio/share-portfolio",
-                                            "workflowPortfolioRoute": "/portfolio/edit-workflow",
+                                            "removePortfolioRoute": "/portfolios/portfolio/remove-portfolio",
+                                            "sharePortfolioRoute": "/portfolios/portfolio/share-portfolio",
+                                            "workflowPortfolioRoute": "/portfolios/portfolio/edit-workflow",
                                           }
                                         }
                                         state={
@@ -367,7 +367,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                   ],
                                                                   "isDisabled": false,
                                                                   "key": "portfolio-share-button/button-link",
-                                                                  "pathname": "/portfolio/share-portfolio",
+                                                                  "pathname": "/portfolios/portfolio/share-portfolio",
                                                                   "preserveSearch": true,
                                                                 },
                                                               ],
@@ -380,9 +380,9 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                   "component": [Function],
                                                                   "copyInProgress": false,
                                                                   "copyPortfolio": [Function],
-                                                                  "editPortfolioRoute": "/portfolio/edit-portfolio",
+                                                                  "editPortfolioRoute": "/portfolios/portfolio/edit-portfolio",
                                                                   "key": "portfolio-actions-dropdown",
-                                                                  "removePortfolioRoute": "/portfolio/remove-portfolio",
+                                                                  "removePortfolioRoute": "/portfolios/portfolio/remove-portfolio",
                                                                   "userCapabilities": Object {
                                                                     "copy": true,
                                                                     "create": true,
@@ -390,7 +390,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                     "show": true,
                                                                     "update": true,
                                                                   },
-                                                                  "workflowPortfolioRoute": "/portfolio/edit-workflow",
+                                                                  "workflowPortfolioRoute": "/portfolios/portfolio/edit-workflow",
                                                                 },
                                                               ],
                                                               "key": "portfolio-actions-dropdown-item",
@@ -433,7 +433,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                   <div
                                                     className="pf-u-mb-md"
                                                   >
-                                                     
+
                                                     <CatalogBreadcrumbs>
                                                       <Breadcrumb>
                                                         <nav
@@ -693,13 +693,13 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                             component="Link"
                                                                                             isDisabled={false}
                                                                                             key="portfolio-share-button/button-link"
-                                                                                            pathname="/portfolio/share-portfolio"
+                                                                                            pathname="/portfolios/portfolio/share-portfolio"
                                                                                             preserveSearch={true}
                                                                                           >
                                                                                             <CatalogLink
                                                                                               isDisabled={false}
                                                                                               nav={false}
-                                                                                              pathname="/portfolio/share-portfolio"
+                                                                                              pathname="/portfolios/portfolio/share-portfolio"
                                                                                               preserveHash={false}
                                                                                               preserveSearch={true}
                                                                                               searchParams={Object {}}
@@ -709,7 +709,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                 to={
                                                                                                   Object {
                                                                                                     "hash": undefined,
-                                                                                                    "pathname": "/portfolio/share-portfolio",
+                                                                                                    "pathname": "/portfolios/portfolio/share-portfolio",
                                                                                                     "search": "?portfolio=123",
                                                                                                   }
                                                                                                 }
@@ -720,7 +720,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                   to={
                                                                                                     Object {
                                                                                                       "hash": undefined,
-                                                                                                      "pathname": "/portfolio/share-portfolio",
+                                                                                                      "pathname": "/portfolios/portfolio/share-portfolio",
                                                                                                       "search": "?portfolio=123",
                                                                                                     }
                                                                                                   }
@@ -730,19 +730,19 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                     to={
                                                                                                       Object {
                                                                                                         "hash": undefined,
-                                                                                                        "pathname": "/portfolio/share-portfolio",
+                                                                                                        "pathname": "/portfolios/portfolio/share-portfolio",
                                                                                                         "search": "?portfolio=123",
                                                                                                       }
                                                                                                     }
                                                                                                   >
                                                                                                     <LinkAnchor
                                                                                                       className="sc-AxheI dGAgZe"
-                                                                                                      href="/portfolio/share-portfolio?portfolio=123"
+                                                                                                      href="/portfolios/portfolio/share-portfolio?portfolio=123"
                                                                                                       navigate={[Function]}
                                                                                                     >
                                                                                                       <a
                                                                                                         className="sc-AxheI dGAgZe"
-                                                                                                        href="/portfolio/share-portfolio?portfolio=123"
+                                                                                                        href="/portfolios/portfolio/share-portfolio?portfolio=123"
                                                                                                         onClick={[Function]}
                                                                                                       >
                                                                                                         <Component
@@ -802,9 +802,9 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                             component={[Function]}
                                                                                             copyInProgress={false}
                                                                                             copyPortfolio={[Function]}
-                                                                                            editPortfolioRoute="/portfolio/edit-portfolio"
+                                                                                            editPortfolioRoute="/portfolios/portfolio/edit-portfolio"
                                                                                             key="portfolio-actions-dropdown"
-                                                                                            removePortfolioRoute="/portfolio/remove-portfolio"
+                                                                                            removePortfolioRoute="/portfolios/portfolio/remove-portfolio"
                                                                                             userCapabilities={
                                                                                               Object {
                                                                                                 "copy": true,
@@ -814,13 +814,13 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                 "update": true,
                                                                                               }
                                                                                             }
-                                                                                            workflowPortfolioRoute="/portfolio/edit-workflow"
+                                                                                            workflowPortfolioRoute="/portfolios/portfolio/edit-workflow"
                                                                                           >
                                                                                             <PortfolioActionsToolbar
                                                                                               copyInProgress={false}
                                                                                               copyPortfolio={[Function]}
-                                                                                              editPortfolioRoute="/portfolio/edit-portfolio"
-                                                                                              removePortfolioRoute="/portfolio/remove-portfolio"
+                                                                                              editPortfolioRoute="/portfolios/portfolio/edit-portfolio"
+                                                                                              removePortfolioRoute="/portfolios/portfolio/remove-portfolio"
                                                                                               userCapabilities={
                                                                                                 Object {
                                                                                                   "copy": true,
@@ -830,7 +830,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                   "update": true,
                                                                                                 }
                                                                                               }
-                                                                                              workflowPortfolioRoute="/portfolio/edit-workflow"
+                                                                                              workflowPortfolioRoute="/portfolios/portfolio/edit-workflow"
                                                                                             >
                                                                                               <Dropdown
                                                                                                 className="pf-u-ml-md"
@@ -850,7 +850,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                         <CatalogLink
                                                                                                           id="edit-portfolio"
                                                                                                           nav={false}
-                                                                                                          pathname="/portfolio/edit-portfolio"
+                                                                                                          pathname="/portfolios/portfolio/edit-portfolio"
                                                                                                           preserveHash={false}
                                                                                                           preserveSearch={true}
                                                                                                           searchParams={Object {}}
@@ -867,7 +867,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                       component={
                                                                                                         <CatalogLink
                                                                                                           nav={false}
-                                                                                                          pathname="/portfolio/remove-portfolio"
+                                                                                                          pathname="/portfolios/portfolio/remove-portfolio"
                                                                                                           preserveHash={false}
                                                                                                           preserveSearch={true}
                                                                                                           searchParams={Object {}}
@@ -912,7 +912,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                           <CatalogLink
                                                                                                             id="edit-portfolio"
                                                                                                             nav={false}
-                                                                                                            pathname="/portfolio/edit-portfolio"
+                                                                                                            pathname="/portfolios/portfolio/edit-portfolio"
                                                                                                             preserveHash={false}
                                                                                                             preserveSearch={true}
                                                                                                             searchParams={Object {}}
@@ -929,7 +929,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                         component={
                                                                                                           <CatalogLink
                                                                                                             nav={false}
-                                                                                                            pathname="/portfolio/remove-portfolio"
+                                                                                                            pathname="/portfolios/portfolio/remove-portfolio"
                                                                                                             preserveHash={false}
                                                                                                             preserveSearch={true}
                                                                                                             searchParams={Object {}}
@@ -1226,7 +1226,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                 "offset": 0,
                                               }
                                             }
-                                            url="/portfolio/add-products"
+                                            url="/portfolios/portfolio/add-products"
                                             userCapabilities={
                                               Object {
                                                 "copy": true,
@@ -1322,12 +1322,12 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                               hasPermission={true}
                                                               id="add-products-to-portfolio"
                                                               label="Add products"
-                                                              url="/portfolio/add-products"
+                                                              url="/portfolios/portfolio/add-products"
                                                             >
                                                               <CatalogLink
                                                                 id="add-products-to-portfolio"
                                                                 nav={false}
-                                                                pathname="/portfolio/add-products"
+                                                                pathname="/portfolios/portfolio/add-products"
                                                                 preserveHash={false}
                                                                 preserveSearch={true}
                                                                 searchParams={Object {}}
@@ -1337,7 +1337,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                   to={
                                                                     Object {
                                                                       "hash": undefined,
-                                                                      "pathname": "/portfolio/add-products",
+                                                                      "pathname": "/portfolios/portfolio/add-products",
                                                                       "search": "?portfolio=123",
                                                                     }
                                                                   }
@@ -1348,7 +1348,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                     to={
                                                                       Object {
                                                                         "hash": undefined,
-                                                                        "pathname": "/portfolio/add-products",
+                                                                        "pathname": "/portfolios/portfolio/add-products",
                                                                         "search": "?portfolio=123",
                                                                       }
                                                                     }
@@ -1359,20 +1359,20 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                       to={
                                                                         Object {
                                                                           "hash": undefined,
-                                                                          "pathname": "/portfolio/add-products",
+                                                                          "pathname": "/portfolios/portfolio/add-products",
                                                                           "search": "?portfolio=123",
                                                                         }
                                                                       }
                                                                     >
                                                                       <LinkAnchor
                                                                         className="sc-AxheI dGAgZe"
-                                                                        href="/portfolio/add-products?portfolio=123"
+                                                                        href="/portfolios/portfolio/add-products?portfolio=123"
                                                                         id="add-products-to-portfolio"
                                                                         navigate={[Function]}
                                                                       >
                                                                         <a
                                                                           className="sc-AxheI dGAgZe"
-                                                                          href="/portfolio/add-products?portfolio=123"
+                                                                          href="/portfolios/portfolio/add-products?portfolio=123"
                                                                           id="add-products-to-portfolio"
                                                                           onClick={[Function]}
                                                                         >
@@ -1430,8 +1430,8 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                         Object {
                                           "isExact": true,
                                           "params": Object {},
-                                          "path": "/portfolio/edit-portfolio",
-                                          "url": "/portfolio/edit-portfolio",
+                                          "path": "/portfolios/portfolio/edit-portfolio",
+                                          "url": "/portfolios/portfolio/edit-portfolio",
                                         }
                                       }
                                       exact={true}
@@ -1439,11 +1439,11 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                         Object {
                                           "hash": "",
                                           "key": "gkk89l",
-                                          "pathname": "/portfolio/edit-portfolio",
+                                          "pathname": "/portfolios/portfolio/edit-portfolio",
                                           "search": "?portfolio=123",
                                         }
                                       }
-                                      path="/portfolio/edit-portfolio"
+                                      path="/portfolios/portfolio/edit-portfolio"
                                       permissions={Array []}
                                       requiredCapabilities="update"
                                       userCapabilities={
@@ -1463,8 +1463,8 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                           Object {
                                             "isExact": true,
                                             "params": Object {},
-                                            "path": "/portfolio/edit-portfolio",
-                                            "url": "/portfolio/edit-portfolio",
+                                            "path": "/portfolios/portfolio/edit-portfolio",
+                                            "url": "/portfolios/portfolio/edit-portfolio",
                                           }
                                         }
                                         exact={true}
@@ -1472,11 +1472,11 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                           Object {
                                             "hash": "",
                                             "key": "gkk89l",
-                                            "pathname": "/portfolio/edit-portfolio",
+                                            "pathname": "/portfolios/portfolio/edit-portfolio",
                                             "search": "?portfolio=123",
                                           }
                                         }
-                                        path="/portfolio/edit-portfolio"
+                                        path="/portfolios/portfolio/edit-portfolio"
                                       >
                                         <AddPortfolioModal
                                           closeTarget={
@@ -1576,11 +1576,11 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                       aria-hidden="true"
                                                                       class="pf-c-form__label-required"
                                                                     >
-                                                                       
+
                                                                       *
                                                                     </span>
                                                                   </label>
-                                                                   
+
                                                                 </div>
                                                                 <div
                                                                   class="pf-c-form__group-control"
@@ -1594,7 +1594,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                     type="text"
                                                                     value="New portfolio"
                                                                   />
-                                                                  
+
                                                                 </div>
                                                               </div>
                                                               <div
@@ -1613,7 +1613,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                       Description
                                                                     </span>
                                                                   </label>
-                                                                   
+
                                                                 </div>
                                                                 <div
                                                                   class="pf-c-form__group-control"
@@ -1626,7 +1626,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                   >
                                                                     edited portfolio description
                                                                   </textarea>
-                                                                  
+
                                                                 </div>
                                                               </div>
                                                               <div
@@ -1765,11 +1765,11 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                       aria-hidden="true"
                                                                       class="pf-c-form__label-required"
                                                                     >
-                                                                       
+
                                                                       *
                                                                     </span>
                                                                   </label>
-                                                                   
+
                                                                 </div>
                                                                 <div
                                                                   class="pf-c-form__group-control"
@@ -1783,7 +1783,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                     type="text"
                                                                     value="New portfolio"
                                                                   />
-                                                                  
+
                                                                 </div>
                                                               </div>
                                                               <div
@@ -1802,7 +1802,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                       Description
                                                                     </span>
                                                                   </label>
-                                                                   
+
                                                                 </div>
                                                                 <div
                                                                   class="pf-c-form__group-control"
@@ -1815,7 +1815,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                   >
                                                                     edited portfolio description
                                                                   </textarea>
-                                                                  
+
                                                                 </div>
                                                               </div>
                                                               <div
@@ -2412,11 +2412,11 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                       aria-hidden="true"
                                                                                                       className="pf-c-form__label-required"
                                                                                                     >
-                                                                                                       
+
                                                                                                       *
                                                                                                     </span>
                                                                                                   </label>
-                                                                                                   
+
                                                                                                 </div>
                                                                                                 <div
                                                                                                   className="pf-c-form__group-control"
@@ -2538,7 +2538,7 @@ exports[`Integration test for portfolio entity should create, edit, copy, delete
                                                                                                       Description
                                                                                                     </span>
                                                                                                   </label>
-                                                                                                   
+
                                                                                                 </div>
                                                                                                 <div
                                                                                                   className="pf-c-form__group-control"

@@ -214,7 +214,7 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/add-products?portfolio=123']}
+          initialEntries={['/portfolios/portfolio/add-products?portfolio=123']}
         >
           <Route
             path="/portfolio"
@@ -293,7 +293,7 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/remove-products?portfolio=123']}
+          initialEntries={['/portfolios/portfolio/remove-products?portfolio=123']}
         >
           <Route
             path="/portfolio"
@@ -364,10 +364,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/remove-portfolio?portfolio=123']}
+          initialEntries={['/portfolios/portfolio/remove-portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolio/remove-portfolio"
+            path="/portfolios/portfolio/remove-portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -427,7 +427,7 @@ describe('<Portfolio />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/portfolio/portfolio-item/order?source=321&portfolio=123&portfolio-item=123'
+            '/portfolios/portfolio/portfolio-item/order?source=321&portfolio=123&portfolio-item=123'
           ]}
         >
           <Route
@@ -712,7 +712,7 @@ describe('<Portfolio />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/portfolio/portfolio-item?portfolio=portfolio-id&source=source-id&portfolio-item=portfolio-item-id'
+            '/portfolios/portfolio/portfolio-item?portfolio=portfolio-id&source=source-id&portfolio-item=portfolio-item-id'
           ]}
         >
           <Route
@@ -731,7 +731,7 @@ describe('<Portfolio />', () => {
         }
       }),
       expect.objectContaining({
-        pathname: '/portfolio/portfolio-item',
+        pathname: '/portfolios/portfolio/portfolio-item',
         searchParams: {
           portfolio: 'portfolio-id',
           'portfolio-item': 'portfolio-item-id',

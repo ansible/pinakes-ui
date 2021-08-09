@@ -479,7 +479,7 @@ describe('<Orders />', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio/portfolio-item/order');
+    ).toEqual('/portfolios/portfolio/portfolio-item/order');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual(

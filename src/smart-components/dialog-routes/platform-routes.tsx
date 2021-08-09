@@ -29,10 +29,10 @@ const PlatformRoutes: React.ComponentType<PlatformRoutesProps> = () => {
   return (
     <div>
       <Switch>
-        <Route path="/platform/platform-inventories/edit-workflow">
+        <Route path="/platforms/platform/platform-inventories/edit-workflow">
           <EditApprovalWorkflow
             pushParam={{
-              pathname: '/platform/platform-inventories',
+              pathname: '/platforms/platform/platform-inventories',
               search: `?platform=${id}`
             }}
             objectType={INVENTORY_RESOURCE_TYPE}

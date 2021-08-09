@@ -38,7 +38,7 @@ describe('<AddProductsToPortfolio />', () => {
 
   beforeEach(() => {
     initialProps = {
-      portfolioRoute: '/portfolio/foo',
+      portfolioRoute: '/portfolios/portfolio/foo',
       portfolio: {
         id: '321',
         name: 'Foo'
@@ -280,7 +280,7 @@ describe('<AddProductsToPortfolio />', () => {
     setImmediate(() => {
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual('/portfolio/foo');
+      ).toEqual('/portfolios/portfolio/foo');
       done();
     });
   });

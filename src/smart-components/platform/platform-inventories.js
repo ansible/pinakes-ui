@@ -99,7 +99,7 @@ const PlatformInventories = () => {
         title: 'Set approval',
         onClick: () =>
           history.push({
-            pathname: '/platform/platform-inventories/edit-workflow',
+            pathname: '/platforms/platform/platform-inventories/edit-workflow',
             search: `?platform=${id}&inventory=${inventoryData.id}`
           })
       }

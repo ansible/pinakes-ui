@@ -90,7 +90,7 @@ describe('<AddPortfolioModal />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+          initialEntries={['/portfolios/portfolio/edit-portfolio?portfolio=123']}
         >
           <Route
             path="/portfolio"
@@ -123,7 +123,7 @@ describe('<AddPortfolioModal />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+          initialEntries={['/portfolios/portfolio/edit-portfolio?portfolio=123']}
         >
           <Route
             path="/portfolio"
@@ -159,7 +159,7 @@ describe('<AddPortfolioModal />', () => {
     const wrapper = mount(
       <ComponentWrapper
         store={store}
-        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+        initialEntries={['/portfolios/portfolio/edit-portfolio?portfolio=123']}
       >
         <Route
           path="/portfolio"

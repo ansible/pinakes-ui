@@ -29,7 +29,7 @@ describe('<PlatformInventories />', () => {
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>
-        <Route path="/platform/platform-inventories">{children}</Route>
+        <Route path="/platforms/platform/platform-inventories">{children}</Route>
         <DialogRoutes />
       </MemoryRouter>
     </Provider>
@@ -77,7 +77,7 @@ describe('<PlatformInventories />', () => {
     const wrapper = shallow(
       <ComponentWrapper
         store={store}
-        initialEntries={['/platform/platform-inventories?platform=123']}
+        initialEntries={['/platforms/platform/platform-inventories?platform=123']}
       >
         <PlatformInventories
           store={mockStore(initialState)}
@@ -110,7 +110,7 @@ describe('<PlatformInventories />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/platform/platform-inventories?platform=123']}
+          initialEntries={['/platforms/platform/platform-inventories?platform=123']}
         >
           <PlatformInventories
             {...initialProps}
@@ -156,7 +156,7 @@ describe('<PlatformInventories />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/platform/platform-inventories?platform=123']}
+          initialEntries={['/platforms/platform/platform-inventories?platform=123']}
         >
           <PlatformInventories
             {...initialProps}
@@ -188,7 +188,7 @@ describe('<PlatformInventories />', () => {
     wrapper.update();
     expect(wrapper.find(MemoryRouter).instance().history.location).toEqual(
       expect.objectContaining({
-        pathname: '/platform/platform-inventories/edit-workflow',
+        pathname: '/platforms/platform/platform-inventories/edit-workflow',
         search: '?platform=123&inventory=222'
       })
     );
