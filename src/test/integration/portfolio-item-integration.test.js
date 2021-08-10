@@ -246,7 +246,7 @@ describe('Integration tests for portfolio items', () => {
      */
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio');
+    ).toEqual('/portfolios/portfolio');
 
     expect(wrapper.find(PortfolioItem)).toHaveLength(1);
     /**

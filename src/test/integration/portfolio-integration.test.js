@@ -227,7 +227,7 @@ describe('Integration test for portfolio entity', () => {
      */
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio');
+    ).toEqual('/portfolios/portfolio');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('?portfolio=123');
@@ -291,7 +291,7 @@ describe('Integration test for portfolio entity', () => {
      */
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio');
+    ).toEqual('/portfolios/portfolio');
     /**
      * After portfolio update
      */
@@ -332,7 +332,7 @@ describe('Integration test for portfolio entity', () => {
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio');
+    ).toEqual('/portfolios/portfolio');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('?portfolio=1234');

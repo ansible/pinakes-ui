@@ -41,7 +41,7 @@ describe('<ServiceOfferingDetail />', () => {
             searchParams: {}
           },
           {
-            pathname: '/platform',
+            pathname: '/platforms/platform',
             title: 'Source name',
             searchParams: {
               source: '352'

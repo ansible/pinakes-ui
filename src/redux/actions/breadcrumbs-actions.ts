@@ -16,6 +16,7 @@ export const createBreadcrumbsFromLocations = (
   dispatch: Dispatch,
   getState: GetReduxState
 ): ReduxAction<BreadcrumbFragment[]> => {
+  console.log('Breadcrumbs - debug - pathname: ', pathname);
   if (pathname.length === 0) {
     return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: [] });
   }
@@ -45,6 +46,15 @@ export const createBreadcrumbsFromLocations = (
         });
       }
 
+      console.log('Breadcrumbs - debug - return: ', [
+        ...acc,
+        {
+          pathname,
+          searchParams,
+          title: generateTitle(getState)
+        }
+      ]);
+
       return [
         ...acc,
         {
@@ -54,6 +64,7 @@ export const createBreadcrumbsFromLocations = (
         }
       ];
     }, []);
+  console.log('Breadcrumbs - debug 2 - result: ', result);
   if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }

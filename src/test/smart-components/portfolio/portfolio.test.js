@@ -178,10 +178,10 @@ describe('<Portfolio />', () => {
       mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio?portfolio=123']}
+          initialEntries={['/portfolios/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -217,7 +217,7 @@ describe('<Portfolio />', () => {
           initialEntries={['/portfolios/portfolio/add-products?portfolio=123']}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -293,10 +293,12 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/portfolio/remove-products?portfolio=123']}
+          initialEntries={[
+            '/portfolios/portfolio/remove-products?portfolio=123'
+          ]}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -364,7 +366,9 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/portfolio/remove-portfolio?portfolio=123']}
+          initialEntries={[
+            '/portfolios/portfolio/remove-portfolio?portfolio=123'
+          ]}
         >
           <Route
             path="/portfolios/portfolio/remove-portfolio"
@@ -488,10 +492,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio?portfolio=123']}
+          initialEntries={['/portfolios/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -607,10 +611,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio?portfolio=321']}
+          initialEntries={['/portfolios/portfolio?portfolio=321']}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -716,7 +720,7 @@ describe('<Portfolio />', () => {
           ]}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>
@@ -725,7 +729,7 @@ describe('<Portfolio />', () => {
     expect(store.getState().breadcrumbsReducer.fragments).toEqual([
       expect.objectContaining({ pathname: '/portfolios', searchParams: {} }),
       expect.objectContaining({
-        pathname: '/portfolio',
+        pathname: '/portfolios/portfolio',
         searchParams: {
           portfolio: 'portfolio-id'
         }
@@ -755,7 +759,7 @@ describe('<Portfolio />', () => {
     expect(store.getState().breadcrumbsReducer.fragments).toEqual([
       expect.objectContaining({ pathname: '/portfolios', searchParams: {} }),
       expect.objectContaining({
-        pathname: '/portfolio',
+        pathname: '/portfolios/portfolio',
         searchParams: {
           portfolio: 'portfolio-id'
         }
@@ -764,7 +768,7 @@ describe('<Portfolio />', () => {
     const { pathname, search } = wrapper
       .find(MemoryRouter)
       .instance().history.location;
-    expect(pathname).toEqual('/portfolio');
+    expect(pathname).toEqual('/portfolios/portfolio');
     expect(search).toEqual('?portfolio=portfolio-id');
   });
 
@@ -801,10 +805,10 @@ describe('<Portfolio />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio?portfolio=123']}
+          initialEntries={['/portfolios/portfolio?portfolio=123']}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
           <Route path="/403" component={CommonApiError} />

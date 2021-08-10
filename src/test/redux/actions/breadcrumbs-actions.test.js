@@ -34,7 +34,7 @@ describe('breadcrumbs actions', () => {
             searchParams: {}
           },
           {
-            pathname: '/portfolio',
+            pathname: '/portfolios/portfolio',
             title: 'Selected portfolio',
             searchParams: {
               portfolio: 'portfolio-id'
@@ -78,9 +78,12 @@ describe('breadcrumbs actions', () => {
   it('should skip fragment with unknown title', () => {
     const store = mockStore(initialState);
     store.dispatch(
-      createBreadcrumbsFromLocations('/portfolios/portfolio/something/unknown', {
-        portfolio: 'some-id'
-      })
+      createBreadcrumbsFromLocations(
+        '/portfolios/portfolio/something/unknown',
+        {
+          portfolio: 'some-id'
+        }
+      )
     );
     const expectedActions = [
       {
@@ -92,7 +95,7 @@ describe('breadcrumbs actions', () => {
             searchParams: {}
           },
           {
-            pathname: '/portfolio',
+            pathname: '/portfolios/portfolio',
             title: 'Selected portfolio',
             searchParams: {
               portfolio: 'some-id'

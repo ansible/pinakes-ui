@@ -58,7 +58,7 @@ const paths = {
   products: '/products',
   platforms: '/platforms',
   order_processes: '/order-processes',
-  platform: '/platform',
+  platform: '/platforms/platform',
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
@@ -73,17 +73,17 @@ export const Routes = () => {
     <Suspense fallback={<AppPlaceholder />}>
       <Switch>
         <CatalogRoute path={paths.products} component={Products} />
-        <CatalogRoute path={paths.portfolios} component={Portfolios} />
         <CatalogRoute path={paths.portfolio} component={Portfolio} />
-        <CatalogRoute
-          permissions={['catalog:portfolios:create']}
-          path={paths.platforms}
-          component={Platforms}
-        />
+        <CatalogRoute path={paths.portfolios} component={Portfolios} />
         <CatalogRoute
           permissions={['catalog:portfolios:create']}
           path={paths.platform}
           component={Platform}
+        />
+        <CatalogRoute
+          permissions={['catalog:portfolios:create']}
+          path={paths.platforms}
+          component={Platforms}
         />
         <CatalogRoute path={paths.order_processes} component={OrderProcesses} />
         <CatalogRoute path={paths.order} component={OrderDetail} />
