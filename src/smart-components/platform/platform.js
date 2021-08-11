@@ -47,17 +47,17 @@ const tabItems = [
   {
     eventKey: 0,
     title: 'Templates',
-    name: `/platforms/platform-templates`
+    name: `/platforms/platform/platform-templates`
   },
   {
     eventKey: 1,
     title: 'Inventories',
-    name: `/platforms/platform-inventories`
+    name: `/platforms/platform/platform-inventories`
   },
   {
     eventKey: 2,
     title: 'Summary',
-    name: `/platforms/platform-details`
+    name: `/platforms/platform/platform-details`
   }
 ];
 

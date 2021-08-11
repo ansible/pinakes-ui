@@ -16,11 +16,14 @@ export const NESTED_WORKFLOW_PORTFOLIO_ROUTE =
   '/portfolios/portfolio/edit-workflow';
 export const ORDER_ROUTE = '/orders/order';
 export const ORDERS_ROUTE = '/orders';
-export const PLATFORM_INVENTORIES_ROUTE = '/platforms/platform-inventories';
+export const PLATFORM_INVENTORIES_ROUTE =
+  '/platforms/platform/platform-inventories';
 export const PLATFORM_ROUTE = '/platforms/platform';
-export const PLATFORM_SERVICE_OFFERINGS_ROUTE = '/platforms/service-offerings';
-export const PLATFORM_TEMPLATES_ROUTE = '/platforms/platform-templates';
-export const PLATFORM_DETAILS_ROUTE = '/platforms/platform-details';
+export const PLATFORM_SERVICE_OFFERINGS_ROUTE =
+  '/platforms/platform/service-offerings';
+export const PLATFORM_TEMPLATES_ROUTE =
+  '/platforms/platform/platform-templates';
+export const PLATFORM_DETAILS_ROUTE = '/platforms/platform/platform-details';
 export const PLATFORMS_ROUTE = '/platforms';
 export const PORTFOLIO_ROUTE = '/portfolios/portfolio';
 export const PORTFOLIO_ITEM_ROUTE = '/portfolios/portfolio-item';
