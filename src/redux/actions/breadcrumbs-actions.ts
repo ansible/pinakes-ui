@@ -104,14 +104,13 @@ export const createBreadcrumbsFromLocations = (
     if (result[0].pathname === '/platform') {
       result[0].pathname = '/platforms/platform';
     }
+
+    console.log('Debug - result', result);
+
+    if ((FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
+      result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
+    }
   }
-
-  console.log('Debug - result', result);
-
-  if ((FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
-    result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
-  }
-
   console.log('Debug2 - result', result);
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };

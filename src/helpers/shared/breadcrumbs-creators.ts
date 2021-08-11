@@ -1,7 +1,6 @@
 import {
   PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
-  PORTFOLIO_ITEM_ROUTE,
   ORDER_ROUTE,
   PLATFORM_ROUTE,
   PLATFORM_SERVICE_OFFERINGS_ROUTE,
@@ -9,7 +8,7 @@ import {
   ORDERS_ROUTE,
   EDIT_SURVEY_ROUTE,
   ADD_PRODUCTS_ROUTE,
-  PORTFOLIO_ITEM_ROUTE_EDIT, PLATFORM_TEMPLATES_ROUTE, PLATFORM_INVENTORIES_ROUTE, PLATFORM_DETAILS_ROUTE
+  PORTFOLIO_ITEM_ROUTE_EDIT
 } from '../../constants/routes';
 import { PortfolioReducerState } from '../../redux/reducers/portfolio-reducer';
 import { ReactNode } from 'react';
@@ -69,21 +68,6 @@ export const FRAGMENT_PREFIX = {
     searchParams: {}
   },
   [PLATFORM_ROUTE]: {
-    pathname: PLATFORMS_ROUTE,
-    title: 'Platforms',
-    searchParams: {}
-  },
-  [PLATFORM_TEMPLATES_ROUTE]: {
-    pathname: PLATFORMS_ROUTE,
-    title: 'Platforms',
-    searchParams: {}
-  },
-  [PLATFORM_INVENTORIES_ROUTE]: {
-    pathname: PLATFORMS_ROUTE,
-    title: 'Platforms',
-    searchParams: {}
-  },
-  [PLATFORM_DETAILS_ROUTE]: {
     pathname: PLATFORMS_ROUTE,
     title: 'Platforms',
     searchParams: {}
