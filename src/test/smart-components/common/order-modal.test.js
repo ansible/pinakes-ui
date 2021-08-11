@@ -93,11 +93,11 @@ describe('<OrderModal />', () => {
         <OrderWrapper
           store={store}
           initialEntries={[
-            '/portfolios/portfolio/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
+            '/portfolios/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
           ]}
         >
           <Route
-            path="/portfolios/portfolio/portfolio-item/order"
+            path="/portfolios/portfolio-item/order"
             render={(args) => <OrderModal {...initialProps} {...args} />}
           />
         </OrderWrapper>

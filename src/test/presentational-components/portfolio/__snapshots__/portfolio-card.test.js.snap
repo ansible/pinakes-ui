@@ -28,7 +28,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
         portfolio_items={0}
         to={
           Object {
-            "pathname": "/portfolios/portfolio",
+            "pathname": "/portfolios",
             "search": "?portfolio=123",
           }
         }

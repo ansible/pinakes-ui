@@ -109,9 +109,9 @@ describe('<SharePortfolioModal/>', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/portfolio/share-portfolio?portfolio=2']}
+          initialEntries={['/portfolios/share-portfolio?portfolio=2']}
         >
-          <Route exact path="/portfolios/portfolio/share-portfolio">
+          <Route exact path="/portfolios/share-portfolio">
             <SharePortfolioModal {...initialProps} />
           </Route>
         </ComponentWrapper>
@@ -184,10 +184,10 @@ describe('<SharePortfolioModal/>', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolios/portfolio/share-portfolio?portfolio=3']}
+          initialEntries={['/portfolios/share-portfolio?portfolio=3']}
         >
           <Route
-            path="/portfolios/portfolio/share-portfolio"
+            path="/portfolios/share-portfolio"
             render={(args) => (
               <SharePortfolioModal {...args} {...initialProps} />
             )}

@@ -1,6 +1,7 @@
 import {
   PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
+  PORTFOLIO_ITEM_ROUTE,
   ORDER_ROUTE,
   PLATFORM_ROUTE,
   PLATFORM_SERVICE_OFFERINGS_ROUTE,
@@ -28,27 +29,17 @@ export const ENTITIES_EXTRA_PARAMS = {
 };
 
 export const FRAGMENT_TITLE = {
-  ['/portfolio']: (
+  [PORTFOLIO_ROUTE]: (
     getState: () => { portfolioReducer: PortfolioReducerState }
   ): ReactNode => getState().portfolioReducer.selectedPortfolio.name,
-  ['/portfolio/portfolio-item']: (
+  [PORTFOLIO_ITEM_ROUTE]: (
     getState: () => { portfolioReducer: PortfolioReducerState }
   ): ReactNode => getState().portfolioReducer.portfolioItem.portfolioItem.name,
   [EDIT_SURVEY_ROUTE]: (): string => 'Edit survey',
   [ADD_PRODUCTS_ROUTE]: (): string => 'Add products',
-  ['/platform']: (
+  [PLATFORM_ROUTE]: (
     getState: () => { platformReducer: PlatformReducerState }
   ): ReactNode => getState().platformReducer.selectedPlatform.name,
-  ['/platform/platform-templates']: (
-    getState: () => { platformReducer: PlatformReducerState }
-  ): ReactNode => getState().platformReducer.selectedPlatform.name,
-  ['/platform/platform-inventories']: (
-    getState: () => { platformReducer: PlatformReducerState }
-  ): ReactNode => getState().platformReducer.selectedPlatform.name,
-  ['/platform/platform-details']: (
-    getState: () => { platformReducer: PlatformReducerState }
-  ): ReactNode => getState().platformReducer.selectedPlatform.name,
-
   [PLATFORM_SERVICE_OFFERINGS_ROUTE]: (
     getState: () => { platformReducer: PlatformReducerState }
   ): ReactNode => getState().platformReducer.serviceOffering.service.name,

@@ -15,7 +15,7 @@ describe('breadcrumbs actions', () => {
       selectedPlatform: { name: 'Platform' }
     }
   };
-  const portfolioPathname = '/portfolios/portfolio/portfolio-item/edit-survey';
+  const portfolioPathname = '/portfolios/portfolio-item/edit-survey';
   const portfolioSearchParams = {
     portfolio: 'portfolio-id',
     'portfolio-item': 'portfolio-item-id',
@@ -34,14 +34,14 @@ describe('breadcrumbs actions', () => {
             searchParams: {}
           },
           {
-            pathname: '/portfolios/portfolio',
+            pathname: '/portfolios/',
             title: 'Selected portfolio',
             searchParams: {
               portfolio: 'portfolio-id'
             }
           },
           {
-            pathname: '/portfolios/portfolio/portfolio-item',
+            pathname: '/portfolios/portfolio-item',
             title: 'Portfolio item',
             searchParams: {
               portfolio: 'portfolio-id',
@@ -50,7 +50,7 @@ describe('breadcrumbs actions', () => {
             }
           },
           {
-            pathname: '/portfolios/portfolio/portfolio-item/edit-survey',
+            pathname: '/portfolios/portfolio-item/edit-survey',
             title: 'Edit survey',
             searchParams: {
               portfolio: 'portfolio-id',
@@ -78,12 +78,9 @@ describe('breadcrumbs actions', () => {
   it('should skip fragment with unknown title', () => {
     const store = mockStore(initialState);
     store.dispatch(
-      createBreadcrumbsFromLocations(
-        '/portfolios/portfolio/something/unknown',
-        {
-          portfolio: 'some-id'
-        }
-      )
+      createBreadcrumbsFromLocations('/portfolios/something/unknown', {
+        portfolio: 'some-id'
+      })
     );
     const expectedActions = [
       {
@@ -95,7 +92,7 @@ describe('breadcrumbs actions', () => {
             searchParams: {}
           },
           {
-            pathname: '/portfolios/portfolio',
+            pathname: '/portfolios/',
             title: 'Selected portfolio',
             searchParams: {
               portfolio: 'some-id'

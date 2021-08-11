@@ -36,7 +36,7 @@ const OrderDetailInformation: React.ComponentType<OrderDetailInformationProps> =
         />
         <Title headingLevel="h2" size="lg">
           <CatalogLink
-            pathname="/portfolios/portfolio/portfolio-item"
+            pathname="/portfolios/portfolio-item"
             searchParams={{
               portfolio: portfolioId,
               source: sourceId,

@@ -78,13 +78,13 @@ describe('<RemovePortfolioModal />', () => {
       <ComponentWrapper
         store={store}
         initialEntries={[
-          '/portfolios/portfolio?portfolio=123',
-          '/portfolios/portfolio/remove-portfolio?portfolio=123'
+          '/portfolios/?portfolio=123',
+          '/portfolios/remove-portfolio?portfolio=123'
         ]}
         initialIndex={1}
       >
         <Route
-          path="/portfolios/portfolio"
+          path="/portfolios/"
           render={(args) => (
             <RemovePortfolioModal {...args} {...initialProps} />
           )}
@@ -100,7 +100,7 @@ describe('<RemovePortfolioModal />', () => {
         .find(MemoryRouter)
         .children()
         .props().history.location.pathname
-    ).toEqual('/portfolios/portfolio');
+    ).toEqual('/portfolios/');
   });
 
   it('should call remove action', async (done) => {
@@ -123,11 +123,11 @@ describe('<RemovePortfolioModal />', () => {
       <ComponentWrapper
         store={store}
         initialEntries={[
-          '/portfolios/portfolio/remove-portfolio?portfolio=123'
+          '/portfolios/remove-portfolio?portfolio=123'
         ]}
       >
         <Route
-          path="/portfolios/portfolio/remove-portfolio"
+          path="/portfolios/remove-portfolio"
           render={(args) => (
             <RemovePortfolioModal {...args} {...initialProps} />
           )}
@@ -191,11 +191,11 @@ describe('<RemovePortfolioModal />', () => {
       <ComponentWrapper
         store={store}
         initialEntries={[
-          '/portfolios/portfolio/remove-portfolio?portfolio=123'
+          '/portfolios/remove-portfolio?portfolio=123'
         ]}
       >
         <Route
-          path="/portfolios/portfolio/remove-portfolio"
+          path="/portfolios/remove-portfolio"
           render={(args) => (
             <RemovePortfolioModal {...args} {...initialProps} />
           )}
@@ -270,13 +270,13 @@ describe('<RemovePortfolioModal />', () => {
       <ComponentWrapper
         store={store}
         initialEntries={[
-          '/portfolios/portfolio?portfolio=123',
-          '/portfolios/portfolio/remove-portfolio?portfolio=123'
+          '/portfolios/?portfolio=123',
+          '/portfolios/remove-portfolio?portfolio=123'
         ]}
         initialIndex={1}
       >
         <Route
-          path="/portfolios/portfolio"
+          path="/portfolios/"
           render={(args) => (
             <RemovePortfolioModal {...args} {...initialProps} />
           )}
