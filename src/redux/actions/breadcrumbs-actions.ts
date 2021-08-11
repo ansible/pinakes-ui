@@ -16,12 +16,20 @@ export const createBreadcrumbsFromLocations = (
   dispatch: Dispatch,
   getState: GetReduxState
 ): ReduxAction<BreadcrumbFragment[]> => {
-  console.log('Breadcrumbs - debug - pathname: ', pathname);
   if (pathname.length === 0) {
     return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: [] });
   }
 
-  let result = pathname
+  let new_pathname = pathname;
+  if (pathname === '/portfolios/portfolio') {
+    new_pathname = '/portfolio';
+  }
+
+  if (pathname === '/portfolios/portfolio/portfolio-item') {
+    new_pathname = '/portfolio/portfolio-item';
+  }
+
+  let result = new_pathname
     .replace(/^\//, '')
     .split('/')
     .reduce<BreadcrumbFragment[]>((acc, curr, index) => {
@@ -46,15 +54,6 @@ export const createBreadcrumbsFromLocations = (
         });
       }
 
-      console.log('Breadcrumbs - debug - return: ', [
-        ...acc,
-        {
-          pathname,
-          searchParams,
-          title: generateTitle(getState)
-        }
-      ]);
-
       return [
         ...acc,
         {
@@ -64,7 +63,15 @@ export const createBreadcrumbsFromLocations = (
         }
       ];
     }, []);
-  console.log('Breadcrumbs - debug 2 - result: ', result);
+
+  if (result.length > 0 && result[0].pathname === '/portfolio') {
+    result[0].pathname = '/portfolios/portfolio';
+  }
+
+  if (result.length > 0 && result[0].pathname === '/portfolio/portfolio-item') {
+    result[0].pathname = '/portfolios/portfolio/portfolio-item';
+  }
+
   if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }

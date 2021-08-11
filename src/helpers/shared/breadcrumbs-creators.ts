@@ -29,10 +29,10 @@ export const ENTITIES_EXTRA_PARAMS = {
 };
 
 export const FRAGMENT_TITLE = {
-  [PORTFOLIO_ROUTE]: (
+  ['/portfolio']: (
     getState: () => { portfolioReducer: PortfolioReducerState }
   ): ReactNode => getState().portfolioReducer.selectedPortfolio.name,
-  [PORTFOLIO_ITEM_ROUTE]: (
+  ['/portfolio/portfolio-item']: (
     getState: () => { portfolioReducer: PortfolioReducerState }
   ): ReactNode => getState().portfolioReducer.portfolioItem.portfolioItem.name,
   [EDIT_SURVEY_ROUTE]: (): string => 'Edit survey',
