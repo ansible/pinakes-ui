@@ -435,7 +435,7 @@ describe('<Portfolio />', () => {
           ]}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={(...args) => <Portfolio {...initialProps} {...args} />}
           />
         </ComponentWrapper>

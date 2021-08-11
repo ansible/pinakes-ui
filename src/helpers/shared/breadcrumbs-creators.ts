@@ -9,7 +9,7 @@ import {
   ORDERS_ROUTE,
   EDIT_SURVEY_ROUTE,
   ADD_PRODUCTS_ROUTE,
-  PORTFOLIO_ITEM_ROUTE_EDIT
+  PORTFOLIO_ITEM_ROUTE_EDIT, PLATFORM_TEMPLATES_ROUTE, PLATFORM_INVENTORIES_ROUTE, PLATFORM_DETAILS_ROUTE
 } from '../../constants/routes';
 import { PortfolioReducerState } from '../../redux/reducers/portfolio-reducer';
 import { ReactNode } from 'react';
@@ -37,9 +37,19 @@ export const FRAGMENT_TITLE = {
   ): ReactNode => getState().portfolioReducer.portfolioItem.portfolioItem.name,
   [EDIT_SURVEY_ROUTE]: (): string => 'Edit survey',
   [ADD_PRODUCTS_ROUTE]: (): string => 'Add products',
-  [PLATFORM_ROUTE]: (
+  ['/platform']: (
     getState: () => { platformReducer: PlatformReducerState }
   ): ReactNode => getState().platformReducer.selectedPlatform.name,
+  ['/platform/platform-templates']: (
+    getState: () => { platformReducer: PlatformReducerState }
+  ): ReactNode => getState().platformReducer.selectedPlatform.name,
+  ['/platform/platform-inventories']: (
+    getState: () => { platformReducer: PlatformReducerState }
+  ): ReactNode => getState().platformReducer.selectedPlatform.name,
+  ['/platform/platform-details']: (
+    getState: () => { platformReducer: PlatformReducerState }
+  ): ReactNode => getState().platformReducer.selectedPlatform.name,
+
   [PLATFORM_SERVICE_OFFERINGS_ROUTE]: (
     getState: () => { platformReducer: PlatformReducerState }
   ): ReactNode => getState().platformReducer.serviceOffering.service.name,
@@ -59,6 +69,21 @@ export const FRAGMENT_PREFIX = {
     searchParams: {}
   },
   [PLATFORM_ROUTE]: {
+    pathname: PLATFORMS_ROUTE,
+    title: 'Platforms',
+    searchParams: {}
+  },
+  [PLATFORM_TEMPLATES_ROUTE]: {
+    pathname: PLATFORMS_ROUTE,
+    title: 'Platforms',
+    searchParams: {}
+  },
+  [PLATFORM_INVENTORIES_ROUTE]: {
+    pathname: PLATFORMS_ROUTE,
+    title: 'Platforms',
+    searchParams: {}
+  },
+  [PLATFORM_DETAILS_ROUTE]: {
     pathname: PLATFORMS_ROUTE,
     title: 'Platforms',
     searchParams: {}

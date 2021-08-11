@@ -29,6 +29,22 @@ export const createBreadcrumbsFromLocations = (
     new_pathname = '/portfolio/portfolio-item';
   }
 
+  if (pathname === '/platforms/platform/platform-templates') {
+    new_pathname = '/platform/platform-templates';
+  }
+
+  if (pathname === '/platforms/platform/platform-inventories') {
+    new_pathname = '/platform/platform-inventories';
+  }
+
+  if (pathname === '/platforms/platform/platform-details') {
+    new_pathname = '/platform/platform-details';
+  }
+
+  if (pathname === '/platforms/platform') {
+    new_pathname = '/platform';
+  }
+
   let result = new_pathname
     .replace(/^\//, '')
     .split('/')
@@ -64,17 +80,38 @@ export const createBreadcrumbsFromLocations = (
       ];
     }, []);
 
-  if (result.length > 0 && result[0].pathname === '/portfolio') {
-    result[0].pathname = '/portfolios/portfolio';
+  if (result.length > 0) {
+    if (result[0].pathname === '/portfolio') {
+      result[0].pathname = '/portfolios/portfolio';
+    }
+
+    if (result[0].pathname === '/portfolio/portfolio-item') {
+      result[0].pathname = '/portfolios/portfolio/portfolio-item';
+    }
+
+    if (result[0].pathname === '/platform/platform-templates') {
+      result[0].pathname = '/platforms/platform/platform-templates';
+    }
+
+    if (result[0].pathname === '/platform/platform-inventories') {
+      result[0].pathname = '/platforms/platform/platform-inventories';
+    }
+
+    if (result[0].pathname === '/platform/platform-details') {
+      result[0].pathname = '/platforms/platform/platform-details';
+    }
+
+    if (result[0].pathname === '/platform') {
+      result[0].pathname = '/platforms/platform';
+    }
   }
 
-  if (result.length > 0 && result[0].pathname === '/portfolio/portfolio-item') {
-    result[0].pathname = '/portfolios/portfolio/portfolio-item';
-  }
+  console.log('Debug - result', result);
 
-  if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
+  if ((FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }
 
+  console.log('Debug2 - result', result);
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };
