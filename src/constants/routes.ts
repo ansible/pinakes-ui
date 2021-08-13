@@ -3,7 +3,8 @@ export const ADD_PRODUCTS_ROUTE = '/portfolios/add-products';
 export const EDIT_ORDER_PROCESS_ROUTE = '/portfolios/edit-order-process';
 export const EDIT_PORTFOLIO_ROUTE = '/portfolios/edit';
 export const EDIT_PORTFOLIO_WORKFLOW_ROUTE = '/portfolios/edit-workflow';
-export const EDIT_SURVEY_ROUTE = '/portfolios/portfolio-item/edit-survey';
+export const EDIT_SURVEY_ROUTE =
+  '/portfolios/portfolio/portfolio-item/edit-survey';
 export const NESTED_EDIT_ORDER_PROCESS_ROUTE =
   '/portfolios/portfolio/edit-order-process';
 export const NESTED_EDIT_PORTFOLIO_ROUTE =
@@ -26,11 +27,13 @@ export const PLATFORM_TEMPLATES_ROUTE =
 export const PLATFORM_DETAILS_ROUTE = '/platforms/platform/platform-details';
 export const PLATFORMS_ROUTE = '/platforms';
 export const PORTFOLIO_ROUTE = '/portfolios/portfolio';
-export const PORTFOLIO_ITEM_ROUTE = '/portfolios/portfolio-item';
-export const PORTFOLIO_ITEM_ORDER_ROUTE = '/portfolios/portfolio-item/order';
-export const PORTFOLIO_ITEM_ROUTE_EDIT = '/portfolios/portfolio-item/edit';
+export const PORTFOLIO_ITEM_ROUTE = '/portfolios/portfolio/portfolio-item';
+export const PORTFOLIO_ITEM_ORDER_ROUTE =
+  '/portfolios/portfolio/portfolio-item/order';
+export const PORTFOLIO_ITEM_ROUTE_EDIT =
+  '/portfolios/portfolio/portfolio-item/edit';
 export const PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE =
-  '/portfolios/portfolio-item/edit-order-process';
+  '/portfolios/portfolio/portfolio-item/edit-order-process';
 export const PORTFOLIOS_ROUTE = '/portfolios';
 export const REMOVE_PORTFOLIO_ROUTE = '/portfolios/remove';
 export const SHARE_PORTFOLIO_ROUTE = '/portfolios/share';
