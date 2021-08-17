@@ -1,5 +1,5 @@
 export const ADD_PORTFOLIO_ROUTE = '/portfolios/add-portfolio';
-export const ADD_PRODUCTS_ROUTE = '/portfolios/add-products';
+export const ADD_PRODUCTS_ROUTE = '/portfolios/portfolio/add-products';
 export const EDIT_ORDER_PROCESS_ROUTE = '/portfolios/edit-order-process';
 export const EDIT_PORTFOLIO_ROUTE = '/portfolios/edit';
 export const EDIT_PORTFOLIO_WORKFLOW_ROUTE = '/portfolios/edit-workflow';
