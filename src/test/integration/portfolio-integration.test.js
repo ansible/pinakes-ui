@@ -227,7 +227,7 @@ describe('Integration test for portfolio entity', () => {
      */
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/');
+    ).toEqual('/portfolios/portfolio');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('?portfolio=123');
@@ -253,7 +253,7 @@ describe('Integration test for portfolio entity', () => {
       .simulate('click', { button: 0 });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/edit-portfolio');
+    ).toEqual('/portfolios/portfolio/edit-portfolio');
 
     initialPortfolio.description = 'edited portfolio description' // eslint-disable-line
     wrapper.update();
@@ -291,7 +291,7 @@ describe('Integration test for portfolio entity', () => {
      */
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/');
+    ).toEqual('/portfolios/portfolio');
     /**
      * After portfolio update
      */
@@ -332,7 +332,7 @@ describe('Integration test for portfolio entity', () => {
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/');
+    ).toEqual('/portfolios/portfolio');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('?portfolio=1234');

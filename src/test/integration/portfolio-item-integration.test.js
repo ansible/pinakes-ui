@@ -172,7 +172,7 @@ describe('Integration tests for portfolio items', () => {
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/add-products');
+    ).toEqual('/portfolios/portfolio/add-products');
 
     /**
      * select platform and fetch source offerings
@@ -246,7 +246,7 @@ describe('Integration tests for portfolio items', () => {
      */
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/');
+    ).toEqual('/portfolios/portfolio');
 
     expect(wrapper.find(PortfolioItem)).toHaveLength(1);
     /**
@@ -329,7 +329,7 @@ describe('Integration tests for portfolio items', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/portfolio-item');
+    ).toEqual('/portfolios/portfolio/portfolio-item');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual(
@@ -345,7 +345,7 @@ describe('Integration tests for portfolio items', () => {
       .simulate('click', { button: 0 });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/portfolio-item/edit');
+    ).toEqual('/portfolios/portfolio/portfolio-item/edit');
     const descriptionInput = wrapper.find('input#description');
     descriptionInput.getDOMNode().value = 'new description';
     descriptionInput.simulate('change');
@@ -361,7 +361,7 @@ describe('Integration tests for portfolio items', () => {
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/portfolio-item');
+    ).toEqual('/portfolios/portfolio/portfolio-item');
     wrapper.update();
     expect(wrapper.find('p#description')).toHaveLength(1);
     expect(
@@ -422,7 +422,7 @@ describe('Integration tests for portfolio items', () => {
     });
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/portfolio-item');
+    ).toEqual('/portfolios/portfolio/portfolio-item');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('?portfolio=123&portfolio-item=1234&source=source-id');
