@@ -286,9 +286,7 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
-      .replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -344,9 +342,7 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
-      .replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -391,9 +387,7 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
-      .replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -479,7 +473,7 @@ describe('<Orders />', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolios/portfolio-item/order');
+    ).toEqual('/portfolios/portfolio/portfolio-item/order');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual(

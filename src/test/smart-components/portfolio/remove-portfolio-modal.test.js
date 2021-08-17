@@ -122,9 +122,7 @@ describe('<RemovePortfolioModal />', () => {
     const wrapper = mount(
       <ComponentWrapper
         store={store}
-        initialEntries={[
-          '/portfolios/remove-portfolio?portfolio=123'
-        ]}
+        initialEntries={['/portfolios/remove-portfolio?portfolio=123']}
       >
         <Route
           path="/portfolios/remove-portfolio"
@@ -190,9 +188,7 @@ describe('<RemovePortfolioModal />', () => {
     const wrapper = mount(
       <ComponentWrapper
         store={store}
-        initialEntries={[
-          '/portfolios/remove-portfolio?portfolio=123'
-        ]}
+        initialEntries={['/portfolios/remove-portfolio?portfolio=123']}
       >
         <Route
           path="/portfolios/remove-portfolio"

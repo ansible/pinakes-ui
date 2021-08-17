@@ -19,40 +19,38 @@ export const createBreadcrumbsFromLocations = (
   if (pathname.length === 0) {
     return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: [] });
   }
-  console.log(
-    'Debug - createBreadcrumbsFromLocations pathname, search',
-    pathname,
-    search
-  );
-  console.log('debug - pathname.replace', pathname.replace(/^\//, ''));
-  let prefix = '';
-  if (pathname.startsWith('/portfolios/portfolio')) {
-    prefix = '/portfolios';
+  const prefix: string[] = [];
+  if (pathname === '/portfolios/portfolio') {
+    prefix.push('/portfolios');
   }
+
+  if (pathname.startsWith('/portfolios/portfolio/portfolio-item')) {
+    prefix[0] = '/portfolios';
+    prefix[1] = '/portfolio';
+    if (pathname.startsWith('/portfolios/portfolio/portfolio-item/')) {
+      prefix[2] = '/portfolio-item';
+    }
+  }
+
   if (pathname.startsWith('/platforms/platform')) {
-    prefix = '/platforms';
+    prefix[0] = '/platforms';
   }
-  pathname = pathname.replace(prefix, '');
-  console.log('debug - prefix, pathname', prefix, pathname);
+
+  pathname = pathname.replace(prefix[0], '');
   let result = pathname
     .replace(/^\//, '')
     .split('/')
     .reduce<BreadcrumbFragment[]>((acc, curr, index) => {
       const pathname = `${
         index > 0 && acc[index - 1] ? acc[index - 1].pathname : ''
-      }${prefix}/${curr}`;
-      console.log(
-        'Debug - generate title:  curr, acc',
-        `${prefix}/${curr}`,
-        acc
-      );
+      }${prefix[index]}/${curr}`;
       const generateTitle = (FRAGMENT_TITLE[
         pathname as keyof typeof FRAGMENT_TITLE
       ] as unknown) as (getState: GetReduxState) => string;
       if (!generateTitle) {
-        console.log('Debug - no generate title - return acc: ', acc);
         return acc;
       }
+
       const searchParams = {
         ...(index > 0 && acc[index - 1]?.searchParams),
         ...(search[curr] ? { [curr]: search[curr] } : {})
@@ -62,23 +60,28 @@ export const createBreadcrumbsFromLocations = (
           searchParams[key] = search[key];
         });
       }
-      console.log('Debug ACC: pathname, acc: ', pathname, acc);
+
       if ((FRAGMENT_PREFIX as AnyObject)[pathname]) {
         acc = [(FRAGMENT_PREFIX as AnyObject)[pathname]];
       }
-      console.log('Debug - About to return: pathname, acc: ', pathname, acc);
-      return [
-        ...acc,
-        {
-          pathname,
-          searchParams,
-          title: generateTitle(getState)
-        }
-      ];
+
+      const currTitle = generateTitle(getState);
+
+      return !currTitle
+        ? acc
+        : [
+            ...acc,
+            {
+              pathname,
+              searchParams,
+              title: currTitle
+            }
+          ];
     }, []);
-  console.log('Debug - pathname, result: ', pathname, result);
   if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }
+
+  // if portfolio item, add the 2 breadcrumbs
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };
