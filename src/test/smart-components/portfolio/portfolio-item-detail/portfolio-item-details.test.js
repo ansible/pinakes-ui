@@ -106,7 +106,7 @@ describe('<PortfolioItemDetail />', () => {
       wrapper = mount(
         <ComponentWrapper
           initialEntries={[
-            '/portfolios/portfolio-item?source=source-id&portfolio=123&portfolio-item=321'
+            '/portfolios/portfolio/portfolio-item?source=source-id&portfolio=123&portfolio-item=321'
           ]}
           store={store}
         >
@@ -135,11 +135,11 @@ describe('<PortfolioItemDetail />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/portfolios/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
+            '/portfolios/portfolio/portfolio-item/order?source=source-id&portfolio=123&portfolio-item=321'
           ]}
           initialIndex={0}
         >
-          <Route path="/portfolios/portfolio-item">
+          <Route path="/portfolios/portfolio/portfolio-item">
             <PortfolioItemDetail {...initialProps} />
           </Route>
         </ComponentWrapper>
@@ -174,7 +174,7 @@ describe('<PortfolioItemDetail />', () => {
       wrapper = mount(
         <ComponentWrapper
           initialEntries={[
-            '/portfolios/portfolio-item?source=source-id&portfolio=123&portfolio-item=321'
+            '/portfolios/portfolio/portfolio-item?source=source-id&portfolio=123&portfolio-item=321'
           ]}
           store={store}
         >
