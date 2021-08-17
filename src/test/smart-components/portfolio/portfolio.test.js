@@ -706,7 +706,7 @@ describe('<Portfolio />', () => {
       .onGet(`${SOURCES_API_BASE}/sources/source-id`)
       .replyOnce(200, { id: 'source-id', name: 'Source', source_type_id: '3' })
       .onGet(
-        `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items??filter[name][contains_i]=&limit=50&offset=0`
+        `${CATALOG_API_BASE}/portfolios/portfolio-id/portfolio_items?filter[name][contains_i]=&limit=50&offset=0`
       )
       .replyOnce(200, { meta: {}, data: [] });
 

@@ -74,7 +74,7 @@ describe('Integration tests for portfolio items', () => {
     const copiedPortfolioItem = {
       ...addedPortfolioItem,
       id: '1234',
-      name: `Compy of ${addedPortfolioItem.name}`
+      name: `Copy of ${addedPortfolioItem.name}`
     };
     const store = testStore();
     /**
@@ -118,7 +118,9 @@ describe('Integration tests for portfolio items', () => {
       wrapper = mount(
         <Provider store={store}>
           <IntlProvider locale="en">
-            <MemoryRouter initialEntries={['/portfolio?portfolio=123']}>
+            <MemoryRouter
+              initialEntries={['/portfolios/portfolio?portfolio=123']}
+            >
               <App />
             </MemoryRouter>
           </IntlProvider>
@@ -173,6 +175,10 @@ describe('Integration tests for portfolio items', () => {
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual('/portfolios/portfolio/add-products');
+
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
+      .replyOnce(200, { data: [] });
 
     /**
      * select platform and fetch source offerings
