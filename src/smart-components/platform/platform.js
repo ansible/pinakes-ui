@@ -75,7 +75,7 @@ const Platform = () => {
   const formatMessage = useFormatMessage();
 
   useEffect(() => {
-    window.insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
+    insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
     Promise.all([
       dispatch(fetchSelectedPlatform(platform)),
       dispatch(fetchPlatforms())

@@ -86,7 +86,7 @@ const PortfolioItemDetail = () => {
   };
 
   useEffect(() => {
-    window.insights.chrome.appNavClick({
+    insights.chrome.appNavClick({
       id: fromProducts ? 'products' : 'portfolios',
       secondaryNav: true
     });
