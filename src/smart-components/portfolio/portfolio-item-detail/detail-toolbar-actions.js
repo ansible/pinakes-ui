@@ -31,7 +31,7 @@ const DetailToolbarActions = ({
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
-
+  update = true;
   if (update) {
     dropdownItems.push(
       <DropdownItem
@@ -121,17 +121,9 @@ const DetailToolbarActions = ({
   return (
     <Fragment>
       <LevelItem>
-        <CatalogLink
-          isDisabled={
-            isFetching || availability === 'unavailable' || !orderable
-          }
-          pathname={orderUrl}
-          preserveSearch
-        >
+        <CatalogLink isDisabled={isFetching} pathname={orderUrl} preserveSearch>
           <ButtonWithSpinner
-            isDisabled={
-              isFetching || availability === 'unavailable' || !orderable
-            }
+            isDisabled={isFetching}
             showSpinner={isFetching}
             variant="primary"
             id="order-portfolio-item"
@@ -142,7 +134,7 @@ const DetailToolbarActions = ({
         </CatalogLink>
       </LevelItem>
       <LevelItem style={{ marginLeft: 16 }}>
-        {availability !== 'unavailable' && dropdownItems.length > 0 && (
+        {dropdownItems.length > 0 && (
           <Dropdown
             isPlain
             onToggle={setOpen}

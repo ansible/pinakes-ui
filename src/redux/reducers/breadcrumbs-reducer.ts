@@ -23,10 +23,13 @@ export const initialBreadcrumbsState: BreadcrumbsReducerState = {
   fragments: []
 };
 
-const initialize: BreadcrumbsReducerActionHandler = (state, { payload }) => ({
-  ...state,
-  fragments: payload
-});
+const initialize: BreadcrumbsReducerActionHandler = (state, { payload }) => {
+  console.log('Debug - breadcrumb reducer - state, payload', state, payload);
+  return {
+    ...state,
+    fragments: payload
+  };
+};
 
 export default {
   [INITIALIZE_BREADCRUMBS]: initialize

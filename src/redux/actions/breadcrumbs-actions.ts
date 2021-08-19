@@ -19,6 +19,7 @@ export const createBreadcrumbsFromLocations = (
   if (pathname.length === 0) {
     return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: [] });
   }
+
   const prefix: string[] = [];
   if (pathname === '/portfolios/portfolio') {
     prefix.push('/portfolios');
@@ -28,7 +29,7 @@ export const createBreadcrumbsFromLocations = (
     prefix[0] = '/portfolios';
     prefix[1] = '/portfolio';
     if (pathname.startsWith('/portfolios/portfolio/portfolio-item/')) {
-      prefix[2] = '/portfolio-item';
+      prefix[2] = '/portfolio/portfolio-item';
     }
   }
 
@@ -41,13 +42,20 @@ export const createBreadcrumbsFromLocations = (
     .replace(/^\//, '')
     .split('/')
     .reduce<BreadcrumbFragment[]>((acc, curr, index) => {
+      console.log('Debug - acc: ', acc);
+      console.log('Debug - index: ', index);
+      console.log('Debug - curr: ', curr);
+      console.log('Debug - prefix: ', prefix);
       const pathname = `${
         index > 0 && acc[index - 1] ? acc[index - 1].pathname : ''
       }${prefix[index]}/${curr}`;
+      console.log('Debug - ${prefix[index]}: ', `${prefix[index]}`);
+      console.log('Debug 00 - pathname: ', pathname);
       const generateTitle = (FRAGMENT_TITLE[
         pathname as keyof typeof FRAGMENT_TITLE
       ] as unknown) as (getState: GetReduxState) => string;
       if (!generateTitle) {
+        console.log('Debug - return acc: ', acc);
         return acc;
       }
 
@@ -82,6 +90,7 @@ export const createBreadcrumbsFromLocations = (
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }
 
+  console.log('Debug - result: ', result);
   // if portfolio item, add the 2 breadcrumbs
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };

@@ -27,6 +27,7 @@ import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 import { PORTFOLIO_ITEM_ROUTE_EDIT } from '../../../constants/routes';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { useSelector } from 'react-redux';
 
 const PortfolioItemIconItem = ({ id, sourceId }) => (
   <CardIcon
@@ -51,7 +52,8 @@ export const PortfolioItemDetailToolbar = ({
   userCapabilities,
   orderable,
   fromProducts,
-  canLinkOrderProcesses
+  canLinkOrderProcesses,
+  breadcrumbsFragment
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
@@ -59,6 +61,7 @@ export const PortfolioItemDetailToolbar = ({
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
       breadcrumbs={!fromProducts}
+      breadcrumbsFragment
     >
       {fromProducts && <BackToProducts />}
       <Level className="flex-no-wrap">
@@ -165,16 +168,19 @@ SurveyEditorDropdown.propTypes = {
 
 export const SurveyEditingToolbar = ({
   handleSaveSurvey,
+  breadcrumbsFragment,
   closeUrl,
   search,
   isFetching,
   isValid,
   modified,
+  breadcrumbs,
   handleResetSurvey
 }) => {
+  console.log('Debug - surveyEditingToolbar fragments: ', breadcrumbsFragment);
   const formatMessage = useFormatMessage();
   return (
-    <TopToolbar breadcrumbs>
+    <TopToolbar breadcrumbs breadcrumbsFragment>
       <Level>
         <StyledLevelItem grow alignStart className="pf-l-flex">
           <TextContent>

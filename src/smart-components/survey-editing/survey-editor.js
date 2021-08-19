@@ -25,7 +25,7 @@ import {
   TextInput
 } from '@patternfly/react-core';
 import { SurveyEditingToolbar } from '../portfolio/portfolio-item-detail/portfolio-item-detail-toolbar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import {
   catalogValidatorAlias,
@@ -295,6 +295,10 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const [updateHack, setUpdateHack] = useState(0);
   const dispatch = useDispatch();
   const { push } = useHistory();
+  const fragments = useSelector(
+    ({ breadcrumbsReducer: { fragments } }) => fragments
+  );
+
   const getServicePlan = () =>
     getAxiosInstance()
       .get(
@@ -422,6 +426,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
                   search={search}
                   isFetching={isFetching || !schema}
                   modified={servicePlan?.modified}
+                  breadcrumbsFragment={fragments}
                   handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
                 />
                 <BuilderTemplate {...props} />;
