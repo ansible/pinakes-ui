@@ -42,20 +42,13 @@ export const createBreadcrumbsFromLocations = (
     .replace(/^\//, '')
     .split('/')
     .reduce<BreadcrumbFragment[]>((acc, curr, index) => {
-      console.log('Debug - acc: ', acc);
-      console.log('Debug - index: ', index);
-      console.log('Debug - curr: ', curr);
-      console.log('Debug - prefix: ', prefix);
       const pathname = `${
         index > 0 && acc[index - 1] ? acc[index - 1].pathname : ''
       }${prefix[index]}/${curr}`;
-      console.log('Debug - ${prefix[index]}: ', `${prefix[index]}`);
-      console.log('Debug 00 - pathname: ', pathname);
       const generateTitle = (FRAGMENT_TITLE[
         pathname as keyof typeof FRAGMENT_TITLE
       ] as unknown) as (getState: GetReduxState) => string;
       if (!generateTitle) {
-        console.log('Debug - return acc: ', acc);
         return acc;
       }
 
@@ -89,8 +82,6 @@ export const createBreadcrumbsFromLocations = (
   if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }
-
-  console.log('Debug - result: ', result);
   // if portfolio item, add the 2 breadcrumbs
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };

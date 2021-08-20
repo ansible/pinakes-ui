@@ -11,10 +11,6 @@ export interface CatalogBreadcrumbsProps {
 const CatalogBreadcrumbs: React.ComponentType<CatalogBreadcrumbsProps> = ({
   breadcrumbfragments = []
 }) => {
-  console.log(
-    'Debug - CatalogBreadcrumbs - breadcrumbfragments: ',
-    breadcrumbfragments
-  );
   const fragments = breadcrumbfragments?.length
     ? breadcrumbfragments
     : useSelector<CatalogRootState, BreadcrumbFragment[]>(

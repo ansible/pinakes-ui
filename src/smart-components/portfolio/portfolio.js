@@ -171,7 +171,6 @@ const Portfolio = () => {
     scrollToTop();
 
     return () => {
-      console.log('Debug - portfolio.js resetBreadcrumbs');
       resetBreadcrumbs();
       dispatch(resetSelectedPortfolio());
     };

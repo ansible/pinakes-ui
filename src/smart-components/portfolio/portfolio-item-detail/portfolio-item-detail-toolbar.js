@@ -177,7 +177,6 @@ export const SurveyEditingToolbar = ({
   breadcrumbs,
   handleResetSurvey
 }) => {
-  console.log('Debug - surveyEditingToolbar fragments: ', breadcrumbfragments);
   const formatMessage = useFormatMessage();
   return (
     <TopToolbar

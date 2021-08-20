@@ -24,7 +24,6 @@ export const initialBreadcrumbsState: BreadcrumbsReducerState = {
 };
 
 const initialize: BreadcrumbsReducerActionHandler = (state, { payload }) => {
-  console.log('Debug - breadcrumb reducer - state, payload', state, payload);
   return {
     ...state,
     fragments: payload
