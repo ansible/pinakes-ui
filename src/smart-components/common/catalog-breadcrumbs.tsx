@@ -11,11 +11,12 @@ export interface CatalogBreadcrumbsProps {
 const CatalogBreadcrumbs: React.ComponentType<CatalogBreadcrumbsProps> = ({
   breadcrumbfragments = []
 }) => {
-  const fragments = breadcrumbfragments?.length
-    ? breadcrumbfragments
-    : useSelector<CatalogRootState, BreadcrumbFragment[]>(
-        ({ breadcrumbsReducer: { fragments } }) => fragments
-      );
+  let fragments = breadcrumbfragments;
+  if (breadcrumbfragments?.length < 1) {
+    fragments = useSelector<CatalogRootState, BreadcrumbFragment[]>(
+      ({ breadcrumbsReducer: { fragments } }) => fragments
+    );
+  }
 
   if (fragments.length <= 1) {
     return null;

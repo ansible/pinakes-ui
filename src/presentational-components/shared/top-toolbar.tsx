@@ -24,7 +24,7 @@ const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   children,
   paddingBottom = true,
   breadcrumbs = true,
-  breadcrumbfragments,
+  breadcrumbfragments = [],
   ...rest
 }) => (
   <TopToolbarWrapper

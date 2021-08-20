@@ -61,7 +61,7 @@ export const PortfolioItemDetailToolbar = ({
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
       breadcrumbs={!fromProducts}
-      breadcrumbfragments
+      breadcrumbfragments={breadcrumbfragments}
     >
       {fromProducts && <BackToProducts />}
       <Level className="flex-no-wrap">
