@@ -5,10 +5,17 @@ import ConditionalLink from '../../presentational-components/shared/conditional-
 import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
 import { CatalogRootState } from '../../types/redux';
 
-const CatalogBreadcrumbs = ({ breadcrumbsFragment = undefined }) => {
-  const fragments = useSelector<CatalogRootState, BreadcrumbFragment[]>(
-    ({ breadcrumbsReducer: { fragments } }) => fragments
+const CatalogBreadcrumbs = ({ breadcrumbfragments = [] }) => {
+  console.log(
+    'Debug - CatalogBreadcrumbs - breadcrumbfragments: ',
+    breadcrumbfragments
   );
+  const fragments = breadcrumbfragments?.length
+    ? breadcrumbfragments
+    : useSelector<CatalogRootState, BreadcrumbFragment[]>(
+        ({ breadcrumbsReducer: { fragments } }) => fragments
+      );
+
   if (fragments.length <= 1) {
     return null;
   }

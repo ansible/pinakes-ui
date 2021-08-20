@@ -426,7 +426,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
                   search={search}
                   isFetching={isFetching || !schema}
                   modified={servicePlan?.modified}
-                  breadcrumbsFragment={fragments}
+                  breadcrumbfragments={fragments}
                   handleResetSurvey={() => handleResetSurvey(servicePlan.id)}
                 />
                 <BuilderTemplate {...props} />;

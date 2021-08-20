@@ -53,7 +53,7 @@ export const PortfolioItemDetailToolbar = ({
   orderable,
   fromProducts,
   canLinkOrderProcesses,
-  breadcrumbsFragment
+  breadcrumbfragments
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
@@ -61,7 +61,7 @@ export const PortfolioItemDetailToolbar = ({
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
       breadcrumbs={!fromProducts}
-      breadcrumbsFragment
+      breadcrumbfragments
     >
       {fromProducts && <BackToProducts />}
       <Level className="flex-no-wrap">
@@ -168,7 +168,7 @@ SurveyEditorDropdown.propTypes = {
 
 export const SurveyEditingToolbar = ({
   handleSaveSurvey,
-  breadcrumbsFragment,
+  breadcrumbfragments,
   closeUrl,
   search,
   isFetching,
@@ -177,10 +177,13 @@ export const SurveyEditingToolbar = ({
   breadcrumbs,
   handleResetSurvey
 }) => {
-  console.log('Debug - surveyEditingToolbar fragments: ', breadcrumbsFragment);
+  console.log('Debug - surveyEditingToolbar fragments: ', breadcrumbfragments);
   const formatMessage = useFormatMessage();
   return (
-    <TopToolbar breadcrumbs breadcrumbsFragment>
+    <TopToolbar
+      breadcrumbs={breadcrumbs}
+      breadcrumbfragments={breadcrumbfragments}
+    >
       <Level>
         <StyledLevelItem grow alignStart className="pf-l-flex">
           <TextContent>

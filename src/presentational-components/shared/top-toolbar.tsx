@@ -18,33 +18,33 @@ import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
 export interface TopToolbarProps {
   paddingBottom?: boolean;
   breadcrumbs?: boolean;
-  breadcrumbsFragment?: BreadcrumbFragment[];
+  breadcrumbfragments?: BreadcrumbFragment[];
 }
 const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   children,
   paddingBottom = true,
   breadcrumbs = true,
-  breadcrumbsFragment = undefined,
+  breadcrumbfragments = null,
   ...rest
 }) => {
-  console.log('Debug - TopToolbarWrapper breadcrumbsFragment', breadcrumbsFragment);
+  console.log('Debug - TopToolbar breadcrumbfragments', breadcrumbfragments);
   return (
-      <TopToolbarWrapper
-          className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
-              paddingBottom ? 'pf-u-pb-lg' : ''
-          }`}
-          {...rest}
-      >
-        {breadcrumbs && (
-            <div className="pf-u-mb-md">
-              {' '}
-              <CatalogBreadcrumbs breadcrumbsFragment/>
-            </div>
-        )}
-        {children}
-      </TopToolbarWrapper>
+    <TopToolbarWrapper
+      className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
+        paddingBottom ? 'pf-u-pb-lg' : ''
+      }`}
+      {...rest}
+    >
+      {breadcrumbs && (
+        <div className="pf-u-mb-md">
+          {' '}
+          <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
+        </div>
+      )}
+      {children}
+    </TopToolbarWrapper>
   );
-}
+};
 
 export default TopToolbar;
 
@@ -57,7 +57,7 @@ export const TopToolbarTitle: React.ComponentType<TopToolbarTitleProps> = ({
   title = <ToolbarTitlePlaceholder />,
   description,
   children,
-  noData
+  noData,
   ...rest
 }) => {
   return (
