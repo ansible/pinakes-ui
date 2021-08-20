@@ -23,7 +23,7 @@ describe('<PlatformTemplates />', () => {
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>
-        <Route path="/platform/platform-templates">{children}</Route>
+        <Route path="/platforms/platform/platform-templates">{children}</Route>
       </MemoryRouter>
     </Provider>
   );
@@ -57,7 +57,7 @@ describe('<PlatformTemplates />', () => {
     const wrapper = shallow(
       <ComponentWrapper
         store={store}
-        initialEntries={['/platform/platform-templates?platform=1']}
+        initialEntries={['/platforms/platform/platform-templates?platform=1']}
       >
         <PlatformTemplates store={mockStore(initialState)} {...initialProps} />
         );
@@ -97,7 +97,7 @@ describe('<PlatformTemplates />', () => {
       mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/platform/platform-templates?platform=1']}
+          initialEntries={['/platforms/platform/platform-templates?platform=1']}
         >
           <PlatformTemplates
             {...initialProps}

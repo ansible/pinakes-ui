@@ -34,8 +34,7 @@ const routes = {
     host: `https://${localhost}:${FRONTEND_PORT}`
   },
   [`/apps/${APP_ID}`]: { host: `https://${localhost}:${FRONTEND_PORT}` },
-  [`/beta/apps/${APP_ID}`]: { host: `https://${localhost}:${FRONTEND_PORT}` },
-  [`/beta/config`]: { host: `http://localhost:8889` }
+  [`/beta/apps/${APP_ID}`]: { host: `https://${localhost}:${FRONTEND_PORT}` }
 };
 
 exports.routes = routes;

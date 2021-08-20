@@ -41,14 +41,14 @@ describe('<ServiceOfferingDetail />', () => {
             searchParams: {}
           },
           {
-            pathname: '/platform',
+            pathname: '/platforms/platform',
             title: 'Source name',
             searchParams: {
               source: '352'
             }
           },
           {
-            pathname: '/platform/service-offering',
+            pathname: '/platforms/platform/service-offering',
             title: 'Name',
             searchParams: {
               source: '352',
@@ -99,10 +99,10 @@ describe('<ServiceOfferingDetail />', () => {
         <ComponentWrapper
           store={store}
           initialEntries={[
-            '/platform/service-offerings?service=2266193&source=352'
+            '/platforms/platform/service-offerings?service=2266193&source=352'
           ]}
         >
-          <Route path="/platform/service-offerings">
+          <Route path="/platforms/platform/service-offerings">
             <ServiceOfferingDetail />
           </Route>
         </ComponentWrapper>

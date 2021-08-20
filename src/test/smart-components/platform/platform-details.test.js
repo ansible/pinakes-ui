@@ -21,7 +21,9 @@ describe('<PlatformDetails />', () => {
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
     <Provider store={store}>
       <MemoryRouter initialEntries={initialEntries}>
-        <Route path="/platform/platform-inventories">{children}</Route>
+        <Route path="/platforms/platform/platform-inventories">
+          {children}
+        </Route>
         <DialogRoutes />
       </MemoryRouter>
     </Provider>
@@ -84,7 +86,9 @@ describe('<PlatformDetails />', () => {
     const wrapper = shallow(
       <ComponentWrapper
         store={store}
-        initialEntries={['/platform/platform-inventories?platform=123']}
+        initialEntries={[
+          '/platforms/platform/platform-inventories?platform=123'
+        ]}
       >
         <PlatformDetails store={mockStore(initialState)} {...initialProps} />
         );
