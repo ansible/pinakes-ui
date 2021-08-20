@@ -29,7 +29,7 @@ export const createBreadcrumbsFromLocations = (
     prefix[0] = '/portfolios';
     prefix[1] = '/portfolio';
     if (pathname.startsWith('/portfolios/portfolio/portfolio-item/')) {
-      prefix[2] = '/portfolio/portfolio-item';
+      prefix[2] = '/portfolio-item';
     }
   }
 

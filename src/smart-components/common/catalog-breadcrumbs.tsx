@@ -5,7 +5,12 @@ import ConditionalLink from '../../presentational-components/shared/conditional-
 import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
 import { CatalogRootState } from '../../types/redux';
 
-const CatalogBreadcrumbs = ({ breadcrumbfragments = [] }) => {
+export interface CatalogBreadcrumbsProps {
+  breadcrumbfragments?: BreadcrumbFragment[];
+}
+const CatalogBreadcrumbs: React.ComponentType<CatalogBreadcrumbsProps> = ({
+  breadcrumbfragments = []
+}) => {
   console.log(
     'Debug - CatalogBreadcrumbs - breadcrumbfragments: ',
     breadcrumbfragments
