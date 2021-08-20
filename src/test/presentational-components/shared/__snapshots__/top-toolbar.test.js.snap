@@ -8,7 +8,9 @@ exports[`<TopToolbar /> should render correctly 1`] = `
     className="pf-u-mb-md"
   >
      
-    <CatalogBreadcrumbs />
+    <CatalogBreadcrumbs
+      breadcrumbfragments={Array []}
+    />
   </div>
   <div>
     Children
