@@ -56,25 +56,21 @@ export const TopToolbarTitle: React.ComponentType<TopToolbarTitleProps> = ({
   children,
   noData,
   ...rest
-}) => {
-  return (
-    <Fragment>
-      <TopToolbarTitleContainer
-        className={clsx({ 'pf-u-mb-lg': !noData, 'flex-no-wrap': true })}
-        {...rest}
-      >
-        <LevelItem>
-          <TextContent>
-            <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
-              {title}
-            </Text>
-            {description && (
-              <Text component={TextVariants.p}>{description}</Text>
-            )}
-          </TextContent>
-        </LevelItem>
-        <LevelItem className="flex-item-no-wrap">{children}</LevelItem>
-      </TopToolbarTitleContainer>
-    </Fragment>
-  );
-};
+}) => (
+  <Fragment>
+    <TopToolbarTitleContainer
+      className={clsx({ 'pf-u-mb-lg': !noData, 'flex-no-wrap': true })}
+      {...rest}
+    >
+      <LevelItem>
+        <TextContent>
+          <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
+            {title}
+          </Text>
+          {description && <Text component={TextVariants.p}>{description}</Text>}
+        </TextContent>
+      </LevelItem>
+      <LevelItem className="flex-item-no-wrap">{children}</LevelItem>
+    </TopToolbarTitleContainer>
+  </Fragment>
+);
