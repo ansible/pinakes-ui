@@ -13,15 +13,18 @@ import {
   TopToolbarWrapper,
   TopToolbarTitleContainer
 } from '../styled-components/toolbars';
+import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
 
 export interface TopToolbarProps {
   paddingBottom?: boolean;
   breadcrumbs?: boolean;
+  breadcrumbfragments?: BreadcrumbFragment[];
 }
 const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   children,
   paddingBottom = true,
   breadcrumbs = true,
+  breadcrumbfragments = [],
   ...rest
 }) => (
   <TopToolbarWrapper
@@ -33,7 +36,7 @@ const TopToolbar: React.ComponentType<TopToolbarProps> = ({
     {breadcrumbs && (
       <div className="pf-u-mb-md">
         {' '}
-        <CatalogBreadcrumbs />
+        <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
       </div>
     )}
     {children}

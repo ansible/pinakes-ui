@@ -19,6 +19,7 @@ export const createBreadcrumbsFromLocations = (
   if (pathname.length === 0) {
     return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: [] });
   }
+
   const prefix: string[] = [];
   if (pathname === '/portfolios/portfolio') {
     prefix.push('/portfolios');
@@ -81,7 +82,6 @@ export const createBreadcrumbsFromLocations = (
   if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }
-
   // if portfolio item, add the 2 breadcrumbs
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };
