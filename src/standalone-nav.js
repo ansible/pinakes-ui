@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import '@patternfly/patternfly/patternfly.css';
+import './Navigation.scss';
 
 import {
   Avatar,
@@ -275,25 +276,66 @@ class App extends React.Component {
     );
 
     const PageNav = (
-      <Nav onSelect={this.onNavSelect} aria-label="Nav">
+      <Nav
+        className="ins-c-landing-nav"
+        ouiaId="SideNavigation"
+        onSelect={this.onNavSelect}
+        aria-label="Nav"
+      >
         <NavExpandable title={'Automation services catalog'}>
           <NavList>
-            <NavItem itemId={0} isActive={activeItem === 0}>
+            <NavItem
+              className="ins-m-navigation-align"
+              key={'Products'}
+              ouiaId={'Products'}
+              itemId={0}
+              isActive={activeItem === 0}
+            >
               Products
             </NavItem>
-            <NavItem itemId={1} isActive={activeItem === 1}>
+            <NavItem
+              className="ins-m-navigation-align"
+              key={1}
+              ouiaId={1}
+              itemId={1}
+              isActive={activeItem === 1}
+            >
               Portfolios
             </NavItem>
-            <NavItem itemId={2} isActive={activeItem === 2}>
+            <NavItem
+              className="ins-m-navigation-align"
+              key={2}
+              ouiaId={2}
+              itemId={2}
+              isActive={activeItem === 2}
+            >
               Platforms
             </NavItem>
-            <NavItem itemId={3} isActive={activeItem === 3}>
+            <NavItem
+              className="ins-m-navigation-align"
+              key={3}
+              ouiaId={3}
+              itemId={3}
+              isActive={activeItem === 3}
+            >
               Order processes
             </NavItem>
-            <NavItem itemId={4} isActive={activeItem === 4}>
+            <NavItem
+              className="ins-m-navigation-align"
+              key={4}
+              ouiaId={4}
+              itemId={4}
+              isActive={activeItem === 4}
+            >
               Orders
             </NavItem>
-            <NavItem itemId={5} isActive={activeItem === 4}>
+            <NavItem
+              className="ins-m-navigation-align"
+              key={5}
+              ouiaId={5}
+              itemId={5}
+              isActive={activeItem === 5}
+            >
               Approval
             </NavItem>
           </NavList>
