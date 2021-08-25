@@ -343,7 +343,9 @@ class App extends React.Component {
       </Nav>
     );
 
-    const Sidebar = <PageSidebar isFilled nav={PageNav} />;
+    const Sidebar = (
+      <PageSidebar className="ins-c-landing-nav" isFilled nav={PageNav} />
+    );
     const pageId = 'main-content-card-view-default-nav';
     const PageSkipToContent = (
       <SkipToContent href={`#${pageId}`}>Skip to Content</SkipToContent>
@@ -362,30 +364,31 @@ class App extends React.Component {
     };
     return (
       <React.Fragment>
-        <Page
-          isFilled
-          header={Header}
-          sidebar={Sidebar}
-          isManagedSidebar
-          skipToContent={PageSkipToContent}
-          mainContainerId={pageId}
-        >
-          <PageSection isFilled variant="light">
-            <TextContent>
-              <Text component="h1">Catalog</Text>
-            </TextContent>
-            <Toolbar id="toolbar-group-types" clearAllFilters={this.onDelete}>
-              <ToolbarContent />
-            </Toolbar>
-          </PageSection>
-          <PageSection isFilled />
-          <PageSection
-            isFilled={false}
-            sticky="bottom"
-            padding={{ default: 'noPadding' }}
-            variant="light"
-          />
-        </Page>
+        <div id="app-render-root" className="ins-c-landing-nav">
+          <Page
+            isFilled
+            className="ins-c-landing-nav"
+            header={Header}
+            sidebar={Sidebar}
+            isManagedSidebar
+            skipToContent={PageSkipToContent}
+            mainContainerId={pageId}
+          >
+            <div className="ins-c-render ins-c-landing-nav">
+              <main className="pf-c-page__main ins-c-landing-nav" id="catalog">
+                <TextContent>
+                  <Text component="h1">Catalog</Text>
+                </TextContent>
+                <Toolbar
+                  id="toolbar-group-types"
+                  clearAllFilters={this.onDelete}
+                >
+                  <ToolbarContent />
+                </Toolbar>
+              </main>
+            </div>
+          </Page>
+        </div>
       </React.Fragment>
     );
   }

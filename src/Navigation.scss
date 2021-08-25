@@ -1,3 +1,20 @@
+.pf-c-page {
+  --pf-c-page__sidebar--Transition: all 500ms cubic-bezier(.42, 0, .58, 1);
+  --pf-m-emphasis--FontSize: var(--pf-global--FontSize--xl);
+
+  .ins-m-full--height { height: 100%; }
+}
+
+// Page root background color
+.pf-c-page__main {
+  &#root, &#no-access {
+    background: var(--pf-c-page__main-section--BackgroundColor);
+  }
+}
+
+#app-render-root {
+  height: 100%;
+}
 
 .ins-c-app-title {
   color: white;
@@ -101,4 +118,15 @@
 
 .ins-c-navigation__isHidden {
   display: none;
+}
+.ins-c-landing-nav {
+  height: 100%;
+}
+
+/**
+* There is a transiion of bacground color on first landing page nav render
+* We have to turn it off for now because we are adding the PF nav class names later on
+*/
+#ins-c-landing-nav {
+  transition: none;
 }
