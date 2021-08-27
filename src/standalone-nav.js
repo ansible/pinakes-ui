@@ -1,397 +1,308 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import '@patternfly/patternfly/patternfly.css';
-import './Navigation.scss';
-
+// import PropTypes from 'prop-types';
+import * as React from 'react';
+import '../app.scss';
 import {
-  Avatar,
-  Brand,
-  Button,
-  Dropdown,
-  DropdownGroup,
-  DropdownToggle,
+  withRouter,
+  Link,
+  RouteComponentProps,
+  matchPath,
+} from 'react-router-dom';
+
+import '@patternfly/patternfly/patternfly.scss';
+import {
   DropdownItem,
-  KebabToggle,
+  DropdownSeparator,
   Nav,
+  NavExpandable,
+  NavGroup,
   NavItem,
   NavList,
   Page,
   PageHeader,
   PageHeaderTools,
-  PageHeaderToolsGroup,
-  PageHeaderToolsItem,
-  PageSection,
   PageSidebar,
-  SkipToContent,
-  TextContent,
-  Text,
-  Toolbar,
-  ToolbarContent,
-  NavExpandable
 } from '@patternfly/react-core';
-import CogIcon from '@patternfly/react-icons/dist/js/icons/cog-icon';
-import HelpIcon from '@patternfly/react-icons/dist/js/icons/help-icon';
-import imgBrand from '@patternfly/react-core/src/components/Brand/examples/pfLogo.svg';
-import imgAvatar from '@patternfly/react-core/src/components/Avatar/examples/avatarImg.svg';
-import pfIcon from './assets/images/logo_small.svg';
+import {
+  ExternalLinkAltIcon,
+  QuestionCircleIcon,
+} from '@patternfly/react-icons';
+import { reject, some } from 'lodash';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filters: {
-        products: []
-      },
-      res: [],
-      selectedItems: [],
-      areAllSelected: false,
-      itemsCheckedByDefault: false,
-      isUpperToolbarDropdownOpen: false,
-      isUpperToolbarKebabDropdownOpen: false,
-      isLowerToolbarDropdownOpen: false,
-      isLowerToolbarKebabDropdownOpen: false,
-      isCardKebabDropdownOpen: false,
-      activeItem: 0,
-      splitButtonDropdownIsOpen: false,
-      page: 1,
-      perPage: 10,
-      totalItemCount: 10
-    };
+import { Routes } from './presentational-components/navigation/routes';
+import { Paths, formatPath } from 'src/paths';
+import { SmallLogo, StatefulDropdown } from 'src/components';
+import { AboutModalWindow } from './presentational-components/navigation';
+import { AppContext } from './presentational-components/navigation/app-context';
+import Logo from 'src/../static/images/logo_large.svg';
 
-    this.onPageDropdownToggle = (isUpperToolbarDropdownOpen) => {
-      this.setState({
-        isUpperToolbarDropdownOpen
-      });
-    };
+const App = (props) => {
+  const [user, setUser] = useState(null);
+  const [aboutModalVisible, setAboutModalVisible] = useState(false);
+  const [toggleOpen, setToggleOpen] = useState(false);
+  const [menuExpandedSections, setMenuExpandedSections] = useState([]);
 
-    this.onPageDropdownSelect = (event) => {
-      this.setState({
-        isUpperToolbarDropdownOpen: !this.state.isUpperToolbarDropdownOpen
-      });
-    };
+  useEffect(() => {
+    const menu = menu();
+    activateMenu(menu);
+    setMenuExpandedSections(menu.filter((i) => i.type === 'section' && i.active).map((i) => i.name))
+  });
 
-    this.onPageToolbarDropdownToggle = (isPageToolbarDropdownOpen) => {
-      this.setState({
-        isPageToolbarDropdownOpen
-      });
-    };
+  const render = () => {
+    let aboutModal = null;
+    let docsDropdownItems = [];
+    let userDropdownItems = [];
+    let userName = null;
 
-    this.onPageToolbarKebabDropdownToggle = (
-      isUpperToolbarKebabDropdownOpen
-    ) => {
-      this.setState({
-        isUpperToolbarKebabDropdownOpen
-      });
-    };
-
-    this.onToolbarDropdownToggle = (isLowerToolbarDropdownOpen) => {
-      this.setState((prevState) => ({
-        isLowerToolbarDropdownOpen
-      }));
-    };
-
-    this.onNavSelect = (result) => {
-      this.setState({
-        activeItem: result.itemId
-      });
-    };
-
-    this.deleteItem = (item) => (event) => {
-      const filter = (getter) => (val) => getter(val) !== item.id;
-      this.setState({
-        res: this.state.res.filter(filter(({ id }) => id)),
-        selectedItems: this.state.selectedItems.filter(filter((id) => id))
-      });
-    };
-
-    this.onSetPage = (_event, pageNumber) => {
-      this.setState({
-        page: pageNumber
-      });
-    };
-
-    this.onPerPageSelect = (_event, perPage) => {
-      this.setState({
-        perPage
-      });
-    };
-
-    this.onSplitButtonToggle = (isOpen) => {
-      this.setState({
-        splitButtonDropdownIsOpen: isOpen
-      });
-    };
-
-    this.onSplitButtonSelect = (event) => {
-      this.setState((prevState, props) => {
-        return {
-          splitButtonDropdownIsOpen: !prevState.splitButtonDropdownIsOpen
-        };
-      });
-    };
-
-    this.onNameSelect = (event, selection) => {
-      const checked = event.target.checked;
-      this.setState((prevState) => {
-        const prevSelections = prevState.filters.products;
-        return {
-          filters: {
-            ...prevState.filters,
-            ['products']: checked
-              ? [...prevSelections, selection]
-              : prevSelections.filter((value) => value !== selection)
-          }
-        };
-      });
-    };
-
-    this.onDelete = (type = '', id = '') => {
-      if (type) {
-        this.setState((prevState) => {
-          prevState.filters[type.toLowerCase()] = prevState.filters[
-            type.toLowerCase()
-          ].filter((s) => s !== id);
-          return {
-            filters: prevState.filters
-          };
-        });
+    if (user) {
+      if (user.first_name || user.last_name) {
+        userName = user.first_name + ' ' + user.last_name;
       } else {
-        this.setState({
-          filters: {
-            products: []
+        userName = user.username;
+      }
+
+      userDropdownItems = [
+        <DropdownItem isDisabled key='username'>
+          Username: {user.username}
+        </DropdownItem>,
+        <DropdownItem
+          key='logout'
+          aria-label={'logout'}
+          onClick={() => setUser(null)}
+        >
+          {_`Logout`}
+        </DropdownItem>,
+      ];
+
+      docsDropdownItems = [
+        <DropdownItem
+          key='customer_support'
+          href='https://access.redhat.com/support'
+          target='_blank'
+        >
+          Customer Support <ExternalLinkAltIcon />
+        </DropdownItem>,
+        <DropdownItem
+          key='training'
+          href='https://www.ansible.com/resources/webinars-training'
+          target='_blank'
+        >
+          Training <ExternalLinkAltIcon />
+        </DropdownItem>,
+        <DropdownItem
+          key='about'
+          onClick={() =>
+            this.setState({ aboutModalVisible: true, toggleOpen: false })
           }
-        });
-      }
-    };
-  }
-  selectedItems(e) {
-    const { value, checked } = e.target;
-    let { selectedItems } = this.state;
-    if (checked) {
-      selectedItems = [...selectedItems, value];
-    } else {
-      selectedItems = selectedItems.filter((el) => el !== value);
-      if (this.state.areAllSelected) {
-        this.setState({
-          areAllSelected: !this.state.areAllSelected
-        });
-      }
+        >
+          {_`About`}
+        </DropdownItem>,
+      ];
+
+      aboutModal = (
+        <AboutModalWindow
+          isOpen=aboutModalVisible
+          trademark=''
+          brandImageSrc={Logo}
+          onClose={() => setAboutModalVisible(false)}
+          brandImageAlt={_`Ansible Logo`}
+          productName={APPLICATION_NAME}
+          user={user}
+          userName={userName}
+        />
+      );
     }
 
-    this.setState({ selectedItems });
-  }
-
-  render() {
-    const {
-      isUpperToolbarDropdownOpen,
-      isUpperToolbarKebabDropdownOpen,
-      isLowerToolbarKebabDropdownOpen,
-      activeItem,
-      filters,
-      res
-    } = this.state;
-
-    const kebabDropdownItems = [
-      <DropdownItem key="kebab-settings">
-        <CogIcon /> Settings
-      </DropdownItem>,
-      <DropdownItem key="kebab-help">
-        <HelpIcon /> Help
-      </DropdownItem>
-    ];
-    const userDropdownItems = [
-      <DropdownGroup key="group 2">
-        <DropdownItem key="group 2 profile">My profile</DropdownItem>
-        <DropdownItem key="group 2 user" component="button">
-          User management
-        </DropdownItem>
-        <DropdownItem key="group 2 logout">Logout</DropdownItem>
-      </DropdownGroup>
-    ];
-    const headerTools = (
-      <PageHeaderTools>
-        <PageHeaderToolsGroup
-          visibility={{
-            default: 'hidden',
-            lg: 'visible'
-          }} /** the settings and help icon buttons are only visible on desktop sizes and replaced by a kebab dropdown for other sizes */
-        >
-          <PageHeaderToolsItem>
-            <Button aria-label="Settings actions">
-              <CogIcon />
-            </Button>
-          </PageHeaderToolsItem>
-          <PageHeaderToolsItem>
-            <Button aria-label="Help actions" variant="plain">
-              <HelpIcon />
-            </Button>
-          </PageHeaderToolsItem>
-        </PageHeaderToolsGroup>
-        <PageHeaderToolsGroup>
-          <PageHeaderToolsItem
-            visibility={{
-              lg: 'hidden'
-            }} /** this kebab dropdown replaces the icon buttons and is hidden for desktop sizes */
-          >
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={this.onKebabDropdownSelect}
-              toggle={
-                <KebabToggle onToggle={this.onPageToolbarKebabDropdownToggle} />
-              }
-              isOpen={isUpperToolbarKebabDropdownOpen}
-              dropdownItems={kebabDropdownItems}
-            />
-          </PageHeaderToolsItem>
-          <PageHeaderToolsItem
-            visibility={{
-              default: 'hidden',
-              md: 'visible'
-            }} /** this user dropdown is hidden on mobile sizes */
-          >
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={this.onPageDropdownSelect}
-              isOpen={isUpperToolbarDropdownOpen}
-              toggle={
-                <DropdownToggle onToggle={this.onPageDropdownToggle}>
-                  User
-                </DropdownToggle>
-              }
-              dropdownItems={userDropdownItems}
-            />
-          </PageHeaderToolsItem>
-        </PageHeaderToolsGroup>
-        <Avatar src={imgAvatar} alt="Avatar image" />
-      </PageHeaderTools>
-    );
     const Header = (
       <PageHeader
-        logo={<Brand src={imgBrand} alt="Patternfly Logo" />}
-        headerTools={headerTools}
+        logo={<SmallLogo alt={APPLICATION_NAME}/>}
+        headerTools={
+          <PageHeaderTools>
+            {!user ? (
+              <Link
+                to={formatPath(
+                  Paths.login,
+                  {},
+                  { next: location.pathname },
+                )}
+              >
+                {_`Login`}
+              </Link>
+            ) : (
+              <div>
+                <StatefulDropdown
+                  ariaLabel={'docs-dropdown'}
+                  defaultText={<QuestionCircleIcon />}
+                  items={docsDropdownItems}
+                  toggleType='icon'
+                />
+                <StatefulDropdown
+                  ariaLabel={'user-dropdown'}
+                  defaultText={userName}
+                  items={userDropdownItems}
+                  toggleType='dropdown'
+                />
+              </div>
+            )}
+          </PageHeaderTools>
+        }
         showNavToggle
       />
     );
 
-    const PageNav = (
-      <Nav
-        className="ins-c-landing-nav"
-        ouiaId="SideNavigation"
-        onSelect={this.onNavSelect}
-        aria-label="Nav"
-      >
-        <NavExpandable title={'Automation services catalog'}>
-          <NavList>
-            <NavItem
-              className="ins-m-navigation-align"
-              key={'Products'}
-              ouiaId={'Products'}
-              itemId={0}
-              isActive={activeItem === 0}
-            >
-              Products
-            </NavItem>
-            <NavItem
-              className="ins-m-navigation-align"
-              key={1}
-              ouiaId={1}
-              itemId={1}
-              isActive={activeItem === 1}
-            >
-              Portfolios
-            </NavItem>
-            <NavItem
-              className="ins-m-navigation-align"
-              key={2}
-              ouiaId={2}
-              itemId={2}
-              isActive={activeItem === 2}
-            >
-              Platforms
-            </NavItem>
-            <NavItem
-              className="ins-m-navigation-align"
-              key={3}
-              ouiaId={3}
-              itemId={3}
-              isActive={activeItem === 3}
-            >
-              Order processes
-            </NavItem>
-            <NavItem
-              className="ins-m-navigation-align"
-              key={4}
-              ouiaId={4}
-              itemId={4}
-              isActive={activeItem === 4}
-            >
-              Orders
-            </NavItem>
-            <NavItem
-              className="ins-m-navigation-align"
-              key={5}
-              ouiaId={5}
-              itemId={5}
-              isActive={activeItem === 5}
-            >
-              Approval
-            </NavItem>
-          </NavList>
-        </NavExpandable>
-      </Nav>
-    );
+    const menu = menu();
+    activateMenu(menu);
 
-    const Sidebar = (
-      <PageSidebar className="ins-c-landing-nav" isFilled nav={PageNav} />
+    const ItemOrSection = ({ item }) =>
+      item.type === 'section' ? (
+        <MenuSection section={item} />
+      ) : (
+        <MenuItem item={item} />
+      );
+    const MenuItem = ({ item }) =>
+      item.condition({ user }) ? (
+        <NavItem
+          isActive={item.active}
+          onClick={(e) => {
+            item.onclick && item.onclick();
+            e.stopPropagation();
+          }}
+        >
+          {item.url && item.external ? (
+            <a href={item.url} data-cy={item['data-cy']} target='_blank'>
+              {item.name}
+              <ExternalLinkAltIcon
+                style={{ position: 'absolute', right: '32px' }}
+              />
+            </a>
+          ) : item.url ? (
+            <Link to={item.url}>{item.name}</Link>
+          ) : (
+            item.name
+          )}
+        </NavItem>
+      ) : null;
+    const Menu = ({ items }) => (
+      <>
+        {items.map((item) => (
+          <ItemOrSection key={item.name} item={item} />
+        ))}
+      </>
     );
-    const pageId = 'main-content-card-view-default-nav';
-    const PageSkipToContent = (
-      <SkipToContent href={`#${pageId}`}>Skip to Content</SkipToContent>
-    );
-    const filtered =
-      filters.products.length > 0
-        ? res.filter((card) => {
-            return (
-              filters.products.length === 0 ||
-              filters.products.includes(card.name)
-            );
-          })
-        : res;
-    const icons = {
-      pfIcon
+    const MenuSection = ({ section }) =>
+      section.condition({ user }) ? (
+        <NavExpandable
+          title={section.name}
+          groupId={section.name}
+          isActive={section.active}
+          isExpanded={menuExpandedSections.includes(section.name)}
+        >
+          <Menu items={section.items} />
+        </NavExpandable>
+      ) : null;
+
+    const onToggle = ({ groupId, isExpanded }) => {
+      return  setMenuExpandedSections( isExpanded
+          ? [...menuExpandedSections, groupId]
+          : reject(menuExpandedSections, (name) => name === groupId))
     };
-    return (
-      <React.Fragment>
-        <div id="app-render-root" className="ins-c-landing-nav">
-          <Page
-            isFilled
-            className="ins-c-landing-nav"
-            header={Header}
-            sidebar={Sidebar}
-            isManagedSidebar
-            skipToContent={PageSkipToContent}
-            mainContainerId={pageId}
-          >
-            <div className="ins-c-render ins-c-landing-nav">
-              <main className="pf-c-page__main ins-c-landing-nav" id="catalog">
-                <TextContent>
-                  <Text component="h1">Catalog</Text>
-                </TextContent>
-                <Toolbar
-                  id="toolbar-group-types"
-                  clearAllFilters={this.onDelete}
-                >
-                  <ToolbarContent />
-                </Toolbar>
-              </main>
-            </div>
-          </Page>
-        </div>
-      </React.Fragment>
+
+    const Sidebar = () => {
+      return (
+        <Fragment>
+          <PageSidebar
+            theme='dark'
+            nav={
+              <Nav theme='dark' onToggle={onToggle}>
+                <NavList>
+                  <NavGroup className={'nav-title'} title={APPLICATION_NAME}/>
+                  {user && <Menu items={menu}/>}
+                </NavList>
+              </Nav>
+            }
+          />
+        </Fragment>
+      )
+    };
+
+    // Hide navs on login page
+    if (location.pathname === Paths.login) {
+      return ctx(<Routes/>);
+    }
+
+    return this.ctx(
+      <Page isManagedSidebar={true} header={Header} sidebar={Sidebar}>
+        {aboutModalVisible && aboutModal}
+        <Routes/>
+      </Page>,
     );
   }
+
+  const menu = () => {
+    const menuItem = (name, options = {}) => ({
+      condition: () => true,
+      ...options,
+      type: 'item',
+      name,
+    });
+    const menuSection = (name, options = {}, items = []) => ({
+      condition: (...params) =>
+        some(items, (item) => item.condition(...params)), // any visible items inside
+      ...options,
+      type: 'section',
+      name,
+      items,
+    });
+
+    return [
+      menuItem('Products', {
+        url: Paths.products,
+      }),
+      menuItem('Portfolios', {
+        url: Paths.portfolios,
+      }),
+      menuItem('Platforms', {
+        url: Paths.platforms,
+      }),
+      menuItem('Order Processes', {
+        url: Paths.orderProcesses,
+      }),
+      menuItem('Orders', {
+        url: Paths.orders,
+      }),
+      menuItem(`Documentation`, {
+        url: 'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
+        external: true,
+      })
+    ];
+  }
+
+  const activateMenu = (items) => {
+    items.forEach(
+      (item) =>
+        (item.active =
+          item.type === 'section'
+            ? activateMenu(item.items)
+            : props.location.pathname.startsWith(item.url)),
+    );
+    return some(items, 'active');
+  }
+
+
+
+const ctx = (component) => {
+  return (
+    <AppContext.Provider
+      value={{
+        user: user,
+        setUser: setUser
+      }}
+    >
+      {component}
+    </AppContext.Provider>
+  );
 }
 
-export default withRouter(App);
+return render();
+}
+
+export default App;
