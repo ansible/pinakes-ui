@@ -53,7 +53,9 @@ const PortfolioItems = ({
       userCapabilities: user_capabilities
     })
   );
+  console.log('Debug - useRouteMatch');
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
+  console.log('Debug - url: ', url);
   const [{ portfolio: id }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
@@ -155,6 +157,17 @@ PortfolioItems.propTypes = {
     filterValue: PropTypes.string
   }).isRequired,
   fromProducts: PropTypes.bool
+};
+
+PortfolioItems.defaultProps = {
+  state: {
+    removeInProgress: false,
+    isFetching: false,
+    isFiltering: false,
+    copyInProgress: false,
+    selectedItems: [],
+    filterValue: undefined
+  }
 };
 
 export default PortfolioItems;

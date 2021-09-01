@@ -163,10 +163,6 @@ const Portfolio = () => {
   };
 
   useEffect(() => {
-    insights.chrome.appNavClick({
-      id: fromProducts === 'true' ? 'products' : 'portfolios',
-      secondaryNav: true
-    });
     fetchData(id);
     scrollToTop();
 

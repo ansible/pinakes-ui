@@ -7,7 +7,7 @@ import {
   TextListItemVariants,
   TextListVariants
 } from '@patternfly/react-core';
-import Logo from 'src/../static/images/logo_large.svg';
+import Logo from '../../../assets/images/logo-large.svg';
 import { detect } from 'detect-browser';
 
 interface IProps {
@@ -25,13 +25,7 @@ interface IState {
 }
 
 export const AboutModalWindow = (props: IProps) => {
-  const {
-    isOpen,
-    onClose,
-    brandImageAlt,
-    productName,
-    userName
-  } = props;
+  const { isOpen, onClose, brandImageAlt, productName, userName } = props;
   const browser = detect();
   return (
     <AboutModal
