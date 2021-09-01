@@ -11,6 +11,8 @@ import '@patternfly/patternfly/patternfly.scss';
 import {
   DropdownItem,
   DropdownSeparator,
+  Grid,
+  GridItem,
   Nav,
   NavExpandable,
   NavGroup,
@@ -27,18 +29,21 @@ import {
 } from '@patternfly/react-icons';
 import { reject, some } from 'lodash';
 
-import {
-  formatPath,
-  Routes
-} from './presentational-components/navigation/routes';
+import { formatPath } from './presentational-components/navigation/routes';
+import { Routes } from './Routes';
 import { Paths } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
 import AppContext from './app-context';
 import Logo from './assets/images/logo-large.svg';
-import { Fragment, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import { Router as ReactRouter, useLocation } from 'react-router';
+import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/esm/NotificationPortal';
+import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
+import UserContext from './user-context';
+import catalogHistory, { release } from './routing/catalog-history';
+import GlobalStyle from './global-styles';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
@@ -55,7 +60,7 @@ const App = (props) => {
       type: 'item',
       name
     });
-    const baseUrl = window.location.origin;
+    const baseUrl = '/catalog';
 
     return [
       menuItem('Products', {
@@ -67,7 +72,7 @@ const App = (props) => {
       menuItem('Platforms', {
         url: `${baseUrl}${Paths.platforms}`
       }),
-      menuItem('Order Processes', {
+      menuItem('Order-Processes', {
         url: `${baseUrl}${Paths.order_processes}`
       }),
       menuItem('Orders', {
@@ -292,14 +297,59 @@ const App = (props) => {
 
   // Hide navs on login page
   if (location?.pathname === Paths.login) {
-    return <Routes />;
+    return (
+      <UserContext.Provider
+        value={{
+          permissions: [],
+          userIdentity: { identity: { user: { is_org_admin: true } } },
+          openApiSchema: {}
+        }}
+      >
+        <Fragment>
+          <NotificationsPortal />
+          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
+            <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+              <GridItem sm={12} className="content-layout">
+                <Routes />
+              </GridItem>
+            </Grid>
+          </section>
+        </Fragment>
+      </UserContext.Provider>
+    );
   }
 
   return (
-    <Page isManagedSidebar={true} header={headerNav()} sidebar={sidebarNav()}>
-      {aboutModalVisible && aboutModal()}
-      <Routes />
-    </Page>
+    <div id="app-render-root" className="pf-c-drawer__content">
+      <Page isManagedSidebar={true} header={headerNav()} sidebar={sidebarNav()}>
+        {aboutModalVisible && aboutModal()}
+        <UserContext.Provider
+          value={{
+            permissions: [],
+            userIdentity: { identity: { user: { is_org_admin: true } } },
+            openApiSchema: {}
+          }}
+        >
+          <Fragment>
+            <AppContext.Provider value={{ release }}>
+              <GlobalStyle />
+              <ReactRouter history={catalogHistory}>
+                <section
+                  style={{ backgroundColor: 'white' }}
+                  className="pf-u-m-0 pf-u-p-0 pf-l-page__main-section pf-c-page__main-section"
+                >
+                  <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+                    <GridItem sm={12} className="content-layout">
+                      <Routes />
+                    </GridItem>
+                  </Grid>
+                </section>
+              </ReactRouter>
+            </AppContext.Provider>
+          </Fragment>
+        </UserContext.Provider>
+      </Page>
+    </div>
   );
 };
 
