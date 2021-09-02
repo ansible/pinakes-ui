@@ -21,6 +21,7 @@ import {
   Page,
   PageHeader,
   PageHeaderTools,
+  PageSection,
   PageSidebar
 } from '@patternfly/react-core';
 import {
@@ -334,16 +335,7 @@ const App = (props) => {
             <AppContext.Provider value={{ release }}>
               <GlobalStyle />
               <ReactRouter history={catalogHistory}>
-                <section
-                  style={{ backgroundColor: 'white' }}
-                  className="pf-u-m-0 pf-u-p-0 pf-l-page__main-section pf-c-page__main-section"
-                >
-                  <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-                    <GridItem sm={12} className="content-layout">
-                      <Routes />
-                    </GridItem>
-                  </Grid>
-                </section>
+                <Routes />
               </ReactRouter>
             </AppContext.Provider>
           </Fragment>

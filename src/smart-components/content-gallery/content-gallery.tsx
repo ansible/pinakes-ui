@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { Fragment, ReactNode } from 'react';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
-import { Text, TextVariants, Gallery } from '@patternfly/react-core';
+import {
+  Text,
+  TextVariants,
+  Gallery,
+  PageSection
+} from '@patternfly/react-core';
 
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
 import filteringMessages from '../../messages/filtering.messages';
@@ -38,11 +42,11 @@ const ContentGallery: React.ComponentType<ContentGalleryProps> = ({
         <NoItems />
       )
     ) : (
-      <Section type="content">
+      <PageSection>
         <Gallery hasGutter className="content-gallery">
           {items}
         </Gallery>
-      </Section>
+      </PageSection>
     )}
   </Fragment>
 );

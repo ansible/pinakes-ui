@@ -130,3 +130,26 @@
 #ins-c-landing-nav {
   transition: none;
 }
+.body {
+  background-color: white;
+  padding: 16px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+#page-sidebar > div {
+  padding-top: 0px;
+}
+#page-sidebar {
+  border-top-style: solid;
+  border-top-width: var(--pf-global--BorderWidth--sm);
+  border-top-color: var(--pf-global--palette--black-800);
+}
+
+section.pf-c-nav__section.nav-title > h2 {
+  height: 50px;
+  font-size: var(--pf-c-nav__link--FontSize);
+  font-weight: var(--pf-c-nav__link--FontWeight);
+}
