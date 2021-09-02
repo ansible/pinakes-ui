@@ -20,7 +20,7 @@ import LoginPage from './login/login';
 export const Paths = {
   products: '/products',
   platforms: '/platforms',
-  'order-processes': '/order-processes',
+  order_processes: '/order-processes',
   platform: '/platforms/platform',
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,

@@ -60,7 +60,7 @@ const App = (props) => {
       type: 'item',
       name
     });
-    const baseUrl = '/catalog';
+    const baseUrl = '';
 
     return [
       menuItem('Products', {
