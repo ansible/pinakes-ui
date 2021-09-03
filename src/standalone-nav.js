@@ -1,16 +1,10 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  withRouter,
-  Link,
-  RouteComponentProps,
-  matchPath
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import '@patternfly/patternfly/patternfly.scss';
 import {
   DropdownItem,
-  DropdownSeparator,
   Grid,
   GridItem,
   Nav,
@@ -21,7 +15,6 @@ import {
   Page,
   PageHeader,
   PageHeaderTools,
-  PageSection,
   PageSidebar
 } from '@patternfly/react-core';
 import {
@@ -38,13 +31,11 @@ import { StatefulDropdown } from './presentational-components/navigation/statefu
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
 import AppContext from './app-context';
 import Logo from './assets/images/logo-large.svg';
-import { Fragment, useContext, useEffect, useState } from 'react';
-import { Router as ReactRouter, useLocation } from 'react-router';
+import { Fragment, useEffect, useState } from 'react';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/esm/NotificationPortal';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
-import catalogHistory, { release } from './routing/catalog-history';
-import GlobalStyle from './global-styles';
+import { useLocation } from 'react-router';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
@@ -331,14 +322,7 @@ const App = (props) => {
             openApiSchema: {}
           }}
         >
-          <Fragment>
-            <AppContext.Provider value={{ release }}>
-              <GlobalStyle />
-              <ReactRouter history={catalogHistory}>
-                <Routes />
-              </ReactRouter>
-            </AppContext.Provider>
-          </Fragment>
+          <Routes />
         </UserContext.Provider>
       </Page>
     </div>
