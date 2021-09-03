@@ -28,20 +28,32 @@ const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   breadcrumbfragments = [],
   ...rest
 }) => (
-  <TopToolbarWrapper
-    className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
-      paddingBottom ? 'pf-u-pb-lg' : ''
-    }`}
-    {...rest}
+  <div
+    style={{
+      marginRight: 0,
+      marginTop: 0,
+      marginLeft: 0,
+      paddingTop: 48,
+      paddingLeft: 24,
+      paddingRight: 24,
+      backgroundColor: 'white'
+    }}
   >
-    {breadcrumbs && (
-      <div className="pf-u-mb-md">
-        {' '}
-        <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
-      </div>
-    )}
-    {children}
-  </TopToolbarWrapper>
+    <TopToolbarWrapper
+      className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
+        paddingBottom ? 'pf-u-pb-lg' : ''
+      }`}
+      {...rest}
+    >
+      {breadcrumbs && (
+        <div className="pf-u-mb-md">
+          {' '}
+          <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
+        </div>
+      )}
+      {children}
+    </TopToolbarWrapper>
+  </div>
 );
 
 export default TopToolbar;

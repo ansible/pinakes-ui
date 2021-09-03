@@ -54,7 +54,10 @@ export const TopToolbarWrapper = styled.div`
     padding: 24;
   }
   .pf-c-toolbar__content {
-    padding: 24;
+    padding-top: 24;
+    padding-bottom: 24;
+    padding-right: 24;
+    padding-left: 0;
   }
 `;
 
