@@ -322,7 +322,9 @@ const App = (props) => {
             openApiSchema: {}
           }}
         >
-          <Routes />
+          <div style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+            <Routes />
+          </div>
         </UserContext.Provider>
       </Page>
     </div>
