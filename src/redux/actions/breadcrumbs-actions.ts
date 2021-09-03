@@ -82,6 +82,7 @@ export const createBreadcrumbsFromLocations = (
   if (result.length > 0 && (FRAGMENT_PREFIX as AnyObject)[result[0].pathname]) {
     result = [(FRAGMENT_PREFIX as AnyObject)[result[0].pathname], ...result];
   }
+
   // if portfolio item, add the 2 breadcrumbs
   return dispatch({ type: INITIALIZE_BREADCRUMBS, payload: result });
 };
