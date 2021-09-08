@@ -217,6 +217,7 @@ const App = (props) => {
       }}
     >
       {item.url && item.external ? (
+        // eslint-disable-next-line react/jsx-no-target-blank
         <a href={item.url} data-cy={item['data-cy']} target="_blank">
           {item.name}
           <ExternalLinkAltIcon
@@ -324,6 +325,7 @@ const App = (props) => {
         >
           <div style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <Routes />
+            <main className="pf-c-page__main" id="no-access"></main>
           </div>
         </UserContext.Provider>
       </Page>

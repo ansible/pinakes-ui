@@ -1,19 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TopToolbar /> should render correctly 1`] = `
-<styled.div
-  className="pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg pf-u-pb-lg"
+<div
+  style={
+    Object {
+      "backgroundColor": "white",
+      "marginLeft": 0,
+      "marginRight": 0,
+      "marginTop": 0,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 48,
+    }
+  }
 >
-  <div
-    className="pf-u-mb-md"
+  <styled.div
+    className="pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg pf-u-pb-lg"
   >
-     
-    <CatalogBreadcrumbs
-      breadcrumbfragments={Array []}
-    />
-  </div>
-  <div>
-    Children
-  </div>
-</styled.div>
+    <div
+      className="pf-u-mb-md"
+    >
+       
+      <CatalogBreadcrumbs
+        breadcrumbfragments={Array []}
+      />
+    </div>
+    <div>
+      Children
+    </div>
+  </styled.div>
+</div>
 `;

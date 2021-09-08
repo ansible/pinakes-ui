@@ -17,13 +17,10 @@ exports[`<ContentGallery /> should render all items 1`] = `
     ]
   }
 >
-  <Section
-    type="content"
-  >
+  <PageSection>
     <section
-      className="ins-l-content"
+      className="pf-c-page__main-section"
     >
-       
       <Gallery
         className="content-gallery"
         hasGutter={true}
@@ -48,9 +45,8 @@ exports[`<ContentGallery /> should render all items 1`] = `
           </div>
         </div>
       </Gallery>
-       
     </section>
-  </Section>
+  </PageSection>
 </ContentGallery>
 `;
 
