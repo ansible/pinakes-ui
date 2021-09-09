@@ -51,13 +51,10 @@ export const TopToolbarWrapper = styled.div`
     word-break: break-word;
   }
   .ins-c-primary-toolbar {
-    padding: 24;
+    padding: 0;
   }
   .pf-c-toolbar__content {
-    padding-top: 24;
-    padding-bottom: 24;
-    padding-right: 24;
-    padding-left: 0;
+    padding: 0;
   }
 `;
 
