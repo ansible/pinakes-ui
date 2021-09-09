@@ -53,9 +53,7 @@ const PortfolioItems = ({
       userCapabilities: user_capabilities
     })
   );
-  console.log('Debug - useRouteMatch');
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
-  console.log('Debug - url: ', url);
   const [{ portfolio: id }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);

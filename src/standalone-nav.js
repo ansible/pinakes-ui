@@ -79,9 +79,6 @@ const App = (props) => {
   };
 
   const activateMenu = (items) => {
-    console.log('Debug - items', items);
-    console.log('Debug - location', location);
-    console.log('Debug - win location', window.location.href);
     items.forEach(
       (item) =>
         (item.active =
@@ -266,27 +263,24 @@ const App = (props) => {
     );
   };
 
-  const sidebarNav = () => {
-    console.log('Debug - Sidebar items: ', menu());
-    return (
-      <Fragment>
-        <PageSidebar
-          theme="dark"
-          nav={
-            <Nav theme="dark" onToggle={onToggle}>
-              <NavList>
-                <NavGroup
-                  className={'nav-title'}
-                  title={'Ansible automation catalog'}
-                />
-                <Menu items={menu()} />
-              </NavList>
-            </Nav>
-          }
-        />
-      </Fragment>
-    );
-  };
+  const sidebarNav = () => (
+    <Fragment>
+      <PageSidebar
+        theme="dark"
+        nav={
+          <Nav theme="dark" onToggle={onToggle}>
+            <NavList>
+              <NavGroup
+                className={'nav-title'}
+                title={'Ansible automation catalog'}
+              />
+              <Menu items={menu()} />
+            </NavList>
+          </Nav>
+        }
+      />
+    </Fragment>
+  );
 
   // Hide navs on login page
   if (location?.pathname === Paths.login) {
