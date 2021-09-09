@@ -14,6 +14,7 @@ import {
   TopToolbarTitleContainer
 } from '../styled-components/toolbars';
 import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
+import { PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 
 export interface TopToolbarProps {
   paddingBottom?: boolean;
@@ -64,9 +65,7 @@ export const TopToolbarTitle: React.ComponentType<TopToolbarTitleProps> = ({
     >
       <LevelItem>
         <TextContent>
-          <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
-            {title}
-          </Text>
+          <PageHeaderTitle title={title} className="pf-u-m-0 pf-u-mr-md" />
           {description && <Text component={TextVariants.p}>{description}</Text>}
         </TextContent>
       </LevelItem>
