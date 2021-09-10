@@ -16,7 +16,6 @@ import {
 import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
 import { PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
 import UserContext from '../../user-context';
-import '../../Navigation.scss';
 
 export interface TopToolbarProps {
   paddingBottom?: boolean;
@@ -32,7 +31,7 @@ const TopToolbar: React.ComponentType<TopToolbarProps> = ({
 }) => {
   const { standalone: standalone } = useContext(UserContext);
   return (
-    <div className="standalone-toolbar">
+    <div className={clsx({ ['standalone-toolbar']: !!standalone })}>
       <TopToolbarWrapper
         className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
           paddingBottom ? 'pf-u-pb-lg' : ''
