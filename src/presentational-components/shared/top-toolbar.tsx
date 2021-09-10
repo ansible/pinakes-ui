@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactNode, useContext } from 'react';
 import {
   LevelItem,
   Text,
@@ -15,6 +15,8 @@ import {
 } from '../styled-components/toolbars';
 import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
 import { PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
+import UserContext from '../../user-context';
+import '../../Navigation.scss';
 
 export interface TopToolbarProps {
   paddingBottom?: boolean;
@@ -27,22 +29,27 @@ const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   breadcrumbs = true,
   breadcrumbfragments = [],
   ...rest
-}) => (
-  <TopToolbarWrapper
-    className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
-      paddingBottom ? 'pf-u-pb-lg' : ''
-    }`}
-    {...rest}
-  >
-    {breadcrumbs && (
-      <div className="pf-u-mb-md">
-        {' '}
-        <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
-      </div>
-    )}
-    {children}
-  </TopToolbarWrapper>
-);
+}) => {
+  const { standalone: standalone } = useContext(UserContext);
+  return (
+    <div className="standalone-toolbar">
+      <TopToolbarWrapper
+        className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
+          paddingBottom ? 'pf-u-pb-lg' : ''
+        }`}
+        {...rest}
+      >
+        {breadcrumbs && (
+          <div className="pf-u-mb-md">
+            {' '}
+            <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
+          </div>
+        )}
+        {children}
+      </TopToolbarWrapper>
+    </div>
+  );
+};
 
 export default TopToolbar;
 

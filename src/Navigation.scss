@@ -153,3 +153,13 @@ section.pf-c-nav__section.nav-title > h2 {
   font-size: var(--pf-c-nav__link--FontSize);
   font-weight: var(--pf-c-nav__link--FontWeight);
 }
+
+.standalone-toolbar {
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-left: 0px;
+  padding-top: 48px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: white;
+}

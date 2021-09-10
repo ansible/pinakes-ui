@@ -289,7 +289,8 @@ const App = (props) => {
         value={{
           permissions: [],
           userIdentity: { identity: { user: { is_org_admin: true } } },
-          openApiSchema: {}
+          openApiSchema: {},
+          standalone: true
         }}
       >
         <Fragment>
@@ -314,12 +315,12 @@ const App = (props) => {
           value={{
             permissions: [],
             userIdentity: { identity: { user: { is_org_admin: true } } },
-            openApiSchema: {}
+            openApiSchema: {},
+            standalone: true
           }}
         >
           <div style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <Routes />
-            <main className="pf-c-page__main" id="no-access"></main>
           </div>
         </UserContext.Provider>
       </Page>

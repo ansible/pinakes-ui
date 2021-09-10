@@ -62,6 +62,7 @@ const unauthorizedInterceptor = (error: ServerError = {}) => {
 
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
+  console.log('Debug - getUser ');
   await window.insights.chrome.auth.getUser();
   return config;
 });
@@ -151,6 +152,7 @@ export function getOrderProcessApi(): OrderProcessApi {
 
 const grapqlInstance = axios.create();
 grapqlInstance.interceptors.request.use(async (config) => {
+  console.log('Debug - getUser axios');
   await window.insights.chrome.auth.getUser();
   return config;
 });
