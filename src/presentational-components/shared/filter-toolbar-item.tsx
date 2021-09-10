@@ -8,15 +8,12 @@ const FilterInputGroup = styled.div`
   position: relative;
   width: 300px;
   height: 36px;
-  padding-right: 0px;
-  margin-left: 0px;
 `;
 
 const FilterInput = styled(TextInput)`
   position: absolute;
   width: 300px;
   padding-right: 34px;
-  margin-left: 0px;
   background: transparent;
 `;
 

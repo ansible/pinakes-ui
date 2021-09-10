@@ -54,10 +54,8 @@ const AppToolbar: React.ComponentType<StyledToolbarProps> = ({
   children,
   ...props
 }) => (
-  <StyledToolbar className="pf-u-p-0 pf-u-ml-0" {...props}>
-    <ToolbarContent className="pf-u-pl-0 pf-u-pr-0 pf-u-ml-0 pf-u-mr-0">
-      {children}
-    </ToolbarContent>
+  <StyledToolbar className="pf-u-p-0" {...props}>
+    <ToolbarContent className="pf-u-pl-0">{children}</ToolbarContent>
   </StyledToolbar>
 );
 const toolbarMapper = {

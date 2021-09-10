@@ -195,9 +195,10 @@ section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
   margin-right: 0px;
   margin-top: 0px;
   margin-left: 0px;
-  padding-top: 48px;
+  padding-top: 24px;
   padding-left: 24px;
   padding-right: 24px;
+  padding-bottom: 24px;
   background-color: white;
 }
 `;
