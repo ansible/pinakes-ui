@@ -60,7 +60,6 @@ const OrderDetail: React.ComponentType = () => {
   const dispatch = useDispatch();
   const resetBreadcrumbs = useBreadcrumbs([orderDetailData]);
   useEffect(() => {
-    window.insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
     setIsFetching(true);
     Promise.all([
       dispatch(fetchPlatforms()),

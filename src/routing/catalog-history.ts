@@ -13,7 +13,6 @@ if (pathName[0] === 'beta') {
  * Otherwise we could end up with /undefined/ which will be transformed by the router to //
  */
 const basename = `${prefix}${pathName[0]}/${pathName[1] ? pathName[1] : ''}`;
-
 const catalogHistory = createBrowserHistory({
   basename
 });

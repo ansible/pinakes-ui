@@ -199,7 +199,6 @@ const OrderProcesses = () => {
   };
 
   useEffect(() => {
-    insights.chrome.appNavClick({ id: 'order-processes', secondaryNav: true });
     updateOrderProcesses(
       viewState?.orderProcesses
         ? {

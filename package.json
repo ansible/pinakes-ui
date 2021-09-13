@@ -6,6 +6,7 @@
     "@data-driven-forms/form-builder": "^0.0.11-rc4",
     "@data-driven-forms/pf4-component-mapper": "^3.11.3",
     "@data-driven-forms/react-form-renderer": "^3.11.3",
+    "@patternfly/patternfly": "^4.125.3",
     "@patternfly/react-core": "^4.152.4",
     "@patternfly/react-icons": "^4.11.14",
     "@patternfly/react-styles": "^4.11.8",
@@ -22,6 +23,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "clsx": "^1.0.4",
+    "detect-browser": "^5.2.0",
     "history": "^4.10.1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
@@ -40,6 +42,11 @@
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.0.1",
     "whatwg-fetch": "^3.6.2"
+  },
+  "sassIncludes": {
+    "patternfly": "node_modules/patternfly/dist/sass",
+    "bootstrap": "node_modules/patternfly/node_modules/bootstrap-sass/assets/stylesheets",
+    "fontAwesome": "node_modules/patternfly/node_modules/font-awesome-sass/assets/stylesheets"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -156,5 +163,8 @@
   },
   "insights": {
     "appname": "catalog"
-  }
+  },
+  "sideEffects": [
+    "*.scss"
+  ]
 }

@@ -86,10 +86,6 @@ const PortfolioItemDetail = () => {
   };
 
   useEffect(() => {
-    insights.chrome.appNavClick({
-      id: fromProducts ? 'products' : 'portfolios',
-      secondaryNav: true
-    });
     fetchData(false);
   }, [queryValues['portfolio-item']]);
 

@@ -157,4 +157,15 @@ PortfolioItems.propTypes = {
   fromProducts: PropTypes.bool
 };
 
+PortfolioItems.defaultProps = {
+  state: {
+    removeInProgress: false,
+    isFetching: false,
+    isFiltering: false,
+    copyInProgress: false,
+    selectedItems: [],
+    filterValue: undefined
+  }
+};
+
 export default PortfolioItems;

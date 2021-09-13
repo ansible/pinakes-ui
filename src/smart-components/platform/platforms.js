@@ -43,7 +43,6 @@ const Platforms = () => {
   useEffect(() => {
     dispatch(fetchPlatforms());
     scrollToTop();
-    window.insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
   }, []);
 
   const filteredItems = {

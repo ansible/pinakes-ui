@@ -106,7 +106,6 @@ const Products = () => {
       dispatch(fetchPlatforms())
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
-    insights.chrome.appNavClick({ id: 'products', secondaryNav: true });
   }, []);
 
   const handleFilterItems = (value) => {
