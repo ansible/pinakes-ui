@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import Router from './AppStandalone';
 
 const AppEntry = () => {
-  console.log('Debug - Standalone App entry ');
+  console.log('%c Catalog UI started in standalone mode', 'color: blue');
   return (
     <Provider store={store(true)}>
       <IntlProvider locale="en">
