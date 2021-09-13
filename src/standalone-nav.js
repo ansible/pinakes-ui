@@ -64,9 +64,6 @@ const App = (props) => {
       menuItem('Platforms', {
         url: `${baseUrl}${Paths.platforms}`
       }),
-      menuItem('Order-Processes', {
-        url: `${baseUrl}${Paths.order_processes}`
-      }),
       menuItem('Orders', {
         url: `${baseUrl}${Paths.orders}`
       }),
