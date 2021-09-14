@@ -23,6 +23,7 @@ export type OrderProcessReducerActionHandler = ReduxActionHandler<
 export const orderProcessInitialState: OrderProcessReducerState = {
   orderProcesses: {
     data: [],
+    results: [],
     meta: {
       count: 0,
       limit: 50,

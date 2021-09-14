@@ -39,7 +39,7 @@ const PortfoliosPrimaryToolbar = ({
 }) => {
   const dispatch = useDispatch();
   const formatMessage = useFormatMessage();
-  if (meta.noData) {
+  if (meta?.noData) {
     return null;
   }
 
@@ -179,7 +179,7 @@ const PortfoliosPrimaryToolbar = ({
         onSortChange: (_event, direction) => handleSort(direction)
       }}
       pagination={
-        meta.count > 0 ? (
+        meta?.count > 0 ? (
           <AsyncPagination
             isDisabled={isFetching || isFiltering}
             meta={meta}
@@ -207,7 +207,7 @@ PortfoliosPrimaryToolbar.propTypes = {
   initialState: PropTypes.shape({
     filters: PropTypes.shape({ [PropTypes.string]: PropTypes.any }).isRequired
   }).isRequired,
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.object,
   filterType: PropTypes.string.isRequired,
   handleFilterItems: PropTypes.func.isRequired,
   sortDirection: PropTypes.string.isRequired,

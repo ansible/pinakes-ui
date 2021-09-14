@@ -35,6 +35,7 @@ import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import { UserCapabilities, PortfolioMetadata } from '../../types/common-types';
+import { USER_CAPABILITIES_PLACEHOLDER } from '../../utilities/constants';
 
 const TO_DISPLAY = ['description'];
 
@@ -197,10 +198,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
   name,
   id,
   handleCopyPortfolio,
-  metadata: {
-    user_capabilities,
-    statistics: { shared_groups, approval_processes, portfolio_items }
-  },
+  metadata,
   canLinkOrderProcesses,
   ...props
 }) => {
@@ -209,6 +207,10 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
   };
+  const user_capabilities = window.catalog?.standalone
+    ? USER_CAPABILITIES_PLACEHOLDER
+    : metadata?.user_capabilities || {};
+  const statistics = metadata?.statistics || {};
   return (
     <StyledGalleryItem isDisabled={isDisabled}>
       <StyledCard ouiaId={`portfolio-${id}`}>
@@ -217,7 +219,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
             id={id}
             to={to}
             portfolioName={name}
-            portfolio_items={portfolio_items || 0}
+            portfolio_items={statistics?.portfolio_items || 0}
             headerActions={
               <HeaderActions
                 portfolioId={id}
@@ -245,13 +247,14 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
           />
         </StyledCardBody>
         <CardFooter>
-          {approval_processes && approval_processes > 0 && (
-            <Label variant="filled" color="grey">
-              {formatMessage(labelMessages.approvalProcessSet)}
-            </Label>
-          )}
+          {statistics?.approval_processes &&
+            statistics?.approval_processes > 0 && (
+              <Label variant="filled" color="grey">
+                {formatMessage(labelMessages.approvalProcessSet)}
+              </Label>
+            )}
           &nbsp;
-          {shared_groups && shared_groups > 0 && (
+          {statistics?.shared_groups && statistics?.shared_groups > 0 && (
             <Label variant="filled" color="grey">
               {formatMessage(labelMessages.shared)}
             </Label>

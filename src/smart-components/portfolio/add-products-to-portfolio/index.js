@@ -11,17 +11,25 @@ import {
   fetchPlatforms
 } from '../../../redux/actions/platform-actions';
 import {
+  fetchPlatformItems as fetchPlatformItemsS,
+  fetchPlatforms as fetchPlatformsS
+} from '../../../redux/actions/platform-actions-s';
+import {
   addToPortfolio,
   fetchPortfolioItemsWithPortfolio
 } from '../../../redux/actions/portfolio-actions';
+import {
+  addToPortfolio as addToPortfolioS,
+  fetchPortfolioItemsWithPortfolio as fetchPortfolioItemsWithPortfolioS
+} from '../../../redux/actions/portfolio-actions-s';
 import AsyncPagination from '../../common/async-pagination';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomPaginationContainer from '../../../presentational-components/shared/bottom-pagination-container';
 import asyncFormValidator from '../../../utilities/async-form-validator';
 
-const renderGalleryItems = (items = [], checkItem, checkedItems) =>
-  items.map((item) => (
+const renderGalleryItems = (items = [], checkItem, checkedItems) => {
+  return items.map((item) => (
     <PlatformItem
       key={item.id}
       {...item}
@@ -30,6 +38,7 @@ const renderGalleryItems = (items = [], checkItem, checkedItems) =>
       checked={checkedItems.includes(item.id)}
     />
   ));
+};
 
 const initialState = {
   filterValue: '',
@@ -53,9 +62,11 @@ const addProductsState = (state, action) => {
 const debouncedFilter = asyncFormValidator(
   (id, filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPlatformItems(id, filter, { ...meta, filter })).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(id, filter, { ...meta, filter })
+        : fetchPlatformItems(id, filter, { ...meta, filter })
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -82,7 +93,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchPlatforms());
+    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
   }, []);
 
   const checkItem = (itemId) => {
@@ -92,14 +103,22 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
       : [...checkedItems, itemId];
   };
 
-  const items =
-    selectedPlatform && platformItems[selectedPlatform.id]
-      ? platformItems[selectedPlatform.id].data
-      : [];
+  const items = () => {
+    if (selectedPlatform && platformItems[selectedPlatform.id]) {
+      return window.catalog.standalone
+        ? platformItems[selectedPlatform.id].results
+        : platformItems[selectedPlatform.id].data;
+    }
+
+    return [];
+  };
+
   const meta =
     selectedPlatform &&
     platformItems[selectedPlatform.id] &&
-    platformItems[selectedPlatform.id].meta;
+    (window.catalog?.standalone
+      ? platformItems[selectedPlatform.id].meta
+      : { count: platformItems[selectedPlatform.id].count });
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -118,29 +137,48 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const handleAddToPortfolio = () => {
     dispatch({ type: 'setFetching', payload: true });
-    return dispatch(addToPortfolio(portfolio.id, checkedItems))
+    return dispatch(
+      window.catalog?.standalone
+        ? addToPortfolioS(portfolio.id, checkedItems)
+        : addToPortfolio(portfolio.id, checkedItems)
+    )
       .then(() => dispatch({ type: 'setFetching', payload: false }))
       .then(() =>
         push({ pathname: portfolioRoute, search: `?portfolio=${portfolio.id}` })
       )
-      .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolio.id)))
+      .then(() =>
+        dispatch(
+          window.catalog?.standalone
+            ? fetchPortfolioItemsWithPortfolioS(portfolio.id)
+            : fetchPortfolioItemsWithPortfolio(portfolio.id)
+        )
+      )
       .catch(() => dispatch({ type: 'setFetching', payload: false }));
   };
 
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
-    dispatch(fetchPlatformItems(platform.id, filterValue, defaultSettings));
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(platform.id, filterValue, defaultSettings)
+        : fetchPlatformItems(platform.id, filterValue, defaultSettings)
+    );
   };
+
+  const options =
+    platforms.results && platforms.results.length > 0
+      ? platforms.results.map((platform) => ({
+          value: platform.id,
+          label: platform.name,
+          id: platform.id
+        }))
+      : [];
 
   return (
     <Fragment>
       <ToolbarRenderer
         schema={createAddProductsSchema({
-          options: platforms.map((platform) => ({
-            value: platform.id,
-            label: platform.name,
-            id: platform.id
-          })),
+          options,
           isFetching,
           portfolioName: (portfolio && portfolio.name) || '',
           itemsSelected: checkedItems.length > 0,
@@ -152,7 +190,11 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           platformId: selectedPlatform && selectedPlatform.id,
           searchValue: filterValue,
           fetchPlatformItems: (id, options) =>
-            dispatch(fetchPlatformItems(id, filterValue, options))
+            dispatch(
+              window.catalog?.standalone
+                ? fetchPlatformItemsS(id, filterValue, options)
+                : fetchPlatformItems(id, filterValue, options)
+            )
         })}
       />
       <AddProductsGallery
@@ -160,7 +202,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
         checkedItems={checkedItems}
         isLoading={isLoading}
         items={renderGalleryItems(
-          items,
+          items(),
           (itemId) => setCheckedItems(checkItem(itemId)),
           checkedItems
         )}
@@ -171,7 +213,9 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
             apiRequest={(id, options) =>
-              fetchPlatformItems(id, filterValue, options)
+              window.catalog?.standalone
+                ? fetchPlatformItemsS(id, filterValue, options)
+                : fetchPlatformItems(id, filterValue, options)
             }
             dropDirection="up"
           />

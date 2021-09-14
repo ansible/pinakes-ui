@@ -18,18 +18,13 @@ export interface AnyObject {
   [key: string]: any;
 }
 
-export interface ApiMetadata extends AnyObject {
-  count?: number;
-  limit?: number;
-  offset?: number;
-}
-
 export interface ApiCollectionResponse<
   T /** he type of collection item. For instance Portfolio or Order*/
 > {
-  data: T[];
   results: T[];
-  meta: ApiMetadata;
+  count?: number;
+  pageSize?: number;
+  page?: number;
 }
 
 export interface RestorePortfolioItemConfig {

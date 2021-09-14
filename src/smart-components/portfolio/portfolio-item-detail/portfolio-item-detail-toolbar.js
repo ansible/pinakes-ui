@@ -57,6 +57,7 @@ export const PortfolioItemDetailToolbar = ({
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
+
   return (
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
@@ -81,7 +82,11 @@ export const PortfolioItemDetailToolbar = ({
                 />
               ) : (
                 <CardIcon
-                  src={`${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`}
+                  src={
+                    window.catalog?.standalone
+                      ? product.icon_url
+                      : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
+                  }
                   sourceId={product.service_offering_source_ref}
                   height={64}
                 />
@@ -123,7 +128,8 @@ PortfolioItemDetailToolbar.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     service_offering_source_ref: PropTypes.string.isRequired,
-    metadata: PropTypes.shape({ orderable: PropTypes.bool })
+    metadata: PropTypes.shape({ orderable: PropTypes.bool }),
+    icon_url: PropTypes.string
   }).isRequired,
   setOpen: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,

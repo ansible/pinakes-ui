@@ -5,6 +5,11 @@ import {
   fetchSelectedPlatform,
   fetchPlatforms
 } from '../../redux/actions/platform-actions';
+import {
+  fetchSelectedPlatform as fetchSelectedPlatformS,
+  fetchPlatforms as fetchPlatformsS
+} from '../../redux/actions/platform-actions-s';
+
 import useQuery from '../../utilities/use-query';
 import { useDispatch, useSelector } from 'react-redux';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
@@ -76,8 +81,14 @@ const Platform = () => {
 
   useEffect(() => {
     Promise.all([
-      dispatch(fetchSelectedPlatform(platform)),
-      dispatch(fetchPlatforms())
+      dispatch(
+        window.catalog?.standalone
+          ? fetchSelectedPlatformS(platform)
+          : fetchSelectedPlatform(platform)
+      ),
+      dispatch(
+        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+      )
     ]);
     scrollToTop();
     return () => {

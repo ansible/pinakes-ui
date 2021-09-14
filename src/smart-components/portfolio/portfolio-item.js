@@ -54,7 +54,7 @@ const PortfolioItem = (props) => {
 };
 
 PortfolioItem.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   platformId: PropTypes.string,
   service_offering_source_ref: PropTypes.string,
   isSelectable: PropTypes.bool,

@@ -57,6 +57,7 @@ export const platformInitialState: PlatformReducerState = {
   platformItems: {},
   platformInventories: {
     data: [],
+    results: [],
     meta: defaultSettings
   },
   platformItem: {},
@@ -73,7 +74,7 @@ const mapPlatformIcons = (
   platforms: Source[],
   sourceTypeIcons: StringObject
 ) =>
-  platforms.reduce<StringObject>(
+  platforms?.reduce<StringObject>(
     (acc, curr) =>
       !acc[curr.id || 'undefined']
         ? {
@@ -93,16 +94,13 @@ const setLoadingState: PlatformReducerActionHandler = (
   ...state,
   isPlatformDataLoading: payload
 });
-const setPlatforms: PlatformReducerActionHandler = (state, { payload }) => ({
-  ...state,
-  platforms: payload,
-  platformIconMapping: mapPlatformIcons(
-    state.platformIconMapping,
-    payload,
-    state.sourceTypeIcons
-  ),
-  isPlatformDataLoading: false
-});
+const setPlatforms: PlatformReducerActionHandler = (state, { payload }) => {
+  return {
+    ...state,
+    platforms: payload,
+    isPlatformDataLoading: false
+  };
+};
 
 const setPlatformItems: PlatformReducerActionHandler = (
   state,

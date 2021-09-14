@@ -9,6 +9,7 @@ import PortfolioEmptyState from './portfolio-empty-state';
 import ContentGallery from '../content-gallery/content-gallery';
 import PortfolioItem from './portfolio-item';
 import { fetchPortfolioItemsWithPortfolio } from '../../redux/actions/portfolio-actions';
+import { fetchPortfolioItemsWithPortfolio as fetchPortfolioItemsWithPortfolioS } from '../../redux/actions/portfolio-actions-s';
 import AsyncPagination from '../common/async-pagination';
 import BottomPaginationContainer from '../../presentational-components/shared/bottom-pagination-container';
 import useQuery from '../../utilities/use-query';
@@ -35,22 +36,28 @@ const PortfolioItems = ({
   }
 }) => {
   const formatMessage = useFormatMessage();
-  const { data, meta, name, description, userCapabilities } = useSelector(
+  const {
+    data,
+    results,
+    meta,
+    count,
+    name,
+    description,
+    metadata
+  } = useSelector(
     ({
       portfolioReducer: {
-        portfolioItems: { data, meta },
-        selectedPortfolio: {
-          name,
-          description,
-          metadata: { user_capabilities }
-        }
+        portfolioItems: { data, results, meta, count },
+        selectedPortfolio: { name, description, metadata }
       }
     }) => ({
       data,
+      results,
       meta,
+      count,
       name,
       description,
-      userCapabilities: user_capabilities
+      metadata
     })
   );
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
@@ -60,8 +67,26 @@ const PortfolioItems = ({
   const canLinkOrderProcesses = hasPermission(userPermissions, [
     'catalog:order_processes:link'
   ]);
+  const dataSet = data ? data : results;
+  const metaInfo = meta ? meta : { count };
+  const userCapabilities = window.catalog?.standalone
+    ? {
+        show: true,
+        update: true,
+        set_approval: true,
+        share: true,
+        unshare: true,
+        untag: true,
+        tag: true,
+        set_order_process: true,
+        create: true,
+        destroy: true,
+        restore: true,
+        copy: true
+      }
+    : metadata?.user_capabilities;
 
-  const items = data.map((item) => (
+  const items = dataSet.map((item) => (
     <PortfolioItem
       key={item.id}
       {...item}
@@ -71,7 +96,7 @@ const PortfolioItems = ({
         'portfolio-item': item.id
       }}
       preserveSearch
-      isSelectable={userCapabilities.update}
+      isSelectable={userCapabilities?.update}
       onSelect={(selectedItem) =>
         stateDispatch({
           type: 'selectItem',
@@ -101,9 +126,13 @@ const PortfolioItems = ({
           copyInProgress,
           removeProducts: () => removeProducts(selectedItems),
           itemsSelected: selectedItems.length > 0,
-          meta,
+          meta: metaInfo,
           fetchPortfolioItemsWithPortfolio: (...args) =>
-            dispatch(fetchPortfolioItemsWithPortfolio(...args)),
+            dispatch(
+              window.catalog?.standalone
+                ? fetchPortfolioItemsWithPortfolioS(...args)
+                : fetchPortfolioItemsWithPortfolio(...args)
+            ),
           portfolioId: id,
           userCapabilities,
           canLinkOrderProcesses
@@ -115,20 +144,24 @@ const PortfolioItems = ({
         renderEmptyState={() => (
           <PortfolioEmptyState
             handleFilterChange={handleFilterChange}
-            meta={meta}
+            meta={metaInfo}
             userCapabilities={userCapabilities}
             url={routes.addProductsRoute}
           />
         )}
       />
-      {meta.count > 0 && (
+      {metaInfo?.count > 0 && (
         <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
-            meta={meta}
+            meta={metaInfo}
             apiProps={id}
             apiRequest={(...args) =>
-              dispatch(fetchPortfolioItemsWithPortfolio(...args))
+              dispatch(
+                window.catalog?.standalone
+                  ? fetchPortfolioItemsWithPortfolioS(...args)
+                  : fetchPortfolioItemsWithPortfolio(...args)
+              )
             }
           />
         </BottomPaginationContainer>
@@ -151,7 +184,7 @@ PortfolioItems.propTypes = {
     isFetching: PropTypes.bool,
     isFiltering: PropTypes.bool,
     copyInProgress: PropTypes.bool,
-    selectedItems: PropTypes.arrayOf(PropTypes.string),
+    selectedItems: PropTypes.array,
     filterValue: PropTypes.string
   }).isRequired,
   fromProducts: PropTypes.bool
