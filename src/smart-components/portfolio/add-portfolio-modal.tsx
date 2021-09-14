@@ -7,8 +7,13 @@ import {
   addPortfolio,
   updatePortfolio
 } from '../../redux/actions/portfolio-actions';
+import {
+  addPortfolio as addPortfolioS,
+  updatePortfolio as updatePortfolioS
+} from '../../redux/actions/portfolio-actions-s';
 import useQuery from '../../utilities/use-query';
 import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
+import { getPortfolioFromState as getPortfolioFromStateS } from '../../helpers/portfolio/portfolio-helper-s';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
@@ -42,14 +47,12 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     removeSearch: removeQuery,
     keepHash: true
   });
-  const initialValues = useSelector<
-    CatalogRootState,
-    InternalPortfolio | undefined
-  >(
+  const initialValues = useSelector<CatalogRootState, Portfolio | undefined>(
     ({ portfolioReducer }) =>
-      getPortfolioFromState(portfolioReducer, portfolioId) as
-        | InternalPortfolio
-        | undefined
+      // eslint-disable-next-line no-undef
+      window.catalog?.standalone
+        ? getPortfolioFromStateS(portfolioReducer, portfolioId)
+        : getPortfolioFromState(portfolioReducer, portfolioId)
   );
 
   const onAddPortfolio = async (data: Partial<Portfolio>) => {
@@ -63,7 +66,9 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
       })
     };
     const newPortfolio = await dispatch(
-      addPortfolio(data, notification) as Promise<{ value: Portfolio }>
+      window.catalog?.standalone
+        ? (addPortfolioS(data, notification) as Promise<{ value: Portfolio }>)
+        : (addPortfolio(data, notification) as Promise<{ value: Portfolio }>)
     );
     return newPortfolio && newPortfolio.value && newPortfolio.value.id
       ? push({
@@ -79,8 +84,15 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
        * Fake the redirect by closing the modal
        */
       setIsOpen(false);
+      console.log(
+        'Debug message - updatePortfolio - data, viewState',
+        data,
+        viewState
+      );
       return dispatch(
-        (updatePortfolio(data, viewState) as unknown) as Promise<void>
+        (window.catalog?.standalone
+          ? updatePortfolioS(data, viewState)
+          : (updatePortfolio(data, viewState) as unknown)) as Promise<void>
       ).then(() =>
         /**
          * Redirect only after the update was finished.
@@ -99,6 +111,14 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
   if (initialValues?.metadata?.user_capabilities?.update === false) {
     return <UnauthorizedRedirect />;
   }
+  console.log(
+    'Debug message - addPortfolioModal - initialValues',
+    initialValues
+  );
+
+  //if (initialValues?.metadata?.user_capabilities?.update === false) {
+  //  return <UnauthorizedRedirect />;
+  //}
 
   return (
     <FormRenderer
