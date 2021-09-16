@@ -86,10 +86,6 @@ const PortfolioItemDetail = () => {
   };
 
   useEffect(() => {
-    insights.chrome.appNavClick({
-      id: fromProducts ? 'products' : 'portfolios',
-      secondaryNav: true
-    });
     fetchData(false);
   }, [queryValues['portfolio-item']]);
 
@@ -106,17 +102,24 @@ const PortfolioItemDetail = () => {
 
   const availability =
     portfolioItemData?.source?.availability_status || 'unavailable';
-  const unavailable = [portfolioItemData?.source]
-    .filter(({ notFound }) => notFound)
-    .map(({ object }) => (
-      <Alert
-        className="pf-u-mb-sm"
-        key={object}
-        variant="warning"
-        isInline
-        title={formatMessage(portfolioMessages.objectUnavaiable, { object })}
-      />
-    ));
+  let unavailable = [];
+
+  if (portfolioItemData?.source) {
+    unavailable = [portfolioItemData?.source]
+      .filter(({ notFound }) => notFound)
+      .map(({ object }) => (
+        <Alert
+          className="pf-u-mb-sm"
+          key={object}
+          variant="warning"
+          isInline
+          title={formatMessage(portfolioMessages.objectUnavaiable, {
+            object
+          })}
+        />
+      ));
+  }
+
   const uploadIcon = (file) =>
     uploadPortfolioItemIcon(
       portfolioItemData?.portfolioItem?.id,

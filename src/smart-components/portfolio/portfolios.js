@@ -116,7 +116,6 @@ const Portfolios = () => {
       fetchPortfoliosWithState(filters, { ...meta, sortDirection })
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
-    insights.chrome.appNavClick({ id: 'portfolios', secondaryNav: true });
   }, []);
 
   const handleFilterItems = (value) => {

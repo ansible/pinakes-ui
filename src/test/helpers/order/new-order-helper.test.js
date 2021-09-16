@@ -55,7 +55,7 @@ describe('Order helper', () => {
     });
   });
 
-  it('should assing not found object on failed order sub requests', async () => {
+  it('should assign not found object on failed order sub requests', async () => {
     axiosSpy
       .mockResolvedValueOnce(orderMock)
       .mockImplementation(
@@ -95,7 +95,7 @@ describe('Order helper', () => {
     spy.mockRestore();
   });
 
-  it('should pick paraller data fetch if all params keys are defined', async () => {
+  it('should pick parallel data fetch if all params keys are defined', async () => {
     const spy = jest.spyOn(OrderHelper, 'fetchOrderDetailSequence');
     axiosSpy.mockResolvedValue({ id: 'foo' });
     await getOrderDetail({ order: 'only-order', portfolio: 'portfolio-id' });

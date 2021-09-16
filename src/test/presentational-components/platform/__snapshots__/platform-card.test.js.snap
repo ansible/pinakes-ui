@@ -207,45 +207,54 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               ouiaId="refresh-platform-Foo"
                               variant="link"
                             >
-                              <button
-                                aria-disabled={false}
-                                aria-label={null}
-                                className="pf-c-button pf-m-link"
-                                data-ouia-component-id="refresh-platform-Foo"
-                                data-ouia-component-type="PF4/Button"
-                                data-ouia-safe={true}
-                                disabled={false}
+                              <ButtonBase
                                 id="refresh-platform-Foo"
+                                innerRef={null}
+                                isDisabled={false}
                                 onClick={[Function]}
-                                role={null}
-                                type="button"
+                                ouiaId="refresh-platform-Foo"
+                                variant="link"
                               >
-                                <SyncAltIcon
-                                  color="blue"
-                                  key="refresh-Foo"
-                                  noVerticalAlign={false}
-                                  size="sm"
+                                <button
+                                  aria-disabled={false}
+                                  aria-label={null}
+                                  className="pf-c-button pf-m-link"
+                                  data-ouia-component-id="refresh-platform-Foo"
+                                  data-ouia-component-type="PF4/Button"
+                                  data-ouia-safe={true}
+                                  disabled={false}
+                                  id="refresh-platform-Foo"
+                                  onClick={[Function]}
+                                  role={null}
+                                  type="button"
                                 >
-                                  <svg
-                                    aria-hidden={true}
-                                    aria-labelledby={null}
-                                    fill="blue"
-                                    height="1em"
-                                    role="img"
-                                    style={
-                                      Object {
-                                        "verticalAlign": "-0.125em",
-                                      }
-                                    }
-                                    viewBox="0 0 512 512"
-                                    width="1em"
+                                  <SyncAltIcon
+                                    color="blue"
+                                    key="refresh-Foo"
+                                    noVerticalAlign={false}
+                                    size="sm"
                                   >
-                                    <path
-                                      d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z"
-                                    />
-                                  </svg>
-                                </SyncAltIcon>
-                              </button>
+                                    <svg
+                                      aria-hidden={true}
+                                      aria-labelledby={null}
+                                      fill="blue"
+                                      height="1em"
+                                      role="img"
+                                      style={
+                                        Object {
+                                          "verticalAlign": "-0.125em",
+                                        }
+                                      }
+                                      viewBox="0 0 512 512"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z"
+                                      />
+                                    </svg>
+                                  </SyncAltIcon>
+                                </button>
+                              </ButtonBase>
                             </Button>
                           </FindRefWrapper>
                         </Popper>
@@ -267,7 +276,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                       className="pf-c-content"
                     >
                       <CatalogLink
-                        pathname="/platform/platform-templates"
+                        pathname="/platforms/platform/platform-templates"
                         searchParams={
                           Object {
                             "platform": "Foo",
@@ -278,7 +287,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           to={
                             Object {
                               "hash": undefined,
-                              "pathname": "/platform/platform-templates",
+                              "pathname": "/platforms/platform/platform-templates",
                               "search": "?platform=Foo",
                             }
                           }
@@ -288,7 +297,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             to={
                               Object {
                                 "hash": undefined,
-                                "pathname": "/platform/platform-templates",
+                                "pathname": "/platforms/platform/platform-templates",
                                 "search": "?platform=Foo",
                               }
                             }
@@ -298,19 +307,19 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               to={
                                 Object {
                                   "hash": undefined,
-                                  "pathname": "/platform/platform-templates",
+                                  "pathname": "/platforms/platform/platform-templates",
                                   "search": "?platform=Foo",
                                 }
                               }
                             >
                               <LinkAnchor
                                 className="sc-AxhUy cYwveG"
-                                href="/platform/platform-templates?platform=Foo"
+                                href="/platforms/platform/platform-templates?platform=Foo"
                                 navigate={[Function]}
                               >
                                 <a
                                   className="sc-AxhUy cYwveG"
-                                  href="/platform/platform-templates?platform=Foo"
+                                  href="/platforms/platform/platform-templates?platform=Foo"
                                   onClick={[Function]}
                                 >
                                   <Text
@@ -319,6 +328,9 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                   >
                                     <h3
                                       className="pf-u-mb-0"
+                                      data-ouia-component-id="OUIA-Generated-Text-1"
+                                      data-ouia-component-type="PF4/Text"
+                                      data-ouia-safe={true}
                                       data-pf-content={true}
                                     >
                                       <styled.div>

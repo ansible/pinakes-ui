@@ -25,7 +25,8 @@ export const BASE_PORTFOLIO_FRAGMENTS = [
 ];
 
 export const ENTITIES_EXTRA_PARAMS = {
-  'portfolio-item': ['source']
+  'portfolio-item': ['source', 'portfolio'],
+  'edit-survey': ['source', 'portfolio', 'portfolio-item']
 };
 
 export const FRAGMENT_TITLE = {

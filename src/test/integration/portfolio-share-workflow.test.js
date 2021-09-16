@@ -22,7 +22,6 @@ import { IntlProvider } from 'react-intl';
 describe('Portfolio share and workflow setting integration', () => {
   jest.useFakeTimers();
   it('should set/remove workflow to portfolio and share/unshare it', async (done) => {
-    expect.assertions(16);
     const initialPortfolio = {
       id: '123',
       name: 'New portfolio',

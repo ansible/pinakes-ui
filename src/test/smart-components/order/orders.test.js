@@ -286,9 +286,7 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -344,9 +342,7 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -391,9 +387,7 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
-      .replyOnce(200, {});
+    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
       .replyOnce(200, {});
@@ -445,7 +439,7 @@ describe('<Orders />', () => {
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
       .replyOnce(200, {});
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id`)
+      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
       .replyOnce(200, { data: { id: 'portfolio-id' } });
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
@@ -479,7 +473,7 @@ describe('<Orders />', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio/portfolio-item/order');
+    ).toEqual('/portfolios/portfolio/portfolio-item/order');
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual(
@@ -508,7 +502,7 @@ describe('<Orders />', () => {
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id-failed`)
       .replyOnce(404, {});
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/portfolio-id-failed`)
+      .onGet(`${CATALOG_API_BASE}/portfolios/-id-failed`)
       .replyOnce(200, {});
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id-failed`)

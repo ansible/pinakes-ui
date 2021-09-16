@@ -47,17 +47,17 @@ const tabItems = [
   {
     eventKey: 0,
     title: 'Templates',
-    name: `/platform/platform-templates`
+    name: `/platforms/platform/platform-templates`
   },
   {
     eventKey: 1,
     title: 'Inventories',
-    name: `/platform/platform-inventories`
+    name: `/platforms/platform/platform-inventories`
   },
   {
     eventKey: 2,
     title: 'Summary',
-    name: `/platform/platform-details`
+    name: `/platforms/platform/platform-details`
   }
 ];
 
@@ -75,7 +75,6 @@ const Platform = () => {
   const formatMessage = useFormatMessage();
 
   useEffect(() => {
-    insights.chrome.appNavClick({ id: 'platforms', secondaryNav: true });
     Promise.all([
       dispatch(fetchSelectedPlatform(platform)),
       dispatch(fetchPlatforms())

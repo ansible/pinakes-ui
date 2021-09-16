@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactNode, useContext } from 'react';
 import {
   LevelItem,
   Text,
@@ -13,32 +13,42 @@ import {
   TopToolbarWrapper,
   TopToolbarTitleContainer
 } from '../styled-components/toolbars';
+import { BreadcrumbFragment } from '../../redux/reducers/breadcrumbs-reducer';
+import { PageHeaderTitle } from '@redhat-cloud-services/frontend-components/PageHeader';
+import UserContext from '../../user-context';
 
 export interface TopToolbarProps {
   paddingBottom?: boolean;
   breadcrumbs?: boolean;
+  breadcrumbfragments?: BreadcrumbFragment[];
 }
 const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   children,
   paddingBottom = true,
   breadcrumbs = true,
+  breadcrumbfragments = [],
   ...rest
-}) => (
-  <TopToolbarWrapper
-    className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
-      paddingBottom ? 'pf-u-pb-lg' : ''
-    }`}
-    {...rest}
-  >
-    {breadcrumbs && (
-      <div className="pf-u-mb-md">
-        {' '}
-        <CatalogBreadcrumbs />
-      </div>
-    )}
-    {children}
-  </TopToolbarWrapper>
-);
+}) => {
+  const { standalone: standalone } = useContext(UserContext);
+  return (
+    <div className={clsx({ ['standalone-toolbar']: !!standalone })}>
+      <TopToolbarWrapper
+        className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
+          paddingBottom ? 'pf-u-pb-lg' : ''
+        }`}
+        {...rest}
+      >
+        {breadcrumbs && (
+          <div className="pf-u-mb-md">
+            {' '}
+            <CatalogBreadcrumbs breadcrumbfragments={breadcrumbfragments} />
+          </div>
+        )}
+        {children}
+      </TopToolbarWrapper>
+    </div>
+  );
+};
 
 export default TopToolbar;
 
@@ -61,9 +71,7 @@ export const TopToolbarTitle: React.ComponentType<TopToolbarTitleProps> = ({
     >
       <LevelItem>
         <TextContent>
-          <Text component={TextVariants.h2} className="pf-u-m-0 pf-u-mr-md">
-            {title}
-          </Text>
+          <PageHeaderTitle title={title} className="pf-u-m-0 pf-u-mr-md" />
           {description && <Text component={TextVariants.p}>{description}</Text>}
         </TextContent>
       </LevelItem>

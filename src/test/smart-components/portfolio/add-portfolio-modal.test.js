@@ -50,17 +50,17 @@ describe('<AddPortfolioModal />', () => {
     mockStore = configureStore(middlewares);
   });
 
-  it('should render correctly', async () => {
+  it('should render correctly', (done) => {
     const store = mockStore({});
     let wrapper;
-    await act(async () => {
+    act(() => {
       wrapper = shallow(
         <ComponentWrapper store={store} initialEntries={['/portfolios']}>
           <AddPortfolioModal {...initialProps} />
         </ComponentWrapper>
       ).dive();
     });
-
+    done();
     expect(shallowToJson(wrapper)).toMatchSnapshot();
   });
 
@@ -90,17 +90,21 @@ describe('<AddPortfolioModal />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+          initialEntries={[
+            '/portfolios/portfolio/edit-portfolio?portfolio=123'
+          ]}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/"
             render={() => <AddPortfolioModal {...initialProps} />}
           />
         </ComponentWrapper>
       );
     });
 
-    wrapper.update();
+    await act(async () => {
+      wrapper.update();
+    });
 
     const modal = wrapper.find(FormTemplate);
     const form = wrapper.find(FormRenderer);
@@ -121,10 +125,12 @@ describe('<AddPortfolioModal />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+          initialEntries={[
+            '/portfolios/portfolio/edit-portfolio?portfolio=123'
+          ]}
         >
           <Route
-            path="/portfolio"
+            path="/portfolios/portfolio"
             render={() => <AddPortfolioModal {...initialProps} />}
           />
         </ComponentWrapper>
@@ -157,10 +163,10 @@ describe('<AddPortfolioModal />', () => {
     const wrapper = mount(
       <ComponentWrapper
         store={store}
-        initialEntries={['/portfolio/edit-portfolio?portfolio=123']}
+        initialEntries={['/portfolios/portfolio/edit-portfolio?portfolio=123']}
       >
         <Route
-          path="/portfolio"
+          path="/portfolios/portfolio"
           render={() => <AddPortfolioModal {...initialProps} />}
         />
       </ComponentWrapper>

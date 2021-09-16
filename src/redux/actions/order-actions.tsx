@@ -100,7 +100,7 @@ export const cancelOrder = (orderId: string) => (
         addNotification({
           variant: 'success',
           title: 'Your order has been canceled successfully',
-          description: `Order ${`Order #${orderDetail.order.id}`} was canceled.`,
+          description: `${`Order #${orderDetail.order.id}`} was canceled.`,
           dismissable: true
         })
       )

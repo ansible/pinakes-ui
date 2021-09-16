@@ -6,10 +6,6 @@ import createOrdersToolbarSchema from '../../toolbar/schemas/orders-toolbar.sche
 import OrdersList from './orders-list';
 
 const Orders: React.ComponentType = () => {
-  useEffect(() => {
-    window.insights.chrome.appNavClick({ id: 'orders', secondaryNav: true });
-  }, []);
-
   return (
     <Stack>
       <ToolbarRenderer schema={createOrdersToolbarSchema()} />

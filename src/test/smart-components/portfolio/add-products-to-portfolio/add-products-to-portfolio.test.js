@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
-import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/dist/cjs/select';
+import { InternalSelect } from '@data-driven-forms/pf4-component-mapper/select';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
@@ -38,7 +38,7 @@ describe('<AddProductsToPortfolio />', () => {
 
   beforeEach(() => {
     initialProps = {
-      portfolioRoute: '/portfolio/foo',
+      portfolioRoute: '/portfolios/foo',
       portfolio: {
         id: '321',
         name: 'Foo'
@@ -280,7 +280,7 @@ describe('<AddProductsToPortfolio />', () => {
     setImmediate(() => {
       expect(
         wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual('/portfolio/foo');
+      ).toEqual('/portfolios/foo');
       done();
     });
   });
