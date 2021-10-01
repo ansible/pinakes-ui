@@ -77,10 +77,9 @@ const App = () => {
     unregister = insights.chrome.on('APP_NAVIGATION', (event) => {
       /**
        * Handle navigation from insights main nav
-       * Uses React history directly instead of browser history to avoid template realod.
-       * only redirect after first application mount
+       * Uses React history directly instead of browser history to avoid template reload.
        */
-      if (!ignoreRedirect && event.domEvent) {
+      if (event.domEvent) {
         history.push(`/${event.navId}`);
       }
 

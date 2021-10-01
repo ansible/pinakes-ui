@@ -6,22 +6,24 @@
     "@data-driven-forms/form-builder": "^0.0.11-rc4",
     "@data-driven-forms/pf4-component-mapper": "^3.11.3",
     "@data-driven-forms/react-form-renderer": "^3.11.3",
-    "@patternfly/react-core": "^4.152.4",
-    "@patternfly/react-icons": "^4.11.14",
+    "@patternfly/patternfly": "^4.135.2",
+    "@patternfly/react-core": "^4.157.3",
+    "@patternfly/react-icons": "^4.11.17",
     "@patternfly/react-styles": "^4.11.8",
-    "@patternfly/react-table": "^4.29.58",
+    "@patternfly/react-table": "^4.30.3",
     "@redhat-cloud-services/approval-client": "^1.0.94",
     "@redhat-cloud-services/catalog-client": "^1.0.94",
-    "@redhat-cloud-services/frontend-components": "^3.4.1",
+    "@redhat-cloud-services/frontend-components": "^3.4.3",
     "@redhat-cloud-services/frontend-components-config": "^4.3.5",
     "@redhat-cloud-services/frontend-components-notifications": "^3.2.4",
-    "@redhat-cloud-services/frontend-components-utilities": "^3.2.3",
+    "@redhat-cloud-services/frontend-components-utilities": "^3.2.5",
     "@redhat-cloud-services/rbac-client": "^1.0.93",
     "@types/react-truncate": "^2.3.4",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "clsx": "^1.0.4",
+    "detect-browser": "^5.2.0",
     "history": "^4.10.1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
@@ -40,6 +42,11 @@
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.0.1",
     "whatwg-fetch": "^3.6.2"
+  },
+  "sassIncludes": {
+    "patternfly": "node_modules/patternfly/dist/sass",
+    "bootstrap": "node_modules/patternfly/node_modules/bootstrap-sass/assets/stylesheets",
+    "fontAwesome": "node_modules/patternfly/node_modules/font-awesome-sass/assets/stylesheets"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -156,5 +163,8 @@
   },
   "insights": {
     "appname": "catalog"
-  }
+  },
+  "sideEffects": [
+    "*.scss"
+  ]
 }
