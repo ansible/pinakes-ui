@@ -80,7 +80,7 @@ const App = () => {
        * Uses React history directly instead of browser history to avoid template realod.
        * only redirect after first application mount
        */
-      if (!ignoreRedirect && event.domEvent) {
+      if (event.domEvent) {
         history.push(`/${event.navId}`);
       }
 
