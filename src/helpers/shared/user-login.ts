@@ -20,7 +20,8 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
-import { axiosInstanceStandalone } from
+import { useContext } from 'react';
+import UserContext from "../../user-context";
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -36,9 +37,16 @@ export interface ServerError {
   config?: AxiosRequestConfig;
 }
 
-const axiosInstance: AxiosInstance = axios.create({
-  paramsSerializer: (params) => stringify(params)
-});
+const { token: token } = useContext(UserContext);
+
+const axiosInstance: AxiosInstance = window.catalog?.standalone
+  ? axios.create({
+      paramsSerializer: (params) => stringify(params),
+      Authorization: `Basic ${token}`
+    })
+  : axios.create({
+      paramsSerializer: (params) => stringify(params)
+    });
 
 const resolveInterceptor = (response: AxiosResponse) =>
   response.data || response;
@@ -139,9 +147,6 @@ export function getWorkflowApi(): WorkflowApi {
 }
 
 export function getAxiosInstance(): AxiosInstance {
-if (window.catalog?.standalone) {
-    return axiosInstanceStandalone;
-  }
   return axiosInstance;
 }
 

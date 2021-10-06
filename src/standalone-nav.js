@@ -36,12 +36,14 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
+import { LoginPage } from '@patternfly/react-core/src/components/LoginPage/LoginPage';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
   const [toggleOpen, setToggleOpen] = useState(false);
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
+  const [token, setToken] = useState(null);
 
   const location = useLocation();
 
@@ -304,6 +306,10 @@ const App = (props) => {
     );
   }
 
+  if (!token) {
+    return <LoginPage setToken={setToken} />;
+  }
+
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
       <Page isManagedSidebar={true} header={headerNav()} sidebar={sidebarNav()}>
@@ -313,6 +319,7 @@ const App = (props) => {
             permissions: [],
             userIdentity: { identity: { user: { is_org_admin: true } } },
             openApiSchema: {},
+            token,
             standalone: true
           }}
         >
