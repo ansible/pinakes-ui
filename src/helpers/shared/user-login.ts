@@ -20,6 +20,7 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
+import { axiosInstanceStandalone } from
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -62,7 +63,11 @@ const unauthorizedInterceptor = (error: ServerError = {}) => {
 
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
-  await window.insights.chrome.auth.getUser();
+  // eslint-disable-next-line no-undef
+  if (!window.catalog?.standalone) {
+    await window.insights.chrome.auth.getUser();
+  }
+
   return config;
 });
 axiosInstance.interceptors.response.use(resolveInterceptor);
@@ -134,6 +139,9 @@ export function getWorkflowApi(): WorkflowApi {
 }
 
 export function getAxiosInstance(): AxiosInstance {
+if (window.catalog?.standalone) {
+    return axiosInstanceStandalone;
+  }
   return axiosInstance;
 }
 
