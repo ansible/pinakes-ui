@@ -21,7 +21,7 @@ import {
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
 import { useContext } from 'react';
-import UserContext from "../../user-context";
+import UserContext from '../../user-context';
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -37,16 +37,21 @@ export interface ServerError {
   config?: AxiosRequestConfig;
 }
 
-const { token: token } = useContext(UserContext);
-
-const axiosInstance: AxiosInstance = window.catalog?.standalone
-  ? axios.create({
+const createAxiosInstance = () => {
+  if (window.catalog?.standalone) {
+    const token = window.catalog?.token;
+    return axios.create({
       paramsSerializer: (params) => stringify(params),
       Authorization: `Basic ${token}`
-    })
-  : axios.create({
-      paramsSerializer: (params) => stringify(params)
     });
+  }
+
+  return axios.create({
+    paramsSerializer: (params) => stringify(params)
+  });
+};
+
+const axiosInstance: AxiosInstance = createAxiosInstance();
 
 const resolveInterceptor = (response: AxiosResponse) =>
   response.data || response;

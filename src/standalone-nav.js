@@ -36,7 +36,7 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
-import { LoginPage } from '@patternfly/react-core/src/components/LoginPage/LoginPage';
+import LoginPage from './smart-components/login/login';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
@@ -100,6 +100,13 @@ const App = (props) => {
       </AppContext.Provider>
     );
   };
+
+  useEffect(() => {
+    window.catalog = {
+      ...window.catalog,
+      token
+    };
+  }, [token]);
 
   useEffect(() => {
     const activeMenu = menu();
@@ -306,9 +313,12 @@ const App = (props) => {
     );
   }
 
+  console.log('debug 1 - ');
   if (!token) {
     return <LoginPage setToken={setToken} />;
   }
+
+  console.log('debug 2 - ');
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
