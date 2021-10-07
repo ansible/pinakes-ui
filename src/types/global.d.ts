@@ -22,5 +22,6 @@ interface Catalog {
  */
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 interface Window {
+  catalog: Catalog;
   insights: Insights;
 }
