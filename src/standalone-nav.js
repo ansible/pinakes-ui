@@ -35,8 +35,6 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
-import LoginPage from './smart-components/login/login';
-import Redirect from 'react-router-dom/es/Redirect';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
@@ -331,7 +329,6 @@ const App = (props) => {
             permissions: [{ permission: 'catalog:portfolios:create' }],
             userIdentity: { identity: { user: { is_org_admin: true } } },
             openApiSchema: {},
-            token,
             standalone: true
           }}
         >

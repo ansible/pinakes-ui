@@ -11,8 +11,9 @@ const LoginPage = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [redirect, setRedirect] = useState('');
+  const [redirect, setRedirect] = useState(null);
 
+  console.log('Debug - login page');
   if (redirect) {
     return <Redirect push to={redirect} />;
   }
