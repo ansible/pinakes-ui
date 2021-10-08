@@ -1,7 +1,7 @@
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
-import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
+import { AppPlaceholder } from '../../presentational-components/shared/loader-placeholders';
 import {
   PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
@@ -12,53 +12,47 @@ import DialogRoutes from '../../smart-components/dialog-routes';
 import { LOGIN_ROUTE } from '../../constants/routes';
 const CommonApiError = lazy(() =>
   import(
-    /* webpackChunkName: "error-page" */ './smart-components/error-pages/common-api-error'
+    /* webpackChunkName: "error-page" */ '../../smart-components/error-pages/common-api-error'
   )
 );
 
 const Products = lazy(() =>
   import(
-    /* webpackChunkName: "products" */ './smart-components/products/products'
+    /* webpackChunkName: "products" */ '../../smart-components/products/products'
   )
 );
 const Platforms = lazy(() =>
   import(
-    /* webpackChunkName: "platforms" */ './smart-components/platform/platforms'
+    /* webpackChunkName: "platforms" */ '../..smart-components/platform/platforms'
   )
 );
 const Platform = lazy(() =>
   import(
-    /* webpackChunkName: "platform" */ './smart-components/platform/platform'
+    /* webpackChunkName: "platform" */ '../../smart-components/platform/platform'
   )
 );
 const Portfolios = lazy(() =>
   import(
-    /* webpackChunkName: "portfolios" */ './smart-components/portfolio/portfolios'
+    /* webpackChunkName: "portfolios" */ '../../smart-components/portfolio/portfolios'
   )
 );
 const Portfolio = lazy(() =>
   import(
-    /* webpackChunkName: "portfolio" */ './smart-components/portfolio/portfolio'
+    /* webpackChunkName: "portfolio" */ '../../smart-components/portfolio/portfolio'
   )
 );
 const Orders = lazy(() =>
-  import(/* webpackChunkName: "orders" */ './smart-components/order/orders')
+  import(/* webpackChunkName: "orders" */ '../../smart-components/order/orders')
 );
 const OrderDetail = lazy(() =>
   import(
-    /* webpackChunkName: "order-detail" */ './smart-components/order/order-detail/order-detail'
-  )
-);
-const OrderProcesses = lazy(() =>
-  import(
-    /* webpackChunkName: "order-processes" */ './smart-components/order-process/order-processes'
+    /* webpackChunkName: "order-detail" */ '../../smart-components/order/order-detail/order-detail'
   )
 );
 
 export const Paths = {
   products: '/products',
   platforms: '/platforms',
-  order_processes: '/order-processes',
   platform: '/platforms/platform',
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,
@@ -87,7 +81,6 @@ export const Routes = () => {
           path={Paths.platforms}
           component={Platforms}
         />
-        <CatalogRoute path={Paths.order_processes} component={OrderProcesses} />
         <CatalogRoute path={Paths.order} component={OrderDetail} />
         <CatalogRoute path={Paths.orders} component={Orders} />
         <Route path={errorPaths} component={CommonApiError} />
