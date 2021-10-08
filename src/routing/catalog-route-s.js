@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Route } from 'react-router-dom';
-import LoginPage from '../smart-components/login/login';
+import { Redirect, Route, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
-const RedirectToLogin = (props) => (
-  <Route {...props}>
-    <LoginPage {...props} />
-  </Route>
-);
+const RedirectToLogin = (props) => {
+  const location = useLocation();
+  const history = useHistory();
+  console.log('debug - catalog route - location: ', location);
+  return history.push('http://0.0.0.0:8002/catalog/portfolios/login');
+};
 
 const CatalogRoute = ({ ...props }) => {
-  console.log('debug - catalog route');
+  console.log('debug - catalog route - token: ', window.catalog?.token);
   if (!window.catalog?.token) {
-    console.log('debug - catalog route - token: indow.catalog?.token');
-    return <RedirectToLogin {...props} from={location.pathname} />;
+    return <RedirectToLogin {...props} />;
   }
 
   return <Route {...props} />;

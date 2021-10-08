@@ -4,27 +4,16 @@ import { ExclamationCircleIcon } from '@patternfly/react-icons';
 import Logo from '../../assets/images/logo-large.svg';
 import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useLocation } from 'react-router';
-import useEnhancedHistory from '../../utilities/use-enhanced-history';
-import some from 'lodash/some';
-import { Paths } from '../../presentational-components/navigation/routes';
+import { useHistory } from 'react-router';
 
 const LoginPage = (props) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [redirect, setRedirect] = useState(null);
+  const history = useHistory();
 
   console.log('Debug - login page - props: ', props);
-  if (window.catalog?.token) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/portfolios'
-        }}
-      />
-    );
-  }
 
   const helperText = (
     <span style={{ color: 'var(--pf-global--danger-color--100)' }}>
@@ -47,9 +36,7 @@ const LoginPage = (props) => {
     );
     window.catalog.token = token;
     event.preventDefault();
-    if (window.catalog?.token) {
-      return <Redirect to={props?.from || '/'} />;
-    }
+    return history.push('/catalog/portfolios');
   };
 
   const loginForm = (
