@@ -42,3 +42,4 @@ export const ORDER_PROCESSES_ROUTE = '/order-processes';
 export const ADD_ORDER_PROCESS_ROUTE = '/order-processes/add-order-process';
 export const REMOVE_ORDER_PROCESS_ROUTE = '/order-processes/remove';
 export const UPDATE_ORDER_PROCESS_ROUTE = '/order-processes/update';
+export const LOGIN_ROUTE = '/login';

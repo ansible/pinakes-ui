@@ -10,7 +10,8 @@ import OrderProcesses from '../../smart-components/order-process/order-processes
 import {
   ORDER_ROUTE,
   PORTFOLIO_ROUTE,
-  PORTFOLIOS_ROUTE
+  PORTFOLIOS_ROUTE,
+  LOGIN_ROUTE
 } from '../../constants/routes';
 
 import { useEffect, useState } from 'react';
@@ -25,7 +26,8 @@ export const Paths = {
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
-  order: ORDER_ROUTE
+  order: ORDER_ROUTE,
+  login: LOGIN_ROUTE
 };
 
 const getQueryString = (params) => {
@@ -60,22 +62,24 @@ export function formatPath(path, data, params = {}) {
 const AuthHandler = (params) => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    // check if the user is logged in, if not try login
+    if (window.catalog?.token) {
+      return;
+    }
   });
+  console.log('Debug - AuthHandler - params');
   let { Component, noAuth, ...props } = params;
 
   if (isLoading) {
     return null;
   }
 
-  //TODO - remove after auth handling
-  noAuth = true;
   if (!noAuth) {
+    console.log('Debug - AuthHandler - redirecting to login');
     return (
       <Redirect to={formatPath(Paths.login, {}, { next: location.pathname })} />
     );
   }
-
+  console.log('Debug - AuthHandler - go to component - props', props);
   return <Component {...props} />;
 };
 

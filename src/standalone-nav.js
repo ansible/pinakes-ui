@@ -24,8 +24,7 @@ import {
 import { reject, some } from 'lodash';
 
 import { formatPath } from './presentational-components/navigation/routes';
-import { Routes } from './Routes';
-import { Paths } from './presentational-components/navigation/routes';
+import { Routes, Paths } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
@@ -37,6 +36,7 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
 import LoginPage from './smart-components/login/login';
+import Redirect from 'react-router-dom/es/Redirect';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
@@ -293,7 +293,14 @@ const App = (props) => {
     return (
       <UserContext.Provider
         value={{
-          permissions: [],
+          permissions: [
+            { permission: 'catalog:portfolios:create' },
+            { permission: 'catalog:portfolios:update' },
+            { permission: 'catalog:portfolios:remove' },
+            { permission: 'catalog:portfolio_items:create' },
+            { permission: 'catalog:portfolio_items:update' },
+            { permission: 'catalog:portfolio_items:remove' }
+          ],
           userIdentity: { identity: { user: { is_org_admin: true } } },
           openApiSchema: {},
           standalone: true
@@ -313,12 +320,7 @@ const App = (props) => {
     );
   }
 
-  console.log('debug 1 - ');
-  if (!token) {
-    return <LoginPage setToken={setToken} />;
-  }
-
-  console.log('debug 2 - ');
+  console.log('debug 1 - token', token);
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
@@ -326,7 +328,7 @@ const App = (props) => {
         {aboutModalVisible && aboutModal()}
         <UserContext.Provider
           value={{
-            permissions: [],
+            permissions: [{ permission: 'catalog:portfolios:create' }],
             userIdentity: { identity: { user: { is_org_admin: true } } },
             openApiSchema: {},
             token,

@@ -4,8 +4,10 @@ import { ExclamationCircleIcon } from '@patternfly/react-icons';
 import Logo from '../../assets/images/logo-large.svg';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useLocation } from 'react-router';
+import useEnhancedHistory from '../../utilities/use-enhanced-history';
 
-const LoginPage = (setToken) => {
+const LoginPage = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,7 +36,7 @@ const LoginPage = (setToken) => {
     const token = Buffer.from(`${userName}:${password}`, 'utf8').toString(
       'base64'
     );
-    setToken(token);
+    window.catalog.token = token;
     event.preventDefault();
   };
 
@@ -51,6 +53,14 @@ const LoginPage = (setToken) => {
       onLoginButtonClick={onLoginButtonClick}
     />
   );
+
+  const location = useLocation();
+  console.log('debug Login - location: ', location);
+  const history = useEnhancedHistory();
+  console.log('debug Login - history: ', history);
+  let { from } = location.state || { from: { pathname: '/' } };
+  console.log('debug Login - from: ', from);
+
   return (
     <PFLoginPage
       style={{
