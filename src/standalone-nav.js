@@ -23,7 +23,6 @@ import {
 } from '@patternfly/react-icons';
 import { reject, some } from 'lodash';
 
-import { formatPath } from './presentational-components/navigation/routes';
 import { Routes, Paths } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
@@ -182,9 +181,7 @@ const App = (props) => {
       headerTools={
         <PageHeaderTools>
           {user ? (
-            <Link to={formatPath(Paths.login, {}, { next: location.pathname })}>
-              {`Login`}
-            </Link>
+            <Link to={Paths.login}>{`Login`}</Link>
           ) : (
             <div>
               <StatefulDropdown

@@ -8,7 +8,7 @@ import {
   ORDER_ROUTE,
   LOGIN_ROUTE
 } from '../../constants/routes';
-import CatalogRoute from '../../routing/catalog-route-s';
+import CatalogRoute from '../../routing/catalog-route';
 import DialogRoutes from '../../smart-components/dialog-routes';
 const CommonApiError = lazy(() =>
   import(
@@ -87,8 +87,8 @@ export const Routes = () => {
         />
         <CatalogRoute path={Paths.order} component={OrderDetail} />
         <CatalogRoute path={Paths.orders} component={Orders} />
+        <CatalogRoute path={Paths.login} component={Login} />
         <Route path={errorPaths} component={CommonApiError} />
-        <Route path={Paths.login} component={Login} />
         <Route
           render={() =>
             some(Paths, (p) => p === pathname) ? null : (

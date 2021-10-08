@@ -3,9 +3,11 @@ import { LoginForm, LoginPage as PFLoginPage } from '@patternfly/react-core';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 import Logo from '../../assets/images/logo-large.svg';
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
+import some from 'lodash/some';
+import { Paths } from '../../presentational-components/navigation/routes';
 
 const LoginPage = (props) => {
   const [userName, setUserName] = useState('');
@@ -15,7 +17,13 @@ const LoginPage = (props) => {
 
   console.log('Debug - login page - props: ', props);
   if (window.catalog?.token) {
-    return <Redirect push to={props?.from || '/'} />;
+    return (
+      <Redirect
+        to={{
+          pathname: '/portfolios'
+        }}
+      />
+    );
   }
 
   const helperText = (
@@ -39,6 +47,9 @@ const LoginPage = (props) => {
     );
     window.catalog.token = token;
     event.preventDefault();
+    if (window.catalog?.token) {
+      return <Redirect to={props?.from || '/'} />;
+    }
   };
 
   const loginForm = (
