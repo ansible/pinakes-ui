@@ -5,13 +5,15 @@ import LoginPage from '../smart-components/login/login';
 
 const RedirectToLogin = (props) => (
   <Route {...props}>
-    <LoginPage />
+    <LoginPage {...props} />
   </Route>
 );
 
 const CatalogRoute = ({ ...props }) => {
+  console.log('debug - catalog route');
   if (!window.catalog?.token) {
-    return <RedirectToLogin {...props} />;
+    console.log('debug - catalog route - token: indow.catalog?.token');
+    return <RedirectToLogin {...props} from={location.pathname} />;
   }
 
   return <Route {...props} />;

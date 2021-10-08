@@ -5,11 +5,11 @@ import { AppPlaceholder } from '../../presentational-components/shared/loader-pl
 import {
   PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
-  ORDER_ROUTE
+  ORDER_ROUTE,
+  LOGIN_ROUTE
 } from '../../constants/routes';
-import CatalogRoute from '../../routing/catalog-route';
+import CatalogRoute from '../../routing/catalog-route-s';
 import DialogRoutes from '../../smart-components/dialog-routes';
-import { LOGIN_ROUTE } from '../../constants/routes';
 const CommonApiError = lazy(() =>
   import(
     /* webpackChunkName: "error-page" */ '../../smart-components/error-pages/common-api-error'
@@ -23,7 +23,7 @@ const Products = lazy(() =>
 );
 const Platforms = lazy(() =>
   import(
-    /* webpackChunkName: "platforms" */ '../..smart-components/platform/platforms'
+    /* webpackChunkName: "platforms" */ '../../smart-components/platform/platforms'
   )
 );
 const Platform = lazy(() =>
@@ -48,6 +48,10 @@ const OrderDetail = lazy(() =>
   import(
     /* webpackChunkName: "order-detail" */ '../../smart-components/order/order-detail/order-detail'
   )
+);
+
+const Login = lazy(() =>
+  import(/* webpackChunkName: "login" */ '../../smart-components/login/login')
 );
 
 export const Paths = {
@@ -84,6 +88,7 @@ export const Routes = () => {
         <CatalogRoute path={Paths.order} component={OrderDetail} />
         <CatalogRoute path={Paths.orders} component={Orders} />
         <Route path={errorPaths} component={CommonApiError} />
+        <Route path={Paths.login} component={Login} />
         <Route
           render={() =>
             some(Paths, (p) => p === pathname) ? null : (
