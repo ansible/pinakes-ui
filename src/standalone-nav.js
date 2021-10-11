@@ -282,7 +282,6 @@ const App = (props) => {
       />
     </Fragment>
   );
-  console.log('Debug - standalone-nav - location: ', location);
   // Hide navs on login page
   if (location?.pathname === Paths.login) {
     return (
@@ -314,8 +313,6 @@ const App = (props) => {
       </UserContext.Provider>
     );
   }
-
-  console.log('debug 1 - token', token);
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">

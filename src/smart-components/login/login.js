@@ -13,8 +13,6 @@ const LoginPage = (props) => {
   const [redirect, setRedirect] = useState(null);
   const history = useHistory();
 
-  console.log('Debug - login page - props: ', props);
-
   const helperText = (
     <span style={{ color: 'var(--pf-global--danger-color--100)' }}>
       <ExclamationCircleIcon />
