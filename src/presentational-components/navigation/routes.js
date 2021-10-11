@@ -69,6 +69,7 @@ const errorPaths = ['/400', '/401', '/403', '/404'];
 
 export const Routes = () => {
   const { pathname } = useLocation();
+  console.log('debug - Routes - pathname: ', pathname);
   return (
     <Suspense fallback={<AppPlaceholder />}>
       <Switch>

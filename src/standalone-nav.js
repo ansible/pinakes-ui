@@ -282,7 +282,7 @@ const App = (props) => {
       />
     </Fragment>
   );
-
+  console.log('Debug - standalone-nav - location: ', location);
   // Hide navs on login page
   if (location?.pathname === Paths.login) {
     return (
