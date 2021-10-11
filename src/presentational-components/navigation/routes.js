@@ -8,7 +8,7 @@ import {
   ORDER_ROUTE,
   LOGIN_ROUTE
 } from '../../constants/routes';
-import CatalogRoute from '../../routing/catalog-route';
+import CatalogRoute from '../../routing/catalog-route-s';
 import DialogRoutes from '../../smart-components/dialog-routes';
 const CommonApiError = lazy(() =>
   import(

@@ -5,18 +5,10 @@ import UserContext from '../user-context';
 import { hasPermission } from '../helpers/shared/helpers';
 import { UnauthorizedRedirect } from '../smart-components/error-pages/error-redirects';
 import { AnyObject } from '../types/common-types';
-// @ts-ignore
-import LoginPage from '../smart-components/login/login';
 
 const ReidrectOnAccess: React.ComponentType<RouteProps> = (props) => (
   <Route {...props}>
     <UnauthorizedRedirect />
-  </Route>
-);
-
-const RedirectToLogin: React.ComponentType<RouteProps> = (props) => (
-  <Route {...props}>
-    <LoginPage />
   </Route>
 );
 
@@ -50,10 +42,6 @@ const CatalogRoute: ComponentType<CatalogRouteProps> = ({
 
   if (!hasAccess) {
     return <ReidrectOnAccess {...props} />;
-  }
-
-  if (!window.catalog?.token) {
-    return <RedirectToLogin {...props} />;
   }
 
   return <Route {...props} />;
