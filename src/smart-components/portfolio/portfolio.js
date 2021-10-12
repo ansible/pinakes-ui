@@ -188,9 +188,7 @@ const Portfolio = () => {
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
-    return dispatch(
-      window.catalog?.standalone ? copyPortfolioS(id) : copyPortfolio(id)
-    )
+    return dispatch(copyPortfolio(id))
       .then(({ id }) =>
         history.push({
           pathname: PORTFOLIO_ROUTE,
