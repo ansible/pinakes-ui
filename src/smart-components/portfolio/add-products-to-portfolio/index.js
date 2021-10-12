@@ -100,7 +100,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const items = () => {
     if (selectedPlatform && platformItems[selectedPlatform.id]) {
-      return window.catalog.standalone
+      return window.catalog?.standalone
         ? platformItems[selectedPlatform.id].results
         : platformItems[selectedPlatform.id].data;
     }
