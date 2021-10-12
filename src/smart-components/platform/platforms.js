@@ -42,7 +42,7 @@ const Platforms = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
+    dispatch(fetchPlatforms());
     scrollToTop();
   }, []);
   const items = window.catalog?.standalone ? platforms.results : platforms;
@@ -53,13 +53,7 @@ const Platforms = () => {
             ouiaId={`platform-${item.id}`}
             key={item.id}
             {...item}
-            updateData={() =>
-              dispatch(
-                window.catalog?.standalone
-                  ? fetchPlatformsS()
-                  : fetchPlatforms()
-              )
-            }
+            updateData={() => dispatch(fetchPlatforms())}
           />
         )),
         isLoading: isLoading && items.length === 0

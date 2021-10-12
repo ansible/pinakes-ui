@@ -67,11 +67,9 @@ const addProductsState = (state, action) => {
 const debouncedFilter = asyncFormValidator(
   (id, filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(
-      window.catalog?.standalone
-        ? fetchPlatformItemsS(id, filter, { ...meta, filter })
-        : fetchPlatformItems(id, filter, { ...meta, filter })
-    ).then(() => filteringCallback(false));
+    dispatch(fetchPlatformItems(id, filter, { ...meta, filter })).then(() =>
+      filteringCallback(false)
+    );
   },
   1000
 );
@@ -98,7 +96,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   );
 
   useEffect(() => {
-    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
+    dispatch(fetchPlatforms());
   }, []);
 
   const checkItem = (itemId) => {
@@ -163,11 +161,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
-    dispatch(
-      window.catalog?.standalone
-        ? fetchPlatformItemsS(platform.id, filterValue, defaultSettings)
-        : fetchPlatformItems(platform.id, filterValue, defaultSettings)
-    );
+    dispatch(fetchPlatformItems(platform.id, filterValue, defaultSettings));
   };
 
   const options =
@@ -218,11 +212,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           platformId: selectedPlatform && selectedPlatform.id,
           searchValue: filterValue,
           fetchPlatformItems: (id, options) =>
-            dispatch(
-              window.catalog?.standalone
-                ? fetchPlatformItemsS(id, filterValue, options)
-                : fetchPlatformItems(id, filterValue, options)
-            )
+            dispatch(fetchPlatformItems(id, filterValue, options))
         })}
       />
       <AddProductsGallery
@@ -241,9 +231,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
             apiRequest={(id, options) =>
-              window.catalog?.standalone
-                ? fetchPlatformItemsS(id, filterValue, options)
-                : fetchPlatformItems(id, filterValue, options)
+              fetchPlatformItems(id, filterValue, options)
             }
             dropDirection="up"
           />
