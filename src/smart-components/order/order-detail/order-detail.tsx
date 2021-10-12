@@ -21,6 +21,7 @@ import { OrderDetailToolbarPlaceholder } from '../../../presentational-component
 import useQuery from '../../../utilities/use-query';
 import useBreadcrumbs from '../../../utilities/use-breadcrumbs';
 import { fetchPlatforms } from '../../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../../redux/actions/platform-actions-s';
 import UnAvailableAlertContainer from '../../../presentational-components/styled-components/unavailable-alert-container';
 import ordersMessages from '../../../messages/orders.messages';
 import CatalogLink from '../../common/catalog-link';
@@ -62,7 +63,9 @@ const OrderDetail: React.ComponentType = () => {
   useEffect(() => {
     setIsFetching(true);
     Promise.all([
-      dispatch(fetchPlatforms()),
+      dispatch(
+        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+      ),
       dispatch(fetchOrderDetails(queryValues))
     ]).then(() => setIsFetching(false));
     return () => {

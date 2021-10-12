@@ -5,6 +5,7 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformItems } from '../../redux/actions/platform-actions';
+import { fetchPlatformItems as fetchPlatformItemsS } from '../../redux/actions/platform-actions-s';
 import PlatformItem from '../../presentational-components/platform/platform-item';
 import { createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
@@ -42,9 +43,11 @@ const platformItemsState = (state, action) => {
 const debouncedFilter = asyncFormValidator(
   (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPlatformItems(id, value, meta)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(id, value, meta)
+        : fetchPlatformItems(id, value, meta)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -68,9 +71,11 @@ const PlatformTemplates = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPlatformItems(id, filterValue, defaultSettings)).then(() =>
-      stateDispatch({ type: 'setFetching', payload: false })
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(id, filterValue, defaultSettings)
+        : fetchPlatformItems(id, filterValue, defaultSettings)
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, [id]);
 
@@ -116,7 +121,11 @@ const PlatformTemplates = () => {
           filterPlaceholder: formatMessage(platformsMessages.templatesFilter),
           meta,
           apiRequest: (_, options) =>
-            dispatch(fetchPlatformItems(id, filterValue, options))
+            dispatch(
+              window.catalog?.standalone
+                ? fetchPlatformItemsS(id, filterValue, options)
+                : fetchPlatformItems(id, filterValue, options)
+            )
         })}
       />
       <ContentGallery
@@ -156,7 +165,11 @@ const PlatformTemplates = () => {
             dropDirection="up"
             meta={meta}
             apiRequest={(_, options) =>
-              dispatch(fetchPlatformItems(id, filterValue, options))
+              dispatch(
+                window.catalog?.standalone
+                  ? fetchPlatformItemsS(id, filterValue, options)
+                  : fetchPlatformItems(id, filterValue, options)
+              )
             }
           />
         </BottomPaginationContainer>
