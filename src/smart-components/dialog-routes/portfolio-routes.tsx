@@ -26,11 +26,6 @@ import {
   resetSelectedPortfolio,
   fetchPortfolios
 } from '../../redux/actions/portfolio-actions';
-import {
-  setOrFetchPortfolio as setOrFetchPortfolioS,
-  fetchPortfolios as fetchPortfoliosS
-} from '../../redux/actions/portfolio-actions-s';
-
 import SetOrderProcessModal from '../order-process/set-order-process-modal';
 import { CatalogRootState } from '../../types/redux';
 import {
@@ -115,11 +110,7 @@ const PortfolioRoutes: React.ComponentType = () => {
 
   useEffect(() => {
     if (id && (!selectedPortfolio?.id || id !== selectedPortfolio.id)) {
-      dispatch(
-        window.catalog?.standalone
-          ? setOrFetchPortfolioS(id, portfolios)
-          : setOrFetchPortfolio(id, portfolios)
-      );
+      dispatch(setOrFetchPortfolio(id, portfolios));
     }
   }, [id]);
 
@@ -176,11 +167,7 @@ const PortfolioRoutes: React.ComponentType = () => {
             querySelector="portfolio"
             removeSearch
             keepHash
-            postMethod={() =>
-              window.catalog?.standalone
-                ? fetchPortfoliosS()
-                : fetchPortfolios()
-            }
+            postMethod={fetchPortfolios}
             onClose={() => dispatch(resetSelectedPortfolio())}
           />
         </Route>

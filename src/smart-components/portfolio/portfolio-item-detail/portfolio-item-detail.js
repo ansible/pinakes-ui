@@ -16,7 +16,6 @@ import ItemDetailDescription from './item-detail-description';
 import { PortfolioItemDetailToolbar } from './portfolio-item-detail-toolbar';
 import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 import { getPortfolioItemDetail } from '../../../redux/actions/portfolio-actions';
-import { getPortfolioItemDetail as getPortfolioItemDetailS } from '../../../redux/actions/portfolio-actions-s';
 import {
   ProductLoaderPlaceholder,
   AppPlaceholder
@@ -37,7 +36,6 @@ import BackToProducts from '../../../presentational-components/portfolio/back-to
 import useFormatMessage from '../../../utilities/use-format-message';
 import { hasPermission } from '../../../helpers/shared/helpers';
 import UserContext from '../../../user-context';
-import { USER_CAPABILITIES_PLACEHOLDER } from '../../../utilities/constants';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -78,15 +76,10 @@ const PortfolioItemDetail = () => {
     }
 
     dispatch(
-      window.catalog?.standalone
-        ? getPortfolioItemDetailS({
-            portfolioItem: queryValues['portfolio-item'],
-            ...queryValues
-          })
-        : getPortfolioItemDetail({
-            portfolioItem: queryValues['portfolio-item'],
-            ...queryValues
-          })
+      getPortfolioItemDetail({
+        portfolioItem: queryValues['portfolio-item'],
+        ...queryValues
+      })
     )
       .then(() => setIsFetching(false))
       .catch(() => setIsFetching(false));
@@ -149,7 +142,7 @@ const PortfolioItemDetail = () => {
         <CatalogRoute
           requiredCapabilities="update"
           userCapabilities={
-            portfolioItemData?.portfolioItem?.metadata?.user_capabilities
+            portfolioItemData?.portfolioItem?.metadata.user_capabilities
           }
           path={`${url}/edit-survey`}
         >
@@ -174,10 +167,7 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={availability}
               userCapabilities={
-                window.catalog.standalone
-                  ? USER_CAPABILITIES_PLACEHOLDER
-                  : portfolioItemData?.portfolioItem?.metadata
-                      ?.user_capabilities
+                portfolioItemData?.portfolioItem?.metadata.user_capabilities
               }
               orderable={portfolioItemData?.portfolioItem.metadata?.orderable}
               canLinkOrderProcesses={canLinkOrderProcesses}
@@ -214,8 +204,7 @@ const PortfolioItemDetail = () => {
                   uploadIcon={uploadIcon}
                   product={portfolioItemData.portfolioItem}
                   userCapabilities={
-                    portfolioItemData?.portfolioItem?.metadata
-                      ?.user_capabilities
+                    portfolioItemData?.portfolioItem?.metadata.user_capabilities
                   }
                   url={url}
                   detailPaths={detailPaths}
