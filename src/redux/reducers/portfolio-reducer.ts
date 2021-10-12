@@ -58,8 +58,7 @@ export const portfoliosInitialState: PortfolioReducerState = {
     portfolioItem: {
       metadata: {
         user_capabilities: {},
-        statistics: {},
-        orderable: true
+        statistics: {}
       }
     }
   },
@@ -129,7 +128,7 @@ const resetSelectedPortfolio: PortfolioReducerActionHandler = (state) => ({
 });
 
 // these are optimistic UI updates that mutate the portfolio state immediately after user action.
-// State is synchronized with API after actions are successful
+// State is synchronized with API after actions are sucesfull
 const addTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }
@@ -147,42 +146,31 @@ const addTemporaryPortfolio: PortfolioReducerActionHandler = (
 const updateTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }
-) => {
-  return {
-    prevState: { ...state },
-    ...state,
-    selectedPortfolio: {
-      metadata: {
-        ...state.selectedPortfolio.metadata,
-        user_capabilities: {
-          // the client typings define metadata object which will result it unknown property TS error. So we have to override it
-          ...(state.selectedPortfolio.metadata as AnyObject).user_capabilities
-        }
-      },
-      ...payload
+) => ({
+  prevState: { ...state },
+  ...state,
+  selectedPortfolio: {
+    metadata: {
+      ...state.selectedPortfolio.metadata,
+      user_capabilities: {
+        // the client typings define metadaas object which will result it unknow property TS error. So we have to override it
+        ...(state.selectedPortfolio.metadata as AnyObject).user_capabilities
+      }
     },
-    portfolios: {
-      ...state.portfolios,
-      // @ts-ignore
-      data: state.portfolios?.data?.map((item: { id: any }) =>
-        item.id === payload.id
-          ? {
-              ...item,
-              ...payload
-            }
-          : item
-      ),
-      results: state.portfolios?.results?.map((item) => {
-        return String(item.id) === String(payload.id)
-          ? {
-              ...item,
-              ...payload
-            }
-          : item;
-      })
-    }
-  };
-};
+    ...payload
+  },
+  portfolios: {
+    ...state.portfolios,
+    data: state.portfolios.data.map((item) =>
+      item.id === payload.id
+        ? {
+            ...item,
+            ...payload
+          }
+        : item
+    )
+  }
+});
 
 const deleteTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
@@ -214,12 +202,7 @@ const updateTemporaryPortfolioItem: PortfolioReducerActionHandler = (
   },
   portfolioItems: {
     ...state.portfolioItems,
-    data: state.portfolioItems?.data?.map((item) =>
-      item.id === payload.id
-        ? { created_at: item.created_at, ...payload }
-        : item
-    ),
-    results: state.portfolioItems?.results?.map((item) =>
+    data: state.portfolioItems.data.map((item) =>
       item.id === payload.id
         ? { created_at: item.created_at, ...payload }
         : item
@@ -238,10 +221,7 @@ const updatePortfolioItem: PortfolioReducerActionHandler = (
   },
   portfolioItems: {
     ...state.portfolioItems,
-    data: state.portfolioItems?.data?.map((item) =>
-      item.id === payload.id ? { ...payload } : item
-    ),
-    results: state.portfolioItems?.results?.map((item) =>
+    data: state.portfolioItems.data.map((item) =>
       item.id === payload.id ? { ...payload } : item
     )
   }
