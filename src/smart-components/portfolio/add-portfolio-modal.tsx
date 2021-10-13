@@ -47,16 +47,18 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     removeSearch: removeQuery,
     keepHash: true
   });
-  const initialValues = useSelector<CatalogRootState, Portfolio | undefined>(
-    ({ portfolioReducer }) =>
-      // eslint-disable-next-line no-undef
-      window.catalog?.standalone
-        ? (getPortfolioFromStateS(portfolioReducer, portfolioId) as
-            | InternalPortfolio
-            | undefined)
-        : (getPortfolioFromState(portfolioReducer, portfolioId) as
-            | Portfolio
-            | undefined)
+  const initialValues = useSelector<
+    CatalogRootState,
+    InternalPortfolio | undefined
+  >(({ portfolioReducer }) =>
+    // eslint-disable-next-line no-undef
+    window.catalog?.standalone
+      ? (getPortfolioFromStateS(portfolioReducer, portfolioId) as
+          | InternalPortfolio
+          | undefined)
+      : (getPortfolioFromState(portfolioReducer, portfolioId) as
+          | InternalPortfolio
+          | undefined)
   );
 
   const onAddPortfolio = async (data: Partial<Portfolio>) => {
