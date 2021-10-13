@@ -123,7 +123,7 @@ const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> =
       }>
     );
     return dispatch(
-      window.catalog.standalone
+      window.catalog?.standalone
         ? ((copyPortfolioItemS(
             portfolioItemId,
             values,

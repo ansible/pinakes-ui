@@ -174,7 +174,7 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={availability}
               userCapabilities={
-                window.catalog.standalone
+                window.catalog?.standalone
                   ? USER_CAPABILITIES_PLACEHOLDER
                   : portfolioItemData?.portfolioItem?.metadata
                       ?.user_capabilities
