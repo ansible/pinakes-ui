@@ -25,10 +25,7 @@ import {
   ReduxActionHandler,
   InternalPortfolio
 } from '../../types/common-types';
-import {
-  PortfolioItem,
-  Portfolio
-} from '@redhat-cloud-services/catalog-client';
+import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
 export interface PortfolioItemStateObject {
@@ -37,9 +34,9 @@ export interface PortfolioItemStateObject {
 export interface PortfolioReducerState extends AnyObject {
   portfolioItems: ApiCollectionResponse<PortfolioItem>;
   portfolioItem: PortfolioItemStateObject;
-  portfolios: ApiCollectionResponse<Portfolio>;
+  portfolios: ApiCollectionResponse<InternalPortfolio>;
   selectedPortfolio: InternalPortfolio;
-  portfolio: Portfolio;
+  portfolio: InternalPortfolio;
   filterValue: string;
   isLoading: boolean;
 }
@@ -73,7 +70,12 @@ export const portfoliosInitialState: PortfolioReducerState = {
       statistics: {}
     }
   },
-  portfolio: {},
+  portfolio: {
+    metadata: {
+      user_capabilities: {},
+      statistics: {}
+    }
+  },
   filterValue: '',
   isLoading: false
 };

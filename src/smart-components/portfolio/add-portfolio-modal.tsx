@@ -51,8 +51,12 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     ({ portfolioReducer }) =>
       // eslint-disable-next-line no-undef
       window.catalog?.standalone
-        ? getPortfolioFromStateS(portfolioReducer, portfolioId)
-        : getPortfolioFromState(portfolioReducer, portfolioId)
+        ? (getPortfolioFromStateS(portfolioReducer, portfolioId) as
+            | InternalPortfolio
+            | undefined)
+        : (getPortfolioFromState(portfolioReducer, portfolioId) as
+            | Portfolio
+            | undefined)
   );
 
   const onAddPortfolio = async (data: Partial<Portfolio>) => {
@@ -111,14 +115,6 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
   if (initialValues?.metadata?.user_capabilities?.update === false) {
     return <UnauthorizedRedirect />;
   }
-  console.log(
-    'Debug message - addPortfolioModal - initialValues',
-    initialValues
-  );
-
-  //if (initialValues?.metadata?.user_capabilities?.update === false) {
-  //  return <UnauthorizedRedirect />;
-  //}
 
   return (
     <FormRenderer

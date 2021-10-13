@@ -29,7 +29,6 @@ import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { CatalogRootState } from '../../types/redux';
 import { InternalPortfolio } from '../../types/common-types';
-import { Portfolio } from '@redhat-cloud-services/catalog-client';
 
 export interface RemovePortfolioModalProps {
   viewState?: PaginationConfiguration;
@@ -42,7 +41,7 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
   const dispatch = useDispatch();
   const portfolio = useSelector<
     CatalogRootState,
-    Portfolio | InternalPortfolio | undefined
+    InternalPortfolio | undefined
   >(({ portfolioReducer }) =>
     window.catalog?.standalone
       ? getPortfolioFromStateS(portfolioReducer, portfolioId)
@@ -62,12 +61,11 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
     return null;
   }
 
-  console.log('Debug - remove portfoliomodal - portfolio', portfolio);
-  //const destroy = portfolio?.metadata?.user_capabilities?.destroy;
-  //if ( destroy === false ) {
-  //  return <UnauthorizedRedirect/>;
-  //}
-  return (
+  const destroy = portfolio.metadata?.user_capabilities?.destroy;
+
+  return destroy === false ? (
+    <UnauthorizedRedirect />
+  ) : (
     <Modal
       aria-label={
         formatMessage(portfolioMessages.portfolioRemoveTitle) as string

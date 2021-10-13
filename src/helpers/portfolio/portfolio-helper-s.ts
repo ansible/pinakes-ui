@@ -287,14 +287,14 @@ export const getPortfolioItemDetail = (
 
 // TODO move to portfolio reducer
 interface PortfolioReducerPlaceholder {
-  selectedPortfolio?: Portfolio;
-  portfolios: ApiCollectionResponse<Portfolio>;
+  selectedPortfolio?: InternalPortfolio;
+  portfolios: ApiCollectionResponse<InternalPortfolio>;
 }
 
 export const getPortfolioFromState = (
   portfolioReducer: PortfolioReducerState,
   portfolioId: string
-): Portfolio | undefined => {
+): InternalPortfolio | undefined => {
   console.log(
     'debug - getPortfolioFromStateS - portfolioReducer: ',
     portfolioReducer
