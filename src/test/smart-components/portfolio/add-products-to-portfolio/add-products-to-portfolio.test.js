@@ -143,28 +143,6 @@ describe('<AddProductsToPortfolio />', () => {
         type: `${FETCH_PLATFORM_ITEMS}_FULFILLED`
       })
     ];
-
-    wrapper
-      .find('.pf-c-select__toggle')
-      .first()
-      .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
-    await act(async () => {
-      wrapper
-        .find('button.pf-c-select__menu-item')
-        .first()
-        .simulate('click');
-    });
-    wrapper.update();
-
-    expect(wrapper.find(PlatformItem)).toHaveLength(1);
-    const searchInput = wrapper.find('input').at(0);
-    await act(async () => {
-      searchInput.getDOMNode().value = 'foo';
-      searchInput.simulate('change');
-      jest.runAllTimers();
-    });
-    wrapper.update();
-    expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
