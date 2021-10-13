@@ -59,9 +59,17 @@ const PlatformTemplates = () => {
     platformItemsState,
     initialState
   );
-  const { data, meta } = useSelector(({ platformReducer: { platformItems } }) =>
-    platformItems[id] ? platformItems[id] : { data: [], meta: defaultSettings }
+  const {
+    data,
+    results,
+    count,
+    meta
+  } = useSelector(({ platformReducer: { platformItems } }) =>
+    platformItems[id]
+      ? platformItems[id]
+      : { data: [], results: [], meta: defaultSettings, count: 0 }
   );
+
   const { platform, platformIconMapping } = useSelector(
     ({ platformReducer: { selectedPlatform, platformIconMapping } }) => ({
       platform: selectedPlatform,
@@ -79,6 +87,10 @@ const PlatformTemplates = () => {
     scrollToTop();
   }, [id]);
 
+  const dataSet = data ? data : results;
+  const metaInfo = meta ? meta : { count };
+  console.log('debug - dataSet, metaInfo', dataSet, metaInfo);
+
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
     debouncedFilter(
@@ -88,15 +100,15 @@ const PlatformTemplates = () => {
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
       {
-        ...meta,
+        ...metaInfo,
         offset: 0
       }
     );
   };
 
   const filteredItems = {
-    items: data
-      ? data.map((item) => (
+    items: dataSet
+      ? dataSet.map((item) => (
           <PlatformItem
             key={item.id}
             pathname={PLATFORM_SERVICE_OFFERINGS_ROUTE}
@@ -119,7 +131,7 @@ const PlatformTemplates = () => {
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
           filterPlaceholder: formatMessage(platformsMessages.templatesFilter),
-          meta,
+          meta: metaInfo,
           apiRequest: (_, options) =>
             dispatch(
               window.catalog?.standalone
@@ -159,11 +171,11 @@ const PlatformTemplates = () => {
         )}
         {...filteredItems}
       />
-      {meta.count > 0 && (
+      {metaInfo.count > 0 && (
         <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
-            meta={meta}
+            meta={metaInfo}
             apiRequest={(_, options) =>
               dispatch(
                 window.catalog?.standalone

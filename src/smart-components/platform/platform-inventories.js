@@ -64,7 +64,7 @@ const PlatformInventories = () => {
     platformInventoriesState,
     initialState
   );
-  const { data, meta } = useSelector(
+  const { data, results, count, meta } = useSelector(
     ({ platformReducer: { platformInventories } }) => platformInventories
   );
   const platform = useSelector(
@@ -111,7 +111,16 @@ const PlatformInventories = () => {
     ];
   };
 
-  const inventoryRows = data ? createRows(data, filterValue) : [];
+  const dataSet = data ? data : results;
+  const metaInfo = meta ? meta : { count };
+  const inventoryRows = dataSet ? createRows(dataSet, filterValue) : [];
+  console.log(
+    'Debug - metaInfo, dataSet, results, platform',
+    metaInfo,
+    dataSet,
+    results,
+    platform
+  );
   const title = platform ? platform.name : '';
   return (
     <Fragment>
@@ -120,7 +129,7 @@ const PlatformInventories = () => {
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
           filterPlaceholder: formatMessage(platformsMessages.inventoriesFilter),
-          meta,
+          meta: metaInfo,
           apiRequest: (_, options) =>
             dispatch(
               window.catalog?.standalone
@@ -153,11 +162,11 @@ const PlatformInventories = () => {
         />
       </Section>
 
-      {meta.count > 0 && (
+      {metaInfo.count > 0 && (
         <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
-            meta={meta}
+            meta={metaInfo}
             apiRequest={(_, options) =>
               dispatch(
                 window.catalog?.standalone

@@ -75,15 +75,17 @@ export const getPlatformInventories = (
   filter = '',
   options = defaultSettings
 ): Promise<ApiCollectionResponse<ServiceInventory>> => {
+  console.log('Debug  - platformId, filter: ', platformId, filter);
   if (platformId) {
+    const filterQuery = filter ? `name=${filter}` : '';
     return axiosInstance.get(
-      `${CATALOG_API_BASE}/sources/${platformId}/service_inventories?name=${filter}${
-        options ? `&page-size=${options.limit}&page=${options.offset}` : ''
+      `${CATALOG_API_BASE}/sources/${platformId}/service_inventories/?${filterQuery}${
+        options ? `&page_size=${options.limit}&page=${options.offset || 1}` : ''
       }`
     );
   } else {
     return axiosInstance.get(
-      `${CATALOG_API_BASE}/service_inventories?page_size=${
+      `${CATALOG_API_BASE}/service_inventories/?page_size=${
         options.limit
       }&page=${options.offset || 1}`
     );
