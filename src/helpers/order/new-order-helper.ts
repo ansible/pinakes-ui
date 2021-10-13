@@ -47,6 +47,7 @@ export const fetchOrderDetailSequence = async (
     order = await axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}`);
   } catch (error) {
     order = {};
+    // @ts-ignore
     if (error.status === 404 || error.status === 400) {
       catalogHistory.replace({
         pathname: '/404',
@@ -133,6 +134,7 @@ export const fetchOrderProvisionItems = async (
     orderItems = items.data;
   } catch (error) {
     orderItems = [];
+    // @ts-ignore
     if (error.status === 404 || error.status === 400) {
       catalogHistory.replace({
         pathname: '/404',
