@@ -46,9 +46,15 @@ describe('Platform reducer', () => {
     const payload = [{ id: '123', source_type_id: '3' }];
     const expectedState = expect.objectContaining({
       isPlatformDataLoading: false,
-      platforms: payload,
-      sourceTypeIcons: { 3: '/foo/bar' },
-      platformIconMapping: { 123: '/foo/bar' }
+      platforms: [
+        {
+          id: '123',
+          source_type_id: '3'
+        }
+      ],
+      sourceTypeIcons: {
+        3: '/foo/bar'
+      }
     });
     expect(
       reducer(initialState, { type: `${FETCH_PLATFORMS}_FULFILLED`, payload })
