@@ -115,7 +115,11 @@ describe('Portfolio reducer', () => {
           statistics: {}
         }
       },
-      portfolioItems: { data: [], meta: { offset: 0, limit: 50, filter: '' } }
+      portfolioItems: {
+        data: [],
+        results: [],
+        meta: { offset: 0, limit: 50, filter: '' }
+      }
     };
     expect(
       reducer(initialState, { type: RESET_SELECTED_PORTFOLIO, payload })

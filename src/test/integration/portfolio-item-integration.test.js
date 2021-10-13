@@ -204,6 +204,7 @@ describe('Integration tests for portfolio items', () => {
           offset: 0
         }
       });
+    wrapper.update();
     wrapper
       .find('.pf-c-select__toggle')
       .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
