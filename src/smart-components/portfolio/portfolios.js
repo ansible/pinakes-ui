@@ -114,7 +114,6 @@ const Portfolios = () => {
   const portfolios = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
-  console.log('Debug - portfolios: ', portfolios);
   const meta = portfolios.meta || { count: portfolios.count };
   const data = portfolios.data || portfolios.results;
   const dispatch = useDispatch();
@@ -161,7 +160,6 @@ const Portfolios = () => {
       })
     );
 
-  console.log('Debug - userPermissions: ', userPermissions);
   const canCreate = hasPermission(userPermissions, [
     'catalog:portfolios:create'
   ]);
@@ -207,7 +205,6 @@ const Portfolios = () => {
       handleCopyPortfolio={handleCopyPortfolio}
     />
   ));
-  console.log('Debug - galleryItems, meta', galleryItems, meta);
   return (
     <Fragment>
       <TopToolbar>

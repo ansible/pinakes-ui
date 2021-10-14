@@ -29,12 +29,6 @@ import BottomPaginationContainer from '../../../presentational-components/shared
 import asyncFormValidator from '../../../utilities/async-form-validator';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems) => {
-  console.log(
-    'Debug - renderGalleryItems - items, checkItem, checkedItems : ',
-    items,
-    checkItem,
-    checkedItems
-  );
   return items.map((item) => (
     <PlatformItem
       key={item.id}

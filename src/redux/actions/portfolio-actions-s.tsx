@@ -325,14 +325,10 @@ export const removeProductsFromPortfolio = (
           limit: meta.limit,
           filter: ''
         })
-      ).then(() => {
-        console.log('Debug dispatch portfolio actions - data');
-        return data;
-      })
+      ).then(() => data)
     )
-    .then((data) => {
-      console.log('Debug dispatch success - data');
-      return dispatch({
+    .then((data) =>
+      dispatch({
         type: ADD_NOTIFICATION,
         payload: {
           variant: 'success',
@@ -366,8 +362,8 @@ export const removeProductsFromPortfolio = (
             />
           )
         }
-      });
-    })
+      })
+    )
     .then(() =>
       dispatch({ type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_FULFILLED` })
     )
@@ -495,10 +491,5 @@ export const setOrFetchPortfolio = (
     };
   }
 
-  console.log(
-    'Debug - setorfetchPortfolio - existingPortfolio, id: ',
-    existingPorfolio,
-    id
-  );
   return fetchSelectedPortfolio(id);
 };

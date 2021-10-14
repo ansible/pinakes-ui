@@ -51,7 +51,6 @@ export const listPortfolioItems = (
   offset = 0,
   filter = ''
 ): Promise<ApiCollectionResponse<PortfolioItem>> => {
-  console.log('Debug 0- listPortfolioItems');
   return axiosInstance
     .get(`${CATALOG_API_BASE}/portfolio_items/`)
     .then(
@@ -94,10 +93,8 @@ export const listPortfolioItems = (
     });
 };
 
-export const getPortfolio = (portfolioId: string): Promise<Portfolio> => {
-  console.log('Debug - getPortfolio');
-  return axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/`);
-};
+export const getPortfolio = (portfolioId: string): Promise<Portfolio> =>
+  axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/`);
 
 export const getPortfolioItemsWithPortfolio = (
   portfolioId: string,
@@ -141,13 +138,8 @@ export const addToPortfolio = (
 export const updatePortfolio = (
   { id, ...portfolioData }: Partial<Portfolio>,
   store: Partial<Store>
-): AxiosPromise<Portfolio> => {
-  console.log('Debug - updatePortfolio, id, portfolioData', id, portfolioData);
-  return axiosInstance.patch(
-    `${CATALOG_API_BASE}/portfolios/${id}/`,
-    portfolioData
-  );
-};
+): AxiosPromise<Portfolio> =>
+  axiosInstance.patch(`${CATALOG_API_BASE}/portfolios/${id}/`, portfolioData);
 
 export const removePortfolio = (
   portfolioId: string
@@ -294,25 +286,13 @@ interface PortfolioReducerPlaceholder {
 export const getPortfolioFromState = (
   portfolioReducer: PortfolioReducerState,
   portfolioId: string
-): InternalPortfolio | undefined => {
-  console.log(
-    'debug - getPortfolioFromStateS - portfolioReducer: ',
-    portfolioReducer
-  );
-  console.log(
-    'debug - find portfolioId: ',
-    portfolioId,
-    portfolioReducer.portfolios?.results?.find(
-      (portfolio) => portfolio.id === portfolioId
-    )
-  );
-  return portfolioReducer.selectedPortfolio &&
-    portfolioReducer.selectedPortfolio.id === portfolioId
+): InternalPortfolio | undefined =>
+  portfolioReducer.selectedPortfolio &&
+  portfolioReducer.selectedPortfolio.id === portfolioId
     ? portfolioReducer.selectedPortfolio
     : portfolioReducer.portfolios?.results?.find(
         (portfolio) => String(portfolio.id) === portfolioId
       );
-};
 
 export const undeletePortfolio = (
   portfolioId: string,

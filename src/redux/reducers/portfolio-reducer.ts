@@ -149,11 +149,6 @@ const updateTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }
 ) => {
-  console.log(
-    'Debug - updateTemporaryPortfolio: state, payload',
-    state,
-    payload
-  );
   return {
     prevState: { ...state },
     ...state,

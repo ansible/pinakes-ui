@@ -90,11 +90,6 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
        * Fake the redirect by closing the modal
        */
       setIsOpen(false);
-      console.log(
-        'Debug message - updatePortfolio - data, viewState',
-        data,
-        viewState
-      );
       return dispatch(
         (window.catalog?.standalone
           ? updatePortfolioS(data, viewState)

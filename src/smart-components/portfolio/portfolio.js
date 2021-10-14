@@ -119,7 +119,7 @@ const porftolioUiReducer = (state, { type, payload = {} }) =>
       firstSelectedProduct: payload.product || state.firstSelectedProduct
     },
     setRemoveInProgress: { ...state, removeInProgress: payload },
-    removeSucessfull: { ...state, selectedItems: [], removeInProgress: false },
+    removeSuccessful: { ...state, selectedItems: [], removeInProgress: false },
     setFilterValue: { ...state, filterValue: payload, isFiltering: true },
     setCopyInProgress: { ...state, copyInProgress: payload },
     setIsFetching: { ...state, isFetching: payload },
@@ -240,12 +240,6 @@ const Portfolio = () => {
 
   const removeProducts = (products) => {
     stateDispatch({ type: 'setRemoveInProgress', payload: true });
-    console.log(
-      'Debug - removeProducts - products, portfolio.name, state.firstSelectedProduct: ',
-      products,
-      portfolio.name,
-      state.firstSelectedProduct
-    );
     dispatch(
       window.catalog?.standalone
         ? removeProductsFromPortfolioS(
@@ -260,9 +254,8 @@ const Portfolio = () => {
           )
     )
       .then(() => {
-        console.log('debug - removeSuccessful - portfolio', portfolio);
         fetchData(portfolio.id);
-        stateDispatch({ type: 'removeSucessfull' });
+        stateDispatch({ type: 'removeSuccessful' });
       })
       .catch(() =>
         stateDispatch({ type: 'setRemoveInProgress', payload: false })
