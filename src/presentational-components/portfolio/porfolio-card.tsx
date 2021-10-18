@@ -211,6 +211,9 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
     ? USER_CAPABILITIES_PLACEHOLDER
     : metadata?.user_capabilities || {};
   const statistics = metadata?.statistics || {};
+  const portfolio_items = statistics?.portfolio_items ?? 0;
+  const approval_processes = statistics?.approval_processes ?? 0;
+  const shared_groups = statistics?.shared_groups ?? 0;
   return (
     <StyledGalleryItem isDisabled={isDisabled}>
       <StyledCard ouiaId={`portfolio-${id}`}>
@@ -219,7 +222,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
             id={id}
             to={to}
             portfolioName={name}
-            portfolio_items={statistics?.portfolio_items || 0}
+            portfolio_items={portfolio_items}
             headerActions={
               <HeaderActions
                 portfolioId={id}
@@ -247,14 +250,13 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
           />
         </StyledCardBody>
         <CardFooter>
-          {statistics?.approval_processes &&
-            statistics?.approval_processes > 0 && (
-              <Label variant="filled" color="grey">
-                {formatMessage(labelMessages.approvalProcessSet)}
-              </Label>
-            )}
+          {approval_processes > 0 && (
+            <Label variant="filled" color="grey">
+              {formatMessage(labelMessages.approvalProcessSet)}
+            </Label>
+          )}
           &nbsp;
-          {statistics?.shared_groups && statistics?.shared_groups > 0 && (
+          {shared_groups > 0 && (
             <Label variant="filled" color="grey">
               {formatMessage(labelMessages.shared)}
             </Label>
