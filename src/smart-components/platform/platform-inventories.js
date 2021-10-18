@@ -114,13 +114,6 @@ const PlatformInventories = () => {
   const dataSet = data ? data : results;
   const metaInfo = meta ? meta : { count };
   const inventoryRows = dataSet ? createRows(dataSet, filterValue) : [];
-  console.log(
-    'Debug - metaInfo, dataSet, results, platform',
-    metaInfo,
-    dataSet,
-    results,
-    platform
-  );
   const title = platform ? platform.name : '';
   return (
     <Fragment>

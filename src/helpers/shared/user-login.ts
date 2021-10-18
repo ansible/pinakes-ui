@@ -20,8 +20,6 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
-import { useContext } from 'react';
-import UserContext from '../../user-context';
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -44,11 +42,11 @@ const createAxiosInstance = () => {
       paramsSerializer: (params) => stringify(params),
       headers: { Authorization: `Basic ${token}` }
     });
+  } else {
+    return axios.create({
+      paramsSerializer: (params) => stringify(params)
+    });
   }
-
-  return axios.create({
-    paramsSerializer: (params) => stringify(params)
-  });
 };
 
 const axiosInstance: AxiosInstance = createAxiosInstance();
@@ -79,8 +77,11 @@ axiosInstance.interceptors.request.use(async (config) => {
   // eslint-disable-next-line no-undef
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
+  } else {
+    if (window.catalog?.token) {
+      config.headers.Authorization = `Basic ${window.catalog.token}`;
+    }
   }
-
   return config;
 });
 axiosInstance.interceptors.response.use(resolveInterceptor);
