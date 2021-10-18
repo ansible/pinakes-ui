@@ -1,15 +1,17 @@
 import * as React from 'react';
-
 import { LoginForm, LoginPage as PFLoginPage } from '@patternfly/react-core';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
-
-import Logo from '../../../assets/images/default-logo.svg';
+import Logo from '../../assets/images/logo-large.svg';
 import { useState } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
-const LoginPage = () => {
-  const [errorMessage, setLoginErrorMessage] = useState(undefined);
-  const [usernameValue, setUserNameValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+const LoginPage = (props) => {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [redirect, setRedirect] = useState(null);
+  const history = useHistory();
 
   const helperText = (
     <span style={{ color: 'var(--pf-global--danger-color--100)' }}>
@@ -18,18 +20,21 @@ const LoginPage = () => {
       {errorMessage}
     </span>
   );
-
-  const handleUsernameChange = (value: string) => {
-    setUserNameValue(value);
+  const handleUsernameChange = (value) => {
+    setUserName(value);
   };
 
-  const handlePasswordChange = (passwordValue: string) => {
-    setPasswordValue(passwordValue);
+  const handlePasswordChange = (password) => {
+    setPassword(password);
   };
 
-  const onLoginButtonClick = () => {
-    setPasswordValue('');
-    setLoginErrorMessage('Invalid login credentials.' as any);
+  const onLoginButtonClick = (event) => {
+    const token = Buffer.from(`${userName}:${password}`, 'utf8').toString(
+      'base64'
+    );
+    window.catalog.token = token;
+    event.preventDefault();
+    return history.push('/catalog/portfolios');
   };
 
   const loginForm = (
@@ -37,10 +42,10 @@ const LoginPage = () => {
       showHelperText={!!errorMessage}
       helperText={helperText}
       usernameLabel={`Username`}
-      usernameValue={usernameValue}
+      usernameValue={userName}
       onChangeUsername={handleUsernameChange}
       passwordLabel={`Password`}
-      passwordValue={passwordValue}
+      passwordValue={password}
       onChangePassword={handlePasswordChange}
       onLoginButtonClick={onLoginButtonClick}
     />
@@ -51,7 +56,7 @@ const LoginPage = () => {
       style={{
         backgroundColor: 'var(--pf-global--BackgroundColor--dark-100)'
       }}
-      loginTitle={'Log in to your account'}
+      loginTitle={`Log in to your account`}
       brandImgSrc={Logo}
     >
       {loginForm}

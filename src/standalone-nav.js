@@ -23,9 +23,7 @@ import {
 } from '@patternfly/react-icons';
 import { reject, some } from 'lodash';
 
-import { formatPath } from './presentational-components/navigation/routes';
-import { Routes } from './Routes';
-import { Paths } from './presentational-components/navigation/routes';
+import { Routes, Paths } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
@@ -42,6 +40,7 @@ const App = (props) => {
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
   const [toggleOpen, setToggleOpen] = useState(false);
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
+  const [token, setToken] = useState(null);
 
   const location = useLocation();
 
@@ -98,6 +97,13 @@ const App = (props) => {
       </AppContext.Provider>
     );
   };
+
+  useEffect(() => {
+    window.catalog = {
+      ...window.catalog,
+      token
+    };
+  }, [token]);
 
   useEffect(() => {
     const activeMenu = menu();
@@ -175,9 +181,7 @@ const App = (props) => {
       headerTools={
         <PageHeaderTools>
           {user ? (
-            <Link to={formatPath(Paths.login, {}, { next: location.pathname })}>
-              {`Login`}
-            </Link>
+            <Link to={Paths.login}>{`Login`}</Link>
           ) : (
             <div>
               <StatefulDropdown
@@ -278,13 +282,19 @@ const App = (props) => {
       />
     </Fragment>
   );
-
   // Hide navs on login page
   if (location?.pathname === Paths.login) {
     return (
       <UserContext.Provider
         value={{
-          permissions: [],
+          permissions: [
+            { permission: 'catalog:portfolios:create' },
+            { permission: 'catalog:portfolios:update' },
+            { permission: 'catalog:portfolios:remove' },
+            { permission: 'catalog:portfolio_items:create' },
+            { permission: 'catalog:portfolio_items:update' },
+            { permission: 'catalog:portfolio_items:remove' }
+          ],
           userIdentity: { identity: { user: { is_org_admin: true } } },
           openApiSchema: {},
           standalone: true
@@ -310,7 +320,7 @@ const App = (props) => {
         {aboutModalVisible && aboutModal()}
         <UserContext.Provider
           value={{
-            permissions: [],
+            permissions: [{ permission: 'catalog:portfolios:create' }],
             userIdentity: { identity: { user: { is_org_admin: true } } },
             openApiSchema: {},
             standalone: true

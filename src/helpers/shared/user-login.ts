@@ -20,6 +20,8 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
+import { useContext } from 'react';
+import UserContext from '../../user-context';
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -35,9 +37,21 @@ export interface ServerError {
   config?: AxiosRequestConfig;
 }
 
-const axiosInstance: AxiosInstance = axios.create({
-  paramsSerializer: (params) => stringify(params)
-});
+const createAxiosInstance = () => {
+  if (window.catalog?.standalone) {
+    const token = window.catalog?.token;
+    return axios.create({
+      paramsSerializer: (params) => stringify(params),
+      headers: { Authorization: `Basic ${token}` }
+    });
+  }
+
+  return axios.create({
+    paramsSerializer: (params) => stringify(params)
+  });
+};
+
+const axiosInstance: AxiosInstance = createAxiosInstance();
 
 const resolveInterceptor = (response: AxiosResponse) =>
   response.data || response;
@@ -62,7 +76,11 @@ const unauthorizedInterceptor = (error: ServerError = {}) => {
 
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
-  await window.insights.chrome.auth.getUser();
+  // eslint-disable-next-line no-undef
+  if (!window.catalog?.standalone) {
+    await window.insights.chrome.auth.getUser();
+  }
+
   return config;
 });
 axiosInstance.interceptors.response.use(resolveInterceptor);

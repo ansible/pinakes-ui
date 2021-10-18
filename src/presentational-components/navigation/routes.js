@@ -1,115 +1,110 @@
-import * as React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import PortfolioItems from '../../smart-components/portfolio/portfolio-items';
-import Platforms from '../../smart-components/platform/platforms';
-import Platform from '../../smart-components/platform/platform';
-import Portfolios from '../../smart-components/portfolio/portfolios';
-import Orders from '../../smart-components/order/orders';
-import OrderDetail from '../../smart-components/order/order-detail/order-detail';
-import OrderProcesses from '../../smart-components/order-process/order-processes';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import some from 'lodash/some';
+import { AppPlaceholder } from '../../presentational-components/shared/loader-placeholders';
 import {
-  ORDER_ROUTE,
+  PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
-  PORTFOLIOS_ROUTE
+  ORDER_ROUTE,
+  LOGIN_ROUTE
 } from '../../constants/routes';
+import CatalogRoute from '../../routing/catalog-route-s';
+import DialogRoutes from '../../smart-components/dialog-routes';
+const CommonApiError = lazy(() =>
+  import(
+    /* webpackChunkName: "error-page" */ '../../smart-components/error-pages/common-api-error'
+  )
+);
 
-import { useEffect, useState } from 'react';
-import Portfolio from '../../smart-components/portfolio/portfolio';
-import LoginPage from './login/login';
+const Products = lazy(() =>
+  import(
+    /* webpackChunkName: "products" */ '../../smart-components/products/products'
+  )
+);
+const Platforms = lazy(() =>
+  import(
+    /* webpackChunkName: "platforms" */ '../../smart-components/platform/platforms'
+  )
+);
+const Platform = lazy(() =>
+  import(
+    /* webpackChunkName: "platform" */ '../../smart-components/platform/platform'
+  )
+);
+const Portfolios = lazy(() =>
+  import(
+    /* webpackChunkName: "portfolios" */ '../../smart-components/portfolio/portfolios'
+  )
+);
+const Portfolio = lazy(() =>
+  import(
+    /* webpackChunkName: "portfolio" */ '../../smart-components/portfolio/portfolio'
+  )
+);
+const Orders = lazy(() =>
+  import(/* webpackChunkName: "orders" */ '../../smart-components/order/orders')
+);
+const OrderDetail = lazy(() =>
+  import(
+    /* webpackChunkName: "order-detail" */ '../../smart-components/order/order-detail/order-detail'
+  )
+);
+
+const Login = lazy(() =>
+  import(/* webpackChunkName: "login" */ '../../smart-components/login/login')
+);
 
 export const Paths = {
   products: '/products',
   platforms: '/platforms',
-  order_processes: '/order-processes',
   platform: '/platforms/platform',
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
-  order: ORDER_ROUTE
+  order: ORDER_ROUTE,
+  login: LOGIN_ROUTE
 };
 
-const getQueryString = (params) => {
-  const paramString = [];
-  for (const key of Object.keys(params)) {
-    if (Array.isArray(params[key])) {
-      for (const val of params[key]) {
-        paramString.push(key + '=' + encodeURIComponent(val));
-      }
-    } else {
-      paramString.push(key + '=' + encodeURIComponent(params[key]));
-    }
-  }
-
-  return paramString.join('&');
-};
-
-export function formatPath(path, data, params = {}) {
-  let url = path;
-
-  for (const k of Object.keys(data)) {
-    url = url.replace(':' + k + '+', data[k]).replace(':' + k, data[k]);
-  }
-
-  if (params) {
-    return `${url}?${getQueryString(params)}`;
-  } else {
-    return url;
-  }
-}
-
-const AuthHandler = (params) => {
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    // check if the user is logged in, if not try login
-  });
-  let { Component, noAuth, ...props } = params;
-
-  if (isLoading) {
-    return null;
-  }
-
-  //TODO - remove after auth handling
-  noAuth = true;
-  if (!noAuth) {
-    return (
-      <Redirect to={formatPath(Paths.login, {}, { next: location.pathname })} />
-    );
-  }
-
-  return <Component {...props} />;
-};
+const errorPaths = ['/400', '/401', '/403', '/404'];
 
 export const Routes = () => {
-  // Note: must be ordered from most specific to least specific
-  const getRoutes = () => {
-    return [
-      { comp: Portfolios, path: Paths.portfolios },
-      { comp: Portfolio, path: Paths.portfolio },
-      { comp: PortfolioItems, path: Paths.products },
-      { comp: Platforms, path: Paths.platforms },
-      { comp: Platform, path: Paths.platform },
-      { comp: Orders, path: Paths.orders },
-      { comp: OrderDetail, path: Paths.orderDetail },
-      { comp: OrderProcesses, path: Paths.orderProcesses },
-      { comp: LoginPage, path: Paths.login, noAuth: true }
-    ];
-  };
-
+  const { pathname } = useLocation();
   return (
-    <Switch>
-      {getRoutes().map((route, index) => (
-        <Route
-          key={index}
-          render={(props) => (
-            <AuthHandler
-              noAuth={route.noAuth}
-              Component={route.comp}
-              {...props}
-            />
-          )}
-          path={route.path}
+    <Suspense fallback={<AppPlaceholder />}>
+      <Switch>
+        <CatalogRoute path={Paths.products} component={Products} />
+        <CatalogRoute path={Paths.portfolio} component={Portfolio} />
+        <CatalogRoute path={Paths.portfolios} component={Portfolios} />
+        <CatalogRoute
+          permissions={['catalog:portfolios:create']}
+          path={Paths.platform}
+          component={Platform}
         />
-      ))}
-    </Switch>
+        <CatalogRoute
+          permissions={['catalog:portfolios:create']}
+          path={Paths.platforms}
+          component={Platforms}
+        />
+        <CatalogRoute path={Paths.order} component={OrderDetail} />
+        <CatalogRoute path={Paths.orders} component={Orders} />
+        <CatalogRoute path={Paths.login} component={Login} />
+        <Route path={errorPaths} component={CommonApiError} />
+        <Route
+          render={() =>
+            some(Paths, (p) => p === pathname) ? null : (
+              <Redirect to={Paths.portfolios} />
+            )
+          }
+        />
+      </Switch>
+      {/*
+       * We require the empty DIV around the dialog routes to avoid testing issues
+       * It does not have any visual effect on the application
+       * Emzyme simply cannot handle direct descendant of Suspense to be another Suspense
+       */}
+      <div>
+        <DialogRoutes />
+      </div>
+    </Suspense>
   );
 };
