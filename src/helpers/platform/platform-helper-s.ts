@@ -13,30 +13,6 @@ import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
 const { post } = getGraphqlInstance();
 
-const sourcesQuery = `
-query {
-  application_types (filter: { name: "/insights/platform/catalog" }) {
-    id
-    name
-    sources {
-      id
-      name
-      source_type_id
-    }
-  }
-}`;
-
-const getSourcesDetails = (
-  sourceIds: string[]
-): Promise<ApiCollectionResponse<SourceDetails>> => {
-  return axiosInstance.get(
-    `${CATALOG_API_BASE}/sources?page_size=${sourceIds.length ||
-      defaultSettings.limit}${sourceIds.length ? '&' : ''}${sourceIds
-      .map((sourceId) => `id=${sourceId}/`)
-      .join('&')}`
-  );
-};
-
 export const getPlatforms = (): Promise<SourceDetails> =>
   axiosInstance.get(`${CATALOG_API_BASE}/sources/`);
 
@@ -90,26 +66,3 @@ export const getPlatformInventories = (
     );
   }
 };
-
-export const getServiceOffering = (
-  serviceOfferingId: string,
-  sourceId: string
-): Promise<{ service: ServiceOffering; source: Source }> =>
-  Promise.all([
-    axiosInstance.get(
-      `${CATALOG_API_BASE}/service_offerings/${serviceOfferingId}/`
-    ),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/sources/${sourceId}`)
-      .then((source) => {
-        return axiosInstance
-          .get(`${CATALOG_API_BASE}/source_types/${source.source_type_id}`)
-          .then(({ icon_url }) => ({
-            ...source,
-            icon_url
-          }));
-      })
-  ]).then(([service, source]: [ServiceOffering, Source]) => ({
-    service,
-    source
-  }));

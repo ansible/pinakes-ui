@@ -87,14 +87,6 @@ export const fetchPlatformInventories = (
   payload: PlatformHelper.getPlatformInventories(platformId, filter, options)
 });
 
-export const fetchServiceOffering = (
-  serviceOfferingId: string,
-  sourceId: string
-): AsyncMiddlewareAction<{ service: ServiceOffering; source: Source }> => ({
-  type: ActionTypes.FETCH_SERVICE_OFFERING,
-  payload: PlatformHelper.getServiceOffering(serviceOfferingId, sourceId)
-});
-
 export const refreshPlatform = (platformId: string) => (
   dispatch: Dispatch
 ): AsyncMiddlewareAction => {
