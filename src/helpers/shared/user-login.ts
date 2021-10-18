@@ -42,7 +42,7 @@ const createAxiosInstance = () => {
     const token = window.catalog?.token;
     return axios.create({
       paramsSerializer: (params) => stringify(params),
-      Authorization: `Basic ${token}`
+      headers: { Authorization: `Basic ${token}` }
     });
   }
 
