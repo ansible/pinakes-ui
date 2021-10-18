@@ -28,6 +28,7 @@ import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { SyncAltIcon } from '@patternfly/react-icons';
 import { refreshPlatform } from '../../redux/actions/platform-actions';
+import { refreshPlatform as refreshPlatformS } from '../../redux/actions/platform-actions-s';
 import platformsMessages from '../../messages/platforms.messages';
 import { useDispatch } from 'react-redux';
 import { delay } from '../../helpers/shared/helpers';
@@ -79,7 +80,13 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
   );
   const handleRefreshPlatform = (platformId: string) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    Promise.resolve(dispatch(refreshPlatform(platformId))).then(async () => {
+    Promise.resolve(
+      dispatch(
+        window.catalog?.standalone
+          ? refreshPlatformS(platformId)
+          : refreshPlatform(platformId)
+      )
+    ).then(async () => {
       await delay(10000);
       stateDispatch({ type: 'setFetching', payload: false });
       updateData();

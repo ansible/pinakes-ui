@@ -33,6 +33,7 @@ import {
 
 import { fetchOrders } from '../../redux/actions/order-actions';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
 import createOrderItem from './order-item';
 import AsyncPagination from '../common/async-pagination';
@@ -210,7 +211,9 @@ const OrdersList: React.ComponentType = () => {
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.all([
       dispatch(fetchOrders(filters, viewState?.orders)),
-      dispatch(fetchPlatforms())
+      dispatch(
+        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+      )
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 

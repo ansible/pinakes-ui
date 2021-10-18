@@ -67,7 +67,7 @@ const AddOrderProcess: React.ComponentType<AddOrderProcessProps> = ({
       orderProcessReducer: {
         orderProcesses: { data }
       }
-    }) => (edit ? data.find(({ id }) => id === order_process) : {})
+    }) => (edit ? data?.find(({ id }) => id === order_process) : {})
   );
   const { push } = useEnhancedHistory({ keepHash: true });
   const intl = useIntl();

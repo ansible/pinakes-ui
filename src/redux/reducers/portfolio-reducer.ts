@@ -51,19 +51,20 @@ export type PortfolioReducerActionHandler = ReduxActionHandler<
 export const portfoliosInitialState: PortfolioReducerState = {
   portfolioItems: {
     data: [],
+    results: [],
     meta: { limit: 50, offset: 0, filter: '' }
   },
   portfolioItem: {
     portfolioItem: {
       metadata: {
         user_capabilities: {},
-        statistics: {},
-        orderable: true
+        statistics: {}
       }
     }
   },
   portfolios: {
     data: [],
+    results: [],
     meta: defaultSettings
   },
   selectedPortfolio: {
@@ -136,8 +137,8 @@ const addTemporaryPortfolio: PortfolioReducerActionHandler = (
   ...state,
   portfolios: {
     ...state.portfolios,
-    data: [
-      ...state.portfolios.data,
+    data: [{ ...payload, metadata: { user_capabilities: {}, statistics: {} } }],
+    results: [
       { ...payload, metadata: { user_capabilities: {}, statistics: {} } }
     ]
   }
@@ -180,7 +181,8 @@ const deleteTemporaryPortfolio: PortfolioReducerActionHandler = (
   selectedPortfolio: { metadata: { user_capabilities: {}, statistics: {} } },
   portfolios: {
     ...state.portfolios,
-    data: state.portfolios.data.filter(({ id }) => id !== payload)
+    data: state.portfolios?.data?.filter(({ id }) => id !== payload),
+    results: state.portfolios?.results?.filter(({ id }) => id !== payload)
   }
 });
 

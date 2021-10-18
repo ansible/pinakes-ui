@@ -25,14 +25,14 @@ const PortfolioActionsToolbar = ({
   removePortfolioRoute,
   copyInProgress,
   copyPortfolio,
-  userCapabilities: { copy, destroy, update, set_approval },
+  userCapabilities,
   canLinkOrderProcesses
 }) => {
   const [isOpen, setOpen] = useState(false);
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
 
-  if (update) {
+  if (userCapabilities?.update) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Edit Portfolio"
@@ -52,7 +52,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (copy) {
+  if (userCapabilities?.copy) {
     dropdownItems.push(
       <DropdownItem
         component="button"
@@ -66,7 +66,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (set_approval) {
+  if (userCapabilities?.set_approval) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Set approval workflow"
@@ -82,7 +82,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (update && canLinkOrderProcesses) {
+  if (userCapabilities?.update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
@@ -104,7 +104,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (destroy) {
+  if (userCapabilities?.destroy) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Remove Portfolio"
@@ -173,7 +173,7 @@ const createPortfolioToolbarSchema = ({
   description,
   fromProducts,
   filterProps: { searchValue, onFilterChange, placeholder },
-  userCapabilities: { share, unshare, ...userCapabilities },
+  userCapabilities,
   canLinkOrderProcesses
 }) => ({
   fields: [
@@ -190,7 +190,7 @@ const createPortfolioToolbarSchema = ({
         {
           component: toolbarComponentTypes.TOP_TOOLBAR_TITLE,
           key: 'portfolio-toolbar-title',
-          noData: meta.noData,
+          noData: meta?.noData,
           title,
           description,
           fields: [
@@ -207,7 +207,7 @@ const createPortfolioToolbarSchema = ({
                   isDisabled: copyInProgress,
                   key: 'portfolio-share-button',
                   id: 'portfolio-share-button',
-                  hidden: !share && !unshare
+                  hidden: !userCapabilities?.share && !userCapabilities?.unshare
                 }),
                 {
                   component: toolbarComponentTypes.TOOLBAR_ITEM,
@@ -233,7 +233,7 @@ const createPortfolioToolbarSchema = ({
         {
           component: toolbarComponentTypes.LEVEL,
           key: 'portfolio-items-actions',
-          fields: meta.noData
+          fields: meta?.noData
             ? []
             : [
                 {
@@ -250,7 +250,7 @@ const createPortfolioToolbarSchema = ({
                       placeholder
                     },
                     {
-                      hidden: meta.count === 0 || !userCapabilities.update,
+                      hidden: !userCapabilities?.update,
                       groupName: 'add-portfolio-items',
                       key: 'portfolio-items-add-group',
                       ...createLinkButton({
@@ -266,7 +266,7 @@ const createPortfolioToolbarSchema = ({
                     {
                       component: toolbarComponentTypes.TOOLBAR_ITEM,
                       key: 'remove-products-item',
-                      hidden: meta.count === 0 || !userCapabilities.update,
+                      hidden: meta.count === 0 || !userCapabilities?.update,
                       fields: [
                         {
                           component: toolbarComponentTypes.BUTTON,

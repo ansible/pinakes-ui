@@ -78,6 +78,7 @@ export const orderInitialState: OrderReducerState = {
   },
   orders: {
     data: [],
+    results: [],
     meta: { ...defaultSettings }
   }
 };

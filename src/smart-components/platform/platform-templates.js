@@ -5,6 +5,7 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformItems } from '../../redux/actions/platform-actions';
+import { fetchPlatformItems as fetchPlatformItemsS } from '../../redux/actions/platform-actions-s';
 import PlatformItem from '../../presentational-components/platform/platform-item';
 import { createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
@@ -42,9 +43,11 @@ const platformItemsState = (state, action) => {
 const debouncedFilter = asyncFormValidator(
   (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPlatformItems(id, value, meta)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(id, value, meta)
+        : fetchPlatformItems(id, value, meta)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -56,9 +59,17 @@ const PlatformTemplates = () => {
     platformItemsState,
     initialState
   );
-  const { data, meta } = useSelector(({ platformReducer: { platformItems } }) =>
-    platformItems[id] ? platformItems[id] : { data: [], meta: defaultSettings }
+  const {
+    data,
+    results,
+    count,
+    meta
+  } = useSelector(({ platformReducer: { platformItems } }) =>
+    platformItems[id]
+      ? platformItems[id]
+      : { data: [], results: [], meta: defaultSettings, count: 0 }
   );
+
   const { platform, platformIconMapping } = useSelector(
     ({ platformReducer: { selectedPlatform, platformIconMapping } }) => ({
       platform: selectedPlatform,
@@ -68,11 +79,16 @@ const PlatformTemplates = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPlatformItems(id, filterValue, defaultSettings)).then(() =>
-      stateDispatch({ type: 'setFetching', payload: false })
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(id, filterValue, defaultSettings)
+        : fetchPlatformItems(id, filterValue, defaultSettings)
+    ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, [id]);
+
+  const dataSet = data ? data : results;
+  const metaInfo = meta ? meta : { count };
 
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -83,15 +99,15 @@ const PlatformTemplates = () => {
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
       {
-        ...meta,
+        ...metaInfo,
         offset: 0
       }
     );
   };
 
   const filteredItems = {
-    items: data
-      ? data.map((item) => (
+    items: dataSet
+      ? dataSet.map((item) => (
           <PlatformItem
             key={item.id}
             pathname={PLATFORM_SERVICE_OFFERINGS_ROUTE}
@@ -114,9 +130,13 @@ const PlatformTemplates = () => {
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
           filterPlaceholder: formatMessage(platformsMessages.templatesFilter),
-          meta,
+          meta: metaInfo,
           apiRequest: (_, options) =>
-            dispatch(fetchPlatformItems(id, filterValue, options))
+            dispatch(
+              window.catalog?.standalone
+                ? fetchPlatformItemsS(id, filterValue, options)
+                : fetchPlatformItems(id, filterValue, options)
+            )
         })}
       />
       <ContentGallery
@@ -150,13 +170,17 @@ const PlatformTemplates = () => {
         )}
         {...filteredItems}
       />
-      {meta.count > 0 && (
+      {metaInfo.count > 0 && (
         <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
-            meta={meta}
+            meta={metaInfo}
             apiRequest={(_, options) =>
-              dispatch(fetchPlatformItems(id, filterValue, options))
+              dispatch(
+                window.catalog?.standalone
+                  ? fetchPlatformItemsS(id, filterValue, options)
+                  : fetchPlatformItems(id, filterValue, options)
+              )
             }
           />
         </BottomPaginationContainer>

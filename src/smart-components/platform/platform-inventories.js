@@ -7,6 +7,7 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformInventories } from '../../redux/actions/platform-actions';
+import { fetchPlatformInventories as fetchPlatformInventoriesS } from '../../redux/actions/platform-actions-s';
 import { createPlatformsFilterToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGaleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import asyncFormValidator from '../../utilities/async-form-validator';
@@ -29,9 +30,11 @@ const initialState = {
 const debouncedFilter = asyncFormValidator(
   (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPlatformInventories(id, value, meta)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformInventoriesS(id, value, meta)
+        : fetchPlatformInventories(id, value, meta)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -61,7 +64,7 @@ const PlatformInventories = () => {
     platformInventoriesState,
     initialState
   );
-  const { data, meta } = useSelector(
+  const { data, results, count, meta } = useSelector(
     ({ platformReducer: { platformInventories } }) => platformInventories
   );
   const platform = useSelector(
@@ -73,7 +76,9 @@ const PlatformInventories = () => {
 
   useEffect(() => {
     dispatch(
-      fetchPlatformInventories(id, filterValue, defaultSettings)
+      window.catalog?.standalone
+        ? fetchPlatformInventoriesS(id, filterValue, defaultSettings)
+        : fetchPlatformInventories(id, filterValue, defaultSettings)
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
@@ -106,7 +111,9 @@ const PlatformInventories = () => {
     ];
   };
 
-  const inventoryRows = data ? createRows(data, filterValue) : [];
+  const dataSet = data ? data : results;
+  const metaInfo = meta ? meta : { count };
+  const inventoryRows = dataSet ? createRows(dataSet, filterValue) : [];
   const title = platform ? platform.name : '';
   return (
     <Fragment>
@@ -115,9 +122,13 @@ const PlatformInventories = () => {
           onFilterChange: handleFilterChange,
           searchValue: filterValue,
           filterPlaceholder: formatMessage(platformsMessages.inventoriesFilter),
-          meta,
+          meta: metaInfo,
           apiRequest: (_, options) =>
-            dispatch(fetchPlatformInventories(id, filterValue, options))
+            dispatch(
+              window.catalog?.standalone
+                ? fetchPlatformInventoriesS(id, filterValue, options)
+                : fetchPlatformInventories(id, filterValue, options)
+            )
         })}
       />
       <Section type="content">
@@ -144,13 +155,17 @@ const PlatformInventories = () => {
         />
       </Section>
 
-      {meta.count > 0 && (
+      {metaInfo.count > 0 && (
         <BottomPaginationContainer>
           <AsyncPagination
             dropDirection="up"
-            meta={meta}
+            meta={metaInfo}
             apiRequest={(_, options) =>
-              dispatch(fetchPlatformInventories(id, filterValue, options))
+              dispatch(
+                window.catalog?.standalone
+                  ? fetchPlatformInventoriesS(id, filterValue, options)
+                  : fetchPlatformInventories(id, filterValue, options)
+              )
             }
           />
         </BottomPaginationContainer>

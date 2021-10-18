@@ -26,13 +26,13 @@ const DetailToolbarActions = ({
   isFetching,
   availability,
   orderable,
-  userCapabilities: { update, copy, set_approval },
+  userCapabilities,
   canLinkOrderProcesses
 }) => {
   const formatMessage = useFormatMessage();
   const dropdownItems = [];
 
-  if (update) {
+  if (userCapabilities?.update) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Edit Portfolio"
@@ -48,7 +48,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (copy) {
+  if (userCapabilities?.copy) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Copy Portfolio"
@@ -64,7 +64,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (set_approval) {
+  if (userCapabilities?.set_approval) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Set approval"
@@ -80,7 +80,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (update && canLinkOrderProcesses) {
+  if (userCapabilities?.update && canLinkOrderProcesses) {
     const orderProcessAction = formatMessage(
       orderProcessesMessages.setOrderProcess
     );
@@ -102,7 +102,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (update) {
+  if (userCapabilities?.update) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Edit survey"

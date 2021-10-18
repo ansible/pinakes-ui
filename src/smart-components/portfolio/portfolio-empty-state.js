@@ -14,7 +14,7 @@ const PortfolioEmptyState = ({
   url,
   handleFilterChange,
   meta,
-  userCapabilities: { update }
+  userCapabilities
 }) => {
   const formatMessage = useFormatMessage();
   const NoDataAction = () => (
@@ -22,7 +22,7 @@ const PortfolioEmptyState = ({
       url={url}
       label={formatMessage(portfolioMessages.addProducts)}
       id="add-products-to-portfolio"
-      hasPermission={update}
+      hasPermission={userCapabilities?.update}
     />
   );
 
@@ -38,14 +38,14 @@ const PortfolioEmptyState = ({
   );
 
   const emptyStateProps = {
-    PrimaryAction: meta.noData ? NoDataAction : FilterAction,
-    title: meta.noData
+    PrimaryAction: meta?.noData ? NoDataAction : FilterAction,
+    title: meta?.noData
       ? formatMessage(filteringMessages.noProducts)
       : formatMessage(filteringMessages.noResults),
-    description: meta.noData
+    description: meta?.noData
       ? formatMessage(portfolioMessages.emptyNoProducts)
       : formatMessage(filteringMessages.noResultsDescription),
-    Icon: meta.noData ? PlusCircleIcon : SearchIcon
+    Icon: meta?.noData ? PlusCircleIcon : SearchIcon
   };
   return <ContentGalleryEmptyState {...emptyStateProps} />;
 };

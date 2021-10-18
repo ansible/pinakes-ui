@@ -13,6 +13,7 @@ import { scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
 import PlatformCard from '../../presentational-components/platform/platform-card';
 import { createPlatformsToolbarSchema } from '../../toolbar/schemas/platforms-toolbar.schema';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
@@ -41,25 +42,29 @@ const Platforms = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    dispatch(fetchPlatforms());
+    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
     scrollToTop();
   }, []);
-
-  const filteredItems = {
-    items: platforms
-      .filter(({ name }) =>
-        name.toLowerCase().includes(filterValue.toLowerCase())
-      )
-      .map((item) => (
-        <PlatformCard
-          ouiaId={`platform-${item.id}`}
-          key={item.id}
-          {...item}
-          updateData={() => dispatch(fetchPlatforms())}
-        />
-      )),
-    isLoading: isLoading && platforms.length === 0
-  };
+  const items = window.catalog?.standalone ? platforms.results : platforms;
+  const filteredItems = items
+    ? {
+        items: items?.map((item) => (
+          <PlatformCard
+            ouiaId={`platform-${item.id}`}
+            key={item.id}
+            {...item}
+            updateData={() =>
+              dispatch(
+                window.catalog?.standalone
+                  ? fetchPlatformsS()
+                  : fetchPlatforms()
+              )
+            }
+          />
+        )),
+        isLoading: isLoading && items.length === 0
+      }
+    : {};
 
   const FilterAction = () => (
     <Button
@@ -90,7 +95,6 @@ const Platforms = () => {
       ),
     Icon: filterValue && filterValue !== '' ? SearchIcon : CogIcon
   };
-
   return (
     <Fragment>
       <ToolbarRenderer

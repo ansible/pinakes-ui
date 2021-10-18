@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions';
 import {
   copyPortfolio,
   fetchPortfolios,
@@ -146,7 +147,9 @@ const Portfolio = () => {
   const fetchData = (portfolioId) => {
     stateDispatch({ type: 'setIsFetching', payload: true });
     return Promise.all([
-      dispatch(fetchPlatforms()),
+      dispatch(
+        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+      ),
       dispatch(fetchSelectedPortfolio(portfolioId)),
       dispatch(
         fetchPortfolioItemsWithPortfolio(portfolioId, viewState?.portfolioItems)
