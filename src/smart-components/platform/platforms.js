@@ -45,9 +45,7 @@ const Platforms = () => {
     dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
     scrollToTop();
   }, []);
-  console.log('debug - platforms: ', platforms);
   const items = window.catalog?.standalone ? platforms.results : platforms;
-  console.log('debug - items: ', items);
   const filteredItems = items
     ? {
         items: items?.map((item) => (

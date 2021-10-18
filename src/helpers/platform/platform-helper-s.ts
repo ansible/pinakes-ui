@@ -75,7 +75,6 @@ export const getPlatformInventories = (
   filter = '',
   options = defaultSettings
 ): Promise<ApiCollectionResponse<ServiceInventory>> => {
-  console.log('Debug  - platformId, filter: ', platformId, filter);
   if (platformId) {
     const filterQuery = filter ? `name=${filter}` : '';
     return axiosInstance.get(

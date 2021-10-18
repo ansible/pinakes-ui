@@ -89,7 +89,6 @@ const PlatformTemplates = () => {
 
   const dataSet = data ? data : results;
   const metaInfo = meta ? meta : { count };
-  console.log('debug - dataSet, metaInfo', dataSet, metaInfo);
 
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
