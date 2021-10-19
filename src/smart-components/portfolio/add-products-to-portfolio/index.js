@@ -38,6 +38,7 @@ const renderGalleryItems = (items = [], checkItem, checkedItems) => {
       checked={checkedItems.includes(item.id)}
     />
   ));
+};
 
 const initialState = {
   filterValue: '',
@@ -61,9 +62,11 @@ const addProductsState = (state, action) => {
 const debouncedFilter = asyncFormValidator(
   (id, filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
-    dispatch(fetchPlatformItems(id, filter, { ...meta, filter })).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(id, filter, { ...meta, filter })
+        : fetchPlatformItems(id, filter, { ...meta, filter })
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -90,7 +93,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchPlatforms());
+    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
   }, []);
 
   const checkItem = (itemId) => {
@@ -155,7 +158,11 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
-    dispatch(fetchPlatformItems(platform.id, filterValue, defaultSettings));
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPlatformItemsS(platform.id, filterValue, defaultSettings)
+        : fetchPlatformItems(platform.id, filterValue, defaultSettings)
+    );
   };
 
   const options =
@@ -166,30 +173,6 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           id: platform.id
         }))
       : [];
-
-  console.log('Debug AddProducts - platforms', platforms);
-  console.log(
-    'Debug AddProducts - options',
-    platforms && platforms.length > 0
-      ? platforms.map((platform) => ({
-          value: platform.id,
-          label: platform.name,
-          id: platform.id
-        }))
-      : []
-  );
-
-  const options =
-    platforms.results && platforms.results.length > 0
-      ? platforms.results.map((platform) => ({
-          value: platform.id,
-          label: platform.name,
-          id: platform.id
-        }))
-      : [];
-  console.log('Debug AddProducts - options', options);
-  console.log('Debug AddProducts - items', items());
-  console.log('Debug AddProducts - checkedItems', checkedItems);
   return (
     <Fragment>
       <ToolbarRenderer
@@ -206,7 +189,11 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           platformId: selectedPlatform && selectedPlatform.id,
           searchValue: filterValue,
           fetchPlatformItems: (id, options) =>
-            dispatch(fetchPlatformItems(id, filterValue, options))
+            dispatch(
+              window.catalog?.standalone
+                ? fetchPlatformItemsS(id, filterValue, options)
+                : fetchPlatformItems(id, filterValue, options)
+            )
         })}
       />
       <AddProductsGallery
@@ -225,7 +212,9 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
             apiRequest={(id, options) =>
-              fetchPlatformItems(id, filterValue, options)
+              window.catalog?.standalone
+                ? fetchPlatformItemsS(id, filterValue, options)
+                : fetchPlatformItems(id, filterValue, options)
             }
             dropDirection="up"
           />

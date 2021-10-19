@@ -101,13 +101,6 @@ const setPlatforms: PlatformReducerActionHandler = (state, { payload }) => {
     isPlatformDataLoading: false
   };
 };
-const setPlatforms: PlatformReducerActionHandler = (state, { payload }) => {
-  return {
-    ...state,
-    platforms: payload,
-    isPlatformDataLoading: false
-  };
-};
 
 const setPlatformItems: PlatformReducerActionHandler = (
   state,
