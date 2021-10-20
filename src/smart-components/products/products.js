@@ -11,6 +11,7 @@ import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import {
@@ -115,7 +116,7 @@ const Products = () => {
               viewState?.products
             )
       ),
-      dispatch(fetchPlatforms())
+      dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms)
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);

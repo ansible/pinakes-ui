@@ -81,8 +81,14 @@ const Platform = () => {
 
   useEffect(() => {
     Promise.all([
-      dispatch(fetchSelectedPlatform(platform)),
-      dispatch(fetchPlatforms())
+      dispatch(
+        window.catalog?.standalone
+          ? fetchSelectedPlatformS(platform)
+          : fetchSelectedPlatform(platform)
+      ),
+      dispatch(
+        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+      )
     ]);
     scrollToTop();
     return () => {

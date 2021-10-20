@@ -128,9 +128,10 @@ const PortfolioItemDetail = () => {
   }
 
   const uploadIcon = (file) =>
-    uploadPortfolioItemIcon(
-      { portfolioItemId: portfolioItemData?.portfolioItem?.id, file: file }
-    ).then(() => fetchData(true));
+    uploadPortfolioItemIcon({
+      portfolioItemId: portfolioItemData?.portfolioItem?.id,
+      file
+    }).then(() => fetchData(true));
   const resetIcon = () =>
     resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id).then(
       fetchData

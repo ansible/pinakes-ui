@@ -82,6 +82,7 @@ axiosInstance.interceptors.request.use(async (config) => {
       config.headers.Authorization = `Basic ${window.catalog.token}`;
     }
   }
+
   return config;
 });
 axiosInstance.interceptors.response.use(resolveInterceptor);

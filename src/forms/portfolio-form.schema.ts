@@ -4,24 +4,38 @@ import { DEFAULT_MAX_LENGTH } from '../utilities/constants';
 
 import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
+import { fetchPortfolioByName as fetchPortfolioByNameS } from '../helpers/portfolio/portfolio-helper-s';
 import { AnyObject } from '../types/common-types';
 
-export const validateName = (
-  name: string,
-  portfolioId: string
-): Promise<void> =>
-  fetchPortfolioByName(name).then(({ data }) => {
-    if (!name || name.trim().length === 0) {
-      throw 'Required';
-    }
+export const validateName = (name: string, portfolioId: string) => {
+  if (window.catalog?.standalone) {
+    fetchPortfolioByNameS(name).then(({ results }) => {
+      if (!name || name.trim().length === 0) {
+        throw 'Required';
+      }
 
-    const conflict = data.find(
-      (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
-    );
-    if (conflict) {
-      throw 'Name has already been taken';
-    }
-  });
+      const conflict = results.find(
+        (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+      );
+      if (conflict) {
+        throw 'Name has already been taken';
+      }
+    });
+  } else {
+    fetchPortfolioByName(name).then(({ data }) => {
+      if (!name || name.trim().length === 0) {
+        throw 'Required';
+      }
+
+      const conflict = data.find(
+        (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+      );
+      if (conflict) {
+        throw 'Name has already been taken';
+      }
+    });
+  }
+};
 
 const debouncedValidator = asyncFormValidator(validateName);
 
@@ -34,29 +48,22 @@ const debouncedValidator = asyncFormValidator(validateName);
 export const createPortfolioSchema = (
   openApiSchema: AnyObject,
   portfolioId: string
-): Schema => {
-  console.log(
-    'Debug - createPortfolioSchema - portfolioId, openApiSchema',
-    portfolioId,
-    openApiSchema
-  );
-  return {
-    fields: [
-      {
-        label: 'schemas.portfolio.name',
-        name: 'name',
-        component: componentTypes.TEXT_FIELD,
-        isRequired: true,
-        maxLength:
-          openApiSchema?.components?.schemas?.Portfolio?.properties?.name
-            ?.maxLength || DEFAULT_MAX_LENGTH,
-        validate: [(value: string) => debouncedValidator(value, portfolioId)]
-      },
-      {
-        label: 'schemas.portfolio.description',
-        component: componentTypes.TEXTAREA,
-        name: 'description'
-      }
-    ]
-  };
-};
+): Schema => ({
+  fields: [
+    {
+      label: 'schemas.portfolio.name',
+      name: 'name',
+      component: componentTypes.TEXT_FIELD,
+      isRequired: true,
+      maxLength:
+        openApiSchema?.components?.schemas?.Portfolio?.properties?.name
+          ?.maxLength || DEFAULT_MAX_LENGTH,
+      validate: [(value: string) => debouncedValidator(value, portfolioId)]
+    },
+    {
+      label: 'schemas.portfolio.description',
+      component: componentTypes.TEXTAREA,
+      name: 'description'
+    }
+  ]
+});
