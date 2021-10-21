@@ -87,12 +87,14 @@ describe('<Portfolio />', () => {
         },
         portfolioItems: {
           data: [],
+          results: [],
           meta: {
             limit: 50,
             offset: 0
           }
         },
         portfolios: {
+          results: [],
           data: [
             {
               id: '123',

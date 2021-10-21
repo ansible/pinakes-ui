@@ -162,14 +162,6 @@ const Portfolio = () => {
       ),
       dispatch(fetchSelectedPortfolio(portfolioId)),
       dispatch(
-        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
-      ),
-      dispatch(
-        window.catalog?.standalone
-          ? fetchSelectedPortfolioS(portfolioId)
-          : fetchSelectedPortfolio(portfolioId)
-      ),
-      dispatch(
         window?.catalog?.standalone
           ? fetchPortfolioItemsWithPortfolioS(
               portfolioId,
@@ -253,10 +245,7 @@ const Portfolio = () => {
             state.firstSelectedProduct
           )
     )
-      .then(() => {
-        fetchData(portfolio.id);
-        stateDispatch({ type: 'removeSuccessful' });
-      })
+      .then(() => stateDispatch({ type: 'removeSucessfull' }))
       .catch(() =>
         stateDispatch({ type: 'setRemoveInProgress', payload: false })
       );
