@@ -107,7 +107,7 @@ export const getPortfolioItemsWithPortfolio = (
 // TO DO - change to use the API call that adds multiple items to a portfolio when available
 export const addPortfolio = async (
   portfolioData: Partial<Portfolio>,
-  items?: string[]
+  items?: PortfolioItem[]
 ): Promise<Portfolio> => {
   const portfolio = await axiosInstance.post(
     `${CATALOG_API_BASE}/portfolios/`,
@@ -122,18 +122,19 @@ export const addPortfolio = async (
 
 export const addToPortfolio = (
   portfolioId: string,
-  items: string[]
-): Promise<PortfolioItem[]> =>
-  Promise.all(
-    items.map((item) =>
-      axiosInstance.post(`${CATALOG_API_BASE}/portfolio_items/`, {
-        name: item,
-        description: item,
+  items: PortfolioItem[]
+): Promise<PortfolioItem[]> => {
+  return Promise.all(
+    items.map((item) => {
+      return axiosInstance.post(`${CATALOG_API_BASE}/portfolio_items/`, {
+        name: item?.name,
+        description: item?.description,
         portfolio: portfolioId,
-        service_offering_ref: item
-      })
-    )
+        service_offering_ref: item.id
+      });
+    })
   ) as Promise<PortfolioItem[]>;
+};
 
 export const updatePortfolio = (
   { id, ...portfolioData }: Partial<Portfolio>,

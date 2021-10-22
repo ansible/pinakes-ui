@@ -139,7 +139,12 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
     dispatch({ type: 'setFetching', payload: true });
     return dispatch(
       window.catalog?.standalone
-        ? addToPortfolioS(portfolio.id, checkedItems)
+        ? addToPortfolioS(
+            portfolio.id,
+            items().filter((platformItem) =>
+              checkedItems.includes(platformItem.id)
+            )
+          )
         : addToPortfolio(portfolio.id, checkedItems)
     )
       .then(() => dispatch({ type: 'setFetching', payload: false }))

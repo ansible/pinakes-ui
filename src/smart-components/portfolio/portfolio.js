@@ -160,7 +160,11 @@ const Portfolio = () => {
       dispatch(
         window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
       ),
-      dispatch(fetchSelectedPortfolio(portfolioId)),
+      dispatch(
+        window?.catalog?.standalone
+          ? fetchSelectedPortfolioS(portfolioId)
+          : fetchSelectedPortfolio(portfolioId)
+      ),
       dispatch(
         window?.catalog?.standalone
           ? fetchPortfolioItemsWithPortfolioS(
@@ -299,7 +303,7 @@ const Portfolio = () => {
           <AddProductsToPortfolio portfolioRoute={routes.portfolioRoute} />
         </CatalogRoute>
         <Route path={routes.portfolioItemRoute}>
-          <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
+          <PortfolioItemDetail portfolioLoaded={!state?.isFetching} />
         </Route>
         <Route path={routes.portfolioRoute}>
           <PortfolioItems

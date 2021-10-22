@@ -29,6 +29,7 @@ import {
 } from '@redhat-cloud-services/catalog-client';
 import { AnyAction, Dispatch } from 'redux';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
+import { ServiceOffering } from '@redhat-cloud-services/sources-client';
 
 export const doFetchPortfolios = ({
   filters,
@@ -113,7 +114,7 @@ export const addPortfolio = (
 
 export const addToPortfolio = (
   portfolioId: string,
-  items: string[]
+  items: ServiceOffering[]
 ): AsyncMiddlewareAction<PortfolioItem[]> => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
   payload: PortfolioHelper.addToPortfolio(portfolioId, items),
