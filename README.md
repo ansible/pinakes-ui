@@ -15,6 +15,12 @@ Have [insights-proxy](https://github.com/RedHatInsights/insights-proxy) installe
 SPANDX_CONFIG="profiles/local-frontends.js" bash ../insights-proxy/scripts/run.sh
 ```
 
+## Running the standalone catalog UI 
+1. Clone the [ansible-catalog](https://github.com/ansible/ansible-catalog) repo and follow the instructions for starting up the API.
+3. `npm install`
+4. `npm run start:standalone`
+
+
 ## License
 
 This project is available as open source under the terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
