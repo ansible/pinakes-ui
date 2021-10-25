@@ -4,24 +4,38 @@ import { DEFAULT_MAX_LENGTH } from '../utilities/constants';
 
 import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
+import { fetchPortfolioByName as fetchPortfolioByNameS } from '../helpers/portfolio/portfolio-helper-s';
 import { AnyObject } from '../types/common-types';
 
-export const validateName = (
-  name: string,
-  portfolioId: string
-): Promise<void> =>
-  fetchPortfolioByName(name).then(({ data }) => {
-    if (!name || name.trim().length === 0) {
-      throw 'Required';
-    }
+export const validateName = (name: string, portfolioId: string) => {
+  if (window.catalog?.standalone) {
+    fetchPortfolioByNameS(name).then(({ results }) => {
+      if (!name || name.trim().length === 0) {
+        throw 'Required';
+      }
 
-    const conflict = data.find(
-      (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
-    );
-    if (conflict) {
-      throw 'Name has already been taken';
-    }
-  });
+      const conflict = results.find(
+        (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+      );
+      if (conflict) {
+        throw 'Name has already been taken';
+      }
+    });
+  } else {
+    fetchPortfolioByName(name).then(({ data }) => {
+      if (!name || name.trim().length === 0) {
+        throw 'Required';
+      }
+
+      const conflict = data.find(
+        (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+      );
+      if (conflict) {
+        throw 'Name has already been taken';
+      }
+    });
+  }
+};
 
 const debouncedValidator = asyncFormValidator(validateName);
 

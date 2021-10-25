@@ -18,14 +18,18 @@ import {
   addToPortfolio,
   fetchPortfolioItemsWithPortfolio
 } from '../../../redux/actions/portfolio-actions';
+import {
+  addToPortfolio as addToPortfolioS,
+  fetchPortfolioItemsWithPortfolio as fetchPortfolioItemsWithPortfolioS
+} from '../../../redux/actions/portfolio-actions-s';
 import AsyncPagination from '../../common/async-pagination';
 import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomPaginationContainer from '../../../presentational-components/shared/bottom-pagination-container';
 import asyncFormValidator from '../../../utilities/async-form-validator';
 
-const renderGalleryItems = (items = [], checkItem, checkedItems) =>
-  items.map((item) => (
+const renderGalleryItems = (items = [], checkItem, checkedItems) => {
+  return items.map((item) => (
     <PlatformItem
       key={item.id}
       {...item}
@@ -34,6 +38,7 @@ const renderGalleryItems = (items = [], checkItem, checkedItems) =>
       checked={checkedItems.includes(item.id)}
     />
   ));
+};
 
 const initialState = {
   filterValue: '',
@@ -132,12 +137,27 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const handleAddToPortfolio = () => {
     dispatch({ type: 'setFetching', payload: true });
-    return dispatch(addToPortfolio(portfolio.id, checkedItems))
+    return dispatch(
+      window.catalog?.standalone
+        ? addToPortfolioS(
+            portfolio.id,
+            items().filter((platformItem) =>
+              checkedItems.includes(platformItem.id)
+            )
+          )
+        : addToPortfolio(portfolio.id, checkedItems)
+    )
       .then(() => dispatch({ type: 'setFetching', payload: false }))
       .then(() =>
         push({ pathname: portfolioRoute, search: `?portfolio=${portfolio.id}` })
       )
-      .then(() => dispatch(fetchPortfolioItemsWithPortfolio(portfolio.id)))
+      .then(() =>
+        dispatch(
+          window.catalog?.standalone
+            ? fetchPortfolioItemsWithPortfolioS(portfolio.id)
+            : fetchPortfolioItemsWithPortfolio(portfolio.id)
+        )
+      )
       .catch(() => dispatch({ type: 'setFetching', payload: false }));
   };
 
@@ -158,7 +178,6 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           id: platform.id
         }))
       : [];
-
   return (
     <Fragment>
       <ToolbarRenderer

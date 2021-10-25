@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { WrenchIcon, SearchIcon } from '@patternfly/react-icons';
 
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
+import { fetchPortfolioItems as fetchPortfolioItemsS } from '../../redux/actions/portfolio-actions-s';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import PortfolioItem from '../portfolio/portfolio-item';
 import createProductsToolbarSchema from '../../toolbar/schemas/products-toolbar.schema';
@@ -10,6 +11,7 @@ import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import ContentGalleryEmptyState from '../../presentational-components/shared/content-gallery-empty-state';
 import {
@@ -32,9 +34,11 @@ import useFormatMessage from '../../utilities/use-format-message';
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
     filteringCallback(true);
-    dispatch(fetchPortfolioItems(value, defaultSettings)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPortfolioItemsS(value, defaultSettings)
+        : fetchPortfolioItems(value, defaultSettings)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -94,16 +98,25 @@ const Products = () => {
     }
   } = useContext(UserContext);
   const dispatch = useDispatch();
-  const { data, meta } = useSelector(
+  const products = useSelector(
     ({ portfolioReducer: { portfolioItems } }) => portfolioItems
   );
-
+  const meta = products.meta || { count: products.count };
+  const data = products.data || products.results;
   useEffect(() => {
     Promise.all([
       dispatch(
-        fetchPortfolioItems(viewState?.products?.filter, viewState?.products)
+        window.catalog?.standalone
+          ? fetchPortfolioItemsS(
+              viewState?.products?.filter,
+              viewState?.products
+            )
+          : fetchPortfolioItems(
+              viewState?.products?.filter,
+              viewState?.products
+            )
       ),
-      dispatch(fetchPlatforms())
+      dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms)
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
@@ -191,7 +204,9 @@ const Products = () => {
           title: formatMessage(productsMessages.title),
           isLoading: isFiltering || isFetching,
           meta,
-          fetchProducts: (...args) => dispatch(fetchPortfolioItems(...args))
+          fetchProducts: window.catalog?.standalone
+            ? (...args) => dispatch(fetchPortfolioItemsS(...args))
+            : (...args) => dispatch(fetchPortfolioItems(...args))
         })}
       />
       <ContentGallery
@@ -208,7 +223,9 @@ const Products = () => {
             meta={meta}
             apiRequest={(_e, options) =>
               dispatch(
-                fetchPortfolioItems(viewState?.products?.filter, options)
+                window.catalog?.standalone
+                  ? fetchPortfolioItemsS(viewState?.products?.filter, options)
+                  : fetchPortfolioItems(viewState?.products?.filter, options)
               )
             }
           />

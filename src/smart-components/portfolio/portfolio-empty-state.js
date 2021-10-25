@@ -14,7 +14,7 @@ const PortfolioEmptyState = ({
   url,
   handleFilterChange,
   meta,
-  userCapabilities
+  userCapabilities: { update }
 }) => {
   const formatMessage = useFormatMessage();
   const NoDataAction = () => (
@@ -22,7 +22,7 @@ const PortfolioEmptyState = ({
       url={url}
       label={formatMessage(portfolioMessages.addProducts)}
       id="add-products-to-portfolio"
-      hasPermission={userCapabilities?.update}
+      hasPermission={update}
     />
   );
 

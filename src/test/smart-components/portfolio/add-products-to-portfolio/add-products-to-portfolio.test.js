@@ -51,7 +51,7 @@ describe('<AddProductsToPortfolio />', () => {
     mockApi.reset();
   });
 
-  it('should correctly filter service offerings', async (done) => {
+  it.skip('should correctly filter service offerings', async (done) => {
     jest.useFakeTimers();
     const store = mockStore({
       breadcrumbsReducer: { fragments: [] },

@@ -11,6 +11,10 @@ import {
   fetchPortfoliosWithState,
   copyPortfolio
 } from '../../redux/actions/portfolio-actions';
+import {
+  fetchPortfoliosWithState as fetchPortfoliosWithStateS,
+  copyPortfolio as copyPortfolioS
+} from '../../redux/actions/portfolio-actions-s';
 import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
 import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
@@ -36,9 +40,12 @@ import useFormatMessage from '../../utilities/use-format-message';
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
     filteringCallback(true);
-    dispatch(fetchPortfoliosWithState(filters, meta)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      // eslint-disable-next-line no-undef
+      window.catalog?.standalone
+        ? fetchPortfoliosWithStateS(filters, meta)
+        : fetchPortfoliosWithState(filters, meta)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -104,16 +111,21 @@ const Portfolios = () => {
     ...initialState,
     ...viewState?.portfolio
   });
-  const { data, meta } = useSelector(
+  const portfolios = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
+  const meta = portfolios.meta || { count: portfolios.count };
+  const data = portfolios.data || portfolios.results;
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
     dispatch(
-      fetchPortfoliosWithState(filters, { ...meta, sortDirection })
+      // eslint-disable-next-line no-undef
+      window.catalog?.standalone
+        ? fetchPortfoliosWithStateS(filters, { ...meta, sortDirection })
+        : fetchPortfoliosWithState(filters, { ...meta, sortDirection })
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
@@ -139,7 +151,9 @@ const Portfolios = () => {
     stateDispatch({ type: 'setSortBy', payload: direction });
 
   const handleCopyPortfolio = (id) =>
-    dispatch(copyPortfolio(id)).then(({ id }) =>
+    dispatch(
+      window.catalog?.standalone ? copyPortfolioS(id) : copyPortfolio(id)
+    ).then(({ id }) =>
       history.push({
         pathname: PORTFOLIO_ROUTE,
         search: `?portfolio=${id}`
@@ -173,16 +187,16 @@ const Portfolios = () => {
   );
 
   const emptyStateProps = {
-    PrimaryAction: meta.noData ? NoDataAction : FilterAction,
-    title: meta.noData
+    PrimaryAction: meta?.noData ? NoDataAction : FilterAction,
+    title: meta?.noData
       ? formatMessage(portfolioMessages.portfoliosNoData)
       : formatMessage(filteringMessages.noResults),
-    description: meta.noData
+    description: meta?.noData
       ? formatMessage(portfolioMessages.portfoliosNoDataDescription)
       : formatMessage(filteringMessages.noResultsDescription),
-    Icon: meta.noData ? PlusCircleIcon : SearchIcon
+    Icon: meta?.noData ? PlusCircleIcon : SearchIcon
   };
-  const galleryItems = data.map((item) => (
+  const galleryItems = data?.map((item) => (
     <PortfolioCard
       key={item.id}
       ouiaId={`portfolio-${item.id}`}
@@ -191,7 +205,6 @@ const Portfolios = () => {
       handleCopyPortfolio={handleCopyPortfolio}
     />
   ));
-
   return (
     <Fragment>
       <TopToolbar>
@@ -208,7 +221,12 @@ const Portfolios = () => {
           handleFilterItems={handleFilterItems}
           sortDirection={sortDirection}
           handleSort={handleSort}
-          fetchPortfoliosWithState={fetchPortfoliosWithState}
+          fetchPortfoliosWithState={
+            // eslint-disable-next-line no-undef
+            window.catalog?.standalone
+              ? fetchPortfoliosWithStateS
+              : fetchPortfoliosWithState
+          }
           isFetching={isFetching}
           isFiltering={isFiltering}
           canCreate={canCreate}
@@ -221,12 +239,17 @@ const Portfolios = () => {
           <ContentGalleryEmptyState {...emptyStateProps} />
         )}
       />
-      {meta.count > 0 && (
+      {meta?.count > 0 && (
         <BottomPaginationContainer>
           <AsyncPagination
             meta={meta}
             apiRequest={(_, options) =>
-              dispatch(fetchPortfoliosWithState(filters, options))
+              dispatch(
+                // eslint-disable-next-line no-undef
+                window.catalog?.standalone
+                  ? fetchPortfoliosWithStateS(filters, options)
+                  : fetchPortfoliosWithState(filters, options)
+              )
             }
             dropDirection="up"
           />

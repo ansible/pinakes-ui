@@ -13,8 +13,10 @@ import {
   SplitItem
 } from '@patternfly/react-core';
 import { removePortfolio } from '../../redux/actions/portfolio-actions';
+import { removePortfolio as removePortfolioS } from '../../redux/actions/portfolio-actions-s';
 import useQuery from '../../utilities/use-query';
 import { getPortfolioFromState } from '../../helpers/portfolio/portfolio-helper';
+import { getPortfolioFromState as getPortfolioFromStateS } from '../../helpers/portfolio/portfolio-helper-s';
 import { PORTFOLIOS_ROUTE } from '../../constants/routes';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import {
@@ -40,27 +42,26 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
   const portfolio = useSelector<
     CatalogRootState,
     InternalPortfolio | undefined
-  >(
-    ({ portfolioReducer }) =>
-      getPortfolioFromState(portfolioReducer, portfolioId) as
-        | InternalPortfolio
-        | undefined
+  >(({ portfolioReducer }) =>
+    window.catalog?.standalone
+      ? getPortfolioFromStateS(portfolioReducer, portfolioId)
+      : getPortfolioFromState(portfolioReducer, portfolioId)
   );
   const { push, goBack } = useHistory();
   const onSubmit = () => {
     push(PORTFOLIOS_ROUTE);
-    return dispatch(removePortfolio(portfolioId, viewState));
+    return dispatch(
+      window.catalog?.standalone
+        ? removePortfolioS(portfolioId, viewState)
+        : removePortfolio(portfolioId, viewState)
+    );
   };
 
   if (!portfolio) {
     return null;
   }
 
-  const {
-    metadata: {
-      user_capabilities: { destroy }
-    }
-  } = portfolio;
+  const destroy = portfolio.metadata?.user_capabilities?.destroy;
 
   return destroy === false ? (
     <UnauthorizedRedirect />

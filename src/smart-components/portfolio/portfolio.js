@@ -14,6 +14,14 @@ import {
   resetSelectedPortfolio,
   fetchPortfolioItemsWithPortfolio
 } from '../../redux/actions/portfolio-actions';
+import {
+  copyPortfolio as copyPortfolioS,
+  fetchPortfolios as fetchPortfoliosS,
+  fetchSelectedPortfolio as fetchSelectedPortfolioS,
+  removeProductsFromPortfolio as removeProductsFromPortfolioS,
+  resetSelectedPortfolio as resetSelectedPortfolioS,
+  fetchPortfolioItemsWithPortfolio as fetchPortfolioItemsWithPortfolioS
+} from '../../redux/actions/portfolio-actions-s';
 import asyncFormValidator from '../../utilities/async-form-validator';
 import useQuery from '../../utilities/use-query';
 import useBreadcrumbs from '../../utilities/use-breadcrumbs';
@@ -91,9 +99,11 @@ const initialState = {
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback, meta) => {
     filteringCallback(true);
-    dispatch(fetchPortfolioItemsWithPortfolio(value, meta)).then(() =>
-      filteringCallback(false)
-    );
+    dispatch(
+      window.catalog?.standalone
+        ? fetchPortfolioItemsWithPortfolioS(value, meta)
+        : fetchPortfolioItemsWithPortfolio(value, meta)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -109,7 +119,7 @@ const porftolioUiReducer = (state, { type, payload = {} }) =>
       firstSelectedProduct: payload.product || state.firstSelectedProduct
     },
     setRemoveInProgress: { ...state, removeInProgress: payload },
-    removeSucessfull: { ...state, selectedItems: [], removeInProgress: false },
+    removeSuccessful: { ...state, selectedItems: [], removeInProgress: false },
     setFilterValue: { ...state, filterValue: payload, isFiltering: true },
     setCopyInProgress: { ...state, copyInProgress: payload },
     setIsFetching: { ...state, isFetching: payload },
@@ -150,9 +160,21 @@ const Portfolio = () => {
       dispatch(
         window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
       ),
-      dispatch(fetchSelectedPortfolio(portfolioId)),
       dispatch(
-        fetchPortfolioItemsWithPortfolio(portfolioId, viewState?.portfolioItems)
+        window?.catalog?.standalone
+          ? fetchSelectedPortfolioS(portfolioId)
+          : fetchSelectedPortfolio(portfolioId)
+      ),
+      dispatch(
+        window?.catalog?.standalone
+          ? fetchPortfolioItemsWithPortfolioS(
+              portfolioId,
+              viewState?.portfolioItems
+            )
+          : fetchPortfolioItemsWithPortfolio(
+              portfolioId,
+              viewState?.portfolioItems
+            )
       )
     ])
       .then((data) => {
@@ -171,7 +193,11 @@ const Portfolio = () => {
 
     return () => {
       resetBreadcrumbs();
-      dispatch(resetSelectedPortfolio());
+      dispatch(
+        window.catalog?.standalone
+          ? resetSelectedPortfolioS()
+          : resetSelectedPortfolio()
+      );
     };
   }, []);
 
@@ -188,7 +214,9 @@ const Portfolio = () => {
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
-    return dispatch(copyPortfolio(id))
+    return dispatch(
+      window.catalog?.standalone ? copyPortfolioS(id) : copyPortfolio(id)
+    )
       .then(({ id }) =>
         history.push({
           pathname: PORTFOLIO_ROUTE,
@@ -196,7 +224,11 @@ const Portfolio = () => {
         })
       )
       .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
-      .then(() => dispatch(fetchPortfolios()))
+      .then(() =>
+        dispatch(
+          window.catalog?.standalone ? fetchPortfoliosS : fetchPortfolios
+        )
+      )
       .catch(() =>
         stateDispatch({ type: 'setCopyInProgress', payload: false })
       );
@@ -205,11 +237,17 @@ const Portfolio = () => {
   const removeProducts = (products) => {
     stateDispatch({ type: 'setRemoveInProgress', payload: true });
     dispatch(
-      removeProductsFromPortfolio(
-        products,
-        portfolio.name,
-        state.firstSelectedProduct
-      )
+      window.catalog?.standalone
+        ? removeProductsFromPortfolioS(
+            products,
+            portfolio.name,
+            state.firstSelectedProduct
+          )
+        : removeProductsFromPortfolio(
+            products,
+            portfolio.name,
+            state.firstSelectedProduct
+          )
     )
       .then(() => stateDispatch({ type: 'removeSucessfull' }))
       .catch(() =>
@@ -242,7 +280,7 @@ const Portfolio = () => {
     portfolioItemRoute: `${url}/portfolio-item`
   };
 
-  if (portfolio.metadata.user_capabilities.show === false) {
+  if (portfolio.metadata?.user_capabilities?.show === false) {
     return <UnauthorizedRedirect />;
   }
 
@@ -259,20 +297,20 @@ const Portfolio = () => {
       <Switch>
         <CatalogRoute
           path={routes.addProductsRoute}
-          userCapabilities={portfolio.metadata.user_capabilities}
+          userCapabilities={portfolio.metadata?.user_capabilities}
           requiredCapabilities="update"
         >
           <AddProductsToPortfolio portfolioRoute={routes.portfolioRoute} />
         </CatalogRoute>
         <Route path={routes.portfolioItemRoute}>
-          <PortfolioItemDetail portfolioLoaded={!state.isFetching} />
+          <PortfolioItemDetail portfolioLoaded={!state?.isFetching} />
         </Route>
         <Route path={routes.portfolioRoute}>
           <PortfolioItems
             routes={routes}
             fromProducts={fromProducts === 'true'}
             handleFilterChange={handleFilterChange}
-            removeProducts={removeProducts}
+            removeProducts={(products) => removeProducts(products)}
             copyPortfolio={handleCopyPortfolio}
             state={state}
             stateDispatch={stateDispatch}

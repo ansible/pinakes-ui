@@ -25,10 +25,7 @@ import {
   ReduxActionHandler,
   InternalPortfolio
 } from '../../types/common-types';
-import {
-  PortfolioItem,
-  Portfolio
-} from '@redhat-cloud-services/catalog-client';
+import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
 export interface PortfolioItemStateObject {
@@ -37,9 +34,9 @@ export interface PortfolioItemStateObject {
 export interface PortfolioReducerState extends AnyObject {
   portfolioItems: ApiCollectionResponse<PortfolioItem>;
   portfolioItem: PortfolioItemStateObject;
-  portfolios: ApiCollectionResponse<Portfolio>;
+  portfolios: ApiCollectionResponse<InternalPortfolio>;
   selectedPortfolio: InternalPortfolio;
-  portfolio: Portfolio;
+  portfolio: InternalPortfolio;
   filterValue: string;
   isLoading: boolean;
 }
@@ -73,7 +70,12 @@ export const portfoliosInitialState: PortfolioReducerState = {
       statistics: {}
     }
   },
-  portfolio: {},
+  portfolio: {
+    metadata: {
+      user_capabilities: {},
+      statistics: {}
+    }
+  },
   filterValue: '',
   isLoading: false
 };
@@ -128,7 +130,7 @@ const resetSelectedPortfolio: PortfolioReducerActionHandler = (state) => ({
 });
 
 // these are optimistic UI updates that mutate the portfolio state immediately after user action.
-// State is synchronized with API after actions are sucesfull
+// State is synchronized with API after actions are successful
 const addTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }
@@ -146,31 +148,42 @@ const addTemporaryPortfolio: PortfolioReducerActionHandler = (
 const updateTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
   { payload }
-) => ({
-  prevState: { ...state },
-  ...state,
-  selectedPortfolio: {
-    metadata: {
-      ...state.selectedPortfolio.metadata,
-      user_capabilities: {
-        // the client typings define metadaas object which will result it unknow property TS error. So we have to override it
-        ...(state.selectedPortfolio.metadata as AnyObject).user_capabilities
-      }
+) => {
+  return {
+    prevState: { ...state },
+    ...state,
+    selectedPortfolio: {
+      metadata: {
+        ...state.selectedPortfolio.metadata,
+        user_capabilities: {
+          // the client typings define metadata object which will result it unknown property TS error. So we have to override it
+          ...(state.selectedPortfolio.metadata as AnyObject).user_capabilities
+        }
+      },
+      ...payload
     },
-    ...payload
-  },
-  portfolios: {
-    ...state.portfolios,
-    data: state.portfolios.data.map((item) =>
-      item.id === payload.id
-        ? {
-            ...item,
-            ...payload
-          }
-        : item
-    )
-  }
-});
+    portfolios: {
+      ...state.portfolios,
+      // @ts-ignore
+      data: state.portfolios?.data?.map((item: { id: any }) =>
+        item.id === payload.id
+          ? {
+              ...item,
+              ...payload
+            }
+          : item
+      ),
+      results: state.portfolios?.results?.map((item) => {
+        return String(item.id) === String(payload.id)
+          ? {
+              ...item,
+              ...payload
+            }
+          : item;
+      })
+    }
+  };
+};
 
 const deleteTemporaryPortfolio: PortfolioReducerActionHandler = (
   state,
@@ -202,7 +215,12 @@ const updateTemporaryPortfolioItem: PortfolioReducerActionHandler = (
   },
   portfolioItems: {
     ...state.portfolioItems,
-    data: state.portfolioItems.data.map((item) =>
+    data: state.portfolioItems?.data?.map((item) =>
+      item.id === payload.id
+        ? { created_at: item.created_at, ...payload }
+        : item
+    ),
+    results: state.portfolioItems?.results?.map((item) =>
       item.id === payload.id
         ? { created_at: item.created_at, ...payload }
         : item
@@ -221,7 +239,10 @@ const updatePortfolioItem: PortfolioReducerActionHandler = (
   },
   portfolioItems: {
     ...state.portfolioItems,
-    data: state.portfolioItems.data.map((item) =>
+    data: state.portfolioItems?.data?.map((item) =>
+      item.id === payload.id ? { ...payload } : item
+    ),
+    results: state.portfolioItems?.results?.map((item) =>
       item.id === payload.id ? { ...payload } : item
     )
   }
