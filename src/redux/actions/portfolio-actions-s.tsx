@@ -261,13 +261,6 @@ export const removePortfolio = (portfolioId: string, viewState = {}) => (
   });
 };
 
-export const selectPortfolioItem = (
-  portfolioItem: Full<PortfolioItem>
-): ReduxAction<PortfolioItem> => ({
-  type: ActionTypes.SELECT_PORTFOLIO_ITEM,
-  payload: portfolioItem
-});
-
 export const undoRemoveProductsFromPortfolio = (
   restoreData: RestorePortfolioItemConfig[],
   portfolioId: string
