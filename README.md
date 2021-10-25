@@ -17,6 +17,7 @@ SPANDX_CONFIG="profiles/local-frontends.js" bash ../insights-proxy/scripts/run.s
 
 ## Running the standalone catalog UI 
 1. Clone the [ansible-catalog](https://github.com/ansible/ansible-catalog) repo and follow the instructions for starting up the API.
+2. Install node
 3. `npm install`
 4. `npm run start:standalone`
 
