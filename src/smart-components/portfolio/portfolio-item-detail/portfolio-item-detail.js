@@ -73,6 +73,7 @@ const PortfolioItemDetail = () => {
   const portfolioItemData = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
+  console.log('Debug - portfolioItemData: ', portfolioItemData);
   const portfolio = useSelector(
     ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
   );
