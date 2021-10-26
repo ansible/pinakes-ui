@@ -67,6 +67,7 @@ const PortfolioItemDetail = () => {
   const portfolioItemData = useSelector(
     ({ portfolioReducer: { portfolioItem } }) => portfolioItem
   );
+  console.log('Debug - portfolioItemData: ', portfolioItemData);
   const portfolio = useSelector(
     ({ portfolioReducer: { selectedPortfolio } }) => selectedPortfolio
   );
@@ -80,7 +81,7 @@ const PortfolioItemDetail = () => {
     if (!skipLoading) {
       setIsFetching(true);
     }
-
+    console.log('fetchData - queryValues: ', queryValues);
     dispatch(
       window.catalog?.standalone
         ? getPortfolioItemDetailS({
