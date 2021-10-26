@@ -86,6 +86,7 @@ const PortfolioItemDetail = () => {
     if (!skipLoading) {
       setIsFetching(true);
     }
+
     dispatch(
       window.catalog?.standalone
         ? getPortfolioItemDetailS({
