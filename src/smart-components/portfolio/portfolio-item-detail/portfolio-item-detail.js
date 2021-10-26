@@ -81,6 +81,7 @@ const PortfolioItemDetail = () => {
     if (!skipLoading) {
       setIsFetching(true);
     }
+
     console.log('fetchData - queryValues: ', queryValues);
     dispatch(
       window.catalog?.standalone
@@ -112,8 +113,9 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const availability =
-    portfolioItemData?.source?.availability_status || 'unavailable';
+  const availability = window.catalog?.standalone
+    ? 'available'
+    : portfolioItemData?.source?.availability_status || 'unavailable';
   let unavailable = [];
 
   if (portfolioItemData?.source) {
