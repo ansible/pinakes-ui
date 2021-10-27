@@ -1,15 +1,72 @@
 /* eslint camelcase: 0 */
 import { getAxiosInstance } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { ServicePlan } from '@redhat-cloud-services/catalog-client';
 import { ApiCollectionResponse } from '../../types/common-types-s';
-import {
-  ImportServicePlan,
-  PatchModifiedServicePlan
-} from '@redhat-cloud-services/catalog-client/api';
 import { AxiosInstance, AxiosPromise } from 'axios';
-import { RequestArgs } from '@redhat-cloud-services/catalog-client/base';
 const axiosInstance = getAxiosInstance();
+
+export interface ImportServicePlan {
+  /**
+   * The Portfolio Item to import the service plans for.
+   * @type {string}
+   * @memberof ImportServicePlan
+   */
+  portfolio_item_id?: string;
+}
+
+export interface ServicePlan {
+  /**
+   * The name of the service plan.
+   * @type {string}
+   * @memberof ServicePlan
+   */
+  name?: string;
+  /**
+   * The service plan description.
+   * @type {string}
+   * @memberof ServicePlan
+   */
+  description?: string;
+  /**
+   * JSON schema for the object.
+   * @type {object}
+   * @memberof ServicePlan
+   */
+  create_json_schema?: object;
+  /**
+   * The reference ID of the Portfolio Item
+   * @type {string}
+   * @memberof ServicePlan
+   */
+  portfolio_item_id?: string;
+  /**
+   * The unique identifier for this service plan.
+   * @type {string}
+   * @memberof ServicePlan
+   */
+  id?: string;
+  /**
+   * Whether or not the ServicePlan has been imported for editing
+   * @type {boolean}
+   * @memberof ServicePlan
+   */
+  imported?: boolean;
+  /**
+   * Whether or not the ServicePlan has a modified schema
+   * @type {boolean}
+   * @memberof ServicePlan
+   */
+  modified?: boolean;
+}
+
+export interface PatchModifiedServicePlan {
+  /**
+   * the new modified schema for the service plan
+   * @type {object}
+   * @memberof PatchModifiedServicePlan
+   */
+  modified?: any;
+}
 
 export const getServicePlans = (
   portfolioItemId: string
@@ -37,7 +94,7 @@ export const showServicePlanModified = (
 export const createServicePlan = (
   importServicePlan?: ImportServicePlan,
   options: any = {}
-): Promise<RequestArgs> =>
+) =>
   axiosInstance.post(`${CATALOG_API_BASE}/service_plans/`, importServicePlan);
 
 export const resetServicePlanModified = (

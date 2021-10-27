@@ -237,9 +237,8 @@ const pf4Skin = {
   componentProperties
 };
 
-// remove after API full migration to v2
 const changeValidators = (schema) => {
-  const result = { ...schema };
+  const result = { ...schema.schema };
   result.fields = result.fields.map(({ validate, ...rest }) => {
     return validate
       ? {
@@ -296,19 +295,20 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const fragments = useSelector(
     ({ breadcrumbsReducer: { fragments } }) => fragments
   );
-
+  console.log('Debug - using survey_editor_s');
   const getServicePlan = () =>
     getAxiosInstance()
       .get(
-        `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans`
+        `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans/`
       )
-      .then((servicePlan) => {
-        const [
-          {
-            create_json_schema: { schema }
-          }
-        ] = servicePlan;
+      .then((data) => {
+        console.log('Debug - data: ', data);
+        const servicePlan = data.results;
         setServicePlan(servicePlan[0]);
+        const schema = JSON.parse(
+          servicePlan[0].create_json_schema.replace('\\"', '"')
+        );
+        console.log('Debug - servicePlan, schema: ', servicePlan, schema);
         if (servicePlan[0].imported) {
           return getAxiosInstance()
             .get(`${CATALOG_API_BASE}/service_plans/${servicePlan[0].id}/base/`)
@@ -449,7 +449,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
 
 SurveyEditor.propTypes = {
   closeUrl: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
+  search: PropTypes.string,
   portfolioItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired

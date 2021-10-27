@@ -49,6 +49,12 @@ const SurveyEditor = lazy(() =>
   )
 );
 
+const SurveyEditorS = lazy(() =>
+  import(
+    /* webpackChunkName: "survey-editor-s" */ '../../survey-editing/survey-editor-s'
+  )
+);
+
 const requiredParams = [
   'portfolio',
   'source',
@@ -156,6 +162,9 @@ const PortfolioItemDetail = () => {
     `${url}/edit-workflow`,
     PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE
   ];
+  const SurveyEditorComponent = window.catalog?.standalone
+    ? SurveyEditorS
+    : SurveyEditor;
   return (
     <Fragment>
       <Switch>
@@ -167,7 +176,7 @@ const PortfolioItemDetail = () => {
           path={`${url}/edit-survey`}
         >
           <Suspense fallback={<AppPlaceholder />}>
-            <SurveyEditor
+            <SurveyEditorComponent
               closeUrl={url}
               search={search}
               uploadIcon={uploadIcon}
