@@ -25,6 +25,10 @@ import {
   uploadPortfolioItemIcon,
   resetPortfolioItemIcon
 } from '../../../helpers/portfolio/portfolio-helper';
+import {
+  uploadPortfolioItemIcon as uploadPortfolioItemIconS,
+  resetPortfolioItemIcon as resetPortfolioItemIconS
+} from '../../../helpers/portfolio/portfolio-helper-s';
 import useQuery from '../../../utilities/use-query';
 import {
   PORTFOLIO_ITEM_ROUTE,
@@ -128,14 +132,21 @@ const PortfolioItemDetail = () => {
   }
 
   const uploadIcon = (file) =>
-    uploadPortfolioItemIcon({
-      portfolioItemId: portfolioItemData?.portfolioItem?.id,
-      file
-    }).then(() => fetchData(true));
+    window.catalog?.standalone
+      ? uploadPortfolioItemIconS({
+          portfolioItemId: portfolioItemData?.portfolioItem?.id,
+          file
+        })
+      : uploadPortfolioItemIcon({
+          portfolioItemId: portfolioItemData?.portfolioItem?.id,
+          file
+        }).then(() => fetchData(true));
   const resetIcon = () =>
-    resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id).then(
-      fetchData
-    );
+    window.catalog?.standalone
+      ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.icon_id)
+      : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id).then(
+          fetchData
+        );
   const detailPaths = [
     PORTFOLIO_ITEM_ROUTE,
     `${url}/order`,
