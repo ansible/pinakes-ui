@@ -81,8 +81,6 @@ const PortfolioItemDetail = () => {
     if (!skipLoading) {
       setIsFetching(true);
     }
-
-    console.log('fetchData - queryValues: ', queryValues);
     dispatch(
       window.catalog?.standalone
         ? getPortfolioItemDetailS({
@@ -134,8 +132,8 @@ const PortfolioItemDetail = () => {
       ));
   }
 
-  const uploadIcon = (file) =>
-    window.catalog?.standalone
+  const uploadIcon = (file) => {
+    return (window.catalog?.standalone
       ? uploadPortfolioItemIconS({
           portfolioItemId: portfolioItemData?.portfolioItem?.id,
           file
@@ -143,13 +141,15 @@ const PortfolioItemDetail = () => {
       : uploadPortfolioItemIcon({
           portfolioItemId: portfolioItemData?.portfolioItem?.id,
           file
-        }).then(() => fetchData(true));
+        })
+    ).then(() => fetchData(true));
+  };
+
   const resetIcon = () =>
-    window.catalog?.standalone
+    (window.catalog?.standalone
       ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.icon_id)
-      : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id).then(
-          fetchData
-        );
+      : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id)
+    ).then(fetchData);
   const detailPaths = [
     PORTFOLIO_ITEM_ROUTE,
     `${url}/order`,

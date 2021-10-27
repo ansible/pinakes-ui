@@ -235,16 +235,17 @@ export const resetPortfolioItemIcon = (
     `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon/`
   );
 
-export const uploadPortfolioItemIcon = (
-  portfolioItemId: string,
-  file: File,
-  iconId?: string
-): Promise<void> | undefined => {
+export const uploadPortfolioItemIcon = (portfolioItemData: {
+  file: any;
+  portfolioItemId: string;
+}): Promise<void> | undefined => {
   const data = new FormData();
-  data.append('content', file.name);
-  if (iconId) {
+  data.append('icon', portfolioItemData.file);
+  data.append('name', portfolioItemData.file.name);
+  data.append('source_ref', '1');
+  if (portfolioItemData) {
     return axiosInstance.post(
-      `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon/`,
+      `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,
       data,
       {
         headers: {
