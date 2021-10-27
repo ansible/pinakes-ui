@@ -32,7 +32,7 @@ export interface ServicePlan {
    * @type {object}
    * @memberof ServicePlan
    */
-  create_json_schema?: object;
+  create_json_schema?: any;
   /**
    * The reference ID of the Portfolio Item
    * @type {string}
