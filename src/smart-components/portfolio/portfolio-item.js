@@ -26,7 +26,11 @@ const PortfolioItem = (props) => {
         <CardHeader>
           <StyledLevel>
             <CardIcon
-              src={`${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`}
+              src={
+                window.catalog?.standalone
+                  ? props?.icon_url
+                  : `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`
+              }
               sourceId={props.service_offering_source_ref}
             />
             {props.isSelectable && (
@@ -63,6 +67,7 @@ PortfolioItem.propTypes = {
   orderUrl: PropTypes.string,
   removeInProgress: PropTypes.bool,
   portfolio_id: PropTypes.string,
+  icon_url: PropTypes.string,
   metadata: PropTypes.shape({
     user_capabilities: PropTypes.shape({ destroy: PropTypes.bool }).isRequired
   }).isRequired
