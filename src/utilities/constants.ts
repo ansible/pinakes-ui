@@ -60,3 +60,5 @@ export const USER_CAPABILITIES_PLACEHOLDER = {
   destroy: true,
   set_approval: true
 };
+
+console.log('Debug - constants: CATALOG_API_BASE', CATALOG_API_BASE);
