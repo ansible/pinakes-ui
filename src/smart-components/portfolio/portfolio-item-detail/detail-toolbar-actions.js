@@ -122,9 +122,7 @@ const DetailToolbarActions = ({
     <Fragment>
       <LevelItem>
         <CatalogLink
-          isDisabled={
-            isFetching || !orderable
-          }
+          isDisabled={isFetching || !orderable}
           pathname={orderUrl}
           preserveSearch
         >
