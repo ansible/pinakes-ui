@@ -305,6 +305,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
         setServicePlan(servicePlan[0]);
         const schema = servicePlan[0].create_json_schema.schema;
         //TODO - use true here until the backend is fixed
+        // eslint-disable-next-line no-constant-condition
         if (servicePlan[0].imported || true) {
           return getAxiosInstance()
             .get(
