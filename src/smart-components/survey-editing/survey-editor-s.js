@@ -295,25 +295,22 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const fragments = useSelector(
     ({ breadcrumbsReducer: { fragments } }) => fragments
   );
-  console.log('Debug - using survey_editor_s');
   const getServicePlan = () =>
     getAxiosInstance()
       .get(
         `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans/`
       )
       .then((data) => {
-        console.log('Debug - data: ', data);
         const servicePlan = data.results;
         setServicePlan(servicePlan[0]);
         const schema = JSON.parse(
           servicePlan[0].create_json_schema.replace('\\"', '"')
         );
-        console.log('Debug - servicePlan, schema: ', servicePlan, schema);
         //TODO - use true here until the backend is fixed
         if (servicePlan[0].imported || true) {
           return getAxiosInstance()
             .get(
-              `${CATALOG_API_BASE}/service_plans/${servicePlan[0].service_plan_ref}/base/`
+              `${CATALOG_API_BASE}/catalog_service_plans/${servicePlan[0].service_plan_ref}/base/`
             )
             .then((baseSchema) => {
               setBaseSchema(
@@ -366,11 +363,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
     //TODO - use only modify iuntil the imported flag is fixed on the backend
     //const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
     const submitCall = modifySurvey;
-    console.log(
-      'Debug - handleSaveSurvey - editedTemplate, submitCall',
-      editedTemplate,
-      submitCall
-    );
     return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
       .then(() => {
         setIsFetching(false);

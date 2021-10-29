@@ -88,7 +88,7 @@ export const showServicePlanModified = (
   servicePlanId: string
 ): Promise<ApiCollectionResponse<ServicePlan>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/service_plans/${servicePlanId}/modified/`
+    `${CATALOG_API_BASE}/catalog_service_plans/${servicePlanId}/modified/`
   );
 
 export const createServicePlan = (
