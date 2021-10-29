@@ -331,9 +331,12 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   }, []);
 
   const modifySurvey = (editedTemplate) =>
-    ServicePlanHelper.patchServicePlanModified(`${servicePlan.id}`, {
-      modified: { schema: editedTemplate }
-    });
+    ServicePlanHelper.patchServicePlanModified(
+      `${servicePlan.service_plan_ref}`,
+      {
+        modified: { schema: editedTemplate }
+      }
+    );
   const createSurvey = (editedTemplate) =>
     ServicePlanHelper.createServicePlan({ portfolio_item_id: portfolioItem.id })
       .then(([{ id }]) => id)
@@ -358,6 +361,11 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
     const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
+    console.log(
+      'Debug - handleSaveSurvey - editedTemplate, submitCall',
+      editedTemplate,
+      submitCall
+    );
     return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
       .then(() => {
         setIsFetching(false);

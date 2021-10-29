@@ -95,7 +95,10 @@ export const createServicePlan = (
   importServicePlan?: ImportServicePlan,
   options: any = {}
 ) =>
-  axiosInstance.post(`${CATALOG_API_BASE}/service_plans/`, importServicePlan);
+  axiosInstance.post(
+    `${CATALOG_API_BASE}/catalog_service_plans/`,
+    importServicePlan
+  );
 
 export const resetServicePlanModified = (
   id: string,
