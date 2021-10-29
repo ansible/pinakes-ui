@@ -303,9 +303,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
       .then((data) => {
         const servicePlan = data.results;
         setServicePlan(servicePlan[0]);
-        const schema = JSON.parse(
-          servicePlan[0].create_json_schema.replace('\\"', '"')
-        );
+        const schema = servicePlan[0].create_json_schema.schema;
         //TODO - use true here until the backend is fixed
         if (servicePlan[0].imported || true) {
           return getAxiosInstance()
