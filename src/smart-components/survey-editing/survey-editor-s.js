@@ -238,7 +238,7 @@ const pf4Skin = {
 };
 
 const changeValidators = (schema) => {
-  const result = { ...schema.schema };
+  const result = { ...schema };
   result.fields = result.fields.map(({ validate, ...rest }) => {
     return validate
       ? {
@@ -313,10 +313,12 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
               `${CATALOG_API_BASE}/catalog_service_plans/${servicePlan[0].service_plan_ref}/base/`
             )
             .then((baseSchema) => {
-              setBaseSchema(
-                changeValidators(baseSchema.create_json_schema.schema)
+              const new_schema = changeValidators(
+                JSON.parse(baseSchema.create_json_schema.replace('\\"', '"'))
+                  .schema
               );
-              return changeValidators(schema);
+              setBaseSchema(new_schema);
+              return new_schema;
             });
         }
 
