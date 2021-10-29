@@ -104,32 +104,6 @@ const setPortfolioItem: PortfolioReducerActionHandler = (
   state,
   { payload }
 ) => {
-  console.log('Debug - setPortfolioItem - payload: ', payload);
-  console.log('Debug - setPortfolioItem - returns: ', {
-    ...state,
-    portfolioItem: {
-      ...payload,
-      metadata: {
-        user_capabilities: {
-          show: true,
-          update: true,
-          set_approval: true,
-          share: true,
-          unshare: true,
-          untag: true,
-          tag: true,
-          set_order_process: true,
-          create: true,
-          destroy: true,
-          restore: true,
-          copy: true,
-          orderable: true
-        }
-      }
-    },
-    isLoading: false
-  });
-
   return {
     ...state,
     portfolioItem: {
