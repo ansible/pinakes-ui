@@ -30,6 +30,7 @@ import {
 import { AxiosPromise } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
+import { GetOrderDetailParams } from './order-helper';
 
 const axiosInstance = getAxiosInstance();
 
@@ -126,13 +127,6 @@ export const getOrderApprovalRequests = (
     `${CATALOG_API_BASE}/order-items/${orderItemId}/requests/`
   ) as unknown) as Promise<ApiCollectionResponse<Request>>;
 
-export interface GetOrderDetailParams {
-  order: string;
-  'order-item'?: string;
-  'portfolio-item'?: string;
-  platform?: string;
-  portfolio?: string;
-}
 export const getOrderDetail = (
   params: GetOrderDetailParams
 ): Promise<OrderDetailPayload> => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
 
 import * as ActionTypes from '../action-types';
-import * as OrderHelper from '../../helpers/order/order-helper';
+import * as OrderHelper from '../../helpers/order/order-helper-s';
 import OrderNotification from '../../presentational-components/order/order-notification';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
