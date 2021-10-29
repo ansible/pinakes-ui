@@ -72,7 +72,7 @@ export const getServicePlans = (
   portfolioItemId: string
 ): Promise<ApiCollectionResponse<ServicePlan>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}${portfolioItemId}/service_plans/`
+    `${CATALOG_API_BASE}${portfolioItemId}/catalog_service_plans/`
   ) as Promise<ApiCollectionResponse<ServicePlan>>;
 
 export const patchServicePlanModified = (
@@ -80,7 +80,7 @@ export const patchServicePlanModified = (
   patchModifiedServicePlan?: PatchModifiedServicePlan
 ): Promise<ApiCollectionResponse<ServicePlan>> =>
   axiosInstance.patch(
-    `${CATALOG_API_BASE}/service_plans/${servicePlanId}/modified/`,
+    `${CATALOG_API_BASE}/catalog_service_plans/${servicePlanId}/modified/`,
     patchModifiedServicePlan
   ) as Promise<ApiCollectionResponse<ServicePlan>>;
 
@@ -104,4 +104,4 @@ export const resetServicePlanModified = (
   id: string,
   options?: any
 ): AxiosPromise<Array<ServicePlan>> =>
-  axiosInstance.post(`${CATALOG_API_BASE}$/service_plans/${id}/reset/`);
+  axiosInstance.post(`${CATALOG_API_BASE}$/catalog_service_plans/${id}/reset/`);
