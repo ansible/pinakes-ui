@@ -29,6 +29,7 @@ import {
   ObjectNotFound,
   ProgressMessageItem
 } from '../../helpers/order/new-order-helper';
+import {GetOrderDetailParams} from "../../helpers/order/order-helper";
 
 export const fetchServicePlans = (
   portfolioItemId: string
@@ -159,7 +160,7 @@ export const fetchOrders = (
     );
 };
 
-export const fetchOrderDetails = (params: OrderHelper.GetOrderDetailParams) => (
+export const fetchOrderDetails = (params: GetOrderDetailParams) => (
   dispatch: Dispatch
 ): Promise<{
   type: string;
