@@ -122,16 +122,12 @@ const DetailToolbarActions = ({
     <Fragment>
       <LevelItem>
         <CatalogLink
-          isDisabled={
-            isFetching || availability === 'unavailable' || !orderable
-          }
+          isDisabled={isFetching || !orderable}
           pathname={orderUrl}
           preserveSearch
         >
           <ButtonWithSpinner
-            isDisabled={
-              isFetching || availability === 'unavailable' || !orderable
-            }
+            isDisabled={isFetching || !orderable}
             showSpinner={isFetching}
             variant="primary"
             id="order-portfolio-item"

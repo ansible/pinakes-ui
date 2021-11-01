@@ -25,6 +25,10 @@ import {
   uploadPortfolioItemIcon,
   resetPortfolioItemIcon
 } from '../../../helpers/portfolio/portfolio-helper';
+import {
+  uploadPortfolioItemIcon as uploadPortfolioItemIconS,
+  resetPortfolioItemIcon as resetPortfolioItemIconS
+} from '../../../helpers/portfolio/portfolio-helper-s';
 import useQuery from '../../../utilities/use-query';
 import {
   PORTFOLIO_ITEM_ROUTE,
@@ -76,7 +80,6 @@ const PortfolioItemDetail = () => {
     if (!skipLoading) {
       setIsFetching(true);
     }
-
     dispatch(
       window.catalog?.standalone
         ? getPortfolioItemDetailS({
@@ -107,8 +110,9 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const availability =
-    portfolioItemData?.source?.availability_status || 'unavailable';
+  const availability = window.catalog?.standalone
+    ? 'available'
+    : portfolioItemData?.source?.availability_status || 'unavailable';
   let unavailable = [];
 
   if (portfolioItemData?.source) {
@@ -127,15 +131,24 @@ const PortfolioItemDetail = () => {
       ));
   }
 
-  const uploadIcon = (file) =>
-    uploadPortfolioItemIcon({
-      portfolioItemId: portfolioItemData?.portfolioItem?.id,
-      file
-    }).then(() => fetchData(true));
+  const uploadIcon = (file) => {
+    return (window.catalog?.standalone
+      ? uploadPortfolioItemIconS({
+          portfolioItemId: portfolioItemData?.portfolioItem?.id,
+          file
+        })
+      : uploadPortfolioItemIcon({
+          portfolioItemId: portfolioItemData?.portfolioItem?.id,
+          file
+        })
+    ).then(() => fetchData(true));
+  };
+
   const resetIcon = () =>
-    resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id).then(
-      fetchData
-    );
+    (window.catalog?.standalone
+      ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.icon_id)
+      : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id)
+    ).then(fetchData);
   const detailPaths = [
     PORTFOLIO_ITEM_ROUTE,
     `${url}/order`,

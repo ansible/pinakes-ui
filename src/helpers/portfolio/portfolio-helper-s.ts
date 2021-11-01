@@ -228,29 +228,37 @@ export const copyPortfolioItem = (
     copyObject
   );
 
-export const resetPortfolioItemIcon = (iconId: string): AxiosPromise<void> =>
-  axiosInstance.delete(`${CATALOG_API_BASE}/icons/${iconId}/`);
+export const resetPortfolioItemIcon = (
+  portfolioItemId: string
+): AxiosPromise<void> =>
+  axiosInstance.delete(
+    `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon/`
+  );
 
-export const uploadPortfolioItemIcon = (
-  portfolioItemId: string,
-  file: File,
-  iconId?: string
-): Promise<void> => {
+export const uploadPortfolioItemIcon = (portfolioItemData: {
+  file: any;
+  portfolioItemId: string;
+}): Promise<void> | undefined => {
   const data = new FormData();
-  data.append('content', file.name);
-  if (iconId) {
-    return axiosInstance.patch(`${CATALOG_API_BASE}/icons/${iconId}/`, data);
+  data.append('icon', portfolioItemData.file);
+  data.append('name', portfolioItemData.file.name);
+  data.append('source_ref', '1');
+  if (portfolioItemData) {
+    return axiosInstance.post(
+      `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,
+      data,
+      {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': `multipart/form-data; boundary=${
+            (data as AnyObject)._boundary
+          }`
+        }
+      }
+    );
+  } else {
+    return undefined;
   }
-
-  data.append('portfolio_item_id', portfolioItemId);
-  return axiosInstance.post(`${CATALOG_API_BASE}/icons/`, data, {
-    headers: {
-      accept: 'application/json',
-      'Content-Type': `multipart/form-data; boundary=${
-        (data as AnyObject)._boundary
-      }`
-    }
-  });
 };
 
 export interface GetPortfolioItemDetailParams {

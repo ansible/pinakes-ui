@@ -6,6 +6,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import FormRenderer from '../../common/form-renderer';
 import editPortfolioItemSchema from '../../../forms/edit-portfolio-item-form.schema';
 import { updatePortfolioItem } from '../../../redux/actions/portfolio-actions';
+import { updatePortfolioItem as updatePortfolioItemS } from '../../../redux/actions/portfolio-actions-s';
 import { Stack, StackItem } from '@patternfly/react-core';
 import IconUpload from './icon-upload';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
@@ -47,10 +48,15 @@ const EditPortfolioItem = ({
               search
             });
             return dispatch(
-              updatePortfolioItem({
-                ...values,
-                metadata: { user_capabilities: userCapabilities }
-              })
+              window.catalog?.standalone
+                ? updatePortfolioItemS({
+                    ...values,
+                    metadata: { user_capabilities: userCapabilities }
+                  })
+                : updatePortfolioItem({
+                    ...values,
+                    metadata: { user_capabilities: userCapabilities }
+                  })
             );
           }}
           schema={editPortfolioItemSchema}

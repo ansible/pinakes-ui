@@ -1,19 +1,21 @@
-// eslint-disable-next-line no-undef
-export const CATALOG_API_BASE =
-  // eslint-disable-next-line no-undef
-  window.catalog?.standalone
-    ? 'http://127.0.0.1:8000/api/v1'
-    : `${process.env.BASE_PATH || '/api'}/catalog/v1.3`;
+// eslint-disable no-undef
+export const CATALOG_API_BASE = window.catalog?.standalone
+  ? // eslint-disable-next-line no-undef
+    `${API_HOST}${API_BASE_PATH}`
+  : `${process.env.BASE_PATH || '/api'}/catalog/v1.3`;
 export const SOURCES_API_BASE =
   // eslint-disable-next-line no-undef
   window.catalog?.standalone
-    ? 'http://127.0.0.1:8000/api/v1'
+    ? // eslint-disable-next-line no-undef
+      `${API_HOST}${API_BASE_PATH}`
     : `${process.env.BASE_PATH || '/api'}/sources/v1.0`;
 export const APPROVAL_API_BASE = window.catalog?.standalone
-  ? 'http://127.0.0.1:8000/api/approval/v1'
+  ? // eslint-disable-next-line no-undef
+    `${API_HOST}${API_BASE_PATH}`
   : `${process.env.BASE_PATH || '/api'}/approval/v1.2`;
 export const CATALOG_INVENTORY_API_BASE = window.catalog?.standalone
-  ? 'http://127.0.0.1:8000/api/catalog/v1.0'
+  ? // eslint-disable-next-line no-undef
+    `${API_HOST}${API_BASE_PATH}`
   : `${process.env.BASE_PATH || '/api'}/catalog-inventory/v1.0`;
 export const RBAC_API_BASE = `${process.env.BASE_PATH || '/api'}/rbac/v1`;
 export const permissionValues = ['order', 'read', 'update'];

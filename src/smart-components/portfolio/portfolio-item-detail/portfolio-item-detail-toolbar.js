@@ -27,19 +27,25 @@ import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 import { PORTFOLIO_ITEM_ROUTE_EDIT } from '../../../constants/routes';
 import useFormatMessage from '../../../utilities/use-format-message';
-import { useSelector } from 'react-redux';
 
-const PortfolioItemIconItem = ({ id, sourceId }) => (
+const PortfolioItemIconItem = ({ product }) => (
   <CardIcon
-    src={`${CATALOG_API_BASE}/portfolio_items/${id}/icon`}
-    sourceId={sourceId}
+    src={
+      window.catalog?.standalone
+        ? product.icon_url
+        : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
+    }
+    sourceId={product?.service_offering_source_ref}
     height={64}
   />
 );
 
 PortfolioItemIconItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  sourceId: PropTypes.string.isRequired
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    service_offering_source_ref: PropTypes.string,
+    icon_url: PropTypes.string
+  }).isRequired
 };
 
 export const PortfolioItemDetailToolbar = ({
@@ -76,10 +82,7 @@ export const PortfolioItemDetailToolbar = ({
           <Route>
             <StyledLevelItem grow alignStart className="pf-l-flex">
               {userCapabilities.update ? (
-                <PortfolioItemIconItem
-                  id={product.id}
-                  sourceId={product.service_offering_source_ref}
-                />
+                <PortfolioItemIconItem product={product} />
               ) : (
                 <CardIcon
                   src={
