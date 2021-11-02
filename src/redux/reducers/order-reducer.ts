@@ -94,7 +94,7 @@ const setLoadingState: OrderReducerActionHandler = (
 });
 const setServicePlans: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
-  servicePlans: payload,
+  servicePlans: window.catalog?.standalone ? payload?.results : payload,
   isLoading: false
 });
 const setListOrder: OrderReducerActionHandler = (state, { payload }) => ({

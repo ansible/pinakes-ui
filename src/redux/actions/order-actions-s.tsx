@@ -12,30 +12,29 @@ import {
   OrderStateEnum,
   Portfolio,
   PortfolioItem,
-  ProgressMessage,
-  ServicePlan
+  ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Dispatch } from 'redux';
-import {
-  Full,
-  StringObject,
-  ReduxAction,
-  ApiCollectionResponse
-} from '../../types/common-types';
+import { Full, StringObject, ReduxAction } from '../../types/common-types';
+import { ApiCollectionResponse } from '../../types/common-types-s';
 import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
 import { Source } from '@redhat-cloud-services/sources-client';
 import {
   ObjectNotFound,
   ProgressMessageItem
 } from '../../helpers/order/new-order-helper';
-import {GetOrderDetailParams} from "../../helpers/order/order-helper";
+import { GetOrderDetailParams } from '../../helpers/order/order-helper';
+import {
+  getServicePlans,
+  ServicePlan
+} from '../../helpers/order/service-plan-helper-s';
 
 export const fetchServicePlans = (
   portfolioItemId: string
 ): AsyncMiddlewareAction<ApiCollectionResponse<ServicePlan>> => ({
   type: ActionTypes.FETCH_SERVICE_PLANS,
-  payload: OrderHelper.getServicePlans(portfolioItemId)
+  payload: getServicePlans(portfolioItemId)
 });
 
 export const setSelectedPlan = (
@@ -123,8 +122,8 @@ export const fetchOrders = (
     .filter(([, value]) => value && value.length > 0)
     .map(([key, value]) =>
       Array.isArray(value)
-        ? value.map((value) => `filter[${key}][]=${value}`).join('&')
-        : `filter[${key}][contains_i]=${value}`
+        ? value.map((value) => `${key}=${value}`).join('&')
+        : `${key}=${value}`
     )
     .join('&');
   if (pagination.sortBy) {

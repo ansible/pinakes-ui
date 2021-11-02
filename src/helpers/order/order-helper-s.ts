@@ -15,10 +15,10 @@ import {
 } from './new-order-helper-s';
 import {
   ApiCollectionResponse,
-  ApiMetadata,
   EnhancedOrder,
   Full
-} from '../../types/common-types';
+} from '../../types/common-types-s';
+import { ApiMetadata } from '../../types/common-types';
 import {
   ServicePlan,
   Order,
@@ -33,11 +33,6 @@ import { Request, Action } from '@redhat-cloud-services/approval-client';
 import { GetOrderDetailParams } from './order-helper';
 
 const axiosInstance = getAxiosInstance();
-
-export const getServicePlans = (
-  portfolioItemId: string
-): Promise<ApiCollectionResponse<ServicePlan>> =>
-  axiosInstance.get(`${CATALOG_API_BASE}/service_plans/`);
 
 export const sendSubmitOrder = async ({
   service_parameters: { providerControlParameters, ...service_parameters },
@@ -74,7 +69,7 @@ const getOrderItems = (
   orderIds: string[]
 ): Promise<ApiCollectionResponse<OrderItem>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/order_items?page-size=${orderIds.length * 3 ||
+    `${CATALOG_API_BASE}/order_items/?page-size=${orderIds.length * 3 ||
       defaultSettings.limit}${orderIds.length ? '&' : ''}${orderIds
       .map((orderId) => `order_id=${orderId}`)
       .join('&')}`
@@ -84,7 +79,7 @@ const getOrderPortfolioItems = (
   itemIds: string[]
 ): Promise<ApiCollectionResponse<PortfolioItem>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolio_items?${itemIds
+    `${CATALOG_API_BASE}/portfolio_items/?${itemIds
       .map((itemId) => `id=${itemId}`)
       .join('&')}`
   );
@@ -95,37 +90,36 @@ export const getOrders = (
 ): Promise<{
   data: (Order & { orderItems: OrderItem[] })[];
   portfolioItems: ApiCollectionResponse<PortfolioItem>;
-  meta: ApiMetadata;
 }> =>
   axiosInstance
     .get(
-      `${CATALOG_API_BASE}/orders?${filter}&page-size=${pagination.limit}&page=${pagination.offset}`
+      `${CATALOG_API_BASE}/orders/${filter}${
+        filter?.length > 1 ? '&' : '?'
+      }page_size=${pagination.limit}&page=${pagination.offset || 1}`
     ) // eslint-disable-line max-len
-    .then((orders: ApiCollectionResponse<Full<Order>>) =>
-      getOrderItems(orders.data.map(({ id }) => id)).then((orderItems) =>
-        getOrderPortfolioItems(
-          orderItems.data.map(({ portfolio_item_id }) => portfolio_item_id)
-        ).then((portfolioItems) => {
-          return {
-            portfolioItems,
-            ...orders,
-            data: orders.data.map((order) => ({
-              ...order,
-              orderItems: orderItems.data.filter(
-                ({ order_id }) => order_id === order.id
-              )
-            }))
-          };
-        })
-      )
-    );
-
-export const getOrderApprovalRequests = (
-  orderItemId: string
-): Promise<ApiCollectionResponse<Request>> =>
-  (axiosInstance.get(
-    `${CATALOG_API_BASE}/order-items/${orderItemId}/requests/`
-  ) as unknown) as Promise<ApiCollectionResponse<Request>>;
+    .then((orders: ApiCollectionResponse<Full<Order>>) => {
+      console.log('Debug - orders: ', orders);
+      return getOrderItems(orders.results.map(({ id }) => id)).then(
+        (orderItems) => {
+          console.log('Debug - orderItems: ', orderItems);
+          return getOrderPortfolioItems(
+            orderItems.results.map(({ portfolio_item_id }) => portfolio_item_id)
+          ).then((portfolioItems) => {
+            console.log('Debug - portfolioItems: ', portfolioItems);
+            return {
+              portfolioItems,
+              ...orders,
+              data: orders.results.map((order) => ({
+                ...order,
+                orderItems: orderItems.results.filter(
+                  ({ order_id }) => order_id === order.id
+                )
+              }))
+            };
+          });
+        }
+      );
+    });
 
 export const getOrderDetail = (
   params: GetOrderDetailParams

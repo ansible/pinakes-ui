@@ -9,7 +9,7 @@ export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>
 
 export const getOrderPortfolioName = (
   { orderItems, id }: OrderDetail,
-  portfolioItems: Full<PortfolioItem>[]
+  portfolioItems: PortfolioItem[]
 ): string => {
   const portfolioItem =
     orderItems[0] &&
@@ -19,7 +19,7 @@ export const getOrderPortfolioName = (
 
 export const getOrderPlatformId = (
   { orderItems }: OrderDetail,
-  portfolioItems: Full<PortfolioItem>[]
+  portfolioItems: PortfolioItem[]
 ): {
   orderPlatform?: string;
   orderPortfolio?: string;

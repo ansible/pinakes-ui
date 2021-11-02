@@ -28,7 +28,7 @@ const axiosInstance = getAxiosInstance();
 
 export const listPortfolios = (
   filters: AnyObject = {},
-  { pageSize, page, sortDirection = 'asc' } = defaultSettings
+  { offset, limit, sortDirection = 'asc' } = defaultSettings
 ): Promise<ApiCollectionResponse<InternalPortfolio>> => {
   const filterQuery = Object.entries(filters).reduce((acc, [key, value]) => {
     if (!value) {
