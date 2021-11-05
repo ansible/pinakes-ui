@@ -11,6 +11,7 @@ export type I18nFormatMessage = (
 ) => ReactNode;
 
 export const i18nInitialState: I18nReducerState = {
+  // @ts-ignore
   formatMessage: ({ defaultMessage = '' }) => defaultMessage
 };
 const initialize: I18nReducerActionHandler = (state, { payload }) => ({

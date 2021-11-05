@@ -309,7 +309,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
         if (servicePlan[0].imported || true) {
           return getAxiosInstance()
             .get(
-              `${CATALOG_API_BASE}/catalog_service_plans/${servicePlan[0].service_plan_ref}/base/`
+              `${CATALOG_API_BASE}/catalog_service_plans/${servicePlan[0].id}/base/`
             )
             .then((baseSchema) => {
               const new_schema = changeValidators(
@@ -332,17 +332,14 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   }, []);
 
   const modifySurvey = (editedTemplate) =>
-    ServicePlanHelper.patchServicePlanModified(
-      `${servicePlan.service_plan_ref}`,
-      {
-        modified: { schema: editedTemplate }
-      }
-    );
+    ServicePlanHelper.patchServicePlanModified(`${servicePlan.id}`, {
+      modified: { schema: editedTemplate }
+    });
   const createSurvey = (editedTemplate) =>
     ServicePlanHelper.createServicePlan({ portfolio_item_id: portfolioItem.id })
-      .then(([{ service_plan_ref }]) => service_plan_ref)
-      .then((service_plan_ref) =>
-        ServicePlanHelper.patchServicePlanModified(`${service_plan_ref}`, {
+      .then(([{ id }]) => id)
+      .then((id) =>
+        ServicePlanHelper.patchServicePlanModified(`${id}`, {
           modified: { schema: editedTemplate }
         })
       );
@@ -361,9 +358,7 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
 
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
-    //TODO - use only modify iuntil the imported flag is fixed on the backend
-    //const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
-    const submitCall = modifySurvey;
+    const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
     return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
       .then(() => {
         setIsFetching(false);
