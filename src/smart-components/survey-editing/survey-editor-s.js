@@ -358,8 +358,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
 
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
-    console.log('Debug - handleSaveSurvey - servicePlan', servicePlan);
-    console.log('Debug - handleSaveSurvey - editedTemplate', editedTemplate);
     const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
     return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
       .then(() => {
