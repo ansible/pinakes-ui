@@ -6,10 +6,12 @@ import {
   PORTFOLIOS_ROUTE,
   PORTFOLIO_ROUTE,
   ORDER_ROUTE,
-  LOGIN_ROUTE
+  LOGIN_ROUTE,
+  APPROVAL_ROUTE
 } from '../../constants/routes';
 import CatalogRoute from '../../routing/catalog-route-s';
 import DialogRoutes from '../../smart-components/dialog-routes';
+
 const CommonApiError = lazy(() =>
   import(
     /* webpackChunkName: "error-page" */ '../../smart-components/error-pages/common-api-error'
@@ -54,6 +56,10 @@ const Login = lazy(() =>
   import(/* webpackChunkName: "login" */ '../../smart-components/login/login')
 );
 
+const Approval = lazy(() =>
+  import(/* webpackChunkName: "approval" */ 'approval/Allrequests')
+);
+
 export const Paths = {
   products: '/products',
   platforms: '/platforms',
@@ -62,7 +68,8 @@ export const Paths = {
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
   order: ORDER_ROUTE,
-  login: LOGIN_ROUTE
+  login: LOGIN_ROUTE,
+  approval: APPROVAL_ROUTE
 };
 
 const errorPaths = ['/400', '/401', '/403', '/404'];
