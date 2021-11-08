@@ -56,9 +56,6 @@ const Login = lazy(() =>
   import(/* webpackChunkName: "login" */ '../../smart-components/login/login')
 );
 
-const Approval = lazy(() =>
-  import(/* webpackChunkName: "approval" */ 'approval/Allrequests')
-);
 
 export const Paths = {
   products: '/products',
