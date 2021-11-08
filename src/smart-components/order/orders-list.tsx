@@ -209,17 +209,10 @@ const OrdersList: React.ComponentType = () => {
     );
   };
 
-  console.log('Debug - data', data);
   const items = window.catalog?.standalone
     ? portfolioItems.results
     : portfolioItems.data;
   const rows = data.map((item) => {
-    console.log(
-      'Debug - item, portfolioItem, data',
-      item,
-      portfolioItems,
-      data
-    );
     const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, items);
     const orderName = getOrderPortfolioName(item, items);
     return createOrderItem(

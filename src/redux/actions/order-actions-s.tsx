@@ -1,4 +1,3 @@
-import React from 'react';
 import { addNotification } from '@redhat-cloud-services/frontend-components-notifications/redux';
 
 import * as ActionTypes from '../action-types';
@@ -29,6 +28,7 @@ import {
   getServicePlans,
   ServicePlan
 } from '../../helpers/order/service-plan-helper-s';
+import React from 'react';
 
 export const fetchServicePlans = (
   portfolioItemId: string
@@ -50,24 +50,25 @@ export const sendSubmitOrder = (
 ) => (dispatch: Dispatch): AsyncMiddlewareAction =>
   dispatch({
     type: ActionTypes.SUBMIT_SERVICE_ORDER,
-    payload: OrderHelper.sendSubmitOrder(apiProps).then(({ id, orderItem }) =>
-      dispatch(
-        addNotification({
-          variant: 'success',
-          title: 'Your order has been accepted successfully',
-          description: (
-            <OrderNotification
-              id={id!}
-              dispatch={dispatch}
-              portfolioItemId={portfolioItem.id}
-              portfolioId={portfolioItem.portfolio_id}
-              platformId={portfolioItem.service_offering_source_ref}
-              orderItemId={orderItem.id!}
-            />
-          ),
-          dismissable: true
-        })
-      )
+    payload: OrderHelper.sendSubmitOrder(apiProps, portfolioItem).then(
+      ({ id, orderItem }) =>
+        dispatch(
+          addNotification({
+            variant: 'success',
+            title: 'Your order has been accepted successfully',
+            description: (
+              <OrderNotification
+                id={id!}
+                dispatch={dispatch}
+                portfolioItemId={portfolioItem.id}
+                portfolioId={portfolioItem.portfolio_id}
+                platformId={portfolioItem.service_offering_source_ref}
+                orderItemId={orderItem.id!}
+              />
+            ),
+            dismissable: true
+          })
+        )
     )
   });
 
@@ -151,12 +152,12 @@ export const fetchOrders = (
         payload: orders
       });
     })
-    .catch((error) =>
-      dispatch({
+    .catch((error) => {
+      return dispatch({
         type: `${ActionTypes.FETCH_ORDERS}_REJECTED`,
         payload: error
-      })
-    );
+      });
+    });
 };
 
 export const fetchOrderDetails = (params: GetOrderDetailParams) => (

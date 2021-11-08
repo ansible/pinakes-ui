@@ -34,10 +34,13 @@ import { GetOrderDetailParams } from './order-helper';
 
 const axiosInstance = getAxiosInstance();
 
-export const sendSubmitOrder = async ({
-  service_parameters: { providerControlParameters, ...service_parameters },
-  ...parameters
-}: AnyObject): Promise<EnhancedOrder> => {
+export const sendSubmitOrder = async (
+  {
+    service_parameters: { providerControlParameters, ...service_parameters },
+    ...parameters
+  }: AnyObject,
+  portfolioItem: AnyObject
+): Promise<EnhancedOrder> => {
   const order: Order = await axiosInstance.post(`${CATALOG_API_BASE}/orders/`);
   let orderItem: Partial<OrderItem> = {};
   orderItem.count = 1;
@@ -48,14 +51,16 @@ export const sendSubmitOrder = async ({
     provider_control_parameters: providerControlParameters || {}
   };
   const orderItemResponse = await axiosInstance.post(
-    `${CATALOG_API_BASE}/orders/${order.id}/`,
+    `${CATALOG_API_BASE}/orders/${order.id}/order_items/`,
     {
       id: order.id,
+      name: `orderItem_${order.id}`,
+      portfolio_item: portfolioItem.id,
       ...orderItem
     }
   );
   return axiosInstance
-    .post(`${CATALOG_API_BASE}/orders/${order.id}/`)
+    .post(`${CATALOG_API_BASE}/orders/${order.id}/submit/`)
     .then((order) => ({
       ...order,
       orderItem: (orderItemResponse as unknown) as OrderItem
@@ -98,14 +103,11 @@ export const getOrders = (
       }page_size=${pagination.limit}&page=${pagination.offset || 1}`
     ) // eslint-disable-line max-len
     .then((orders: ApiCollectionResponse<Full<Order>>) => {
-      console.log('Debug - orders: ', orders);
       return getOrderItems(orders.results.map(({ id }) => id)).then(
         (orderItems) => {
-          console.log('Debug - orderItems: ', orderItems);
           return getOrderPortfolioItems(
             orderItems.results.map(({ portfolio_item_id }) => portfolio_item_id)
           ).then((portfolioItems) => {
-            console.log('Debug - portfolioItems: ', portfolioItems);
             return {
               portfolioItems,
               ...orders,

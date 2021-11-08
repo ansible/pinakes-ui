@@ -127,10 +127,13 @@ const setOrderItems: OrderReducerActionHandler = (state, { payload }) => ({
   orderItems: payload,
   isLoading: false
 });
-const setOrders: OrderReducerActionHandler = (state, { payload }) => ({
-  ...state,
-  orders: payload
-});
+const setOrders: OrderReducerActionHandler = (state, { payload }) => {
+  return {
+    ...state,
+    orders: payload
+  };
+};
+
 const setOrderDetail: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   orderDetail: payload
