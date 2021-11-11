@@ -72,7 +72,7 @@ export const getServicePlans = (
   portfolioItemId: string
 ): Promise<ApiCollectionResponse<ServicePlan>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}${portfolioItemId}/service_plans/`
+    `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/service_plans/`
   ) as Promise<ApiCollectionResponse<ServicePlan>>;
 
 export const patchServicePlanModified = (

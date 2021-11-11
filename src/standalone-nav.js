@@ -66,6 +66,9 @@ const App = (props) => {
       menuItem('Orders', {
         url: `${baseUrl}${Paths.orders}`
       }),
+      menuItem('Approval', {
+        url: `${baseUrl}${Paths.approval}`
+      }),
       menuItem(`Documentation`, {
         url:
           'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',

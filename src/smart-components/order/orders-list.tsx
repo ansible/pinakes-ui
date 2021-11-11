@@ -32,6 +32,7 @@ import {
 } from '@patternfly/react-table';
 
 import { fetchOrders } from '../../redux/actions/order-actions';
+import { fetchOrders as fetchOrdersS } from '../../redux/actions/order-actions-s';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
 import { ListLoader } from '../../presentational-components/shared/loader-placeholders';
@@ -58,13 +59,18 @@ import {
   Full,
   StringObject
 } from '../../types/common-types';
+
 import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
 import { OrderDetail } from '../../redux/reducers/order-reducer';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
     filteringCallback(true);
-    dispatch(fetchOrders(filters, meta)).then(() => filteringCallback(false));
+    dispatch(
+      window.catalog?.standalone
+        ? fetchOrdersS(filters, meta)
+        : fetchOrders(filters, meta)
+    ).then(() => filteringCallback(false));
   },
   1000
 );
@@ -147,10 +153,14 @@ const OrdersList: React.ComponentType = () => {
       index: viewState?.orders?.sortIndex || 0
     }
   });
-  const { data, meta } = useSelector<
+  const orders = useSelector<
     CatalogRootState,
     ApiCollectionResponse<OrderDetail>
   >(({ orderReducer }) => orderReducer.orders);
+
+  const data = window.catalog?.standalone ? orders.results : orders.data;
+  const meta = window.catalog?.standalone ? { count: 1 } : orders.meta;
+
   const columns: ICell[] = [
     { title: formatMessage(ordersMessages.orderID) },
     formatMessage(labelMessages.product),
@@ -169,36 +179,42 @@ const OrdersList: React.ComponentType = () => {
       ? { ...column, transforms: [sortable] }
       : column
   ) as ICell[];
-  const portfolioItems = useSelector<CatalogRootState, Full<PortfolioItem>[]>(
-    ({
-      portfolioReducer: {
-        portfolioItems: { data }
-      }
-    }) => data as Full<PortfolioItem>[]
-  );
+
+  const portfolioItems = useSelector<
+    CatalogRootState,
+    ApiCollectionResponse<PortfolioItem>
+  >(({ portfolioReducer }) => portfolioReducer.portfolioItems);
+
   const onSort: OnSort = (_e, index, direction) => {
     stateDispatch({
       type: 'setSortBy',
       payload: { index, direction }
     });
     return ((dispatch(
-      fetchOrders(filters, {
-        ...meta,
-        sortBy: sortIndexMapper[index as keyof typeof sortIndexMapper],
-        sortDirection: direction,
-        sortIndex: index
-      })
+      window.catalog?.standalone
+        ? fetchOrdersS(filters, {
+            ...meta,
+            sortBy: sortIndexMapper[index as keyof typeof sortIndexMapper],
+            sortDirection: direction,
+            sortIndex: index
+          })
+        : fetchOrders(filters, {
+            ...meta,
+            sortBy: sortIndexMapper[index as keyof typeof sortIndexMapper],
+            sortDirection: direction,
+            sortIndex: index
+          })
     ) as unknown) as Promise<void>).then(() =>
       stateDispatch({ type: 'setFetching', payload: false })
     );
   };
 
+  const items = window.catalog?.standalone
+    ? portfolioItems.results
+    : portfolioItems.data;
   const rows = data.map((item) => {
-    const { orderPlatform, orderPortfolio } = getOrderPlatformId(
-      item,
-      portfolioItems
-    );
-    const orderName = getOrderPortfolioName(item, portfolioItems);
+    const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, items);
+    const orderName = getOrderPortfolioName(item, items);
     return createOrderItem(
       { ...item, orderName },
       orderPlatform,
@@ -210,7 +226,11 @@ const OrdersList: React.ComponentType = () => {
   useEffect(() => {
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.all([
-      dispatch(fetchOrders(filters, viewState?.orders)),
+      dispatch(
+        window.catalog?.standalone
+          ? fetchOrdersS(filters, viewState?.orders)
+          : fetchOrders(filters, viewState?.orders)
+      ),
       dispatch(
         window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
       )
@@ -223,12 +243,21 @@ const OrdersList: React.ComponentType = () => {
   ) => {
     stateDispatch({ type: 'setFetching', payload: true });
     return ((dispatch(
-      fetchOrders(filters, {
-        ...pagination,
-        sortBy: sortIndexMapper[sortBy.index as keyof typeof sortIndexMapper],
-        sortDirection: sortBy.direction as SortByDirection,
-        sortIndex: sortBy.index
-      })
+      window.catalog?.standalone
+        ? fetchOrdersS(filters, {
+            ...pagination,
+            sortBy:
+              sortIndexMapper[sortBy.index as keyof typeof sortIndexMapper],
+            sortDirection: sortBy.direction as SortByDirection,
+            sortIndex: sortBy.index
+          })
+        : fetchOrders(filters, {
+            ...pagination,
+            sortBy:
+              sortIndexMapper[sortBy.index as keyof typeof sortIndexMapper],
+            sortDirection: sortBy.direction as SortByDirection,
+            sortIndex: sortBy.index
+          })
     ) as unknown) as Promise<void>)
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
