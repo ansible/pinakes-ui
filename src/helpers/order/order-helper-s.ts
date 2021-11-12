@@ -18,11 +18,9 @@ import {
   EnhancedOrder,
   Full
 } from '../../types/common-types-s';
-import { ApiMetadata } from '../../types/common-types';
 import {
   ServicePlan,
   Order,
-  OrderItem,
   PortfolioItem,
   ApprovalRequest,
   ProgressMessage
@@ -31,8 +29,30 @@ import { AxiosPromise } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
 import { GetOrderDetailParams } from './order-helper';
+import { OrderItemStateEnum } from '@redhat-cloud-services/catalog-client';
 
 const axiosInstance = getAxiosInstance();
+
+export interface OrderItem {
+  id?: string;
+  name?: string;
+  count: number;
+  service_parameters?: any | null;
+  provider_control_parameters?: any | null;
+  portfolio_item: string;
+  state?: OrderItemStateEnum;
+  order?: string;
+  created_at?: string;
+  order_request_sent_at?: string;
+  completed_at?: string;
+  updated_at?: string;
+  owner?: string;
+  external_url?: string;
+  insights_request_id?: string;
+  process_sequence?: number;
+  process_scope?: string;
+  artifacts?: any;
+}
 
 export const sendSubmitOrder = async (
   {
@@ -68,7 +88,7 @@ export const sendSubmitOrder = async (
 };
 
 export const cancelOrder = (orderId: string): AxiosPromise<Order> =>
-  axiosInstance.post(`${CATALOG_API_BASE}/orders/${orderId}/cancel`);
+  axiosInstance.post(`${CATALOG_API_BASE}/orders/${orderId}/cancel/`);
 
 const getOrderItems = (
   orderIds: string[]
@@ -94,38 +114,17 @@ export const getOrders = (
   pagination = defaultSettings
 ): Promise<{
   data: (Order & { orderItems: OrderItem[] })[];
-  portfolioItems: ApiCollectionResponse<PortfolioItem>;
 }> =>
-  axiosInstance
-    .get(
-      `${CATALOG_API_BASE}/orders/${filter}${
-        filter?.length > 1 ? '&' : '?'
-      }page_size=${pagination.limit}&page=${pagination.offset || 1}`
-    ) // eslint-disable-line max-len
-    .then((orders: ApiCollectionResponse<Full<Order>>) => {
-      return getOrderItems(orders.results.map(({ id }) => id)).then(
-        (orderItems) => {
-          return getOrderPortfolioItems(
-            orderItems.results.map(({ portfolio_item_id }) => portfolio_item_id)
-          ).then((portfolioItems) => {
-            return {
-              portfolioItems,
-              ...orders,
-              data: orders.results.map((order) => ({
-                ...order,
-                orderItems: orderItems.results.filter(
-                  ({ order_id }) => order_id === order.id
-                )
-              }))
-            };
-          });
-        }
-      );
-    });
+  axiosInstance.get(
+    `${CATALOG_API_BASE}/orders/${filter}${
+      filter?.length > 1 ? '&' : '?'
+    }page_size=${pagination.limit}&page=${pagination.offset || 1}`
+  );
 
 export const getOrderDetail = (
   params: GetOrderDetailParams
 ): Promise<OrderDetailPayload> => {
+  console.log('Debug - getOrderDetail - params: ', params);
   if (Object.values(params).some((value) => !value)) {
     /**
      * Try to fetch data sequentially if any of the parameters is unknown
@@ -135,7 +134,7 @@ export const getOrderDetail = (
 
   const detailPromises = [
     (axiosInstance
-      .get(`${CATALOG_API_BASE}/orders/${params.order}`)
+      .get(`${CATALOG_API_BASE}/orders/${params.order}/`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return catalogHistory.replace({
@@ -147,7 +146,7 @@ export const getOrderDetail = (
         throw error;
       }) as unknown) as Promise<Order>,
     axiosInstance
-      .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}`)
+      .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}/`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {
@@ -159,7 +158,7 @@ export const getOrderDetail = (
         throw error;
       }),
     axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}`)
+      .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}/`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {
@@ -171,7 +170,7 @@ export const getOrderDetail = (
         throw error;
       }),
     axiosInstance
-      .get(`${CATALOG_INVENTORY_API_BASE}/sources/${params.platform}`)
+      .get(`${CATALOG_INVENTORY_API_BASE}/sources/${params.platform}/`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {
@@ -183,7 +182,7 @@ export const getOrderDetail = (
         throw error;
       }),
     axiosInstance
-      .get(`${CATALOG_API_BASE}/orders/${params.order}/progress_messages`)
+      .get(`${CATALOG_API_BASE}/orders/${params.order}/progress_messages/`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {};
@@ -192,7 +191,7 @@ export const getOrderDetail = (
         throw error;
       }),
     axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}`)
+      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}/`)
       .catch((error) => {
         if (error.status === 404 || error.status === 400) {
           return {
@@ -245,7 +244,7 @@ const fetchRequestTranscript = (
   requestId: string
 ): Promise<RequestTranscript[]> =>
   axiosInstance
-    .get(`${APPROVAL_API_BASE}/requests/${requestId}`, {
+    .get(`${APPROVAL_API_BASE}/requests/${requestId}/`, {
       'x-rh-persona': APPROVAL_REQUESTER_PERSONA
     })
     .then(({ data: { requests } }) => {
@@ -262,7 +261,7 @@ export const getApprovalRequests = (
   data: { group_name: string; decision: string; updated?: string }[];
 }> =>
   axiosInstance
-    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests`)
+    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests/`)
     .then(({ data }: { data: Full<ApprovalRequest>[] }) => {
       const promises = data.map(({ approval_request_ref }) =>
         fetchRequestTranscript(approval_request_ref)
@@ -290,7 +289,7 @@ export const getProgressMessages = (
   data: ProgressMessage[];
 }> =>
   axiosInstance
-    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/progress_messages`)
+    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/progress_messages/`)
     .then(({ data }: { data: Full<ProgressMessage>[] }) => {
       return { data: data || [] };
     });

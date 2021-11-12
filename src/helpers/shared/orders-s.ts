@@ -1,6 +1,5 @@
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
-import { Full } from '../../types/common-types';
 import { OrderDetail } from '../../redux/reducers/order-reducer';
 
 export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>

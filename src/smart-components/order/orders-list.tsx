@@ -153,14 +153,19 @@ const OrdersList: React.ComponentType = () => {
       index: viewState?.orders?.sortIndex || 0
     }
   });
+
   const orders = useSelector<
     CatalogRootState,
     ApiCollectionResponse<OrderDetail>
   >(({ orderReducer }) => orderReducer.orders);
 
   const data = window.catalog?.standalone ? orders.results : orders.data;
-  const meta = window.catalog?.standalone ? { count: 1 } : orders.meta;
+  const meta = window.catalog?.standalone
+    ? // @ts-ignore
+      { count: orders.count, noData: false }
+    : orders.meta;
 
+  console.log('Debug - OrdersList - orders: ', orders);
   const columns: ICell[] = [
     { title: formatMessage(ordersMessages.orderID) },
     formatMessage(labelMessages.product),
@@ -180,10 +185,13 @@ const OrdersList: React.ComponentType = () => {
       : column
   ) as ICell[];
 
-  const portfolioItems = useSelector<
+  const portfolioItemsResults = useSelector<
     CatalogRootState,
     ApiCollectionResponse<PortfolioItem>
   >(({ portfolioReducer }) => portfolioReducer.portfolioItems);
+  const portfolioItems = window.catalog?.standalone
+    ? portfolioItemsResults.results
+    : portfolioItemsResults.data;
 
   const onSort: OnSort = (_e, index, direction) => {
     stateDispatch({
@@ -209,12 +217,13 @@ const OrdersList: React.ComponentType = () => {
     );
   };
 
-  const items = window.catalog?.standalone
-    ? portfolioItems.results
-    : portfolioItems.data;
+  console.log('Debug - data: ', data);
   const rows = data.map((item) => {
-    const { orderPlatform, orderPortfolio } = getOrderPlatformId(item, items);
-    const orderName = getOrderPortfolioName(item, items);
+    const { orderPlatform, orderPortfolio } = getOrderPlatformId(
+      item,
+      portfolioItems
+    );
+    const orderName = getOrderPortfolioName(item, portfolioItems);
     return createOrderItem(
       { ...item, orderName },
       orderPlatform,
