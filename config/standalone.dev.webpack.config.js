@@ -1,9 +1,10 @@
 const webpackBase = require('./webpack.base.config');
 
 // Used for getting the correct host when running in a container
-const proxyHost = process.env.API_PROXY_HOST || 'localhost';
-const proxyPort = process.env.API_PROXY_PORT || '5001';
-const apiBasePath = process.env.API_BASE_PATH || '/api/ansible-catalog/v1';
+const proxyHost = process.env.ANSIBLE_CATALOG_API_PROXY_HOST || 'localhost';
+const proxyPort = process.env.ANSIBLE_CATALOG_API_PROXY_PORT || '5001';
+const apiBasePath =
+  process.env.ANSIBLE_CATALOG_API_BASE_PATH || '/api/ansible-catalog/v1';
 
 module.exports = webpackBase({
   // The host where the API lives. EX: https://localhost:5001

@@ -30,6 +30,7 @@ import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
 import { GetOrderDetailParams } from './order-helper';
 import { OrderItemStateEnum } from '@redhat-cloud-services/catalog-client';
+import { ApiMetadata } from '../../types/common-types';
 
 const axiosInstance = getAxiosInstance();
 
@@ -109,7 +110,7 @@ const getOrderPortfolioItems = (
       .join('&')}`
   );
 
-export const getOrders = (
+export const getOrdersS = (
   filter = '',
   pagination = defaultSettings
 ): Promise<{
@@ -120,6 +121,43 @@ export const getOrders = (
       filter?.length > 1 ? '&' : '?'
     }page_size=${pagination.limit}&page=${pagination.offset || 1}`
   );
+
+export const getOrders = (
+  filter = '',
+  pagination = defaultSettings
+): Promise<{
+  data: (Order & { orderItems: OrderItem[] })[];
+  portfolioItems: ApiCollectionResponse<PortfolioItem>;
+}> =>
+  axiosInstance
+    .get(
+      `${CATALOG_API_BASE}/orders/${filter}${
+        filter?.length > 1 ? '&' : '?'
+      }page_size=${pagination.limit}&page=${pagination.offset || 1}`
+    ) // eslint-disable-line max-len
+    .then((orders: ApiCollectionResponse<Full<Order>>) => {
+      console.log('Debug - orders: ', orders);
+      return getOrderItems(orders.results.map(({ id }) => id)).then(
+        (orderItems) => {
+          console.log('Debug - orderItems: ', orderItems);
+          return getOrderPortfolioItems(
+            orderItems.results.map(({ portfolio_item }) => portfolio_item)
+          ).then((portfolioItems) => {
+            console.log('Debug - portfolioItems: ', portfolioItems);
+            return {
+              portfolioItems,
+              ...orders,
+              data: orders.results.map((orderObj) => ({
+                ...orderObj,
+                orderItems: orderItems.results.filter(
+                  ({ order }) => order === orderObj.id
+                )
+              }))
+            };
+          });
+        }
+      );
+    });
 
 export const getOrderDetail = (
   params: GetOrderDetailParams
