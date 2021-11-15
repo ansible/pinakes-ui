@@ -240,9 +240,10 @@ export const uploadPortfolioItemIcon = (portfolioItemData: {
   portfolioItemId: string;
 }): Promise<void> | undefined => {
   const data = new FormData();
-  data.append('icon', portfolioItemData.file);
+  data.append('file', portfolioItemData.file);
   data.append('name', portfolioItemData.file.name);
   data.append('source_ref', '1');
+  console.log('Debug - data', data);
   if (portfolioItemData) {
     return axiosInstance.post(
       `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,
