@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Grid, GridItem } from '@patternfly/react-core';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 
@@ -94,22 +94,20 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter basename="">
-      <UserContext.Provider
-        value={{ permissions: userPermissions, userIdentity, openApiSchema }}
-      >
-        <Fragment>
-          <NotificationsPortal />
-          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
-            <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-              <GridItem sm={12} className="content-layout">
-                <Routes />
-              </GridItem>
-            </Grid>
-          </section>
-        </Fragment>
-      </UserContext.Provider>
-    </BrowserRouter>
+    <UserContext.Provider
+      value={{ permissions: userPermissions, userIdentity, openApiSchema }}
+    >
+      <Fragment>
+        <NotificationsPortal />
+        <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
+          <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+            <GridItem sm={12} className="content-layout">
+              <Routes />
+            </GridItem>
+          </Grid>
+        </section>
+      </Fragment>
+    </UserContext.Provider>
   );
 };
 

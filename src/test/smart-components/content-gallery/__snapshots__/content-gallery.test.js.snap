@@ -17,40 +17,51 @@ exports[`<ContentGallery /> should render all items 1`] = `
     ]
   }
 >
-  <Section
+  <Page
+    defaultManagedSidebarIsOpen={true}
+    isBreadcrumbWidthLimited={false}
+    isManagedSidebar={false}
+    isNotificationDrawerExpanded={false}
+    mainTabIndex={-1}
+    onNotificationDrawerExpand={[Function]}
+    onPageResize={[Function]}
     type="content"
   >
-    <section
-      className="ins-l-content"
+    <div
+      className="pf-c-page"
+      type="content"
     >
-       
-      <Gallery
-        className="content-gallery"
-        hasGutter={true}
+      <main
+        className="pf-c-page__main"
+        tabIndex={-1}
       >
-        <div
-          className="pf-l-gallery pf-m-gutter content-gallery"
+        <Gallery
+          className="content-gallery"
+          hasGutter={true}
         >
           <div
-            key="1"
+            className="pf-l-gallery pf-m-gutter content-gallery"
           >
-            1
+            <div
+              key="1"
+            >
+              1
+            </div>
+            <div
+              key="2"
+            >
+              2
+            </div>
+            <div
+              key="3"
+            >
+              3
+            </div>
           </div>
-          <div
-            key="2"
-          >
-            2
-          </div>
-          <div
-            key="3"
-          >
-            3
-          </div>
-        </div>
-      </Gallery>
-       
-    </section>
-  </Section>
+        </Gallery>
+      </main>
+    </div>
+  </Page>
 </ContentGallery>
 `;
 
