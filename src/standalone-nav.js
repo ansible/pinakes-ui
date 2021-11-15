@@ -30,7 +30,7 @@ import { AboutModalWindow } from './presentational-components/navigation/about-m
 import AppContext from './app-context';
 import Logo from './assets/images/logo-large.svg';
 import { Fragment, useEffect, useState } from 'react';
-import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/esm/NotificationPortal';
+import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
@@ -86,19 +86,6 @@ const App = (props) => {
             : location.pathname.startsWith(item.url))
     );
     return some(items, 'active');
-  };
-
-  const ctx = (component) => {
-    return (
-      <AppContext.Provider
-        value={{
-          user,
-          setUser
-        }}
-      >
-        {component}
-      </AppContext.Provider>
-    );
   };
 
   useEffect(() => {
@@ -329,6 +316,7 @@ const App = (props) => {
             standalone: true
           }}
         >
+          <NotificationsPortal />
           <div style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <Routes />
           </div>
