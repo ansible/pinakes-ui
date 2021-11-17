@@ -1,17 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { ComponentType, useContext } from 'react';
-import { Route, RouteProps } from 'react-router-dom';
-import LoginPage from '../smart-components/login/login';
-
-const RedirectToLogin = (props) => (
-  <Route {...props}>
-    <LoginPage />
-  </Route>
-);
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { EXTERNAL_LOGIN_URI } from '../utilities/constants';
 
 const CatalogRoute = ({ ...props }) => {
-  if (!window.catalog?.token) {
-    return <RedirectToLogin {...props} />;
+  if (!localStorage.getItem('catalog-token')) {
+    localStorage.setItem('catalog-token', 'test');
+    window.location.replace(EXTERNAL_LOGIN_URI);
+    return <div />;
   }
 
   return <Route {...props} />;

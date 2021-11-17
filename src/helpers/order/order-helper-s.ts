@@ -136,14 +136,11 @@ export const getOrders = (
       }page_size=${pagination.limit}&page=${pagination.offset || 1}`
     ) // eslint-disable-line max-len
     .then((orders: ApiCollectionResponse<Full<Order>>) => {
-      console.log('Debug - orders: ', orders);
       return getOrderItems(orders.results.map(({ id }) => id)).then(
         (orderItems) => {
-          console.log('Debug - orderItems: ', orderItems);
           return getOrderPortfolioItems(
             orderItems.results.map(({ portfolio_item }) => portfolio_item)
           ).then((portfolioItems) => {
-            console.log('Debug - portfolioItems: ', portfolioItems);
             return {
               portfolioItems,
               ...orders,
@@ -162,7 +159,6 @@ export const getOrders = (
 export const getOrderDetail = (
   params: GetOrderDetailParams
 ): Promise<OrderDetailPayload> => {
-  console.log('Debug - getOrderDetail - params: ', params);
   if (Object.values(params).some((value) => !value)) {
     /**
      * Try to fetch data sequentially if any of the parameters is unknown

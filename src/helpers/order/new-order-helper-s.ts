@@ -85,7 +85,6 @@ export const fetchOrderDetailSequence = async (
     const orderItems = await axiosInstance.get(
       `${CATALOG_API_BASE}/order_items?order=${order.id}`
     );
-    console.log('Debug - orderItems: ', orderItems);
     orderItem = orderItems.results[0];
   } catch (_error) {
     // no handler
@@ -106,7 +105,6 @@ export const fetchOrderDetailSequence = async (
     // nohandler
   }
 
-  console.log('Debug - portfolioItem: ', portfolioItem);
   const parallerRequests = [
     axiosInstance
       .get(

@@ -13,8 +13,7 @@ interface Insights {
 }
 
 interface Catalog {
-  token: string;
-  standalone: boolean;
+  standalone: string;
 }
 
 /**

@@ -20,6 +20,8 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
+// @ts-ignore
+import Cookies from 'js-cookie';
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -37,10 +39,10 @@ export interface ServerError {
 
 const createAxiosInstance = () => {
   if (window.catalog?.standalone) {
-    const token = window.catalog?.token;
+    const token = localStorage.getItem('catalog-token');
     return axios.create({
       paramsSerializer: (params) => stringify(params),
-      headers: { Authorization: `Basic ${token}` }
+      headers: { 'X-CSRFToken': Cookies.get('csrftoken') }
     });
   } else {
     return axios.create({
@@ -78,8 +80,9 @@ axiosInstance.interceptors.request.use(async (config) => {
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
   } else {
-    if (window.catalog?.token) {
-      config.headers.Authorization = `Basic ${window.catalog.token}`;
+    const csrftoken = Cookies.get('csrftoken');
+    if (csrftoken) {
+      config.headers['X-CSRFToken'] = csrftoken;
     }
   }
 
@@ -170,7 +173,6 @@ export function getOrderProcessApi(): OrderProcessApi {
 }
 
 const grapqlInstance = axios.create();
-
 grapqlInstance.interceptors.request.use(async (config) => {
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
@@ -179,7 +181,7 @@ grapqlInstance.interceptors.request.use(async (config) => {
   return config;
 });
 /**
- * Graphql does not return error response when the qery fails.
+ * Graphql does not return error response when the query fails.
  * Instead it returns 200 response with error object.
  * We catch it and throw it to trigger notification middleware
  */

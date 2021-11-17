@@ -4,3 +4,5 @@ declare let API_BASE_PATH;
 declare let DEPLOYMENT_MODE;
 declare let NAMESPACE_TERM;
 declare let APPLICATION_NAME;
+declare let UI_BASE_PATH;
+declare let ANSIBLE_CATALOG_LOGIN_URI;

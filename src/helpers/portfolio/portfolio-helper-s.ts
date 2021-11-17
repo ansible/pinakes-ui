@@ -243,7 +243,6 @@ export const uploadPortfolioItemIcon = (portfolioItemData: {
   data.append('file', portfolioItemData.file);
   data.append('name', portfolioItemData.file.name);
   data.append('source_ref', '1');
-  console.log('Debug - data', data);
   if (portfolioItemData) {
     return axiosInstance.post(
       `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,

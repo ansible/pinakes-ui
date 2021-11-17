@@ -9,6 +9,7 @@ import {
 } from './constants/routes';
 import CatalogRoute from './routing/catalog-route';
 import DialogRoutes from './smart-components/dialog-routes';
+import { loadComponent, useDynamicScript } from './utilities/dynamic-loader';
 const CommonApiError = lazy(() =>
   import(
     /* webpackChunkName: "error-page" */ './smart-components/error-pages/common-api-error'
@@ -54,6 +55,30 @@ const OrderProcesses = lazy(() =>
   )
 );
 
+const url = '/apps/approval/fed-mods.json';
+
+// eslint-disable-next-line react/prop-types
+const ApprovalComponent = () => {
+  const { ready, failed } = useDynamicScript({
+    url
+  });
+  if (!ready) {
+    return <h2>Loading dynamic script: {url}</h2>;
+  }
+
+  if (failed) {
+    return <h2>Failed to load dynamic script: {url}</h2>;
+  }
+
+  const Component = React.lazy(loadComponent('approval', 'Approval#./RootApp'));
+
+  return (
+    <React.Suspense fallback="Loading">
+      <Component />
+    </React.Suspense>
+  );
+};
+
 const paths = {
   products: '/products',
   platforms: '/platforms',
@@ -62,7 +87,8 @@ const paths = {
   portfolios: PORTFOLIOS_ROUTE,
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
-  order: ORDER_ROUTE
+  order: ORDER_ROUTE,
+  approval: '/approval'
 };
 
 const errorPaths = ['/400', '/401', '/403', '/404'];

@@ -9,9 +9,11 @@ const defaultConfigs = [
   // as a constant after it is compiled
   { name: 'API_HOST', default: '', scope: 'global' },
   { name: 'API_BASE_PATH', default: '', scope: 'global' },
+  { name: 'UI_BASE_PATH', default: '', scope: 'global' },
   { name: 'DEPLOYMENT_MODE', default: 'standalone', scope: 'global' },
   { name: 'NAMESPACE_TERM', default: 'namespaces', scope: 'global' },
   { name: 'APPLICATION_NAME', default: 'Catalog', scope: 'global' },
+  { name: 'ANSIBLE_CATALOG_LOGIN_URI', default: 'Catalog', scope: 'global' },
 
   // Webpack scope means the variable will only be available to webpack at
   // build time
@@ -45,7 +47,8 @@ module.exports = (inputConfigs) => {
 
   const htmlPluginConfig = {
     targetEnv: customConfigs.DEPLOYMENT_MODE,
-    applicationName: customConfigs.APPLICATION_NAME
+    applicationName: customConfigs.APPLICATION_NAME,
+    inject: 'head'
   };
 
   // being able to turn off the favicon is useful for deploying to insights mode
@@ -82,12 +85,18 @@ module.exports = (inputConfigs) => {
     console.log('Overriding configs for standalone mode.');
 
     const newEntry = resolve(__dirname, '../src/entry-standalone.js');
-    const newPubPath = '/';
     console.log(`New entry.App: ${newEntry}`);
     newWebpackConfig.entry.App = newEntry;
   }
-
   plugins.push(new webpack.DefinePlugin(globals));
+  plugins.push(
+    require('@redhat-cloud-services/frontend-components-config/federated-modules')(
+      {
+        root: resolve(__dirname, '../'),
+        useFileHash: false
+      }
+    )
+  );
 
   return {
     ...newWebpackConfig,

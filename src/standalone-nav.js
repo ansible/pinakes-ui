@@ -89,13 +89,6 @@ const App = (props) => {
   };
 
   useEffect(() => {
-    window.catalog = {
-      ...window.catalog,
-      token
-    };
-  }, [token]);
-
-  useEffect(() => {
     const activeMenu = menu();
     activateMenu(activeMenu);
     setMenuExpandedSections(
@@ -272,37 +265,6 @@ const App = (props) => {
       />
     </Fragment>
   );
-  // Hide navs on login page
-  if (location?.pathname === Paths.login) {
-    return (
-      <UserContext.Provider
-        value={{
-          permissions: [
-            { permission: 'catalog:portfolios:create' },
-            { permission: 'catalog:portfolios:update' },
-            { permission: 'catalog:portfolios:remove' },
-            { permission: 'catalog:portfolio_items:create' },
-            { permission: 'catalog:portfolio_items:update' },
-            { permission: 'catalog:portfolio_items:remove' }
-          ],
-          userIdentity: { identity: { user: { is_org_admin: true } } },
-          openApiSchema: {},
-          standalone: true
-        }}
-      >
-        <Fragment>
-          <NotificationsPortal />
-          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
-            <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-              <GridItem sm={12} className="content-layout">
-                <Routes />
-              </GridItem>
-            </Grid>
-          </section>
-        </Fragment>
-      </UserContext.Provider>
-    );
-  }
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
