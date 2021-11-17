@@ -170,8 +170,12 @@ export function getOrderProcessApi(): OrderProcessApi {
 }
 
 const grapqlInstance = axios.create();
+
 grapqlInstance.interceptors.request.use(async (config) => {
-  await window.insights.chrome.auth.getUser();
+  if (!window.catalog?.standalone) {
+    await window.insights.chrome.auth.getUser();
+  }
+
   return config;
 });
 /**
