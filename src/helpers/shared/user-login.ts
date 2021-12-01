@@ -80,9 +80,9 @@ axiosInstance.interceptors.request.use(async (config) => {
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
   } else {
-    const csrftoken = Cookies.get('csrftoken');
-    if (csrftoken) {
-      config.headers['X-CSRFToken'] = csrftoken;
+    if (window.catalog?.token) {
+      config.headers = { Authorization: `Basic ${window.catalog.token}` };
+      //config.headers.Authorization = `Basic ${window.catalog.token}`;
     }
   }
 
@@ -173,6 +173,7 @@ export function getOrderProcessApi(): OrderProcessApi {
 }
 
 const grapqlInstance = axios.create();
+
 grapqlInstance.interceptors.request.use(async (config) => {
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
@@ -183,7 +184,7 @@ grapqlInstance.interceptors.request.use(async (config) => {
 /**
  * Graphql does not return error response when the query fails.
  * Instead it returns 200 response with error object.
- * We catch it and throw it to trigger notification middleware
+ * We catch it and throw it to trigger the notification middleware
  */
 grapqlInstance.interceptors.response.use(({ data }) => {
   if (data.errors) {

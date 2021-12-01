@@ -11,13 +11,12 @@ import {
 } from '@redhat-cloud-services/sources-client';
 import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
-const { post } = getGraphqlInstance();
 
 export const getPlatforms = (): Promise<SourceDetails> =>
   axiosInstance.get(`${CATALOG_API_BASE}/sources/`);
 
 export const getPlatform = (platformId: string): Promise<Source> => {
-  return axiosInstance.get(`${CATALOG_API_BASE}/sources/${platformId}/`);
+  return axiosInstance.get(`${CATALOG_API_BASE}/sources/1/`);
 };
 
 export const refreshPlatform = (platformId: string): Promise<Source> => {
@@ -37,7 +36,7 @@ export const getPlatformItems = (
       ? `page_size=${options.limit}&page=${options.offset || 1}`
       : '';
     return axiosInstance.get(
-      `${CATALOG_API_BASE}/sources/${platformId}/service_offerings/${filterQuery}${
+      `${CATALOG_API_BASE}/sources/1/service_offerings/${filterQuery}${
         filter ? '&' : '?'
       }${optionsQuery}`
     );

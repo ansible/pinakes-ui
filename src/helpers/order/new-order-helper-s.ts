@@ -83,7 +83,7 @@ export const fetchOrderDetailSequence = async (
   };
   try {
     const orderItems = await axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items?order=${order.id}`
+      `${CATALOG_API_BASE}/orders/${order.id}/order_items/`
     );
     orderItem = orderItems.results[0];
   } catch (_error) {
@@ -148,7 +148,7 @@ export const fetchOrderProvisionItems = async (
   let orderItems: OrderItem[];
   try {
     const items = await axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items/?order_id=${orderId}`
+      `${CATALOG_API_BASE}/orders/${orderId}/order_items/`
     );
     orderItems = items.data;
   } catch (error) {

@@ -133,10 +133,14 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
         </SpinnerWrapper>
       ) : (
         <FormRenderer
-          schema={updateValidatorsForSubstitution(
-            ((servicePlans[0].create_json_schema! as AnyObject)
-              .schema as unknown) as Schema
-          )}
+          schema={
+            servicePlans[0]
+              ? updateValidatorsForSubstitution(
+                  ((servicePlans[0].create_json_schema! as AnyObject)
+                    .schema as unknown) as Schema
+                )
+              : { fields: [] }
+          }
           onSubmit={onSubmit}
           onCancel={handleClose}
           templateProps={{

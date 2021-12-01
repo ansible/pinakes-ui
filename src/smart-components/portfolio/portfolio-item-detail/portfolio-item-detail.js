@@ -224,7 +224,11 @@ const PortfolioItemDetail = () => {
                   <ItemDetailInfoBar
                     product={portfolioItemData.portfolioItem}
                     portfolio={portfolio}
-                    source={portfolioItemData.source}
+                    source={
+                      window.catalog?.standalone
+                        ? '1'
+                        : portfolioItemData.source
+                    }
                   />
                 </GridItem>
               </Route>

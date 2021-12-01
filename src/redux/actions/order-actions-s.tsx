@@ -164,7 +164,6 @@ export const fetchOrderDetails = (params: GetOrderDetailParams) => (
     order: Order | ObjectNotFound;
     orderItem: OrderItem | ObjectNotFound;
     portfolioItem: PortfolioItem | ObjectNotFound;
-    platform: Source | ObjectNotFound;
     progressMessages: ProgressMessage | ObjectNotFound;
     portfolio: Portfolio | ObjectNotFound;
   };
@@ -172,26 +171,17 @@ export const fetchOrderDetails = (params: GetOrderDetailParams) => (
   dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
   // @ts-ignore
   return OrderHelper.getOrderDetail(params)
-    .then(
-      ([
-        order,
-        orderItem,
-        portfolioItem,
-        platform,
-        progressMessages,
-        portfolio
-      ]) =>
-        dispatch({
-          type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`,
-          payload: {
-            order,
-            orderItem,
-            portfolioItem,
-            platform,
-            progressMessages,
-            portfolio
-          }
-        })
+    .then(([order, orderItem, portfolioItem, progressMessages, portfolio]) =>
+      dispatch({
+        type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`,
+        payload: {
+          order,
+          orderItem,
+          portfolioItem,
+          progressMessages,
+          portfolio
+        }
+      })
     )
     .catch((error) =>
       dispatch({

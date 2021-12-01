@@ -126,161 +126,30 @@ export const getOrders = (
   filter = '',
   pagination = defaultSettings
 ): Promise<{
-  data: (Order & { orderItems: OrderItem[] })[];
-  portfolioItems: ApiCollectionResponse<PortfolioItem>;
-}> =>
-  axiosInstance
-    .get(
-      `${CATALOG_API_BASE}/orders/${filter}${
-        filter?.length > 1 ? '&' : '?'
-      }page_size=${pagination.limit}&page=${pagination.offset || 1}`
-    ) // eslint-disable-line max-len
-    .then((orders: ApiCollectionResponse<Full<Order>>) => {
-      return getOrderItems(orders.results.map(({ id }) => id)).then(
-        (orderItems) => {
-          return getOrderPortfolioItems(
-            orderItems.results.map(({ portfolio_item }) => portfolio_item)
-          ).then((portfolioItems) => {
-            return {
-              portfolioItems,
-              ...orders,
-              data: orders.results.map((orderObj) => ({
-                ...orderObj,
-                orderItems: orderItems.results.filter(
-                  ({ order }) => order === orderObj.id
-                )
-              }))
-            };
-          });
-        }
-      );
-    });
-
-export const getOrderDetail = (
-  params: GetOrderDetailParams
-): Promise<OrderDetailPayload> => {
-  if (Object.values(params).some((value) => !value)) {
-    /**
-     * Try to fetch data sequentially if any of the parameters is unknown
-     */
-    return fetchOrderDetailSequence(params.order);
-  }
-
-  const detailPromises = [
-    (axiosInstance
-      .get(`${CATALOG_API_BASE}/orders/${params.order}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return catalogHistory.replace({
-            pathname: '/404',
-            state: { from: catalogHistory.location }
-          });
-        }
-
-        throw error;
-      }) as unknown) as Promise<Order>,
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/order_items/${params['order-item']}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Order item',
-            notFound: true
-          };
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Product',
-            notFound: true
-          };
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_INVENTORY_API_BASE}/sources/${params.platform}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Platform',
-            notFound: true
-          };
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/orders/${params.order}/progress_messages/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {};
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Portfolio',
-            notFound: true
-          };
-        }
-
-        throw error;
-      })
-  ];
-
-  return (Promise.all(detailPromises) as unknown) as Promise<
-    OrderDetailPayload
-  >;
+  data: Order[];
+}> => {
+  return axiosInstance.get(
+    `${CATALOG_API_BASE}/orders/${filter}${
+      filter?.length > 1 ? '&' : '?'
+    }page_size=${pagination.limit}&page=${pagination.offset || 1}`
+  );
 };
 
-const APPROVAL_REQUESTER_PERSONA = 'approval/requester';
+export const getOrderDetail = (orderId: number) => {
+  console.log('Debug - getOrderDetail - orderId: ', orderId);
+
+  return axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}/orderItems/`);
+};
+
 export interface RequestTranscript extends Full<Request> {
   actions: Action[];
 }
-const requestTranscriptQuery = (parent_id: string) => `query {
-  requests(id: "${parent_id}") {
-    id
-    number_of_children
-    decision
-    group_name
-    created_at
-    state
-    actions {
-      id
-      created_at
-    }
-    requests {
-      id
-      number_of_children
-      decision
-      group_name
-      state
-      parent_id
-      created_at
-      actions {
-        id
-        created_at
-      }
-    }
-  }
-}`;
+
 const fetchRequestTranscript = (
   requestId: string
-): Promise<RequestTranscript[]> =>
-  axiosInstance
-    .get(`${APPROVAL_API_BASE}/requests/${requestId}/`, {
-      'x-rh-persona': APPROVAL_REQUESTER_PERSONA
-    })
+): Promise<RequestTranscript[]> => {
+  return axiosInstance
+    .get(`${APPROVAL_API_BASE}/requests/${requestId}/`)
     .then(({ data: { requests } }) => {
       return requests &&
         requests.length > 0 &&
@@ -288,6 +157,7 @@ const fetchRequestTranscript = (
         ? requests[0].requests
         : requests;
     });
+};
 
 export const getApprovalRequests = (
   orderItemId: string
