@@ -13,6 +13,7 @@ import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';
+import { fetchOrderDetails as fetchOrderDetailsS } from '../../../redux/actions/order-actions-s';
 import OrderDetailTitle from './order-detail-title';
 import OrderToolbarActions from './order-toolbar-actions';
 import OrderDetailInformation from './order-detail-information';
@@ -66,7 +67,11 @@ const OrderDetail: React.ComponentType = () => {
       dispatch(
         window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
       ),
-      dispatch(fetchOrderDetails(queryValues))
+      dispatch(
+        window.catalog?.standalone
+          ? fetchOrderDetailsS(queryValues)
+          : fetchOrderDetails(queryValues)
+      )
     ]).then(() => setIsFetching(false));
     return () => {
       if (typeof resetBreadcrumbs === 'function') {
@@ -75,10 +80,10 @@ const OrderDetail: React.ComponentType = () => {
     };
   }, []);
 
-  const { order, portfolioItem, platform, portfolio } = orderDetailData;
+  const { order, portfolioItem, portfolio } = orderDetailData;
 
   const unAvailable = () => {
-    const notFound = [portfolioItem, platform, portfolio || {}].filter(
+    const notFound = [portfolioItem, portfolio || {}].filter(
       ({ notFound }) => notFound
     );
     if (notFound.length === 0) {
@@ -138,7 +143,7 @@ const OrderDetail: React.ComponentType = () => {
                       state={order.state}
                       portfolioItemId={portfolioItem.id}
                       portfolioId={portfolio.id}
-                      sourceId={platform.id}
+                      sourceId={'1'}
                       orderable={portfolioItem.metadata?.orderable || false}
                     />
                   </LevelItem>
@@ -149,7 +154,7 @@ const OrderDetail: React.ComponentType = () => {
               <OrderDetailInformation
                 portfolioItemId={portfolioItem.id}
                 portfolioId={portfolio.id}
-                sourceId={platform.id}
+                sourceId={'1'}
                 jobName={portfolioItem.name}
                 state={order.state}
               />

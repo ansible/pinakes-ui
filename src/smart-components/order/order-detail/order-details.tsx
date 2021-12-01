@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   TextContent,
   Text,
@@ -24,6 +24,9 @@ import ordersMessages from '../../../messages/orders.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import { CatalogRootState } from '../../../types/redux';
+import { scrollToTop } from '../../../helpers/shared/helpers';
+import { fetchOrderDetails } from '../../../redux/actions/order-actions';
+import { fetchOrderDetails as fetchOrderDetailsS } from '../../../redux/actions/order-actions-s';
 
 const OrderDetails: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
@@ -36,7 +39,7 @@ const OrderDetails: React.ComponentType = () => {
   } = useSelector<CatalogRootState, OrderDetail>(
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
-
+  const dispatch = useDispatch();
   return (
     <Grid hasGutter>
       <GridItem md={12} lg={6} xl={4}>

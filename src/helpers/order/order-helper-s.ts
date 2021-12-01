@@ -28,9 +28,8 @@ import {
 import { AxiosPromise } from 'axios';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Request, Action } from '@redhat-cloud-services/approval-client';
-import { GetOrderDetailParams } from './order-helper';
 import { OrderItemStateEnum } from '@redhat-cloud-services/catalog-client';
-import { ApiMetadata } from '../../types/common-types';
+import { GetOrderDetailParams } from './order-helper';
 
 const axiosInstance = getAxiosInstance();
 
@@ -91,37 +90,6 @@ export const sendSubmitOrder = async (
 export const cancelOrder = (orderId: string): AxiosPromise<Order> =>
   axiosInstance.post(`${CATALOG_API_BASE}/orders/${orderId}/cancel/`);
 
-const getOrderItems = (
-  orderIds: string[]
-): Promise<ApiCollectionResponse<OrderItem>> =>
-  axiosInstance.get(
-    `${CATALOG_API_BASE}/order_items/?page-size=${orderIds.length * 3 ||
-      defaultSettings.limit}${orderIds.length ? '&' : ''}${orderIds
-      .map((orderId) => `order_id=${orderId}`)
-      .join('&')}`
-  );
-
-const getOrderPortfolioItems = (
-  itemIds: string[]
-): Promise<ApiCollectionResponse<PortfolioItem>> =>
-  axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolio_items/?${itemIds
-      .map((itemId) => `id=${itemId}`)
-      .join('&')}`
-  );
-
-export const getOrdersS = (
-  filter = '',
-  pagination = defaultSettings
-): Promise<{
-  data: (Order & { orderItems: OrderItem[] })[];
-}> =>
-  axiosInstance.get(
-    `${CATALOG_API_BASE}/orders/${filter}${
-      filter?.length > 1 ? '&' : '?'
-    }page_size=${pagination.limit}&page=${pagination.offset || 1}`
-  );
-
 export const getOrders = (
   filter = '',
   pagination = defaultSettings
@@ -135,10 +103,82 @@ export const getOrders = (
   );
 };
 
-export const getOrderDetail = (orderId: number) => {
-  console.log('Debug - getOrderDetail - orderId: ', orderId);
+export const getOrderDetail = (
+  params: GetOrderDetailParams
+): Promise<OrderDetailPayload> => {
+  console.log('Debug - getOrderDetail - params: ', params);
+  if (Object.values(params).some((value) => !value)) {
+    /**
+     * Try to fetch data sequentially if any of the parameters is unknown
+     */
+    return fetchOrderDetailSequence(params.order);
+  }
 
-  return axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}/orderItems/`);
+  const detailPromises = [
+    (axiosInstance
+      .get(`${CATALOG_API_BASE}/orders/${params.order}/`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return catalogHistory.replace({
+            pathname: '/404',
+            state: { from: catalogHistory.location }
+          });
+        }
+
+        throw error;
+      }) as unknown) as Promise<Order>,
+    axiosInstance
+      .get(
+        `${CATALOG_API_BASE}/orders/${params.order}/order_items/${params['order-item']}/`
+      )
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Order item',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}/`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Product',
+            notFound: true
+          };
+        }
+
+        throw error;
+      }),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/orders/${params.order}/progress_messages/`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {};
+        }
+
+        throw error;
+      }),
+    axiosInstance
+      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}/`)
+      .catch((error) => {
+        if (error.status === 404 || error.status === 400) {
+          return {
+            object: 'Portfolio',
+            notFound: true
+          };
+        }
+
+        throw error;
+      })
+  ];
+
+  return (Promise.all(detailPromises) as unknown) as Promise<
+    OrderDetailPayload
+  >;
 };
 
 export interface RequestTranscript extends Full<Request> {
