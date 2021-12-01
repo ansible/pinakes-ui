@@ -57,6 +57,10 @@ const resolveInterceptor = (response: AxiosResponse) =>
   response.data || response;
 const errorInterceptor = (error: ServerError = {}) => {
   const requestId = error.response?.headers?.['x-rh-insights-request-id'];
+  if (error.status === 404) {
+    return;
+  }
+
   throw requestId ? { ...error.response, requestId } : { ...error.response };
 };
 
@@ -187,12 +191,12 @@ grapqlInstance.interceptors.request.use(async (config) => {
  * We catch it and throw it to trigger the notification middleware
  */
 grapqlInstance.interceptors.response.use(({ data }) => {
-  if (data.errors) {
-    throw {
-      message: data.errors[0].errorType,
-      data: data.errors[0].message
-    };
-  }
+  //if (data.errors) {
+  //  throw {
+  //    message: data.errors[0].errorType,
+  //    data: data.errors[0].message
+  //  };
+  // }
 
   return data;
 });

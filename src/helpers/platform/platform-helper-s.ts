@@ -1,4 +1,4 @@
-import { getAxiosInstance, getGraphqlInstance } from '../shared/user-login';
+import { getAxiosInstance } from '../shared/user-login';
 import {
   CATALOG_API_BASE,
   CATALOG_INVENTORY_API_BASE
