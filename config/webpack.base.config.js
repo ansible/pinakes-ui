@@ -81,6 +81,7 @@ module.exports = (inputConfigs) => {
     newWebpackConfig.output.publicPath = customConfigs.WEBPACK_PUBLIC_PATH;
   }
 
+  console.log('API_HOST: ', customConfigs.API_HOST);
   if (customConfigs.DEPLOYMENT_MODE === 'standalone') {
     console.log('Overriding configs for standalone mode.');
 
