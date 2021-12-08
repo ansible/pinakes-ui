@@ -18,9 +18,11 @@ export const CATALOG_INVENTORY_API_BASE = window.catalog?.standalone
     `${API_HOST}${API_BASE_PATH}`
   : `${process.env.BASE_PATH || '/api'}/catalog-inventory/v1.0`;
 export const RBAC_API_BASE = `${process.env.BASE_PATH || '/api'}/rbac/v1`;
-export const EXTERNAL_LOGIN_URI =
-  // eslint-disable-next-line no-undef
-  ANSIBLE_CATALOG_LOGIN_URI || '/login/keycloak-oidc/';
+
+export const EXTERNAL_LOGIN_URI = window.catalog?.standalone
+  ? // eslint-disable-next-line no-undef
+    ANSIBLE_CATALOG_LOGIN_URI || '/login/keycloak-oidc/'
+  : '';
 
 export const permissionValues = ['order', 'read', 'update'];
 
