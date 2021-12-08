@@ -1,33 +1,23 @@
 // eslint-disable no-undef
-export const CATALOG_API_BASE =
-  // eslint-disable-next-line no-undef
-  DEPLOYMENT_MODE === 'standalone'
-    ? // eslint-disable-next-line no-undef
-      `${API_HOST}${API_BASE_PATH}`
-    : `${process.env.BASE_PATH || '/api'}/catalog/v1.3`;
+export const CATALOG_API_BASE = window.catalog?.standalone
+  ? // eslint-disable-next-line no-undef
+    `${API_HOST}${API_BASE_PATH}`
+  : `${process.env.BASE_PATH || '/api'}/catalog/v1.3`;
 export const SOURCES_API_BASE =
   // eslint-disable-next-line no-undef
-  DEPLOYMENT_MODE === 'standalone'
+  window.catalog?.standalone
     ? // eslint-disable-next-line no-undef
       `${API_HOST}${API_BASE_PATH}`
     : `${process.env.BASE_PATH || '/api'}/sources/v1.0`;
-export const APPROVAL_API_BASE =
-  // eslint-disable-next-line no-undef
-  DEPLOYMENT_MODE === 'standalone'
-    ? // eslint-disable-next-line no-undef
-      `${API_HOST}${API_BASE_PATH}`
-    : `${process.env.BASE_PATH || '/api'}/approval/v1.2`;
-export const CATALOG_INVENTORY_API_BASE =
-  // eslint-disable-next-line no-undef
-  DEPLOYMENT_MODE === 'standalone'
-    ? // eslint-disable-next-line no-undef
-      `${API_HOST}${API_BASE_PATH}`
-    : `${process.env.BASE_PATH || '/api'}/catalog-inventory/v1.0`;
+export const APPROVAL_API_BASE = window.catalog?.standalone
+  ? // eslint-disable-next-line no-undef
+    `${API_HOST}${API_BASE_PATH}`
+  : `${process.env.BASE_PATH || '/api'}/approval/v1.2`;
+export const CATALOG_INVENTORY_API_BASE = window.catalog?.standalone
+  ? // eslint-disable-next-line no-undef
+    `${API_HOST}${API_BASE_PATH}`
+  : `${process.env.BASE_PATH || '/api'}/catalog-inventory/v1.0`;
 export const RBAC_API_BASE = `${process.env.BASE_PATH || '/api'}/rbac/v1`;
-export const EXTERNAL_LOGIN_URI =
-  // eslint-disable-next-line no-undef
-  ANSIBLE_CATALOG_LOGIN_URI || '/login/keycloak-oidc/';
-
 export const permissionValues = ['order', 'read', 'update'];
 
 export const permissionOptions = [

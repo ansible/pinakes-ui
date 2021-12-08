@@ -27,7 +27,6 @@ import { Routes, Paths } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
-import AppContext from './app-context';
 import Logo from './assets/images/logo-large.svg';
 import { Fragment, useEffect, useState } from 'react';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
