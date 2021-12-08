@@ -41,16 +41,6 @@ export const permissionOptions = [
   }
 ];
 
-console.log(
-  'Debug - CATALOG_API_BASE',
-  // eslint-disable-next-line no-undef
-  DEPLOYMENT_MODE,
-  // eslint-disable-next-line no-undef
-  API_HOST,
-  // eslint-disable-next-line no-undef
-  API_BASE_PATH,
-  CATALOG_API_BASE
-);
 export const PORTFOLIO_RESOURCE_TYPE = 'Portfolio';
 export const PORTFOLIO_ITEM_RESOURCE_TYPE = 'PortfolioItem';
 export const INVENTORY_RESOURCE_TYPE = 'ServiceInventory';
