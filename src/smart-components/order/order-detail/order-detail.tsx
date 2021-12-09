@@ -80,10 +80,10 @@ const OrderDetail: React.ComponentType = () => {
     };
   }, []);
 
-  const { order, portfolioItem, portfolio } = orderDetailData;
+  const { order, portfolioItem, platform, portfolio } = orderDetailData;
 
   const unAvailable = () => {
-    const notFound = [portfolioItem, portfolio || {}].filter(
+    const notFound = [portfolioItem, platform, portfolio || {}].filter(
       ({ notFound }) => notFound
     );
     if (notFound.length === 0) {
@@ -143,7 +143,7 @@ const OrderDetail: React.ComponentType = () => {
                       state={order.state}
                       portfolioItemId={portfolioItem.id}
                       portfolioId={portfolio.id}
-                      sourceId={'1'}
+                      sourceId={platform.id}
                       orderable={portfolioItem.metadata?.orderable || false}
                     />
                   </LevelItem>
@@ -154,7 +154,7 @@ const OrderDetail: React.ComponentType = () => {
               <OrderDetailInformation
                 portfolioItemId={portfolioItem.id}
                 portfolioId={portfolio.id}
-                sourceId={'1'}
+                sourceId={platform.id}
                 jobName={portfolioItem.name}
                 state={order.state}
               />

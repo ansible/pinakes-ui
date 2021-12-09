@@ -10,10 +10,9 @@ export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>
 
 export const getOrderPortfolioName = (
   { orderItems, id }: OrderDetail,
-  portfolioItems: PortfolioItem[]
+  portfolioItems: Full<PortfolioItem>[]
 ): string => {
   const portfolioItem =
-    orderItems &&
     orderItems[0] &&
     portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
   return portfolioItem ? portfolioItem.name : `Order ${id}`;
@@ -21,13 +20,12 @@ export const getOrderPortfolioName = (
 
 export const getOrderPlatformId = (
   { orderItems }: OrderDetail,
-  portfolioItems: PortfolioItem[]
+  portfolioItems: Full<PortfolioItem>[]
 ): {
   orderPlatform?: string;
   orderPortfolio?: string;
 } => {
   const portfolioItem =
-    orderItems &&
     orderItems[0] &&
     portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
   return portfolioItem

@@ -81,12 +81,10 @@ module.exports = (inputConfigs) => {
     newWebpackConfig.output.publicPath = customConfigs.WEBPACK_PUBLIC_PATH;
   }
 
-  console.log('API_HOST: ', customConfigs.API_HOST);
   if (customConfigs.DEPLOYMENT_MODE === 'standalone') {
     console.log('Overriding configs for standalone mode.');
 
     const newEntry = resolve(__dirname, '../src/entry-standalone.js');
-    console.log(`New entry.App: ${newEntry}`);
     newWebpackConfig.entry.App = newEntry;
   }
   plugins.push(new webpack.DefinePlugin(globals));

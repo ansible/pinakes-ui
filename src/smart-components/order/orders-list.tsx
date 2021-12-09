@@ -165,6 +165,7 @@ const OrdersList: React.ComponentType = () => {
       { count: orders.count, noData: false }
     : orders.meta;
 
+  console.log('Debug - OrdersList - orders: ', orders);
   const columns: ICell[] = [
     { title: formatMessage(ordersMessages.orderID) },
     formatMessage(labelMessages.product),

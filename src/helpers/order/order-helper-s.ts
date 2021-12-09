@@ -97,9 +97,9 @@ export const getOrders = (
   data: Order[];
 }> => {
   return axiosInstance.get(
-    `${CATALOG_API_BASE}/orders/${filter}${
-      filter?.length > 1 ? '&' : '?'
-    }page_size=${pagination.limit}&page=${pagination.offset || 1}`
+    `${CATALOG_API_BASE}/orders/?extra=true${
+      filter?.length > 1 ? '&' : ''
+    }${filter}&page_size=${pagination.limit}&page=${pagination.offset || 1}`
   );
 };
 
