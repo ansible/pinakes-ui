@@ -44,6 +44,7 @@ export interface OrderDetail extends AnyObject {
   portfolioItem: Full<InternalPortfolioItem> & Partial<ObjectNotFound>;
   platform: Full<Source> & Partial<ObjectNotFound>;
   portfolio: Full<Portfolio> & Partial<ObjectNotFound>;
+  extra_data?: any;
 }
 
 export interface OrderProvisionType extends AnyObject {

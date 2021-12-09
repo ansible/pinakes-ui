@@ -80,9 +80,10 @@ axiosInstance.interceptors.request.use(async (config) => {
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
   } else {
-    if (window.catalog?.token) {
-      config.headers = { Authorization: `Basic ${window.catalog.token}` };
-      config.headers.Authorization = `Basic ${window.catalog.token}`;
+    const token = localStorage.getItem('catalog-token');
+    if (token) {
+      config.headers = { Authorization: `Basic ${token}` };
+      config.headers.Authorization = `Basic ${token}`;
     }
   }
 
@@ -177,10 +178,6 @@ const grapqlInstance = axios.create();
 grapqlInstance.interceptors.request.use(async (config) => {
   if (!window.catalog?.standalone) {
     await window.insights.chrome.auth.getUser();
-  }
-  if (window.catalog?.token) {
-    config.headers = { Authorization: `Basic ${window.catalog.token}` };
-    config.headers.Authorization = `Basic ${window.catalog.token}`;
   }
 
   return config;

@@ -1,6 +1,5 @@
 import { CATALOG_API_BASE } from '../../utilities/constants';
 import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
-import { Full } from '../../types/common-types';
 import { OrderDetail } from '../../redux/reducers/order-reducer';
 
 export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>
@@ -10,7 +9,7 @@ export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>
 
 export const getOrderPortfolioName = (
   { orderItems, id }: OrderDetail,
-  portfolioItems: Full<PortfolioItem>[]
+  portfolioItems: PortfolioItem[]
 ): string => {
   const portfolioItem =
     orderItems[0] &&
@@ -18,9 +17,9 @@ export const getOrderPortfolioName = (
   return portfolioItem ? portfolioItem.name : `Order ${id}`;
 };
 
-export const getOrderPlatformId = (
+const getIOrderPlatformId = (
   { orderItems }: OrderDetail,
-  portfolioItems: Full<PortfolioItem>[]
+  portfolioItems: PortfolioItem[]
 ): {
   orderPlatform?: string;
   orderPortfolio?: string;
@@ -35,3 +34,31 @@ export const getOrderPlatformId = (
       }
     : {};
 };
+
+const getSOrderPlatformId = (
+  order: OrderDetail
+): {
+  orderPlatform?: string;
+  orderPortfolio?: string;
+} => {
+  console.log('Debug - order: ', order);
+  const orderItem = order?.extra_data?.orderItems[0];
+  const portfolioItem = orderItem?.extra_data.portfolio_item;
+  return portfolioItem
+    ? {
+        orderPlatform: portfolioItem.service_offering_source_ref,
+        orderPortfolio: portfolioItem.portfolio_id
+      }
+    : {};
+};
+
+export const getOrderPlatformId = (
+  order: OrderDetail,
+  portfolioItems: PortfolioItem[]
+): {
+  orderPlatform?: string;
+  orderPortfolio?: string;
+} =>
+  window.catalog?.standalone
+    ? getSOrderPlatformId(order)
+    : getIOrderPlatformId(order, portfolioItems);
