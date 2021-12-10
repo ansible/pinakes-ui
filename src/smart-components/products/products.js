@@ -116,7 +116,9 @@ const Products = () => {
               viewState?.products
             )
       ),
-      dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms)
+      dispatch(
+        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+      )
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);

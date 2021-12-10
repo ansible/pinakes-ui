@@ -7,9 +7,11 @@ import { getUser } from '../helpers/shared/active-user';
 const CatalogRoute = ({ ...props }) => {
   const user = localStorage.getItem('user');
   useEffect(() => {
-    getUser().then((user) => {
-      localStorage.setItem('user', user);
-    });
+    getUser()
+      .then((user) => {
+        localStorage.setItem('user', user);
+      })
+      .catch((reason) => localStorage.removeItem('user'));
   }, []);
 
   if (!user) {
