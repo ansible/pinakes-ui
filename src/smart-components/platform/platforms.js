@@ -42,10 +42,16 @@ const Platforms = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
+    dispatch(
+      localStorage.getItem('catalog_standalone')
+        ? fetchPlatformsS()
+        : fetchPlatforms()
+    );
     scrollToTop();
   }, []);
-  const items = window.catalog?.standalone ? platforms.results : platforms;
+  const items = localStorage.getItem('catalog_standalone')
+    ? platforms.results
+    : platforms;
   const filteredItems = items
     ? {
         items: items?.map((item) => (
@@ -55,7 +61,7 @@ const Platforms = () => {
             {...item}
             updateData={() =>
               dispatch(
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? fetchPlatformsS()
                   : fetchPlatforms()
               )

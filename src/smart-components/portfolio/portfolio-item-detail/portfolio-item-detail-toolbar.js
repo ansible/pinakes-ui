@@ -31,7 +31,7 @@ import useFormatMessage from '../../../utilities/use-format-message';
 const PortfolioItemIconItem = ({ product }) => (
   <CardIcon
     src={
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? product.icon_url
         : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
     }
@@ -86,7 +86,7 @@ export const PortfolioItemDetailToolbar = ({
               ) : (
                 <CardIcon
                   src={
-                    window.catalog?.standalone
+                    localStorage.getItem('catalog_standalone')
                       ? product.icon_url
                       : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
                   }

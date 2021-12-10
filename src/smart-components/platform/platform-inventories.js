@@ -31,7 +31,7 @@ const debouncedFilter = asyncFormValidator(
   (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPlatformInventoriesS(id, value, meta)
         : fetchPlatformInventories(id, value, meta)
     ).then(() => filteringCallback(false));
@@ -76,7 +76,7 @@ const PlatformInventories = () => {
 
   useEffect(() => {
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPlatformInventoriesS(id, filterValue, defaultSettings)
         : fetchPlatformInventories(id, filterValue, defaultSettings)
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -125,7 +125,7 @@ const PlatformInventories = () => {
           meta: metaInfo,
           apiRequest: (_, options) =>
             dispatch(
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? fetchPlatformInventoriesS(id, filterValue, options)
                 : fetchPlatformInventories(id, filterValue, options)
             )
@@ -162,7 +162,7 @@ const PlatformInventories = () => {
             meta={metaInfo}
             apiRequest={(_, options) =>
               dispatch(
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? fetchPlatformInventoriesS(id, filterValue, options)
                   : fetchPlatformInventories(id, filterValue, options)
               )

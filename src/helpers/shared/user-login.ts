@@ -38,7 +38,7 @@ export interface ServerError {
 }
 
 const createAxiosInstance = () => {
-  if (window.catalog?.standalone) {
+  if (localStorage.getItem('catalog_standalone')) {
     const token = localStorage.getItem('catalog-token');
     return axios.create({
       paramsSerializer: (params) => stringify(params),
@@ -77,13 +77,12 @@ const unauthorizedInterceptor = (error: ServerError = {}) => {
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
   // eslint-disable-next-line no-undef
-  if (!window.catalog?.standalone) {
+  if (!localStorage.getItem('catalog_standalone')) {
     await window.insights.chrome.auth.getUser();
   } else {
-    const token = localStorage.getItem('catalog-token');
-    if (token) {
-      config.headers = { Authorization: `Basic ${token}` };
-      config.headers.Authorization = `Basic ${token}`;
+    const csrftoken = Cookies.get('csrftoken');
+    if (csrftoken) {
+      config.headers['X-CSRFToken'] = csrftoken;
     }
   }
 
@@ -176,7 +175,7 @@ export function getOrderProcessApi(): OrderProcessApi {
 const grapqlInstance = axios.create();
 
 grapqlInstance.interceptors.request.use(async (config) => {
-  if (!window.catalog?.standalone) {
+  if (!localStorage.getItem('catalog_standalone')) {
     await window.insights.chrome.auth.getUser();
   }
 

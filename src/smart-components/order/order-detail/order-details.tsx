@@ -40,7 +40,7 @@ const OrderDetails: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const dispatch = useDispatch();
-  const messages = window.catalog?.standalone
+  const messages = localStorage.getItem('catalog_standalone')
     ? progressMessages?.results
     : progressMessages?.data;
   return (

@@ -42,7 +42,7 @@ const debouncedFilter = asyncFormValidator(
     filteringCallback(true);
     dispatch(
       // eslint-disable-next-line no-undef
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPortfoliosWithStateS(filters, meta)
         : fetchPortfoliosWithState(filters, meta)
     ).then(() => filteringCallback(false));
@@ -123,7 +123,7 @@ const Portfolios = () => {
   useEffect(() => {
     dispatch(
       // eslint-disable-next-line no-undef
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPortfoliosWithStateS(filters, { ...meta, sortDirection })
         : fetchPortfoliosWithState(filters, { ...meta, sortDirection })
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -152,7 +152,9 @@ const Portfolios = () => {
 
   const handleCopyPortfolio = (id) =>
     dispatch(
-      window.catalog?.standalone ? copyPortfolioS(id) : copyPortfolio(id)
+      localStorage.getItem('catalog_standalone')
+        ? copyPortfolioS(id)
+        : copyPortfolio(id)
     ).then(({ id }) =>
       history.push({
         pathname: PORTFOLIO_ROUTE,
@@ -223,7 +225,7 @@ const Portfolios = () => {
           handleSort={handleSort}
           fetchPortfoliosWithState={
             // eslint-disable-next-line no-undef
-            window.catalog?.standalone
+            localStorage.getItem('catalog_standalone')
               ? fetchPortfoliosWithStateS
               : fetchPortfoliosWithState
           }
@@ -246,7 +248,7 @@ const Portfolios = () => {
             apiRequest={(_, options) =>
               dispatch(
                 // eslint-disable-next-line no-undef
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? fetchPortfoliosWithStateS(filters, options)
                   : fetchPortfoliosWithState(filters, options)
               )

@@ -88,7 +88,7 @@ const PortfolioItemDetail = () => {
     }
 
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? getPortfolioItemDetailS({
             portfolioItem: queryValues['portfolio-item'],
             ...queryValues
@@ -117,7 +117,7 @@ const PortfolioItemDetail = () => {
     );
   }
 
-  const availability = window.catalog?.standalone
+  const availability = localStorage.getItem('catalog_standalone')
     ? 'available'
     : portfolioItemData?.source?.availability_status || 'unavailable';
   let unavailable = [];
@@ -139,7 +139,7 @@ const PortfolioItemDetail = () => {
   }
 
   const uploadIcon = (file) => {
-    return (window.catalog?.standalone
+    return (localStorage.getItem('catalog_standalone')
       ? uploadPortfolioItemIconS({
           portfolioItemId: portfolioItemData?.portfolioItem?.id,
           file
@@ -152,7 +152,7 @@ const PortfolioItemDetail = () => {
   };
 
   const resetIcon = () =>
-    (window.catalog?.standalone
+    (localStorage.getItem('catalog_standalone')
       ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.icon_id)
       : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id)
     ).then(fetchData);
@@ -163,7 +163,7 @@ const PortfolioItemDetail = () => {
     `${url}/edit-workflow`,
     PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE
   ];
-  const SurveyEditorComponent = window.catalog?.standalone
+  const SurveyEditorComponent = localStorage.getItem('catalog_standalone')
     ? SurveyEditorS
     : SurveyEditor;
   return (
@@ -197,7 +197,7 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={availability}
               userCapabilities={
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? USER_CAPABILITIES_PLACEHOLDER
                   : portfolioItemData?.portfolioItem?.metadata
                       ?.user_capabilities
@@ -218,38 +218,40 @@ const PortfolioItemDetail = () => {
                 title={formatMessage(portfolioMessages.sourceUnavaiable)}
               />
             )}
-            <Grid hasGutter className="pf-u-p-lg">
-              <Route path={detailPaths} exact>
-                <GridItem md={3} lg={2}>
-                  <ItemDetailInfoBar
+            <Section type="content">
+              <Grid hasGutter className="pf-u-p-lg">
+                <Route path={detailPaths} exact>
+                  <GridItem md={3} lg={2}>
+                    <ItemDetailInfoBar
+                      product={portfolioItemData.portfolioItem}
+                      portfolio={portfolio}
+                      source={
+                        localStorage.getItem('catalog_standalone')
+                          ? '1'
+                          : portfolioItemData.source
+                      }
+                    />
+                  </GridItem>
+                </Route>
+                <GridItem
+                  md={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 9}
+                  lg={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 10}
+                >
+                  <ItemDetailDescription
+                    resetIcon={resetIcon}
+                    uploadIcon={uploadIcon}
                     product={portfolioItemData.portfolioItem}
-                    portfolio={portfolio}
-                    source={
-                      window.catalog?.standalone
-                        ? '1'
-                        : portfolioItemData.source
+                    userCapabilities={
+                      portfolioItemData?.portfolioItem?.metadata
+                        ?.user_capabilities
                     }
+                    url={url}
+                    detailPaths={detailPaths}
+                    search={search}
                   />
                 </GridItem>
-              </Route>
-              <GridItem
-                md={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 9}
-                lg={pathname === PORTFOLIO_ITEM_ROUTE_EDIT ? 12 : 10}
-              >
-                <ItemDetailDescription
-                  resetIcon={resetIcon}
-                  uploadIcon={uploadIcon}
-                  product={portfolioItemData.portfolioItem}
-                  userCapabilities={
-                    portfolioItemData?.portfolioItem?.metadata
-                      ?.user_capabilities
-                  }
-                  url={url}
-                  detailPaths={detailPaths}
-                  search={search}
-                />
-              </GridItem>
-            </Grid>
+              </Grid>
+            </Section>
           </Section>
         </Route>
       </Switch>

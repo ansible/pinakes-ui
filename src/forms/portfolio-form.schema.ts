@@ -8,7 +8,7 @@ import { fetchPortfolioByName as fetchPortfolioByNameS } from '../helpers/portfo
 import { AnyObject } from '../types/common-types';
 
 export const validateName = (name: string, portfolioId: string) => {
-  if (window.catalog?.standalone) {
+  if (localStorage.getItem('catalog_standalone')) {
     fetchPortfolioByNameS(name).then(({ results }) => {
       if (!name || name.trim().length === 0) {
         throw 'Required';

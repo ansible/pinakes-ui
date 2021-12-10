@@ -31,6 +31,7 @@ import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail as OrderDetailType } from '../../../redux/reducers/order-reducer';
 import { GetOrderDetailParams } from '../../../helpers/order/order-helper';
 import { ORDER_ROUTE } from '../../../constants/routes';
+import { Section } from '@redhat-cloud-services/frontend-components/Section';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -65,10 +66,12 @@ const OrderDetail: React.ComponentType = () => {
     setIsFetching(true);
     Promise.all([
       dispatch(
-        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+        localStorage.getItem('catalog_standalone')
+          ? fetchPlatformsS()
+          : fetchPlatforms()
       ),
       dispatch(
-        window.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? fetchOrderDetailsS(queryValues)
           : fetchOrderDetails(queryValues)
       )
@@ -167,7 +170,7 @@ const OrderDetail: React.ComponentType = () => {
           <StackItem className="global-primary-background">
             <OrderDetailMenu isFetching={isFetching} baseUrl={ORDER_ROUTE} />
           </StackItem>
-          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg">
+          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg pf-u-mt-0 pf-u-pt-0">
             {isFetching ? (
               <Bullseye>
                 <Spinner />

@@ -207,7 +207,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
   };
-  const user_capabilities = window.catalog?.standalone
+  const user_capabilities = localStorage.getItem('catalog_standalone')
     ? USER_CAPABILITIES_PLACEHOLDER
     : metadata?.user_capabilities || {};
   const statistics = metadata?.statistics || {};

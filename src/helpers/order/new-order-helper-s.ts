@@ -74,7 +74,9 @@ export const fetchOrderDetailSequence = async (
 ): Promise<OrderDetailPayload> => {
   let order: Order;
   try {
-    order = await axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}/?extra=true`);
+    order = await axiosInstance.get(
+      `${CATALOG_API_BASE}/orders/${orderId}/?extra=true`
+    );
   } catch (error) {
     order = {};
     // @ts-ignore

@@ -28,7 +28,7 @@ export const getOrderPortfolioName = (
   order: OrderDetail,
   portfolioItems: PortfolioItem[]
 ): string =>
-  window.catalog?.standalone
+  localStorage.getItem('catalog_standalone')
     ? getSOrderPortfolioName(order)
     : getIOrderPortfolioName(order, portfolioItems);
 
@@ -74,6 +74,6 @@ export const getOrderPlatformId = (
   orderPlatform?: string;
   orderPortfolio?: string;
 } =>
-  window.catalog?.standalone
+  localStorage.getItem('catalog_standalone')
     ? getSOrderPlatformId(order)
     : getIOrderPlatformId(order, portfolioItems);

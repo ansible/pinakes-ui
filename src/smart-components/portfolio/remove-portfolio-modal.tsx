@@ -43,7 +43,7 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
     CatalogRootState,
     InternalPortfolio | undefined
   >(({ portfolioReducer }) =>
-    window.catalog?.standalone
+    localStorage.getItem('catalog_standalone')
       ? getPortfolioFromStateS(portfolioReducer, portfolioId)
       : getPortfolioFromState(portfolioReducer, portfolioId)
   );
@@ -51,7 +51,7 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
   const onSubmit = () => {
     push(PORTFOLIOS_ROUTE);
     return dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? removePortfolioS(portfolioId, viewState)
         : removePortfolio(portfolioId, viewState)
     );

@@ -19,6 +19,7 @@ import {
   fetchServicePlans as fetchServicePlansS,
   sendSubmitOrder as sendSubmitOrderS
 } from '../../redux/actions/order-actions-s';
+import { PortfolioItem as PortfolioItemS } from '../../helpers/order/new-order-helper-s';
 import { ServicePlan as ServicePlanS } from '../../helpers/order/service-plan-helper-s';
 import SpinnerWrapper from '../../presentational-components/styled-components/spinner-wrapper';
 import useQuery from '../../utilities/use-query';
@@ -61,7 +62,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
 
   useEffect(() => {
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? (fetchServicePlansS(portfolioItemId) as Promise<
             AsyncMiddlewareAction<ApiCollectionResponseS<ServicePlanS[]>>
           >)
@@ -78,14 +79,15 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     });
 
   const onSubmit = (data: ServicePlan) => {
+    console.log('Debug - onSubmit portfolioItem, data', portfolioItem, data);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? sendSubmitOrderS(
             {
               portfolio_item_id: portfolioItem.id,
               service_parameters: data
             },
-            portfolioItem as Full<PortfolioItem>
+            portfolioItem as Full<PortfolioItemS>
           )
         : sendSubmitOrder(
             {

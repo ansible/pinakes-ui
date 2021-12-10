@@ -52,7 +52,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     InternalPortfolio | undefined
   >(({ portfolioReducer }) =>
     // eslint-disable-next-line no-undef
-    window.catalog?.standalone
+    localStorage.getItem('catalog_standalone')
       ? (getPortfolioFromStateS(portfolioReducer, portfolioId) as
           | InternalPortfolio
           | undefined)
@@ -72,7 +72,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
       })
     };
     const newPortfolio = await dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? (addPortfolioS(data, notification) as Promise<{ value: Portfolio }>)
         : (addPortfolio(data, notification) as Promise<{ value: Portfolio }>)
     );
@@ -91,7 +91,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
        */
       setIsOpen(false);
       return dispatch(
-        (window.catalog?.standalone
+        (localStorage.getItem('catalog_standalone')
           ? updatePortfolioS(data, viewState)
           : (updatePortfolio(data, viewState) as unknown)) as Promise<void>
       ).then(() =>

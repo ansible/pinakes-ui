@@ -48,7 +48,7 @@ const EditPortfolioItem = ({
               search
             });
             return dispatch(
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? updatePortfolioItemS({
                     ...values,
                     metadata: { user_capabilities: userCapabilities }

@@ -116,7 +116,7 @@ const PortfolioRoutes: React.ComponentType = () => {
   useEffect(() => {
     if (id && (!selectedPortfolio?.id || id !== selectedPortfolio.id)) {
       dispatch(
-        window.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? setOrFetchPortfolioS(id, portfolios)
           : setOrFetchPortfolio(id, portfolios)
       );
@@ -177,7 +177,7 @@ const PortfolioRoutes: React.ComponentType = () => {
             removeSearch
             keepHash
             postMethod={() =>
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? fetchPortfoliosS()
                 : fetchPortfolios()
             }

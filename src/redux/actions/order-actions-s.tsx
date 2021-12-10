@@ -10,15 +10,14 @@ import {
   OrderItem,
   OrderStateEnum,
   Portfolio,
-  PortfolioItem,
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
+import { PortfolioItem } from '../../helpers/order/new-order-helper-s';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { Dispatch } from 'redux';
 import { Full, StringObject, ReduxAction } from '../../types/common-types';
 import { ApiCollectionResponse } from '../../types/common-types-s';
 import { AsyncMiddlewareAction, GetReduxState } from '../../types/redux';
-import { Source } from '@redhat-cloud-services/sources-client';
 import {
   ObjectNotFound,
   ProgressMessageItem
@@ -61,7 +60,7 @@ export const sendSubmitOrder = (
                 id={id!}
                 dispatch={dispatch}
                 portfolioItemId={portfolioItem.id}
-                portfolioId={portfolioItem.portfolio_id}
+                portfolioId={portfolioItem.portfolio}
                 platformId={portfolioItem.service_offering_source_ref}
                 orderItemId={orderItem.id!}
               />

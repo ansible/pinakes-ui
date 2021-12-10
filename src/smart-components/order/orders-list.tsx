@@ -67,7 +67,7 @@ const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
     filteringCallback(true);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchOrdersS(filters, meta)
         : fetchOrders(filters, meta)
     ).then(() => filteringCallback(false));
@@ -159,8 +159,10 @@ const OrdersList: React.ComponentType = () => {
     ApiCollectionResponse<OrderDetail>
   >(({ orderReducer }) => orderReducer.orders);
 
-  const data = window.catalog?.standalone ? orders.results : orders.data;
-  const meta = window.catalog?.standalone
+  const data = localStorage.getItem('catalog_standalone')
+    ? orders.results
+    : orders.data;
+  const meta = localStorage.getItem('catalog_standalone')
     ? // @ts-ignore
       { count: orders.count, noData: false }
     : orders.meta;
@@ -189,7 +191,7 @@ const OrdersList: React.ComponentType = () => {
     CatalogRootState,
     ApiCollectionResponse<PortfolioItem>
   >(({ portfolioReducer }) => portfolioReducer.portfolioItems);
-  const portfolioItems = window.catalog?.standalone
+  const portfolioItems = localStorage.getItem('catalog_standalone')
     ? portfolioItemsResults.results
     : portfolioItemsResults.data;
 
@@ -199,7 +201,7 @@ const OrdersList: React.ComponentType = () => {
       payload: { index, direction }
     });
     return ((dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchOrdersS(filters, {
             ...meta,
             sortBy: sortIndexMapper[index as keyof typeof sortIndexMapper],
@@ -235,12 +237,14 @@ const OrdersList: React.ComponentType = () => {
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.all([
       dispatch(
-        window.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? fetchOrdersS(filters, viewState?.orders)
           : fetchOrders(filters, viewState?.orders)
       ),
       dispatch(
-        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+        localStorage.getItem('catalog_standalone')
+          ? fetchPlatformsS()
+          : fetchPlatforms()
       )
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
@@ -251,7 +255,7 @@ const OrdersList: React.ComponentType = () => {
   ) => {
     stateDispatch({ type: 'setFetching', payload: true });
     return ((dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchOrdersS(filters, {
             ...pagination,
             sortBy:
