@@ -40,6 +40,9 @@ const OrderDetails: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const dispatch = useDispatch();
+  const messages = window.catalog?.standalone
+    ? progressMessages?.results
+    : progressMessages?.data;
   return (
     <Grid hasGutter>
       <GridItem md={12} lg={6} xl={4}>
@@ -107,9 +110,7 @@ const OrderDetails: React.ComponentType = () => {
                 {formatMessage(ordersMessages.orderProgressMessages)}
               </Text>
             </TextContent>
-            {progressMessages?.data && (
-              <ReactJsonView src={progressMessages.data} />
-            )}
+            {messages && <ReactJsonView src={messages} />}
           </CardBody>
         </Card>
       </GridItem>

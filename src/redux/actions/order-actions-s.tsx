@@ -171,17 +171,26 @@ export const fetchOrderDetails = (params: GetOrderDetailParams) => (
   dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
   // @ts-ignore
   return OrderHelper.getOrderDetail(params)
-    .then(([order, orderItem, portfolioItem, progressMessages, portfolio]) =>
-      dispatch({
-        type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`,
-        payload: {
-          order,
-          orderItem,
-          portfolioItem,
-          progressMessages,
-          portfolio
-        }
-      })
+    .then(
+      ([
+        order,
+        orderItem,
+        portfolioItem,
+        platform,
+        progressMessages,
+        portfolio
+      ]) =>
+        dispatch({
+          type: `${ActionTypes.SET_ORDER_DETAIL}_FULFILLED`,
+          payload: {
+            order,
+            orderItem,
+            portfolioItem,
+            platform,
+            progressMessages,
+            portfolio
+          }
+        })
     )
     .catch((error) =>
       dispatch({

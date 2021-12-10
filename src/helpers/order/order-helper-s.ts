@@ -107,78 +107,7 @@ export const getOrderDetail = (
   params: GetOrderDetailParams
 ): Promise<OrderDetailPayload> => {
   console.log('Debug - getOrderDetail - params: ', params);
-  if (Object.values(params).some((value) => !value)) {
-    /**
-     * Try to fetch data sequentially if any of the parameters is unknown
-     */
-    return fetchOrderDetailSequence(params.order);
-  }
-
-  const detailPromises = [
-    (axiosInstance
-      .get(`${CATALOG_API_BASE}/orders/${params.order}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return catalogHistory.replace({
-            pathname: '/404',
-            state: { from: catalogHistory.location }
-          });
-        }
-
-        throw error;
-      }) as unknown) as Promise<Order>,
-    axiosInstance
-      .get(
-        `${CATALOG_API_BASE}/orders/${params.order}/order_items/${params['order-item']}/`
-      )
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Order item',
-            notFound: true
-          };
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolio_items/${params['portfolio-item']}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Product',
-            notFound: true
-          };
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/orders/${params.order}/progress_messages/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {};
-        }
-
-        throw error;
-      }),
-    axiosInstance
-      .get(`${CATALOG_API_BASE}/portfolios/${params.portfolio}/`)
-      .catch((error) => {
-        if (error.status === 404 || error.status === 400) {
-          return {
-            object: 'Portfolio',
-            notFound: true
-          };
-        }
-
-        throw error;
-      })
-  ];
-
-  return (Promise.all(detailPromises) as unknown) as Promise<
-    OrderDetailPayload
-  >;
+  return fetchOrderDetailSequence(params.order);
 };
 
 export interface RequestTranscript extends Full<Request> {

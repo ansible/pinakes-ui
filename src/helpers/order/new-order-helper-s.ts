@@ -1,7 +1,6 @@
 // TODO migrate whole order-helper.js to TS
 import catalogHistory from '../../routing/catalog-history';
 import {
-  Order,
   Portfolio,
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
@@ -12,12 +11,24 @@ import {
   CATALOG_INVENTORY_API_BASE
 } from '../../utilities/constants';
 import { OrderItem } from './order-helper-s';
+import { OrderStateEnum } from '@redhat-cloud-services/catalog-client/dist/api';
 const axiosInstance = getAxiosInstance();
 
 export interface ObjectNotFound {
   object: 'Order item' | 'Product' | 'Portfolio' | 'Messages' | 'Platform';
   notFound: boolean;
 }
+export interface Order {
+  id?: string;
+  user_id?: string;
+  state?: OrderStateEnum;
+  created_at?: string;
+  order_request_sent_at?: string | null;
+  completed_at?: string;
+  owner?: string;
+  extra_data?: any;
+}
+
 export interface PortfolioItem {
   id?: string;
   favorite?: boolean;
@@ -63,7 +74,7 @@ export const fetchOrderDetailSequence = async (
 ): Promise<OrderDetailPayload> => {
   let order: Order;
   try {
-    order = await axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}/`);
+    order = await axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}/?extra=true`);
   } catch (error) {
     order = {};
     // @ts-ignore
@@ -77,32 +88,17 @@ export const fetchOrderDetailSequence = async (
     }
   }
 
-  let orderItem: OrderItem | ObjectNotFound = {
-    object: 'Order item',
-    notFound: true
-  };
-  try {
-    const orderItems = await axiosInstance.get(
-      `${CATALOG_API_BASE}/orders/${order.id}/order_items/`
-    );
-    orderItem = orderItems.results[0];
-  } catch (_error) {
-    // no handler
-  }
-
+  console.log('Debug fetchOrderDetailSequence - order: ', order);
+  const orderItems = order?.extra_data?.order_items;
+  const orderItem = orderItems[0];
+  console.log('Debug fetchOrderDetailSequence - order: ', order);
   let portfolioItem: PortfolioItem | ObjectNotFound = {
     object: 'Product',
     notFound: true
   };
 
-  try {
-    portfolioItem = await axiosInstance.get(
-      `${CATALOG_API_BASE}/portfolio_items/${
-        (orderItem as OrderItem).portfolio_item
-      }`
-    );
-  } catch (_error) {
-    // nohandler
+  if (orderItem) {
+    portfolioItem = orderItem.extra_data?.portfolio_item;
   }
 
   const parallerRequests = [

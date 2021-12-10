@@ -7,7 +7,7 @@ export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>
   orderItems[0] &&
   `${CATALOG_API_BASE}/portfolio_items/${orderItems[0].portfolio_item_id}/icon`;
 
-export const getOrderPortfolioName = (
+const getIOrderPortfolioName = (
   { orderItems, id }: OrderDetail,
   portfolioItems: PortfolioItem[]
 ): string => {
@@ -16,6 +16,21 @@ export const getOrderPortfolioName = (
     portfolioItems.find(({ id }) => orderItems[0].portfolio_item_id === id);
   return portfolioItem ? portfolioItem.name : `Order ${id}`;
 };
+
+const getSOrderPortfolioName = (order: OrderDetail): string => {
+  console.log('Debug getSOrderPortfolioName - order: ', order);
+  const orderItem = order?.extra_data?.order_items[0];
+  const portfolioItem = orderItem?.extra_data.portfolio_item;
+  return portfolioItem ? portfolioItem.name : `Order ${order.id}`;
+};
+
+export const getOrderPortfolioName = (
+  order: OrderDetail,
+  portfolioItems: PortfolioItem[]
+): string =>
+  window.catalog?.standalone
+    ? getSOrderPortfolioName(order)
+    : getIOrderPortfolioName(order, portfolioItems);
 
 const getIOrderPlatformId = (
   { orderItems }: OrderDetail,
@@ -41,8 +56,8 @@ const getSOrderPlatformId = (
   orderPlatform?: string;
   orderPortfolio?: string;
 } => {
-  console.log('Debug - order: ', order);
-  const orderItem = order?.extra_data?.orderItems[0];
+  console.log('Debug getSOrderPlatformId - order: ', order);
+  const orderItem = order?.extra_data?.order_items[0];
   const portfolioItem = orderItem?.extra_data.portfolio_item;
   return portfolioItem
     ? {
