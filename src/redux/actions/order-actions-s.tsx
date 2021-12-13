@@ -135,11 +135,7 @@ export const fetchOrders = (
 
   dispatch({ type: `${ActionTypes.FETCH_ORDERS}_PENDING` });
   return OrderHelper.getOrders(queryFilter, pagination)
-    .then(({ portfolioItems, ...orders }) => {
-      dispatch({
-        type: ActionTypes.SET_PORTFOLIO_ITEMS,
-        payload: portfolioItems
-      });
+    .then(({ ...orders }) => {
       return dispatch({
         type: `${ActionTypes.FETCH_ORDERS}_FULFILLED`,
         meta: {
@@ -174,6 +170,7 @@ export const fetchOrderDetails = (params: GetOrderDetailParams) => (
   };
 }> => {
   dispatch({ type: `${ActionTypes.SET_ORDER_DETAIL}_PENDING` });
+  // @ts-ignore
   return OrderHelper.getOrderDetail(params)
     .then(
       ([
@@ -243,6 +240,7 @@ export const fetchOrderProvision = (orderId: string) => (
   };
 }> => {
   dispatch({ type: `${ActionTypes.SET_ORDER_PROVISION_ITEMS}_PENDING` });
+  // @ts-ignore
   return OrderHelper.getOrderProvisionItems(orderId)
     .then(({ orderItems, progressMessageItems }) =>
       dispatch({

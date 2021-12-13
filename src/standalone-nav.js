@@ -27,10 +27,9 @@ import { Routes, Paths } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
-import AppContext from './app-context';
 import Logo from './assets/images/logo-large.svg';
 import { Fragment, useEffect, useState } from 'react';
-import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/esm/NotificationPortal';
+import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
@@ -87,26 +86,6 @@ const App = (props) => {
     );
     return some(items, 'active');
   };
-
-  const ctx = (component) => {
-    return (
-      <AppContext.Provider
-        value={{
-          user,
-          setUser
-        }}
-      >
-        {component}
-      </AppContext.Provider>
-    );
-  };
-
-  useEffect(() => {
-    window.catalog = {
-      ...window.catalog,
-      token
-    };
-  }, [token]);
 
   useEffect(() => {
     const activeMenu = menu();
@@ -285,37 +264,6 @@ const App = (props) => {
       />
     </Fragment>
   );
-  // Hide navs on login page
-  if (location?.pathname === Paths.login) {
-    return (
-      <UserContext.Provider
-        value={{
-          permissions: [
-            { permission: 'catalog:portfolios:create' },
-            { permission: 'catalog:portfolios:update' },
-            { permission: 'catalog:portfolios:remove' },
-            { permission: 'catalog:portfolio_items:create' },
-            { permission: 'catalog:portfolio_items:update' },
-            { permission: 'catalog:portfolio_items:remove' }
-          ],
-          userIdentity: { identity: { user: { is_org_admin: true } } },
-          openApiSchema: {},
-          standalone: true
-        }}
-      >
-        <Fragment>
-          <NotificationsPortal />
-          <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
-            <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-              <GridItem sm={12} className="content-layout">
-                <Routes />
-              </GridItem>
-            </Grid>
-          </section>
-        </Fragment>
-      </UserContext.Provider>
-    );
-  }
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
@@ -329,6 +277,7 @@ const App = (props) => {
             standalone: true
           }}
         >
+          <NotificationsPortal />
           <div style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <Routes />
           </div>

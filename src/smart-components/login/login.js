@@ -32,7 +32,7 @@ const LoginPage = (props) => {
     const token = Buffer.from(`${userName}:${password}`, 'utf8').toString(
       'base64'
     );
-    window.catalog.token = token;
+    localStorage.setItem('catalog-token', token);
     event.preventDefault();
     return history.push('/catalog/portfolios');
   };

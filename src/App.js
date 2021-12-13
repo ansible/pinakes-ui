@@ -36,6 +36,7 @@ const App = () => {
   const [userPermissions, setUserPermissions] = useState();
   const [userIdentity, setUserIdentity] = useState({ identity: {} });
   const [openApiSchema, setOpenApiSchema] = useState();
+  const [user, setUser] = useState();
   const dispatch = useDispatch();
   const i18l = useIntl();
   const history = useHistory();
@@ -95,7 +96,13 @@ const App = () => {
 
   return (
     <UserContext.Provider
-      value={{ permissions: userPermissions, userIdentity, openApiSchema }}
+      value={{
+        permissions: userPermissions,
+        userIdentity,
+        openApiSchema,
+        user,
+        setUser
+      }}
     >
       <Fragment>
         <NotificationsPortal />

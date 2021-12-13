@@ -114,8 +114,8 @@ const Portfolios = () => {
   const portfolios = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
-  const meta = portfolios.meta || { count: portfolios.count };
-  const data = portfolios.data || portfolios.results;
+  const meta = portfolios?.meta || { count: portfolios?.count };
+  const data = portfolios?.data || portfolios?.results;
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
   const history = useHistory();

@@ -34,6 +34,8 @@ global.React = React;
  * setup ENV vars
  */
 process.env.BASE_PATH = '/api';
+// eslint-disable-next-line no-undef
+global.DEPLOYMENT_MODE = 'insights';
 
 /**
  * Setup JSDOM

@@ -2,8 +2,6 @@
 import catalogHistory from '../../routing/catalog-history';
 import {
   Order,
-  OrderItem,
-  PortfolioItem,
   Portfolio,
   ProgressMessage
 } from '@redhat-cloud-services/catalog-client';
@@ -13,11 +11,32 @@ import {
   CATALOG_API_BASE,
   CATALOG_INVENTORY_API_BASE
 } from '../../utilities/constants';
+import { OrderItem } from './order-helper-s';
 const axiosInstance = getAxiosInstance();
 
 export interface ObjectNotFound {
   object: 'Order item' | 'Product' | 'Portfolio' | 'Messages' | 'Platform';
   notFound: boolean;
+}
+export interface PortfolioItem {
+  id?: string;
+  favorite?: boolean;
+  name?: string;
+  description?: string | null;
+  orphan?: boolean;
+  state?: string;
+  long_description?: string | null;
+  distributor?: string | null;
+  documentation_url?: string | null;
+  support_url?: string | null;
+  owner?: string;
+  service_offering_source_ref?: string;
+  service_offering_type?: string;
+  portfolio?: string;
+  icon_url?: string;
+  created_at?: string;
+  updated_at?: string;
+  metadata?: any;
 }
 
 export type OrderDetailPayload = [
@@ -44,7 +63,7 @@ export const fetchOrderDetailSequence = async (
 ): Promise<OrderDetailPayload> => {
   let order: Order;
   try {
-    order = await axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}`);
+    order = await axiosInstance.get(`${CATALOG_API_BASE}/orders/${orderId}/`);
   } catch (error) {
     order = {};
     // @ts-ignore
@@ -64,9 +83,9 @@ export const fetchOrderDetailSequence = async (
   };
   try {
     const orderItems = await axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items?order_id=${order.id}`
+      `${CATALOG_API_BASE}/order_items?order=${order.id}`
     );
-    orderItem = orderItems.data[0];
+    orderItem = orderItems.results[0];
   } catch (_error) {
     // no handler
   }
@@ -79,7 +98,7 @@ export const fetchOrderDetailSequence = async (
   try {
     portfolioItem = await axiosInstance.get(
       `${CATALOG_API_BASE}/portfolio_items/${
-        (orderItem as OrderItem).portfolio_item_id
+        (orderItem as OrderItem).portfolio_item
       }`
     );
   } catch (_error) {
@@ -99,13 +118,13 @@ export const fetchOrderDetailSequence = async (
       .get(
         `${CATALOG_API_BASE}/order_items/${
           (orderItem as OrderItem).id
-        }/progress_messages`
+        }/progress_messages/`
       )
       .catch(() => ({ object: 'Messages', notFound: true })),
     axiosInstance
       .get(
         `${CATALOG_API_BASE}/portfolios/${
-          (portfolioItem as PortfolioItem).portfolio_id
+          (portfolioItem as PortfolioItem).portfolio
         }`
       )
       .catch(() => ({ object: 'Portfolio', notFound: true }))
@@ -148,7 +167,7 @@ export const fetchOrderProvisionItems = async (
   const progressMessageItems: ProgressMessageItem[] = [];
   const promises = orderItems.map((orderItem) =>
     axiosInstance
-      .get(`${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages`)
+      .get(`${CATALOG_API_BASE}/order_items/${orderItem.id}/progress_messages/`)
       .then((item) => {
         progressMessageItems.push({
           orderItemId: orderItem.id || '',

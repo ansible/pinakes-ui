@@ -6,6 +6,7 @@ import Router from './AppStandalone';
 
 const AppEntry = () => {
   console.log('%c Catalog UI started in standalone mode', 'color: blue');
+  window.catalog = { standalone: true };
   return (
     <Provider store={store(true)}>
       <IntlProvider locale="en">

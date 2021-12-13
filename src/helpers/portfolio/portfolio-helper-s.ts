@@ -240,7 +240,7 @@ export const uploadPortfolioItemIcon = (portfolioItemData: {
   portfolioItemId: string;
 }): Promise<void> | undefined => {
   const data = new FormData();
-  data.append('icon', portfolioItemData.file);
+  data.append('file', portfolioItemData.file);
   data.append('name', portfolioItemData.file.name);
   data.append('source_ref', '1');
   if (portfolioItemData) {

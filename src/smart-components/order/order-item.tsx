@@ -21,12 +21,12 @@ const createOrderItem = (
   orderPortfolio: string | undefined,
   formatMessage: FormatMessage
 ): { title: ReactNode }[] => {
-  const orderItem = (item.orderItems[0] && item.orderItems[0]) || {};
+  const orderItem = item;
   const searchParams: StringObject = {
     order: item.id,
     ...(orderItem.id ? { 'order-item': orderItem.id } : {}),
-    ...(orderItem.portfolio_item_id
-      ? { 'portfolio-item': orderItem.portfolio_item_id }
+    ...(orderItem.portfolio_item
+      ? { 'portfolio-item': orderItem.portfolio_item }
       : {}),
     ...(orderPlatform ? { platform: orderPlatform } : {}),
     ...(orderPortfolio ? { portfolio: orderPortfolio } : {})
@@ -66,7 +66,11 @@ const createOrderItem = (
       title: (
         <Text className="pf-u-mb-0" component={TextVariants.small}>
           <DateFormat
-            date={item.orderItems[0] && item.orderItems[0].updated_at}
+            date={
+              item?.orderItems &&
+              item.orderItems[0] &&
+              item.orderItems[0].updated_at
+            }
             variant="relative"
           />
         </Text>
