@@ -89,11 +89,8 @@ export const fetchOrderDetailSequence = async (
       throw error;
     }
   }
-
-  console.log('Debug fetchOrderDetailSequence - order: ', order);
   const orderItems = order?.extra_data?.order_items;
   const orderItem = orderItems[0];
-  console.log('Debug fetchOrderDetailSequence - order: ', order);
   let portfolioItem: PortfolioItem | ObjectNotFound = {
     object: 'Product',
     notFound: true

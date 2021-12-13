@@ -18,7 +18,6 @@ const getIOrderPortfolioName = (
 };
 
 const getSOrderPortfolioName = (order: OrderDetail): string => {
-  console.log('Debug getSOrderPortfolioName - order: ', order);
   const orderItem = order?.extra_data?.order_items[0];
   const portfolioItem = orderItem?.extra_data.portfolio_item;
   return portfolioItem ? portfolioItem.name : `Order ${order.id}`;
@@ -56,7 +55,6 @@ const getSOrderPlatformId = (
   orderPlatform?: string;
   orderPortfolio?: string;
 } => {
-  console.log('Debug getSOrderPlatformId - order: ', order);
   const orderItem = order?.extra_data?.order_items[0];
   const portfolioItem = orderItem?.extra_data.portfolio_item;
   return portfolioItem

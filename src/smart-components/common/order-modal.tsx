@@ -79,7 +79,6 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     });
 
   const onSubmit = (data: ServicePlan) => {
-    console.log('Debug - onSubmit portfolioItem, data', portfolioItem, data);
     dispatch(
       localStorage.getItem('catalog_standalone')
         ? sendSubmitOrderS(

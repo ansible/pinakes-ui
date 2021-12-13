@@ -106,7 +106,6 @@ export const getOrders = (
 export const getOrderDetail = (
   params: GetOrderDetailParams
 ): Promise<OrderDetailPayload> => {
-  console.log('Debug - getOrderDetail - params: ', params);
   return fetchOrderDetailSequence(params.order);
 };
 
