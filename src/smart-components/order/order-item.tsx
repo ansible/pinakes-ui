@@ -14,6 +14,19 @@ import { TableText } from '@patternfly/react-table';
 import orderStatusMapper from './order-status-mapper';
 import { OrderDetail } from '../../redux/reducers/order-reducer';
 import { FormatMessage, StringObject } from '../../types/common-types';
+import { OrderItem } from '../../helpers/order/order-helper-s';
+
+const firstOrderItem = (order: OrderDetail): OrderItem => {
+  let orderItem = { count: 0, portfolio_item: '' };
+  if (localStorage.getItem('Catalog_standalone')) {
+    orderItem =
+      (order?.extra_data?.order_items && order?.extra_data?.order_items[0]) ||
+      {};
+  } else {
+    orderItem = (order?.orderItems && order.orderItems[0]) || {};
+  }
+  return orderItem;
+};
 
 const createOrderItem = (
   item: OrderDetail,
@@ -21,7 +34,7 @@ const createOrderItem = (
   orderPortfolio: string | undefined,
   formatMessage: FormatMessage
 ): { title: ReactNode }[] => {
-  const orderItem = item;
+  const orderItem = firstOrderItem(item);
   const searchParams: StringObject = {
     order: item.id,
     ...(orderItem.id ? { 'order-item': orderItem.id } : {}),

@@ -69,7 +69,7 @@ export const orderInitialState: OrderReducerState = {
   requests: [],
   orderDetail: {
     order: {} as Full<Order>,
-    portfolioItem: {} as Full<PortfolioItem>,
+    portfolioItem: {} as Full<InternalPortfolioItem>,
     platform: {} as Full<Source>,
     portfolio: {} as Full<Portfolio>
   },

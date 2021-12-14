@@ -31,7 +31,6 @@ import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail as OrderDetailType } from '../../../redux/reducers/order-reducer';
 import { GetOrderDetailParams } from '../../../helpers/order/order-helper';
 import { ORDER_ROUTE } from '../../../constants/routes';
-import { Section } from '@redhat-cloud-services/frontend-components/Section';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -114,6 +113,7 @@ const OrderDetail: React.ComponentType = () => {
   };
 
   const unavailableMessages = unAvailable();
+  // @ts-ignore
   return (
     <Stack>
       <StackItem className="pf-u-p-lg global-primary-background">
@@ -148,6 +148,7 @@ const OrderDetail: React.ComponentType = () => {
                       portfolioId={portfolio.id}
                       sourceId={platform.id}
                       orderable={portfolioItem.metadata?.orderable || false}
+                      icon_url={portfolioItem.icon_url}
                     />
                   </LevelItem>
                 </Fragment>
@@ -160,6 +161,7 @@ const OrderDetail: React.ComponentType = () => {
                 sourceId={platform.id}
                 jobName={portfolioItem.name}
                 state={order.state}
+                icon_url={portfolioItem.icon_url}
               />
             )}
           </Fragment>

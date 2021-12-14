@@ -1,8 +1,7 @@
 import {
   Order,
   OrderItem,
-  Portfolio,
-  PortfolioItem
+  Portfolio
 } from '@redhat-cloud-services/catalog-client';
 import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
@@ -89,6 +88,28 @@ export interface UserCapabilities {
   update?: boolean;
   destroy?: boolean;
   set_approval?: boolean;
+}
+
+export interface PortfolioItem {
+  id?: string;
+  favorite?: boolean;
+  name?: string;
+  description?: string | null;
+  orphan?: boolean;
+  state?: string;
+  long_description?: string | null;
+  distributor?: string | null;
+  documentation_url?: string | null;
+  support_url?: string | null;
+  owner?: string;
+  service_offering_source_ref?: string;
+  service_offering_type?: string;
+  portfolio_id?: string;
+  icon_id?: string;
+  created_at?: string;
+  updated_at?: string;
+  metadata?: any;
+  icon_url?: string;
 }
 
 export interface PortfolioStatistics {

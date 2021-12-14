@@ -23,6 +23,7 @@ export interface OrderToolbarActions {
   portfolioId: string;
   sourceId: string;
   orderable: boolean;
+  icon_url: string;
 }
 const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
   state,
@@ -31,7 +32,8 @@ const OrderToolbarActions: React.ComponentType<OrderToolbarActions> = ({
   portfolioItemId,
   portfolioId,
   sourceId,
-  orderable = false
+  orderable = false,
+  icon_url
 }) => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();

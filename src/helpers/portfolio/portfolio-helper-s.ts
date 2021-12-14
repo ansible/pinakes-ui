@@ -230,13 +230,15 @@ export const copyPortfolioItem = (
 
 export const resetPortfolioItemIcon = (
   portfolioItemId: string
-): AxiosPromise<void> =>
-  axiosInstance.delete(
+): AxiosPromise<void> => {
+  return axiosInstance.delete(
     `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon/`
   );
+};
 
 export const uploadPortfolioItemIcon = (portfolioItemData: {
   file: any;
+  icon_url: string;
   portfolioItemId: string;
 }): Promise<void> | undefined => {
   const data = new FormData();
@@ -244,18 +246,33 @@ export const uploadPortfolioItemIcon = (portfolioItemData: {
   data.append('name', portfolioItemData.file.name);
   data.append('source_ref', '1');
   if (portfolioItemData) {
-    return axiosInstance.post(
-      `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,
-      data,
-      {
-        headers: {
-          accept: 'application/json',
-          'Content-Type': `multipart/form-data; boundary=${
-            (data as AnyObject)._boundary
-          }`
+    if (portfolioItemData?.icon_url && portfolioItemData.icon_url.length > 0) {
+      return axiosInstance.patch(
+        `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,
+        data,
+        {
+          headers: {
+            accept: 'application/json',
+            'Content-Type': `multipart/form-data; boundary=${
+              (data as AnyObject)._boundary
+            }`
+          }
         }
-      }
-    );
+      );
+    } else {
+      return axiosInstance.post(
+        `${CATALOG_API_BASE}/portfolio_items/${portfolioItemData.portfolioItemId}/icon/`,
+        data,
+        {
+          headers: {
+            accept: 'application/json',
+            'Content-Type': `multipart/form-data; boundary=${
+              (data as AnyObject)._boundary
+            }`
+          }
+        }
+      );
+    }
   } else {
     return undefined;
   }

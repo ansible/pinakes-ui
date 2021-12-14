@@ -2,10 +2,21 @@ import { CATALOG_API_BASE } from '../../utilities/constants';
 import { PortfolioItem } from '@redhat-cloud-services/catalog-client';
 import { OrderDetail } from '../../redux/reducers/order-reducer';
 
-export const getOrderIcon = ({ orderItems }: OrderDetail): string | undefined =>
-  orderItems &&
-  orderItems[0] &&
-  `${CATALOG_API_BASE}/portfolio_items/${orderItems[0].portfolio_item_id}/icon`;
+export const getOrderIcon = (orderDetail: OrderDetail): string | undefined => {
+  if (localStorage.getItem('catalog_standalone')) {
+    const orderItem =
+      orderDetail?.extra_data?.order_items &&
+      orderDetail?.extra_data?.order_items[0];
+    return orderItem?.extra_data?.portfolio_item?.icon_url;
+  } else {
+    const { orderItems } = orderDetail;
+    return (
+      orderItems &&
+      orderItems[0] &&
+      `${CATALOG_API_BASE}/portfolio_items/${orderItems[0].portfolio_item_id}/icon`
+    );
+  }
+};
 
 const getIOrderPortfolioName = (
   { orderItems, id }: OrderDetail,

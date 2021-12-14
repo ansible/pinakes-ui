@@ -63,7 +63,6 @@ export const PortfolioItemDetailToolbar = ({
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
-
   return (
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}

@@ -116,7 +116,6 @@ const PortfolioItemDetail = () => {
       </Section>
     );
   }
-
   const availability = localStorage.getItem('catalog_standalone')
     ? 'available'
     : portfolioItemData?.source?.availability_status || 'unavailable';
@@ -142,6 +141,7 @@ const PortfolioItemDetail = () => {
     return (localStorage.getItem('catalog_standalone')
       ? uploadPortfolioItemIconS({
           portfolioItemId: portfolioItemData?.portfolioItem?.id,
+          icon_url: portfolioItemData?.portfolioItem?.icon_url,
           file
         })
       : uploadPortfolioItemIcon({
@@ -153,7 +153,7 @@ const PortfolioItemDetail = () => {
 
   const resetIcon = () =>
     (localStorage.getItem('catalog_standalone')
-      ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.icon_id)
+      ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.id)
       : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id)
     ).then(fetchData);
   const detailPaths = [
