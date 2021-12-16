@@ -33,6 +33,7 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
+import { getUser, logoutUser } from './helpers/shared/active-user';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
@@ -97,6 +98,10 @@ const App = (props) => {
     );
   }, []);
 
+  useEffect(() => {
+    getUser().then((user) => setUser(user));
+  }, []);
+
   let docsDropdownItems = [];
   let userDropdownItems = [];
   let userName = null;
@@ -115,7 +120,11 @@ const App = (props) => {
       <DropdownItem
         key="logout"
         aria-label={'logout'}
-        onClick={() => setUser(null)}
+        onClick={() =>
+          logoutUser().then(() => {
+            setUser(null);
+          })
+        }
       >
         {`Logout`}
       </DropdownItem>
@@ -162,24 +171,20 @@ const App = (props) => {
       logo={<SmallLogo alt={'Ansible automation catalog'} />}
       headerTools={
         <PageHeaderTools>
-          {user ? (
-            <Link to={Paths.login}>{`Login`}</Link>
-          ) : (
-            <div>
-              <StatefulDropdown
-                ariaLabel={'docs-dropdown'}
-                defaultText={<QuestionCircleIcon />}
-                items={docsDropdownItems}
-                toggleType="icon"
-              />
-              <StatefulDropdown
-                ariaLabel={'user-dropdown'}
-                defaultText={userName}
-                items={userDropdownItems}
-                toggleType="dropdown"
-              />
-            </div>
-          )}
+          <div>
+            <StatefulDropdown
+              ariaLabel={'docs-dropdown'}
+              defaultText={<QuestionCircleIcon />}
+              items={docsDropdownItems}
+              toggleType="icon"
+            />
+            <StatefulDropdown
+              ariaLabel={'user-dropdown'}
+              defaultText={userName}
+              items={userDropdownItems}
+              toggleType="dropdown"
+            />
+          </div>
         </PageHeaderTools>
       }
       showNavToggle
