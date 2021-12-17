@@ -111,6 +111,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     return { ...schema, fields: updatedFields };
   };
 
+  console.log('Debug - order modal servicePlans: ', servicePlans);
   return (
     <Modal
       isOpen

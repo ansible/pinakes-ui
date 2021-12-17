@@ -299,9 +299,10 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
   const getServicePlan = () =>
     getAxiosInstance()
       .get(
-        `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans/`
+        `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans/?extra=true`
       )
       .then((data) => {
+        console.log('Debug - getServicePlan - data: ', data);
         const servicePlan = data.results;
         setServicePlan(servicePlan[0]);
         const schema = servicePlan[0].create_json_schema.schema;
