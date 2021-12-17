@@ -44,6 +44,7 @@ export interface OrderDetail extends AnyObject {
   portfolioItem: Full<InternalPortfolioItem> & Partial<ObjectNotFound>;
   platform: Full<Source> & Partial<ObjectNotFound>;
   portfolio: Full<Portfolio> & Partial<ObjectNotFound>;
+  extra_data?: any;
 }
 
 export interface OrderProvisionType extends AnyObject {
@@ -68,7 +69,7 @@ export const orderInitialState: OrderReducerState = {
   requests: [],
   orderDetail: {
     order: {} as Full<Order>,
-    portfolioItem: {} as Full<PortfolioItem>,
+    portfolioItem: {} as Full<InternalPortfolioItem>,
     platform: {} as Full<Source>,
     portfolio: {} as Full<Portfolio>
   },
@@ -94,7 +95,9 @@ const setLoadingState: OrderReducerActionHandler = (
 });
 const setServicePlans: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
-  servicePlans: window.catalog?.standalone ? payload?.results : payload,
+  servicePlans: localStorage.getItem('catalog_standalone')
+    ? payload?.results
+    : payload,
   isLoading: false
 });
 const setListOrder: OrderReducerActionHandler = (state, { payload }) => ({

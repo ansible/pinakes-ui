@@ -63,7 +63,7 @@ const debouncedFilter = asyncFormValidator(
   (id, filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPlatformItemsS(id, filter, { ...meta, filter })
         : fetchPlatformItems(id, filter, { ...meta, filter })
     ).then(() => filteringCallback(false));
@@ -93,7 +93,11 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   );
 
   useEffect(() => {
-    dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms());
+    dispatch(
+      localStorage.getItem('catalog_standalone')
+        ? fetchPlatformsS()
+        : fetchPlatforms()
+    );
   }, []);
 
   const checkItem = (itemId) => {
@@ -105,7 +109,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const items = () => {
     if (selectedPlatform && platformItems[selectedPlatform.id]) {
-      return window.catalog?.standalone
+      return localStorage.getItem('catalog_standalone')
         ? platformItems[selectedPlatform.id].results
         : platformItems[selectedPlatform.id].data;
     }
@@ -116,7 +120,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const meta =
     selectedPlatform &&
     platformItems[selectedPlatform.id] &&
-    (window.catalog?.standalone
+    (localStorage.getItem('catalog_standalone')
       ? platformItems[selectedPlatform.id].meta
       : { count: platformItems[selectedPlatform.id].count });
 
@@ -138,7 +142,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const handleAddToPortfolio = () => {
     dispatch({ type: 'setFetching', payload: true });
     return dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? addToPortfolioS(
             portfolio.id,
             items().filter((platformItem) =>
@@ -153,7 +157,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
       )
       .then(() =>
         dispatch(
-          window.catalog?.standalone
+          localStorage.getItem('catalog_standalone')
             ? fetchPortfolioItemsWithPortfolioS(portfolio.id)
             : fetchPortfolioItemsWithPortfolio(portfolio.id)
         )
@@ -164,7 +168,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPlatformItemsS(platform.id, filterValue, defaultSettings)
         : fetchPlatformItems(platform.id, filterValue, defaultSettings)
     );
@@ -195,7 +199,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           searchValue: filterValue,
           fetchPlatformItems: (id, options) =>
             dispatch(
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? fetchPlatformItemsS(id, filterValue, options)
                 : fetchPlatformItems(id, filterValue, options)
             )
@@ -217,7 +221,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
             apiRequest={(id, options) =>
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? fetchPlatformItemsS(id, filterValue, options)
                 : fetchPlatformItems(id, filterValue, options)
             }

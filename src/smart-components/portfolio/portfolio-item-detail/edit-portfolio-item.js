@@ -22,18 +22,24 @@ const EditPortfolioItem = ({
   const dispatch = useDispatch();
   const { push } = useHistory();
   const { search } = useLocation();
+  const icon_url = localStorage.getItem('catalog_standalone')
+    ? product.icon_url
+    : product.icon_id;
+  const icon_src = localStorage.getItem('catalog_standalone')
+    ? product.icon_url || 'default'
+    : `${CATALOG_API_BASE}/portfolio_items/${
+        product.id
+      }/icon?cache_id=${product.icon_id || 'default'}`;
   return (
     <Stack hasGutter>
-      <StackItem key={product.icon_id || 'default'}>
+      <StackItem key={icon_url || 'default'}>
         <IconUpload
           uploadIcon={uploadIcon}
           resetIcon={resetIcon}
-          enableReset={!!product.icon_id}
+          enableReset={!!icon_url}
         >
           <CardIcon
-            src={`${CATALOG_API_BASE}/portfolio_items/${
-              product.id
-            }/icon?cache_id=${product.icon_id || 'default'}`} // we need ho add the query to prevent the browser caching when reseting the image
+            src={icon_src} // we need ho add the query to prevent the browser caching when resetting the image
             sourceId={product.service_offering_source_ref}
             height={64}
           />
@@ -48,7 +54,7 @@ const EditPortfolioItem = ({
               search
             });
             return dispatch(
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? updatePortfolioItemS({
                     ...values,
                     metadata: { user_capabilities: userCapabilities }

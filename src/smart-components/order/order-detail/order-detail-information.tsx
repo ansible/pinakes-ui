@@ -17,23 +17,21 @@ export interface OrderDetailInformationProps {
   jobName: string;
   portfolioId: string;
   state: keyof typeof orderStatusMapper;
+  icon_url: string;
 }
 const OrderDetailInformation: React.ComponentType<OrderDetailInformationProps> = ({
   portfolioId,
   jobName,
   portfolioItemId,
   sourceId,
-  state
+  state,
+  icon_url
 }) => {
   const formatMessage = useFormatMessage();
   return (
     <Level className="pf-u-mt-sm" hasGutter>
       <Level hasGutter>
-        <CardIcon
-          sourceId={sourceId}
-          height={60}
-          src={`${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/icon`}
-        />
+        <CardIcon sourceId={sourceId} height={60} src={icon_url} />
         <Title headingLevel="h2" size="lg">
           <CatalogLink
             pathname="/portfolios/portfolio/portfolio-item"

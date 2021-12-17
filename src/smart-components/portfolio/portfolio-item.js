@@ -27,7 +27,7 @@ const PortfolioItem = (props) => {
           <StyledLevel>
             <CardIcon
               src={
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? props?.icon_url
                   : `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`
               }

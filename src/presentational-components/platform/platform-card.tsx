@@ -82,7 +82,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.resolve(
       dispatch(
-        window.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? refreshPlatformS(platformId)
           : refreshPlatform(platformId)
       )

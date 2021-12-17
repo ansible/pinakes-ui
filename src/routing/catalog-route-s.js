@@ -5,11 +5,16 @@ import { EXTERNAL_LOGIN_URI } from '../utilities/constants';
 import { getUser } from '../helpers/shared/active-user';
 
 const CatalogRoute = ({ ...props }) => {
-  const user = localStorage.getItem('user');
+  let user = localStorage.getItem('user');
   useEffect(() => {
-    getUser().then((user) => {
-      localStorage.setItem('user', user);
-    });
+    getUser()
+      .then((user) => {
+        localStorage.setItem('user', user);
+      })
+      .catch((reason) => {
+        user = null;
+        localStorage.removeItem('user');
+      });
   }, []);
 
   if (!user) {

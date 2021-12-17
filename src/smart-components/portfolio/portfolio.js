@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { scrollToTop } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
-import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions';
+import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
 import {
   copyPortfolio,
   fetchPortfolios,
@@ -100,7 +100,7 @@ const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback, meta) => {
     filteringCallback(true);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPortfolioItemsWithPortfolioS(value, meta)
         : fetchPortfolioItemsWithPortfolio(value, meta)
     ).then(() => filteringCallback(false));
@@ -158,7 +158,9 @@ const Portfolio = () => {
     stateDispatch({ type: 'setIsFetching', payload: true });
     return Promise.all([
       dispatch(
-        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+        localStorage.getItem('catalog_standalone')
+          ? fetchPlatformsS()
+          : fetchPlatforms()
       ),
       dispatch(
         window?.catalog?.standalone
@@ -194,7 +196,7 @@ const Portfolio = () => {
     return () => {
       resetBreadcrumbs();
       dispatch(
-        window.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? resetSelectedPortfolioS()
           : resetSelectedPortfolio()
       );
@@ -215,7 +217,9 @@ const Portfolio = () => {
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
     return dispatch(
-      window.catalog?.standalone ? copyPortfolioS(id) : copyPortfolio(id)
+      localStorage.getItem('catalog_standalone')
+        ? copyPortfolioS(id)
+        : copyPortfolio(id)
     )
       .then(({ id }) =>
         history.push({
@@ -226,7 +230,9 @@ const Portfolio = () => {
       .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
       .then(() =>
         dispatch(
-          window.catalog?.standalone ? fetchPortfoliosS : fetchPortfolios
+          localStorage.getItem('catalog_standalone')
+            ? fetchPortfoliosS
+            : fetchPortfolios
         )
       )
       .catch(() =>
@@ -237,7 +243,7 @@ const Portfolio = () => {
   const removeProducts = (products) => {
     stateDispatch({ type: 'setRemoveInProgress', payload: true });
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? removeProductsFromPortfolioS(
             products,
             portfolio.name,

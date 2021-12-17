@@ -85,7 +85,6 @@ module.exports = (inputConfigs) => {
     console.log('Overriding configs for standalone mode.');
 
     const newEntry = resolve(__dirname, '../src/entry-standalone.js');
-    console.log(`New entry.App: ${newEntry}`);
     newWebpackConfig.entry.App = newEntry;
   }
   plugins.push(new webpack.DefinePlugin(globals));

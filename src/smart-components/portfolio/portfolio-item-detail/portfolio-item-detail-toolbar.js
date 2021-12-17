@@ -31,7 +31,7 @@ import useFormatMessage from '../../../utilities/use-format-message';
 const PortfolioItemIconItem = ({ product }) => (
   <CardIcon
     src={
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? product.icon_url
         : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
     }
@@ -63,7 +63,6 @@ export const PortfolioItemDetailToolbar = ({
 }) => {
   const formatMessage = useFormatMessage();
   const { pathname } = useLocation();
-
   return (
     <TopToolbar
       paddingBottom={pathname !== PORTFOLIO_ITEM_ROUTE_EDIT}
@@ -86,7 +85,7 @@ export const PortfolioItemDetailToolbar = ({
               ) : (
                 <CardIcon
                   src={
-                    window.catalog?.standalone
+                    localStorage.getItem('catalog_standalone')
                       ? product.icon_url
                       : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
                   }

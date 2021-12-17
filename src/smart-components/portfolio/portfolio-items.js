@@ -69,7 +69,7 @@ const PortfolioItems = ({
   ]);
   const dataSet = data ? data : results;
   const metaInfo = meta ? meta : { count };
-  const userCapabilities = window.catalog?.standalone
+  const userCapabilities = localStorage.getItem('catalog_standalone')
     ? {
         show: true,
         update: true,
@@ -129,7 +129,7 @@ const PortfolioItems = ({
           meta: metaInfo,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(
-              window.catalog?.standalone
+              localStorage.getItem('catalog_standalone')
                 ? fetchPortfolioItemsWithPortfolioS(...args)
                 : fetchPortfolioItemsWithPortfolio(...args)
             ),
@@ -158,7 +158,7 @@ const PortfolioItems = ({
             apiProps={id}
             apiRequest={(...args) =>
               dispatch(
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? fetchPortfolioItemsWithPortfolioS(...args)
                   : fetchPortfolioItemsWithPortfolio(...args)
               )

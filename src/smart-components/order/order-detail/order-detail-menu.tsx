@@ -81,7 +81,7 @@ const OrderDetailMenu: React.ComponentType<OrderDetailMenuProps> = ({
     push({ pathname: `${baseUrl}${navItems[tabIndex].link}`, search });
 
   return (
-    <div className="pf-c-tabs pf-u-pl-md pf-u-pr-md">
+    <div className="pf-c-tabs pf-u-pl-xl pf-u-pr-md">
       <ul className="pf-c-tabs__list">
         {navItems.map(({ link, title, isDisabled }, index) => (
           <StyledTabItem

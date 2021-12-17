@@ -13,6 +13,7 @@ import AngleLeftIcon from '@patternfly/react-icons/dist/js/icons/angle-left-icon
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchOrderDetails } from '../../../redux/actions/order-actions';
+import { fetchOrderDetails as fetchOrderDetailsS } from '../../../redux/actions/order-actions-s';
 import OrderDetailTitle from './order-detail-title';
 import OrderToolbarActions from './order-toolbar-actions';
 import OrderDetailInformation from './order-detail-information';
@@ -64,9 +65,15 @@ const OrderDetail: React.ComponentType = () => {
     setIsFetching(true);
     Promise.all([
       dispatch(
-        window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms()
+        localStorage.getItem('catalog_standalone')
+          ? fetchPlatformsS()
+          : fetchPlatforms()
       ),
-      dispatch(fetchOrderDetails(queryValues))
+      dispatch(
+        localStorage.getItem('catalog_standalone')
+          ? fetchOrderDetailsS(queryValues)
+          : fetchOrderDetails(queryValues)
+      )
     ]).then(() => setIsFetching(false));
     return () => {
       if (typeof resetBreadcrumbs === 'function') {
@@ -106,6 +113,7 @@ const OrderDetail: React.ComponentType = () => {
   };
 
   const unavailableMessages = unAvailable();
+  // @ts-ignore
   return (
     <Stack>
       <StackItem className="pf-u-p-lg global-primary-background">
@@ -140,6 +148,7 @@ const OrderDetail: React.ComponentType = () => {
                       portfolioId={portfolio.id}
                       sourceId={platform.id}
                       orderable={portfolioItem.metadata?.orderable || false}
+                      icon_url={portfolioItem.icon_url}
                     />
                   </LevelItem>
                 </Fragment>
@@ -152,6 +161,7 @@ const OrderDetail: React.ComponentType = () => {
                 sourceId={platform.id}
                 jobName={portfolioItem.name}
                 state={order.state}
+                icon_url={portfolioItem.icon_url}
               />
             )}
           </Fragment>
@@ -162,7 +172,7 @@ const OrderDetail: React.ComponentType = () => {
           <StackItem className="global-primary-background">
             <OrderDetailMenu isFetching={isFetching} baseUrl={ORDER_ROUTE} />
           </StackItem>
-          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg">
+          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg pf-u-mt-0 pf-u-pt-0">
             {isFetching ? (
               <Bullseye>
                 <Spinner />

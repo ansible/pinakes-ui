@@ -2,7 +2,6 @@
 import React, { Fragment, ReactNode } from 'react';
 import { Section } from '@redhat-cloud-services/frontend-components/Section';
 import { Text, TextVariants, Gallery } from '@patternfly/react-core';
-
 import { CardLoader } from '../../presentational-components/shared/loader-placeholders';
 import filteringMessages from '../../messages/filtering.messages';
 import useFormatMessage from '../../utilities/use-format-message';

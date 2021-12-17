@@ -38,7 +38,7 @@ export interface ServerError {
 }
 
 const createAxiosInstance = () => {
-  if (window.catalog?.standalone) {
+  if (localStorage.getItem('catalog_standalone')) {
     const token = localStorage.getItem('catalog-token');
     return axios.create({
       paramsSerializer: (params) => stringify(params),
@@ -77,7 +77,7 @@ const unauthorizedInterceptor = (error: ServerError = {}) => {
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
   // eslint-disable-next-line no-undef
-  if (!window.catalog?.standalone) {
+  if (!localStorage.getItem('catalog_standalone')) {
     await window.insights.chrome.auth.getUser();
   } else {
     const csrftoken = Cookies.get('csrftoken');
@@ -173,8 +173,9 @@ export function getOrderProcessApi(): OrderProcessApi {
 }
 
 const grapqlInstance = axios.create();
+
 grapqlInstance.interceptors.request.use(async (config) => {
-  if (!window.catalog?.standalone) {
+  if (!localStorage.getItem('catalog_standalone')) {
     await window.insights.chrome.auth.getUser();
   }
 
@@ -183,7 +184,7 @@ grapqlInstance.interceptors.request.use(async (config) => {
 /**
  * Graphql does not return error response when the query fails.
  * Instead it returns 200 response with error object.
- * We catch it and throw it to trigger notification middleware
+ * We catch it and throw it to trigger the notification middleware
  */
 grapqlInstance.interceptors.response.use(({ data }) => {
   if (data.errors) {

@@ -1,4 +1,4 @@
-import { getAxiosInstance, getGraphqlInstance } from '../shared/user-login';
+import { getAxiosInstance } from '../shared/user-login';
 import {
   CATALOG_API_BASE,
   CATALOG_INVENTORY_API_BASE
@@ -11,7 +11,6 @@ import {
 } from '@redhat-cloud-services/sources-client';
 import { ApiCollectionResponse, SourceDetails } from '../../types/common-types';
 const axiosInstance = getAxiosInstance();
-const { post } = getGraphqlInstance();
 
 export const getPlatforms = (): Promise<SourceDetails> =>
   axiosInstance.get(`${CATALOG_API_BASE}/sources/`);

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   TextContent,
   Text,
@@ -36,7 +36,10 @@ const OrderDetails: React.ComponentType = () => {
   } = useSelector<CatalogRootState, OrderDetail>(
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
-
+  const dispatch = useDispatch();
+  const messages = localStorage.getItem('catalog_standalone')
+    ? progressMessages?.results
+    : progressMessages?.data;
   return (
     <Grid hasGutter>
       <GridItem md={12} lg={6} xl={4}>
@@ -104,9 +107,7 @@ const OrderDetails: React.ComponentType = () => {
                 {formatMessage(ordersMessages.orderProgressMessages)}
               </Text>
             </TextContent>
-            {progressMessages?.data && (
-              <ReactJsonView src={progressMessages.data} />
-            )}
+            {messages && <ReactJsonView src={messages} />}
           </CardBody>
         </Card>
       </GridItem>

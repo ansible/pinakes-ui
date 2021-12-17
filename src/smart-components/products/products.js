@@ -35,7 +35,7 @@ const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
     filteringCallback(true);
     dispatch(
-      window.catalog?.standalone
+      localStorage.getItem('catalog_standalone')
         ? fetchPortfolioItemsS(value, defaultSettings)
         : fetchPortfolioItems(value, defaultSettings)
     ).then(() => filteringCallback(false));
@@ -106,7 +106,7 @@ const Products = () => {
   useEffect(() => {
     Promise.all([
       dispatch(
-        window.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? fetchPortfolioItemsS(
               viewState?.products?.filter,
               viewState?.products
@@ -116,7 +116,11 @@ const Products = () => {
               viewState?.products
             )
       ),
-      dispatch(window.catalog?.standalone ? fetchPlatformsS() : fetchPlatforms)
+      dispatch(
+        localStorage.getItem('catalog_standalone')
+          ? fetchPlatformsS()
+          : fetchPlatforms()
+      )
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
@@ -204,7 +208,7 @@ const Products = () => {
           title: formatMessage(productsMessages.title),
           isLoading: isFiltering || isFetching,
           meta,
-          fetchProducts: window.catalog?.standalone
+          fetchProducts: localStorage.getItem('catalog_standalone')
             ? (...args) => dispatch(fetchPortfolioItemsS(...args))
             : (...args) => dispatch(fetchPortfolioItems(...args))
         })}
@@ -223,7 +227,7 @@ const Products = () => {
             meta={meta}
             apiRequest={(_e, options) =>
               dispatch(
-                window.catalog?.standalone
+                localStorage.getItem('catalog_standalone')
                   ? fetchPortfolioItemsS(viewState?.products?.filter, options)
                   : fetchPortfolioItems(viewState?.products?.filter, options)
               )

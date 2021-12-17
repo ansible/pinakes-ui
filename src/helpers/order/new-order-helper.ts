@@ -64,7 +64,7 @@ export const fetchOrderDetailSequence = async (
   };
   try {
     const orderItems = await axiosInstance.get(
-      `${CATALOG_API_BASE}/order_items?order_id=${order.id}`
+      `${CATALOG_API_BASE}/order_items/?order_id=${order.id}`
     );
     orderItem = orderItems.data[0];
   } catch (_error) {
