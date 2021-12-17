@@ -31,7 +31,6 @@ export class StatefulDropdown extends React.Component {
       isPlain,
       ariaLabel
     } = this.props;
-
     return (
       <Dropdown
         onSelect={(e) => this.onSelect(e)}

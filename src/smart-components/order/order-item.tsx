@@ -18,7 +18,7 @@ import { OrderItem } from '../../helpers/order/order-helper-s';
 
 const firstOrderItem = (order: OrderDetail): OrderItem => {
   let orderItem = { count: 0, portfolio_item: '' };
-  if (localStorage.getItem('Catalog_standalone')) {
+  if (localStorage.getItem('catalog_standalone')) {
     orderItem =
       (order?.extra_data?.order_items && order?.extra_data?.order_items[0]) ||
       {};
