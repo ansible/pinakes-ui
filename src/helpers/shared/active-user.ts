@@ -4,7 +4,6 @@ import {
   CATALOG_API_BASE,
   EXTERNAL_LOGIN_URI
 } from '../../utilities/constants';
-import React from 'react';
 const axiosInstance = getAxiosInstance();
 
 export const getUser = () => axiosInstance.get(`${CATALOG_API_BASE}/me/`);
@@ -16,5 +15,5 @@ export const logoutUser = () => {
 
 export const loginUser = () => {
   window.location.replace(EXTERNAL_LOGIN_URI);
-  return <div />;
+  return null;
 };

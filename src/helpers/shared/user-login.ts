@@ -20,6 +20,7 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
+import { loginUser } from '../shared/active-user';
 // @ts-ignore
 import Cookies from 'js-cookie';
 
@@ -61,6 +62,11 @@ const errorInterceptor = (error: ServerError = {}) => {
 };
 
 const unauthorizedInterceptor = (error: ServerError = {}) => {
+  if (error.status === 401) {
+    loginUser();
+    return;
+  }
+
   if (error.status === 403) {
     throw {
       ...error,
