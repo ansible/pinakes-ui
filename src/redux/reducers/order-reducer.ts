@@ -94,7 +94,6 @@ const setLoadingState: OrderReducerActionHandler = (
   isLoading: payload
 });
 const setServicePlans: OrderReducerActionHandler = (state, { payload }) => {
-  console.log('Debug setServicePlans - payload: ', payload);
   return {
     ...state,
     servicePlans: payload,

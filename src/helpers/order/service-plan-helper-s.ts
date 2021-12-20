@@ -40,7 +40,7 @@ export const patchServicePlanModified = (
   patchModifiedServicePlan?: PatchModifiedServicePlan
 ): Promise<ApiCollectionResponse<ServicePlan>> =>
   axiosInstance.patch(
-    `${CATALOG_API_BASE}/catalog_service_plans/${servicePlanId}/modified/`,
+    `${CATALOG_API_BASE}/service_plans/${servicePlanId}/`,
     patchModifiedServicePlan
   ) as Promise<ApiCollectionResponse<ServicePlan>>;
 
@@ -48,20 +48,17 @@ export const showServicePlanModified = (
   servicePlanId: string
 ): Promise<ApiCollectionResponse<ServicePlan>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/catalog_service_plans/${servicePlanId}/modified/`
+    `${CATALOG_API_BASE}/service_plans/${servicePlanId}/?extra=true/`
   );
 
 export const createServicePlan = (
   importServicePlan?: ImportServicePlan,
   options: any = {}
 ) =>
-  axiosInstance.post(
-    `${CATALOG_API_BASE}/catalog_service_plans/`,
-    importServicePlan
-  );
+  axiosInstance.post(`${CATALOG_API_BASE}/service_plans/`, importServicePlan);
 
 export const resetServicePlanModified = (
   id: string,
   options?: any
 ): AxiosPromise<Array<ServicePlan>> =>
-  axiosInstance.post(`${CATALOG_API_BASE}$/catalog_service_plans/${id}/reset/`);
+  axiosInstance.post(`${CATALOG_API_BASE}$/service_plans/${id}/reset/`);

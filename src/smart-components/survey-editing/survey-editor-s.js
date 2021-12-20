@@ -302,27 +302,12 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
         `${CATALOG_API_BASE}/portfolio_items/${portfolioItem.id}/service_plans/?extra=true`
       )
       .then((data) => {
-        console.log('Debug - getServicePlan - data: ', data);
-        const servicePlan = data.results;
-        setServicePlan(servicePlan[0]);
-        const schema = servicePlan[0].schema.schema;
-        //TODO - use true here until the backend is fixed
-        // eslint-disable-next-line no-constant-condition
-        if (servicePlan[0].imported || true) {
-          return getAxiosInstance()
-            .get(
-              `${CATALOG_API_BASE}/service_plans/${servicePlan[0].id}`
-            )
-            .then((baseSchema) => {
-              const new_schema = changeValidators(
-                JSON.parse(baseSchema.create_json_schema.replace('\\"', '"'))
-                  .schema
-              );
-              setBaseSchema(new_schema);
-              return new_schema;
-            });
-        }
-
+        const servicePlan = data ? data[0] : undefined;
+        setServicePlan(servicePlan);
+        const schema = servicePlan?.schema?.schema;
+        const baseSchema = servicePlan?.extra_data?.base_schema;
+        const new_schema = changeValidators(baseSchema?.schema);
+        setBaseSchema(new_schema);
         return changeValidators(schema);
       })
       .then((schema) => {
@@ -360,8 +345,9 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
 
   const handleSaveSurvey = (editedTemplate) => {
     setIsFetching(true);
-    const submitCall = servicePlan.imported ? modifySurvey : createSurvey;
-    return submitCall(appendValidator(updateSubstitutionFields(editedTemplate)))
+    return modifySurvey(
+      appendValidator(updateSubstitutionFields(editedTemplate))
+    )
       .then(() => {
         setIsFetching(false);
         dispatch(
