@@ -305,13 +305,13 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
         console.log('Debug - getServicePlan - data: ', data);
         const servicePlan = data.results;
         setServicePlan(servicePlan[0]);
-        const schema = servicePlan[0].create_json_schema.schema;
+        const schema = servicePlan[0].schema.schema;
         //TODO - use true here until the backend is fixed
         // eslint-disable-next-line no-constant-condition
         if (servicePlan[0].imported || true) {
           return getAxiosInstance()
             .get(
-              `${CATALOG_API_BASE}/catalog_service_plans/${servicePlan[0].id}/base/`
+              `${CATALOG_API_BASE}/service_plans/${servicePlan[0].id}`
             )
             .then((baseSchema) => {
               const new_schema = changeValidators(

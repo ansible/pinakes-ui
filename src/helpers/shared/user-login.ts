@@ -20,7 +20,7 @@ import {
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
-import { loginUser } from '../shared/active-user';
+import { loginUser } from './active-user';
 // @ts-ignore
 import Cookies from 'js-cookie';
 

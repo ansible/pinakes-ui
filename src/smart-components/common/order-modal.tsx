@@ -138,8 +138,8 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
           schema={
             servicePlans[0]
               ? updateValidatorsForSubstitution(
-                  ((servicePlans[0].create_json_schema! as AnyObject)
-                    .schema as unknown) as Schema
+                  ((servicePlans[0] as ServicePlanS).schema as AnyObject)
+                    .schema as Schema
                 )
               : { fields: [] }
           }
