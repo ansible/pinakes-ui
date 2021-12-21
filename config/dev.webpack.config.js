@@ -8,6 +8,7 @@ const { config: webpackConfig, plugins } = config({
   https: true,
   hot: false,
   useFileHash: false,
+  useProxy: true,
   ...(process.env.BETA && { deployment: 'beta/apps' })
 });
 

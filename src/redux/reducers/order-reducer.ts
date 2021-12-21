@@ -93,13 +93,14 @@ const setLoadingState: OrderReducerActionHandler = (
   ...state,
   isLoading: payload
 });
-const setServicePlans: OrderReducerActionHandler = (state, { payload }) => ({
-  ...state,
-  servicePlans: localStorage.getItem('catalog_standalone')
-    ? payload?.results
-    : payload,
-  isLoading: false
-});
+const setServicePlans: OrderReducerActionHandler = (state, { payload }) => {
+  return {
+    ...state,
+    servicePlans: payload,
+    isLoading: false
+  };
+};
+
 const setListOrder: OrderReducerActionHandler = (state, { payload }) => ({
   ...state,
   orders: payload,

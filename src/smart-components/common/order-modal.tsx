@@ -111,6 +111,20 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
     return { ...schema, fields: updatedFields };
   };
 
+  let schema = null;
+
+  if (servicePlans[0]) {
+    schema = localStorage.getItem('catalog_standalone')
+      ? updateValidatorsForSubstitution(
+          ((servicePlans[0] as ServicePlanS).schema as AnyObject)
+            .schema as Schema
+        )
+      : updateValidatorsForSubstitution(
+          ((servicePlans[0].create_json_schema! as AnyObject)
+            .schema as unknown) as Schema
+        );
+  }
+
   return (
     <Modal
       isOpen
@@ -133,21 +147,16 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
           <Spinner />
         </SpinnerWrapper>
       ) : (
-        <FormRenderer
-          schema={
-            servicePlans[0]
-              ? updateValidatorsForSubstitution(
-                  ((servicePlans[0].create_json_schema! as AnyObject)
-                    .schema as unknown) as Schema
-                )
-              : { fields: [] }
-          }
-          onSubmit={onSubmit}
-          onCancel={handleClose}
-          templateProps={{
-            submitLabel: formatMessage(labelMessages.confirm)
-          }}
-        />
+        schema && (
+          <FormRenderer
+            schema={schema}
+            onSubmit={onSubmit}
+            onCancel={handleClose}
+            templateProps={{
+              submitLabel: formatMessage(labelMessages.confirm)
+            }}
+          />
+        )
       )}
     </Modal>
   );
