@@ -31,6 +31,7 @@ import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail as OrderDetailType } from '../../../redux/reducers/order-reducer';
 import { GetOrderDetailParams } from '../../../helpers/order/order-helper';
 import { ORDER_ROUTE } from '../../../constants/routes';
+import TopToolbar from '../../../presentational-components/shared/top-toolbar';
 
 const ApprovalRequests = lazy(() =>
   import(/* webpackChunkName: "approval-request" */ './approval-request')
@@ -115,89 +116,85 @@ const OrderDetail: React.ComponentType = () => {
   const unavailableMessages = unAvailable();
   // @ts-ignore
   return (
-    <Stack>
-      <StackItem className="pf-u-p-lg global-primary-background">
-        {isFetching ? (
-          <OrderDetailToolbarPlaceholder />
-        ) : (
-          <Fragment>
-            <Level className="pf-u-mb-md">
-              <LevelItem>
-                <AngleLeftIcon className="pf-u-mr-md" />
-                <CatalogLink pathname="/orders">
-                  {formatMessage(ordersMessages.backToOrders)}
-                </CatalogLink>
-              </LevelItem>
-            </Level>
-            <Level className="flex-no-wrap">
-              {unavailableMessages ? (
-                <UnAvailableAlertContainer>
-                  {unavailableMessages}
-                </UnAvailableAlertContainer>
-              ) : (
-                <Fragment>
-                  <LevelItem>
-                    <OrderDetailTitle orderId={order.id} />
-                  </LevelItem>
-                  <LevelItem>
-                    <OrderToolbarActions
-                      portfolioItemName={portfolioItem.name}
-                      orderId={order.id}
-                      state={order.state}
-                      portfolioItemId={portfolioItem.id}
-                      portfolioId={portfolio.id}
-                      sourceId={platform.id}
-                      orderable={portfolioItem.metadata?.orderable || false}
-                      icon_url={portfolioItem.icon_url}
-                    />
-                  </LevelItem>
-                </Fragment>
-              )}
-            </Level>
-            {!unavailableMessages && (
-              <OrderDetailInformation
-                portfolioItemId={portfolioItem.id}
-                portfolioId={portfolio.id}
-                sourceId={platform.id}
-                jobName={portfolioItem.name}
-                state={order.state}
-                icon_url={portfolioItem.icon_url}
-              />
-            )}
-          </Fragment>
-        )}
-      </StackItem>
-      <StackItem>
-        <Stack hasGutter>
-          <StackItem className="global-primary-background">
-            <OrderDetailMenu isFetching={isFetching} baseUrl={ORDER_ROUTE} />
-          </StackItem>
-          <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg pf-u-mt-0 pf-u-pt-0">
-            {isFetching ? (
-              <Bullseye>
-                <Spinner />
-              </Bullseye>
+    <Fragment>
+      {isFetching ? (
+        <OrderDetailToolbarPlaceholder />
+      ) : (
+        <TopToolbar>
+          <Level className="pf-u-mb-md">
+            <LevelItem>
+              <AngleLeftIcon className="pf-u-mr-md" />
+              <CatalogLink pathname="/orders">
+                {formatMessage(ordersMessages.backToOrders)}
+              </CatalogLink>
+            </LevelItem>
+          </Level>
+          <Level className="flex-no-wrap">
+            {unavailableMessages ? (
+              <UnAvailableAlertContainer>
+                {unavailableMessages}
+              </UnAvailableAlertContainer>
             ) : (
-              <Suspense fallback={<div></div>}>
-                <Switch>
-                  <Route
-                    path={`${ORDER_ROUTE}/approval`}
-                    component={ApprovalRequests}
+              <Fragment>
+                <LevelItem>
+                  <OrderDetailTitle orderId={order.id} />
+                </LevelItem>
+                <LevelItem>
+                  <OrderToolbarActions
+                    portfolioItemName={portfolioItem.name}
+                    orderId={order.id}
+                    state={order.state}
+                    portfolioItemId={portfolioItem.id}
+                    portfolioId={portfolio.id}
+                    sourceId={platform.id}
+                    orderable={portfolioItem.metadata?.orderable || false}
+                    icon_url={portfolioItem.icon_url}
                   />
-                  <Route path={`${ORDER_ROUTE}/provision`}>
-                    <OrderProvision />
-                  </Route>
-                  <Route path={`${ORDER_ROUTE}/lifecycle`}>
-                    <OrderLifecycle />
-                  </Route>
-                  <Route path={ORDER_ROUTE} component={OrderDetails} />
-                </Switch>
-              </Suspense>
+                </LevelItem>
+              </Fragment>
             )}
-          </StackItem>
-        </Stack>
-      </StackItem>
-    </Stack>
+          </Level>
+          {!unavailableMessages && (
+            <OrderDetailInformation
+              portfolioItemId={portfolioItem.id}
+              portfolioId={portfolio.id}
+              sourceId={platform.id}
+              jobName={portfolioItem.name}
+              state={order.state}
+              icon_url={portfolioItem.icon_url}
+            />
+          )}
+        </TopToolbar>
+      )}
+      <Stack>
+        <StackItem className="global-primary-background">
+          <OrderDetailMenu isFetching={isFetching} baseUrl={ORDER_ROUTE} />
+        </StackItem>
+        <StackItem className="pf-u-pl-lg pf-u-pr-lg pf-u-mb-lg pf-u-mt-0 pf-u-pt-0">
+          {isFetching ? (
+            <Bullseye>
+              <Spinner />
+            </Bullseye>
+          ) : (
+            <Suspense fallback={<div></div>}>
+              <Switch>
+                <Route
+                  path={`${ORDER_ROUTE}/approval`}
+                  component={ApprovalRequests}
+                />
+                <Route path={`${ORDER_ROUTE}/provision`}>
+                  <OrderProvision />
+                </Route>
+                <Route path={`${ORDER_ROUTE}/lifecycle`}>
+                  <OrderLifecycle />
+                </Route>
+                <Route path={ORDER_ROUTE} component={OrderDetails} />
+              </Switch>
+            </Suspense>
+          )}
+        </StackItem>
+      </Stack>
+    </Fragment>
   );
 };
 
