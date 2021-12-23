@@ -23,6 +23,7 @@ import {
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 import { permissionOptions, permissionValues } from '../../utilities/constants';
 import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
+import { fetchFilterGroups as fetchFilterGroupsS } from '../../helpers/rbac/rbac-helper-s';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
@@ -124,7 +125,9 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   };
 
   const loadGroupOptions = (inputValue?: string) =>
-    fetchFilterGroups(inputValue);
+    localStorage.getItem('catalog-standalone')
+      ? fetchFilterGroupsS(inputValue)
+      : fetchFilterGroups(inputValue);
 
   const onSubmit = (
     data: { 'shared-groups': SharePortfolioData[] },
