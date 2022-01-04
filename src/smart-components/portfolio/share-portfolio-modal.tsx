@@ -125,7 +125,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   };
 
   const loadGroupOptions = (inputValue?: string) =>
-    localStorage.getItem('catalog-standalone')
+    localStorage.getItem('catalog_standalone')
       ? fetchFilterGroupsS(inputValue)
       : fetchFilterGroups(inputValue);
 
@@ -137,6 +137,8 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
     const newGroups: SharePortfolioData[] = [];
     const initialGroups: SharePortfolioData[] = formApi.getState()
       .initialValues['shared-groups'];
+    console.log('Debug onSubmit: initialGroups', initialGroups);
+    console.log('Debug onSubmit: shareData', shareData);
     const removedGroups = initialGroups
       .filter(
         (group) =>
@@ -146,6 +148,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         ...group,
         permissions: permissions.split(',')
       }));
+    console.log('Debug onSubmit: removedGroups', removedGroups);
     shareData.forEach((group) => {
       const initialEntry = initialGroups.find(
         (item) => item.group_uuid === group.group_uuid
@@ -167,7 +170,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         newGroups.push(group);
       }
     });
-
+    console.log('Debug onSubmit: newGroups', newGroups);
     const createSharePromise = (group: SharePortfolioData, unshare = false) => {
       const action = unshare ? unsharePortfolio : sharePortfolio;
       return dispatch(
