@@ -30,6 +30,6 @@ export const fetchFilterGroups = (filterValue = ''): Promise<SelectOptions> =>
         filterValue.length > 0 ? `?name=${filterValue}` : ''
       }`
     )
-    .then(({ results }: GroupPagination) =>
-      results.map(({ id, name }) => ({ label: name, value: id }))
-    );
+    .then(({ results }: GroupPagination) => {
+      return results.map(({ id, name }) => ({ label: name, value: id }));
+    });

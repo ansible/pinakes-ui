@@ -20,7 +20,9 @@ export interface UnsharePolicy {
 }
 
 export const getShareInfo = (portfolioId: string): Promise<ShareInfo> =>
-  axiosInstance.get(`${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info`);
+  axiosInstance.get(
+    `${CATALOG_API_BASE}/portfolios/${portfolioId}/share_info/`
+  );
 
 export interface ShareData<T = SharePolicyPermissionsEnum> {
   permissions: T;
@@ -45,7 +47,8 @@ export const unsharePortfolio = (
     permissions: data.permissions,
     groups: [data.group_uuid]
   };
-  return (userApi.unsharePortfolio(data.id, policy) as unknown) as Promise<
-    void
-  >;
+  return axiosInstance.post(
+    `${CATALOG_API_BASE}/portfolios/${data.id}/unshare/`,
+    policy
+  );
 };
