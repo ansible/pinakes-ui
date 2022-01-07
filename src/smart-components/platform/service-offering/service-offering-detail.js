@@ -14,6 +14,7 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components/DateForma
 
 import useQuery from '../../../utilities/use-query';
 import { fetchServiceOffering } from '../../../redux/actions/platform-actions';
+import { fetchServiceOffering as fetchServiceOfferingS } from '../../../redux/actions/platform-actions-s';
 import { ProductLoaderPlaceholder } from '../../../presentational-components/shared/loader-placeholders';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import CatalogBreadcrumbs from '../../common/catalog-breadcrumbs';
@@ -35,7 +36,11 @@ const ServiceOfferingDetail = () => {
 
   useEffect(() => {
     setIsFetching(true);
-    dispatch(fetchServiceOffering(queryValues.service, queryValues.platform))
+    dispatch(
+      localStorage.getItem('catalog_standalone')
+        ? fetchServiceOfferingS(queryValues.service, queryValues.platform)
+        : fetchServiceOffering(queryValues.service, queryValues.platform)
+    )
       .then(() => setIsFetching(false))
       .catch(() => setIsFetching(false));
   }, [queryValues.service, queryValues.platform]);

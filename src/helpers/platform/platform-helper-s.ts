@@ -1,7 +1,8 @@
 import { getAxiosInstance } from '../shared/user-login';
 import {
   CATALOG_API_BASE,
-  CATALOG_INVENTORY_API_BASE
+  CATALOG_INVENTORY_API_BASE,
+  SOURCES_API_BASE
 } from '../../utilities/constants';
 import { defaultSettings, PaginationConfiguration } from '../shared/pagination';
 import {
@@ -65,3 +66,17 @@ export const getPlatformInventories = (
     );
   }
 };
+
+export const getServiceOffering = (
+  serviceOfferingId: string,
+  sourceId: string
+): Promise<{ service: ServiceOffering; source: Source }> =>
+  Promise.all([
+    axiosInstance.get(
+      `${CATALOG_INVENTORY_API_BASE}/service_offerings/${serviceOfferingId}/`
+    ),
+    axiosInstance.get(`${SOURCES_API_BASE}/sources/${sourceId}`)
+  ]).then(([service, source]: [ServiceOffering, Source]) => ({
+    service,
+    source
+  }));
