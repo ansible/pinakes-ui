@@ -1,0 +1,237 @@
+{"meta":{"count":1,"limit":50,"offset":0},
+ "links":{"first":"/api/catalog/v1.3/portfolios/6/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=\u0026limit=50\u0026offset=0",
+          "last":"/api/catalog/v1.3/portfolios/6/portfolio_items?filter%5Bname%5D%5Bcontains_i%5D=\u0026limit=50\u0026offset=0"},
+ "data":[{"id":"230",
+          "name":"Hello World",
+          "owner":"insights-qa",
+          "service_offering_source_ref":"31313",
+          "service_offering_type":"job_template",
+          "portfolio_id":"6","created_at":"2021-05-21T17:21:52Z",
+          "updated_at":"2021-05-21T17:21:52Z",
+          "metadata":{"statistics":{"approval_processes":0},
+                      "updated_at":"2021-05-21T17:21:52.817Z",
+                      "user_capabilities":{"show":true,
+                                           "update":true,
+                                           "create":true,
+                                           "copy":true,
+                                           "destroy":true,
+                                           "restore":true,
+                                           "set_approval":true,
+                                           "edit_survey":true,
+                                           "tag":true,
+                                           "untag":true,
+                                           "set_order_process":true}
+                      }
+          }
+         ]
+ }
+
+{ "count":4,
+  "next":null,
+  "previous":null,
+  "results":[
+    {"id":110,
+     "name":"Tower RHC 40 QA Order Process After No Before",
+     "description":"Show must go on",
+     "service_offering_ref":"14",
+     "portfolio":16,
+     "icon_url":null,
+     "created_at":"2021-10-22T20:24:32.393793Z",
+     "updated_at":"2021-10-22T20:24:32.393841Z"},
+    {"id":109,"name":"Tower RHC 40 QA Product Return",
+     "description":"Pirates not welcome",
+     "service_offering_ref":"17",
+     "portfolio":16,"icon_url":null,
+     "created_at":"2021-10-22T20:24:32.350924Z",
+     "updated_at":"2021-10-22T20:24:32.350969Z"},
+    {"id":108,"name":"Tower RHC 40 QA Tag Inventory",
+     "description":"Job Template that inventory will be tag by approval",
+     "service_offering_ref":"15",
+     "portfolio":16,"icon_url":null,
+     "created_at":"2021-10-22T20:24:32.313525Z",
+     "updated_at":"2021-10-22T20:24:32.313572Z"},
+    {"id":107,"name":"Tower RHC 40 QA Order Process Return",
+     "description":"Job template that will be used as a return product on order process",
+     "service_offering_ref":"16",
+     "portfolio":16,
+     "icon_url":null,
+     "created_at":"2021-10-22T20:24:32.132730Z",
+     "updated_at":"2021-10-22T20:24:32.132775Z"}
+  ]
+}
+
+
+------------------------\\
+[{
+    "service_offering_id":"135",
+    "id":"59",
+    "create_json_schema":{"schema":
+            {
+                "title":"",
+                "fields":[
+                        {"name":"username","label":"What is your name",
+                        "validate":[{"type":"required-validator"},{"type":"min-length-validator","threshold":0},{"type":"max-length-validator","threshold":255}],
+                        "component":"text-field","isRequired":true,"initialValue":"insight-qe"},
+                        {"name":"quest","label":"What is your quest?","options":[{"label":"Test Approval","value":"Test Approval"},{"label":"Test Catalog","value":"Test Catalog"},{"label":"Test Topology","value":"Test Topology"},{"label":"Seek the Holy Grail","value":"Seek the Holy Grail"}],"validate":[{"type":"required-validator"}],"component":"select-field","isRequired":true,"initialValue":"Test Catalog"},{"name":"airspeed","type":"number","label":"What is the airspeed velocity of an unladen swallow?","dataType":"float","validate":[{"type":"required-validator"},{"type":"min-number-value","value":0},{"type":"max-number-value","value":10}],"component":"text-field","helperText":"Type: Float","isRequired":true,"initialValue":1.1},{"name":"int_value","type":"number","label":"Integer value","dataType":"integer","validate":[{"type":"required-validator"},{"type":"min-number-value","value":0},{"type":"max-number-value","value":1000}],"component":"text-field","isRequired":true,"initialValue":26}],"description":""},"schemaType":"default"},"name":"","description":"","portfolio_item_id":"369","imported":false,"modified":false
+}]
+
+"results":
+[{
+    "id":null,
+    "name":"",
+    "create_json_schema":"
+    {\"schema_type\": \"default\",
+    \"schema\":
+     {\"fields\": [{\"label\": \"The order Status\", \"name\": \"order_status\", \"initial_value\": \"created\", \"helper_text\": \"\", \"is_required\": false, \"component\": \"text-field\", \"options\": [{\"label\": \"\", \"value\": \"\"}], \"validate\": [{\"type\": \"min-length-validator\", \"threshold\": 0}, {\"type\": \"max-length-validator\", \"threshold\": 1024}]}], \"title\": \"\", \"description\": \"\"}}","imported":false,"modified":false,"service_offering_ref":"14","service_plan_ref":"10","portfolio_item":110}]}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+{"schema":
+    {"title":"",
+    "fields":
+        [
+            {
+                "name":"username",
+                "label":"What is your name",
+                "validate":[{"type":"required-validator"},
+                            {"type":"min-length-validator","threshold":0},
+                            {"type":"max-length-validator","threshold":255}],
+                "component":"text-field",
+                "isRequired":true,
+                "initialValue":"insight-qa"
+            },
+            {
+                "name":"quest",
+                "label":"What is your quest?",
+                "options":
+                    [
+                        {"label":"Test Approval","value":"Test Approval"},
+                        {"label":"Test Catalog","value":"Test Catalog"},
+                        {"label":"Test Topology","value":"Test Topology"},
+                        {"label":"Seek the Holy Grail","value":"Seek the Holy Grail"}
+                    ],
+                "validate":[{"type":"required-validator"}],
+                "component":"select-field",
+                "isRequired":true,
+                "initialValue":"Test Catalog"
+            },
+            {
+                "name":"airspeed",
+                "type":"number",
+                "label":"What is the airspeed velocity of an unladen swallow?",
+                "dataType":"float",
+                "validate":
+                    [
+                        {"type":"required-validator"},
+                        {"type":"min-number-value","value":0},
+                        {"type":"max-number-value","value":10}
+                    ],
+                "component":"text-field",
+                "helperText":
+                "Type: Float",
+                "isRequired":true,
+                "initialValue":1.1
+            },
+            {
+                "name":"int_value",
+                "type":"number",
+                "label":"Integer value",
+                "dataType":"integer",
+                "validate":
+                    [
+                        {"type":"required-validator"},
+                        {"type":"min-number-value","value":0},
+                        {"type":"max-number-value","value":10}
+                    ],
+                "component":"text-field",
+                "isRequired":true,
+                "initialValue":5
+            }
+        ],
+    "description":""
+    },
+    "schemaType":"default"
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+{
+    "schema":
+        {"title":"",
+        "fields":
+            [
+                {
+                    "name":"username",
+                    "label":"What is your name",
+                    "options":
+                        [
+                            {"label":"","value":""}
+                        ],
+                    "validate":[
+                        {"type":"required-validator"},
+                        {"type":"min-length-validator","threshold":0},
+                        {"type":"max-length-validator","threshold":255}
+                        ],
+                    "component":"text-field",
+                    "helper_text":"",
+                    "is_required":true,
+                    "initial_value":"insight-qa"
+                },
+                {
+                    "name":"quest",
+                    "label":"What is your quest?",
+                    "options":
+                        [
+                            {"label":"Test Approval","value":"Test Approval"},
+                            {"label":"Test Catalog","value":"Test Catalog"},
+                            {"label":"Test Topology","value":"Test Topology"},
+                            {"label":"Seek the Holy Grail","value":"Seek the Holy Grail"}
+                        ],
+                    "validate":
+                        [
+                            {"type":"required-validator"}
+                        ],
+                    "component":"select-field",
+                    "helper_text":"",
+                    "is_required":true,
+                    "initial_value":"Test Catalog"
+                },
+                {
+                    "name":"airspeed",
+                    "type":"number",
+                    "label":"What is the airspeed velocity of an unladen swallow?",
+                    "validate":[{"type":"required-validator"},{"type":"min-number-value","value":0},{"type":"max-number-value","value":10}],
+                    "component":"text-field",
+                    "dataType":"float",
+                    "helper_text":
+                    "Type: Float",
+                    "is_required":true,
+                    "initial_value":1.1
+                },
+                {"name":"int_value",
+                "type":"number",
+                "label":"Integer value",
+                "options":[{"label":"","value":""}],
+                "validate":[{"type":"required-validator"},{"type":"min-number-value","value":0},{"type":"max-number-value","value":10}],
+                "component":"text-field",
+                "data_type":"integer",
+                "helper_text":"",
+                "is_required":true,
+                "initial_value":5}
+            ],
+            "description":""},
+            "schema_type":"default"},
+            "modified":false,
+            "outdated":false,
+            "outdated_changes":"",
+            "service_offering_ref":"2",
+            "inventory_service_plan_ref":"1",
+            "portfolio_item":25,
+            "extra_data":{"base_schema":{"schema":{"title":"","fields":[{"name":"username","label":"What is your name","options":[{"label":"","value":""}],"validate":[{"type":"required-validator"},{"type":"min-length-validator","threshold":0},{"type":"max-length-validator","threshold":255}],"component":"text-field","helper_text":"","is_required":true,"initial_value":"insight-qa"},{"name":"quest","label":"What is your quest?","options":[{"label":"Test Approval","value":"Test Approval"},{"label":"Test Catalog","value":"Test Catalog"},{"label":"Test Topology","value":"Test Topology"},{"label":"Seek the Holy Grail","value":"Seek the Holy Grail"}],"validate":[{"type":"required-validator"}],"component":"select-field","helper_text":"","is_required":true,"initial_value":"Test Catalog"},{"name":"airspeed","type":"number","label":"What is the airspeed velocity of an unladen swallow?","options":[{"label":"","value":""}],"validate":[{"type":"required-validator"},{"type":"min-number-value","value":0},{"type":"max-number-value","value":10}],"component":"text-field","data_type":"float","helper_text":"Type: Float","is_required":true,"initial_value":1.1},{"name":"int_value","type":"number","label":"Integer value","options":[{"label":"","value":""}],"validate":[{"type":"required-validator"},{"type":"min-number-value","value":0},{"type":"max-number-value","value":10}],"component":"text-field","data_type":"integer","helper_text":"","is_required":true,"initial_value":5}],"description":""},"schema_type":"default"}}}]
+
+
+
+{"count":1,"next":null,"previous":null,
+"results":[{"id":1,"name":"source_1","refresh_started_at":null,"refresh_finished_at":null,"last_successful_refresh_at":null,"last_refresh_message":"","created_at":"2021-11-22T17:40:49.521208Z","updated_at":"2021-11-22T17:40:49.521229Z"}]}
