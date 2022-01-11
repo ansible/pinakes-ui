@@ -23,7 +23,6 @@ const PlatformDetails = () => {
   const platform = useSelector(
     ({ platformReducer: { selectedPlatform } }) => selectedPlatform
   );
-  console.log('Debug - platform: ', platform);
   return (
     <Section type="content">
       <Grid hasGutter>
