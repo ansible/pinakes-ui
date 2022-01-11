@@ -25,6 +25,7 @@ const firstOrderItem = (order: OrderDetail): OrderItem => {
   } else {
     orderItem = (order?.orderItems && order.orderItems[0]) || {};
   }
+
   return orderItem;
 };
 
@@ -80,9 +81,10 @@ const createOrderItem = (
         <Text className="pf-u-mb-0" component={TextVariants.small}>
           <DateFormat
             date={
-              item?.orderItems &&
-              item.orderItems[0] &&
-              item.orderItems[0].updated_at
+              (item?.orderItems &&
+                item.orderItems[0] &&
+                item.orderItems[0].updated_at) ||
+              item?.updated_at
             }
             variant="relative"
           />
