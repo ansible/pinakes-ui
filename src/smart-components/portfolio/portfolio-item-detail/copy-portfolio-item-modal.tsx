@@ -54,18 +54,11 @@ const loadPortfolios = (name: string) =>
 const loadPortfoliosS = (name: string) =>
   listPortfoliosS({ name }, { limit: 100, offset: 0 }).then((portfolio) =>
     portfolio.results
-      ? portfolio.results
-          .filter(
-            ({
-              metadata: {
-                user_capabilities: { update }
-              }
-            }) => update
-          )
-          .map(({ name, id }) => ({ value: id, label: name }))
+      ? portfolio.results.map(({ name, id }) => ({ value: id, label: name }))
       : []
   );
-const copySchema = (
+
+const copySchemaI = (
   getName: (value: string) => Promise<string | undefined>,
   formatMessage: FormatMessage,
   initialOptions: SelectOptions
@@ -90,6 +83,33 @@ const copySchema = (
     }
   ]
 });
+
+const copySchemaS = (
+  formatMessage: FormatMessage,
+  initialOptions: SelectOptions
+) => ({
+  fields: [
+    {
+      component: 'initial-select',
+      name: 'portfolio_id',
+      label: formatMessage(labelMessages.to_portfolio),
+      isRequired: true,
+      loadOptions: asyncFormValidator(loadPortfoliosS),
+      isSearchable: true,
+      options: initialOptions,
+      menuIsPortal: true
+    }
+  ]
+});
+
+const copySchema = (
+  getName: (value: string) => Promise<string | undefined>,
+  formatMessage: FormatMessage,
+  initialOptions: SelectOptions
+) =>
+  localStorage.getItem('catalog_standalone')
+    ? copySchemaS(formatMessage, initialOptions)
+    : copySchemaI(getName, formatMessage, initialOptions);
 
 export interface CopyPortfolioItemModalProps {
   closeUrl: string;
@@ -126,7 +146,7 @@ const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> =
       localStorage.getItem('catalog_standalone')
         ? ((copyPortfolioItemS(
             portfolioItemId,
-            values,
+            { ...values, portfolio: values.portfolio_id },
             portfolio
           ) as unknown) as Promise<PortfolioItem>)
         : ((copyPortfolioItem(
@@ -157,7 +177,11 @@ const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> =
       portfolioItemId,
       portfolioId
     ) as Promise<PortfolioItemNextName>).then(({ next_name }) => next_name);
-
+  console.log(
+    'Debug - portfolioId, portfolioName: ',
+    portfolioId,
+    portfolioName
+  );
   return (
     <Modal
       isOpen

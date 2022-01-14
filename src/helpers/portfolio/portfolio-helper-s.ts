@@ -4,7 +4,7 @@ import {
   getPortfolioItemApi
 } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { sanitizeValues } from '../shared/helpers';
+import { sanitizeValues, udefinedToNull } from '../shared/helpers';
 import { defaultSettings } from '../shared/pagination';
 import {
   AnyObject,
@@ -13,16 +13,34 @@ import {
   InternalPortfolio,
   RestorePortfolioItemConfig
 } from '../../types/common-types-s';
-import {
-  Portfolio,
-  PortfolioItem,
-  RestoreKey
-} from '@redhat-cloud-services/catalog-client';
+import { Portfolio, RestoreKey } from '@redhat-cloud-services/catalog-client';
 import { AxiosPromise, AxiosResponse } from 'axios';
 import { Store } from 'redux';
 import { Source } from '@redhat-cloud-services/sources-client';
 import { GetReduxState } from '../../types/redux';
 import { PortfolioReducerState } from '../../redux/reducers/portfolio-reducer';
+
+export interface PortfolioItem {
+  owner: string;
+  service_offering_type: string;
+  metadata: any;
+  description: string | null;
+  created_at: string;
+  long_description: string | null;
+  orphan: boolean;
+  documentation_url: string | null;
+  icon_id: string;
+  distributor: string | null;
+  support_url: string | null;
+  updated_at: string;
+  service_offering_source_ref: string;
+  portfolio: string;
+  name: string;
+  portfolio_id: string;
+  id: string;
+  state: string;
+  favorite: boolean;
+}
 
 const axiosInstance = getAxiosInstance();
 
@@ -222,11 +240,12 @@ export const copyPortfolio = (portfolioId: string): Promise<Portfolio> =>
 export const copyPortfolioItem = (
   portfolioItemId: string,
   copyObject: Partial<PortfolioItem> = {}
-): Promise<PortfolioItem> =>
-  axiosInstance.post(
-    `${CATALOG_API_BASE}/portfolio-items/${portfolioItemId}/copy/`,
+): Promise<PortfolioItem> => {
+  return axiosInstance.post(
+    `${CATALOG_API_BASE}/portfolio_items/${portfolioItemId}/copy/`,
     copyObject
   );
+};
 
 export const resetPortfolioItemIcon = (
   portfolioItemId: string
