@@ -25,6 +25,15 @@ const OrderNotification: ComponentType<OrderNotificationProps> = ({
   orderItemId
 }) => {
   const formatMessage = useFormatMessage();
+  console.log(
+    'Debug - orderNotification params: ',
+    id,
+    dispatch,
+    portfolioItemId,
+    portfolioId,
+    platformId,
+    orderItemId
+  );
   return formatMessage(ordersMessages.orderSuccess, {
     id,
     // eslint-disable-next-line react/display-name
