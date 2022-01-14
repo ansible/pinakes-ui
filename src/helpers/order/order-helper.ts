@@ -143,6 +143,7 @@ export interface GetOrderDetailParams {
 export const getOrderDetail = (
   params: GetOrderDetailParams
 ): Promise<OrderDetailPayload> => {
+  console.log('Debug - getOrderDetail - I - params: ', params);
   if (Object.values(params).some((value) => !value)) {
     /**
      * Try to fetch data sequentially if any of the parameters is unknown

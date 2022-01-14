@@ -24,6 +24,7 @@ import {
 
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchOrderProvision } from '../../../redux/actions/order-actions';
+import { fetchOrderProvision as fetchOrderProvisionS } from '../../../redux/actions/order-actions-s';
 import ordersMessages from '../../../messages/orders.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
 import { CatalogRootState } from '../../../types/redux';
@@ -223,6 +224,12 @@ const OrderProvision: React.ComponentType = () => {
     return orderRow;
   };
 
+  const fetchOrderProvisionData = (orderId: string) => {
+    return localStorage.getItem('catalog_standalone')
+      ? fetchOrderProvisionS(orderId)
+      : fetchOrderProvision(orderId);
+  };
+
   const createRows = (): RowType[] =>
     orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
       const row = createOrderRow(item, formatMessage, key);
@@ -233,7 +240,7 @@ const OrderProvision: React.ComponentType = () => {
 
   useEffect(() => {
     setIsFetching(true);
-    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
+    Promise.all([dispatch(fetchOrderProvisionData(order.id))]).then(() =>
       setIsFetching(false)
     );
   }, []);
