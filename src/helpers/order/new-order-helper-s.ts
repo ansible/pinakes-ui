@@ -166,7 +166,7 @@ export const fetchOrderProvisionItems = async (
       .then((item) => {
         progressMessageItems.push({
           orderItemId: orderItem.id || '',
-          progressMessages: item.data
+          progressMessages: item.results
         });
         return progressMessageItems;
       })
