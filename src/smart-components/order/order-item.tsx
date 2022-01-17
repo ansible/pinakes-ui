@@ -46,11 +46,6 @@ const createOrderItem = (
     ...(orderPortfolio ? { portfolio: orderPortfolio } : {})
   };
   const translatableState = getTranslatableState(item.state);
-  console.log(
-    'Debug - createOrderItem: orderItem, searchParams',
-    orderItem,
-    searchParams
-  );
   return [
     {
       title: (

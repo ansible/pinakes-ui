@@ -140,13 +140,11 @@ export const fetchOrderDetailSequence = async (
 export const fetchOrderProvisionItems = async (
   orderId: string
 ): Promise<OrderProvisionPayload> => {
-  console.log('fetchOrderProvisionItems standalone for orderId', orderId);
   let orderItems: OrderItem[];
   try {
     const items = await axiosInstance.get(
       `${CATALOG_API_BASE}/orders/${orderId}/order_items/`
     );
-    console.log('fetchOrderProvisionItems standalone - items: ', items);
     orderItems = items.results;
   } catch (error) {
     orderItems = [];
