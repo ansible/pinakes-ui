@@ -77,9 +77,9 @@ const OrderProvision: React.ComponentType = () => {
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
   const { permissions: userPermissions } = useContext(UserContext);
-  const showProgressMessages = hasPermission(userPermissions, [
-    'catalog:order_processes:link'
-  ]);
+  const showProgressMessages = localStorage.getItem('catalog_standalone')
+    ? true
+    : hasPermission(userPermissions, ['catalog:order_processes:link']);
 
   if (!isFetching && isEmpty(orderProvision)) {
     return (
