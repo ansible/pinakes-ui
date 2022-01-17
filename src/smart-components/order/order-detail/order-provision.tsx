@@ -114,13 +114,8 @@ const OrderProvision: React.ComponentType = () => {
     item: OrderItem,
     formatMessage: FormatMessage
   ): RowType => {
-    console.log('Debug - createOrderItemMainRow - item', item);
     const translatableState = getTranslatableState(
       item.state as OrderItemStateEnum
-    );
-    console.log(
-      'Debug - createOrderItemMainRow - translatableState',
-      translatableState
     );
     return {
       id: item.id,
@@ -184,17 +179,8 @@ const OrderProvision: React.ComponentType = () => {
     formatMessage: FormatMessage,
     key: number
   ): RowType => {
-    console.log('Debug - createOrderItemExpandedRow - item', item);
     const translatableState = getTranslatableState(
       item.state as OrderItemStateEnum
-    );
-    console.log(
-      'Debug - createOrderItemMainRow - translatableState',
-      translatableState
-    );
-    console.log(
-      'Debug - createOrderItemMainRow - progressMessages',
-      progressMessages
     );
     return {
       parent: key * 2,
@@ -217,9 +203,7 @@ const OrderProvision: React.ComponentType = () => {
     formatMessage: FormatMessage,
     key: number
   ): RowType[] => {
-    console.log('Debug - createOrderRow - item', item);
     const orderRow = [createOrderItemMainRow(item, formatMessage)];
-    console.log('Debug - orderRow', orderRow);
     if (
       showProgressMessages &&
       orderProvision.progressMessageItems &&
@@ -250,7 +234,6 @@ const OrderProvision: React.ComponentType = () => {
   };
 
   const createRows = (): RowType[] => {
-    console.log('Debug - createRows - orderProvision', orderProvision);
     return orderProvision?.orderItems.reduce(
       (acc: RowType[], item: OrderItem, key) => {
         const row = createOrderRow(item, formatMessage, key);
