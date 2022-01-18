@@ -84,6 +84,10 @@ const labelMessages = defineMessages({
   notAvailable: {
     id: 'common.labels.not-available',
     defaultMessage: 'Unavailable'
+  },
+  to_portfolio: {
+    id: 'common.labels.to-portfolio',
+    defaultMessage: 'To portfolio'
   }
 });
 

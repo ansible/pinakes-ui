@@ -23,10 +23,8 @@ import {
   RestorePortfolioItemConfig,
   StringObject
 } from '../../types/common-types-s';
-import {
-  Portfolio,
-  PortfolioItem
-} from '@redhat-cloud-services/catalog-client';
+import { Portfolio } from '@redhat-cloud-services/catalog-client';
+import { PortfolioItem } from '../../helpers/portfolio/portfolio-helper-s';
 import { AnyAction, Dispatch } from 'redux';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 import { ServiceOffering } from '@redhat-cloud-services/sources-client';
@@ -114,7 +112,7 @@ export const addPortfolio = (
 
 export const addToPortfolio = (
   portfolioId: string,
-  items: ServiceOffering[]
+  items: PortfolioItem[]
 ): AsyncMiddlewareAction<PortfolioItem[]> => ({
   type: ActionTypes.ADD_TO_PORTFOLIO,
   payload: PortfolioHelper.addToPortfolio(portfolioId, items),

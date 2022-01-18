@@ -23,7 +23,6 @@ const PlatformDetails = () => {
   const platform = useSelector(
     ({ platformReducer: { selectedPlatform } }) => selectedPlatform
   );
-  console.log('Debug - platform: ', platform);
   return (
     <Section type="content">
       <Grid hasGutter>
@@ -53,13 +52,15 @@ const PlatformDetails = () => {
                   <TextListItem component={TextListItemVariants.dd}>
                     <DateFormat date={platform?.created_at} />
                   </TextListItem>
-                  <TextListItem component={TextListItemVariants.dt}>
-                    {formatMessage(platformsMessages.cloudConnectorId)}
-                  </TextListItem>
-                  {localStorage.getItem('catalog_standalone') && (
-                    <TextListItem component={TextListItemVariants.dd}>
-                      {platform?.cloud_connector_id}
-                    </TextListItem>
+                  {!localStorage.getItem('catalog_standalone') && (
+                    <React.Fragment>
+                      <TextListItem component={TextListItemVariants.dt}>
+                        {formatMessage(platformsMessages.cloudConnectorId)}
+                      </TextListItem>
+                      <TextListItem component={TextListItemVariants.dd}>
+                        {platform?.cloud_connector_id}
+                      </TextListItem>
+                    </React.Fragment>
                   )}
                 </TextList>
               </TextContent>
