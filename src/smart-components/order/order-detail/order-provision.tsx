@@ -24,6 +24,7 @@ import {
 
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchOrderProvision } from '../../../redux/actions/order-actions';
+import { fetchOrderProvision as fetchOrderProvisionS } from '../../../redux/actions/order-actions-s';
 import ordersMessages from '../../../messages/orders.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
 import { CatalogRootState } from '../../../types/redux';
@@ -76,9 +77,9 @@ const OrderProvision: React.ComponentType = () => {
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
   const { permissions: userPermissions } = useContext(UserContext);
-  const showProgressMessages = hasPermission(userPermissions, [
-    'catalog:order_processes:link'
-  ]);
+  const showProgressMessages = localStorage.getItem('catalog_standalone')
+    ? true
+    : hasPermission(userPermissions, ['catalog:order_processes:link']);
 
   if (!isFetching && isEmpty(orderProvision)) {
     return (
@@ -178,6 +179,9 @@ const OrderProvision: React.ComponentType = () => {
     formatMessage: FormatMessage,
     key: number
   ): RowType => {
+    const translatableState = getTranslatableState(
+      item.state as OrderItemStateEnum
+    );
     return {
       parent: key * 2,
       cells: [
@@ -223,17 +227,27 @@ const OrderProvision: React.ComponentType = () => {
     return orderRow;
   };
 
-  const createRows = (): RowType[] =>
-    orderProvision.orderItems.reduce((acc: RowType[], item: OrderItem, key) => {
-      const row = createOrderRow(item, formatMessage, key);
-      return [...acc, ...row];
-    }, []);
+  const fetchOrderProvisionData = (orderId: string) => {
+    return localStorage.getItem('catalog_standalone')
+      ? fetchOrderProvisionS(orderId)
+      : fetchOrderProvision(orderId);
+  };
+
+  const createRows = (): RowType[] => {
+    return orderProvision?.orderItems.reduce(
+      (acc: RowType[], item: OrderItem, key) => {
+        const row = createOrderRow(item, formatMessage, key);
+        return [...acc, ...row];
+      },
+      []
+    );
+  };
 
   const [rows, setRows] = useState<RowType[]>(createRows());
 
   useEffect(() => {
     setIsFetching(true);
-    Promise.all([dispatch(fetchOrderProvision(order.id))]).then(() =>
+    Promise.all([dispatch(fetchOrderProvisionData(order.id))]).then(() =>
       setIsFetching(false)
     );
   }, []);

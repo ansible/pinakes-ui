@@ -145,7 +145,7 @@ export const fetchOrderProvisionItems = async (
     const items = await axiosInstance.get(
       `${CATALOG_API_BASE}/orders/${orderId}/order_items/`
     );
-    orderItems = items.data;
+    orderItems = items.results;
   } catch (error) {
     orderItems = [];
     // @ts-ignore
@@ -166,7 +166,7 @@ export const fetchOrderProvisionItems = async (
       .then((item) => {
         progressMessageItems.push({
           orderItemId: orderItem.id || '',
-          progressMessages: item.data
+          progressMessages: item.results
         });
         return progressMessageItems;
       })
