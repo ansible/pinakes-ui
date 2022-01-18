@@ -33,7 +33,7 @@ const CardIcon: React.ComponentType<CardIconProps> = ({
     ({ platformReducer: { platformIconMapping } }) => platformIconMapping
   );
   const defaultIcon = sourceId
-    ? platformIconMapping[sourceId]
+    ? platformIconMapping[sourceId] || CardIconDefault
     : CardIconDefault;
 
   return (
