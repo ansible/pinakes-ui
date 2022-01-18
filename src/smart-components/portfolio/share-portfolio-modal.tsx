@@ -16,13 +16,23 @@ import {
   resetSelectedPortfolio
 } from '../../redux/actions/portfolio-actions';
 import {
+  fetchPortfolios as fetchPortfoliosS,
+  resetSelectedPortfolio as resetSelectedPortfolioS
+} from '../../redux/actions/portfolio-actions-s';
+import {
   fetchShareInfo,
   sharePortfolio,
   unsharePortfolio
 } from '../../redux/actions/share-actions';
+import {
+  fetchShareInfo as fetchShareInfoS,
+  sharePortfolio as sharePortfolioS,
+  unsharePortfolio as unsharePortfolioS
+} from '../../redux/actions/share-actions-s';
 import { ShareLoader } from '../../presentational-components/shared/loader-placeholders';
 import { permissionOptions, permissionValues } from '../../utilities/constants';
 import { fetchFilterGroups } from '../../helpers/rbac/rbac-helper';
+import { fetchFilterGroups as fetchFilterGroupsS } from '../../helpers/rbac/rbac-helper-s';
 import useQuery from '../../utilities/use-query';
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
@@ -91,13 +101,21 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   }));
   useEffect(() => {
     setFetching(true);
-    dispatch(fetchShareInfo(portfolio) as Promise<any>)
+    dispatch(
+      (localStorage.getItem('catalog_standalone')
+        ? fetchShareInfoS(portfolio)
+        : fetchShareInfo(portfolio)) as Promise<any>
+    )
       .then(() => setFetching(false))
       .catch(() => setFetching(false));
   }, []);
 
   const onCancel = () => {
-    dispatch(resetSelectedPortfolio());
+    dispatch(
+      localStorage.getItem('catalog_standalone')
+        ? resetSelectedPortfolioS()
+        : resetSelectedPortfolio()
+    );
     push({ pathname: closeUrl, search });
   };
 
@@ -113,7 +131,10 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         );
         return {
           groupName,
-          group_uuid: group.group_uuid,
+          group_uuid: localStorage.getItem('catalog_standalone')
+            ? // @ts-ignore
+              group.group
+            : group.group_uuid,
           permissions: options
             ? options.value
             : formatMessage(filteringMessages.unknown)
@@ -124,7 +145,9 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   };
 
   const loadGroupOptions = (inputValue?: string) =>
-    fetchFilterGroups(inputValue);
+    localStorage.getItem('catalog_standalone')
+      ? fetchFilterGroupsS(inputValue)
+      : fetchFilterGroups(inputValue);
 
   const onSubmit = (
     data: { 'shared-groups': SharePortfolioData[] },
@@ -164,9 +187,12 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         newGroups.push(group);
       }
     });
-
     const createSharePromise = (group: SharePortfolioData, unshare = false) => {
-      const action = unshare ? unsharePortfolio : sharePortfolio;
+      let action = unshare ? unsharePortfolio : sharePortfolio;
+      if (localStorage.getItem('catalog_standalone')) {
+        action = unshare ? unsharePortfolioS : sharePortfolioS;
+      }
+
       return dispatch(
         action({
           id: portfolio,
@@ -207,7 +233,11 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
           description
         }
       });
-      return dispatch(fetchPortfolios(viewState));
+      return dispatch(
+        localStorage.getItem('catalog_standalone')
+          ? fetchPortfoliosS(viewState)
+          : fetchPortfolios(viewState)
+      );
     });
   };
 
