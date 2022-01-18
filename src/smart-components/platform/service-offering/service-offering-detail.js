@@ -107,11 +107,15 @@ const ServiceOfferingDetail = () => {
             <Text id="long_description" component={TextVariants.p}>
               {service.description}
             </Text>
-            <hr className="pf-c-divider" />
-            <Text component="h2">
-              {formatMessage(platformsMessages.offeringParameters)}
-            </Text>
-            <ReactJsonView src={service.extra} />
+            {service.extra && (
+              <React.Fragment>
+                <hr className="pf-c-divider" />
+                <Text component="h2">
+                  {formatMessage(platformsMessages.offeringParameters)}
+                </Text>
+                <ReactJsonView src={service.extra} />
+              </React.Fragment>
+            )}
           </TextContent>
         </GridItem>
       </Grid>
