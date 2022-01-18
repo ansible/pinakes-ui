@@ -177,11 +177,6 @@ const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> =
       portfolioItemId,
       portfolioId
     ) as Promise<PortfolioItemNextName>).then(({ next_name }) => next_name);
-  console.log(
-    'Debug - portfolioId, portfolioName: ',
-    portfolioId,
-    portfolioName
-  );
   return (
     <Modal
       isOpen

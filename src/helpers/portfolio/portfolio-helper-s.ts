@@ -4,7 +4,7 @@ import {
   getPortfolioItemApi
 } from '../shared/user-login';
 import { CATALOG_API_BASE } from '../../utilities/constants';
-import { sanitizeValues, udefinedToNull } from '../shared/helpers';
+import { sanitizeValues } from '../shared/helpers';
 import { defaultSettings } from '../shared/pagination';
 import {
   AnyObject,
