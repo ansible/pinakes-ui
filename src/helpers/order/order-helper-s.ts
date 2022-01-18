@@ -117,25 +117,23 @@ const fetchRequestTranscript = (
   requestId: string
 ): Promise<RequestTranscript[]> => {
   return axiosInstance
-    .get(`${APPROVAL_API_BASE}/requests/${requestId}/`)
-    .then(({ data: { requests } }) => {
-      return requests &&
-        requests.length > 0 &&
-        requests[0].number_of_children > 0
-        ? requests[0].requests
-        : requests;
+    .get(`${APPROVAL_API_BASE}/requests/${requestId}/?extra=true`)
+    .then((request) => {
+      return request && request.extra_data > 0 && request.number_of_children > 0
+        ? request.extra_data.subrequests
+        : [request];
     });
 };
 
 export const getApprovalRequests = (
-  orderItemId: string
+  orderId: string
 ): Promise<{
   data: { group_name: string; decision: string; updated?: string }[];
 }> =>
   axiosInstance
-    .get(`${CATALOG_API_BASE}/order_items/${orderItemId}/approval_requests/`)
-    .then(({ data }: { data: Full<ApprovalRequest>[] }) => {
-      const promises = data.map(({ approval_request_ref }) =>
+    .get(`${CATALOG_API_BASE}/orders/${orderId}/approval_requests/`)
+    .then(({ results }: { results: Full<ApprovalRequest>[] }) => {
+      const promises = results.map(({ approval_request_ref }) =>
         fetchRequestTranscript(approval_request_ref)
       );
       return Promise.all(promises).then((requests) => {

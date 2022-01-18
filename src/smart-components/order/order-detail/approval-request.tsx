@@ -33,6 +33,7 @@ import {
 import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import InfoIcon from '@patternfly/react-icons/dist/js/icons/info-icon';
 import { fetchApprovalRequests } from '../../../redux/actions/order-actions';
+import { fetchApprovalRequests as fetchApprovalRequestsS } from '../../../redux/actions/order-actions-s';
 import ordersMessages from '../../../messages/orders.messages';
 import statesMessages, {
   getTranslatableState
@@ -81,6 +82,11 @@ const isEmpty = (approvalRequest?: ApiCollectionResponse<ApprovalRequest>) =>
   !approvalRequest.data ||
   approvalRequest.data.length === 0;
 
+const fetchApprovalRequestsData = (id: string) =>
+  localStorage.getItem('catalog_standalone')
+    ? fetchApprovalRequestsS(id)
+    : fetchApprovalRequests(id);
+
 const ApprovalRequests: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
@@ -102,7 +108,7 @@ const ApprovalRequests: React.ComponentType = () => {
       setFetching(true);
       checkRequest(() =>
         dispatch(
-          (fetchApprovalRequests(orderItem.id!) as unknown) as Promise<
+          (fetchApprovalRequestsData(orderItem.id!) as unknown) as Promise<
             ApiCollectionResponse<ApprovalRequest>
           >
         )
