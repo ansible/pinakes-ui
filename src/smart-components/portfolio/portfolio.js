@@ -163,12 +163,12 @@ const Portfolio = () => {
           : fetchPlatforms()
       ),
       dispatch(
-        window?.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? fetchSelectedPortfolioS(portfolioId)
           : fetchSelectedPortfolio(portfolioId)
       ),
       dispatch(
-        window?.catalog?.standalone
+        localStorage.getItem('catalog_standalone')
           ? fetchPortfolioItemsWithPortfolioS(
               portfolioId,
               viewState?.portfolioItems

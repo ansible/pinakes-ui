@@ -179,7 +179,7 @@ const updateTemporaryPortfolio: PortfolioReducerActionHandler = (
         ...state.selectedPortfolio.metadata,
         user_capabilities: {
           // the client typings define metadata object which will result it unknown property TS error. So we have to override it
-          ...(state.selectedPortfolio.metadata as AnyObject).user_capabilities
+          ...(state.selectedPortfolio?.metadata as AnyObject)?.user_capabilities
         }
       },
       ...payload
