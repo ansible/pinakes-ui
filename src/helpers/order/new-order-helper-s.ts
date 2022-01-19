@@ -100,12 +100,12 @@ export const fetchOrderDetailSequence = async (
     portfolioItem = orderItem.extra_data?.portfolio_item;
   }
 
+  console.log('Debug - portfolioItem, orderItem: ', portfolioItem, orderItem);
   const parallerRequests = [
     axiosInstance
       .get(
-        `${CATALOG_INVENTORY_API_BASE}/sources/${
-          (portfolioItem as PortfolioItem).service_offering_source_ref
-        }`
+        `${CATALOG_INVENTORY_API_BASE}/sources/${(portfolioItem as PortfolioItem)
+          .service_offering_source_ref || 1}`
       )
       .catch(() => ({ object: 'Platform', notFound: true })),
 
