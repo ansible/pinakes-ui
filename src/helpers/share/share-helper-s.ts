@@ -11,12 +11,12 @@ const userApi = getPortfolioApi();
 
 export interface SharePolicy {
   permissions: Array<SharePolicyPermissionsEnum>;
-  groups: Array<string>;
+  group_ids: Array<string>;
 }
 
 export interface UnsharePolicy {
   permissions: Array<UnsharePolicyPermissionsEnum>;
-  groups?: Array<string>;
+  group_ids?: Array<string>;
 }
 
 export const getShareInfo = (portfolioId: string): Promise<ShareInfo> =>
@@ -32,7 +32,7 @@ export interface ShareData<T = SharePolicyPermissionsEnum> {
 export const sharePortfolio = (data: ShareData): Promise<void> => {
   const policy: SharePolicy = {
     permissions: data.permissions.split(',') as SharePolicyPermissionsEnum[],
-    groups: [data.group_uuid]
+    group_ids: [data.group_uuid]
   };
   return axiosInstance.post(
     `${CATALOG_API_BASE}/portfolios/${data.id}/share/`,
@@ -45,7 +45,7 @@ export const unsharePortfolio = (
 ): Promise<void> => {
   const policy: UnsharePolicy = {
     permissions: data.permissions,
-    groups: [data.group_uuid]
+    group_ids: [data.group_uuid]
   };
   return axiosInstance.post(
     `${CATALOG_API_BASE}/portfolios/${data.id}/unshare/`,
