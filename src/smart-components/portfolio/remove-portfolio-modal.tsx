@@ -29,6 +29,7 @@ import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import { CatalogRootState } from '../../types/redux';
 import { InternalPortfolio } from '../../types/common-types';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 export interface RemovePortfolioModalProps {
   viewState?: PaginationConfiguration;
@@ -43,7 +44,7 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
     CatalogRootState,
     InternalPortfolio | undefined
   >(({ portfolioReducer }) =>
-    localStorage.getItem('catalog_standalone')
+    isStandalone()
       ? getPortfolioFromStateS(portfolioReducer, portfolioId)
       : getPortfolioFromState(portfolioReducer, portfolioId)
   );
@@ -51,7 +52,7 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
   const onSubmit = () => {
     push(PORTFOLIOS_ROUTE);
     return dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? removePortfolioS(portfolioId, viewState)
         : removePortfolio(portfolioId, viewState)
     );

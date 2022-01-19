@@ -4,7 +4,7 @@ import { WrenchIcon, SearchIcon } from '@patternfly/react-icons';
 
 import { fetchPortfolioItems } from '../../redux/actions/portfolio-actions';
 import { fetchPortfolioItems as fetchPortfolioItemsS } from '../../redux/actions/portfolio-actions-s';
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import PortfolioItem from '../portfolio/portfolio-item';
 import createProductsToolbarSchema from '../../toolbar/schemas/products-toolbar.schema';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
@@ -35,7 +35,7 @@ const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
     filteringCallback(true);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPortfolioItemsS(value, defaultSettings)
         : fetchPortfolioItems(value, defaultSettings)
     ).then(() => filteringCallback(false));
@@ -106,7 +106,7 @@ const Products = () => {
   useEffect(() => {
     Promise.all([
       dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? fetchPortfolioItemsS(
               viewState?.products?.filter,
               viewState?.products
@@ -116,11 +116,7 @@ const Products = () => {
               viewState?.products
             )
       ),
-      dispatch(
-        localStorage.getItem('catalog_standalone')
-          ? fetchPlatformsS()
-          : fetchPlatforms()
-      )
+      dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms())
     ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
     scrollToTop();
   }, []);
@@ -208,7 +204,7 @@ const Products = () => {
           title: formatMessage(productsMessages.title),
           isLoading: isFiltering || isFetching,
           meta,
-          fetchProducts: localStorage.getItem('catalog_standalone')
+          fetchProducts: isStandalone()
             ? (...args) => dispatch(fetchPortfolioItemsS(...args))
             : (...args) => dispatch(fetchPortfolioItems(...args))
         })}
@@ -227,7 +223,7 @@ const Products = () => {
             meta={meta}
             apiRequest={(_e, options) =>
               dispatch(
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? fetchPortfolioItemsS(viewState?.products?.filter, options)
                   : fetchPortfolioItems(viewState?.products?.filter, options)
               )

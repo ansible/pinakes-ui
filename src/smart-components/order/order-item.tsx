@@ -15,10 +15,11 @@ import orderStatusMapper from './order-status-mapper';
 import { OrderDetail } from '../../redux/reducers/order-reducer';
 import { FormatMessage, StringObject } from '../../types/common-types';
 import { OrderItem } from '../../helpers/order/order-helper-s';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 const firstOrderItem = (order: OrderDetail): OrderItem => {
   let orderItem = { count: 0, portfolio_item: '' };
-  if (localStorage.getItem('catalog_standalone')) {
+  if (isStandalone()) {
     orderItem =
       (order?.extra_data?.order_items && order?.extra_data?.order_items[0]) ||
       {};

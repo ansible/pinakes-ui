@@ -22,6 +22,7 @@ import { StyledLevelItem } from '../../../presentational-components/styled-compo
 import labelMessages from '../../../messages/labels.messages';
 import platformsMessages from '../../../messages/platforms.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { isStandalone } from '../../../helpers/shared/helpers';
 
 const requiredParams = ['service', 'platform'];
 
@@ -37,7 +38,7 @@ const ServiceOfferingDetail = () => {
   useEffect(() => {
     setIsFetching(true);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchServiceOfferingS(queryValues.service, queryValues.platform)
         : fetchServiceOffering(queryValues.service, queryValues.platform)
     )

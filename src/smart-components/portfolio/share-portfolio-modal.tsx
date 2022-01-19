@@ -50,6 +50,7 @@ import {
   UnsharePolicyPermissionsEnum
 } from '@redhat-cloud-services/catalog-client';
 import { FormApi, Full, InternalPortfolio } from '../../types/common-types';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 export type UniversalSharePolicy =
   | (UnsharePolicyPermissionsEnum[] & SharePolicyPermissionsEnum.Read)
@@ -102,7 +103,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   useEffect(() => {
     setFetching(true);
     dispatch(
-      (localStorage.getItem('catalog_standalone')
+      (isStandalone()
         ? fetchShareInfoS(portfolio)
         : fetchShareInfo(portfolio)) as Promise<any>
     )
@@ -112,9 +113,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
 
   const onCancel = () => {
     dispatch(
-      localStorage.getItem('catalog_standalone')
-        ? resetSelectedPortfolioS()
-        : resetSelectedPortfolio()
+      isStandalone() ? resetSelectedPortfolioS() : resetSelectedPortfolio()
     );
     push({ pathname: closeUrl, search });
   };
@@ -131,7 +130,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         );
         return {
           groupName,
-          group_uuid: localStorage.getItem('catalog_standalone')
+          group_uuid: isStandalone()
             ? // @ts-ignore
               group.group
             : group.group_uuid,
@@ -145,7 +144,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   };
 
   const loadGroupOptions = (inputValue?: string) =>
-    localStorage.getItem('catalog_standalone')
+    isStandalone()
       ? fetchFilterGroupsS(inputValue)
       : fetchFilterGroups(inputValue);
 
@@ -189,7 +188,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
     });
     const createSharePromise = (group: SharePortfolioData, unshare = false) => {
       let action = unshare ? unsharePortfolio : sharePortfolio;
-      if (localStorage.getItem('catalog_standalone')) {
+      if (isStandalone()) {
         action = unshare ? unsharePortfolioS : sharePortfolioS;
       }
 
@@ -234,7 +233,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         }
       });
       return dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? fetchPortfoliosS(viewState)
           : fetchPortfolios(viewState)
       );

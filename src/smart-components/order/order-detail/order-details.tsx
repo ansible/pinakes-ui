@@ -25,6 +25,7 @@ import useFormatMessage from '../../../utilities/use-format-message';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import { CatalogRootState } from '../../../types/redux';
 import { Section } from '@redhat-cloud-services/frontend-components/Section';
+import {isStandalone} from "../../../helpers/shared/helpers";
 
 const OrderDetails: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
@@ -38,7 +39,7 @@ const OrderDetails: React.ComponentType = () => {
     ({ orderReducer: { orderDetail } }) => orderDetail
   );
   const dispatch = useDispatch();
-  const messages = localStorage.getItem('catalog_standalone')
+  const messages = isStandalone()
     ? progressMessages?.results
     : progressMessages?.data;
   return (

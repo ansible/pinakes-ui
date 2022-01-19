@@ -17,7 +17,7 @@ import { PORTFOLIO_ROUTE } from '../../constants/routes';
 import filteringMessages from '../../messages/filtering.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import UserContext from '../../user-context';
-import { hasPermission } from '../../helpers/shared/helpers';
+import { hasPermission, isStandalone } from '../../helpers/shared/helpers';
 
 const PortfolioItems = ({
   routes,
@@ -69,7 +69,7 @@ const PortfolioItems = ({
   ]);
   const dataSet = data ? data : results;
   const metaInfo = meta ? meta : { count };
-  const userCapabilities = localStorage.getItem('catalog_standalone')
+  const userCapabilities = isStandalone()
     ? {
         show: true,
         update: true,
@@ -129,7 +129,7 @@ const PortfolioItems = ({
           meta: metaInfo,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(
-              localStorage.getItem('catalog_standalone')
+              isStandalone()
                 ? fetchPortfolioItemsWithPortfolioS(...args)
                 : fetchPortfolioItemsWithPortfolio(...args)
             ),
@@ -158,7 +158,7 @@ const PortfolioItems = ({
             apiProps={id}
             apiRequest={(...args) =>
               dispatch(
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? fetchPortfolioItemsWithPortfolioS(...args)
                   : fetchPortfolioItemsWithPortfolio(...args)
               )

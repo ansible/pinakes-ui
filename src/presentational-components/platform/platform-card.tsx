@@ -31,7 +31,7 @@ import { refreshPlatform } from '../../redux/actions/platform-actions';
 import { refreshPlatform as refreshPlatformS } from '../../redux/actions/platform-actions-s';
 import platformsMessages from '../../messages/platforms.messages';
 import { useDispatch } from 'react-redux';
-import { delay } from '../../helpers/shared/helpers';
+import { delay, isStandalone } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = ['description', 'modified'];
 
@@ -82,7 +82,7 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
     stateDispatch({ type: 'setFetching', payload: true });
     Promise.resolve(
       dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? refreshPlatformS(platformId)
           : refreshPlatform(platformId)
       )

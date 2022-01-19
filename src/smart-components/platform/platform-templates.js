@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchIcon } from '@patternfly/react-icons';
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformItems } from '../../redux/actions/platform-actions';
@@ -44,7 +44,7 @@ const debouncedFilter = asyncFormValidator(
   (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPlatformItemsS(id, value, meta)
         : fetchPlatformItems(id, value, meta)
     ).then(() => filteringCallback(false));
@@ -80,7 +80,7 @@ const PlatformTemplates = () => {
 
   useEffect(() => {
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPlatformItemsS(id, filterValue, defaultSettings)
         : fetchPlatformItems(id, filterValue, defaultSettings)
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -133,7 +133,7 @@ const PlatformTemplates = () => {
           meta: metaInfo,
           apiRequest: (_, options) =>
             dispatch(
-              localStorage.getItem('catalog_standalone')
+              isStandalone()
                 ? fetchPlatformItemsS(id, filterValue, options)
                 : fetchPlatformItems(id, filterValue, options)
             )
@@ -177,7 +177,7 @@ const PlatformTemplates = () => {
             meta={metaInfo}
             apiRequest={(_, options) =>
               dispatch(
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? fetchPlatformItemsS(id, filterValue, options)
                   : fetchPlatformItems(id, filterValue, options)
               )

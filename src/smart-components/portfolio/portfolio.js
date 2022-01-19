@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import { toggleArraySelection } from '../../helpers/shared/redux-mutators';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
 import { fetchPlatforms as fetchPlatformsS } from '../../redux/actions/platform-actions-s';
@@ -100,7 +100,7 @@ const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback, meta) => {
     filteringCallback(true);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPortfolioItemsWithPortfolioS(value, meta)
         : fetchPortfolioItemsWithPortfolio(value, meta)
     ).then(() => filteringCallback(false));
@@ -157,18 +157,14 @@ const Portfolio = () => {
   const fetchData = (portfolioId) => {
     stateDispatch({ type: 'setIsFetching', payload: true });
     return Promise.all([
+      dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms()),
       dispatch(
-        localStorage.getItem('catalog_standalone')
-          ? fetchPlatformsS()
-          : fetchPlatforms()
-      ),
-      dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? fetchSelectedPortfolioS(portfolioId)
           : fetchSelectedPortfolio(portfolioId)
       ),
       dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? fetchPortfolioItemsWithPortfolioS(
               portfolioId,
               viewState?.portfolioItems
@@ -196,9 +192,7 @@ const Portfolio = () => {
     return () => {
       resetBreadcrumbs();
       dispatch(
-        localStorage.getItem('catalog_standalone')
-          ? resetSelectedPortfolioS()
-          : resetSelectedPortfolio()
+        isStandalone() ? resetSelectedPortfolioS() : resetSelectedPortfolio()
       );
     };
   }, []);
@@ -216,11 +210,7 @@ const Portfolio = () => {
 
   const handleCopyPortfolio = () => {
     stateDispatch({ type: 'setCopyInProgress', payload: true });
-    return dispatch(
-      localStorage.getItem('catalog_standalone')
-        ? copyPortfolioS(id)
-        : copyPortfolio(id)
-    )
+    return dispatch(isStandalone() ? copyPortfolioS(id) : copyPortfolio(id))
       .then(({ id }) =>
         history.push({
           pathname: PORTFOLIO_ROUTE,
@@ -228,13 +218,7 @@ const Portfolio = () => {
         })
       )
       .then(() => stateDispatch({ type: 'setCopyInProgress', payload: false }))
-      .then(() =>
-        dispatch(
-          localStorage.getItem('catalog_standalone')
-            ? fetchPortfoliosS
-            : fetchPortfolios
-        )
-      )
+      .then(() => dispatch(isStandalone() ? fetchPortfoliosS : fetchPortfolios))
       .catch(() =>
         stateDispatch({ type: 'setCopyInProgress', payload: false })
       );
@@ -243,7 +227,7 @@ const Portfolio = () => {
   const removeProducts = (products) => {
     stateDispatch({ type: 'setRemoveInProgress', payload: true });
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? removeProductsFromPortfolioS(
             products,
             portfolio.name,

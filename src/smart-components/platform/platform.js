@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import {
   fetchSelectedPlatform,
   fetchPlatforms
@@ -82,15 +82,11 @@ const Platform = () => {
   useEffect(() => {
     Promise.all([
       dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? fetchSelectedPlatformS(platform)
           : fetchSelectedPlatform(platform)
       ),
-      dispatch(
-        localStorage.getItem('catalog_standalone')
-          ? fetchPlatformsS()
-          : fetchPlatforms()
-      )
+      dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms())
     ]);
     scrollToTop();
     return () => {

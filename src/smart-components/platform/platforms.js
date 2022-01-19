@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Text, TextVariants } from '@patternfly/react-core';
 import { SearchIcon, CogIcon } from '@patternfly/react-icons';
 
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import ContentGallery from '../content-gallery/content-gallery';
 import { fetchPlatforms } from '../../redux/actions/platform-actions';
@@ -42,16 +42,10 @@ const Platforms = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    dispatch(
-      localStorage.getItem('catalog_standalone')
-        ? fetchPlatformsS()
-        : fetchPlatforms()
-    );
+    dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms());
     scrollToTop();
   }, []);
-  const items = localStorage.getItem('catalog_standalone')
-    ? platforms.results
-    : platforms;
+  const items = isStandalone() ? platforms.results : platforms;
   const filteredItems = items
     ? {
         items: items?.map((item) => (
@@ -60,11 +54,7 @@ const Platforms = () => {
             key={item.id}
             {...item}
             updateData={() =>
-              dispatch(
-                localStorage.getItem('catalog_standalone')
-                  ? fetchPlatformsS()
-                  : fetchPlatforms()
-              )
+              dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms())
             }
           />
         )),

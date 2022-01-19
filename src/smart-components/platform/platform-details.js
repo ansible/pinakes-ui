@@ -17,6 +17,7 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 const PlatformDetails = () => {
   const formatMessage = useFormatMessage();
@@ -52,7 +53,7 @@ const PlatformDetails = () => {
                   <TextListItem component={TextListItemVariants.dd}>
                     <DateFormat date={platform?.created_at} />
                   </TextListItem>
-                  {!localStorage.getItem('catalog_standalone') && (
+                  {!isStandalone() && (
                     <React.Fragment>
                       <TextListItem component={TextListItemVariants.dt}>
                         {formatMessage(platformsMessages.cloudConnectorId)}

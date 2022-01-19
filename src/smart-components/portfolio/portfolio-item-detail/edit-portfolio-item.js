@@ -11,6 +11,7 @@ import { Stack, StackItem } from '@patternfly/react-core';
 import IconUpload from './icon-upload';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
+import { isStandalone } from '../../../helpers/shared/helpers';
 
 const EditPortfolioItem = ({
   cancelUrl,
@@ -22,10 +23,8 @@ const EditPortfolioItem = ({
   const dispatch = useDispatch();
   const { push } = useHistory();
   const { search } = useLocation();
-  const icon_url = localStorage.getItem('catalog_standalone')
-    ? product.icon_url
-    : product.icon_id;
-  const icon_src = localStorage.getItem('catalog_standalone')
+  const icon_url = isStandalone() ? product.icon_url : product.icon_id;
+  const icon_src = isStandalone()
     ? product.icon_url || 'default'
     : `${CATALOG_API_BASE}/portfolio_items/${
         product.id
@@ -54,7 +53,7 @@ const EditPortfolioItem = ({
               search
             });
             return dispatch(
-              localStorage.getItem('catalog_standalone')
+              isStandalone()
                 ? updatePortfolioItemS({
                     ...values,
                     metadata: { user_capabilities: userCapabilities }

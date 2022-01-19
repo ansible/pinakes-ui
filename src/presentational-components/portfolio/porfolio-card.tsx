@@ -36,6 +36,7 @@ import useFormatMessage from '../../utilities/use-format-message';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import { UserCapabilities, PortfolioMetadata } from '../../types/common-types';
 import { USER_CAPABILITIES_PLACEHOLDER } from '../../utilities/constants';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 const TO_DISPLAY = ['description'];
 
@@ -207,7 +208,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
   };
-  const user_capabilities = localStorage.getItem('catalog_standalone')
+  const user_capabilities = isStandalone()
     ? USER_CAPABILITIES_PLACEHOLDER
     : metadata?.user_capabilities || {};
   const statistics = metadata?.statistics || {};
