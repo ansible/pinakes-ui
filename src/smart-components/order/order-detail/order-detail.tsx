@@ -145,8 +145,8 @@ const OrderDetail: React.ComponentType = () => {
                     orderId={order.id}
                     state={order.state}
                     portfolioItemId={portfolioItem.id}
-                    portfolioId={portfolio.id}
-                    sourceId={platform.id}
+                    portfolioId={portfolio?.id}
+                    sourceId={platform?.id}
                     orderable={portfolioItem.metadata?.orderable || false}
                     icon_url={portfolioItem.icon_url}
                   />
@@ -158,8 +158,8 @@ const OrderDetail: React.ComponentType = () => {
             <OrderDetailInformation
               portfolioItemId={portfolioItem.id}
               portfolioId={portfolio.id}
-              sourceId={platform.id}
-              jobName={portfolioItem.name}
+              sourceId={platform?.id}
+              jobName={portfolioItem?.name}
               state={order.state}
               icon_url={portfolioItem.icon_url}
             />
