@@ -25,7 +25,7 @@ import useFormatMessage from '../../../utilities/use-format-message';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import { CatalogRootState } from '../../../types/redux';
 import { Section } from '@redhat-cloud-services/frontend-components/Section';
-import {isStandalone} from "../../../helpers/shared/helpers";
+import { isStandalone } from '../../../helpers/shared/helpers';
 
 const OrderDetails: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
