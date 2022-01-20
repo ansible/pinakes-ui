@@ -45,7 +45,7 @@ import { FormatMessage } from '../../../types/common-types';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import ProgressMessages from './progress-messages';
 import UserContext from '../../../user-context';
-import {hasPermission, isStandalone} from '../../../helpers/shared/helpers';
+import { hasPermission, isStandalone } from '../../../helpers/shared/helpers';
 
 export interface RowType {
   id?: string;
