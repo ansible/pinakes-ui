@@ -132,7 +132,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
           groupName,
           group_uuid: isStandalone()
             ? // @ts-ignore
-              group.group
+              group.group_id
             : group.group_uuid,
           permissions: options
             ? options.value
