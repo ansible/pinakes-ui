@@ -48,4 +48,4 @@ jobs:
         RELEASE_NAME: "UI Dev Release"
         RELEASE_BODY: "This is a special release that provides an up to date build off of the latest changes in the `main` branch. The `catalog-ui.tar.gz` artifact provided here corresponds to the latest version of `main`."
         RELEASE_FILE: 'catalog-ui.tar.gz'
-        RELEASE_TAG: 'dev'
+        RELEASE_TAG: 'latest'
