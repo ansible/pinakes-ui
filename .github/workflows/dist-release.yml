@@ -36,8 +36,8 @@ jobs:
     - name: "Build a tar"
       run: |
         npm ci || npm install
-        npm run build-standalone
-        tar -C dist/ -czvf automation-hub-ui-dist.tar.gz .
+        npm run build:standalone
+        tar -C dist/ -czvf catalog-ui.tar.gz .
 
     - name: "Release"
       run: |
