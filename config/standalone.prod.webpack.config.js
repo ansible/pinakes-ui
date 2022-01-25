@@ -5,9 +5,9 @@ module.exports = webpackBase({
   API_HOST: '',
   API_BASE_PATH: '/api/ansible-catalog/v1',
   DEPLOYMENT_MODE: 'standalone',
-  UI_USE_HTTPS: false,
+  UI_USE_HTTPS: true,
   UI_DEBUG: false,
   TARGET_ENVIRONMENT: 'prod',
   ANSIBLE_CATALOG_LOGIN_URI: '/login/keycloak-oidc/',
-  WEBPACK_PUBLIC_PATH: '/ui/'
+  WEBPACK_PUBLIC_PATH: '/ui/catalog/'
 });
