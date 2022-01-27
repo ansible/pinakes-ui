@@ -27,6 +27,7 @@ import { PaginationConfiguration } from '../../helpers/shared/pagination';
 import { CatalogRootState } from '../../types/redux';
 import { Portfolio } from '@redhat-cloud-services/catalog-client';
 import { InternalPortfolio } from '../../types/common-types';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 export interface AddPortfolioModalProps {
   removeQuery?: boolean;
@@ -51,8 +52,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     CatalogRootState,
     InternalPortfolio | undefined
   >(({ portfolioReducer }) =>
-    // eslint-disable-next-line no-undef
-    localStorage.getItem('catalog_standalone')
+    isStandalone()
       ? (getPortfolioFromStateS(portfolioReducer, portfolioId) as
           | InternalPortfolio
           | undefined)
@@ -72,7 +72,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
       })
     };
     const newPortfolio = await dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? (addPortfolioS(data, notification) as Promise<{ value: Portfolio }>)
         : (addPortfolio(data, notification) as Promise<{ value: Portfolio }>)
     );
@@ -91,7 +91,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
        */
       setIsOpen(false);
       return dispatch(
-        (localStorage.getItem('catalog_standalone')
+        (isStandalone()
           ? updatePortfolioS(data, viewState)
           : (updatePortfolio(data, viewState) as unknown)) as Promise<void>
       ).then(() =>

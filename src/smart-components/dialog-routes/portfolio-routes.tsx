@@ -39,6 +39,7 @@ import {
   UserCapabilities
 } from '../../types/common-types';
 import { Portfolio } from '@redhat-cloud-services/catalog-client';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 const CopyPortfolioItemModal = lazy(() =>
   import(
@@ -116,7 +117,7 @@ const PortfolioRoutes: React.ComponentType = () => {
   useEffect(() => {
     if (id && (!selectedPortfolio?.id || id !== selectedPortfolio.id)) {
       dispatch(
-        localStorage.getItem('catalog_standalone')
+        isStandalone()
           ? setOrFetchPortfolioS(id, portfolios)
           : setOrFetchPortfolio(id, portfolios)
       );
@@ -177,9 +178,7 @@ const PortfolioRoutes: React.ComponentType = () => {
             removeSearch
             keepHash
             postMethod={() =>
-              localStorage.getItem('catalog_standalone')
-                ? fetchPortfoliosS()
-                : fetchPortfolios()
+              isStandalone() ? fetchPortfoliosS() : fetchPortfolios()
             }
             onClose={() => dispatch(resetSelectedPortfolio())}
           />

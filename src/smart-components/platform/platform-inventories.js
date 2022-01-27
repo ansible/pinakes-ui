@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
 import { Section } from '@redhat-cloud-services/frontend-components/Section';
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import { fetchPlatformInventories } from '../../redux/actions/platform-actions';
@@ -31,7 +31,7 @@ const debouncedFilter = asyncFormValidator(
   (id, value, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPlatformInventoriesS(id, value, meta)
         : fetchPlatformInventories(id, value, meta)
     ).then(() => filteringCallback(false));
@@ -76,7 +76,7 @@ const PlatformInventories = () => {
 
   useEffect(() => {
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPlatformInventoriesS(id, filterValue, defaultSettings)
         : fetchPlatformInventories(id, filterValue, defaultSettings)
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -125,7 +125,7 @@ const PlatformInventories = () => {
           meta: metaInfo,
           apiRequest: (_, options) =>
             dispatch(
-              localStorage.getItem('catalog_standalone')
+              isStandalone()
                 ? fetchPlatformInventoriesS(id, filterValue, options)
                 : fetchPlatformInventories(id, filterValue, options)
             )
@@ -162,7 +162,7 @@ const PlatformInventories = () => {
             meta={metaInfo}
             apiRequest={(_, options) =>
               dispatch(
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? fetchPlatformInventoriesS(id, filterValue, options)
                   : fetchPlatformInventories(id, filterValue, options)
               )

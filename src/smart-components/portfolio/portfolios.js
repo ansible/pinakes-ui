@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { PlusCircleIcon, SearchIcon } from '@patternfly/react-icons';
 import { Button } from '@patternfly/react-core';
 
-import { scrollToTop } from '../../helpers/shared/helpers';
+import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
 import ContentGallery from '../content-gallery/content-gallery';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import {
@@ -41,8 +41,7 @@ const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
     filteringCallback(true);
     dispatch(
-      // eslint-disable-next-line no-undef
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPortfoliosWithStateS(filters, meta)
         : fetchPortfoliosWithState(filters, meta)
     ).then(() => filteringCallback(false));
@@ -122,8 +121,7 @@ const Portfolios = () => {
 
   useEffect(() => {
     dispatch(
-      // eslint-disable-next-line no-undef
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPortfoliosWithStateS(filters, { ...meta, sortDirection })
         : fetchPortfoliosWithState(filters, { ...meta, sortDirection })
     ).then(() => stateDispatch({ type: 'setFetching', payload: false }));
@@ -151,15 +149,12 @@ const Portfolios = () => {
     stateDispatch({ type: 'setSortBy', payload: direction });
 
   const handleCopyPortfolio = (id) =>
-    dispatch(
-      localStorage.getItem('catalog_standalone')
-        ? copyPortfolioS(id)
-        : copyPortfolio(id)
-    ).then(({ id }) =>
-      history.push({
-        pathname: PORTFOLIO_ROUTE,
-        search: `?portfolio=${id}`
-      })
+    dispatch(isStandalone() ? copyPortfolioS(id) : copyPortfolio(id)).then(
+      ({ id }) =>
+        history.push({
+          pathname: PORTFOLIO_ROUTE,
+          search: `?portfolio=${id}`
+        })
     );
 
   const canCreate = hasPermission(userPermissions, [
@@ -224,8 +219,7 @@ const Portfolios = () => {
           sortDirection={sortDirection}
           handleSort={handleSort}
           fetchPortfoliosWithState={
-            // eslint-disable-next-line no-undef
-            localStorage.getItem('catalog_standalone')
+            isStandalone()
               ? fetchPortfoliosWithStateS
               : fetchPortfoliosWithState
           }
@@ -247,8 +241,7 @@ const Portfolios = () => {
             meta={meta}
             apiRequest={(_, options) =>
               dispatch(
-                // eslint-disable-next-line no-undef
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? fetchPortfoliosWithStateS(filters, options)
                   : fetchPortfoliosWithState(filters, options)
               )

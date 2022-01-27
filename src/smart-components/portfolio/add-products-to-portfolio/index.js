@@ -27,6 +27,7 @@ import useEnhancedHistory from '../../../utilities/use-enhanced-history';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomPaginationContainer from '../../../presentational-components/shared/bottom-pagination-container';
 import asyncFormValidator from '../../../utilities/async-form-validator';
+import { isStandalone } from '../../../helpers/shared/helpers';
 
 const renderGalleryItems = (items = [], checkItem, checkedItems) => {
   return items.map((item) => (
@@ -63,7 +64,7 @@ const debouncedFilter = asyncFormValidator(
   (id, filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPlatformItemsS(id, filter, { ...meta, filter })
         : fetchPlatformItems(id, filter, { ...meta, filter })
     ).then(() => filteringCallback(false));
@@ -93,11 +94,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   );
 
   useEffect(() => {
-    dispatch(
-      localStorage.getItem('catalog_standalone')
-        ? fetchPlatformsS()
-        : fetchPlatforms()
-    );
+    dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms());
   }, []);
 
   const checkItem = (itemId) => {
@@ -109,7 +106,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
 
   const items = () => {
     if (selectedPlatform && platformItems[selectedPlatform.id]) {
-      return localStorage.getItem('catalog_standalone')
+      return isStandalone()
         ? platformItems[selectedPlatform.id].results
         : platformItems[selectedPlatform.id].data;
     }
@@ -120,7 +117,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const meta =
     selectedPlatform &&
     platformItems[selectedPlatform.id] &&
-    (localStorage.getItem('catalog_standalone')
+    (isStandalone()
       ? platformItems[selectedPlatform.id].meta
       : { count: platformItems[selectedPlatform.id].count });
 
@@ -142,7 +139,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const handleAddToPortfolio = () => {
     dispatch({ type: 'setFetching', payload: true });
     return dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? addToPortfolioS(
             portfolio.id,
             items().filter((platformItem) =>
@@ -157,7 +154,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
       )
       .then(() =>
         dispatch(
-          localStorage.getItem('catalog_standalone')
+          isStandalone()
             ? fetchPortfolioItemsWithPortfolioS(portfolio.id)
             : fetchPortfolioItemsWithPortfolio(portfolio.id)
         )
@@ -168,7 +165,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
   const onPlatformSelect = (platform) => {
     setSelectedPlatform(platform);
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? fetchPlatformItemsS(platform.id, filterValue, defaultSettings)
         : fetchPlatformItems(platform.id, filterValue, defaultSettings)
     );
@@ -199,7 +196,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           searchValue: filterValue,
           fetchPlatformItems: (id, options) =>
             dispatch(
-              localStorage.getItem('catalog_standalone')
+              isStandalone()
                 ? fetchPlatformItemsS(id, filterValue, options)
                 : fetchPlatformItems(id, filterValue, options)
             )
@@ -221,7 +218,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
             meta={meta}
             apiProps={selectedPlatform && selectedPlatform.id}
             apiRequest={(id, options) =>
-              localStorage.getItem('catalog_standalone')
+              isStandalone()
                 ? fetchPlatformItemsS(id, filterValue, options)
                 : fetchPlatformItems(id, filterValue, options)
             }

@@ -89,6 +89,7 @@ export const fetchOrderDetailSequence = async (
       throw error;
     }
   }
+
   const orderItems = order?.extra_data?.order_items;
   const orderItem = orderItems[0];
   let portfolioItem: PortfolioItem | ObjectNotFound = {
@@ -103,18 +104,13 @@ export const fetchOrderDetailSequence = async (
   const parallerRequests = [
     axiosInstance
       .get(
-        `${CATALOG_INVENTORY_API_BASE}/sources/${
-          (portfolioItem as PortfolioItem).service_offering_source_ref
-        }`
+        `${CATALOG_INVENTORY_API_BASE}/sources/${(portfolioItem as PortfolioItem)
+          .service_offering_source_ref || 1}`
       )
       .catch(() => ({ object: 'Platform', notFound: true })),
 
     axiosInstance
-      .get(
-        `${CATALOG_API_BASE}/order_items/${
-          (orderItem as OrderItem).id
-        }/progress_messages/`
-      )
+      .get(`${CATALOG_API_BASE}/orders/${order.id}/progress_messages/`)
       .catch(() => ({ object: 'Messages', notFound: true })),
     axiosInstance
       .get(

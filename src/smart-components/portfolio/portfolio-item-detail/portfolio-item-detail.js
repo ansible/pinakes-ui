@@ -39,7 +39,7 @@ import CatalogRoute from '../../../routing/catalog-route';
 import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 import useFormatMessage from '../../../utilities/use-format-message';
-import { hasPermission } from '../../../helpers/shared/helpers';
+import { hasPermission, isStandalone } from '../../../helpers/shared/helpers';
 import UserContext from '../../../user-context';
 import { USER_CAPABILITIES_PLACEHOLDER } from '../../../utilities/constants';
 
@@ -88,7 +88,7 @@ const PortfolioItemDetail = () => {
     }
 
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? getPortfolioItemDetailS({
             portfolioItem: queryValues['portfolio-item'],
             ...queryValues
@@ -116,7 +116,8 @@ const PortfolioItemDetail = () => {
       </Section>
     );
   }
-  const availability = localStorage.getItem('catalog_standalone')
+
+  const availability = isStandalone()
     ? 'available'
     : portfolioItemData?.source?.availability_status || 'unavailable';
   let unavailable = [];
@@ -138,7 +139,7 @@ const PortfolioItemDetail = () => {
   }
 
   const uploadIcon = (file) => {
-    return (localStorage.getItem('catalog_standalone')
+    return (isStandalone()
       ? uploadPortfolioItemIconS({
           portfolioItemId: portfolioItemData?.portfolioItem?.id,
           icon_url: portfolioItemData?.portfolioItem?.icon_url,
@@ -152,7 +153,7 @@ const PortfolioItemDetail = () => {
   };
 
   const resetIcon = () =>
-    (localStorage.getItem('catalog_standalone')
+    (isStandalone()
       ? resetPortfolioItemIconS(portfolioItemData?.portfolioItem?.id)
       : resetPortfolioItemIcon(portfolioItemData?.portfolioItem?.icon_id)
     ).then(fetchData);
@@ -163,9 +164,7 @@ const PortfolioItemDetail = () => {
     `${url}/edit-workflow`,
     PORTFOLIO_ITEM_EDIT_ORDER_PROCESS_ROUTE
   ];
-  const SurveyEditorComponent = localStorage.getItem('catalog_standalone')
-    ? SurveyEditorS
-    : SurveyEditor;
+  const SurveyEditorComponent = isStandalone() ? SurveyEditorS : SurveyEditor;
   return (
     <Fragment>
       <Switch>
@@ -197,7 +196,7 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={availability}
               userCapabilities={
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? USER_CAPABILITIES_PLACEHOLDER
                   : portfolioItemData?.portfolioItem?.metadata
                       ?.user_capabilities
@@ -225,11 +224,7 @@ const PortfolioItemDetail = () => {
                     <ItemDetailInfoBar
                       product={portfolioItemData.portfolioItem}
                       portfolio={portfolio}
-                      source={
-                        localStorage.getItem('catalog_standalone')
-                          ? '1'
-                          : portfolioItemData.source
-                      }
+                      source={isStandalone() ? '1' : portfolioItemData.source}
                     />
                   </GridItem>
                 </Route>

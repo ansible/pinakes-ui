@@ -35,6 +35,7 @@ import {
   PortfolioItem,
   PortfolioItemNextName
 } from '@redhat-cloud-services/catalog-client';
+import { isStandalone } from '../../../helpers/shared/helpers';
 
 const loadPortfolios = (name: string) =>
   listPortfolios({ name }, { limit: 100, offset: 0 }).then((portfolio) =>
@@ -107,7 +108,7 @@ const copySchema = (
   formatMessage: FormatMessage,
   initialOptions: SelectOptions
 ) =>
-  localStorage.getItem('catalog_standalone')
+  isStandalone()
     ? copySchemaS(formatMessage, initialOptions)
     : copySchemaI(getName, formatMessage, initialOptions);
 
@@ -136,14 +137,14 @@ const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> =
      * this will ensure that correct portfolio data will be loaded after the redirect occurs
      */
     const { value: portfolio } = await dispatch(
-      (localStorage.getItem('catalog_standalone')
+      (isStandalone()
         ? fetchSelectedPortfolioS(values.portfolio_id)
         : fetchSelectedPortfolio(values.portfolio_id)) as Promise<{
         value: Full<Portfolio>;
       }>
     );
     return dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? ((copyPortfolioItemS(
             portfolioItemId,
             { ...values, portfolio: values.portfolio_id },
@@ -165,7 +166,7 @@ const CopyPortfolioItemModal: React.ComponentType<CopyPortfolioItemModalProps> =
         () =>
           values.portfolio_id === portfolioId &&
           dispatch(
-            localStorage.getItem('catalog_standalone')
+            isStandalone()
               ? fetchPortfolioItemsWithPortfolioS(portfolioId)
               : fetchPortfolioItemsWithPortfolio(portfolioId)
           )

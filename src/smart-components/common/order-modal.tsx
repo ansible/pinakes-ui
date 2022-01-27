@@ -38,6 +38,7 @@ import { ApiCollectionResponse as ApiCollectionResponseS } from '../../types/com
 import { Schema } from '@data-driven-forms/react-form-renderer';
 import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 export interface OrderModalProps {
   closeUrl: string;
@@ -62,7 +63,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
 
   useEffect(() => {
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? (fetchServicePlansS(portfolioItemId) as Promise<
             AsyncMiddlewareAction<ApiCollectionResponseS<ServicePlanS[]>>
           >)
@@ -80,7 +81,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
 
   const onSubmit = (data: ServicePlan) => {
     dispatch(
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? sendSubmitOrderS(
             {
               portfolio_item_id: portfolioItem.id,
@@ -114,7 +115,7 @@ const OrderModal: React.ComponentType<OrderModalProps> = ({ closeUrl }) => {
   let schema = null;
 
   if (servicePlans[0]) {
-    schema = localStorage.getItem('catalog_standalone')
+    schema = isStandalone()
       ? updateValidatorsForSubstitution(
           ((servicePlans[0] as ServicePlanS).schema as AnyObject)
             .schema as Schema

@@ -53,7 +53,7 @@ import { CatalogRootState } from '../../../types/redux';
 import { OrderDetail } from '../../../redux/reducers/order-reducer';
 import orderStatusMapper from '../order-status-mapper';
 import { MAX_RETRY_LIMIT } from '../../../utilities/constants';
-import { delay } from '../../../helpers/shared/helpers';
+import { delay, isStandalone } from '../../../helpers/shared/helpers';
 
 /**
  * We are using type conversion of **request as StringObject** because the generated client does not have correct states listed
@@ -83,9 +83,7 @@ const isEmpty = (approvalRequest?: ApiCollectionResponse<ApprovalRequest>) =>
   approvalRequest.data.length === 0;
 
 const fetchApprovalRequestsData = (id: string) =>
-  localStorage.getItem('catalog_standalone')
-    ? fetchApprovalRequestsS(id)
-    : fetchApprovalRequests(id);
+  isStandalone() ? fetchApprovalRequestsS(id) : fetchApprovalRequests(id);
 
 const ApprovalRequests: React.ComponentType = () => {
   const formatMessage = useFormatMessage();

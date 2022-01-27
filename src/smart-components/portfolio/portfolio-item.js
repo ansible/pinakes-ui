@@ -13,6 +13,7 @@ import {
 import styled from 'styled-components';
 import useFormatMessage from '../../utilities/use-format-message';
 import labelMessages from '../../messages/labels.messages';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 const StyledLevel = styled(Level)`
   flex: 1;
@@ -27,7 +28,7 @@ const PortfolioItem = (props) => {
           <StyledLevel>
             <CardIcon
               src={
-                localStorage.getItem('catalog_standalone')
+                isStandalone()
                   ? props?.icon_url
                   : `${CATALOG_API_BASE}/portfolio_items/${props.id}/icon`
               }

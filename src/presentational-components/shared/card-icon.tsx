@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux';
 
 import { IconPlaceholder } from './loader-placeholders';
 import CardIconDefault from '../../assets/images/card-icon-default.svg';
+import CardIconDefaultS from '../../assets/images/card-icon-default-s.svg';
 import StyledLazyLoadImage from '../styled-components/lazy-load-image';
 import { CatalogRootState } from '../../types/redux';
 import { StringObject } from '../../types/common-types';
+import { isStandalone } from '../../helpers/shared/helpers';
 
 interface CardIconContainerProps {
   height: number;
@@ -32,9 +34,11 @@ const CardIcon: React.ComponentType<CardIconProps> = ({
   const platformIconMapping = useSelector<CatalogRootState, StringObject>(
     ({ platformReducer: { platformIconMapping } }) => platformIconMapping
   );
-  const defaultIcon = sourceId
+  const defaultIconI = sourceId
     ? platformIconMapping[sourceId]
     : CardIconDefault;
+
+  const defaultIcon = isStandalone() ? CardIconDefaultS : defaultIconI;
 
   return (
     <CardIconContainer height={height}>

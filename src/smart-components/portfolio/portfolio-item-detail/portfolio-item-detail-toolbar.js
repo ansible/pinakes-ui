@@ -27,11 +27,12 @@ import portfolioMessages from '../../../messages/portfolio.messages';
 import BackToProducts from '../../../presentational-components/portfolio/back-to-products';
 import { PORTFOLIO_ITEM_ROUTE_EDIT } from '../../../constants/routes';
 import useFormatMessage from '../../../utilities/use-format-message';
+import { isStandalone } from '../../../helpers/shared/helpers';
 
 const PortfolioItemIconItem = ({ product }) => (
   <CardIcon
     src={
-      localStorage.getItem('catalog_standalone')
+      isStandalone()
         ? product.icon_url
         : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
     }
@@ -85,7 +86,7 @@ export const PortfolioItemDetailToolbar = ({
               ) : (
                 <CardIcon
                   src={
-                    localStorage.getItem('catalog_standalone')
+                    isStandalone()
                       ? product.icon_url
                       : `${CATALOG_API_BASE}/portfolio_items/${product.id}/icon`
                   }

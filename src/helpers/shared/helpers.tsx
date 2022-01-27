@@ -100,3 +100,6 @@ export const stateToDisplay = (state?: string): boolean =>
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export const isStandalone = (): boolean =>
+  !!localStorage.getItem('catalog_standalone');

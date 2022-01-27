@@ -45,7 +45,7 @@ import { FormatMessage } from '../../../types/common-types';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import ProgressMessages from './progress-messages';
 import UserContext from '../../../user-context';
-import { hasPermission } from '../../../helpers/shared/helpers';
+import { hasPermission, isStandalone } from '../../../helpers/shared/helpers';
 
 export interface RowType {
   id?: string;
@@ -77,7 +77,7 @@ const OrderProvision: React.ComponentType = () => {
     ({ orderReducer: { orderProvision } }) => orderProvision
   );
   const { permissions: userPermissions } = useContext(UserContext);
-  const showProgressMessages = localStorage.getItem('catalog_standalone')
+  const showProgressMessages = isStandalone()
     ? true
     : hasPermission(userPermissions, ['catalog:order_processes:link']);
 
@@ -228,7 +228,7 @@ const OrderProvision: React.ComponentType = () => {
   };
 
   const fetchOrderProvisionData = (orderId: string) => {
-    return localStorage.getItem('catalog_standalone')
+    return isStandalone()
       ? fetchOrderProvisionS(orderId)
       : fetchOrderProvision(orderId);
   };
