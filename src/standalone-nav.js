@@ -260,7 +260,7 @@ const App = (props) => {
             <NavList>
               <NavGroup
                 className={'nav-title'}
-                title={'Ansible automation catalog'}
+                title={'Ansible Automation Catalog'}
               />
               <Menu items={menu()} />
             </NavList>
