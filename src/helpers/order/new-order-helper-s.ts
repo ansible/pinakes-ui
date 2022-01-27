@@ -101,7 +101,6 @@ export const fetchOrderDetailSequence = async (
     portfolioItem = orderItem.extra_data?.portfolio_item;
   }
 
-  console.log('Debug - portfolioItem, orderItem: ', portfolioItem, orderItem);
   const parallerRequests = [
     axiosInstance
       .get(
