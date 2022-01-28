@@ -8,7 +8,7 @@ import catalogHistory, { release } from '../../routing/catalog-history';
 const Router = () => (
   <AppContext.Provider value={{ release }}>
     <GlobalStyle />
-    <ReactRouter basename="/ui" history={catalogHistory}>
+    <ReactRouter basename="/ui/catalog" history={catalogHistory}>
       <App />
     </ReactRouter>
   </AppContext.Provider>

@@ -9,5 +9,5 @@ module.exports = webpackBase({
   UI_DEBUG: false,
   TARGET_ENVIRONMENT: 'prod',
   ANSIBLE_CATALOG_LOGIN_URI: '/login/keycloak-oidc/',
-  WEBPACK_PUBLIC_PATH: '/ui/'
+  WEBPACK_PUBLIC_PATH: '/ui/catalog/'
 });
