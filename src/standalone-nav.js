@@ -1,6 +1,6 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import '@patternfly/patternfly/patternfly.scss';
 import {
@@ -51,20 +51,23 @@ const App = (props) => {
       type: 'item',
       name
     });
-    const baseUrl = '';
+    const baseUrl = 'https://catalog.k8s.local/ui/';
 
     return [
       menuItem('Products', {
-        url: `${baseUrl}${Paths.products}`
+        url: `${baseUrl}catalog${Paths.products}`
       }),
       menuItem('Portfolios', {
-        url: `${baseUrl}${Paths.portfolios}`
+        url: `${baseUrl}catalog${Paths.portfolios}`
       }),
       menuItem('Platforms', {
-        url: `${baseUrl}${Paths.platforms}`
+        url: `${baseUrl}catalog${Paths.platforms}`
       }),
       menuItem('Orders', {
-        url: `${baseUrl}${Paths.orders}`
+        url: `${baseUrl}catalog${Paths.orders}`
+      }),
+      menuItem('Approval', {
+        url: `${baseUrl}${Paths.approval}/index.html`
       }),
       menuItem('Approval', {
         url: `${baseUrl}${Paths.approval}`
@@ -210,7 +213,9 @@ const App = (props) => {
           />
         </a>
       ) : item.url ? (
-        <Link to={item.url}>{item.name}</Link>
+        <a href={item.url} to={item.url}>
+          {item.name}
+        </a>
       ) : (
         item.name
       )}
