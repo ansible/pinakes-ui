@@ -1,6 +1,5 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
 
 import '@patternfly/patternfly/patternfly.scss';
 import {
@@ -51,27 +50,32 @@ const App = (props) => {
       type: 'item',
       name
     });
-    const baseUrl = 'https://catalog.k8s.local/ui/';
+    const baseUrl = 'https://catalog.k8s.local';
     console.log(
       'Debug catalog - window.location.pathname: ',
       window.location.pathname
     );
     console.log('Debug catalog - window.location.href: ', window.location.href);
+    const index = window.location.href.indexOf(window.location.pathname);
+    const path = window.location.href.substr(0, index);
+    console.log('Debug - index', index);
+    console.log('Debug - calculated path', path);
+
     return [
       menuItem('Products', {
-        url: `${baseUrl}catalog${Paths.products}`
+        url: `${baseUrl}/ui/catalog${Paths.products}`
       }),
       menuItem('Portfolios', {
-        url: `${baseUrl}catalog${Paths.portfolios}`
+        url: `${baseUrl}/ui/catalog${Paths.portfolios}`
       }),
       menuItem('Platforms', {
-        url: `${baseUrl}catalog${Paths.platforms}`
+        url: `${baseUrl}/ui/catalog${Paths.platforms}`
       }),
       menuItem('Orders', {
-        url: `${baseUrl}catalog${Paths.orders}`
+        url: `${baseUrl}/ui/catalog${Paths.orders}`
       }),
       menuItem('Approval', {
-        url: `${baseUrl}${Paths.approval}/index.html`
+        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`
       }),
       menuItem(`Documentation`, {
         url:
