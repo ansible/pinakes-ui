@@ -38,14 +38,14 @@ export const loadWorkflowOptions = (
 
 export const linkWorkflow = (wf: string, resourceObject: ResourceObject) => {
   return getAxiosInstance().post(
-    `${APPROVAL_API_BASE}/workflows/${wf}/tag/`,
+    `${APPROVAL_API_BASE}/workflows/${wf}/link/`,
     resourceObject
   );
 };
 
 export const unlinkWorkflow = (wf: string, resourceObject: ResourceObject) => {
-  return getAxiosInstance().delete(
-    `${APPROVAL_API_BASE}/workflows/${wf}/tag/`,
+  return getAxiosInstance().post(
+    `${APPROVAL_API_BASE}/workflows/${wf}/unlink/`,
     resourceObject
   );
 };
