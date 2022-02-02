@@ -50,16 +50,9 @@ const App = (props) => {
       type: 'item',
       name
     });
-    const baseUrl = 'https://catalog.k8s.local';
-    console.log(
-      'Debug catalog - window.location.pathname: ',
-      window.location.pathname
-    );
-    console.log('Debug catalog - window.location.href: ', window.location.href);
     const index = window.location.href.indexOf(window.location.pathname);
-    const path = window.location.href.substr(0, index);
-    console.log('Debug - index', index);
-    console.log('Debug - calculated path', path);
+    const baseUrl = window.location.href.substr(0, index);
+    console.log('Debug - calculated baseUrl', baseUrl);
 
     return [
       menuItem('Products', {
