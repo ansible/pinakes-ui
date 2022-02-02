@@ -52,7 +52,11 @@ const App = (props) => {
       name
     });
     const baseUrl = 'https://catalog.k8s.local/ui/';
-
+    console.log(
+      'Debug catalog - window.location.pathname: ',
+      window.location.pathname
+    );
+    console.log('Debug catalog - window.location.href: ', window.location.href);
     return [
       menuItem('Products', {
         url: `${baseUrl}catalog${Paths.products}`
@@ -277,7 +281,12 @@ const App = (props) => {
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
-      <Page isManagedSidebar={true} header={headerNav()} sidebar={sidebarNav()}>
+      <Page
+        classname=".pf-c-page__main"
+        isManagedSidebar={true}
+        header={headerNav()}
+        sidebar={sidebarNav()}
+      >
         {aboutModalVisible && aboutModal()}
         <UserContext.Provider
           value={{

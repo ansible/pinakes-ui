@@ -106,8 +106,11 @@ const App = () => {
     >
       <Fragment>
         <NotificationsPortal />
-        <section className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section">
-          <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+        <section
+          style={{ minHeight: MIN_SCREEN_HEIGHT }}
+          className="pf-u-p-0 pf-u-ml-0 pf-l-page__main-section pf-c-page__main-section"
+        >
+          <Grid>
             <GridItem sm={12} className="content-layout">
               <Routes />
             </GridItem>
