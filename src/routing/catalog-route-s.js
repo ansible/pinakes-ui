@@ -10,8 +10,9 @@ const CatalogRoute = ({ ...props }) => {
       .then((user) => {
         localStorage.setItem('catalog_user', JSON.stringify(user));
       })
-      .catch((reason) => {
+      .catch((error) => {
         localStorage.removeItem('catalog_user');
+        throw error;
       });
   }, []);
   if (!localStorage.getItem('catalog_user')) {

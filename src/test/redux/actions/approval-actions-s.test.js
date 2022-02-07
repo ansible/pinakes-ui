@@ -1,7 +1,10 @@
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
-import { APPROVAL_API_BASE } from '../../../utilities/constants';
+import {
+  APPROVAL_API_BASE,
+  CATALOG_API_BASE
+} from '../../../utilities/constants';
 import { fetchWorkflows } from '../../../redux/actions/approval-actions-s';
 import { ASYNC_ACTIONS } from '../../../redux/action-types/approval-action-types';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
@@ -13,6 +16,14 @@ describe('approval actions', () => {
 
   beforeEach(() => {
     mockStore = configureStore(middlewares);
+
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
+    mockApi.onGet(`${CATALOG_API_BASE}/me/`).replyOnce(200, {
+      username: 'fred',
+      first_name: 'Fred',
+      last_name: 'Flintstone'
+    });
   });
 
   it('should dispatch correct actions after fetching workflows', () => {
@@ -32,8 +43,8 @@ describe('approval actions', () => {
       }
     ];
 
-    mockApi.onGet(`${APPROVAL_API_BASE}/workflows`).replyOnce(200, {
-      data: [
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/`).replyOnce(200, {
+      results: [
         {
           name: 'workflow',
           id: '123'

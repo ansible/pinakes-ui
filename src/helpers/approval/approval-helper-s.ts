@@ -13,17 +13,14 @@ import {
 
 export const getApprovalWorkflows = (): Promise<ApiCollectionResponse<
   Workflow
->> =>
-  (getWorkflowApi().listWorkflows() as unknown) as Promise<
-    ApiCollectionResponse<Workflow>
-  >;
+>> => getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/`);
 
 export const loadWorkflowOptions = (
   filterValue = '',
   initialLookup: string[] = []
 ): Promise<SelectOptions> => {
   const initialLookupQuery = initialLookup
-    .map((workflow) => `filter[id][]=${workflow}`)
+    .map((workflow) => `id=${workflow}`)
     .join('&');
 
   return getAxiosInstance()
@@ -36,19 +33,17 @@ export const loadWorkflowOptions = (
     );
 };
 
-export const linkWorkflow = (wf: string, resourceObject: ResourceObject) => {
-  return getAxiosInstance().post(
+export const linkWorkflow = (wf: string, resourceObject: ResourceObject) =>
+  getAxiosInstance().post(
     `${APPROVAL_API_BASE}/workflows/${wf}/link/`,
     resourceObject
   );
-};
 
-export const unlinkWorkflow = (wf: string, resourceObject: ResourceObject) => {
-  return getAxiosInstance().post(
+export const unlinkWorkflow = (wf: string, resourceObject: ResourceObject) =>
+  getAxiosInstance().post(
     `${APPROVAL_API_BASE}/workflows/${wf}/unlink/`,
     resourceObject
   );
-};
 
 export const updateWorkflows = (
   unlinkIds: string[],

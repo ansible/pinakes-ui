@@ -12,17 +12,13 @@ describe('Approval helper', () => {
     (...args) =>
       new Promise((res) =>
         res({
-          data: [],
+          results: [],
           axiosArgs: args
         })
       )
   );
-  const unlinkWorkflowsSpy = jest
-    .spyOn(ApprovalHelper, 'unlinkWorkflow')
-    .mockImplementation(() => Promise.resolve({ data: [] }));
-  const linkWorkflowSpy = jest
-    .spyOn(ApprovalHelper, 'linkWorkflow')
-    .mockImplementation(() => Promise.resolve({ data: [] }));
+
+  const axiosPostSpy = jest.spyOn(getAxiosInstance(), 'post');
 
   beforeEach(() => {
     localStorage.setItem('catalog_standalone', true);
@@ -36,42 +32,129 @@ describe('Approval helper', () => {
 
   afterEach(() => {
     getSpy.mockReset();
-    unlinkWorkflowsSpy.mockReset();
-    linkWorkflowSpy.mockReset();
+    axiosPostSpy.mockReset();
+  });
+  it('should build correct url for workflows initial lookup query', () => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+      )
+      .reply(200, {
+        results: [
+          {
+            name: 'workflow1',
+            id: '111'
+          }
+        ]
+      });
+
+    return ApprovalHelper.loadWorkflowOptions('some-filter-value', [
+      'initial-id-1',
+      'initial-id-2'
+    ]).then(() => {
+      const expectedFilterFragment =
+        '&filter[id][]=initial-id-1&filter[id][]=initial-id-2';
+      expect(getSpy).toHaveBeenCalledWith(
+        `${APPROVAL_API_BASE}/workflows?name=some-filter-value&id=initial-id-1&id=initial-id-2`
+      );
+    });
   });
 
   it('should call link and unlink workflows with correct arguments', () => {
     mockApi.onGet(`${CATALOG_API_BASE}/me/`).replyOnce(200, {
-      username: 'fred',
-      first_name: 'Fred',
-      last_name: 'Flintstone'
+      username: 'User1',
+      first_name: 'First',
+      last_name: 'Last'
     });
     mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/123/share`)
+      .onPost(`${APPROVAL_API_BASE}/workflows/unlink-id-1/unlink/`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
-          permissions: ['foo', 'bar'],
-          group_uuids: ['123']
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '5'
         });
-        done();
-        return [200];
+        return [204];
       });
+
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/workflows/unlink-id-2/unlink/`)
+      .replyOnce((req) => {
+        expect(JSON.parse(req.data)).toEqual({
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '5'
+        });
+        return [204];
+      });
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/workflows/link-id-1/link/`)
+      .replyOnce((req) => {
+        expect(JSON.parse(req.data)).toEqual({
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '5'
+        });
+        return [204];
+      });
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/workflows/link-id-2/link/`)
+      .replyOnce((req) => {
+        expect(JSON.parse(req.data)).toEqual({
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '5'
+        });
+        return [204];
+      });
+
     return ApprovalHelper.updateWorkflows(
       ['unlink-id-1', 'unlink-id-2'],
       ['link-id-1', 'link-id-2'],
-      {}
-    ).then(() => {
-      expect(unlinkWorkflowsSpy).toHaveBeenNthCalledWith(1, 'unlink-id-1', {});
-      expect(unlinkWorkflowsSpy).toHaveBeenNthCalledWith(2, 'unlink-id-2', {});
-      expect(linkWorkflowSpy).toHaveBeenNthCalledWith(1, 'link-id-1', {});
-      expect(linkWorkflowSpy).toHaveBeenNthCalledWith(2, 'link-id-2', {});
+      {
+        object_type: 'Portfolio',
+        app_name: 'catalog',
+        object_id: '5'
+      }
+    ).then((data) => {
+      expect(axiosPostSpy).toHaveBeenNthCalledWith(
+        1,
+        `${APPROVAL_API_BASE}/workflows/unlink-id-1/unlink/`,
+        { object_type: 'Portfolio', app_name: 'catalog', object_id: '5' }
+      );
+      expect(axiosPostSpy).toHaveBeenNthCalledWith(
+        2,
+        `${APPROVAL_API_BASE}/workflows/unlink-id-2/unlink/`,
+        { object_type: 'Portfolio', app_name: 'catalog', object_id: '5' }
+      );
+      expect(axiosPostSpy).toHaveBeenNthCalledWith(
+        3,
+        `${APPROVAL_API_BASE}/workflows/link-id-1/link/`,
+        { object_type: 'Portfolio', app_name: 'catalog', object_id: '5' }
+      );
+      expect(axiosPostSpy).toHaveBeenNthCalledWith(
+        4,
+        `${APPROVAL_API_BASE}/workflows/link-id-2/link/`,
+        { object_type: 'Portfolio', app_name: 'catalog', object_id: '5' }
+      );
     });
   });
 
   it('should not call any link and unlink workflows', () => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+      )
+      .reply(200, {
+        results: [
+          {
+            name: 'workflow1',
+            id: '111'
+          }
+        ]
+      });
     return ApprovalHelper.updateWorkflows(undefined, undefined, {}).then(() => {
-      expect(unlinkWorkflowsSpy).not.toHaveBeenCalled();
-      expect(linkWorkflowSpy).not.toHaveBeenCalled();
+      expect(axiosPostSpy).not.toHaveBeenCalled();
     });
   });
 });
