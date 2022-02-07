@@ -3,13 +3,11 @@ import { defineMessages } from 'react-intl';
 const approvalMessages = defineMessages({
   unlinkNotification: {
     id: 'approval.notifications.unlink',
-    defaultMessage:
-      '{count, number} {count, plural, one {approval process was} other {approval processes were}} unlinked successfully.'
+    defaultMessage: 'Approval processes were unlinked successfully.'
   },
   linkNotification: {
     id: 'approval.notifications.link',
-    defaultMessage:
-      '{count, number} {count, plural, one {approval process was} other {approval processes were}} linked successfully.'
+    defaultMessage: 'Approval processes were linked successfully.'
   },
   setWorkflow: {
     id: 'approval.workflows.set',

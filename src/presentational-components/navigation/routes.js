@@ -52,10 +52,6 @@ const OrderDetail = lazy(() =>
   )
 );
 
-const Login = lazy(() =>
-  import(/* webpackChunkName: "login" */ '../../smart-components/login/login')
-);
-
 export const Paths = {
   products: '/products',
   platforms: '/platforms',
@@ -64,7 +60,6 @@ export const Paths = {
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
   order: ORDER_ROUTE,
-  login: LOGIN_ROUTE,
   approval: APPROVAL_ROUTE
 };
 
@@ -90,7 +85,6 @@ export const Routes = () => {
         />
         <CatalogRoute path={Paths.order} component={OrderDetail} />
         <CatalogRoute path={Paths.orders} component={Orders} />
-        <CatalogRoute path={Paths.login} component={Login} />
         <Route path={errorPaths} component={CommonApiError} />
         <Route
           render={() =>

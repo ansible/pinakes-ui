@@ -1,6 +1,5 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import '@patternfly/patternfly/patternfly.scss';
 import {
@@ -51,23 +50,24 @@ const App = (props) => {
       type: 'item',
       name
     });
-    const baseUrl = '';
+    const index = window.location.href.indexOf(window.location.pathname);
+    const baseUrl = window.location.href.substr(0, index);
 
     return [
       menuItem('Products', {
-        url: `${baseUrl}${Paths.products}`
+        url: `${baseUrl}/ui/catalog${Paths.products}`
       }),
       menuItem('Portfolios', {
-        url: `${baseUrl}${Paths.portfolios}`
+        url: `${baseUrl}/ui/catalog${Paths.portfolios}`
       }),
       menuItem('Platforms', {
-        url: `${baseUrl}${Paths.platforms}`
+        url: `${baseUrl}/ui/catalog${Paths.platforms}`
       }),
       menuItem('Orders', {
-        url: `${baseUrl}${Paths.orders}`
+        url: `${baseUrl}/ui/catalog${Paths.orders}`
       }),
       menuItem('Approval', {
-        url: `${baseUrl}${Paths.approval}`
+        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`
       }),
       menuItem(`Documentation`, {
         url:
@@ -210,7 +210,9 @@ const App = (props) => {
           />
         </a>
       ) : item.url ? (
-        <Link to={item.url}>{item.name}</Link>
+        <a href={item.url} to={item.url}>
+          {item.name}
+        </a>
       ) : (
         item.name
       )}
@@ -272,7 +274,12 @@ const App = (props) => {
 
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
-      <Page isManagedSidebar={true} header={headerNav()} sidebar={sidebarNav()}>
+      <Page
+        classname=".pf-c-page__main"
+        isManagedSidebar={true}
+        header={headerNav()}
+        sidebar={sidebarNav()}
+      >
         {aboutModalVisible && aboutModal()}
         <UserContext.Provider
           value={{
