@@ -139,7 +139,7 @@ const App = (props) => {
         brandImageSrc={Logo}
         onClose={() => setAboutModalVisible(false)}
         brandImageAlt={`Ansible Logo`}
-        productName={'Ansible automation catalog'}
+        productName={'Automation Services Catalog'}
         user={user}
         userName={userName}
       />
@@ -168,7 +168,7 @@ const App = (props) => {
 
   const headerNav = () => (
     <PageHeader
-      logo={<SmallLogo alt={'Ansible automation catalog'} />}
+      logo={<SmallLogo alt={'Automation Services Catalog'} />}
       headerTools={
         <PageHeaderTools>
           <div>
@@ -262,7 +262,7 @@ const App = (props) => {
             <NavList>
               <NavGroup
                 className={'nav-title'}
-                title={'Ansible Automation Catalog'}
+                title={'Automation Services Catalog'}
               />
               <Menu items={menu()} />
             </NavList>
