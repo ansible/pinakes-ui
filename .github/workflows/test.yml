@@ -1,6 +1,6 @@
 # Updates the "dev" github release whenever new changes are merged into master.
 # This provides an up to date tarball that https://github.com/ansible/ansible_catalog can use.
-name: "Dist release"
+name: "Test"
 
 on:
   workflow_dispatch: # allow running manually
@@ -17,14 +17,12 @@ jobs:
     steps:
       - name: "Checkout catalog-ui (${{ github.ref }})"
         uses: actions/checkout@v2
-        with:
-          path: ~/catalog
-
+ 
       - name: "Checkout approval-ui (RedHatInsights/approval-ui)"
         uses: actions/checkout@v2
         with:
-          path: ~/approval
           repository: RedHatInsights/approval-ui
+          path: approval
 
       - name: "Install node 14"
         uses: actions/setup-node@v2
@@ -40,32 +38,22 @@ jobs:
             ${{ runner.os }}-node-${{ env.GITHUB_REF }}-
             ${{ runner.os }}-node-
 
-      - name: "Build catalog"
-        with: 
-          path: ~/catalog
-          run: |
-            npm ci || npm install
-            npm run build:standalone
-      
-      - name: "Build approval"
-        with: 
-          path: ~/approval
-          run: |
-            npm ci || npm install
-            npm run build:standalone
-            
       - name: "Build a tar"
-        with: 
-          path: ~/catalog
-          run: |
-            tar -C /dist/ -czvf catalog-ui.tar.gz .
+        run: |
+          npm ci || npm install
+          npm run build:standalone
+          cd ./approval
+          npm ci || npm install
+          npm run build:standalone
+          cd ..
+          cp -r ./approval/dist ./dist/approval
+          tar -C dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
-        with: 
-          path: ~/catalog
-          run: |
-            gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
-            gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
+        run: |
+          gh release delete $RELEASE_TAG -y
+          gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
+          gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: "UI Dev Release"
