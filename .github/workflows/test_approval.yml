@@ -41,31 +41,32 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: "Build catalog"
-        with: 
-          path: ~/catalog
-          run: |
-            npm ci || npm install
-            npm run build:standalone
+        run: |
+          cd ~/catalog
+          npm ci || npm install
+          npm run build:standalone
       
       - name: "Build approval"
-        with: 
-          path: ~/approval
-          run: |
-            npm ci || npm install
-            npm run build:standalone
-            
+        run: |
+          cd ~/approval
+          npm ci || npm install
+          npm run build:standalone
+
+      - name: "Copy approval dist to catalog dist"
+        run: |
+          cd ~/catalog
+          cp -r ~/approval/dist ./dist/approval
+
       - name: "Build a tar"
-        with: 
-          path: ~/catalog
-          run: |
-            tar -C /dist/ -czvf catalog-ui.tar.gz .
+        run: |
+          cd ~/catalog
+          tar -C /dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
-        with: 
-          path: ~/catalog
-          run: |
-            gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
-            gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
+        run: |
+          cd ~/catalog
+          gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
+          gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: "UI Dev Release"
