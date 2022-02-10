@@ -42,10 +42,11 @@ jobs:
 
       - name: "Build a tar"
         run: |
-          npm ci || npm install
           cd catalog
+          npm ci || npm install
           npm run build:standalone
           cd ..\approval
+          npm ci || npm install
           npm run build:standalone
           cd ..
           cd catalog
