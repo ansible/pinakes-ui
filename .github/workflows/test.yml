@@ -1,0 +1,66 @@
+# Updates the "dev" github release whenever new changes are merged into master.
+# This provides an up to date tarball that https://github.com/ansible/ansible_catalog can use.
+name: "Dist release"
+
+on:
+  workflow_dispatch: # allow running manually
+  push:
+    branches: ["main"]
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: "master" # for webpack
+      NODE_OPTIONS: "--max-old-space-size=4096 --max_old_space_size=4096"
+
+    steps:
+      - name: "Checkout catalog-ui (${{ github.ref }})"
+        uses: actions/checkout@v2
+        with:
+          path: catalog
+
+      - name: "Checkout approval-ui (${{ github.ref }})"
+        uses: actions/checkout@v2
+        with:
+          repository: RedHatInsights/approval-ui
+          path: approval
+
+      - name: "Install node 14"
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: "Cache ~/.npm"
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ env.GITHUB_REF }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.GITHUB_REF }}-
+            ${{ runner.os }}-node-
+
+      - name: "Build a tar"
+        run: |
+          npm ci || npm install
+          cd catalog
+          npm run build:standalone
+          cd ..\approval
+          npm run build:standalone
+          cd ..
+          cd catalog
+          mkdir approval
+          cp -r ../../approval/dist approval
+          tar -C dist/ -czvf catalog-ui.tar.gz .
+
+      - name: "Release"
+        run: |
+          gh release delete $RELEASE_TAG -y
+          gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
+          gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NAME: "UI Dev Release"
+          RELEASE_BODY: "This is a special release that provides an up to date build off of the latest changes in the `main` branch. The `catalog-ui.tar.gz` artifact provided here corresponds to the latest version of `main`."
+          RELEASE_FILE: "catalog-ui.tar.gz"
+          RELEASE_TAG: "latest"
