@@ -17,6 +17,14 @@ jobs:
     steps:
       - name: "Checkout catalog-ui (${{ github.ref }})"
         uses: actions/checkout@v2
+        with:
+          path: catalog
+
+      - name: "Checkout approval-ui (RedHatInsights/approval-ui)"
+        uses: actions/checkout@v2
+        with:
+          repository: RedHatInsights/approval-ui
+          path: approval
 
       - name: "Install node 14"
         uses: actions/setup-node@v2
@@ -34,9 +42,16 @@ jobs:
 
       - name: "Build a tar"
         run: |
+          cd catalog
           npm ci || npm install
           npm run build:standalone
-          tar -C dist/ -czvf catalog-ui.tar.gz .
+          cd ../approval
+          npm ci || npm install
+          npm run build:standalone
+          cd ..
+          mkdir catalog/dist/approval
+          cp -r approval/dist catalog/dist/approval
+          tar -C catalog/dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
         run: |
