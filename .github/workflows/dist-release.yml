@@ -17,10 +17,13 @@ jobs:
     steps:
       - name: "Checkout catalog-ui (${{ github.ref }})"
         uses: actions/checkout@v2
+        with:
+          path: ~/catalog
 
       - name: "Checkout approval-ui (RedHatInsights/approval-ui)"
         uses: actions/checkout@v2
         with:
+          path: ~/approval
           repository: RedHatInsights/approval-ui
 
       - name: "Install node 14"
@@ -37,24 +40,32 @@ jobs:
             ${{ runner.os }}-node-${{ env.GITHUB_REF }}-
             ${{ runner.os }}-node-
 
+      - name: "Build catalog"
+        with: 
+          path: ~/catalog
+          run: |
+            npm ci || npm install
+            npm run build:standalone
+      
+      - name: "Build approval"
+        with: 
+          path: ~/approval
+          run: |
+            npm ci || npm install
+            npm run build:standalone
+            
       - name: "Build a tar"
-        run: |
-          pwd
-          cd ./catalog-ui
-          npm ci || npm install
-          npm run build:standalone
-          cd ../approval-ui
-          npm ci || npm install
-          npm run build:standalone
-          cd ..
-          mkdir ./catalog-ui/dist/approval
-          cp -r ./approval-ui/dist catalog-ui/dist/approval
-          tar -C ./catalog-ui/dist/ -czvf catalog-ui.tar.gz .
+        with: 
+          path: ~/catalog
+          run: |
+            tar -C /dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
-        run: |
-          gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
-          gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
+        with: 
+          path: ~/catalog
+          run: |
+            gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
+            gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: "UI Dev Release"
