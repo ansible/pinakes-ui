@@ -1,4 +1,4 @@
- Updates the "dev" github release whenever new changes are merged into master.
+# Updates the "dev" github release whenever new changes are merged into master.
 # This provides an up to date tarball that https://github.com/ansible/ansible_catalog can use.
 name: "test_approval"
 
