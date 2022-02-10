@@ -13,7 +13,7 @@ const defaultConfigs = [
   { name: 'DEPLOYMENT_MODE', default: 'standalone', scope: 'global' },
   { name: 'NAMESPACE_TERM', default: 'namespaces', scope: 'global' },
   { name: 'APPLICATION_NAME', default: 'Catalog', scope: 'global' },
-  { name: 'ANSIBLE_CATALOG_LOGIN_URI', default: 'Catalog', scope: 'global' },
+  { name: 'AUTOMATION_SERVICES_CATALOG_LOGIN_URI', default: 'Catalog', scope: 'global' },
 
   // Webpack scope means the variable will only be available to webpack at
   // build time

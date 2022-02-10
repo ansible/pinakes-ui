@@ -2,16 +2,16 @@ const webpackBase = require('./webpack.base.config');
 
 // Used for getting the correct host when running in a container
 const proxyHost =
-  process.env.ANSIBLE_CATALOG_API_PROXY_HOST || 'catalog.k8s.local';
-const proxyPort = process.env.ANSIBLE_CATALOG_API_PROXY_PORT || '';
+  process.env.AUTOMATION_SERVICES_CATALOG_API_PROXY_HOST || 'catalog.k8s.local';
+const proxyPort = process.env.AUTOMATION_SERVICES_CATALOG_API_PROXY_PORT || '';
 const apiBasePath =
-  process.env.ANSIBLE_CATALOG_API_BASE_PATH || '/api/ansible-catalog/v1';
+  process.env.AUTOMATION_SERVICES_CATALOG_API_BASE_PATH || '/api/automation-services-catalog/v1';
 
 module.exports = webpackBase({
   // The host where the API lives. EX: https://localhost:5001
   API_HOST: '',
 
-  // Path to the API on the API host. EX: /api/ansible-catalog
+  // Path to the API on the API host. EX: /api/automation-services-catalog
   API_BASE_PATH: apiBasePath,
 
   // Port that the UI is served over
@@ -29,7 +29,7 @@ module.exports = webpackBase({
 
   // Target compilation environment. Options: dev, prod
   TARGET_ENVIRONMENT: 'dev',
-  ANSIBLE_CATALOG_LOGIN_URI: '/login/keycloak-oidc/',
+  AUTOMATION_SERVICES_CATALOG_LOGIN_URI: '/login/keycloak-oidc/',
 
   // Value for webpack.devServer.proxy
   // https://webpack.js.org/configuration/dev-server/#devserverproxy
