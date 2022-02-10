@@ -20,7 +20,7 @@ jobs:
         with:
           path: catalog
 
-      - name: "Checkout approval-ui (${{ github.ref }})"
+      - name: "Checkout approval-ui (RedHatInsights/approval-ui)"
         uses: actions/checkout@v2
         with:
           repository: RedHatInsights/approval-ui
@@ -52,7 +52,8 @@ jobs:
           cd catalog
           mkdir approval
           cp -r ../../approval/dist approval
-          tar -C dist/ -czvf catalog-ui.tar.gz .
+          cd ..
+          tar -C catalog/dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
         run: |
