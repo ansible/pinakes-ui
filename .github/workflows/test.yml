@@ -49,11 +49,9 @@ jobs:
           npm ci || npm install
           npm run build:standalone
           cd ..
-          mkdir catalog/approval
-          cp -r approval/dist catalog/approval
-          cd catalog
-          tar -C dist/ -czvf catalog-ui.tar.gz ../
-          cd ..
+          mkdir catalog/dist/approval
+          cp -r approval/dist catalog/dist/approval
+          tar -C catalog/dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
         run: |
