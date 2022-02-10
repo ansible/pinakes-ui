@@ -51,7 +51,9 @@ jobs:
           cd ..
           mkdir catalog/approval
           cp -r approval/dist catalog/approval
-          tar -C catalog/dist/ -czvf catalog-ui.tar.gz .
+          cd catalog
+          tar -C dist/ -czvf catalog-ui.tar.gz ../
+          cd ..
 
       - name: "Release"
         run: |
