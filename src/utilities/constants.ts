@@ -34,7 +34,7 @@ export const EXTERNAL_LOGIN_URI =
   // eslint-disable-next-line no-undef
   DEPLOYMENT_MODE === 'standalone'
     ? // eslint-disable-next-line no-undef
-      ANSIBLE_CATALOG_LOGIN_URI || '/login/keycloak-oidc/'
+      AUTOMATION_SERVICES_CATALOG_LOGIN_URI || '/login/keycloak-oidc/'
     : '';
 
 export const permissionValues = ['order', 'read', 'update'];
