@@ -6,7 +6,12 @@ export const CATALOG_API_BASE =
       `${API_HOST}${API_BASE_PATH}`
     : `${process.env.BASE_PATH || '/api'}/catalog/v1.3`;
 // eslint-disable-next-line no-undef
-export const AUTH_API_BASE = `${API_HOST}${AUTH_BASE_PATH}`;
+export const AUTH_API_BASE =
+  // eslint-disable-next-line no-undef
+  DEPLOYMENT_MODE === 'standalone'
+    ? // eslint-disable-next-line no-undef
+      `${API_HOST}${AUTH_BASE_PATH}`
+    : `${process.env.BASE_PATH || '/api'}/auth`;
 
 export const SOURCES_API_BASE =
   // eslint-disable-next-line no-undef
