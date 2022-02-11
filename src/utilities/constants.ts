@@ -5,6 +5,14 @@ export const CATALOG_API_BASE =
     ? // eslint-disable-next-line no-undef
       `${API_HOST}${API_BASE_PATH}`
     : `${process.env.BASE_PATH || '/api'}/catalog/v1.3`;
+// eslint-disable-next-line no-undef
+export const AUTH_API_BASE =
+  // eslint-disable-next-line no-undef
+  DEPLOYMENT_MODE === 'standalone'
+    ? // eslint-disable-next-line no-undef
+      `${API_HOST}${AUTH_BASE_PATH}`
+    : `${process.env.BASE_PATH || '/api'}/auth`;
+
 export const SOURCES_API_BASE =
   // eslint-disable-next-line no-undef
   DEPLOYMENT_MODE === 'standalone'
@@ -29,13 +37,6 @@ export const RBAC_API_BASE =
     ? // eslint-disable-next-line no-undef
       `${API_HOST}${API_BASE_PATH}`
     : `${process.env.BASE_PATH || '/api'}/rbac/v1`;
-
-export const EXTERNAL_LOGIN_URI =
-  // eslint-disable-next-line no-undef
-  DEPLOYMENT_MODE === 'standalone'
-    ? // eslint-disable-next-line no-undef
-      AUTOMATION_SERVICES_CATALOG_LOGIN_URI || '/login/keycloak-oidc/'
-    : '';
 
 export const permissionValues = ['order', 'read', 'update'];
 
