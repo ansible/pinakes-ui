@@ -5,7 +5,11 @@ const proxyHost =
   process.env.AUTOMATION_SERVICES_CATALOG_API_PROXY_HOST || 'catalog.k8s.local';
 const proxyPort = process.env.AUTOMATION_SERVICES_CATALOG_API_PROXY_PORT || '';
 const apiBasePath =
-  process.env.AUTOMATION_SERVICES_CATALOG_API_BASE_PATH || '/api/automation-services-catalog/v1';
+  process.env.AUTOMATION_SERVICES_CATALOG_API_BASE_PATH ||
+  '/api/automation-services-catalog/v1';
+const authBasePath =
+  process.env.AUTOMATION_SERVICES_CATALOG_AUTH_BASE_PATH ||
+  '/api/automation-services-catalog/auth';
 
 module.exports = webpackBase({
   // The host where the API lives. EX: https://localhost:5001
@@ -13,6 +17,7 @@ module.exports = webpackBase({
 
   // Path to the API on the API host. EX: /api/automation-services-catalog
   API_BASE_PATH: apiBasePath,
+  AUTH_BASE_PATH: authBasePath,
 
   // Port that the UI is served over
   UI_PORT: 8002,
@@ -29,7 +34,6 @@ module.exports = webpackBase({
 
   // Target compilation environment. Options: dev, prod
   TARGET_ENVIRONMENT: 'dev',
-  AUTOMATION_SERVICES_CATALOG_LOGIN_URI: '/login/keycloak-oidc/',
 
   // Value for webpack.devServer.proxy
   // https://webpack.js.org/configuration/dev-server/#devserverproxy
