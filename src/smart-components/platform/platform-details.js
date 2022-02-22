@@ -41,12 +41,16 @@ const PlatformDetails = () => {
                   <TextListItem component={TextListItemVariants.dd}>
                     {platform?.info?.version}
                   </TextListItem>
-                  <TextListItem component={TextListItemVariants.dt}>
-                    {formatMessage(platformsMessages.ansibleVersion)}
-                  </TextListItem>
-                  <TextListItem component={TextListItemVariants.dd}>
-                    {platform?.info?.ansible_version}
-                  </TextListItem>
+                  {!isStandalone() && (
+                    <React.Fragment>
+                      <TextListItem component={TextListItemVariants.dt}>
+                        {formatMessage(platformsMessages.ansibleVersion)}
+                      </TextListItem>
+                      <TextListItem component={TextListItemVariants.dd}>
+                        {platform?.info?.ansible_version}
+                      </TextListItem>
+                    </React.Fragment>
+                  )}
                   <TextListItem component={TextListItemVariants.dt}>
                     {formatMessage(platformsMessages.dateAdded)}
                   </TextListItem>
