@@ -163,12 +163,16 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
                 <Text component={TextVariants.small} className="pf-u-mb-0">
                   {props?.info?.version}
                 </Text>
-                <Text component={TextVariants.small} className="pf-u-mb-0">
-                  {formatMessage(platformsMessages.ansibleVersion)}
-                </Text>
-                <Text component={TextVariants.small} className="pf-u-mb-0">
-                  {props?.info?.ansible_version}
-                </Text>
+                {!isStandalone() && (
+                  <React.Fragment>
+                    <Text component={TextVariants.small} className="pf-u-mb-0">
+                      {formatMessage(platformsMessages.ansibleVersion)}
+                    </Text>
+                    <Text component={TextVariants.small} className="pf-u-mb-0">
+                      {props?.info?.ansible_version}
+                    </Text>
+                  </React.Fragment>
+                )}
               </TextContent>
             )}
           </TextContent>
