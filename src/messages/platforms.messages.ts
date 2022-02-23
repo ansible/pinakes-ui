@@ -71,6 +71,10 @@ const platformsMessages = defineMessages({
     id: 'platforms.ansible.version',
     defaultMessage: 'Ansible version'
   },
+  automationControllerUrl: {
+    id: 'platforms.controller.url',
+    defaultMessage: 'Automation controller URL'
+  },
   platformSummary: {
     id: 'platforms.summary',
     defaultMessage: 'Summary'

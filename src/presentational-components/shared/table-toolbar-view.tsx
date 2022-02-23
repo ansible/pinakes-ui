@@ -80,7 +80,6 @@ export const TableToolbarView: React.ComponentType<TableToolbarViewProps> = ({
 
   const renderToolbar = () => (
     <PrimaryToolbar
-      className="pf-u-p-lg"
       pagination={paginationConfig}
       {...(toolbarButtons && {
         actionsConfig: {
@@ -145,7 +144,6 @@ export const TableToolbarView: React.ComponentType<TableToolbarViewProps> = ({
           )}
           {pagination.count! > 0 && (
             <PrimaryToolbar
-              className="pf-u-pl-lg pf-u-pr-lg"
               pagination={{
                 ...paginationConfig,
                 dropDirection: 'up',
