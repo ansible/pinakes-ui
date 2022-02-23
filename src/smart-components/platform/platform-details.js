@@ -51,6 +51,18 @@ const PlatformDetails = () => {
                       </TextListItem>
                     </React.Fragment>
                   )}
+                  {isStandalone() && (
+                    <React.Fragment>
+                      <TextListItem component={TextListItemVariants.dt}>
+                        {formatMessage(
+                          platformsMessages.automationControllerUrl
+                        )}
+                      </TextListItem>
+                      <TextListItem component={TextListItemVariants.dd}>
+                        {platform?.info?.url}
+                      </TextListItem>
+                    </React.Fragment>
+                  )}
                   <TextListItem component={TextListItemVariants.dt}>
                     {formatMessage(platformsMessages.dateAdded)}
                   </TextListItem>

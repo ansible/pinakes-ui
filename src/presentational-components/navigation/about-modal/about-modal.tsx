@@ -21,7 +21,7 @@ interface IProps {
 }
 
 interface IState {
-  applicationInfo: { server_version: string; pulp_ansible_version: string };
+  applicationInfo: { server_version: string };
 }
 
 export const AboutModalWindow = (props: IProps) => {

@@ -38,6 +38,7 @@ const TO_DISPLAY = ['description', 'modified'];
 export interface PlatformInfo {
   version?: string;
   ansible_version?: string;
+  url?: string;
 }
 
 export interface PlatformCardProps extends ItemDetailsProps {
@@ -170,6 +171,16 @@ const PlatformCard: React.ComponentType<PlatformCardProps> = ({
                     </Text>
                     <Text component={TextVariants.small} className="pf-u-mb-0">
                       {props?.info?.ansible_version}
+                    </Text>
+                  </React.Fragment>
+                )}
+                {isStandalone() && (
+                  <React.Fragment>
+                    <Text component={TextVariants.small} className="pf-u-mb-0">
+                      {formatMessage(platformsMessages.automationControllerUrl)}
+                    </Text>
+                    <Text component={TextVariants.small} className="pf-u-mb-0">
+                      {props?.info?.url}
                     </Text>
                   </React.Fragment>
                 )}

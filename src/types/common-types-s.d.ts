@@ -149,7 +149,7 @@ export interface SourceDetails extends Source {
   availability_status?: string;
   enabled?: boolean;
   created_at: string;
-  info?: { version?: string; ansible_version?: string };
+  info?: { version?: string; ansible_version?: string; url?: string };
   last_available_at?: string;
   last_checked_at?: string;
   last_refresh_message: string;
