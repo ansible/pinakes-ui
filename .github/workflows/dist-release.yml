@@ -51,6 +51,7 @@ jobs:
 
       - name: "Release"
         run: |
+          gh release delete $RELEASE_TAG -y
           gh release create -p "$RELEASE_TAG" --title "$RELEASE_NAME" --notes "$RELEASE_BODY" || true # may already exist
           gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
         env:
