@@ -12,7 +12,6 @@ const CatalogRoute = ({ ...props }) => {
       })
       .catch((error) => {
         localStorage.removeItem('catalog_user');
-        console.log('Debug - error: ', error);
         if (error.status === 403) {
           window.location.replace(`${AUTH_API_BASE}/login/`);
           return <div />;
