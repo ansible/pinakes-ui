@@ -1,3 +1,5 @@
+// Importing Global Variables
+@import '~@redhat-cloud-services/frontend-components-utilities/styles/all';
 .pf-c-page {
   --pf-c-page__sidebar--Transition: all 500ms cubic-bezier(.42, 0, .58, 1);
   --pf-m-emphasis--FontSize: var(--pf-global--FontSize--xl);
@@ -152,4 +154,9 @@ section.pf-c-nav__section.nav-title > h2 {
   height: 50px;
   font-size: var(--pf-c-nav__link--FontSize);
   font-weight: var(--pf-c-nav__link--FontWeight);
+}
+
+body,
+#root {
+  height: 100%;
 }
