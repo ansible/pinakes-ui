@@ -211,7 +211,7 @@ export const updatePortfolioItem = (
   store: { getState: GetReduxState }
 ): Promise<PortfolioItem> =>
   axiosInstance.patch(
-    `${CATALOG_API_BASE}/portfolio-items/${id}/`,
+    `${CATALOG_API_BASE}/portfolio_items/${id}/`,
     sanitizeValues(portfolioItem, 'PortfolioItem', store)
   );
 
