@@ -34,6 +34,7 @@ describe('<EditPortfolioItem />', () => {
     mockStore = configureStore(middlewares);
     initialProps = {
       uploadIcon: jest.fn(),
+      resetIcon: jest.fn(),
       workflows: [],
       cancelUrl: '/cancel',
       userCapabilities: {},
