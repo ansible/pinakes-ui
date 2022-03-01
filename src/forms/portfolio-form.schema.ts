@@ -6,15 +6,15 @@ import asyncFormValidator from '../utilities/async-form-validator';
 import { fetchPortfolioByName } from '../helpers/portfolio/portfolio-helper';
 import { fetchPortfolioByName as fetchPortfolioByNameS } from '../helpers/portfolio/portfolio-helper-s';
 import { AnyObject } from '../types/common-types';
+import { isStandalone } from '../helpers/shared/helpers';
 
 export const validateName = (name: string, portfolioId: string) => {
-  if (localStorage.getItem('catalog_standalone')) {
-    fetchPortfolioByNameS(name).then(({ results }) => {
+  if (isStandalone()) {
+    return fetchPortfolioByNameS(name).then((result) => {
       if (!name || name.trim().length === 0) {
         throw 'Required';
       }
-
-      const conflict = results.find(
+      const conflict = result?.results.find(
         (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
       );
       if (conflict) {
@@ -22,11 +22,10 @@ export const validateName = (name: string, portfolioId: string) => {
       }
     });
   } else {
-    fetchPortfolioByName(name).then(({ data }) => {
+    return fetchPortfolioByName(name).then(({ data }) => {
       if (!name || name.trim().length === 0) {
         throw 'Required';
       }
-
       const conflict = data.find(
         (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
       );
@@ -48,22 +47,24 @@ const debouncedValidator = asyncFormValidator(validateName);
 export const createPortfolioSchema = (
   openApiSchema: AnyObject,
   portfolioId: string
-): Schema => ({
-  fields: [
-    {
-      label: 'schemas.portfolio.name',
-      name: 'name',
-      component: componentTypes.TEXT_FIELD,
-      isRequired: true,
-      maxLength:
-        openApiSchema?.components?.schemas?.Portfolio?.properties?.name
-          ?.maxLength || DEFAULT_MAX_LENGTH,
-      validate: [(value: string) => debouncedValidator(value, portfolioId)]
-    },
-    {
-      label: 'schemas.portfolio.description',
-      component: componentTypes.TEXTAREA,
-      name: 'description'
-    }
-  ]
-});
+): Schema => {
+  return {
+    fields: [
+      {
+        label: 'schemas.portfolio.name',
+        name: 'name',
+        component: componentTypes.TEXT_FIELD,
+        isRequired: true,
+        maxLength:
+          openApiSchema?.components?.schemas?.Portfolio?.properties?.name
+            ?.maxLength || DEFAULT_MAX_LENGTH,
+        validate: [(value: string) => debouncedValidator(value, portfolioId)]
+      },
+      {
+        label: 'schemas.portfolio.description',
+        component: componentTypes.TEXTAREA,
+        name: 'description'
+      }
+    ]
+  };
+};
