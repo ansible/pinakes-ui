@@ -113,7 +113,7 @@ const Portfolios = () => {
   const portfolios = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
-  const meta = portfolios?.meta || { count: portfolios?.count };
+  const meta = portfolios?.meta || { count: portfolios?.count || 0 };
   const data = portfolios?.data || portfolios?.results;
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
@@ -138,12 +138,6 @@ const Portfolios = () => {
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering })
     );
   };
-
-  useEffect(() => {
-    if (isMounted && (!isFiltering || !isFetching)) {
-      handleFilterItems(filters[filterType]);
-    }
-  }, [sortDirection]);
 
   const handleSort = (direction) =>
     stateDispatch({ type: 'setSortBy', payload: direction });
@@ -230,7 +224,7 @@ const Portfolios = () => {
       </TopToolbar>
       <ContentGallery
         items={galleryItems}
-        isLoading={isFetching || isFiltering}
+        isLoading={isFetching}
         renderEmptyState={() => (
           <ContentGalleryEmptyState {...emptyStateProps} />
         )}

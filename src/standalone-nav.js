@@ -33,13 +33,19 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
 import { getUser, logoutUser } from './helpers/shared/active-user';
+import { getAxiosInstance } from './helpers/shared/user-login';
+import { CATALOG_API_BASE } from './utilities/constants';
+import { SET_OPENAPI_SCHEMA } from './redux/action-types';
+import { useDispatch } from 'react-redux';
 
 const App = (props) => {
   const [user, setUser] = useState(null);
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
   const [toggleOpen, setToggleOpen] = useState(false);
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
+  const [openApiSchema, setOpenApiSchema] = useState();
   const [token, setToken] = useState(null);
+  const dispatch = useDispatch();
 
   const location = useLocation();
 
@@ -99,6 +105,12 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
+    getAxiosInstance()
+      .get(`${CATALOG_API_BASE}/schema/openapi.json`)
+      .then((payload) => {
+        setOpenApiSchema(payload);
+        dispatch({ type: SET_OPENAPI_SCHEMA, payload });
+      });
     getUser().then((user) => setUser(user));
   }, []);
 
