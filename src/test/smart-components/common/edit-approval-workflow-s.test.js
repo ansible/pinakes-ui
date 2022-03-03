@@ -97,7 +97,6 @@ describe('<EditApprovalWorkflow />', () => {
 
   it('should create the edit workflow modal', async (done) => {
     const store = mockStore(initialState);
-    console.log('Debug - standalone: ', isStandalone());
     mockApi
       .onGet(
         `/api/approval/v1.2/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`

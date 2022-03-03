@@ -113,10 +113,9 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     return <UnauthorizedRedirect />;
   }
 
-  const schema = createPortfolioSchema(openApiSchema, portfolioId);
   return (
     <FormRenderer
-      schema={schema}
+      schema={createPortfolioSchema(openApiSchema, portfolioId)}
       onSubmit={onSubmit}
       onCancel={() => push(closeTarget)}
       initialValues={{ ...initialValues }}

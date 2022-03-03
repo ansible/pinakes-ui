@@ -297,7 +297,7 @@ const App = (props) => {
           value={{
             permissions: [{ permission: 'catalog:portfolios:create' }],
             userIdentity: { identity: { user: { is_org_admin: true } } },
-            openApiSchema: {},
+            openApiSchema,
             standalone: true
           }}
         >
