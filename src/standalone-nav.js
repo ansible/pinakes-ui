@@ -37,8 +37,10 @@ import { getAxiosInstance } from './helpers/shared/user-login';
 import { CATALOG_API_BASE } from './utilities/constants';
 import { SET_OPENAPI_SCHEMA } from './redux/action-types';
 import { useDispatch } from 'react-redux';
+import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
 
 const App = (props) => {
+  const [auth, setAuth] = useState(undefined);
   const [user, setUser] = useState(null);
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
   const [toggleOpen, setToggleOpen] = useState(false);
@@ -105,13 +107,12 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
-    getAxiosInstance()
-      .get(`${CATALOG_API_BASE}/schema/openapi.json`)
-      .then((payload) => {
-        setOpenApiSchema(payload);
-        dispatch({ type: SET_OPENAPI_SCHEMA, payload });
-      });
-    getUser().then((user) => setUser(user));
+    getUser()
+      .then((user) => {
+        setAuth(true);
+        setUser(user);
+      })
+      .catch((error) => setAuth(false));
   }, []);
 
   let docsDropdownItems = [];
@@ -301,10 +302,13 @@ const App = (props) => {
             standalone: true
           }}
         >
-          <NotificationsPortal />
-          <div style={{ minHeight: MIN_SCREEN_HEIGHT }}>
-            <Routes />
-          </div>
+          <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
+            <GridItem sm={12}>
+              <NotificationsPortal />
+              {auth === false && <UnknownErrorPlaceholder />}
+              {auth && <Routes />}
+            </GridItem>
+          </Grid>
         </UserContext.Provider>
       </Page>
     </div>

@@ -6,19 +6,9 @@ import { getUser } from '../helpers/shared/active-user';
 
 const CatalogRoute = ({ ...props }) => {
   useEffect(() => {
-    getUser()
-      .then((user) => {
-        localStorage.setItem('catalog_user', JSON.stringify(user));
-      })
-      .catch((error) => {
-        localStorage.removeItem('catalog_user');
-        if (error.status === 403) {
-          window.location.replace(`${AUTH_API_BASE}/login/`);
-          return <div />;
-        }
-
-        throw error;
-      });
+    getUser().then((user) => {
+      localStorage.setItem('catalog_user', JSON.stringify(user));
+    });
   }, []);
   if (!localStorage.getItem('catalog_user')) {
     window.location.replace(`${AUTH_API_BASE}/login/`);
