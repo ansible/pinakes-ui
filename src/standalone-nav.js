@@ -45,7 +45,6 @@ const App = (props) => {
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
   const [toggleOpen, setToggleOpen] = useState(false);
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
-  const [openApiSchema, setOpenApiSchema] = useState();
   const [token, setToken] = useState(null);
   const dispatch = useDispatch();
 
@@ -298,7 +297,6 @@ const App = (props) => {
           value={{
             permissions: [{ permission: 'catalog:portfolios:create' }],
             userIdentity: { identity: { user: { is_org_admin: true } } },
-            openApiSchema,
             standalone: true
           }}
         >

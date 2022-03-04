@@ -36,7 +36,6 @@ export const udefinedToNull = (
   entity: AnyObject,
   keys: string[]
 ): AnyObject => {
-  console.log('Debug - udefinedToNull', entity, keys);
   return [...Object.keys(entity), ...keys].reduce(
     (acc, curr) => ({
       ...acc,
@@ -62,7 +61,6 @@ export const sanitizeValues = (
   store: Partial<Store>
 ): AnyObject => {
   const schemas = store.getState!().openApiReducer.schema.components.schemas;
-  console.log('Debug - sanitizeValues - schemas: ', schemas);
   const permittedValues = Object.keys(values)
     .filter((key) => !get(schemas, `${entityType}.properties.${key}.readOnly`))
     .reduce(

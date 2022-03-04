@@ -45,24 +45,6 @@ describe('<EditPortfolioItem />', () => {
     };
   });
 
-  it('should fail form validation and not submit the data', () => {
-    const store = mockStore(intialState);
-    const wrapper = mount(
-      <ComponentWrapper store={store}>
-        <EditPortfolioItem {...initialProps} />
-      </ComponentWrapper>
-    );
-    const input = wrapper.find('input#documentation_url');
-    input.getDOMNode().value = 'foo';
-    input.simulate('change');
-    wrapper.update();
-    wrapper
-      .find('button')
-      .first()
-      .simulate('click');
-    expect(store.getActions()).toEqual([]);
-  });
-
   it('should submit form data', async () => {
     const store = mockStore({
       ...intialState,
@@ -74,11 +56,7 @@ describe('<EditPortfolioItem />', () => {
         expect(JSON.parse(req.data)).toEqual({
           name: 'foo',
           metadata: { user_capabilities: {} },
-          documentation_url: 'https://www.google.com/',
-          support_url: 'https://www.google.com/',
-          long_description: 'https://www.google.com/',
-          description: 'https://www.google.com/',
-          distributor: 'https://www.google.com/'
+          description: 'https://www.google.com/'
         });
         return [200, { id: '123', ...JSON.parse(req.data) }];
       });
@@ -89,11 +67,7 @@ describe('<EditPortfolioItem />', () => {
           name: 'foo',
           id: '123',
           metadata: { user_capabilities: {} },
-          documentation_url: 'https://www.google.com/',
-          support_url: 'https://www.google.com/',
-          long_description: 'https://www.google.com/',
-          description: 'https://www.google.com/',
-          distributor: 'https://www.google.com/'
+          description: 'https://www.google.com/'
         }
       },
       {
@@ -102,11 +76,7 @@ describe('<EditPortfolioItem />', () => {
           name: 'foo',
           id: '123',
           metadata: { user_capabilities: {} },
-          documentation_url: 'https://www.google.com/',
-          support_url: 'https://www.google.com/',
-          long_description: 'https://www.google.com/',
-          description: 'https://www.google.com/',
-          distributor: 'https://www.google.com/'
+          description: 'https://www.google.com/'
         }
       },
       {
@@ -122,32 +92,7 @@ describe('<EditPortfolioItem />', () => {
         </ComponentWrapper>
       );
     });
-    let input = wrapper.find('input#documentation_url');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#support_url');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#long_description');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#long_description');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#description');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#distributor');
+    let input = wrapper.find('input#description');
     input.getDOMNode().value = 'https://www.google.com/';
     await act(async () => {
       input.simulate('change');

@@ -46,7 +46,7 @@ const ItemDetailDescription = ({
         path={detailPaths}
         render={() => (
           <TextContent>
-            {(product.description || product.long_description) && (
+            {product.description && (
               <Text component={TextVariants.h6}>
                 {formatMessage(portfolioMessages.portfolioItemOverview)}
               </Text>
@@ -55,38 +55,6 @@ const ItemDetailDescription = ({
               <Text id="description" component={TextVariants.p}>
                 {product.description}
               </Text>
-            )}
-            {product.long_description && (
-              <Text id="long_description" component={TextVariants.p}>
-                {product.long_description}
-              </Text>
-            )}
-            {product.support_url && (
-              <Text id="support_url" component={TextVariants.p}>
-                <a
-                  href={product.support_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {formatMessage(portfolioMessages.portfolioItemSupport)}
-                </a>
-              </Text>
-            )}
-            {product.documentation_url && (
-              <Fragment>
-                <Text component={TextVariants.h6}>
-                  {formatMessage(portfolioMessages.portfolioItemDocumentation)}
-                </Text>
-                <Text id="documentation_url" component={TextVariants.p}>
-                  <a
-                    href={product.documentation_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {formatMessage(portfolioMessages.portfolioItemDocLink)}
-                  </a>
-                </Text>
-              </Fragment>
             )}
           </TextContent>
         )}
