@@ -32,14 +32,19 @@ export const filterServiceOffering = (
     .includes(filter.toLowerCase());
 };
 
-export const udefinedToNull = (entity: AnyObject, keys: string[]): AnyObject =>
-  [...Object.keys(entity), ...keys].reduce(
+export const udefinedToNull = (
+  entity: AnyObject,
+  keys: string[]
+): AnyObject => {
+  console.log('Debug - udefinedToNull', entity, keys);
+  return [...Object.keys(entity), ...keys].reduce(
     (acc, curr) => ({
       ...acc,
-      [curr]: entity[curr] === undefined ? null : entity[curr]
+      [curr]: entity[curr] === undefined ? '' : entity[curr]
     }),
     {}
   );
+};
 
 interface NullableMapper extends AnyObject {
   PortfolioItem: string[];
@@ -57,6 +62,7 @@ export const sanitizeValues = (
   store: Partial<Store>
 ): AnyObject => {
   const schemas = store.getState!().openApiReducer.schema.components.schemas;
+  console.log('Debug - sanitizeValues - schemas: ', schemas);
   const permittedValues = Object.keys(values)
     .filter((key) => !get(schemas, `${entityType}.properties.${key}.readOnly`))
     .reduce(
