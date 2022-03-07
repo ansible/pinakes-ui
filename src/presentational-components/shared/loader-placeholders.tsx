@@ -22,13 +22,23 @@ import {
   Text,
   TextVariants,
   ActionGroup,
-  Button
+  Button,
+  Flex,
+  FlexItem,
+  ExpandableSection,
+  EmptyState,
+  EmptyStateIcon,
+  Title,
+  EmptyStateBody,
+  EmptyStatePrimary
 } from '@patternfly/react-core';
 import styled, { keyframes } from 'styled-components';
 import { StyledToolbar } from '../styled-components/toolbars';
 import actionMessages from '../../messages/actions.messages';
 import formsMessages from '../../messages/forms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { ExclamationCircleIcon } from '@patternfly/react-icons';
+import { Link } from 'react-router-dom';
 
 const wave = keyframes`
   0% {
@@ -119,6 +129,53 @@ export const AppPlaceholder: React.ElementType = () => (
     <div className="pf-u-mt-lg">
       <Bullseye>
         <Spinner />
+      </Bullseye>
+    </div>
+  </section>
+);
+
+export const UnknownErrorPlaceholder: React.ElementType = () => (
+  <section className="pf-u-m-0 pf-u-p-0 pf-l-page__main-section pf-c-page__main-section">
+    <Skeleton height={32} className="pf-u-p-lg global-primary-background" />
+    <div className="pf-u-mt-lg">
+      <Bullseye className="chr-c-error-component">
+        <EmptyState>
+          <EmptyStateIcon
+            color="var(--pf-global--danger-color--200)"
+            icon={ExclamationCircleIcon}
+          />
+          <Title size="lg" headingLevel="h1">
+            Something went wrong
+          </Title>
+          <EmptyStateBody>
+            <p>
+              There was a problem processing the request. Try reloading the
+              page. If the problem persists, contact{' '}
+              <a
+                target="_blank"
+                href="https://access.redhat.com/support"
+                rel="noreferrer"
+              >
+                Red Hat support
+              </a>{' '}
+              or check our{' '}
+              <a
+                href="https://status.redhat.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                status page
+              </a>{' '}
+              for known outages.
+            </p>
+          </EmptyStateBody>
+          <EmptyStatePrimary>
+            <Button
+              component={() => <Link to="/">Return to home page</Link>}
+              variant="primary"
+            />
+          </EmptyStatePrimary>
+        </EmptyState>
       </Bullseye>
     </div>
   </section>
