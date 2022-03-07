@@ -33,7 +33,10 @@ describe('Approval helper', () => {
   afterEach(() => {
     getSpy.mockReset();
     axiosPostSpy.mockReset();
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
+
   it('should build correct url for workflows initial lookup query', () => {
     mockApi
       .onGet(

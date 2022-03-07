@@ -26,6 +26,11 @@ describe('approval actions', () => {
     });
   });
 
+  afterEach(() => {
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
+  });
+
   it('should dispatch correct actions after fetching workflows', () => {
     const store = mockStore({});
     const expectedActions = [

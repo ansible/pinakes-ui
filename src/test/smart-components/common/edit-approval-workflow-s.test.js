@@ -15,7 +15,6 @@ import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import FormRenderer from '../../../smart-components/common/form-renderer';
 import EditApprovalWorkflow from '../../../smart-components/common/edit-approval-workflow';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
-import { isStandalone } from '../../../helpers/shared/helpers';
 
 describe('<EditApprovalWorkflow />', () => {
   let initialProps;
@@ -76,6 +75,11 @@ describe('<EditApprovalWorkflow />', () => {
       }
     };
     mockStore = configureStore(middlewares);
+  });
+
+  afterEach(() => {
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
   it('should render correctly', async () => {
