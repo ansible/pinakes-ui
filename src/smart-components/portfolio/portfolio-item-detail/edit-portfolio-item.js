@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import FormRenderer from '../../common/form-renderer';
-import editPortfolioItemSchema from '../../../forms/edit-portfolio-item-form.schema';
+import {
+  editPortfolioItemSchema,
+  editPortfolioItemSchemaS
+} from '../../../forms/edit-portfolio-item-form.schema';
 import { updatePortfolioItem } from '../../../redux/actions/portfolio-actions';
 import { updatePortfolioItem as updatePortfolioItemS } from '../../../redux/actions/portfolio-actions-s';
 import { Stack, StackItem } from '@patternfly/react-core';
@@ -12,6 +15,9 @@ import IconUpload from './icon-upload';
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import CardIcon from '../../../presentational-components/shared/card-icon';
 import { isStandalone } from '../../../helpers/shared/helpers';
+import { getAxiosInstance } from '../../../helpers/shared/user-login';
+import { SET_OPENAPI_SCHEMA } from '../../../redux/action-types';
+import { getUser } from '../../../helpers/shared/active-user';
 
 const EditPortfolioItem = ({
   cancelUrl,
@@ -29,6 +35,15 @@ const EditPortfolioItem = ({
     : `${CATALOG_API_BASE}/portfolio_items/${
         product.id
       }/icon?cache_id=${product.icon_id || 'default'}`;
+
+  useEffect(() => {
+    getAxiosInstance()
+      .get(`${CATALOG_API_BASE}/schema/openapi.json`)
+      .then((payload) => {
+        dispatch({ type: SET_OPENAPI_SCHEMA, payload });
+      });
+  }, []);
+
   return (
     <Stack hasGutter>
       <StackItem key={icon_url || 'default'}>
@@ -64,7 +79,9 @@ const EditPortfolioItem = ({
                   })
             );
           }}
-          schema={editPortfolioItemSchema}
+          schema={
+            isStandalone() ? editPortfolioItemSchemaS : editPortfolioItemSchema
+          }
           templateProps={{
             disableSubmit: ['pristine']
           }}

@@ -2,7 +2,7 @@ import Schema from '@data-driven-forms/react-form-renderer/common-types/schema';
 import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
 import validatorTypes from '@data-driven-forms/react-form-renderer/validator-types';
 
-const editPortfolioItemSchema: Schema = {
+export const editPortfolioItemSchema: Schema = {
   fields: [
     {
       component: componentTypes.TEXT_FIELD,
@@ -49,4 +49,19 @@ const editPortfolioItemSchema: Schema = {
   ]
 };
 
-export default editPortfolioItemSchema;
+export const editPortfolioItemSchemaS: Schema = {
+  fields: [
+    {
+      component: componentTypes.TEXT_FIELD,
+      name: 'name',
+      label: 'schemas.portfolio-item.name',
+      isRequired: true,
+      validate: [{ type: validatorTypes.REQUIRED }]
+    },
+    {
+      component: componentTypes.TEXT_FIELD,
+      name: 'description',
+      label: 'schemas.portfolio-item.description'
+    }
+  ]
+};

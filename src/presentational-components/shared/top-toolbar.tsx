@@ -24,7 +24,6 @@ export interface TopToolbarProps {
 }
 const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   children,
-  paddingBottom = true,
   breadcrumbs = true,
   breadcrumbfragments = [],
   ...rest
@@ -33,9 +32,7 @@ const TopToolbar: React.ComponentType<TopToolbarProps> = ({
   return (
     <div className={clsx({ ['standalone-toolbar']: !!standalone })}>
       <TopToolbarWrapper
-        className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg ${
-          paddingBottom ? 'pf-u-pb-lg' : ''
-        }`}
+        className={`pf-u-pt-lg pf-u-pr-lg pf-u-pl-lg `}
         {...rest}
       >
         {breadcrumbs && (

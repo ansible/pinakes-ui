@@ -17,7 +17,6 @@ import { getPortfolioFromState as getPortfolioFromStateS } from '../../helpers/p
 import useEnhancedHistory from '../../utilities/use-enhanced-history';
 import { UnauthorizedRedirect } from '../error-pages/error-redirects';
 import { PORTFOLIO_ROUTE } from '../../constants/routes';
-import UserContext from '../../user-context';
 import actionMessages from '../../messages/actions.messages';
 import portfolioMessages from '../../messages/portfolio.messages';
 import labelMessages from '../../messages/labels.messages';
@@ -42,7 +41,6 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
-  const { openApiSchema: openApiSchema } = useContext(UserContext);
   const [{ portfolio: portfolioId }] = useQuery(['portfolio']);
   const { push } = useEnhancedHistory({
     removeSearch: removeQuery,
@@ -97,7 +95,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
       ).then(() =>
         /**
          * Redirect only after the update was finished.
-         * This will ensure that API requests are triggered in correct order when chaning the router pathname
+         * This will ensure that API requests are triggered in correct order when changing the router pathname
          * */
         push(closeTarget)
       );
@@ -106,16 +104,13 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     }
   };
 
-  const editVariant =
-    portfolioId && initialValues && Object.keys(initialValues).length > 0;
-
   if (initialValues?.metadata?.user_capabilities?.update === false) {
     return <UnauthorizedRedirect />;
   }
 
   return (
     <FormRenderer
-      schema={createPortfolioSchema(openApiSchema, portfolioId)}
+      schema={createPortfolioSchema(portfolioId)}
       onSubmit={onSubmit}
       onCancel={() => push(closeTarget)}
       initialValues={{ ...initialValues }}

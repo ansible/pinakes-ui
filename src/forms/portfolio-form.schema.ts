@@ -14,6 +14,7 @@ export const validateName = (name: string, portfolioId: string) => {
       if (!name || name.trim().length === 0) {
         throw 'Required';
       }
+
       const conflict = result?.results.find(
         (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
       );
@@ -26,6 +27,7 @@ export const validateName = (name: string, portfolioId: string) => {
       if (!name || name.trim().length === 0) {
         throw 'Required';
       }
+
       const conflict = data.find(
         (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
       );
@@ -41,13 +43,9 @@ const debouncedValidator = asyncFormValidator(validateName);
 /**
  * Creates a data-driven-form schema for adding/editing portfolio
  * @param {bool} newRecord sets the variant of portfolio form
- * @param openApiSchema
  * @param portfolioId
  */
-export const createPortfolioSchema = (
-  openApiSchema: AnyObject,
-  portfolioId: string
-): Schema => {
+export const createPortfolioSchema = (portfolioId: string): Schema => {
   return {
     fields: [
       {
@@ -55,9 +53,7 @@ export const createPortfolioSchema = (
         name: 'name',
         component: componentTypes.TEXT_FIELD,
         isRequired: true,
-        maxLength:
-          openApiSchema?.components?.schemas?.Portfolio?.properties?.name
-            ?.maxLength || DEFAULT_MAX_LENGTH,
+        maxLength: DEFAULT_MAX_LENGTH,
         validate: [(value: string) => debouncedValidator(value, portfolioId)]
       },
       {

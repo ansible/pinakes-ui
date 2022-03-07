@@ -32,14 +32,18 @@ export const filterServiceOffering = (
     .includes(filter.toLowerCase());
 };
 
-export const udefinedToNull = (entity: AnyObject, keys: string[]): AnyObject =>
-  [...Object.keys(entity), ...keys].reduce(
+export const udefinedToNull = (
+  entity: AnyObject,
+  keys: string[]
+): AnyObject => {
+  return [...Object.keys(entity), ...keys].reduce(
     (acc, curr) => ({
       ...acc,
-      [curr]: entity[curr] === undefined ? null : entity[curr]
+      [curr]: entity[curr] === undefined ? '' : entity[curr]
     }),
     {}
   );
+};
 
 interface NullableMapper extends AnyObject {
   PortfolioItem: string[];

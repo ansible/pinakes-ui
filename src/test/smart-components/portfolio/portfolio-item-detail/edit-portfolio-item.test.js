@@ -4,12 +4,14 @@ import { mount } from 'enzyme';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
-import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import EditPortfolioItem from '../../../../smart-components/portfolio/portfolio-item-detail/edit-portfolio-item';
-import { CATALOG_API_BASE } from '../../../../utilities/constants';
+import {
+  APPROVAL_API_BASE,
+  CATALOG_API_BASE
+} from '../../../../utilities/constants';
 import {
   UPDATE_TEMPORARY_PORTFOLIO_ITEM,
   UPDATE_PORTFOLIO_ITEM
@@ -29,9 +31,12 @@ describe('<EditPortfolioItem />', () => {
     </Provider>
   );
   beforeEach(() => {
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
     mockStore = configureStore(middlewares);
     initialProps = {
       uploadIcon: jest.fn(),
+      resetIcon: jest.fn(),
       workflows: [],
       cancelUrl: '/cancel',
       userCapabilities: {},
@@ -42,22 +47,9 @@ describe('<EditPortfolioItem />', () => {
     };
   });
 
-  it('should fail form validation and not submit the data', () => {
-    const store = mockStore(intialState);
-    const wrapper = mount(
-      <ComponentWrapper store={store}>
-        <EditPortfolioItem {...initialProps} />
-      </ComponentWrapper>
-    );
-    const input = wrapper.find('input#documentation_url');
-    input.getDOMNode().value = 'foo';
-    input.simulate('change');
-    wrapper.update();
-    wrapper
-      .find('button')
-      .first()
-      .simulate('click');
-    expect(store.getActions()).toEqual([]);
+  afterEach(() => {
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
   it('should submit form data', async () => {
@@ -65,50 +57,51 @@ describe('<EditPortfolioItem />', () => {
       ...intialState,
       openApiReducer: openApiReducerMock
     });
+    mockApi.onGet(`${CATALOG_API_BASE}/schema/openapi.json`).replyOnce(200, {});
     mockApi
-      .onPatch(`${CATALOG_API_BASE}/portfolio_items/123`)
+      .onPatch(`${CATALOG_API_BASE}/portfolio_items/123/`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
           name: 'foo',
           metadata: { user_capabilities: {} },
-          documentation_url: 'https://www.google.com/',
-          support_url: 'https://www.google.com/',
-          long_description: 'https://www.google.com/',
-          description: 'https://www.google.com/',
-          distributor: 'https://www.google.com/'
+          description: 'https://www.google.com/'
         });
         return [200, { id: '123', ...JSON.parse(req.data) }];
       });
     const expectedActions = [
       {
-        type: UPDATE_TEMPORARY_PORTFOLIO_ITEM,
-        payload: {
-          name: 'foo',
-          id: '123',
-          metadata: { user_capabilities: {} },
-          documentation_url: 'https://www.google.com/',
-          support_url: 'https://www.google.com/',
-          long_description: 'https://www.google.com/',
-          description: 'https://www.google.com/',
-          distributor: 'https://www.google.com/'
-        }
+        payload: {},
+        type: '@@open-api/set-schema'
       },
       {
-        type: UPDATE_PORTFOLIO_ITEM,
         payload: {
-          name: 'foo',
-          id: '123',
-          metadata: { user_capabilities: {} },
-          documentation_url: 'https://www.google.com/',
-          support_url: 'https://www.google.com/',
-          long_description: 'https://www.google.com/',
           description: 'https://www.google.com/',
-          distributor: 'https://www.google.com/'
-        }
+          id: '123',
+          metadata: {
+            user_capabilities: {}
+          },
+          name: 'foo'
+        },
+        type: 'UPDATE_TEMPORARY_PORTFOLIO_ITEM'
       },
       {
-        type: ADD_NOTIFICATION,
-        payload: expect.any(Object)
+        payload: {
+          description: 'https://www.google.com/',
+          id: '123',
+          metadata: {
+            user_capabilities: {}
+          },
+          name: 'foo'
+        },
+        type: 'UPDATE_PORTFOLIO_ITEM'
+      },
+      {
+        payload: {
+          dismissable: true,
+          title: 'Product "foo" was successfully updated',
+          variant: 'success'
+        },
+        type: '@@INSIGHTS-CORE/NOTIFICATIONS/ADD_NOTIFICATION'
       }
     ];
     let wrapper;
@@ -119,32 +112,7 @@ describe('<EditPortfolioItem />', () => {
         </ComponentWrapper>
       );
     });
-    let input = wrapper.find('input#documentation_url');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#support_url');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#long_description');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#long_description');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#description');
-    input.getDOMNode().value = 'https://www.google.com/';
-    await act(async () => {
-      input.simulate('change');
-    });
-    input = wrapper.find('input#distributor');
+    let input = wrapper.find('input#description');
     input.getDOMNode().value = 'https://www.google.com/';
     await act(async () => {
       input.simulate('change');
@@ -167,6 +135,7 @@ describe('<EditPortfolioItem />', () => {
         <EditPortfolioItem {...initialProps} />
       </ComponentWrapper>
     );
+    mockApi.onGet(`${CATALOG_API_BASE}/schema/openapi.json`).replyOnce(200, {});
     await act(async () => {
       wrapper
         .find('button')
