@@ -300,9 +300,9 @@ const App = (props) => {
             standalone: true
           }}
         >
+          <NotificationsPortal />
           <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <GridItem sm={12}>
-              <NotificationsPortal />
               {auth === false && <UnknownErrorPlaceholder />}
               {auth && <Routes />}
             </GridItem>

@@ -34,6 +34,7 @@ module.exports = webpackBase({
 
   // Target compilation environment. Options: dev, prod
   TARGET_ENVIRONMENT: 'dev',
+  WEBPACK_PUBLIC_PATH: '/ui/catalog/',
 
   // Value for webpack.devServer.proxy
   // https://webpack.js.org/configuration/dev-server/#devserverproxy

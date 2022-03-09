@@ -47,10 +47,12 @@ const prodMiddlewares = [
       'data.errors',
       'data.error',
       'data.message',
+      'data.detail',
       'response.body.errors',
       'data',
       'errorMessage',
-      'stack'
+      'stack',
+      'detail'
     ]
   })
 ];

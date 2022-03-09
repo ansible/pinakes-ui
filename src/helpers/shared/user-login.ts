@@ -16,7 +16,8 @@ import {
 import {
   CATALOG_API_BASE,
   APPROVAL_API_BASE,
-  RBAC_API_BASE
+  RBAC_API_BASE,
+  AUTH_API_BASE
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
@@ -62,19 +63,11 @@ const errorInterceptor = (error: ServerError = {}) => {
 };
 
 const unauthorizedInterceptor = (error: ServerError = {}) => {
-  if (error.status === 401) {
-    loginUser();
-    return;
-  }
-
-  if (error.status === 403) {
-    throw {
-      ...error,
-      redirect: {
-        pathname: '/403',
-        message: error.config?.url
-      }
-    };
+  if (
+    error.status === 401 ||
+    (error.status === 403 && error.config?.url === `${AUTH_API_BASE}/me`)
+  ) {
+    return loginUser();
   }
 
   throw error;
