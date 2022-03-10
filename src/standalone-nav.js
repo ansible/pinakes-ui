@@ -33,20 +33,19 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
 import { getUser, logoutUser } from './helpers/shared/active-user';
-import { getAxiosInstance } from './helpers/shared/user-login';
-import { CATALOG_API_BASE } from './utilities/constants';
-import { SET_OPENAPI_SCHEMA } from './redux/action-types';
 import { useDispatch } from 'react-redux';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
+import {
+  APPROVAL_ADMIN_ROLE,
+  APPROVAL_APPROVER_ROLE,
+  CATALOG_ADMIN_ROLE
+} from './utilities/constants';
 
 const App = (props) => {
   const [auth, setAuth] = useState(undefined);
   const [user, setUser] = useState(null);
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
-  const [toggleOpen, setToggleOpen] = useState(false);
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
-  const [token, setToken] = useState(null);
-  const dispatch = useDispatch();
 
   const location = useLocation();
 
@@ -69,8 +68,7 @@ const App = (props) => {
       }),
       menuItem('Platforms', {
         url: `${baseUrl}/ui/catalog${Paths.platforms}`,
-        condition: ({ user }) =>
-          user.is_org_admin() || user.roles['catalog-admin']
+        condition: ({ user }) => user?.roles[CATALOG_ADMIN_ROLE]
       }),
       menuItem('Orders', {
         url: `${baseUrl}/ui/catalog${Paths.orders}`
@@ -78,9 +76,8 @@ const App = (props) => {
       menuItem('Approval', {
         url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
         condition: ({ user }) =>
-          user.is_org_admin() ||
-          user.roles['approver-admin'] ||
-          user.roles['approver-approver']
+          user?.roles[APPROVAL_ADMIN_ROLE] ||
+          user?.roles[APPROVAL_APPROVER_ROLE]
       }),
       menuItem(`Documentation`, {
         url:
@@ -122,7 +119,7 @@ const App = (props) => {
 
   let docsDropdownItems = [];
   let userDropdownItems = [];
-  let userName = null;
+  let userName = '';
 
   if (user) {
     if (user.first_name || user.last_name) {
@@ -133,7 +130,7 @@ const App = (props) => {
 
     userDropdownItems = [
       <DropdownItem isDisabled key="username">
-        Username: {user.username}
+        Username: {user.username || ''}
       </DropdownItem>,
       <DropdownItem
         key="logout"
@@ -156,7 +153,7 @@ const App = (props) => {
         trademark=""
         brandImageSrc={Logo}
         onClose={() => setAboutModalVisible(false)}
-        brandImageAlt={`Ansible Logo`}
+        brandImageAlt={`Application Logo`}
         productName={'Automation Services Catalog'}
         user={user}
         userName={userName}

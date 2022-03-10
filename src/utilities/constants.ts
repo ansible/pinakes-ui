@@ -80,3 +80,6 @@ export const USER_CAPABILITIES_PLACEHOLDER = {
   destroy: true,
   set_approval: true
 };
+export const CATALOG_ADMIN_ROLE = 'catalog-admin';
+export const APPROVAL_ADMIN_ROLE = 'approval-admin';
+export const APPROVAL_APPROVER_ROLE = 'approval-approver';
