@@ -56,34 +56,44 @@ const App = (props) => {
       type: 'item',
       name
     });
+    const menuSection = (name, options = {}, items = []) => ({
+      condition: (...params) =>
+        some(items, (item) => item.condition(...params)), // any visible items inside
+      ...options,
+      type: 'section',
+      name,
+      items
+    });
     const index = window.location.href.indexOf(window.location.pathname);
     const baseUrl = window.location.href.substr(0, index);
     console.log('Debug - menu - user', user);
     return [
-      menuItem('Products', {
-        url: `${baseUrl}/ui/catalog${Paths.products}`
-      }),
-      menuItem('Portfolios', {
-        url: `${baseUrl}/ui/catalog${Paths.portfolios}`
-      }),
-      menuItem('Platforms', {
-        url: `${baseUrl}/ui/catalog${Paths.platforms}`,
-        condition: ({ user }) => user?.roles[CATALOG_ADMIN_ROLE]
-      }),
-      menuItem('Orders', {
-        url: `${baseUrl}/ui/catalog${Paths.orders}`
-      }),
-      menuItem('Approval', {
-        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
-        condition: ({ user }) =>
-          user?.roles[APPROVAL_ADMIN_ROLE] ||
-          user?.roles[APPROVAL_APPROVER_ROLE]
-      }),
-      menuItem(`Documentation`, {
-        url:
-          'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
-        external: true
-      })
+      menuSection(``, {}, [
+        menuItem('Products', {
+          url: `${baseUrl}/ui/catalog${Paths.products}`
+        }),
+        menuItem('Portfolios', {
+          url: `${baseUrl}/ui/catalog${Paths.portfolios}`
+        }),
+        menuItem('Platforms', {
+          url: `${baseUrl}/ui/catalog${Paths.platforms}`,
+          condition: ({ user }) => user?.roles[CATALOG_ADMIN_ROLE]
+        }),
+        menuItem('Orders', {
+          url: `${baseUrl}/ui/catalog${Paths.orders}`
+        }),
+        menuItem('Approval', {
+          url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
+          condition: ({ user }) =>
+            user?.roles[APPROVAL_ADMIN_ROLE] ||
+            user?.roles[APPROVAL_APPROVER_ROLE]
+        }),
+        menuItem(`Documentation`, {
+          url:
+            'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
+          external: true
+        })
+      ])
     ];
   };
 
