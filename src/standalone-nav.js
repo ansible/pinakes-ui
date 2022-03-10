@@ -59,7 +59,7 @@ const App = (props) => {
     });
     const index = window.location.href.indexOf(window.location.pathname);
     const baseUrl = window.location.href.substr(0, index);
-
+    console.log('Debug - menu - user', user);
     return [
       menuItem('Products', {
         url: `${baseUrl}/ui/catalog${Paths.products}`
@@ -68,13 +68,19 @@ const App = (props) => {
         url: `${baseUrl}/ui/catalog${Paths.portfolios}`
       }),
       menuItem('Platforms', {
-        url: `${baseUrl}/ui/catalog${Paths.platforms}`
+        url: `${baseUrl}/ui/catalog${Paths.platforms}`,
+        condition: ({ user }) =>
+          user.is_org_admin() || user.roles['catalog-admin']
       }),
       menuItem('Orders', {
         url: `${baseUrl}/ui/catalog${Paths.orders}`
       }),
       menuItem('Approval', {
-        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`
+        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
+        condition: ({ user }) =>
+          user.is_org_admin() ||
+          user.roles['approver-admin'] ||
+          user.roles['approver-approver']
       }),
       menuItem(`Documentation`, {
         url:
