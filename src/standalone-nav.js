@@ -59,7 +59,7 @@ const App = (props) => {
         'Debug condition:  ',
         options.condition && options.condition({ user })
       );
-      return options.condition && options.condition({ user })
+      return !options.condition || options.condition({ user })
         ? { ...options, type: 'item', name }
         : null;
     };
