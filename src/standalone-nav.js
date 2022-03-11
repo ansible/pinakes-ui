@@ -22,7 +22,7 @@ import {
 } from '@patternfly/react-icons';
 import { reject, some } from 'lodash';
 
-import { Routes, Paths } from './presentational-components/navigation/routes';
+import { Routes } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
@@ -39,6 +39,7 @@ import {
   APPROVAL_APPROVER_ROLE,
   CATALOG_ADMIN_ROLE
 } from './utilities/constants';
+import { Paths } from './constants/routes';
 
 const App = (props) => {
   const [auth, setAuth] = useState(undefined);
@@ -50,15 +51,6 @@ const App = (props) => {
 
   const menu = () => {
     const menuItem = (name, options = {}) => {
-      console.log('Debug menuItem:  ', {
-        ...options,
-        type: 'item',
-        name
-      });
-      console.log(
-        'Debug condition:  ',
-        options.condition && options.condition({ user })
-      );
       return !options.condition || options.condition({ user })
         ? { ...options, type: 'item', name }
         : null;
@@ -66,7 +58,7 @@ const App = (props) => {
 
     const index = window.location.href.indexOf(window.location.pathname);
     const baseUrl = window.location.href.substr(0, index);
-    console.log('Debug - menu - user', user);
+    console.log('Debug - baseUrl: ', baseUrl);
     let menu = [];
     [
       menuItem('Products', {
@@ -77,18 +69,8 @@ const App = (props) => {
       }),
       menuItem('Platforms', {
         url: `${baseUrl}/ui/catalog${Paths.platforms}`,
-        condition: ({ user }) => {
-          console.log('Debug - condition user 1: ', user);
-          console.log(
-            'Debug  approval condition: ',
-            user?.roles
-              ? user.roles.includes(CATALOG_ADMIN_ROLE)
-              : 'no user roles'
-          );
-          return user?.roles
-            ? user.roles.includes(CATALOG_ADMIN_ROLE)
-            : 'no user roles';
-        }
+        condition: ({ user }) =>
+          user?.roles ? user.roles.includes(CATALOG_ADMIN_ROLE) : false
       }),
       menuItem('Orders', {
         url: `${baseUrl}/ui/catalog${Paths.orders}`
@@ -96,18 +78,6 @@ const App = (props) => {
       menuItem('Approval', {
         url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
         condition: ({ user }) => {
-          console.log('Debug - condition user 2: ', user);
-          console.log(
-            'Debug - condition user.roles.includes(APPROVAL_APPROVER_ROLE): ',
-            user?.roles ? user.roles.includes(APPROVAL_APPROVER_ROLE) : 'none'
-          );
-          console.log(
-            'Debug  approval condition: ',
-            user?.roles
-              ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
-                  user.roles.includes(APPROVAL_APPROVER_ROLE)
-              : false
-          );
           return user?.roles
             ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
                 user.roles.includes(APPROVAL_APPROVER_ROLE)
@@ -120,7 +90,6 @@ const App = (props) => {
         external: true
       })
     ].forEach((item) => {
-      console.log('Debug - item', item);
       if (item !== null) {
         menu.push(item);
       }
