@@ -33,7 +33,6 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
 import { getUser, logoutUser } from './helpers/shared/active-user';
-import { useDispatch } from 'react-redux';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
 import {
   APPROVAL_ADMIN_ROLE,
@@ -50,51 +49,83 @@ const App = (props) => {
   const location = useLocation();
 
   const menu = () => {
-    const menuItem = (name, options = {}) => ({
-      condition: () => true,
-      ...options,
-      type: 'item',
-      name
-    });
-    const menuSection = (name, options = {}, items = []) => ({
-      condition: (...params) =>
-        some(items, (item) => item.condition(...params)), // any visible items inside
-      ...options,
-      type: 'section',
-      name,
-      items
-    });
+    const menuItem = (name, options = {}) => {
+      console.log('Debug menuItem:  ', {
+        ...options,
+        type: 'item',
+        name
+      });
+      console.log(
+        'Debug condition:  ',
+        options.condition && options.condition({ user })
+      );
+      return options.condition && options.condition({ user })
+        ? { ...options, type: 'item', name }
+        : null;
+    };
+
     const index = window.location.href.indexOf(window.location.pathname);
     const baseUrl = window.location.href.substr(0, index);
     console.log('Debug - menu - user', user);
-    return [
-      menuSection(``, {}, [
-        menuItem('Products', {
-          url: `${baseUrl}/ui/catalog${Paths.products}`
-        }),
-        menuItem('Portfolios', {
-          url: `${baseUrl}/ui/catalog${Paths.portfolios}`
-        }),
-        menuItem('Platforms', {
-          url: `${baseUrl}/ui/catalog${Paths.platforms}`,
-          condition: ({ user }) => user?.roles[CATALOG_ADMIN_ROLE]
-        }),
-        menuItem('Orders', {
-          url: `${baseUrl}/ui/catalog${Paths.orders}`
-        }),
-        menuItem('Approval', {
-          url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
-          condition: ({ user }) =>
-            user?.roles[APPROVAL_ADMIN_ROLE] ||
-            user?.roles[APPROVAL_APPROVER_ROLE]
-        }),
-        menuItem(`Documentation`, {
-          url:
-            'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
-          external: true
-        })
-      ])
-    ];
+    let menu = [];
+    [
+      menuItem('Products', {
+        url: `${baseUrl}/ui/catalog${Paths.products}`
+      }),
+      menuItem('Portfolios', {
+        url: `${baseUrl}/ui/catalog${Paths.portfolios}`
+      }),
+      menuItem('Platforms', {
+        url: `${baseUrl}/ui/catalog${Paths.platforms}`,
+        condition: ({ user }) => {
+          console.log('Debug - condition user 1: ', user);
+          console.log(
+            'Debug  approval condition: ',
+            user?.roles
+              ? user.roles.includes(CATALOG_ADMIN_ROLE)
+              : 'no user roles'
+          );
+          return user?.roles
+            ? user.roles.includes(CATALOG_ADMIN_ROLE)
+            : 'no user roles';
+        }
+      }),
+      menuItem('Orders', {
+        url: `${baseUrl}/ui/catalog${Paths.orders}`
+      }),
+      menuItem('Approval', {
+        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
+        condition: ({ user }) => {
+          console.log('Debug - condition user 2: ', user);
+          console.log(
+            'Debug - condition user.roles.includes(APPROVAL_APPROVER_ROLE): ',
+            user?.roles ? user.roles.includes(APPROVAL_APPROVER_ROLE) : 'none'
+          );
+          console.log(
+            'Debug  approval condition: ',
+            user?.roles
+              ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
+                  user.roles.includes(APPROVAL_APPROVER_ROLE)
+              : false
+          );
+          return user?.roles
+            ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
+                user.roles.includes(APPROVAL_APPROVER_ROLE)
+            : false;
+        }
+      }),
+      menuItem(`Documentation`, {
+        url:
+          'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
+        external: true
+      })
+    ].forEach((item) => {
+      console.log('Debug - item', item);
+      if (item !== null) {
+        menu.push(item);
+      }
+    });
+    return menu;
   };
 
   const activateMenu = (items) => {
@@ -285,10 +316,7 @@ const App = (props) => {
         nav={
           <Nav theme="dark" onToggle={onToggle}>
             <NavList>
-              <NavGroup
-                className={'nav-title'}
-                title={'Automation Services Catalog'}
-              />
+              <NavGroup title={'Automation Services Catalog'} />
               <Menu items={menu()} />
             </NavList>
           </Nav>
