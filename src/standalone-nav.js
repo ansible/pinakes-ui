@@ -58,7 +58,6 @@ const App = (props) => {
 
     const index = window.location.href.indexOf(window.location.pathname);
     const baseUrl = window.location.href.substr(0, index);
-    console.log('Debug - baseUrl: ', baseUrl);
     let menu = [];
     [
       menuItem('Products', {
