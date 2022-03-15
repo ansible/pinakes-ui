@@ -22,7 +22,7 @@ import {
 } from '@patternfly/react-icons';
 import { reject, some } from 'lodash';
 
-import { Routes, Paths } from './presentational-components/navigation/routes';
+import { Routes } from './presentational-components/navigation/routes';
 import { SmallLogo } from './presentational-components/navigation/small-logo';
 import { StatefulDropdown } from './presentational-components/navigation/stateful-dropdown';
 import { AboutModalWindow } from './presentational-components/navigation/about-modal/about-modal';
@@ -33,34 +33,33 @@ import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
 import { getUser, logoutUser } from './helpers/shared/active-user';
-import { getAxiosInstance } from './helpers/shared/user-login';
-import { CATALOG_API_BASE } from './utilities/constants';
-import { SET_OPENAPI_SCHEMA } from './redux/action-types';
-import { useDispatch } from 'react-redux';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
+import {
+  APPROVAL_ADMIN_ROLE,
+  APPROVAL_APPROVER_ROLE,
+  CATALOG_ADMIN_ROLE
+} from './utilities/constants';
+import { Paths } from './constants/routes';
 
 const App = (props) => {
   const [auth, setAuth] = useState(undefined);
   const [user, setUser] = useState(null);
   const [aboutModalVisible, setAboutModalVisible] = useState(false);
-  const [toggleOpen, setToggleOpen] = useState(false);
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
-  const [token, setToken] = useState(null);
-  const dispatch = useDispatch();
 
   const location = useLocation();
 
   const menu = () => {
-    const menuItem = (name, options = {}) => ({
-      condition: () => true,
-      ...options,
-      type: 'item',
-      name
-    });
+    const menuItem = (name, options = {}) => {
+      return !options.condition || options.condition({ user })
+        ? { ...options, type: 'item', name }
+        : null;
+    };
+
     const index = window.location.href.indexOf(window.location.pathname);
     const baseUrl = window.location.href.substr(0, index);
-
-    return [
+    let menu = [];
+    [
       menuItem('Products', {
         url: `${baseUrl}/ui/catalog${Paths.products}`
       }),
@@ -68,20 +67,33 @@ const App = (props) => {
         url: `${baseUrl}/ui/catalog${Paths.portfolios}`
       }),
       menuItem('Platforms', {
-        url: `${baseUrl}/ui/catalog${Paths.platforms}`
+        url: `${baseUrl}/ui/catalog${Paths.platforms}`,
+        condition: ({ user }) =>
+          user?.roles ? user.roles.includes(CATALOG_ADMIN_ROLE) : false
       }),
       menuItem('Orders', {
         url: `${baseUrl}/ui/catalog${Paths.orders}`
       }),
       menuItem('Approval', {
-        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`
+        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
+        condition: ({ user }) => {
+          return user?.roles
+            ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
+                user.roles.includes(APPROVAL_APPROVER_ROLE)
+            : false;
+        }
       }),
       menuItem(`Documentation`, {
         url:
           'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
         external: true
       })
-    ];
+    ].forEach((item) => {
+      if (item !== null) {
+        menu.push(item);
+      }
+    });
+    return menu;
   };
 
   const activateMenu = (items) => {
@@ -116,7 +128,7 @@ const App = (props) => {
 
   let docsDropdownItems = [];
   let userDropdownItems = [];
-  let userName = null;
+  let userName = '';
 
   if (user) {
     if (user.first_name || user.last_name) {
@@ -127,7 +139,7 @@ const App = (props) => {
 
     userDropdownItems = [
       <DropdownItem isDisabled key="username">
-        Username: {user.username}
+        Username: {user.username || ''}
       </DropdownItem>,
       <DropdownItem
         key="logout"
@@ -150,7 +162,7 @@ const App = (props) => {
         trademark=""
         brandImageSrc={Logo}
         onClose={() => setAboutModalVisible(false)}
-        brandImageAlt={`Ansible Logo`}
+        brandImageAlt={`Application Logo`}
         productName={'Automation Services Catalog'}
         user={user}
         userName={userName}
@@ -272,10 +284,7 @@ const App = (props) => {
         nav={
           <Nav theme="dark" onToggle={onToggle}>
             <NavList>
-              <NavGroup
-                className={'nav-title'}
-                title={'Automation Services Catalog'}
-              />
+              <NavGroup title={'Automation Services Catalog'} />
               <Menu items={menu()} />
             </NavList>
           </Nav>

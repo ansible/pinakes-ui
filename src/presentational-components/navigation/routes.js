@@ -2,13 +2,7 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from '../../presentational-components/shared/loader-placeholders';
-import {
-  PORTFOLIOS_ROUTE,
-  PORTFOLIO_ROUTE,
-  ORDER_ROUTE,
-  LOGIN_ROUTE,
-  APPROVAL_ROUTE
-} from '../../constants/routes';
+import { Paths, errorPaths } from '../../constants/routes';
 import CatalogRoute from '../../routing/catalog-route-s';
 import DialogRoutes from '../../smart-components/dialog-routes';
 
@@ -51,19 +45,6 @@ const OrderDetail = lazy(() =>
     /* webpackChunkName: "order-detail" */ '../../smart-components/order/order-detail/order-detail'
   )
 );
-
-export const Paths = {
-  products: '/products',
-  platforms: '/platforms',
-  platform: '/platforms/platform',
-  portfolios: PORTFOLIOS_ROUTE,
-  portfolio: PORTFOLIO_ROUTE,
-  orders: '/orders',
-  order: ORDER_ROUTE,
-  approval: APPROVAL_ROUTE
-};
-
-const errorPaths = ['/400', '/401', '/403', '/404'];
 
 export const Routes = () => {
   const { pathname } = useLocation();
