@@ -63,11 +63,14 @@ const errorInterceptor = (error: ServerError = {}) => {
 };
 
 const unauthorizedInterceptor = (error: ServerError = {}) => {
-  if (
-    error.status === 401 ||
-    (error.status === 403 && error.config?.url === `${AUTH_API_BASE}/me`)
-  ) {
-    return loginUser();
+  if (error.status === 401) {
+    loginUser();
+    return;
+  }
+
+  if (error.status === 403 && error.config?.url !== `${AUTH_API_BASE}/me/`) {
+    window.location.href = '/ui/catalog/403';
+    return;
   }
 
   throw error;
