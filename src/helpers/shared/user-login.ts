@@ -62,14 +62,14 @@ const errorInterceptor = (error: ServerError = {}) => {
   throw requestId ? { ...error.response, requestId } : { ...error.response };
 };
 
-const unauthorizedInterceptor = (error: ServerError = {}) => {
+export const unauthorizedInterceptor = (error: ServerError = {}) => {
   if (error.status === 401) {
     loginUser();
     return;
   }
 
   if (error.status === 403 && error.config?.url !== `${AUTH_API_BASE}/me/`) {
-    window.location.href = '/ui/catalog/403';
+    window.location.replace('/ui/catalog/403');
     return;
   }
 
@@ -90,9 +90,17 @@ axiosInstance.interceptors.request.use(async (config) => {
 
   return config;
 });
+
+export const initUnauthorizedInterceptor = function() {
+  return axiosInstance.interceptors.response.use(
+    undefined,
+    unauthorizedInterceptor
+  );
+};
+
+initUnauthorizedInterceptor();
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(undefined, errorInterceptor);
-axiosInstance.interceptors.response.use(undefined, unauthorizedInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(
