@@ -16,7 +16,8 @@ import {
 import {
   CATALOG_API_BASE,
   APPROVAL_API_BASE,
-  RBAC_API_BASE
+  RBAC_API_BASE,
+  AUTH_API_BASE
 } from '../../utilities/constants';
 import { GroupApi } from '@redhat-cloud-services/rbac-client';
 import { stringify } from 'qs';
@@ -61,20 +62,18 @@ const errorInterceptor = (error: ServerError = {}) => {
   throw requestId ? { ...error.response, requestId } : { ...error.response };
 };
 
-const unauthorizedInterceptor = (error: ServerError = {}) => {
-  if (error.status === 401) {
+export const unauthorizedInterceptor = (error: any) => {
+  if (error.response?.status === 401) {
     loginUser();
     return;
   }
 
-  if (error.status === 403) {
-    throw {
-      ...error,
-      redirect: {
-        pathname: '/403',
-        message: error.config?.url
-      }
-    };
+  if (
+    error.response?.status === 403 &&
+    error.response?.config?.url !== `${AUTH_API_BASE}/me/`
+  ) {
+    window.location.replace('/ui/catalog/403');
+    return;
   }
 
   throw error;
@@ -94,9 +93,17 @@ axiosInstance.interceptors.request.use(async (config) => {
 
   return config;
 });
+
+export const initUnauthorizedInterceptor = function() {
+  return axiosInstance.interceptors.response.use(
+    undefined,
+    unauthorizedInterceptor
+  );
+};
+
+initUnauthorizedInterceptor();
 axiosInstance.interceptors.response.use(resolveInterceptor);
 axiosInstance.interceptors.response.use(undefined, errorInterceptor);
-axiosInstance.interceptors.response.use(undefined, unauthorizedInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(
