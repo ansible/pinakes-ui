@@ -62,13 +62,16 @@ const errorInterceptor = (error: ServerError = {}) => {
   throw requestId ? { ...error.response, requestId } : { ...error.response };
 };
 
-export const unauthorizedInterceptor = (error: ServerError = {}) => {
-  if (error.status === 401) {
+export const unauthorizedInterceptor = (error: any) => {
+  if (error.response?.status === 401) {
     loginUser();
     return;
   }
 
-  if (error.status === 403 && error.config?.url !== `${AUTH_API_BASE}/me/`) {
+  if (
+    error.response?.status === 403 &&
+    error.response?.config?.url !== `${AUTH_API_BASE}/me/`
+  ) {
     window.location.replace('/ui/catalog/403');
     return;
   }

@@ -28,7 +28,7 @@ describe('Interceptors', () => {
 
     it('should throw error if response status is other then 403', () => {
       const res = {
-        status: 502
+        response: { status: 502 }
       };
       const axios = getAxiosInstance();
       try {
@@ -41,7 +41,9 @@ describe('Interceptors', () => {
     it('it should redirect to the unauthorized page if response status is 403', () => {
       const axios = getAxiosInstance();
       const rejectedRes = axios.interceptors.response.handlers[0].rejected({
-        status: 403
+        response: {
+          status: 403
+        }
       });
       expect(global.location.replace).toBeCalledWith('/ui/catalog/403');
     });
