@@ -38,6 +38,10 @@ export const RBAC_API_BASE =
       `${API_HOST}${API_BASE_PATH}`
     : `${process.env.BASE_PATH || '/api'}/rbac/v1`;
 
+export const APPLICATION_TITLE =
+  // eslint-disable-next-line no-undef
+  `${process.env.APPLICATION_NAME || APPLICATION_NAME || 'Pinakes'}`;
+
 export const permissionValues = ['order', 'read', 'update'];
 
 export const permissionOptions = [

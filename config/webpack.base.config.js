@@ -13,7 +13,7 @@ const defaultConfigs = [
   { name: 'UI_BASE_PATH', default: '', scope: 'global' },
   { name: 'DEPLOYMENT_MODE', default: 'standalone', scope: 'global' },
   { name: 'NAMESPACE_TERM', default: 'namespaces', scope: 'global' },
-  { name: 'APPLICATION_NAME', default: 'Catalog', scope: 'global' },
+  { name: 'APPLICATION_NAME', default: 'Pinakes', scope: 'global' },
 
   // Webpack scope means the variable will only be available to webpack at
   // build time
