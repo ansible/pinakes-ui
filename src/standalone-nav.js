@@ -164,9 +164,7 @@ const App = (props) => {
         brandImageSrc={Logo}
         onClose={() => setAboutModalVisible(false)}
         brandImageAlt={`Application Logo`}
-        productName={
-          APPLICATION_TITLE
-        }
+        productName={APPLICATION_TITLE}
         user={user}
         userName={userName}
       />
@@ -195,13 +193,7 @@ const App = (props) => {
 
   const headerNav = () => (
     <PageHeader
-      logo={
-        <SmallLogo
-          alt={
-            APPLICATION_TITLE
-          }
-        />
-      }
+      logo={<SmallLogo alt={APPLICATION_TITLE} />}
       headerTools={
         <PageHeaderTools>
           <div>
@@ -293,11 +285,7 @@ const App = (props) => {
         nav={
           <Nav theme="dark" onToggle={onToggle}>
             <NavList>
-              <NavGroup
-                title={
-                  APPLICATION_TITLE
-                }
-              />
+              <NavGroup title={APPLICATION_TITLE} />
               <Menu items={menu()} />
             </NavList>
           </Nav>
