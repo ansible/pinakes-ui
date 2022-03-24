@@ -35,6 +35,7 @@ import { useLocation } from 'react-router';
 import { getUser, logoutUser } from './helpers/shared/active-user';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
 import {
+  APPLICATION_TITLE,
   APPROVAL_ADMIN_ROLE,
   APPROVAL_APPROVER_ROLE,
   CATALOG_ADMIN_ROLE
@@ -163,7 +164,7 @@ const App = (props) => {
         brandImageSrc={Logo}
         onClose={() => setAboutModalVisible(false)}
         brandImageAlt={`Application Logo`}
-        productName={'Automation Services Catalog'}
+        productName={APPLICATION_TITLE}
         user={user}
         userName={userName}
       />
@@ -192,7 +193,7 @@ const App = (props) => {
 
   const headerNav = () => (
     <PageHeader
-      logo={<SmallLogo alt={'Automation Services Catalog'} />}
+      logo={<SmallLogo alt={APPLICATION_TITLE} />}
       headerTools={
         <PageHeaderTools>
           <div>
@@ -284,7 +285,7 @@ const App = (props) => {
         nav={
           <Nav theme="dark" onToggle={onToggle}>
             <NavList>
-              <NavGroup title={'Automation Services Catalog'} />
+              <NavGroup title={APPLICATION_TITLE} />
               <Menu items={menu()} />
             </NavList>
           </Nav>

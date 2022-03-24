@@ -36,7 +36,7 @@ global.React = React;
 process.env.BASE_PATH = '/api';
 // eslint-disable-next-line no-undef
 global.DEPLOYMENT_MODE = 'insights';
-
+global.APPLICATION_NAME = 'Pinakes';
 /**
  * Setup JSDOM
  */
