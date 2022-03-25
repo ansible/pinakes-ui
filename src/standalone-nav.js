@@ -62,7 +62,9 @@ const App = (props) => {
     let menu = [];
     [
       menuItem('Products', {
-        url: `${baseUrl}/ui/catalog${Paths.products}`
+        url: `${baseUrl}/ui/catalog${Paths.products}`,
+        condition: ({ user }) =>
+          user?.roles ? user.roles.includes(CATALOG_ADMIN_ROLE) : false
       }),
       menuItem('Portfolios', {
         url: `${baseUrl}/ui/catalog${Paths.portfolios}`

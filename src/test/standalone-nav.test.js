@@ -90,7 +90,7 @@ describe('<App />', () => {
     });
 
     expect(wrapper.find(NotificationsPortal)).toHaveLength(1);
-    expect(wrapper.find('NavItem')).toHaveLength(5);
+    expect(wrapper.find('NavItem')).toHaveLength(4);
   });
 
   it('renders correctly as catalog and approval administrator role', async () => {
