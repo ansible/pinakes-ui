@@ -15,6 +15,10 @@ const portfolioMessages = defineMessages({
     defaultMessage:
       'The portfolio was removed successfully. You can <a>Undo</a> this action if this was a mistake.'
   },
+  removePortfolioOnlyNotification: {
+    id: 'portfolio.notifications.remove.only.portfolio',
+    defaultMessage: 'The portfolio was removed successfully.'
+  },
   modalCreateTitle: {
     id: 'portfolio.modal.add.title',
     defaultMessage: 'Create portfolio'
