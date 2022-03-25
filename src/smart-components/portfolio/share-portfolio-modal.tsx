@@ -130,10 +130,8 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         );
         return {
           groupName,
-          group_uuid: isStandalone()
-            ? // @ts-ignore
-              group.group_id
-            : group.group_uuid,
+          // @ts-ignore
+          group_uuid: group.group_id || group.group_uuid,
           permissions: options
             ? options.value
             : formatMessage(filteringMessages.unknown)
@@ -173,7 +171,7 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
         if (initialEntry.permissions!.length > group.permissions.length) {
           removedGroups.push({
             id: portfolio,
-            permissions: ['update'],
+            permissions: ['delete', 'update'],
             group_uuid: group.group_uuid,
             groupName: group.groupName
           });
