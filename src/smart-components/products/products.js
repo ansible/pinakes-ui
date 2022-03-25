@@ -43,12 +43,18 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const buildItemLink = ({ portfolio_id, id, service_offering_source_ref }) => {
-  if (portfolio_id && id && service_offering_source_ref) {
+const buildItemLink = ({ portfolio, id, service_offering_source_ref }) => {
+  console.log(
+    'Debug - buildItemLink - portfolio_id, id, service_offering_source_ref',
+    portfolio,
+    id,
+    service_offering_source_ref
+  );
+  if (portfolio && id && service_offering_source_ref) {
     return {
-      pathname: portfolio_id && PORTFOLIO_ITEM_ROUTE,
+      pathname: portfolio && PORTFOLIO_ITEM_ROUTE,
       searchParams: {
-        portfolio: portfolio_id,
+        portfolio,
         'portfolio-item': id,
         source: service_offering_source_ref,
         'from-products': 'true'
@@ -131,7 +137,7 @@ const Products = () => {
   const galleryItems = data.map((item) => (
     <PortfolioItem
       key={item.id}
-      pathname={item.portfolio_id && PORTFOLIO_ITEM_ROUTE}
+      pathname={item.portfolio && PORTFOLIO_ITEM_ROUTE}
       {...buildItemLink(item)}
       {...item}
       toDisplay={[]}
