@@ -10,5 +10,5 @@ module.exports = webpackBase({
   UI_DEBUG: false,
   TARGET_ENVIRONMENT: 'prod',
   WEBPACK_PUBLIC_PATH: '/ui/catalog/',
-  APPLICATION_NAME: process.env.APPLICATION_NAME || 'Pinakes prod'
+  APPLICATION_NAME: process.env.APPLICATION_NAME || 'Pinakes'
 });
