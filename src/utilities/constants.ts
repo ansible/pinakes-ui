@@ -42,11 +42,11 @@ export const APPLICATION_TITLE =
   // eslint-disable-next-line no-undef
   `${process.env.APPLICATION_NAME || APPLICATION_NAME || 'Pinakes'}`;
 
-export const permissionValues = ['order', 'read', 'update'];
+export const permissionValues = ['delete', 'order', 'read', 'update'];
 
 export const permissionOptions = [
   {
-    value: 'order,read,update',
+    value: 'delete,order,read,update',
     label: 'Can order/edit'
   },
   {
