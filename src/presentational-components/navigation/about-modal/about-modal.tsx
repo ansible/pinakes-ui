@@ -7,7 +7,8 @@ import {
   TextListItemVariants,
   TextListVariants
 } from '@patternfly/react-core';
-import Logo from '../../../assets/images/logo-large.svg';
+import Logo from '../../../assets/images/logo-masthead.svg';
+import bgImg from '../../../assets/images/logo-about.png';
 import { detect } from 'detect-browser';
 
 interface IProps {
@@ -34,7 +35,8 @@ export const AboutModalWindow = (props: IProps) => {
       brandImageSrc={Logo}
       onClose={onClose}
       brandImageAlt={brandImageAlt}
-      productName={productName}
+      backgroundImageSrc={bgImg}
+      // productName={productName}
     >
       <TextContent>
         <TextList component={TextListVariants.dl}>
