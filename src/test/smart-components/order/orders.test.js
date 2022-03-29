@@ -32,7 +32,7 @@ describe('<Orders />', () => {
   const orderReducer = {
     orderDetail: {
       approvalRequest: {
-        results: [
+        data: [
           {
             id: 'request-id',
             state: 'undecided',
@@ -96,7 +96,6 @@ describe('<Orders />', () => {
   });
 
   afterEach(() => {
-    mockApi.restore();
     localStorage.setItem('catalog_standalone', false);
     localStorage.removeItem('user');
   });
@@ -141,11 +140,7 @@ describe('<Orders />', () => {
     jest.useFakeTimers();
     const orderItemsPagination = { ...orderReducer };
     orderItemsPagination.orders = {
-      meta: {
-        limit: 50,
-        offset: 0,
-        count: 120
-      },
+      count: 120,
       results: [...Array(10)].map((item, index) => ({
         id: `order-${index}`,
         state: 'undecided',
@@ -163,7 +158,7 @@ describe('<Orders />', () => {
 
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/orders?&sort_by=id:desc&filter[state][contains_i]=&page_size=50&page=1`
+        `${CATALOG_API_BASE}/orders/?extra=true&&sort_by=id:desc&page_size=50&page=2`
       )
       .replyOnce(200, { results: [] });
     /**
@@ -171,7 +166,7 @@ describe('<Orders />', () => {
      */
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/orders?extra=true&sort_by=id:desc&page_size=50&page=3`
+        `${CATALOG_API_BASE}/orders/?extra=true&sort_by=id:desc&page_size=5&page=1`
       )
       .replyOnce(200, { results: [] });
     let wrapper;
@@ -203,10 +198,10 @@ describe('<Orders />', () => {
       wrapper.update();
     });
     expect(store.getActions()).toEqual([
-      { type: `${FETCH_ORDERS}_PENDING` },
-      { type: SET_PORTFOLIO_ITEMS, payload: { results: [] } },
       {
-        type: `${FETCH_ORDERS}_FULFILLED`,
+        type: 'FETCH_ORDERS_PENDING'
+      },
+      {
         meta: {
           filter: '&sort_by=id:desc',
           filters: {
@@ -214,14 +209,17 @@ describe('<Orders />', () => {
             state: []
           },
           limit: 50,
-          offset: 100,
+          offset: 2,
           sortBy: 'id',
           sortDirection: 'desc',
           sortIndex: 0,
           stateKey: 'orders',
           storeState: true
         },
-        payload: { results: [] }
+        payload: {
+          results: []
+        },
+        type: 'FETCH_ORDERS_FULFILLED'
       }
     ]);
   });
@@ -325,25 +323,22 @@ describe('<Orders />', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders/123`)
+      .onGet(`${CATALOG_API_BASE}/orders/123/?extra=true`)
       .replyOnce(200, { results: [{ id: 123 }] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
+      .onGet(`${CATALOG_API_BASE}/portfolios/id/`)
       .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
+      .onGet(`${CATALOG_API_BASE}/orders/123/progress_messages/`)
       .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
-      .replyOnce(200, { results: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
-      .replyOnce(200, { results: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
-      .replyOnce(200, { results: [] });
+      .onGet(`${CATALOG_API_BASE}/orders/123/approval_requests/`)
+      .replyOnce(200, { data: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/sources/`)
+      .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/sources/id`)
       .replyOnce(200, { results: [] });
     let wrapper;
     await act(async () => {
@@ -377,14 +372,21 @@ describe('<Orders />', () => {
       .onGet(`${CATALOG_API_BASE}/orders/123/?extra=true`)
       .replyOnce(200, { results: [{ id: 123 }] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages/`)
+      .onGet(`${CATALOG_API_BASE}/portfolios/id/`)
       .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests/`)
+      .onGet(`${CATALOG_API_BASE}/orders/123/progress_messages/`)
       .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders/123/approval_requests/`)
+      .replyOnce(200, { data: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/sources/`)
       .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/sources/id`)
+      .replyOnce(200, { results: [] });
+
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -463,7 +465,7 @@ describe('<Orders />', () => {
     done();
   });
 
-  it('should mount and render order detail component with warnings about unavaiable resources', async (done) => {
+  it('should mount and render order detail component with warnings about unavailable resources', async (done) => {
     const store = mockStore({
       ...initialState,
       orderReducer: {
