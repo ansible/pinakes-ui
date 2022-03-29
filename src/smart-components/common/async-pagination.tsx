@@ -4,11 +4,7 @@ import debouncePromise from 'awesome-debounce-promise';
 
 import { OnPerPageSelect, OnSetPage, Pagination } from '@patternfly/react-core';
 
-import {
-  getCurrentPage,
-  getNewPage,
-  PaginationConfiguration
-} from '../../helpers/shared/pagination';
+import { PaginationConfiguration } from '../../helpers/shared/pagination';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 
 export interface AsyncPaginationProps<T = any> extends AnyObject {
