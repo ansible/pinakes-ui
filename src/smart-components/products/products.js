@@ -44,12 +44,6 @@ const debouncedFilter = asyncFormValidator(
 );
 
 const buildItemLink = ({ portfolio, id, service_offering_source_ref }) => {
-  console.log(
-    'Debug - buildItemLink - portfolio_id, id, service_offering_source_ref',
-    portfolio,
-    id,
-    service_offering_source_ref
-  );
   if (portfolio && id && service_offering_source_ref) {
     return {
       pathname: portfolio && PORTFOLIO_ITEM_ROUTE,
