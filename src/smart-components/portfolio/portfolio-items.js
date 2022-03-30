@@ -130,6 +130,8 @@ const PortfolioItems = ({
           removeProducts: () => removeProducts(selectedItems),
           itemsSelected: selectedItems.length > 0,
           meta: metaInfo,
+          setLimit,
+          setOffset,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(
               isStandalone()
