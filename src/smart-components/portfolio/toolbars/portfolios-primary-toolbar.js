@@ -28,6 +28,8 @@ const PortfoliosPrimaryToolbar = ({
   debouncedFilter,
   initialState,
   meta,
+  setLimit,
+  setOffset,
   filterType,
   handleFilterItems,
   sortDirection,
@@ -183,6 +185,8 @@ const PortfoliosPrimaryToolbar = ({
           <AsyncPagination
             isDisabled={isFetching || isFiltering}
             meta={meta}
+            setLimit={setLimit}
+            setOffset={setOffset}
             apiRequest={(_, options) =>
               dispatch(fetchPortfoliosWithState(filters, options))
             }

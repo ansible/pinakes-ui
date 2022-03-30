@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useReducer, useContext } from 'react';
+import React, {
+  Fragment,
+  useEffect,
+  useReducer,
+  useContext,
+  useState
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { PlusCircleIcon, SearchIcon } from '@patternfly/react-icons';
@@ -113,7 +119,14 @@ const Portfolios = () => {
   const portfolios = useSelector(
     ({ portfolioReducer: { portfolios } }) => portfolios
   );
-  const meta = portfolios?.meta || { count: portfolios?.count || 0 };
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
+
+  const meta = portfolios?.meta || {
+    count: portfolios?.count || 0,
+    limit,
+    offset
+  };
   const data = portfolios?.data || portfolios?.results;
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
@@ -208,6 +221,8 @@ const Portfolios = () => {
           debouncedFilter={debouncedFilter}
           initialState={initialState}
           meta={meta}
+          setLimit={setLimit}
+          setOffset={setOffset}
           filterType={filterType}
           handleFilterItems={handleFilterItems}
           sortDirection={sortDirection}
@@ -233,6 +248,8 @@ const Portfolios = () => {
         <BottomPaginationContainer>
           <AsyncPagination
             meta={meta}
+            setLimit={setLimit}
+            setOffset={setOffset}
             apiRequest={(_, options) =>
               dispatch(
                 isStandalone()

@@ -60,7 +60,8 @@ export const listPortfolios = (
     return `${acc}&${partial}`;
   }, '');
   return (axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolios/`
+    `${CATALOG_API_BASE}/portfolios/?page=${offset ||
+      1}&page_size=${limit}&${filterQuery}`
   ) as unknown) as Promise<ApiCollectionResponse<InternalPortfolio>>;
 };
 
@@ -119,7 +120,8 @@ export const getPortfolioItemsWithPortfolio = (
   { limit, offset, filter = '' } = defaultSettings
 ): Promise<ApiCollectionResponse<PortfolioItem>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items/`
+    `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items/?page_size=${limit}&page=${offset ||
+      1}`
   );
 
 // TO DO - change to use the API call that adds multiple items to a portfolio when available

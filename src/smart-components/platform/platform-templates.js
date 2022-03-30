@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchIcon } from '@patternfly/react-icons';
 import { isStandalone, scrollToTop } from '../../helpers/shared/helpers';
@@ -77,6 +77,8 @@ const PlatformTemplates = () => {
     })
   );
   const dispatch = useDispatch();
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
 
   useEffect(() => {
     dispatch(
@@ -88,7 +90,7 @@ const PlatformTemplates = () => {
   }, [id]);
 
   const dataSet = data ? data : results;
-  const metaInfo = meta ? meta : { count };
+  const metaInfo = meta ? meta : { count, limit, offset };
 
   const handleFilterChange = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -175,6 +177,8 @@ const PlatformTemplates = () => {
           <AsyncPagination
             dropDirection="up"
             meta={metaInfo}
+            setLimit={setLimit}
+            setOffset={setOffset}
             apiRequest={(_, options) =>
               dispatch(
                 isStandalone()
