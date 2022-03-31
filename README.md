@@ -1,10 +1,5 @@
-# Insights Service Catalog UI
-
-[![Build Status](https://travis-ci.org/RedHatInsights/catalog-ui.svg)](https://travis-ci.org/RedHatInsights/catalog-ui)
-[![codecov](https://codecov.io/gh/RedHatInsights/catalog-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/RedHatInsights/catalog-ui)
-
-[![Build history for master branch](https://buildstats.info/travisci/chart/RedHatInsights/catalog-ui?branch=master&includeBuildsFromPullRequest=false&buildCount=50)](https://travis-ci.org/RedHatInsights/catalog-ui/branches)
-
+# Pinakes UI
+[![Dist release](https://github.com/ansible/pinakes-ui/actions/workflows/dist-release.yml/badge.svg)](https://github.com/ansible/pinakes-ui/actions/workflows/dist-release.yml)
 
 ## Running locally
 Have [insights-proxy](https://github.com/RedHatInsights/insights-proxy) installed under PROXY_PATH
@@ -13,8 +8,8 @@ Have [insights-proxy](https://github.com/RedHatInsights/insights-proxy) installe
 SPANDX_CONFIG="profiles/local-frontends.js" bash ../insights-proxy/scripts/run.sh
 ```
 
-## Running the standalone catalog UI 
-1. Clone the [ansible-catalog](https://github.com/ansible/ansible-catalog) repo and follow the instructions for starting up the API.
+## Running the standalone Pinakes UI 
+1. Clone the [Pinakes](https://github.com/ansible/pinakes) repo and follow the instructions for starting up the API.
 2. Install node
 3. `npm install`
 4. `npm run start:standalone`
