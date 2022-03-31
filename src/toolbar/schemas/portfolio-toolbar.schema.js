@@ -168,6 +168,8 @@ const createPortfolioToolbarSchema = ({
   removeProducts,
   itemsSelected,
   meta,
+  setLimit,
+  setOffset,
   fetchPortfolioItemsWithPortfolio,
   portfolioId,
   description,
@@ -292,6 +294,8 @@ const createPortfolioToolbarSchema = ({
                             component: AsyncPagination,
                             key: 'portfolio-items-pagination',
                             meta,
+                            setLimit,
+                            setOffset,
                             apiRequest: fetchPortfolioItemsWithPortfolio,
                             apiProps: portfolioId,
                             isCompact: true
