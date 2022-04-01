@@ -15,6 +15,8 @@ const createAddProductsSchema = ({
   portfolioRoute,
   onClickAddToPortfolio,
   meta,
+  setLimit,
+  setOffset,
   platformId,
   fetchPlatformItems
 }) => ({
@@ -101,6 +103,8 @@ const createAddProductsSchema = ({
                       component: AsyncPagination,
                       key: 'add-products-pagination',
                       meta,
+                      setOffset,
+                      setLimit,
                       apiProps: platformId,
                       apiRequest: fetchPlatformItems,
                       isCompact: true

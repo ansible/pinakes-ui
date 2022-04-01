@@ -79,6 +79,9 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
     addProductsState,
     initialState
   );
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
+
   const { push } = useEnhancedHistory();
   const dispatch = useDispatch();
   const { portfolio, platforms, platformItems, isLoading } = useSelector(
@@ -119,7 +122,7 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
     platformItems[selectedPlatform.id] &&
     (isStandalone()
       ? platformItems[selectedPlatform.id].meta
-      : { count: platformItems[selectedPlatform.id].count });
+      : { count: platformItems[selectedPlatform.id].count, limit, offset });
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });
@@ -192,6 +195,8 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
           portfolioRoute,
           onClickAddToPortfolio: handleAddToPortfolio,
           meta,
+          setOffset,
+          setLimit,
           platformId: selectedPlatform && selectedPlatform.id,
           searchValue: filterValue,
           fetchPlatformItems: (id, options) =>

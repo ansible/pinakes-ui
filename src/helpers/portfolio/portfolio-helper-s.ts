@@ -71,7 +71,10 @@ export const listPortfolioItems = (
   filter = ''
 ): Promise<ApiCollectionResponse<PortfolioItem>> => {
   return axiosInstance
-    .get(`${CATALOG_API_BASE}/portfolio_items/`)
+    .get(
+      `${CATALOG_API_BASE}/portfolio_items/?page=${offset ||
+        1}&page_size=${limit}`
+    )
     .then(
       (portfolioItems: ApiCollectionResponse<PortfolioItem & AnyObject>) => {
         const portfolioReference = portfolioItems.results.reduce<AnyObject>(
