@@ -72,6 +72,8 @@ const PortfolioItems = ({
   ]);
   const dataSet = data ? data : results;
   const metaInfo = meta ? meta : { count, limit, offset };
+  console.log('Debug - metaInfo: ', metaInfo);
+
   const userCapabilities = isStandalone()
     ? {
         show: true,
