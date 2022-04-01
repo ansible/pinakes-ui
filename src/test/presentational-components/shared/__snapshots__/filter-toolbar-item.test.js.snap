@@ -36,6 +36,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                 id="toolbar-filter"
                 innerRef={null}
                 isDisabled={false}
+                isIconSprite={false}
                 isLeftTruncated={false}
                 isReadOnly={false}
                 isRequired={false}
