@@ -29,6 +29,9 @@ import shareReducer, {
 import openApiReducer, {
   openApiInitialState
 } from '../redux/reducers/open-api-reducer';
+import requestReducer, { requestsInitialState } from '../redux/reducers/request-reducer';
+import workflowReducer, { workflowsInitialState } from '../redux/reducers/workflow-reducer';
+import groupReducer, { groupsInitialState } from '../redux/reducers/group-reducer';
 import loadingStateMiddleware from './loading-state-middleware';
 import emptyDataMiddleware from './empty-data-middleware';
 import breadcrumbsReducer, {
@@ -78,6 +81,9 @@ const registerReducers = (registry: ReducerRegistry): void => {
       portfoliosInitialState
     ),
     approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
+    requestReducer: applyReducerHash(requestReducer, requestsInitialState),
+    workflowReducer: applyReducerHash(workflowReducer, workflowsInitialState),
+    groupReducer: applyReducerHash(groupReducer, groupsInitialState),
     rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
     shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
     openApiReducer: applyReducerHash(openApiReducer, openApiInitialState),
