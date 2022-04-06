@@ -26,25 +26,23 @@ import {
   resetRequestList
 } from '../../redux/actions/request-actions';
 import { createRows } from './request-table-helpers';
-import { fetchRequests as fetchRequestsS } from '../../redux/actions/request-actions-s';
 
 import { TableToolbarView } from '../../presentational-components/shared/table-toolbar-view';
 import {
   APPROVAL_APPROVER_PERSONA,
-  isStandalone,
   useIsApprovalAdmin,
   useIsApprovalApprover
-} from '../../helpers/shared/helpers';
+} from '../../helpers/shared/approval-helpers';
 import {
   TopToolbar,
   TopToolbarTitle
 } from '../../presentational-components/shared/top-toolbar';
-import { AppTabs } from '../../smart-components/app-tabs/app-tabs';
-import asyncDebounce from '../../utilities/async-debounce';
+import { AppTabs } from '../app-tabs/app-tabs';
+import asyncDebounce from '../../utilities/async-form-validator';
 import TableEmptyState from '../../presentational-components/shared/table-empty-state';
 import UserContext from '../../user-context';
 import { prepareChips } from './chips-helpers';
-import routes from '../../constants/routes';
+import routes from '../../constants/approval-routes';
 import tableToolbarMessages from '../../messages/table-toolbar.messages';
 import requestsMessages from '../../messages/requests.messages';
 import commonMessages from '../../messages/common.message';
@@ -78,9 +76,7 @@ const columns = (intl) => [
 ];
 
 const fetchRequestsData = (persona, pagination) =>
-  isStandalone()
-    ? fetchRequestsS(persona, pagination)
-    : fetchRequests(persona, pagination);
+  fetchRequests(persona, pagination);
 const debouncedFilter = asyncDebounce(
   (dispatch, filteringCallback, persona, updateFilter) => {
     filteringCallback(true);

@@ -10,10 +10,6 @@ import {
   fetchRequest,
   fetchRequestContent
 } from '../../../redux/actions/request-actions';
-import {
-  fetchRequest as fetchRequestS,
-  fetchRequestContent as fetchRequestContentS
-} from '../../../redux/actions/request-actions-s';
 import { RequestLoader } from '../../../presentational-components/shared/loader-placeholders';
 import {
   TopToolbar,
@@ -21,7 +17,7 @@ import {
 } from '../../../presentational-components/shared/top-toolbar';
 import UserContext from '../../../user-context';
 import useQuery from '../../../utilities/use-query';
-import { approvalPersona, isStandalone } from '../../../helpers/shared/helpers';
+import { approvalPersona } from '../../../helpers/shared/approval-helpers';
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import requestsMessages from '../../../messages/requests.messages';
@@ -63,12 +59,9 @@ const RequestDetail = ({ requestBreadcrumbs, indexpath }) => {
   const { userRoles: userRoles } = useContext(UserContext);
   const intl = useIntl();
 
-  const fetchRequestData = (id, persona) =>
-    isStandalone() ? fetchRequestS(id) : fetchRequest(id, persona);
+  const fetchRequestData = (id, persona) => fetchRequest(id, persona);
   const fetchRequestContentData = (id, persona) =>
-    isStandalone()
-      ? fetchRequestContentS(id)
-      : fetchRequestContent(id, persona);
+    fetchRequestContent(id, persona);
   useEffect(() => {
     Promise.all([
       dispatch(fetchRequestData(id, approvalPersona(userRoles))),

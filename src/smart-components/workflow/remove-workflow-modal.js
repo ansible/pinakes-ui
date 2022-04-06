@@ -19,17 +19,17 @@ import {
   fetchWorkflow
 } from '../../redux/actions/workflow-actions';
 import useQuery from '../../utilities/use-query';
-import routes from '../../constants/routes';
+import routes from '../../constants/approval-routes';
 import useWorkflow from '../../utilities/use-workflows';
 import { FormItemLoader } from '../../presentational-components/shared/loader-placeholders';
 import worfklowMessages from '../../messages/workflows.messages';
 import commonMessages from '../../messages/common.message';
 import isEmpty from 'lodash/isEmpty';
-import { APP_DISPLAY_NAME } from '../../utilities/constants';
+import { APP_DISPLAY_NAME } from '../../utilities/approval-constants';
 import {
   defaultSettings,
   adjustedOffset
-} from '../../helpers/shared/pagination';
+} from '../../helpers/shared/approval-pagination';
 
 const RemoveWorkflowModal = ({
   ids = [],

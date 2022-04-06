@@ -1,10 +1,10 @@
 import React, { Fragment, useContext } from 'react';
-import { useIsApprovalAdmin } from '../../helpers/shared/helpers';
+import { useIsApprovalAdmin } from '../../helpers/shared/approval-helpers';
 import {
   TopToolbar,
   TopToolbarTitle
 } from '../../presentational-components/shared/top-toolbar';
-import { AppTabs } from '../../smart-components/app-tabs/app-tabs';
+import { AppTabs } from '../app-tabs/app-tabs';
 import UserContext from '../../user-context';
 import {
   EmptyState,

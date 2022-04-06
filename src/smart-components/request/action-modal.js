@@ -13,7 +13,6 @@ import {
   Title
 } from '@patternfly/react-core';
 import { createRequestAction } from '../../redux/actions/request-actions';
-import { createRequestAction as createRequestActionS } from '../../redux/actions/request-actions-s';
 import { createRequestCommentSchema } from '../../forms/request-comment-form.schema';
 import useQuery from '../../utilities/use-query';
 import routes from '../../constants/routes';
@@ -57,9 +56,7 @@ const actionTypeToSubmitLabel = (type) => {
 };
 
 const createRequestActionMethod = (actionName, requestId, actionIn, intl) => {
-  return isStandalone()
-    ? createRequestActionS(actionName, requestId, actionIn, intl)
-    : createRequestAction(actionName, requestId, actionIn, intl);
+  return createRequestAction(actionName, requestId, actionIn, intl);
 };
 
 const ActionModal = ({

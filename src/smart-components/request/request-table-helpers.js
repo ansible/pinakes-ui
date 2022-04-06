@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { timeAgo } from '../../helpers/shared/helpers';
-import routes from '../../constants/routes';
+import { timeAgo } from '../../helpers/shared/approval-helpers';
+import routes from '../../constants/approval-routes';
 import { Label } from '@patternfly/react-core';
 import {
   decisionValues,

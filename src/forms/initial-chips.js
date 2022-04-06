@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Chip, ChipGroup, FormGroup } from '@patternfly/react-core';
-import useFieldApi from '@data-driven-forms/react-form-renderer/dist/cjs/use-field-api';
+import useFieldApi from '@data-driven-forms/react-form-renderer/use-field-api';
 
 const InitialChips = ({ name, label }) => {
   const {
@@ -15,16 +15,18 @@ const InitialChips = ({ name, label }) => {
     }
   };
 
-  return (
-    value && value.length ? <FormGroup fieldId={ name } label={ label }>
+  return value && value.length ? (
+    <FormGroup fieldId={name} label={label}>
       <ChipGroup>
-        { value.map(({ label, value }) => (
-          <Chip key={ value.value } onClick={ () => handleRemove(value) }>
-            { label }
+        {value.map(({ label, value }) => (
+          <Chip key={value.value} onClick={() => handleRemove(value)}>
+            {label}
           </Chip>
-        )) }
+        ))}
       </ChipGroup>
-    </FormGroup> : ''
+    </FormGroup>
+  ) : (
+    ''
   );
 };
 

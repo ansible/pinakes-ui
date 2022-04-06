@@ -8,16 +8,16 @@ import {
   fetchWorkflows,
   updateWorkflow
 } from '../../redux/actions/workflow-actions';
-import routes from '../../constants/routes';
+import routes from '../../constants/approval-routes';
 import FormRenderer from '../common/form-renderer';
 import addWorkflowSchema from '../../forms/add-workflow.schema';
 import worfklowMessages from '../../messages/workflows.messages';
 import useQuery from '../../utilities/use-query';
 import useWorkflow from '../../utilities/use-workflows';
 import { fetchWorkflow } from '../../helpers/workflow/workflow-helper';
-import { WorkflowInfoFormLoader } from '../../presentational-components/shared/loader-placeholders';
-import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
+import { WorkflowInfoFormLoader } from '../../presentational-components/shared/approval-loader-placeholders';
 import commonMessages from '../../messages/common.message';
+import FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template';
 
 const reducer = (state, { type, initialValues, schema }) => {
   switch (type) {

@@ -3,7 +3,7 @@ import {
   ADMIN_PERSONA,
   APPROVAL_ADMIN_PERSONA,
   isStandalone
-} from '../../helpers/shared/helpers';
+} from '../../helpers/shared/approval-helpers';
 import RequestsList from './requests-list';
 import routes from '../../constants/routes';
 

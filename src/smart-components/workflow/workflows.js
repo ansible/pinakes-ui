@@ -32,7 +32,7 @@ import { AppTabs } from '../app-tabs/app-tabs';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import asyncDebounce from '../../utilities/async-form-validator';
 import TableEmptyState from '../../presentational-components/shared/table-empty-state';
-import routesLinks from '../../constants/routes';
+import routesLinks from '../../constants/approval-routes';
 import { useIntl } from 'react-intl';
 import commonMessages from '../../messages/common.message';
 import worfklowMessages from '../../messages/workflows.messages';
@@ -95,6 +95,7 @@ const areSelectedAll = (rows = [], selected) =>
 
 const unique = (value, index, self) => self.indexOf(value) === index;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const workflowsListState = (state, action) => {
   switch (action.type) {
     case 'setRows':
