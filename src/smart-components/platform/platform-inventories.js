@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useReducer, useRef } from 'react';
+import React, {
+  Fragment,
+  useEffect,
+  useReducer,
+  useRef,
+  useState
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { SearchIcon } from '@patternfly/react-icons';
@@ -67,6 +73,9 @@ const PlatformInventories = () => {
   const { data, results, count, meta } = useSelector(
     ({ platformReducer: { platformInventories } }) => platformInventories
   );
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
+
   const platform = useSelector(
     ({ platformReducer: { selectedPlatform } }) => selectedPlatform
   );
@@ -112,7 +121,7 @@ const PlatformInventories = () => {
   };
 
   const dataSet = data ? data : results;
-  const metaInfo = meta ? meta : { count };
+  const metaInfo = meta ? meta : { count, offset, limit };
   const inventoryRows = dataSet ? createRows(dataSet, filterValue) : [];
   const title = platform ? platform.name : '';
   return (
@@ -160,6 +169,8 @@ const PlatformInventories = () => {
           <AsyncPagination
             dropDirection="up"
             meta={metaInfo}
+            setLimit={setLimit}
+            setOffset={setOffset}
             apiRequest={(_, options) =>
               dispatch(
                 isStandalone()

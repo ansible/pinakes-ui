@@ -162,6 +162,9 @@ describe('<Orders />', () => {
     mockApi
       .onGet(`${CATALOG_API_BASE}/orders?&sort_by=id:desc&limit=50&offset=100`)
       .replyOnce(200, { data: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/orders?&sort_by=id:desc&limit=50&offset=3`)
+      .replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -202,7 +205,7 @@ describe('<Orders />', () => {
             state: []
           },
           limit: 50,
-          offset: 100,
+          offset: 3,
           sortBy: 'id',
           sortDirection: 'desc',
           sortIndex: 0,

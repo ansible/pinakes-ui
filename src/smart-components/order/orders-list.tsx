@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
@@ -141,6 +141,8 @@ const OrdersList: React.ComponentType = () => {
   const formatMessage = useFormatMessage();
   const dispatch = useDispatch();
   const viewState = useInitialUriHash();
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
   const [
     { isFetching, isFiltering, filterType, filters, sortBy },
     stateDispatch
@@ -161,7 +163,7 @@ const OrdersList: React.ComponentType = () => {
   const data = isStandalone() ? orders.results : orders.data;
   const meta = isStandalone()
     ? // @ts-ignore
-      { count: orders.count, noData: false }
+      { count: orders.count, noData: false, limit, offset }
     : orders.meta;
 
   const columns: ICell[] = [
@@ -411,6 +413,8 @@ const OrdersList: React.ComponentType = () => {
                   isDisabled={isFetching || isFiltering}
                   apiRequest={handlePagination}
                   meta={meta}
+                  setLimit={setLimit}
+                  setOffset={setOffset}
                   isCompact
                 />
               }
@@ -470,6 +474,8 @@ const OrdersList: React.ComponentType = () => {
                     isDisabled={isFetching || isFiltering}
                     apiRequest={handlePagination}
                     meta={meta}
+                    setLimit={setLimit}
+                    setOffset={setOffset}
                   />
                 )}
               </Flex>

@@ -4,11 +4,7 @@ import debouncePromise from 'awesome-debounce-promise';
 
 import { OnPerPageSelect, OnSetPage, Pagination } from '@patternfly/react-core';
 
-import {
-  getCurrentPage,
-  getNewPage,
-  PaginationConfiguration
-} from '../../helpers/shared/pagination';
+import { PaginationConfiguration } from '../../helpers/shared/pagination';
 import { AnyObject } from '@data-driven-forms/react-form-renderer';
 
 export interface AsyncPaginationProps<T = any> extends AnyObject {
@@ -20,21 +16,26 @@ export interface AsyncPaginationProps<T = any> extends AnyObject {
 }
 const AsyncPagination: React.ComponentType<AsyncPaginationProps> = ({
   meta: { limit = 50, count = 0, offset = 0 },
+  setLimit,
+  setOffset,
   apiProps,
   apiRequest,
   className = '',
   isCompact = false,
   ...props
 }) => {
-  const handleOnPerPageSelect: OnPerPageSelect = (_event, limit) =>
-    apiRequest(apiProps, {
+  const handleOnPerPageSelect: OnPerPageSelect = (_event, limit) => {
+    setLimit(limit);
+    return apiRequest(apiProps, {
       offset,
       limit
     });
+  };
 
   const handleSetPage: OnSetPage = (_event, number, debounce) => {
+    setOffset(number);
     const options = {
-      offset: getNewPage(number, limit),
+      offset: number,
       limit
     };
 
@@ -52,7 +53,7 @@ const AsyncPagination: React.ComponentType<AsyncPaginationProps> = ({
         perPage={limit || 50}
         itemCount={count || 0}
         onPerPageSelect={handleOnPerPageSelect}
-        page={getCurrentPage(limit, offset)}
+        page={offset || 1}
         onSetPage={handleSetPage}
         dropDirection="down"
         isCompact={isCompact}

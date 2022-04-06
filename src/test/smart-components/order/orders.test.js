@@ -11,20 +11,14 @@ import promiseMiddleware from 'redux-promise-middleware';
 import Orders from '../../../smart-components/order/orders';
 import { orderInitialState } from '../../../redux/reducers/order-reducer';
 import { portfoliosInitialState } from '../../../redux/reducers/portfolio-reducer';
-import {
-  CATALOG_API_BASE,
-  SOURCES_API_BASE
-} from '../../../utilities/constants';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { SET_PORTFOLIO_ITEMS, FETCH_ORDERS } from '../../../redux/action-types';
 import OrdersList from '../../../smart-components/order/orders-list';
 import OrderDetail from '../../../smart-components/order/order-detail/order-detail';
 import CancelOrderModal from '../../../smart-components/order/cancel-order-modal';
 import { Alert } from '@patternfly/react-core';
-import {
-  mockApi,
-  mockGraphql
-} from '../../../helpers/shared/__mocks__/user-login';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 import { IntlProvider } from 'react-intl';
 
 describe('<Orders />', () => {
@@ -72,7 +66,7 @@ describe('<Orders />', () => {
         service_parameters: {}
       },
       progressMessages: {
-        data: []
+        results: []
       }
     }
   };
@@ -88,6 +82,8 @@ describe('<Orders />', () => {
   beforeEach(() => {
     initialProps = {};
     mockStore = configureStore(middlewares);
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
     initialState = {
       i18nReducer: {
         formatMessage: ({ defaultMessage }) => defaultMessage
@@ -97,6 +93,11 @@ describe('<Orders />', () => {
       portfolioReducer: { ...portfoliosInitialState, isLoading: false },
       platformReducer: { platformIconMapping: {} }
     };
+  });
+
+  afterEach(() => {
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
   it('should render correctly', () => {
@@ -139,12 +140,8 @@ describe('<Orders />', () => {
     jest.useFakeTimers();
     const orderItemsPagination = { ...orderReducer };
     orderItemsPagination.orders = {
-      meta: {
-        limit: 50,
-        offset: 0,
-        count: 120
-      },
-      data: [...Array(10)].map((item, index) => ({
+      count: 120,
+      results: [...Array(10)].map((item, index) => ({
         id: `order-${index}`,
         state: 'undecided',
         orderItems: [
@@ -161,35 +158,17 @@ describe('<Orders />', () => {
 
     mockApi
       .onGet(
-        `${CATALOG_API_BASE}/orders?&sort_by=id:descfilter[state][contains_i]=&limit=50&offset=0`
+        `${CATALOG_API_BASE}/orders/?extra=true&&sort_by=id:desc&page_size=50&page=2`
       )
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items?`)
-      .replyOnce(200, { data: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items?limit=50`)
-      .replyOnce(200, { data: [] });
-    mockGraphql.onPost(`${SOURCES_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        application_types: [
-          {
-            sources: [
-              {
-                id: '1',
-                name: 'Source 1'
-              }
-            ]
-          }
-        ]
-      }
-    });
+      .replyOnce(200, { results: [] });
     /**
      * Pagination requests
      */
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders?&sort_by=id:desc&limit=50&offset=100`)
-      .replyOnce(200, { data: [] });
+      .onGet(
+        `${CATALOG_API_BASE}/orders/?extra=true&sort_by=id:desc&page_size=5&page=1`
+      )
+      .replyOnce(200, { results: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -207,7 +186,7 @@ describe('<Orders />', () => {
     store.clearActions();
     await act(async () => {
       wrapper
-        .find('button[data-action="last"]')
+        .find('button[data-action="next"]')
         .first()
         .simulate('click');
     });
@@ -219,10 +198,10 @@ describe('<Orders />', () => {
       wrapper.update();
     });
     expect(store.getActions()).toEqual([
-      { type: `${FETCH_ORDERS}_PENDING` },
-      { type: SET_PORTFOLIO_ITEMS, payload: { data: [] } },
       {
-        type: `${FETCH_ORDERS}_FULFILLED`,
+        type: 'FETCH_ORDERS_PENDING'
+      },
+      {
         meta: {
           filter: '&sort_by=id:desc',
           filters: {
@@ -230,14 +209,17 @@ describe('<Orders />', () => {
             state: []
           },
           limit: 50,
-          offset: 100,
+          offset: 2,
           sortBy: 'id',
           sortDirection: 'desc',
           sortIndex: 0,
           stateKey: 'orders',
           storeState: true
         },
-        payload: { data: [] }
+        payload: {
+          results: []
+        },
+        type: 'FETCH_ORDERS_FULFILLED'
       }
     ]);
   });
@@ -249,8 +231,8 @@ describe('<Orders />', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders/123`)
-      .replyOnce(200, { data: [{ id: 123 }] });
+      .onGet(`${CATALOG_API_BASE}/orders/123/`)
+      .replyOnce(200, { results: [{ id: 123 }] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -282,21 +264,25 @@ describe('<Orders />', () => {
 
     mockApi
       .onGet(`${CATALOG_API_BASE}/orders/123`)
-      .replyOnce(200, { data: [{ id: 123 }] });
+      .replyOnce(200, { results: [{ id: 123 }] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
+      .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
+      .replyOnce(200, { results: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
-      .replyOnce(200, {});
+      .replyOnce(200, { results: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
-      .replyOnce(200, {});
+      .replyOnce(200, { results: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+      .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/sources/`)
+      .replyOnce(200, { results: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -337,22 +323,23 @@ describe('<Orders />', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders/123`)
-      .replyOnce(200, { data: [{ id: 123 }] });
+      .onGet(`${CATALOG_API_BASE}/orders/123/?extra=true`)
+      .replyOnce(200, { results: [{ id: 123 }] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/portfolios/id/`)
+      .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
-      .replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/orders/123/progress_messages/`)
+      .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
-      .replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/orders/123/approval_requests/`)
+      .replyOnce(200, { data: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/sources/`)
+      .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/sources/id`)
+      .replyOnce(200, { results: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -382,22 +369,24 @@ describe('<Orders />', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders/123`)
-      .replyOnce(200, { data: [{ id: 123 }] });
+      .onGet(`${CATALOG_API_BASE}/orders/123/?extra=true`)
+      .replyOnce(200, { results: [{ id: 123 }] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${CATALOG_API_BASE}/portfolios/-id`).replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/portfolios/id/`)
+      .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
-      .replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/orders/123/progress_messages/`)
+      .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
-      .replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/orders/123/approval_requests/`)
+      .replyOnce(200, { data: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/sources/`)
+      .replyOnce(200, { results: [] });
+    mockApi
+      .onGet(`${CATALOG_API_BASE}/sources/id`)
+      .replyOnce(200, { results: [] });
+
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -433,26 +422,20 @@ describe('<Orders />', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/orders/123`)
-      .replyOnce(200, { data: [{ id: 123 }] });
+      .onGet(`${CATALOG_API_BASE}/orders/123/?extra=true`)
+      .replyOnce(200, { results: [{ id: 123 }] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id`)
-      .replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages/`)
+      .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/-id`)
-      .replyOnce(200, { data: { id: 'portfolio-id' } });
+      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests/`)
+      .replyOnce(200, { results: [] });
     mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id`)
-      .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/progress_messages`)
-      .replyOnce(200, {});
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/order_items/order-item-id/approval_requests`)
-      .replyOnce(200, {});
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(200, {});
+      .onGet(`${CATALOG_API_BASE}/sources/`)
+      .replyOnce(200, { results: [] });
     let wrapper;
     await act(async () => {
+      [];
       wrapper = mount(
         <ComponentWrapper
           store={store}
@@ -482,7 +465,7 @@ describe('<Orders />', () => {
     done();
   });
 
-  it('should mount and render order detail component with warnings about unavaiable resources', async (done) => {
+  it('should mount and render order detail component with warnings about unavailable resources', async (done) => {
     const store = mockStore({
       ...initialState,
       orderReducer: {
@@ -497,27 +480,28 @@ describe('<Orders />', () => {
 
     mockApi
       .onGet(`${CATALOG_API_BASE}/orders/order-fail`)
-      .replyOnce(200, { data: [{ id: 'order-fail' }] });
+      .replyOnce(200, { results: [{ id: 'order-fail' }] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolio_items/portfolio-item-id-failed`)
-      .replyOnce(404, {});
+      .replyOnce(404, { results: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/-id-failed`)
-      .replyOnce(200, {});
+      .replyOnce(200, { results: [] });
     mockApi
       .onGet(`${CATALOG_API_BASE}/order_items/order-item-id-failed`)
-      .replyOnce(200, {});
+      .replyOnce(200, { results: [] });
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/order_items/order-item-id/progress_messages-failed`
       )
-      .replyOnce(200, {});
+      .replyOnce(200, { results: [] });
+    [];
     mockApi
       .onGet(
         `${CATALOG_API_BASE}/order_items/order-item-id/approval_requests-failed`
       )
-      .replyOnce(200, {});
-    mockApi.onGet(`${SOURCES_API_BASE}/sources/platform-id`).replyOnce(404, {});
+      .replyOnce(200, { results: [] });
+    mockApi.onGet(`${CATALOG_API_BASE}/sources/`).replyOnce(404, {});
 
     let wrapper;
     await act(async () => {

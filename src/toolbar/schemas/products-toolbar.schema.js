@@ -4,6 +4,8 @@ import AsyncPagination from '../../smart-components/common/async-pagination';
 
 const createPortfolioToolbarSchema = ({
   meta,
+  setOffset,
+  setLimit,
   fetchProducts,
   isLoading,
   filterProps: { searchValue, onFilterChange, placeholder }
@@ -51,6 +53,8 @@ const createPortfolioToolbarSchema = ({
                             component: AsyncPagination,
                             key: 'products-pagination',
                             meta,
+                            setLimit,
+                            setOffset,
                             apiProps: searchValue,
                             apiRequest: fetchProducts,
                             isDisabled: isLoading,

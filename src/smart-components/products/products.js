@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useReducer, Fragment } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  Fragment,
+  useState
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { WrenchIcon, SearchIcon } from '@patternfly/react-icons';
 
@@ -83,6 +89,9 @@ const Products = () => {
   const formatMessage = useFormatMessage();
   const viewState = useInitialUriHash();
   const { release } = useContext(AppContext);
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
+
   const [{ isFetching, filterValue, isFiltering }, stateDispatch] = useReducer(
     productsState,
     {
@@ -101,7 +110,7 @@ const Products = () => {
   const products = useSelector(
     ({ portfolioReducer: { portfolioItems } }) => portfolioItems
   );
-  const meta = products.meta || { count: products.count };
+  const meta = products.meta || { count: products.count, limit, offset };
   const data = products.data || products.results;
   useEffect(() => {
     Promise.all([
@@ -204,6 +213,8 @@ const Products = () => {
           title: formatMessage(productsMessages.title),
           isLoading: isFiltering || isFetching,
           meta,
+          setLimit,
+          setOffset,
           fetchProducts: isStandalone()
             ? (...args) => dispatch(fetchPortfolioItemsS(...args))
             : (...args) => dispatch(fetchPortfolioItems(...args))
@@ -221,6 +232,8 @@ const Products = () => {
           <AsyncPagination
             dropDirection="up"
             meta={meta}
+            setLimit={setLimit}
+            setOffset={setOffset}
             apiRequest={(_e, options) =>
               dispatch(
                 isStandalone()

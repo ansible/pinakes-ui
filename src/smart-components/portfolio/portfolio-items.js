@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,6 +18,7 @@ import filteringMessages from '../../messages/filtering.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import UserContext from '../../user-context';
 import { hasPermission, isStandalone } from '../../helpers/shared/helpers';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 const PortfolioItems = ({
   routes,
@@ -60,6 +61,8 @@ const PortfolioItems = ({
       metadata
     })
   );
+  const [limit, setLimit] = useState(defaultSettings.limit);
+  const [offset, setOffset] = useState(1);
   const { url } = useRouteMatch(PORTFOLIO_ROUTE);
   const [{ portfolio: id }] = useQuery(['portfolio']);
   const dispatch = useDispatch();
@@ -68,7 +71,8 @@ const PortfolioItems = ({
     'catalog:order_processes:link'
   ]);
   const dataSet = data ? data : results;
-  const metaInfo = meta ? meta : { count };
+  const metaInfo = meta ? meta : { count, limit, offset };
+
   const userCapabilities = isStandalone()
     ? {
         show: true,
@@ -127,6 +131,8 @@ const PortfolioItems = ({
           removeProducts: () => removeProducts(selectedItems),
           itemsSelected: selectedItems.length > 0,
           meta: metaInfo,
+          setLimit,
+          setOffset,
           fetchPortfolioItemsWithPortfolio: (...args) =>
             dispatch(
               isStandalone()
@@ -155,6 +161,8 @@ const PortfolioItems = ({
           <AsyncPagination
             dropDirection="up"
             meta={metaInfo}
+            setLimit={setLimit}
+            setOffset={setOffset}
             apiProps={id}
             apiRequest={(...args) =>
               dispatch(
