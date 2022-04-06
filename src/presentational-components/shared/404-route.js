@@ -11,10 +11,9 @@ const NoMatch = () => {
 
   return (
     <div>
-      <h1>
-        { intl.formatMessage(notFoundMessages.pageNotFound) }
-      </h1>
+      <h1>{intl.formatMessage(notFoundMessages.pageNotFound)}</h1>
     </div>
-  );};
+  );
+};
 
 export default NoMatch;

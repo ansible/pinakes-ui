@@ -29,10 +29,18 @@ export const workflowsInitialState = {
   }
 };
 
-const setLoadingState = state => ({ ...state, isLoading: true });
-const setRecordLoadingState = state => ({ ...state, isRecordLoading: true });
-const setWorkflows = (state, { payload }) => ({ ...state, workflows: payload, isLoading: false });
-const selectWorkflow = (state, { payload }) => ({ ...state, workflow: payload, isRecordLoading: false });
+const setLoadingState = (state) => ({ ...state, isLoading: true });
+const setRecordLoadingState = (state) => ({ ...state, isRecordLoading: true });
+const setWorkflows = (state, { payload }) => ({
+  ...state,
+  workflows: payload,
+  isLoading: false
+});
+const selectWorkflow = (state, { payload }) => ({
+  ...state,
+  workflow: payload,
+  isRecordLoading: false
+});
 const setSortWorkflows = (state, { payload }) => ({
   ...state,
   sortBy: payload,

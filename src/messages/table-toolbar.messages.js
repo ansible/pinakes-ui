@@ -23,7 +23,8 @@ const tableToolbarMessages = defineMessages({
   },
   clearAllFiltersDescription: {
     id: 'tableToolbar.clearAllFiltersDescription',
-    defaultMessage: 'No results match the filter criteria. Remove all filters or clear all filters to show results.'
+    defaultMessage:
+      'No results match the filter criteria. Remove all filters or clear all filters to show results.'
   },
   ariaLabel: {
     id: 'tableToolbar.ariaLabel',

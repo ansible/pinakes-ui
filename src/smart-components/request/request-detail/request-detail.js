@@ -6,10 +6,19 @@ import { Section } from '@redhat-cloud-services/frontend-components/Section';
 import ActionModal from '../action-modal';
 import RequestInfoBar from './request-info-bar';
 import RequestTranscript from './request-transcript';
-import { fetchRequest, fetchRequestContent } from '../../../redux/actions/request-actions';
-import { fetchRequest as fetchRequestS, fetchRequestContent as fetchRequestContentS } from '../../../redux/actions/request-actions-s';
+import {
+  fetchRequest,
+  fetchRequestContent
+} from '../../../redux/actions/request-actions';
+import {
+  fetchRequest as fetchRequestS,
+  fetchRequestContent as fetchRequestContentS
+} from '../../../redux/actions/request-actions-s';
 import { RequestLoader } from '../../../presentational-components/shared/loader-placeholders';
-import { TopToolbar, TopToolbarTitle } from '../../../presentational-components/shared/top-toolbar';
+import {
+  TopToolbar,
+  TopToolbarTitle
+} from '../../../presentational-components/shared/top-toolbar';
 import UserContext from '../../../user-context';
 import useQuery from '../../../utilities/use-query';
 import { approvalPersona, isStandalone } from '../../../helpers/shared/helpers';
@@ -31,9 +40,15 @@ const requestState = (state, action) => {
 };
 
 const RequestDetail = ({ requestBreadcrumbs, indexpath }) => {
-  const [{ isFetching }, stateDispatch ] = useReducer(requestState, initialState);
+  const [{ isFetching }, stateDispatch] = useReducer(
+    requestState,
+    initialState
+  );
 
-  const { selectedRequest, requestContent } = useSelector(
+  const {
+    selectedRequest,
+    requestContent
+  } = useSelector(
     ({
       requestReducer: {
         requestContent: requestContent,
@@ -42,42 +57,61 @@ const RequestDetail = ({ requestBreadcrumbs, indexpath }) => {
     }) => ({ selectedRequest, requestContent })
   );
 
-  const [{ request: id }] = useQuery([ 'request' ]);
+  const [{ request: id }] = useQuery(['request']);
   const location = useLocation();
   const dispatch = useDispatch();
   const { userRoles: userRoles } = useContext(UserContext);
   const intl = useIntl();
 
-  const fetchRequestData = (id, persona) => isStandalone() ? fetchRequestS(id) : fetchRequest(id, persona);
-  const fetchRequestContentData = (id, persona) => isStandalone() ? fetchRequestContentS(id) : fetchRequestContent(id, persona);
+  const fetchRequestData = (id, persona) =>
+    isStandalone() ? fetchRequestS(id) : fetchRequest(id, persona);
+  const fetchRequestContentData = (id, persona) =>
+    isStandalone()
+      ? fetchRequestContentS(id)
+      : fetchRequestContent(id, persona);
   useEffect(() => {
-    Promise.all([ dispatch(fetchRequestData(id, approvalPersona(userRoles))), dispatch(fetchRequestContentData(id, approvalPersona(userRoles))) ])
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }));
+    Promise.all([
+      dispatch(fetchRequestData(id, approvalPersona(userRoles))),
+      dispatch(fetchRequestContentData(id, approvalPersona(userRoles)))
+    ]).then(() => stateDispatch({ type: 'setFetching', payload: false }));
   }, []);
 
   const updateRequest = (id) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(fetchRequestData(id, approvalPersona(userRoles))), dispatch(fetchRequestContentData(id, approvalPersona(userRoles)))
-    .then(() => stateDispatch({ type: 'setFetching', payload: false }))
-    .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
+    return (
+      dispatch(fetchRequestData(id, approvalPersona(userRoles))),
+      dispatch(fetchRequestContentData(id, approvalPersona(userRoles)))
+        .then(() => stateDispatch({ type: 'setFetching', payload: false }))
+        .catch(() => stateDispatch({ type: 'setFetching', payload: false }))
+    );
   };
 
   const renderRequestDetails = () => {
-    if (isFetching || !selectedRequest || Object.keys(selectedRequest).length === 0) {
+    if (
+      isFetching ||
+      !selectedRequest ||
+      Object.keys(selectedRequest).length === 0
+    ) {
       return (
-        <Section style={ { backgroundColor: 'white', minHeight: '100%' } }>
+        <Section style={{ backgroundColor: 'white', minHeight: '100%' }}>
           <RequestLoader />
         </Section>
       );
-    }
-    else {
+    } else {
       return (
         <Fragment>
-          <GridItem md={ 4 } lg={ 3 } className="info-bar pf-u-p-0">
-            <RequestInfoBar request={ selectedRequest } requestContent={ requestContent }/>
+          <GridItem md={4} lg={3} className="info-bar pf-u-p-0">
+            <RequestInfoBar
+              request={selectedRequest}
+              requestContent={requestContent}
+            />
           </GridItem>
-          <GridItem md={ 8 } lg={ 9 } className="detail-pane pf-u-p-lg">
-            <RequestTranscript request={ selectedRequest } url={ location.url } indexpath={ indexpath }/>
+          <GridItem md={8} lg={9} className="detail-pane pf-u-p-lg">
+            <RequestTranscript
+              request={selectedRequest}
+              url={location.url}
+              indexpath={indexpath}
+            />
           </GridItem>
         </Fragment>
       );
@@ -87,30 +121,58 @@ const RequestDetail = ({ requestBreadcrumbs, indexpath }) => {
   return (
     <Fragment>
       <Switch>
-        <Route exact path={ indexpath.comment }>
-          <ActionModal actionType={ 'Comment' }
-            postMethod={ () => updateRequest(selectedRequest.id) }
-            closeUrl={ { pathname: indexpath.index, search: `?request=${selectedRequest.id}` } }/>
+        <Route exact path={indexpath.comment}>
+          <ActionModal
+            actionType={'Comment'}
+            postMethod={() => updateRequest(selectedRequest.id)}
+            closeUrl={{
+              pathname: indexpath.index,
+              search: `?request=${selectedRequest.id}`
+            }}
+          />
         </Route>
-        <Route exact path={ indexpath.approve } render={ props =>
-          <ActionModal { ...props } actionType={ 'Approve' }
-            postMethod={ () => updateRequest(selectedRequest.id) }
-            closeUrl={ { pathname: indexpath.index, search: `?request=${selectedRequest.id}` } } /> } />
-        <Route exact path={ indexpath.deny } render={ props =>
-          <ActionModal { ...props } actionType={ 'Deny' }
-            postMethod={ () => updateRequest(selectedRequest.id) }
-            closeUrl={ { pathname: indexpath.index, search: `?request=${selectedRequest.id}` } } /> } />
+        <Route
+          exact
+          path={indexpath.approve}
+          render={(props) => (
+            <ActionModal
+              {...props}
+              actionType={'Approve'}
+              postMethod={() => updateRequest(selectedRequest.id)}
+              closeUrl={{
+                pathname: indexpath.index,
+                search: `?request=${selectedRequest.id}`
+              }}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={indexpath.deny}
+          render={(props) => (
+            <ActionModal
+              {...props}
+              actionType={'Deny'}
+              postMethod={() => updateRequest(selectedRequest.id)}
+              closeUrl={{
+                pathname: indexpath.index,
+                search: `?request=${selectedRequest.id}`
+              }}
+            />
+          )}
+        />
       </Switch>
-      <TopToolbar className="top-toolbar"
-        breadcrumbs={ requestBreadcrumbs }
-        paddingBottom={ true }
+      <TopToolbar
+        className="top-toolbar"
+        breadcrumbs={requestBreadcrumbs}
+        paddingBottom={true}
       >
-        <TopToolbarTitle title={ intl.formatMessage(requestsMessages.requestTitle, { id }) } />
+        <TopToolbarTitle
+          title={intl.formatMessage(requestsMessages.requestTitle, { id })}
+        />
       </TopToolbar>
       <Section type="content">
-        <Grid hasGutter>
-          { renderRequestDetails() }
-        </Grid>
+        <Grid hasGutter>{renderRequestDetails()}</Grid>
       </Section>
     </Fragment>
   );

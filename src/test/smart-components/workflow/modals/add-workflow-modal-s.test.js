@@ -2,7 +2,7 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import { act } from 'react-dom/test-utils';
 
 import { MemoryRouter, Route } from 'react-router-dom';
@@ -21,16 +21,19 @@ localStorage.setItem('user', 'testUser');
 describe('<AddWorkflow />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   localStorage.setItem('catalog_standalone', true);
   localStorage.setItem('user', 'testUser');
 
   const ComponentWrapper = ({ store, children }) => (
     <IntlProvider locale="en">
-      <Provider store={ store }>
-        <MemoryRouter initialEntries={ [ '/workflows/add-workflow/' ] } initialIndex={ 0 }>
-          { children }
+      <Provider store={store}>
+        <MemoryRouter
+          initialEntries={['/workflows/add-workflow/']}
+          initialIndex={0}
+        >
+          {children}
         </MemoryRouter>
       </Provider>
     </IntlProvider>
@@ -51,20 +54,29 @@ describe('<AddWorkflow />', () => {
   it('should submit the form', async () => {
     expect.assertions(4);
 
-    apiClientMock.get(`${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
-      mockOnce({ body: { results: [{ uuid: 'id', name: 'name' }]}}));
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
+      mockOnce({ body: { results: [{ uuid: 'id', name: 'name' }] } })
+    );
 
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
-      mockOnce({ body: { results: []}}));
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { results: []}}));
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
+      mockOnce({ body: { results: [] } })
+    );
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: { results: [] } })
+    );
 
     jest.useFakeTimers();
 
     const store = mockStore(initialState);
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <Route path="/workflows/add-workflow/" render={ () => <AddWorkflow { ...initialProps } /> } />
+      <ComponentWrapper store={store}>
+        <Route
+          path="/workflows/add-workflow/"
+          render={() => <AddWorkflow {...initialProps} />}
+        />
       </ComponentWrapper>
     );
 
@@ -94,7 +106,9 @@ describe('<AddWorkflow />', () => {
     });
     wrapper.update();
 
-    wfHelper.addWorkflow = jest.fn().mockImplementation(() => Promise.resolve('ok'));
+    wfHelper.addWorkflow = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
 
     expect(wfHelper.addWorkflow).not.toHaveBeenCalled();
 
@@ -109,27 +123,38 @@ describe('<AddWorkflow />', () => {
       description: 'some-description'
     });
     expect(initialProps.postMethod).toHaveBeenCalled();
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.workflows.index);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.workflows.index);
   });
 
   it('should close the form', async () => {
     localStorage.setItem('catalog_standalone', true);
     localStorage.setItem('user', 'testUser');
 
-    apiClientMock.get(`${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }]}}));
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
-      mockOnce({ body: { results: []}}));
-    apiClientMock.get(`${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { results: []}}));
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
+      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
+    );
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
+      mockOnce({ body: { results: [] } })
+    );
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
+      mockOnce({ body: { results: [] } })
+    );
 
     jest.useFakeTimers();
 
     const store = mockStore(initialState);
 
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <Route path="/workflows/add-workflow/" render={ () => <AddWorkflow { ...initialProps } /> } />
+      <ComponentWrapper store={store}>
+        <Route
+          path="/workflows/add-workflow/"
+          render={() => <AddWorkflow {...initialProps} />}
+        />
       </ComponentWrapper>
     );
 
@@ -141,9 +166,14 @@ describe('<AddWorkflow />', () => {
     jest.useRealTimers();
 
     await act(async () => {
-      wrapper.find(Button).first().simulate('click');
+      wrapper
+        .find(Button)
+        .first()
+        .simulate('click');
     });
     wrapper.update();
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.workflows.index);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.workflows.index);
   });
 });

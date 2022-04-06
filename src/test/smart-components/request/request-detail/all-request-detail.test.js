@@ -15,42 +15,54 @@ import RequestTranscript from '../../../../smart-components/request/request-deta
 import { mockGraphql } from '../../../__mocks__/user-login';
 import { BreadcrumbItem } from '@patternfly/react-core';
 import routes from '../../../../constants/routes';
-import ReducerRegistry, { applyReducerHash } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
-import requestReducer, { requestsInitialState } from '../../../../redux/reducers/request-reducer';
+import ReducerRegistry, {
+  applyReducerHash
+} from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
+import requestReducer, {
+  requestsInitialState
+} from '../../../../redux/reducers/request-reducer';
 import UserContext from '../../../../user-context';
 import ActionModal from '../../../../smart-components/request/action-modal';
 import { APPROVAL_ADMINISTRATOR_ROLE } from '../../../../helpers/shared/helpers';
 import { IntlProvider } from 'react-intl';
 
-const ComponentWrapper = ({ store, children, initialEntries = [ '/foo?request=123' ]}) => (
+const ComponentWrapper = ({
+  store,
+  children,
+  initialEntries = ['/foo?request=123']
+}) => (
   <IntlProvider locale="en">
-    <Provider store={ store } >
-      <MemoryRouter initialEntries={ initialEntries }>
-        { children }
-      </MemoryRouter>
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
     </Provider>
   </IntlProvider>
 );
 
 describe('<AllRequestDetail />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   let initialState;
   let roles;
 
   beforeEach(() => {
     initialProps = {
-      breadcrumbs: [{
-        title: 'Foo'
-      }]
+      breadcrumbs: [
+        {
+          title: 'Foo'
+        }
+      ]
     };
     roles = {};
     mockStore = configureStore(middlewares);
     initialState = {
       requestReducer: {
         isRequestDataLoading: true,
-        selectedRequest: { id: '123', name: 'Test product', group_name: 'Test group' },
+        selectedRequest: {
+          id: '123',
+          name: 'Test product',
+          group_name: 'Test group'
+        },
         requestContent: {}
       }
     };
@@ -60,17 +72,31 @@ describe('<AllRequestDetail />', () => {
     jest.clearAllMocks();
   });
 
-  it('should render request details', async done => {
-    apiClientMock.get(`${APPROVAL_API_BASE}/requests/123/content`, mockOnce({ body: { params: { test: 'value' },
-      product: 'Test product', order_id: '321', portfolio: 'TestPortfolio' }}));
+  it('should render request details', async (done) => {
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/requests/123/content`,
+      mockOnce({
+        body: {
+          params: { test: 'value' },
+          product: 'Test product',
+          order_id: '321',
+          portfolio: 'TestPortfolio'
+        }
+      })
+    );
     const store = mockStore(
-      initialState = {
+      (initialState = {
         requestReducer: {
           selectedRequest: {
-            actions: [{
-              id: '266', created_at: '2019-12-20',
-              request_id: '123', processed_by: 'system', operation: 'start'
-            }],
+            actions: [
+              {
+                id: '266',
+                created_at: '2019-12-20',
+                request_id: '123',
+                processed_by: 'system',
+                operation: 'start'
+              }
+            ],
             created_at: '2019-12-20',
             decision: 'undecided',
             group_name: 'Test Group',
@@ -92,7 +118,7 @@ describe('<AllRequestDetail />', () => {
           },
           isRequestDataLoading: false
         }
-      }
+      })
     );
     mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, {
       data: {
@@ -158,10 +184,19 @@ describe('<AllRequestDetail />', () => {
     });
 
     let wrapper;
-    await act(async() => {
+    await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store }>
-          <Route path="/foo" render={ props => <AllRequestDetail { ...props } { ...initialProps } isFetching={ false }/> } />
+        <ComponentWrapper store={store}>
+          <Route
+            path="/foo"
+            render={(props) => (
+              <AllRequestDetail
+                {...props}
+                {...initialProps}
+                isFetching={false}
+              />
+            )}
+          />
         </ComponentWrapper>
       );
     });
@@ -170,17 +205,46 @@ describe('<AllRequestDetail />', () => {
     expect(wrapper.find(RequestTranscript)).toHaveLength(1);
 
     expect(wrapper.find(BreadcrumbItem)).toHaveLength(2);
-    expect(wrapper.find(BreadcrumbItem).first().text()).toEqual('My requests');
-    expect(wrapper.find(BreadcrumbItem).first().props().isActive).toEqual(false);
+    expect(
+      wrapper
+        .find(BreadcrumbItem)
+        .first()
+        .text()
+    ).toEqual('My requests');
+    expect(
+      wrapper
+        .find(BreadcrumbItem)
+        .first()
+        .props().isActive
+    ).toEqual(false);
 
-    expect(wrapper.find(BreadcrumbItem).last().text()).toEqual('Request 123');
-    expect(wrapper.find(BreadcrumbItem).last().props().isActive).toEqual(true);
+    expect(
+      wrapper
+        .find(BreadcrumbItem)
+        .last()
+        .text()
+    ).toEqual('Request 123');
+    expect(
+      wrapper
+        .find(BreadcrumbItem)
+        .last()
+        .props().isActive
+    ).toEqual(true);
     done();
   });
 
-  it('should render request loader', async done => {
-    apiClientMock.get(`${APPROVAL_API_BASE}/requests/123/content`, mockOnce({ body: { params: { test: 'value' },
-      product: 'Test product', order_id: '321', portfolio: 'TestPortfolio' }}));
+  it('should render request loader', async (done) => {
+    apiClientMock.get(
+      `${APPROVAL_API_BASE}/requests/123/content`,
+      mockOnce({
+        body: {
+          params: { test: 'value' },
+          product: 'Test product',
+          order_id: '321',
+          portfolio: 'TestPortfolio'
+        }
+      })
+    );
     mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, {
       data: {
         requests: []
@@ -190,10 +254,15 @@ describe('<AllRequestDetail />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    await act(async() => {
+    await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store }>
-          <Route path="/foo" render={ props => <AllRequestDetail { ...props } { ...initialProps } /> } />
+        <ComponentWrapper store={store}>
+          <Route
+            path="/foo"
+            render={(props) => (
+              <AllRequestDetail {...props} {...initialProps} />
+            )}
+          />
         </ComponentWrapper>
       );
     });
@@ -215,10 +284,23 @@ describe('<AllRequestDetail />', () => {
             number_of_finished_children: '0',
             state: 'notified',
             actions: [
-              { id: '1209', operation: 'start', comments: null, created_at: '2020-05-13T13:36:05.580Z', processed_by: 'system' },
-              { id: '1211', operation: 'notify', comments: null, created_at: '2020-05-13T13:36:29.278Z', processed_by: 'system' }
+              {
+                id: '1209',
+                operation: 'start',
+                comments: null,
+                created_at: '2020-05-13T13:36:05.580Z',
+                processed_by: 'system'
+              },
+              {
+                id: '1211',
+                operation: 'notify',
+                comments: null,
+                created_at: '2020-05-13T13:36:29.278Z',
+                processed_by: 'system'
+              }
             ],
-            requests: []}
+            requests: []
+          }
         ]
       }
     };
@@ -236,99 +318,141 @@ describe('<AllRequestDetail />', () => {
     };
 
     it('opens comment modal', async () => {
-      const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware ]);
-      registry.register({ requestReducer: applyReducerHash(requestReducer, requestsInitialState) });
+      const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
+      registry.register({
+        requestReducer: applyReducerHash(requestReducer, requestsInitialState)
+      });
       const store = registry.getStore();
 
-      apiClientMock.get(`${APPROVAL_API_BASE}/requests/123/content`, mockOnce({ body: contentData }));
-      mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, graphlQlData);
+      apiClientMock.get(
+        `${APPROVAL_API_BASE}/requests/123/content`,
+        mockOnce({ body: contentData })
+      );
+      mockGraphql
+        .onPost(`${APPROVAL_API_BASE}/graphql`)
+        .replyOnce(200, graphlQlData);
 
       let wrapper;
       roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
 
-      await act(async() => {
+      await act(async () => {
         wrapper = mount(
-          <UserContext.Provider value={ { userRoles: roles } }>
-            <ComponentWrapper store={ store }>
-              <AllRequestDetail { ...initialProps } />
+          <UserContext.Provider value={{ userRoles: roles }}>
+            <ComponentWrapper store={store}>
+              <AllRequestDetail {...initialProps} />
             </ComponentWrapper>
           </UserContext.Provider>
         );
       });
       wrapper.update();
 
-      await act(async() => {
-        wrapper.find('a#comment-123').first().simulate('click', { button: 0 });
+      await act(async () => {
+        wrapper
+          .find('a#comment-123')
+          .first()
+          .simulate('click', { button: 0 });
       });
       wrapper.update();
 
-      expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.request.comment);
-      expect(wrapper.find(MemoryRouter).instance().history.location.search).toEqual('?request=123');
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual(routes.request.comment);
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.search
+      ).toEqual('?request=123');
       expect(wrapper.find(ActionModal).props().actionType).toEqual('Comment');
       expect(wrapper.find(ActionModal).props().postMethod).toBeDefined();
     });
 
     it('opens approve modal', async () => {
-      const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware ]);
-      registry.register({ requestReducer: applyReducerHash(requestReducer, requestsInitialState) });
+      const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
+      registry.register({
+        requestReducer: applyReducerHash(requestReducer, requestsInitialState)
+      });
       const store = registry.getStore();
 
-      apiClientMock.get(`${APPROVAL_API_BASE}/requests/123/content`, mockOnce({ body: contentData }));
-      mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, graphlQlData);
+      apiClientMock.get(
+        `${APPROVAL_API_BASE}/requests/123/content`,
+        mockOnce({ body: contentData })
+      );
+      mockGraphql
+        .onPost(`${APPROVAL_API_BASE}/graphql`)
+        .replyOnce(200, graphlQlData);
 
       let wrapper;
       roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
 
-      await act(async() => {
+      await act(async () => {
         wrapper = mount(
-          <UserContext.Provider value={ { userRoles: roles } }>
-            <ComponentWrapper store={ store }>
-              <AllRequestDetail { ...initialProps } />
+          <UserContext.Provider value={{ userRoles: roles }}>
+            <ComponentWrapper store={store}>
+              <AllRequestDetail {...initialProps} />
             </ComponentWrapper>
           </UserContext.Provider>
         );
       });
       wrapper.update();
 
-      await act(async() => {
-        wrapper.find('a#approve-123').first().simulate('click', { button: 0 });
+      await act(async () => {
+        wrapper
+          .find('a#approve-123')
+          .first()
+          .simulate('click', { button: 0 });
       });
       wrapper.update();
-      expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.request.approve);
-      expect(wrapper.find(MemoryRouter).instance().history.location.search).toEqual('?request=123');
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual(routes.request.approve);
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.search
+      ).toEqual('?request=123');
       expect(wrapper.find(ActionModal).props().actionType).toEqual('Approve');
       expect(wrapper.find(ActionModal).props().postMethod).toBeDefined();
     });
 
     it('opens deny modal', async () => {
-      const registry = new ReducerRegistry({}, [ thunk, promiseMiddleware ]);
-      registry.register({ requestReducer: applyReducerHash(requestReducer, requestsInitialState) });
+      const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
+      registry.register({
+        requestReducer: applyReducerHash(requestReducer, requestsInitialState)
+      });
       const store = registry.getStore();
 
-      apiClientMock.get(`${APPROVAL_API_BASE}/requests/123/content`, mockOnce({ body: contentData }));
-      mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, graphlQlData);
+      apiClientMock.get(
+        `${APPROVAL_API_BASE}/requests/123/content`,
+        mockOnce({ body: contentData })
+      );
+      mockGraphql
+        .onPost(`${APPROVAL_API_BASE}/graphql`)
+        .replyOnce(200, graphlQlData);
 
       let wrapper;
       roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
 
-      await act(async() => {
+      await act(async () => {
         wrapper = mount(
-          <UserContext.Provider value={ { userRoles: roles } }>
-            <ComponentWrapper store={ store }>
-              <AllRequestDetail { ...initialProps } />
+          <UserContext.Provider value={{ userRoles: roles }}>
+            <ComponentWrapper store={store}>
+              <AllRequestDetail {...initialProps} />
             </ComponentWrapper>
           </UserContext.Provider>
         );
       });
       wrapper.update();
 
-      await act(async() => {
-        wrapper.find('a#deny-123').first().simulate('click', { button: 0 });
+      await act(async () => {
+        wrapper
+          .find('a#deny-123')
+          .first()
+          .simulate('click', { button: 0 });
       });
       wrapper.update();
 
-      expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.request.deny);
-      expect(wrapper.find(MemoryRouter).instance().history.location.search).toEqual('?request=123');
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual(routes.request.deny);
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.search
+      ).toEqual('?request=123');
       expect(wrapper.find(ActionModal).props().actionType).toEqual('Deny');
       expect(wrapper.find(ActionModal).props().postMethod).toBeDefined();
     });

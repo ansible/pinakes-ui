@@ -8,9 +8,7 @@ import { IntlProvider } from 'react-intl';
 
 const ComponentWrapper = ({ children }) => (
   <IntlProvider locale="en">
-    <MemoryRouter initialEntries={ [ '/foo' ] }>
-      { children }
-    </MemoryRouter>
+    <MemoryRouter initialEntries={['/foo']}>{children}</MemoryRouter>
   </IntlProvider>
 );
 
@@ -74,7 +72,11 @@ describe('<Request />', () => {
         ]
       }
     };
-    const wrapper = mount(<ComponentWrapper><Request { ...initialPropsNoDate } /></ComponentWrapper>).find(Request);
+    const wrapper = mount(
+      <ComponentWrapper>
+        <Request {...initialPropsNoDate} />
+      </ComponentWrapper>
+    ).find(Request);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
@@ -82,8 +84,8 @@ describe('<Request />', () => {
     const wrapper = mount(
       <ComponentWrapper>
         <Request
-          { ...initialProps }
-          item={ {
+          {...initialProps}
+          item={{
             id: '111',
             state: 'notified',
             group_name: 'Group1',
@@ -105,7 +107,8 @@ describe('<Request />', () => {
                 created_at: '2020-01-29T17:09:14.994Z',
                 processed_by: 'system'
               }
-            ]} }
+            ]
+          }}
         />
       </ComponentWrapper>
     );
@@ -128,15 +131,15 @@ describe('<Request />', () => {
     const wrapper = mount(
       <ComponentWrapper>
         <Request
-          { ...initialProps }
-          item={ {
+          {...initialProps}
+          item={{
             id: '111',
             state: 'notified',
             group_name: 'Group1',
             actions: []
-          } }
+          }}
           isActive
-          toggleExpand={ toggleExpand }
+          toggleExpand={toggleExpand}
         />
       </ComponentWrapper>
     );
@@ -150,8 +153,8 @@ describe('<Request />', () => {
     const wrapper = mount(
       <ComponentWrapper>
         <Request
-          { ...initialProps }
-          item={ {
+          {...initialProps}
+          item={{
             id: '111',
             state: 'notified',
             group_name: 'Group1',
@@ -159,26 +162,33 @@ describe('<Request />', () => {
               user_capabilities: { approve: true, deny: true, memo: true }
             },
             actions: []
-          } }
+          }}
           isActive
         />
       </ComponentWrapper>
     );
     wrapper.update();
 
-    wrapper.find('a#comment-111').first().simulate('click', { button: 0 });
+    wrapper
+      .find('a#comment-111')
+      .first()
+      .simulate('click', { button: 0 });
     wrapper.update();
 
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.request.comment);
-    expect(wrapper.find(MemoryRouter).instance().history.location.search).toEqual('?request=111');
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.request.comment);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.search
+    ).toEqual('?request=111');
   });
 
   it('should open approve modal', () => {
     const wrapper = mount(
       <ComponentWrapper>
         <Request
-          { ...initialProps }
-          item={ {
+          {...initialProps}
+          item={{
             id: '111',
             state: 'notified',
             group_name: 'Group1',
@@ -186,25 +196,32 @@ describe('<Request />', () => {
               user_capabilities: { approve: true, deny: true, memo: true }
             },
             actions: []
-          } }
+          }}
           isActive
         />
       </ComponentWrapper>
     );
     wrapper.update();
-    wrapper.find('a#approve-111').first().simulate('click', { button: 0 });
+    wrapper
+      .find('a#approve-111')
+      .first()
+      .simulate('click', { button: 0 });
     wrapper.update();
 
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.request.approve);
-    expect(wrapper.find(MemoryRouter).instance().history.location.search).toEqual('?request=111');
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.request.approve);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.search
+    ).toEqual('?request=111');
   });
 
   it('should open deny modal', () => {
     const wrapper = mount(
       <ComponentWrapper>
         <Request
-          { ...initialProps }
-          item={ {
+          {...initialProps}
+          item={{
             id: '111',
             state: 'notified',
             group_name: 'Group1',
@@ -212,16 +229,23 @@ describe('<Request />', () => {
               user_capabilities: { approve: true, deny: true, memo: true }
             },
             actions: []
-          } }
+          }}
           isActive
         />
       </ComponentWrapper>
     );
     wrapper.update();
-    wrapper.find('a#deny-111').first().simulate('click', { button: 0 });
+    wrapper
+      .find('a#deny-111')
+      .first()
+      .simulate('click', { button: 0 });
     wrapper.update();
 
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.request.deny);
-    expect(wrapper.find(MemoryRouter).instance().history.location.search).toEqual('?request=111');
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.request.deny);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.search
+    ).toEqual('?request=111');
   });
 });

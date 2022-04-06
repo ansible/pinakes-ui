@@ -8,10 +8,14 @@ import { isStandalone } from '../../../helpers/shared/helpers';
 
 const requestItems = (request) => {
   if (isStandalone()) {
-    return request?.extra_data?.subrequests && request.extra_data.subrequests.length > 0 ? request.extra_data.subrequests : [ request ];
-  }
-  else {
-    return request.requests && request.requests.length > 0 ? request.requests : [ request ];
+    return request?.extra_data?.subrequests &&
+      request.extra_data.subrequests.length > 0
+      ? request.extra_data.subrequests
+      : [request];
+  } else {
+    return request.requests && request.requests.length > 0
+      ? request.requests
+      : [request];
   }
 };
 
@@ -20,10 +24,13 @@ const RequestTranscript = ({ request, indexpath }) => {
   return (
     <Card>
       <CardBody>
-        <Title headingLevel="h5" size="lg" className="pf-u-pl-lg pf-u-pb-lg">{ intl.formatMessage(requestsMessages.requestTranscript) }</Title>
-        <RequestList items={ requestItems(request) } indexpath={ indexpath } />
+        <Title headingLevel="h5" size="lg" className="pf-u-pl-lg pf-u-pb-lg">
+          {intl.formatMessage(requestsMessages.requestTranscript)}
+        </Title>
+        <RequestList items={requestItems(request)} indexpath={indexpath} />
       </CardBody>
-    </Card>);
+    </Card>
+  );
 };
 
 RequestTranscript.propTypes = {

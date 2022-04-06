@@ -1,9 +1,13 @@
 import React, { Fragment, useContext } from 'react';
 import { useIsApprovalAdmin } from '../../helpers/shared/helpers';
-import { TopToolbar, TopToolbarTitle } from '../../presentational-components/shared/top-toolbar';
+import {
+  TopToolbar,
+  TopToolbarTitle
+} from '../../presentational-components/shared/top-toolbar';
 import { AppTabs } from '../../smart-components/app-tabs/app-tabs';
 import UserContext from '../../user-context';
-import {  EmptyState,
+import {
+  EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
   EmptyStateSecondaryActions,
@@ -23,23 +27,25 @@ const EmptyRequestList = () => {
   return (
     <Fragment>
       <TopToolbar>
-        <TopToolbarTitle title={ intl.formatMessage(commonMessages.approvalTitle) }/>
-        { isApprovalAdmin && <AppTabs/> }
+        <TopToolbarTitle
+          title={intl.formatMessage(commonMessages.approvalTitle)}
+        />
+        {isApprovalAdmin && <AppTabs />}
       </TopToolbar>
       <EmptyState className="pf-u-ml-auto pf-u-mr-auto">
-        <EmptyStateIcon icon={ CubesIcon } />
+        <EmptyStateIcon icon={CubesIcon} />
         <TextContent>
-          <Text component={ TextVariants.h1 }>
-            { intl.formatMessage(requestsMessages.emptyRequestsTitle) }
+          <Text component={TextVariants.h1}>
+            {intl.formatMessage(requestsMessages.emptyRequestsTitle)}
           </Text>
         </TextContent>
         <EmptyStateBody>
-          { intl.formatMessage(requestsMessages.emptyRequestsDescription) }
+          {intl.formatMessage(requestsMessages.emptyRequestsDescription)}
         </EmptyStateBody>
       </EmptyState>
-      <EmptyStateSecondaryActions>
-      </EmptyStateSecondaryActions>
-    </Fragment>);
+      <EmptyStateSecondaryActions></EmptyStateSecondaryActions>
+    </Fragment>
+  );
 };
 
 export default EmptyRequestList;

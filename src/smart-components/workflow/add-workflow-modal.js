@@ -14,21 +14,43 @@ import formMessages from '../../messages/form.messages';
 import { isStandalone } from '../../helpers/shared/helpers';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
-const AddWorkflow = ({ postMethod,
-  pagination = defaultSettings }) => {
+const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
   const intl = useIntl();
 
   const onSave = ({ group_refs = [], ...values }) => {
-    return dispatch(isStandalone() ? addWorkflowS({
-      ...values,
-      group_refs: group_refs.length > 0 ? group_refs.map(group => ({ name: group.label, uuid: group.value })) : []
-    }, intl) : addWorkflow({
-      ...values,
-      group_refs: group_refs.length > 0 ? group_refs.map(group => ({ name: group.label, uuid: group.value })) : []
-    }, intl)).then(() => push(routes.workflows.index))
-    .then(() => postMethod({ ...pagination }));
+    return dispatch(
+      isStandalone()
+        ? addWorkflowS(
+            {
+              ...values,
+              group_refs:
+                group_refs.length > 0
+                  ? group_refs.map((group) => ({
+                      name: group.label,
+                      uuid: group.value
+                    }))
+                  : []
+            },
+            intl
+          )
+        : addWorkflow(
+            {
+              ...values,
+              group_refs:
+                group_refs.length > 0
+                  ? group_refs.map((group) => ({
+                      name: group.label,
+                      uuid: group.value
+                    }))
+                  : []
+            },
+            intl
+          )
+    )
+      .then(() => push(routes.workflows.index))
+      .then(() => postMethod({ ...pagination }));
   };
 
   const onCancel = () => push(routes.workflows.index);
@@ -36,19 +58,21 @@ const AddWorkflow = ({ postMethod,
   return (
     <Modal
       isOpen
-      onClose={ onCancel }
-      title={ intl.formatMessage(formMessages.createApprovalTitle) }
+      onClose={onCancel}
+      title={intl.formatMessage(formMessages.createApprovalTitle)}
       variant="small"
     >
       <FormRenderer
-        onSubmit={ onSave }
-        onCancel={ onCancel }
-        schema={ addWorkflowSchema(intl) }
-        FormTemplate={ (props) => <FormTemplate
-          { ...props }
-          buttonClassName="pf-u-mt-0"
-          disableSubmit={ [ 'validating', 'pristine' ] }
-        /> }
+        onSubmit={onSave}
+        onCancel={onCancel}
+        schema={addWorkflowSchema(intl)}
+        FormTemplate={(props) => (
+          <FormTemplate
+            {...props}
+            buttonClassName="pf-u-mt-0"
+            disableSubmit={['validating', 'pristine']}
+          />
+        )}
       />
     </Modal>
   );

@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PropLine = ({ value }) => <div className="card_element">{ value }</div>;
+const PropLine = ({ value }) => <div className="card_element">{value}</div>;
 
 PropLine.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node
-    ]))
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+    )
   ]).isRequired
 };
 
 const ItemDetails = ({ toDisplay, ...item }) => (
   <div>
-    { toDisplay.map(prop => <PropLine key={ `prop-${prop}` } value={ item[prop] } />) }
+    {toDisplay.map((prop) => (
+      <PropLine key={`prop-${prop}`} value={item[prop]} />
+    ))}
   </div>
 );
 

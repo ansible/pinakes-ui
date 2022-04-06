@@ -8,13 +8,22 @@ import requestsMessages from '../../../messages/requests.messages';
 
 const MyRequestDetail = () => {
   const intl = useIntl();
-  const [{ request: id }] = useQuery([ 'request' ]);
+  const [{ request: id }] = useQuery(['request']);
   const myRequestsBreadcrumbs = [
-    { title: intl.formatMessage(apsTabsMessages.myRequests), to: routes.requests.index, id: 'requests' },
+    {
+      title: intl.formatMessage(apsTabsMessages.myRequests),
+      to: routes.requests.index,
+      id: 'requests'
+    },
     { title: intl.formatMessage(requestsMessages.requestTitle, { id }), id }
   ];
 
-  return <RequestDetail requestBreadcrumbs={ myRequestsBreadcrumbs } indexpath={ routes.request } />;
+  return (
+    <RequestDetail
+      requestBreadcrumbs={myRequestsBreadcrumbs}
+      indexpath={routes.request}
+    />
+  );
 };
 
 export default MyRequestDetail;

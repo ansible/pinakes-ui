@@ -14,9 +14,13 @@ import { IntlProvider } from 'react-intl';
 
 const ComponentWrapper = ({ store, children }) => (
   <IntlProvider locale="en">
-    <Provider store={ store }>
-      <MemoryRouter initialEntries={ [{ pathname: routes.request.index, search: '?request=123' }] }>
-        { children }
+    <Provider store={store}>
+      <MemoryRouter
+        initialEntries={[
+          { pathname: routes.request.index, search: '?request=123' }
+        ]}
+      >
+        {children}
       </MemoryRouter>
     </Provider>
   </IntlProvider>
@@ -24,7 +28,7 @@ const ComponentWrapper = ({ store, children }) => (
 
 describe('<ActionModal />', () => {
   let initialProps;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   let initialState;
 
@@ -49,15 +53,21 @@ describe('<ActionModal />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    apiClientMock.post(`${APPROVAL_API_BASE}/requests/123/actions`, mockOnce((req, response) => {
-      expect(JSON.parse(req.body())).toEqual({ operation: 'memo', comments: 'foo' });
-      return response.status(200);
-    }));
+    apiClientMock.post(
+      `${APPROVAL_API_BASE}/requests/123/actions`,
+      mockOnce((req, response) => {
+        expect(JSON.parse(req.body())).toEqual({
+          operation: 'memo',
+          comments: 'foo'
+        });
+        return response.status(200);
+      })
+    );
 
-    await act(async() => {
+    await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store }>
-          <ActionModal { ...initialProps } />
+        <ComponentWrapper store={store}>
+          <ActionModal {...initialProps} />
         </ComponentWrapper>
       );
     });
@@ -70,7 +80,7 @@ describe('<ActionModal />', () => {
 
     expect(initialProps.postMethod).not.toHaveBeenCalled();
 
-    await act(async() => {
+    await act(async () => {
       wrapper.find('form').simulate('submit');
     });
     wrapper.update();
@@ -83,15 +93,21 @@ describe('<ActionModal />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    apiClientMock.post(`${APPROVAL_API_BASE}/requests/123/actions`, mockOnce((req, response) => {
-      expect(JSON.parse(req.body())).toEqual({ operation: 'memo', comments: 'foo' });
-      return response.status(200);
-    }));
+    apiClientMock.post(
+      `${APPROVAL_API_BASE}/requests/123/actions`,
+      mockOnce((req, response) => {
+        expect(JSON.parse(req.body())).toEqual({
+          operation: 'memo',
+          comments: 'foo'
+        });
+        return response.status(200);
+      })
+    );
 
-    await act(async() => {
+    await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store }>
-          <ActionModal { ...initialProps } postMethod={ undefined }/>
+        <ComponentWrapper store={store}>
+          <ActionModal {...initialProps} postMethod={undefined} />
         </ComponentWrapper>
       );
     });
@@ -102,7 +118,7 @@ describe('<ActionModal />', () => {
     textarea.simulate('change');
     wrapper.update();
 
-    await act(async() => {
+    await act(async () => {
       wrapper.find('form').simulate('submit');
     });
     wrapper.update();
@@ -112,17 +128,22 @@ describe('<ActionModal />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    await act(async() => {
+    await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={ store }>
-          <ActionModal { ...initialProps } />
+        <ComponentWrapper store={store}>
+          <ActionModal {...initialProps} />
         </ComponentWrapper>
       );
     });
     wrapper.update();
 
-    wrapper.find('button.pf-c-button').first().simulate('click');
+    wrapper
+      .find('button.pf-c-button')
+      .first()
+      .simulate('click');
     wrapper.update();
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual('/requests');
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/requests');
   });
 });

@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { isStandalone, useIsApprovalAdmin } from '../../../helpers/shared/helpers';
+import {
+  isStandalone,
+  useIsApprovalAdmin
+} from '../../../helpers/shared/helpers';
 import { ActionTranscript } from './action-transcript';
 
 import {
@@ -32,49 +35,72 @@ export const Request = ({ item, isExpanded, toggleExpand, indexpath }) => {
       return true;
     }
 
-    return item.metadata && item.metadata.user_capabilities && item.metadata.user_capabilities[capability];
+    return (
+      item.metadata &&
+      item.metadata.user_capabilities &&
+      item.metadata.user_capabilities[capability]
+    );
   };
 
   return (
-    <DataListItem key={ `request-${item.id}` }
-      aria-labelledby={ `check-request-${item.id}` }
-      isExpanded={ isExpanded }>
+    <DataListItem
+      key={`request-${item.id}`}
+      aria-labelledby={`check-request-${item.id}`}
+      isExpanded={isExpanded}
+    >
       <DataListItemRow>
         <DataListToggle
-          onClick={ () => toggleExpand(`request-${item.id}`) }
-          isExpanded={ isExpanded }
-          id={ `request-${item.id}` }
-          aria-labelledby={ `request-${item.id} request-${item.id}` }
-          aria-label={ intl.formatMessage(requestsMessages.toggleDetailsFor) }
+          onClick={() => toggleExpand(`request-${item.id}`)}
+          isExpanded={isExpanded}
+          id={`request-${item.id}`}
+          aria-labelledby={`request-${item.id} request-${item.id}`}
+          aria-label={intl.formatMessage(requestsMessages.toggleDetailsFor)}
         />
         <DataListItemCells
-          dataListCells={ [
-            <DataListCell key={ item.id }>
-              <span id={ `${item.id}-name` }>{ item.group_name ? item.group_name : item.name }</span>
-            </DataListCell>,
-            <DataListCell key={ `${item.id}-state` }>
-              <span style={ { textTransform: 'capitalize' } } id={ `${item.id}-state` }>
-                { intl.formatMessage(requestsMessages[item.state] || untranslatedMessage(item.state)) }
+          dataListCells={[
+            <DataListCell key={item.id}>
+              <span id={`${item.id}-name`}>
+                {item.group_name ? item.group_name : item.name}
               </span>
             </DataListCell>,
-            <DataListCell key={ `${item.id}-action` }>
+            <DataListCell key={`${item.id}-state`}>
+              <span
+                style={{ textTransform: 'capitalize' }}
+                id={`${item.id}-state`}
+              >
+                {intl.formatMessage(
+                  requestsMessages[item.state] ||
+                    untranslatedMessage(item.state)
+                )}
+              </span>
+            </DataListCell>,
+            <DataListCell key={`${item.id}-action`}>
               <RequestActions
-                approveLink={ indexpath.approve }
-                denyLink={ indexpath.deny }
-                commentLink={ indexpath.comment }
-                request={ item }
-                canApproveDeny={ checkCapability(item, 'approve') }
-                canComment={ checkCapability(item, 'memo') }
+                approveLink={indexpath.approve}
+                denyLink={indexpath.deny}
+                commentLink={indexpath.comment}
+                request={item}
+                canApproveDeny={checkCapability(item, 'approve')}
+                canComment={checkCapability(item, 'memo')}
               />
             </DataListCell>
-          ] }/>
+          ]}
+        />
       </DataListItemRow>
-      <DataListContent aria-label={ intl.formatMessage(requestsMessages.requestContentDetails) }
-        isHidden={ !isExpanded }>
+      <DataListContent
+        aria-label={intl.formatMessage(requestsMessages.requestContentDetails)}
+        isHidden={!isExpanded}
+      >
         <Stack hasGutter>
           <StackItem>
-            <TextContent component={ TextVariants.h6 }>
-              <ActionTranscript actionList={ (isStandalone() && item.number_of_children === 0) ? item.extra_data?.actions : item.actions }/>
+            <TextContent component={TextVariants.h6}>
+              <ActionTranscript
+                actionList={
+                  isStandalone() && item.number_of_children === 0
+                    ? item.extra_data?.actions
+                    : item.actions
+                }
+              />
             </TextContent>
           </StackItem>
         </Stack>

@@ -15,7 +15,8 @@ const commonApiErrorMessages = defineMessages({
   },
   forbiddenDescription: {
     id: 'commonApiError.403Description',
-    defaultMessage: 'Contact your organization administrator for more information'
+    defaultMessage:
+      'Contact your organization administrator for more information'
   },
   returnBack: {
     id: 'commonApiError.returnBack',

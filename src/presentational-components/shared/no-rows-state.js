@@ -10,25 +10,27 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 
-const NoRowsState = ({ title,
+const NoRowsState = ({
+  title,
   icon,
   description,
   PrimaryAction,
-  renderDescription }) =>
-  (<EmptyState className="pf-u-ml-auto pf-u-mr-auto">
-    <EmptyStateIcon icon={ icon } />
+  renderDescription
+}) => (
+  <EmptyState className="pf-u-ml-auto pf-u-mr-auto">
+    <EmptyStateIcon icon={icon} />
     <TextContent>
-      <Text component={ TextVariants.h1 }>{ title }</Text>
+      <Text component={TextVariants.h1}>{title}</Text>
     </TextContent>
     <EmptyStateBody>
-      { description }
-      { renderDescription && renderDescription() }
+      {description}
+      {renderDescription && renderDescription()}
     </EmptyStateBody>
     <EmptyStateSecondaryActions>
-      { PrimaryAction && <PrimaryAction /> }
+      {PrimaryAction && <PrimaryAction />}
     </EmptyStateSecondaryActions>
   </EmptyState>
-  );
+);
 
 NoRowsState.propTypes = {
   title: PropTypes.string.isRequired,

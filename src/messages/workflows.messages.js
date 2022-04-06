@@ -39,11 +39,13 @@ const worfklowMessages = defineMessages({
   },
   removeProcessTitle: {
     id: 'workflowMessages.removeProcessTitle',
-    defaultMessage: 'Delete {count, plural, one {approval process} other {approval processes}}?'
+    defaultMessage:
+      'Delete {count, plural, one {approval process} other {approval processes}}?'
   },
   removeProcessAriaLabel: {
     id: 'workflowMessages.removeProcessTitle',
-    defaultMessage: 'Delete {count, plural, one {approval process} other {approval processes}} modal'
+    defaultMessage:
+      'Delete {count, plural, one {approval process} other {approval processes}} modal'
   },
   removeProcessDescription: {
     id: 'workflowMessages.removeProcessDescription',
@@ -51,7 +53,8 @@ const worfklowMessages = defineMessages({
   },
   removeProcessDescriptionWithDeps: {
     id: 'workflowMessages.removeProcessDescriptionWithDeps',
-    defaultMessage: '{name} will be removed from the following applications: {dependenciesList}'
+    defaultMessage:
+      '{name} will be removed from the following applications: {dependenciesList}'
   },
   editProcessTitle: {
     id: 'workflowMessages.editProcessTitle',

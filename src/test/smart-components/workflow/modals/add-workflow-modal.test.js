@@ -2,7 +2,7 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store' ;
+import configureStore from 'redux-mock-store';
 import { act } from 'react-dom/test-utils';
 
 import { MemoryRouter, Route } from 'react-router-dom';
@@ -18,14 +18,17 @@ import routes from '../../../../constants/routes';
 describe('<AddWorkflow />', () => {
   let initialProps;
   let initialState;
-  const middlewares = [ thunk, promiseMiddleware, notificationsMiddleware() ];
+  const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
 
   const ComponentWrapper = ({ store, children }) => (
     <IntlProvider locale="en">
-      <Provider store={ store }>
-        <MemoryRouter initialEntries={ [ '/workflows/add-workflow/' ] } initialIndex={ 0 }>
-          { children }
+      <Provider store={store}>
+        <MemoryRouter
+          initialEntries={['/workflows/add-workflow/']}
+          initialIndex={0}
+        >
+          {children}
         </MemoryRouter>
       </Provider>
     </IntlProvider>
@@ -45,34 +48,38 @@ describe('<AddWorkflow />', () => {
   it('should submit the form', async () => {
     expect.assertions(5);
 
-    wfHelper.fetchWorkflowByName = jest.fn().mockImplementationOnce(
-      (value) => {
+    wfHelper.fetchWorkflowByName = jest
+      .fn()
+      .mockImplementationOnce((value) => {
         expect(value).toEqual(undefined);
 
         return Promise.resolve({
           data: []
         });
-      }
-    ).mockImplementationOnce(
-      (value) => {
+      })
+      .mockImplementationOnce((value) => {
         expect(value).toEqual('some-name');
 
         return Promise.resolve({
           data: []
         });
-      }
-    );
+      });
 
-    apiClientMock.get(`${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }]}}));
+    apiClientMock.get(
+      `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
+      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
+    );
 
     jest.useFakeTimers();
 
     const store = mockStore(initialState);
 
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <Route path="/workflows/add-workflow/" render={ () => <AddWorkflow { ...initialProps } /> } />
+      <ComponentWrapper store={store}>
+        <Route
+          path="/workflows/add-workflow/"
+          render={() => <AddWorkflow {...initialProps} />}
+        />
       </ComponentWrapper>
     );
 
@@ -102,7 +109,9 @@ describe('<AddWorkflow />', () => {
     });
     wrapper.update();
 
-    wfHelper.addWorkflow = jest.fn().mockImplementation(() => Promise.resolve('ok'));
+    wfHelper.addWorkflow = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
 
     expect(wfHelper.addWorkflow).not.toHaveBeenCalled();
 
@@ -117,24 +126,33 @@ describe('<AddWorkflow />', () => {
       description: 'some-description'
     });
 
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.workflows.index);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.workflows.index);
   });
 
   it('should close the form', async () => {
-    wfHelper.fetchWorkflowByName = jest.fn().mockImplementation(() => Promise.resolve({
-      data: []
-    }));
+    wfHelper.fetchWorkflowByName = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: []
+      })
+    );
 
-    apiClientMock.get(`${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }]}}));
+    apiClientMock.get(
+      `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
+      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
+    );
 
     jest.useFakeTimers();
 
     const store = mockStore(initialState);
 
     const wrapper = mount(
-      <ComponentWrapper store={ store }>
-        <Route path="/workflows/add-workflow/" render={ () => <AddWorkflow { ...initialProps } /> } />
+      <ComponentWrapper store={store}>
+        <Route
+          path="/workflows/add-workflow/"
+          render={() => <AddWorkflow {...initialProps} />}
+        />
       </ComponentWrapper>
     );
 
@@ -146,10 +164,15 @@ describe('<AddWorkflow />', () => {
     jest.useRealTimers();
 
     await act(async () => {
-      wrapper.find(Button).first().simulate('click');
+      wrapper
+        .find(Button)
+        .first()
+        .simulate('click');
     });
     wrapper.update();
 
-    expect(wrapper.find(MemoryRouter).instance().history.location.pathname).toEqual(routes.workflows.index);
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.workflows.index);
   });
 });
