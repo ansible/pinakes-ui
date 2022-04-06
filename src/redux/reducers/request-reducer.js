@@ -6,7 +6,7 @@ import {
   SET_FILTER_REQUESTS,
   CLEAR_FILTER_REQUESTS,
   RESET_REQUEST_LIST
-} from '../../redux/action-types';
+} from '../action-types';
 
 // Initial State
 export const requestsInitialState = {

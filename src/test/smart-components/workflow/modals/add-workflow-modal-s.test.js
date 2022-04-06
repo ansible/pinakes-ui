@@ -11,7 +11,7 @@ import notificationsMiddleware from '@redhat-cloud-services/frontend-components-
 import AddWorkflow from '../../../../smart-components/workflow/add-workflow-modal';
 import { IntlProvider } from 'react-intl';
 import { APPROVAL_API_BASE } from '../../../../utilities/constants';
-import * as wfHelper from '../../../../helpers/workflow/workflow-helper-s';
+import * as wfHelper from '../../../../helpers/workflow/workflow-helper';
 import { Button } from '@patternfly/react-core';
 import routes from '../../../../constants/routes';
 

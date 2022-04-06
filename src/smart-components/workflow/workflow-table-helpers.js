@@ -20,12 +20,7 @@ import {
   fetchWorkflows,
   moveSequence
 } from '../../redux/actions/workflow-actions';
-import {
-  repositionWorkflow as repositionWorkflowS,
-  fetchWorkflows as fetchWorkflowsS,
-  moveSequence as moveSequenceS
-} from '../../redux/actions/workflow-actions-s';
-import asyncDebounce from '../../utilities/async-debounce';
+import asyncDebounce from '../../utilities/async-form-validator';
 import { isStandalone } from '../../helpers/shared/helpers';
 
 const debouncedMove = (cache, id) => {
@@ -35,12 +30,8 @@ const debouncedMove = (cache, id) => {
 
   cache[id] = asyncDebounce(
     (workflow, dispatch, intl) =>
-      dispatch(
-        isStandalone()
-          ? repositionWorkflowS(workflow, intl)
-          : repositionWorkflow(workflow, intl)
-      ).then(() =>
-        dispatch(isStandalone() ? fetchWorkflowsS : fetchWorkflows())
+      dispatch(repositionWorkflow(workflow, intl)).then(() =>
+        dispatch(fetchWorkflows())
       ),
     1500
   );
@@ -60,11 +51,7 @@ export const MoveButtons = ({ id }) => {
   );
 
   const updateSequence = (sequence) => {
-    dispatch(
-      isStandalone()
-        ? moveSequenceS({ id, sequence })
-        : moveSequence({ id, sequence })
-    );
+    dispatch(moveSequence({ id, sequence }));
 
     return debouncedMove(cache, id)({ id, sequence }, dispatch, intl);
   };

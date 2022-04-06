@@ -29,9 +29,19 @@ import shareReducer, {
 import openApiReducer, {
   openApiInitialState
 } from '../redux/reducers/open-api-reducer';
-import requestReducer, { requestsInitialState } from '../redux/reducers/request-reducer';
-import workflowReducer, { workflowsInitialState } from '../redux/reducers/workflow-reducer';
-import groupReducer, { groupsInitialState } from '../redux/reducers/group-reducer';
+
+import requestReducer, {
+  requestsInitialState
+  // @ts-ignore
+} from '../redux/reducers/request-reducer';
+import workflowReducer, {
+  workflowsInitialState
+  // @ts-ignore
+} from '../redux/reducers/workflow-reducer';
+import groupReducer, {
+  groupsInitialState
+  // @ts-ignore
+} from '../redux/reducers/group-reducer';
 import loadingStateMiddleware from './loading-state-middleware';
 import emptyDataMiddleware from './empty-data-middleware';
 import breadcrumbsReducer, {

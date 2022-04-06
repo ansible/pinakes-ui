@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { timeAgo } from '../../helpers/shared/helpers';
 import routes from '../../constants/routes';
 import { Label } from '@patternfly/react-core';
-import { decisionValues, untranslatedMessage } from '../../utilities/constants';
+import {
+  decisionValues,
+  untranslatedMessage
+} from '../../utilities/approval-constants';
 
 export const capitlize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 

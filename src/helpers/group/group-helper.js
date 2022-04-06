@@ -1,5 +1,5 @@
 import { getAxiosInstance } from '../shared/user-login';
-import { APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/constants';
+import { APPROVAL_API_BASE, RBAC_API_BASE } from '../../utilities/approval-constants';
 
 const fetchFilterApprovalGroups = (filterValue) => {
   const filterQuery = `&name=${filterValue}`;

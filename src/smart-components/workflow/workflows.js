@@ -20,7 +20,6 @@ import {
   fetchWorkflows,
   setFilterValueWorkflows
 } from '../../redux/actions/workflow-actions';
-import { fetchWorkflows as fetchWorkflowsS } from '../../redux/actions/workflow-actions-s';
 import AddWorkflow from './add-workflow-modal';
 import RemoveWorkflow from './remove-workflow-modal';
 import { createRows } from './workflow-table-helpers';
@@ -29,9 +28,9 @@ import {
   TopToolbar,
   TopToolbarTitle
 } from '../../presentational-components/shared/top-toolbar';
-import { AppTabs } from '../../smart-components/app-tabs/app-tabs';
+import { AppTabs } from '../app-tabs/app-tabs';
 import { defaultSettings } from '../../helpers/shared/pagination';
-import asyncDebounce from '../../utilities/async-debounce';
+import asyncDebounce from '../../utilities/async-form-validator';
 import TableEmptyState from '../../presentational-components/shared/table-empty-state';
 import routesLinks from '../../constants/routes';
 import { useIntl } from 'react-intl';
@@ -42,7 +41,6 @@ import tableToolbarMessages from '../../messages/table-toolbar.messages';
 import EditWorkflow from './edit-workflow-modal';
 import WorkflowTableContext from './workflow-table-context';
 import isEmpty from 'lodash/isEmpty';
-import { isStandalone } from '../../helpers/shared/helpers';
 
 const columns = (intl, selectedAll, selectAll) => [
   { title: '', transforms: [cellWidth(1)] },
@@ -67,9 +65,7 @@ const debouncedFilter = asyncDebounce(
   (filter, dispatch, filteringCallback, meta = defaultSettings) => {
     filteringCallback(true);
     dispatch(setFilterValueWorkflows(filter, meta));
-    return dispatch(
-      isStandalone() ? fetchWorkflowsS(meta) : fetchWorkflows(meta)
-    ).then(() => filteringCallback(false));
+    return dispatch(fetchWorkflows(meta)).then(() => filteringCallback(false));
   },
   1000
 );
@@ -193,9 +189,7 @@ const Workflows = () => {
 
   const updateWorkflows = (pagination) => {
     stateDispatch({ type: 'setFetching', payload: true });
-    return dispatch(
-      isStandalone() ? fetchWorkflowsS(pagination) : fetchWorkflows(pagination)
-    )
+    return dispatch(fetchWorkflows(pagination))
       .then(() => stateDispatch({ type: 'setFetching', payload: false }))
       .catch(() => stateDispatch({ type: 'setFetching', payload: false }));
   };

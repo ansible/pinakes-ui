@@ -6,7 +6,7 @@ import { Modal } from '@patternfly/react-core';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/dist/cjs/form-template';
 
 import { addWorkflow } from '../../redux/actions/workflow-actions';
-import { addWorkflow as addWorkflowS } from '../../redux/actions/workflow-actions-s';
+import { addWorkflow as addWorkflowS } from '../../redux/actions/workflow-actions';
 import routes from '../../constants/routes';
 import FormRenderer from '../common/form-renderer';
 import addWorkflowSchema from '../../forms/add-workflow.schema';
@@ -14,6 +14,7 @@ import formMessages from '../../messages/form.messages';
 import { isStandalone } from '../../helpers/shared/helpers';
 import { defaultSettings } from '../../helpers/shared/pagination';
 
+// eslint-disable-next-line react/prop-types
 const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();

@@ -3,6 +3,7 @@ import * as RequestHelper from '../../helpers/request/request-helper';
 import { defaultSettings } from '../../helpers/shared/pagination';
 import actionModalMessages from '../../messages/action-modal.messages';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const fetchRequests = (persona, pagination) => (dispatch, getState) => {
   const { sortBy, requests, filterValue } = getState().requestReducer;
 
