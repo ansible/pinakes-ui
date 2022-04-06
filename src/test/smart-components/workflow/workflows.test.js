@@ -15,7 +15,10 @@ import workflowReducer, {
 } from '../../../redux/reducers/workflow-reducer';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { groupsInitialState } from '../../../redux/reducers/group-reducer';
-import { APPROVAL_API_BASE, RBAC_API_BASE } from '../../../utilities/constants';
+import {
+  APPROVAL_API_BASE,
+  RBAC_API_BASE
+} from '../../../utilities/approval-constants';
 import RemoveWorkflowModal from '../../../smart-components/workflow/remove-workflow-modal';
 import AddWorkflowModal from '../../../smart-components/workflow/add-workflow-modal';
 import ReducerRegistry, {
@@ -24,6 +27,7 @@ import ReducerRegistry, {
 import routes from '../../../constants/routes';
 import TableEmptyState from '../../../presentational-components/shared/table-empty-state';
 import * as edit from '../../../smart-components/workflow/edit-workflow-modal';
+import mockApi from "axios-mock-adapter";
 
 const ComponentWrapper = ({
   store,
@@ -43,7 +47,7 @@ describe('<Workflows />', () => {
   let stateWithData;
 
   beforeEach(() => {
-    apiClientMock.reset();
+    mockApi.reset();
     mockStore = configureStore(middlewares);
     stateWithData = {
       groupReducer: { ...groupsInitialState },
@@ -78,7 +82,7 @@ describe('<Workflows />', () => {
 
     const store = mockStore(stateWithData);
     let wrapper;
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         body: {
@@ -137,7 +141,7 @@ describe('<Workflows />', () => {
     const store = mockStore(stateWithData);
     let wrapper;
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         body: {
@@ -190,7 +194,7 @@ describe('<Workflows />', () => {
     const store = mockStore(stateWithData);
     let wrapper;
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         body: {
@@ -207,7 +211,7 @@ describe('<Workflows />', () => {
     );
 
     // async name validator
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         body: {
@@ -222,7 +226,7 @@ describe('<Workflows />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );
@@ -260,7 +264,7 @@ describe('<Workflows />', () => {
     const store = mockStore(stateWithData);
     let wrapper;
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         body: {
@@ -311,7 +315,7 @@ describe('<Workflows />', () => {
       group_refs: [{ name: 'group-1', uuid: 'some-uuid' }]
     };
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -337,7 +341,7 @@ describe('<Workflows />', () => {
       );
     });
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -352,7 +356,7 @@ describe('<Workflows />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -367,7 +371,7 @@ describe('<Workflows />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -382,7 +386,7 @@ describe('<Workflows />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -429,7 +433,7 @@ describe('<Workflows />', () => {
   });
 
   it('should render table empty state', async () => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -462,7 +466,7 @@ describe('<Workflows />', () => {
   it('should paginate requests', async () => {
     expect.assertions(1);
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -513,7 +517,7 @@ describe('<Workflows />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -530,7 +534,7 @@ describe('<Workflows />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=10&offset=0`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -570,7 +574,7 @@ describe('<Workflows />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=10&offset=10`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -612,7 +616,7 @@ describe('<Workflows />', () => {
       group_refs: []
     };
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -645,7 +649,7 @@ describe('<Workflows />', () => {
     wrapper.update();
 
     // Update WF
-    apiClientMock.post(
+    mockApi.onPost(
       `${APPROVAL_API_BASE}/workflows/${wf.id}/reposition`,
       mockOnce((req, res) => {
         expect(JSON.parse(req.body())).toEqual({ increment: 1 });
@@ -654,7 +658,7 @@ describe('<Workflows />', () => {
     );
 
     // RELOAD WORKFLOWS
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -683,7 +687,7 @@ describe('<Workflows />', () => {
       group_refs: []
     };
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -715,7 +719,7 @@ describe('<Workflows />', () => {
     });
     wrapper.update();
 
-    apiClientMock.post(
+    mockApi.onPost(
       `${APPROVAL_API_BASE}/workflows/${wf.id}/reposition`,
       mockOnce((req, res) => {
         expect(JSON.parse(req.body())).toEqual({ increment: 1 });
@@ -733,7 +737,7 @@ describe('<Workflows />', () => {
     wrapper.update();
 
     // PATCH WF
-    apiClientMock.post(
+    mockApi.onPost(
       `${APPROVAL_API_BASE}/workflows/${wf.id}/reposition`,
       mockOnce((req, res) => {
         expect(JSON.parse(req.body())).toEqual({ increment: 3 });
@@ -742,7 +746,7 @@ describe('<Workflows />', () => {
     );
 
     // RELOAD WORKFLOWS
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({
         status: 200,
@@ -783,8 +787,8 @@ describe('<Workflows />', () => {
     let storeReal;
 
     beforeEach(() => {
-      apiClientMock.reset();
-      apiClientMock.get(
+      mockApi.reset();
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
         mockOnce({
           status: 200,
@@ -846,7 +850,7 @@ describe('<Workflows />', () => {
       ).toEqual('');
 
       // Delete endpoints
-      apiClientMock.delete(
+      mockApi.onDelete(
         `${APPROVAL_API_BASE}/workflows/123`,
         mockOnce((_req, res) => {
           expect(true).toEqual(true); // just check that it was called
@@ -854,7 +858,7 @@ describe('<Workflows />', () => {
         })
       );
 
-      apiClientMock.delete(
+      mockApi.onDelete(
         `${APPROVAL_API_BASE}/workflows/456`,
         mockOnce((_req, res) => {
           expect(true).toEqual(true); // just check that it was called
@@ -862,7 +866,7 @@ describe('<Workflows />', () => {
         })
       );
 
-      apiClientMock.delete(
+      mockApi.onDelete(
         `${APPROVAL_API_BASE}/workflows/789`,
         mockOnce((_req, res) => {
           expect(true).toEqual(true); // just check that it was called
@@ -871,7 +875,7 @@ describe('<Workflows />', () => {
       );
 
       // wf refresh
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
         mockOnce((req, res) => {
           expect(req.url().query).toEqual({
@@ -990,7 +994,7 @@ describe('<Workflows />', () => {
       ).toEqual('');
 
       // Delete endpoints
-      apiClientMock.delete(
+      mockApi.onDelete(
         `${APPROVAL_API_BASE}/workflows/123`,
         mockOnce((_req, res) => {
           expect(true).toEqual(true); // just check that it was called
@@ -999,7 +1003,7 @@ describe('<Workflows />', () => {
       );
 
       // wf refresh
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
         mockOnce((req, res) => {
           expect(req.url().query).toEqual({
@@ -1089,7 +1093,7 @@ describe('<Workflows />', () => {
       ).toEqual('');
 
       // Delete endpoints
-      apiClientMock.delete(
+      mockApi.onDelete(
         `${APPROVAL_API_BASE}/workflows/wf-id`,
         mockOnce((_req, res) => {
           expect(true).toEqual(true); // just check that it was called
@@ -1098,7 +1102,7 @@ describe('<Workflows />', () => {
       );
 
       // wf refresh
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=10&offset=10`,
         mockOnce((req, res) => {
           expect(req.url().query).toEqual({

@@ -73,7 +73,7 @@ describe('<AllRequestDetail />', () => {
   });
 
   it('should render request details', async (done) => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/123/content`,
       mockOnce({
         body: {
@@ -234,7 +234,7 @@ describe('<AllRequestDetail />', () => {
   });
 
   it('should render request loader', async (done) => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/123/content`,
       mockOnce({
         body: {
@@ -324,7 +324,7 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/123/content`,
         mockOnce({ body: contentData })
       );
@@ -371,7 +371,7 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/123/content`,
         mockOnce({ body: contentData })
       );
@@ -417,7 +417,7 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/123/content`,
         mockOnce({ body: contentData })
       );

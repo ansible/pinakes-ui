@@ -71,7 +71,7 @@ describe('<Requests />', () => {
   it('should sort requests when click on sort', async () => {
     expect.assertions(3);
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
       mockOnce({
         status: 200,
@@ -98,7 +98,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=name%3Aasc`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -122,7 +122,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=name%3Adesc`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -146,7 +146,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=requester_name%3Aasc`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -175,7 +175,7 @@ describe('<Requests />', () => {
     jest.useFakeTimers();
     expect.assertions(4);
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
       mockOnce({
         status: 200,
@@ -185,7 +185,7 @@ describe('<Requests />', () => {
         }
       })
     );
-    apiClientMock.get(
+    mockApi.onGet(
       // eslint-disable-next-line max-len
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester&filter%5Bdecision%5D%5Beq%5D%5B%5D=canceled&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved&page_size=50&page=1&sort_by=created_at%3Adesc`,
       mockOnce({
@@ -196,7 +196,7 @@ describe('<Requests />', () => {
         }
       })
     );
-    apiClientMock.get(
+    mockApi.onGet(
       // eslint-disable-next-line max-len
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved&page_size=50&page=1&sort_by=created_at%3Adesc`,
       mockOnce({
@@ -224,7 +224,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&page_size=50&page=1` +
         `&sort_by=created_at%3Adesc`,
       mockOnce((req, res) => {
@@ -264,7 +264,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       // eslint-disable-next-line max-len
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
         `&page_size=50&page=1&sort_by=created_at%3Adesc`,
@@ -306,7 +306,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
         '&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester' +
         '&filter%5Bdecision%5D%5Beq%5D%5B%5D=canceled&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved' +
@@ -348,7 +348,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
         `&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
         '&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved' +
@@ -380,7 +380,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
         `&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
         '&page_size=50&page=1&sort_by=created_at%3Adesc',
@@ -414,7 +414,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -452,7 +452,7 @@ describe('<Requests />', () => {
     jest.useFakeTimers();
     expect.assertions(1);
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
       mockOnce({
         status: 200,
@@ -463,7 +463,7 @@ describe('<Requests />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=2&sort_by=created_at%3Adesc`,
       mockOnce({
         status: 200,
@@ -490,7 +490,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=1&sort_by=created_at%3Adesc`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -524,7 +524,7 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=1&sort_by=created_at%3Adesc`,
       mockOnce((req, res) => {
         expect(req.url().query).toEqual({
@@ -557,7 +557,7 @@ describe('<Requests />', () => {
   });
 
   it('should render table empty state', async () => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?limit=50&offset=0&sort_by=created_at%3Adesc`,
       mockOnce({
         status: 200,
@@ -615,7 +615,7 @@ describe('<Requests />', () => {
     };
 
     beforeEach(() => {
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
         mockOnce({
           status: 200,

@@ -1,9 +1,9 @@
-import { fetchRequestWithSubrequests } from '../../../helpers/request/request-helper-s';
-import { APPROVAL_API_BASE } from '../../../utilities/constants';
+import { fetchRequestWithSubrequests } from '../../helpers/request/request-helper';
+import { APPROVAL_API_BASE } from '../../utilities/approval-constants';
 import {
   APPROVAL_APPROVER_PERSONA,
   REQUESTER_PERSONA
-} from '../../../helpers/shared/helpers';
+} from '../../helpers/shared/approval-helpers';
 
 describe('request-helper', () => {
   describe('#fetchRequestWithSubrequests', () => {
@@ -24,7 +24,7 @@ describe('request-helper', () => {
     });
 
     it('no data', async () => {
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
         mockOnce({
           body: {
@@ -53,7 +53,7 @@ describe('request-helper', () => {
     it('is approver - data', async () => {
       persona = APPROVAL_APPROVER_PERSONA;
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
         mockOnce({
           body: {
@@ -70,7 +70,7 @@ describe('request-helper', () => {
         })
       );
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/some-id/requests`,
         mockOnce({
           body: {
@@ -99,7 +99,7 @@ describe('request-helper', () => {
     it('is approver - no data', async () => {
       persona = APPROVAL_APPROVER_PERSONA;
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
         mockOnce({
           body: {
@@ -115,7 +115,7 @@ describe('request-helper', () => {
         })
       );
 
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/some-id`,
         mockOnce({
           body: {
@@ -141,7 +141,7 @@ describe('request-helper', () => {
     });
 
     it('no approver persona', async () => {
-      apiClientMock.get(
+      mockApi.onGet(
         `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
         mockOnce({
           body: {

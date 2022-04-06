@@ -9,6 +9,7 @@ import {
   fetchRequest
 } from '../../../redux/actions/request-actions';
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
+import {mockApi} from "../../../helpers/shared/__mocks__/user-login";
 
 describe('Request actions', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
@@ -54,7 +55,7 @@ describe('Request actions', () => {
         type: `${FETCH_REQUESTS}_FULFILLED`
       }
     ];
-    apiClientMock.get(
+    mockApi.onGet(
       APPROVAL_API_BASE +
         '/requests/?filter%5Bname%5D%5Bcontains_i%5D=some-name&page_size=10&page=1&sort_by=name%3Adesc',
       mockOnce({
@@ -101,7 +102,7 @@ describe('Request actions', () => {
       })
     ]);
 
-    apiClientMock.get(
+    mockApi.onGet(
       APPROVAL_API_BASE + '/requests/?page_size=50&page=1&sort_by=name%3Adesc',
       mockOnce({
         status: 500
@@ -120,7 +121,7 @@ describe('Request actions', () => {
       }
     });
 
-    apiClientMock.get(
+    mockApi.onGet(
       APPROVAL_API_BASE + '/requests/?page_size=50&page=1',
       mockOnce({
         body: {
@@ -134,7 +135,7 @@ describe('Request actions', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       APPROVAL_API_BASE + '/requests/111/?extra=true',
       mockOnce({
         body: {
@@ -165,7 +166,7 @@ describe('Request actions', () => {
       }
     ];
 
-    apiClientMock.get(
+    mockApi.onGet(
       APPROVAL_API_BASE + '/requests/111/',
       mockOnce({
         body: {
@@ -186,7 +187,7 @@ describe('Request actions', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/111/`,
       mockOnce(200, {
         data: {

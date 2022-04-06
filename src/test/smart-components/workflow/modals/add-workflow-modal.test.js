@@ -65,7 +65,7 @@ describe('<AddWorkflow />', () => {
         });
       });
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );
@@ -138,7 +138,7 @@ describe('<AddWorkflow />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );

@@ -54,16 +54,16 @@ describe('<AddWorkflow />', () => {
   it('should submit the form', async () => {
     expect.assertions(4);
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
       mockOnce({ body: { results: [{ uuid: 'id', name: 'name' }] } })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
       mockOnce({ body: { results: [] } })
     );
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({ body: { results: [] } })
     );
@@ -132,15 +132,15 @@ describe('<AddWorkflow />', () => {
     localStorage.setItem('catalog_standalone', true);
     localStorage.setItem('user', 'testUser');
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
       mockOnce({ body: { results: [] } })
     );
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
       mockOnce({ body: { results: [] } })
     );

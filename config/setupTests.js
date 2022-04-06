@@ -37,6 +37,10 @@ process.env.BASE_PATH = '/api';
 // eslint-disable-next-line no-undef
 global.DEPLOYMENT_MODE = 'insights';
 global.APPLICATION_NAME = 'Pinakes';
+
+global.API_HOST = '';
+global.API_BASE_PATH = '/api/pinakes/v1';
+global.AUTH_BASE_PATH = '/api/pinakes/auth';
 /**
  * Setup JSDOM
  */

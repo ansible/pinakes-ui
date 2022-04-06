@@ -127,7 +127,7 @@ describe('<RemoveWorkflowModal />', () => {
   });
 
   it('should render approval process modal - single - not in table', async () => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/235`,
       mockOnce({ body: { name: 'Fetched WF' } })
     );
@@ -160,7 +160,7 @@ describe('<RemoveWorkflowModal />', () => {
   });
 
   it('should return to table when fetching failed', async () => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/235`,
       mockOnce({ status: 500 })
     );
@@ -185,7 +185,7 @@ describe('<RemoveWorkflowModal />', () => {
   it('should render placeholder when fetching', async () => {
     jest.useFakeTimers();
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/235`,
       delay({ body: { name: 'Fetched WF' } })
     );
@@ -280,7 +280,7 @@ describe('<RemoveWorkflowModal />', () => {
   it('should remove single approval processworkflow and redirect', async (done) => {
     expect.assertions(2);
     const store = mockStore(initialState);
-    apiClientMock.delete(
+    mockApi.onDelete(
       `${APPROVAL_API_BASE}/workflows/123`,
       mockOnce((req, res) => {
         expect(req).toBeTruthy();
@@ -314,14 +314,14 @@ describe('<RemoveWorkflowModal />', () => {
   it('should remove multiple workflows and redirect', async (done) => {
     expect.assertions(3);
     const store = mockStore(initialState);
-    apiClientMock.delete(
+    mockApi.onDelete(
       `${APPROVAL_API_BASE}/workflows/123`,
       mockOnce((req, res) => {
         expect(req).toBeTruthy();
         return res.status(200);
       })
     );
-    apiClientMock.delete(
+    mockApi.onDelete(
       `${APPROVAL_API_BASE}/workflows/456`,
       mockOnce((req, res) => {
         expect(req).toBeTruthy();

@@ -97,7 +97,7 @@ describe('<EditWorkflow />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );
@@ -145,7 +145,7 @@ describe('<EditWorkflow />', () => {
   });
 
   it('should fetch data from api and submit the form', async () => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/123`,
       mockOnce({ body: workflow })
     );
@@ -169,7 +169,7 @@ describe('<EditWorkflow />', () => {
         });
       });
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );
@@ -257,7 +257,7 @@ describe('<EditWorkflow />', () => {
   });
 
   it('should close the form', async () => {
-    apiClientMock.get(
+    mockApi.onGet(
       `${APPROVAL_API_BASE}/workflows/123`,
       mockOnce({ body: workflow })
     );
@@ -268,7 +268,7 @@ describe('<EditWorkflow />', () => {
       })
     );
 
-    apiClientMock.get(
+    mockApi.onGet(
       `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
       mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
     );

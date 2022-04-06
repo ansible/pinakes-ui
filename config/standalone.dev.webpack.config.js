@@ -1,15 +1,10 @@
 const webpackBase = require('./webpack.base.config');
 
 // Used for getting the correct host when running in a container
-const proxyHost =
-  process.env.PINAKES_API_PROXY_HOST || 'catalog.k8s.local';
+const proxyHost = process.env.PINAKES_API_PROXY_HOST || 'catalog.k8s.local';
 const proxyPort = process.env.PINAKES_API_PROXY_PORT || '';
-const apiBasePath =
-  process.env.PINAKES_API_BASE_PATH ||
-  '/api/pinakes/v1';
-const authBasePath =
-  process.env.PINAKES_AUTH_BASE_PATH ||
-  '/api/pinakes/auth';
+const apiBasePath = process.env.PINAKES_API_BASE_PATH || '/api/pinakes/v1';
+const authBasePath = process.env.PINAKES_AUTH_BASE_PATH || '/api/pinakes/auth';
 
 module.exports = webpackBase({
   // The host where the API lives. EX: https://localhost:5001

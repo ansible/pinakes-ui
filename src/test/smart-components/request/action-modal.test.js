@@ -11,6 +11,7 @@ import ActionModal from '../../../smart-components/request/action-modal';
 import { APPROVAL_API_BASE } from '../../../utilities/constants';
 import routes from '../../../constants/routes';
 import { IntlProvider } from 'react-intl';
+import {mockApi} from "../../../helpers/shared/__mocks__/user-login";
 
 const ComponentWrapper = ({ store, children }) => (
   <IntlProvider locale="en">
@@ -33,7 +34,7 @@ describe('<ActionModal />', () => {
   let initialState;
 
   beforeEach(() => {
-    apiClientMock.reset();
+    mockApi.reset();
     initialProps = {
       postMethod: jest.fn(),
       actionType: 'Comment'
@@ -53,7 +54,7 @@ describe('<ActionModal />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    apiClientMock.post(
+    mockApi.onPost(
       `${APPROVAL_API_BASE}/requests/123/actions`,
       mockOnce((req, response) => {
         expect(JSON.parse(req.body())).toEqual({
@@ -93,7 +94,7 @@ describe('<ActionModal />', () => {
     const store = mockStore(initialState);
     let wrapper;
 
-    apiClientMock.post(
+    mockApi.onPost(
       `${APPROVAL_API_BASE}/requests/123/actions`,
       mockOnce((req, response) => {
         expect(JSON.parse(req.body())).toEqual({
