@@ -53,9 +53,9 @@ jobs:
           cp -r ./approval/dist ./dist/approval
           tar -C dist/ -czvf catalog-ui.tar.gz .
 
-    - name: "Release"
-      run: |
-        gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE_FILE: 'catalog-ui.tar.gz'
+      - name: "Release"
+        run: |
+          gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_FILE: 'catalog-ui.tar.gz'
