@@ -5,18 +5,13 @@ on:
   workflow_dispatch: # allow running manually
   push:
     tags:
-    - '[0-9]+.[0-9]+.**'
-    - '!dev'
-    - '!**cloud**'
-
-concurrency:
-  group: stable-release-${{ github.ref }}
-  cancel-in-progress: 'true'
+      - '[0-9]+.[0-9]+.**'
 
 jobs:
-  stable:
+  dev:
     runs-on: ubuntu-latest
     env:
+      BRANCH: "master" # for webpack
       NODE_OPTIONS: "--max-old-space-size=4096 --max_old_space_size=4096"
 
     steps:
@@ -59,9 +54,9 @@ jobs:
           cp -r ./approval/dist ./dist/approval
           tar -C dist/ -czvf catalog-ui.tar.gz .
 
-    - name: "Release"
-      run: |
-        gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE_FILE: 'catalog-ui.tar.gz'
+      - name: "Release"
+        run: |
+          gh release upload "$RELEASE_TAG" "$RELEASE_FILE" --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_FILE: 'catalog-ui.tar.gz'
