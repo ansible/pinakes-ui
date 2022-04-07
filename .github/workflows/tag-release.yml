@@ -6,12 +6,6 @@ on:
   push:
     tags:
     - '[0-9]+.[0-9]+.**'
-    - '!dev'
-    - '!**cloud**'
-
-concurrency:
-  group: stable-release-${{ github.ref }}
-  cancel-in-progress: 'true'
 
 jobs:
   stable:
