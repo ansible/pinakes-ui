@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
-import React, { lazy, Suspense, useContext, useState } from 'react';
+import React, { lazy, Suspense } from 'react';
 import some from 'lodash/some';
 import { AppPlaceholder } from './presentational-components/shared/loader-placeholders';
 import {
@@ -9,11 +9,6 @@ import {
 } from './constants/routes';
 import CatalogRoute from './routing/catalog-route';
 import DialogRoutes from './smart-components/dialog-routes';
-import UserContext from './user-context';
-import {
-  useIsApprovalAdmin,
-  useIsApprovalApprover
-} from './helpers/shared/approval-helpers';
 
 const CommonApiError = lazy(() =>
   import(
@@ -59,31 +54,6 @@ const OrderProcesses = lazy(() =>
     /* webpackChunkName: "order-processes" */ './smart-components/order-process/order-processes'
   )
 );
-const Requests = lazy(() =>
-  import(
-    /* webpackChunkName: "requests" */ './smart-components/request/requests'
-  )
-);
-const MyRequestDetail = lazy(() =>
-  import(
-    /* webpackChunkName: "request-detail" */ './smart-components/request/request-detail/my-request-detail'
-  )
-);
-const AllRequestDetail = lazy(() =>
-  import(
-    /* webpackChunkName: "all-request-detail" */ './smart-components/request/request-detail/all-request-detail'
-  )
-);
-const Workflows = lazy(() =>
-  import(
-    /* webpackChunkName: "workflows" */ './smart-components/workflow/workflows'
-  )
-);
-const AllRequests = lazy(() =>
-  import(
-    /* webpackChunkName: "requests" */ './smart-components/request/allrequests'
-  )
-);
 
 const paths = {
   products: '/products',
@@ -100,15 +70,6 @@ const errorPaths = ['/400', '/401', '/403', '/404'];
 
 export const Routes = () => {
   const { pathname } = useLocation();
-  const { userRoles: userRoles } = useContext(UserContext);
-  const location = useLocation();
-  const isApprovalAdmin = useIsApprovalAdmin(userRoles);
-  const isApprovalApprover = useIsApprovalApprover(userRoles);
-
-  const [defaultRequestPath, setDefaultRequestPath] = useState(
-    paths.requests.index
-  );
-
   return (
     <Suspense fallback={<AppPlaceholder />}>
       <Switch>

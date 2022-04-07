@@ -8,13 +8,12 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import AllRequestDetail from '../../../../smart-components/request/request-detail/my-request-detail';
-import { RequestLoader } from '../../../../presentational-components/shared/loader-placeholders';
-import { APPROVAL_API_BASE } from '../../../../utilities/constants';
+import { RequestLoader } from '../../../../presentational-components/shared/approval-loader-placeholders';
+import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
 import RequestInfoBar from '../../../../smart-components/request/request-detail/request-info-bar';
 import RequestTranscript from '../../../../smart-components/request/request-detail/request-transcript';
-import { mockGraphql } from '../../../__mocks__/user-login';
 import { BreadcrumbItem } from '@patternfly/react-core';
-import routes from '../../../../constants/routes';
+import routes from '../../../../constants/approval-routes';
 import ReducerRegistry, {
   applyReducerHash
 } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
@@ -23,8 +22,9 @@ import requestReducer, {
 } from '../../../../redux/reducers/request-reducer';
 import UserContext from '../../../../user-context';
 import ActionModal from '../../../../smart-components/request/action-modal';
-import { APPROVAL_ADMINISTRATOR_ROLE } from '../../../../helpers/shared/helpers';
+import { APPROVAL_ADMINISTRATOR_ROLE } from '../../../../helpers/shared/approval-helpers';
 import { IntlProvider } from 'react-intl';
+import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
 const ComponentWrapper = ({
   store,
@@ -73,17 +73,14 @@ describe('<AllRequestDetail />', () => {
   });
 
   it('should render request details', async (done) => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/123/content`,
-      mockOnce({
-        body: {
-          params: { test: 'value' },
-          product: 'Test product',
-          order_id: '321',
-          portfolio: 'TestPortfolio'
-        }
-      })
-    );
+    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+      body: {
+        params: { test: 'value' },
+        product: 'Test product',
+        order_id: '321',
+        portfolio: 'TestPortfolio'
+      }
+    });
     const store = mockStore(
       (initialState = {
         requestReducer: {
@@ -120,68 +117,6 @@ describe('<AllRequestDetail />', () => {
         }
       })
     );
-    mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        requests: [
-          {
-            actions: [],
-            id: '124',
-            name: 'Hello World',
-            number_of_children: '0',
-            decision: 'undecided',
-            description: null,
-            group_name: 'Catalog IQE approval',
-            number_of_finished_children: '0',
-            parent_id: '123',
-            state: 'pending',
-            workflow_id: '100'
-          },
-
-          {
-            actions: [],
-            id: '125',
-            name: 'Hello World',
-            number_of_children: '0',
-            decision: 'undecided',
-            description: null,
-            group_name: 'Group1',
-            number_of_finished_children: '0',
-            parent_id: '123',
-            state: 'pending',
-            workflow_id: '200'
-          },
-
-          {
-            actions: [
-              {
-                id: '1',
-                operation: 'start',
-                comments: null,
-                created_at: '2020-01-29T17:08:56.850Z',
-                processed_by: 'system'
-              },
-              {
-                id: '2',
-                operation: 'notify',
-                comments: null,
-                created_at: '2020-01-29T17:09:14.994Z',
-                processed_by: 'system'
-              }
-            ],
-            id: '126',
-            name: 'Hello World',
-            number_of_children: '0',
-            decision: 'undecided',
-            description: null,
-            group_name: 'Group2',
-            number_of_finished_children: '0',
-            parent_id: '123',
-            state: 'notified',
-            workflow_id: '300'
-          }
-        ]
-      }
-    });
 
     let wrapper;
     await act(async () => {
@@ -234,20 +169,12 @@ describe('<AllRequestDetail />', () => {
   });
 
   it('should render request loader', async (done) => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/123/content`,
-      mockOnce({
-        body: {
-          params: { test: 'value' },
-          product: 'Test product',
-          order_id: '321',
-          portfolio: 'TestPortfolio'
-        }
-      })
-    );
-    mockGraphql.onPost(`${APPROVAL_API_BASE}/graphql`).replyOnce(200, {
-      data: {
-        requests: []
+    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+      body: {
+        params: { test: 'value' },
+        product: 'Test product',
+        order_id: '321',
+        portfolio: 'TestPortfolio'
       }
     });
 
@@ -324,13 +251,9 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/123/content`,
-        mockOnce({ body: contentData })
-      );
-      mockGraphql
-        .onPost(`${APPROVAL_API_BASE}/graphql`)
-        .replyOnce(200, graphlQlData);
+      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+        body: contentData
+      });
 
       let wrapper;
       roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
@@ -371,14 +294,9 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/123/content`,
-        mockOnce({ body: contentData })
-      );
-      mockGraphql
-        .onPost(`${APPROVAL_API_BASE}/graphql`)
-        .replyOnce(200, graphlQlData);
-
+      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+        body: contentData
+      });
       let wrapper;
       roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
 
@@ -417,13 +335,9 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/123/content`,
-        mockOnce({ body: contentData })
-      );
-      mockGraphql
-        .onPost(`${APPROVAL_API_BASE}/graphql`)
-        .replyOnce(200, graphlQlData);
+      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+        body: contentData
+      });
 
       let wrapper;
       roles[APPROVAL_ADMINISTRATOR_ROLE] = true;

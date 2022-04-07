@@ -3,7 +3,7 @@ import { DateFormat } from '@redhat-cloud-services/frontend-components/DateForma
 import {
   APPROVAL_ADMIN_ROLE,
   APPROVAL_APPR_ROLE
-} from '../../utilities/constants';
+} from '../../utilities/approval-constants';
 
 export const isStandalone = () => !!localStorage.getItem('catalog_standalone');
 

@@ -11,10 +11,10 @@ import { IntlProvider } from 'react-intl';
 
 import RemoveWorkflowModal from '../../../smart-components/workflow/remove-workflow-modal';
 import { Modal, Text, Title } from '@patternfly/react-core';
-import { APPROVAL_API_BASE } from '../../../utilities/constants';
-import routes from '../../../constants/routes';
-import { delay } from 'xhr-mock';
-import { FormItemLoader } from '../../../presentational-components/shared/loader-placeholders';
+import { APPROVAL_API_BASE } from '../../../utilities/approval-constants';
+import routes from '../../../constants/approval-routes';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
+import { CATALOG_API_BASE } from '../../../utilities/constants';
 
 const ComponentWrapper = ({ store, children, initialEntries = ['/'] }) => (
   <IntlProvider locale="en">
@@ -45,11 +45,22 @@ describe('<RemoveWorkflowModal />', () => {
             {
               id: '123',
               name: 'WfName'
+            },
+            {
+              id: '456',
+              name: 'WfName'
             }
           ]
         }
       }
     };
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
+  });
+
+  afterEach(() => {
+    global.localStorage.setItem('catalog_standalone', false);
+    global.localStorage.removeItem('user');
   });
 
   it('should not render approval process modal', () => {
@@ -122,15 +133,14 @@ describe('<RemoveWorkflowModal />', () => {
         .first()
         .text()
     ).toEqual(
-      'WfName will be removed from the following applications: Automation Services CatalogTopological inventory'
+      'WfName will be removed from the following applications: PinakesTopological inventory'
     );
   });
 
   it('should render approval process modal - single - not in table', async () => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/235`,
-      mockOnce({ body: { name: 'Fetched WF' } })
-    );
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/235`)
+      .replyOnce({ body: { name: 'Fetched WF' } });
 
     let wrapper;
     const store = mockStore(initialState);
@@ -160,10 +170,9 @@ describe('<RemoveWorkflowModal />', () => {
   });
 
   it('should return to table when fetching failed', async () => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/235`,
-      mockOnce({ status: 500 })
-    );
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/235`)
+      .replyOnce({ status: 500 });
 
     let wrapper;
     const store = mockStore(initialState);
@@ -180,57 +189,6 @@ describe('<RemoveWorkflowModal />', () => {
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual(routes.workflows.index);
-  });
-
-  it('should render placeholder when fetching', async () => {
-    jest.useFakeTimers();
-
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/235`,
-      delay({ body: { name: 'Fetched WF' } })
-    );
-
-    let wrapper;
-    const store = mockStore(initialState);
-
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store} initialEntries={['/?workflow=235']}>
-          <RemoveWorkflowModal {...initialProps} />
-        </ComponentWrapper>
-      );
-    });
-    wrapper.update();
-
-    expect(wrapper.find(Modal)).toHaveLength(1);
-    expect(
-      wrapper
-        .find(Title)
-        .first()
-        .text()
-    ).toEqual('Delete approval process?');
-    expect(
-      wrapper
-        .find(Text)
-        .first()
-        .text()
-    ).toEqual('');
-    expect(wrapper.find(FormItemLoader)).toHaveLength(1);
-
-    await act(async () => {
-      jest.runAllTimers();
-    });
-    wrapper.update();
-
-    expect(
-      wrapper
-        .find(Text)
-        .first()
-        .text()
-    ).toEqual('Fetched WF will be removed.');
-    expect(wrapper.find(FormItemLoader)).toHaveLength(0);
-
-    jest.useRealTimers();
   });
 
   it('should render approval process modal - multi', () => {
@@ -277,16 +235,16 @@ describe('<RemoveWorkflowModal />', () => {
     ).toEqual(routes.workflows.index);
   });
 
-  it('should remove single approval processworkflow and redirect', async (done) => {
+  it('should remove single approval process and redirect', async (done) => {
     expect.assertions(2);
     const store = mockStore(initialState);
-    mockApi.onDelete(
-      `${APPROVAL_API_BASE}/workflows/123`,
-      mockOnce((req, res) => {
+    mockApi
+      .onDelete(`${APPROVAL_API_BASE}/workflows/123`)
+      .replyOnce((req, res) => {
+        console.log('Debug - req: ', req);
         expect(req).toBeTruthy();
         return res.status(200);
-      })
-    );
+      });
 
     const wrapper = mount(
       <ComponentWrapper store={store} initialEntries={['/remove']}>
@@ -314,20 +272,20 @@ describe('<RemoveWorkflowModal />', () => {
   it('should remove multiple workflows and redirect', async (done) => {
     expect.assertions(3);
     const store = mockStore(initialState);
-    mockApi.onDelete(
-      `${APPROVAL_API_BASE}/workflows/123`,
-      mockOnce((req, res) => {
+    mockApi
+      .onDelete(`${CATALOG_API_BASE}/workflows/123`)
+      .replyOnce((req, res) => {
+        console.log('Debug - req, res: ', req, res);
         expect(req).toBeTruthy();
         return res.status(200);
-      })
-    );
-    mockApi.onDelete(
-      `${APPROVAL_API_BASE}/workflows/456`,
-      mockOnce((req, res) => {
+      });
+    mockApi
+      .onDelete(`${CATALOG_API_BASE}/workflows/456`)
+      .replyOnce((req, res) => {
+        console.log('Debug - req, res: ', req, res);
         expect(req).toBeTruthy();
         return res.status(200);
-      })
-    );
+      });
 
     const wrapper = mount(
       <ComponentWrapper store={store} initialEntries={['/remove']}>

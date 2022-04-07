@@ -1,6 +1,6 @@
 import * as ActionTypes from '../action-types';
 import * as RequestHelper from '../../helpers/request/request-helper';
-import { defaultSettings } from '../../helpers/shared/pagination';
+import { defaultSettings } from '../../helpers/shared/approval-pagination';
 import actionModalMessages from '../../messages/action-modal.messages';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -58,4 +58,22 @@ export const createRequestAction = (actionName, requestId, actionIn, intl) => ({
       }
     }
   }
+});
+
+export const sortRequests = (sortBy) => ({
+  type: ActionTypes.SORT_REQUESTS,
+  payload: sortBy
+});
+
+export const setFilterValueRequests = (filterValue, type) => ({
+  type: ActionTypes.SET_FILTER_REQUESTS,
+  payload: { filterValue, type }
+});
+
+export const clearFilterValueRequests = () => ({
+  type: ActionTypes.CLEAR_FILTER_REQUESTS
+});
+
+export const resetRequestList = () => ({
+  type: ActionTypes.RESET_REQUEST_LIST
 });

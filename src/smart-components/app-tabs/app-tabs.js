@@ -7,9 +7,21 @@ import apsTabsMessages from '../../messages/app-tabs.messages';
 import { useIntl } from 'react-intl';
 
 const approvalTabItems = [
-  { eventKey: 0, message: apsTabsMessages.myRequests, name: '/requests' },
-  { eventKey: 1, message: apsTabsMessages.allRequests, name: '/allrequests' },
-  { eventKey: 2, message: apsTabsMessages.approvalProccess, name: '/workflows' }
+  {
+    eventKey: 0,
+    message: apsTabsMessages.myRequests,
+    name: '/approval/requests'
+  },
+  {
+    eventKey: 1,
+    message: apsTabsMessages.allRequests,
+    name: '/approval/allrequests'
+  },
+  {
+    eventKey: 2,
+    message: apsTabsMessages.approvalProccess,
+    name: '/approval/workflows'
+  }
 ];
 
 export const AppTabs = ({ tabItems = approvalTabItems }) => {

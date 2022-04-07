@@ -6,13 +6,11 @@ import { Modal } from '@patternfly/react-core';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template';
 
 import { addWorkflow } from '../../redux/actions/workflow-actions';
-import { addWorkflow as addWorkflowS } from '../../redux/actions/workflow-actions';
-import routes from '../../constants/routes';
+import routes from '../../constants/approval-routes';
 import FormRenderer from '../common/form-renderer';
 import addWorkflowSchema from '../../forms/add-workflow.schema';
 import formMessages from '../../messages/form.messages';
-import { isStandalone } from '../../helpers/shared/helpers';
-import { defaultSettings } from '../../helpers/shared/pagination';
+import { defaultSettings } from '../../helpers/shared/approval-pagination';
 
 // eslint-disable-next-line react/prop-types
 const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
@@ -22,33 +20,19 @@ const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
 
   const onSave = ({ group_refs = [], ...values }) => {
     return dispatch(
-      isStandalone()
-        ? addWorkflowS(
-            {
-              ...values,
-              group_refs:
-                group_refs.length > 0
-                  ? group_refs.map((group) => ({
-                      name: group.label,
-                      uuid: group.value
-                    }))
-                  : []
-            },
-            intl
-          )
-        : addWorkflow(
-            {
-              ...values,
-              group_refs:
-                group_refs.length > 0
-                  ? group_refs.map((group) => ({
-                      name: group.label,
-                      uuid: group.value
-                    }))
-                  : []
-            },
-            intl
-          )
+      addWorkflow(
+        {
+          ...values,
+          group_refs:
+            group_refs.length > 0
+              ? group_refs.map((group) => ({
+                  name: group.label,
+                  uuid: group.value
+                }))
+              : []
+        },
+        intl
+      )
     )
       .then(() => push(routes.workflows.index))
       .then(() => postMethod({ ...pagination }));

@@ -27,7 +27,7 @@ import {
 } from '../../redux/actions/request-actions';
 import { createRows } from './request-table-helpers';
 
-import { TableToolbarView } from '../../presentational-components/shared/table-toolbar-view';
+import { TableToolbarView } from '../../presentational-components/shared/approval-table-toolbar-view';
 import {
   APPROVAL_APPROVER_PERSONA,
   useIsApprovalAdmin,
@@ -36,10 +36,10 @@ import {
 import {
   TopToolbar,
   TopToolbarTitle
-} from '../../presentational-components/shared/top-toolbar';
+} from '../../presentational-components/shared/approval-top-toolbar';
 import { AppTabs } from '../app-tabs/app-tabs';
 import asyncDebounce from '../../utilities/async-form-validator';
-import TableEmptyState from '../../presentational-components/shared/table-empty-state';
+import TableEmptyState from '../../presentational-components/shared/approval-table-empty-state';
 import UserContext from '../../user-context';
 import { prepareChips } from './chips-helpers';
 import routes from '../../constants/approval-routes';
@@ -47,9 +47,9 @@ import tableToolbarMessages from '../../messages/table-toolbar.messages';
 import requestsMessages from '../../messages/requests.messages';
 import commonMessages from '../../messages/common.message';
 import { Route } from 'react-router-dom';
-import routesLinks from '../../constants/routes';
+import routesLinks from '../../constants/approval-routes';
 import ActionModal from './action-modal';
-import { defaultSettings } from '../../helpers/shared/pagination';
+import { defaultSettings } from '../../helpers/shared/approval-pagination';
 
 const columns = (intl) => [
   {
@@ -271,7 +271,7 @@ const RequestsList = ({ persona, indexpath, actionResolver }) => {
 
   return (
     <Fragment>
-      <TopToolbar className="top-toolbar">
+      <TopToolbar>
         <TopToolbarTitle
           title={intl.formatMessage(commonMessages.approvalTitle)}
         />

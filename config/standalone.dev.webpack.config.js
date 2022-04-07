@@ -1,7 +1,7 @@
 const webpackBase = require('./webpack.base.config');
 
 // Used for getting the correct host when running in a container
-const proxyHost = process.env.PINAKES_API_PROXY_HOST || 'catalog.k8s.local';
+const proxyHost = process.env.PINAKES_API_PROXY_HOST || 'pinakes.k8s.local';
 const proxyPort = process.env.PINAKES_API_PROXY_PORT || '';
 const apiBasePath = process.env.PINAKES_API_BASE_PATH || '/api/pinakes/v1';
 const authBasePath = process.env.PINAKES_AUTH_BASE_PATH || '/api/pinakes/auth';
@@ -36,12 +36,12 @@ module.exports = webpackBase({
   // used to get around CORS requirements when running in dev mode
   WEBPACK_PROXY: {
     '/api/**': {
-      target: 'http://catalog.k8s.local',
+      target: 'http://pinakes.k8s.local',
       secure: false,
       changeOrigin: true
     },
     '/login/': {
-      target: 'http://catalog.k8s.local',
+      target: 'http://pinakes.k8s.local',
       secure: false,
       changeOrigin: true
     }

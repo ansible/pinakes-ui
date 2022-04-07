@@ -76,7 +76,7 @@ const App = (props) => {
         url: `${baseUrl}/ui/catalog${Paths.orders}`
       }),
       menuItem('Approval', {
-        url: `${baseUrl}/ui/catalog${Paths.approval}/index.html`,
+        url: `${baseUrl}/ui/catalog${Paths.approval}`,
         condition: ({ user }) => {
           return user?.roles
             ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
@@ -307,6 +307,7 @@ const App = (props) => {
           value={{
             permissions: [{ permission: 'catalog:portfolios:create' }],
             userIdentity: { identity: { user: { is_org_admin: true } } },
+            userRoles: user?.roles,
             standalone: true
           }}
         >

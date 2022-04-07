@@ -29,7 +29,7 @@ import { Section } from '@redhat-cloud-services/frontend-components/Section';
 import clsx from 'clsx';
 
 import './loader.scss';
-import { TopToolbar, TopToolbarTitle } from './top-toolbar';
+import { TopToolbar, TopToolbarTitle } from './approval-top-toolbar';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
 

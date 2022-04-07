@@ -6,7 +6,7 @@ import {
 } from '@redhat-cloud-services/frontend-components/PageHeader';
 import { DataList } from '@patternfly/react-core';
 import { Request } from './request';
-import { DataListLoader } from '../../../presentational-components/shared/loader-placeholders';
+import { DataListLoader } from '../../../presentational-components/shared/approval-loader-placeholders';
 import { useIntl } from 'react-intl';
 import requestsMessages from '../../../messages/requests.messages';
 

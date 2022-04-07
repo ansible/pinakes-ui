@@ -4,6 +4,7 @@ import {
   APPROVAL_APPROVER_PERSONA,
   REQUESTER_PERSONA
 } from '../../helpers/shared/approval-helpers';
+import { mockApi } from '../../helpers/shared/__mocks__/user-login';
 
 describe('request-helper', () => {
   describe('#fetchRequestWithSubrequests', () => {
@@ -24,16 +25,15 @@ describe('request-helper', () => {
     });
 
     it('no data', async () => {
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
-        mockOnce({
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
+        .replyOnce({
           body: {
             data: [
               { id: 'id1', description: 'some desc', metadata: { a: 'b' } }
             ]
           }
-        })
-      );
+        });
 
       const response = await fetchRequestWithSubrequests(id, persona);
 
@@ -53,9 +53,9 @@ describe('request-helper', () => {
     it('is approver - data', async () => {
       persona = APPROVAL_APPROVER_PERSONA;
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
-        mockOnce({
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
+        .replyOnce({
           body: {
             data: [
               {
@@ -67,19 +67,17 @@ describe('request-helper', () => {
               }
             ]
           }
-        })
-      );
+        });
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/some-id/requests`,
-        mockOnce({
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/some-id/requests`)
+        .replyOnce({
           body: {
             data: [
               { id: 'id1', description: 'some desc', metadata: { a: 'b' } }
             ]
           }
-        })
-      );
+        });
 
       const response = await fetchRequestWithSubrequests(id, persona);
 
@@ -99,9 +97,9 @@ describe('request-helper', () => {
     it('is approver - no data', async () => {
       persona = APPROVAL_APPROVER_PERSONA;
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
-        mockOnce({
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
+        .replyOnce({
           body: {
             data: {
               requests: [
@@ -112,19 +110,15 @@ describe('request-helper', () => {
               ]
             }
           }
-        })
-      );
+        });
 
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/some-id`,
-        mockOnce({
-          body: {
-            id: 'id1',
-            description: 'some desc',
-            metadata: { something: 'some' }
-          }
-        })
-      );
+      mockApi.onGet(`${APPROVAL_API_BASE}/requests/some-id`).replyOnce({
+        body: {
+          id: 'id1',
+          description: 'some desc',
+          metadata: { something: 'some' }
+        }
+      });
 
       const response = await fetchRequestWithSubrequests(id, persona);
 
@@ -141,9 +135,9 @@ describe('request-helper', () => {
     });
 
     it('no approver persona', async () => {
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/some-id/?extra=true`,
-        mockOnce({
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
+        .replyOnce({
           body: {
             data: {
               requests: [
@@ -161,8 +155,7 @@ describe('request-helper', () => {
               ]
             }
           }
-        })
-      );
+        });
 
       const response = await fetchRequestWithSubrequests(id, persona);
 

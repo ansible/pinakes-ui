@@ -18,6 +18,7 @@ import * as wfHelper from '../../../../helpers/workflow/workflow-helper';
 import { Button } from '@patternfly/react-core';
 import routes from '../../../../constants/routes';
 import { Chip } from '@patternfly/react-core';
+import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
 describe('<EditWorkflow />', () => {
   let initialProps;
@@ -97,10 +98,11 @@ describe('<EditWorkflow />', () => {
       })
     );
 
-    mockApi.onGet(
-      `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
-    );
+    mockApi
+      .onGet(
+        `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`
+      )
+      .replyOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } });
 
     jest.useFakeTimers();
 
@@ -145,10 +147,9 @@ describe('<EditWorkflow />', () => {
   });
 
   it('should fetch data from api and submit the form', async () => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/123`,
-      mockOnce({ body: workflow })
-    );
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/123`)
+      .replyOnce({ body: workflow });
 
     expect.assertions(8);
 
@@ -169,10 +170,11 @@ describe('<EditWorkflow />', () => {
         });
       });
 
-    mockApi.onGet(
-      `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
-    );
+    mockApi
+      .onGet(
+        `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`
+      )
+      .replyOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } });
 
     jest.useFakeTimers();
 
@@ -257,10 +259,9 @@ describe('<EditWorkflow />', () => {
   });
 
   it('should close the form', async () => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/123`,
-      mockOnce({ body: workflow })
-    );
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/123`)
+      .replyOnce({ body: workflow });
 
     wfHelper.fetchWorkflowByName = jest.fn().mockImplementation(() =>
       Promise.resolve({
@@ -268,10 +269,11 @@ describe('<EditWorkflow />', () => {
       })
     );
 
-    mockApi.onGet(
-      `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
-    );
+    mockApi
+      .onGet(
+        `${RBAC_API_BASE}/groups/?role_names=%22%2CApproval%20Administrator%2CApproval%20Approver%2C%22`
+      )
+      .replyOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } });
 
     jest.useFakeTimers();
 

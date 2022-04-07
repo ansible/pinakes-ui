@@ -17,7 +17,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 
 import { Button } from '@patternfly/react-core';
 import { AngleDownIcon, AngleUpIcon } from '@patternfly/react-icons';
-import * as asyncDebounce from '../../../utilities/async-debounce';
+import * as asyncDebounce from '../../../utilities/async-form-validator';
 import * as actions from '../../../redux/actions/workflow-actions';
 import * as helpers from '../../../helpers/workflow/workflow-helper';
 import WorkflowTableContext from '../../../smart-components/workflow/workflow-table-context';

@@ -4,10 +4,10 @@ exports[`<Request /> should render correctly 1`] = `
 <Request
   indexpath={
     Object {
-      "approve": "/request/approve",
-      "comment": "/request/comment",
-      "deny": "/request/deny",
-      "index": "/request",
+      "approve": "/approval/request/approve",
+      "comment": "/approval/request/comment",
+      "deny": "/approval/request/deny",
+      "index": "/approval/request",
     }
   }
   isExpanded={false}
@@ -166,11 +166,11 @@ exports[`<Request /> should render correctly 1`] = `
                 </DataListCell>,
                 <DataListCell>
                   <RequestActions
-                    approveLink="/request/approve"
+                    approveLink="/approval/request/approve"
                     canApproveDeny={true}
                     canComment={true}
-                    commentLink="/request/comment"
-                    denyLink="/request/deny"
+                    commentLink="/approval/request/comment"
+                    denyLink="/approval/request/deny"
                     request={
                       Object {
                         "actions": Array [
@@ -246,11 +246,11 @@ exports[`<Request /> should render correctly 1`] = `
                   className="pf-c-data-list__cell"
                 >
                   <RequestActions
-                    approveLink="/request/approve"
+                    approveLink="/approval/request/approve"
                     canApproveDeny={true}
                     canComment={true}
-                    commentLink="/request/comment"
-                    denyLink="/request/deny"
+                    commentLink="/approval/request/comment"
+                    denyLink="/approval/request/deny"
                     request={
                       Object {
                         "actions": Array [
@@ -290,18 +290,18 @@ exports[`<Request /> should render correctly 1`] = `
                         id="comment-111"
                         to={
                           Object {
-                            "pathname": "/request/comment",
+                            "pathname": "/approval/request/comment",
                             "search": "request=111",
                           }
                         }
                       >
                         <LinkAnchor
-                          href="/request/comment?request=111"
+                          href="/approval/request/comment?request=111"
                           id="comment-111"
                           navigate={[Function]}
                         >
                           <a
-                            href="/request/comment?request=111"
+                            href="/approval/request/comment?request=111"
                             id="comment-111"
                             onClick={[Function]}
                           >

@@ -45,7 +45,32 @@ const OrderDetail = lazy(() =>
     /* webpackChunkName: "order-detail" */ '../../smart-components/order/order-detail/order-detail'
   )
 );
+const Workflows = lazy(() =>
+  import(
+    /* webpackChunkName: "workflows" */ '../../smart-components/workflow/workflows'
+  )
+);
 
+const Requests = lazy(() =>
+  import(
+    /* webpackChunkName: "requests" */ '../../smart-components/request/requests'
+  )
+);
+const MyRequestDetail = lazy(() =>
+  import(
+    /* webpackChunkName: "request-detail" */ '../../smart-components/request/request-detail/my-request-detail'
+  )
+);
+const AllRequestDetail = lazy(() =>
+  import(
+    /* webpackChunkName: "all-request-detail" */ '../../smart-components/request/request-detail/all-request-detail'
+  )
+);
+const AllRequests = lazy(() =>
+  import(
+    /* webpackChunkName: "allrequests" */ '../../smart-components/request/allrequests'
+  )
+);
 export const Routes = () => {
   const { pathname } = useLocation();
   return (
@@ -66,6 +91,11 @@ export const Routes = () => {
         />
         <CatalogRoute path={Paths.order} component={OrderDetail} />
         <CatalogRoute path={Paths.orders} component={Orders} />
+        <CatalogRoute path={Paths.workflows} component={Workflows} />
+        <CatalogRoute path={Paths.requests} component={Requests} />
+        <CatalogRoute path={Paths.allrequests} component={AllRequests} />
+        <CatalogRoute path={Paths.request} component={MyRequestDetail} />
+        <CatalogRoute path={Paths.allrequest} component={AllRequestDetail} />
         <Route path={errorPaths} component={CommonApiError} />
         <Route
           render={() =>

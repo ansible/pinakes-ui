@@ -23,15 +23,15 @@ import {
 import AddWorkflow from './add-workflow-modal';
 import RemoveWorkflow from './remove-workflow-modal';
 import { createRows } from './workflow-table-helpers';
-import { TableToolbarView } from '../../presentational-components/shared/table-toolbar-view';
+import { TableToolbarView } from '../../presentational-components/shared/approval-table-toolbar-view';
 import {
   TopToolbar,
   TopToolbarTitle
-} from '../../presentational-components/shared/top-toolbar';
+} from '../../presentational-components/shared/approval-top-toolbar';
 import { AppTabs } from '../app-tabs/app-tabs';
-import { defaultSettings } from '../../helpers/shared/pagination';
+import { defaultSettings } from '../../helpers/shared/approval-pagination';
 import asyncDebounce from '../../utilities/async-form-validator';
-import TableEmptyState from '../../presentational-components/shared/table-empty-state';
+import TableEmptyState from '../../presentational-components/shared/approval-table-empty-state';
 import routesLinks from '../../constants/approval-routes';
 import { useIntl } from 'react-intl';
 import commonMessages from '../../messages/common.message';
@@ -168,7 +168,6 @@ const Workflows = () => {
 
   const data = workflows?.data;
   const meta = workflows?.meta || { count: workflows.count, limit, offset };
-
   const [
     {
       filterValue,
@@ -316,7 +315,7 @@ const Workflows = () => {
 
   return (
     <Fragment>
-      <TopToolbar className="top-toolbar">
+      <TopToolbar>
         <TopToolbarTitle
           title={intl.formatMessage(commonMessages.approvalTitle)}
         />

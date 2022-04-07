@@ -21,7 +21,7 @@ import {
 import useQuery from '../../utilities/use-query';
 import routes from '../../constants/approval-routes';
 import useWorkflow from '../../utilities/use-workflows';
-import { FormItemLoader } from '../../presentational-components/shared/loader-placeholders';
+import { FormItemLoader } from '../../presentational-components/shared/approval-loader-placeholders';
 import worfklowMessages from '../../messages/workflows.messages';
 import commonMessages from '../../messages/common.message';
 import isEmpty from 'lodash/isEmpty';

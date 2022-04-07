@@ -5,7 +5,7 @@ import {
   SET_FILTER_WORKFLOWS,
   CLEAR_FILTER_WORKFLOWS,
   UPDATE_WORKFLOW
-} from '../../redux/action-types';
+} from '../action-types';
 
 // Initial State
 export const workflowsInitialState = {

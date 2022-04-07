@@ -1,6 +1,6 @@
 import { getAxiosInstance } from '../shared/user-login';
-import { APPROVAL_API_BASE } from '../../utilities/constants';
-import { defaultSettings } from '../shared/pagination';
+import { APPROVAL_API_BASE } from '../../utilities/approval-constants';
+import { defaultSettings } from '../shared/approval-pagination';
 
 const sortPropertiesMapper = (property) =>
   ({

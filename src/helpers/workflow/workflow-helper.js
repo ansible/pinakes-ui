@@ -1,6 +1,6 @@
 import { getAxiosInstance } from '../shared/user-login';
 import { defaultSettings } from '../shared/pagination';
-import { APPROVAL_API_BASE } from '../../utilities/constants';
+import { APPROVAL_API_BASE } from '../../utilities/approval-constants';
 
 export function fetchWorkflows(filter = '', pagination = defaultSettings) {
   const paginationQuery = `&page_size=${Math.max(
@@ -16,6 +16,9 @@ export function fetchWorkflows(filter = '', pagination = defaultSettings) {
 
 export const fetchWorkflow = (id) =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/${id}/`);
+
+export let fetchWorkflowByName = (name) =>
+  getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/?name=${name}`);
 
 export function updateWorkflow(data) {
   return getAxiosInstance().patch(

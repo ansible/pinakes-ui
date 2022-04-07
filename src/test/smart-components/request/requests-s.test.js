@@ -16,11 +16,12 @@ import ReducerRegistry, {
 import {
   APPROVAL_API_BASE,
   APPROVAL_APPR_ROLE
-} from '../../../utilities/constants';
+} from '../../../utilities/approval-constants';
 import TableEmptyState from '../../../presentational-components/shared/table-empty-state';
 import UserContext from '../../../user-context';
-import routes from '../../../constants/routes';
+import routes from '../../../constants/approval-routes';
 import ActionModal from '../../../smart-components/request/action-modal';
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 const roles = [APPROVAL_APPR_ROLE];
 
@@ -71,16 +72,17 @@ describe('<Requests />', () => {
   it('should sort requests when click on sort', async () => {
     expect.assertions(3);
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce({
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         }
-      })
-    );
+      });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
@@ -98,9 +100,11 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=name%3Aasc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=name%3Aasc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
           page: '1',
@@ -111,8 +115,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -122,9 +125,11 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=name%3Adesc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=name%3Adesc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
           page: '1',
@@ -135,8 +140,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -146,9 +150,11 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=requester_name%3Aasc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=requester_name%3Aasc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
           page: '1',
@@ -159,8 +165,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -175,38 +180,41 @@ describe('<Requests />', () => {
     jest.useFakeTimers();
     expect.assertions(4);
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce({
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         }
-      })
-    );
-    mockApi.onGet(
-      // eslint-disable-next-line max-len
-      `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester&filter%5Bdecision%5D%5Beq%5D%5B%5D=canceled&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce({
+      });
+    mockApi
+      .onGet(
+        // eslint-disable-next-line max-len
+        `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester&filter%5Bdecision%5D%5Beq%5D%5B%5D=canceled&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         }
-      })
-    );
-    mockApi.onGet(
-      // eslint-disable-next-line max-len
-      `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce({
+      });
+    mockApi
+      .onGet(
+        // eslint-disable-next-line max-len
+        `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         }
-      })
-    );
+      });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
@@ -224,10 +232,12 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&page_size=50&page=1` +
-        `&sort_by=created_at%3Adesc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&page_size=50&page=1` +
+          `&sort_by=created_at%3Adesc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           'filter[name][contains_i]': 'some-name',
           page_size: '50',
@@ -239,8 +249,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -264,11 +273,13 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      // eslint-disable-next-line max-len
-      `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
-        `&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        // eslint-disable-next-line max-len
+        `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
+          `&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           'filter[name][contains_i]': 'some-name',
           'filter[requester_name][contains_i]': 'some-requester',
@@ -281,8 +292,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -306,12 +316,14 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
-        '&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester' +
-        '&filter%5Bdecision%5D%5Beq%5D%5B%5D=canceled&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved' +
-        '&pae_size=50&page=1&sort_by=created_at%3Adesc',
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
+          '&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester' +
+          '&filter%5Bdecision%5D%5Beq%5D%5B%5D=canceled&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved' +
+          '&pae_size=50&page=1&sort_by=created_at%3Adesc'
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           'filter[name][contains_i]': 'some-name',
           'filter[requester_name][contains_i]': 'some-requester',
@@ -325,8 +337,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     const checkboxDropdownProps = wrapper
       .find('Select')
@@ -352,22 +363,23 @@ describe('<Requests />', () => {
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
         `&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
         '&filter%5Bdecision%5D%5Beq%5D%5B%5D=approved' +
-        '&page_size=50&page=10&sort_by=created_at%3Adesc',
-      mockOnce((req, res) => {
-        expect(req.url().query).toEqual({
-          'filter[name][contains_i]': 'some-name',
-          'filter[requester_name][contains_i]': 'some-requester',
-          'filter[decision][eq][]': 'approved',
-          limit: '50',
-          offset: '0',
-          persona: 'approver',
-          sort_by: 'created_at:desc'
-        });
-        return res.status(200).body({
-          meta: { count: 1, limit: 50, offset: 0 },
-          data: [request]
-        });
-      })
+        '&page_size=50&page=10&sort_by=created_at%3Adesc'.replyOnce(
+          (req, res) => {
+            expect(req.url().query).toEqual({
+              'filter[name][contains_i]': 'some-name',
+              'filter[requester_name][contains_i]': 'some-requester',
+              'filter[decision][eq][]': 'approved',
+              limit: '50',
+              offset: '0',
+              persona: 'approver',
+              sort_by: 'created_at:desc'
+            });
+            return res.status(200).body({
+              meta: { count: 1, limit: 50, offset: 0 },
+              data: [request]
+            });
+          }
+        )
     );
 
     await act(async () => {
@@ -383,21 +395,22 @@ describe('<Requests />', () => {
     mockApi.onGet(
       `${APPROVAL_API_BASE}/requests/?persona=approver&filter%5Bname%5D%5Bcontains_i%5D=some-name` +
         `&filter%5Brequester_name%5D%5Bcontains_i%5D=some-requester` +
-        '&page_size=50&page=1&sort_by=created_at%3Adesc',
-      mockOnce((req, res) => {
-        expect(req.url().query).toEqual({
-          'filter[name][contains_i]': 'some-name',
-          'filter[requester_name][contains_i]': 'some-requester',
-          page_size: '50',
-          page: '1',
-          persona: 'approver',
-          sort_by: 'created_at:desc'
-        });
-        return res.status(200).body({
-          meta: { count: 1, limit: 50, offset: 0 },
-          data: [request]
-        });
-      })
+        '&page_size=50&page=1&sort_by=created_at%3Adesc'.replyOnce(
+          (req, res) => {
+            expect(req.url().query).toEqual({
+              'filter[name][contains_i]': 'some-name',
+              'filter[requester_name][contains_i]': 'some-requester',
+              page_size: '50',
+              page: '1',
+              persona: 'approver',
+              sort_by: 'created_at:desc'
+            });
+            return res.status(200).body({
+              meta: { count: 1, limit: 50, offset: 0 },
+              data: [request]
+            });
+          }
+        )
     );
 
     // clear one chip
@@ -414,9 +427,11 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
           page: '1',
@@ -427,8 +442,7 @@ describe('<Requests />', () => {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     // clear chips
     await act(async () => {
@@ -452,27 +466,29 @@ describe('<Requests />', () => {
     jest.useFakeTimers();
     expect.assertions(1);
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
-      mockOnce({
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         }
-      })
-    );
+      });
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=2&sort_by=created_at%3Adesc`,
-      mockOnce({
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=2&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 1, limit: 50, offset: 0 },
           data: [request]
         }
-      })
-    );
+      });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
@@ -490,9 +506,11 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=1&sort_by=created_at%3Adesc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '10',
           page: '1',
@@ -502,8 +520,7 @@ describe('<Requests />', () => {
           meta: { count: 30, limit: 10, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -524,9 +541,11 @@ describe('<Requests />', () => {
     });
     wrapper.update();
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=1&sort_by=created_at%3Adesc`,
-      mockOnce((req, res) => {
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=10&page=1&sort_by=created_at%3Adesc`
+      )
+      .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           limit: '10',
           offset: '0',
@@ -536,8 +555,7 @@ describe('<Requests />', () => {
           meta: { count: 30, limit: 10, offset: 0 },
           data: [request]
         });
-      })
-    );
+      });
 
     await act(async () => {
       wrapper
@@ -557,16 +575,17 @@ describe('<Requests />', () => {
   });
 
   it('should render table empty state', async () => {
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/requests/?limit=50&offset=0&sort_by=created_at%3Adesc`,
-      mockOnce({
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/requests/?limit=50&offset=0&sort_by=created_at%3Adesc`
+      )
+      .replyOnce({
         status: 200,
         body: {
           meta: { count: 0, limit: 50, offset: 0 },
           data: []
         }
-      })
-    );
+      });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
@@ -615,16 +634,17 @@ describe('<Requests />', () => {
     };
 
     beforeEach(() => {
-      mockApi.onGet(
-        `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`,
-        mockOnce({
+      mockApi
+        .onGet(
+          `${APPROVAL_API_BASE}/requests/?persona=approver&page_size=50&page=1&sort_by=created_at%3Adesc`
+        )
+        .replyOnce({
           status: 200,
           body: {
             meta: { count: 1, limit: 50, offset: 0 },
             data: [request]
           }
-        })
-      );
+        });
     });
 
     it('should open comment modal', async () => {

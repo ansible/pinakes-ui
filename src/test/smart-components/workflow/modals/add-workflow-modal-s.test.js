@@ -4,19 +4,16 @@ import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { act } from 'react-dom/test-utils';
-
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import AddWorkflow from '../../../../smart-components/workflow/add-workflow-modal';
 import { IntlProvider } from 'react-intl';
-import { APPROVAL_API_BASE } from '../../../../utilities/constants';
+import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
 import * as wfHelper from '../../../../helpers/workflow/workflow-helper';
 import { Button } from '@patternfly/react-core';
-import routes from '../../../../constants/routes';
-
-localStorage.setItem('catalog_standalone', true);
-localStorage.setItem('user', 'testUser');
+import routes from '../../../../constants/approval-routes';
+import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
 describe('<AddWorkflow />', () => {
   let initialProps;
@@ -51,22 +48,28 @@ describe('<AddWorkflow />', () => {
     localStorage.setItem('user', 'testUser');
   });
 
+  afterEach(() => {
+    global.localStorage.setItem('catalog_standalone', false);
+    global.localStorage.removeItem('user');
+  });
+
   it('should submit the form', async () => {
     expect.assertions(4);
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
-      mockOnce({ body: { results: [{ uuid: 'id', name: 'name' }] } })
-    );
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .replyOnce({ body: { results: [{ uuid: 'id', name: 'name' }] } });
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
-      mockOnce({ body: { results: [] } })
-    );
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { results: [] } })
-    );
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`
+      )
+      .replyOnce({ body: { results: [] } });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`
+      )
+      .replyOnce({ body: { results: [] } });
 
     jest.useFakeTimers();
 
@@ -132,18 +135,21 @@ describe('<AddWorkflow />', () => {
     localStorage.setItem('catalog_standalone', true);
     localStorage.setItem('user', 'testUser');
 
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`,
-      mockOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } })
-    );
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`,
-      mockOnce({ body: { results: [] } })
-    );
-    mockApi.onGet(
-      `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`,
-      mockOnce({ body: { results: [] } })
-    );
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
+      .replyOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`
+      )
+      .replyOnce({ body: { results: [] } });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`
+      )
+      .replyOnce({ body: { results: [] } });
 
     jest.useFakeTimers();
 

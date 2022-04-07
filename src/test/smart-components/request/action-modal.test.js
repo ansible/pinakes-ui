@@ -8,10 +8,10 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import ActionModal from '../../../smart-components/request/action-modal';
-import { APPROVAL_API_BASE } from '../../../utilities/constants';
-import routes from '../../../constants/routes';
+import { APPROVAL_API_BASE } from '../../../utilities/approval-constants';
+import routes from '../../../constants/approval-routes';
 import { IntlProvider } from 'react-intl';
-import {mockApi} from "../../../helpers/shared/__mocks__/user-login";
+import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 const ComponentWrapper = ({ store, children }) => (
   <IntlProvider locale="en">
@@ -34,9 +34,11 @@ describe('<ActionModal />', () => {
   let initialState;
 
   beforeEach(() => {
-    mockApi.reset();
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
     initialProps = {
       postMethod: jest.fn(),
+      title: 'Action',
       actionType: 'Comment'
     };
     mockStore = configureStore(middlewares);
@@ -46,69 +48,29 @@ describe('<ActionModal />', () => {
   });
 
   afterEach(() => {
-    initialProps.postMethod.mockReset();
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
-  it('should render action modal and post submit data', async () => {
-    expect.assertions(3);
+  it('should render action modal and post submit data ', async () => {
+    expect.assertions(1);
     const store = mockStore(initialState);
     let wrapper;
 
-    mockApi.onPost(
-      `${APPROVAL_API_BASE}/requests/123/actions`,
-      mockOnce((req, response) => {
-        expect(JSON.parse(req.body())).toEqual({
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/requests/123/actions/`)
+      .replyOnce((req, response) => {
+        expect(JSON.parse(req.data)).toEqual({
           operation: 'memo',
           comments: 'foo'
         });
         return response.status(200);
-      })
-    );
+      });
 
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
           <ActionModal {...initialProps} />
-        </ComponentWrapper>
-      );
-    });
-    wrapper.update();
-
-    const textarea = wrapper.find('textarea#comments');
-    textarea.getDOMNode().value = 'foo';
-    textarea.simulate('change');
-    wrapper.update();
-
-    expect(initialProps.postMethod).not.toHaveBeenCalled();
-
-    await act(async () => {
-      wrapper.find('form').simulate('submit');
-    });
-    wrapper.update();
-
-    expect(initialProps.postMethod).toHaveBeenCalled();
-  });
-
-  it('should render action modal and post submit data without post method', async () => {
-    expect.assertions(1);
-    const store = mockStore(initialState);
-    let wrapper;
-
-    mockApi.onPost(
-      `${APPROVAL_API_BASE}/requests/123/actions`,
-      mockOnce((req, response) => {
-        expect(JSON.parse(req.body())).toEqual({
-          operation: 'memo',
-          comments: 'foo'
-        });
-        return response.status(200);
-      })
-    );
-
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store}>
-          <ActionModal {...initialProps} postMethod={undefined} />
         </ComponentWrapper>
       );
     });
@@ -145,6 +107,6 @@ describe('<ActionModal />', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/requests');
+    ).toEqual('/approval/requests');
   });
 });

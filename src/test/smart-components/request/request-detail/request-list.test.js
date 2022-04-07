@@ -2,7 +2,7 @@ import React from 'react';
 import { mount as enzymeMount } from 'enzyme';
 
 import RequestList from '../../../../smart-components/request/request-detail/request-list';
-import { DataListLoader } from '../../../../presentational-components/shared/loader-placeholders';
+import { DataListLoader } from '../../../../presentational-components/shared/approval-loader-placeholders';
 import { IntlProvider } from 'react-intl';
 import { Request } from '../../../../smart-components/request/request-detail/request';
 import { MemoryRouter } from 'react-router-dom';

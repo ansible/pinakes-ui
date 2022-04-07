@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   isStandalone,
   useIsApprovalAdmin
-} from '../../../helpers/shared/helpers';
+} from '../../../helpers/shared/approval-helpers';
 import { ActionTranscript } from './action-transcript';
 
 import {
@@ -19,10 +19,10 @@ import {
   TextContent
 } from '@patternfly/react-core';
 import UserContext from '../../../user-context';
-import routes from '../../../constants/routes';
+import routes from '../../../constants/approval-routes';
 import { useIntl } from 'react-intl';
 import requestsMessages from '../../../messages/requests.messages';
-import { untranslatedMessage } from '../../../utilities/constants';
+import { untranslatedMessage } from '../../../utilities/approval-constants';
 import RequestActions from '../request-actions';
 
 export const Request = ({ item, isExpanded, toggleExpand, indexpath }) => {

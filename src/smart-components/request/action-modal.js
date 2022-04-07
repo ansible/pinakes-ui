@@ -15,12 +15,11 @@ import {
 import { createRequestAction } from '../../redux/actions/request-actions';
 import { createRequestCommentSchema } from '../../forms/request-comment-form.schema';
 import useQuery from '../../utilities/use-query';
-import routes from '../../constants/routes';
+import routes from '../../constants/approval-routes';
 import { useIntl } from 'react-intl';
 import actionModalMessages from '../../messages/action-modal.messages';
 import requestsMessages from '../../messages/requests.messages';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
-import { isStandalone } from '../../helpers/shared/helpers';
 
 const actionTypeToDescription = (type) => {
   switch (type) {

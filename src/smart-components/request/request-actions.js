@@ -5,7 +5,7 @@ import { Button } from '@patternfly/react-core';
 import { Link } from 'react-router-dom';
 
 import requestsMessages from '../../messages/requests.messages';
-import { isRequestStateActive } from '../../helpers/shared/helpers';
+import { isRequestStateActive } from '../../helpers/shared/approval-helpers';
 
 const RequestActions = ({
   denyLink,

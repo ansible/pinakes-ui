@@ -24,6 +24,7 @@ import { stringify } from 'qs';
 import { loginUser } from './active-user';
 // @ts-ignore
 import Cookies from 'js-cookie';
+import { isStandalone } from './helpers';
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -55,8 +56,11 @@ const createAxiosInstance = () => {
 
 const axiosInstance: AxiosInstance = createAxiosInstance();
 
-const resolveInterceptor = (response: AxiosResponse) =>
-  response.data || response;
+const resolveInterceptor = (response: any) => {
+  const data = response.data || response;
+  return { ...data, data: data.data || data.results };
+};
+
 const errorInterceptor = (error: ServerError = {}) => {
   const requestId = error.response?.headers?.['x-rh-insights-request-id'];
   throw requestId ? { ...error.response, requestId } : { ...error.response };
@@ -81,14 +85,9 @@ export const unauthorizedInterceptor = (error: any) => {
 
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
-  // eslint-disable-next-line no-undef
-  if (!localStorage.getItem('catalog_standalone')) {
-    await window.insights.chrome.auth.getUser();
-  } else {
-    const csrftoken = Cookies.get('csrftoken');
-    if (csrftoken) {
-      config.headers['X-CSRFToken'] = csrftoken;
-    }
+  const csrftoken = Cookies.get('csrftoken');
+  if (csrftoken) {
+    config.headers['X-CSRFToken'] = csrftoken;
   }
 
   return config;

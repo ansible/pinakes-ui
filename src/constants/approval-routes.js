@@ -1,30 +1,30 @@
 const routes = {
   allrequests: {
-    index: '/allrequests'
+    index: '/approval/allrequests'
   },
   requests: {
-    index: '/requests',
-    comment: '/requests/comment',
-    approve: '/requests/approve',
-    deny: '/requests/deny'
+    index: '/approval/requests',
+    comment: '/approval/requests/comment',
+    approve: '/approval/requests/approve',
+    deny: '/approval/requests/deny'
   },
   request: {
-    index: '/request',
-    comment: '/request/comment',
-    approve: '/request/approve',
-    deny: '/request/deny'
+    index: '/approval/request',
+    comment: '/approval/request/comment',
+    approve: '/approval/request/approve',
+    deny: '/approval/request/deny'
   },
   allrequest: {
-    index: '/allrequest',
-    comment: '/allrequest/comment',
-    approve: '/allrequest/approve',
-    deny: '/allrequest/deny'
+    index: '/approval/allrequest',
+    comment: '/approval/allrequest/comment',
+    approve: '/approval/allrequest/approve',
+    deny: '/approval/allrequest/deny'
   },
   workflows: {
-    index: '/workflows',
-    add: '/workflows/add-workflow',
-    remove: '/workflows/remove',
-    edit: '/workflows/edit'
+    index: '/approval/workflows',
+    add: '/approval/workflows/add-workflow',
+    remove: '/approval/workflows/remove',
+    edit: '/approval/workflows/edit'
   }
 };
 

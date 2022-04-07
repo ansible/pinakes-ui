@@ -1,5 +1,5 @@
 import React from 'react';
-import routes from '../../../constants/routes';
+import routes from '../../../constants/approval-routes';
 import useQuery from '../../../utilities/use-query';
 import RequestDetail from './request-detail';
 import { useIntl } from 'react-intl';

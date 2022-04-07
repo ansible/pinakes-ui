@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { timeAgo } from '../../../helpers/shared/helpers';
+import { timeAgo } from '../../../helpers/shared/approval-helpers';
 import { Stack, TextContent, Text, TextVariants } from '@patternfly/react-core';
 import {
   CheckCircleIcon,
@@ -16,7 +16,7 @@ import { EmptyTable } from '@redhat-cloud-services/frontend-components/EmptyTabl
 import { useIntl } from 'react-intl';
 import commonMessages from '../../../messages/common.message';
 import requestsMessages from '../../../messages/requests.messages';
-import { untranslatedMessage } from '../../../utilities/constants';
+import { untranslatedMessage } from '../../../utilities/approval-constants';
 
 const operationInfo = {
   memo: { displayName: requestsMessages.commentFrom, icon: <CommentIcon /> },

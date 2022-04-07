@@ -10,11 +10,11 @@ import {
   fetchRequest,
   fetchRequestContent
 } from '../../../redux/actions/request-actions';
-import { RequestLoader } from '../../../presentational-components/shared/loader-placeholders';
+import { RequestLoader } from '../../../presentational-components/shared/approval-loader-placeholders';
 import {
   TopToolbar,
   TopToolbarTitle
-} from '../../../presentational-components/shared/top-toolbar';
+} from '../../../presentational-components/shared/approval-top-toolbar';
 import UserContext from '../../../user-context';
 import useQuery from '../../../utilities/use-query';
 import { approvalPersona } from '../../../helpers/shared/approval-helpers';
@@ -155,11 +155,7 @@ const RequestDetail = ({ requestBreadcrumbs, indexpath }) => {
           )}
         />
       </Switch>
-      <TopToolbar
-        className="top-toolbar"
-        breadcrumbs={requestBreadcrumbs}
-        paddingBottom={true}
-      >
+      <TopToolbar breadcrumbs={requestBreadcrumbs} paddingBottom={true}>
         <TopToolbarTitle
           title={intl.formatMessage(requestsMessages.requestTitle, { id })}
         />
