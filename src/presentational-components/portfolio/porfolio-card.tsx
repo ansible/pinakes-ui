@@ -10,8 +10,7 @@ import {
   KebabToggle,
   Text,
   TextContent,
-  TextVariants,
-  Label
+  TextVariants
 } from '@patternfly/react-core';
 import { DateFormat } from '@redhat-cloud-services/frontend-components/DateFormat';
 import PortfolioCardHeader from './portfolio-card-header';
@@ -37,6 +36,11 @@ import orderProcessesMessages from '../../messages/order-processes.messages';
 import { UserCapabilities, PortfolioMetadata } from '../../types/common-types';
 import { USER_CAPABILITIES_PLACEHOLDER } from '../../utilities/constants';
 import { isStandalone } from '../../helpers/shared/helpers';
+import { Tooltip } from '@patternfly/react-core';
+import {
+  StyledShareIcon,
+  StyledClipboardCheckIcon
+} from '../styled-components/icons';
 
 const TO_DISPLAY = ['description'];
 
@@ -252,15 +256,19 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
         </StyledCardBody>
         <CardFooter>
           {approval_processes > 0 && (
-            <Label variant="filled" color="grey">
-              {formatMessage(labelMessages.approvalProcessSet)}
-            </Label>
+            <Tooltip content={formatMessage(labelMessages.approvalProcessSet)}>
+              <StyledClipboardCheckIcon data-testid="approval-set-icon" />
+            </Tooltip>
           )}
-          &nbsp;
+          &nbsp; &nbsp;
           {shared_groups > 0 && (
-            <Label variant="filled" color="grey">
-              {formatMessage(labelMessages.shared)}
-            </Label>
+            <Tooltip
+              content={formatMessage(labelMessages.shared, {
+                count: shared_groups
+              })}
+            >
+              <StyledShareIcon data-testid="share-icon" />
+            </Tooltip>
           )}
         </CardFooter>
       </StyledCard>

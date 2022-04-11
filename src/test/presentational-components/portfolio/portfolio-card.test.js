@@ -4,7 +4,16 @@ import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
 import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
-import { Dropdown, Label } from '@patternfly/react-core';
+import { Dropdown } from '@patternfly/react-core';
+import {
+  StyledClipboardCheckIcon,
+  StyledShareIcon
+} from '../../../presentational-components/styled-components/icons';
+
+import { render, screen, waitFor } from '@testing-library/react';
+
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 
 const prepareTruthyCapability = (truthyCapability) => ({
   user_capabilities: {
@@ -150,7 +159,7 @@ describe('<PortfolioCard />', () => {
     expect(wrapper.find(Dropdown)).toHaveLength(0);
   });
 
-  it('should render with shared label', () => {
+  it('should render with shared icon', () => {
     const wrapper = mount(
       <MemoryRouter>
         <PortfolioCard
@@ -162,11 +171,30 @@ describe('<PortfolioCard />', () => {
         />
       </MemoryRouter>
     );
-    expect(wrapper.find(Label)).toHaveLength(1);
-    expect(wrapper.find(Label).text()).toEqual('Shared');
+    expect(wrapper.find(StyledShareIcon)).toHaveLength(1);
   });
 
-  it('should render with approval processes set label', () => {
+  it('should render with shared icon with tooltip', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <PortfolioCard
+          {...initialProps}
+          metadata={{
+            ...initialProps.metadata,
+            statistics: { shared_groups: 2 }
+          }}
+        />
+      </MemoryRouter>
+    );
+    await user.hover(screen.getByTestId('share-icon'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Shared with 2 group(s)')).toBeInTheDocument();
+    });
+  });
+
+  it('should render with approval processes set icon', () => {
     const wrapper = mount(
       <MemoryRouter>
         <PortfolioCard
@@ -178,7 +206,25 @@ describe('<PortfolioCard />', () => {
         />
       </MemoryRouter>
     );
-    expect(wrapper.find(Label)).toHaveLength(1);
-    expect(wrapper.find(Label).text()).toEqual('Approval process set');
+    expect(wrapper.find(StyledClipboardCheckIcon)).toHaveLength(1);
+  });
+
+  it('should render with approval processes icon and tooltip', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <PortfolioCard
+          {...initialProps}
+          metadata={{
+            ...initialProps.metadata,
+            statistics: { approval_processes: 1 }
+          }}
+        />
+      </MemoryRouter>
+    );
+    await user.hover(screen.getByTestId('approval-set-icon'));
+    await waitFor(() => {
+      expect(screen.getByText('Approval process set')).toBeInTheDocument();
+    });
   });
 });
