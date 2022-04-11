@@ -297,7 +297,7 @@ const App = (props) => {
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
       <Page
-        classname=".pf-c-page__main"
+        className=".pf-c-page__main"
         isManagedSidebar={true}
         header={headerNav()}
         sidebar={sidebarNav()}
