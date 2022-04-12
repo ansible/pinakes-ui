@@ -27,12 +27,8 @@ describe('request-helper', () => {
     it('no data', async () => {
       mockApi
         .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
-        .replyOnce({
-          body: {
-            data: [
-              { id: 'id1', description: 'some desc', metadata: { a: 'b' } }
-            ]
-          }
+        .replyOnce(200, {
+          data: [{ id: 'id1', description: 'some desc', metadata: { a: 'b' } }]
         });
 
       const response = await fetchRequestWithSubrequests(id, persona);
@@ -55,18 +51,16 @@ describe('request-helper', () => {
 
       mockApi
         .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
-        .replyOnce({
-          body: {
-            data: [
-              {
-                description: 'some desc',
-                id: 'id1',
-                metadata: {
-                  a: 'b'
-                }
+        .replyOnce(200, {
+          data: [
+            {
+              description: 'some desc',
+              id: 'id1',
+              metadata: {
+                a: 'b'
               }
-            ]
-          }
+            }
+          ]
         });
 
       mockApi
@@ -99,21 +93,19 @@ describe('request-helper', () => {
 
       mockApi
         .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
-        .replyOnce({
-          body: {
-            data: {
-              requests: [
-                {
-                  number_of_children: 0,
-                  requests: []
-                }
-              ]
-            }
+        .replyOnce(200, {
+          data: {
+            requests: [
+              {
+                number_of_children: 0,
+                requests: []
+              }
+            ]
           }
         });
 
-      mockApi.onGet(`${APPROVAL_API_BASE}/requests/some-id`).replyOnce({
-        body: {
+      mockApi.onGet(`${APPROVAL_API_BASE}/requests/some-id`).replyOnce(200, {
+        data: {
           id: 'id1',
           description: 'some desc',
           metadata: { something: 'some' }
@@ -137,23 +129,21 @@ describe('request-helper', () => {
     it('no approver persona', async () => {
       mockApi
         .onGet(`${APPROVAL_API_BASE}/requests/some-id/?extra=true`)
-        .replyOnce({
-          body: {
-            data: {
-              requests: [
-                {
-                  number_of_children: 1,
-                  extra_data: {
-                    subrequests: [
-                      {
-                        name: 'request-1',
-                        id: 'id1'
-                      }
-                    ]
-                  }
+        .replyOnce(200, {
+          data: {
+            requests: [
+              {
+                number_of_children: 1,
+                extra_data: {
+                  subrequests: [
+                    {
+                      name: 'request-1',
+                      id: 'id1'
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           }
         });
 
