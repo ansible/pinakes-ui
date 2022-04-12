@@ -5,18 +5,11 @@ import {
   APPROVAL_APPR_ROLE
 } from '../../utilities/approval-constants';
 
-export const isStandalone = () => !!localStorage.getItem('catalog_standalone');
-
 const activeStates = ['notified'];
-export const APPROVAL_ADMINISTRATOR_ROLE = isStandalone()
-  ? 'approval-admin'
-  : 'Approval Administrator';
-export const APPROVAL_APPROVER_ROLE = isStandalone()
-  ? 'approval-approver'
-  : 'Approval Approver';
+export const APPROVAL_ADMINISTRATOR_ROLE = 'approval-admin';
+export const APPROVAL_APPROVER_ROLE = 'approval-approver';
 export const APPROVAL_ADMIN_PERSONA = 'approval/admin';
 export const APPROVAL_APPROVER_PERSONA = 'approval/approver';
-export const APPROVAL_REQUESTER_PERSONA = 'approval/requester';
 
 export const ADMIN_PERSONA = 'admin';
 export const APPROVER_PERSONA = 'approver';
@@ -30,47 +23,12 @@ export const timeAgo = (date) => (
   </span>
 );
 
-const useIsApprovalAdminI = (roles = {}) => roles[APPROVAL_ADMINISTRATOR_ROLE];
-const useIsApprovalApproverI = (roles = {}) => roles[APPROVAL_APPROVER_ROLE];
-
-export const useIsApprovalAdminS = (roles = []) =>
+export const useIsApprovalAdmin = (roles = []) =>
   roles ? roles.includes(APPROVAL_ADMIN_ROLE) : false;
-export const useIsApprovalApproverS = (roles = []) =>
+export const useIsApprovalApprover = (roles = []) =>
   roles ? roles.includes(APPROVAL_APPR_ROLE) : false;
 
-export const useIsApprovalAdmin = (roles) =>
-  isStandalone() ? useIsApprovalAdminS(roles) : useIsApprovalAdminI(roles);
-export const useIsApprovalApprover = (roles) =>
-  isStandalone()
-    ? useIsApprovalApproverS(roles)
-    : useIsApprovalApproverI(roles);
-
-export const approvalPersonaI = (userRoles) => {
-  const isApprovalAdmin = useIsApprovalAdmin(userRoles);
-  const isApprovalApprover = useIsApprovalApprover(userRoles);
-
-  if (isApprovalAdmin) {
-    return APPROVAL_ADMIN_PERSONA;
-  } else if (isApprovalApprover) {
-    return APPROVAL_APPROVER_PERSONA;
-  }
-
-  return APPROVAL_REQUESTER_PERSONA;
-};
-
-export const approvalRolesI = (roles = []) => {
-  const userRoles = {};
-  roles.forEach((role) => {
-    if (role.name === APPROVAL_ADMINISTRATOR_ROLE) {
-      userRoles[APPROVAL_ADMINISTRATOR_ROLE] = true;
-    } else if (role.name === APPROVAL_APPROVER_ROLE) {
-      userRoles[APPROVAL_APPROVER_ROLE] = true;
-    }
-  });
-  return userRoles;
-};
-
-export const approvalPersonaS = (userRoles) => {
+export const approvalPersona = (userRoles) => {
   const isApprovalAdmin = useIsApprovalAdmin(userRoles);
   const isApprovalApprover = useIsApprovalApprover(userRoles);
 
@@ -83,7 +41,7 @@ export const approvalPersonaS = (userRoles) => {
   return REQUESTER_PERSONA;
 };
 
-export const approvalRolesS = (roles = []) => {
+export const approvalRoles = (roles = []) => {
   const userRoles = {};
   if (roles.includes(APPROVAL_ADMIN_ROLE)) {
     userRoles[APPROVAL_ADMIN_ROLE] = true;
@@ -93,8 +51,3 @@ export const approvalRolesS = (roles = []) => {
 
   return userRoles;
 };
-
-export const approvalRoles = (roles) =>
-  isStandalone() ? approvalRolesS(roles) : approvalRolesI(roles);
-export const approvalPersona = (roles) =>
-  isStandalone() ? approvalPersonaS(roles) : approvalPersonaI(roles);

@@ -22,7 +22,10 @@ import requestReducer, {
 } from '../../../../redux/reducers/request-reducer';
 import UserContext from '../../../../user-context';
 import ActionModal from '../../../../smart-components/request/action-modal';
-import { APPROVAL_ADMINISTRATOR_ROLE } from '../../../../helpers/shared/approval-helpers';
+import {
+  APPROVAL_ADMINISTRATOR_ROLE,
+  APPROVAL_APPROVER_ROLE
+} from '../../../../helpers/shared/approval-helpers';
 import { IntlProvider } from 'react-intl';
 import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
@@ -53,7 +56,7 @@ describe('<AllRequestDetail />', () => {
         }
       ]
     };
-    roles = {};
+    roles = [APPROVAL_ADMINISTRATOR_ROLE, APPROVAL_APPROVER_ROLE];
     mockStore = configureStore(middlewares);
     initialState = {
       requestReducer: {
@@ -66,14 +69,18 @@ describe('<AllRequestDetail />', () => {
         requestContent: {}
       }
     };
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
   it('should render request details', async (done) => {
-    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce({
       body: {
         params: { test: 'value' },
         product: 'Test product',
@@ -169,7 +176,7 @@ describe('<AllRequestDetail />', () => {
   });
 
   it('should render request loader', async (done) => {
-    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce({
       body: {
         params: { test: 'value' },
         product: 'Test product',
@@ -198,7 +205,7 @@ describe('<AllRequestDetail />', () => {
   });
 
   describe('actions', () => {
-    const graphlQlData = {
+    const extraData = {
       data: {
         requests: [
           {
@@ -251,12 +258,14 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
-        body: contentData
-      });
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/123/content/`)
+        .replyOnce(200, {
+          data: contentData
+        });
 
       let wrapper;
-      roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
+      roles = [APPROVAL_ADMINISTRATOR_ROLE];
 
       await act(async () => {
         wrapper = mount(
@@ -294,11 +303,18 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
-        body: contentData
-      });
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/123/?extra=true`)
+        .replyOnce(200, {
+          data: extraData
+        });
+      mockApi
+        .onGet(`${APPROVAL_API_BASE}/requests/123/content/`)
+        .replyOnce(200, {
+          data: contentData
+        });
       let wrapper;
-      roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
+      roles = [APPROVAL_ADMINISTRATOR_ROLE];
 
       await act(async () => {
         wrapper = mount(
@@ -335,12 +351,12 @@ describe('<AllRequestDetail />', () => {
       });
       const store = registry.getStore();
 
-      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content`).replyOnce({
+      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce({
         body: contentData
       });
 
       let wrapper;
-      roles[APPROVAL_ADMINISTRATOR_ROLE] = true;
+      roles = [APPROVAL_ADMINISTRATOR_ROLE];
 
       await act(async () => {
         wrapper = mount(

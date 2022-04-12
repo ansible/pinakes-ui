@@ -55,7 +55,7 @@ export const fetchRequestTranscript = (requestId) =>
   );
 
 export const fetchRequestContent = (id) => {
-  const fetchUrl = `${APPROVAL_API_BASE}/requests/${id}/content`;
+  const fetchUrl = `${APPROVAL_API_BASE}/requests/${id}/content/`;
   return getAxiosInstance()({ method: 'get', url: fetchUrl });
 };
 
