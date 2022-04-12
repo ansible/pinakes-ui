@@ -389,7 +389,7 @@ describe('Portfolio actions', () => {
           stateKey: 'portfolioItems',
           storeState: true
         },
-        payload: []
+        payload: { data: undefined }
       },
       expect.objectContaining({ type: ADD_NOTIFICATION }),
       {
@@ -422,7 +422,7 @@ describe('Portfolio actions', () => {
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
-  it('should create correct actions after remove portfolio items action fals', () => {
+  it('should create correct actions after remove portfolio items action falls', () => {
     const store = mockStore({
       portfolioReducer: {
         portfolioItems: { meta: {} },
@@ -479,7 +479,9 @@ describe('Portfolio actions', () => {
           stateKey: 'portfolioItems',
           storeState: true
         },
-        payload: { data: [] }
+        payload: {
+          data: []
+        }
       },
       expect.objectContaining({ type: ADD_NOTIFICATION })
     ];
