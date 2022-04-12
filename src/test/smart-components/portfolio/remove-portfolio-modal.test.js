@@ -114,7 +114,7 @@ describe('<RemovePortfolioModal />', () => {
 
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
-      .replyOnce((req) => {
+      .reply((req) => {
         expect(req).toBeTruthy();
         return [200, { data: [] }];
       });
@@ -132,6 +132,15 @@ describe('<RemovePortfolioModal />', () => {
         />
       </ComponentWrapper>
     );
+
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
+    });
+    done();
+
     const expectedActions = [
       {
         type: DELETE_TEMPORARY_PORTFOLIO,
@@ -155,15 +164,7 @@ describe('<RemovePortfolioModal />', () => {
         type: `${REMOVE_PORTFOLIO}_FULFILLED`
       })
     ];
-
-    await act(async () => {
-      wrapper
-        .find('button')
-        .at(1)
-        .simulate('click');
-    });
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
   it('should call remove portfolio actions and then undo it', async (done) => {

@@ -242,22 +242,18 @@ describe('<EditApprovalWorkflow />', () => {
         .last()
         .simulate('click');
     });
-
+    wrapper.update();
     expect(onCloseMock).not.toHaveBeenCalled();
 
-    await act(async () => {
-      wrapper.find('form').simulate('submit');
-    });
+    wrapper
+      .find('button')
+      .at(6)
+      .simulate('click');
 
     wrapper.update();
-
-    setImmediate(() => {
-      expect(onCloseMock).toHaveBeenCalled();
-
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual('/foo');
-      done();
-    });
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual('/portfolio');
+    done();
   });
 });

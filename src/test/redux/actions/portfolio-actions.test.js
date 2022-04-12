@@ -389,7 +389,7 @@ describe('Portfolio actions', () => {
           stateKey: 'portfolioItems',
           storeState: true
         },
-        payload: { data: undefined }
+        payload: []
       },
       expect.objectContaining({ type: ADD_NOTIFICATION }),
       {

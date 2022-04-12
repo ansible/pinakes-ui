@@ -27,14 +27,9 @@ describe('<SharePortfolioModal/>', () => {
   afterEach(() => {
     mockApi.restore();
     mockApi.resetHandlers();
-    global.localStorage.setItem('catalog_standalone', false);
-    global.localStorage.removeItem('user');
   });
 
   beforeEach(() => {
-    global.localStorage.setItem('catalog_standalone', true);
-    global.localStorage.setItem('user', 'testUser');
-
     initialProps = {
       addNotification: jest.fn(),
       closeUrl: '/foo'
@@ -83,32 +78,32 @@ describe('<SharePortfolioModal/>', () => {
     jest.useFakeTimers();
     expect.assertions(1);
     const store = mockStore(initialState);
+
     /**
      * download data endpoints
      */
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios/2/share_info/`)
       .replyOnce(200, {
-        results: []
+        data: []
       });
-    mockApi.onGet(`${CATALOG_API_BASE}/groups/`).replyOnce(200, {
-      results: [{ id: '123', name: 'Group 123' }]
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, {
+      data: [{ uuid: '123', name: 'Group 123' }]
     });
+
     /**
      * submit data endpoints
      */
     mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/2/share/`)
+      .onPost(`${CATALOG_API_BASE}/portfolios/2/share`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
-          permissions: ['read, update, order, delete'],
-          groups: ['123']
+          permissions: ['all'],
+          group_uuids: ['123']
         });
         return [200, {}];
       });
-    mockApi
-      .onGet(`${RBAC_API_BASE}/groups/`)
-      .replyOnce(200, { results: [{ id: '123', name: 'Group 123' }] });
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -180,11 +175,9 @@ describe('<SharePortfolioModal/>', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/3/share_info/`)
-      .replyOnce(200, { results: [] });
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/groups/`)
-      .replyOnce(200, { results: [] });
+      .onGet(`${CATALOG_API_BASE}/portfolios/3/share_info`)
+      .replyOnce(200, { data: [] });
+    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
 
     let wrapper;
     await act(async () => {
@@ -194,7 +187,7 @@ describe('<SharePortfolioModal/>', () => {
           initialEntries={['/portfolios/share-portfolio?portfolio=3']}
         >
           <Route
-            path="/portfolios/share-portfolio/"
+            path="/portfolios/share-portfolio"
             render={(args) => (
               <SharePortfolioModal {...args} {...initialProps} />
             )}

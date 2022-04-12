@@ -119,26 +119,27 @@ const SharePortfolioModal: React.ComponentType<SharePortfolioModalProps> = ({
   };
 
   const initialShares = () => {
-    const initialGroupShareList = (shareInfo as Full<ShareInfo>[]).map(
-      (group) => {
-        const groupPermissions = group.permissions.filter(
-          (permission) => permissionValues.indexOf(permission) > -1
-        );
-        const groupName = group.group_name;
-        const options = permissionOptions.find(
-          (perm) => perm.value === groupPermissions.sort().join(',')
-        );
-        return {
-          groupName,
-          // @ts-ignore
-          group_uuid: group.group_id || group.group_uuid,
-          permissions: options
-            ? options.value
-            : formatMessage(filteringMessages.unknown)
-        };
-      }
-    );
-    return initialGroupShareList;
+    // @ts-ignore
+    const shares = shareInfo.data || shareInfo;
+    return shares
+      ? (shares as Full<ShareInfo>[]).map((group) => {
+          const groupPermissions = group.permissions.filter(
+            (permission) => permissionValues.indexOf(permission) > -1
+          );
+          const groupName = group.group_name;
+          const options = permissionOptions.find(
+            (perm) => perm.value === groupPermissions.sort().join(',')
+          );
+          return {
+            groupName,
+            // @ts-ignore
+            group_uuid: group.group_id || group.group_uuid,
+            permissions: options
+              ? options.value
+              : formatMessage(filteringMessages.unknown)
+          };
+        })
+      : [];
   };
 
   const loadGroupOptions = (inputValue?: string) =>

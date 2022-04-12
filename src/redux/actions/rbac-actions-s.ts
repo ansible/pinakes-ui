@@ -5,7 +5,7 @@ import { AsyncMiddlewareAction } from '../../types/redux';
 
 export const fetchRbacGroups = (): AsyncMiddlewareAction<SelectOptions> => ({
   type: FETCH_RBAC_GROUPS,
-  payload: getRbacGroups().then(({ results }) =>
-    results.map(({ id, name }) => ({ value: id, label: name }))
+  payload: getRbacGroups().then(({ data }) =>
+    data.map(({ id, name }) => ({ value: id, label: name }))
   )
 });

@@ -27,7 +27,7 @@ const setGroupSelectSchema = (intl) => ({
   initialValue: [],
   clearedValue: [],
   noValueUpdates: true,
-  isMulti: true,
+  multi: true,
   isSearchable: true,
   simpleValue: false,
   menuIsPortal: true,

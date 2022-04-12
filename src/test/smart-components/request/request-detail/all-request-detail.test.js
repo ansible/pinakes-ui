@@ -13,15 +13,6 @@ import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
 import RequestInfoBar from '../../../../smart-components/request/request-detail/request-info-bar';
 import RequestTranscript from '../../../../smart-components/request/request-detail/request-transcript';
 import { BreadcrumbItem } from '@patternfly/react-core';
-import routes from '../../../../constants/approval-routes';
-import ReducerRegistry, {
-  applyReducerHash
-} from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
-import requestReducer, {
-  requestsInitialState
-} from '../../../../redux/reducers/request-reducer';
-import UserContext from '../../../../user-context';
-import ActionModal from '../../../../smart-components/request/action-modal';
 import {
   APPROVAL_ADMINISTRATOR_ROLE,
   APPROVAL_APPROVER_ROLE
@@ -80,14 +71,24 @@ describe('<AllRequestDetail />', () => {
   });
 
   it('should render request details', async (done) => {
-    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce({
-      body: {
+    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce(200, {
+      data: {
         params: { test: 'value' },
         product: 'Test product',
         order_id: '321',
         portfolio: 'TestPortfolio'
       }
     });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/requests/123/?extra=true`)
+      .replyOnce(200, {
+        data: {
+          params: { test: 'value' },
+          product: 'Test product',
+          order_id: '321',
+          portfolio: 'TestPortfolio'
+        }
+      });
     const store = mockStore(
       (initialState = {
         requestReducer: {
@@ -173,218 +174,5 @@ describe('<AllRequestDetail />', () => {
         .props().isActive
     ).toEqual(true);
     done();
-  });
-
-  it('should render request loader', async (done) => {
-    mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce({
-      body: {
-        params: { test: 'value' },
-        product: 'Test product',
-        order_id: '321',
-        portfolio: 'TestPortfolio'
-      }
-    });
-
-    const store = mockStore(initialState);
-    let wrapper;
-
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store}>
-          <Route
-            path="/foo"
-            render={(props) => (
-              <AllRequestDetail {...props} {...initialProps} />
-            )}
-          />
-        </ComponentWrapper>
-      );
-    });
-    expect(wrapper.find(RequestLoader)).toHaveLength(1);
-    done();
-  });
-
-  describe('actions', () => {
-    const extraData = {
-      data: {
-        requests: [
-          {
-            id: '123',
-            name: 'Hello World',
-            number_of_children: '0',
-            decision: 'undecided',
-            description: null,
-            group_name: 'Test Approval Group',
-            number_of_finished_children: '0',
-            state: 'notified',
-            actions: [
-              {
-                id: '1209',
-                operation: 'start',
-                comments: null,
-                created_at: '2020-05-13T13:36:05.580Z',
-                processed_by: 'system'
-              },
-              {
-                id: '1211',
-                operation: 'notify',
-                comments: null,
-                created_at: '2020-05-13T13:36:29.278Z',
-                processed_by: 'system'
-              }
-            ],
-            requests: []
-          }
-        ]
-      }
-    };
-    const contentData = {
-      params: {
-        quest: 'Test Approval',
-        airspeed: 3,
-        username: 'insights-qa',
-        int_value: 5
-      },
-      product: 'Hello World',
-      order_id: '654',
-      platform: 'Dev Public Ansible Tower (18.188.178.206)',
-      portfolio: 'LGTestNoTags'
-    };
-
-    it('opens comment modal', async () => {
-      const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
-      registry.register({
-        requestReducer: applyReducerHash(requestReducer, requestsInitialState)
-      });
-      const store = registry.getStore();
-
-      mockApi
-        .onGet(`${APPROVAL_API_BASE}/requests/123/content/`)
-        .replyOnce(200, {
-          data: contentData
-        });
-
-      let wrapper;
-      roles = [APPROVAL_ADMINISTRATOR_ROLE];
-
-      await act(async () => {
-        wrapper = mount(
-          <UserContext.Provider value={{ userRoles: roles }}>
-            <ComponentWrapper store={store}>
-              <AllRequestDetail {...initialProps} />
-            </ComponentWrapper>
-          </UserContext.Provider>
-        );
-      });
-      wrapper.update();
-
-      await act(async () => {
-        wrapper
-          .find('a#comment-123')
-          .first()
-          .simulate('click', { button: 0 });
-      });
-      wrapper.update();
-
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual(routes.request.comment);
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.search
-      ).toEqual('?request=123');
-      expect(wrapper.find(ActionModal).props().actionType).toEqual('Comment');
-      expect(wrapper.find(ActionModal).props().postMethod).toBeDefined();
-    });
-
-    it('opens approve modal', async () => {
-      const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
-      registry.register({
-        requestReducer: applyReducerHash(requestReducer, requestsInitialState)
-      });
-      const store = registry.getStore();
-
-      mockApi
-        .onGet(`${APPROVAL_API_BASE}/requests/123/?extra=true`)
-        .replyOnce(200, {
-          data: extraData
-        });
-      mockApi
-        .onGet(`${APPROVAL_API_BASE}/requests/123/content/`)
-        .replyOnce(200, {
-          data: contentData
-        });
-      let wrapper;
-      roles = [APPROVAL_ADMINISTRATOR_ROLE];
-
-      await act(async () => {
-        wrapper = mount(
-          <UserContext.Provider value={{ userRoles: roles }}>
-            <ComponentWrapper store={store}>
-              <AllRequestDetail {...initialProps} />
-            </ComponentWrapper>
-          </UserContext.Provider>
-        );
-      });
-      wrapper.update();
-
-      await act(async () => {
-        wrapper
-          .find('a#approve-123')
-          .first()
-          .simulate('click', { button: 0 });
-      });
-      wrapper.update();
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual(routes.request.approve);
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.search
-      ).toEqual('?request=123');
-      expect(wrapper.find(ActionModal).props().actionType).toEqual('Approve');
-      expect(wrapper.find(ActionModal).props().postMethod).toBeDefined();
-    });
-
-    it('opens deny modal', async () => {
-      const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
-      registry.register({
-        requestReducer: applyReducerHash(requestReducer, requestsInitialState)
-      });
-      const store = registry.getStore();
-
-      mockApi.onGet(`${APPROVAL_API_BASE}/requests/123/content/`).replyOnce({
-        body: contentData
-      });
-
-      let wrapper;
-      roles = [APPROVAL_ADMINISTRATOR_ROLE];
-
-      await act(async () => {
-        wrapper = mount(
-          <UserContext.Provider value={{ userRoles: roles }}>
-            <ComponentWrapper store={store}>
-              <AllRequestDetail {...initialProps} />
-            </ComponentWrapper>
-          </UserContext.Provider>
-        );
-      });
-      wrapper.update();
-
-      await act(async () => {
-        wrapper
-          .find('a#deny-123')
-          .first()
-          .simulate('click', { button: 0 });
-      });
-      wrapper.update();
-
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.pathname
-      ).toEqual(routes.request.deny);
-      expect(
-        wrapper.find(MemoryRouter).instance().history.location.search
-      ).toEqual('?request=123');
-      expect(wrapper.find(ActionModal).props().actionType).toEqual('Deny');
-      expect(wrapper.find(ActionModal).props().postMethod).toBeDefined();
-    });
   });
 });

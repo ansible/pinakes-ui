@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { ReactNode, ComponentType } from 'react';
-import { Chip } from '@patternfly/react-core/dist/js/components/Chip/Chip';
+import { Chip } from '@patternfly/react-core';
 import { ChipGroup, FormGroup } from '@patternfly/react-core';
 import useFieldApi from '@data-driven-forms/react-form-renderer/use-field-api';
 
@@ -25,8 +25,8 @@ const InitialChips: ComponentType<InitialChipsProps> = ({ name, label }) => {
   }
 
   return (
-    <FormGroup fieldId={name} label={label}>
-      <ChipGroup>
+    <FormGroup key={name} fieldId={name} label={label}>
+      <ChipGroup key={name}>
         {value.map(({ name, id }) => (
           <Chip key={id} onClick={() => handleRemove(id)}>
             {name}
