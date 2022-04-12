@@ -93,7 +93,6 @@ describe('<SharePortfolioModal/>', () => {
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, {
       data: [{ uuid: '123', name: 'Group 123' }]
     });
-
     /**
      * submit data endpoints
      */
@@ -101,12 +100,14 @@ describe('<SharePortfolioModal/>', () => {
       .onPost(`${CATALOG_API_BASE}/portfolios/2/share/`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
-          permissions: ['all'],
-          group_uuids: ['123']
+          permissions: ['read, update, order, delete'],
+          groups: ['123']
         });
         return [200, {}];
       });
-    mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
+    mockApi
+      .onGet(`${RBAC_API_BASE}/groups/`)
+      .replyOnce(200, { results: [{ id: '123', name: 'Group 123' }] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -190,7 +191,7 @@ describe('<SharePortfolioModal/>', () => {
           initialEntries={['/portfolios/share-portfolio?portfolio=3']}
         >
           <Route
-            path="/portfolios/share-portfolio"
+            path="/portfolios/share-portfolio/"
             render={(args) => (
               <SharePortfolioModal {...args} {...initialProps} />
             )}

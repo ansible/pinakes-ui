@@ -398,7 +398,6 @@ const SurveyEditor = ({ closeUrl, search, portfolioItem }) => {
             disableDrag
             disableAdd
             schemaTemplate={baseSchema}
-            mode="subset"
             openEditor
           >
             {({ getSchema, isValid, ...props }) => (

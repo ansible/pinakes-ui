@@ -56,6 +56,17 @@ const createAxiosInstance = () => {
 const axiosInstance: AxiosInstance = createAxiosInstance();
 
 const resolveInterceptor = (response: any) => {
+  const data = response.data || response.results;
+  if (data.data || data.results) {
+    return { ...data, data: data.data || data.results };
+  } else {
+    return data;
+  }
+};
+
+const errorInterceptor = (error: ServerError = {}) => {
+  const requestId = error.response?.headers?.['x-rh-insights-request-id'];
+  throw requestId ? { ...error.response, requestId } : { ...error.response };
   const data = response?.data || response?.results;
   if (data?.data || data?.results) {
     return { ...data, data: data?.data || data?.results };
