@@ -3,7 +3,10 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { ADD_NOTIFICATION } from '@redhat-cloud-services/frontend-components-notifications/redux';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
-import { FETCH_REQUESTS, FETCH_REQUEST } from '../../../redux/action-types';
+import {
+  APPROVAL_FETCH_REQUESTS,
+  FETCH_REQUEST
+} from '../../../redux/action-types';
 import {
   fetchRequests,
   fetchRequest
@@ -43,7 +46,7 @@ describe('Request actions', () => {
 
     const expectedActions = [
       {
-        type: `${FETCH_REQUESTS}_PENDING`
+        type: `${APPROVAL_FETCH_REQUESTS}_PENDING`
       },
       {
         payload: {
@@ -52,9 +55,10 @@ describe('Request actions', () => {
               label: 'request',
               value: '11'
             }
-          ]
+          ],
+          count: 1
         },
-        type: `${FETCH_REQUESTS}_FULFILLED`
+        type: `${APPROVAL_FETCH_REQUESTS}_FULFILLED`
       }
     ];
     mockApi
@@ -62,16 +66,14 @@ describe('Request actions', () => {
         APPROVAL_API_BASE +
           '/requests/?&filter[name][contains_i]=some-name&page_size=10&page=1&sort_by=name:desc'
       )
-      .replyOnce({
-        body: {
-          data: [
-            {
-              label: 'request',
-              value: '11'
-            }
-          ],
-          count: 1
-        }
+      .replyOnce(200, {
+        data: [
+          {
+            label: 'request',
+            value: '11'
+          }
+        ],
+        count: 1
       });
 
     return store
@@ -95,14 +97,14 @@ describe('Request actions', () => {
 
     const expectedActions = expect.arrayContaining([
       {
-        type: `${FETCH_REQUESTS}_PENDING`
+        type: `${APPROVAL_FETCH_REQUESTS}_PENDING`
       },
       expect.objectContaining({
         type: ADD_NOTIFICATION,
         payload: expect.objectContaining({ variant: 'danger' })
       }),
       expect.objectContaining({
-        type: `${FETCH_REQUESTS}_REJECTED`
+        type: `${APPROVAL_FETCH_REQUESTS}_REJECTED`
       })
     ]);
 
@@ -110,9 +112,7 @@ describe('Request actions', () => {
       .onGet(
         APPROVAL_API_BASE + '/requests/?page_size=50&page=1&sort_by=name%3Adesc'
       )
-      .replyOnce({
-        status: 500
-      });
+      .replyOnce(500);
 
     mockApi
       .onGet(APPROVAL_API_BASE + 'requests/111/?extra=true')
@@ -132,29 +132,25 @@ describe('Request actions', () => {
 
     mockApi
       .onGet(APPROVAL_API_BASE + '/requests/?page_size=50&page=1')
-      .replyOnce({
-        body: {
-          data: [
-            {
-              id: '111',
-              name: ''
-            }
-          ],
-          status: 200
-        }
+      .replyOnce(200, {
+        data: [
+          {
+            id: '111',
+            name: ''
+          }
+        ]
       });
 
-    mockApi.onGet('/api/approval/v1.2/requests/111/?extra=true').replyOnce({
-      body: {
-        status: 200,
+    mockApi
+      .onGet(APPROVAL_API_BASE + '/requests/111/?extra=true')
+      .replyOnce(200, {
         data: [
           {
             id: '123',
             name: ''
           }
         ]
-      }
-    });
+      });
 
     const expectedData = [
       {
@@ -173,21 +169,19 @@ describe('Request actions', () => {
       }
     ];
 
-    mockApi.onGet(APPROVAL_API_BASE + '/requests/111/').replyOnce({
-      body: {
-        data: {
-          id: '111',
-          state: 'notified',
-          decision: 'undecided',
-          created_at: '2020-01-29T16:55:03Z',
-          notified_at: '2020-01-29T17:09:15Z',
-          number_of_children: 3,
-          number_of_finished_children: 0,
-          owner: 'test',
-          requester_name: 'Test User',
-          name: 'Hello World',
-          group_name: 'GroupA'
-        }
+    mockApi.onGet(APPROVAL_API_BASE + '/requests/111/').replyOnce(200, {
+      data: {
+        id: '111',
+        state: 'notified',
+        decision: 'undecided',
+        created_at: '2020-01-29T16:55:03Z',
+        notified_at: '2020-01-29T17:09:15Z',
+        number_of_children: 3,
+        number_of_finished_children: 0,
+        owner: 'test',
+        requester_name: 'Test User',
+        name: 'Hello World',
+        group_name: 'GroupA'
       }
     });
 
