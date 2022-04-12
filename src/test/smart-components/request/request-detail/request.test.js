@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
 import { Request } from '../../../../smart-components/request/request-detail/request';
-import routes from '../../../../constants/routes';
+import routes from '../../../../constants/approval-routes';
 import { IntlProvider } from 'react-intl';
 
 const ComponentWrapper = ({ children }) => (
