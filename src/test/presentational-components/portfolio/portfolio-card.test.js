@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
-import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
+import PortfolioCard from '../../../presentational-components/portfolio/portfolio-card';
 import { Dropdown } from '@patternfly/react-core';
 import {
   StyledClipboardCheckIcon,
