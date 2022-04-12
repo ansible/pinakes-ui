@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 const labelMessages = defineMessages({
   shared: {
     id: 'common.labels.shared',
-    defaultMessage: 'Shared'
+    defaultMessage: 'Shared with {count} group(s)'
   },
   approvalProcessSet: {
     id: 'common.labels.approval_process_set',

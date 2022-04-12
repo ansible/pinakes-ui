@@ -70,7 +70,7 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
       />
     </Styled(CardBody)>
     <CardFooter>
-       
+         
     </CardFooter>
   </Styled(Card)>
 </Styled(Component)>
