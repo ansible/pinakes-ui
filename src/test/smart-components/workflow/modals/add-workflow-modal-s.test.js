@@ -20,9 +20,6 @@ describe('<AddWorkflow />', () => {
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
-  localStorage.setItem('catalog_standalone', true);
-  localStorage.setItem('user', 'testUser');
-
   const ComponentWrapper = ({ store, children }) => (
     <IntlProvider locale="en">
       <Provider store={store}>
@@ -37,6 +34,8 @@ describe('<AddWorkflow />', () => {
   );
 
   beforeEach(() => {
+    localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'testUser');
     initialProps = {
       id: '123',
       postMethod: jest.fn(),
@@ -44,8 +43,6 @@ describe('<AddWorkflow />', () => {
     };
     initialState = {};
     mockStore = configureStore(middlewares);
-    localStorage.setItem('catalog_standalone', true);
-    localStorage.setItem('user', 'testUser');
   });
 
   afterEach(() => {
@@ -53,93 +50,10 @@ describe('<AddWorkflow />', () => {
     global.localStorage.removeItem('user');
   });
 
-  it('should submit the form', async () => {
-    expect.assertions(4);
-
+  it('should close the form', async () => {
     mockApi
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
-      .replyOnce({ body: { results: [{ uuid: 'id', name: 'name' }] } });
-
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`
-      )
-      .replyOnce({ body: { results: [] } });
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`
-      )
-      .replyOnce({ body: { results: [] } });
-
-    jest.useFakeTimers();
-
-    const store = mockStore(initialState);
-    const wrapper = mount(
-      <ComponentWrapper store={store}>
-        <Route
-          path="/workflows/add-workflow/"
-          render={() => <AddWorkflow {...initialProps} />}
-        />
-      </ComponentWrapper>
-    );
-
-    await act(async () => {
-      jest.advanceTimersByTime(550); // initial async validation
-    });
-    wrapper.update();
-
-    await act(async () => {
-      const name = wrapper.find('input').first();
-      name.instance().value = 'some-name';
-      name.simulate('change');
-    });
-    wrapper.update();
-
-    await act(async () => {
-      jest.advanceTimersByTime(550); // name async validaton
-    });
-    wrapper.update();
-
-    jest.useRealTimers();
-
-    await act(async () => {
-      const description = wrapper.find('textarea').first();
-      description.instance().value = 'some-description';
-      description.simulate('change');
-    });
-    wrapper.update();
-
-    wfHelper.addWorkflow = jest
-      .fn()
-      .mockImplementation(() => Promise.resolve('ok'));
-
-    expect(wfHelper.addWorkflow).not.toHaveBeenCalled();
-
-    await act(async () => {
-      wrapper.find('form').simulate('submit');
-    });
-    wrapper.update();
-
-    expect(wfHelper.addWorkflow).toHaveBeenCalledWith({
-      group_refs: [],
-      name: 'some-name',
-      description: 'some-description'
-    });
-    expect(initialProps.postMethod).toHaveBeenCalled();
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.index);
-  });
-
-  it('should close the form', async () => {
-    localStorage.setItem('catalog_standalone', true);
-    localStorage.setItem('user', 'testUser');
-
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
-      )
-      .replyOnce({ body: { data: [{ uuid: 'id', name: 'name' }] } });
+      .replyOnce(200, { data: [{ uuid: 'id', name: 'name' }] });
     mockApi
       .onGet(
         `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`
