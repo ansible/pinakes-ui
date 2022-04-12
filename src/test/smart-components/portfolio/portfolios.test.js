@@ -12,7 +12,7 @@ import notificationsMiddleware from '@redhat-cloud-services/frontend-components-
 import { CATALOG_API_BASE } from '../../../utilities/constants';
 import { FETCH_PORTFOLIOS } from '../../../redux/action-types';
 import Portfolios from '../../../smart-components/portfolio/portfolios';
-import PortfolioCard from '../../../presentational-components/portfolio/porfolio-card';
+import PortfolioCard from '../../../presentational-components/portfolio/portfolio-card';
 import { CardLoader } from '../../../presentational-components/shared/loader-placeholders';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 

@@ -21,7 +21,7 @@ import {
   fetchPortfoliosWithState as fetchPortfoliosWithStateS,
   copyPortfolio as copyPortfolioS
 } from '../../redux/actions/portfolio-actions-s';
-import PortfolioCard from '../../presentational-components/portfolio/porfolio-card';
+import PortfolioCard from '../../presentational-components/portfolio/portfolio-card';
 import ContentGalleryEmptyState, {
   EmptyStatePrimaryAction
 } from '../../presentational-components/shared/content-gallery-empty-state';
