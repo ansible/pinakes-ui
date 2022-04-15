@@ -173,7 +173,7 @@ describe('<EditApprovalWorkflow />', () => {
         ]
       });
     mockApi.onGet(`${APPROVAL_API_BASE}/workflows?name=&`).reply(200, {
-     data: [
+      data: [
         {
           name: 'workflow1',
           id: '111'
