@@ -56,17 +56,6 @@ const createAxiosInstance = () => {
 const axiosInstance: AxiosInstance = createAxiosInstance();
 
 const resolveInterceptor = (response: any) => {
-  const data = response.data || response.results;
-  if (data.data || data.results) {
-    return { ...data, data: data.data || data.results };
-  } else {
-    return data;
-  }
-};
-
-const errorInterceptor = (error: ServerError = {}) => {
-  const requestId = error.response?.headers?.['x-rh-insights-request-id'];
-  throw requestId ? { ...error.response, requestId } : { ...error.response };
   const data = response?.data || response?.results;
   if (data?.data || data?.results) {
     return { ...data, data: data?.data || data?.results };
@@ -81,6 +70,7 @@ export const unauthorizedInterceptor = (error: any) => {
     (error.response?.status === 403 &&
       error.response?.config?.url === `${AUTH_API_BASE}/me/`)
   ) {
+    console.log('Debug - 1');
     loginUser();
     return;
   }
