@@ -156,4 +156,112 @@ describe('<EditApprovalWorkflow />', () => {
     expect(form.props().schema).toEqual(expectedSchema);
     done();
   });
+
+  it('should unlink/link unselected/selected workflows', async (done) => {
+    jest.useFakeTimers();
+    const store = mockStore(initialState);
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+      )
+      .reply(200, {
+        results: [
+          {
+            name: 'workflow1',
+            id: '111'
+          }
+        ]
+      });
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows?name=&`).reply(200, {
+      results: [
+        {
+          name: 'workflow1',
+          id: '111'
+        },
+        {
+          name: 'workflow2',
+          id: '222'
+        }
+      ]
+    });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+      )
+      .reply(200, { results: [{ name: 'workflow1', id: '111' }] });
+
+    mockApi
+      .onPost(`${APPROVAL_API_BASE}/workflows/222/link/`)
+      .replyOnce((req) => {
+        expect(JSON.parse(req.data)).toEqual({
+          object_type: 'Portfolio',
+          app_name: 'catalog',
+          object_id: '123'
+        });
+        return [204];
+      });
+
+    let onCloseMock = jest.fn();
+
+    let wrapper;
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/portfolio?portfolio=123']}
+        >
+          <Route
+            path="/portfolio"
+            render={(args) => (
+              <EditApprovalWorkflow
+                {...args}
+                {...initialProps}
+                querySelector="portfolio"
+                onClose={onCloseMock}
+              />
+            )}
+          />
+        </ComponentWrapper>
+      );
+    });
+    await act(async () => {
+      /**run first debounced data loading for existing workflows */
+      jest.runAllTimers();
+      wrapper.update();
+    });
+    await act(async () => {
+      /**run rest of paginated async request */
+      jest.runAllTimers();
+      wrapper.update();
+    });
+    await act(async () => {
+      wrapper
+        .find('.pf-c-select__toggle')
+        .simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
+    });
+    wrapper.update();
+    await act(async () => {
+      wrapper
+        .find('button.pf-c-select__menu-item')
+        .last()
+        .simulate('click');
+    });
+
+    expect(onCloseMock).not.toHaveBeenCalled();
+
+    await act(async () => {
+      wrapper.find('form').simulate('submit');
+    });
+
+    wrapper.update();
+
+    setImmediate(() => {
+      expect(onCloseMock).toHaveBeenCalled();
+
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual('/foo');
+      done();
+    });
+  });
 });
