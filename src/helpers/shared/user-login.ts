@@ -57,17 +57,21 @@ const createAxiosInstance = () => {
 const axiosInstance: AxiosInstance = createAxiosInstance();
 
 const resolveInterceptor = (response: any) => {
-  const data = response.data || response;
-  return { ...data, data: data.data || data.results };
-};
-
-const errorInterceptor = (error: ServerError = {}) => {
-  const requestId = error.response?.headers?.['x-rh-insights-request-id'];
-  throw requestId ? { ...error.response, requestId } : { ...error.response };
+  const data = response?.data || response?.results;
+  if (data?.data || data?.results) {
+    return { ...data, data: data?.data || data?.results };
+  } else {
+    return data;
+  }
 };
 
 export const unauthorizedInterceptor = (error: any) => {
-  if (error.response?.status === 401) {
+  if (
+    error.response?.status === 401 ||
+    (error.response?.status === 403 &&
+      error.response?.config?.url === `${AUTH_API_BASE}/me/`)
+  ) {
+    console.log('Debug - 1');
     loginUser();
     return;
   }
@@ -102,7 +106,6 @@ export const initUnauthorizedInterceptor = function() {
 
 initUnauthorizedInterceptor();
 axiosInstance.interceptors.response.use(resolveInterceptor);
-axiosInstance.interceptors.response.use(undefined, errorInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(

@@ -208,7 +208,7 @@ export const removePortfolio = (portfolioId: string, viewState = {}) => (
   return dispatch({
     type: ActionTypes.REMOVE_PORTFOLIO,
     payload: PortfolioHelper.removePortfolio(portfolioId)
-      .then(({ restore_key }) => {
+      .then(() => {
         dispatch({
           type: ADD_NOTIFICATION,
           payload: {
@@ -217,28 +217,7 @@ export const removePortfolio = (portfolioId: string, viewState = {}) => (
             dismissable: true,
             description: (
               <FormattedMessage
-                {...portfolioMessages.removePortfolioNotification}
-                values={{
-                  // eslint-disable-next-line react/display-name
-                  a: (chunks: ReactNode) => (
-                    <a
-                      href="#"
-                      id={`undo-delete-portfolio-${portfolioId}`}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        dispatch(
-                          (undoRemovePortfolio(
-                            portfolioId,
-                            restore_key,
-                            viewState
-                          ) as unknown) as AnyAction
-                        );
-                      }}
-                    >
-                      {chunks}
-                    </a>
-                  )
-                }}
+                {...portfolioMessages.removePortfolioOnlyNotification}
               />
             )
           }

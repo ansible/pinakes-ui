@@ -59,10 +59,10 @@ export const sendSubmitOrder = (
             <OrderNotification
               id={id!}
               dispatch={dispatch}
-              portfolioItemId={portfolioItem.id}
+              portfolioItemId={portfolioItem?.id}
               portfolioId={portfolioItem.portfolio_id}
               platformId={portfolioItem.service_offering_source_ref}
-              orderItemId={orderItem.id!}
+              orderItemId={orderItem?.id ? orderItem.id : ''}
             />
           ),
           dismissable: true

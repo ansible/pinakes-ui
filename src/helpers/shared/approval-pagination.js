@@ -8,7 +8,7 @@ export const adjustedOffset = (
   pagination = { ...defaultSettings },
   itemsRemoved = 0
 ) =>
-  pagination.offset !== 0 &&
-  pagination.count - itemsRemoved <= pagination.offset
-    ? pagination.offset - pagination.limit
+  pagination.offset !== 1 &&
+  pagination.count - itemsRemoved <= pagination.offset * pagination.limit
+    ? pagination.offset - 1
     : pagination.offset;
