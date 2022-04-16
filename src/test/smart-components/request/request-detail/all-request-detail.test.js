@@ -8,7 +8,6 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import AllRequestDetail from '../../../../smart-components/request/request-detail/my-request-detail';
-import { RequestLoader } from '../../../../presentational-components/shared/approval-loader-placeholders';
 import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
 import RequestInfoBar from '../../../../smart-components/request/request-detail/request-info-bar';
 import RequestTranscript from '../../../../smart-components/request/request-detail/request-transcript';
