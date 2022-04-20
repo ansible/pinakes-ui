@@ -165,7 +165,7 @@ describe('<EditApprovalWorkflow />', () => {
         `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
       )
       .reply(200, {
-        data: [
+        results: [
           {
             name: 'workflow1',
             id: '111'
@@ -173,7 +173,7 @@ describe('<EditApprovalWorkflow />', () => {
         ]
       });
     mockApi.onGet(`${APPROVAL_API_BASE}/workflows?name=&`).reply(200, {
-     data: [
+      results: [
         {
           name: 'workflow1',
           id: '111'
@@ -188,7 +188,7 @@ describe('<EditApprovalWorkflow />', () => {
       .onGet(
         `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
       )
-      .reply(200, { data: [{ name: 'workflow1', id: '111' }] });
+      .reply(200, { results: [{ name: 'workflow1', id: '111' }] });
 
     mockApi
       .onPost(`${APPROVAL_API_BASE}/workflows/222/link/`)
@@ -246,18 +246,22 @@ describe('<EditApprovalWorkflow />', () => {
         .last()
         .simulate('click');
     });
-    wrapper.update();
+
     expect(onCloseMock).not.toHaveBeenCalled();
 
-    wrapper
-      .find('button')
-      .at(6)
-      .simulate('click');
+    await act(async () => {
+      wrapper.find('form').simulate('submit');
+    });
 
     wrapper.update();
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual('/portfolio');
-    done();
+
+    setImmediate(() => {
+      expect(onCloseMock).toHaveBeenCalled();
+
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual('/foo');
+      done();
+    });
   });
 });

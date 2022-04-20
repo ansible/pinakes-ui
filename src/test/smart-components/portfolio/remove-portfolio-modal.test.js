@@ -164,13 +164,6 @@ describe('<RemovePortfolioModal />', () => {
         type: `${REMOVE_PORTFOLIO}_FULFILLED`
       })
     ];
-
-    await act(async () => {
-      wrapper
-        .find('button')
-        .at(1)
-        .simulate('click');
-    });
     expect(store.getActions()).toEqual(expectedActions);
   });
 
