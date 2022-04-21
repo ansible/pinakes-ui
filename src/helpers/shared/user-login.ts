@@ -24,7 +24,6 @@ import { stringify } from 'qs';
 import { loginUser } from './active-user';
 // @ts-ignore
 import Cookies from 'js-cookie';
-import { isStandalone } from './helpers';
 
 export interface ApiHeaders extends Headers {
   'x-rh-insights-request-id': string;
@@ -71,7 +70,6 @@ export const unauthorizedInterceptor = (error: any) => {
     (error.response?.status === 403 &&
       error.response?.config?.url === `${AUTH_API_BASE}/me/`)
   ) {
-    console.log('Debug - 1');
     loginUser();
     return;
   }

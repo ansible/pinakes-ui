@@ -25,11 +25,14 @@ describe('<SharePortfolioModal/>', () => {
   );
 
   afterEach(() => {
-    mockApi.restore();
-    mockApi.resetHandlers();
+    global.localStorage.setItem('catalog_standalone', false);
+    global.localStorage.removeItem('user');
   });
 
   beforeEach(() => {
+    global.localStorage.setItem('catalog_standalone', true);
+    global.localStorage.setItem('user', 'testUser');
+
     initialProps = {
       addNotification: jest.fn(),
       closeUrl: '/foo'
@@ -95,7 +98,7 @@ describe('<SharePortfolioModal/>', () => {
      * submit data endpoints
      */
     mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/2/share`)
+      .onPost(`${CATALOG_API_BASE}/portfolios/2/share/`)
       .replyOnce((req) => {
         expect(JSON.parse(req.data)).toEqual({
           permissions: ['all'],
@@ -175,7 +178,7 @@ describe('<SharePortfolioModal/>', () => {
     });
 
     mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios/3/share_info`)
+      .onGet(`${CATALOG_API_BASE}/portfolios/3/share_info/`)
       .replyOnce(200, { data: [] });
     mockApi.onGet(`${RBAC_API_BASE}/groups/`).replyOnce(200, { data: [] });
 

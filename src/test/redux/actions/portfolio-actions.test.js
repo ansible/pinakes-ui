@@ -422,7 +422,7 @@ describe('Portfolio actions', () => {
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
-  it('should create correct actions after remove portfolio items action falls', () => {
+  it('should create correct actions after remove portfolio items action fails', () => {
     const store = mockStore({
       portfolioReducer: {
         portfolioItems: { meta: {} },

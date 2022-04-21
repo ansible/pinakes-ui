@@ -1,12 +1,12 @@
 const routes = {
+  allrequest: {
+    index: '/approval/allrequest',
+    comment: '/approval/allrequest/comment',
+    approve: '/approval/allrequest/approve',
+    deny: '/approval/allrequest/deny'
+  },
   allrequests: {
     index: '/approval/allrequests'
-  },
-  requests: {
-    index: '/approval/requests',
-    comment: '/approval/requests/comment',
-    approve: '/approval/requests/approve',
-    deny: '/approval/requests/deny'
   },
   request: {
     index: '/approval/request',
@@ -14,11 +14,11 @@ const routes = {
     approve: '/approval/request/approve',
     deny: '/approval/request/deny'
   },
-  allrequest: {
-    index: '/approval/allrequest',
-    comment: '/approval/allrequest/comment',
-    approve: '/approval/allrequest/approve',
-    deny: '/approval/allrequest/deny'
+  requests: {
+    index: '/approval/requests',
+    comment: '/approval/requests/comment',
+    approve: '/approval/requests/approve',
+    deny: '/approval/requests/deny'
   },
   workflows: {
     index: '/approval/workflows',
