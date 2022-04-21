@@ -61,4 +61,4 @@ export const resetServicePlanModified = (
   id: string,
   options?: any
 ): AxiosPromise<Array<ServicePlan>> =>
-  axiosInstance.post(`${CATALOG_API_BASE}$/service_plans/${id}/reset/`);
+  axiosInstance.post(`${CATALOG_API_BASE}/service_plans/${id}/reset/`);
