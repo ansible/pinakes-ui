@@ -15,7 +15,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
-import * as UserLogin from '../helpers/shared/user-login';
+import * as ActiveUser from '../helpers/shared/active-user';
 
 jest.mock('../presentational-components/navigation/routes', () => ({
   __esModule: true,
@@ -120,14 +120,9 @@ describe('<App />', () => {
   });
 
   it('call loginUser with the next parameter', async () => {
-    mockApi.onGet(`${AUTH_API_BASE}/me/`).replyOnce(200, {
-      username: 'fred.sample',
-      first_name: 'Fred',
-      last_name: 'Sample',
-      roles: [CATALOG_ADMIN_ROLE]
-    });
+    mockApi.onGet(`${AUTH_API_BASE}/me/`).replyOnce(403, {});
 
-    const spy = spyOn(UserLogin, 'loginUser');
+    const spy = spyOn(ActiveUser, 'loginUser');
     let wrapper;
     await act(async () => {
       const store = mockStore(intialState);
@@ -141,6 +136,6 @@ describe('<App />', () => {
       wrapper.update();
     });
 
-    expect(spy).toHaveBeenCalledWith('test');
+    expect(spy).toHaveBeenCalledWith('/catalog');
   });
 });
