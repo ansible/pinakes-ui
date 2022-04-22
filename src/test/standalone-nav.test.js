@@ -15,6 +15,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
+import * as UserLogin from '../helpers/shared/user-login';
 
 jest.mock('../presentational-components/navigation/routes', () => ({
   __esModule: true,
@@ -116,5 +117,30 @@ describe('<App />', () => {
 
     expect(wrapper.find(NotificationsPortal)).toHaveLength(1);
     expect(wrapper.find('NavItem')).toHaveLength(6);
+  });
+
+  it('call loginUser with the next parameter', async () => {
+    mockApi.onGet(`${AUTH_API_BASE}/me/`).replyOnce(200, {
+      username: 'fred.sample',
+      first_name: 'Fred',
+      last_name: 'Sample',
+      roles: [CATALOG_ADMIN_ROLE]
+    });
+
+    const spy = spyOn(UserLogin, 'loginUser');
+    let wrapper;
+    await act(async () => {
+      const store = mockStore(intialState);
+      wrapper = mount(
+        <ComponentWrapper store={store}>
+          <App />
+        </ComponentWrapper>
+      );
+    });
+    await act(async () => {
+      wrapper.update();
+    });
+
+    expect(spy).toHaveBeenCalledWith('test');
   });
 });
