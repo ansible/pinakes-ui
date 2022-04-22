@@ -114,7 +114,7 @@ describe('<RemovePortfolioModal />', () => {
 
     mockApi
       .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
-      .replyOnce((req) => {
+      .reply((req) => {
         expect(req).toBeTruthy();
         return [200, { data: [] }];
       });
@@ -132,6 +132,15 @@ describe('<RemovePortfolioModal />', () => {
         />
       </ComponentWrapper>
     );
+
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
+    });
+    done();
+
     const expectedActions = [
       {
         type: DELETE_TEMPORARY_PORTFOLIO,
@@ -155,86 +164,7 @@ describe('<RemovePortfolioModal />', () => {
         type: `${REMOVE_PORTFOLIO}_FULFILLED`
       })
     ];
-
-    await act(async () => {
-      wrapper
-        .find('button')
-        .at(1)
-        .simulate('click');
-    });
     expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
-
-  it('should call remove portfolio actions and then undo it', async (done) => {
-    expect.assertions(4);
-    const store = mockStore(initialState);
-
-    mockApi.onDelete(`${CATALOG_API_BASE}/portfolios/123`).replyOnce((req) => {
-      expect(req).toBeTruthy();
-      return [200];
-    });
-
-    mockApi
-      .onGet(`${CATALOG_API_BASE}/portfolios?limit=50&offset=0`)
-      .reply((req) => {
-        expect(req).toBeTruthy();
-        return [200, { data: [] }];
-      });
-
-    mockApi
-      .onPost(`${CATALOG_API_BASE}/portfolios/123/undelete`)
-      .replyOnce(200, { id: '123', name: 'Yay' });
-    const wrapper = mount(
-      <ComponentWrapper
-        store={store}
-        initialEntries={['/portfolios/remove-portfolio?portfolio=123']}
-      >
-        <Route
-          path="/portfolios/remove-portfolio"
-          render={(args) => (
-            <RemovePortfolioModal {...args} {...initialProps} />
-          )}
-        />
-      </ComponentWrapper>
-    );
-
-    await act(async () => {
-      wrapper
-        .find('button')
-        .at(1)
-        .simulate('click');
-    });
-    const notification = mount(
-      <IntlProvider locale="en">
-        {store.getActions()[2].payload.description}
-      </IntlProvider>
-    );
-    store.clearActions();
-    await act(async () => {
-      notification.find('a').simulate('click');
-    });
-    const expectedActions = [
-      {
-        type: CLEAR_NOTIFICATIONS
-      },
-      {
-        type: ADD_NOTIFICATION,
-        payload: {
-          dismissable: true,
-          variant: 'success',
-          title: 'Portfolio Yay has been restored'
-        }
-      },
-      expect.objectContaining({
-        type: `${FETCH_PORTFOLIOS}_PENDING`
-      }),
-      expect.objectContaining({
-        type: `${FETCH_PORTFOLIOS}_FULFILLED`
-      })
-    ];
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
   it('should redirect away from remove modal if destroy capability is set to false', () => {

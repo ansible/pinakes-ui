@@ -1,4 +1,4 @@
-import { getAxiosInstance, getRbacGroupApi } from '../shared/user-login';
+import { getAxiosInstance } from '../shared/user-login';
 import { RBAC_API_BASE } from '../../utilities/constants';
 import { SelectOptions } from '../../types/common-types';
 
@@ -15,7 +15,7 @@ export interface GroupOut {
 }
 
 export interface GroupPagination {
-  results: Array<GroupOut>;
+  data: Array<GroupOut>;
 }
 
 export const getRbacGroups = (): Promise<GroupPagination> =>
@@ -30,6 +30,6 @@ export const fetchFilterGroups = (filterValue = ''): Promise<SelectOptions> =>
         filterValue.length > 0 ? `?name=${filterValue}` : ''
       }`
     )
-    .then(({ results }: GroupPagination) => {
-      return results.map(({ id, name }) => ({ label: name, value: id }));
-    });
+    .then(({ data }: GroupPagination) =>
+      data.map(({ id, name }) => ({ label: name, value: id }))
+    );

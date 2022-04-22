@@ -20,7 +20,9 @@ import {
   mockGraphql
 } from '../../../helpers/shared/__mocks__/user-login';
 import UserContext from '../../../user-context';
-
+/**
+ * @jest-environment jsdom
+ */
 describe('<Products />', () => {
   let initialState;
 

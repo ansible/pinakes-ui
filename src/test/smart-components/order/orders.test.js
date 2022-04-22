@@ -160,7 +160,7 @@ describe('<Orders />', () => {
       .onGet(
         `${CATALOG_API_BASE}/orders/?extra=true&&sort_by=id:desc&page_size=50&page=2`
       )
-      .replyOnce(200, { results: [] });
+      .replyOnce(200, { data: [] });
     /**
      * Pagination requests
      */
@@ -168,7 +168,7 @@ describe('<Orders />', () => {
       .onGet(
         `${CATALOG_API_BASE}/orders/?extra=true&sort_by=id:desc&page_size=5&page=1`
       )
-      .replyOnce(200, { results: [] });
+      .replyOnce(200, { data: [] });
     let wrapper;
     await act(async () => {
       wrapper = mount(
@@ -217,7 +217,7 @@ describe('<Orders />', () => {
           storeState: true
         },
         payload: {
-          results: []
+          data: []
         },
         type: 'FETCH_ORDERS_FULFILLED'
       }

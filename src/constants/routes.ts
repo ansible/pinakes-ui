@@ -42,7 +42,6 @@ export const ORDER_PROCESSES_ROUTE = '/order-processes';
 export const ADD_ORDER_PROCESS_ROUTE = '/order-processes/add-order-process';
 export const REMOVE_ORDER_PROCESS_ROUTE = '/order-processes/remove';
 export const UPDATE_ORDER_PROCESS_ROUTE = '/order-processes/update';
-export const APPROVAL_ROUTE = '/approval';
 
 export const Paths = {
   products: '/products',
@@ -52,7 +51,12 @@ export const Paths = {
   portfolio: PORTFOLIO_ROUTE,
   orders: '/orders',
   order: ORDER_ROUTE,
-  approval: APPROVAL_ROUTE
+  approval: '/approval/requests',
+  requests: '/approval/requests',
+  allrequests: '/approval/allrequests',
+  request: '/approval/request',
+  allrequest: '/approval/allrequest',
+  workflows: '/approval/workflows'
 };
 
 export const errorPaths = ['/400', '/401', '/403', '/404'];

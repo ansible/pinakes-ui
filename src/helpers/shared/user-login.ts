@@ -55,15 +55,21 @@ const createAxiosInstance = () => {
 
 const axiosInstance: AxiosInstance = createAxiosInstance();
 
-const resolveInterceptor = (response: AxiosResponse) =>
-  response.data || response;
-const errorInterceptor = (error: ServerError = {}) => {
-  const requestId = error.response?.headers?.['x-rh-insights-request-id'];
-  throw requestId ? { ...error.response, requestId } : { ...error.response };
+const resolveInterceptor = (response: any) => {
+  const data = response?.data || response?.results;
+  if (data?.data || data?.results) {
+    return { ...data, data: data?.data || data?.results };
+  } else {
+    return data;
+  }
 };
 
 export const unauthorizedInterceptor = (error: any) => {
-  if (error.response?.status === 401) {
+  if (
+    error.response?.status === 401 ||
+    (error.response?.status === 403 &&
+      error.response?.config?.url === `${AUTH_API_BASE}/me/`)
+  ) {
     loginUser();
     return;
   }
@@ -81,14 +87,9 @@ export const unauthorizedInterceptor = (error: any) => {
 
 // check identity before each request. If the token is expired it will log out user
 axiosInstance.interceptors.request.use(async (config) => {
-  // eslint-disable-next-line no-undef
-  if (!localStorage.getItem('catalog_standalone')) {
-    await window.insights.chrome.auth.getUser();
-  } else {
-    const csrftoken = Cookies.get('csrftoken');
-    if (csrftoken) {
-      config.headers['X-CSRFToken'] = csrftoken;
-    }
+  const csrftoken = Cookies.get('csrftoken');
+  if (csrftoken) {
+    config.headers['X-CSRFToken'] = csrftoken;
   }
 
   return config;
@@ -103,7 +104,6 @@ export const initUnauthorizedInterceptor = function() {
 
 initUnauthorizedInterceptor();
 axiosInstance.interceptors.response.use(resolveInterceptor);
-axiosInstance.interceptors.response.use(undefined, errorInterceptor);
 
 const orderApi = new OrderApi(undefined, CATALOG_API_BASE, axiosInstance);
 const orderItemApi = new OrderItemApi(

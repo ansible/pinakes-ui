@@ -30,6 +30,7 @@ describe('<EditApprovalWorkflow />', () => {
 
   beforeEach(() => {
     localStorage.setItem('catalog_standalone', true);
+    localStorage.setItem('user', 'test');
     initialProps = {
       closeUrl: 'foo',
       portfolioId: '123',
@@ -103,7 +104,7 @@ describe('<EditApprovalWorkflow />', () => {
     const store = mockStore(initialState);
     mockApi
       .onGet(
-        `/api/approval/v1.2/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
       )
       .replyOnce(200, { results: [{ name: 'workflow', id: '123' }] });
 

@@ -20,6 +20,9 @@ describe('redux store', () => {
       approvalReducer: expect.any(Object),
       rbacReducer: expect.any(Object),
       shareReducer: expect.any(Object),
+      groupReducer: expect.any(Object),
+      requestReducer: expect.any(Object),
+      workflowReducer: expect.any(Object),
       notifications: expect.any(Object),
       openApiReducer: expect.any(Object),
       i18nReducer: expect.any(Object)

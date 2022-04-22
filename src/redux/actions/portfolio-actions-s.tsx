@@ -208,7 +208,7 @@ export const removePortfolio = (portfolioId: string, viewState = {}) => (
   return dispatch({
     type: ActionTypes.REMOVE_PORTFOLIO,
     payload: PortfolioHelper.removePortfolio(portfolioId)
-      .then(({ restore_key }) => {
+      .then((data) => {
         dispatch({
           type: ADD_NOTIFICATION,
           payload: {

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { configure, mount, render, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
@@ -37,6 +40,10 @@ process.env.BASE_PATH = '/api';
 // eslint-disable-next-line no-undef
 global.DEPLOYMENT_MODE = 'insights';
 global.APPLICATION_NAME = 'Pinakes';
+
+global.API_HOST = '';
+global.API_BASE_PATH = '/api/pinakes/v1';
+global.AUTH_BASE_PATH = '/api/pinakes/auth';
 /**
  * Setup JSDOM
  */

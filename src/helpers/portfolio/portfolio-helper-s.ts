@@ -182,12 +182,11 @@ export const removePortfolioItems = (
 ): Promise<RestorePortfolioItemConfig[]> =>
   Promise.all(
     portfolioItemIds.map(async (itemId) => {
-      const { restore_key } = ((await removePortfolioItem(
+      ((await removePortfolioItem(
         itemId
       )) as unknown) as RestorePortfolioItemConfig;
       return {
-        portfolioItemId: itemId,
-        restoreKey: restore_key
+        portfolioItemId: itemId
       };
     })
   );
