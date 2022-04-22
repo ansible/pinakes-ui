@@ -66,15 +66,6 @@ const resolveInterceptor = (response: any) => {
 
 export const unauthorizedInterceptor = (error: any) => {
   if (
-    error.response?.status === 401 ||
-    (error.response?.status === 403 &&
-      error.response?.config?.url === `${AUTH_API_BASE}/me/`)
-  ) {
-    loginUser();
-    return;
-  }
-
-  if (
     error.response?.status === 403 &&
     error.response?.config?.url !== `${AUTH_API_BASE}/me/`
   ) {

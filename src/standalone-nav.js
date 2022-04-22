@@ -32,7 +32,7 @@ import NotificationsPortal from '@redhat-cloud-services/frontend-components-noti
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
 import { useLocation } from 'react-router';
-import { getUser, logoutUser } from './helpers/shared/active-user';
+import { getUser, loginUser, logoutUser } from './helpers/shared/active-user';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
 import {
   APPLICATION_TITLE,
@@ -124,7 +124,13 @@ const App = (props) => {
         setAuth(true);
         setUser(user);
       })
-      .catch((error) => setAuth(false));
+      .catch((error) => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          return loginUser(window.location.pathname);
+        } else {
+          throw error;
+        }
+      });
   }, []);
 
   let docsDropdownItems = [];
@@ -148,6 +154,7 @@ const App = (props) => {
         onClick={() =>
           logoutUser().then(() => {
             setUser(null);
+            window.location.replace(window.location.pathname);
           })
         }
       >
@@ -315,7 +322,7 @@ const App = (props) => {
           <Grid style={{ minHeight: MIN_SCREEN_HEIGHT }}>
             <GridItem sm={12}>
               {auth === false && <UnknownErrorPlaceholder />}
-              {auth && <Routes />}
+              {auth && user && <Routes />}
             </GridItem>
           </Grid>
         </UserContext.Provider>
