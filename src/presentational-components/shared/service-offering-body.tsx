@@ -48,10 +48,7 @@ const ServiceOfferingCardBody: React.ComponentType<ServiceOfferingCardBodyProps>
         </Fragment>
       )}
     </TextContent>
-    <ItemDetails
-      toDisplay={[props.description ? 'description' : 'long_description']}
-      {...props}
-    />
+    <ItemDetails toDisplay={['description']} {...props} />
   </StyledCardBody>
 );
 
