@@ -12,19 +12,10 @@
 
 This is useful if you would like to build the UI with custom images within `src/assets/images` (override these images before executing these build steps):
 
-First, our Approval UI is currently a separate repository. We are working on integrating this repository into pinakes-ui, so these steps will change to no longer include mentions of approval-ui in the near future.
-
-Ensure you are in the top level directory of the pinakes-ui project.
-`git clone https://github.com/RedHatInsights/approval-ui.git`
-
 ```
 npm ci || npm install
 npm run build:standalone
-cd ./approval-ui
-npm ci || npm install
-npm run build:standalone
 cd ..
-cp -r ./approval-ui/dist ./dist/approval
 tar -C dist/ -czvf catalog-ui.tar.gz .
 ```
 
