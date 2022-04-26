@@ -57,9 +57,11 @@ export const listPortfolios = (
     const partial =
       key === 'sort_by'
         ? `sort_by=${value}:${sortDirection}`
-        : `${key}=${value}`;
+        : `search=${value}`;
     return `${acc}&${partial}`;
   }, '');
+  console.log('Debug - filterQuery: ', filterQuery);
+
   return (axiosInstance.get(
     `${CATALOG_API_BASE}/portfolios/?page=${offset ||
       1}&page_size=${limit}&${filterQuery}`
