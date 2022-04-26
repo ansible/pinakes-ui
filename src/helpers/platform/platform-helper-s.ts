@@ -32,7 +32,7 @@ export const getPlatformItems = (
   options?: PaginationConfiguration
 ): Promise<ApiCollectionResponse<ServiceOffering>> => {
   if (platformId) {
-    const filterQuery = filter ? `?name=${filter}` : '';
+    const filterQuery = filter ? `?search=${filter}` : '';
     const optionsQuery = options
       ? `page_size=${options.limit}&page=${options.offset || 1}`
       : '';
@@ -52,7 +52,7 @@ export const getPlatformInventories = (
   options = defaultSettings
 ): Promise<ApiCollectionResponse<ServiceInventory>> => {
   if (platformId) {
-    const filterQuery = filter ? `name=${filter}` : '';
+    const filterQuery = filter ? `search=${filter}` : '';
     return axiosInstance.get(
       `${CATALOG_API_BASE}/sources/${platformId}/service_inventories/?${filterQuery}${
         options ? `&page_size=${options.limit}&page=${options.offset || 1}` : ''
