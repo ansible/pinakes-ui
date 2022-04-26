@@ -27,7 +27,7 @@ const ItemDetails: React.ComponentType<ItemDetailsProps> = ({
   ...item
 }) => (
   <Fragment>
-    {toDisplay.map((prop) => (
+    {(toDisplay || []).map((prop) => (
       <Truncate
         key={`tcard-prop-${prop}`}
         lines={3}

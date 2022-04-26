@@ -121,8 +121,8 @@ const AddProductsToPortfolio = ({ portfolioRoute }) => {
     selectedPlatform &&
     platformItems[selectedPlatform.id] &&
     (isStandalone()
-      ? platformItems[selectedPlatform.id].meta
-      : { count: platformItems[selectedPlatform.id].count, limit, offset });
+      ? { count: platformItems[selectedPlatform.id].count, limit, offset }
+      : platformItems[selectedPlatform.id].meta);
 
   const handleFilterItems = (value) => {
     stateDispatch({ type: 'setFilterValue', payload: value });

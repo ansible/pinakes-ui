@@ -151,7 +151,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                   id="Foo"
                   toDisplay={
                     Array [
-                      "long_description",
+                      "description",
                     ]
                   }
                 >
@@ -165,7 +165,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                         </span>
                       </Tooltip>
                     }
-                    key="tcard-prop-long_description"
+                    key="tcard-prop-description"
                     lines={3}
                     trimWhitespace={false}
                     width={0}
@@ -176,7 +176,7 @@ exports[`<PlatformItem /> should render correctly 1`] = `
                       <span />
                       <span>
                         <styled.div
-                          key="card-prop-long_description"
+                          key="card-prop-description"
                         >
                           <div
                             className="sc-AxmLO dHHURS"
