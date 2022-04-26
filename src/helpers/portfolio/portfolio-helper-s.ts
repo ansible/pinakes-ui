@@ -48,7 +48,6 @@ export const listPortfolios = (
   filters: AnyObject = {},
   { offset, limit, sortDirection = 'asc' } = defaultSettings
 ): Promise<ApiCollectionResponse<InternalPortfolio>> => {
-  console.log('Debug - listPortfolios filters: ', filters);
   const filterQuery = Object.entries(filters).reduce((acc, [key, value]) => {
     if (!value) {
       return acc;
@@ -60,7 +59,6 @@ export const listPortfolios = (
         : `search=${value}`;
     return `${acc}&${partial}`;
   }, '');
-  console.log('Debug - filterQuery: ', filterQuery);
 
   return (axiosInstance.get(
     `${CATALOG_API_BASE}/portfolios/?page=${offset ||
