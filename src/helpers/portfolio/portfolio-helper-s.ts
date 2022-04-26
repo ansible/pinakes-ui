@@ -48,6 +48,7 @@ export const listPortfolios = (
   filters: AnyObject = {},
   { offset, limit, sortDirection = 'asc' } = defaultSettings
 ): Promise<ApiCollectionResponse<InternalPortfolio>> => {
+  console.log('Debug - listPortfolios filters: ', filters);
   const filterQuery = Object.entries(filters).reduce((acc, [key, value]) => {
     if (!value) {
       return acc;
@@ -72,7 +73,7 @@ export const listPortfolioItems = (
 ): Promise<ApiCollectionResponse<PortfolioItem>> => {
   return axiosInstance
     .get(
-      `${CATALOG_API_BASE}/portfolio_items/?page=${offset ||
+      `${CATALOG_API_BASE}/portfolio_items/?search=${filter}&page=${offset ||
         1}&page_size=${limit}`
     )
     .then(
@@ -123,7 +124,7 @@ export const getPortfolioItemsWithPortfolio = (
   { limit, offset, filter = '' } = defaultSettings
 ): Promise<ApiCollectionResponse<PortfolioItem>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items/?page_size=${limit}&page=${offset ||
+    `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items/?search=${filter}&page_size=${limit}&page=${offset ||
       1}`
   );
 
