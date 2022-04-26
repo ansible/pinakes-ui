@@ -61,25 +61,21 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
           long_description="long description"
           toDisplay={
             Array [
-              "long_description",
+              "description",
             ]
           }
         >
           <Truncate
             ellipsis={
               <Tooltip
-                content={
-                  <div>
-                    long description
-                  </div>
-                }
+                content={<div />}
               >
                 <span>
                   ...
                 </span>
               </Tooltip>
             }
-            key="tcard-prop-long_description"
+            key="tcard-prop-description"
             lines={3}
             trimWhitespace={false}
             width={0}
@@ -90,13 +86,11 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
               <span />
               <span>
                 <styled.div
-                  key="card-prop-long_description"
+                  key="card-prop-description"
                 >
                   <div
                     className="sc-AxjAm hDziHm"
-                  >
-                    long description
-                  </div>
+                  />
                 </styled.div>
               </span>
               <span
@@ -110,11 +104,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                 }
               >
                 <Tooltip
-                  content={
-                    <div>
-                      long description
-                    </div>
-                  }
+                  content={<div />}
                 >
                   <Popper
                     appendTo={[Function]}
@@ -157,9 +147,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                         <TooltipContent
                           isLeftAligned={false}
                         >
-                          <div>
-                            long description
-                          </div>
+                          <div />
                         </TooltipContent>
                       </div>
                     }
