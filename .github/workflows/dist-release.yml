@@ -36,7 +36,6 @@ jobs:
         run: |
           npm ci || npm install
           npm run build:standalone
-          cd ..
           tar -C dist/ -czvf catalog-ui.tar.gz .
 
       - name: "Release"
