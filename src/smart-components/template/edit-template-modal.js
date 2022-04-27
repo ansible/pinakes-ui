@@ -33,8 +33,12 @@ const reducer = (state, { type, initialValues, schema }) => {
   }
 };
 
-const prepareInitialValues = (tData) => {
-  return { ...tData };
+const prepareInitialValues = (wfData) => {
+  const groupOptions = wfData.group_refs.map((group) => ({
+    label: group.name,
+    value: group.uuid
+  }));
+  return { ...wfData, group_refs: [], current_groups: groupOptions };
 };
 
 const EditTemplate = () => {
@@ -69,12 +73,22 @@ const EditTemplate = () => {
 
   const onCancel = () => push(routes.templates.index);
 
-  const onSave = ({ description = '', ...values }) => {
+  const onSave = ({ group_refs = [], description = '', ...values }) => {
     onCancel();
+    const groups = values.current_groups
+      ? values.current_groups.concat(
+          group_refs?.filter((item) => values.current_groups.indexOf(item) < 0)
+        )
+      : group_refs;
     const templateData = {
       ...values,
-      description
+      description,
+      group_refs: groups.map((group) => ({
+        name: group.label,
+        uuid: group.value
+      }))
     };
+    delete templateData.current_groups;
     return dispatch(updateTemplate(templateData, intl)).then(() =>
       dispatch(fetchTemplates())
     );
@@ -87,8 +101,8 @@ const EditTemplate = () => {
       title={intl.formatMessage(templateMessages.editInformation)}
       description={
         !isLoading &&
-        intl.formatMessage(templateMessages.editTemplateTitle, {
-          title: initialValues.title
+        intl.formatMessage(templateMessages.editProcessTitle, {
+          name: initialValues.name
         })
       }
       variant="small"

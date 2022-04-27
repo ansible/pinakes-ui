@@ -1,6 +1,6 @@
 import * as ActionTypes from '../action-types';
 import * as TemplateHelper from '../../helpers/template/template-helper';
-import templateMessages from '../../messages/templates.messages';
+import templateMessages from '../../messages/template.messages';
 
 export const fetchTemplates = (pagination) => (dispatch, getState) => {
   const { templates, filterValue } = getState().templateReducer;
@@ -30,9 +30,9 @@ export const addTemplate = (templateData, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.addTemplateSuccessTitle),
+        title: intl.formatMessage(templateMessages.addProcessSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.addTemplateSuccessDescription
+          templateMessages.addProcessSuccessDescription
         )
       }
     }
@@ -46,9 +46,27 @@ export const updateTemplate = (templateData, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.updateTemplateSuccessTitle),
+        title: intl.formatMessage(templateMessages.updateProcessSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.updateTemplateSuccessDescription
+          templateMessages.updateProcessSuccessDescription
+        )
+      }
+    }
+  }
+});
+
+export const repositionTemplate = (templateData, intl) => ({
+  type: ActionTypes.REPOSITION_TEMPLATE,
+  payload: TemplateHelper.repositionTemplate(templateData),
+  meta: {
+    notifications: {
+      fulfilled: {
+        variant: 'success',
+        title: intl.formatMessage(
+          templateMessages.repositionProcessSuccessTitle
+        ),
+        description: intl.formatMessage(
+          templateMessages.repositionProcessSuccessDescription
         )
       }
     }
@@ -62,9 +80,9 @@ export const removeTemplate = (template, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.removeTemplatesSuccessTitle),
+        title: intl.formatMessage(templateMessages.removeProcessSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.removeTemplateSuccessDescription
+          templateMessages.removeProcessSuccessDescription
         )
       }
     }
@@ -78,9 +96,9 @@ export const removeTemplates = (templates, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.removeTemplatesSuccessTitle),
+        title: intl.formatMessage(templateMessages.removeProcessesSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.removeTemplatesSuccessDescription
+          templateMessages.removeProcessesSuccessDescription
         )
       }
     }
@@ -94,4 +112,9 @@ export const setFilterValueTemplates = (filterValue) => ({
 
 export const clearFilterValueTemplates = () => ({
   type: ActionTypes.CLEAR_FILTER_TEMPLATES
+});
+
+export const moveSequence = (process) => ({
+  type: ActionTypes.MOVE_SEQUENCE,
+  payload: process
 });
