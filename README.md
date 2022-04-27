@@ -15,7 +15,6 @@ This is useful if you would like to build the UI with custom images within `src/
 ```
 npm ci || npm install
 npm run build:standalone
-cd ..
 tar -C dist/ -czvf catalog-ui.tar.gz .
 ```
 
