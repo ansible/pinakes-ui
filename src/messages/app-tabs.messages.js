@@ -12,6 +12,10 @@ const apsTabsMessages = defineMessages({
   approvalProccess: {
     id: 'tabs.approvalProcess',
     defaultMessage: 'Approval processes'
+  },
+  templates: {
+    id: 'tabs.templates',
+    defaultMessage: 'Templates'
   }
 });
 

@@ -25,6 +25,12 @@ const routes = {
     add: '/approval/workflows/add-workflow',
     remove: '/approval/workflows/remove',
     edit: '/approval/workflows/edit'
+  },
+  templates: {
+    index: '/approval/templates',
+    add: '/approval/templates/add-templates',
+    remove: '/approval/templates/remove',
+    edit: '/approval/templates/edit'
   }
 };
 

@@ -1,6 +1,6 @@
 import * as ActionTypes from '../action-types';
 import * as TemplateHelper from '../../helpers/template/template-helper';
-import templateMessages from '../../messages/template.messages';
+import templateMessages from '../../messages/templates.messages';
 
 export const fetchTemplates = (pagination) => (dispatch, getState) => {
   const { templates, filterValue } = getState().templateReducer;
@@ -49,24 +49,6 @@ export const updateTemplate = (templateData, intl) => ({
         title: intl.formatMessage(templateMessages.updateProcessSuccessTitle),
         description: intl.formatMessage(
           templateMessages.updateProcessSuccessDescription
-        )
-      }
-    }
-  }
-});
-
-export const repositionTemplate = (templateData, intl) => ({
-  type: ActionTypes.REPOSITION_TEMPLATE,
-  payload: TemplateHelper.repositionTemplate(templateData),
-  meta: {
-    notifications: {
-      fulfilled: {
-        variant: 'success',
-        title: intl.formatMessage(
-          templateMessages.repositionProcessSuccessTitle
-        ),
-        description: intl.formatMessage(
-          templateMessages.repositionProcessSuccessDescription
         )
       }
     }
