@@ -50,6 +50,11 @@ const Workflows = lazy(() =>
     /* webpackChunkName: "workflows" */ '../../smart-components/workflow/workflows'
   )
 );
+const Templates = lazy(() =>
+  import(
+    /* webpackChunkName: "templates" */ '../../smart-components/template/templates'
+  )
+);
 
 const Requests = lazy(() =>
   import(
@@ -92,6 +97,7 @@ export const Routes = () => {
         <CatalogRoute path={Paths.order} component={OrderDetail} />
         <CatalogRoute path={Paths.orders} component={Orders} />
         <CatalogRoute path={Paths.workflows} component={Workflows} />
+        <CatalogRoute path={Paths.templates} component={Templates} />
         <CatalogRoute path={Paths.requests} component={Requests} />
         <CatalogRoute path={Paths.allrequests} component={AllRequests} />
         <CatalogRoute path={Paths.request} component={MyRequestDetail} />

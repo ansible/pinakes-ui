@@ -21,6 +21,11 @@ const approvalTabItems = [
     eventKey: 2,
     message: apsTabsMessages.approvalProccess,
     name: '/approval/workflows'
+  },
+  {
+    eventKey: 3,
+    message: apsTabsMessages.templates,
+    name: '/approval/templates'
   }
 ];
 
