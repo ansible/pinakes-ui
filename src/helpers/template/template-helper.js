@@ -15,10 +15,12 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
 }
 
 export const fetchTemplate = (id) =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/${id}/`);
+  getAxiosInstance().get(`${APPROVAL_API_BASE}/notification_settings/${id}/`);
 
 export let fetchTemplateByName = (name) =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/?name=${name}`);
+  getAxiosInstance().get(
+    `${APPROVAL_API_BASE}/notification_settings/?name=${name}`
+  );
 
 export function updateTemplate(data) {
   return getAxiosInstance().patch(
@@ -27,39 +29,19 @@ export function updateTemplate(data) {
   );
 }
 
-export function repositionTemplate(data) {
-  return getAxiosInstance().patch(
-    `${APPROVAL_API_BASE}/templates/${data.id}`,
-    data.sequence
-  );
-}
-
 export const listTemplates = () =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/`);
+  getAxiosInstance().get(`${APPROVAL_API_BASE}/notification_settings/`);
 
-export function addTemplateToTemplate(templateId, template) {
+export function addTemplate(data) {
   return getAxiosInstance().post(
-    `${APPROVAL_API_BASE}/templates/${templateId}/templates/`,
-    template
+    `${APPROVAL_API_BASE}/notification_settings/`,
+    data
   );
-}
-
-export function addTemplate(template) {
-  return listTemplates()
-    .then(({ data }) => {
-      // workaround for v1. Need to pass template ID with the template. Assigning to first template
-      if (!data[0]) {
-        throw new Error('No template exists');
-      }
-
-      return data[0].id;
-    })
-    .then((id) => addTemplateToTemplate(id, template));
 }
 
 export function destroyTemplate(templateId) {
   return getAxiosInstance().delete(
-    `${APPROVAL_API_BASE}/templates/${templateId}/`
+    `${APPROVAL_API_BASE}/notification_settings/${templateId}/`
   );
 }
 
