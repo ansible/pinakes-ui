@@ -121,6 +121,17 @@ export const WorkflowInfoFormLoader = () => (
   </Form>
 );
 
+export const TemplateInfoFormLoader = () => (
+  <Form>
+    <FormGroup fieldId="1">
+      <FormItemLoader />
+    </FormGroup>
+    <FormGroup fieldId="2">
+      <FormItemLoader />
+    </FormGroup>
+  </Form>
+);
+
 export const ToolbarTitlePlaceholder = () => (
   <Loader height={32} width={200} className="pf-u-mb-md" />
 );

@@ -52,6 +52,10 @@ const formMessages = defineMessages({
   existingGroupsMessage: {
     id: 'formMessages.existingGroups',
     defaultMessage: 'Current groups'
+  },
+  createTemplateTitle: {
+    id: 'formMessages.createTemplateTitle',
+    defaultMessage: 'Create template'
   }
 });
 

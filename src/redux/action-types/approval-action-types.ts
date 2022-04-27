@@ -5,7 +5,9 @@ const APPROVAL_PREFIX = '@@catalog/approval/';
 const asyncActionTypes = [
   'FETCH_WORKFLOWS',
   'UPDATE_WORKFLOWS',
-  'RESOLVE_WORKFLOWS'
+  'RESOLVE_WORKFLOWS',
+  'FETCH_TEMPLATES',
+  'UPDATE_TEMPLATES'
 ];
 
 export const ASYNC_ACTIONS = {
