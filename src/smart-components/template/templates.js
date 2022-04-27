@@ -43,6 +43,7 @@ import TemplateTableContext from './template-table-context';
 import isEmpty from 'lodash/isEmpty';
 
 const columns = (intl, selectedAll, selectAll) => [
+  { title: '', transforms: [cellWidth(1)] },
   {
     title: (
       <Checkbox onChange={selectAll} isChecked={selectedAll} id="select-all" />
@@ -54,12 +55,10 @@ const columns = (intl, selectedAll, selectAll) => [
   },
   {
     title: intl.formatMessage(formMessages.description),
-    transforms: [cellWidth(30)],
+    transforms: [cellWidth(35)],
     cellTransforms: [truncate]
   },
-  {
-    title: intl.formatMessage(tableToolbarMessages.updatedLabel)
-  }
+  { title: intl.formatMessage(formMessages.groups) }
 ];
 
 const debouncedFilter = asyncDebounce(
@@ -156,6 +155,7 @@ export const templatesListState = (state, action) => {
 };
 
 const Templates = () => {
+  const moveFunctionsCache = useRef({});
   const { templates, filterValueRedux } = useSelector(
     ({ templateReducer: { templates, filterValue: filterValueRedux } }) => ({
       templates,
@@ -324,7 +324,8 @@ const Templates = () => {
       <TemplateTableContext.Provider
         value={{
           selectedTemplates,
-          setSelectedTemplates
+          setSelectedTemplates,
+          cache: moveFunctionsCache.current
         }}
       >
         <TableToolbarView
