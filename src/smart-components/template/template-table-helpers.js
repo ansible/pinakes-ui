@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Label,
-  Flex,
-  FlexItem,
-  Checkbox
-} from '@patternfly/react-core';
+import { Label, Flex, FlexItem, Checkbox } from '@patternfly/react-core';
 
 import TemplateTableContext from './template-table-context';
+import { timeAgo } from '../../helpers/shared/approval-helpers';
 
 export const GroupsLabels = ({ group_refs, id }) => (
   <Flex key={id} className="pf-u-mt-sm">
@@ -48,16 +44,14 @@ SelectBox.propTypes = {
 };
 
 export const createRows = (data) =>
-  data.map(({ id, name, description, group_refs }) => ({
+  data.map(({ id, title, description, created_at, updated_at }) => ({
     id,
     cells: [
       <React.Fragment key={`${id}-checkbox`}>
         <SelectBox id={id} />
       </React.Fragment>,
-      name,
+      title,
       description,
-      <React.Fragment key={id}>
-        <GroupsLabels key={id} group_refs={group_refs} id={id} />
-      </React.Fragment>
+      updated_at ? timeAgo(updated_at) : timeAgo(created_at)
     ]
   }));
