@@ -30,9 +30,9 @@ export const addTemplate = (templateData, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.addProcessSuccessTitle),
+        title: intl.formatMessage(templateMessages.addTemplateSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.addProcessSuccessDescription
+          templateMessages.addTemplateSuccessDescription
         )
       }
     }
@@ -46,9 +46,9 @@ export const updateTemplate = (templateData, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.updateProcessSuccessTitle),
+        title: intl.formatMessage(templateMessages.updateTemplateSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.updateProcessSuccessDescription
+          templateMessages.updateTemplateSuccessDescription
         )
       }
     }
@@ -62,9 +62,9 @@ export const removeTemplate = (template, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.removeProcessSuccessTitle),
+        title: intl.formatMessage(templateMessages.removeTemplatesSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.removeProcessSuccessDescription
+          templateMessages.removeTemplateSuccessDescription
         )
       }
     }
@@ -78,9 +78,9 @@ export const removeTemplates = (templates, intl) => ({
     notifications: {
       fulfilled: {
         variant: 'success',
-        title: intl.formatMessage(templateMessages.removeProcessesSuccessTitle),
+        title: intl.formatMessage(templateMessages.removeTemplatesSuccessTitle),
         description: intl.formatMessage(
-          templateMessages.removeProcessesSuccessDescription
+          templateMessages.removeTemplatesSuccessDescription
         )
       }
     }
@@ -94,9 +94,4 @@ export const setFilterValueTemplates = (filterValue) => ({
 
 export const clearFilterValueTemplates = () => ({
   type: ActionTypes.CLEAR_FILTER_TEMPLATES
-});
-
-export const moveSequence = (process) => ({
-  type: ActionTypes.MOVE_SEQUENCE,
-  payload: process
 });
