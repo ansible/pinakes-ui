@@ -29,6 +29,10 @@ const tableToolbarMessages = defineMessages({
   ariaLabel: {
     id: 'tableToolbar.ariaLabel',
     defaultMessage: '{title} table'
+  },
+  updatedLabel: {
+    id: 'tableToolbar.updatedLabel',
+    defaultMessage: 'Updated'
   }
 });
 
