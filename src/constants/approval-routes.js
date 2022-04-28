@@ -31,6 +31,12 @@ const routes = {
     add: '/approval/templates/add-templates',
     remove: '/approval/templates/remove',
     edit: '/approval/templates/edit'
+  },
+  notifications: {
+    index: '/approval/notifications',
+    add: '/approval/notifications/add-notification',
+    remove: '/approval/notifications/remove-notification',
+    edit: '/approval/notifications/edit-notification'
   }
 };
 

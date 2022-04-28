@@ -57,7 +57,8 @@ export const Paths = {
   request: '/approval/request',
   allrequest: '/approval/allrequest',
   workflows: '/approval/workflows',
-  templates: '/approval/templates'
+  templates: '/approval/templates',
+  notifications: '/approval/notifications'
 };
 
 export const errorPaths = ['/400', '/401', '/403', '/404'];

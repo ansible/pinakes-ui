@@ -42,6 +42,10 @@ import templateReducer, {
   templatesInitialState
   // @ts-ignore
 } from '../redux/reducers/template-reducer';
+import notificationSettingsReducer, {
+  notificationSettingsInitialState
+  // @ts-ignore
+} from '../redux/reducers/notification-setting-reducer';
 import groupReducer, {
   groupsInitialState
   // @ts-ignore
@@ -98,6 +102,10 @@ const registerReducers = (registry: ReducerRegistry): void => {
     requestReducer: applyReducerHash(requestReducer, requestsInitialState),
     workflowReducer: applyReducerHash(workflowReducer, workflowsInitialState),
     templateReducer: applyReducerHash(templateReducer, templatesInitialState),
+    notificationSettingsReducer: applyReducerHash(
+      notificationSettingsReducer,
+      notificationSettingsInitialState
+    ),
     groupReducer: applyReducerHash(groupReducer, groupsInitialState),
     rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
     shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
