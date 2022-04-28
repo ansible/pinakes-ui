@@ -18,18 +18,11 @@ const AddTemplate = ({ postMethod, pagination = defaultSettings }) => {
   const { push } = useHistory();
   const intl = useIntl();
 
-  const onSave = ({ group_refs = [], ...values }) => {
+  const onSave = ({ ...values }) => {
     return dispatch(
       addTemplate(
         {
-          ...values,
-          group_refs:
-            group_refs.length > 0
-              ? group_refs.map((group) => ({
-                  name: group.label,
-                  uuid: group.value
-                }))
-              : []
+          ...values
         },
         intl
       )

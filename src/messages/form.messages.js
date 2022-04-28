@@ -25,6 +25,14 @@ const formMessages = defineMessages({
     id: 'formMessages.enterApprovalName',
     defaultMessage: 'Enter a name for the approval process'
   },
+  templateTitle: {
+    id: 'formMessages.templateTitle',
+    defaultMessage: 'Title'
+  },
+  enterTemplateTitle: {
+    id: 'formMessages.enterTemplateTitle',
+    defaultMessage: 'Enter a name for the template'
+  },
   description: {
     id: 'formMessages.description',
     defaultMessage: 'Description'
