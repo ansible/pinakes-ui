@@ -58,7 +58,7 @@ const columns = (intl, selectedAll, selectAll) => [
     cellTransforms: [truncate]
   },
   {
-    title: intl.formatMessage(tableToolbarMessages.updated)
+    title: intl.formatMessage(tableToolbarMessages.updatedLabel)
   }
 ];
 
