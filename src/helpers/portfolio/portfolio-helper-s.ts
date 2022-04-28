@@ -56,9 +56,10 @@ export const listPortfolios = (
     const partial =
       key === 'sort_by'
         ? `sort_by=${value}:${sortDirection}`
-        : `${key}=${value}`;
+        : `search=${value}`;
     return `${acc}&${partial}`;
   }, '');
+
   return (axiosInstance.get(
     `${CATALOG_API_BASE}/portfolios/?page=${offset ||
       1}&page_size=${limit}&${filterQuery}`
@@ -72,7 +73,7 @@ export const listPortfolioItems = (
 ): Promise<ApiCollectionResponse<PortfolioItem>> => {
   return axiosInstance
     .get(
-      `${CATALOG_API_BASE}/portfolio_items/?page=${offset ||
+      `${CATALOG_API_BASE}/portfolio_items/?search=${filter}&page=${offset ||
         1}&page_size=${limit}`
     )
     .then(
@@ -123,7 +124,7 @@ export const getPortfolioItemsWithPortfolio = (
   { limit, offset, filter = '' } = defaultSettings
 ): Promise<ApiCollectionResponse<PortfolioItem>> =>
   axiosInstance.get(
-    `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items/?page_size=${limit}&page=${offset ||
+    `${CATALOG_API_BASE}/portfolios/${portfolioId}/portfolio_items/?search=${filter}&page_size=${limit}&page=${offset ||
       1}`
   );
 
