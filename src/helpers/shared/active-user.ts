@@ -5,6 +5,7 @@ const axiosInstance = getAxiosInstance();
 
 export const loginUser = (next: string | undefined = undefined) => {
   const nextUrl = next ? `?next=${next}` : '';
+  console.log('Debug - loginUser, nextUrl: ', nextUrl);
   window.location.replace(`${AUTH_API_BASE}/login/${nextUrl}`);
   return null;
 };
