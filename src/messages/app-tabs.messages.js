@@ -16,6 +16,10 @@ const apsTabsMessages = defineMessages({
   templates: {
     id: 'tabs.templates',
     defaultMessage: 'Templates'
+  },
+  notificationSettings: {
+    id: 'tabs.notificationSettings',
+    defaultMessage: 'Notification settings'
   }
 });
 

@@ -13,43 +13,44 @@ export function fetchNotificationSettings(
   const filterQuery = `&name=${filter}`;
 
   return getAxiosInstance().get(
-    `${APPROVAL_API_BASE}/notification_settings/?${filterQuery}${paginationQuery}`
+    `${APPROVAL_API_BASE}/notifications_settings/?${filterQuery}${paginationQuery}`
   );
 }
 
 export const fetchNotificationSetting = (id) =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/notification_settings/${id}/`);
+  getAxiosInstance().get(`${APPROVAL_API_BASE}/notifications_settings/${id}/`);
 
 export let fetchNotificationSettingByName = (name) =>
   getAxiosInstance().get(
-    `${APPROVAL_API_BASE}/notification_settings/?title=${name}`
+    `${APPROVAL_API_BASE}/notifications_settings/?name=${name}`
   );
 
 export function updateNotificationSetting(data) {
   return getAxiosInstance().patch(
-    `${APPROVAL_API_BASE}/notification_settings/${data.id}`,
+    `${APPROVAL_API_BASE}/notifications_settings/${data.id}`,
     data
   );
 }
 
 export const listNotificationSettings = () =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/notification_settings/`);
+  getAxiosInstance().get(`${APPROVAL_API_BASE}/notifications_settings/`);
 
 export function addNotificationSetting(data) {
+  console.log('Debug - addNotificationSetting - data: ', data);
   return getAxiosInstance().post(
-    `${APPROVAL_API_BASE}/notification_settings/`,
+    `${APPROVAL_API_BASE}/notifications_settings/`,
     data
   );
 }
 
-export function destroyNotificationSetting(notification_settingId) {
+export function destroyNotificationSetting(notificationSettingId) {
   return getAxiosInstance().delete(
-    `${APPROVAL_API_BASE}/notification_settings/${notification_settingId}/`
+    `${APPROVAL_API_BASE}/notifications_settings/${notificationSettingId}/`
   );
 }
 
-export async function removeNotificationSetting(notification_settingId) {
-  return await destroyNotificationSetting(notification_settingId);
+export async function removeNotificationSetting(notificationSettingId) {
+  return await destroyNotificationSetting(notificationSettingId);
 }
 
 export async function removeNotificationSettings(selectedNotificationSettings) {
@@ -60,3 +61,27 @@ export async function removeNotificationSettings(selectedNotificationSettings) {
     )
   );
 }
+
+export const fetchNotificationTypes = (filterValue) => {
+  const filterQuery = `?search=${filterValue}`;
+  return getAxiosInstance()
+    .get(
+      `${APPROVAL_API_BASE}/notification_types/${
+        filterValue && filterValue.length > 0 ? filterQuery : ''
+      }`
+    )
+    .then(({ data }) =>
+      data && data.length > 0
+        ? data.map(({ id, n_type }) => ({ label: n_type, value: id }))
+        : undefined
+    );
+};
+
+export const listNotificationTypes = (filterValue) => {
+  const filterQuery = `?search=${filterValue}`;
+  return getAxiosInstance().get(
+    `${APPROVAL_API_BASE}/notification_types/${
+      filterValue && filterValue.length > 0 ? filterQuery : ''
+    }`
+  );
+};
