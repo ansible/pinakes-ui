@@ -126,7 +126,9 @@ const App = (props) => {
       })
       .catch((error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
-          return loginUser(window.location.pathname);
+          return loginUser(
+            `${window.location.pathname}${window.location.search}`
+          );
         } else {
           throw error;
         }
@@ -154,7 +156,7 @@ const App = (props) => {
         onClick={() =>
           logoutUser().then(() => {
             setUser(null);
-            window.location.replace(window.location.pathname);
+            window.location.replace(window.location.href);
           })
         }
       >
