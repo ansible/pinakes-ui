@@ -148,7 +148,7 @@
   "scripts": {
     "analyze": "NODE_ENV=production webpack --config config/prod.webpack.config.js --env.prod=true --env.analyze=true --mode production",
     "build": "NODE_ENV=production webpack --config config/prod.webpack.config.js --mode production",
-    "extract:messages": "npx @formatjs/cli extract 'src/**/!(*.d).{js,jsx,ts,tsx}' --out-file ./translations/messages.json",
+    "extract:messages": "npx @formatjs/cli extract 'src/**/!(*.d).{js,jsx,ts,tsx}' --ignore='src/test/' --out-file ./translations/messages.json",
     "lint": "yarn lint:js && yarn lint:ts",
     "lint:sass": "stylelint 'src/**/*.scss' --config .stylelintrc.json",
     "lint:js": "yarn eslint ./src --ext .js",

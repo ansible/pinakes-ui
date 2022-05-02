@@ -18,7 +18,7 @@ const orderProcessesMessages = defineMessages({
     defaultMessage: 'Order processes'
   },
   noOrderProcesses: {
-    id: 'order-process.toolbar.order-process',
+    id: 'order-process.toolbar.no-order-process',
     defaultMessage: 'No order processes'
   },
   orderProcess: {

@@ -43,7 +43,7 @@ const worfklowMessages = defineMessages({
       'Delete {count, plural, one {approval process} other {approval processes}}?'
   },
   removeProcessAriaLabel: {
-    id: 'workflowMessages.removeProcessTitle',
+    id: 'workflowMessages.removeProcessAriaLabel',
     defaultMessage:
       'Delete {count, plural, one {approval process} other {approval processes}} modal'
   },
