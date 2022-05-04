@@ -12,6 +12,7 @@ const notificationTypeSchema = (intl, notificationType) => {
     id: 'notification-settings',
     title: 'Settings',
     label: intl.formatMessage(notificationMessages.settings),
+    initializeOnMount: true,
     condition: {
       when: 'notification_type',
       is: notificationType.id
@@ -96,14 +97,43 @@ export const editNotificationSchema = (intl, nSetting, notificationTypes) => {
         : [])
     ]
   });
+  console.log('Debug - editNotificationSchema - nSetting: ', nSetting);
+  const notificationType = notificationTypes.find(
+    (nType) => nType.id === nSetting.notification_type
+  );
   return {
     fields: [
-      ...addNotificationInfoSchema(intl),
-      ...(notificationTypes && notificationTypes.length
-        ? notificationTypes.map((notification) =>
-            notificationTypeSchema(intl, nSetting, notification)
-          )
-        : [])
+      {
+        component: componentTypes.TEXT_FIELD,
+        name: 'name',
+        isRequired: true,
+        id: 'notification-name',
+        label: intl.formatMessage(formMessages.notificationSettingName),
+        validate: [
+          (value) => debouncedValidatorName(value, nSetting.id, intl),
+          {
+            type: validatorTypes.REQUIRED,
+            message: intl.formatMessage(
+              formMessages.enterNotificationSettingName
+            )
+          }
+        ]
+      },
+      {
+        component: componentTypes.SELECT,
+        label: intl.formatMessage(formMessages.notificationSettingName),
+        name: 'notification_type',
+        simpleValue: true,
+        loadOptions: loadNotificationTypesOptions
+      },
+      {
+        component: componentTypes.SUB_FORM,
+        name: 'settings',
+        id: 'notification-settings',
+        title: 'Settings',
+        label: intl.formatMessage(notificationMessages.settings),
+        fields: notificationType?.setting_schema?.schema?.fields || []
+      }
     ]
   };
 };
