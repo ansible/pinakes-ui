@@ -67,7 +67,7 @@ const EditNotificationSetting = ({
           stateDispatch({
             type: 'loaded',
             initialValues: prepareInitialValues(data),
-            schema: editNotificationSchema(intl, data.id, types?.data)
+            schema: editNotificationSchema(intl, data, types?.data)
           })
         );
       } else {
@@ -76,7 +76,7 @@ const EditNotificationSetting = ({
           initialValues: prepareInitialValues(loadedNotificationSetting),
           schema: editNotificationSchema(
             intl,
-            loadedNotificationSetting.id,
+            loadedNotificationSetting,
             types?.data
           )
         });
