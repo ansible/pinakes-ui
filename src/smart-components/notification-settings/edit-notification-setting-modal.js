@@ -40,8 +40,8 @@ const reducer = (state, { type, initialValues, schema }) => {
 };
 
 const prepareInitialValues = (tData) => {
-  console.log('Debug - tData: ', tData);
-  return tData;
+  console.log('Debug - tData, settings: ', tData, { ...tData.settings });
+  return { ...tData.settings };
 };
 
 const EditNotificationSetting = ({
@@ -96,6 +96,8 @@ const EditNotificationSetting = ({
       .then(() => postMethod({ ...pagination }))
       .then(() => push(routes.notifications.index));
   };
+
+  console.log('Debug - editNotification - initialValues', initialValues);
 
   return (
     <Modal
