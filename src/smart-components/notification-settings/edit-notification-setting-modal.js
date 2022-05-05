@@ -4,15 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Modal } from '@patternfly/react-core';
 
-import {
-  fetchNotificationSettings,
-  updateNotificationSetting
-} from '../../redux/actions/notification-actions';
+import { updateNotificationSetting } from '../../redux/actions/notification-actions';
 import routes from '../../constants/approval-routes';
 import FormRenderer from '../common/form-renderer';
-import addNotificationSchema, {
-  editNotificationSchema
-} from '../../forms/add-notification.schema';
+import { editNotificationSchema } from '../../forms/add-notification.schema';
 import notificationMessages from '../../messages/notification.messages';
 import useQuery from '../../utilities/use-query';
 import useNotification from '../../utilities/use-notifications';
@@ -40,7 +35,6 @@ const reducer = (state, { type, initialValues, schema }) => {
 };
 
 const prepareInitialValues = (tData) => {
-  console.log('Debug - tData, settings: ', tData, { ...tData.settings });
   return { ...tData.settings };
 };
 
@@ -61,7 +55,6 @@ const EditNotificationSetting = ({
 
   useEffect(() => {
     listNotificationTypes().then((types) => {
-      console.log('Debug - types: ', types);
       if (!loadedNotificationSetting) {
         fetchNotificationSetting(id).then((data) =>
           stateDispatch({
@@ -96,8 +89,6 @@ const EditNotificationSetting = ({
       .then(() => postMethod({ ...pagination }))
       .then(() => push(routes.notifications.index));
   };
-
-  console.log('Debug - editNotification - initialValues', initialValues);
 
   return (
     <Modal

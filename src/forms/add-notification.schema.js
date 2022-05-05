@@ -46,25 +46,6 @@ const addNotificationInfoSchema = (intl) => [
 ];
 
 const addNotificationSchema = (intl, notificationTypes) => {
-  console.log(
-    'Debug - map: ',
-    notificationTypes && notificationTypes.length
-      ? notificationTypes.map((notification) =>
-          notificationTypeSchema(intl, notification)
-        )
-      : []
-  );
-
-  console.log('Debug return fields: ', {
-    fields: [
-      ...addNotificationInfoSchema(intl),
-      ...(notificationTypes && notificationTypes.length
-        ? notificationTypes.map((notification) =>
-            notificationTypeSchema(intl, notification)
-          )
-        : [])
-    ]
-  });
   return {
     fields: [
       ...addNotificationInfoSchema(intl),
@@ -78,26 +59,6 @@ const addNotificationSchema = (intl, notificationTypes) => {
 };
 
 export const editNotificationSchema = (intl, nSetting, notificationTypes) => {
-  console.log(
-    'Debug - map: ',
-    notificationTypes && notificationTypes.length
-      ? notificationTypes.map((notification) =>
-          notificationTypeSchema(intl, notification)
-        )
-      : []
-  );
-
-  console.log('Debug return fields: ', {
-    fields: [
-      ...addNotificationInfoSchema(intl),
-      ...(notificationTypes && notificationTypes.length
-        ? notificationTypes.map((notification) =>
-            notificationTypeSchema(intl, notification)
-          )
-        : [])
-    ]
-  });
-  console.log('Debug - editNotificationSchema - nSetting: ', nSetting);
   const notificationType = notificationTypes.find(
     (nType) => nType.id === nSetting.notification_type
   );

@@ -36,7 +36,6 @@ export const listNotificationSettings = () =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/notifications_settings/`);
 
 export function addNotificationSetting(data) {
-  console.log('Debug - addNotificationSetting - data: ', data);
   return getAxiosInstance().post(
     `${APPROVAL_API_BASE}/notifications_settings/`,
     data
