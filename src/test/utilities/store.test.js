@@ -24,6 +24,7 @@ describe('redux store', () => {
       requestReducer: expect.any(Object),
       workflowReducer: expect.any(Object),
       templateReducer: expect.any(Object),
+      notificationSettingsReducer: expect.any(Object),
       notifications: expect.any(Object),
       openApiReducer: expect.any(Object),
       i18nReducer: expect.any(Object)
