@@ -50,14 +50,7 @@ const AddNotificationSetting = ({
   }, []);
 
   const onSave = (data) => {
-    console.log('Debug - onSave notification values: ', data);
     const { name, notification_type, ...settings } = data;
-    console.log(
-      'Debug - onSave name, notification_type, settings: ',
-      name,
-      notification_type,
-      settings
-    );
     return dispatch(
       addNotificationSetting(
         {
