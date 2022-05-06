@@ -23,7 +23,7 @@ describe('templates table helpers', () => {
       }
     ];
 
-    const expectedDataN = [
+    const expectedData = [
       {
         id: '1',
         cells: [
@@ -81,62 +81,6 @@ describe('templates table helpers', () => {
             _owner: null,
             _store: {}
           },
-          'should be in result',
-          'baz',
-          {
-            type: 'span',
-            key:
-              'Wed Jun 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)',
-            ref: null,
-            props: {
-              children: {
-                key: null,
-                ref: null,
-                props: { date: '2022-06-01T00:00:00.000Z', type: 'relative' },
-                _owner: null,
-                _store: {}
-              }
-            },
-            _owner: null,
-            _store: {}
-          }
-        ]
-      }
-    ];
-    const expectedData = [
-      {
-        id: '1',
-        cells: [
-          <React.Fragment key="1-checkbox">
-            <SelectBox id="1" />
-          </React.Fragment>,
-          'foo',
-          'bar',
-          {
-            type: 'span',
-            key:
-              'Wed Jun 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)',
-            ref: null,
-            props: {
-              children: {
-                key: null,
-                ref: null,
-                props: { date: '2022-06-01T00:00:00.000Z', type: 'relative' },
-                _owner: null,
-                _store: {}
-              }
-            },
-            _owner: null,
-            _store: {}
-          }
-        ]
-      },
-      {
-        id: '2',
-        cells: [
-          <React.Fragment key="2-checkbox">
-            <SelectBox id="2" />
-          </React.Fragment>,
           'should be in result',
           'baz',
           {
