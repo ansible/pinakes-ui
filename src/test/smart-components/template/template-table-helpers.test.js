@@ -23,6 +23,86 @@ describe('templates table helpers', () => {
       }
     ];
 
+    const expectedDataN = [
+      {
+        id: '1',
+        cells: [
+          {
+            key: '1-checkbox',
+            ref: null,
+            props: {
+              children: {
+                key: null,
+                ref: null,
+                props: { id: '1' },
+                _owner: null,
+                _store: {}
+              }
+            },
+            _owner: null,
+            _store: {}
+          },
+          'foo',
+          'bar',
+          {
+            type: 'span',
+            key:
+              'Wed Jun 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)',
+            ref: null,
+            props: {
+              children: {
+                key: null,
+                ref: null,
+                props: { date: '2022-06-01T00:00:00.000Z', type: 'relative' },
+                _owner: null,
+                _store: {}
+              }
+            },
+            _owner: null,
+            _store: {}
+          }
+        ]
+      },
+      {
+        id: '2',
+        cells: [
+          {
+            key: '2-checkbox',
+            ref: null,
+            props: {
+              children: {
+                key: null,
+                ref: null,
+                props: { id: '2' },
+                _owner: null,
+                _store: {}
+              }
+            },
+            _owner: null,
+            _store: {}
+          },
+          'should be in result',
+          'baz',
+          {
+            type: 'span',
+            key:
+              'Wed Jun 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)',
+            ref: null,
+            props: {
+              children: {
+                key: null,
+                ref: null,
+                props: { date: '2022-06-01T00:00:00.000Z', type: 'relative' },
+                _owner: null,
+                _store: {}
+              }
+            },
+            _owner: null,
+            _store: {}
+          }
+        ]
+      }
+    ];
     const expectedData = [
       {
         id: '1',
@@ -34,7 +114,8 @@ describe('templates table helpers', () => {
           'bar',
           {
             type: 'span',
-            key: 'Tue May 31 2022 20:00:00 GMT-0400 (Eastern Daylight Time)',
+            key:
+              'Wed Jun 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)',
             ref: null,
             props: {
               children: {
@@ -60,7 +141,8 @@ describe('templates table helpers', () => {
           'baz',
           {
             type: 'span',
-            key: 'Tue May 31 2022 20:00:00 GMT-0400 (Eastern Daylight Time)',
+            key:
+              'Wed Jun 01 2022 00:00:00 GMT+0000 (Coordinated Universal Time)',
             ref: null,
             props: {
               children: {
