@@ -41,16 +41,16 @@ const notificationMessages = defineMessages({
   },
   removeNotificationDescription: {
     id: 'notificationMessages.removeNotificationDescription',
-    defaultMessage: '{name} will be removed.'
+    defaultMessage: '{title} will be removed.'
   },
   removeNotificationDescriptionWithDeps: {
     id: 'notificationMessages.removeNotificationDescriptionWithDeps',
     defaultMessage:
-      '{name} will be removed from the following applications: {dependenciesList}'
+      '{title} will be removed from the following applications: {dependenciesList}'
   },
   editNotificationTitle: {
     id: 'notificationMessages.editNotificationTitle',
-    defaultMessage: 'Make any changes to notification {name}'
+    defaultMessage: 'Make any changes to notification {title}'
   },
   addNotificationSuccessTitle: {
     id: 'notificationMessages.addNotificationSuccessTitle',
