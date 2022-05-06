@@ -7,28 +7,28 @@ import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import { IntlProvider } from 'react-intl';
-import Workflows, {
-  workflowsListState
-} from '../../../smart-components/workflow/workflows';
-import workflowReducer, {
-  workflowsInitialState
-} from '../../../redux/reducers/workflow-reducer';
+import Templates, {
+  templatesListState
+} from '../../../smart-components/template/templates';
+import templateReducer, {
+  templatesInitialState
+} from '../../../redux/reducers/template-reducer';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { groupsInitialState } from '../../../redux/reducers/group-reducer';
 import { APPROVAL_API_BASE } from '../../../utilities/approval-constants';
-import RemoveWorkflowModal from '../../../smart-components/workflow/remove-workflow-modal';
-import AddWorkflowModal from '../../../smart-components/workflow/add-workflow-modal';
+import RemoveTemplateModal from '../../../smart-components/template/remove-template-modal';
+import AddTemplateModal from '../../../smart-components/template/add-template-modal';
 import ReducerRegistry, {
   applyReducerHash
 } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 import routes from '../../../constants/approval-routes';
 import TableEmptyState from '../../../presentational-components/shared/approval-table-empty-state';
-import * as edit from '../../../smart-components/workflow/edit-workflow-modal';
+import * as edit from '../../../smart-components/template/edit-template-modal';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
 
 const ComponentWrapper = ({
   store,
-  initialEntries = [routes.workflows.index],
+  initialEntries = [routes.templates.index],
   children
 }) => (
   <Provider store={store}>
@@ -38,11 +38,11 @@ const ComponentWrapper = ({
   </Provider>
 );
 
-describe('<Workflows />', () => {
+describe('<Templates />', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   let stateWithData;
-  let stateWithWorkflows;
+  let stateWithTemplates;
 
   beforeEach(() => {
     localStorage.setItem('catalog_standalone', true);
@@ -50,9 +50,9 @@ describe('<Workflows />', () => {
     mockStore = configureStore(middlewares);
     stateWithData = {
       groupReducer: { ...groupsInitialState },
-      workflowReducer: {
-        ...workflowsInitialState,
-        workflows: {
+      templateReducer: {
+        ...templatesInitialState,
+        templates: {
           data: [
             {
               id: 'edit-id',
@@ -66,7 +66,7 @@ describe('<Workflows />', () => {
             offset: 0
           }
         },
-        workflow: {},
+        template: {},
         filterValue: '',
         isLoading: false,
         isRecordLoading: false
@@ -91,11 +91,11 @@ describe('<Workflows />', () => {
       group_refs: []
     };
 
-    stateWithWorkflows = {
+    stateWithTemplates = {
       groupReducer: { ...groupsInitialState },
-      workflowReducer: {
-        ...workflowsInitialState,
-        workflows: {
+      templateReducer: {
+        ...templatesInitialState,
+        templates: {
           data: [wf1, wf2, wf3],
           meta: {
             count: 21,
@@ -103,7 +103,7 @@ describe('<Workflows />', () => {
             offset: 0
           }
         },
-        workflow: {},
+        template: {},
         filterValue: '',
         isLoading: false,
         isRecordLoading: false
@@ -122,7 +122,7 @@ describe('<Workflows />', () => {
     const store = mockStore(stateWithData);
     let wrapper;
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce(200, {
         count: 3,
         data: [
@@ -137,7 +137,7 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -164,10 +164,10 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.edit);
+    ).toEqual(routes.templates.edit);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
-    ).toEqual('?workflow=edit-id');
+    ).toEqual('?template=edit-id');
     expect(wrapper.find(edit.default)).toHaveLength(1);
   });
 
@@ -176,7 +176,7 @@ describe('<Workflows />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -192,7 +192,7 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -214,11 +214,11 @@ describe('<Workflows />', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.templates.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
-    ).toEqual('?workflow=edit-id');
-    expect(wrapper.find(RemoveWorkflowModal)).toHaveLength(1);
+    ).toEqual('?template=edit-id');
+    expect(wrapper.find(RemoveTemplateModal)).toHaveLength(1);
   });
 
   it('should redirect to add approval process page', async () => {
@@ -226,7 +226,7 @@ describe('<Workflows />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
       .replyOnce({
         body: {
           data: [
@@ -242,7 +242,7 @@ describe('<Workflows />', () => {
 
     // async name validator
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
       .replyOnce({
         body: {
           data: [
@@ -262,7 +262,7 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -271,7 +271,7 @@ describe('<Workflows />', () => {
      * Click on add approval process link
      */
     await act(async () => {
-      wrapper.find('Link#add-workflow-link').simulate('click', { button: 0 });
+      wrapper.find('Link#add-template-link').simulate('click', { button: 0 });
     });
     wrapper.update();
 
@@ -281,16 +281,16 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.add);
-    expect(wrapper.find(AddWorkflowModal)).toHaveLength(1);
+    ).toEqual(routes.templates.add);
+    expect(wrapper.find(AddTemplateModal)).toHaveLength(1);
   });
 
-  it('should remove multiple selected workflows from table', async () => {
+  it('should remove multiple selected templates from table', async () => {
     const store = mockStore(stateWithData);
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
       .replyOnce(200, {
         data: [
           {
@@ -305,7 +305,7 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -315,16 +315,16 @@ describe('<Workflows />', () => {
       .last()
       .simulate('change', { target: { checked: true } });
     wrapper
-      .find('Link#remove-multiple-workflows')
+      .find('Link#remove-multiple-templates')
       .simulate('click', { button: 0 });
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.templates.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('');
-    expect(wrapper.find(RemoveWorkflowModal)).toHaveLength(1);
+    expect(wrapper.find(RemoveTemplateModal)).toHaveLength(1);
   });
 
   it('should render table empty state', async () => {
@@ -332,7 +332,7 @@ describe('<Workflows />', () => {
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce({
         status: 200,
         body: {
@@ -343,7 +343,7 @@ describe('<Workflows />', () => {
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
-      workflowReducer: applyReducerHash(workflowReducer, workflowsInitialState)
+      templateReducer: applyReducerHash(templateReducer, templatesInitialState)
     });
     const storeReal = registry.getStore();
 
@@ -351,7 +351,7 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={storeReal}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -360,21 +360,21 @@ describe('<Workflows />', () => {
     expect(wrapper.find(TableEmptyState)).toHaveLength(1);
   });
 
-  it('should select all workflows and delete them', async () => {
+  it('should select all templates and delete them', async () => {
     expect.assertions(3);
-    const store = mockStore(stateWithWorkflows);
+    const store = mockStore(stateWithTemplates);
     let wrapper;
 
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
     wrapper.update();
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
@@ -399,16 +399,16 @@ describe('<Workflows />', () => {
     wrapper.update();
     await act(async () => {
       wrapper
-        .find('Link#remove-multiple-workflows')
+        .find('Link#remove-multiple-templates')
         .simulate('click', { button: 0 });
     });
     wrapper.update();
     expect(wrapper.find('Modal').instance(0).props['aria-label']).toEqual(
-      'Delete approval processes modal'
+      'Delete templates modal'
     );
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.templates.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('');
@@ -423,29 +423,29 @@ describe('<Workflows />', () => {
     });
   });
 
-  it('should select and deselect all workflows', async () => {
+  it('should select and deselect all templates', async () => {
     let wrapper;
-    const store = mockStore(stateWithWorkflows);
+    const store = mockStore(stateWithTemplates);
     mockApi
       .onGet(`/api/pinakes/v1/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     // Delete endpoints
     mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/123/`)
+      .onDelete(`${APPROVAL_API_BASE}/templates/123/`)
       .replyOnce((_req, res) => {
         expect(true).toEqual(true); // just check that it was called
         return res.status(200);
       });
 
     mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/456/`)
+      .onDelete(`${APPROVAL_API_BASE}/templates/456/`)
       .replyOnce((_req, res) => {
         expect(true).toEqual(true); // just check that it was called
         return res.status(200);
       });
 
     mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/789/`)
+      .onDelete(`${APPROVAL_API_BASE}/templates/789/`)
       .replyOnce((_req, res) => {
         expect(true).toEqual(true); // just check that it was called
         return res.status(200);
@@ -453,7 +453,7 @@ describe('<Workflows />', () => {
 
     // wf refresh
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
@@ -467,7 +467,7 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -475,7 +475,7 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper
-        .find('Link#remove-multiple-workflows')
+        .find('Link#remove-multiple-templates')
         .find('button')
         .props().disabled
     ).toEqual(true);
@@ -494,7 +494,7 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper
-        .find('Link#remove-multiple-workflows')
+        .find('Link#remove-multiple-templates')
         .find('button')
         .props().disabled
     ).toEqual(false);
@@ -513,20 +513,20 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper
-        .find('Link#remove-multiple-workflows')
+        .find('Link#remove-multiple-templates')
         .find('button')
         .props().disabled
     ).toEqual(true);
   });
 
-  it('should select only one workflow and delete it', async () => {
+  it('should select only one template and delete it', async () => {
     expect.assertions(3);
-    const store = mockStore(stateWithWorkflows);
+    const store = mockStore(stateWithTemplates);
     let wrapper;
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route path={routes.templates.index} component={Templates} />
         </ComponentWrapper>
       );
     });
@@ -543,24 +543,24 @@ describe('<Workflows />', () => {
     wrapper.update();
     await act(async () => {
       wrapper
-        .find('Link#remove-multiple-workflows')
+        .find('Link#remove-multiple-templates')
         .simulate('click', { button: 0 });
     });
     wrapper.update();
 
     expect(wrapper.find('Modal').instance(0).props['aria-label']).toEqual(
-      'Delete approval process modal'
+      'Delete template modal'
     );
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.templates.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('');
 
     // Delete endpoints
     mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/123/`)
+      .onDelete(`${APPROVAL_API_BASE}/templates/123/`)
       .replyOnce((_req, res) => {
         expect(true).toEqual(true); // just check that it was called
         return res.status(200);
@@ -568,7 +568,7 @@ describe('<Workflows />', () => {
 
     // wf refresh
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
@@ -589,28 +589,28 @@ describe('<Workflows />', () => {
   });
 
   it('reset selected', () => {
-    const state = { selectedWorkflows: ['id1', 'id3'], selectedAll: true };
+    const state = { selectedTemplates: ['id1', 'id3'], selectedAll: true };
     const expectedResults = {
       ...state,
       selectedAll: false,
-      selectedWorkflows: []
+      selectedTemplates: []
     };
 
-    expect(workflowsListState(state, { type: 'resetSelected' })).toEqual(
+    expect(templatesListState(state, { type: 'resetSelected' })).toEqual(
       expectedResults
     );
   });
 
   it('select all on current page', () => {
-    const state = { selectedWorkflows: ['id1', 'id3'], selectedAll: false };
+    const state = { selectedTemplates: ['id1', 'id3'], selectedAll: false };
     const expectedResults = {
       ...state,
       selectedAll: true,
-      selectedWorkflows: ['id1', 'id3', 'id2']
+      selectedTemplates: ['id1', 'id3', 'id2']
     };
 
     expect(
-      workflowsListState(state, {
+      templatesListState(state, {
         type: 'selectAll',
         payload: ['id1', 'id2']
       })
@@ -619,17 +619,17 @@ describe('<Workflows />', () => {
 
   it('unselect all on current page', () => {
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedTemplates: ['id1', 'id3', 'id2'],
       selectedAll: true
     };
     const expectedResults = {
       ...state,
       selectedAll: false,
-      selectedWorkflows: ['id3']
+      selectedTemplates: ['id3']
     };
 
     expect(
-      workflowsListState(state, {
+      templatesListState(state, {
         type: 'unselectAll',
         payload: ['id1', 'id2']
       })
@@ -640,13 +640,13 @@ describe('<Workflows />', () => {
     const rows = [{ id: 'id1' }, { id: 'id3' }];
 
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedTemplates: ['id1', 'id3', 'id2'],
       selectedAll: false
     };
     const expectedResults = { ...state, selectedAll: true, rows };
 
     expect(
-      workflowsListState(state, { type: 'setRows', payload: rows })
+      templatesListState(state, { type: 'setRows', payload: rows })
     ).toEqual(expectedResults);
   });
 
@@ -654,24 +654,24 @@ describe('<Workflows />', () => {
     const rows = [{ id: 'id1' }, { id: 'id4' }];
 
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedTemplates: ['id1', 'id3', 'id2'],
       selectedAll: false
     };
     const expectedResults = { ...state, selectedAll: false, rows };
 
     expect(
-      workflowsListState(state, { type: 'setRows', payload: rows })
+      templatesListState(state, { type: 'setRows', payload: rows })
     ).toEqual(expectedResults);
   });
 
   it('default', () => {
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedTemplates: ['id1', 'id3', 'id2'],
       selectedAll: false
     };
     const expectedResults = { ...state };
 
-    expect(workflowsListState(state, { type: 'default' })).toEqual(
+    expect(templatesListState(state, { type: 'default' })).toEqual(
       expectedResults
     );
   });
