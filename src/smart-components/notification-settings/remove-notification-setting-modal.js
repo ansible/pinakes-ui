@@ -108,8 +108,8 @@ const RemoveNotificationSettingModal = ({
   const name = (
     <b key="remove-key">
       {finalId ? (
-        (fetchedNotificationSetting && fetchedNotificationSetting.name) ||
-        (notificationSetting && notificationSetting.name)
+        (fetchedNotificationSetting && fetchedNotificationSetting.title) ||
+        (notificationSetting && notificationSetting.title)
       ) : (
         <React.Fragment>
           {ids.length} {intl.formatMessage(notificationMessages.notifications)}
