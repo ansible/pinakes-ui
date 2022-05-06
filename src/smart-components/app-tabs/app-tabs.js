@@ -37,7 +37,6 @@ export const AppTabs = ({ tabItems = approvalTabItems }) => {
   const handleTabClick = (_event, tabIndex) =>
     history.push({ pathname: tabItems[tabIndex].name, search });
 
-  console.log('Debug - tabItems: ', tabItems);
   return (
     <Tabs
       className="pf-u-mt-sm"
