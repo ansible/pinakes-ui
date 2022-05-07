@@ -1,0 +1,746 @@
+{
+  "SrzSY5": {
+    "defaultMessage": ""
+  },
+  "approval.notifications.link": {
+    "defaultMessage": ""
+  },
+  "approval.notifications.unlink": {
+    "defaultMessage": ""
+  },
+  "approval.workflows.current": {
+    "defaultMessage": ""
+  },
+  "approval.workflows.set": {
+    "defaultMessage": ""
+  },
+  "common.actions.copy": {
+    "defaultMessage": "Copiar"
+  },
+  "common.actions.delete": {
+    "defaultMessage": "ELIMINAR"
+  },
+  "common.actions.deleting": {
+    "defaultMessage": ""
+  },
+  "common.actions.edit": {
+    "defaultMessage": "Editar"
+  },
+  "common.actions.save": {
+    "defaultMessage": "Guardar"
+  },
+  "common.actions.setApproval": {
+    "defaultMessage": "Aprobación"
+  },
+  "common.actions.share": {
+    "defaultMessage": ""
+  },
+  "common.filtering.clear-filters": {
+    "defaultMessage": "Borrar todos los filtros"
+  },
+  "common.filtering.filterByProduct": {
+    "defaultMessage": ""
+  },
+  "common.filtering.no-products": {
+    "defaultMessage": ""
+  },
+  "common.filtering.noItems": {
+    "defaultMessage": "No se encontraron elementos."
+  },
+  "common.filtering.noResults": {
+    "defaultMessage": "No se encontraron resultados"
+  },
+  "common.filtering.noResultsDescription": {
+    "defaultMessage": " "
+  },
+  "common.labels.approval_process_set": {
+    "defaultMessage": ""
+  },
+  "common.labels.available": {
+    "defaultMessage": "Hosts disponibles"
+  },
+  "common.labels.cancel": {
+    "defaultMessage": "Cancelar"
+  },
+  "common.labels.confirm": {
+    "defaultMessage": "Confirmar"
+  },
+  "common.labels.create": {
+    "defaultMessage": "Crear"
+  },
+  "common.labels.description": {
+    "defaultMessage": "Descripción"
+  },
+  "common.labels.disabled": {
+    "defaultMessage": "Deshabilitados"
+  },
+  "common.labels.enabled": {
+    "defaultMessage": "Habilitado"
+  },
+  "common.labels.id": {
+    "defaultMessage": "Estado"
+  },
+  "common.labels.loading": {
+    "defaultMessage": "Cargando"
+  },
+  "common.labels.name": {
+    "defaultMessage": "Nombre"
+  },
+  "common.labels.not-available": {
+    "defaultMessage": "No disponible"
+  },
+  "common.labels.owner": {
+    "defaultMessage": ""
+  },
+  "common.labels.platform": {
+    "defaultMessage": "Plataforma"
+  },
+  "common.labels.portfolio": {
+    "defaultMessage": "Portfolio"
+  },
+  "common.labels.product": {
+    "defaultMessage": ""
+  },
+  "common.labels.save": {
+    "defaultMessage": "Guardar"
+  },
+  "common.labels.shared": {
+    "defaultMessage": ""
+  },
+  "common.labels.sort-by": {
+    "defaultMessage": "ORDENAR POR"
+  },
+  "common.labels.to-portfolio": {
+    "defaultMessage": ""
+  },
+  "common.labels.updated": {
+    "defaultMessage": "Actualizado "
+  },
+  "common.states.approval-pending": {
+    "defaultMessage": ""
+  },
+  "common.states.approved": {
+    "defaultMessage": "Aprobado"
+  },
+  "common.states.canceled": {
+    "defaultMessage": "Cancelado"
+  },
+  "common.states.completed": {
+    "defaultMessage": "Completado"
+  },
+  "common.states.created": {
+    "defaultMessage": "Creado"
+  },
+  "common.states.denied": {
+    "defaultMessage": "Denegado"
+  },
+  "common.states.error": {
+    "defaultMessage": "Error"
+  },
+  "common.states.failed": {
+    "defaultMessage": "Fallido"
+  },
+  "common.states.notified": {
+    "defaultMessage": ""
+  },
+  "common.states.ordered": {
+    "defaultMessage": ""
+  },
+  "common.states.pending": {
+    "defaultMessage": "Pendiente"
+  },
+  "common.states.skipped": {
+    "defaultMessage": "Omitido"
+  },
+  "common.states.started": {
+    "defaultMessage": "Iniciado"
+  },
+  "common.states.title": {
+    "defaultMessage": "Estado"
+  },
+  "common.states.undecided": {
+    "defaultMessage": ""
+  },
+  "common.states.unknown": {
+    "defaultMessage": ""
+  },
+  "commonMessages.noRecords": {
+    "defaultMessage": ""
+  },
+  "commonMessages.orderProcessesTitle": {
+    "defaultMessage": ""
+  },
+  "commonMessages.unknown": {
+    "defaultMessage": ""
+  },
+  "errors.forbidden.title": {
+    "defaultMessage": "Prohibido"
+  },
+  "errors.not-found.description": {
+    "defaultMessage": ""
+  },
+  "errors.not-found.title": {
+    "defaultMessage": "No encontrado"
+  },
+  "errors.unauthorized.description": {
+    "defaultMessage": " <br></br>"
+  },
+  "errors.unauthorized.return": {
+    "defaultMessage": ""
+  },
+  "errors.unauthorized.title": {
+    "defaultMessage": ""
+  },
+  "foo": {
+    "defaultMessage": ""
+  },
+  "forms.after.currentAfterProvision": {
+    "defaultMessage": ""
+  },
+  "forms.after.setAfterProvision": {
+    "defaultMessage": ""
+  },
+  "forms.after.setReturnProvision": {
+    "defaultMessage": "Volver"
+  },
+  "forms.before.beforeProvision": {
+    "defaultMessage": ""
+  },
+  "forms.before.currentBeforeProducts": {
+    "defaultMessage": ""
+  },
+  "forms.groups-with-access": {
+    "defaultMessage": "Grupos con acceso"
+  },
+  "forms.nameTaken": {
+    "defaultMessage": ""
+  },
+  "forms.product.placeholder": {
+    "defaultMessage": ""
+  },
+  "forms.select.options.choose": {
+    "defaultMessage": ""
+  },
+  "forms.select.options.none": {
+    "defaultMessage": "Ninguno"
+  },
+  "forms.share.invite-group": {
+    "defaultMessage": "¿Borrar el grupo?"
+  },
+  "icons.actions.change": {
+    "defaultMessage": ""
+  },
+  "icons.actions.reset": {
+    "defaultMessage": ""
+  },
+  "name": {
+    "defaultMessage": "Nombre"
+  },
+  "order-proces.empty.no-order-processes": {
+    "defaultMessage": ""
+  },
+  "order-process-type": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.addProcessSuccessDescription": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.addProcessSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.createOrderProcess": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.set": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.updateOrderProcess": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.updateProcessSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.deleteProcessAriaMenu": {
+    "defaultMessage": ""
+  },
+  "order-process.empty.no-results": {
+    "defaultMessage": ""
+  },
+  "order-process.enterName": {
+    "defaultMessage": ""
+  },
+  "order-process.filter.placeholder": {
+    "defaultMessage": "Filtrar por nombre"
+  },
+  "order-process.name": {
+    "defaultMessage": ""
+  },
+  "order-process.notification.description": {
+    "defaultMessage": ""
+  },
+  "order-process.notification.title": {
+    "defaultMessage": ""
+  },
+  "order-process.orderProcesses": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessAriaLabel": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessDescription": {
+    "defaultMessage": " se quitará de ."
+  },
+  "order-process.removeProcessSuccessDescription": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessesSuccessDescription": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessesSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.set-order-process.current": {
+    "defaultMessage": ""
+  },
+  "order-process.tags.set": {
+    "defaultMessage": ""
+  },
+  "order-process.toolbar.order-process": {
+    "defaultMessage": ""
+  },
+  "order-process.toolbar.title": {
+    "defaultMessage": ""
+  },
+  "order.detail.not-found": {
+    "defaultMessage": ""
+  },
+  "orders.actions.cancel": {
+    "defaultMessage": ""
+  },
+  "orders.actions.keep": {
+    "defaultMessage": ""
+  },
+  "orders.actions.reorder": {
+    "defaultMessage": "Reordenar"
+  },
+  "orders.approval.activity": {
+    "defaultMessage": "Actividad"
+  },
+  "orders.approval.creating": {
+    "defaultMessage": ""
+  },
+  "orders.approval.details.completed": {
+    "defaultMessage": "Completado"
+  },
+  "orders.approval.details.created": {
+    "defaultMessage": ""
+  },
+  "orders.approval.details.reason": {
+    "defaultMessage": ""
+  },
+  "orders.approval.no-requests": {
+    "defaultMessage": ""
+  },
+  "orders.approval.order-date": {
+    "defaultMessage": ""
+  },
+  "orders.approval.orderedBy": {
+    "defaultMessage": ""
+  },
+  "orders.approval.parameters": {
+    "defaultMessage": ""
+  },
+  "orders.approval.title": {
+    "defaultMessage": ""
+  },
+  "orders.approval.view-detail": {
+    "defaultMessage": ""
+  },
+  "orders.artifacts": {
+    "defaultMessage": "Artefactos"
+  },
+  "orders.cancel.description": {
+    "defaultMessage": "¿Está seguro de que desea cancelar esta tarea?"
+  },
+  "orders.common.compositeTitle": {
+    "defaultMessage": ""
+  },
+  "orders.common.details": {
+    "defaultMessage": "Detalles del usuario"
+  },
+  "orders.common.lastUpdated": {
+    "defaultMessage": "Última actualización"
+  },
+  "orders.common.orderedBy": {
+    "defaultMessage": ""
+  },
+  "orders.detail.title": {
+    "defaultMessage": ""
+  },
+  "orders.list.empty.description": {
+    "defaultMessage": "NO SE CREARON HOSTS"
+  },
+  "orders.list.empty.title": {
+    "defaultMessage": ""
+  },
+  "orders.menu.approval": {
+    "defaultMessage": "Aprobación"
+  },
+  "orders.menu.lifecycle": {
+    "defaultMessage": ""
+  },
+  "orders.menu.provision": {
+    "defaultMessage": ""
+  },
+  "orders.menu.steps": {
+    "defaultMessage": ""
+  },
+  "orders.notification.success": {
+    "defaultMessage": " <link></link> página"
+  },
+  "orders.order.default_type": {
+    "defaultMessage": ""
+  },
+  "orders.order.detail.ID": {
+    "defaultMessage": "Pedir"
+  },
+  "orders.order.detail.messages": {
+    "defaultMessage": "Mensajes de progreso"
+  },
+  "orders.order.detail.parameters": {
+    "defaultMessage": ""
+  },
+  "orders.order.lifecycle.link": {
+    "defaultMessage": ""
+  },
+  "orders.order.provision.parameters": {
+    "defaultMessage": ""
+  },
+  "orders.provision.fetching-provision": {
+    "defaultMessage": ""
+  },
+  "orders.provision.no-items": {
+    "defaultMessage": ""
+  },
+  "orders.toolbar.backLink": {
+    "defaultMessage": ""
+  },
+  "platform.cloudConnectorId": {
+    "defaultMessage": ""
+  },
+  "platform.inventories.columns.workflow": {
+    "defaultMessage": "Flujo de trabajo"
+  },
+  "platform.inventories.empty.no-inventories": {
+    "defaultMessage": ""
+  },
+  "platform.inventories.empty.no-results": {
+    "defaultMessage": ""
+  },
+  "platform.inventories.filter.placeholder": {
+    "defaultMessage": ""
+  },
+  "platform.templates.empty.no-templates": {
+    "defaultMessage": ""
+  },
+  "platform.templates.filter.placeholder": {
+    "defaultMessage": ""
+  },
+  "platform.templates.no-templates": {
+    "defaultMessage": "Plantillas"
+  },
+  "platforms.activity": {
+    "defaultMessage": "Actividad"
+  },
+  "platforms.ansible.version": {
+    "defaultMessage": "Versión de Pulp Ansible"
+  },
+  "platforms.availabilityMessage": {
+    "defaultMessage": "Zona de disponibilidad"
+  },
+  "platforms.availabilityStatus": {
+    "defaultMessage": "Zona de disponibilidad"
+  },
+  "platforms.controller.url": {
+    "defaultMessage": ""
+  },
+  "platforms.dateAdded": {
+    "defaultMessage": ""
+  },
+  "platforms.details": {
+    "defaultMessage": "Detalles"
+  },
+  "platforms.doc.title": {
+    "defaultMessage": ""
+  },
+  "platforms.enabled": {
+    "defaultMessage": "Habilitado"
+  },
+  "platforms.lastAvailable": {
+    "defaultMessage": "Hosts disponibles"
+  },
+  "platforms.lastChecked": {
+    "defaultMessage": ""
+  },
+  "platforms.lastRefreshMessage": {
+    "defaultMessage": ""
+  },
+  "platforms.lastSuccessfulRefresh": {
+    "defaultMessage": ""
+  },
+  "platforms.list.configure-source": {
+    "defaultMessage": ""
+  },
+  "platforms.list.connect-source": {
+    "defaultMessage": "Volver a Fuentes"
+  },
+  "platforms.list.contact-admin": {
+    "defaultMessage": ""
+  },
+  "platforms.list.empty.title": {
+    "defaultMessage": ""
+  },
+  "platforms.offerings.detail.extra-params": {
+    "defaultMessage": ""
+  },
+  "platforms.offerings.detail.title": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshFinished": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshStarted": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshState": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshTooltip": {
+    "defaultMessage": ""
+  },
+  "platforms.summary": {
+    "defaultMessage": ""
+  },
+  "platforms.title": {
+    "defaultMessage": ""
+  },
+  "platforms.version": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.platform.description.empty": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.platform.filter.empty": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.platform.title.empty": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.success.description": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.success.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.detail.alert.source.unavailable": {
+    "defaultMessage": ""
+  },
+  "portfolio.detail.alert.unavailable": {
+    "defaultMessage": ""
+  },
+  "portfolio.detail.back-to-products": {
+    "defaultMessage": "Volver a Proyectos"
+  },
+  "portfolio.empty.add.products": {
+    "defaultMessage": ""
+  },
+  "portfolio.empty.no-products": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.copy": {
+    "defaultMessage": "Copiar proyecto"
+  },
+  "portfolio.item.detail.actions.order": {
+    "defaultMessage": "Pedir"
+  },
+  "portfolio.item.detail.actions.survey": {
+    "defaultMessage": "Editar el cuestionario"
+  },
+  "portfolio.item.detail.doclink": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.detail.documentation": {
+    "defaultMessage": "Documentación"
+  },
+  "portfolio.item.detail.overview": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.detail.support": {
+    "defaultMessage": "Más información"
+  },
+  "portfolio.item.edit.title": {
+    "defaultMessage": "Modificar proyecto"
+  },
+  "portfolio.item.icon.upload.notification": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.survey.edit": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.survey.restore": {
+    "defaultMessage": ""
+  },
+  "portfolio.modal.add.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.modal.edit.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.notifications.remove.portfolio": {
+    "defaultMessage": " "
+  },
+  "portfolio.notifications.remove.portfolio-items": {
+    "defaultMessage": " "
+  },
+  "portfolio.remove.modal.description": {
+    "defaultMessage": ""
+  },
+  "portfolio.remove.modal.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.duplicate": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.missing-data": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.missing-group": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.missing-permission": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.no-shares": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.tooltip": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.apply": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.description": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.groups": {
+    "defaultMessage": "Seleccione una etiqueta"
+  },
+  "portfolio.share.modal.permissions": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.title": {
+    "defaultMessage": ""
+  },
+  "portfolios.empty.noData.description": {
+    "defaultMessage": " "
+  },
+  "portfolios.empty.noData.title": {
+    "defaultMessage": ""
+  },
+  "portfolios.filters.placeholder": {
+    "defaultMessage": ""
+  },
+  "portfolios.heading.title": {
+    "defaultMessage": ""
+  },
+  "products.empty.add-source": {
+    "defaultMessage": "AGREGAR FUENTE"
+  },
+  "products.empty.configure-source": {
+    "defaultMessage": ""
+  },
+  "products.toolbar.title": {
+    "defaultMessage": ""
+  },
+  "schemas.portfolio-item.description": {
+    "defaultMessage": "Descripción"
+  },
+  "schemas.portfolio-item.documentation_url": {
+    "defaultMessage": "Documentación"
+  },
+  "schemas.portfolio-item.long_description": {
+    "defaultMessage": "Mostrar descripción"
+  },
+  "schemas.portfolio-item.name": {
+    "defaultMessage": "Nombre"
+  },
+  "schemas.portfolio-item.support_url": {
+    "defaultMessage": ""
+  },
+  "schemas.portfolio-item.vendor": {
+    "defaultMessage": "Vendor"
+  },
+  "schemas.portfolio.description": {
+    "defaultMessage": "Descripción"
+  },
+  "schemas.portfolio.name": {
+    "defaultMessage": "Nombre"
+  },
+  "share.groups.access": {
+    "defaultMessage": "Grupos con acceso"
+  },
+  "share.groups.group.placeholder": {
+    "defaultMessage": "Seleccionar grupos"
+  },
+  "share.groups.permissions.placeholder": {
+    "defaultMessage": "Seleccionar permisos"
+  },
+  "share.new.description": {
+    "defaultMessage": "¿Borrar el grupo?"
+  },
+  "share.notification.success.change-permission.description": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.change-permission.title": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.multiple-groups": {
+    "defaultMessage": "GRUPOS RAÍZ"
+  },
+  "share.notification.success.share.description": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.share.title": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.title": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.two-groups": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.unshare.description": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.unshare.title": {
+    "defaultMessage": ""
+  },
+  "tableToolbar.filterByTitle": {
+    "defaultMessage": "Filtrar por nombre"
+  },
+  "tableToolbar.noResult": {
+    "defaultMessage": "RESULTADOS"
+  },
+  "tableToolbar.noResultsFound": {
+    "defaultMessage": "No se encontraron resultados"
+  },
+  "workflows.modal.title": {
+    "defaultMessage": ""
+  }
+}

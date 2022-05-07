@@ -1,0 +1,746 @@
+{
+  "SrzSY5": {
+    "defaultMessage": "Foo"
+  },
+  "approval.notifications.link": {
+    "defaultMessage": "批准过程已成功链接。"
+  },
+  "approval.notifications.unlink": {
+    "defaultMessage": "批准过程已成功取消链接。"
+  },
+  "approval.workflows.current": {
+    "defaultMessage": "当前批准过程"
+  },
+  "approval.workflows.set": {
+    "defaultMessage": "为 <strong>{objectName}</strong> 选择批准过程"
+  },
+  "common.actions.copy": {
+    "defaultMessage": "复制"
+  },
+  "common.actions.delete": {
+    "defaultMessage": "删除"
+  },
+  "common.actions.deleting": {
+    "defaultMessage": "删除"
+  },
+  "common.actions.edit": {
+    "defaultMessage": "编辑"
+  },
+  "common.actions.save": {
+    "defaultMessage": "保存"
+  },
+  "common.actions.setApproval": {
+    "defaultMessage": "设置批准"
+  },
+  "common.actions.share": {
+    "defaultMessage": "共享"
+  },
+  "common.filtering.clear-filters": {
+    "defaultMessage": "清除所有过滤器"
+  },
+  "common.filtering.filterByProduct": {
+    "defaultMessage": "按产品过滤"
+  },
+  "common.filtering.no-products": {
+    "defaultMessage": "还没有产品"
+  },
+  "common.filtering.noItems": {
+    "defaultMessage": "没有找到项"
+  },
+  "common.filtering.noResults": {
+    "defaultMessage": "没有找到结果"
+  },
+  "common.filtering.noResultsDescription": {
+    "defaultMessage": "没有与过滤器条件匹配的结果。删除所有过滤器或清除所有过滤器以显示结果。"
+  },
+  "common.labels.approval_process_set": {
+    "defaultMessage": "批准过程设置"
+  },
+  "common.labels.available": {
+    "defaultMessage": "可用"
+  },
+  "common.labels.cancel": {
+    "defaultMessage": "取消"
+  },
+  "common.labels.confirm": {
+    "defaultMessage": "确认"
+  },
+  "common.labels.create": {
+    "defaultMessage": "创建"
+  },
+  "common.labels.description": {
+    "defaultMessage": "描述"
+  },
+  "common.labels.disabled": {
+    "defaultMessage": "禁用"
+  },
+  "common.labels.enabled": {
+    "defaultMessage": "启用"
+  },
+  "common.labels.id": {
+    "defaultMessage": "状态"
+  },
+  "common.labels.loading": {
+    "defaultMessage": "正在加载"
+  },
+  "common.labels.name": {
+    "defaultMessage": "名称"
+  },
+  "common.labels.not-available": {
+    "defaultMessage": "不可用"
+  },
+  "common.labels.owner": {
+    "defaultMessage": "所有者 (Owner)"
+  },
+  "common.labels.platform": {
+    "defaultMessage": "平台"
+  },
+  "common.labels.portfolio": {
+    "defaultMessage": "产品组合"
+  },
+  "common.labels.product": {
+    "defaultMessage": "产品"
+  },
+  "common.labels.save": {
+    "defaultMessage": "保存"
+  },
+  "common.labels.shared": {
+    "defaultMessage": "共享"
+  },
+  "common.labels.sort-by": {
+    "defaultMessage": "排序方式"
+  },
+  "common.labels.to-portfolio": {
+    "defaultMessage": "到产品组合"
+  },
+  "common.labels.updated": {
+    "defaultMessage": "更新"
+  },
+  "common.states.approval-pending": {
+    "defaultMessage": "批准待处理"
+  },
+  "common.states.approved": {
+    "defaultMessage": "已批准"
+  },
+  "common.states.canceled": {
+    "defaultMessage": "已取消"
+  },
+  "common.states.completed": {
+    "defaultMessage": "完成"
+  },
+  "common.states.created": {
+    "defaultMessage": "已创建"
+  },
+  "common.states.denied": {
+    "defaultMessage": "已拒绝"
+  },
+  "common.states.error": {
+    "defaultMessage": "错误"
+  },
+  "common.states.failed": {
+    "defaultMessage": "失败"
+  },
+  "common.states.notified": {
+    "defaultMessage": "通知"
+  },
+  "common.states.ordered": {
+    "defaultMessage": "订购"
+  },
+  "common.states.pending": {
+    "defaultMessage": "待处理"
+  },
+  "common.states.skipped": {
+    "defaultMessage": "跳过"
+  },
+  "common.states.started": {
+    "defaultMessage": "已开始"
+  },
+  "common.states.title": {
+    "defaultMessage": "状态"
+  },
+  "common.states.undecided": {
+    "defaultMessage": "未决定"
+  },
+  "common.states.unknown": {
+    "defaultMessage": "未知"
+  },
+  "commonMessages.noRecords": {
+    "defaultMessage": "没有记录"
+  },
+  "commonMessages.orderProcessesTitle": {
+    "defaultMessage": "订购过程"
+  },
+  "commonMessages.unknown": {
+    "defaultMessage": "未知"
+  },
+  "errors.forbidden.title": {
+    "defaultMessage": "禁止"
+  },
+  "errors.not-found.description": {
+    "defaultMessage": "资源 <nowrap>{pathname} {search}</nowrap> 不存在。"
+  },
+  "errors.not-found.title": {
+    "defaultMessage": "未找到"
+  },
+  "errors.unauthorized.description": {
+    "defaultMessage": "您没有权利访问这个部分：<nowrap>{pathname} {search}</nowrap>.<br></br>如果您认为这不正确，请联系支持。"
+  },
+  "errors.unauthorized.return": {
+    "defaultMessage": "返回到目录"
+  },
+  "errors.unauthorized.title": {
+    "defaultMessage": "未授权"
+  },
+  "foo": {
+    "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "forms.after.currentAfterProvision": {
+    "defaultMessage": "置备后当前"
+  },
+  "forms.after.setAfterProvision": {
+    "defaultMessage": "订购后"
+  },
+  "forms.after.setReturnProvision": {
+    "defaultMessage": "返回"
+  },
+  "forms.before.beforeProvision": {
+    "defaultMessage": "订购前"
+  },
+  "forms.before.currentBeforeProducts": {
+    "defaultMessage": "置备前当前"
+  },
+  "forms.groups-with-access": {
+    "defaultMessage": "带有访问权限的组"
+  },
+  "forms.nameTaken": {
+    "defaultMessage": "名称已被使用"
+  },
+  "forms.product.placeholder": {
+    "defaultMessage": "选择产品"
+  },
+  "forms.select.options.choose": {
+    "defaultMessage": "请选择"
+  },
+  "forms.select.options.none": {
+    "defaultMessage": "无"
+  },
+  "forms.share.invite-group": {
+    "defaultMessage": "邀请组"
+  },
+  "icons.actions.change": {
+    "defaultMessage": "上传镜像"
+  },
+  "icons.actions.reset": {
+    "defaultMessage": "重置镜像"
+  },
+  "name": {
+    "defaultMessage": "名称"
+  },
+  "order-proces.empty.no-order-processes": {
+    "defaultMessage": "没有找到订购过程。"
+  },
+  "order-process-type": {
+    "defaultMessage": "订购过程类型"
+  },
+  "order-process.actions.addProcessSuccessDescription": {
+    "defaultMessage": "订购过程已被成功添加。"
+  },
+  "order-process.actions.addProcessSuccessTitle": {
+    "defaultMessage": "成功添加订购过程"
+  },
+  "order-process.actions.createOrderProcess": {
+    "defaultMessage": "创建订购过程"
+  },
+  "order-process.actions.set": {
+    "defaultMessage": "设置订购过程"
+  },
+  "order-process.actions.updateOrderProcess": {
+    "defaultMessage": "编辑订购过程"
+  },
+  "order-process.actions.updateProcessSuccessTitle": {
+    "defaultMessage": "订购过程 {name} 已更新"
+  },
+  "order-process.deleteProcessAriaMenu": {
+    "defaultMessage": "删除订购过程"
+  },
+  "order-process.empty.no-results": {
+    "defaultMessage": "没有与您的过滤器标准匹配的订购过程。"
+  },
+  "order-process.enterName": {
+    "defaultMessage": "为订购过程输入一个名称"
+  },
+  "order-process.filter.placeholder": {
+    "defaultMessage": "按名称过滤"
+  },
+  "order-process.name": {
+    "defaultMessage": "订购过程名称"
+  },
+  "order-process.notification.description": {
+    "defaultMessage": "{linked, plural, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {order process was} other {order processes were}} unlinked.}}"
+  },
+  "order-process.notification.title": {
+    "defaultMessage": "成功更新订购过程"
+  },
+  "order-process.orderProcesses": {
+    "defaultMessage": "订购过程"
+  },
+  "order-process.removeProcessAriaLabel": {
+    "defaultMessage": "删除 {count, plural, one {order process} other {order processes}} 模态"
+  },
+  "order-process.removeProcessDescription": {
+    "defaultMessage": "{name} 将被删除。"
+  },
+  "order-process.removeProcessSuccessDescription": {
+    "defaultMessage": "订购过程已被成功删除。"
+  },
+  "order-process.removeProcessSuccessTitle": {
+    "defaultMessage": "成功删除订购过程"
+  },
+  "order-process.removeProcessTitle": {
+    "defaultMessage": "删除 {count, plural, one {order process} other {order process}}?"
+  },
+  "order-process.removeProcessesSuccessDescription": {
+    "defaultMessage": "选择的订购进程已被成功删除。"
+  },
+  "order-process.removeProcessesSuccessTitle": {
+    "defaultMessage": "成功删除订购过程"
+  },
+  "order-process.set-order-process.current": {
+    "defaultMessage": "当前订购过程"
+  },
+  "order-process.tags.set": {
+    "defaultMessage": "为 <strong>{object}</strong> 设置订购过程"
+  },
+  "order-process.toolbar.order-process": {
+    "defaultMessage": "订购过程"
+  },
+  "order-process.toolbar.title": {
+    "defaultMessage": "订购过程"
+  },
+  "order.detail.not-found": {
+    "defaultMessage": "此订单 {count, plural, one {is} other {are}} 的 {objects} 不可用"
+  },
+  "orders.actions.cancel": {
+    "defaultMessage": "取消订购"
+  },
+  "orders.actions.keep": {
+    "defaultMessage": "保持订购"
+  },
+  "orders.actions.reorder": {
+    "defaultMessage": "重新订购"
+  },
+  "orders.approval.activity": {
+    "defaultMessage": "活动"
+  },
+  "orders.approval.creating": {
+    "defaultMessage": "创建批准请求"
+  },
+  "orders.approval.details.completed": {
+    "defaultMessage": "完成于"
+  },
+  "orders.approval.details.created": {
+    "defaultMessage": "请求已创建"
+  },
+  "orders.approval.details.reason": {
+    "defaultMessage": "批准原因"
+  },
+  "orders.approval.no-requests": {
+    "defaultMessage": "我们无法找到此订单的任何批准请求。"
+  },
+  "orders.approval.order-date": {
+    "defaultMessage": "订单日期"
+  },
+  "orders.approval.orderedBy": {
+    "defaultMessage": "订单方"
+  },
+  "orders.approval.parameters": {
+    "defaultMessage": "参数"
+  },
+  "orders.approval.title": {
+    "defaultMessage": "概述"
+  },
+  "orders.approval.view-detail": {
+    "defaultMessage": "查看此订购的批准请求详情"
+  },
+  "orders.artifacts": {
+    "defaultMessage": "订购工件"
+  },
+  "orders.cancel.description": {
+    "defaultMessage": "您确定要取消 {name} 吗？"
+  },
+  "orders.common.compositeTitle": {
+    "defaultMessage": "{name} - 订购 # {id}"
+  },
+  "orders.common.details": {
+    "defaultMessage": "订购详情"
+  },
+  "orders.common.lastUpdated": {
+    "defaultMessage": "最后更新"
+  },
+  "orders.common.orderedBy": {
+    "defaultMessage": "由 {owner} 订购"
+  },
+  "orders.detail.title": {
+    "defaultMessage": "订购 ID {id}"
+  },
+  "orders.list.empty.description": {
+    "defaultMessage": "尚未创建订购。"
+  },
+  "orders.list.empty.title": {
+    "defaultMessage": "无订购"
+  },
+  "orders.menu.approval": {
+    "defaultMessage": "批准"
+  },
+  "orders.menu.lifecycle": {
+    "defaultMessage": "生命周期"
+  },
+  "orders.menu.provision": {
+    "defaultMessage": "置备"
+  },
+  "orders.menu.steps": {
+    "defaultMessage": "订购步骤"
+  },
+  "orders.notification.success": {
+    "defaultMessage": "您可以跟踪您的订购 # {id} 的进度。 <link>订购</link> 页。"
+  },
+  "orders.order.default_type": {
+    "defaultMessage": "产品"
+  },
+  "orders.order.detail.ID": {
+    "defaultMessage": "订购 ID"
+  },
+  "orders.order.detail.messages": {
+    "defaultMessage": "进度消息"
+  },
+  "orders.order.detail.parameters": {
+    "defaultMessage": "订购参数"
+  },
+  "orders.order.lifecycle.link": {
+    "defaultMessage": "管理产品"
+  },
+  "orders.order.provision.parameters": {
+    "defaultMessage": "参数"
+  },
+  "orders.provision.fetching-provision": {
+    "defaultMessage": "获取订购置备数据"
+  },
+  "orders.provision.no-items": {
+    "defaultMessage": "我们无法找到此订单的置备数据。"
+  },
+  "orders.toolbar.backLink": {
+    "defaultMessage": "返回订单"
+  },
+  "platform.cloudConnectorId": {
+    "defaultMessage": "RedHat Connect Client Id"
+  },
+  "platform.inventories.columns.workflow": {
+    "defaultMessage": "工作流"
+  },
+  "platform.inventories.empty.no-inventories": {
+    "defaultMessage": "没有找到清单。"
+  },
+  "platform.inventories.empty.no-results": {
+    "defaultMessage": "没有与您的过滤器标准匹配的清单。"
+  },
+  "platform.inventories.filter.placeholder": {
+    "defaultMessage": "按清单过滤"
+  },
+  "platform.templates.empty.no-templates": {
+    "defaultMessage": "此平台没有模板。"
+  },
+  "platform.templates.filter.placeholder": {
+    "defaultMessage": "按模板过滤"
+  },
+  "platform.templates.no-templates": {
+    "defaultMessage": "没有模板"
+  },
+  "platforms.activity": {
+    "defaultMessage": "活动"
+  },
+  "platforms.ansible.version": {
+    "defaultMessage": "Ansible 版本"
+  },
+  "platforms.availabilityMessage": {
+    "defaultMessage": "可用性信息"
+  },
+  "platforms.availabilityStatus": {
+    "defaultMessage": "可用性状态"
+  },
+  "platforms.controller.url": {
+    "defaultMessage": "自动化控制器 URL"
+  },
+  "platforms.dateAdded": {
+    "defaultMessage": "添加日期"
+  },
+  "platforms.details": {
+    "defaultMessage": "详情"
+  },
+  "platforms.doc.title": {
+    "defaultMessage": "Ansible Automation Platform 2.0 BETA 文档"
+  },
+  "platforms.enabled": {
+    "defaultMessage": "启用"
+  },
+  "platforms.lastAvailable": {
+    "defaultMessage": "最后可用"
+  },
+  "platforms.lastChecked": {
+    "defaultMessage": "最后检查"
+  },
+  "platforms.lastRefreshMessage": {
+    "defaultMessage": "最后刷新消息"
+  },
+  "platforms.lastSuccessfulRefresh": {
+    "defaultMessage": "最后成功刷新"
+  },
+  "platforms.list.configure-source": {
+    "defaultMessage": "Ansible Automation Services Catalog 可以按照如下所示添加"
+  },
+  "platforms.list.connect-source": {
+    "defaultMessage": "返回到源"
+  },
+  "platforms.list.contact-admin": {
+    "defaultMessage": "请联系您的机构管理员为目录设置源。"
+  },
+  "platforms.list.empty.title": {
+    "defaultMessage": "还没有平台"
+  },
+  "platforms.offerings.detail.extra-params": {
+    "defaultMessage": "附加参数"
+  },
+  "platforms.offerings.detail.title": {
+    "defaultMessage": "服务"
+  },
+  "platforms.refreshFinished": {
+    "defaultMessage": "刷新完成"
+  },
+  "platforms.refreshStarted": {
+    "defaultMessage": "刷新开始"
+  },
+  "platforms.refreshState": {
+    "defaultMessage": "刷新状态"
+  },
+  "platforms.refreshTooltip": {
+    "defaultMessage": "刷新平台"
+  },
+  "platforms.summary": {
+    "defaultMessage": "概述"
+  },
+  "platforms.title": {
+    "defaultMessage": "平台"
+  },
+  "platforms.version": {
+    "defaultMessage": "平台版本"
+  },
+  "portfolio.add.platform.description.empty": {
+    "defaultMessage": "要为产品组合选择产品，您必须首先选择平台"
+  },
+  "portfolio.add.platform.filter.empty": {
+    "defaultMessage": "没有与过滤器参数匹配的产品"
+  },
+  "portfolio.add.platform.title.empty": {
+    "defaultMessage": "请选择平台"
+  },
+  "portfolio.add.success.description": {
+    "defaultMessage": "组合 <b>{name}</b> 已被成功添加。"
+  },
+  "portfolio.add.success.title": {
+    "defaultMessage": "成功添加产品组合"
+  },
+  "portfolio.detail.alert.source.unavailable": {
+    "defaultMessage": "此产品的平台不可用"
+  },
+  "portfolio.detail.alert.unavailable": {
+    "defaultMessage": "此产品的 {object} 不再可用"
+  },
+  "portfolio.detail.back-to-products": {
+    "defaultMessage": "返回到产品"
+  },
+  "portfolio.empty.add.products": {
+    "defaultMessage": "添加产品"
+  },
+  "portfolio.empty.no-products": {
+    "defaultMessage": "向产品组合中添加时将出现此产品。"
+  },
+  "portfolio.item.copy": {
+    "defaultMessage": "复制项目"
+  },
+  "portfolio.item.detail.actions.order": {
+    "defaultMessage": "订购"
+  },
+  "portfolio.item.detail.actions.survey": {
+    "defaultMessage": "编辑问卷调查"
+  },
+  "portfolio.item.detail.doclink": {
+    "defaultMessage": "文档链接"
+  },
+  "portfolio.item.detail.documentation": {
+    "defaultMessage": "文档"
+  },
+  "portfolio.item.detail.overview": {
+    "defaultMessage": "概述"
+  },
+  "portfolio.item.detail.support": {
+    "defaultMessage": "了解更多"
+  },
+  "portfolio.item.edit.title": {
+    "defaultMessage": "编辑产品"
+  },
+  "portfolio.item.icon.upload.notification": {
+    "defaultMessage": "图标上传错误"
+  },
+  "portfolio.item.survey.edit": {
+    "defaultMessage": "编辑问卷调查：{name}"
+  },
+  "portfolio.item.survey.restore": {
+    "defaultMessage": "恢复到 Ansible Tower 版本"
+  },
+  "portfolio.modal.add.title": {
+    "defaultMessage": "创建产品组合"
+  },
+  "portfolio.modal.edit.title": {
+    "defaultMessage": "编辑产品组合"
+  },
+  "portfolio.notifications.remove.portfolio": {
+    "defaultMessage": "该产品组合已被成功删除。如果出现错误，可以<a>撤销</a>此操作。"
+  },
+  "portfolio.notifications.remove.portfolio-items": {
+    "defaultMessage": "您已从 {portfolioName} 产品组合中删除了 {count, plural, one {} other {<b>{count, number}</b>}} {count, plural, one {<b>{productName}</b>} other {<b>products</b>} }。如果这是错误，请<a>撤销</a>。"
+  },
+  "portfolio.remove.modal.description": {
+    "defaultMessage": "此操作将永久删除产品组合 {name} 及其数据。"
+  },
+  "portfolio.remove.modal.title": {
+    "defaultMessage": "删除产品组合？"
+  },
+  "portfolio.share.add.duplicate": {
+    "defaultMessage": "产品组合已与该组共享。"
+  },
+  "portfolio.share.add.missing-data": {
+    "defaultMessage": "选择组和权限。"
+  },
+  "portfolio.share.add.missing-group": {
+    "defaultMessage": "选择组来共享产品组合。"
+  },
+  "portfolio.share.add.missing-permission": {
+    "defaultMessage": "为所选组分配权限。"
+  },
+  "portfolio.share.add.no-shares": {
+    "defaultMessage": "共享产品组合选择一个组和权限"
+  },
+  "portfolio.share.add.tooltip": {
+    "defaultMessage": "与所选组和权限共享产品组合."
+  },
+  "portfolio.share.modal.apply": {
+    "defaultMessage": "应用"
+  },
+  "portfolio.share.modal.description": {
+    "defaultMessage": "共享 <strong>{name}</strong> 产品组合"
+  },
+  "portfolio.share.modal.groups": {
+    "defaultMessage": "选择一个组"
+  },
+  "portfolio.share.modal.permissions": {
+    "defaultMessage": "选择共享权限"
+  },
+  "portfolio.share.modal.title": {
+    "defaultMessage": "共享产品组合"
+  },
+  "portfolios.empty.noData.description": {
+    "defaultMessage": "您当前没有产品组合。创建产品组合以开始。"
+  },
+  "portfolios.empty.noData.title": {
+    "defaultMessage": "创建一个产品组合"
+  },
+  "portfolios.filters.placeholder": {
+    "defaultMessage": "按产品组合过滤"
+  },
+  "portfolios.heading.title": {
+    "defaultMessage": "产品组合"
+  },
+  "products.empty.add-source": {
+    "defaultMessage": "添加源"
+  },
+  "products.empty.configure-source": {
+    "defaultMessage": "配置一个源并将产品添加到产品组合中。"
+  },
+  "products.toolbar.title": {
+    "defaultMessage": "产品"
+  },
+  "schemas.portfolio-item.description": {
+    "defaultMessage": "描述"
+  },
+  "schemas.portfolio-item.documentation_url": {
+    "defaultMessage": "文档 URL"
+  },
+  "schemas.portfolio-item.long_description": {
+    "defaultMessage": "详细描述"
+  },
+  "schemas.portfolio-item.name": {
+    "defaultMessage": "名称"
+  },
+  "schemas.portfolio-item.support_url": {
+    "defaultMessage": "支持 URL"
+  },
+  "schemas.portfolio-item.vendor": {
+    "defaultMessage": "厂商"
+  },
+  "schemas.portfolio.description": {
+    "defaultMessage": "描述"
+  },
+  "schemas.portfolio.name": {
+    "defaultMessage": "名称"
+  },
+  "share.groups.access": {
+    "defaultMessage": "带有访问权限的组"
+  },
+  "share.groups.group.placeholder": {
+    "defaultMessage": "选择组"
+  },
+  "share.groups.permissions.placeholder": {
+    "defaultMessage": "选择权限"
+  },
+  "share.new.description": {
+    "defaultMessage": "邀请组"
+  },
+  "share.notification.success.change-permission.description": {
+    "defaultMessage": "<b>{group}</b> 的共享权限已更新。"
+  },
+  "share.notification.success.change-permission.title": {
+    "defaultMessage": "成功更改权限"
+  },
+  "share.notification.success.multiple-groups": {
+    "defaultMessage": "{count} 组"
+  },
+  "share.notification.success.share.description": {
+    "defaultMessage": "产品组合 <b>{name}</b> 与 {group} 共享。"
+  },
+  "share.notification.success.share.title": {
+    "defaultMessage": "成功共享产品组合"
+  },
+  "share.notification.success.title": {
+    "defaultMessage": "共享权限已被成功更新"
+  },
+  "share.notification.success.two-groups": {
+    "defaultMessage": "{group1} 和 {group2}"
+  },
+  "share.notification.success.unshare.description": {
+    "defaultMessage": "产品组合 <b>{name}</b> 没有与 {group} 共享。"
+  },
+  "share.notification.success.unshare.title": {
+    "defaultMessage": "成功取消共享产品组合"
+  },
+  "tableToolbar.filterByTitle": {
+    "defaultMessage": "按 {title} 过滤"
+  },
+  "tableToolbar.noResult": {
+    "defaultMessage": "没有 {results}"
+  },
+  "tableToolbar.noResultsFound": {
+    "defaultMessage": "没有找到结果"
+  },
+  "workflows.modal.title": {
+    "defaultMessage": "设置批准过程"
+  }
+}

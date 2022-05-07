@@ -1,0 +1,746 @@
+{
+  "SrzSY5": {
+    "defaultMessage": "Foo"
+  },
+  "approval.notifications.link": {
+    "defaultMessage": "承認プロセスが正常にリンクされました。"
+  },
+  "approval.notifications.unlink": {
+    "defaultMessage": "承認プロセスのリンクが正常に解除されました。"
+  },
+  "approval.workflows.current": {
+    "defaultMessage": "現在の承認プロセス"
+  },
+  "approval.workflows.set": {
+    "defaultMessage": "<strong>{objectName}</strong> の承認プロセスの選択"
+  },
+  "common.actions.copy": {
+    "defaultMessage": "コピー"
+  },
+  "common.actions.delete": {
+    "defaultMessage": "削除"
+  },
+  "common.actions.deleting": {
+    "defaultMessage": "削除中"
+  },
+  "common.actions.edit": {
+    "defaultMessage": "編集"
+  },
+  "common.actions.save": {
+    "defaultMessage": "保存"
+  },
+  "common.actions.setApproval": {
+    "defaultMessage": "承認の設定"
+  },
+  "common.actions.share": {
+    "defaultMessage": "共有"
+  },
+  "common.filtering.clear-filters": {
+    "defaultMessage": "すべてのフィルターの解除"
+  },
+  "common.filtering.filterByProduct": {
+    "defaultMessage": "製品による絞り込み"
+  },
+  "common.filtering.no-products": {
+    "defaultMessage": "まだ製品はありません"
+  },
+  "common.filtering.noItems": {
+    "defaultMessage": "アイテムが見つかりません"
+  },
+  "common.filtering.noResults": {
+    "defaultMessage": "結果が見つかりません"
+  },
+  "common.filtering.noResultsDescription": {
+    "defaultMessage": "フィルター条件にマッチする結果はありません。すべてのフィルターを削除するか、すべてのフィルターをクリアして結果を表示します。"
+  },
+  "common.labels.approval_process_set": {
+    "defaultMessage": "承認プロセスが設定されました"
+  },
+  "common.labels.available": {
+    "defaultMessage": "利用可能"
+  },
+  "common.labels.cancel": {
+    "defaultMessage": "取り消し"
+  },
+  "common.labels.confirm": {
+    "defaultMessage": "確認"
+  },
+  "common.labels.create": {
+    "defaultMessage": "作成"
+  },
+  "common.labels.description": {
+    "defaultMessage": "説明"
+  },
+  "common.labels.disabled": {
+    "defaultMessage": "無効化"
+  },
+  "common.labels.enabled": {
+    "defaultMessage": "有効化"
+  },
+  "common.labels.id": {
+    "defaultMessage": "ステータス"
+  },
+  "common.labels.loading": {
+    "defaultMessage": "ロード中"
+  },
+  "common.labels.name": {
+    "defaultMessage": "名前"
+  },
+  "common.labels.not-available": {
+    "defaultMessage": "利用できません"
+  },
+  "common.labels.owner": {
+    "defaultMessage": "所有者"
+  },
+  "common.labels.platform": {
+    "defaultMessage": "プラットフォーム"
+  },
+  "common.labels.portfolio": {
+    "defaultMessage": "ポートフォリオ"
+  },
+  "common.labels.product": {
+    "defaultMessage": "製品"
+  },
+  "common.labels.save": {
+    "defaultMessage": "保存"
+  },
+  "common.labels.shared": {
+    "defaultMessage": "共有済み"
+  },
+  "common.labels.sort-by": {
+    "defaultMessage": "並べ替え"
+  },
+  "common.labels.to-portfolio": {
+    "defaultMessage": "ポートフォリオへ"
+  },
+  "common.labels.updated": {
+    "defaultMessage": "更新済み"
+  },
+  "common.states.approval-pending": {
+    "defaultMessage": "承認は保留中"
+  },
+  "common.states.approved": {
+    "defaultMessage": "承認済"
+  },
+  "common.states.canceled": {
+    "defaultMessage": "取り消し済み"
+  },
+  "common.states.completed": {
+    "defaultMessage": "完了済み"
+  },
+  "common.states.created": {
+    "defaultMessage": "作成済み"
+  },
+  "common.states.denied": {
+    "defaultMessage": "拒否済み"
+  },
+  "common.states.error": {
+    "defaultMessage": "エラー"
+  },
+  "common.states.failed": {
+    "defaultMessage": "失敗"
+  },
+  "common.states.notified": {
+    "defaultMessage": "通知済み"
+  },
+  "common.states.ordered": {
+    "defaultMessage": "オーダー済み"
+  },
+  "common.states.pending": {
+    "defaultMessage": "保留中"
+  },
+  "common.states.skipped": {
+    "defaultMessage": "スキップ済"
+  },
+  "common.states.started": {
+    "defaultMessage": "開始済み"
+  },
+  "common.states.title": {
+    "defaultMessage": "状態"
+  },
+  "common.states.undecided": {
+    "defaultMessage": "未決定"
+  },
+  "common.states.unknown": {
+    "defaultMessage": "不明"
+  },
+  "commonMessages.noRecords": {
+    "defaultMessage": "レコードなし"
+  },
+  "commonMessages.orderProcessesTitle": {
+    "defaultMessage": "オーダープロセス"
+  },
+  "commonMessages.unknown": {
+    "defaultMessage": "不明"
+  },
+  "errors.forbidden.title": {
+    "defaultMessage": "許可されていません"
+  },
+  "errors.not-found.description": {
+    "defaultMessage": "リソース <nowrap>{pathname} {search}</nowrap> は存在しません。"
+  },
+  "errors.not-found.title": {
+    "defaultMessage": "見つかりません"
+  },
+  "errors.unauthorized.description": {
+    "defaultMessage": "このセクションへのアクセスは許可されていません: <nowrap>{pathname} {search}</nowrap><br></br>これが間違いであると思われる場合は、サポートにお問い合わせください。"
+  },
+  "errors.unauthorized.return": {
+    "defaultMessage": "カタログに戻る"
+  },
+  "errors.unauthorized.title": {
+    "defaultMessage": "許可されていません"
+  },
+  "foo": {
+    "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "forms.after.currentAfterProvision": {
+    "defaultMessage": "現在のプロビジョニング後"
+  },
+  "forms.after.setAfterProvision": {
+    "defaultMessage": "オーダー後"
+  },
+  "forms.after.setReturnProvision": {
+    "defaultMessage": "戻る"
+  },
+  "forms.before.beforeProvision": {
+    "defaultMessage": "オーダー前"
+  },
+  "forms.before.currentBeforeProducts": {
+    "defaultMessage": "現在のプロビジョニング前"
+  },
+  "forms.groups-with-access": {
+    "defaultMessage": "アクセス権のあるグループ"
+  },
+  "forms.nameTaken": {
+    "defaultMessage": "名前はすでに使用されています"
+  },
+  "forms.product.placeholder": {
+    "defaultMessage": "製品の選択"
+  },
+  "forms.select.options.choose": {
+    "defaultMessage": "選択してください"
+  },
+  "forms.select.options.none": {
+    "defaultMessage": "なし"
+  },
+  "forms.share.invite-group": {
+    "defaultMessage": "グループの招待"
+  },
+  "icons.actions.change": {
+    "defaultMessage": "イメージのアップロード"
+  },
+  "icons.actions.reset": {
+    "defaultMessage": "イメージのリセット"
+  },
+  "name": {
+    "defaultMessage": "名前"
+  },
+  "order-proces.empty.no-order-processes": {
+    "defaultMessage": "オーダープロセスが見つかりませんでした。"
+  },
+  "order-process-type": {
+    "defaultMessage": "オーダープロセスのタイプ"
+  },
+  "order-process.actions.addProcessSuccessDescription": {
+    "defaultMessage": "オーダープロセスが正常に追加されました。"
+  },
+  "order-process.actions.addProcessSuccessTitle": {
+    "defaultMessage": "オーダープロセスの追加に成功"
+  },
+  "order-process.actions.createOrderProcess": {
+    "defaultMessage": "オーダープロセスの作成"
+  },
+  "order-process.actions.set": {
+    "defaultMessage": "オーダープロセスの設定"
+  },
+  "order-process.actions.updateOrderProcess": {
+    "defaultMessage": "オーダープロセスの編集"
+  },
+  "order-process.actions.updateProcessSuccessTitle": {
+    "defaultMessage": "オーダープロセス {name} が更新されました"
+  },
+  "order-process.deleteProcessAriaMenu": {
+    "defaultMessage": "オーダープロセスの削除"
+  },
+  "order-process.empty.no-results": {
+    "defaultMessage": "フィルター条件にマッチするオーダープロセスはありません。"
+  },
+  "order-process.enterName": {
+    "defaultMessage": "オーダープロセスの名前を入力します"
+  },
+  "order-process.filter.placeholder": {
+    "defaultMessage": "名前による絞り込み"
+  },
+  "order-process.name": {
+    "defaultMessage": "オーダープロセス名"
+  },
+  "order-process.notification.description": {
+    "defaultMessage": "{linked, plural, =0 {} other {{linked, number} {linked, plural, one {オーダープロセス} other {オーダープロセス}}がリンクされました。}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {オーダープロセス} other {オーダープロセス}}のリンクが解除されました。}}"
+  },
+  "order-process.notification.title": {
+    "defaultMessage": "オーダープロセスの更新に成功"
+  },
+  "order-process.orderProcesses": {
+    "defaultMessage": "オーダープロセス"
+  },
+  "order-process.removeProcessAriaLabel": {
+    "defaultMessage": "{count, plural, one {オーダープロセス} other {オーダープロセス}}モーダルの削除"
+  },
+  "order-process.removeProcessDescription": {
+    "defaultMessage": "{name} が削除されます。"
+  },
+  "order-process.removeProcessSuccessDescription": {
+    "defaultMessage": "オーダープロセスが正常に削除されました。"
+  },
+  "order-process.removeProcessSuccessTitle": {
+    "defaultMessage": "オーダープロセスの削除に成功"
+  },
+  "order-process.removeProcessTitle": {
+    "defaultMessage": "{count, plural, one {オーダープロセス} other {オーダープロセス}}を削除しますか?"
+  },
+  "order-process.removeProcessesSuccessDescription": {
+    "defaultMessage": "選択したオーダープロセスが正常に削除されました。"
+  },
+  "order-process.removeProcessesSuccessTitle": {
+    "defaultMessage": "オーダープロセスの削除に成功"
+  },
+  "order-process.set-order-process.current": {
+    "defaultMessage": "現在のオーダープロセス"
+  },
+  "order-process.tags.set": {
+    "defaultMessage": "<strong>{object}</strong> のオーダープロセスの設定"
+  },
+  "order-process.toolbar.order-process": {
+    "defaultMessage": "オーダープロセス"
+  },
+  "order-process.toolbar.title": {
+    "defaultMessage": "オーダープロセス"
+  },
+  "order.detail.not-found": {
+    "defaultMessage": "このオーダーの {objects} {count, plural, one {は} other {は}}利用できません"
+  },
+  "orders.actions.cancel": {
+    "defaultMessage": "オーダーの取り消し"
+  },
+  "orders.actions.keep": {
+    "defaultMessage": "オーダーの維持"
+  },
+  "orders.actions.reorder": {
+    "defaultMessage": "並べ替え"
+  },
+  "orders.approval.activity": {
+    "defaultMessage": "アクティビティー"
+  },
+  "orders.approval.creating": {
+    "defaultMessage": "承認リクエストの作成"
+  },
+  "orders.approval.details.completed": {
+    "defaultMessage": "完了日時"
+  },
+  "orders.approval.details.created": {
+    "defaultMessage": "リクエストが作成されました"
+  },
+  "orders.approval.details.reason": {
+    "defaultMessage": "承認理由"
+  },
+  "orders.approval.no-requests": {
+    "defaultMessage": "このオーダーの承認リクエストを見つけられませんでした。"
+  },
+  "orders.approval.order-date": {
+    "defaultMessage": "オーダーの日付"
+  },
+  "orders.approval.orderedBy": {
+    "defaultMessage": "オーダー主"
+  },
+  "orders.approval.parameters": {
+    "defaultMessage": "パラメーター"
+  },
+  "orders.approval.title": {
+    "defaultMessage": "概要"
+  },
+  "orders.approval.view-detail": {
+    "defaultMessage": "このオーダーの承認リクエストの詳細を表示する"
+  },
+  "orders.artifacts": {
+    "defaultMessage": "オーダーのアーティファクト"
+  },
+  "orders.cancel.description": {
+    "defaultMessage": "{name} を取り消してもよろしいですか?"
+  },
+  "orders.common.compositeTitle": {
+    "defaultMessage": "{name} - オーダー # {id}"
+  },
+  "orders.common.details": {
+    "defaultMessage": "オーダーの詳細"
+  },
+  "orders.common.lastUpdated": {
+    "defaultMessage": "最終更新日時"
+  },
+  "orders.common.orderedBy": {
+    "defaultMessage": "{owner} によるオーダー"
+  },
+  "orders.detail.title": {
+    "defaultMessage": "オーダー ID {id}"
+  },
+  "orders.list.empty.description": {
+    "defaultMessage": "ホストが作成されていません。"
+  },
+  "orders.list.empty.title": {
+    "defaultMessage": "オーダーなし"
+  },
+  "orders.menu.approval": {
+    "defaultMessage": "承認"
+  },
+  "orders.menu.lifecycle": {
+    "defaultMessage": "ライフサイクル"
+  },
+  "orders.menu.provision": {
+    "defaultMessage": "プロビジョニング"
+  },
+  "orders.menu.steps": {
+    "defaultMessage": "オーダー手順"
+  },
+  "orders.notification.success": {
+    "defaultMessage": "オーダー # {id} の進捗を <link>オーダー</link> ページでトラッキングできます。"
+  },
+  "orders.order.default_type": {
+    "defaultMessage": "製品"
+  },
+  "orders.order.detail.ID": {
+    "defaultMessage": "オーダー ID"
+  },
+  "orders.order.detail.messages": {
+    "defaultMessage": "進捗メッセージ"
+  },
+  "orders.order.detail.parameters": {
+    "defaultMessage": "オーダーパラメーター"
+  },
+  "orders.order.lifecycle.link": {
+    "defaultMessage": "製品の管理"
+  },
+  "orders.order.provision.parameters": {
+    "defaultMessage": "パラメーター"
+  },
+  "orders.provision.fetching-provision": {
+    "defaultMessage": "オーダープロビジョニングデータの取得中"
+  },
+  "orders.provision.no-items": {
+    "defaultMessage": "このオーダーのプロビジョニングデータを見つけられませんでした。"
+  },
+  "orders.toolbar.backLink": {
+    "defaultMessage": "オーダーに戻る"
+  },
+  "platform.cloudConnectorId": {
+    "defaultMessage": "Red Hat Connect クライアント ID"
+  },
+  "platform.inventories.columns.workflow": {
+    "defaultMessage": "ワークフロー"
+  },
+  "platform.inventories.empty.no-inventories": {
+    "defaultMessage": "インベントリーが見つかりませんでした。"
+  },
+  "platform.inventories.empty.no-results": {
+    "defaultMessage": "フィルター条件にマッチするインベントリーはありません。"
+  },
+  "platform.inventories.filter.placeholder": {
+    "defaultMessage": "インベントリーによる絞り込み"
+  },
+  "platform.templates.empty.no-templates": {
+    "defaultMessage": "このプラットフォームにはテンプレートがありません。"
+  },
+  "platform.templates.filter.placeholder": {
+    "defaultMessage": "テンプレートによる絞り込み"
+  },
+  "platform.templates.no-templates": {
+    "defaultMessage": "テンプレートなし"
+  },
+  "platforms.activity": {
+    "defaultMessage": "アクティビティー"
+  },
+  "platforms.ansible.version": {
+    "defaultMessage": "Ansible のバージョン"
+  },
+  "platforms.availabilityMessage": {
+    "defaultMessage": "アベイラビリティーメッセージ"
+  },
+  "platforms.availabilityStatus": {
+    "defaultMessage": "アベイラビリティーステータス"
+  },
+  "platforms.controller.url": {
+    "defaultMessage": "自動コントローラーの URL"
+  },
+  "platforms.dateAdded": {
+    "defaultMessage": "追加日時"
+  },
+  "platforms.details": {
+    "defaultMessage": "詳細"
+  },
+  "platforms.doc.title": {
+    "defaultMessage": "Ansible Automation Platform 2.0 BETA のドキュメント"
+  },
+  "platforms.enabled": {
+    "defaultMessage": "有効化"
+  },
+  "platforms.lastAvailable": {
+    "defaultMessage": "最終利用可能日時"
+  },
+  "platforms.lastChecked": {
+    "defaultMessage": "最終確認日時"
+  },
+  "platforms.lastRefreshMessage": {
+    "defaultMessage": "最終更新メッセージ"
+  },
+  "platforms.lastSuccessfulRefresh": {
+    "defaultMessage": "最後に成功した更新"
+  },
+  "platforms.list.configure-source": {
+    "defaultMessage": "Ansible Automation Services Catalog は、以下に従って追加できます"
+  },
+  "platforms.list.connect-source": {
+    "defaultMessage": "ソースに移動する"
+  },
+  "platforms.list.contact-admin": {
+    "defaultMessage": "組織の管理者に連絡して、カタログのソースを設定してください。"
+  },
+  "platforms.list.empty.title": {
+    "defaultMessage": "まだプラットフォームはありません"
+  },
+  "platforms.offerings.detail.extra-params": {
+    "defaultMessage": "追加のパラメーター"
+  },
+  "platforms.offerings.detail.title": {
+    "defaultMessage": "サービスオファリング"
+  },
+  "platforms.refreshFinished": {
+    "defaultMessage": "更新が終了しました"
+  },
+  "platforms.refreshStarted": {
+    "defaultMessage": "更新が開始されました"
+  },
+  "platforms.refreshState": {
+    "defaultMessage": "更新の状態"
+  },
+  "platforms.refreshTooltip": {
+    "defaultMessage": "プラットフォームの更新"
+  },
+  "platforms.summary": {
+    "defaultMessage": "概要"
+  },
+  "platforms.title": {
+    "defaultMessage": "プラットフォーム"
+  },
+  "platforms.version": {
+    "defaultMessage": "プラットフォームのバージョン"
+  },
+  "portfolio.add.platform.description.empty": {
+    "defaultMessage": "ポートフォリオの製品を選択するには、まずプラットフォームを選択する必要があります"
+  },
+  "portfolio.add.platform.filter.empty": {
+    "defaultMessage": "フィルターパラメーターにマッチする製品はありません"
+  },
+  "portfolio.add.platform.title.empty": {
+    "defaultMessage": "プラットフォームを選択してください"
+  },
+  "portfolio.add.success.description": {
+    "defaultMessage": "ポートフォリオ <b>{name}</b> が正常に追加されました。"
+  },
+  "portfolio.add.success.title": {
+    "defaultMessage": "ポートフォリオの追加に成功"
+  },
+  "portfolio.detail.alert.source.unavailable": {
+    "defaultMessage": "この製品のプラットフォームは利用できません"
+  },
+  "portfolio.detail.alert.unavailable": {
+    "defaultMessage": "この製品の {object} は利用できなくなりました"
+  },
+  "portfolio.detail.back-to-products": {
+    "defaultMessage": "製品に戻る"
+  },
+  "portfolio.empty.add.products": {
+    "defaultMessage": "製品の追加"
+  },
+  "portfolio.empty.no-products": {
+    "defaultMessage": "製品をポートフォリオに追加すると、ここに表示されます。"
+  },
+  "portfolio.item.copy": {
+    "defaultMessage": "製品のコピー"
+  },
+  "portfolio.item.detail.actions.order": {
+    "defaultMessage": "オーダー"
+  },
+  "portfolio.item.detail.actions.survey": {
+    "defaultMessage": "Survey の編集"
+  },
+  "portfolio.item.detail.doclink": {
+    "defaultMessage": "ドキュメントリンク"
+  },
+  "portfolio.item.detail.documentation": {
+    "defaultMessage": "ドキュメント"
+  },
+  "portfolio.item.detail.overview": {
+    "defaultMessage": "概要"
+  },
+  "portfolio.item.detail.support": {
+    "defaultMessage": "詳細情報"
+  },
+  "portfolio.item.edit.title": {
+    "defaultMessage": "製品の編集"
+  },
+  "portfolio.item.icon.upload.notification": {
+    "defaultMessage": "アイコンのアップロードエラー"
+  },
+  "portfolio.item.survey.edit": {
+    "defaultMessage": "サーベイを編集中: {name}"
+  },
+  "portfolio.item.survey.restore": {
+    "defaultMessage": "Ansible Tower バージョンへの復元"
+  },
+  "portfolio.modal.add.title": {
+    "defaultMessage": "ポートフォリオの作成"
+  },
+  "portfolio.modal.edit.title": {
+    "defaultMessage": "ポートフォリオの編集"
+  },
+  "portfolio.notifications.remove.portfolio": {
+    "defaultMessage": "ポートフォリオが正常に削除されました。この操作が誤りである場合は、<a>取り消す</a> ことができます。"
+  },
+  "portfolio.notifications.remove.portfolio-items": {
+    "defaultMessage": "{portfolioName} ポートフォリオから {count, plural, one {} other {<b>{count, number}</b>}} {count, plural, one {<b>{productName}</b>} other {<b>製品</b>} } を削除しました。これが誤りである場合は、<a>取り消してください</a>。"
+  },
+  "portfolio.remove.modal.description": {
+    "defaultMessage": "この操作により、ポートフォリオ {name} とそのデータが完全に削除されます。"
+  },
+  "portfolio.remove.modal.title": {
+    "defaultMessage": "ポートフォリオを削除しますか?"
+  },
+  "portfolio.share.add.duplicate": {
+    "defaultMessage": "ポートフォリオはすでにこのグループと共有されています。"
+  },
+  "portfolio.share.add.missing-data": {
+    "defaultMessage": "グループおよびパーミッションを選択します。"
+  },
+  "portfolio.share.add.missing-group": {
+    "defaultMessage": "ポートフォリオを共有するグループを選択します。"
+  },
+  "portfolio.share.add.missing-permission": {
+    "defaultMessage": "選択したグループにパーミッションを割り当てます。"
+  },
+  "portfolio.share.add.no-shares": {
+    "defaultMessage": "ポートフォリオを共有するには、グループおよびパーミッションを選択します"
+  },
+  "portfolio.share.add.tooltip": {
+    "defaultMessage": "選択したグループおよびパーミッションとポートフォリオを共有します。"
+  },
+  "portfolio.share.modal.apply": {
+    "defaultMessage": "適用"
+  },
+  "portfolio.share.modal.description": {
+    "defaultMessage": "<strong>{name}</strong> ポートフォリオの共有"
+  },
+  "portfolio.share.modal.groups": {
+    "defaultMessage": "タグの選択"
+  },
+  "portfolio.share.modal.permissions": {
+    "defaultMessage": "共有パーミッションの選択"
+  },
+  "portfolio.share.modal.title": {
+    "defaultMessage": "ポートフォリオの共有"
+  },
+  "portfolios.empty.noData.description": {
+    "defaultMessage": "現在、ポートフォリオはありません。ポートフォリオを作成して開始します。"
+  },
+  "portfolios.empty.noData.title": {
+    "defaultMessage": "ポートフォリオの作成"
+  },
+  "portfolios.filters.placeholder": {
+    "defaultMessage": "ポートフォリオによる絞り込み"
+  },
+  "portfolios.heading.title": {
+    "defaultMessage": "ポートフォリオ"
+  },
+  "products.empty.add-source": {
+    "defaultMessage": "ソースの追加"
+  },
+  "products.empty.configure-source": {
+    "defaultMessage": "ソースを設定し、製品をポートフォリオに追加します。"
+  },
+  "products.toolbar.title": {
+    "defaultMessage": "製品"
+  },
+  "schemas.portfolio-item.description": {
+    "defaultMessage": "説明"
+  },
+  "schemas.portfolio-item.documentation_url": {
+    "defaultMessage": "ドキュメントの URL"
+  },
+  "schemas.portfolio-item.long_description": {
+    "defaultMessage": "詳細な説明"
+  },
+  "schemas.portfolio-item.name": {
+    "defaultMessage": "名前"
+  },
+  "schemas.portfolio-item.support_url": {
+    "defaultMessage": "サポート URL"
+  },
+  "schemas.portfolio-item.vendor": {
+    "defaultMessage": "ベンダー"
+  },
+  "schemas.portfolio.description": {
+    "defaultMessage": "説明"
+  },
+  "schemas.portfolio.name": {
+    "defaultMessage": "名前"
+  },
+  "share.groups.access": {
+    "defaultMessage": "アクセス権のあるグループ"
+  },
+  "share.groups.group.placeholder": {
+    "defaultMessage": "グループの選択"
+  },
+  "share.groups.permissions.placeholder": {
+    "defaultMessage": "パーミッションの選択"
+  },
+  "share.new.description": {
+    "defaultMessage": "グループの招待"
+  },
+  "share.notification.success.change-permission.description": {
+    "defaultMessage": "<b>{group}</b> の共有パーミッションが更新されました。"
+  },
+  "share.notification.success.change-permission.title": {
+    "defaultMessage": "パーミッションの変更に成功"
+  },
+  "share.notification.success.multiple-groups": {
+    "defaultMessage": "{count} グループ"
+  },
+  "share.notification.success.share.description": {
+    "defaultMessage": "ポートフォリオ <b>{name}</b> が {group} と共有されました。"
+  },
+  "share.notification.success.share.title": {
+    "defaultMessage": "ポートフォリオの共有に成功"
+  },
+  "share.notification.success.title": {
+    "defaultMessage": "共有パーミッションが正常に更新されました"
+  },
+  "share.notification.success.two-groups": {
+    "defaultMessage": "{group1} および {group2}"
+  },
+  "share.notification.success.unshare.description": {
+    "defaultMessage": "ポートフォリオ <b>{name}</b> の {group} との共有が解除されました。"
+  },
+  "share.notification.success.unshare.title": {
+    "defaultMessage": "ポートフォリオの共有解除に成功"
+  },
+  "tableToolbar.filterByTitle": {
+    "defaultMessage": "{title} による絞り込み"
+  },
+  "tableToolbar.noResult": {
+    "defaultMessage": "{results} なし"
+  },
+  "tableToolbar.noResultsFound": {
+    "defaultMessage": "結果が見つかりません"
+  },
+  "workflows.modal.title": {
+    "defaultMessage": "承認プロセスの設定"
+  }
+}
