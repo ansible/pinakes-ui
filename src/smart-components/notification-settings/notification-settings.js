@@ -54,9 +54,6 @@ const columns = (intl, selectedAll, selectAll) => [
   },
   {
     title: intl.formatMessage(notificationMessages.type)
-  },
-  {
-    title: intl.formatMessage(notificationMessages.settings)
   }
 ];
 
