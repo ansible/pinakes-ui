@@ -14,7 +14,6 @@ import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
 import * as wfHelper from '../../../../helpers/workflow/workflow-helper';
 import { Button } from '@patternfly/react-core';
 import routes from '../../../../constants/approval-routes';
-import { Chip } from '@patternfly/react-core';
 import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
 describe('<EditWorkflow />', () => {
