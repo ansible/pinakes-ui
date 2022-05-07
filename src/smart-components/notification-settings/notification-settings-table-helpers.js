@@ -23,14 +23,13 @@ SelectBox.propTypes = {
 };
 
 export const createRows = (data) =>
-  data.map(({ id, name, notification_type, settings }) => ({
+  data.map(({ id, name, notification_type }) => ({
     id,
     cells: [
       <React.Fragment key={`${id}-checkbox`}>
         <SelectBox id={id} />
       </React.Fragment>,
       name,
-      notification_type,
-      settings
+      notification_type
     ]
   }));
