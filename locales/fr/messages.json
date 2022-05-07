@@ -1,0 +1,746 @@
+{
+  "SrzSY5": {
+    "defaultMessage": "Foo"
+  },
+  "approval.notifications.link": {
+    "defaultMessage": "Les process d’autorisation ont été liés."
+  },
+  "approval.notifications.unlink": {
+    "defaultMessage": "Les process d’autorisation n’ont pas pu être reliés entre eux."
+  },
+  "approval.workflows.current": {
+    "defaultMessage": "Process d’autorisation en cours"
+  },
+  "approval.workflows.set": {
+    "defaultMessage": "Sélectionner des process d’autorisation pour<b> </b><strong>{objectName}</strong>"
+  },
+  "common.actions.copy": {
+    "defaultMessage": "Copier"
+  },
+  "common.actions.delete": {
+    "defaultMessage": "Supprimer"
+  },
+  "common.actions.deleting": {
+    "defaultMessage": "Suppression"
+  },
+  "common.actions.edit": {
+    "defaultMessage": "Modifier"
+  },
+  "common.actions.save": {
+    "defaultMessage": "Enregistrer"
+  },
+  "common.actions.setApproval": {
+    "defaultMessage": "Définir autorisation"
+  },
+  "common.actions.share": {
+    "defaultMessage": "Partager"
+  },
+  "common.filtering.clear-filters": {
+    "defaultMessage": "Effacer tous les filtres"
+  },
+  "common.filtering.filterByProduct": {
+    "defaultMessage": "Filtrer par produit"
+  },
+  "common.filtering.no-products": {
+    "defaultMessage": "Aucun produit pour l’instant"
+  },
+  "common.filtering.noItems": {
+    "defaultMessage": "Aucun élément trouvé."
+  },
+  "common.filtering.noResults": {
+    "defaultMessage": "Aucun résultat trouvé"
+  },
+  "common.filtering.noResultsDescription": {
+    "defaultMessage": "Aucun résultat ne correspond au critère de recherche. Supprimer tous les filtres pour afficher les résultats."
+  },
+  "common.labels.approval_process_set": {
+    "defaultMessage": "Processus d’autorisation défini"
+  },
+  "common.labels.available": {
+    "defaultMessage": "Disponible"
+  },
+  "common.labels.cancel": {
+    "defaultMessage": "Annuler"
+  },
+  "common.labels.confirm": {
+    "defaultMessage": "Confirmer"
+  },
+  "common.labels.create": {
+    "defaultMessage": "Créer"
+  },
+  "common.labels.description": {
+    "defaultMessage": "Description"
+  },
+  "common.labels.disabled": {
+    "defaultMessage": "Désactivés"
+  },
+  "common.labels.enabled": {
+    "defaultMessage": "Activé"
+  },
+  "common.labels.id": {
+    "defaultMessage": "État"
+  },
+  "common.labels.loading": {
+    "defaultMessage": "Chargement en cours..."
+  },
+  "common.labels.name": {
+    "defaultMessage": "Nom"
+  },
+  "common.labels.not-available": {
+    "defaultMessage": "Non disponible"
+  },
+  "common.labels.owner": {
+    "defaultMessage": "Propriétaire"
+  },
+  "common.labels.platform": {
+    "defaultMessage": "Plateforme "
+  },
+  "common.labels.portfolio": {
+    "defaultMessage": "Portfolio"
+  },
+  "common.labels.product": {
+    "defaultMessage": "Produit"
+  },
+  "common.labels.save": {
+    "defaultMessage": "Enregistrer"
+  },
+  "common.labels.shared": {
+    "defaultMessage": "Partagé"
+  },
+  "common.labels.sort-by": {
+    "defaultMessage": "Trier par"
+  },
+  "common.labels.to-portfolio": {
+    "defaultMessage": "Au portfolio"
+  },
+  "common.labels.updated": {
+    "defaultMessage": "Mise à jour"
+  },
+  "common.states.approval-pending": {
+    "defaultMessage": "En attente d’autorisation"
+  },
+  "common.states.approved": {
+    "defaultMessage": "Approuvé"
+  },
+  "common.states.canceled": {
+    "defaultMessage": "Annulé"
+  },
+  "common.states.completed": {
+    "defaultMessage": "Complété"
+  },
+  "common.states.created": {
+    "defaultMessage": "Créé"
+  },
+  "common.states.denied": {
+    "defaultMessage": "Refusé"
+  },
+  "common.states.error": {
+    "defaultMessage": "Erreur"
+  },
+  "common.states.failed": {
+    "defaultMessage": "Échec"
+  },
+  "common.states.notified": {
+    "defaultMessage": "Notifié"
+  },
+  "common.states.ordered": {
+    "defaultMessage": "Commandé"
+  },
+  "common.states.pending": {
+    "defaultMessage": "En attente"
+  },
+  "common.states.skipped": {
+    "defaultMessage": "Ignoré"
+  },
+  "common.states.started": {
+    "defaultMessage": "Démarré"
+  },
+  "common.states.title": {
+    "defaultMessage": "État"
+  },
+  "common.states.undecided": {
+    "defaultMessage": "Indécis"
+  },
+  "common.states.unknown": {
+    "defaultMessage": "Inconnu"
+  },
+  "commonMessages.noRecords": {
+    "defaultMessage": "Aucun enregistrement"
+  },
+  "commonMessages.orderProcessesTitle": {
+    "defaultMessage": "Processus de commande"
+  },
+  "commonMessages.unknown": {
+    "defaultMessage": "Inconnu"
+  },
+  "errors.forbidden.title": {
+    "defaultMessage": "Interdiction"
+  },
+  "errors.not-found.description": {
+    "defaultMessage": "La ressource <nowrap>{pathname} {search}</nowrap> n’existe pas."
+  },
+  "errors.not-found.title": {
+    "defaultMessage": "Introuvable"
+  },
+  "errors.unauthorized.description": {
+    "defaultMessage": "Vous n’êtes pas autorisé à accéder à cette section: <nowrap>{pathname} {search}</nowrap>. <br></br>Si vous croyez que c’est une erreur, veuillez contacter le support clients."
+  },
+  "errors.unauthorized.return": {
+    "defaultMessage": "Retour au catalogue"
+  },
+  "errors.unauthorized.title": {
+    "defaultMessage": "Non autorisé"
+  },
+  "foo": {
+    "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "forms.after.currentAfterProvision": {
+    "defaultMessage": "En cours après exécution"
+  },
+  "forms.after.setAfterProvision": {
+    "defaultMessage": "Après commande"
+  },
+  "forms.after.setReturnProvision": {
+    "defaultMessage": "Renvoi"
+  },
+  "forms.before.beforeProvision": {
+    "defaultMessage": "Avant commande"
+  },
+  "forms.before.currentBeforeProducts": {
+    "defaultMessage": "En cours avant exécution"
+  },
+  "forms.groups-with-access": {
+    "defaultMessage": "Groupes avec accès"
+  },
+  "forms.nameTaken": {
+    "defaultMessage": "Nom déjà pris"
+  },
+  "forms.product.placeholder": {
+    "defaultMessage": "Sélectionner produit"
+  },
+  "forms.select.options.choose": {
+    "defaultMessage": "Veuillez sélectionner"
+  },
+  "forms.select.options.none": {
+    "defaultMessage": "Aucun"
+  },
+  "forms.share.invite-group": {
+    "defaultMessage": "Inviter le groupe"
+  },
+  "icons.actions.change": {
+    "defaultMessage": "Télécharger l’image"
+  },
+  "icons.actions.reset": {
+    "defaultMessage": "Réinitialiser l’image"
+  },
+  "name": {
+    "defaultMessage": "Nom"
+  },
+  "order-proces.empty.no-order-processes": {
+    "defaultMessage": "Aucun processus de commande trouvé."
+  },
+  "order-process-type": {
+    "defaultMessage": "Type de processus de commande"
+  },
+  "order-process.actions.addProcessSuccessDescription": {
+    "defaultMessage": "Le processus de commande a été ajouté."
+  },
+  "order-process.actions.addProcessSuccessTitle": {
+    "defaultMessage": "L’ajout de processus de commande a réussi."
+  },
+  "order-process.actions.createOrderProcess": {
+    "defaultMessage": "Créer un processus de commande"
+  },
+  "order-process.actions.set": {
+    "defaultMessage": "Définir des processus de commande"
+  },
+  "order-process.actions.updateOrderProcess": {
+    "defaultMessage": "Modifier le processus de commande"
+  },
+  "order-process.actions.updateProcessSuccessTitle": {
+    "defaultMessage": "Le processus de commande {nom} a été ajouté"
+  },
+  "order-process.deleteProcessAriaMenu": {
+    "defaultMessage": "Supprimer processus de commande"
+  },
+  "order-process.empty.no-results": {
+    "defaultMessage": "Aucun processus de commande ne correspond au critère de filtrage."
+  },
+  "order-process.enterName": {
+    "defaultMessage": "Saisir un nom pour le processus de commande"
+  },
+  "order-process.filter.placeholder": {
+    "defaultMessage": "Filtrer par nom"
+  },
+  "order-process.name": {
+    "defaultMessage": "Nom de processus de commande"
+  },
+  "order-process.notification.description": {
+    "defaultMessage": "{linked, plural, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {order process was} other {order processes were}} unlinked.}}"
+  },
+  "order-process.notification.title": {
+    "defaultMessage": "La mise à jour de processus de commande a réussi."
+  },
+  "order-process.orderProcesses": {
+    "defaultMessage": "processus de commande"
+  },
+  "order-process.removeProcessAriaLabel": {
+    "defaultMessage": "Supprimer  {count, plural, one {order process} other {order processes}} modal"
+  },
+  "order-process.removeProcessDescription": {
+    "defaultMessage": "{nom} sera supprimé."
+  },
+  "order-process.removeProcessSuccessDescription": {
+    "defaultMessage": "Le processus de commande a été ajouté."
+  },
+  "order-process.removeProcessSuccessTitle": {
+    "defaultMessage": "Suppression de commande réussie."
+  },
+  "order-process.removeProcessTitle": {
+    "defaultMessage": "Supprimer  {count, plural, one {order process} other {order processes}} modal"
+  },
+  "order-process.removeProcessesSuccessDescription": {
+    "defaultMessage": "Les processus de commande sélectionnés ont été supprimés."
+  },
+  "order-process.removeProcessesSuccessTitle": {
+    "defaultMessage": "Suppression des processus de commande réussie."
+  },
+  "order-process.set-order-process.current": {
+    "defaultMessage": "Processus de commande en cours"
+  },
+  "order-process.tags.set": {
+    "defaultMessage": "Définir les processus de commande pour <strong>{object}</strong>"
+  },
+  "order-process.toolbar.order-process": {
+    "defaultMessage": "Processus de commande"
+  },
+  "order-process.toolbar.title": {
+    "defaultMessage": "Processus de commande"
+  },
+  "order.detail.not-found": {
+    "defaultMessage": "Les {objects} de cette commande {count, plural, one {is} other {are}} ne sont pas disponibles"
+  },
+  "orders.actions.cancel": {
+    "defaultMessage": "Annuler la commande"
+  },
+  "orders.actions.keep": {
+    "defaultMessage": "Conserver la commande"
+  },
+  "orders.actions.reorder": {
+    "defaultMessage": "Commander à nouveau"
+  },
+  "orders.approval.activity": {
+    "defaultMessage": "Activité"
+  },
+  "orders.approval.creating": {
+    "defaultMessage": "Création d’une demande d’autorisation"
+  },
+  "orders.approval.details.completed": {
+    "defaultMessage": "Complété"
+  },
+  "orders.approval.details.created": {
+    "defaultMessage": "Requête annulée"
+  },
+  "orders.approval.details.reason": {
+    "defaultMessage": "Raison de l’autorisation"
+  },
+  "orders.approval.no-requests": {
+    "defaultMessage": "Nous n’avons pas pu trouver de demandes d’autorisation pour cette commande."
+  },
+  "orders.approval.order-date": {
+    "defaultMessage": "Date de la commande"
+  },
+  "orders.approval.orderedBy": {
+    "defaultMessage": "Commandé par"
+  },
+  "orders.approval.parameters": {
+    "defaultMessage": "Paramètres"
+  },
+  "orders.approval.title": {
+    "defaultMessage": "Récapitulatif"
+  },
+  "orders.approval.view-detail": {
+    "defaultMessage": "Voir les détails de cette requête d’autorisation de commande"
+  },
+  "orders.artifacts": {
+    "defaultMessage": "Artefacts de la commande"
+  },
+  "orders.cancel.description": {
+    "defaultMessage": "Êtes-vous certain de vouloir annuler {name} ?"
+  },
+  "orders.common.compositeTitle": {
+    "defaultMessage": "{name} - Commande # {id}"
+  },
+  "orders.common.details": {
+    "defaultMessage": "Informations sur la commande"
+  },
+  "orders.common.lastUpdated": {
+    "defaultMessage": "Dernière mise à jour"
+  },
+  "orders.common.orderedBy": {
+    "defaultMessage": "Commandé par {owner}"
+  },
+  "orders.detail.title": {
+    "defaultMessage": "ID Commande {id}"
+  },
+  "orders.list.empty.description": {
+    "defaultMessage": "Aucune commande n’a été créée."
+  },
+  "orders.list.empty.title": {
+    "defaultMessage": "Aucune commande"
+  },
+  "orders.menu.approval": {
+    "defaultMessage": "Approbation"
+  },
+  "orders.menu.lifecycle": {
+    "defaultMessage": "Cycle de vie"
+  },
+  "orders.menu.provision": {
+    "defaultMessage": "Provision"
+  },
+  "orders.menu.steps": {
+    "defaultMessage": "Étapes de commande"
+  },
+  "orders.notification.success": {
+    "defaultMessage": "Nous pouvons suivre les progrès de la Commande # {id} dans votre <link>Commandes</link> page"
+  },
+  "orders.order.default_type": {
+    "defaultMessage": "Produit"
+  },
+  "orders.order.detail.ID": {
+    "defaultMessage": "ID Commande"
+  },
+  "orders.order.detail.messages": {
+    "defaultMessage": "Messages de progression"
+  },
+  "orders.order.detail.parameters": {
+    "defaultMessage": "Paramètres de la commande"
+  },
+  "orders.order.lifecycle.link": {
+    "defaultMessage": "Gérer le produit"
+  },
+  "orders.order.provision.parameters": {
+    "defaultMessage": "Paramètres"
+  },
+  "orders.provision.fetching-provision": {
+    "defaultMessage": "Extraction des données d’exécution de la commande"
+  },
+  "orders.provision.no-items": {
+    "defaultMessage": "Nous n’avons pas pu trouver de données d’exécution pour cette commande."
+  },
+  "orders.toolbar.backLink": {
+    "defaultMessage": "Retour à la commande"
+  },
+  "platform.cloudConnectorId": {
+    "defaultMessage": "Id Client RedHat Connect"
+  },
+  "platform.inventories.columns.workflow": {
+    "defaultMessage": "Flux de travail"
+  },
+  "platform.inventories.empty.no-inventories": {
+    "defaultMessage": "Aucun inventaire trouvé"
+  },
+  "platform.inventories.empty.no-results": {
+    "defaultMessage": "Aucun inventaire ne correspond au critère de filtrage."
+  },
+  "platform.inventories.filter.placeholder": {
+    "defaultMessage": "Filtrer par inventaire"
+  },
+  "platform.templates.empty.no-templates": {
+    "defaultMessage": "Cette plateforme n’a pas de modèle."
+  },
+  "platform.templates.filter.placeholder": {
+    "defaultMessage": "Filtrer par modèle"
+  },
+  "platform.templates.no-templates": {
+    "defaultMessage": "Aucun modèle"
+  },
+  "platforms.activity": {
+    "defaultMessage": "Activité"
+  },
+  "platforms.ansible.version": {
+    "defaultMessage": "Version Ansible"
+  },
+  "platforms.availabilityMessage": {
+    "defaultMessage": "Message de disponibilité"
+  },
+  "platforms.availabilityStatus": {
+    "defaultMessage": "Statut de disponibilité"
+  },
+  "platforms.controller.url": {
+    "defaultMessage": "URL de contrôleur d’automation"
+  },
+  "platforms.dateAdded": {
+    "defaultMessage": "Date ajoutée"
+  },
+  "platforms.details": {
+    "defaultMessage": "Détails"
+  },
+  "platforms.doc.title": {
+    "defaultMessage": "Documentation Ansible Automation Platform 2.0 BETA "
+  },
+  "platforms.enabled": {
+    "defaultMessage": "Activé"
+  },
+  "platforms.lastAvailable": {
+    "defaultMessage": "Dernière disponibilité"
+  },
+  "platforms.lastChecked": {
+    "defaultMessage": "Dernière vérification"
+  },
+  "platforms.lastRefreshMessage": {
+    "defaultMessage": "Dernier message de réactualisation"
+  },
+  "platforms.lastSuccessfulRefresh": {
+    "defaultMessage": "Dernière réactualisation réussie"
+  },
+  "platforms.list.configure-source": {
+    "defaultMessage": "Le catalogue des services Ansible Automation peut être ajouté en suivant le"
+  },
+  "platforms.list.connect-source": {
+    "defaultMessage": "Retour aux sources"
+  },
+  "platforms.list.contact-admin": {
+    "defaultMessage": "Contacter votre administrateur d’organisation pour définir les sources du Catalogue."
+  },
+  "platforms.list.empty.title": {
+    "defaultMessage": "Aucun plateforme pour l’instant"
+  },
+  "platforms.offerings.detail.extra-params": {
+    "defaultMessage": "Paramètres supplémentaires"
+  },
+  "platforms.offerings.detail.title": {
+    "defaultMessage": "Offres de service"
+  },
+  "platforms.refreshFinished": {
+    "defaultMessage": "Réactualisation terminée"
+  },
+  "platforms.refreshStarted": {
+    "defaultMessage": "Démarrage de la réactualisation"
+  },
+  "platforms.refreshState": {
+    "defaultMessage": "État de la réactualisation"
+  },
+  "platforms.refreshTooltip": {
+    "defaultMessage": "Réactualisation de la plateforme"
+  },
+  "platforms.summary": {
+    "defaultMessage": "Récapitulatif"
+  },
+  "platforms.title": {
+    "defaultMessage": "Plateformes"
+  },
+  "platforms.version": {
+    "defaultMessage": "Version de plateforme"
+  },
+  "portfolio.add.platform.description.empty": {
+    "defaultMessage": "Pour pouvoir sélectionner des produits pour votre portfolio, vous devez, tout d’abord, sélectionner une plateforme"
+  },
+  "portfolio.add.platform.filter.empty": {
+    "defaultMessage": "Aucun produit ne correspond aux paramètres du filtre"
+  },
+  "portfolio.add.platform.title.empty": {
+    "defaultMessage": "Veuillez sélectionner une plateforme"
+  },
+  "portfolio.add.success.description": {
+    "defaultMessage": "Portfolio <b>{name}</b> ajouté."
+  },
+  "portfolio.add.success.title": {
+    "defaultMessage": "Ajout du portfolio réussi"
+  },
+  "portfolio.detail.alert.source.unavailable": {
+    "defaultMessage": "La plateforme de ce produit n’est pas disponible"
+  },
+  "portfolio.detail.alert.unavailable": {
+    "defaultMessage": "L’{object} pour ce produit n’est plus disponible"
+  },
+  "portfolio.detail.back-to-products": {
+    "defaultMessage": "Retour aux produits"
+  },
+  "portfolio.empty.add.products": {
+    "defaultMessage": "Ajouter des produits"
+  },
+  "portfolio.empty.no-products": {
+    "defaultMessage": "Les produits apparaîtront ici une fois ajoutés au portfolio"
+  },
+  "portfolio.item.copy": {
+    "defaultMessage": "Copier le produit"
+  },
+  "portfolio.item.detail.actions.order": {
+    "defaultMessage": "Commande"
+  },
+  "portfolio.item.detail.actions.survey": {
+    "defaultMessage": "Modifier le questionnaire"
+  },
+  "portfolio.item.detail.doclink": {
+    "defaultMessage": "Lien doc"
+  },
+  "portfolio.item.detail.documentation": {
+    "defaultMessage": "Documentation"
+  },
+  "portfolio.item.detail.overview": {
+    "defaultMessage": "Aperçu"
+  },
+  "portfolio.item.detail.support": {
+    "defaultMessage": "En savoir plus"
+  },
+  "portfolio.item.edit.title": {
+    "defaultMessage": "Modifier le projet"
+  },
+  "portfolio.item.icon.upload.notification": {
+    "defaultMessage": "Erreur de chargement d’icône"
+  },
+  "portfolio.item.survey.edit": {
+    "defaultMessage": "Modification du questionnaire : {name}"
+  },
+  "portfolio.item.survey.restore": {
+    "defaultMessage": "Restaurer la version Ansible Tower"
+  },
+  "portfolio.modal.add.title": {
+    "defaultMessage": "Créer portfolio"
+  },
+  "portfolio.modal.edit.title": {
+    "defaultMessage": "Modifier portfolio"
+  },
+  "portfolio.notifications.remove.portfolio": {
+    "defaultMessage": "Le portfolio a été supprimé. Vous pouvez <a>annuler</a> cette action s’il s’agit d’une erreur."
+  },
+  "portfolio.notifications.remove.portfolio-items": {
+    "defaultMessage": "Vous avez supprimé {count, plural, one {} other {<b>{count, number}</b>}} {count, plural, one {<b>{productName}</b>} other {<b>products</b>} } du portfolio {portfolioName}. <a>Annuler</a> s’il s’agit d’une erreur."
+  },
+  "portfolio.remove.modal.description": {
+    "defaultMessage": "Cette action va supprimer le portfolio {name} et ses données de façon permanente."
+  },
+  "portfolio.remove.modal.title": {
+    "defaultMessage": "Supprimer portfolio ?"
+  },
+  "portfolio.share.add.duplicate": {
+    "defaultMessage": "Le portfolio est déjà partagé avec ce groupe."
+  },
+  "portfolio.share.add.missing-data": {
+    "defaultMessage": "Sélectionner le groupe et les permissions."
+  },
+  "portfolio.share.add.missing-group": {
+    "defaultMessage": "Sélectionner le groupe avec lequel partager le portfolio."
+  },
+  "portfolio.share.add.missing-permission": {
+    "defaultMessage": "Assigner des permissions au group sélectionné."
+  },
+  "portfolio.share.add.no-shares": {
+    "defaultMessage": "Pour partager le portfolio, sélectionner un groupe et les permissions"
+  },
+  "portfolio.share.add.tooltip": {
+    "defaultMessage": "Partager le portfolio avec le groupe sélectionné et les permissions"
+  },
+  "portfolio.share.modal.apply": {
+    "defaultMessage": "Appliquer"
+  },
+  "portfolio.share.modal.description": {
+    "defaultMessage": "Partager le portfolio <strong>{name}</strong>"
+  },
+  "portfolio.share.modal.groups": {
+    "defaultMessage": "Sélectionner un groupe"
+  },
+  "portfolio.share.modal.permissions": {
+    "defaultMessage": "Sélectionner les permissions pour le partage"
+  },
+  "portfolio.share.modal.title": {
+    "defaultMessage": "Partager portfolio ?"
+  },
+  "portfolios.empty.noData.description": {
+    "defaultMessage": "Vous n’avez pas de portfolio actuellement. Créer un portfolio pour commencer."
+  },
+  "portfolios.empty.noData.title": {
+    "defaultMessage": "Créer un portfolio"
+  },
+  "portfolios.filters.placeholder": {
+    "defaultMessage": "Filtrer par portfolio"
+  },
+  "portfolios.heading.title": {
+    "defaultMessage": "Portfolios"
+  },
+  "products.empty.add-source": {
+    "defaultMessage": "Ajouter une source"
+  },
+  "products.empty.configure-source": {
+    "defaultMessage": "Configurer une source et ajouter des produits dans les portfolios."
+  },
+  "products.toolbar.title": {
+    "defaultMessage": "Produits"
+  },
+  "schemas.portfolio-item.description": {
+    "defaultMessage": "Description"
+  },
+  "schemas.portfolio-item.documentation_url": {
+    "defaultMessage": "URL de documentation"
+  },
+  "schemas.portfolio-item.long_description": {
+    "defaultMessage": "Longue description"
+  },
+  "schemas.portfolio-item.name": {
+    "defaultMessage": "Nom"
+  },
+  "schemas.portfolio-item.support_url": {
+    "defaultMessage": "URL de support"
+  },
+  "schemas.portfolio-item.vendor": {
+    "defaultMessage": "Vendeur"
+  },
+  "schemas.portfolio.description": {
+    "defaultMessage": "Description"
+  },
+  "schemas.portfolio.name": {
+    "defaultMessage": "Nom"
+  },
+  "share.groups.access": {
+    "defaultMessage": "Groupes avec accès"
+  },
+  "share.groups.group.placeholder": {
+    "defaultMessage": "Sélectionner un groupe"
+  },
+  "share.groups.permissions.placeholder": {
+    "defaultMessage": "Sélectionner une permission"
+  },
+  "share.new.description": {
+    "defaultMessage": "Inviter le groupe"
+  },
+  "share.notification.success.change-permission.description": {
+    "defaultMessage": "Les permissions de partage pour le <b>{group}</b> ont été mises à jour."
+  },
+  "share.notification.success.change-permission.title": {
+    "defaultMessage": "Changement de permissions réussi."
+  },
+  "share.notification.success.multiple-groups": {
+    "defaultMessage": "{count} groupes"
+  },
+  "share.notification.success.share.description": {
+    "defaultMessage": "Portfolio <b>{name}</b> a été partagé avec {group}."
+  },
+  "share.notification.success.share.title": {
+    "defaultMessage": "Partage de portfolio réussi"
+  },
+  "share.notification.success.title": {
+    "defaultMessage": "Les permissions de partage ont été mises à jour"
+  },
+  "share.notification.success.two-groups": {
+    "defaultMessage": "{group1} et {group2}"
+  },
+  "share.notification.success.unshare.description": {
+    "defaultMessage": "Le portfolio <b>{name}</b> n’est plus partagé avec {group}."
+  },
+  "share.notification.success.unshare.title": {
+    "defaultMessage": "Portfolio n’étant plus partagé"
+  },
+  "tableToolbar.filterByTitle": {
+    "defaultMessage": "Filtrer par {title}"
+  },
+  "tableToolbar.noResult": {
+    "defaultMessage": "Aucun {results}"
+  },
+  "tableToolbar.noResultsFound": {
+    "defaultMessage": "Aucun résultat trouvé"
+  },
+  "workflows.modal.title": {
+    "defaultMessage": "Définir le processus d’autorisation"
+  }
+}

@@ -1,0 +1,746 @@
+{
+  "SrzSY5": {
+    "defaultMessage": ""
+  },
+  "approval.notifications.link": {
+    "defaultMessage": ""
+  },
+  "approval.notifications.unlink": {
+    "defaultMessage": ""
+  },
+  "approval.workflows.current": {
+    "defaultMessage": ""
+  },
+  "approval.workflows.set": {
+    "defaultMessage": ""
+  },
+  "common.actions.copy": {
+    "defaultMessage": "Kopiëren"
+  },
+  "common.actions.delete": {
+    "defaultMessage": "Verwijderen"
+  },
+  "common.actions.deleting": {
+    "defaultMessage": ""
+  },
+  "common.actions.edit": {
+    "defaultMessage": "Wijzigen"
+  },
+  "common.actions.save": {
+    "defaultMessage": "Opslaan"
+  },
+  "common.actions.setApproval": {
+    "defaultMessage": "Goedkeuring"
+  },
+  "common.actions.share": {
+    "defaultMessage": ""
+  },
+  "common.filtering.clear-filters": {
+    "defaultMessage": "Alle filters wissen"
+  },
+  "common.filtering.filterByProduct": {
+    "defaultMessage": ""
+  },
+  "common.filtering.no-products": {
+    "defaultMessage": ""
+  },
+  "common.filtering.noItems": {
+    "defaultMessage": "Geen items gevonden."
+  },
+  "common.filtering.noResults": {
+    "defaultMessage": "Geen resultaten gevonden"
+  },
+  "common.filtering.noResultsDescription": {
+    "defaultMessage": " "
+  },
+  "common.labels.approval_process_set": {
+    "defaultMessage": ""
+  },
+  "common.labels.available": {
+    "defaultMessage": "Beschikbare hosts"
+  },
+  "common.labels.cancel": {
+    "defaultMessage": "Annuleren"
+  },
+  "common.labels.confirm": {
+    "defaultMessage": "Bevestigen"
+  },
+  "common.labels.create": {
+    "defaultMessage": "Maken"
+  },
+  "common.labels.description": {
+    "defaultMessage": "Omschrijving"
+  },
+  "common.labels.disabled": {
+    "defaultMessage": "Uitgeschakeld"
+  },
+  "common.labels.enabled": {
+    "defaultMessage": "Ingeschakeld"
+  },
+  "common.labels.id": {
+    "defaultMessage": "Status"
+  },
+  "common.labels.loading": {
+    "defaultMessage": "Laden"
+  },
+  "common.labels.name": {
+    "defaultMessage": "Naam"
+  },
+  "common.labels.not-available": {
+    "defaultMessage": "Niet beschikbaar"
+  },
+  "common.labels.owner": {
+    "defaultMessage": ""
+  },
+  "common.labels.platform": {
+    "defaultMessage": "Platform"
+  },
+  "common.labels.portfolio": {
+    "defaultMessage": "Portfolio"
+  },
+  "common.labels.product": {
+    "defaultMessage": "Product"
+  },
+  "common.labels.save": {
+    "defaultMessage": "Opslaan"
+  },
+  "common.labels.shared": {
+    "defaultMessage": ""
+  },
+  "common.labels.sort-by": {
+    "defaultMessage": "SORTEREN OP"
+  },
+  "common.labels.to-portfolio": {
+    "defaultMessage": ""
+  },
+  "common.labels.updated": {
+    "defaultMessage": "Bijgewerkt "
+  },
+  "common.states.approval-pending": {
+    "defaultMessage": ""
+  },
+  "common.states.approved": {
+    "defaultMessage": "Goedgekeurd"
+  },
+  "common.states.canceled": {
+    "defaultMessage": "Geannuleerd"
+  },
+  "common.states.completed": {
+    "defaultMessage": "Voltooid"
+  },
+  "common.states.created": {
+    "defaultMessage": "Gemaakt"
+  },
+  "common.states.denied": {
+    "defaultMessage": "Geweigerd"
+  },
+  "common.states.error": {
+    "defaultMessage": "Fout"
+  },
+  "common.states.failed": {
+    "defaultMessage": "Mislukt"
+  },
+  "common.states.notified": {
+    "defaultMessage": ""
+  },
+  "common.states.ordered": {
+    "defaultMessage": ""
+  },
+  "common.states.pending": {
+    "defaultMessage": "In afwachting"
+  },
+  "common.states.skipped": {
+    "defaultMessage": "Overgeslagen"
+  },
+  "common.states.started": {
+    "defaultMessage": "Gestart"
+  },
+  "common.states.title": {
+    "defaultMessage": "Staat"
+  },
+  "common.states.undecided": {
+    "defaultMessage": ""
+  },
+  "common.states.unknown": {
+    "defaultMessage": ""
+  },
+  "commonMessages.noRecords": {
+    "defaultMessage": ""
+  },
+  "commonMessages.orderProcessesTitle": {
+    "defaultMessage": ""
+  },
+  "commonMessages.unknown": {
+    "defaultMessage": ""
+  },
+  "errors.forbidden.title": {
+    "defaultMessage": "Niet-toegestaan"
+  },
+  "errors.not-found.description": {
+    "defaultMessage": ""
+  },
+  "errors.not-found.title": {
+    "defaultMessage": "Niet gevonden"
+  },
+  "errors.unauthorized.description": {
+    "defaultMessage": " <br></br>"
+  },
+  "errors.unauthorized.return": {
+    "defaultMessage": ""
+  },
+  "errors.unauthorized.title": {
+    "defaultMessage": ""
+  },
+  "foo": {
+    "defaultMessage": ""
+  },
+  "forms.after.currentAfterProvision": {
+    "defaultMessage": ""
+  },
+  "forms.after.setAfterProvision": {
+    "defaultMessage": ""
+  },
+  "forms.after.setReturnProvision": {
+    "defaultMessage": "Teruggeven"
+  },
+  "forms.before.beforeProvision": {
+    "defaultMessage": ""
+  },
+  "forms.before.currentBeforeProducts": {
+    "defaultMessage": ""
+  },
+  "forms.groups-with-access": {
+    "defaultMessage": "Groepen met toegang"
+  },
+  "forms.nameTaken": {
+    "defaultMessage": ""
+  },
+  "forms.product.placeholder": {
+    "defaultMessage": ""
+  },
+  "forms.select.options.choose": {
+    "defaultMessage": ""
+  },
+  "forms.select.options.none": {
+    "defaultMessage": "Geen"
+  },
+  "forms.share.invite-group": {
+    "defaultMessage": "Groep verwijderen?"
+  },
+  "icons.actions.change": {
+    "defaultMessage": ""
+  },
+  "icons.actions.reset": {
+    "defaultMessage": ""
+  },
+  "name": {
+    "defaultMessage": "Naam"
+  },
+  "order-proces.empty.no-order-processes": {
+    "defaultMessage": ""
+  },
+  "order-process-type": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.addProcessSuccessDescription": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.addProcessSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.createOrderProcess": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.set": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.updateOrderProcess": {
+    "defaultMessage": ""
+  },
+  "order-process.actions.updateProcessSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.deleteProcessAriaMenu": {
+    "defaultMessage": ""
+  },
+  "order-process.empty.no-results": {
+    "defaultMessage": ""
+  },
+  "order-process.enterName": {
+    "defaultMessage": ""
+  },
+  "order-process.filter.placeholder": {
+    "defaultMessage": "Op naam filteren"
+  },
+  "order-process.name": {
+    "defaultMessage": ""
+  },
+  "order-process.notification.description": {
+    "defaultMessage": ""
+  },
+  "order-process.notification.title": {
+    "defaultMessage": ""
+  },
+  "order-process.orderProcesses": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessAriaLabel": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessDescription": {
+    "defaultMessage": " zal worden verwijderd uit ."
+  },
+  "order-process.removeProcessSuccessDescription": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessesSuccessDescription": {
+    "defaultMessage": ""
+  },
+  "order-process.removeProcessesSuccessTitle": {
+    "defaultMessage": ""
+  },
+  "order-process.set-order-process.current": {
+    "defaultMessage": ""
+  },
+  "order-process.tags.set": {
+    "defaultMessage": ""
+  },
+  "order-process.toolbar.order-process": {
+    "defaultMessage": ""
+  },
+  "order-process.toolbar.title": {
+    "defaultMessage": ""
+  },
+  "order.detail.not-found": {
+    "defaultMessage": ""
+  },
+  "orders.actions.cancel": {
+    "defaultMessage": ""
+  },
+  "orders.actions.keep": {
+    "defaultMessage": ""
+  },
+  "orders.actions.reorder": {
+    "defaultMessage": "Nabestellen"
+  },
+  "orders.approval.activity": {
+    "defaultMessage": "Activiteit"
+  },
+  "orders.approval.creating": {
+    "defaultMessage": ""
+  },
+  "orders.approval.details.completed": {
+    "defaultMessage": "Voltooid"
+  },
+  "orders.approval.details.created": {
+    "defaultMessage": ""
+  },
+  "orders.approval.details.reason": {
+    "defaultMessage": ""
+  },
+  "orders.approval.no-requests": {
+    "defaultMessage": ""
+  },
+  "orders.approval.order-date": {
+    "defaultMessage": ""
+  },
+  "orders.approval.orderedBy": {
+    "defaultMessage": ""
+  },
+  "orders.approval.parameters": {
+    "defaultMessage": "Parameters"
+  },
+  "orders.approval.title": {
+    "defaultMessage": ""
+  },
+  "orders.approval.view-detail": {
+    "defaultMessage": ""
+  },
+  "orders.artifacts": {
+    "defaultMessage": "Artefacten"
+  },
+  "orders.cancel.description": {
+    "defaultMessage": "Weet u zeker dat u deze taak wilt annuleren?"
+  },
+  "orders.common.compositeTitle": {
+    "defaultMessage": ""
+  },
+  "orders.common.details": {
+    "defaultMessage": "Gebruikersdetails"
+  },
+  "orders.common.lastUpdated": {
+    "defaultMessage": "Laatst geüpdatet"
+  },
+  "orders.common.orderedBy": {
+    "defaultMessage": ""
+  },
+  "orders.detail.title": {
+    "defaultMessage": ""
+  },
+  "orders.list.empty.description": {
+    "defaultMessage": "GEEN HOSTS AANGEMAAKT"
+  },
+  "orders.list.empty.title": {
+    "defaultMessage": ""
+  },
+  "orders.menu.approval": {
+    "defaultMessage": "Goedkeuring"
+  },
+  "orders.menu.lifecycle": {
+    "defaultMessage": ""
+  },
+  "orders.menu.provision": {
+    "defaultMessage": ""
+  },
+  "orders.menu.steps": {
+    "defaultMessage": ""
+  },
+  "orders.notification.success": {
+    "defaultMessage": " <link></link> pagina"
+  },
+  "orders.order.default_type": {
+    "defaultMessage": "Product"
+  },
+  "orders.order.detail.ID": {
+    "defaultMessage": "Bestellen"
+  },
+  "orders.order.detail.messages": {
+    "defaultMessage": "Voortgangsberichten"
+  },
+  "orders.order.detail.parameters": {
+    "defaultMessage": ""
+  },
+  "orders.order.lifecycle.link": {
+    "defaultMessage": ""
+  },
+  "orders.order.provision.parameters": {
+    "defaultMessage": "Parameters"
+  },
+  "orders.provision.fetching-provision": {
+    "defaultMessage": ""
+  },
+  "orders.provision.no-items": {
+    "defaultMessage": ""
+  },
+  "orders.toolbar.backLink": {
+    "defaultMessage": ""
+  },
+  "platform.cloudConnectorId": {
+    "defaultMessage": ""
+  },
+  "platform.inventories.columns.workflow": {
+    "defaultMessage": "Workflow"
+  },
+  "platform.inventories.empty.no-inventories": {
+    "defaultMessage": ""
+  },
+  "platform.inventories.empty.no-results": {
+    "defaultMessage": ""
+  },
+  "platform.inventories.filter.placeholder": {
+    "defaultMessage": ""
+  },
+  "platform.templates.empty.no-templates": {
+    "defaultMessage": ""
+  },
+  "platform.templates.filter.placeholder": {
+    "defaultMessage": ""
+  },
+  "platform.templates.no-templates": {
+    "defaultMessage": "Sjablonen"
+  },
+  "platforms.activity": {
+    "defaultMessage": "Activiteit"
+  },
+  "platforms.ansible.version": {
+    "defaultMessage": "Pulp Ansible-versie"
+  },
+  "platforms.availabilityMessage": {
+    "defaultMessage": "Beschikbaarheidszone"
+  },
+  "platforms.availabilityStatus": {
+    "defaultMessage": "Beschikbaarheidszone"
+  },
+  "platforms.controller.url": {
+    "defaultMessage": ""
+  },
+  "platforms.dateAdded": {
+    "defaultMessage": ""
+  },
+  "platforms.details": {
+    "defaultMessage": "Meer informatie"
+  },
+  "platforms.doc.title": {
+    "defaultMessage": ""
+  },
+  "platforms.enabled": {
+    "defaultMessage": "Ingeschakeld"
+  },
+  "platforms.lastAvailable": {
+    "defaultMessage": "Beschikbare hosts"
+  },
+  "platforms.lastChecked": {
+    "defaultMessage": ""
+  },
+  "platforms.lastRefreshMessage": {
+    "defaultMessage": ""
+  },
+  "platforms.lastSuccessfulRefresh": {
+    "defaultMessage": ""
+  },
+  "platforms.list.configure-source": {
+    "defaultMessage": ""
+  },
+  "platforms.list.connect-source": {
+    "defaultMessage": "Terug naar bronnen"
+  },
+  "platforms.list.contact-admin": {
+    "defaultMessage": ""
+  },
+  "platforms.list.empty.title": {
+    "defaultMessage": ""
+  },
+  "platforms.offerings.detail.extra-params": {
+    "defaultMessage": ""
+  },
+  "platforms.offerings.detail.title": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshFinished": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshStarted": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshState": {
+    "defaultMessage": ""
+  },
+  "platforms.refreshTooltip": {
+    "defaultMessage": ""
+  },
+  "platforms.summary": {
+    "defaultMessage": ""
+  },
+  "platforms.title": {
+    "defaultMessage": ""
+  },
+  "platforms.version": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.platform.description.empty": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.platform.filter.empty": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.platform.title.empty": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.success.description": {
+    "defaultMessage": ""
+  },
+  "portfolio.add.success.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.detail.alert.source.unavailable": {
+    "defaultMessage": ""
+  },
+  "portfolio.detail.alert.unavailable": {
+    "defaultMessage": ""
+  },
+  "portfolio.detail.back-to-products": {
+    "defaultMessage": "Terug naar projecten"
+  },
+  "portfolio.empty.add.products": {
+    "defaultMessage": ""
+  },
+  "portfolio.empty.no-products": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.copy": {
+    "defaultMessage": "Project kopiëren"
+  },
+  "portfolio.item.detail.actions.order": {
+    "defaultMessage": "Bestellen"
+  },
+  "portfolio.item.detail.actions.survey": {
+    "defaultMessage": "Vragenlijst wijzigen"
+  },
+  "portfolio.item.detail.doclink": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.detail.documentation": {
+    "defaultMessage": "Documentatie"
+  },
+  "portfolio.item.detail.overview": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.detail.support": {
+    "defaultMessage": "Meer lezen"
+  },
+  "portfolio.item.edit.title": {
+    "defaultMessage": "Project bewerken"
+  },
+  "portfolio.item.icon.upload.notification": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.survey.edit": {
+    "defaultMessage": ""
+  },
+  "portfolio.item.survey.restore": {
+    "defaultMessage": ""
+  },
+  "portfolio.modal.add.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.modal.edit.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.notifications.remove.portfolio": {
+    "defaultMessage": " "
+  },
+  "portfolio.notifications.remove.portfolio-items": {
+    "defaultMessage": " "
+  },
+  "portfolio.remove.modal.description": {
+    "defaultMessage": ""
+  },
+  "portfolio.remove.modal.title": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.duplicate": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.missing-data": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.missing-group": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.missing-permission": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.no-shares": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.add.tooltip": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.apply": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.description": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.groups": {
+    "defaultMessage": "Een tag selecteren"
+  },
+  "portfolio.share.modal.permissions": {
+    "defaultMessage": ""
+  },
+  "portfolio.share.modal.title": {
+    "defaultMessage": ""
+  },
+  "portfolios.empty.noData.description": {
+    "defaultMessage": " "
+  },
+  "portfolios.empty.noData.title": {
+    "defaultMessage": ""
+  },
+  "portfolios.filters.placeholder": {
+    "defaultMessage": ""
+  },
+  "portfolios.heading.title": {
+    "defaultMessage": ""
+  },
+  "products.empty.add-source": {
+    "defaultMessage": "BRON TOEVOEGEN"
+  },
+  "products.empty.configure-source": {
+    "defaultMessage": ""
+  },
+  "products.toolbar.title": {
+    "defaultMessage": ""
+  },
+  "schemas.portfolio-item.description": {
+    "defaultMessage": "Omschrijving"
+  },
+  "schemas.portfolio-item.documentation_url": {
+    "defaultMessage": "Documentatie"
+  },
+  "schemas.portfolio-item.long_description": {
+    "defaultMessage": "Beschrijving tonen"
+  },
+  "schemas.portfolio-item.name": {
+    "defaultMessage": "Naam"
+  },
+  "schemas.portfolio-item.support_url": {
+    "defaultMessage": ""
+  },
+  "schemas.portfolio-item.vendor": {
+    "defaultMessage": ""
+  },
+  "schemas.portfolio.description": {
+    "defaultMessage": "Omschrijving"
+  },
+  "schemas.portfolio.name": {
+    "defaultMessage": "Naam"
+  },
+  "share.groups.access": {
+    "defaultMessage": "Groepen met toegang"
+  },
+  "share.groups.group.placeholder": {
+    "defaultMessage": "Groepen selecteren"
+  },
+  "share.groups.permissions.placeholder": {
+    "defaultMessage": "Machtigingen selecteren"
+  },
+  "share.new.description": {
+    "defaultMessage": "Groep verwijderen?"
+  },
+  "share.notification.success.change-permission.description": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.change-permission.title": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.multiple-groups": {
+    "defaultMessage": "WORTELGROEPEN"
+  },
+  "share.notification.success.share.description": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.share.title": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.title": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.two-groups": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.unshare.description": {
+    "defaultMessage": ""
+  },
+  "share.notification.success.unshare.title": {
+    "defaultMessage": ""
+  },
+  "tableToolbar.filterByTitle": {
+    "defaultMessage": "Op naam filteren"
+  },
+  "tableToolbar.noResult": {
+    "defaultMessage": "RESULTATEN"
+  },
+  "tableToolbar.noResultsFound": {
+    "defaultMessage": "Geen resultaten gevonden"
+  },
+  "workflows.modal.title": {
+    "defaultMessage": ""
+  }
+}
