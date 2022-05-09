@@ -38,6 +38,10 @@ import workflowReducer, {
   workflowsInitialState
   // @ts-ignore
 } from '../redux/reducers/workflow-reducer';
+import templateReducer, {
+  templatesInitialState
+  // @ts-ignore
+} from '../redux/reducers/template-reducer';
 import groupReducer, {
   groupsInitialState
   // @ts-ignore
@@ -93,6 +97,7 @@ const registerReducers = (registry: ReducerRegistry): void => {
     approvalReducer: applyReducerHash(approvalReducer, approvalInitialState),
     requestReducer: applyReducerHash(requestReducer, requestsInitialState),
     workflowReducer: applyReducerHash(workflowReducer, workflowsInitialState),
+    templateReducer: applyReducerHash(templateReducer, templatesInitialState),
     groupReducer: applyReducerHash(groupReducer, groupsInitialState),
     rbacReducer: applyReducerHash(rbacReducer, rbacInitialState),
     shareReducer: applyReducerHash(shareReducer, shareInfoInitialState),
