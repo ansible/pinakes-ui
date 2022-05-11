@@ -7,28 +7,29 @@ import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import { IntlProvider } from 'react-intl';
-import Workflows, {
-  workflowsListState
-} from '../../../smart-components/workflow/workflows';
-import workflowReducer, {
-  workflowsInitialState
-} from '../../../redux/reducers/workflow-reducer';
+import NotificationSettings, {
+  notificationSettingsListState
+} from '../../../smart-components/notification-settings/notification-settings';
+import notificationSettingsReducer, {
+  notificationSettingsInitialState
+} from '../../../redux/reducers/notification-setting-reducer';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
 import { groupsInitialState } from '../../../redux/reducers/group-reducer';
 import { APPROVAL_API_BASE } from '../../../utilities/approval-constants';
-import RemoveWorkflowModal from '../../../smart-components/workflow/remove-workflow-modal';
-import AddWorkflowModal from '../../../smart-components/workflow/add-workflow-modal';
+import RemoveWorkflowModal from '../../../smart-components/notification-settings/remove-notification-setting-modal';
 import ReducerRegistry, {
   applyReducerHash
 } from '@redhat-cloud-services/frontend-components-utilities/ReducerRegistry';
 import routes from '../../../constants/approval-routes';
 import TableEmptyState from '../../../presentational-components/shared/approval-table-empty-state';
-import * as edit from '../../../smart-components/workflow/edit-workflow-modal';
+import * as edit from '../../../smart-components/notification-settings/edit-notification-setting-modal';
 import { mockApi } from '../../../helpers/shared/__mocks__/user-login';
+import AddNotificationSetting from '../../../smart-components/notification-settings/add-notification-settings-modal';
+import RemoveNotificationSettingModal from '../../../smart-components/notification-settings/remove-notification-setting-modal';
 
 const ComponentWrapper = ({
   store,
-  initialEntries = [routes.workflows.index],
+  initialEntries = [routes.notifications.index],
   children
 }) => (
   <Provider store={store}>
@@ -38,11 +39,11 @@ const ComponentWrapper = ({
   </Provider>
 );
 
-describe('<Workflows />', () => {
+describe('<NotificationSettings />', () => {
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   let stateWithData;
-  let stateWithWorkflows;
+  let stateWithNotificationSettings;
 
   beforeEach(() => {
     localStorage.setItem('catalog_standalone', true);
@@ -50,14 +51,13 @@ describe('<Workflows />', () => {
     mockStore = configureStore(middlewares);
     stateWithData = {
       groupReducer: { ...groupsInitialState },
-      workflowReducer: {
-        ...workflowsInitialState,
-        workflows: {
+      notificationSettingsReducer: {
+        ...notificationSettingsInitialState,
+        notificationSettings: {
           data: [
             {
               id: 'edit-id',
-              name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }]
+              name: 'foo'
             }
           ],
           meta: {
@@ -66,44 +66,44 @@ describe('<Workflows />', () => {
             offset: 0
           }
         },
-        workflow: {},
+        notificationSetting: {},
         filterValue: '',
         isLoading: false,
         isRecordLoading: false
       }
     };
-    const wf1 = {
+    const ns1 = {
       id: '123',
-      name: 'wf1',
+      name: 'ns1',
       selected: true,
-      group_refs: []
+      settings: []
     };
-    const wf2 = {
+    const ns2 = {
       id: '456',
-      name: 'wf2',
+      name: 'ns2',
       selected: true,
-      group_refs: []
+      settings: []
     };
-    const wf3 = {
+    const ns3 = {
       id: '789',
-      name: 'wf',
+      name: 'ns',
       selected: true,
-      group_refs: []
+      settings: []
     };
 
-    stateWithWorkflows = {
+    stateWithNotificationSettings = {
       groupReducer: { ...groupsInitialState },
-      workflowReducer: {
-        ...workflowsInitialState,
-        workflows: {
-          data: [wf1, wf2, wf3],
+      notificationSettingsReducer: {
+        ...notificationSettingsInitialState,
+        notificationSettings: {
+          data: [ns1, ns2, ns3],
           meta: {
             count: 21,
             limit: 10,
             offset: 0
           }
         },
-        workflow: {},
+        notificationSetting: {},
         filterValue: '',
         isLoading: false,
         isRecordLoading: false
@@ -122,14 +122,14 @@ describe('<Workflows />', () => {
     const store = mockStore(stateWithData);
     let wrapper;
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?page_size=50&page=1`)
       .replyOnce(200, {
         count: 3,
         data: [
           {
             id: 'edit-id',
             name: 'foo',
-            group_refs: [{ name: 'group-1', uuid: 'some-uuid' }]
+            settings: [{ name: '1' }]
           }
         ]
       });
@@ -137,7 +137,10 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route
+            path={routes.notifications.index}
+            component={NotificationSettings}
+          />
         </ComponentWrapper>
       );
     });
@@ -164,10 +167,10 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.edit);
+    ).toEqual(routes.notifications.edit);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
-    ).toEqual('?workflow=edit-id');
+    ).toEqual('?notificationSetting=edit-id');
     expect(wrapper.find(edit.default)).toHaveLength(1);
   });
 
@@ -176,7 +179,7 @@ describe('<Workflows />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -192,7 +195,10 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route
+            path={routes.notifications.index}
+            component={NotificationSettings}
+          />
         </ComponentWrapper>
       );
     });
@@ -214,27 +220,26 @@ describe('<Workflows />', () => {
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.notifications.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
-    ).toEqual('?workflow=edit-id');
+    ).toEqual('?notificationSetting=edit-id');
     expect(wrapper.find(RemoveWorkflowModal)).toHaveLength(1);
   });
 
-  it('should redirect to add approval process page', async () => {
+  it('should redirect to add notification settings page', async () => {
     const store = mockStore(stateWithData);
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?limit=50&offset=0`)
       .replyOnce({
         body: {
           data: [
             {
               id: 'edit-id',
               name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }],
-              group_names: ['group-name-1']
+              settings: ['group-name-1']
             }
           ]
         }
@@ -242,36 +247,42 @@ describe('<Workflows />', () => {
 
     // async name validator
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?page_size=50&pae=1`)
       .replyOnce({
         body: {
           data: [
             {
               id: 'edit-id',
               name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }]
+              settings: [{ name: '1' }]
             }
           ]
         }
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(`${APPROVAL_API_BASE}/notification_types/`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route
+            path={routes.notifications.index}
+            component={NotificationSettings}
+          />
         </ComponentWrapper>
       );
     });
     wrapper.update();
     /**
-     * Click on add approval process link
+     * Click on add notification setting link
      */
     await act(async () => {
-      wrapper.find('Link#add-workflow-link').simulate('click', { button: 0 });
+      wrapper
+        .find('Button')
+        .at(0)
+        .simulate('click', { button: 0 });
     });
     wrapper.update();
 
@@ -281,16 +292,16 @@ describe('<Workflows />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.add);
-    expect(wrapper.find(AddWorkflowModal)).toHaveLength(1);
+    ).toEqual(routes.notifications.add);
+    expect(wrapper.find(AddNotificationSetting)).toHaveLength(1);
   });
 
-  it('should remove multiple selected workflows from table', async () => {
+  it('should remove multiple selected notification settings from table', async () => {
     const store = mockStore(stateWithData);
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?page-size=50&page=1`)
       .replyOnce(200, {
         data: [
           {
@@ -305,7 +316,10 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route
+            path={routes.notifications.index}
+            component={NotificationSettings}
+          />
         </ComponentWrapper>
       );
     });
@@ -315,35 +329,39 @@ describe('<Workflows />', () => {
       .last()
       .simulate('change', { target: { checked: true } });
     wrapper
-      .find('Link#remove-multiple-workflows')
+      .find('Button')
+      .at(1)
       .simulate('click', { button: 0 });
     wrapper.update();
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.notifications.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('');
-    expect(wrapper.find(RemoveWorkflowModal)).toHaveLength(1);
+    expect(wrapper.find(RemoveNotificationSettingModal)).toHaveLength(1);
   });
 
   it('should render table empty state', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(`${APPROVAL_API_BASE}/notification_types/`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?page_size=50&page=1`)
       .replyOnce({
         status: 200,
         body: {
           count: 0,
-          results: []
+          data: []
         }
       });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
-      workflowReducer: applyReducerHash(workflowReducer, workflowsInitialState)
+      notificationSettingsReducer: applyReducerHash(
+        notificationSettingsReducer,
+        notificationSettingsInitialState
+      )
     });
     const storeReal = registry.getStore();
 
@@ -351,7 +369,10 @@ describe('<Workflows />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={storeReal}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route
+            path={routes.notifications.index}
+            component={NotificationSettings}
+          />
         </ComponentWrapper>
       );
     });
@@ -360,180 +381,23 @@ describe('<Workflows />', () => {
     expect(wrapper.find(TableEmptyState)).toHaveLength(1);
   });
 
-  it('should select all workflows and delete them', async () => {
+  it('should select only one notification setting and delete it', async () => {
     expect.assertions(3);
-    const store = mockStore(stateWithWorkflows);
+    const store = mockStore(stateWithNotificationSettings);
     let wrapper;
-
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
+          <Route
+            path={routes.notifications.index}
+            component={NotificationSettings}
+          />
         </ComponentWrapper>
       );
     });
     wrapper.update();
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
-      .replyOnce((req, res) => {
-        expect(req.url().query).toEqual({
-          page_size: '50',
-          page: '1'
-        });
-        return res.status(200).body({
-          count: 3,
-          data: []
-        });
-      });
-
-    await act(async () => {
-      wrapper
-        .find('input[type="checkbox"]')
-        .first()
-        .getDOMNode().checked = true;
-      wrapper
-        .find('input[type="checkbox"]')
-        .first()
-        .simulate('change', { target: { checked: true } });
-    });
-    wrapper.update();
-    await act(async () => {
-      wrapper
-        .find('Link#remove-multiple-workflows')
-        .simulate('click', { button: 0 });
-    });
-    wrapper.update();
-    expect(wrapper.find('Modal').instance(0).props['aria-label']).toEqual(
-      'Delete approval processes modal'
-    );
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.search
-    ).toEqual('');
-
-    wrapper.update();
-
-    await act(async () => {
-      wrapper
-        .find('button')
-        .at(6)
-        .simulate('click');
-    });
-    wrapper.update();
-  });
-
-  it('should select and deselect all workflows', async () => {
-    let wrapper;
-    const store = mockStore(stateWithWorkflows);
-    mockApi
-      .onGet(`/api/pinakes/v1/groups/?role=approval-approver`)
-      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
-    // Delete endpoints
-    mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/123/`)
-      .replyOnce((_req, res) => {
-        expect(true).toEqual(true); // just check that it was called
-        return res.status(200);
-      });
-
-    mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/456/`)
-      .replyOnce((_req, res) => {
-        expect(true).toEqual(true); // just check that it was called
-        return res.status(200);
-      });
-
-    mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/789/`)
-      .replyOnce((_req, res) => {
-        expect(true).toEqual(true); // just check that it was called
-        return res.status(200);
-      });
-
-    // wf refresh
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
-      .replyOnce((req, res) => {
-        expect(req.url().query).toEqual({
-          page_size: '50',
-          page: '1'
-        });
-        return res.status(200).body({
-          count: 0,
-          data: []
-        });
-      });
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
-        </ComponentWrapper>
-      );
-    });
-    wrapper.update();
-
-    expect(
-      wrapper
-        .find('Link#remove-multiple-workflows')
-        .find('button')
-        .props().disabled
-    ).toEqual(true);
-
-    await act(async () => {
-      wrapper
-        .find('input[type="checkbox"]')
-        .first()
-        .getDOMNode().checked = true;
-      wrapper
-        .find('input[type="checkbox"]')
-        .first()
-        .simulate('change');
-    });
-    wrapper.update();
-
-    expect(
-      wrapper
-        .find('Link#remove-multiple-workflows')
-        .find('button')
-        .props().disabled
-    ).toEqual(false);
-
-    await act(async () => {
-      wrapper
-        .find('input[type="checkbox"]')
-        .first()
-        .getDOMNode().checked = false;
-      wrapper
-        .find('input[type="checkbox"]')
-        .first()
-        .simulate('change');
-    });
-    wrapper.update();
-
-    expect(
-      wrapper
-        .find('Link#remove-multiple-workflows')
-        .find('button')
-        .props().disabled
-    ).toEqual(true);
-  });
-
-  it('should select only one workflow and delete it', async () => {
-    expect.assertions(3);
-    const store = mockStore(stateWithWorkflows);
-    let wrapper;
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store}>
-          <Route path={routes.workflows.index} component={Workflows} />
-        </ComponentWrapper>
-      );
-    });
-    wrapper.update();
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(`${APPROVAL_API_BASE}/notification_types/`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     await act(async () => {
       wrapper
@@ -544,24 +408,25 @@ describe('<Workflows />', () => {
     wrapper.update();
     await act(async () => {
       wrapper
-        .find('Link#remove-multiple-workflows')
+        .find('Button')
+        .at(1)
         .simulate('click', { button: 0 });
     });
     wrapper.update();
 
     expect(wrapper.find('Modal').instance(0).props['aria-label']).toEqual(
-      'Delete approval process modal'
+      'Delete notification modal'
     );
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.remove);
+    ).toEqual(routes.notifications.remove);
     expect(
       wrapper.find(MemoryRouter).instance().history.location.search
     ).toEqual('');
 
     // Delete endpoints
     mockApi
-      .onDelete(`${APPROVAL_API_BASE}/workflows/123/`)
+      .onDelete(`${APPROVAL_API_BASE}/notification_settings/123/`)
       .replyOnce((_req, res) => {
         expect(true).toEqual(true); // just check that it was called
         return res.status(200);
@@ -569,7 +434,7 @@ describe('<Workflows />', () => {
     wrapper.update();
     // wf refresh
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
+      .onGet(`${APPROVAL_API_BASE}/notification_settings/?page_size=50&page=1`)
       .replyOnce((req, res) => {
         expect(req.url().query).toEqual({
           page_size: '50',
@@ -590,28 +455,34 @@ describe('<Workflows />', () => {
   });
 
   it('reset selected', () => {
-    const state = { selectedWorkflows: ['id1', 'id3'], selectedAll: true };
+    const state = {
+      selectedNotificationSettings: ['id1', 'id3'],
+      selectedAll: true
+    };
     const expectedResults = {
       ...state,
       selectedAll: false,
-      selectedWorkflows: []
-    };
-
-    expect(workflowsListState(state, { type: 'resetSelected' })).toEqual(
-      expectedResults
-    );
-  });
-
-  it('select all on current page', () => {
-    const state = { selectedWorkflows: ['id1', 'id3'], selectedAll: false };
-    const expectedResults = {
-      ...state,
-      selectedAll: true,
-      selectedWorkflows: ['id1', 'id3', 'id2']
+      selectedNotificationSettings: []
     };
 
     expect(
-      workflowsListState(state, {
+      notificationSettingsListState(state, { type: 'resetSelected' })
+    ).toEqual(expectedResults);
+  });
+
+  it('select all on current page', () => {
+    const state = {
+      selectedNotificationSettings: ['id1', 'id3'],
+      selectedAll: false
+    };
+    const expectedResults = {
+      ...state,
+      selectedAll: true,
+      selectedNotificationSettings: ['id1', 'id3', 'id2']
+    };
+
+    expect(
+      notificationSettingsListState(state, {
         type: 'selectAll',
         payload: ['id1', 'id2']
       })
@@ -620,17 +491,17 @@ describe('<Workflows />', () => {
 
   it('unselect all on current page', () => {
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedNotificationSettings: ['id1', 'id3', 'id2'],
       selectedAll: true
     };
     const expectedResults = {
       ...state,
       selectedAll: false,
-      selectedWorkflows: ['id3']
+      selectedNotificationSettings: ['id3']
     };
 
     expect(
-      workflowsListState(state, {
+      notificationSettingsListState(state, {
         type: 'unselectAll',
         payload: ['id1', 'id2']
       })
@@ -641,13 +512,13 @@ describe('<Workflows />', () => {
     const rows = [{ id: 'id1' }, { id: 'id3' }];
 
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedNotificationSettings: ['id1', 'id3', 'id2'],
       selectedAll: false
     };
     const expectedResults = { ...state, selectedAll: true, rows };
 
     expect(
-      workflowsListState(state, { type: 'setRows', payload: rows })
+      notificationSettingsListState(state, { type: 'setRows', payload: rows })
     ).toEqual(expectedResults);
   });
 
@@ -655,24 +526,24 @@ describe('<Workflows />', () => {
     const rows = [{ id: 'id1' }, { id: 'id4' }];
 
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedNotificationSettings: ['id1', 'id3', 'id2'],
       selectedAll: false
     };
     const expectedResults = { ...state, selectedAll: false, rows };
 
     expect(
-      workflowsListState(state, { type: 'setRows', payload: rows })
+      notificationSettingsListState(state, { type: 'setRows', payload: rows })
     ).toEqual(expectedResults);
   });
 
   it('default', () => {
     const state = {
-      selectedWorkflows: ['id1', 'id3', 'id2'],
+      selectedNotificationSettings: ['id1', 'id3', 'id2'],
       selectedAll: false
     };
     const expectedResults = { ...state };
 
-    expect(workflowsListState(state, { type: 'default' })).toEqual(
+    expect(notificationSettingsListState(state, { type: 'default' })).toEqual(
       expectedResults
     );
   });

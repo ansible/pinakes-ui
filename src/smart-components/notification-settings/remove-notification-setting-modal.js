@@ -14,15 +14,15 @@ import {
 import { useIntl } from 'react-intl';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import {
-  removeTemplate,
-  removeTemplates,
-  fetchTemplate
-} from '../../redux/actions/template-actions';
+  removeNotificationSetting,
+  removeNotificationSettings,
+  fetchNotificationSetting
+} from '../../redux/actions/notification-actions';
 import useQuery from '../../utilities/use-query';
 import routes from '../../constants/approval-routes';
-import useTemplate from '../../utilities/use-templates';
+import useNotification from '../../utilities/use-notifications';
 import { FormItemLoader } from '../../presentational-components/shared/approval-loader-placeholders';
-import templateMessages from '../../messages/templates.messages';
+import notificationMessages from '../../messages/notification.messages';
 import commonMessages from '../../messages/common.message';
 import isEmpty from 'lodash/isEmpty';
 import { APP_DISPLAY_NAME } from '../../utilities/approval-constants';
@@ -31,28 +31,33 @@ import {
   adjustedOffset
 } from '../../helpers/shared/approval-pagination';
 
-const RemoveTemplateModal = ({
+const RemoveNotificationSettingModal = ({
   ids = [],
   fetchData,
   pagination = defaultSettings,
-  resetSelectedTemplates
+  resetSelectedNotificationSettings
 }) => {
   const dispatch = useDispatch();
-  const [fetchedTemplate, setFetchedTemplate] = useState();
+  const [
+    fetchedNotificationSetting,
+    setFetchedNotificationSetting
+  ] = useState();
   const [submitting, setSubmitting] = useState(false);
   const { push } = useHistory();
-  const [{ template: templateId }] = useQuery(['template']);
+  const [{ notificationSetting: notificationSettingId }] = useQuery([
+    'notification-setting'
+  ]);
 
-  const finalId = templateId || (ids.length === 1 && ids[0]);
+  const finalId = notificationSettingId || (ids.length === 1 && ids[0]);
 
   const intl = useIntl();
-  const template = useTemplate(finalId);
+  const notificationSetting = useNotification(finalId);
 
   useEffect(() => {
-    if (finalId && !template) {
-      dispatch(fetchTemplate(finalId))
-        .then(({ value }) => setFetchedTemplate(value))
-        .catch(() => push(routes.templates.index));
+    if (finalId && !notificationSetting) {
+      dispatch(fetchNotificationSetting(finalId))
+        .then(({ value }) => setFetchedNotificationSetting(value))
+        .catch(() => push(routes.notifications.index));
     }
   }, []);
 
@@ -62,12 +67,12 @@ const RemoveTemplateModal = ({
 
   const removeWf = () =>
     (finalId
-      ? dispatch(removeTemplate(finalId, intl))
-      : dispatch(removeTemplates(ids, intl))
+      ? dispatch(removeNotificationSetting(finalId, intl))
+      : dispatch(removeNotificationSettings(ids, intl))
     )
       .catch(() => setSubmitting(false))
-      .then(() => push(routes.templates.index))
-      .then(() => resetSelectedTemplates())
+      .then(() => push(routes.notifications.index))
+      .then(() => resetSelectedNotificationSettings())
       .then(() =>
         fetchData({
           ...pagination,
@@ -75,7 +80,7 @@ const RemoveTemplateModal = ({
         })
       );
 
-  const onCancel = () => push(routes.templates.index);
+  const onCancel = () => push(routes.notifications.index);
 
   const onSubmit = () => {
     setSubmitting(true);
@@ -83,7 +88,7 @@ const RemoveTemplateModal = ({
   };
 
   const dependenciesMessage = () => {
-    const wf = template || fetchedTemplate;
+    const wf = notificationSetting || fetchedNotificationSetting;
     if (
       !wf ||
       isEmpty(wf) ||
@@ -103,24 +108,29 @@ const RemoveTemplateModal = ({
   const name = (
     <b key="remove-key">
       {finalId ? (
-        (fetchedTemplate && fetchedTemplate.name) || (template && template.name)
+        (fetchedNotificationSetting && fetchedNotificationSetting.title) ||
+        (notificationSetting && notificationSetting.title)
       ) : (
         <React.Fragment>
-          {ids.length} {intl.formatMessage(templateMessages.templates)}
+          {ids.length} {intl.formatMessage(notificationMessages.notifications)}
         </React.Fragment>
       )}
     </b>
   );
 
-  const isLoading = finalId && !template && !fetchedTemplate;
+  const isLoading =
+    finalId && !notificationSetting && !fetchedNotificationSetting;
 
   return (
     <Modal
       isOpen
       variant="small"
-      aria-label={intl.formatMessage(templateMessages.removeTemplateAriaLabel, {
-        count: finalId ? 1 : ids.length
-      })}
+      aria-label={intl.formatMessage(
+        notificationMessages.removeNotificationAriaLabel,
+        {
+          count: finalId ? 1 : ids.length
+        }
+      )}
       header={
         <Title size="2xl" headingLevel="h1">
           <ExclamationTriangleIcon
@@ -128,7 +138,7 @@ const RemoveTemplateModal = ({
             fill="#f0ab00"
             className="pf-u-mr-sm"
           />
-          {intl.formatMessage(templateMessages.removeTemplateTitle, {
+          {intl.formatMessage(notificationMessages.removeNotificationTitle, {
             count: finalId ? 1 : ids.length
           })}
         </Title>
@@ -136,8 +146,8 @@ const RemoveTemplateModal = ({
       onClose={onCancel}
       actions={[
         <Button
-          id="submit-remove-template"
-          ouiaId={'submit-remove-template'}
+          id="submit-remove-notification-setting"
+          ouiaId={'submit-remove-notification-setting'}
           key="submit"
           variant="danger"
           type="button"
@@ -154,8 +164,8 @@ const RemoveTemplateModal = ({
           )}
         </Button>,
         <Button
-          id="cancel-remove-template"
-          ouiaId={'cancel-remove-template'}
+          id="cancel-remove-notification"
+          ouiaId={'cancel-remove-notification'}
           key="cancel"
           variant="link"
           type="button"
@@ -171,12 +181,15 @@ const RemoveTemplateModal = ({
           {isLoading ? (
             <FormItemLoader />
           ) : isEmpty(dependenciesMessage()) ? (
-            intl.formatMessage(templateMessages.removeTemplateDescription, {
-              name
-            })
+            intl.formatMessage(
+              notificationMessages.removeNotificationDescription,
+              {
+                name
+              }
+            )
           ) : (
             intl.formatMessage(
-              templateMessages.removeTemplateDescriptionWithDeps,
+              notificationMessages.removeNotificationDescriptionWithDeps,
               {
                 name,
                 dependenciesList: (
@@ -195,10 +208,10 @@ const RemoveTemplateModal = ({
   );
 };
 
-RemoveTemplateModal.propTypes = {
+RemoveNotificationSettingModal.propTypes = {
   fetchData: PropTypes.func.isRequired,
   ids: PropTypes.array,
-  resetSelectedTemplates: PropTypes.func.isRequired,
+  resetSelectedNotificationSettings: PropTypes.func.isRequired,
   pagination: PropTypes.shape({
     limit: PropTypes.number,
     offset: PropTypes.number,
@@ -206,4 +219,4 @@ RemoveTemplateModal.propTypes = {
   })
 };
 
-export default RemoveTemplateModal;
+export default RemoveNotificationSettingModal;

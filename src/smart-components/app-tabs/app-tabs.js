@@ -26,6 +26,11 @@ const approvalTabItems = [
     eventKey: 3,
     message: apsTabsMessages.templates,
     name: '/approval/templates'
+  },
+  {
+    eventKey: 4,
+    message: apsTabsMessages.notificationSettings,
+    name: '/approval/notifications'
   }
 ];
 

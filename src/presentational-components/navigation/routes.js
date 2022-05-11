@@ -55,7 +55,6 @@ const Templates = lazy(() =>
     /* webpackChunkName: "templates" */ '../../smart-components/template/templates'
   )
 );
-
 const Requests = lazy(() =>
   import(
     /* webpackChunkName: "requests" */ '../../smart-components/request/requests'
@@ -76,6 +75,12 @@ const AllRequests = lazy(() =>
     /* webpackChunkName: "allrequests" */ '../../smart-components/request/allrequests'
   )
 );
+const NotificationSettings = lazy(() =>
+  import(
+    /* webpackChunkName: "notification-settings" */ '../../smart-components/notification-settings/notification-settings'
+  )
+);
+
 export const Routes = () => {
   const { pathname } = useLocation();
   return (
@@ -102,6 +107,10 @@ export const Routes = () => {
         <CatalogRoute path={Paths.allrequests} component={AllRequests} />
         <CatalogRoute path={Paths.request} component={MyRequestDetail} />
         <CatalogRoute path={Paths.allrequest} component={AllRequestDetail} />
+        <CatalogRoute
+          path={Paths.notifications}
+          component={NotificationSettings}
+        />
         <Route path={errorPaths} component={CommonApiError} />
         <Route
           render={() =>

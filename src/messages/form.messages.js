@@ -33,6 +33,14 @@ const formMessages = defineMessages({
     id: 'formMessages.enterTemplateTitle',
     defaultMessage: 'Enter a name for the template'
   },
+  notificationSettingName: {
+    id: 'formMessages.notificationSettingName',
+    defaultMessage: 'Name'
+  },
+  enterNotificationSettingName: {
+    id: 'formMessages.enterNotificationSettingName',
+    defaultMessage: 'Enter a name for the notification setting'
+  },
   description: {
     id: 'formMessages.description',
     defaultMessage: 'Description'
@@ -64,6 +72,10 @@ const formMessages = defineMessages({
   createTemplateTitle: {
     id: 'formMessages.createTemplateTitle',
     defaultMessage: 'Create template'
+  },
+  createNotificationSettingTitle: {
+    id: 'formMessages.createNotificationSettingTitle',
+    defaultMessage: 'Create notification setting'
   }
 });
 
