@@ -98,7 +98,7 @@ const EditNotificationSetting = ({
       description={
         !isLoading &&
         intl.formatMessage(notificationMessages.editNotificationTitle, {
-          title: initialValues.title
+          name: initialValues.title
         })
       }
       variant="small"

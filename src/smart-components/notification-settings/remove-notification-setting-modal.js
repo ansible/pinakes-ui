@@ -45,7 +45,7 @@ const RemoveNotificationSettingModal = ({
   const [submitting, setSubmitting] = useState(false);
   const { push } = useHistory();
   const [{ notificationSetting: notificationSettingId }] = useQuery([
-    'notification-setting'
+    'notificationSetting'
   ]);
 
   const finalId = notificationSettingId || (ids.length === 1 && ids[0]);
