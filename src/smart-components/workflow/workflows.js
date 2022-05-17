@@ -233,8 +233,13 @@ const Workflows = () => {
       <Route
         exact
         path={routesLinks.workflows.edit}
-        component={EditWorkflow}
-        postMethod={updateWorkflows}
+        render={(props) => (
+          <RemoveWorkflow
+            {...props}
+            postMethos={updateWorkflows}
+            pagination={meta}
+          />
+        )}
       />
       <Route
         exact
