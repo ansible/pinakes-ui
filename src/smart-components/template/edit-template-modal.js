@@ -90,7 +90,7 @@ const EditTemplate = ({ postMethod, pagination = defaultSettings }) => {
       description={
         !isLoading &&
         intl.formatMessage(templateMessages.editTemplateTitle, {
-          title: initialValues.title
+          name: initialValues.title
         })
       }
       variant="small"

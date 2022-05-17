@@ -234,7 +234,7 @@ const Workflows = () => {
         exact
         path={routesLinks.workflows.edit}
         render={(props) => (
-          <RemoveWorkflow
+          <EditWorkflow
             {...props}
             postMethos={updateWorkflows}
             pagination={meta}
