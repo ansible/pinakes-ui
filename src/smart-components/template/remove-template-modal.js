@@ -100,17 +100,24 @@ const RemoveTemplateModal = ({
     );
   };
 
-  const name = (
-    <b key="remove-key">
-      {finalId ? (
-        (fetchedTemplate && fetchedTemplate.name) || (template && template.name)
-      ) : (
-        <React.Fragment>
-          {ids.length} {intl.formatMessage(templateMessages.templates)}
-        </React.Fragment>
-      )}
-    </b>
-  );
+  const name = () => {
+    console.log(
+      'Debug - template name: ',
+      (fetchedTemplate && fetchedTemplate.title) || (template && template.title)
+    );
+    return (
+      <b key="remove-key">
+        {finalId ? (
+          (fetchedTemplate && fetchedTemplate.title) ||
+          (template && template.title)
+        ) : (
+          <React.Fragment>
+            {ids.length} {intl.formatMessage(templateMessages.templates)}
+          </React.Fragment>
+        )}
+      </b>
+    );
+  };
 
   const isLoading = finalId && !template && !fetchedTemplate;
 
