@@ -154,7 +154,7 @@ describe('<PlatformInventories />', () => {
     mockApi
       .onGet(
         // eslint-disable-next-line max-len
-        `${APPROVAL_API_BASE}/workflows?app_name=catalog-inventory&object_type=ServiceInventory&object_id=222&filter[name][contains]=&limit=50&offset=0`
+        `${APPROVAL_API_BASE}/workflows?app_name=inventory&object_type=ServiceInventory&object_id=222&filter[name][contains]=&limit=50&offset=0`
       )
       .replyOnce(200, { data: [] });
 
