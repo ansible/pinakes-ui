@@ -82,7 +82,7 @@ export const editNotificationSchema = (intl, nSetting, notificationTypes) => {
       },
       {
         component: componentTypes.SELECT,
-        label: intl.formatMessage(formMessages.notificationSettingName),
+        label: intl.formatMessage(notificationMessages.type),
         name: 'notification_type',
         simpleValue: true,
         loadOptions: loadNotificationTypesOptions

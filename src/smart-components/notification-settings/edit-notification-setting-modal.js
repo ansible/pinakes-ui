@@ -35,7 +35,8 @@ const reducer = (state, { type, initialValues, schema }) => {
 };
 
 const prepareInitialValues = (tData) => {
-  return { ...tData.settings };
+  console.log('Debug - prepareInitialValues: ', tData);
+  return { ...tData, ...tData.settings };
 };
 
 const EditNotificationSetting = ({
@@ -99,7 +100,7 @@ const EditNotificationSetting = ({
       description={
         !isLoading &&
         intl.formatMessage(notificationMessages.editNotificationTitle, {
-          name: initialValues.title
+          name: initialValues.name
         })
       }
       variant="small"
