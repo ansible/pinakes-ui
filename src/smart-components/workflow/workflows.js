@@ -236,7 +236,7 @@ const Workflows = () => {
         render={(props) => (
           <EditWorkflow
             {...props}
-            postMethos={updateWorkflows}
+            postMethod={updateWorkflows}
             pagination={meta}
           />
         )}
