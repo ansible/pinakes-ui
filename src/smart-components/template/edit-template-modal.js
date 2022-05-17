@@ -18,7 +18,7 @@ import { fetchTemplate } from '../../helpers/template/template-helper';
 import { TemplateInfoFormLoader } from '../../presentational-components/shared/approval-loader-placeholders';
 import commonMessages from '../../messages/common.message';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template';
-import {defaultSettings} from "../../helpers/shared/approval-pagination";
+import { defaultSettings } from '../../helpers/shared/approval-pagination';
 
 const reducer = (state, { type, initialValues, schema }) => {
   switch (type) {
@@ -76,9 +76,10 @@ const EditTemplate = ({ postMethod, pagination = defaultSettings }) => {
       ...values,
       description
     };
+    console.log('Debug - template postMethod: ', postMethod);
     return dispatch(updateTemplate(templateData, intl))
-      .then(() => push(routes.templates.index))
-      .then(() => postMethod({ ...pagination }));
+      .then(() => postMethod({ ...pagination }))
+      .then(() => push(routes.templates.index));
   };
 
   return (
