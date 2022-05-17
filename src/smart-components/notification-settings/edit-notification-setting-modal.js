@@ -82,6 +82,7 @@ const EditNotificationSetting = ({
   const onSave = ({ description = '', ...values }) => {
     onCancel();
     const notificationSettingData = {
+      id,
       ...values,
       description
     };
