@@ -76,7 +76,6 @@ const EditTemplate = ({ postMethod, pagination = defaultSettings }) => {
       ...values,
       description
     };
-    console.log('Debug - template postMethod: ', postMethod);
     return dispatch(updateTemplate(templateData, intl))
       .then(() => postMethod({ ...pagination }))
       .then(() => push(routes.templates.index));

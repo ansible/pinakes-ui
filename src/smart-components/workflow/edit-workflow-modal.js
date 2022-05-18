@@ -73,18 +73,12 @@ const EditWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   const onCancel = () => push(routes.workflows.index);
 
   const onSave = ({ group_refs = [], description = '', ...values }) => {
-    console.log('workflows - postMethod, pagination: ', postMethod, pagination);
     onCancel();
     const groups = values.current_groups
       ? values.current_groups.concat(
           group_refs?.filter((item) => values.current_groups.indexOf(item) < 0)
         )
       : group_refs;
-    console.log(
-      'Debug - workflows - groups, values, group_refs',
-      groups,
-      values
-    );
     const workflowData = {
       ...values,
       description,
