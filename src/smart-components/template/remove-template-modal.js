@@ -100,11 +100,6 @@ const RemoveTemplateModal = ({
     );
   };
 
-  console.log(
-    'Debug - template name: ',
-    (fetchedTemplate && fetchedTemplate.title) || (template && template.title)
-  );
-
   const name = (
     <b key="remove-key">
       {finalId ? (
@@ -117,9 +112,6 @@ const RemoveTemplateModal = ({
       )}
     </b>
   );
-
-  console.log('Debug - remove template name: ', name);
-
   const isLoading = finalId && !template && !fetchedTemplate;
 
   return (
