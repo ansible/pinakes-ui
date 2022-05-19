@@ -7,14 +7,14 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
     pagination.limit,
     10
   )}&page=${pagination.offset || 1}`;
-  const filterQuery = `&name=${filter}`;
+  const filterQuery = `&title=${filter}`;
 
   return getAxiosInstance().get(
     `${APPROVAL_API_BASE}/templates/?${filterQuery}${paginationQuery}`
   );
 }
 
-export const fetchTemplate = (id) =>
+export let fetchTemplate = (id) =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/${id}/`);
 
 export let fetchTemplateByName = (name) =>
