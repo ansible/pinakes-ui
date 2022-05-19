@@ -8,7 +8,6 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
     10
   )}&page=${pagination.offset || 1}`;
   const filterQuery = `&title=${filter}`;
-
   return getAxiosInstance().get(
     `${APPROVAL_API_BASE}/templates/?${filterQuery}${paginationQuery}`
   );
@@ -17,18 +16,18 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
 export let fetchTemplate = (id) =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/${id}/`);
 
-export let fetchTemplateByName = (name) =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/?title=${name}`);
+export let fetchTemplateByName = (name) => {
+  return getAxiosInstance().get(
+    `${APPROVAL_API_BASE}/templates/?title=${name}`
+  );
+};
 
 export function updateTemplate(data) {
   return getAxiosInstance().patch(
-    `${APPROVAL_API_BASE}/templates/${data.id}`,
+    `${APPROVAL_API_BASE}/templates/${data.id}/`,
     data
   );
 }
-
-export const listTemplates = () =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/`);
 
 export function addTemplate(data) {
   return getAxiosInstance().post(`${APPROVAL_API_BASE}/templates/`, data);
