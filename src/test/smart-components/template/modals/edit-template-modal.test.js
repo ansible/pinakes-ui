@@ -8,20 +8,20 @@ import { act } from 'react-dom/test-utils';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
-import EditWorkflow from '../../../../smart-components/workflow/edit-workflow-modal';
+import EditTemplate from '../../../../smart-components/template/edit-template-modal';
 import { IntlProvider } from 'react-intl';
 import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
-import * as wfHelper from '../../../../helpers/workflow/workflow-helper';
+import * as wfHelper from '../../../../helpers/template/template-helper';
 import { Button } from '@patternfly/react-core';
 import routes from '../../../../constants/approval-routes';
 import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 
-describe('<EditWorkflow />', () => {
+describe('<EditTemplate />', () => {
   let initialProps;
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
-  let workflow;
+  let template;
   let wrapper;
   const postMethod = jest.fn().mockImplementation(() =>
     Promise.resolve({
@@ -33,7 +33,7 @@ describe('<EditWorkflow />', () => {
     <IntlProvider locale="en">
       <Provider store={store}>
         <MemoryRouter
-          initialEntries={['/workflows/edit-workflow/?workflow=123']}
+          initialEntries={['/templates/edit-template/?template=123']}
           initialIndex={0}
         >
           {children}
@@ -47,28 +47,26 @@ describe('<EditWorkflow />', () => {
     localStorage.setItem('user', 'testUser');
     initialProps = {
       id: '123',
+      title: 'Template name',
       postMethod,
       handleChange: jest.fn()
     };
 
-    initialState = {
-      workflowReducer: {
-        workflows: {
-          data: []
-        }
-      }
+    template = {
+      title: 'Foo',
+      id: '123',
+      description: 'description'
     };
 
-    workflow = {
-      name: 'Foo',
-      id: '123',
-      description: 'description',
-      group_refs: [
-        {
-          uuid: '123',
-          name: 'SampleWorkflow'
-        }
-      ]
+    initialState = {
+      templateReducer: {
+        templates: [
+          {
+            ...template
+          }
+        ]
+      },
+      template: { ...template }
     };
 
     mockStore = configureStore(middlewares);
@@ -81,8 +79,8 @@ describe('<EditWorkflow />', () => {
 
   it('should fetch data from api and submit the form', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/123/`)
-      .replyOnce(200, { ...workflow });
+      .onGet(`${APPROVAL_API_BASE}/templates/123/`)
+      .replyOnce(200, { id: '123', description: 'description', title: 'Foo' });
 
     expect.assertions(7);
 
@@ -103,11 +101,7 @@ describe('<EditWorkflow />', () => {
         });
       });
 
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
-      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
-
-    jest.useFakeTimers();
+   jest.useFakeTimers();
 
     const store = mockStore(initialState);
 
@@ -115,8 +109,8 @@ describe('<EditWorkflow />', () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
           <Route
-            path="/workflows/edit-workflow"
-            render={() => <EditWorkflow {...initialProps} />}
+            path="/templates/edit-template"
+            render={() => <EditTemplate {...initialProps} />}
           />
         </ComponentWrapper>
       );
@@ -132,13 +126,13 @@ describe('<EditWorkflow />', () => {
         .find('input')
         .first()
         .props().value
-    ).toEqual(workflow.name);
+    ).toEqual(template.title);
     expect(
       wrapper
         .find('textarea')
         .first()
         .props().value
-    ).toEqual(workflow.description);
+    ).toEqual(template.description);
 
     await act(async () => {
       const name = wrapper.find('input').first();
@@ -160,20 +154,20 @@ describe('<EditWorkflow />', () => {
     });
     wrapper.update();
 
-    wfHelper.updateWorkflow = jest
+    wfHelper.updateTemplate = jest
       .fn()
       .mockImplementation(() => Promise.resolve('ok'));
 
-    expect(wfHelper.updateWorkflow).not.toHaveBeenCalled();
+    expect(wfHelper.updateTemplate).not.toHaveBeenCalled();
 
     await act(async () => {
       wrapper.find('form').simulate('submit');
     });
     wrapper.update();
 
-    expect(wfHelper.updateWorkflow).toHaveBeenCalledWith({
-      ...workflow,
-      name: 'some-name',
+    expect(wfHelper.updateTemplate).toHaveBeenCalledWith({
+      ...template,
+      title: 'some-name',
       description: 'some-description'
     });
 
@@ -181,23 +175,19 @@ describe('<EditWorkflow />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.index);
+    ).toEqual(routes.templates.index);
   });
 
   it('should close the form', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/123/`)
-      .replyOnce(200, { ...workflow });
+      .onGet(`${APPROVAL_API_BASE}/templates/123/`)
+      .replyOnce(200, { ...template });
 
-    wfHelper.fetchWorkflowByName = jest.fn().mockImplementation(() =>
+    wfHelper.fetchTemplate = jest.fn().mockImplementation(() =>
       Promise.resolve({
-        data: []
+        data: {}
       })
     );
-
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
-      .replyOnce(200, { data: [{ uuid: 'id', name: 'name' }] });
 
     jest.useFakeTimers();
 
@@ -207,8 +197,8 @@ describe('<EditWorkflow />', () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
           <Route
-            path="/workflows/edit-workflow"
-            render={() => <EditWorkflow {...initialProps} />}
+            path="/templates/edit-template"
+            render={() => <EditTemplate {...initialProps} />}
           />
         </ComponentWrapper>
       );
@@ -231,6 +221,6 @@ describe('<EditWorkflow />', () => {
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.workflows.index);
+    ).toEqual(routes.templates.index);
   });
 });
