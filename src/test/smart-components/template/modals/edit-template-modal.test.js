@@ -1,226 +1,242 @@
 import React from 'react';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store';
 import { act } from 'react-dom/test-utils';
-
+import thunk from 'redux-thunk';
+import { shallow, mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { Modal } from '@patternfly/react-core';
+import { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter, Route } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
+import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import notificationsMiddleware from '@redhat-cloud-services/frontend-components-notifications/notificationsMiddleware';
-import EditTemplate from '../../../../smart-components/template/edit-template-modal';
-import { IntlProvider } from 'react-intl';
-import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
-import * as wfHelper from '../../../../helpers/template/template-helper';
-import { Button } from '@patternfly/react-core';
-import routes from '../../../../constants/approval-routes';
+import { useIntl } from 'react-intl';
+import FormRenderer from '../../../../smart-components/common/form-renderer';
 import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
+import EditTemplate from '../../../../smart-components/template/edit-template-modal';
+import { APPROVAL_API_BASE } from '../../../../utilities/approval-constants';
 
 describe('<EditTemplate />', () => {
   let initialProps;
   let initialState;
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
-  let template;
-  let wrapper;
-  const postMethod = jest.fn().mockImplementation(() =>
-    Promise.resolve({
-      data: []
-    })
-  );
 
-  const ComponentWrapper = ({ store, children }) => (
-    <IntlProvider locale="en">
-      <Provider store={store}>
-        <MemoryRouter
-          initialEntries={['/templates/edit-template/?template=123']}
-          initialIndex={0}
-        >
-          {children}
-        </MemoryRouter>
-      </Provider>
-    </IntlProvider>
+  const ComponentWrapper = ({ store, children, initialEntries }) => (
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+    </Provider>
   );
 
   beforeEach(() => {
     localStorage.setItem('catalog_standalone', true);
-    localStorage.setItem('user', 'testUser');
+    localStorage.setItem('user', 'test');
     initialProps = {
-      id: '123',
-      title: 'Template name',
-      postMethod,
-      handleChange: jest.fn()
+      closeUrl: 'foo',
+      templateId: '123',
+      objectType: 'Portfolio',
+      objectName: () => 'Test Resource Name',
+      pushParam: { pathname: '/foo', search: '?platform=1' }
     };
-
-    template = {
-      title: 'Foo',
-      id: '123',
-      description: 'description'
-    };
-
     initialState = {
-      templateReducer: {
-        templates: [
-          {
-            ...template
-          }
-        ]
+      i18nReducer: {
+        ...useIntl()
       },
-      template: { ...template }
+      templateReducer: {
+        templates: {
+          results: [
+            {
+              id: '111',
+              name: 'Workflow111'
+            },
+            {
+              id: '222',
+              name: 'template'
+            }
+          ]
+        }
+      }
     };
-
     mockStore = configureStore(middlewares);
   });
 
   afterEach(() => {
-    global.localStorage.setItem('catalog_standalone', false);
-    global.localStorage.removeItem('user');
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
-  it('should fetch data from api and submit the form', async () => {
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/templates/123/`)
-      .replyOnce(200, { id: '123', description: 'description', title: 'Foo' });
-
-    expect.assertions(7);
-
-    wfHelper.fetchWorkflowByName = jest
-      .fn()
-      .mockImplementationOnce((value) => {
-        expect(value).toEqual('some-name');
-
-        return Promise.resolve({
-          data: []
-        });
-      })
-      .mockImplementationOnce((value) => {
-        expect(value).toEqual('some-name');
-
-        return Promise.resolve({
-          data: []
-        });
-      });
-
-   jest.useFakeTimers();
-
+  it('should render correctly', async () => {
     const store = mockStore(initialState);
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { results: [] });
+    let wrapper;
+    await act(async () => {
+      wrapper = shallow(
+        <ComponentWrapper store={store}>
+          <EditTemplate querySelector="template" {...initialProps} />
+        </ComponentWrapper>
+      ).dive();
+    });
+    wrapper.update();
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+  });
 
+  it('should create the edit template modal', async (done) => {
+    const store = mockStore(initialState);
+    mockApi.onGet(`${APPROVAL_API_BASE}/templates/123/`).replyOnce(200, {
+      title: 'template',
+      id: '123',
+      description: 'description'
+    });
+
+    const expectedSchema = {
+      fields: [
+        {
+          component: componentTypes.TEXT_FIELD,
+          name: 'title',
+          isRequired: true,
+          id: 'template-title',
+          label: 'Title',
+          validate: [
+            expect.any(Function),
+            {
+              message: 'Enter a name for the template',
+              type: 'required'
+            }
+          ]
+        },
+        {
+          component: componentTypes.TEXTAREA,
+          name: 'description',
+          id: 'template-description',
+          label: 'Description'
+        }
+      ]
+    };
+
+    let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper store={store}>
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/template?template=123']}
+        >
           <Route
-            path="/templates/edit-template"
-            render={() => <EditTemplate {...initialProps} />}
+            path="/template"
+            render={(args) => (
+              <EditTemplate
+                querySelector="template"
+                {...args}
+                {...initialProps}
+              />
+            )}
           />
         </ComponentWrapper>
       );
     });
-    wrapper.update();
 
+    wrapper.update();
+    const modal = wrapper.find(Modal);
+    const form = wrapper.find(FormRenderer);
+    expect(modal.props().title).toEqual('Edit information');
+    expect(form.props().schema).toEqual(expectedSchema);
+    done();
+  });
+
+  it('should submit updated template', async (done) => {
+    const store = mockStore(initialState);
+    mockApi.onGet(`${APPROVAL_API_BASE}/templates/123/`).replyOnce(200, {
+      title: 'template',
+      id: '123',
+      description: 'description'
+    });
+    mockApi.onGet(`${APPROVAL_API_BASE}/templates/?title=template`).reply(200, [
+      {
+        name: 'template1',
+        id: '111'
+      },
+      {
+        name: 'template2',
+        id: '222'
+      }
+    ]);
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/?&page_size=50&page=1`)
+      .reply(200, { results: [{ name: 'template1', id: '111' }] });
+
+    mockApi.onPatch(`${APPROVAL_API_BASE}/templates/123/`).replyOnce((req) => {
+      expect(JSON.parse(req.data)).toEqual({
+        title: 'template',
+        description: 'some-description',
+        id: '123'
+      });
+      return [200, {}];
+    });
+
+    let onCloseMock = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: []
+      })
+    );
+
+    let wrapper;
     await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper
+          store={store}
+          initialEntries={['/template?template=123']}
+        >
+          <Route
+            path="/template"
+            render={(args) => (
+              <EditTemplate
+                {...args}
+                {...initialProps}
+                querySelector="template"
+                postMethod={onCloseMock}
+              />
+            )}
+          />
+        </ComponentWrapper>
+      );
+    });
+    await act(async () => {
+      /**run first debounced data loading for existing templates */
+      jest.runAllTimers();
       wrapper.update();
     });
-
-    expect(
-      wrapper
-        .find('input')
-        .first()
-        .props().value
-    ).toEqual(template.title);
-    expect(
-      wrapper
-        .find('textarea')
-        .first()
-        .props().value
-    ).toEqual(template.description);
-
-    await act(async () => {
-      const name = wrapper.find('input').first();
-      name.instance().value = 'some-name';
-      name.simulate('change');
-    });
-    wrapper.update();
-
-    await act(async () => {
-      jest.advanceTimersByTime(550); // name async validation
-      jest.useRealTimers();
-    });
-    wrapper.update();
-
     await act(async () => {
       const description = wrapper.find('textarea').first();
       description.instance().value = 'some-description';
       description.simulate('change');
     });
     wrapper.update();
+    await act(async () => {
+      /**run rest of paginated async request */
+      jest.runAllTimers();
+      wrapper.update();
+    });
+    await act(async () => {
+      wrapper
+        .find('button')
+        .first()
+        .simulate('click');
+    });
 
-    wfHelper.updateTemplate = jest
-      .fn()
-      .mockImplementation(() => Promise.resolve('ok'));
-
-    expect(wfHelper.updateTemplate).not.toHaveBeenCalled();
+    expect(onCloseMock).not.toHaveBeenCalled();
 
     await act(async () => {
       wrapper.find('form').simulate('submit');
     });
+
     wrapper.update();
 
-    expect(wfHelper.updateTemplate).toHaveBeenCalledWith({
-      ...template,
-      title: 'some-name',
-      description: 'some-description'
+    setImmediate(() => {
+      expect(
+        wrapper.find(MemoryRouter).instance().history.location.pathname
+      ).toEqual('/approval/templates');
+      done();
     });
-
-    expect(postMethod).toHaveBeenCalled();
-
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.templates.index);
-  });
-
-  it('should close the form', async () => {
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/templates/123/`)
-      .replyOnce(200, { ...template });
-
-    wfHelper.fetchTemplate = jest.fn().mockImplementation(() =>
-      Promise.resolve({
-        data: {}
-      })
-    );
-
-    jest.useFakeTimers();
-
-    const store = mockStore(initialState);
-
-    await act(async () => {
-      wrapper = mount(
-        <ComponentWrapper store={store}>
-          <Route
-            path="/templates/edit-template"
-            render={() => <EditTemplate {...initialProps} />}
-          />
-        </ComponentWrapper>
-      );
-    });
-    wrapper.update();
-
-    await act(async () => {
-      jest.advanceTimersByTime(550); // initial async validation
-      jest.useRealTimers();
-    });
-    wrapper.update();
-
-    await act(async () => {
-      wrapper
-        .find(Button)
-        .first()
-        .simulate('click');
-    });
-    wrapper.update();
-
-    expect(
-      wrapper.find(MemoryRouter).instance().history.location.pathname
-    ).toEqual(routes.templates.index);
   });
 });
