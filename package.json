@@ -7,7 +7,7 @@
     "@data-driven-forms/pf4-component-mapper": "^3.11.3",
     "@data-driven-forms/react-form-renderer": "^3.11.3",
     "@patternfly/patternfly": "^4.194.4",
-    "@patternfly/react-core": "^4.206.2",
+    "@patternfly/react-core": "^4.214.1",
     "@patternfly/react-icons": "^4.65.1",
     "@patternfly/react-styles": "^4.64.1",
     "@patternfly/react-table": "^4.37.8",
