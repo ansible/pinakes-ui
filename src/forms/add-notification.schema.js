@@ -58,7 +58,11 @@ const addNotificationSchema = (intl, notificationTypes) => {
   };
 };
 
-export const editNotificationSchema = (intl, nSetting, notificationTypes) => {
+export const editNotificationSchema = (
+  intl,
+  nSetting,
+  notificationTypes = []
+) => {
   const notificationType = notificationTypes.find(
     (nType) => nType.id === nSetting.notification_type
   );
