@@ -4,10 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Modal } from '@patternfly/react-core';
 
-import {
-  fetchTemplates,
-  updateTemplate
-} from '../../redux/actions/template-actions';
+import { updateTemplate } from '../../redux/actions/template-actions';
 import routes from '../../constants/approval-routes';
 import FormRenderer from '../common/form-renderer';
 import addTemplateSchema from '../../forms/add-template.schema';
@@ -19,6 +16,7 @@ import { TemplateInfoFormLoader } from '../../presentational-components/shared/a
 import commonMessages from '../../messages/common.message';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template';
 import { defaultSettings } from '../../helpers/shared/approval-pagination';
+import { listNotificationSettings } from '../../helpers/notification/notification-helper';
 
 const reducer = (state, { type, initialValues, schema }) => {
   switch (type) {
@@ -51,21 +49,27 @@ const EditTemplate = ({ postMethod, pagination = defaultSettings }) => {
   ] = useReducer(reducer, { isLoading: true });
 
   useEffect(() => {
-    if (!loadedTemplate) {
-      fetchTemplate(id).then((data) =>
+    listNotificationSettings().then((notificationSettings) => {
+      if (!loadedTemplate) {
+        fetchTemplate(id).then((data) =>
+          stateDispatch({
+            type: 'loaded',
+            initialValues: prepareInitialValues(data),
+            schema: addTemplateSchema(intl, data.id, notificationSettings?.data)
+          })
+        );
+      } else {
         stateDispatch({
           type: 'loaded',
-          initialValues: prepareInitialValues(data),
-          schema: addTemplateSchema(intl, data.id)
-        })
-      );
-    } else {
-      stateDispatch({
-        type: 'loaded',
-        initialValues: prepareInitialValues(loadedTemplate),
-        schema: addTemplateSchema(intl, loadedTemplate.id)
-      });
-    }
+          initialValues: prepareInitialValues(loadedTemplate),
+          schema: addTemplateSchema(
+            intl,
+            loadedTemplate.id,
+            notificationSettings?.data
+          )
+        });
+      }
+    });
   }, []);
 
   const onCancel = () => push(routes.templates.index);
