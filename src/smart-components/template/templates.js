@@ -230,7 +230,17 @@ const Templates = () => {
           <AddTemplate {...props} postMethod={updateTemplates} />
         )}
       />
-      <Route exact path={routesLinks.templates.edit} component={EditTemplate} />
+      <Route
+        exact
+        path={routesLinks.templates.edit}
+        render={(props) => (
+          <EditTemplate
+            {...props}
+            postMethod={updateTemplates}
+            pagination={meta}
+          />
+        )}
+      />
       <Route
         exact
         path={routesLinks.templates.remove}

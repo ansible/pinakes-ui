@@ -103,7 +103,8 @@ const RemoveTemplateModal = ({
   const name = (
     <b key="remove-key">
       {finalId ? (
-        (fetchedTemplate && fetchedTemplate.name) || (template && template.name)
+        (fetchedTemplate && fetchedTemplate.title) ||
+        (template && template.title)
       ) : (
         <React.Fragment>
           {ids.length} {intl.formatMessage(templateMessages.templates)}
@@ -111,7 +112,6 @@ const RemoveTemplateModal = ({
       )}
     </b>
   );
-
   const isLoading = finalId && !template && !fetchedTemplate;
 
   return (

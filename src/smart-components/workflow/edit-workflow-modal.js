@@ -4,10 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Modal } from '@patternfly/react-core';
 
-import {
-  fetchWorkflows,
-  updateWorkflow
-} from '../../redux/actions/workflow-actions';
+import { updateWorkflow } from '../../redux/actions/workflow-actions';
 import routes from '../../constants/approval-routes';
 import FormRenderer from '../common/form-renderer';
 import addWorkflowSchema from '../../forms/add-workflow.schema';
@@ -18,6 +15,7 @@ import { fetchWorkflow } from '../../helpers/workflow/workflow-helper';
 import { WorkflowInfoFormLoader } from '../../presentational-components/shared/approval-loader-placeholders';
 import commonMessages from '../../messages/common.message';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template';
+import { defaultSettings } from '../../helpers/shared/approval-pagination';
 
 const reducer = (state, { type, initialValues, schema }) => {
   switch (type) {
@@ -41,7 +39,8 @@ const prepareInitialValues = (wfData) => {
   return { ...wfData, group_refs: [], current_groups: groupOptions };
 };
 
-const EditWorkflow = () => {
+// eslint-disable-next-line react/prop-types
+const EditWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
   const intl = useIntl();
@@ -89,9 +88,9 @@ const EditWorkflow = () => {
       }))
     };
     delete workflowData.current_groups;
-    return dispatch(updateWorkflow(workflowData, intl)).then(() =>
-      dispatch(fetchWorkflows())
-    );
+    return dispatch(updateWorkflow(workflowData, intl))
+      .then(() => postMethod({ ...pagination }))
+      .then(() => push(routes.workflows.index));
   };
 
   return (

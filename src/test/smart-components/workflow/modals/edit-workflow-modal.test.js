@@ -23,6 +23,11 @@ describe('<EditWorkflow />', () => {
   let mockStore;
   let workflow;
   let wrapper;
+  const postMethod = jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      data: []
+    })
+  );
 
   const ComponentWrapper = ({ store, children }) => (
     <IntlProvider locale="en">
@@ -42,7 +47,7 @@ describe('<EditWorkflow />', () => {
     localStorage.setItem('user', 'testUser');
     initialProps = {
       id: '123',
-      postMethod: jest.fn(),
+      postMethod,
       handleChange: jest.fn()
     };
 
@@ -79,7 +84,7 @@ describe('<EditWorkflow />', () => {
       .onGet(`${APPROVAL_API_BASE}/workflows/123/`)
       .replyOnce(200, { ...workflow });
 
-    expect.assertions(6);
+    expect.assertions(7);
 
     wfHelper.fetchWorkflowByName = jest
       .fn()
@@ -171,6 +176,8 @@ describe('<EditWorkflow />', () => {
       name: 'some-name',
       description: 'some-description'
     });
+
+    expect(postMethod).toHaveBeenCalled();
 
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
