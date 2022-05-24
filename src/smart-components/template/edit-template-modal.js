@@ -55,7 +55,7 @@ const EditTemplate = ({ postMethod, pagination = defaultSettings }) => {
           stateDispatch({
             type: 'loaded',
             initialValues: prepareInitialValues(data),
-            schema: addTemplateSchema(intl, data.id, notificationSettings?.data)
+            schema: addTemplateSchema(intl, data, notificationSettings?.data)
           })
         );
       } else {
@@ -64,7 +64,7 @@ const EditTemplate = ({ postMethod, pagination = defaultSettings }) => {
           initialValues: prepareInitialValues(loadedTemplate),
           schema: addTemplateSchema(
             intl,
-            loadedTemplate.id,
+            loadedTemplate,
             notificationSettings?.data
           )
         });
