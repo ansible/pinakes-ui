@@ -58,7 +58,11 @@ const addNotificationSchema = (intl, notificationTypes) => {
   };
 };
 
-export const editNotificationSchema = (intl, nSetting, notificationTypes) => {
+export const editNotificationSchema = (
+  intl,
+  nSetting,
+  notificationTypes = []
+) => {
   const notificationType = notificationTypes.find(
     (nType) => nType.id === nSetting.notification_type
   );
@@ -82,7 +86,7 @@ export const editNotificationSchema = (intl, nSetting, notificationTypes) => {
       },
       {
         component: componentTypes.SELECT,
-        label: intl.formatMessage(formMessages.notificationSettingName),
+        label: intl.formatMessage(notificationMessages.type),
         name: 'notification_type',
         simpleValue: true,
         loadOptions: loadNotificationTypesOptions
