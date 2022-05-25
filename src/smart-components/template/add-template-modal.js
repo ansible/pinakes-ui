@@ -45,7 +45,6 @@ const AddTemplate = ({ postMethod, pagination = defaultSettings }) => {
   }, []);
 
   const onSave = ({ ...values }) => {
-    console.log('Debug - values', values);
     return dispatch(
       addTemplate(
         {
