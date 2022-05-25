@@ -61,6 +61,7 @@ describe('<EditTemplate />', () => {
   });
 
   afterEach(() => {
+    mockApi.reset();
     localStorage.setItem('catalog_standalone', false);
     localStorage.removeItem('user');
   });
@@ -163,6 +164,11 @@ describe('<EditTemplate />', () => {
 
   it('should submit updated template', async (done) => {
     const store = mockStore(initialState);
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
+
     mockApi.onGet(`${APPROVAL_API_BASE}/templates/123/`).replyOnce(200, {
       title: 'template',
       id: '123',
