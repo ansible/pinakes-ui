@@ -90,9 +90,18 @@ describe('<EditTemplate />', () => {
       id: '123',
       description: 'description'
     });
+
     mockApi
       .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
-      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+      .replyOnce(200, {
+        data: [
+          {
+            name: 'notification',
+            id: '123',
+            description: 'description'
+          }
+        ]
+      });
 
     const expectedSchema = {
       fields: [
@@ -125,7 +134,7 @@ describe('<EditTemplate />', () => {
         },
         {
           component: 'select',
-          label: 'signalMethod',
+          label: 'Signal method',
           loadOptions: expect.any(Function),
           name: 'signal_method',
           simpleValue: true
@@ -196,6 +205,17 @@ describe('<EditTemplate />', () => {
       });
       return [200, {}];
     });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, {
+        data: [
+          {
+            name: 'notification',
+            id: '123',
+            description: 'description'
+          }
+        ]
+      });
 
     let onCloseMock = jest.fn().mockImplementation(() =>
       Promise.resolve({
