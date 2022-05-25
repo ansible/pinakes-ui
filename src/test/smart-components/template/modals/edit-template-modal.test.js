@@ -89,6 +89,9 @@ describe('<EditTemplate />', () => {
       id: '123',
       description: 'description'
     });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     const expectedSchema = {
       fields: [
@@ -111,6 +114,20 @@ describe('<EditTemplate />', () => {
           name: 'description',
           id: 'template-description',
           label: 'Description'
+        },
+        {
+          component: 'select',
+          label: 'Process method',
+          loadOptions: expect.any(Function),
+          name: 'process_method',
+          simpleValue: true
+        },
+        {
+          component: 'select',
+          label: 'signalMethod',
+          loadOptions: expect.any(Function),
+          name: 'signal_method',
+          simpleValue: true
         }
       ]
     };
