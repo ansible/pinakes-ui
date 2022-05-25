@@ -13,6 +13,21 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
   );
 }
 
+export const fetchTemplatesOptions = (filterValue) => {
+  const filterQuery = `?search=${filterValue}`;
+  return getAxiosInstance()
+    .get(
+      `${APPROVAL_API_BASE}/templates/${
+        filterValue && filterValue.length > 0 ? filterQuery : ''
+      }`
+    )
+    .then(({ data }) =>
+      data && data.length > 0
+        ? data.map(({ id, title }) => ({ label: title, value: id }))
+        : undefined
+    );
+};
+
 export let fetchTemplate = (id) =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/${id}/`);
 

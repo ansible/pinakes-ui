@@ -11,7 +11,10 @@ import addWorkflowSchema from '../../forms/add-workflow.schema';
 import worfklowMessages from '../../messages/workflows.messages';
 import useQuery from '../../utilities/use-query';
 import useWorkflow from '../../utilities/use-workflows';
-import { fetchWorkflow } from '../../helpers/workflow/workflow-helper';
+import {
+  fetchWorkflow,
+  listTemplates
+} from '../../helpers/workflow/workflow-helper';
 import { WorkflowInfoFormLoader } from '../../presentational-components/shared/approval-loader-placeholders';
 import commonMessages from '../../messages/common.message';
 import FormTemplate from '@data-driven-forms/pf4-component-mapper/form-template';
@@ -53,21 +56,23 @@ const EditWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   ] = useReducer(reducer, { isLoading: true });
 
   useEffect(() => {
-    if (!loadedWorkflow) {
-      fetchWorkflow(id).then((data) =>
+    listTemplates().then((templates) => {
+      if (!loadedWorkflow) {
+        fetchWorkflow(id).then((data) =>
+          stateDispatch({
+            type: 'loaded',
+            initialValues: prepareInitialValues(data),
+            schema: addWorkflowSchema(intl, data.id, templates?.data)
+          })
+        );
+      } else {
         stateDispatch({
           type: 'loaded',
-          initialValues: prepareInitialValues(data),
-          schema: addWorkflowSchema(intl, data.id)
-        })
-      );
-    } else {
-      stateDispatch({
-        type: 'loaded',
-        initialValues: prepareInitialValues(loadedWorkflow),
-        schema: addWorkflowSchema(intl, loadedWorkflow.id)
-      });
-    }
+          initialValues: prepareInitialValues(loadedWorkflow),
+          schema: addWorkflowSchema(intl, loadedWorkflow.id, templates?.data)
+        });
+      }
+    });
   }, []);
 
   const onCancel = () => push(routes.workflows.index);
