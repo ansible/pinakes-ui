@@ -76,6 +76,21 @@ export const fetchNotificationTypes = (filterValue) => {
     );
 };
 
+export const fetchNotificationSettingsOptions = (filterValue) => {
+  const filterQuery = `?search=${filterValue}`;
+  return getAxiosInstance()
+    .get(
+      `${APPROVAL_API_BASE}/notifications_settings/${
+        filterValue && filterValue.length > 0 ? filterQuery : ''
+      }`
+    )
+    .then(({ data }) =>
+      data && data.length > 0
+        ? data.map(({ id, name }) => ({ label: name, value: id }))
+        : undefined
+    );
+};
+
 export const listNotificationTypes = (filterValue) => {
   const filterQuery = `?search=${filterValue}`;
   return getAxiosInstance().get(
