@@ -1,4 +1,4 @@
 import asyncDebounce from '../utilities/async-form-validator';
-import { fetchNotificationSettings } from '../helpers/notification/notification-helper';
+import { fetchNotificationSettingsOptions } from '../helpers/notification/notification-helper';
 
-export default asyncDebounce(fetchNotificationSettings);
+export default asyncDebounce(fetchNotificationSettingsOptions);
