@@ -105,7 +105,7 @@ const templateMessages = defineMessages({
   },
   signalMethod: {
     id: 'templateMessages.signalMethod',
-    defaultMessage: 'signalMethod'
+    defaultMessage: 'Signal method'
   }
 });
 

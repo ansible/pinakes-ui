@@ -5,7 +5,7 @@ import validatorTypes from '@data-driven-forms/react-form-renderer/validator-typ
 import loadNotificationSettingsOptions from './load-notification_settings-debounced';
 import templateMessages from '../messages/templates.messages';
 
-const addTemplateSchema = (intl, id = []) => {
+const addTemplateSchema = (intl, id) => {
   return {
     fields: [
       {
