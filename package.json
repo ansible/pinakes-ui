@@ -148,8 +148,8 @@
   "scripts": {
     "analyze": "NODE_ENV=production webpack --config config/prod.webpack.config.js --env.prod=true --env.analyze=true --mode production",
     "build": "NODE_ENV=production webpack --config config/prod.webpack.config.js --mode production",
-    "extract:messages": "npx @formatjs/cli extract 'src/**/!{*.d, *d.ts, *d.tsx}.{js,jsx,ts,tsx}' --ignore='src/test/' --out-file ./translations/messages.json",
-    "translations:compile": "npx formatjs compile ./translations/messages.json --out-file ./locales/translatedMessages.json",
+    "extract:messages": "npx @formatjs/cli extract 'src/**/!(*.d).{js,jsx,ts,tsx}' --ignore='**/*.d.ts' --out-file ./translations/messages.json",
+    "translations:compile": "node utilities/mergeMessages.js",
     "lint": "yarn lint:js && yarn lint:ts",
     "lint:sass": "stylelint 'src/**/*.scss' --config .stylelintrc.json",
     "lint:js": "yarn eslint ./src --ext .js",
