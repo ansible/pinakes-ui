@@ -259,6 +259,10 @@ describe('<Templates />', () => {
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store}>
@@ -340,6 +344,9 @@ describe('<Templates />', () => {
           results: []
         }
       });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
