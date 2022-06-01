@@ -7,6 +7,7 @@ import { translatedMessages } from '../../translatedMessages';
 
 const AppEntry = () => {
   console.log('%c Catalog UI started in standalone mode', 'color: blue');
+  console.log('navigator.language: ', navigator.language);
   localStorage.setItem('catalog_standalone', true);
   return (
     <Provider store={store(true)}>

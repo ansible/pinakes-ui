@@ -52,6 +52,7 @@ const mergedTranslations = globSync(`${rootFolder}${LANG_PATTERN}`)
     }
   })
   .reduce((acc, localeObj) => {
+    console.log('Debug - localeObj', localeObj);
     return { ...acc, ...localeObj };
   }, {});
 
@@ -59,17 +60,16 @@ const mergedTranslations = globSync(`${rootFolder}${LANG_PATTERN}`)
 // React components via the React Intl Babel plugin. An error will be thrown if
 // there are messages in different components that use the same `id`. The result
 // is a flat collection of `id: message` pairs for the app's default locale.
-
 const defaultMessages = globSync(`${rootFolder}${MESSAGES_PATTERN}`)
   .map((filename) => fs.readFileSync(filename, 'utf8'))
   .map((file) => JSON.parse(file))
   .reduce((collection, descriptors) => {
-    descriptors.forEach(({ id, defaultMessage }) => {
-      if (collection.hasOwnProperty(id)) {
-        throw new Error(`Duplicate message id: ${id}`);
+    Object.keys(descriptors).forEach((key) => {
+      if (collection.hasOwnProperty(key)) {
+        throw new Error(`Duplicate message id: ${key}`);
       }
 
-      collection[id] = defaultMessage;
+      collection[key] = descriptors[key].defaultMessage;
     });
     return collection;
   }, {});
