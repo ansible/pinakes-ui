@@ -64,6 +64,7 @@ const mergedTranslations = globSync(`${rootFolder}${LANG_PATTERN}`)
     }
   })
   .reduce((acc, localeObj) => {
+    console.log('Debug - localeObj', localeObj);
     return { ...acc, ...localeObj };
   }, {});
 
