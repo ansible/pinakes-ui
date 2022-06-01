@@ -45,7 +45,6 @@ export function addWorkflowToTemplate(templateId, workflow) {
 }
 
 export function addWorkflow(workflow) {
-  console.log('Debug - workflow: ', workflow);
   return addWorkflowToTemplate(workflow.template, workflow);
 }
 
