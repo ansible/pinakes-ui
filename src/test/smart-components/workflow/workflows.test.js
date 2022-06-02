@@ -226,7 +226,7 @@ describe('<Workflows />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/workflows/?&name=&page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -242,7 +242,7 @@ describe('<Workflows />', () => {
 
     // async name validator
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -258,6 +258,10 @@ describe('<Workflows />', () => {
     mockApi
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
 
     await act(async () => {
       wrapper = mount(
@@ -340,6 +344,9 @@ describe('<Workflows />', () => {
           results: []
         }
       });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({

@@ -45,16 +45,7 @@ export function addWorkflowToTemplate(templateId, workflow) {
 }
 
 export function addWorkflow(workflow) {
-  return listTemplates()
-    .then(({ data }) => {
-      // workaround for v1. Need to pass template ID with the workflow. Assigning to first template
-      if (!data[0]) {
-        throw new Error('No template exists');
-      }
-
-      return data[0].id;
-    })
-    .then((id) => addWorkflowToTemplate(id, workflow));
+  return addWorkflowToTemplate(workflow.template, workflow);
 }
 
 export function destroyWorkflow(workflowId) {

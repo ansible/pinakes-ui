@@ -52,20 +52,20 @@ describe('<AddWorkflow />', () => {
 
   it('should close the form', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
-      .replyOnce(200, { data: [{ uuid: 'id', name: 'name' }] });
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`
-      )
-      .replyOnce({ body: { results: [] } });
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`
-      )
-      .replyOnce({ body: { results: [] } });
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
 
-    jest.useFakeTimers();
+    mockApi
+      .onGet(`/api/pinakes/v1/templates/templateid/`)
+      .replyOnce(200, { id: 'templateid', title: 'template' });
+
+    mockApi.onGet(`/api/pinakes/v1/workflows/`).replyOnce(200, []);
+    mockApi
+      .onGet(`/api/pinakes/v1/workflows/?name=undefined`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     const store = mockStore(initialState);
 
@@ -77,14 +77,7 @@ describe('<AddWorkflow />', () => {
         />
       </ComponentWrapper>
     );
-
-    await act(async () => {
-      jest.advanceTimersByTime(550); // initial async validation
-    });
     wrapper.update();
-
-    jest.useRealTimers();
-
     await act(async () => {
       wrapper
         .find(Button)

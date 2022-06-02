@@ -226,7 +226,7 @@ describe('<Templates />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?&title=&page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -240,23 +240,12 @@ describe('<Templates />', () => {
         }
       });
 
-    // async name validator
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
-      .replyOnce({
-        body: {
-          data: [
-            {
-              id: 'edit-id',
-              name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }]
-            }
-          ]
-        }
-      });
-
     mockApi
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     mockApi
@@ -333,6 +322,9 @@ describe('<Templates />', () => {
 
   it('should render table empty state', async () => {
     mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+    mockApi
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
@@ -380,6 +372,10 @@ describe('<Templates />', () => {
       );
     });
     wrapper.update();
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
     mockApi
       .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce((req, res) => {
@@ -433,6 +429,9 @@ describe('<Templates />', () => {
   it('should select and deselect all templates', async () => {
     let wrapper;
     const store = mockStore(stateWithTemplates);
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
       .onGet(`/api/pinakes/v1/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
@@ -538,6 +537,9 @@ describe('<Templates />', () => {
       );
     });
     wrapper.update();
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
       .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
