@@ -8,7 +8,7 @@ const last = require('lodash/last');
 
 let MESSAGES_PATTERN = 'build/messages/**/*.json';
 let LANG_DIR = 'locales/';
-let LANG_PATTERN = '';
+let LANG_PATTERN = 'locales/**/messages.json';
 let IGNORED = ['translations', 'data'];
 
 program
@@ -37,22 +37,33 @@ if (program.langDir) {
 
 if (program.langPattern) {
   LANG_PATTERN = `${LANG_DIR}${program.langPattern}`;
-} else {
-  LANG_PATTERN = `${LANG_DIR}/*.json`;
 }
 
 // Merge translated json files (es.json, fr.json, etc) into one object
 // so that they can be merged with the eggregated 'en' object below
+const localeMessages = (filename) => {
+  const file = fs.readFileSync(filename, 'utf8');
+  const messages = JSON.parse(file);
+  let collection = {};
+  Object.keys(messages).forEach((key) => {
+    if (collection.hasOwnProperty(key)) {
+      throw new Error(`Duplicate message id: ${key}`);
+    }
+
+    collection[key] = messages[key].defaultMessage;
+  });
+  return collection;
+};
 
 const mergedTranslations = globSync(`${rootFolder}${LANG_PATTERN}`)
   .map((filename) => {
-    const locale = last(filename.split('/')).split('.json')[0];
-    if (!IGNORED.includes(locale)) {
-      return { [locale]: JSON.parse(fs.readFileSync(filename, 'utf8')) };
+    const locale = filename.split('/').reverse()[1];
+    const file = last(filename.split('/'));
+    if (!IGNORED.includes(file)) {
+      return { [locale]: localeMessages(filename) };
     }
   })
   .reduce((acc, localeObj) => {
-    console.log('Debug - localeObj', localeObj);
     return { ...acc, ...localeObj };
   }, {});
 
