@@ -43,10 +43,10 @@ import {
 import { Paths } from './constants/routes';
 import useFormatMessage from './utilities/use-format-message';
 import portfolioMessages from './messages/portfolio.messages';
-import productsMessages from './messages/products.messages';
-import platformsMessages from './messages/platforms.messages';
-import ordersMessages from './messages/orders.messages';
-import approvalMessages from './messages/approval.messages';
+import productsMessages from "./messages/products.messages";
+import platformsMessages from "./messages/platforms.messages";
+import ordersMessages from "./messages/orders.messages";
+import approvalMessages from "./messages/approval.messages";
 
 const App = (props) => {
   const [auth, setAuth] = useState(undefined);
