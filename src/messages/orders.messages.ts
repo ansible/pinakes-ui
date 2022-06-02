@@ -156,6 +156,10 @@ const ordersMessages = defineMessages({
   fetchingOrderProvision: {
     id: 'orders.provision.fetching-provision',
     defaultMessage: 'Retrieving order provisioning data'
+  },
+  title: {
+    id: 'orders.title',
+    defaultMessage: 'Orders'
   }
 });
 
