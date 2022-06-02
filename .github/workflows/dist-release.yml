@@ -35,6 +35,8 @@ jobs:
       - name: "Build a tar"
         run: |
           npm ci || npm install
+          npm run extract:messages
+          npm run translations:compile
           npm run build:standalone
           tar -C dist/ -czvf catalog-ui.tar.gz .
 
