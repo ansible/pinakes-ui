@@ -18,6 +18,7 @@
     "@redhat-cloud-services/frontend-components-notifications": "^3.2.5",
     "@redhat-cloud-services/frontend-components-utilities": "^3.2.16",
     "@redhat-cloud-services/rbac-client": "^1.0.93",
+    "@redhat-cloud-services/frontend-components-translations": "^3.2.4",
     "@types/react-truncate": "^2.3.4",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.21.1",
@@ -148,7 +149,8 @@
   "scripts": {
     "analyze": "NODE_ENV=production webpack --config config/prod.webpack.config.js --env.prod=true --env.analyze=true --mode production",
     "build": "NODE_ENV=production webpack --config config/prod.webpack.config.js --mode production",
-    "extract:messages": "npx @formatjs/cli extract 'src/**/!(*.d).{js,jsx,ts,tsx}' --ignore='src/test/' --out-file ./translations/messages.json",
+    "extract:messages": "npx @formatjs/cli extract 'src/**/!(*.d).{js,jsx,ts,tsx}' --ignore='**/*.d.ts' --out-file ./build/messages/messages.json",
+    "translations:compile": "node utilities/mergeMessages.js",
     "lint": "yarn lint:js && yarn lint:ts",
     "lint:sass": "stylelint 'src/**/*.scss' --config .stylelintrc.json",
     "lint:js": "yarn eslint ./src --ext .js",
