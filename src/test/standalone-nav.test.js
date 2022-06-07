@@ -67,7 +67,7 @@ describe('<App />', () => {
     });
 
     expect(wrapper.find(NotificationsPortal)).toHaveLength(1);
-    expect(wrapper.find('NavItem')).toHaveLength(5);
+    expect(wrapper.find('NavItem')).toHaveLength(4);
   });
 
   it('renders correctly as approval administrator role', async () => {
@@ -91,7 +91,7 @@ describe('<App />', () => {
     });
 
     expect(wrapper.find(NotificationsPortal)).toHaveLength(1);
-    expect(wrapper.find('NavItem')).toHaveLength(5);
+    expect(wrapper.find('NavItem')).toHaveLength(4);
   });
 
   it('renders correctly as catalog and approval administrator role', async () => {
@@ -116,7 +116,7 @@ describe('<App />', () => {
     });
 
     expect(wrapper.find(NotificationsPortal)).toHaveLength(1);
-    expect(wrapper.find('NavItem')).toHaveLength(6);
+    expect(wrapper.find('NavItem')).toHaveLength(5);
   });
 
   it('call loginUser with the next parameter', async () => {
