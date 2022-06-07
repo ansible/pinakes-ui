@@ -41,6 +41,12 @@ import {
   CATALOG_ADMIN_ROLE
 } from './utilities/constants';
 import { Paths } from './constants/routes';
+import useFormatMessage from './utilities/use-format-message';
+import portfolioMessages from './messages/portfolio.messages';
+import productsMessages from './messages/products.messages';
+import platformsMessages from './messages/platforms.messages';
+import ordersMessages from './messages/orders.messages';
+import approvalMessages from './messages/approval.messages';
 
 const App = (props) => {
   const [auth, setAuth] = useState(undefined);
@@ -49,6 +55,7 @@ const App = (props) => {
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
 
   const location = useLocation();
+  const formatMessage = useFormatMessage();
 
   const menu = () => {
     const menuItem = (name, options = {}) => {
@@ -61,21 +68,21 @@ const App = (props) => {
     const baseUrl = window.location.href.substr(0, index);
     let menu = [];
     [
-      menuItem('Products', {
+      menuItem(formatMessage(productsMessages.title), {
         url: `${baseUrl}/ui/catalog${Paths.products}`
       }),
-      menuItem('Portfolios', {
+      menuItem(formatMessage(portfolioMessages.portfoliosTitle), {
         url: `${baseUrl}/ui/catalog${Paths.portfolios}`
       }),
-      menuItem('Platforms', {
+      menuItem(formatMessage(platformsMessages.title), {
         url: `${baseUrl}/ui/catalog${Paths.platforms}`,
         condition: ({ user }) =>
           user?.roles ? user.roles.includes(CATALOG_ADMIN_ROLE) : false
       }),
-      menuItem('Orders', {
+      menuItem(formatMessage(ordersMessages.title), {
         url: `${baseUrl}/ui/catalog${Paths.orders}`
       }),
-      menuItem('Approval', {
+      menuItem(formatMessage(ordersMessages.menuApproval), {
         url: `${baseUrl}/ui/catalog${Paths.approval}`,
         condition: ({ user }) => {
           return user?.roles
@@ -83,11 +90,6 @@ const App = (props) => {
                 user.roles.includes(APPROVAL_APPROVER_ROLE)
             : false;
         }
-      }),
-      menuItem(`Documentation`, {
-        url:
-          'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/',
-        external: true
       })
     ].forEach((item) => {
       if (item !== null) {

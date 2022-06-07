@@ -428,6 +428,9 @@
   "orders.provision.no-items": {
     "defaultMessage": "Nous n’avons pas pu trouver de données d’exécution pour cette commande."
   },
+  "orders.title": {
+    "defaultMessage": "Commandes"
+  },
   "orders.toolbar.backLink": {
     "defaultMessage": "Retour à la commande"
   },
