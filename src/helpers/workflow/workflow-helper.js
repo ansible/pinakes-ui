@@ -7,7 +7,7 @@ export function fetchWorkflows(filter = '', pagination = defaultSettings) {
     pagination.limit,
     10
   )}&page=${pagination.offset || 1}`;
-  const filterQuery = `&name=${filter}`;
+  const filterQuery = `&search=${filter}`;
 
   return getAxiosInstance().get(
     `${APPROVAL_API_BASE}/workflows/?${filterQuery}${paginationQuery}`
@@ -18,7 +18,7 @@ export const fetchWorkflow = (id) =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/${id}/`);
 
 export let fetchWorkflowByName = (name) =>
-  getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/?name=${name}`);
+  getAxiosInstance().get(`${APPROVAL_API_BASE}/workflows/?search=${name}`);
 
 export function updateWorkflow(data) {
   return getAxiosInstance().patch(
