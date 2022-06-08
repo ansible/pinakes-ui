@@ -228,16 +228,14 @@ describe('<Templates />', () => {
     mockApi
       .onGet(`${APPROVAL_API_BASE}/templates/?&title=&page_size=50&page=1`)
       .replyOnce({
-        body: {
-          data: [
-            {
-              id: 'edit-id',
-              name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }],
-              group_names: ['group-name-1']
-            }
-          ]
-        }
+        data: [
+          {
+            id: 'edit-id',
+            name: 'foo',
+            group_refs: [{ name: 'group-1', uuid: 'some-uuid' }],
+            group_names: ['group-name-1']
+          }
+        ]
       });
 
     mockApi
