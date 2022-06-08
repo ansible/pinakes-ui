@@ -22,14 +22,14 @@ export let fetchWorkflowByName = (name) =>
 
 export function updateWorkflow(data) {
   return getAxiosInstance().patch(
-    `${APPROVAL_API_BASE}/workflows/${data.id}`,
+    `${APPROVAL_API_BASE}/workflows/${data.id}/`,
     data
   );
 }
 
 export function repositionWorkflow(data) {
   return getAxiosInstance().patch(
-    `${APPROVAL_API_BASE}/workflows/${data.id}`,
+    `${APPROVAL_API_BASE}/workflows/${data.id}/`,
     data.sequence
   );
 }
@@ -38,10 +38,7 @@ export const listTemplates = () =>
   getAxiosInstance().get(`${APPROVAL_API_BASE}/templates/`);
 
 export function addWorkflowToTemplate(templateId, workflow) {
-  return getAxiosInstance().post(
-    `${APPROVAL_API_BASE}/templates/${templateId}/workflows/`,
-    workflow
-  );
+  return getAxiosInstance().post(`${APPROVAL_API_BASE}/workflows/`, workflow);
 }
 
 export function addWorkflow(workflow) {
