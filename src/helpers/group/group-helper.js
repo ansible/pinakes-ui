@@ -5,7 +5,7 @@ export const fetchFilterApprovalGroups = (filterValue) => {
   const filterQuery = `&name=${filterValue}`;
   return getAxiosInstance()
     .get(
-      `${APPROVAL_API_BASE}/groups/?role=approval-approver${
+      `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin${
         filterValue && filterValue.length > 0 ? filterQuery : ''
       }`
     )
