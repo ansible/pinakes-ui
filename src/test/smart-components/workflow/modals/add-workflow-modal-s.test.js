@@ -87,7 +87,9 @@ describe('<AddWorkflow />', () => {
       .onGet(`/api/pinakes/v1/workflows/?name=undefined`)
       .replyOnce(200, {});
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     const store = mockStore(initialState);
@@ -170,7 +172,9 @@ describe('<AddWorkflow />', () => {
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     jest.useFakeTimers();
