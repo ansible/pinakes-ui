@@ -14,7 +14,7 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
 }
 
 export const fetchTemplatesOptions = (filterValue) => {
-  const filterQuery = `?search=${filterValue}`;
+  const filterQuery = `?name=${filterValue}`;
   return getAxiosInstance()
     .get(
       `${APPROVAL_API_BASE}/templates/${
