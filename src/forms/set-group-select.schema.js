@@ -11,7 +11,7 @@ const resolveNewGroupsProps = (props, _fieldApi, formOptions) => {
       props.loadOptions(...args).then((data) =>
         data.map((option) => ({
           ...option,
-          ...(initialGroups.find(({ value }) => value === option.value) // we have to disable options that are already in the chip group
+          ...(initialGroups.find(({ id }) => id === option.value) // we have to disable options that are already in the chip group
             ? { isDisabled: true }
             : {})
         }))
