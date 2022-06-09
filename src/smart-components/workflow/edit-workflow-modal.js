@@ -36,8 +36,8 @@ const reducer = (state, { type, initialValues, schema }) => {
 
 const prepareInitialValues = (wfData) => {
   const groupOptions = wfData.group_refs.map((group) => ({
-    label: group.name,
-    value: group.uuid
+    name: group.name,
+    id: group.uuid
   }));
   return { ...wfData, group_refs: [], current_groups: groupOptions };
 };
@@ -79,9 +79,15 @@ const EditWorkflow = ({ postMethod, pagination = defaultSettings }) => {
 
   const onSave = ({ group_refs = [], description = '', ...values }) => {
     onCancel();
-    const groups = values.current_groups
-      ? values.current_groups.concat(
-          group_refs?.filter((item) => values.current_groups.indexOf(item) < 0)
+    const currentGroups = values.current_groups
+      ? values.current_groups.map((group) => ({
+          label: group.name,
+          value: group.id
+        }))
+      : undefined;
+    const groups = currentGroups
+      ? currentGroups.concat(
+          group_refs?.filter((item) => currentGroups.indexOf(item) < 0)
         )
       : group_refs;
     const workflowData = {
