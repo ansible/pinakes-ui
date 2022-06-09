@@ -35,12 +35,10 @@ const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   });
 
   useEffect(() => {
-    listTemplates().then((data) =>
-      stateDispatch({
-        type: 'loaded',
-        schema: addWorkflowSchema(intl, data.data)
-      })
-    );
+    stateDispatch({
+      type: 'loaded',
+      schema: addWorkflowSchema(intl)
+    });
   }, []);
 
   const onSave = ({ group_refs = [], ...values }) => {
