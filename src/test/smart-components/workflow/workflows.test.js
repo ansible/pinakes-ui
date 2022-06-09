@@ -256,7 +256,9 @@ describe('<Workflows />', () => {
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     mockApi
@@ -333,7 +335,9 @@ describe('<Workflows />', () => {
 
   it('should render table empty state', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
       .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
@@ -435,7 +439,9 @@ describe('<Workflows />', () => {
     let wrapper;
     const store = mockStore(stateWithWorkflows);
     mockApi
-      .onGet(`/api/pinakes/v1/groups/?role=approval-approver`)
+      .onGet(
+        `/api/pinakes/v1/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     // Delete endpoints
     mockApi
@@ -540,7 +546,9 @@ describe('<Workflows />', () => {
     });
     wrapper.update();
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     await act(async () => {
       wrapper
