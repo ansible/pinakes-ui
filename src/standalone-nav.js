@@ -31,7 +31,7 @@ import { Fragment, useEffect, useState } from 'react';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import { getUser, loginUser, logoutUser } from './helpers/shared/active-user';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
 import {
@@ -55,7 +55,10 @@ const App = (props) => {
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
 
   const location = useLocation();
+  const history = useHistory();
   const formatMessage = useFormatMessage();
+  const index = window.location.href.indexOf(window.location.pathname);
+  const baseUrl = window.location.href.substr(0, index);
 
   const menu = () => {
     const menuItem = (name, options = {}) => {
@@ -64,8 +67,6 @@ const App = (props) => {
         : null;
     };
 
-    const index = window.location.href.indexOf(window.location.pathname);
-    const baseUrl = window.location.href.substr(0, index);
     let menu = [];
     [
       menuItem(formatMessage(productsMessages.title), {
@@ -158,7 +159,7 @@ const App = (props) => {
         onClick={() =>
           logoutUser().then(() => {
             setUser(null);
-            window.location.replace(window.location.href);
+            window.location.replace(`${baseUrl}/ui/catalog${Paths.portfolios}`);
           })
         }
       >
