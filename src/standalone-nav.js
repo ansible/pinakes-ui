@@ -38,7 +38,8 @@ import {
   APPLICATION_TITLE,
   APPROVAL_ADMIN_ROLE,
   APPROVAL_APPROVER_ROLE,
-  CATALOG_ADMIN_ROLE
+  CATALOG_ADMIN_ROLE,
+  CATALOG_UI_PREFIX
 } from './utilities/constants';
 import { Paths } from './constants/routes';
 import useFormatMessage from './utilities/use-format-message';
@@ -70,21 +71,21 @@ const App = (props) => {
     let menu = [];
     [
       menuItem(formatMessage(productsMessages.title), {
-        url: `${baseUrl}/ui/catalog${Paths.products}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}{Paths.products}`
       }),
       menuItem(formatMessage(portfolioMessages.portfoliosTitle), {
-        url: `${baseUrl}/ui/catalog${Paths.portfolios}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.portfolios}`
       }),
       menuItem(formatMessage(platformsMessages.title), {
-        url: `${baseUrl}/ui/catalog${Paths.platforms}`,
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.platforms}`,
         condition: ({ user }) =>
           user?.roles ? user.roles.includes(CATALOG_ADMIN_ROLE) : false
       }),
       menuItem(formatMessage(ordersMessages.title), {
-        url: `${baseUrl}/ui/catalog${Paths.orders}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.orders}`
       }),
       menuItem(formatMessage(ordersMessages.menuApproval), {
-        url: `${baseUrl}/ui/catalog${Paths.approval}`,
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.approval}`,
         condition: ({ user }) => {
           return user?.roles
             ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
@@ -159,7 +160,9 @@ const App = (props) => {
         onClick={() =>
           logoutUser().then(() => {
             setUser(null);
-            window.location.replace(`${baseUrl}/ui/catalog${Paths.portfolios}`);
+            window.location.replace(
+              `${baseUrl}${CATALOG_UI_PREFIX}${Paths.portfolios}`
+            );
           })
         }
       >
