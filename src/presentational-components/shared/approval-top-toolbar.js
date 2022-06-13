@@ -12,7 +12,7 @@ import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import ApprovalBreadcrumbs from './breadcrumbs';
 
 import './top-toolbar.scss';
-import PageHeaderTitle from "@redhat-cloud-services/frontend-components/PageHeader/PageHeaderTitle";
+import PageHeaderTitle from '@redhat-cloud-services/frontend-components/PageHeader/PageHeaderTitle';
 
 export const TopToolbar = ({ children, breadcrumbs }) => (
   <PageSection
