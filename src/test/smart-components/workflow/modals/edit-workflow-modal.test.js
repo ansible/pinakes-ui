@@ -137,7 +137,9 @@ describe('<EditWorkflow />', () => {
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     jest.useFakeTimers();
@@ -274,7 +276,9 @@ describe('<EditWorkflow />', () => {
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     wfHelper.fetchWorkflowByName = jest.fn().mockImplementation(() =>

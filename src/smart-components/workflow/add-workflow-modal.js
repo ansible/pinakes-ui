@@ -11,7 +11,6 @@ import FormRenderer from '../common/form-renderer';
 import addWorkflowSchema from '../../forms/add-workflow.schema';
 import formMessages from '../../messages/form.messages';
 import { defaultSettings } from '../../helpers/shared/approval-pagination';
-import { listTemplates } from '../../helpers/workflow/workflow-helper';
 
 const reducer = (state, { type }) => {
   switch (type) {
