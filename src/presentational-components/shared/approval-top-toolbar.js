@@ -12,6 +12,7 @@ import { ToolbarTitlePlaceholder } from './loader-placeholders';
 import ApprovalBreadcrumbs from './breadcrumbs';
 
 import './top-toolbar.scss';
+import PageHeaderTitle from '@redhat-cloud-services/frontend-components/PageHeader/PageHeaderTitle';
 
 export const TopToolbar = ({ children, breadcrumbs }) => (
   <PageSection
@@ -46,11 +47,7 @@ export const TopToolbarTitle = ({ title, description, children }) => (
   <Fragment>
     <Level>
       <LevelItem>
-        <TextContent className="pf-u-mb-sm">
-          <Text component={TextVariants.h1}>
-            {title || <ToolbarTitlePlaceholder />}
-          </Text>
-        </TextContent>
+        <PageHeaderTitle title={title} className="pf-u-m-0 pf-u-mr-md" />
         {description && (
           <TextContent className="pf-u-pt-sm pf-u-mb-md">
             <Text component={TextVariants.p}>{description}</Text>
