@@ -71,7 +71,9 @@ const PortfolioItems = ({
     'catalog:order_processes:link'
   ]);
   const dataSet = data ? data : results;
+  console.log('Debug - meta:', meta);
   const metaInfo = meta ? meta : { count, limit, offset };
+  console.log('Debug - metaInfo:', metaInfo);
 
   const userCapabilities = isStandalone()
     ? {
