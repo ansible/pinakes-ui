@@ -25,7 +25,7 @@ export const loadWorkflowOptions = (
 
   return getAxiosInstance()
     .get(
-      `${APPROVAL_API_BASE}/workflows?name=${filterValue}&${initialLookupQuery ||
+      `${APPROVAL_API_BASE}/workflows/?search=${filterValue}&${initialLookupQuery ||
         ''}`
     )
     .then(({ results }) =>
