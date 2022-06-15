@@ -40,7 +40,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
           }
         >
           <Component
-            className="sc-AxiKw drCTeX"
+            className="sc-dkzDqf itIVUG"
             isDisabled={false}
             to={
               Object {
@@ -51,7 +51,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
             }
           >
             <Link
-              className="sc-AxiKw drCTeX"
+              className="sc-dkzDqf itIVUG"
               to={
                 Object {
                   "hash": undefined,
@@ -61,12 +61,12 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               }
             >
               <LinkAnchor
-                className="sc-AxiKw drCTeX"
+                className="sc-dkzDqf itIVUG"
                 href="foo/bar"
                 navigate={[Function]}
               >
                 <a
-                  className="sc-AxiKw drCTeX"
+                  className="sc-dkzDqf itIVUG"
                   href="foo/bar"
                   onClick={[Function]}
                 >
@@ -84,14 +84,14 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                       variant="primary"
                     >
                       <Button
-                        className="sc-AxjAm jhCAUI"
+                        className="sc-bczRLJ dPWebf"
                         id="order-portfolio-item"
                         isDisabled={false}
                         ouiaId="order-portfolio-item"
                         variant="primary"
                       >
                         <ButtonBase
-                          className="sc-AxjAm jhCAUI"
+                          className="sc-bczRLJ dPWebf"
                           id="order-portfolio-item"
                           innerRef={null}
                           isDisabled={false}
@@ -101,7 +101,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                           <button
                             aria-disabled={false}
                             aria-label={null}
-                            className="pf-c-button pf-m-primary sc-AxjAm jhCAUI"
+                            className="pf-c-button pf-m-primary sc-bczRLJ dPWebf"
                             data-ouia-component-id="order-portfolio-item"
                             data-ouia-component-type="PF4/Button"
                             data-ouia-safe={true}
@@ -114,7 +114,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
                               showSpinner={false}
                             >
                               <span
-                                className="sc-AxirZ fnlrkz"
+                                className="sc-gsnTZi fKkzsV"
                               >
                                 Order
                               </span>
@@ -301,6 +301,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
               />,
             ]
           }
+          isFlipEnabled={false}
           isGrouped={false}
           isOpen={false}
           isPlain={true}

@@ -177,10 +177,13 @@ exports[`<ItemDetailInfoBar /> should render correctly 1`] = `
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                onPopperMouseEnter={[Function]}
+                onPopperMouseLeave={[Function]}
                 onTriggerEnter={[Function]}
                 placement="top"
                 popper={
                   <div
+                    aria-live="off"
                     className="pf-c-tooltip"
                     id="pf-tooltip-1"
                     role="tooltip"
@@ -387,10 +390,13 @@ exports[`<ItemDetailInfoBar /> should render correctly with fallback values with
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                onPopperMouseEnter={[Function]}
+                onPopperMouseLeave={[Function]}
                 onTriggerEnter={[Function]}
                 placement="top"
                 popper={
                   <div
+                    aria-live="off"
                     className="pf-c-tooltip"
                     id="pf-tooltip-2"
                     role="tooltip"
@@ -632,10 +638,13 @@ exports[`<ItemDetailInfoBar /> should render correctly with vendor 1`] = `
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                onPopperMouseEnter={[Function]}
+                onPopperMouseLeave={[Function]}
                 onTriggerEnter={[Function]}
                 placement="top"
                 popper={
                   <div
+                    aria-live="off"
                     className="pf-c-tooltip"
                     id="pf-tooltip-3"
                     role="tooltip"

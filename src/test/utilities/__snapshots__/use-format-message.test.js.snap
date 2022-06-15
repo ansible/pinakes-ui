@@ -23,6 +23,7 @@ exports[`useFormatMessage should assign values to message properly 1`] = `
     locale="en"
     messages={Object {}}
     onError={[Function]}
+    onWarn={[Function]}
     textComponent={Symbol(react.fragment)}
   >
     <HookedComponent
@@ -63,6 +64,7 @@ exports[`useFormatMessage should return fallback message if the message is not d
     locale="en"
     messages={Object {}}
     onError={[Function]}
+    onWarn={[Function]}
     textComponent={Symbol(react.fragment)}
   >
     <HookedComponent
@@ -96,6 +98,7 @@ exports[`useFormatMessage should return fallback message if the message is not d
     locale="en"
     messages={Object {}}
     onError={[Function]}
+    onWarn={[Function]}
     textComponent={Symbol(react.fragment)}
   >
     <HookedComponent
@@ -130,6 +133,7 @@ exports[`useFormatMessage should return translated simple message 1`] = `
     locale="en"
     messages={Object {}}
     onError={[Function]}
+    onWarn={[Function]}
     textComponent={Symbol(react.fragment)}
   >
     <HookedComponent
@@ -172,6 +176,7 @@ exports[`useFormatMessage should wrap rich text value to fragment to prevent mis
     locale="en"
     messages={Object {}}
     onError={[Function]}
+    onWarn={[Function]}
     textComponent={Symbol(react.fragment)}
   >
     <HookedComponent

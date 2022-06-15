@@ -45,7 +45,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
           key="card-prop-foo"
         >
           <div
-            className="sc-AxjAm hDziHm"
+            className="sc-bczRLJ kBMtkl"
           >
             Foo content
           </div>
@@ -90,10 +90,13 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
             onFocus={[Function]}
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
+            onPopperMouseEnter={[Function]}
+            onPopperMouseLeave={[Function]}
             onTriggerEnter={[Function]}
             placement="top"
             popper={
               <div
+                aria-live="off"
                 className="pf-c-tooltip"
                 id="pf-tooltip-1"
                 role="tooltip"
@@ -181,7 +184,7 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
           key="card-prop-bar"
         >
           <div
-            className="sc-AxjAm hDziHm"
+            className="sc-bczRLJ kBMtkl"
           >
             <h1>
               Bar content
@@ -230,10 +233,13 @@ exports[`<CardCommon /> should render correctly with content 1`] = `
             onFocus={[Function]}
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
+            onPopperMouseEnter={[Function]}
+            onPopperMouseLeave={[Function]}
             onTriggerEnter={[Function]}
             placement="top"
             popper={
               <div
+                aria-live="off"
                 className="pf-c-tooltip"
                 id="pf-tooltip-2"
                 role="tooltip"
