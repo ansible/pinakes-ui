@@ -1,6 +1,5 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
-import './Navigation.scss';
 import '@patternfly/patternfly/patternfly.scss';
 import {
   DropdownItem,
@@ -296,9 +295,8 @@ const App = (props) => {
   const sidebarNav = () => (
     <Fragment>
       <PageSidebar
-        theme="dark"
         nav={
-          <Nav theme="dark" onToggle={onToggle}>
+          <Nav onToggle={onToggle}>
             <NavList>
               <NavGroup title={APPLICATION_TITLE} />
               <Menu items={menu()} />
