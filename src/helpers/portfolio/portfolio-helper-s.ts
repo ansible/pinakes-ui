@@ -336,13 +336,18 @@ interface PortfolioReducerPlaceholder {
 export const getPortfolioFromState = (
   portfolioReducer: PortfolioReducerState,
   portfolioId: string
-): InternalPortfolio | undefined =>
-  portfolioReducer.selectedPortfolio &&
-  portfolioReducer.selectedPortfolio.id === portfolioId
+): InternalPortfolio | undefined => {
+  console.log(
+    'Debug getPortfolioFromState - portfolioReducer: ',
+    portfolioReducer
+  );
+  return portfolioReducer.selectedPortfolio &&
+    portfolioReducer.selectedPortfolio.id === portfolioId
     ? portfolioReducer.selectedPortfolio
     : portfolioReducer.portfolios?.results?.find(
         (portfolio) => String(portfolio.id) === portfolioId
       );
+};
 
 export const undeletePortfolio = (
   portfolioId: string,
