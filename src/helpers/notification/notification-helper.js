@@ -27,7 +27,7 @@ export let fetchNotificationSettingByName = (name) =>
 
 export function updateNotificationSetting(data) {
   return getAxiosInstance().patch(
-    `${APPROVAL_API_BASE}/notifications_settings/${data.id}`,
+    `${APPROVAL_API_BASE}/notifications_settings/${data.id}/`,
     data
   );
 }
