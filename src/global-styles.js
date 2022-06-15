@@ -9,6 +9,11 @@ const GlobalStyle = createGlobalStyle`
   pointer-events: none
 }
 
+h2.pf-c-nav__section-title {
+  font-size: 18px;
+  font-weight: var(--pf-global--FontWeight--semi-bold);
+}
+
 .font-14{
   font-size: 14px;
   color: var(--pf-global--Color--100);
