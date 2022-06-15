@@ -17,7 +17,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
       }
     >
       <Component
-        className="sc-AxjAm jfRa-DE"
+        className="sc-bczRLJ cyzZtv"
         to={
           Object {
             "hash": undefined,
@@ -27,7 +27,7 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
         }
       >
         <Link
-          className="sc-AxjAm jfRa-DE"
+          className="sc-bczRLJ cyzZtv"
           to={
             Object {
               "hash": undefined,
@@ -37,12 +37,12 @@ exports[`<ConditionalLink /> should render children wrapped in router Link compo
           }
         >
           <LinkAnchor
-            className="sc-AxjAm jfRa-DE"
+            className="sc-bczRLJ cyzZtv"
             href="/some/url"
             navigate={[Function]}
           >
             <a
-              className="sc-AxjAm jfRa-DE"
+              className="sc-bczRLJ cyzZtv"
               href="/some/url"
               onClick={[Function]}
             >

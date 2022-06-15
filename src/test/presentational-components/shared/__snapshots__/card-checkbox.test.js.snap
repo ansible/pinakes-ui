@@ -4,6 +4,7 @@ exports[`<CardCheckbox /> should render correctly 1`] = `
 <Checkbox
   aria-label="card checkbox"
   className=""
+  component="div"
   id="foo-id"
   isChecked={false}
   isDisabled={false}

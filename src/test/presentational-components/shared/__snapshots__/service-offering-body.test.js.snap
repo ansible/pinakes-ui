@@ -9,10 +9,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
 >
   <Styled(CardBody)>
     <CardBody
-      className="sc-AxheI jOYejY"
+      className="sc-gKXOVf isvGLF"
     >
       <div
-        className="pf-c-card__body sc-AxheI jOYejY"
+        className="pf-c-card__body sc-gKXOVf isvGLF"
       >
         <TextContent>
           <div
@@ -33,7 +33,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                 >
                   <styled.div>
                     <div
-                      className="sc-AxgMl ytwOc"
+                      className="sc-jSMfEi fESZaG"
                     >
                       Foo
                     </div>
@@ -89,7 +89,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                   key="card-prop-description"
                 >
                   <div
-                    className="sc-AxjAm hDziHm"
+                    className="sc-bczRLJ kBMtkl"
                   />
                 </styled.div>
               </span>
@@ -128,10 +128,13 @@ exports[`<ServiceOfferingCardBody /> should render correctly 1`] = `
                     onFocus={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    onPopperMouseEnter={[Function]}
+                    onPopperMouseLeave={[Function]}
                     onTriggerEnter={[Function]}
                     placement="top"
                     popper={
                       <div
+                        aria-live="off"
                         className="pf-c-tooltip"
                         id="pf-tooltip-1"
                         role="tooltip"
@@ -201,10 +204,10 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
 >
   <Styled(CardBody)>
     <CardBody
-      className="sc-AxheI jOYejY"
+      className="sc-gKXOVf isvGLF"
     >
       <div
-        className="pf-c-card__body sc-AxheI jOYejY"
+        className="pf-c-card__body sc-gKXOVf isvGLF"
       >
         <TextContent>
           <div
@@ -225,7 +228,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                 >
                   <styled.div>
                     <div
-                      className="sc-AxgMl ytwOc"
+                      className="sc-jSMfEi fESZaG"
                     >
                       Foo
                     </div>
@@ -271,7 +274,7 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                   key="card-prop-description"
                 >
                   <div
-                    className="sc-AxjAm hDziHm"
+                    className="sc-bczRLJ kBMtkl"
                   >
                     Bar
                   </div>
@@ -316,10 +319,13 @@ exports[`<ServiceOfferingCardBody /> should render correctly with alternative va
                     onFocus={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    onPopperMouseEnter={[Function]}
+                    onPopperMouseLeave={[Function]}
                     onTriggerEnter={[Function]}
                     placement="top"
                     popper={
                       <div
+                        aria-live="off"
                         className="pf-c-tooltip"
                         id="pf-tooltip-2"
                         role="tooltip"

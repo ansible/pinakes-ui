@@ -11,11 +11,11 @@ exports[`<PlatformCard /> should render correctly 1`] = `
         ouiaId="platform-Foo"
       >
         <Card
-          className="sc-AxheI ueGSf"
+          className="sc-gKXOVf dpDjnC"
           ouiaId="platform-Foo"
         >
           <article
-            className="pf-c-card sc-AxheI ueGSf"
+            className="pf-c-card sc-gKXOVf dpDjnC"
             data-ouia-component-id="platform-Foo"
             data-ouia-component-type="PF4/Card"
             data-ouia-safe={true}
@@ -27,17 +27,17 @@ exports[`<PlatformCard /> should render correctly 1`] = `
               >
                 <Styled(Level)>
                   <Level
-                    className="sc-AxiKw hSLCUF"
+                    className="sc-dkzDqf gQxYYg"
                   >
                     <div
-                      className="pf-l-level sc-AxiKw hSLCUF"
+                      className="pf-l-level sc-dkzDqf gQxYYg"
                     >
                       <Styled(LevelItem)>
                         <LevelItem
-                          className="sc-AxirZ dRDdDp"
+                          className="sc-gsnTZi kkgzEn"
                         >
                           <div
-                            className="sc-AxirZ dRDdDp"
+                            className="sc-gsnTZi kkgzEn"
                           >
                             <CardIcon
                               height={40}
@@ -47,7 +47,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                 height={40}
                               >
                                 <div
-                                  className="sc-fzokOt efqMbY"
+                                  className="sc-ksZaOG kyQRYf"
                                   height={40}
                                 >
                                   <IconPlaceholder
@@ -65,7 +65,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                       />
                                     </svg>
                                   </IconPlaceholder>
-                                  <Styled(t)
+                                  <Styled(c)
                                     delayTime={0}
                                     height={0}
                                     hidden={true}
@@ -73,10 +73,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                     onLoad={[Function]}
                                     threshold={2000}
                                   >
-                                    <t
+                                    <c
                                       afterLoad={[Function]}
                                       beforeLoad={[Function]}
-                                      className="sc-fznZeY ea-dOJy"
+                                      className="sc-breuTD hXWnqt"
                                       delayMethod="throttle"
                                       delayTime={0}
                                       effect=""
@@ -90,10 +90,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                       visibleByDefault={false}
                                       wrapperClassName=""
                                     >
-                                      <t
+                                      <u
                                         afterLoad={[Function]}
                                         beforeLoad={[Function]}
-                                        className="sc-fznZeY ea-dOJy"
+                                        className="sc-breuTD hXWnqt"
                                         delayMethod="throttle"
                                         delayTime={0}
                                         height={0}
@@ -102,15 +102,15 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                         visibleByDefault={false}
                                       >
                                         <img
-                                          className="sc-fznZeY ea-dOJy"
+                                          className="sc-breuTD hXWnqt"
                                           height={0}
                                           hidden={true}
                                           onError={[Function]}
                                           onLoad={[Function]}
                                         />
-                                      </t>
-                                    </t>
-                                  </Styled(t)>
+                                      </u>
+                                    </c>
+                                  </Styled(c)>
                                 </div>
                               </styled.div>
                             </CardIcon>
@@ -146,10 +146,13 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           onFocus={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
+                          onPopperMouseEnter={[Function]}
+                          onPopperMouseLeave={[Function]}
                           onTriggerEnter={[Function]}
                           placement="top"
                           popper={
                             <div
+                              aria-live="off"
                               className="pf-c-tooltip"
                               id="pf-tooltip-1"
                               role="tooltip"
@@ -274,10 +277,10 @@ exports[`<PlatformCard /> should render correctly 1`] = `
             </CardHeader>
             <Styled(CardBody)>
               <CardBody
-                className="sc-AxmLO fFTSWm"
+                className="sc-ftvSup fuRIVo"
               >
                 <div
-                  className="pf-c-card__body sc-AxmLO fFTSWm"
+                  className="pf-c-card__body sc-ftvSup fuRIVo"
                 >
                   <TextContent>
                     <div
@@ -301,7 +304,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                           }
                         >
                           <Component
-                            className="sc-AxhUy cYwveG"
+                            className="sc-eCYdqJ cMnjNY"
                             to={
                               Object {
                                 "hash": undefined,
@@ -311,7 +314,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             }
                           >
                             <Link
-                              className="sc-AxhUy cYwveG"
+                              className="sc-eCYdqJ cMnjNY"
                               to={
                                 Object {
                                   "hash": undefined,
@@ -321,12 +324,12 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               }
                             >
                               <LinkAnchor
-                                className="sc-AxhUy cYwveG"
+                                className="sc-eCYdqJ cMnjNY"
                                 href="/platforms/platform/platform-templates?platform=Foo"
                                 navigate={[Function]}
                               >
                                 <a
-                                  className="sc-AxhUy cYwveG"
+                                  className="sc-eCYdqJ cMnjNY"
                                   href="/platforms/platform/platform-templates?platform=Foo"
                                   onClick={[Function]}
                                 >
@@ -343,7 +346,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                                     >
                                       <styled.div>
                                         <div
-                                          className="sc-AxhCb hYKqDj"
+                                          className="sc-hKMtZM emGFBx"
                                         />
                                       </styled.div>
                                     </h3>
@@ -388,7 +391,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             key="card-prop-description"
                           >
                             <div
-                              className="sc-AxjAm hDziHm"
+                              className="sc-bczRLJ kBMtkl"
                             />
                           </styled.div>
                         </span>
@@ -427,10 +430,13 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               onFocus={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
+                              onPopperMouseEnter={[Function]}
+                              onPopperMouseLeave={[Function]}
                               onTriggerEnter={[Function]}
                               placement="top"
                               popper={
                                 <div
+                                  aria-live="off"
                                   className="pf-c-tooltip"
                                   id="pf-tooltip-2"
                                   role="tooltip"
@@ -510,7 +516,7 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                             key="card-prop-modified"
                           >
                             <div
-                              className="sc-AxjAm hDziHm"
+                              className="sc-bczRLJ kBMtkl"
                             />
                           </styled.div>
                         </span>
@@ -549,10 +555,13 @@ exports[`<PlatformCard /> should render correctly 1`] = `
                               onFocus={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
+                              onPopperMouseEnter={[Function]}
+                              onPopperMouseLeave={[Function]}
                               onTriggerEnter={[Function]}
                               placement="top"
                               popper={
                                 <div
+                                  aria-live="off"
                                   className="pf-c-tooltip"
                                   id="pf-tooltip-3"
                                   role="tooltip"

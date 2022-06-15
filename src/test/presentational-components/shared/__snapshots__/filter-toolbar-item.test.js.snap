@@ -11,7 +11,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
     >
       <styled.div>
         <div
-          className="sc-AxjAm dPyIza"
+          className="sc-bczRLJ dUJBqh"
         >
           <Styled(TextInput)
             aria-label="Foo"
@@ -23,7 +23,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
           >
             <TextInput
               aria-label="Foo"
-              className="sc-AxirZ hrVIZw"
+              className="sc-gsnTZi jrdznq"
               id="toolbar-filter"
               onChange={[MockFunction]}
               placeholder="Foo"
@@ -32,7 +32,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
             >
               <TextInputBase
                 aria-label="Foo"
-                className="sc-AxirZ hrVIZw"
+                className="sc-gsnTZi jrdznq"
                 id="toolbar-filter"
                 innerRef={null}
                 isDisabled={false}
@@ -50,7 +50,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                 <input
                   aria-invalid={false}
                   aria-label="Foo"
-                  className="pf-c-form-control sc-AxirZ hrVIZw"
+                  className="pf-c-form-control sc-gsnTZi jrdznq"
                   data-ouia-component-id="OUIA-Generated-TextInputBase-1"
                   data-ouia-component-type="PF4/TextInput"
                   data-ouia-safe={true}
@@ -70,11 +70,11 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
           </Styled(TextInput)>
           <styled.span>
             <span
-              className="sc-AxiKw dNVIvC"
+              className="sc-dkzDqf fOVlRT"
             >
               <Styled(SearchIcon)>
                 <SearchIcon
-                  className="sc-AxhUy fqUkKA"
+                  className="sc-eCYdqJ dmLlNi"
                   color="currentColor"
                   noVerticalAlign={false}
                   size="sm"
@@ -82,7 +82,7 @@ exports[`<FilterToolbarItem /> should render correcntly 1`] = `
                   <svg
                     aria-hidden={true}
                     aria-labelledby={null}
-                    className="sc-AxhUy fqUkKA"
+                    className="sc-eCYdqJ dmLlNi"
                     fill="currentColor"
                     height="1em"
                     role="img"
