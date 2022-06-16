@@ -199,8 +199,8 @@ const Portfolio = () => {
 
   useEffect(() => {
     if (
-      isMounted.current === true &&
-      !state.isFetching &&
+      isMounted?.current === true &&
+      !state?.isFetching &&
       history.location.pathname === PORTFOLIO_ROUTE
     ) {
       fetchData(id);
