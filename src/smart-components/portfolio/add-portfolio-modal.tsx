@@ -46,6 +46,7 @@ const AddPortfolioModal: React.ComponentType<AddPortfolioModalProps> = ({
     removeSearch: removeQuery,
     keepHash: true
   });
+  console.log('AddPortfolioModal: portfolio: ', portfolioId);
   const initialValues = useSelector<
     CatalogRootState,
     InternalPortfolio | undefined

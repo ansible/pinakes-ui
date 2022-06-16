@@ -70,7 +70,7 @@ const App = (props) => {
     let menu = [];
     [
       menuItem(formatMessage(productsMessages.title), {
-        url: `${baseUrl}${CATALOG_UI_PREFIX}{Paths.products}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.products}`
       }),
       menuItem(formatMessage(portfolioMessages.portfoliosTitle), {
         url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.portfolios}`

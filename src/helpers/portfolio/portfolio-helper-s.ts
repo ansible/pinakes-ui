@@ -338,7 +338,7 @@ export const getPortfolioFromState = (
   portfolioId: string
 ): InternalPortfolio | undefined => {
   console.log(
-    'Debug getPortfolioFromState - portfolioReducer: ',
+    'Debug getPortfolioFromState - portfolioId, portfolioReducer: ',
     portfolioReducer
   );
   return portfolioReducer.selectedPortfolio &&

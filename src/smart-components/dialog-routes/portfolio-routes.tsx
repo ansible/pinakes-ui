@@ -111,6 +111,9 @@ const PortfolioRoutes: React.ComponentType = () => {
       state?.portfolioReducer?.selectedPortfolio?.metadata?.user_capabilities,
     itemName: () => state?.portfolioReducer?.selectedPortfolio?.name
   }));
+
+  console.log('Debug - portfolioUserCapabilities: ', portfolioUserCapabilities);
+
   const [{ portfolio: id }, search] = useQuery(['portfolio']);
   const dispatch = useDispatch();
 
