@@ -282,6 +282,7 @@ export const removeProductsFromPortfolio = (
   dispatch({
     type: `${ActionTypes.REMOVE_PORTFOLIO_ITEMS}_PENDING`
   });
+
   const {
     portfolioReducer: {
       portfolioItems: { meta },
@@ -293,7 +294,7 @@ export const removeProductsFromPortfolio = (
       dispatch(
         fetchPortfolioItemsWithPortfolio(portfolioId!, {
           offset: 0,
-          limit: meta.limit,
+          limit: meta?.limit || defaultSettings.limit,
           filter: ''
         })
       ).then(() => data)
