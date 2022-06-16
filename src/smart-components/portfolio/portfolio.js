@@ -33,6 +33,7 @@ import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { toolbarComponentTypes } from '../../toolbar/toolbar-mapper';
 import BackToProducts from '../../presentational-components/portfolio/back-to-products';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 /**
  * Fake the toolbar until the chunk is loaded
@@ -138,17 +139,12 @@ const Portfolio = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isMounted = useIsMounted();
-  const { portfolio, portfolioItem, meta } = useSelector(
+  const { portfolio, portfolioItem } = useSelector(
     ({
-      portfolioReducer: {
-        selectedPortfolio,
-        portfolioItem,
-        portfolioItems: { meta }
-      }
+      portfolioReducer: { selectedPortfolio, portfolioItem, portfolioItems }
     }) => ({
       portfolio: selectedPortfolio,
-      portfolioItem,
-      meta
+      portfolioItem
     })
   );
 
@@ -199,7 +195,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     if (
-      isMounted?.current === true &&
+      isMounted.current === true &&
       !state?.isFetching &&
       history.location.pathname === PORTFOLIO_ROUTE
     ) {
@@ -253,13 +249,14 @@ const Portfolio = () => {
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
       {
-        ...meta,
+        limit: defaultSettings.limit,
         offset: 0,
         filter
       }
     );
   };
 
+  console.log(`Debug routes url: `, url);
   const routes = {
     portfolioRoute: url,
     addProductsRoute: `${url}/add-products`,
@@ -269,6 +266,8 @@ const Portfolio = () => {
     workflowPortfolioRoute: `${url}/edit-workflow`,
     portfolioItemRoute: `${url}/portfolio-item`
   };
+
+  console.log(`Debug portfolio: `, portfolio);
 
   if (portfolio.metadata?.user_capabilities?.show === false) {
     return <UnauthorizedRedirect />;
