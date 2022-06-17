@@ -1,5 +1,5 @@
 # Change Directory to clones
-cd _clones/pinakes_ui/
+cd _clones/pinakes-ui/
 
 # Extract UI Strings
 npm run extract:messages
