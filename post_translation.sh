@@ -36,4 +36,4 @@ pinakes_ui_path="pinakes/locales" # locale will be dropped here
 rsync -av locales/ $pinakes_api_path
 
 rm -rf translations/
-rm -rf locales/
+# rm -rf locales/
