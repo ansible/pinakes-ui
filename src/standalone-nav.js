@@ -307,6 +307,7 @@ const App = (props) => {
     </Fragment>
   );
 
+  console.log('Debug - userRoles: ', user?.roles);
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
       <Page
@@ -318,8 +319,6 @@ const App = (props) => {
         {aboutModalVisible && aboutModal()}
         <UserContext.Provider
           value={{
-            permissions: [{ permission: 'catalog:portfolios:create' }],
-            userIdentity: { identity: { user: { is_org_admin: true } } },
             userRoles: user?.roles,
             standalone: true
           }}
