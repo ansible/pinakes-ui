@@ -41,7 +41,6 @@ import BackToProducts from '../../../presentational-components/portfolio/back-to
 import useFormatMessage from '../../../utilities/use-format-message';
 import { hasPermission, isStandalone } from '../../../helpers/shared/helpers';
 import UserContext from '../../../user-context';
-import { USER_CAPABILITIES_PLACEHOLDER } from '../../../utilities/constants';
 
 const SurveyEditor = lazy(() =>
   import(
@@ -196,10 +195,7 @@ const PortfolioItemDetail = () => {
               isFetching={isFetching}
               availability={availability}
               userCapabilities={
-                isStandalone()
-                  ? USER_CAPABILITIES_PLACEHOLDER
-                  : portfolioItemData?.portfolioItem?.metadata
-                      ?.user_capabilities
+                portfolioItemData?.portfolioItem?.metadata?.user_capabilities
               }
               orderable={portfolioItemData?.portfolioItem.metadata?.orderable}
               canLinkOrderProcesses={canLinkOrderProcesses}

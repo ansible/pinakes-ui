@@ -21,7 +21,6 @@ import UserContext from '../../user-context';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import filteringMessages from '../../messages/filtering.messages';
-import { PLATFORMS_DOC_URL } from '../../utilities/constants';
 
 const Platforms = () => {
   const formatMessage = useFormatMessage();
@@ -84,9 +83,6 @@ const Platforms = () => {
       ) : (
         <Text id="platform_doc_url" component={TextVariants.p}>
           {formatMessage(platformsMessages.platformsNoDataDescription)} &nbsp;
-          <a href={PLATFORMS_DOC_URL} target="_blank" rel="noopener noreferrer">
-            {formatMessage(platformsMessages.platformsDocTitle)}
-          </a>
         </Text>
       ),
     Icon: filterValue && filterValue !== '' ? SearchIcon : CogIcon
