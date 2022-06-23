@@ -32,15 +32,23 @@ const addTemplateSchema = (intl, id) => {
         component: componentTypes.SELECT,
         label: intl.formatMessage(templateMessages.processMethod),
         name: 'process_method',
-        simpleValue: true,
-        loadOptions: loadNotificationSettingsOptions
+        loadOptions: loadNotificationSettingsOptions,
+        initialValue: undefined,
+        clearedValue: undefined,
+        isSearchable: true,
+        isClearable: true,
+        placeholder: intl.formatMessage(formMessages.selectPlaceholder)
       },
       {
         component: componentTypes.SELECT,
         label: intl.formatMessage(templateMessages.signalMethod),
         name: 'signal_method',
-        simpleValue: true,
-        loadOptions: loadNotificationSettingsOptions
+        loadOptions: loadNotificationSettingsOptions,
+        initialValue: undefined,
+        clearedValue: undefined,
+        isSearchable: true,
+        isClearable: true,
+        placeholder: intl.formatMessage(formMessages.selectPlaceholder)
       }
     ]
   };
