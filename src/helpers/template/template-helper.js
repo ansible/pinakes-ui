@@ -14,7 +14,7 @@ export function fetchTemplates(filter = '', pagination = defaultSettings) {
 }
 
 export const fetchTemplatesOptions = (filterValue) => {
-  const filterQuery = `?name=${filterValue}`;
+  const filterQuery = `?search=${filterValue}`;
   return getAxiosInstance()
     .get(
       `${APPROVAL_API_BASE}/templates/${
@@ -24,7 +24,7 @@ export const fetchTemplatesOptions = (filterValue) => {
     .then(({ data }) =>
       data && data.length > 0
         ? data.map(({ id, title }) => ({ label: title, value: id }))
-        : undefined
+        : []
     );
 };
 
