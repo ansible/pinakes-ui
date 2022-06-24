@@ -10,13 +10,7 @@ const setTemplateSelectSchema = (intl) => ({
   isSearchable: true,
   isRequired: true,
   loadOptions: loadTemplatesOptions,
-  validate: [
-    (value) => {
-      console.log('Debug - value', value);
-      return value?.value !== 'none' && value?.choose !== 'choose';
-    },
-    { type: validatorTypes.REQUIRED }
-  ]
+  validate: [{ type: validatorTypes.REQUIRED }]
 });
 
 export default setTemplateSelectSchema;

@@ -77,7 +77,7 @@ const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
           <FormTemplate
             {...props}
             buttonClassName="pf-u-mt-0"
-            disableSubmit={['validating', 'pristine']}
+            disableSubmit={['validating', 'pristine', 'invalid']}
           />
         )}
       />
