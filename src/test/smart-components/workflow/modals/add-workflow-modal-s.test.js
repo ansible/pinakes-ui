@@ -260,6 +260,7 @@ describe('<AddWorkflow />', () => {
     expect(wfHelper.addWorkflow).toHaveBeenCalledWith({
       name: 'some-name',
       description: 'some-description',
+      template: 'id',
       group_refs: []
     });
 
