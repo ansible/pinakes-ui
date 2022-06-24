@@ -136,18 +136,20 @@ describe('<AddWorkflow />', () => {
         }
       ]
     });
-    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?&name=Foo`).replyOnce(200, {
-      name: 'Foo',
-      id: '123',
-      template: 'templateid',
-      description: 'description',
-      group_refs: [
-        {
-          uuid: '123',
-          name: 'SampleWorkflow'
-        }
-      ]
-    });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/?&search=Foo`)
+      .replyOnce(200, {
+        name: 'Foo',
+        id: '123',
+        template: 'templateid',
+        description: 'description',
+        group_refs: [
+          {
+            uuid: '123',
+            name: 'SampleWorkflow'
+          }
+        ]
+      });
     mockApi
       .onGet(`${APPROVAL_API_BASE}/templates/`)
       .replyOnce(200, { data: [{ id: 'templateid', title: 'name' }] });
@@ -229,6 +231,20 @@ describe('<AddWorkflow />', () => {
       description.simulate('change');
     });
     wrapper.update();
+
+    await act(async () => {
+      wrapper
+        .find('input')
+        .at(1)
+        .simulate('click');
+    });
+    wrapper.update();
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
+    });
 
     wfHelper.addWorkflow = jest
       .fn()
