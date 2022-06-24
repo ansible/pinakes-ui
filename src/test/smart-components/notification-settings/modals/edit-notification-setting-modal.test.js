@@ -117,8 +117,7 @@ describe('<EditNotificationSetting />', () => {
           component: 'select',
           label: 'Notification type',
           loadOptions: expect.any(Function),
-          name: 'notification_type',
-          simpleValue: true
+          name: 'notification_type'
         },
         {
           component: 'sub-form',
