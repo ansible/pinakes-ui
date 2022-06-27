@@ -7,10 +7,10 @@ mv translations/zh_cn translations/zh
 
 # Create a directory for api (locale)
 # rm -rf locale
-mkdir locales
+# mkdir locales
 
 # Copy all subdirectories to locale
-cp -r translations/ locales/
+# cp -r translations/ locales/
 
 # Loop over each directory and create another directory LC_Messages
 # Move django.po files to LC_Messages and remove messages.po
@@ -31,9 +31,9 @@ cp -r translations/ locales/
 
 # cd _clones/
 
-pinakes_ui_path="pinakes/locales" # locale will be dropped here
+pinakes_ui_path="locales" # locale will be dropped here
 
-rsync -av locales/ $pinakes_api_path
+rsync -av translations/ $pinakes_api_path
 
 rm -rf translations/
 # rm -rf locales/
