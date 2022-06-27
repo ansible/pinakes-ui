@@ -35,7 +35,6 @@ const reducer = (state, { type, initialValues, schema }) => {
 };
 
 const prepareInitialValues = (tData) => {
-  console.log('Debug - prepareInitialValues: ', tData);
   return { ...tData, ...tData.settings };
 };
 

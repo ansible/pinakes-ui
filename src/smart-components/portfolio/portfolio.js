@@ -256,7 +256,6 @@ const Portfolio = () => {
     );
   };
 
-  console.log(`Debug routes url: `, url);
   const routes = {
     portfolioRoute: url,
     addProductsRoute: `${url}/add-products`,
@@ -266,8 +265,6 @@ const Portfolio = () => {
     workflowPortfolioRoute: `${url}/edit-workflow`,
     portfolioItemRoute: `${url}/portfolio-item`
   };
-
-  console.log(`Debug portfolio: `, portfolio);
 
   if (portfolio.metadata?.user_capabilities?.show === false) {
     return <UnauthorizedRedirect />;
