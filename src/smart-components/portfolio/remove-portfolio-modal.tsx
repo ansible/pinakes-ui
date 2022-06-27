@@ -62,7 +62,6 @@ const RemovePortfolioModal: React.ComponentType<RemovePortfolioModalProps> = ({
     return null;
   }
 
-  console.log('Debug - RemovePortfolioModal - portfolio', portfolio);
   const destroy = portfolio.metadata?.user_capabilities?.destroy;
 
   return destroy === false ? (
