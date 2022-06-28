@@ -79,12 +79,17 @@ const EditNotificationSetting = ({
 
   const onCancel = () => push(routes.notifications.index);
 
-  const onSave = ({ description = '', ...values }) => {
+  const onSave = (values) => {
     onCancel();
+    const { id, name, notification_type, settings, ...newSettings } = {
+      ...values
+    };
+
     const notificationSettingData = {
       id,
-      ...values,
-      description
+      name,
+      notification_type,
+      settings: newSettings
     };
     return dispatch(updateNotificationSetting(notificationSettingData, intl))
       .then(() => postMethod({ ...pagination }))
