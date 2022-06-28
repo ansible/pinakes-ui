@@ -40,7 +40,6 @@ const addNotificationInfoSchema = (intl) => [
     component: componentTypes.SELECT,
     label: intl.formatMessage(notificationMessages.type),
     name: 'notification_type',
-    simpleValue: true,
     loadOptions: loadNotificationTypesOptions
   }
 ];
@@ -88,7 +87,6 @@ export const editNotificationSchema = (
         component: componentTypes.SELECT,
         label: intl.formatMessage(notificationMessages.type),
         name: 'notification_type',
-        simpleValue: true,
         loadOptions: loadNotificationTypesOptions
       },
       {

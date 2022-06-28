@@ -6,11 +6,10 @@ export function fetchNotificationSettings(
   filter = '',
   pagination = defaultSettings
 ) {
-  const paginationQuery = `&page_size=${Math.max(
-    pagination.limit,
-    10
-  )}&page=${pagination.offset || 1}`;
-  const filterQuery = `&name=${filter}`;
+  const paginationQuery = `&page_size=${
+    pagination.limit
+  }&page=${pagination.offset || 1}`;
+  const filterQuery = `&search=${filter}`;
 
   return getAxiosInstance().get(
     `${APPROVAL_API_BASE}/notifications_settings/?${filterQuery}${paginationQuery}`
@@ -87,7 +86,7 @@ export const fetchNotificationSettingsOptions = (filterValue) => {
     .then(({ data }) =>
       data && data.length > 0
         ? data.map(({ id, name }) => ({ label: name, value: id }))
-        : undefined
+        : []
     );
 };
 

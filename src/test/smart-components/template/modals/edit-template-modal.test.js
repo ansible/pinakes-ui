@@ -130,14 +130,18 @@ describe('<EditTemplate />', () => {
           label: 'Process method',
           loadOptions: expect.any(Function),
           name: 'process_method',
-          simpleValue: true
+          isClearable: true,
+          isSearchable: true,
+          placeholder: 'Select...'
         },
         {
           component: 'select',
           label: 'Signal method',
           loadOptions: expect.any(Function),
+          isClearable: true,
+          isSearchable: true,
           name: 'signal_method',
-          simpleValue: true
+          placeholder: 'Select...'
         }
       ]
     };
