@@ -33,7 +33,7 @@ mv translations/zh_cn translations/zh
 
 pinakes_ui_path="locales" # locale will be dropped here
 
-rsync -av translations/ $pinakes_api_path
+rsync -av translations/ $pinakes_ui_path
 
 rm -rf translations/
 # rm -rf locales/
