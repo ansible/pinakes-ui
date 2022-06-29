@@ -3,7 +3,7 @@ import React, { useState, Fragment } from 'react';
 import { ActionGroup, Button } from '@patternfly/react-core';
 import { useDispatch } from 'react-redux';
 
-import { cancelOrder } from '../../../redux/actions/order-actions';
+import { cancelOrder } from '../../../redux/actions/order-actions-s';
 import CancelOrderModal from '../cancel-order-modal';
 import ordersMessages from '../../../messages/orders.messages';
 import useFormatMessage from '../../../utilities/use-format-message';
