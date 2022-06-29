@@ -135,7 +135,7 @@ describe('<EditNotificationSetting />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/notifications?notificationSetting=123']}
+          initialEntries={['/notifications/?notificationSetting=123']}
         >
           <Route
             path="/notifications"
@@ -205,7 +205,7 @@ describe('<EditNotificationSetting />', () => {
       wrapper = mount(
         <ComponentWrapper
           store={store}
-          initialEntries={['/notification-setting?notificationSetting=123']}
+          initialEntries={['/notification-setting/?notificationSetting=123']}
         >
           <Route
             path="/notification-setting"
