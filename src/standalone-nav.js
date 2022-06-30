@@ -306,7 +306,6 @@ const App = (props) => {
     </Fragment>
   );
 
-  console.log('Debug - userRoles: ', user?.roles);
   return (
     <div id="app-render-root" className="pf-c-drawer__content">
       <Page
