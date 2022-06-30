@@ -36,6 +36,7 @@ import filteringMessages from '../../messages/filtering.messages';
 import productsMessages from '../../messages/products.messages';
 import platformsMessages from '../../messages/platforms.messages';
 import useFormatMessage from '../../utilities/use-format-message';
+import { CATALOG_ADMIN_ROLE } from '../../utilities/constants';
 
 const debouncedFilter = asyncFormValidator(
   (value, dispatch, filteringCallback) => {
@@ -99,13 +100,7 @@ const Products = () => {
       filterValue: viewState?.products?.filter || ''
     }
   );
-  const {
-    userIdentity: {
-      identity: {
-        user: { is_org_admin }
-      }
-    }
-  } = useContext(UserContext);
+  const { userRoles: userRoles } = useContext(UserContext);
   const dispatch = useDispatch();
   const products = useSelector(
     ({ portfolioReducer: { portfolioItems } }) => portfolioItems
@@ -148,7 +143,7 @@ const Products = () => {
   ));
 
   const SourcesAction = () =>
-    is_org_admin && (
+    userRoles?.includes(CATALOG_ADMIN_ROLE) && (
       <a href={`${release}settings/sources/new`}>
         <Button ouiaId={'add-source'} variant="primary">
           {formatMessage(productsMessages.addSource)}
@@ -174,7 +169,7 @@ const Products = () => {
             ? formatMessage(productsMessages.configureSource)
             : formatMessage(filteringMessages.noResultsDescription)}
         </Text>
-        {is_org_admin ? (
+        {userRoles?.includes(CATALOG_ADMIN_ROLE) ? (
           <Text component={TextVariants.p}>
             {formatMessage(platformsMessages.connectSource, {
               // eslint-disable-next-line react/display-name
