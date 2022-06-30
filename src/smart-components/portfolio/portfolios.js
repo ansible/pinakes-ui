@@ -42,6 +42,7 @@ import TopToolbar, {
   TopToolbarTitle
 } from '../../presentational-components/shared/top-toolbar';
 import useFormatMessage from '../../utilities/use-format-message';
+import { CATALOG_ADMIN_ROLE } from '../../utilities/constants';
 
 const debouncedFilter = asyncFormValidator(
   (filters, meta = defaultSettings, dispatch, filteringCallback) => {
@@ -131,7 +132,9 @@ const Portfolios = () => {
   const dispatch = useDispatch();
   const { permissions: userPermissions } = useContext(UserContext);
   const history = useHistory();
+  const { userRoles: userRoles } = useContext(UserContext);
 
+  console.log('Debug - Portfolios - userRoles: ', userRoles);
   useEffect(() => {
     dispatch(
       isStandalone()
@@ -164,9 +167,8 @@ const Portfolios = () => {
         })
     );
 
-  const canCreate = hasPermission(userPermissions, [
-    'catalog:portfolios:create'
-  ]);
+  const canCreate = userRoles && userRoles.includes(CATALOG_ADMIN_ROLE);
+  console.log('Debug - canCreate: ', canCreate);
 
   const canLinkOrderProcesses = hasPermission(userPermissions, [
     'catalog:order_processes:link'
@@ -177,7 +179,7 @@ const Portfolios = () => {
       url={ADD_PORTFOLIO_ROUTE}
       id="create-portfolio"
       label="Create"
-      hasPermission={canCreate}
+      hasPermission={userRoles?.includes(CATALOG_ADMIN_ROLE)}
     />
   );
   const FilterAction = () => (
