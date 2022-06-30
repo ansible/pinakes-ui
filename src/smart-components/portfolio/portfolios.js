@@ -134,7 +134,6 @@ const Portfolios = () => {
   const history = useHistory();
   const { userRoles: userRoles } = useContext(UserContext);
 
-  console.log('Debug - Portfolios - userRoles: ', userRoles);
   useEffect(() => {
     dispatch(
       isStandalone()
@@ -168,7 +167,6 @@ const Portfolios = () => {
     );
 
   const canCreate = userRoles && userRoles.includes(CATALOG_ADMIN_ROLE);
-  console.log('Debug - canCreate: ', canCreate);
 
   const canLinkOrderProcesses = hasPermission(userPermissions, [
     'catalog:order_processes:link'
