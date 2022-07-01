@@ -15,7 +15,10 @@ export const validateName = (
     }
 
     const conflict = data.find(
-      (portfolio) => portfolio.name === name && portfolio.id !== portfolioId
+      (portfolio) =>
+        portfolio.name === name &&
+        portfolio.id &&
+        portfolio.id.toString() !== portfolioId
     );
     if (conflict) {
       throw 'Name has already been taken';

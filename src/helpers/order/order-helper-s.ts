@@ -88,7 +88,7 @@ export const sendSubmitOrder = async (
 };
 
 export const cancelOrder = (orderId: string): AxiosPromise<Order> =>
-  axiosInstance.post(`${CATALOG_API_BASE}/orders/${orderId}/cancel/`);
+  axiosInstance.patch(`${CATALOG_API_BASE}/orders/${orderId}/cancel/`);
 
 export const getOrders = (
   filter = '',
