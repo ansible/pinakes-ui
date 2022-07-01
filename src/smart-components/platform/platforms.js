@@ -32,13 +32,6 @@ const Platforms = () => {
     })
   );
   const dispatch = useDispatch();
-  const {
-    userIdentity: {
-      identity: {
-        user: { is_org_admin }
-      }
-    }
-  } = useContext(UserContext);
 
   useEffect(() => {
     dispatch(isStandalone() ? fetchPlatformsS() : fetchPlatforms());
