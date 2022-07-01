@@ -152,10 +152,12 @@ describe('<Portfolios />', () => {
     await act(async () => {
       wrapper = mount(
         <ComponentWrapper store={store} initialEntries={['/portfolios']}>
-          <Route
-            path="/portfolios"
-            render={(args) => <Portfolios {...initialProps} {...args} />}
-          />
+          <UserContext.Provider value={{ userRoles: ['catalog-admin'] }}>
+            <Route
+              path="/portfolios"
+              render={(args) => <Portfolios {...initialProps} {...args} />}
+            />
+          </UserContext.Provider>
         </ComponentWrapper>
       );
     });
@@ -225,7 +227,7 @@ describe('<Portfolios />', () => {
     spy.mockRestore();
   });
 
-  it('should show create button when the user does have "catalog:portfolios:create" permission', async () => {
+  it('should show create button when the user has catalog-admin role', async () => {
     const spy = jest
       .spyOn(PortfolioActions, 'fetchPortfoliosWithState')
       .mockReturnValue({
@@ -237,14 +239,12 @@ describe('<Portfolios />', () => {
     let wrapper;
     await act(async () => {
       wrapper = mount(
-        <ComponentWrapper
-          permissions={[{ permission: 'catalog:portfolios:create' }]}
-          store={store}
-          initialEntries={['/portfolios']}
-        >
-          <Route exact path="/portfolios">
-            <Portfolios {...initialProps} />
-          </Route>
+        <ComponentWrapper store={store} initialEntries={['/portfolios']}>
+          <UserContext.Provider value={{ userRoles: ['catalog-admin'] }}>
+            <Route exact path="/portfolios">
+              <Portfolios {...initialProps} />
+            </Route>
+          </UserContext.Provider>
         </ComponentWrapper>
       );
     });
