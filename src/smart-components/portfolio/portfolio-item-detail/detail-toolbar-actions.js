@@ -64,7 +64,7 @@ const DetailToolbarActions = ({
     );
   }
 
-  if (userCapabilities?.set_approval) {
+  if (userCapabilities?.tags) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Set approval"
@@ -173,7 +173,7 @@ DetailToolbarActions.propTypes = {
   userCapabilities: PropTypes.shape({
     update: PropTypes.bool,
     copy: PropTypes.bool,
-    set_approval: PropTypes.bool
+    tags: PropTypes.bool
   }).isRequired,
   canLinkOrderProcesses: PropTypes.bool
 };
