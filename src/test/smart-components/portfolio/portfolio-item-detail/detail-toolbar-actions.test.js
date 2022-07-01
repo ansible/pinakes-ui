@@ -9,7 +9,7 @@ import { Dropdown } from '@patternfly/react-core';
 const prepareTruthyCapability = (truthyCapability) => ({
   copy: false,
   update: false,
-  set_approval: false,
+  tags: false,
   ...(truthyCapability
     ? {
         [truthyCapability]: true
@@ -34,7 +34,7 @@ describe('<DetailToolbarActions />', () => {
       userCapabilities: {
         copy: true,
         update: true,
-        set_approval: true
+        tags: true
       },
       canLinkOrderProcesses: true
     };
@@ -117,7 +117,7 @@ describe('<DetailToolbarActions />', () => {
         <DetailToolbarActions
           {...initialProps}
           isOpen
-          userCapabilities={prepareTruthyCapability('set_approval')}
+          userCapabilities={prepareTruthyCapability('tags')}
         />
       </MemoryRouter>
     );

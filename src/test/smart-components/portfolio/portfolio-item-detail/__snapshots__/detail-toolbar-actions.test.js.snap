@@ -16,7 +16,7 @@ exports[`<DetailToolbarActions /> should render correctly 1`] = `
   userCapabilities={
     Object {
       "copy": true,
-      "set_approval": true,
+      "tags": true,
       "update": true,
     }
   }

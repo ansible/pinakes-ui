@@ -162,7 +162,7 @@ describe('<EditApprovalWorkflow />', () => {
     const store = mockStore(initialState);
     mockApi
       .onGet(
-        `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
       )
       .reply(200, {
         results: [
