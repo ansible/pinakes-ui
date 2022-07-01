@@ -83,7 +83,7 @@ export interface UserCapabilities {
   unshare?: boolean;
   update?: boolean;
   destroy?: boolean;
-  set_approval?: boolean;
+  tags?: boolean;
 }
 
 export interface PortfolioStatistics {

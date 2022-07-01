@@ -34,7 +34,7 @@ describe('Portfolio share and workflow setting integration', () => {
           destroy: true,
           share: true,
           unshare: true,
-          set_approval: true
+          tags: true
         },
         statistics: {}
       }

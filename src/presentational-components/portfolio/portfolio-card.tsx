@@ -53,7 +53,7 @@ const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
   portfolioId,
   handleCopyPortfolio,
   canLinkOrderProcesses,
-  userCapabilities: { share, copy, unshare, update, destroy, set_approval }
+  userCapabilities: { share, copy, unshare, update, destroy, tags }
 }) => {
   const formatMessage = useFormatMessage();
   const [isOpen, setOpen] = useState(false);
@@ -88,7 +88,7 @@ const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
     );
   }
 
-  if (set_approval) {
+  if (tags) {
     dropdownItems.push(
       <DropdownItem
         key="workflow-portfolio-action"

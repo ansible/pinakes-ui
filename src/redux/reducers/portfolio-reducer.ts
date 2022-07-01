@@ -112,7 +112,7 @@ const setPortfolioItem: PortfolioReducerActionHandler = (
         user_capabilities: {
           show: true,
           update: true,
-          set_approval: true,
+          tags: true,
           share: true,
           unshare: true,
           untag: true,
