@@ -66,7 +66,7 @@ const PortfolioActionsToolbar = ({
     );
   }
 
-  if (userCapabilities?.set_approval) {
+  if (userCapabilities?.tags) {
     dropdownItems.push(
       <DropdownItem
         aria-label="Set approval workflow"
@@ -150,7 +150,7 @@ PortfolioActionsToolbar.propTypes = {
     copy: PropTypes.bool,
     update: PropTypes.bool,
     destroy: PropTypes.bool,
-    set_approval: PropTypes.bool
+    tags: PropTypes.bool
   }).isRequired,
   canLinkOrderProcesses: PropTypes.bool
 };

@@ -109,7 +109,7 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const porftolioUiReducer = (state, { type, payload = {} }) =>
+const portfolioUiReducer = (state, { type, payload = {} }) =>
   ({
     selectItem: {
       ...state,
@@ -129,7 +129,7 @@ const porftolioUiReducer = (state, { type, payload = {} }) =>
 
 const Portfolio = () => {
   const viewState = useInitialUriHash();
-  const [state, stateDispatch] = useReducer(porftolioUiReducer, {
+  const [state, stateDispatch] = useReducer(portfolioUiReducer, {
     ...initialState,
     filterValue: viewState?.portfolioItems?.filter || ''
   });
@@ -144,7 +144,8 @@ const Portfolio = () => {
       portfolioReducer: { selectedPortfolio, portfolioItem, portfolioItems }
     }) => ({
       portfolio: selectedPortfolio,
-      portfolioItem
+      portfolioItem,
+      portfolioItems
     })
   );
 

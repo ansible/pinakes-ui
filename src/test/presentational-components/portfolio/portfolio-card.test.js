@@ -21,7 +21,7 @@ const prepareTruthyCapability = (truthyCapability) => ({
     update: false,
     share: false,
     unshare: false,
-    set_approval: false,
+    tags: false,
     ...(truthyCapability
       ? {
           [truthyCapability]: true
@@ -51,7 +51,7 @@ describe('<PortfolioCard />', () => {
           update: true,
           share: true,
           unshare: true,
-          set_approval: true
+          tags: true
         },
         statistics: {}
       }
@@ -124,7 +124,7 @@ describe('<PortfolioCard />', () => {
       <MemoryRouter>
         <PortfolioCard
           {...initialProps}
-          metadata={prepareTruthyCapability('set_approval')}
+          metadata={prepareTruthyCapability('tags')}
         />
       </MemoryRouter>
     );

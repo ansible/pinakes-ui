@@ -240,18 +240,20 @@ describe('<EditWorkflow />', () => {
         }
       ]
     });
-    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?&name=Foo`).replyOnce(200, {
-      name: 'Foo',
-      id: '123',
-      template: 'templateid',
-      description: 'description',
-      group_refs: [
-        {
-          uuid: '123',
-          name: 'SampleWorkflow'
-        }
-      ]
-    });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/?&search=Foo`)
+      .replyOnce(200, {
+        name: 'Foo',
+        id: '123',
+        template: 'templateid',
+        description: 'description',
+        group_refs: [
+          {
+            uuid: '123',
+            name: 'SampleWorkflow'
+          }
+        ]
+      });
     mockApi
       .onGet(`${APPROVAL_API_BASE}/templates/`)
       .replyOnce(200, { data: [{ id: 'templateid', title: 'name' }] });

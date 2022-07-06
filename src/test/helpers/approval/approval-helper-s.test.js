@@ -66,6 +66,7 @@ describe('Approval helper', () => {
   it('should call link and unlink workflows with correct arguments', () => {
     mockApi.onGet(`${CATALOG_API_BASE}/me/`).replyOnce(200, {
       username: 'User1',
+
       first_name: 'First',
       last_name: 'Last'
     });

@@ -73,22 +73,7 @@ const PortfolioItems = ({
   const dataSet = data ? data : results;
   const metaInfo = meta ? meta : { count, limit, offset };
 
-  const userCapabilities = isStandalone()
-    ? {
-        show: true,
-        update: true,
-        set_approval: true,
-        share: true,
-        unshare: true,
-        untag: true,
-        tag: true,
-        set_order_process: true,
-        create: true,
-        destroy: true,
-        restore: true,
-        copy: true
-      }
-    : metadata?.user_capabilities;
+  const userCapabilities = metadata?.user_capabilities;
 
   const items = dataSet.map((item) => (
     <PortfolioItem
