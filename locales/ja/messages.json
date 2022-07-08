@@ -2,6 +2,24 @@
   "SrzSY5": {
     "defaultMessage": "Foo"
   },
+  "actionModal.actionName": {
+    "defaultMessage": "{actionType} リクエスト"
+  },
+  "actionModal.failedAction": {
+    "defaultMessage": "{actionName} アクションに失敗しました。"
+  },
+  "actionModal.failedTitle": {
+    "defaultMessage": "{actionName} エラー"
+  },
+  "actionModal.fullfiledAction": {
+    "defaultMessage": "{actionName} が正常に実行されました。"
+  },
+  "actionModal.requestDescription": {
+    "defaultMessage": "{actionMessage} {id}"
+  },
+  "actionModal.successTitle": {
+    "defaultMessage": "成功"
+  },
   "approval.notifications.link": {
     "defaultMessage": "承認プロセスが正常にリンクされました。"
   },
@@ -105,7 +123,7 @@
     "defaultMessage": "保存"
   },
   "common.labels.shared": {
-    "defaultMessage": "共有済み"
+    "defaultMessage": "{count} グループと共有"
   },
   "common.labels.sort-by": {
     "defaultMessage": "並べ替え"
@@ -164,11 +182,59 @@
   "common.states.unknown": {
     "defaultMessage": "不明"
   },
+  "commonApiError.401Description": {
+    "defaultMessage": "このセクションへのアクセスは許可されていません"
+  },
+  "commonApiError.401Title": {
+    "defaultMessage": "許可されていません"
+  },
+  "commonApiError.403Description": {
+    "defaultMessage": "詳細は、組織の管理者にお問い合わせください"
+  },
+  "commonApiError.403Title": {
+    "defaultMessage": "Approval にアクセスできません"
+  },
+  "commonApiError.goToLanding": {
+    "defaultMessage": "ランディングページに移動"
+  },
+  "commonApiError.returnBack": {
+    "defaultMessage": "前のページに戻る"
+  },
+  "commonMessages.actions": {
+    "defaultMessage": "アクション"
+  },
+  "commonMessages.approvalTitle": {
+    "defaultMessage": "承認"
+  },
+  "commonMessages.cancel": {
+    "defaultMessage": "取り消し"
+  },
+  "commonMessages.delete": {
+    "defaultMessage": "削除"
+  },
+  "commonMessages.deleting": {
+    "defaultMessage": "削除中"
+  },
   "commonMessages.noRecords": {
     "defaultMessage": "レコードなし"
   },
+  "commonMessages.order": {
+    "defaultMessage": "オーダー"
+  },
   "commonMessages.orderProcessesTitle": {
     "defaultMessage": "オーダープロセス"
+  },
+  "commonMessages.platform": {
+    "defaultMessage": "プラットフォーム"
+  },
+  "commonMessages.portfolio": {
+    "defaultMessage": "ポートフォリオ"
+  },
+  "commonMessages.product": {
+    "defaultMessage": "製品"
+  },
+  "commonMessages.save": {
+    "defaultMessage": "保存"
   },
   "commonMessages.unknown": {
     "defaultMessage": "不明"
@@ -193,6 +259,63 @@
   },
   "foo": {
     "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "formMessages.approvalProcessName": {
+    "defaultMessage": "名前"
+  },
+  "formMessages.create": {
+    "defaultMessage": "作成"
+  },
+  "formMessages.createApprovalTitle": {
+    "defaultMessage": "承認プロセスの作成"
+  },
+  "formMessages.createNotificationSettingTitle": {
+    "defaultMessage": "通知設定の作成"
+  },
+  "formMessages.createTemplateTitle": {
+    "defaultMessage": "テンプレートの作成"
+  },
+  "formMessages.description": {
+    "defaultMessage": "説明"
+  },
+  "formMessages.enterApprovalName": {
+    "defaultMessage": "承認プロセスの名前を入力します"
+  },
+  "formMessages.enterInfo": {
+    "defaultMessage": "情報を入力します"
+  },
+  "formMessages.enterNotificationSettingName": {
+    "defaultMessage": "通知設定の名前を入力します"
+  },
+  "formMessages.enterTemplateTitle": {
+    "defaultMessage": "テンプレートの名前を入力します"
+  },
+  "formMessages.existingGroups": {
+    "defaultMessage": "現在のグループ"
+  },
+  "formMessages.generalInformation": {
+    "defaultMessage": "一般情報"
+  },
+  "formMessages.groups": {
+    "defaultMessage": "グループ"
+  },
+  "formMessages.nameTaken": {
+    "defaultMessage": "名前はすでに使用されています"
+  },
+  "formMessages.notificationSettingName": {
+    "defaultMessage": "名前"
+  },
+  "formMessages.selectPlaceholder": {
+    "defaultMessage": "選択..."
+  },
+  "formMessages.setGroups": {
+    "defaultMessage": "グループの追加"
+  },
+  "formMessages.summary": {
+    "defaultMessage": "概要"
+  },
+  "formMessages.templateTitle": {
+    "defaultMessage": "タイトル"
   },
   "forms.after.currentAfterProvision": {
     "defaultMessage": "現在のプロビジョニング後"
@@ -235,6 +358,78 @@
   },
   "name": {
     "defaultMessage": "名前"
+  },
+  "notFound.pageNotFound": {
+    "defaultMessage": "お探しのページは存在しません。"
+  },
+  "notificationMessages.addNotificationSuccessDescription": {
+    "defaultMessage": "通知が正常に追加されました。"
+  },
+  "notificationMessages.addNotificationSuccessTitle": {
+    "defaultMessage": "通知の追加に成功"
+  },
+  "notificationMessages.createNotification": {
+    "defaultMessage": "通知の作成"
+  },
+  "notificationMessages.deleteNotificationTitle": {
+    "defaultMessage": "通知の削除"
+  },
+  "notificationMessages.edit": {
+    "defaultMessage": "編集"
+  },
+  "notificationMessages.editInformation": {
+    "defaultMessage": "情報の編集"
+  },
+  "notificationMessages.editNotificationTitle": {
+    "defaultMessage": "通知 {name} に変更を加えます"
+  },
+  "notificationMessages.noNotifications": {
+    "defaultMessage": "通知なし"
+  },
+  "notificationMessages.notification": {
+    "defaultMessage": "通知"
+  },
+  "notificationMessages.notifications": {
+    "defaultMessage": "通知"
+  },
+  "notificationMessages.removeNotificationDescription": {
+    "defaultMessage": "{name} が削除されます。"
+  },
+  "notificationMessages.removeNotificationDescriptionWithDeps": {
+    "defaultMessage": "{name} が次のアプリケーションから削除されます: {dependenciesList}"
+  },
+  "notificationMessages.removeNotificationSuccessDescription": {
+    "defaultMessage": "通知が正常に削除されました。"
+  },
+  "notificationMessages.removeNotificationSuccessTitle": {
+    "defaultMessage": "通知の削除に成功"
+  },
+  "notificationMessages.removeNotificationTitle": {
+    "defaultMessage": "{count, plural, one {通知} other {通知}}モーダルの削除"
+  },
+  "notificationMessages.removeNotificationsSuccessDescription": {
+    "defaultMessage": "選択した通知が正常に削除されました。"
+  },
+  "notificationMessages.removeNotificationsSuccessTitle": {
+    "defaultMessage": "通知の削除に成功"
+  },
+  "notificationMessages.repositionNotificationSuccessDescription": {
+    "defaultMessage": "通知のシーケンスが正常に更新されました。"
+  },
+  "notificationMessages.repositionNotificationSuccessTitle": {
+    "defaultMessage": "通知シーケンスの更新に成功"
+  },
+  "notificationMessages.settings": {
+    "defaultMessage": "設定"
+  },
+  "notificationMessages.type": {
+    "defaultMessage": "通知タイプ"
+  },
+  "notificationMessages.updateNotificationSuccessDescription": {
+    "defaultMessage": "通知が正常に更新されました。"
+  },
+  "notificationMessages.updateNotificationSuccessTitle": {
+    "defaultMessage": "通知の更新に成功"
   },
   "order-proces.empty.no-order-processes": {
     "defaultMessage": "オーダープロセスが見つかりませんでした。"
@@ -310,6 +505,9 @@
   },
   "order-process.tags.set": {
     "defaultMessage": "<strong>{object}</strong> のオーダープロセスの設定"
+  },
+  "order-process.toolbar.no-order-process": {
+    "defaultMessage": "オーダープロセスなし"
   },
   "order-process.toolbar.order-process": {
     "defaultMessage": "オーダープロセス"
@@ -427,6 +625,9 @@
   },
   "orders.provision.no-items": {
     "defaultMessage": "このオーダーのプロビジョニングデータを見つけられませんでした。"
+  },
+  "orders.title": {
+    "defaultMessage": "オーダー"
   },
   "orders.toolbar.backLink": {
     "defaultMessage": "オーダーに戻る"
@@ -602,6 +803,9 @@
   "portfolio.modal.edit.title": {
     "defaultMessage": "ポートフォリオの編集"
   },
+  "portfolio.notifications.remove.only.portfolio": {
+    "defaultMessage": "ポートフォリオが正常に削除されました。"
+  },
   "portfolio.notifications.remove.portfolio": {
     "defaultMessage": "ポートフォリオが正常に削除されました。この操作が誤りである場合は、<a>取り消す</a> ことができます。"
   },
@@ -668,6 +872,159 @@
   "products.toolbar.title": {
     "defaultMessage": "製品"
   },
+  "requestMessages.requestTitle": {
+    "defaultMessage": "リクエスト {id}"
+  },
+  "requestsMessages.addCommentLabel": {
+    "defaultMessage": "送信"
+  },
+  "requestsMessages.approveDescription": {
+    "defaultMessage": "リクエストに対する承認の提供"
+  },
+  "requestsMessages.approveLabel": {
+    "defaultMessage": "承認"
+  },
+  "requestsMessages.approveRequest": {
+    "defaultMessage": "リクエストの承認"
+  },
+  "requestsMessages.approveTitle": {
+    "defaultMessage": "リクエストの承認"
+  },
+  "requestsMessages.approved": {
+    "defaultMessage": "承認"
+  },
+  "requestsMessages.approvedBy": {
+    "defaultMessage": "{by} により承認済"
+  },
+  "requestsMessages.canceled": {
+    "defaultMessage": "取り消し済み"
+  },
+  "requestsMessages.canceledBy": {
+    "defaultMessage": "{by} により取り消し済み"
+  },
+  "requestsMessages.commentDescription": {
+    "defaultMessage": "リクエストに関するコメントの送信"
+  },
+  "requestsMessages.commentFrom": {
+    "defaultMessage": "{by} からのコメント"
+  },
+  "requestsMessages.commentTitle": {
+    "defaultMessage": "コメント"
+  },
+  "requestsMessages.completed": {
+    "defaultMessage": "完了済み"
+  },
+  "requestsMessages.decisionColumn": {
+    "defaultMessage": "決定"
+  },
+  "requestsMessages.denied": {
+    "defaultMessage": "拒否"
+  },
+  "requestsMessages.deniedBy": {
+    "defaultMessage": "{by} により拒否済み"
+  },
+  "requestsMessages.denyDescription": {
+    "defaultMessage": "リクエストを拒否する理由の提供"
+  },
+  "requestsMessages.denyLabel": {
+    "defaultMessage": "拒否"
+  },
+  "requestsMessages.denyRequest": {
+    "defaultMessage": "リクエストの拒否"
+  },
+  "requestsMessages.denyTitle": {
+    "defaultMessage": "リクエストの拒否"
+  },
+  "requestsMessages.emptyAllRequestsDescription": {
+    "defaultMessage": "承認プロセスが開始されると、リクエストがここに表示されます。"
+  },
+  "requestsMessages.emptyRequestsDescription": {
+    "defaultMessage": "対応が必要なリクエストがここに表示されます。"
+  },
+  "requestsMessages.emptyRequestsTitle": {
+    "defaultMessage": "まだリクエストはありません"
+  },
+  "requestsMessages.error": {
+    "defaultMessage": "エラー"
+  },
+  "requestsMessages.errorBy": {
+    "defaultMessage": "エラー: {by}"
+  },
+  "requestsMessages.expandableDataList": {
+    "defaultMessage": "拡張可能なデータリスト"
+  },
+  "requestsMessages.failed": {
+    "defaultMessage": "失敗"
+  },
+  "requestsMessages.needsReview": {
+    "defaultMessage": "レビューが必要"
+  },
+  "requestsMessages.notified": {
+    "defaultMessage": "通知済み"
+  },
+  "requestsMessages.notifiedBy": {
+    "defaultMessage": "{by} により通知済み"
+  },
+  "requestsMessages.openedColumn": {
+    "defaultMessage": "開く"
+  },
+  "requestsMessages.orderNumber": {
+    "defaultMessage": "オーダー番号"
+  },
+  "requestsMessages.parameters": {
+    "defaultMessage": "パラメーター"
+  },
+  "requestsMessages.pending": {
+    "defaultMessage": "保留"
+  },
+  "requestsMessages.reasonTitle": {
+    "defaultMessage": "理由"
+  },
+  "requestsMessages.request": {
+    "defaultMessage": "リクエスト"
+  },
+  "requestsMessages.requestContentDetails": {
+    "defaultMessage": "リクエストコンテンツの詳細"
+  },
+  "requestsMessages.requestDescription": {
+    "defaultMessage": "リクエスト {id}"
+  },
+  "requestsMessages.requestTranscript": {
+    "defaultMessage": "リクエストの写し"
+  },
+  "requestsMessages.requesterColumn": {
+    "defaultMessage": "リクエスト元"
+  },
+  "requestsMessages.requests": {
+    "defaultMessage": "リクエスト"
+  },
+  "requestsMessages.requestsIdColumn": {
+    "defaultMessage": "リクエスト ID"
+  },
+  "requestsMessages.skipped": {
+    "defaultMessage": "スキップ済"
+  },
+  "requestsMessages.skippedBy": {
+    "defaultMessage": "{by} によりスキップ済み"
+  },
+  "requestsMessages.started": {
+    "defaultMessage": "開始済み"
+  },
+  "requestsMessages.startedBy": {
+    "defaultMessage": "{by} により開始済み"
+  },
+  "requestsMessages.statusColumn": {
+    "defaultMessage": "ステータス"
+  },
+  "requestsMessages.toggleDetailsFor": {
+    "defaultMessage": "詳細の切り替え"
+  },
+  "requestsMessages.undecided": {
+    "defaultMessage": "未決定"
+  },
+  "requestsMessages.updatedColumn": {
+    "defaultMessage": "更新済み"
+  },
   "schemas.portfolio-item.description": {
     "defaultMessage": "説明"
   },
@@ -731,8 +1088,23 @@
   "share.notification.success.unshare.title": {
     "defaultMessage": "ポートフォリオの共有解除に成功"
   },
+  "tableEmpty.noRecords": {
+    "defaultMessage": "レコードなし"
+  },
+  "tableToolbar.ariaLabel": {
+    "defaultMessage": "{title} テーブル"
+  },
+  "tableToolbar.clearAllFilters": {
+    "defaultMessage": "すべてのフィルターの解除"
+  },
+  "tableToolbar.clearAllFiltersDescription": {
+    "defaultMessage": "フィルター条件にマッチする結果はありません。すべてのフィルターを削除するか、すべてのフィルターをクリアして結果を表示します。"
+  },
   "tableToolbar.filterByTitle": {
     "defaultMessage": "{title} による絞り込み"
+  },
+  "tableToolbar.name": {
+    "defaultMessage": "名前"
   },
   "tableToolbar.noResult": {
     "defaultMessage": "{results} なし"
@@ -740,7 +1112,182 @@
   "tableToolbar.noResultsFound": {
     "defaultMessage": "結果が見つかりません"
   },
+  "tableToolbar.updatedLabel": {
+    "defaultMessage": "更新済み"
+  },
+  "tabs.allRequests": {
+    "defaultMessage": "すべてのリクエスト"
+  },
+  "tabs.approvalProcess": {
+    "defaultMessage": "承認プロセス"
+  },
+  "tabs.myRequests": {
+    "defaultMessage": "マイリクエスト"
+  },
+  "tabs.notificationSettings": {
+    "defaultMessage": "通知設定"
+  },
+  "tabs.templates": {
+    "defaultMessage": "テンプレート"
+  },
+  "templateMessages.addTemplateSuccessDescription": {
+    "defaultMessage": "テンプレートが正常に追加されました。"
+  },
+  "templateMessages.addTemplateSuccessTitle": {
+    "defaultMessage": "テンプレートの追加に成功"
+  },
+  "templateMessages.createTemplate": {
+    "defaultMessage": "テンプレートの作成"
+  },
+  "templateMessages.deleteTemplateTitle": {
+    "defaultMessage": "テンプレートの削除"
+  },
+  "templateMessages.down": {
+    "defaultMessage": "下方向"
+  },
+  "templateMessages.edit": {
+    "defaultMessage": "編集"
+  },
+  "templateMessages.editInformation": {
+    "defaultMessage": "情報の編集"
+  },
+  "templateMessages.editTemplateTitle": {
+    "defaultMessage": "テンプレート {name} に変更を加えます"
+  },
+  "templateMessages.noTemplates": {
+    "defaultMessage": "テンプレートなし"
+  },
+  "templateMessages.processMethod": {
+    "defaultMessage": "プロセスメソッド"
+  },
+  "templateMessages.removeTemplateDescription": {
+    "defaultMessage": "{name} が削除されます。"
+  },
+  "templateMessages.removeTemplateDescriptionWithDeps": {
+    "defaultMessage": "{name} が次のアプリケーションから削除されます: {dependenciesList}"
+  },
+  "templateMessages.removeTemplateSuccessDescription": {
+    "defaultMessage": "テンプレートが正常に削除されました。"
+  },
+  "templateMessages.removeTemplateSuccessTitle": {
+    "defaultMessage": "テンプレートの削除に成功"
+  },
+  "templateMessages.removeTemplateTitle": {
+    "defaultMessage": "{count, plural, one {テンプレート} other {テンプレート}}モーダルの削除"
+  },
+  "templateMessages.removeTemplatesSuccessDescription": {
+    "defaultMessage": "選択したテンプレートが正常に削除されました。"
+  },
+  "templateMessages.removeTemplatesSuccessTitle": {
+    "defaultMessage": "テンプレートの削除に成功"
+  },
+  "templateMessages.repositionTemplateSuccessDescription": {
+    "defaultMessage": "テンプレートのシーケンスが正常に更新されました。"
+  },
+  "templateMessages.repositionTemplateSuccessTitle": {
+    "defaultMessage": "テンプレートシーケンスの更新に成功"
+  },
+  "templateMessages.signalMethod": {
+    "defaultMessage": "シグナルメソッド"
+  },
+  "templateMessages.template": {
+    "defaultMessage": "テンプレート"
+  },
+  "templateMessages.templates": {
+    "defaultMessage": "テンプレート"
+  },
+  "templateMessages.up": {
+    "defaultMessage": "上方向"
+  },
+  "templateMessages.updateTemplateSuccessDescription": {
+    "defaultMessage": "テンプレートが正常に更新されました。"
+  },
+  "templateMessages.updateTemplateSuccessTitle": {
+    "defaultMessage": "テンプレートの更新に成功"
+  },
+  "worfklowMessages.approvalProcess": {
+    "defaultMessage": "承認プロセス"
+  },
+  "worfklowMessages.approvalProcesses": {
+    "defaultMessage": "承認プロセス"
+  },
+  "worfklowMessages.createApprovalProcess": {
+    "defaultMessage": "承認プロセスの作成"
+  },
+  "worfklowMessages.deleteApprovalTitle": {
+    "defaultMessage": "承認プロセスの削除"
+  },
+  "worfklowMessages.edit": {
+    "defaultMessage": "編集"
+  },
+  "worfklowMessages.editInformation": {
+    "defaultMessage": "情報の編集"
+  },
+  "worfklowMessages.noApprovalProcesses": {
+    "defaultMessage": "承認プロセスなし"
+  },
+  "workflowMessages.addProcessSuccessDescription": {
+    "defaultMessage": "オーダープロセスが正常に追加されました。"
+  },
+  "workflowMessages.addProcessSuccessTitle": {
+    "defaultMessage": "承認プロセスの追加に成功"
+  },
+  "workflowMessages.down": {
+    "defaultMessage": "下方向"
+  },
+  "workflowMessages.editProcessTitle": {
+    "defaultMessage": "承認プロセス {name} に変更を加えます"
+  },
+  "workflowMessages.enterSequence": {
+    "defaultMessage": "シーケンスの入力"
+  },
+  "workflowMessages.removeProcessAriaLabel": {
+    "defaultMessage": "{count, plural, one {承認プロセス} other {承認プロセス}}モーダルの削除"
+  },
+  "workflowMessages.removeProcessDescription": {
+    "defaultMessage": "{name} が削除されます。"
+  },
+  "workflowMessages.removeProcessDescriptionWithDeps": {
+    "defaultMessage": "{name} が次のアプリケーションから削除されます: {dependenciesList}"
+  },
+  "workflowMessages.removeProcessSuccessDescription": {
+    "defaultMessage": "承認プロセスが正常に削除されました。"
+  },
+  "workflowMessages.removeProcessSuccessTitle": {
+    "defaultMessage": "承認プロセスの削除に成功"
+  },
+  "workflowMessages.removeProcessTitle": {
+    "defaultMessage": "{count, plural, one {承認プロセス} other {承認プロセス}}を削除しますか?"
+  },
+  "workflowMessages.removeProcessesSuccessDescription": {
+    "defaultMessage": "選択したオーダープロセスが正常に削除されました。"
+  },
+  "workflowMessages.removeProcessesSuccessTitle": {
+    "defaultMessage": "承認プロセスの削除に成功"
+  },
+  "workflowMessages.repositionProcessSuccessDescription": {
+    "defaultMessage": "承認プロセスのシーケンスが正常に更新されました。"
+  },
+  "workflowMessages.repositionProcessSuccessTitle": {
+    "defaultMessage": "承認プロセスシーケンスの更新に成功"
+  },
+  "workflowMessages.sequence": {
+    "defaultMessage": "シーケンス"
+  },
+  "workflowMessages.template": {
+    "defaultMessage": "テンプレート"
+  },
+  "workflowMessages.up": {
+    "defaultMessage": "上方向"
+  },
+  "workflowMessages.updateProcessSuccessDescription": {
+    "defaultMessage": "承認プロセスが正常に更新されました。"
+  },
+  "workflowMessages.updateProcessSuccessTitle": {
+    "defaultMessage": "承認プロセスの更新に成功"
+  },
   "workflows.modal.title": {
     "defaultMessage": "承認プロセスの設定"
   }
 }
+
