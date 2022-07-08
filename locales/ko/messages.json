@@ -2,6 +2,24 @@
   "SrzSY5": {
     "defaultMessage": "Foo"
   },
+  "actionModal.actionName": {
+    "defaultMessage": "{actionType} 요청"
+  },
+  "actionModal.failedAction": {
+    "defaultMessage": "{actionName} 작업이 실패했습니다."
+  },
+  "actionModal.failedTitle": {
+    "defaultMessage": "{actionName} 오류"
+  },
+  "actionModal.fullfiledAction": {
+    "defaultMessage": "{actionName}이/가 성공적으로 실행되었습니다."
+  },
+  "actionModal.requestDescription": {
+    "defaultMessage": "{actionMessage} {id}"
+  },
+  "actionModal.successTitle": {
+    "defaultMessage": "성공"
+  },
   "approval.notifications.link": {
     "defaultMessage": "승인 프로세스가 성공적으로 연결되었습니다."
   },
@@ -42,19 +60,19 @@
     "defaultMessage": "제품별 필터링"
   },
   "common.filtering.no-products": {
-    "defaultMessage": "아직 제품이 없습니다"
+    "defaultMessage": "아직 제품이 없음"
   },
   "common.filtering.noItems": {
-    "defaultMessage": "항목을 찾을 수 없습니다"
+    "defaultMessage": "항목을 찾을 수 없음"
   },
   "common.filtering.noResults": {
-    "defaultMessage": "결과가 없습니다"
+    "defaultMessage": "결과를 찾을 수 없음"
   },
   "common.filtering.noResultsDescription": {
-    "defaultMessage": "필터 기준과 일치하는 결과가 없습니다. 결과를 표시하려면 모든 필터를 제거하거나 지우십시오."
+    "defaultMessage": "필터 기준과 일치하는 결과가 없습니다. 모든 필터를 제거하거나 모든 필터를 지워 결과를 표시합니다."
   },
   "common.labels.approval_process_set": {
-    "defaultMessage": "승인 프로세스 설정"
+    "defaultMessage": "승인 프로세스 세트"
   },
   "common.labels.available": {
     "defaultMessage": "사용 가능"
@@ -72,10 +90,10 @@
     "defaultMessage": "설명"
   },
   "common.labels.disabled": {
-    "defaultMessage": "비활성화"
+    "defaultMessage": "비활성화됨"
   },
   "common.labels.enabled": {
-    "defaultMessage": "활성화"
+    "defaultMessage": "활성화됨"
   },
   "common.labels.id": {
     "defaultMessage": "상태"
@@ -105,13 +123,13 @@
     "defaultMessage": "저장"
   },
   "common.labels.shared": {
-    "defaultMessage": "공유"
+    "defaultMessage": "{count} 그룹과 공유"
   },
   "common.labels.sort-by": {
     "defaultMessage": "정렬 기준"
   },
   "common.labels.to-portfolio": {
-    "defaultMessage": "포트폴리오로"
+    "defaultMessage": "대상 포트폴리오"
   },
   "common.labels.updated": {
     "defaultMessage": "업데이트됨"
@@ -141,16 +159,16 @@
     "defaultMessage": "실패"
   },
   "common.states.notified": {
-    "defaultMessage": "알림"
+    "defaultMessage": "통지됨"
   },
   "common.states.ordered": {
-    "defaultMessage": "주문"
+    "defaultMessage": "주문됨"
   },
   "common.states.pending": {
     "defaultMessage": "보류 중"
   },
   "common.states.skipped": {
-    "defaultMessage": "건너뛰기"
+    "defaultMessage": "건너뛰기됨"
   },
   "common.states.started": {
     "defaultMessage": "시작됨"
@@ -159,40 +177,145 @@
     "defaultMessage": "상태"
   },
   "common.states.undecided": {
-    "defaultMessage": "미정"
+    "defaultMessage": "지정되지 않음"
   },
   "common.states.unknown": {
     "defaultMessage": "알 수 없음"
   },
+  "commonApiError.401Description": {
+    "defaultMessage": "이 섹션에 액세스할 수 있는 권한이 없습니다."
+  },
+  "commonApiError.401Title": {
+    "defaultMessage": "인증되지 않음"
+  },
+  "commonApiError.403Description": {
+    "defaultMessage": "자세한 내용은 조직 관리자에게 문의하십시오."
+  },
+  "commonApiError.403Title": {
+    "defaultMessage": "승인에 액세스할 수 없습니다."
+  },
+  "commonApiError.goToLanding": {
+    "defaultMessage": "렌딩 페이지로 이동"
+  },
+  "commonApiError.returnBack": {
+    "defaultMessage": "이전 페이지로 돌아가기"
+  },
+  "commonMessages.actions": {
+    "defaultMessage": "작업"
+  },
+  "commonMessages.approvalTitle": {
+    "defaultMessage": "승인"
+  },
+  "commonMessages.cancel": {
+    "defaultMessage": "취소"
+  },
+  "commonMessages.delete": {
+    "defaultMessage": "삭제"
+  },
+  "commonMessages.deleting": {
+    "defaultMessage": "삭제 중"
+  },
   "commonMessages.noRecords": {
-    "defaultMessage": "기록 없음"
+    "defaultMessage": "레코드 없음"
+  },
+  "commonMessages.order": {
+    "defaultMessage": "주문"
   },
   "commonMessages.orderProcessesTitle": {
     "defaultMessage": "주문 프로세스"
+  },
+  "commonMessages.platform": {
+    "defaultMessage": "플랫폼"
+  },
+  "commonMessages.portfolio": {
+    "defaultMessage": "포트폴리오"
+  },
+  "commonMessages.product": {
+    "defaultMessage": "제품"
+  },
+  "commonMessages.save": {
+    "defaultMessage": "저장"
   },
   "commonMessages.unknown": {
     "defaultMessage": "알 수 없음"
   },
   "errors.forbidden.title": {
-    "defaultMessage": "금지됨"
+    "defaultMessage": "사용 금지됨"
   },
   "errors.not-found.description": {
-    "defaultMessage": "<nowrap>{pathname} {search}</nowrap> 리소스가 존재하지 않습니다."
+    "defaultMessage": "리소스 <nowrap>{pathname} {search}</nowrap>이/가 존재하지 않습니다."
   },
   "errors.not-found.title": {
     "defaultMessage": "찾을 수 없음"
   },
   "errors.unauthorized.description": {
-    "defaultMessage": "이 섹션에 액세스할 수 있는 권한이 없습니다: <nowrap>{pathname} {search}</nowrap>. <br></br>문제가 있다고 생각되는 경우 지원팀에 문의하십시오."
+    "defaultMessage": "이 섹션에 액세스할 수 있는 권한이 없습니다. <nowrap>{pathname} {search}</nowrap>. <br></br>이것이 오류라고 생각되면 지원팀에 문의하십시오."
   },
   "errors.unauthorized.return": {
     "defaultMessage": "카탈로그로 돌아가기"
   },
   "errors.unauthorized.title": {
-    "defaultMessage": "승인되지 않음"
+    "defaultMessage": "인증되지 않음"
   },
   "foo": {
-    "defaultMessage": "Foo {foo} 바 <b>{bar}</b>"
+    "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "formMessages.approvalProcessName": {
+    "defaultMessage": "이름"
+  },
+  "formMessages.create": {
+    "defaultMessage": "만들기"
+  },
+  "formMessages.createApprovalTitle": {
+    "defaultMessage": "승인 프로세스 만들기"
+  },
+  "formMessages.createNotificationSettingTitle": {
+    "defaultMessage": "알림 설정 만들기"
+  },
+  "formMessages.createTemplateTitle": {
+    "defaultMessage": "템플릿 만들기"
+  },
+  "formMessages.description": {
+    "defaultMessage": "설명"
+  },
+  "formMessages.enterApprovalName": {
+    "defaultMessage": "승인 프로세스의 이름을 입력합니다"
+  },
+  "formMessages.enterInfo": {
+    "defaultMessage": "정보 입력"
+  },
+  "formMessages.enterNotificationSettingName": {
+    "defaultMessage": "알림 설정의 이름을 입력합니다"
+  },
+  "formMessages.enterTemplateTitle": {
+    "defaultMessage": "템플릿의 이름을 입력합니다."
+  },
+  "formMessages.existingGroups": {
+    "defaultMessage": "현재 그룹"
+  },
+  "formMessages.generalInformation": {
+    "defaultMessage": "일반 정보"
+  },
+  "formMessages.groups": {
+    "defaultMessage": "그룹"
+  },
+  "formMessages.nameTaken": {
+    "defaultMessage": "이름이 이미 사용되고 있습니다."
+  },
+  "formMessages.notificationSettingName": {
+    "defaultMessage": "이름"
+  },
+  "formMessages.selectPlaceholder": {
+    "defaultMessage": "선택..."
+  },
+  "formMessages.setGroups": {
+    "defaultMessage": "그룹 추가"
+  },
+  "formMessages.summary": {
+    "defaultMessage": "개요"
+  },
+  "formMessages.templateTitle": {
+    "defaultMessage": "제목"
   },
   "forms.after.currentAfterProvision": {
     "defaultMessage": "프로비저닝 후 현재"
@@ -201,10 +324,10 @@
     "defaultMessage": "주문 후"
   },
   "forms.after.setReturnProvision": {
-    "defaultMessage": "반환"
+    "defaultMessage": "뒤로"
   },
   "forms.before.beforeProvision": {
-    "defaultMessage": "주문하기 전"
+    "defaultMessage": "주문 전"
   },
   "forms.before.currentBeforeProducts": {
     "defaultMessage": "프로비저닝 전 현재"
@@ -213,7 +336,7 @@
     "defaultMessage": "액세스 권한이 있는 그룹"
   },
   "forms.nameTaken": {
-    "defaultMessage": "이미 사용된 이름"
+    "defaultMessage": "이름이 이미 사용되고 있습니다."
   },
   "forms.product.placeholder": {
     "defaultMessage": "제품 선택"
@@ -236,6 +359,78 @@
   "name": {
     "defaultMessage": "이름"
   },
+  "notFound.pageNotFound": {
+    "defaultMessage": "찾고 있는 페이지가 존재하지 않습니다."
+  },
+  "notificationMessages.addNotificationSuccessDescription": {
+    "defaultMessage": "알림이 성공적으로 추가되었습니다."
+  },
+  "notificationMessages.addNotificationSuccessTitle": {
+    "defaultMessage": "알림 추가 성공"
+  },
+  "notificationMessages.createNotification": {
+    "defaultMessage": "알림 만들기"
+  },
+  "notificationMessages.deleteNotificationTitle": {
+    "defaultMessage": "알림 삭제"
+  },
+  "notificationMessages.edit": {
+    "defaultMessage": "편집"
+  },
+  "notificationMessages.editInformation": {
+    "defaultMessage": "정보 편집"
+  },
+  "notificationMessages.editNotificationTitle": {
+    "defaultMessage": "알림 {name}을(를) 변경합니다."
+  },
+  "notificationMessages.noNotifications": {
+    "defaultMessage": "알림 없음"
+  },
+  "notificationMessages.notification": {
+    "defaultMessage": "알림"
+  },
+  "notificationMessages.notifications": {
+    "defaultMessage": "알림"
+  },
+  "notificationMessages.removeNotificationDescription": {
+    "defaultMessage": "{name}이/가 삭제됩니다."
+  },
+  "notificationMessages.removeNotificationDescriptionWithDeps": {
+    "defaultMessage": "{name}이/가 애플리케이션에서 제거됩니다. {dependenciesList}"
+  },
+  "notificationMessages.removeNotificationSuccessDescription": {
+    "defaultMessage": "알림이 성공적으로 제거되었습니다."
+  },
+  "notificationMessages.removeNotificationSuccessTitle": {
+    "defaultMessage": "알림이 성공적으로 삭제되었습니다"
+  },
+  "notificationMessages.removeNotificationTitle": {
+    "defaultMessage": "{count, plural, one {#183} other {#183s}} 모달 삭제"
+  },
+  "notificationMessages.removeNotificationsSuccessDescription": {
+    "defaultMessage": "선택한 알림이 성공적으로 제거되었습니다."
+  },
+  "notificationMessages.removeNotificationsSuccessTitle": {
+    "defaultMessage": "알림 삭제 성공"
+  },
+  "notificationMessages.repositionNotificationSuccessDescription": {
+    "defaultMessage": "알림 순서가 성공적으로 업데이트되었습니다."
+  },
+  "notificationMessages.repositionNotificationSuccessTitle": {
+    "defaultMessage": "알림 순서 업데이트 성공"
+  },
+  "notificationMessages.settings": {
+    "defaultMessage": "설정"
+  },
+  "notificationMessages.type": {
+    "defaultMessage": "알림 유형"
+  },
+  "notificationMessages.updateNotificationSuccessDescription": {
+    "defaultMessage": "알림이 성공적으로 업데이트되었습니다."
+  },
+  "notificationMessages.updateNotificationSuccessTitle": {
+    "defaultMessage": "알림 업데이트 성공"
+  },
   "order-proces.empty.no-order-processes": {
     "defaultMessage": "주문 프로세스를 찾을 수 없습니다."
   },
@@ -246,10 +441,10 @@
     "defaultMessage": "주문 프로세스가 성공적으로 추가되었습니다."
   },
   "order-process.actions.addProcessSuccessTitle": {
-    "defaultMessage": "주문 프로세스를 성공적으로 추가했습니다"
+    "defaultMessage": "주문 프로세스 추가 성공"
   },
   "order-process.actions.createOrderProcess": {
-    "defaultMessage": "주문 프로세스 생성"
+    "defaultMessage": "주문 프로세스 만들기"
   },
   "order-process.actions.set": {
     "defaultMessage": "주문 프로세스 설정"
@@ -258,16 +453,16 @@
     "defaultMessage": "주문 프로세스 편집"
   },
   "order-process.actions.updateProcessSuccessTitle": {
-    "defaultMessage": "주문 프로세스 {name}이/가 업데이트되었습니다."
+    "defaultMessage": "주문 프로세스 {name}이/가 업데이트되었습니다"
   },
   "order-process.deleteProcessAriaMenu": {
     "defaultMessage": "주문 프로세스 삭제"
   },
   "order-process.empty.no-results": {
-    "defaultMessage": "필터 기준과 일치하는 주문 프로세스가 없습니다."
+    "defaultMessage": "주문 프로세스가 필터 기준과 일치하지 않습니다."
   },
   "order-process.enterName": {
-    "defaultMessage": "주문 프로세스의 이름을 입력하십시오"
+    "defaultMessage": "주문 프로세스의 이름을 입력합니다."
   },
   "order-process.filter.placeholder": {
     "defaultMessage": "이름으로 필터링"
@@ -279,37 +474,40 @@
     "defaultMessage": "{linked, plural, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {unlinked, plural, =0{} other {{unlinked, number} {unlinked, plural, one {order process was} other {order processes were}} unlinked.}}"
   },
   "order-process.notification.title": {
-    "defaultMessage": "주문 프로세스가 성공적으로 업데이트되었습니다"
+    "defaultMessage": "주문 프로세스 업데이트 성공"
   },
   "order-process.orderProcesses": {
     "defaultMessage": "주문 프로세스"
   },
   "order-process.removeProcessAriaLabel": {
-    "defaultMessage": "{count, plural, one {order process} other {order processes}} 모달 제거"
+    "defaultMessage": "{count, plural, one {order process} other {order processes}} 모달 삭제"
   },
   "order-process.removeProcessDescription": {
     "defaultMessage": "{name}이/가 삭제됩니다."
   },
   "order-process.removeProcessSuccessDescription": {
-    "defaultMessage": "주문 프로세스가 성공적으로 삭제되었습니다."
+    "defaultMessage": "주문 프로세스가 성공적으로 제거되었습니다."
   },
   "order-process.removeProcessSuccessTitle": {
-    "defaultMessage": "주문 프로세스를 성공적으로 삭제했습니다"
+    "defaultMessage": "주문 프로세스 제거 성공"
   },
   "order-process.removeProcessTitle": {
-    "defaultMessage": "{count, plural, one {order process} other {order processes}} 삭제하시겠습니까?"
+    "defaultMessage": "{count, plural, one {order process} other {order processes}}을/를 삭제하시겠습니까?"
   },
   "order-process.removeProcessesSuccessDescription": {
-    "defaultMessage": "선택한 주문 프로세스가 성공적으로 삭제되었습니다"
+    "defaultMessage": "선택한 주문 프로세스가 성공적으로 제거되었습니다."
   },
   "order-process.removeProcessesSuccessTitle": {
-    "defaultMessage": "주문 프로세스를 성공적으로 삭제했습니다"
+    "defaultMessage": "주문 프로세스 제거 성공"
   },
   "order-process.set-order-process.current": {
     "defaultMessage": "현재 주문 프로세스"
   },
   "order-process.tags.set": {
     "defaultMessage": "<strong>{object}</strong>에 대한 주문 프로세스 설정"
+  },
+  "order-process.toolbar.no-order-process": {
+    "defaultMessage": "주문 프로세스 없음"
   },
   "order-process.toolbar.order-process": {
     "defaultMessage": "주문 프로세스"
@@ -318,28 +516,28 @@
     "defaultMessage": "주문 프로세스"
   },
   "order.detail.not-found": {
-    "defaultMessage": "{objects}은/는 {count, plural, one {is} other {are}} 주문에 사용할 수 없습니다"
+    "defaultMessage": "이 주문의 {count, plural, one {is} other {are}}의 경우 {objects}을/를 사용할 수 없습니다."
   },
   "orders.actions.cancel": {
     "defaultMessage": "주문 취소"
   },
   "orders.actions.keep": {
-    "defaultMessage": "계속 주문"
+    "defaultMessage": "주문 유지"
   },
   "orders.actions.reorder": {
-    "defaultMessage": "다시 주문"
+    "defaultMessage": "재정렬"
   },
   "orders.approval.activity": {
     "defaultMessage": "활동"
   },
   "orders.approval.creating": {
-    "defaultMessage": "승인 요청 생성"
+    "defaultMessage": "승인 요청 만들기"
   },
   "orders.approval.details.completed": {
-    "defaultMessage": "완료 날짜"
+    "defaultMessage": "완료 시간"
   },
   "orders.approval.details.created": {
-    "defaultMessage": "요청 생성됨"
+    "defaultMessage": "요청이 생성되었습니다"
   },
   "orders.approval.details.reason": {
     "defaultMessage": "승인 이유"
@@ -354,31 +552,31 @@
     "defaultMessage": "주문자"
   },
   "orders.approval.parameters": {
-    "defaultMessage": "매개 변수"
+    "defaultMessage": "매개변수"
   },
   "orders.approval.title": {
-    "defaultMessage": "요약"
+    "defaultMessage": "개요"
   },
   "orders.approval.view-detail": {
-    "defaultMessage": "이 주문에 대한 승인 요청 세부 정보 보기"
+    "defaultMessage": "이 주문의 승인 요청 세부 정보 보기"
   },
   "orders.artifacts": {
-    "defaultMessage": "주문 아티팩트"
+    "defaultMessage": "아티팩트 주문"
   },
   "orders.cancel.description": {
-    "defaultMessage": "{name}을/를 취소하시겠습니까?"
+    "defaultMessage": "{name}을(를) 취소하시겠습니까?"
   },
   "orders.common.compositeTitle": {
-    "defaultMessage": "{name} - 주문 번호 # {id}"
+    "defaultMessage": "{name} - 주문 # {id}"
   },
   "orders.common.details": {
     "defaultMessage": "주문 세부 정보"
   },
   "orders.common.lastUpdated": {
-    "defaultMessage": "마지막 업데이트"
+    "defaultMessage": "마지막 업데이트 시간"
   },
   "orders.common.orderedBy": {
-    "defaultMessage": "{owner}가 주문함"
+    "defaultMessage": "{owner}에 의해 주문"
   },
   "orders.detail.title": {
     "defaultMessage": "주문 ID {id}"
@@ -387,7 +585,7 @@
     "defaultMessage": "주문이 생성되지 않았습니다."
   },
   "orders.list.empty.title": {
-    "defaultMessage": "주문 없음"
+    "defaultMessage": "주문이 없음"
   },
   "orders.menu.approval": {
     "defaultMessage": "승인"
@@ -399,10 +597,10 @@
     "defaultMessage": "프로비저닝"
   },
   "orders.menu.steps": {
-    "defaultMessage": "주문 단계"
+    "defaultMessage": "주문 절차"
   },
   "orders.notification.success": {
-    "defaultMessage": "&lt;link>주문&lt;/link> 페이지에서 주문 번호 # {id}의 진행 상황을 추적할 수 있습니다. <link> </link>  "
+    "defaultMessage": "주문 페이지에서 주문 # {id}의 진행 상황을 추적할 수 있습니다 <link> </link>  "
   },
   "orders.order.default_type": {
     "defaultMessage": "제품"
@@ -414,28 +612,31 @@
     "defaultMessage": "진행 메시지"
   },
   "orders.order.detail.parameters": {
-    "defaultMessage": "주문 매개 변수"
+    "defaultMessage": "주문 매개변수"
   },
   "orders.order.lifecycle.link": {
     "defaultMessage": "제품 관리"
   },
   "orders.order.provision.parameters": {
-    "defaultMessage": "매개 변수"
+    "defaultMessage": "매개변수"
   },
   "orders.provision.fetching-provision": {
-    "defaultMessage": "주문 프로비저닝 데이터 가져오기"
+    "defaultMessage": "주문 프로비저닝 데이터 검색 중"
   },
   "orders.provision.no-items": {
     "defaultMessage": "이 주문에 대한 프로비저닝 데이터를 찾을 수 없습니다."
+  },
+  "orders.title": {
+    "defaultMessage": "주문"
   },
   "orders.toolbar.backLink": {
     "defaultMessage": "주문으로 돌아가기"
   },
   "platform.cloudConnectorId": {
-    "defaultMessage": "RedHat Connect Client Id"
+    "defaultMessage": "RedHat Connect 클라이언트 ID"
   },
   "platform.inventories.columns.workflow": {
-    "defaultMessage": "워크플로"
+    "defaultMessage": "워크플로우"
   },
   "platform.inventories.empty.no-inventories": {
     "defaultMessage": "인벤토리를 찾을 수 없습니다."
@@ -447,7 +648,7 @@
     "defaultMessage": "인벤토리로 필터링"
   },
   "platform.templates.empty.no-templates": {
-    "defaultMessage": "이 플랫폼에 대한 템플릿이 없습니다."
+    "defaultMessage": "이 플랫폼에는 템플릿이 없습니다."
   },
   "platform.templates.filter.placeholder": {
     "defaultMessage": "템플릿으로 필터링"
@@ -468,10 +669,10 @@
     "defaultMessage": "가용성 상태"
   },
   "platforms.controller.url": {
-    "defaultMessage": "자동화 컨트롤러 URL"
+    "defaultMessage": "자동 컨트롤러 URL"
   },
   "platforms.dateAdded": {
-    "defaultMessage": "날짜 추가"
+    "defaultMessage": "추가된 날짜"
   },
   "platforms.details": {
     "defaultMessage": "세부 정보"
@@ -480,7 +681,7 @@
     "defaultMessage": "Ansible Automation Platform 2.0 BETA 문서"
   },
   "platforms.enabled": {
-    "defaultMessage": "활성화"
+    "defaultMessage": "활성화됨"
   },
   "platforms.lastAvailable": {
     "defaultMessage": "마지막 사용 가능"
@@ -495,19 +696,19 @@
     "defaultMessage": "마지막으로 성공한 새로 고침"
   },
   "platforms.list.configure-source": {
-    "defaultMessage": "Ansible Automation Services 카탈로그는 다음과 같이 추가할 수 있습니다"
+    "defaultMessage": "Ansible Automation Services Catalog는 다음에 따라 추가할 수 있습니다."
   },
   "platforms.list.connect-source": {
-    "defaultMessage": "소스로 가기"
+    "defaultMessage": "소스로 이동"
   },
   "platforms.list.contact-admin": {
-    "defaultMessage": "카탈로그의 소스를 설정하려면 조직 관리자에게 문의하십시오."
+    "defaultMessage": "조직 관리자에게 문의하여 카탈로그에 대한 소스를 설정합니다."
   },
   "platforms.list.empty.title": {
     "defaultMessage": "아직 플랫폼이 없음"
   },
   "platforms.offerings.detail.extra-params": {
-    "defaultMessage": "추가 매개 변수"
+    "defaultMessage": "추가 매개변수"
   },
   "platforms.offerings.detail.title": {
     "defaultMessage": "서비스 제공"
@@ -519,13 +720,13 @@
     "defaultMessage": "새로 고침 시작"
   },
   "platforms.refreshState": {
-    "defaultMessage": "상태 새로 고침"
+    "defaultMessage": "새로 고침 상태"
   },
   "platforms.refreshTooltip": {
     "defaultMessage": "플랫폼 새로 고침"
   },
   "platforms.summary": {
-    "defaultMessage": "요약"
+    "defaultMessage": "개요"
   },
   "platforms.title": {
     "defaultMessage": "플랫폼"
@@ -537,22 +738,22 @@
     "defaultMessage": "포트폴리오에 대한 제품을 선택하려면 먼저 플랫폼을 선택해야 합니다."
   },
   "portfolio.add.platform.filter.empty": {
-    "defaultMessage": "필터 매개 변수와 일치하는 제품이 없습니다"
+    "defaultMessage": "필터 매개변수와 일치하는 제품이 없음"
   },
   "portfolio.add.platform.title.empty": {
-    "defaultMessage": "플랫폼을 선택하십시오"
+    "defaultMessage": "플랫폼 선택"
   },
   "portfolio.add.success.description": {
-    "defaultMessage": "<b>{name}</b> 포트폴리오가 성공적으로 추가되었습니다."
+    "defaultMessage": "포트폴리오 <b>{name}</b>이/가 성공적으로 추가되었습니다."
   },
   "portfolio.add.success.title": {
-    "defaultMessage": "포트폴리오를 성공적으로 추가했습니다"
+    "defaultMessage": "포트폴리오 추가 성공"
   },
   "portfolio.detail.alert.source.unavailable": {
-    "defaultMessage": "제품의 플랫폼을 사용할 수 없습니다"
+    "defaultMessage": "이 제품의 플랫폼을 사용할 수 없습니다."
   },
   "portfolio.detail.alert.unavailable": {
-    "defaultMessage": "제품의 {object}을/를 더 이상 사용할 수 없습니다"
+    "defaultMessage": "이 제품의 {object}은 더 이상 사용할 수 없습니다."
   },
   "portfolio.detail.back-to-products": {
     "defaultMessage": "제품으로 돌아가기"
@@ -561,7 +762,7 @@
     "defaultMessage": "제품 추가"
   },
   "portfolio.empty.no-products": {
-    "defaultMessage": "이 제품은 포트폴리오에 추가될 때 나타납니다."
+    "defaultMessage": "포트폴리오에 추가하면 여기에 제품이 표시됩니다."
   },
   "portfolio.item.copy": {
     "defaultMessage": "제품 복사"
@@ -582,7 +783,7 @@
     "defaultMessage": "개요"
   },
   "portfolio.item.detail.support": {
-    "defaultMessage": "자세히 알아보기"
+    "defaultMessage": "더 알아보기"
   },
   "portfolio.item.edit.title": {
     "defaultMessage": "제품 편집"
@@ -591,46 +792,49 @@
     "defaultMessage": "아이콘 업로드 오류"
   },
   "portfolio.item.survey.edit": {
-    "defaultMessage": "설문 조사 편집: {name}"
+    "defaultMessage": "설문 조사 편집 중: {name}"
   },
   "portfolio.item.survey.restore": {
     "defaultMessage": "Ansible Tower 버전으로 복원"
   },
   "portfolio.modal.add.title": {
-    "defaultMessage": "포트폴리오 생성"
+    "defaultMessage": "포트폴리오 만들기"
   },
   "portfolio.modal.edit.title": {
     "defaultMessage": "포트폴리오 편집"
   },
+  "portfolio.notifications.remove.only.portfolio": {
+    "defaultMessage": "포트폴리오가 성공적으로 제거되었습니다."
+  },
   "portfolio.notifications.remove.portfolio": {
-    "defaultMessage": "포트폴리오가 성공적으로 삭제되었습니다. 오류가 발생한 경우 이 작업을 <a>실행 취소 (Undo)</a>할 수 있습니다"
+    "defaultMessage": "포트폴리오가 성공적으로 제거되었습니다. 오류인 경우 이 작업을 <a>취소</a>할 수 있습니다."
   },
   "portfolio.notifications.remove.portfolio-items": {
-    "defaultMessage": "{portfolioName} 포트폴리오에서 {count, plural, one {} other {<b>{count, number}</b>}} {count, plural, one {<b>{productName}</b>} other {<b>products</b>} }을/를 제거했습니다. 잘못된 경우 <a>실행 취소(Undo)</a>합니다."
+    "defaultMessage": "{portfolioName} 포트폴리오에서 {count, plural, one {} other {<b>{count, number}</b>}} {count, plural, one {<b>{productName}</b>} other {<b>products</b>} }을/를 삭제했습니다. 오류인 경우 <a>실행 취소</a>합니다."
   },
   "portfolio.remove.modal.description": {
-    "defaultMessage": "이 작업은 제품 포트폴리오 {name} 및 해당 데이터를 영구적으로 삭제합니다."
+    "defaultMessage": "이 작업은 포트폴리오 {name} 및 해당 데이터를 영구적으로 삭제합니다."
   },
   "portfolio.remove.modal.title": {
     "defaultMessage": "포트폴리오를 삭제하시겠습니까?"
   },
   "portfolio.share.add.duplicate": {
-    "defaultMessage": "포트폴리오가 이 그룹과 공유되었습니다."
+    "defaultMessage": "포트폴리오는 이미 이 그룹과 공유되어 있습니다."
   },
   "portfolio.share.add.missing-data": {
-    "defaultMessage": "그룹 및 권한을 선택하십시오."
+    "defaultMessage": "그룹 및 권한을 선택합니다."
   },
   "portfolio.share.add.missing-group": {
-    "defaultMessage": "포트폴리오를 공유할 그룹을 선택하십시오."
+    "defaultMessage": "포트폴리오를 공유할 그룹을 선택합니다."
   },
   "portfolio.share.add.missing-permission": {
-    "defaultMessage": "선택한 그룹에 권한을 할당하십시오."
+    "defaultMessage": "선택한 그룹에 권한을 할당합니다."
   },
   "portfolio.share.add.no-shares": {
-    "defaultMessage": "포트폴리오를 공유할 그룹 및 권한 선택"
+    "defaultMessage": "포트폴리오를 공유하려면 그룹 및 권한을 선택합니다."
   },
   "portfolio.share.add.tooltip": {
-    "defaultMessage": "선택한 그룹 및 권한과 포트폴리오를 공유하십시오"
+    "defaultMessage": "선택한 그룹 및 권한과 포트폴리오를 공유합니다."
   },
   "portfolio.share.modal.apply": {
     "defaultMessage": "적용"
@@ -648,10 +852,10 @@
     "defaultMessage": "포트폴리오 공유"
   },
   "portfolios.empty.noData.description": {
-    "defaultMessage": "현재 포트폴리오가 없습니다. 시작하려면 포트폴리오를 만드십시오."
+    "defaultMessage": "현재 포트폴리오가 없습니다. 시작할 포트폴리오를 만듭니다."
   },
   "portfolios.empty.noData.title": {
-    "defaultMessage": "포트폴리오 생성"
+    "defaultMessage": "포트폴리오 만들기"
   },
   "portfolios.filters.placeholder": {
     "defaultMessage": "포트폴리오로 필터링"
@@ -663,10 +867,163 @@
     "defaultMessage": "소스 추가"
   },
   "products.empty.configure-source": {
-    "defaultMessage": "소스를 구성하고 포트폴리오에 제품을 추가하십시오"
+    "defaultMessage": "소스를 구성하고 포트폴리오에 제품을 추가합니다."
   },
   "products.toolbar.title": {
     "defaultMessage": "제품"
+  },
+  "requestMessages.requestTitle": {
+    "defaultMessage": "요청 {id}"
+  },
+  "requestsMessages.addCommentLabel": {
+    "defaultMessage": "제출"
+  },
+  "requestsMessages.approveDescription": {
+    "defaultMessage": "요청에 대한 승인 제공"
+  },
+  "requestsMessages.approveLabel": {
+    "defaultMessage": "승인"
+  },
+  "requestsMessages.approveRequest": {
+    "defaultMessage": "요청 승인"
+  },
+  "requestsMessages.approveTitle": {
+    "defaultMessage": "요청 승인"
+  },
+  "requestsMessages.approved": {
+    "defaultMessage": "승인됨"
+  },
+  "requestsMessages.approvedBy": {
+    "defaultMessage": "{by}에 의해 승인됨"
+  },
+  "requestsMessages.canceled": {
+    "defaultMessage": "취소됨"
+  },
+  "requestsMessages.canceledBy": {
+    "defaultMessage": "{by}에 의해 취소됨"
+  },
+  "requestsMessages.commentDescription": {
+    "defaultMessage": "요청에 대한 의견 보내기"
+  },
+  "requestsMessages.commentFrom": {
+    "defaultMessage": "{by}의 댓글"
+  },
+  "requestsMessages.commentTitle": {
+    "defaultMessage": "댓글"
+  },
+  "requestsMessages.completed": {
+    "defaultMessage": "완료됨"
+  },
+  "requestsMessages.decisionColumn": {
+    "defaultMessage": "결정"
+  },
+  "requestsMessages.denied": {
+    "defaultMessage": "거부됨"
+  },
+  "requestsMessages.deniedBy": {
+    "defaultMessage": "{by}에 의해 거부됨"
+  },
+  "requestsMessages.denyDescription": {
+    "defaultMessage": "요청을 거부하는 이유 제공"
+  },
+  "requestsMessages.denyLabel": {
+    "defaultMessage": "거부"
+  },
+  "requestsMessages.denyRequest": {
+    "defaultMessage": "요청 거부"
+  },
+  "requestsMessages.denyTitle": {
+    "defaultMessage": "요청 거부"
+  },
+  "requestsMessages.emptyAllRequestsDescription": {
+    "defaultMessage": "승인 프로세스가 시작되면 요청이 여기에 표시됩니다."
+  },
+  "requestsMessages.emptyRequestsDescription": {
+    "defaultMessage": "주의가 필요한 요청이 여기에 표시됩니다."
+  },
+  "requestsMessages.emptyRequestsTitle": {
+    "defaultMessage": "아직 요청이 없음"
+  },
+  "requestsMessages.error": {
+    "defaultMessage": "오류"
+  },
+  "requestsMessages.errorBy": {
+    "defaultMessage": "{by}에 의한 오류"
+  },
+  "requestsMessages.expandableDataList": {
+    "defaultMessage": "확장 가능한 데이터 목록"
+  },
+  "requestsMessages.failed": {
+    "defaultMessage": "실패"
+  },
+  "requestsMessages.needsReview": {
+    "defaultMessage": "검토 필요"
+  },
+  "requestsMessages.notified": {
+    "defaultMessage": "통지됨"
+  },
+  "requestsMessages.notifiedBy": {
+    "defaultMessage": "{by}에 의한 알림"
+  },
+  "requestsMessages.openedColumn": {
+    "defaultMessage": "열기"
+  },
+  "requestsMessages.orderNumber": {
+    "defaultMessage": "주문 번호"
+  },
+  "requestsMessages.parameters": {
+    "defaultMessage": "매개변수"
+  },
+  "requestsMessages.pending": {
+    "defaultMessage": "보류"
+  },
+  "requestsMessages.reasonTitle": {
+    "defaultMessage": "이유"
+  },
+  "requestsMessages.request": {
+    "defaultMessage": "요청"
+  },
+  "requestsMessages.requestContentDetails": {
+    "defaultMessage": "콘텐츠 세부 정보 요청"
+  },
+  "requestsMessages.requestDescription": {
+    "defaultMessage": "요청 {id}"
+  },
+  "requestsMessages.requestTranscript": {
+    "defaultMessage": "요청 기록"
+  },
+  "requestsMessages.requesterColumn": {
+    "defaultMessage": "요청자"
+  },
+  "requestsMessages.requests": {
+    "defaultMessage": "요청"
+  },
+  "requestsMessages.requestsIdColumn": {
+    "defaultMessage": "요청 ID"
+  },
+  "requestsMessages.skipped": {
+    "defaultMessage": "건너뛰기"
+  },
+  "requestsMessages.skippedBy": {
+    "defaultMessage": "{by}에서 건너뛰기"
+  },
+  "requestsMessages.started": {
+    "defaultMessage": "시작됨"
+  },
+  "requestsMessages.startedBy": {
+    "defaultMessage": "{by}에 의해 시작됨"
+  },
+  "requestsMessages.statusColumn": {
+    "defaultMessage": "상태"
+  },
+  "requestsMessages.toggleDetailsFor": {
+    "defaultMessage": "세부 정보 전환"
+  },
+  "requestsMessages.undecided": {
+    "defaultMessage": "지정되지 않음"
+  },
+  "requestsMessages.updatedColumn": {
+    "defaultMessage": "업데이트됨"
   },
   "schemas.portfolio-item.description": {
     "defaultMessage": "설명"
@@ -684,7 +1041,7 @@
     "defaultMessage": "지원 URL"
   },
   "schemas.portfolio-item.vendor": {
-    "defaultMessage": "공급업체"
+    "defaultMessage": "벤더"
   },
   "schemas.portfolio.description": {
     "defaultMessage": "설명"
@@ -708,16 +1065,16 @@
     "defaultMessage": "<b>{group}</b>에 대한 공유 권한이 업데이트되었습니다."
   },
   "share.notification.success.change-permission.title": {
-    "defaultMessage": "권한이 성공적으로 변경되었습니다"
+    "defaultMessage": "사용 권한 변경 성공"
   },
   "share.notification.success.multiple-groups": {
     "defaultMessage": "{count} 그룹"
   },
   "share.notification.success.share.description": {
-    "defaultMessage": "포트폴리오 <b>{name}</b>이/가 {group}과 공유됩니다."
+    "defaultMessage": "포트폴리오 <b>{name}</b>이/가 {group}과 공유되었습니다."
   },
   "share.notification.success.share.title": {
-    "defaultMessage": "포트폴리오가 성공적으로 공유되었습니다"
+    "defaultMessage": "포트폴리오 공유 성공"
   },
   "share.notification.success.title": {
     "defaultMessage": "공유 권한이 성공적으로 업데이트되었습니다"
@@ -726,21 +1083,211 @@
     "defaultMessage": "{group1} 및 {group2}"
   },
   "share.notification.success.unshare.description": {
-    "defaultMessage": "포트폴리오 <b>{name}</b>이/가 {group}와/과 공유되지 않습니다."
+    "defaultMessage": "포트폴리오 <b>{name}</b>은/는 {group}과의 공유가 취소되었습니다."
   },
   "share.notification.success.unshare.title": {
-    "defaultMessage": "포트폴리오가 성공적으로 공유 해제되었습니다"
+    "defaultMessage": "포트폴리오 공유 해제 성공"
+  },
+  "tableEmpty.noRecords": {
+    "defaultMessage": "레코드 없음"
+  },
+  "tableToolbar.ariaLabel": {
+    "defaultMessage": "{title} 테이블"
+  },
+  "tableToolbar.clearAllFilters": {
+    "defaultMessage": "모든 필터 지우기"
+  },
+  "tableToolbar.clearAllFiltersDescription": {
+    "defaultMessage": "필터 기준과 일치하는 결과가 없습니다. 모든 필터를 제거하거나 모든 필터를 지워 결과를 표시합니다."
   },
   "tableToolbar.filterByTitle": {
     "defaultMessage": "{title}로 필터링"
+  },
+  "tableToolbar.name": {
+    "defaultMessage": "이름"
   },
   "tableToolbar.noResult": {
     "defaultMessage": "{results} 없음"
   },
   "tableToolbar.noResultsFound": {
-    "defaultMessage": "결과가 없습니다"
+    "defaultMessage": "결과를 찾을 수 없음"
+  },
+  "tableToolbar.updatedLabel": {
+    "defaultMessage": "업데이트됨"
+  },
+  "tabs.allRequests": {
+    "defaultMessage": "모든 요청"
+  },
+  "tabs.approvalProcess": {
+    "defaultMessage": "승인 프로세스"
+  },
+  "tabs.myRequests": {
+    "defaultMessage": "내 요청"
+  },
+  "tabs.notificationSettings": {
+    "defaultMessage": "알림 설정"
+  },
+  "tabs.templates": {
+    "defaultMessage": "템플릿"
+  },
+  "templateMessages.addTemplateSuccessDescription": {
+    "defaultMessage": "템플릿이 성공적으로 추가되었습니다."
+  },
+  "templateMessages.addTemplateSuccessTitle": {
+    "defaultMessage": "템플릿 추가 성공"
+  },
+  "templateMessages.createTemplate": {
+    "defaultMessage": "템플릿 만들기"
+  },
+  "templateMessages.deleteTemplateTitle": {
+    "defaultMessage": "템플릿 삭제"
+  },
+  "templateMessages.down": {
+    "defaultMessage": "down"
+  },
+  "templateMessages.edit": {
+    "defaultMessage": "편집"
+  },
+  "templateMessages.editInformation": {
+    "defaultMessage": "정보 편집"
+  },
+  "templateMessages.editTemplateTitle": {
+    "defaultMessage": "템플릿 {name}을(를) 변경합니다."
+  },
+  "templateMessages.noTemplates": {
+    "defaultMessage": "템플릿 없음"
+  },
+  "templateMessages.processMethod": {
+    "defaultMessage": "프로세스 방법"
+  },
+  "templateMessages.removeTemplateDescription": {
+    "defaultMessage": "{name}이/가 삭제됩니다."
+  },
+  "templateMessages.removeTemplateDescriptionWithDeps": {
+    "defaultMessage": "{name}이/가 애플리케이션에서 제거됩니다. {dependenciesList}"
+  },
+  "templateMessages.removeTemplateSuccessDescription": {
+    "defaultMessage": "템플릿이 성공적으로 제거되었습니다."
+  },
+  "templateMessages.removeTemplateSuccessTitle": {
+    "defaultMessage": "템플릿 제거 성공"
+  },
+  "templateMessages.removeTemplateTitle": {
+    "defaultMessage": "{count, plural, one {template} other {templates}} 모달 삭제"
+  },
+  "templateMessages.removeTemplatesSuccessDescription": {
+    "defaultMessage": "선택한 템플릿이 성공적으로 제거되었습니다."
+  },
+  "templateMessages.removeTemplatesSuccessTitle": {
+    "defaultMessage": "템플릿을 성공적으로 제거"
+  },
+  "templateMessages.repositionTemplateSuccessDescription": {
+    "defaultMessage": "템플릿 시퀀스가 성공적으로 업데이트되었습니다."
+  },
+  "templateMessages.repositionTemplateSuccessTitle": {
+    "defaultMessage": "템플릿 시퀀스를 성공적으로 업데이트"
+  },
+  "templateMessages.signalMethod": {
+    "defaultMessage": "신호 방법"
+  },
+  "templateMessages.template": {
+    "defaultMessage": "템플릿"
+  },
+  "templateMessages.templates": {
+    "defaultMessage": "템플릿"
+  },
+  "templateMessages.up": {
+    "defaultMessage": "up"
+  },
+  "templateMessages.updateTemplateSuccessDescription": {
+    "defaultMessage": "템플릿이 성공적으로 업데이트되었습니다."
+  },
+  "templateMessages.updateTemplateSuccessTitle": {
+    "defaultMessage": "템플릿 업데이트 성공"
+  },
+  "worfklowMessages.approvalProcess": {
+    "defaultMessage": "승인 프로세스"
+  },
+  "worfklowMessages.approvalProcesses": {
+    "defaultMessage": "승인 프로세스"
+  },
+  "worfklowMessages.createApprovalProcess": {
+    "defaultMessage": "승인 프로세스 만들기"
+  },
+  "worfklowMessages.deleteApprovalTitle": {
+    "defaultMessage": "승인 프로세스 삭제"
+  },
+  "worfklowMessages.edit": {
+    "defaultMessage": "편집"
+  },
+  "worfklowMessages.editInformation": {
+    "defaultMessage": "정보 편집"
+  },
+  "worfklowMessages.noApprovalProcesses": {
+    "defaultMessage": "승인 프로세스 없음"
+  },
+  "workflowMessages.addProcessSuccessDescription": {
+    "defaultMessage": "승인 프로세스가 성공적으로 추가되었습니다."
+  },
+  "workflowMessages.addProcessSuccessTitle": {
+    "defaultMessage": "승인 프로세스 추가 성공"
+  },
+  "workflowMessages.down": {
+    "defaultMessage": "down"
+  },
+  "workflowMessages.editProcessTitle": {
+    "defaultMessage": "승인 프로세스 {name}을(를) 변경합니다."
+  },
+  "workflowMessages.enterSequence": {
+    "defaultMessage": "순서 입력"
+  },
+  "workflowMessages.removeProcessAriaLabel": {
+    "defaultMessage": "{count,plural, one {approval process} other {approval processes}} 모달 삭제"
+  },
+  "workflowMessages.removeProcessDescription": {
+    "defaultMessage": "{name}이/가 삭제됩니다."
+  },
+  "workflowMessages.removeProcessDescriptionWithDeps": {
+    "defaultMessage": "{name}이/가 애플리케이션에서 제거됩니다. {dependenciesList}"
+  },
+  "workflowMessages.removeProcessSuccessDescription": {
+    "defaultMessage": "승인 프로세스가 성공적으로 제거되었습니다."
+  },
+  "workflowMessages.removeProcessSuccessTitle": {
+    "defaultMessage": "승인 프로세스 제거 성공"
+  },
+  "workflowMessages.removeProcessTitle": {
+    "defaultMessage": "{count, plural, one {approval process} other {approval processes}}를 삭제하시겠습니까?"
+  },
+  "workflowMessages.removeProcessesSuccessDescription": {
+    "defaultMessage": "선택한 승인 프로세스가 성공적으로 제거되었습니다."
+  },
+  "workflowMessages.removeProcessesSuccessTitle": {
+    "defaultMessage": "승인 프로세스 제거 성공"
+  },
+  "workflowMessages.repositionProcessSuccessDescription": {
+    "defaultMessage": "승인 프로세스의 순서가 성공적으로 업데이트되었습니다."
+  },
+  "workflowMessages.repositionProcessSuccessTitle": {
+    "defaultMessage": "승인 프로세스 순서의 업데이트 성공"
+  },
+  "workflowMessages.sequence": {
+    "defaultMessage": "순서"
+  },
+  "workflowMessages.template": {
+    "defaultMessage": "템플릿"
+  },
+  "workflowMessages.up": {
+    "defaultMessage": "up"
+  },
+  "workflowMessages.updateProcessSuccessDescription": {
+    "defaultMessage": "승인 프로세스가 성공적으로 업데이트되었습니다."
+  },
+  "workflowMessages.updateProcessSuccessTitle": {
+    "defaultMessage": "승인 프로세스 업데이트 성공"
   },
   "workflows.modal.title": {
     "defaultMessage": "승인 프로세스 설정"
   }
 }
+

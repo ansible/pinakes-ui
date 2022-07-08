@@ -2,6 +2,24 @@
   "SrzSY5": {
     "defaultMessage": "Foo"
   },
+  "actionModal.actionName": {
+    "defaultMessage": "{actionType} 请求"
+  },
+  "actionModal.failedAction": {
+    "defaultMessage": "{actionName} 操作失败。"
+  },
+  "actionModal.failedTitle": {
+    "defaultMessage": "{actionName} error"
+  },
+  "actionModal.fullfiledAction": {
+    "defaultMessage": "{actionName} 成功。"
+  },
+  "actionModal.requestDescription": {
+    "defaultMessage": "{actionMessage} {id}"
+  },
+  "actionModal.successTitle": {
+    "defaultMessage": "成功"
+  },
   "approval.notifications.link": {
     "defaultMessage": "批准过程已成功链接。"
   },
@@ -105,7 +123,7 @@
     "defaultMessage": "保存"
   },
   "common.labels.shared": {
-    "defaultMessage": "共享"
+    "defaultMessage": "与 {count} 个组共享"
   },
   "common.labels.sort-by": {
     "defaultMessage": "排序方式"
@@ -129,7 +147,7 @@
     "defaultMessage": "完成"
   },
   "common.states.created": {
-    "defaultMessage": "已创建"
+    "defaultMessage": "创建"
   },
   "common.states.denied": {
     "defaultMessage": "已拒绝"
@@ -164,11 +182,59 @@
   "common.states.unknown": {
     "defaultMessage": "未知"
   },
+  "commonApiError.401Description": {
+    "defaultMessage": "您没有权利访问这个部分"
+  },
+  "commonApiError.401Title": {
+    "defaultMessage": "未授权"
+  },
+  "commonApiError.403Description": {
+    "defaultMessage": "如需更多信息，请联系您的机构管理员"
+  },
+  "commonApiError.403Title": {
+    "defaultMessage": "您没有权限批准"
+  },
+  "commonApiError.goToLanding": {
+    "defaultMessage": "进入首页"
+  },
+  "commonApiError.returnBack": {
+    "defaultMessage": "返回上一页"
+  },
+  "commonMessages.actions": {
+    "defaultMessage": "操作"
+  },
+  "commonMessages.approvalTitle": {
+    "defaultMessage": "批准"
+  },
+  "commonMessages.cancel": {
+    "defaultMessage": "取消"
+  },
+  "commonMessages.delete": {
+    "defaultMessage": "删除"
+  },
+  "commonMessages.deleting": {
+    "defaultMessage": "删除"
+  },
   "commonMessages.noRecords": {
     "defaultMessage": "没有记录"
   },
+  "commonMessages.order": {
+    "defaultMessage": "顺序"
+  },
   "commonMessages.orderProcessesTitle": {
     "defaultMessage": "订购过程"
+  },
+  "commonMessages.platform": {
+    "defaultMessage": "平台"
+  },
+  "commonMessages.portfolio": {
+    "defaultMessage": "产品组合"
+  },
+  "commonMessages.product": {
+    "defaultMessage": "产品"
+  },
+  "commonMessages.save": {
+    "defaultMessage": "保存"
   },
   "commonMessages.unknown": {
     "defaultMessage": "未知"
@@ -193,6 +259,63 @@
   },
   "foo": {
     "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "formMessages.approvalProcessName": {
+    "defaultMessage": "名称"
+  },
+  "formMessages.create": {
+    "defaultMessage": "创建"
+  },
+  "formMessages.createApprovalTitle": {
+    "defaultMessage": "设置批准过程"
+  },
+  "formMessages.createNotificationSettingTitle": {
+    "defaultMessage": "创建通知设置"
+  },
+  "formMessages.createTemplateTitle": {
+    "defaultMessage": "创建模板"
+  },
+  "formMessages.description": {
+    "defaultMessage": "描述"
+  },
+  "formMessages.enterApprovalName": {
+    "defaultMessage": "为批准过程输入一个名称"
+  },
+  "formMessages.enterInfo": {
+    "defaultMessage": "输入您的信息"
+  },
+  "formMessages.enterNotificationSettingName": {
+    "defaultMessage": "输入通知设置的名称"
+  },
+  "formMessages.enterTemplateTitle": {
+    "defaultMessage": "输入模板名称"
+  },
+  "formMessages.existingGroups": {
+    "defaultMessage": "当前组"
+  },
+  "formMessages.generalInformation": {
+    "defaultMessage": "常规信息"
+  },
+  "formMessages.groups": {
+    "defaultMessage": "组"
+  },
+  "formMessages.nameTaken": {
+    "defaultMessage": "名称已被使用"
+  },
+  "formMessages.notificationSettingName": {
+    "defaultMessage": "名称"
+  },
+  "formMessages.selectPlaceholder": {
+    "defaultMessage": "选择..."
+  },
+  "formMessages.setGroups": {
+    "defaultMessage": "添加组"
+  },
+  "formMessages.summary": {
+    "defaultMessage": "概述"
+  },
+  "formMessages.templateTitle": {
+    "defaultMessage": "标题"
   },
   "forms.after.currentAfterProvision": {
     "defaultMessage": "置备后当前"
@@ -235,6 +358,78 @@
   },
   "name": {
     "defaultMessage": "名称"
+  },
+  "notFound.pageNotFound": {
+    "defaultMessage": "您查找的页面不存在。"
+  },
+  "notificationMessages.addNotificationSuccessDescription": {
+    "defaultMessage": "这个通知被成功添加。"
+  },
+  "notificationMessages.addNotificationSuccessTitle": {
+    "defaultMessage": "成功添加通知"
+  },
+  "notificationMessages.createNotification": {
+    "defaultMessage": "创建通知"
+  },
+  "notificationMessages.deleteNotificationTitle": {
+    "defaultMessage": "删除通知"
+  },
+  "notificationMessages.edit": {
+    "defaultMessage": "编辑"
+  },
+  "notificationMessages.editInformation": {
+    "defaultMessage": "编辑信息"
+  },
+  "notificationMessages.editNotificationTitle": {
+    "defaultMessage": "对通知 {name} 进行更改"
+  },
+  "notificationMessages.noNotifications": {
+    "defaultMessage": "没有通知"
+  },
+  "notificationMessages.notification": {
+    "defaultMessage": "通知"
+  },
+  "notificationMessages.notifications": {
+    "defaultMessage": "notifications"
+  },
+  "notificationMessages.removeNotificationDescription": {
+    "defaultMessage": "{name} 将被删除。"
+  },
+  "notificationMessages.removeNotificationDescriptionWithDeps": {
+    "defaultMessage": "{name} 将从以下应用程序中删除：{dependenciesList}"
+  },
+  "notificationMessages.removeNotificationSuccessDescription": {
+    "defaultMessage": "该通知已被成功删除。"
+  },
+  "notificationMessages.removeNotificationSuccessTitle": {
+    "defaultMessage": "成功删除通知"
+  },
+  "notificationMessages.removeNotificationTitle": {
+    "defaultMessage": "删除 {count, plural, one {notification} other {notifications}} modal"
+  },
+  "notificationMessages.removeNotificationsSuccessDescription": {
+    "defaultMessage": "选择的通知已被成功删除。"
+  },
+  "notificationMessages.removeNotificationsSuccessTitle": {
+    "defaultMessage": "成功删除通知"
+  },
+  "notificationMessages.repositionNotificationSuccessDescription": {
+    "defaultMessage": "通知的序列已被成功更新。"
+  },
+  "notificationMessages.repositionNotificationSuccessTitle": {
+    "defaultMessage": "成功更新通知序列"
+  },
+  "notificationMessages.settings": {
+    "defaultMessage": "设置"
+  },
+  "notificationMessages.type": {
+    "defaultMessage": "通知类型"
+  },
+  "notificationMessages.updateNotificationSuccessDescription": {
+    "defaultMessage": "通知已成功更新。"
+  },
+  "notificationMessages.updateNotificationSuccessTitle": {
+    "defaultMessage": "成功更新通知"
   },
   "order-proces.empty.no-order-processes": {
     "defaultMessage": "没有找到订购过程。"
@@ -310,6 +505,9 @@
   },
   "order-process.tags.set": {
     "defaultMessage": "为 <strong>{object}</strong> 设置订购过程"
+  },
+  "order-process.toolbar.no-order-process": {
+    "defaultMessage": "没有订购过程"
   },
   "order-process.toolbar.order-process": {
     "defaultMessage": "订购过程"
@@ -402,7 +600,7 @@
     "defaultMessage": "订购步骤"
   },
   "orders.notification.success": {
-    "defaultMessage": "您可以跟踪您的订购 # {id} 的进度。 <link>订购</link> 页。"
+    "defaultMessage": "您可以跟踪您的订购 # {id} 的进度 <link>订购</link> 页。"
   },
   "orders.order.default_type": {
     "defaultMessage": "产品"
@@ -427,6 +625,9 @@
   },
   "orders.provision.no-items": {
     "defaultMessage": "我们无法找到此订单的置备数据。"
+  },
+  "orders.title": {
+    "defaultMessage": "订购"
   },
   "orders.toolbar.backLink": {
     "defaultMessage": "返回订单"
@@ -567,7 +768,7 @@
     "defaultMessage": "复制项目"
   },
   "portfolio.item.detail.actions.order": {
-    "defaultMessage": "订购"
+    "defaultMessage": "顺序"
   },
   "portfolio.item.detail.actions.survey": {
     "defaultMessage": "编辑问卷调查"
@@ -601,6 +802,9 @@
   },
   "portfolio.modal.edit.title": {
     "defaultMessage": "编辑产品组合"
+  },
+  "portfolio.notifications.remove.only.portfolio": {
+    "defaultMessage": "该产品组合已被成功删除。"
   },
   "portfolio.notifications.remove.portfolio": {
     "defaultMessage": "该产品组合已被成功删除。如果出现错误，可以<a>撤销</a>此操作。"
@@ -668,6 +872,159 @@
   "products.toolbar.title": {
     "defaultMessage": "产品"
   },
+  "requestMessages.requestTitle": {
+    "defaultMessage": "请求 {id}"
+  },
+  "requestsMessages.addCommentLabel": {
+    "defaultMessage": "提交"
+  },
+  "requestsMessages.approveDescription": {
+    "defaultMessage": "为请求提供批准"
+  },
+  "requestsMessages.approveLabel": {
+    "defaultMessage": "批准"
+  },
+  "requestsMessages.approveRequest": {
+    "defaultMessage": "批准请求"
+  },
+  "requestsMessages.approveTitle": {
+    "defaultMessage": "批准请求"
+  },
+  "requestsMessages.approved": {
+    "defaultMessage": "已批准"
+  },
+  "requestsMessages.approvedBy": {
+    "defaultMessage": "由 {by} 批准"
+  },
+  "requestsMessages.canceled": {
+    "defaultMessage": "已取消"
+  },
+  "requestsMessages.canceledBy": {
+    "defaultMessage": "由 {by} 取消"
+  },
+  "requestsMessages.commentDescription": {
+    "defaultMessage": "提交有关请求的评论"
+  },
+  "requestsMessages.commentFrom": {
+    "defaultMessage": "来自 {by} 的评论"
+  },
+  "requestsMessages.commentTitle": {
+    "defaultMessage": "注释"
+  },
+  "requestsMessages.completed": {
+    "defaultMessage": "完成"
+  },
+  "requestsMessages.decisionColumn": {
+    "defaultMessage": "决定"
+  },
+  "requestsMessages.denied": {
+    "defaultMessage": "已拒绝"
+  },
+  "requestsMessages.deniedBy": {
+    "defaultMessage": "由 {by} 拒绝"
+  },
+  "requestsMessages.denyDescription": {
+    "defaultMessage": "提供拒绝请求的原因"
+  },
+  "requestsMessages.denyLabel": {
+    "defaultMessage": "拒绝"
+  },
+  "requestsMessages.denyRequest": {
+    "defaultMessage": "拒绝请求"
+  },
+  "requestsMessages.denyTitle": {
+    "defaultMessage": "拒绝请求"
+  },
+  "requestsMessages.emptyAllRequestsDescription": {
+    "defaultMessage": "在启动批准过程时，请求将在此处显示。"
+  },
+  "requestsMessages.emptyRequestsDescription": {
+    "defaultMessage": "这里将会显示需要关注的请求。"
+  },
+  "requestsMessages.emptyRequestsTitle": {
+    "defaultMessage": "还没有请求"
+  },
+  "requestsMessages.error": {
+    "defaultMessage": "错误"
+  },
+  "requestsMessages.errorBy": {
+    "defaultMessage": "错误 {by}"
+  },
+  "requestsMessages.expandableDataList": {
+    "defaultMessage": "可扩展的数据列表"
+  },
+  "requestsMessages.failed": {
+    "defaultMessage": "失败"
+  },
+  "requestsMessages.needsReview": {
+    "defaultMessage": "需要审核"
+  },
+  "requestsMessages.notified": {
+    "defaultMessage": "通知"
+  },
+  "requestsMessages.notifiedBy": {
+    "defaultMessage": "由 {by} 通知"
+  },
+  "requestsMessages.openedColumn": {
+    "defaultMessage": "打开"
+  },
+  "requestsMessages.orderNumber": {
+    "defaultMessage": "Order#"
+  },
+  "requestsMessages.parameters": {
+    "defaultMessage": "参数"
+  },
+  "requestsMessages.pending": {
+    "defaultMessage": "待处理"
+  },
+  "requestsMessages.reasonTitle": {
+    "defaultMessage": "原因"
+  },
+  "requestsMessages.request": {
+    "defaultMessage": "请求"
+  },
+  "requestsMessages.requestContentDetails": {
+    "defaultMessage": "请求内容详情"
+  },
+  "requestsMessages.requestDescription": {
+    "defaultMessage": "请求 {id}"
+  },
+  "requestsMessages.requestTranscript": {
+    "defaultMessage": "请求记录"
+  },
+  "requestsMessages.requesterColumn": {
+    "defaultMessage": "请求者"
+  },
+  "requestsMessages.requests": {
+    "defaultMessage": "请求"
+  },
+  "requestsMessages.requestsIdColumn": {
+    "defaultMessage": "请求 ID"
+  },
+  "requestsMessages.skipped": {
+    "defaultMessage": "跳过"
+  },
+  "requestsMessages.skippedBy": {
+    "defaultMessage": "由 {by} 跳过"
+  },
+  "requestsMessages.started": {
+    "defaultMessage": "started"
+  },
+  "requestsMessages.startedBy": {
+    "defaultMessage": "由 {by} 启动"
+  },
+  "requestsMessages.statusColumn": {
+    "defaultMessage": "状态"
+  },
+  "requestsMessages.toggleDetailsFor": {
+    "defaultMessage": "切换详情"
+  },
+  "requestsMessages.undecided": {
+    "defaultMessage": "未决定"
+  },
+  "requestsMessages.updatedColumn": {
+    "defaultMessage": "更新"
+  },
   "schemas.portfolio-item.description": {
     "defaultMessage": "描述"
   },
@@ -731,8 +1088,23 @@
   "share.notification.success.unshare.title": {
     "defaultMessage": "成功取消共享产品组合"
   },
+  "tableEmpty.noRecords": {
+    "defaultMessage": "没有记录"
+  },
+  "tableToolbar.ariaLabel": {
+    "defaultMessage": "{title} 表"
+  },
+  "tableToolbar.clearAllFilters": {
+    "defaultMessage": "清除所有过滤器"
+  },
+  "tableToolbar.clearAllFiltersDescription": {
+    "defaultMessage": "没有与过滤器条件匹配的结果。删除所有过滤器或清除所有过滤器以显示结果。"
+  },
   "tableToolbar.filterByTitle": {
     "defaultMessage": "按 {title} 过滤"
+  },
+  "tableToolbar.name": {
+    "defaultMessage": "名称"
   },
   "tableToolbar.noResult": {
     "defaultMessage": "没有 {results}"
@@ -740,7 +1112,182 @@
   "tableToolbar.noResultsFound": {
     "defaultMessage": "没有找到结果"
   },
+  "tableToolbar.updatedLabel": {
+    "defaultMessage": "更新"
+  },
+  "tabs.allRequests": {
+    "defaultMessage": "所有请求"
+  },
+  "tabs.approvalProcess": {
+    "defaultMessage": "批准过程"
+  },
+  "tabs.myRequests": {
+    "defaultMessage": "我的请求"
+  },
+  "tabs.notificationSettings": {
+    "defaultMessage": "通知设置"
+  },
+  "tabs.templates": {
+    "defaultMessage": "模板"
+  },
+  "templateMessages.addTemplateSuccessDescription": {
+    "defaultMessage": "模板已被成功添加。"
+  },
+  "templateMessages.addTemplateSuccessTitle": {
+    "defaultMessage": "成功添加模板"
+  },
+  "templateMessages.createTemplate": {
+    "defaultMessage": "创建模板"
+  },
+  "templateMessages.deleteTemplateTitle": {
+    "defaultMessage": "删除模板"
+  },
+  "templateMessages.down": {
+    "defaultMessage": "down"
+  },
+  "templateMessages.edit": {
+    "defaultMessage": "编辑"
+  },
+  "templateMessages.editInformation": {
+    "defaultMessage": "编辑信息"
+  },
+  "templateMessages.editTemplateTitle": {
+    "defaultMessage": "对模板 {name} 进行任何更改"
+  },
+  "templateMessages.noTemplates": {
+    "defaultMessage": "没有模板"
+  },
+  "templateMessages.processMethod": {
+    "defaultMessage": "进程方法"
+  },
+  "templateMessages.removeTemplateDescription": {
+    "defaultMessage": "{name} 将被删除。"
+  },
+  "templateMessages.removeTemplateDescriptionWithDeps": {
+    "defaultMessage": "{name} 将从以下应用程序中删除：{dependenciesList}"
+  },
+  "templateMessages.removeTemplateSuccessDescription": {
+    "defaultMessage": "模板已被成功删除。"
+  },
+  "templateMessages.removeTemplateSuccessTitle": {
+    "defaultMessage": "成功删除模板"
+  },
+  "templateMessages.removeTemplateTitle": {
+    "defaultMessage": "删除 {count, plural, one {template} other {templates}} modal"
+  },
+  "templateMessages.removeTemplatesSuccessDescription": {
+    "defaultMessage": "选择的模板已被成功删除。"
+  },
+  "templateMessages.removeTemplatesSuccessTitle": {
+    "defaultMessage": "成功删除模板"
+  },
+  "templateMessages.repositionTemplateSuccessDescription": {
+    "defaultMessage": "模板的序列已被成功更新。"
+  },
+  "templateMessages.repositionTemplateSuccessTitle": {
+    "defaultMessage": "成功更新模板序列"
+  },
+  "templateMessages.signalMethod": {
+    "defaultMessage": "信号方法"
+  },
+  "templateMessages.template": {
+    "defaultMessage": "模板"
+  },
+  "templateMessages.templates": {
+    "defaultMessage": "模板"
+  },
+  "templateMessages.up": {
+    "defaultMessage": "up"
+  },
+  "templateMessages.updateTemplateSuccessDescription": {
+    "defaultMessage": "该模板已被成功更新。"
+  },
+  "templateMessages.updateTemplateSuccessTitle": {
+    "defaultMessage": "成功更新模板"
+  },
+  "worfklowMessages.approvalProcess": {
+    "defaultMessage": "批准过程"
+  },
+  "worfklowMessages.approvalProcesses": {
+    "defaultMessage": "批准过程"
+  },
+  "worfklowMessages.createApprovalProcess": {
+    "defaultMessage": "设置批准过程"
+  },
+  "worfklowMessages.deleteApprovalTitle": {
+    "defaultMessage": "删除批准过程"
+  },
+  "worfklowMessages.edit": {
+    "defaultMessage": "编辑"
+  },
+  "worfklowMessages.editInformation": {
+    "defaultMessage": "编辑信息"
+  },
+  "worfklowMessages.noApprovalProcesses": {
+    "defaultMessage": "没有批准过程"
+  },
+  "workflowMessages.addProcessSuccessDescription": {
+    "defaultMessage": "订购过程已被成功添加。"
+  },
+  "workflowMessages.addProcessSuccessTitle": {
+    "defaultMessage": "成功添加批准过程"
+  },
+  "workflowMessages.down": {
+    "defaultMessage": "down"
+  },
+  "workflowMessages.editProcessTitle": {
+    "defaultMessage": "对批准过程 {name} 进行任何更改"
+  },
+  "workflowMessages.enterSequence": {
+    "defaultMessage": "输入序列"
+  },
+  "workflowMessages.removeProcessAriaLabel": {
+    "defaultMessage": "删除 {count, plural, one {approval process} other {approval processes}} modal"
+  },
+  "workflowMessages.removeProcessDescription": {
+    "defaultMessage": "{name} 将被删除。"
+  },
+  "workflowMessages.removeProcessDescriptionWithDeps": {
+    "defaultMessage": "{name} 将从以下应用程序中删除：{dependenciesList}"
+  },
+  "workflowMessages.removeProcessSuccessDescription": {
+    "defaultMessage": "批准过程已被成功删除。"
+  },
+  "workflowMessages.removeProcessSuccessTitle": {
+    "defaultMessage": "成功删除批准过程"
+  },
+  "workflowMessages.removeProcessTitle": {
+    "defaultMessage": "删除 {count, plural, one {approval process} other {approval process}}?"
+  },
+  "workflowMessages.removeProcessesSuccessDescription": {
+    "defaultMessage": "选择的批准进程已被成功删除。"
+  },
+  "workflowMessages.removeProcessesSuccessTitle": {
+    "defaultMessage": "成功删除批准过程"
+  },
+  "workflowMessages.repositionProcessSuccessDescription": {
+    "defaultMessage": "批准过程序列已被成功更新。"
+  },
+  "workflowMessages.repositionProcessSuccessTitle": {
+    "defaultMessage": "成功更新批准过程序列"
+  },
+  "workflowMessages.sequence": {
+    "defaultMessage": "序列"
+  },
+  "workflowMessages.template": {
+    "defaultMessage": "模板"
+  },
+  "workflowMessages.up": {
+    "defaultMessage": "up"
+  },
+  "workflowMessages.updateProcessSuccessDescription": {
+    "defaultMessage": "批准过程已被成功更新。"
+  },
+  "workflowMessages.updateProcessSuccessTitle": {
+    "defaultMessage": "成功更新批准过程"
+  },
   "workflows.modal.title": {
     "defaultMessage": "设置批准过程"
   }
 }
+

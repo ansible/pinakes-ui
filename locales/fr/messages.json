@@ -2,17 +2,35 @@
   "SrzSY5": {
     "defaultMessage": "Foo"
   },
+  "actionModal.actionName": {
+    "defaultMessage": "Demande {actionType}"
+  },
+  "actionModal.failedAction": {
+    "defaultMessage": "L'action {actionName} a échoué."
+  },
+  "actionModal.failedTitle": {
+    "defaultMessage": "Erreur de {actionName}."
+  },
+  "actionModal.fullfiledAction": {
+    "defaultMessage": "L' {actionName} a réussi."
+  },
+  "actionModal.requestDescription": {
+    "defaultMessage": "{actionMessage} {id}"
+  },
+  "actionModal.successTitle": {
+    "defaultMessage": "Réussite"
+  },
   "approval.notifications.link": {
-    "defaultMessage": "Les process d’autorisation ont été liés."
+    "defaultMessage": "Les process d’approbation ont été liés."
   },
   "approval.notifications.unlink": {
-    "defaultMessage": "Les process d’autorisation n’ont pas pu être reliés entre eux."
+    "defaultMessage": "Les process d’approbation n’ont pas pu être reliés entre eux."
   },
   "approval.workflows.current": {
-    "defaultMessage": "Process d’autorisation en cours"
+    "defaultMessage": "Process d’approbation en cours"
   },
   "approval.workflows.set": {
-    "defaultMessage": "Sélectionner des process d’autorisation pour<b> </b><strong>{objectName}</strong>"
+    "defaultMessage": "Sélectionner des process d’approbation pour<b> </b><strong>{objectName}</strong>"
   },
   "common.actions.copy": {
     "defaultMessage": "Copier"
@@ -30,7 +48,7 @@
     "defaultMessage": "Enregistrer"
   },
   "common.actions.setApproval": {
-    "defaultMessage": "Définir autorisation"
+    "defaultMessage": "Définir l’approbation"
   },
   "common.actions.share": {
     "defaultMessage": "Partager"
@@ -54,7 +72,7 @@
     "defaultMessage": "Aucun résultat ne correspond au critère de recherche. Supprimer tous les filtres pour afficher les résultats."
   },
   "common.labels.approval_process_set": {
-    "defaultMessage": "Processus d’autorisation défini"
+    "defaultMessage": "Processus d’approbation défini"
   },
   "common.labels.available": {
     "defaultMessage": "Disponible"
@@ -96,7 +114,7 @@
     "defaultMessage": "Plateforme "
   },
   "common.labels.portfolio": {
-    "defaultMessage": "Portfolio"
+    "defaultMessage": "Portefeuille"
   },
   "common.labels.product": {
     "defaultMessage": "Produit"
@@ -105,19 +123,19 @@
     "defaultMessage": "Enregistrer"
   },
   "common.labels.shared": {
-    "defaultMessage": "Partagé"
+    "defaultMessage": "Partagé avec {count} groupe(s)"
   },
   "common.labels.sort-by": {
     "defaultMessage": "Trier par"
   },
   "common.labels.to-portfolio": {
-    "defaultMessage": "Au portfolio"
+    "defaultMessage": "Au portefeuille"
   },
   "common.labels.updated": {
     "defaultMessage": "Mise à jour"
   },
   "common.states.approval-pending": {
-    "defaultMessage": "En attente d’autorisation"
+    "defaultMessage": "En attente d’approbation"
   },
   "common.states.approved": {
     "defaultMessage": "Approuvé"
@@ -164,11 +182,59 @@
   "common.states.unknown": {
     "defaultMessage": "Inconnu"
   },
+  "commonApiError.401Description": {
+    "defaultMessage": "Vous n’êtes pas autorisé à accéder à cette section"
+  },
+  "commonApiError.401Title": {
+    "defaultMessage": "Non autorisé"
+  },
+  "commonApiError.403Description": {
+    "defaultMessage": "Contactez l'administrateur de votre organisation pour plus d'informations"
+  },
+  "commonApiError.403Title": {
+    "defaultMessage": "Vous n'avez pas accès à Approbations"
+  },
+  "commonApiError.goToLanding": {
+    "defaultMessage": "Aller à la page d'accueil"
+  },
+  "commonApiError.returnBack": {
+    "defaultMessage": "Retrour à la page précédente"
+  },
+  "commonMessages.actions": {
+    "defaultMessage": "Actions"
+  },
+  "commonMessages.approvalTitle": {
+    "defaultMessage": "Approbation"
+  },
+  "commonMessages.cancel": {
+    "defaultMessage": "Annuler"
+  },
+  "commonMessages.delete": {
+    "defaultMessage": "Supprimer"
+  },
+  "commonMessages.deleting": {
+    "defaultMessage": "Suppression"
+  },
   "commonMessages.noRecords": {
     "defaultMessage": "Aucun enregistrement"
   },
+  "commonMessages.order": {
+    "defaultMessage": "Commande"
+  },
   "commonMessages.orderProcessesTitle": {
     "defaultMessage": "Processus de commande"
+  },
+  "commonMessages.platform": {
+    "defaultMessage": "Plateforme "
+  },
+  "commonMessages.portfolio": {
+    "defaultMessage": "Portefeuille￼\nLe questionnaire latent au produit {} qui se trouve dans le portefeuille {} n’a pas changé et n’est plus valide. Veuillez contacter un administrateur pour le corriger.\n"
+  },
+  "commonMessages.product": {
+    "defaultMessage": "Produit"
+  },
+  "commonMessages.save": {
+    "defaultMessage": "Enregistrer"
   },
   "commonMessages.unknown": {
     "defaultMessage": "Inconnu"
@@ -193,6 +259,63 @@
   },
   "foo": {
     "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+  },
+  "formMessages.approvalProcessName": {
+    "defaultMessage": "Nom"
+  },
+  "formMessages.create": {
+    "defaultMessage": "Créer"
+  },
+  "formMessages.createApprovalTitle": {
+    "defaultMessage": "Définir le processus d’approbation"
+  },
+  "formMessages.createNotificationSettingTitle": {
+    "defaultMessage": "Créer un paramètre de notification"
+  },
+  "formMessages.createTemplateTitle": {
+    "defaultMessage": "Créer un modèle"
+  },
+  "formMessages.description": {
+    "defaultMessage": "Description"
+  },
+  "formMessages.enterApprovalName": {
+    "defaultMessage": "Saisir un nom pour le processus de commande"
+  },
+  "formMessages.enterInfo": {
+    "defaultMessage": "Entrez vos informations"
+  },
+  "formMessages.enterNotificationSettingName": {
+    "defaultMessage": "Saisissez un nom pour le paramètre de notification"
+  },
+  "formMessages.enterTemplateTitle": {
+    "defaultMessage": "Saisir un nom pour le modèle"
+  },
+  "formMessages.existingGroups": {
+    "defaultMessage": "Groupes actuels"
+  },
+  "formMessages.generalInformation": {
+    "defaultMessage": "Informations générales"
+  },
+  "formMessages.groups": {
+    "defaultMessage": "Groupes"
+  },
+  "formMessages.nameTaken": {
+    "defaultMessage": "Nom déjà pris"
+  },
+  "formMessages.notificationSettingName": {
+    "defaultMessage": "Nom"
+  },
+  "formMessages.selectPlaceholder": {
+    "defaultMessage": "Sélectionner..."
+  },
+  "formMessages.setGroups": {
+    "defaultMessage": "Ajouter des groupes"
+  },
+  "formMessages.summary": {
+    "defaultMessage": "Récapitulatif"
+  },
+  "formMessages.templateTitle": {
+    "defaultMessage": "Titre"
   },
   "forms.after.currentAfterProvision": {
     "defaultMessage": "En cours après exécution"
@@ -235,6 +358,78 @@
   },
   "name": {
     "defaultMessage": "Nom"
+  },
+  "notFound.pageNotFound": {
+    "defaultMessage": "La page que vous recherchez n'existe pas."
+  },
+  "notificationMessages.addNotificationSuccessDescription": {
+    "defaultMessage": "La notification a été ajoutée."
+  },
+  "notificationMessages.addNotificationSuccessTitle": {
+    "defaultMessage": "Ajout réussi d'une notification"
+  },
+  "notificationMessages.createNotification": {
+    "defaultMessage": "Créer une notification"
+  },
+  "notificationMessages.deleteNotificationTitle": {
+    "defaultMessage": "Supprimer la notification"
+  },
+  "notificationMessages.edit": {
+    "defaultMessage": "Modifier"
+  },
+  "notificationMessages.editInformation": {
+    "defaultMessage": "Modifier les informations"
+  },
+  "notificationMessages.editNotificationTitle": {
+    "defaultMessage": "Apportez des modifications à la notification {name}"
+  },
+  "notificationMessages.noNotifications": {
+    "defaultMessage": "Aucune notification"
+  },
+  "notificationMessages.notification": {
+    "defaultMessage": "notification"
+  },
+  "notificationMessages.notifications": {
+    "defaultMessage": "notifications"
+  },
+  "notificationMessages.removeNotificationDescription": {
+    "defaultMessage": "{name} sera supprimé."
+  },
+  "notificationMessages.removeNotificationDescriptionWithDeps": {
+    "defaultMessage": "{name} sera supprimé des applications suivantes : {dependenciesList}"
+  },
+  "notificationMessages.removeNotificationSuccessDescription": {
+    "defaultMessage": "La notification a été supprimée."
+  },
+  "notificationMessages.removeNotificationSuccessTitle": {
+    "defaultMessage": "Succès de la suppression de la notification"
+  },
+  "notificationMessages.removeNotificationTitle": {
+    "defaultMessage": "Supprimer {nombre, pluriel, une {notification} autre {notifications}} modal"
+  },
+  "notificationMessages.removeNotificationsSuccessDescription": {
+    "defaultMessage": "Les notifications ont été supprimées."
+  },
+  "notificationMessages.removeNotificationsSuccessTitle": {
+    "defaultMessage": "Succès de la suppression des notifications"
+  },
+  "notificationMessages.repositionNotificationSuccessDescription": {
+    "defaultMessage": "La séquence \"notification\" a été mise à jour."
+  },
+  "notificationMessages.repositionNotificationSuccessTitle": {
+    "defaultMessage": "Séquence de notification de mise à jour réussie"
+  },
+  "notificationMessages.settings": {
+    "defaultMessage": "Paramètres"
+  },
+  "notificationMessages.type": {
+    "defaultMessage": "Type de notification"
+  },
+  "notificationMessages.updateNotificationSuccessDescription": {
+    "defaultMessage": "La notification a été mise à jour."
+  },
+  "notificationMessages.updateNotificationSuccessTitle": {
+    "defaultMessage": "Notification de mise à jour réussie"
   },
   "order-proces.empty.no-order-processes": {
     "defaultMessage": "Aucun processus de commande trouvé."
@@ -288,7 +483,7 @@
     "defaultMessage": "Supprimer  {count, plural, one {order process} other {order processes}} modal"
   },
   "order-process.removeProcessDescription": {
-    "defaultMessage": "{nom} sera supprimé."
+    "defaultMessage": "{name} sera supprimé."
   },
   "order-process.removeProcessSuccessDescription": {
     "defaultMessage": "Le processus de commande a été ajouté."
@@ -310,6 +505,9 @@
   },
   "order-process.tags.set": {
     "defaultMessage": "Définir les processus de commande pour <strong>{object}</strong>"
+  },
+  "order-process.toolbar.no-order-process": {
+    "defaultMessage": "Aucun processus de commande"
   },
   "order-process.toolbar.order-process": {
     "defaultMessage": "Processus de commande"
@@ -333,19 +531,19 @@
     "defaultMessage": "Activité"
   },
   "orders.approval.creating": {
-    "defaultMessage": "Création d’une demande d’autorisation"
+    "defaultMessage": "Création d’une demande d’approbation"
   },
   "orders.approval.details.completed": {
     "defaultMessage": "Complété"
   },
   "orders.approval.details.created": {
-    "defaultMessage": "Requête annulée"
+    "defaultMessage": "Demande annulée"
   },
   "orders.approval.details.reason": {
-    "defaultMessage": "Raison de l’autorisation"
+    "defaultMessage": "Raison de l’approbation"
   },
   "orders.approval.no-requests": {
-    "defaultMessage": "Nous n’avons pas pu trouver de demandes d’autorisation pour cette commande."
+    "defaultMessage": "Nous n’avons pas pu trouver de demandes d’approbation pour cette commande."
   },
   "orders.approval.order-date": {
     "defaultMessage": "Date de la commande"
@@ -360,7 +558,7 @@
     "defaultMessage": "Récapitulatif"
   },
   "orders.approval.view-detail": {
-    "defaultMessage": "Voir les détails de cette requête d’autorisation de commande"
+    "defaultMessage": "Voir les détails de cette demande d’autorisation de commande"
   },
   "orders.artifacts": {
     "defaultMessage": "Artefacts de la commande"
@@ -537,7 +735,7 @@
     "defaultMessage": "Version de plateforme"
   },
   "portfolio.add.platform.description.empty": {
-    "defaultMessage": "Pour pouvoir sélectionner des produits pour votre portfolio, vous devez, tout d’abord, sélectionner une plateforme"
+    "defaultMessage": "Pour pouvoir sélectionner des produits pour votre portefeuille, vous devez, tout d’abord, sélectionner une plateforme"
   },
   "portfolio.add.platform.filter.empty": {
     "defaultMessage": "Aucun produit ne correspond aux paramètres du filtre"
@@ -564,7 +762,7 @@
     "defaultMessage": "Ajouter des produits"
   },
   "portfolio.empty.no-products": {
-    "defaultMessage": "Les produits apparaîtront ici une fois ajoutés au portfolio"
+    "defaultMessage": "Les produits apparaîtront ici une fois ajoutés au portefeuille."
   },
   "portfolio.item.copy": {
     "defaultMessage": "Copier le produit"
@@ -604,6 +802,9 @@
   },
   "portfolio.modal.edit.title": {
     "defaultMessage": "Modifier portfolio"
+  },
+  "portfolio.notifications.remove.only.portfolio": {
+    "defaultMessage": "Le portfolio a été supprimé."
   },
   "portfolio.notifications.remove.portfolio": {
     "defaultMessage": "Le portfolio a été supprimé. Vous pouvez <a>annuler</a> cette action s’il s’agit d’une erreur."
@@ -648,28 +849,181 @@
     "defaultMessage": "Sélectionner les permissions pour le partage"
   },
   "portfolio.share.modal.title": {
-    "defaultMessage": "Partager portfolio ?"
+    "defaultMessage": "Partager portfolio\n"
   },
   "portfolios.empty.noData.description": {
     "defaultMessage": "Vous n’avez pas de portfolio actuellement. Créer un portfolio pour commencer."
   },
   "portfolios.empty.noData.title": {
-    "defaultMessage": "Créer un portfolio"
+    "defaultMessage": "Créer un portefeuille"
   },
   "portfolios.filters.placeholder": {
-    "defaultMessage": "Filtrer par portfolio"
+    "defaultMessage": "Filtrer par portefeuille"
   },
   "portfolios.heading.title": {
-    "defaultMessage": "Portfolios"
+    "defaultMessage": "Portefeuilles"
   },
   "products.empty.add-source": {
     "defaultMessage": "Ajouter une source"
   },
   "products.empty.configure-source": {
-    "defaultMessage": "Configurer une source et ajouter des produits dans les portfolios."
+    "defaultMessage": "Configurer une source et ajouter des produits dans les portefeuilles."
   },
   "products.toolbar.title": {
     "defaultMessage": "Produits"
+  },
+  "requestMessages.requestTitle": {
+    "defaultMessage": "Demande {id}"
+  },
+  "requestsMessages.addCommentLabel": {
+    "defaultMessage": "Valider"
+  },
+  "requestsMessages.approveDescription": {
+    "defaultMessage": "Approuver la demande"
+  },
+  "requestsMessages.approveLabel": {
+    "defaultMessage": "Approuver"
+  },
+  "requestsMessages.approveRequest": {
+    "defaultMessage": "Approuver Demande"
+  },
+  "requestsMessages.approveTitle": {
+    "defaultMessage": "Approuver la demande"
+  },
+  "requestsMessages.approved": {
+    "defaultMessage": "approuvée"
+  },
+  "requestsMessages.approvedBy": {
+    "defaultMessage": "Approuvé par  - "
+  },
+  "requestsMessages.canceled": {
+    "defaultMessage": "annulée"
+  },
+  "requestsMessages.canceledBy": {
+    "defaultMessage": "Annulée par {by}"
+  },
+  "requestsMessages.commentDescription": {
+    "defaultMessage": "Soumettre un commentaire sur demande"
+  },
+  "requestsMessages.commentFrom": {
+    "defaultMessage": "Commentaire de {par}"
+  },
+  "requestsMessages.commentTitle": {
+    "defaultMessage": "Commentaire"
+  },
+  "requestsMessages.completed": {
+    "defaultMessage": "complété"
+  },
+  "requestsMessages.decisionColumn": {
+    "defaultMessage": "Décision"
+  },
+  "requestsMessages.denied": {
+    "defaultMessage": "refusée"
+  },
+  "requestsMessages.deniedBy": {
+    "defaultMessage": "Refusée par  - "
+  },
+  "requestsMessages.denyDescription": {
+    "defaultMessage": "Fournir une raison pour le refus de la demande"
+  },
+  "requestsMessages.denyLabel": {
+    "defaultMessage": "Refuser"
+  },
+  "requestsMessages.denyRequest": {
+    "defaultMessage": "Refus de la demande"
+  },
+  "requestsMessages.denyTitle": {
+    "defaultMessage": "Refus de la demande"
+  },
+  "requestsMessages.emptyAllRequestsDescription": {
+    "defaultMessage": "Les demandes apparaissent ici lorsqu'un processus d'approbation a été lancé."
+  },
+  "requestsMessages.emptyRequestsDescription": {
+    "defaultMessage": "Les demandes qui requièrent votre attention apparaîtront ici."
+  },
+  "requestsMessages.emptyRequestsTitle": {
+    "defaultMessage": "Aucune demande pour le moment"
+  },
+  "requestsMessages.error": {
+    "defaultMessage": "erreur"
+  },
+  "requestsMessages.errorBy": {
+    "defaultMessage": "Erreur {par}"
+  },
+  "requestsMessages.expandableDataList": {
+    "defaultMessage": "Liste de données extensible"
+  },
+  "requestsMessages.failed": {
+    "defaultMessage": "Échec"
+  },
+  "requestsMessages.needsReview": {
+    "defaultMessage": "Besoin de révision"
+  },
+  "requestsMessages.notified": {
+    "defaultMessage": "notifié"
+  },
+  "requestsMessages.notifiedBy": {
+    "defaultMessage": "Notifié par {par}"
+  },
+  "requestsMessages.openedColumn": {
+    "defaultMessage": "Ouvert"
+  },
+  "requestsMessages.orderNumber": {
+    "defaultMessage": "Commande#"
+  },
+  "requestsMessages.parameters": {
+    "defaultMessage": "Paramètres"
+  },
+  "requestsMessages.pending": {
+    "defaultMessage": "en attente"
+  },
+  "requestsMessages.reasonTitle": {
+    "defaultMessage": "Raison"
+  },
+  "requestsMessages.request": {
+    "defaultMessage": "demande"
+  },
+  "requestsMessages.requestContentDetails": {
+    "defaultMessage": "Demander des détails sur le contenu"
+  },
+  "requestsMessages.requestDescription": {
+    "defaultMessage": "Demande {id}"
+  },
+  "requestsMessages.requestTranscript": {
+    "defaultMessage": "Demande de transcription"
+  },
+  "requestsMessages.requesterColumn": {
+    "defaultMessage": "Demandeur"
+  },
+  "requestsMessages.requests": {
+    "defaultMessage": "demande"
+  },
+  "requestsMessages.requestsIdColumn": {
+    "defaultMessage": "ID Demande"
+  },
+  "requestsMessages.skipped": {
+    "defaultMessage": "Ignoré"
+  },
+  "requestsMessages.skippedBy": {
+    "defaultMessage": "Ignoré par {by}"
+  },
+  "requestsMessages.started": {
+    "defaultMessage": "Démarré"
+  },
+  "requestsMessages.startedBy": {
+    "defaultMessage": "Démarré par {by}"
+  },
+  "requestsMessages.statusColumn": {
+    "defaultMessage": "Statut"
+  },
+  "requestsMessages.toggleDetailsFor": {
+    "defaultMessage": "Basculer les détails pour"
+  },
+  "requestsMessages.undecided": {
+    "defaultMessage": "non décidée"
+  },
+  "requestsMessages.updatedColumn": {
+    "defaultMessage": "Mise à jour"
   },
   "schemas.portfolio-item.description": {
     "defaultMessage": "Description"
@@ -717,10 +1071,10 @@
     "defaultMessage": "{count} groupes"
   },
   "share.notification.success.share.description": {
-    "defaultMessage": "Portfolio <b>{name}</b> a été partagé avec {group}."
+    "defaultMessage": "Portefeuille <b>{name}</b> a été partagé avec {group}."
   },
   "share.notification.success.share.title": {
-    "defaultMessage": "Partage de portfolio réussi"
+    "defaultMessage": "Partage de portefeuille réussi"
   },
   "share.notification.success.title": {
     "defaultMessage": "Les permissions de partage ont été mises à jour"
@@ -729,13 +1083,28 @@
     "defaultMessage": "{group1} et {group2}"
   },
   "share.notification.success.unshare.description": {
-    "defaultMessage": "Le portfolio <b>{name}</b> n’est plus partagé avec {group}."
+    "defaultMessage": "Le portefeuille <b>{name}</b> n’est plus partagé avec {group}."
   },
   "share.notification.success.unshare.title": {
-    "defaultMessage": "Portfolio n’étant plus partagé"
+    "defaultMessage": "Portefeuille n’étant plus partagé"
+  },
+  "tableEmpty.noRecords": {
+    "defaultMessage": "Aucun enregistrement"
+  },
+  "tableToolbar.ariaLabel": {
+    "defaultMessage": "{title} table"
+  },
+  "tableToolbar.clearAllFilters": {
+    "defaultMessage": "Effacer tous les filtres"
+  },
+  "tableToolbar.clearAllFiltersDescription": {
+    "defaultMessage": "Aucun résultat ne correspond au critère de recherche. Supprimer tous les filtres pour afficher les résultats."
   },
   "tableToolbar.filterByTitle": {
     "defaultMessage": "Filtrer par {title}"
+  },
+  "tableToolbar.name": {
+    "defaultMessage": "Nom"
   },
   "tableToolbar.noResult": {
     "defaultMessage": "Aucun {results}"
@@ -743,7 +1112,182 @@
   "tableToolbar.noResultsFound": {
     "defaultMessage": "Aucun résultat trouvé"
   },
+  "tableToolbar.updatedLabel": {
+    "defaultMessage": "Mise à jour"
+  },
+  "tabs.allRequests": {
+    "defaultMessage": "Toutes les demandes"
+  },
+  "tabs.approvalProcess": {
+    "defaultMessage": "Processus d’approbation"
+  },
+  "tabs.myRequests": {
+    "defaultMessage": "Mes demandes"
+  },
+  "tabs.notificationSettings": {
+    "defaultMessage": "Paramètres de notification"
+  },
+  "tabs.templates": {
+    "defaultMessage": "Modèles"
+  },
+  "templateMessages.addTemplateSuccessDescription": {
+    "defaultMessage": "Portefeuille {name} ajouté."
+  },
+  "templateMessages.addTemplateSuccessTitle": {
+    "defaultMessage": "Ajout du portefeuille réussi"
+  },
+  "templateMessages.createTemplate": {
+    "defaultMessage": "Créer un modèle"
+  },
+  "templateMessages.deleteTemplateTitle": {
+    "defaultMessage": "Supprimer le modèle"
+  },
+  "templateMessages.down": {
+    "defaultMessage": "en bas"
+  },
+  "templateMessages.edit": {
+    "defaultMessage": "Modifier"
+  },
+  "templateMessages.editInformation": {
+    "defaultMessage": "Modifier les informations"
+  },
+  "templateMessages.editTemplateTitle": {
+    "defaultMessage": "Apporter des modifications au modèle {name}"
+  },
+  "templateMessages.noTemplates": {
+    "defaultMessage": "Aucun modèle"
+  },
+  "templateMessages.processMethod": {
+    "defaultMessage": "Méthode de traitement"
+  },
+  "templateMessages.removeTemplateDescription": {
+    "defaultMessage": "{name} sera supprimé."
+  },
+  "templateMessages.removeTemplateDescriptionWithDeps": {
+    "defaultMessage": "{name} sera supprimé des applications suivantes : {dependenciesList}"
+  },
+  "templateMessages.removeTemplateSuccessDescription": {
+    "defaultMessage": "Le portefeuille a été supprimé."
+  },
+  "templateMessages.removeTemplateSuccessTitle": {
+    "defaultMessage": "Succès de la suppression du modèle"
+  },
+  "templateMessages.removeTemplateTitle": {
+    "defaultMessage": "Supprimer {compte, pluriel, un {modèle} autre {modèles}} modal"
+  },
+  "templateMessages.removeTemplatesSuccessDescription": {
+    "defaultMessage": "Les processus de commande sélectionnés ont été supprimés."
+  },
+  "templateMessages.removeTemplatesSuccessTitle": {
+    "defaultMessage": "Succès de la suppression des modèles"
+  },
+  "templateMessages.repositionTemplateSuccessDescription": {
+    "defaultMessage": "La séquence \"modèle\" a été mise à jour avec succès."
+  },
+  "templateMessages.repositionTemplateSuccessTitle": {
+    "defaultMessage": "Succès de la mise à jour de la séquence de modèles"
+  },
+  "templateMessages.signalMethod": {
+    "defaultMessage": "Méthode du signal"
+  },
+  "templateMessages.template": {
+    "defaultMessage": "modèle"
+  },
+  "templateMessages.templates": {
+    "defaultMessage": "modèles"
+  },
+  "templateMessages.up": {
+    "defaultMessage": "en haut"
+  },
+  "templateMessages.updateTemplateSuccessDescription": {
+    "defaultMessage": "Le modèle a été mis à jour."
+  },
+  "templateMessages.updateTemplateSuccessTitle": {
+    "defaultMessage": "Succès de la mise à jour du modèle"
+  },
+  "worfklowMessages.approvalProcess": {
+    "defaultMessage": "processus d’approbation"
+  },
+  "worfklowMessages.approvalProcesses": {
+    "defaultMessage": "processus d’approbation"
+  },
+  "worfklowMessages.createApprovalProcess": {
+    "defaultMessage": "Définir le processus d’approbation"
+  },
+  "worfklowMessages.deleteApprovalTitle": {
+    "defaultMessage": "Supprimer le processus d’approbation"
+  },
+  "worfklowMessages.edit": {
+    "defaultMessage": "Modifier"
+  },
+  "worfklowMessages.editInformation": {
+    "defaultMessage": "Modifier les informations"
+  },
+  "worfklowMessages.noApprovalProcesses": {
+    "defaultMessage": "Aucun processus d’approbation"
+  },
+  "workflowMessages.addProcessSuccessDescription": {
+    "defaultMessage": "Le processus de commande a été ajouté."
+  },
+  "workflowMessages.addProcessSuccessTitle": {
+    "defaultMessage": "Succès de l'ajout du processus d'approbation"
+  },
+  "workflowMessages.down": {
+    "defaultMessage": "en bas"
+  },
+  "workflowMessages.editProcessTitle": {
+    "defaultMessage": "Apporter des modifications au processus d'approbation {nom}"
+  },
+  "workflowMessages.enterSequence": {
+    "defaultMessage": "Entrer la séquence"
+  },
+  "workflowMessages.removeProcessAriaLabel": {
+    "defaultMessage": "Supprimer  {count, plural, one {order process} autre {order processes}} modal"
+  },
+  "workflowMessages.removeProcessDescription": {
+    "defaultMessage": "{name} sera supprimé."
+  },
+  "workflowMessages.removeProcessDescriptionWithDeps": {
+    "defaultMessage": "{name} sera supprimé des applications suivantes : {dependenciesList}"
+  },
+  "workflowMessages.removeProcessSuccessDescription": {
+    "defaultMessage": "Le processus d’approbation a été ajouté."
+  },
+  "workflowMessages.removeProcessSuccessTitle": {
+    "defaultMessage": "Succès de la suppression du processus d'approbation"
+  },
+  "workflowMessages.removeProcessTitle": {
+    "defaultMessage": "Supprimer {compte, pluriel, un {processus d'approbation} d'autres {processus d'approbation}} ?"
+  },
+  "workflowMessages.removeProcessesSuccessDescription": {
+    "defaultMessage": "Les processus d’approbation sélectionnés ont été supprimés."
+  },
+  "workflowMessages.removeProcessesSuccessTitle": {
+    "defaultMessage": "Suppression des processus d’approbation réussie."
+  },
+  "workflowMessages.repositionProcessSuccessDescription": {
+    "defaultMessage": "La séquence du processus d'approbation a été mise à jour."
+  },
+  "workflowMessages.repositionProcessSuccessTitle": {
+    "defaultMessage": "Succès de la mise à jour de la séquence du processus d'approbation"
+  },
+  "workflowMessages.sequence": {
+    "defaultMessage": "Séquence"
+  },
+  "workflowMessages.template": {
+    "defaultMessage": "Modèle"
+  },
+  "workflowMessages.up": {
+    "defaultMessage": "en haut"
+  },
+  "workflowMessages.updateProcessSuccessDescription": {
+    "defaultMessage": "Le processus d'approbation a été mis à jour."
+  },
+  "workflowMessages.updateProcessSuccessTitle": {
+    "defaultMessage": "Succès de la mise à jour du processus d'approbation"
+  },
   "workflows.modal.title": {
-    "defaultMessage": "Définir le processus d’autorisation"
+    "defaultMessage": "Définir le processus d’approbation"
   }
 }
+
