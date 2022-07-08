@@ -1,5 +1,4 @@
 #!/bin/bash
-cd _clones/pinakes-ui/
 
 # Rename the zh_cn folder 
 mv translations/zh_cn translations/zh
