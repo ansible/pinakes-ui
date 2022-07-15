@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
@@ -11,12 +11,38 @@ import FormRenderer from '../common/form-renderer';
 import addTemplateSchema from '../../forms/add-template.schema';
 import formMessages from '../../messages/form.messages';
 import { defaultSettings } from '../../helpers/shared/approval-pagination';
+import { listNotificationSettings } from '../../helpers/notification/notification-helper';
+
+const reducer = (state, { type }) => {
+  switch (type) {
+    case 'loaded':
+      return {
+        ...state,
+        isLoading: false
+      };
+    default:
+      return state;
+  }
+};
 
 // eslint-disable-next-line react/prop-types
 const AddTemplate = ({ postMethod, pagination = defaultSettings }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
   const intl = useIntl();
+
+  const [{ schema, isLoading }, stateDispatch] = useReducer(reducer, {
+    isLoading: true
+  });
+
+  useEffect(() => {
+    listNotificationSettings().then((data) =>
+      stateDispatch({
+        type: 'loaded',
+        schema: addTemplateSchema(intl, data.data)
+      })
+    );
+  }, []);
 
   const onSave = ({ ...values }) => {
     return dispatch(

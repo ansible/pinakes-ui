@@ -98,6 +98,14 @@ const templateMessages = defineMessages({
   down: {
     id: 'templateMessages.down',
     defaultMessage: 'down'
+  },
+  processMethod: {
+    id: 'templateMessages.processMethod',
+    defaultMessage: 'Process method'
+  },
+  signalMethod: {
+    id: 'templateMessages.signalMethod',
+    defaultMessage: 'Signal method'
   }
 });
 

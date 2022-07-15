@@ -107,6 +107,10 @@ const worfklowMessages = defineMessages({
   down: {
     id: 'workflowMessages.down',
     defaultMessage: 'down'
+  },
+  template: {
+    id: 'workflowMessages.template',
+    defaultMessage: 'Template'
   }
 });
 

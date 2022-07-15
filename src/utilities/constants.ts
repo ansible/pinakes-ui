@@ -63,7 +63,7 @@ export const DEFAULT_MAX_LENGTH = 64;
 export const APP_NAME = {
   Portfolio: 'catalog',
   PortfolioItem: 'catalog',
-  ServiceInventory: 'catalog-inventory'
+  ServiceInventory: 'inventory'
 };
 
 export const BEFORE_TYPE = 'before';
@@ -71,19 +71,7 @@ export const AFTER_TYPE = 'after';
 export const RETURN_TYPE = 'return';
 
 export const MAX_RETRY_LIMIT = 3;
-export const PLATFORMS_DOC_URL =
-  // eslint-disable-next-line max-len
-  'https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0-ea/html-single/red_hat_ansible_automation_platform_installation_guide/index';
-
-//TODO - replace when standalone user capabilities are available
-export const USER_CAPABILITIES_PLACEHOLDER = {
-  share: true,
-  copy: true,
-  unshare: true,
-  update: true,
-  destroy: true,
-  set_approval: true
-};
 export const CATALOG_ADMIN_ROLE = 'catalog-admin';
 export const APPROVAL_ADMIN_ROLE = 'approval-admin';
 export const APPROVAL_APPROVER_ROLE = 'approval-approver';
+export const CATALOG_UI_PREFIX = '/ui/catalog';

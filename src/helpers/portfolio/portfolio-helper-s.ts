@@ -128,22 +128,6 @@ export const getPortfolioItemsWithPortfolio = (
       1}`
   );
 
-// TO DO - change to use the API call that adds multiple items to a portfolio when available
-export const addPortfolio = async (
-  portfolioData: Partial<Portfolio>,
-  items?: PortfolioItem[]
-): Promise<Portfolio> => {
-  const portfolio = await axiosInstance.post(
-    `${CATALOG_API_BASE}/portfolios/`,
-    portfolioData
-  );
-  if (portfolio && items && items.length > 0) {
-    await addToPortfolio((portfolio as Portfolio).id!, items);
-  }
-
-  return (portfolio as unknown) as Promise<Portfolio>;
-};
-
 export const addToPortfolio = (
   portfolioId: string,
   items: PortfolioItem[]
@@ -158,6 +142,22 @@ export const addToPortfolio = (
       });
     })
   ) as Promise<PortfolioItem[]>;
+};
+
+// TO DO - change to use the API call that adds multiple items to a portfolio when available
+export const addPortfolio = async (
+  portfolioData: Partial<Portfolio>,
+  items?: PortfolioItem[]
+): Promise<Portfolio> => {
+  const portfolio = await axiosInstance.post(
+    `${CATALOG_API_BASE}/portfolios/`,
+    portfolioData
+  );
+  if (portfolio && items && items.length > 0) {
+    await addToPortfolio((portfolio as Portfolio).id!, items);
+  }
+
+  return (portfolio as unknown) as Promise<Portfolio>;
 };
 
 export const updatePortfolio = (
@@ -338,10 +338,11 @@ export const getPortfolioFromState = (
   portfolioId: string
 ): InternalPortfolio | undefined =>
   portfolioReducer.selectedPortfolio &&
-  portfolioReducer.selectedPortfolio.id === portfolioId
+  portfolioReducer.selectedPortfolio.id &&
+  portfolioReducer.selectedPortfolio.id.toString() === portfolioId
     ? portfolioReducer.selectedPortfolio
     : portfolioReducer.portfolios?.results?.find(
-        (portfolio) => String(portfolio.id) === portfolioId
+        (portfolio) => portfolio?.id && portfolio.id.toString() === portfolioId
       );
 
 export const undeletePortfolio = (

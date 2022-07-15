@@ -15,8 +15,8 @@ exports[`<PortfolioCard /> should render correctly 1`] = `
               Object {
                 "copy": true,
                 "destroy": true,
-                "set_approval": true,
                 "share": true,
+                "tags": true,
                 "unshare": true,
                 "update": true,
               }

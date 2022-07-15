@@ -23,6 +23,11 @@ describe('<EditWorkflow />', () => {
   let mockStore;
   let workflow;
   let wrapper;
+  const postMethod = jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      data: []
+    })
+  );
 
   const ComponentWrapper = ({ store, children }) => (
     <IntlProvider locale="en">
@@ -42,7 +47,7 @@ describe('<EditWorkflow />', () => {
     localStorage.setItem('user', 'testUser');
     initialProps = {
       id: '123',
-      postMethod: jest.fn(),
+      postMethod,
       handleChange: jest.fn()
     };
 
@@ -57,6 +62,7 @@ describe('<EditWorkflow />', () => {
     workflow = {
       name: 'Foo',
       id: '123',
+      template: 'templateid',
       description: 'description',
       group_refs: [
         {
@@ -70,16 +76,48 @@ describe('<EditWorkflow />', () => {
   });
 
   afterEach(() => {
-    global.localStorage.setItem('catalog_standalone', false);
-    global.localStorage.removeItem('user');
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
   it('should fetch data from api and submit the form', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/123/`)
-      .replyOnce(200, { ...workflow });
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, [{ id: 'templateid', title: 'name' }]);
 
-    expect.assertions(6);
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/?search=template`)
+      .replyOnce(200, [{ id: 'templateid', title: 'name' }]);
+
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/123/`).replyOnce(200, {
+      name: 'Foo',
+      id: '123',
+      template: 'templateid',
+      description: 'description',
+      group_refs: [
+        {
+          uuid: '123',
+          name: 'SampleWorkflow'
+        }
+      ]
+    });
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?&name=Foo`).replyOnce(200, {
+      name: 'Foo',
+      id: '123',
+      template: 'templateid',
+      description: 'description',
+      group_refs: [
+        {
+          uuid: '123',
+          name: 'SampleWorkflow'
+        }
+      ]
+    });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'templateid', title: 'name' }] });
+
+    expect.assertions(7);
 
     wfHelper.fetchWorkflowByName = jest
       .fn()
@@ -99,7 +137,9 @@ describe('<EditWorkflow />', () => {
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     jest.useFakeTimers();
@@ -172,6 +212,8 @@ describe('<EditWorkflow />', () => {
       description: 'some-description'
     });
 
+    expect(postMethod).toHaveBeenCalled();
+
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual(routes.workflows.index);
@@ -179,18 +221,73 @@ describe('<EditWorkflow />', () => {
 
   it('should close the form', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/123/`)
-      .replyOnce(200, { ...workflow });
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, [{ id: 'templateid', title: 'name' }]);
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/?search=template`)
+      .replyOnce(200, [{ id: 'templateid', title: 'name' }]);
+
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/123/`).replyOnce(200, {
+      name: 'Foo',
+      id: '123',
+      template: 'templateid',
+      description: 'description',
+      group_refs: [
+        {
+          uuid: '123',
+          name: 'SampleWorkflow'
+        }
+      ]
+    });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/?&search=Foo`)
+      .replyOnce(200, {
+        name: 'Foo',
+        id: '123',
+        template: 'templateid',
+        description: 'description',
+        group_refs: [
+          {
+            uuid: '123',
+            name: 'SampleWorkflow'
+          }
+        ]
+      });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'templateid', title: 'name' }] });
+
+    expect.assertions(1);
+
+    wfHelper.fetchWorkflowByName = jest
+      .fn()
+      .mockImplementationOnce((value) => {
+        expect(value).toEqual('some-name');
+
+        return Promise.resolve({
+          data: []
+        });
+      })
+      .mockImplementationOnce((value) => {
+        expect(value).toEqual('some-name');
+
+        return Promise.resolve({
+          data: []
+        });
+      });
+
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     wfHelper.fetchWorkflowByName = jest.fn().mockImplementation(() =>
       Promise.resolve({
         data: []
       })
     );
-
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
-      .replyOnce(200, { data: [{ uuid: 'id', name: 'name' }] });
 
     jest.useFakeTimers();
 

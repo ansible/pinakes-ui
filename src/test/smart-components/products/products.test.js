@@ -31,9 +31,7 @@ describe('<Products />', () => {
 
   const ComponentWrapper = ({ store, initialEntries = ['/foo'], children }) => (
     <Provider store={store}>
-      <UserContext.Provider
-        value={{ userIdentity: { identity: { user: { is_org_admin: true } } } }}
-      >
+      <UserContext.Provider value={{ userRoles: ['catalog-admin'] }}>
         <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
       </UserContext.Provider>
     </Provider>

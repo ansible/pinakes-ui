@@ -58,7 +58,7 @@ describe('Approval helper', () => {
       const expectedFilterFragment =
         '&filter[id][]=initial-id-1&filter[id][]=initial-id-2';
       expect(getSpy).toHaveBeenCalledWith(
-        `${APPROVAL_API_BASE}/workflows?name=some-filter-value&id=initial-id-1&id=initial-id-2`
+        `${APPROVAL_API_BASE}/workflows/?search=some-filter-value&id=initial-id-1&id=initial-id-2`
       );
     });
   });
@@ -66,6 +66,7 @@ describe('Approval helper', () => {
   it('should call link and unlink workflows with correct arguments', () => {
     mockApi.onGet(`${CATALOG_API_BASE}/me/`).replyOnce(200, {
       username: 'User1',
+
       first_name: 'First',
       last_name: 'Last'
     });

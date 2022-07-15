@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
@@ -12,11 +12,33 @@ import addWorkflowSchema from '../../forms/add-workflow.schema';
 import formMessages from '../../messages/form.messages';
 import { defaultSettings } from '../../helpers/shared/approval-pagination';
 
+const reducer = (state, { type }) => {
+  switch (type) {
+    case 'loaded':
+      return {
+        ...state,
+        isLoading: false
+      };
+    default:
+      return state;
+  }
+};
+
 // eslint-disable-next-line react/prop-types
 const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
   const intl = useIntl();
+  const [{ schema, isLoading }, stateDispatch] = useReducer(reducer, {
+    isLoading: true
+  });
+
+  useEffect(() => {
+    stateDispatch({
+      type: 'loaded',
+      schema: addWorkflowSchema(intl)
+    });
+  }, []);
 
   const onSave = ({ group_refs = [], ...values }) => {
     return dispatch(
@@ -55,7 +77,7 @@ const AddWorkflow = ({ postMethod, pagination = defaultSettings }) => {
           <FormTemplate
             {...props}
             buttonClassName="pf-u-mt-0"
-            disableSubmit={['validating', 'pristine']}
+            disableSubmit={['validating', 'pristine', 'invalid']}
           />
         )}
       />

@@ -172,7 +172,7 @@ describe('<EditApprovalWorkflow />', () => {
           }
         ]
       });
-    mockApi.onGet(`${APPROVAL_API_BASE}/workflows?name=&`).reply(200, {
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/?search=&`).reply(200, {
       results: [
         {
           name: 'workflow1',
@@ -186,7 +186,7 @@ describe('<EditApprovalWorkflow />', () => {
     });
     mockApi
       .onGet(
-        `${APPROVAL_API_BASE}/workflows?app_name=catalog&object_type=Portfolio&object_id=123&filter[name][contains]=&page_size=50&page=1`
+        `${APPROVAL_API_BASE}/workflows/?app_name=catalog&object_type=Portfolio&object_id=123&search=&page_size=50&page=1`
       )
       .reply(200, { results: [{ name: 'workflow1', id: '111' }] });
 

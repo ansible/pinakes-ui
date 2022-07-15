@@ -33,6 +33,7 @@ import useInitialUriHash from '../../routing/use-initial-uri-hash';
 import ToolbarRenderer from '../../toolbar/toolbar-renderer';
 import { toolbarComponentTypes } from '../../toolbar/toolbar-mapper';
 import BackToProducts from '../../presentational-components/portfolio/back-to-products';
+import { defaultSettings } from '../../helpers/shared/pagination';
 
 /**
  * Fake the toolbar until the chunk is loaded
@@ -108,7 +109,7 @@ const debouncedFilter = asyncFormValidator(
   1000
 );
 
-const porftolioUiReducer = (state, { type, payload = {} }) =>
+const portfolioUiReducer = (state, { type, payload = {} }) =>
   ({
     selectItem: {
       ...state,
@@ -128,7 +129,7 @@ const porftolioUiReducer = (state, { type, payload = {} }) =>
 
 const Portfolio = () => {
   const viewState = useInitialUriHash();
-  const [state, stateDispatch] = useReducer(porftolioUiReducer, {
+  const [state, stateDispatch] = useReducer(portfolioUiReducer, {
     ...initialState,
     filterValue: viewState?.portfolioItems?.filter || ''
   });
@@ -138,17 +139,13 @@ const Portfolio = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isMounted = useIsMounted();
-  const { portfolio, portfolioItem, meta } = useSelector(
+  const { portfolio, portfolioItem } = useSelector(
     ({
-      portfolioReducer: {
-        selectedPortfolio,
-        portfolioItem,
-        portfolioItems: { meta }
-      }
+      portfolioReducer: { selectedPortfolio, portfolioItem, portfolioItems }
     }) => ({
       portfolio: selectedPortfolio,
       portfolioItem,
-      meta
+      portfolioItems
     })
   );
 
@@ -200,7 +197,7 @@ const Portfolio = () => {
   useEffect(() => {
     if (
       isMounted.current === true &&
-      !state.isFetching &&
+      !state?.isFetching &&
       history.location.pathname === PORTFOLIO_ROUTE
     ) {
       fetchData(id);
@@ -253,7 +250,7 @@ const Portfolio = () => {
       (isFiltering) =>
         stateDispatch({ type: 'setFilteringFlag', payload: isFiltering }),
       {
-        ...meta,
+        limit: defaultSettings.limit,
         offset: 0,
         filter
       }

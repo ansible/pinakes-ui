@@ -226,37 +226,30 @@ describe('<Templates />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/templates/?&title=&page_size=50&page=1`)
       .replyOnce({
-        body: {
-          data: [
-            {
-              id: 'edit-id',
-              name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }],
-              group_names: ['group-name-1']
-            }
-          ]
-        }
-      });
-
-    // async name validator
-    mockApi
-      .onGet(`${APPROVAL_API_BASE}/templates/?limit=50&offset=0`)
-      .replyOnce({
-        body: {
-          data: [
-            {
-              id: 'edit-id',
-              name: 'foo',
-              group_refs: [{ name: 'group-1', uuid: 'some-uuid' }]
-            }
-          ]
-        }
+        data: [
+          {
+            id: 'edit-id',
+            name: 'foo',
+            group_refs: [{ name: 'group-1', uuid: 'some-uuid' }],
+            group_names: ['group-name-1']
+          }
+        ]
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     await act(async () => {
@@ -329,7 +322,12 @@ describe('<Templates />', () => {
 
   it('should render table empty state', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
       .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
@@ -340,6 +338,9 @@ describe('<Templates />', () => {
           results: []
         }
       });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
@@ -373,6 +374,10 @@ describe('<Templates />', () => {
       );
     });
     wrapper.update();
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
     mockApi
       .onGet(`${APPROVAL_API_BASE}/templates/?page_size=50&page=1`)
       .replyOnce((req, res) => {
@@ -427,7 +432,12 @@ describe('<Templates />', () => {
     let wrapper;
     const store = mockStore(stateWithTemplates);
     mockApi
-      .onGet(`/api/pinakes/v1/groups/?role=approval-approver`)
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+    mockApi
+      .onGet(
+        `/api/pinakes/v1/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     // Delete endpoints
     mockApi
@@ -532,7 +542,12 @@ describe('<Templates />', () => {
     });
     wrapper.update();
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(`${APPROVAL_API_BASE}/notifications_settings/`)
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     await act(async () => {
       wrapper

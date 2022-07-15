@@ -18,6 +18,9 @@ import { mockApi } from '../../../../helpers/shared/__mocks__/user-login';
 describe('<AddWorkflow />', () => {
   let initialProps;
   let initialState;
+  let workflow;
+  let wrapper;
+
   const middlewares = [thunk, promiseMiddleware, notificationsMiddleware()];
   let mockStore;
   const ComponentWrapper = ({ store, children }) => (
@@ -38,34 +41,56 @@ describe('<AddWorkflow />', () => {
     localStorage.setItem('user', 'testUser');
     initialProps = {
       id: '123',
-      postMethod: jest.fn(),
       handleChange: jest.fn()
     };
-    initialState = {};
+
+    initialState = {
+      workflowReducer: {
+        workflows: {
+          data: []
+        }
+      }
+    };
+
+    workflow = {
+      name: 'Foo',
+      id: '123',
+      template: 'templateid',
+      description: 'description',
+      group_refs: [
+        {
+          uuid: '123',
+          name: 'SampleWorkflow'
+        }
+      ]
+    };
+
     mockStore = configureStore(middlewares);
   });
 
   afterEach(() => {
-    global.localStorage.setItem('catalog_standalone', false);
-    global.localStorage.removeItem('user');
+    localStorage.setItem('catalog_standalone', false);
+    localStorage.removeItem('user');
   });
 
   it('should close the form', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
-      .replyOnce(200, { data: [{ uuid: 'id', name: 'name' }] });
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=some-name&limit=50&offset=0`
-      )
-      .replyOnce({ body: { results: [] } });
-    mockApi
-      .onGet(
-        `${APPROVAL_API_BASE}/workflows/?filter%5Bname%5D%5Bcontains_i%5D=&limit=50&offset=0`
-      )
-      .replyOnce({ body: { results: [] } });
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
 
-    jest.useFakeTimers();
+    mockApi
+      .onGet(`/api/pinakes/v1/templates/templateid/`)
+      .replyOnce(200, { id: 'templateid', title: 'template' });
+
+    mockApi.onGet(`/api/pinakes/v1/workflows/`).replyOnce(200, []);
+    mockApi
+      .onGet(`/api/pinakes/v1/workflows/?name=undefined`)
+      .replyOnce(200, {});
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
 
     const store = mockStore(initialState);
 
@@ -77,14 +102,7 @@ describe('<AddWorkflow />', () => {
         />
       </ComponentWrapper>
     );
-
-    await act(async () => {
-      jest.advanceTimersByTime(550); // initial async validation
-    });
     wrapper.update();
-
-    jest.useRealTimers();
-
     await act(async () => {
       wrapper
         .find(Button)
@@ -92,6 +110,160 @@ describe('<AddWorkflow />', () => {
         .simulate('click');
     });
     wrapper.update();
+    expect(
+      wrapper.find(MemoryRouter).instance().history.location.pathname
+    ).toEqual(routes.workflows.index);
+  });
+
+  it('should fetch data from api and submit the form', async () => {
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, [{ id: 'templateid', title: 'name' }]);
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/?search=template`)
+      .replyOnce(200, [{ id: 'templateid', title: 'name' }]);
+
+    mockApi.onGet(`${APPROVAL_API_BASE}/workflows/123/`).replyOnce(200, {
+      name: 'Foo',
+      id: '123',
+      template: 'templateid',
+      description: 'description',
+      group_refs: [
+        {
+          uuid: '123',
+          name: 'SampleWorkflow'
+        }
+      ]
+    });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/workflows/?&search=Foo`)
+      .replyOnce(200, {
+        name: 'Foo',
+        id: '123',
+        template: 'templateid',
+        description: 'description',
+        group_refs: [
+          {
+            uuid: '123',
+            name: 'SampleWorkflow'
+          }
+        ]
+      });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'templateid', title: 'name' }] });
+
+    expect.assertions(6);
+
+    wfHelper.fetchWorkflowByName = jest
+      .fn()
+      .mockImplementationOnce((value) => {
+        expect(value).toEqual('some-name');
+
+        return Promise.resolve({
+          data: []
+        });
+      })
+      .mockImplementationOnce((value) => {
+        expect(value).toEqual('some-name');
+
+        return Promise.resolve({
+          data: []
+        });
+      });
+
+    mockApi
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
+      .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
+    jest.useFakeTimers();
+
+    const store = mockStore(initialState);
+
+    await act(async () => {
+      wrapper = mount(
+        <ComponentWrapper store={store}>
+          <Route
+            path="/workflows/add-workflow"
+            render={() => <AddWorkflow {...initialProps} />}
+          />
+        </ComponentWrapper>
+      );
+    });
+    wrapper.update();
+
+    await act(async () => {
+      wrapper.update();
+    });
+
+    expect(
+      wrapper
+        .find('input')
+        .first()
+        .props().value
+    ).toEqual('');
+    expect(
+      wrapper
+        .find('textarea')
+        .first()
+        .props().value
+    ).toEqual('');
+
+    await act(async () => {
+      const name = wrapper.find('input').first();
+      name.instance().value = 'some-name';
+      name.simulate('change');
+    });
+    wrapper.update();
+
+    await act(async () => {
+      jest.advanceTimersByTime(550); // name async validation
+      jest.useRealTimers();
+    });
+    wrapper.update();
+
+    await act(async () => {
+      const description = wrapper.find('textarea').first();
+      description.instance().value = 'some-description';
+      description.simulate('change');
+    });
+    wrapper.update();
+
+    await act(async () => {
+      wrapper
+        .find('input')
+        .at(1)
+        .simulate('click');
+    });
+    wrapper.update();
+    await act(async () => {
+      wrapper
+        .find('button')
+        .at(1)
+        .simulate('click');
+    });
+
+    wfHelper.addWorkflow = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('ok'));
+
+    expect(wfHelper.addWorkflow).not.toHaveBeenCalled();
+
+    await act(async () => {
+      wrapper.find('form').simulate('submit');
+    });
+    wrapper.update();
+
+    expect(wfHelper.addWorkflow).toHaveBeenCalledWith({
+      name: 'some-name',
+      description: 'some-description',
+      template: 'id',
+      group_refs: []
+    });
+
     expect(
       wrapper.find(MemoryRouter).instance().history.location.pathname
     ).toEqual(routes.workflows.index);

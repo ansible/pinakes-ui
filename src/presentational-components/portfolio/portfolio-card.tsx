@@ -34,7 +34,6 @@ import labelMessages from '../../messages/labels.messages';
 import useFormatMessage from '../../utilities/use-format-message';
 import orderProcessesMessages from '../../messages/order-processes.messages';
 import { UserCapabilities, PortfolioMetadata } from '../../types/common-types';
-import { USER_CAPABILITIES_PLACEHOLDER } from '../../utilities/constants';
 import { isStandalone } from '../../helpers/shared/helpers';
 import { Tooltip } from '@patternfly/react-core';
 import {
@@ -54,7 +53,7 @@ const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
   portfolioId,
   handleCopyPortfolio,
   canLinkOrderProcesses,
-  userCapabilities: { share, copy, unshare, update, destroy, set_approval }
+  userCapabilities: { share, copy, unshare, update, destroy, tags }
 }) => {
   const formatMessage = useFormatMessage();
   const [isOpen, setOpen] = useState(false);
@@ -89,7 +88,7 @@ const HeaderActions: React.ComponentType<HeaderActionsProps> = ({
     );
   }
 
-  if (set_approval) {
+  if (tags) {
     dropdownItems.push(
       <DropdownItem
         key="workflow-portfolio-action"
@@ -212,9 +211,7 @@ const PortfolioCard: React.ComponentType<PortfolioCardProps> = ({
     pathname: PORTFOLIO_ROUTE,
     search: `?portfolio=${id}`
   };
-  const user_capabilities = isStandalone()
-    ? USER_CAPABILITIES_PLACEHOLDER
-    : metadata?.user_capabilities || {};
+  const user_capabilities = metadata?.user_capabilities || {};
   const statistics = metadata?.statistics || {};
   const portfolio_items = statistics?.portfolio_items ?? 0;
   const approval_processes = statistics?.approval_processes ?? 0;

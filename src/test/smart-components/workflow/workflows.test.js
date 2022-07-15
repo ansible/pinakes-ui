@@ -226,7 +226,7 @@ describe('<Workflows />', () => {
     let wrapper;
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/workflows/?&name=&page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -242,7 +242,7 @@ describe('<Workflows />', () => {
 
     // async name validator
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/workflows/?limit=50&offset=0`)
+      .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
       .replyOnce({
         body: {
           data: [
@@ -256,8 +256,14 @@ describe('<Workflows />', () => {
       });
 
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
+
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
 
     await act(async () => {
       wrapper = mount(
@@ -329,7 +335,9 @@ describe('<Workflows />', () => {
 
   it('should render table empty state', async () => {
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     mockApi
       .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
@@ -340,6 +348,9 @@ describe('<Workflows />', () => {
           results: []
         }
       });
+    mockApi
+      .onGet(`${APPROVAL_API_BASE}/templates/`)
+      .replyOnce(200, { data: [{ id: 'id', title: 'name' }] });
 
     const registry = new ReducerRegistry({}, [thunk, promiseMiddleware]);
     registry.register({
@@ -421,13 +432,16 @@ describe('<Workflows />', () => {
         .at(6)
         .simulate('click');
     });
+    wrapper.update();
   });
 
   it('should select and deselect all workflows', async () => {
     let wrapper;
     const store = mockStore(stateWithWorkflows);
     mockApi
-      .onGet(`/api/pinakes/v1/groups/?role=approval-approver`)
+      .onGet(
+        `/api/pinakes/v1/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     // Delete endpoints
     mockApi
@@ -532,7 +546,9 @@ describe('<Workflows />', () => {
     });
     wrapper.update();
     mockApi
-      .onGet(`${APPROVAL_API_BASE}/groups/?role=approval-approver`)
+      .onGet(
+        `${APPROVAL_API_BASE}/groups/?role=approval-approver&role=approval-admin`
+      )
       .replyOnce(200, { data: [{ id: 'id', name: 'name' }] });
     await act(async () => {
       wrapper
@@ -565,7 +581,7 @@ describe('<Workflows />', () => {
         expect(true).toEqual(true); // just check that it was called
         return res.status(200);
       });
-
+    wrapper.update();
     // wf refresh
     mockApi
       .onGet(`${APPROVAL_API_BASE}/workflows/?page_size=50&page=1`)
@@ -579,7 +595,7 @@ describe('<Workflows />', () => {
           data: []
         });
       });
-
+    wrapper.update();
     await act(async () => {
       wrapper
         .find('button')

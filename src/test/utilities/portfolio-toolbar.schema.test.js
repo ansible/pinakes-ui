@@ -13,7 +13,7 @@ const prepareTruthyCapability = (truthyCapability) => ({
   unshare: false,
   show: false,
   copy: false,
-  set_approval: false,
+  tags: false,
   ...(truthyCapability
     ? {
         [truthyCapability]: true
@@ -49,7 +49,7 @@ describe('portfolio toolbar schema', () => {
       copy: true,
       update: true,
       destroy: true,
-      set_approval: true
+      tags: true
     },
     canLinkOrderProcesses: true
   };
@@ -148,7 +148,7 @@ describe('portfolio toolbar schema', () => {
         <ToolbarRenderer
           schema={createPortfolioToolbarSchema({
             ...initialProps,
-            userCapabilities: prepareTruthyCapability('set_approval')
+            userCapabilities: prepareTruthyCapability('tags')
           })}
         />
       </ToolbarWrapper>

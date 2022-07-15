@@ -9,6 +9,11 @@ const GlobalStyle = createGlobalStyle`
   pointer-events: none
 }
 
+h2.pf-c-nav__section-title {
+  font-size: 18px;
+  font-weight: var(--pf-global--FontWeight--semi-bold);
+}
+
 .font-14{
   font-size: 14px;
   color: var(--pf-global--Color--100);
@@ -153,7 +158,7 @@ section.ins-l-content {
 }
 
 section.ins-l-button-group {
-  margin: 24px 0px;
+  margin: var(--pf-global--spacer--lg) 0;
   margin: 1.5rem 0rem; 
 }
 
@@ -192,14 +197,9 @@ section.ins-l-icon-group__with-major .ins-battery:last-of-type span.label {
   margin-right: 7px;
 }
 .standalone-toolbar {
-  margin-right: 0px;
-  margin-top: 0px;
-  margin-left: 0px;
-  padding-top: 24px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 24px;
-  background-color: white;
+  margin: 0 0 inherit 0;
+  padding: var(--pf-global--spacer--lg);
+  background-color: var(--pf-global--BackgroundColor--100);
 }
 `;
 

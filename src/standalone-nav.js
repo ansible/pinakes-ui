@@ -1,6 +1,5 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
-import './Navigation.scss';
 import '@patternfly/patternfly/patternfly.scss';
 import {
   DropdownItem,
@@ -31,14 +30,15 @@ import { Fragment, useEffect, useState } from 'react';
 import NotificationsPortal from '@redhat-cloud-services/frontend-components-notifications/NotificationPortal';
 import { MIN_SCREEN_HEIGHT } from './constants/ui-constants';
 import UserContext from './user-context';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import { getUser, loginUser, logoutUser } from './helpers/shared/active-user';
 import { UnknownErrorPlaceholder } from './presentational-components/shared/loader-placeholders';
 import {
   APPLICATION_TITLE,
   APPROVAL_ADMIN_ROLE,
   APPROVAL_APPROVER_ROLE,
-  CATALOG_ADMIN_ROLE
+  CATALOG_ADMIN_ROLE,
+  CATALOG_UI_PREFIX
 } from './utilities/constants';
 import { Paths } from './constants/routes';
 import useFormatMessage from './utilities/use-format-message';
@@ -46,7 +46,6 @@ import portfolioMessages from './messages/portfolio.messages';
 import productsMessages from './messages/products.messages';
 import platformsMessages from './messages/platforms.messages';
 import ordersMessages from './messages/orders.messages';
-import approvalMessages from './messages/approval.messages';
 
 const App = (props) => {
   const [auth, setAuth] = useState(undefined);
@@ -55,7 +54,10 @@ const App = (props) => {
   const [menuExpandedSections, setMenuExpandedSections] = useState([]);
 
   const location = useLocation();
+  const history = useHistory();
   const formatMessage = useFormatMessage();
+  const index = window.location.href.indexOf(window.location.pathname);
+  const baseUrl = window.location.href.substr(0, index);
 
   const menu = () => {
     const menuItem = (name, options = {}) => {
@@ -64,26 +66,24 @@ const App = (props) => {
         : null;
     };
 
-    const index = window.location.href.indexOf(window.location.pathname);
-    const baseUrl = window.location.href.substr(0, index);
     let menu = [];
     [
       menuItem(formatMessage(productsMessages.title), {
-        url: `${baseUrl}/ui/catalog${Paths.products}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.products}`
       }),
       menuItem(formatMessage(portfolioMessages.portfoliosTitle), {
-        url: `${baseUrl}/ui/catalog${Paths.portfolios}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.portfolios}`
       }),
       menuItem(formatMessage(platformsMessages.title), {
-        url: `${baseUrl}/ui/catalog${Paths.platforms}`,
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.platforms}`,
         condition: ({ user }) =>
           user?.roles ? user.roles.includes(CATALOG_ADMIN_ROLE) : false
       }),
       menuItem(formatMessage(ordersMessages.title), {
-        url: `${baseUrl}/ui/catalog${Paths.orders}`
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.orders}`
       }),
       menuItem(formatMessage(ordersMessages.menuApproval), {
-        url: `${baseUrl}/ui/catalog${Paths.approval}`,
+        url: `${baseUrl}${CATALOG_UI_PREFIX}${Paths.approval}`,
         condition: ({ user }) => {
           return user?.roles
             ? user.roles.includes(APPROVAL_ADMIN_ROLE) ||
@@ -158,7 +158,9 @@ const App = (props) => {
         onClick={() =>
           logoutUser().then(() => {
             setUser(null);
-            window.location.replace(window.location.href);
+            window.location.replace(
+              `${baseUrl}${CATALOG_UI_PREFIX}${Paths.portfolios}`
+            );
           })
         }
       >
@@ -292,9 +294,8 @@ const App = (props) => {
   const sidebarNav = () => (
     <Fragment>
       <PageSidebar
-        theme="dark"
         nav={
-          <Nav theme="dark" onToggle={onToggle}>
+          <Nav onToggle={onToggle}>
             <NavList>
               <NavGroup title={APPLICATION_TITLE} />
               <Menu items={menu()} />
@@ -316,8 +317,6 @@ const App = (props) => {
         {aboutModalVisible && aboutModal()}
         <UserContext.Provider
           value={{
-            permissions: [{ permission: 'catalog:portfolios:create' }],
-            userIdentity: { identity: { user: { is_org_admin: true } } },
             userRoles: user?.roles,
             standalone: true
           }}
