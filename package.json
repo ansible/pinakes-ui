@@ -13,7 +13,7 @@
     "@patternfly/react-table": "^4.37.8",
     "@redhat-cloud-services/approval-client": "^1.0.94",
     "@redhat-cloud-services/catalog-client": "^1.0.94",
-    "@redhat-cloud-services/frontend-components": "^3.9.1",
+    "@redhat-cloud-services/frontend-components": "^3.9.20",
     "@redhat-cloud-services/frontend-components-config": "^4.6.8",
     "@redhat-cloud-services/frontend-components-notifications": "^3.2.8",
     "@redhat-cloud-services/frontend-components-utilities": "^3.2.17",
