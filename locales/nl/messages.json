@@ -9,7 +9,7 @@
     "defaultMessage": "De {actionName} actie is mislukt."
   },
   "actionModal.failedTitle": {
-    "defaultMessage": "{actionName} error"
+    "defaultMessage": "{actieNaam} fout"
   },
   "actionModal.fullfiledAction": {
     "defaultMessage": "De {actionName} was succesvol."
@@ -21,7 +21,7 @@
     "defaultMessage": "Geslaagd"
   },
   "approval.notifications.link": {
-    "defaultMessage": "Goedkeuringsprocessen werden met succes aan elkaar gekoppeld."
+    "defaultMessage": "Goedkeuringsprocessen werden met succes gekoppeld."
   },
   "approval.notifications.unlink": {
     "defaultMessage": "Goedkeuringsprocessen werden met succes ontkoppeld."
@@ -30,7 +30,7 @@
     "defaultMessage": "Huidige goedkeuringsprocedures"
   },
   "approval.workflows.set": {
-    "defaultMessage": "Selecteer goedkeuringsprocessen voor <strong>{objectName}</strong>"
+    "defaultMessage": "Selecteer goedkeuringsprocessen voor <strong>{objectnaam}</strong>"
   },
   "common.actions.copy": {
     "defaultMessage": "Kopiëren"
@@ -39,10 +39,10 @@
     "defaultMessage": "Verwijderen"
   },
   "common.actions.deleting": {
-    "defaultMessage": "verwijderen"
+    "defaultMessage": "Het verwijderen van"
   },
   "common.actions.edit": {
-    "defaultMessage": "Wijzigen"
+    "defaultMessage": "Bewerken"
   },
   "common.actions.save": {
     "defaultMessage": "Opslaan"
@@ -69,10 +69,10 @@
     "defaultMessage": "Geen resultaten gevonden"
   },
   "common.filtering.noResultsDescription": {
-    "defaultMessage": "Er zijn geen resultaten die aan de filtercriteria voldoen. Verwijder alle filters of wis alle filters om resultaten te tonen."
+    "defaultMessage": "Geen resultaten voldoen aan de filtercriteria. Verwijder alle filters of wis alle filters om resultaten te tonen."
   },
   "common.labels.approval_process_set": {
-    "defaultMessage": "Goedkeuringsproces vastgesteld"
+    "defaultMessage": "Goedkeuringsprocedure ingesteld"
   },
   "common.labels.available": {
     "defaultMessage": "Beschikbare hosts"
@@ -123,7 +123,7 @@
     "defaultMessage": "Opslaan"
   },
   "common.labels.shared": {
-    "defaultMessage": "Gedeeld met {count} groep(en)"
+    "defaultMessage": "Gedeeld met {telling} groep(en)"
   },
   "common.labels.sort-by": {
     "defaultMessage": "SORTEREN OP"
@@ -135,7 +135,7 @@
     "defaultMessage": "Bijgewerkt "
   },
   "common.states.approval-pending": {
-    "defaultMessage": "Goedkeuring in afwachting"
+    "defaultMessage": "Goedkeuring hangende"
   },
   "common.states.approved": {
     "defaultMessage": "Goedgekeurd"
@@ -159,7 +159,7 @@
     "defaultMessage": "Mislukt"
   },
   "common.states.notified": {
-    "defaultMessage": "Aangemeld"
+    "defaultMessage": "Aangemelde"
   },
   "common.states.ordered": {
     "defaultMessage": "Besteld"
@@ -186,7 +186,7 @@
     "defaultMessage": "U bent niet gemachtigd om deze sectie te openen"
   },
   "commonApiError.401Title": {
-    "defaultMessage": "Ongeoorloofd"
+    "defaultMessage": "Onbevoegde"
   },
   "commonApiError.403Description": {
     "defaultMessage": "Neem contact op met de beheerder van uw organisatie voor meer informatie."
@@ -195,7 +195,7 @@
     "defaultMessage": "U heeft geen toegang tot Automation Hub"
   },
   "commonApiError.goToLanding": {
-    "defaultMessage": "Ga naar landingspagina"
+    "defaultMessage": "Ga naar de landingspagina"
   },
   "commonApiError.returnBack": {
     "defaultMessage": "Ga naar de vorige pagina"
@@ -213,10 +213,10 @@
     "defaultMessage": "Verwijderen"
   },
   "commonMessages.deleting": {
-    "defaultMessage": "verwijderen"
+    "defaultMessage": "Het verwijderen van"
   },
   "commonMessages.noRecords": {
-    "defaultMessage": "Geen gegevens"
+    "defaultMessage": "Geen gegevens."
   },
   "commonMessages.order": {
     "defaultMessage": "Bestellen"
@@ -243,22 +243,22 @@
     "defaultMessage": "Niet-toegestaan"
   },
   "errors.not-found.description": {
-    "defaultMessage": "De bron <nowrap>{padnaam} {search}</nowrap> bestaat niet."
+    "defaultMessage": "De bron <nowrap>{padnaam} {zoeken}</nowrap> bestaat niet."
   },
   "errors.not-found.title": {
     "defaultMessage": "Niet gevonden"
   },
   "errors.unauthorized.description": {
-    "defaultMessage": "U bent niet gemachtigd om deze sectie te betreden: <nowrap>{Pathname} {search}</nowrap>. <br></br>Als u denkt dat dit een vergissing is, neem dan contact op met support."
+    "defaultMessage": "Je bent niet gemachtigd om toegang te krijgen tot deze sectie: <nowrap>{padnaam} {zoekopdracht}</nowrap>. <br></br>Als u denkt dat dit een fout is, neem dan contact op met support."
   },
   "errors.unauthorized.return": {
-    "defaultMessage": "Terug naar catalogus"
+    "defaultMessage": "Terug naar de catalogus"
   },
   "errors.unauthorized.title": {
-    "defaultMessage": "Ongeoorloofd"
+    "defaultMessage": "Onbevoegde"
   },
   "foo": {
-    "defaultMessage": "Foo {foo} bar <b>{bar}</b>"
+    "defaultMessage": "Foo. Bar <b>.</b>"
   },
   "formMessages.approvalProcessName": {
     "defaultMessage": "Naam"
@@ -267,10 +267,10 @@
     "defaultMessage": "Maken"
   },
   "formMessages.createApprovalTitle": {
-    "defaultMessage": "Creëer goedkeuringsproces"
+    "defaultMessage": "Goedkeuringsproces creëren"
   },
   "formMessages.createNotificationSettingTitle": {
-    "defaultMessage": "Melding instelling maken"
+    "defaultMessage": "Melding instellen"
   },
   "formMessages.createTemplateTitle": {
     "defaultMessage": "Sjabloon maken"
@@ -282,7 +282,7 @@
     "defaultMessage": "Voer een naam in voor het goedkeuringsproces"
   },
   "formMessages.enterInfo": {
-    "defaultMessage": "Voer uw gegevens in"
+    "defaultMessage": "Vul uw gegevens in"
   },
   "formMessages.enterNotificationSettingName": {
     "defaultMessage": "Voer een naam in voor de meldingsinstelling"
@@ -300,7 +300,7 @@
     "defaultMessage": "Groepen"
   },
   "formMessages.nameTaken": {
-    "defaultMessage": "De naam is al bezet"
+    "defaultMessage": "De naam is al bezet."
   },
   "formMessages.notificationSettingName": {
     "defaultMessage": "Naam"
@@ -318,7 +318,7 @@
     "defaultMessage": "{{ title }}"
   },
   "forms.after.currentAfterProvision": {
-    "defaultMessage": "Lopend na voorziening"
+    "defaultMessage": "Huidig na voorziening"
   },
   "forms.after.setAfterProvision": {
     "defaultMessage": "Na bestelling"
@@ -327,19 +327,19 @@
     "defaultMessage": "Teruggeven"
   },
   "forms.before.beforeProvision": {
-    "defaultMessage": "Voor bestelling"
+    "defaultMessage": "Voor de bestelling"
   },
   "forms.before.currentBeforeProducts": {
-    "defaultMessage": "Lopend vóór voorziening"
+    "defaultMessage": "Courant vóór voorziening"
   },
   "forms.groups-with-access": {
     "defaultMessage": "Groepen met toegang"
   },
   "forms.nameTaken": {
-    "defaultMessage": "De naam is al bezet"
+    "defaultMessage": "De naam is al bezet."
   },
   "forms.product.placeholder": {
-    "defaultMessage": "Kies product"
+    "defaultMessage": "Selecteer product"
   },
   "forms.select.options.choose": {
     "defaultMessage": "Kies alstublieft"
@@ -366,7 +366,7 @@
     "defaultMessage": "De melding is succesvol toegevoegd."
   },
   "notificationMessages.addNotificationSuccessTitle": {
-    "defaultMessage": "Succes met toevoegen van kennisgeving"
+    "defaultMessage": "Succes met het toevoegen van kennisgeving"
   },
   "notificationMessages.createNotification": {
     "defaultMessage": "Bericht verwijderen"
@@ -396,28 +396,28 @@
     "defaultMessage": " zal worden verwijderd uit ."
   },
   "notificationMessages.removeNotificationDescriptionWithDeps": {
-    "defaultMessage": "{naam} zal worden verwijderd uit de volgende toepassingen: {dependenciesList}"
+    "defaultMessage": "{naam} wordt verwijderd uit de volgende applicaties: {afhankelijkheidslijst}"
   },
   "notificationMessages.removeNotificationSuccessDescription": {
     "defaultMessage": "De melding is succesvol verwijderd."
   },
   "notificationMessages.removeNotificationSuccessTitle": {
-    "defaultMessage": "Succes met het verwijderen van de melding"
+    "defaultMessage": "Succes met het verwijderen van kennisgeving"
   },
   "notificationMessages.removeNotificationTitle": {
-    "defaultMessage": "Verwijder {count, plural, one {notification} other {notifications}} modal"
+    "defaultMessage": "Delete {count, plural, one {notification} other {notifications}} modal"
   },
   "notificationMessages.removeNotificationsSuccessDescription": {
-    "defaultMessage": "De geselecteerde meldingen werden met succes verwijderd."
+    "defaultMessage": "De geselecteerde meldingen zijn met succes verwijderd."
   },
   "notificationMessages.removeNotificationsSuccessTitle": {
     "defaultMessage": "Succes met het verwijderen van meldingen"
   },
   "notificationMessages.repositionNotificationSuccessDescription": {
-    "defaultMessage": "De kennisgevingsreeks is met succes bijgewerkt."
+    "defaultMessage": "De volgorde van de meldingen is met succes bijgewerkt."
   },
   "notificationMessages.repositionNotificationSuccessTitle": {
-    "defaultMessage": "Succesvolle bijwerking van de kennisgevingsreeks"
+    "defaultMessage": "Succesvolle bijwerking van de kennisgevingssequentie"
   },
   "notificationMessages.settings": {
     "defaultMessage": "Instellingen"
@@ -426,37 +426,37 @@
     "defaultMessage": "Berichttype"
   },
   "notificationMessages.updateNotificationSuccessDescription": {
-    "defaultMessage": "De kennisgeving werd met succes bijgewerkt."
+    "defaultMessage": "De melding is met succes bijgewerkt."
   },
   "notificationMessages.updateNotificationSuccessTitle": {
-    "defaultMessage": "Succes bijwerken kennisgeving"
+    "defaultMessage": "Succesvolle bijwerkingsmelding"
   },
   "order-proces.empty.no-order-processes": {
     "defaultMessage": "Geen bestelprocessen gevonden."
   },
   "order-process-type": {
-    "defaultMessage": "Type orderproces"
+    "defaultMessage": "Type bestelproces"
   },
   "order-process.actions.addProcessSuccessDescription": {
     "defaultMessage": "Het bestelproces is succesvol toegevoegd."
   },
   "order-process.actions.addProcessSuccessTitle": {
-    "defaultMessage": "Succes met toevoegen orderproces"
+    "defaultMessage": "Succes met het toevoegen van bestellingen"
   },
   "order-process.actions.createOrderProcess": {
-    "defaultMessage": "Bestelproces aanmaken"
+    "defaultMessage": "Bestelproces creëren"
   },
   "order-process.actions.set": {
-    "defaultMessage": "Bestellingsprocessen instellen"
+    "defaultMessage": "Bestelprocessen instellen"
   },
   "order-process.actions.updateOrderProcess": {
     "defaultMessage": "Bestelproces bewerken"
   },
   "order-process.actions.updateProcessSuccessTitle": {
-    "defaultMessage": "Bestellingsproces {naam} werd bijgewerkt"
+    "defaultMessage": "Orderproces {naam} is bijgewerkt"
   },
   "order-process.deleteProcessAriaMenu": {
-    "defaultMessage": "Bestellingsprocessen verwijderen"
+    "defaultMessage": "Orderprocessen verwijderen"
   },
   "order-process.empty.no-results": {
     "defaultMessage": "Geen enkel orderproces voldoet aan uw filtercriteria."
@@ -471,31 +471,31 @@
     "defaultMessage": "Naam bestelproces"
   },
   "order-process.notification.description": {
-    "defaultMessage": "{linked, meervoud, =0 {} andere {{linked, aantal} {linked, meervoud, één {orderproces was} andere {orderprocessen waren}} linked.}} {{unlinked, meervoud, =0}} andere {{unlinked, aantal} {{unlinked, meervoud, één {orderproces was}} andere {orderprocessen waren}} unlinked.}}"
+    "defaultMessage": "{linked, meervoud, =0 {} other {{linked, number} {linked, plural, one {order process was} other {order processes were}} linked.}} {ongelinkt, meervoud, =0 {} andere {ongelinkt, aantal} {ongelinkt, meervoud, één {ordeproces was} andere {ordeprocessen waren}} ongelinkt.}}"
   },
   "order-process.notification.title": {
     "defaultMessage": "Succes met het bijwerken van het bestelproces"
   },
   "order-process.orderProcesses": {
-    "defaultMessage": "orderprocessen"
+    "defaultMessage": "bestelprocessen"
   },
   "order-process.removeProcessAriaLabel": {
-    "defaultMessage": "Verwijder {count, plural, one {order process} other {order processes}} modal"
+    "defaultMessage": "Delete {count, plural, one {order process} other {order processes}} modal"
   },
   "order-process.removeProcessDescription": {
     "defaultMessage": " zal worden verwijderd uit ."
   },
   "order-process.removeProcessSuccessDescription": {
-    "defaultMessage": "Het bestelproces werd met succes verwijderd."
+    "defaultMessage": "Het bestelproces is succesvol verwijderd."
   },
   "order-process.removeProcessSuccessTitle": {
-    "defaultMessage": "Succes met het verwijderen van het bestelproces"
+    "defaultMessage": "Succes met het verwijderen van bestellingen"
   },
   "order-process.removeProcessTitle": {
-    "defaultMessage": "{\\a6}}Verwijder {\\a6}}, één {\\a6}, andere {\\a6}}?"
+    "defaultMessage": "Delete {count, plural, one {order process} other {order processes}}?"
   },
   "order-process.removeProcessesSuccessDescription": {
-    "defaultMessage": "De geselecteerde orderprocessen werden met succes verwijderd."
+    "defaultMessage": "De geselecteerde bestelprocessen zijn met succes verwijderd."
   },
   "order-process.removeProcessesSuccessTitle": {
     "defaultMessage": "Succes met het verwijderen van bestelprocessen"
@@ -504,7 +504,7 @@
     "defaultMessage": "Huidige bestelprocessen"
   },
   "order-process.tags.set": {
-    "defaultMessage": "Stel orderprocessen in voor <strong>{object}</strong>"
+    "defaultMessage": "Bestelprocessen instellen voor <strong>{object}</strong>"
   },
   "order-process.toolbar.no-order-process": {
     "defaultMessage": "Geen bestelprocessen"
@@ -516,13 +516,13 @@
     "defaultMessage": "Bestelprocessen"
   },
   "order.detail.not-found": {
-    "defaultMessage": "De {objecten} voor deze order {count, plural, one {is} other {are}} niet beschikbaar"
+    "defaultMessage": "De {objecten} voor deze order {telling, meervoud, een {is} andere {zijn}} niet beschikbaar"
   },
   "orders.actions.cancel": {
     "defaultMessage": "Bestelling annuleren"
   },
   "orders.actions.keep": {
-    "defaultMessage": "Orde houden"
+    "defaultMessage": "Houd de orde"
   },
   "orders.actions.reorder": {
     "defaultMessage": "Nabestellen"
@@ -531,19 +531,19 @@
     "defaultMessage": "Activiteit"
   },
   "orders.approval.creating": {
-    "defaultMessage": "Goedkeuringsverzoek maken"
+    "defaultMessage": "Goedkeuringsaanvraag aanmaken"
   },
   "orders.approval.details.completed": {
     "defaultMessage": "Voltooid"
   },
   "orders.approval.details.created": {
-    "defaultMessage": "Verzoek gemaakt"
+    "defaultMessage": "Aanvraag gemaakt"
   },
   "orders.approval.details.reason": {
     "defaultMessage": "Reden van goedkeuring"
   },
   "orders.approval.no-requests": {
-    "defaultMessage": "Wij hebben geen goedkeuringsverzoeken voor deze bestelling kunnen vinden."
+    "defaultMessage": "We konden geen goedkeuringsverzoeken voor deze order vinden."
   },
   "orders.approval.order-date": {
     "defaultMessage": "Datum bestelling"
@@ -567,7 +567,7 @@
     "defaultMessage": "Weet u zeker dat u deze taak wilt annuleren?"
   },
   "orders.common.compositeTitle": {
-    "defaultMessage": "{naam} - Bestel # {id}"
+    "defaultMessage": "{naam} - Order # {id}"
   },
   "orders.common.details": {
     "defaultMessage": "Gebruikersdetails"
@@ -579,13 +579,13 @@
     "defaultMessage": "Besteld door {eigenaar}"
   },
   "orders.detail.title": {
-    "defaultMessage": "Bestel ID {id}"
+    "defaultMessage": "Order ID {id}"
   },
   "orders.list.empty.description": {
     "defaultMessage": "GEEN HOSTS AANGEMAAKT"
   },
   "orders.list.empty.title": {
-    "defaultMessage": "Geen orders"
+    "defaultMessage": "Geen bestellingen."
   },
   "orders.menu.approval": {
     "defaultMessage": "Goedkeuring"
@@ -597,10 +597,10 @@
     "defaultMessage": "Voorziening"
   },
   "orders.menu.steps": {
-    "defaultMessage": "Stappen bestellen"
+    "defaultMessage": "Bestel stappen"
   },
   "orders.notification.success": {
-    "defaultMessage": "U kunt de voortgang van bestelling # {id} volgen in uw <link>Bestellingen</link> pagina"
+    "defaultMessage": "U kunt de voortgang van Order # {id} volgen in uw <link>Bestellingen</link> pagina"
   },
   "orders.order.default_type": {
     "defaultMessage": "Product"
@@ -612,16 +612,16 @@
     "defaultMessage": "Voortgangsberichten"
   },
   "orders.order.detail.parameters": {
-    "defaultMessage": "Bestel parameters"
+    "defaultMessage": "Bestelparameters"
   },
   "orders.order.lifecycle.link": {
-    "defaultMessage": "Product beheren"
+    "defaultMessage": "Beheer product"
   },
   "orders.order.provision.parameters": {
     "defaultMessage": "Parameters"
   },
   "orders.provision.fetching-provision": {
-    "defaultMessage": "Ophalen van gegevens over orderverstrekking"
+    "defaultMessage": "Ophalen van orderbevoorradingsgegevens"
   },
   "orders.provision.no-items": {
     "defaultMessage": "We konden geen bevoorradingsgegevens vinden voor deze bestelling."
@@ -633,7 +633,7 @@
     "defaultMessage": "Terug naar bestellingen"
   },
   "platform.cloudConnectorId": {
-    "defaultMessage": "RedHat Connect Client-id"
+    "defaultMessage": "RedHat Connect Client Id"
   },
   "platform.inventories.columns.workflow": {
     "defaultMessage": "Workflow"
@@ -642,7 +642,7 @@
     "defaultMessage": "Geen inventarissen gevonden."
   },
   "platform.inventories.empty.no-results": {
-    "defaultMessage": "Er zijn geen voorraden die aan uw filtercriteria voldoen."
+    "defaultMessage": "Geen inventaris voldoet aan uw filtercriteria."
   },
   "platform.inventories.filter.placeholder": {
     "defaultMessage": "Filter op inventaris"
@@ -717,10 +717,10 @@
     "defaultMessage": "Vernieuwen voltooid"
   },
   "platforms.refreshStarted": {
-    "defaultMessage": "Vernieuwen begonnen"
+    "defaultMessage": "Vernieuwen gestart"
   },
   "platforms.refreshState": {
-    "defaultMessage": "Vernieuwen staat"
+    "defaultMessage": "Vernieuwde staat"
   },
   "platforms.refreshTooltip": {
     "defaultMessage": "Vernieuwen platform"
@@ -741,13 +741,13 @@
     "defaultMessage": "Geen producten komen overeen met de filterparameters"
   },
   "portfolio.add.platform.title.empty": {
-    "defaultMessage": "Gelieve een platform te kiezen"
+    "defaultMessage": "Kies een platform"
   },
   "portfolio.add.success.description": {
     "defaultMessage": "Portefeuille <b>{naam}</b> is succesvol toegevoegd."
   },
   "portfolio.add.success.title": {
-    "defaultMessage": "Succes met toevoegen portefeuille"
+    "defaultMessage": "Succes met het toevoegen van portfolio"
   },
   "portfolio.detail.alert.source.unavailable": {
     "defaultMessage": "Het platform voor dit product is niet beschikbaar"
@@ -762,7 +762,7 @@
     "defaultMessage": "Producten toevoegen"
   },
   "portfolio.empty.no-products": {
-    "defaultMessage": "Producten zullen hier verschijnen wanneer ze aan uw portfolio worden toegevoegd."
+    "defaultMessage": "Producten zullen hier verschijnen wanneer ze aan uw portefeuille worden toegevoegd."
   },
   "portfolio.item.copy": {
     "defaultMessage": "Project kopiëren"
@@ -789,28 +789,28 @@
     "defaultMessage": "Project bewerken"
   },
   "portfolio.item.icon.upload.notification": {
-    "defaultMessage": "Icoon upload fout"
+    "defaultMessage": "Fout bij het uploaden van pictogrammen"
   },
   "portfolio.item.survey.edit": {
-    "defaultMessage": "Enquête bewerken: {NAME}"
+    "defaultMessage": "Onderzoek bewerken: {naam}"
   },
   "portfolio.item.survey.restore": {
-    "defaultMessage": "Terugzetten naar Ansible Toren versie"
+    "defaultMessage": "Terugzetten naar Ansible Tower versie"
   },
   "portfolio.modal.add.title": {
-    "defaultMessage": "Creëer portefeuille"
+    "defaultMessage": "Portfolio maken"
   },
   "portfolio.modal.edit.title": {
-    "defaultMessage": "Portefeuille bewerken"
+    "defaultMessage": "Portfolio bewerken"
   },
   "portfolio.notifications.remove.only.portfolio": {
     "defaultMessage": "De portefeuille werd met succes verwijderd."
   },
   "portfolio.notifications.remove.portfolio": {
-    "defaultMessage": "De portefeuille werd met succes verwijderd. U kunt deze actie ongedaan <a>maken</a> als dit een vergissing was."
+    "defaultMessage": "De portefeuille werd met succes verwijderd. U kunt deze actie <a>ongedaan maken</a> als dit een vergissing was."
   },
   "portfolio.notifications.remove.portfolio-items": {
-    "defaultMessage": "U heeft {telling, meervoud, één {} andere {{telling<b>, aantal}}</b> verwijderd} {count, plural, one {{productName}} other {products}} } uit de {portfolioName} portefeuille. <a>Ongedaan maken</a> als dit een vergissing was."
+    "defaultMessage": "Je hebt {telling, meervoud, een {} andere {{telling<b>, aantal}}</b> verwijderd.} {telling, meervoud, een {{productnaam}} andere {{producten}} } uit de portefeuille {portfolioNaam}. <a>Ongedaan maken</a> als dit een fout was."
   },
   "portfolio.remove.modal.description": {
     "defaultMessage": "Deze actie zal portefeuille {naam} en zijn gegevens definitief verwijderen."
@@ -819,25 +819,25 @@
     "defaultMessage": "Portefeuille verwijderen?"
   },
   "portfolio.share.add.duplicate": {
-    "defaultMessage": "Portefeuille is al gedeeld met deze groep."
+    "defaultMessage": "De portefeuille is al gedeeld met deze groep."
   },
   "portfolio.share.add.missing-data": {
-    "defaultMessage": "Kies groep en rechten."
+    "defaultMessage": "Kies groep en machtigingen."
   },
   "portfolio.share.add.missing-group": {
     "defaultMessage": "Selecteer groep om portefeuille te delen."
   },
   "portfolio.share.add.missing-permission": {
-    "defaultMessage": "Wijs machtigingen toe aan geselecteerde groep."
+    "defaultMessage": "Machtigingen toewijzen aan geselecteerde groep."
   },
   "portfolio.share.add.no-shares": {
-    "defaultMessage": "Om een portfolio te delen, selecteer een groep en machtigingen"
+    "defaultMessage": "Om een portefeuille te delen selecteert u een groep en machtigingen"
   },
   "portfolio.share.add.tooltip": {
-    "defaultMessage": "Deel portfolio met geselecteerde groep en permissies."
+    "defaultMessage": "Deel portefeuille met geselecteerde groep en machtigingen."
   },
   "portfolio.share.modal.apply": {
-    "defaultMessage": "Solliciteer"
+    "defaultMessage": "Toepassen"
   },
   "portfolio.share.modal.description": {
     "defaultMessage": "Deel <strong>{naam}</strong> portefeuille"
@@ -846,16 +846,16 @@
     "defaultMessage": "Een groep selecteren"
   },
   "portfolio.share.modal.permissions": {
-    "defaultMessage": "Selecteer de rechten voor delen"
+    "defaultMessage": "Selecteer de deelmachtigingen"
   },
   "portfolio.share.modal.title": {
-    "defaultMessage": "Aandelenportefeuille"
+    "defaultMessage": "Deelportefeuille"
   },
   "portfolios.empty.noData.description": {
-    "defaultMessage": "U heeft momenteel geen portefeuilles. Maak een portfolio om te beginnen."
+    "defaultMessage": "Je hebt momenteel geen portefeuilles. Maak een portfolio om te beginnen."
   },
   "portfolios.empty.noData.title": {
-    "defaultMessage": "Maak een portfolio"
+    "defaultMessage": "Een portfolio samenstellen"
   },
   "portfolios.filters.placeholder": {
     "defaultMessage": "Filter op portefeuille"
@@ -879,7 +879,7 @@
     "defaultMessage": "Indienen"
   },
   "requestsMessages.approveDescription": {
-    "defaultMessage": "Geef goedkeuring voor verzoek"
+    "defaultMessage": "Het verzoek goedkeuren"
   },
   "requestsMessages.approveLabel": {
     "defaultMessage": "Goedkeuring"
@@ -903,10 +903,10 @@
     "defaultMessage": "Geannuleerd door {door}"
   },
   "requestsMessages.commentDescription": {
-    "defaultMessage": "Geef een reactie op verzoek"
+    "defaultMessage": "Geef commentaar op verzoek"
   },
   "requestsMessages.commentFrom": {
-    "defaultMessage": "Commentaar van {by}"
+    "defaultMessage": "Commentaar van"
   },
   "requestsMessages.commentTitle": {
     "defaultMessage": "Commentaar"
@@ -924,7 +924,7 @@
     "defaultMessage": "Geweigerd door  - "
   },
   "requestsMessages.denyDescription": {
-    "defaultMessage": "Geef een reden voor het afwijzen van het verzoek"
+    "defaultMessage": "Geef een reden voor afwijzing van het verzoek"
   },
   "requestsMessages.denyLabel": {
     "defaultMessage": "Weigeren"
@@ -939,7 +939,7 @@
     "defaultMessage": "Verzoeken verschijnen hier wanneer een goedkeuringsproces is gestart."
   },
   "requestsMessages.emptyRequestsDescription": {
-    "defaultMessage": "Verzoeken die uw aandacht nodig hebben, verschijnen hier."
+    "defaultMessage": "Verzoeken die uw aandacht nodig hebben zullen hier verschijnen."
   },
   "requestsMessages.emptyRequestsTitle": {
     "defaultMessage": "Nog geen verzoeken"
@@ -960,10 +960,10 @@
     "defaultMessage": "Vereist herziening"
   },
   "requestsMessages.notified": {
-    "defaultMessage": "aangemeld"
+    "defaultMessage": "gemeld"
   },
   "requestsMessages.notifiedBy": {
-    "defaultMessage": "In kennis gesteld door {door}"
+    "defaultMessage": "Aangemeld door {door}"
   },
   "requestsMessages.openedColumn": {
     "defaultMessage": "Geopend"
@@ -984,19 +984,19 @@
     "defaultMessage": "Onjuiste aanvraag"
   },
   "requestsMessages.requestContentDetails": {
-    "defaultMessage": "Details inhoud aanvragen"
+    "defaultMessage": "Aanvraag inhoud details"
   },
   "requestsMessages.requestDescription": {
     "defaultMessage": "aanvraaginformatie"
   },
   "requestsMessages.requestTranscript": {
-    "defaultMessage": "Afschrift aanvragen"
+    "defaultMessage": "Verzoek om transcriptie"
   },
   "requestsMessages.requesterColumn": {
-    "defaultMessage": "Aanvrager"
+    "defaultMessage": "Requester"
   },
   "requestsMessages.requests": {
-    "defaultMessage": "verzoeken"
+    "defaultMessage": "verzoekt"
   },
   "requestsMessages.requestsIdColumn": {
     "defaultMessage": "aanvraaginformatie"
@@ -1011,7 +1011,7 @@
     "defaultMessage": "Gestart"
   },
   "requestsMessages.startedBy": {
-    "defaultMessage": "Gestart door {door}"
+    "defaultMessage": "Gestart door"
   },
   "requestsMessages.statusColumn": {
     "defaultMessage": "Status"
@@ -1062,10 +1062,10 @@
     "defaultMessage": "Groep verwijderen?"
   },
   "share.notification.success.change-permission.description": {
-    "defaultMessage": "De deelpermissies voor <b>{groep}</b> zijn bijgewerkt."
+    "defaultMessage": "Deelmachtigingen voor <b>{groep}</b> werden bijgewerkt."
   },
   "share.notification.success.change-permission.title": {
-    "defaultMessage": "Succes met het veranderen van rechten"
+    "defaultMessage": "Succes met het wijzigen van machtigingen"
   },
   "share.notification.success.multiple-groups": {
     "defaultMessage": "WORTELGROEPEN"
@@ -1074,10 +1074,10 @@
     "defaultMessage": "Portefeuille <b>{naam}</b> werd gedeeld met {groep}."
   },
   "share.notification.success.share.title": {
-    "defaultMessage": "Succes met het delen van de portefeuille"
+    "defaultMessage": "Succesvolle gedeelde portefeuille"
   },
   "share.notification.success.title": {
-    "defaultMessage": "Share permissies werden succesvol bijgewerkt"
+    "defaultMessage": "Deelmachtigingen zijn succesvol bijgewerkt"
   },
   "share.notification.success.two-groups": {
     "defaultMessage": "{groep1} en {groep2}"
@@ -1086,10 +1086,10 @@
     "defaultMessage": "Portefeuille <b>{naam}</b> werd niet gedeeld met {groep}."
   },
   "share.notification.success.unshare.title": {
-    "defaultMessage": "Succes met het delen van de portefeuille"
+    "defaultMessage": "Succes unsharing portefeuille"
   },
   "tableEmpty.noRecords": {
-    "defaultMessage": "Geen gegevens"
+    "defaultMessage": "Geen gegevens."
   },
   "tableToolbar.ariaLabel": {
     "defaultMessage": "{title} tabel"
@@ -1098,7 +1098,7 @@
     "defaultMessage": "Alle filters wissen"
   },
   "tableToolbar.clearAllFiltersDescription": {
-    "defaultMessage": "Er zijn geen resultaten die aan de filtercriteria voldoen. Verwijder alle filters of wis alle filters om resultaten te tonen."
+    "defaultMessage": "Geen resultaten voldoen aan de filtercriteria. Verwijder alle filters of wis alle filters om resultaten te tonen."
   },
   "tableToolbar.filterByTitle": {
     "defaultMessage": "Op naam filteren"
@@ -1125,7 +1125,7 @@
     "defaultMessage": "Mijn verzoeken"
   },
   "tabs.notificationSettings": {
-    "defaultMessage": "Instellingen voor meldingen"
+    "defaultMessage": "Meldingsinstellingen"
   },
   "tabs.templates": {
     "defaultMessage": "Sjablonen"
@@ -1134,7 +1134,7 @@
     "defaultMessage": "De sjabloon is succesvol toegevoegd."
   },
   "templateMessages.addTemplateSuccessTitle": {
-    "defaultMessage": "Succes met toevoegen sjabloon"
+    "defaultMessage": "Succes met het toevoegen van sjablonen"
   },
   "templateMessages.createTemplate": {
     "defaultMessage": "Sjabloon maken"
@@ -1143,7 +1143,7 @@
     "defaultMessage": "Sjabloon verwijderen"
   },
   "templateMessages.down": {
-    "defaultMessage": "naar beneden"
+    "defaultMessage": "down"
   },
   "templateMessages.edit": {
     "defaultMessage": "Bewerken"
@@ -1164,16 +1164,16 @@
     "defaultMessage": " zal worden verwijderd uit ."
   },
   "templateMessages.removeTemplateDescriptionWithDeps": {
-    "defaultMessage": "{naam} zal worden verwijderd uit de volgende toepassingen: {dependenciesList}"
+    "defaultMessage": "{naam} wordt verwijderd uit de volgende applicaties: {afhankelijkheidslijst}"
   },
   "templateMessages.removeTemplateSuccessDescription": {
     "defaultMessage": "Het sjabloon is succesvol verwijderd."
   },
   "templateMessages.removeTemplateSuccessTitle": {
-    "defaultMessage": "Succes met verwijderen sjabloon"
+    "defaultMessage": "Succes met het verwijderen van het sjabloon"
   },
   "templateMessages.removeTemplateTitle": {
-    "defaultMessage": "Verwijder {count, plural, one {template} other {templates}} modal"
+    "defaultMessage": "Delete {count, plural, one {template} other {templates}} modal"
   },
   "templateMessages.removeTemplatesSuccessDescription": {
     "defaultMessage": "De geselecteerde sjablonen werden met succes verwijderd."
@@ -1182,13 +1182,13 @@
     "defaultMessage": "Succes met het verwijderen van sjablonen"
   },
   "templateMessages.repositionTemplateSuccessDescription": {
-    "defaultMessage": "De sjabloonreeks werd met succes bijgewerkt."
+    "defaultMessage": "De volgorde van de sjablonen is met succes bijgewerkt."
   },
   "templateMessages.repositionTemplateSuccessTitle": {
-    "defaultMessage": "Succes met het bijwerken van de sjabloon volgorde"
+    "defaultMessage": "Succes met het bijwerken van de sjabloonreeks"
   },
   "templateMessages.signalMethod": {
-    "defaultMessage": "Signaal methode"
+    "defaultMessage": "Signaalmethode"
   },
   "templateMessages.template": {
     "defaultMessage": "Sjabloon"
@@ -1197,13 +1197,13 @@
     "defaultMessage": "Sjablonen"
   },
   "templateMessages.up": {
-    "defaultMessage": "up"
+    "defaultMessage": "op"
   },
   "templateMessages.updateTemplateSuccessDescription": {
-    "defaultMessage": "De sjabloon werd met succes bijgewerkt."
+    "defaultMessage": "De sjabloon is met succes bijgewerkt."
   },
   "templateMessages.updateTemplateSuccessTitle": {
-    "defaultMessage": "Succes met bijwerken sjabloon"
+    "defaultMessage": "Succes met het bijwerken van het sjabloon"
   },
   "worfklowMessages.approvalProcess": {
     "defaultMessage": "goedkeuringsproces"
@@ -1212,7 +1212,7 @@
     "defaultMessage": "goedkeuringsprocedures"
   },
   "worfklowMessages.createApprovalProcess": {
-    "defaultMessage": "Creëer goedkeuringsproces"
+    "defaultMessage": "Goedkeuringsproces creëren"
   },
   "worfklowMessages.deleteApprovalTitle": {
     "defaultMessage": "Goedkeuringsproces schrappen"
@@ -1230,37 +1230,37 @@
     "defaultMessage": "Het goedkeuringsproces is met succes toegevoegd."
   },
   "workflowMessages.addProcessSuccessTitle": {
-    "defaultMessage": "Succes met het toevoegen van goedkeuringsproces"
+    "defaultMessage": "Succes met het toevoegen van een goedkeuringsproces"
   },
   "workflowMessages.down": {
-    "defaultMessage": "naar beneden"
+    "defaultMessage": "down"
   },
   "workflowMessages.editProcessTitle": {
-    "defaultMessage": "Breng wijzigingen aan in goedkeuringsproces {NAME}"
+    "defaultMessage": "Breng wijzigingen aan in het goedkeuringsproces {naam}"
   },
   "workflowMessages.enterSequence": {
-    "defaultMessage": "Voer de volgorde in"
+    "defaultMessage": "Volgorde invoeren"
   },
   "workflowMessages.removeProcessAriaLabel": {
-    "defaultMessage": "Verwijder {count, plural, one {approval process} other {approval processes}} modal"
+    "defaultMessage": "Verwijder {telling, meervoud, één {goedkeuringsproces} andere {goedkeuringsprocessen}} modaal"
   },
   "workflowMessages.removeProcessDescription": {
     "defaultMessage": " zal worden verwijderd uit ."
   },
   "workflowMessages.removeProcessDescriptionWithDeps": {
-    "defaultMessage": "{naam} zal worden verwijderd uit de volgende toepassingen: {dependenciesList}"
+    "defaultMessage": "{naam} wordt verwijderd uit de volgende applicaties: {afhankelijkheidslijst}"
   },
   "workflowMessages.removeProcessSuccessDescription": {
-    "defaultMessage": "De goedkeuringsprocedure werd met succes afgebroken."
+    "defaultMessage": "Het goedkeuringsproces is met succes verwijderd."
   },
   "workflowMessages.removeProcessSuccessTitle": {
     "defaultMessage": "Succes met het verwijderen van het goedkeuringsproces"
   },
   "workflowMessages.removeProcessTitle": {
-    "defaultMessage": "{\\a6}}Een {\\a6}} andere {\\a6}} verwijderen?"
+    "defaultMessage": "{telling, meervoud, één {goedkeuringsproces} andere {goedkeuringsprocessen}} verwijderen?"
   },
   "workflowMessages.removeProcessesSuccessDescription": {
-    "defaultMessage": "De geselecteerde goedkeuringsprocessen werden met succes verwijderd."
+    "defaultMessage": "De geselecteerde goedkeuringsprocessen zijn met succes verwijderd."
   },
   "workflowMessages.removeProcessesSuccessTitle": {
     "defaultMessage": "Succes met het verwijderen van goedkeuringsprocessen"
@@ -1278,10 +1278,10 @@
     "defaultMessage": "Sjabloon"
   },
   "workflowMessages.up": {
-    "defaultMessage": "up"
+    "defaultMessage": "op"
   },
   "workflowMessages.updateProcessSuccessDescription": {
-    "defaultMessage": "De goedkeuringsprocedure is met succes bijgewerkt."
+    "defaultMessage": "Het goedkeuringsproces is met succes bijgewerkt."
   },
   "workflowMessages.updateProcessSuccessTitle": {
     "defaultMessage": "Succes met het bijwerken van het goedkeuringsproces"

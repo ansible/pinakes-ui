@@ -114,7 +114,7 @@
     "defaultMessage": "Plataforma"
   },
   "common.labels.portfolio": {
-    "defaultMessage": "Portfolio"
+    "defaultMessage": "Cartera"
   },
   "common.labels.product": {
     "defaultMessage": "Producto"
@@ -228,7 +228,7 @@
     "defaultMessage": "Plataforma"
   },
   "commonMessages.portfolio": {
-    "defaultMessage": "Portfolio"
+    "defaultMessage": "Cartera"
   },
   "commonMessages.product": {
     "defaultMessage": "Producto"
@@ -939,7 +939,7 @@
     "defaultMessage": "Las solicitudes aparecerán aquí cuando se haya iniciado un proceso de aprobación."
   },
   "requestsMessages.emptyRequestsDescription": {
-    "defaultMessage": "Aquí aparecerán las solicitudes que necesiten su atención."
+    "defaultMessage": "Las solicitudes que necesitan su atención aparecerán aquí."
   },
   "requestsMessages.emptyRequestsTitle": {
     "defaultMessage": "Todavía no hay solicitudes"
@@ -1041,7 +1041,7 @@
     "defaultMessage": "URL de apoyo"
   },
   "schemas.portfolio-item.vendor": {
-    "defaultMessage": "Vendedor"
+    "defaultMessage": "Vendor"
   },
   "schemas.portfolio.description": {
     "defaultMessage": "Descripción"
