@@ -9,7 +9,7 @@
     "defaultMessage": "{actionName} 操作失败。"
   },
   "actionModal.failedTitle": {
-    "defaultMessage": "{actionName} error"
+    "defaultMessage": "{actionName} 错误"
   },
   "actionModal.fullfiledAction": {
     "defaultMessage": "{actionName} 成功。"

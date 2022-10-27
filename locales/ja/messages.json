@@ -897,7 +897,7 @@
     "defaultMessage": "{by} により承認済"
   },
   "requestsMessages.canceled": {
-    "defaultMessage": "取り消し済み"
+    "defaultMessage": "キャンセル済み"
   },
   "requestsMessages.canceledBy": {
     "defaultMessage": "{by} により取り消し済み"
