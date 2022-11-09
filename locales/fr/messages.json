@@ -96,7 +96,7 @@
     "defaultMessage": "Activé"
   },
   "common.labels.id": {
-    "defaultMessage": "État"
+    "defaultMessage": "Statut"
   },
   "common.labels.loading": {
     "defaultMessage": "Chargement en cours..."
@@ -114,7 +114,7 @@
     "defaultMessage": "Plateforme "
   },
   "common.labels.portfolio": {
-    "defaultMessage": "Portefeuille"
+    "defaultMessage": "Portefeuille￼\nLe questionnaire latent au produit {} qui se trouve dans le portefeuille {} n’a pas changé et n’est plus valide. Veuillez contacter un administrateur pour le corriger.\n"
   },
   "common.labels.product": {
     "defaultMessage": "Produit"
@@ -957,7 +957,7 @@
     "defaultMessage": "Échec"
   },
   "requestsMessages.needsReview": {
-    "defaultMessage": "Besoin de révision"
+    "defaultMessage": "Examen des besoins"
   },
   "requestsMessages.notified": {
     "defaultMessage": "notifié"
