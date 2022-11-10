@@ -114,7 +114,7 @@
     "defaultMessage": "Plataforma"
   },
   "common.labels.portfolio": {
-    "defaultMessage": "Portfolio"
+    "defaultMessage": "Cartera"
   },
   "common.labels.product": {
     "defaultMessage": "Producto"
@@ -228,7 +228,7 @@
     "defaultMessage": "Plataforma"
   },
   "commonMessages.portfolio": {
-    "defaultMessage": "Portfolio"
+    "defaultMessage": "Cartera"
   },
   "commonMessages.product": {
     "defaultMessage": "Producto"
@@ -576,7 +576,7 @@
     "defaultMessage": "Última actualización"
   },
   "orders.common.orderedBy": {
-    "defaultMessage": "Pedido por el {propietario}"
+    "defaultMessage": "Ordenado por el {propietario}"
   },
   "orders.detail.title": {
     "defaultMessage": "ID del pedido {id}"
@@ -1041,7 +1041,7 @@
     "defaultMessage": "URL de apoyo"
   },
   "schemas.portfolio-item.vendor": {
-    "defaultMessage": "Vendedor"
+    "defaultMessage": "Vendor"
   },
   "schemas.portfolio.description": {
     "defaultMessage": "Descripción"

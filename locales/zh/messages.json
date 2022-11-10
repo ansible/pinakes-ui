@@ -9,7 +9,7 @@
     "defaultMessage": "{actionName} 操作失败。"
   },
   "actionModal.failedTitle": {
-    "defaultMessage": "{actionName} error"
+    "defaultMessage": "{actionName} 错误"
   },
   "actionModal.fullfiledAction": {
     "defaultMessage": "{actionName} 成功。"
@@ -138,10 +138,10 @@
     "defaultMessage": "批准待处理"
   },
   "common.states.approved": {
-    "defaultMessage": "已批准"
+    "defaultMessage": "批准"
   },
   "common.states.canceled": {
-    "defaultMessage": "已取消"
+    "defaultMessage": "取消"
   },
   "common.states.completed": {
     "defaultMessage": "完成"
@@ -150,7 +150,7 @@
     "defaultMessage": "创建"
   },
   "common.states.denied": {
-    "defaultMessage": "已拒绝"
+    "defaultMessage": "拒绝"
   },
   "common.states.error": {
     "defaultMessage": "错误"
@@ -219,7 +219,7 @@
     "defaultMessage": "没有记录"
   },
   "commonMessages.order": {
-    "defaultMessage": "顺序"
+    "defaultMessage": "订购"
   },
   "commonMessages.orderProcessesTitle": {
     "defaultMessage": "订购过程"
@@ -768,7 +768,7 @@
     "defaultMessage": "复制项目"
   },
   "portfolio.item.detail.actions.order": {
-    "defaultMessage": "顺序"
+    "defaultMessage": "订购"
   },
   "portfolio.item.detail.actions.survey": {
     "defaultMessage": "编辑问卷调查"
@@ -891,13 +891,13 @@
     "defaultMessage": "批准请求"
   },
   "requestsMessages.approved": {
-    "defaultMessage": "已批准"
+    "defaultMessage": "批准"
   },
   "requestsMessages.approvedBy": {
     "defaultMessage": "由 {by} 批准"
   },
   "requestsMessages.canceled": {
-    "defaultMessage": "已取消"
+    "defaultMessage": "取消"
   },
   "requestsMessages.canceledBy": {
     "defaultMessage": "由 {by} 取消"
@@ -918,7 +918,7 @@
     "defaultMessage": "决定"
   },
   "requestsMessages.denied": {
-    "defaultMessage": "已拒绝"
+    "defaultMessage": "拒绝"
   },
   "requestsMessages.deniedBy": {
     "defaultMessage": "由 {by} 拒绝"

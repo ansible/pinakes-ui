@@ -105,7 +105,7 @@
     "defaultMessage": "名前"
   },
   "common.labels.not-available": {
-    "defaultMessage": "利用できません"
+    "defaultMessage": "利用不可"
   },
   "common.labels.owner": {
     "defaultMessage": "所有者"
@@ -147,7 +147,7 @@
     "defaultMessage": "完了済み"
   },
   "common.states.created": {
-    "defaultMessage": "作成済み"
+    "defaultMessage": "作成日時"
   },
   "common.states.denied": {
     "defaultMessage": "拒否済み"
@@ -897,7 +897,7 @@
     "defaultMessage": "{by} により承認済"
   },
   "requestsMessages.canceled": {
-    "defaultMessage": "取り消し済み"
+    "defaultMessage": "キャンセル済み"
   },
   "requestsMessages.canceledBy": {
     "defaultMessage": "{by} により取り消し済み"
@@ -945,7 +945,7 @@
     "defaultMessage": "まだリクエストはありません"
   },
   "requestsMessages.error": {
-    "defaultMessage": "エラー"
+    "defaultMessage": "error"
   },
   "requestsMessages.errorBy": {
     "defaultMessage": "エラー: {by}"
