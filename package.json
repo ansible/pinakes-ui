@@ -9,7 +9,7 @@
     "@patternfly/patternfly": "^4.221.2",
     "@patternfly/react-core": "^4.206.2",
     "@patternfly/react-icons": "^4.93.0",
-    "@patternfly/react-styles": "^4.92.0",
+    "@patternfly/react-styles": "^4.92.6",
     "@patternfly/react-table": "^4.37.8",
     "@redhat-cloud-services/approval-client": "^1.0.94",
     "@redhat-cloud-services/catalog-client": "^1.0.94",
